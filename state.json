@@ -15798,7 +15798,7 @@
         },
         "agentic_composition_reused": true,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\20260812-050344-1bf1",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\20260812-124611-f216",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -15851,14 +15851,14 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
-                  "claim": "The README has exactly one H1 heading.",
+                  "claim": "Document has exactly one H1 heading.",
                   "criterion": "clarity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.clarity.h1_blocks",
+                  "finding_id": "quality.h1_blocks",
                   "kind": "quality",
                   "mechanical_check_id": "document.h1_blocks",
                   "observed_polarity": null,
@@ -15870,28 +15870,28 @@
                 },
                 {
                   "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                  "claim": "The Quick Start section contains a single, minimal, self-contained example.",
+                  "claim": "Quick Start section contains a single, minimal, executable fenced code block.",
                   "criterion": "example_presentation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.example.minimal",
+                  "finding_id": "quality.quick_start_example",
                   "kind": "quality",
-                  "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                  "mechanical_check_id": "quick_start.fenced_blocks",
                   "observed_polarity": null,
                   "polarity_result": "not_applicable",
                   "quoted_candidate_span": "## Quick Start",
-                  "reported_observed_value": 6,
+                  "reported_observed_value": 1,
                   "required_repair": "",
                   "section": "Quick Start"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "quality.clarity.h1_blocks",
-                  "quality.example.minimal"
+                  "quality.h1_blocks",
+                  "quality.quick_start_example"
                 ],
                 "errors": [],
                 "valid": true
@@ -15903,7 +15903,7 @@
                 "role": "blind_quality_reviewer"
               },
               "input_sha256": "6b7277cb59d13c10c7c5dc11b38cb4118b6af8801e8eec156b8da879d54d62b9",
-              "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses a clear H1 title, properly prefixed H2 headings (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a comprehensive navigation list. The installation and quick start sections are well-structured with minimal fenced blocks and code lines. The license section includes required benefit terms. The Mermaid diagram in At a Glance is well-formed and visually informative. There are no visible duplications, forbidden comments, or markdown integrity issues.",
+              "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes exactly one H1, compliant badge row, all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a single Quick Start fenced block with 6 non-blank lines (under the 12-line limit). The navigation list is complete and correctly formatted, the At a Glance Mermaid diagram is well-structured, and the Quick Start example is minimal and executable. License, scope, and third-party notices are present and correctly described. No visible duplication, internal terminology conflicts, or markdown integrity issues were observed.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -15916,14 +15916,14 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
-                    "claim": "The README has exactly one H1 heading.",
+                    "claim": "Document has exactly one H1 heading.",
                     "criterion": "clarity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.clarity.h1_blocks",
+                    "finding_id": "quality.h1_blocks",
                     "kind": "quality",
                     "mechanical_check_id": "document.h1_blocks",
                     "observed_polarity": null,
@@ -15935,28 +15935,28 @@
                   },
                   {
                     "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                    "claim": "The Quick Start section contains a single, minimal, self-contained example.",
+                    "claim": "Quick Start section contains a single, minimal, executable fenced code block.",
                     "criterion": "example_presentation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.example.minimal",
+                    "finding_id": "quality.quick_start_example",
                     "kind": "quality",
-                    "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                    "mechanical_check_id": "quick_start.fenced_blocks",
                     "observed_polarity": null,
                     "polarity_result": "not_applicable",
                     "quoted_candidate_span": "## Quick Start",
-                    "reported_observed_value": 6,
+                    "reported_observed_value": 1,
                     "required_repair": "",
                     "section": "Quick Start"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "quality.clarity.h1_blocks",
-                    "quality.example.minimal"
+                    "quality.h1_blocks",
+                    "quality.quick_start_example"
                   ],
                   "errors": [],
                   "valid": true
@@ -15968,7 +15968,7 @@
                   "role": "blind_quality_reviewer"
                 },
                 "input_sha256": "6b7277cb59d13c10c7c5dc11b38cb4118b6af8801e8eec156b8da879d54d62b9",
-                "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses a clear H1 title, properly prefixed H2 headings (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a comprehensive navigation list. The installation and quick start sections are well-structured with minimal fenced blocks and code lines. The license section includes required benefit terms. The Mermaid diagram in At a Glance is well-formed and visually informative. There are no visible duplications, forbidden comments, or markdown integrity issues.",
+                "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes exactly one H1, compliant badge row, all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a single Quick Start fenced block with 6 non-blank lines (under the 12-line limit). The navigation list is complete and correctly formatted, the At a Glance Mermaid diagram is well-structured, and the Quick Start example is minimal and executable. License, scope, and third-party notices are present and correctly described. No visible duplication, internal terminology conflicts, or markdown integrity issues were observed.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -15982,14 +15982,14 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                    "claim": "The package name is 'aspose-note' and version is 26.3.2.",
+                    "claim": "Package name and version are correctly stated.",
                     "criterion": "installation.coordinates",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": ".",
                     "evidence_location": "repository://pyproject.toml",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "installation.coordinates:manifest",
-                    "finding_id": "factual.installation.coordinates",
+                    "finding_id": "factual.installation_coordinates",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
@@ -16001,14 +16001,14 @@
                   },
                   {
                     "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                    "claim": "The library supports reading Microsoft OneNote (.one) files, exporting to PDF, and accessing rich text, images, tables, and tags.",
+                    "claim": "Listed capabilities match the public API surface and source evidence.",
                     "criterion": "product.capabilities",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": "class DocumentVisitor:",
                     "evidence_location": "repository://src/aspose/note/__init__.py,src/aspose/note/enums.py,src/aspose/note/model.py,src/aspose/note/saving/options.py",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "product.capabilities:repository-evidence",
-                    "finding_id": "factual.capabilities.verified",
+                    "finding_id": "factual.capabilities_source",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
@@ -16021,8 +16021,8 @@
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "factual.capabilities.verified",
-                    "factual.installation.coordinates"
+                    "factual.capabilities_source",
+                    "factual.installation_coordinates"
                   ],
                   "errors": [],
                   "valid": true
@@ -16033,8 +16033,8 @@
                   "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                   "role": "factual_plan_reviewer"
                 },
-                "input_sha256": "9cf1920f3a05b8ab373724d269e7d8807b34d80fb8e5ccbfb2f64c3dd67bebf7",
-                "reasoning": "All material claims in the README are supported by the selected fact packet. The installation instructions match the manifest and registry evidence. The capabilities listed in Key Capabilities and At a Glance are verified by repository evidence. The license, identity, and third-party notices sections align with the provided facts. The development and testing section accurately reflects the repository's test files, tools, and golden workflow. No contradictions or missing evidence were found.",
+                "input_sha256": "3fe1853afd15297552a4912485b4afb0b5b5f096e7e355fcc502c92ff46efc1d",
+                "reasoning": "All material claims in the README are supported by the selected fact packet. The installation instructions match the manifest and registry evidence. The API surface, capabilities, and limitations are consistent with source code and repository evidence. The navigation, documentation links, and development/testing sections align with repository inventory and command guidance. The license, identity, and third-party notices are verified. No contradictions or missing evidence were found.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -16042,14 +16042,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "0758dbf3496646f409e96f493ab4df7a286c73397639e4f423a99ee46f0f73b2",
-                "factual_record_sha256": "914e9a49835fdc0e60f4403fd89872b79b0d8b1eb5575d0c529f2d4c0ec51d2e",
+                "blind_record_sha256": "80b2b2f3b33567902af0bbc49585269c95d24ae35c928cc0e3ae0e0ed9b6e1b9",
+                "factual_record_sha256": "0a71baebf4d1de76de192df75fefa9de0b71055e05429a63718a7691e7bb77ac",
                 "input_sha256": "d40505070ee0b9a72213c82e316183111706d0a9789f35a2005c60433779b663",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-bd058d798eb7a5ae",
-                "raw_output_sha256": "cd7da24706b403c04b38994e8e01047b92c50b833161ee7a4409565138671879"
+                "provider_request_id": "chatcmpl-9e5db467f126d91d",
+                "raw_output_sha256": "3a5f7a151ee85c16bebcf5e6c56762e10006bf35eb49e281b0953481d0b797b1"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -16065,14 +16065,14 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                  "claim": "The package name is 'aspose-note' and version is 26.3.2.",
+                  "claim": "Package name and version are correctly stated.",
                   "criterion": "installation.coordinates",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": ".",
                   "evidence_location": "repository://pyproject.toml",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "installation.coordinates:manifest",
-                  "finding_id": "factual.installation.coordinates",
+                  "finding_id": "factual.installation_coordinates",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
@@ -16084,14 +16084,14 @@
                 },
                 {
                   "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                  "claim": "The library supports reading Microsoft OneNote (.one) files, exporting to PDF, and accessing rich text, images, tables, and tags.",
+                  "claim": "Listed capabilities match the public API surface and source evidence.",
                   "criterion": "product.capabilities",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": "class DocumentVisitor:",
                   "evidence_location": "repository://src/aspose/note/__init__.py,src/aspose/note/enums.py,src/aspose/note/model.py,src/aspose/note/saving/options.py",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "product.capabilities:repository-evidence",
-                  "finding_id": "factual.capabilities.verified",
+                  "finding_id": "factual.capabilities_source",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
@@ -16104,8 +16104,8 @@
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "factual.capabilities.verified",
-                  "factual.installation.coordinates"
+                  "factual.capabilities_source",
+                  "factual.installation_coordinates"
                 ],
                 "errors": [],
                 "valid": true
@@ -16116,8 +16116,8 @@
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "role": "factual_plan_reviewer"
               },
-              "input_sha256": "9cf1920f3a05b8ab373724d269e7d8807b34d80fb8e5ccbfb2f64c3dd67bebf7",
-              "reasoning": "All material claims in the README are supported by the selected fact packet. The installation instructions match the manifest and registry evidence. The capabilities listed in Key Capabilities and At a Glance are verified by repository evidence. The license, identity, and third-party notices sections align with the provided facts. The development and testing section accurately reflects the repository's test files, tools, and golden workflow. No contradictions or missing evidence were found.",
+              "input_sha256": "3fe1853afd15297552a4912485b4afb0b5b5f096e7e355fcc502c92ff46efc1d",
+              "reasoning": "All material claims in the README are supported by the selected fact packet. The installation instructions match the manifest and registry evidence. The API surface, capabilities, and limitations are consistent with source code and repository evidence. The navigation, documentation links, and development/testing sections align with repository inventory and command guidance. The license, identity, and third-party notices are verified. No contradictions or missing evidence were found.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -16138,8 +16138,8 @@
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "quality.clarity.h1_blocks",
-                    "quality.example.minimal"
+                    "quality.h1_blocks",
+                    "quality.quick_start_example"
                   ],
                   "errors": [],
                   "valid": true
@@ -16155,15 +16155,15 @@
                 "pre_normalization_errors": [],
                 "reconciled_candidate_span_ids": [],
                 "reconciled_factual_polarity_ids": [
-                  "factual.installation.coordinates",
-                  "factual.capabilities.verified"
+                  "factual.installation_coordinates",
+                  "factual.capabilities_source"
                 ],
                 "role": "factual_plan",
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "factual.capabilities.verified",
-                    "factual.installation.coordinates"
+                    "factual.capabilities_source",
+                    "factual.installation_coordinates"
                   ],
                   "errors": [],
                   "valid": true
@@ -16209,7 +16209,7 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260812-050344-1bf1",
+                "nonce": "20260812-124611-f216",
                 "official_mermaid_render": {
                   "aspect_ratio": 2.4718,
                   "cached": true,
@@ -16310,11 +16310,11 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "12580bae3862433f6e2d135dd45797572c9881a1394d2be4641e48ae90daea3f",
+                "token": "50c2b7cd1f08cc3f9cac05ed4130949d17a2729f8db57b0f622fa4ca1ef55455",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\20260812-050344-1bf1"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\20260812-124611-f216"
               ],
               "repair_attempt": 0,
               "review": {
@@ -16325,14 +16325,14 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
-                      "claim": "The README has exactly one H1 heading.",
+                      "claim": "Document has exactly one H1 heading.",
                       "criterion": "clarity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.clarity.h1_blocks",
+                      "finding_id": "quality.h1_blocks",
                       "kind": "quality",
                       "mechanical_check_id": "document.h1_blocks",
                       "observed_polarity": null,
@@ -16344,28 +16344,28 @@
                     },
                     {
                       "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                      "claim": "The Quick Start section contains a single, minimal, self-contained example.",
+                      "claim": "Quick Start section contains a single, minimal, executable fenced code block.",
                       "criterion": "example_presentation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.example.minimal",
+                      "finding_id": "quality.quick_start_example",
                       "kind": "quality",
-                      "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                      "mechanical_check_id": "quick_start.fenced_blocks",
                       "observed_polarity": null,
                       "polarity_result": "not_applicable",
                       "quoted_candidate_span": "## Quick Start",
-                      "reported_observed_value": 6,
+                      "reported_observed_value": 1,
                       "required_repair": "",
                       "section": "Quick Start"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "quality.clarity.h1_blocks",
-                      "quality.example.minimal"
+                      "quality.h1_blocks",
+                      "quality.quick_start_example"
                     ],
                     "errors": [],
                     "valid": true
@@ -16377,7 +16377,7 @@
                     "role": "blind_quality_reviewer"
                   },
                   "input_sha256": "6b7277cb59d13c10c7c5dc11b38cb4118b6af8801e8eec156b8da879d54d62b9",
-                  "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses a clear H1 title, properly prefixed H2 headings (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a comprehensive navigation list. The installation and quick start sections are well-structured with minimal fenced blocks and code lines. The license section includes required benefit terms. The Mermaid diagram in At a Glance is well-formed and visually informative. There are no visible duplications, forbidden comments, or markdown integrity issues.",
+                  "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes exactly one H1, compliant badge row, all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a single Quick Start fenced block with 6 non-blank lines (under the 12-line limit). The navigation list is complete and correctly formatted, the At a Glance Mermaid diagram is well-structured, and the Quick Start example is minimal and executable. License, scope, and third-party notices are present and correctly described. No visible duplication, internal terminology conflicts, or markdown integrity issues were observed.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -16390,14 +16390,14 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
-                        "claim": "The README has exactly one H1 heading.",
+                        "claim": "Document has exactly one H1 heading.",
                         "criterion": "clarity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.clarity.h1_blocks",
+                        "finding_id": "quality.h1_blocks",
                         "kind": "quality",
                         "mechanical_check_id": "document.h1_blocks",
                         "observed_polarity": null,
@@ -16409,28 +16409,28 @@
                       },
                       {
                         "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                        "claim": "The Quick Start section contains a single, minimal, self-contained example.",
+                        "claim": "Quick Start section contains a single, minimal, executable fenced code block.",
                         "criterion": "example_presentation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.example.minimal",
+                        "finding_id": "quality.quick_start_example",
                         "kind": "quality",
-                        "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+                        "mechanical_check_id": "quick_start.fenced_blocks",
                         "observed_polarity": null,
                         "polarity_result": "not_applicable",
                         "quoted_candidate_span": "## Quick Start",
-                        "reported_observed_value": 6,
+                        "reported_observed_value": 1,
                         "required_repair": "",
                         "section": "Quick Start"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "quality.clarity.h1_blocks",
-                        "quality.example.minimal"
+                        "quality.h1_blocks",
+                        "quality.quick_start_example"
                       ],
                       "errors": [],
                       "valid": true
@@ -16442,7 +16442,7 @@
                       "role": "blind_quality_reviewer"
                     },
                     "input_sha256": "6b7277cb59d13c10c7c5dc11b38cb4118b6af8801e8eec156b8da879d54d62b9",
-                    "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses a clear H1 title, properly prefixed H2 headings (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a comprehensive navigation list. The installation and quick start sections are well-structured with minimal fenced blocks and code lines. The license section includes required benefit terms. The Mermaid diagram in At a Glance is well-formed and visually informative. There are no visible duplications, forbidden comments, or markdown integrity issues.",
+                    "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes exactly one H1, compliant badge row, all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a single Quick Start fenced block with 6 non-blank lines (under the 12-line limit). The navigation list is complete and correctly formatted, the At a Glance Mermaid diagram is well-structured, and the Quick Start example is minimal and executable. License, scope, and third-party notices are present and correctly described. No visible duplication, internal terminology conflicts, or markdown integrity issues were observed.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -16456,14 +16456,14 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                        "claim": "The package name is 'aspose-note' and version is 26.3.2.",
+                        "claim": "Package name and version are correctly stated.",
                         "criterion": "installation.coordinates",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": ".",
                         "evidence_location": "repository://pyproject.toml",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "installation.coordinates:manifest",
-                        "finding_id": "factual.installation.coordinates",
+                        "finding_id": "factual.installation_coordinates",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
@@ -16475,14 +16475,14 @@
                       },
                       {
                         "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                        "claim": "The library supports reading Microsoft OneNote (.one) files, exporting to PDF, and accessing rich text, images, tables, and tags.",
+                        "claim": "Listed capabilities match the public API surface and source evidence.",
                         "criterion": "product.capabilities",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": "class DocumentVisitor:",
                         "evidence_location": "repository://src/aspose/note/__init__.py,src/aspose/note/enums.py,src/aspose/note/model.py,src/aspose/note/saving/options.py",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "product.capabilities:repository-evidence",
-                        "finding_id": "factual.capabilities.verified",
+                        "finding_id": "factual.capabilities_source",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
@@ -16495,8 +16495,8 @@
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "factual.capabilities.verified",
-                        "factual.installation.coordinates"
+                        "factual.capabilities_source",
+                        "factual.installation_coordinates"
                       ],
                       "errors": [],
                       "valid": true
@@ -16507,8 +16507,8 @@
                       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                       "role": "factual_plan_reviewer"
                     },
-                    "input_sha256": "9cf1920f3a05b8ab373724d269e7d8807b34d80fb8e5ccbfb2f64c3dd67bebf7",
-                    "reasoning": "All material claims in the README are supported by the selected fact packet. The installation instructions match the manifest and registry evidence. The capabilities listed in Key Capabilities and At a Glance are verified by repository evidence. The license, identity, and third-party notices sections align with the provided facts. The development and testing section accurately reflects the repository's test files, tools, and golden workflow. No contradictions or missing evidence were found.",
+                    "input_sha256": "3fe1853afd15297552a4912485b4afb0b5b5f096e7e355fcc502c92ff46efc1d",
+                    "reasoning": "All material claims in the README are supported by the selected fact packet. The installation instructions match the manifest and registry evidence. The API surface, capabilities, and limitations are consistent with source code and repository evidence. The navigation, documentation links, and development/testing sections align with repository inventory and command guidance. The license, identity, and third-party notices are verified. No contradictions or missing evidence were found.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -16516,14 +16516,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "0758dbf3496646f409e96f493ab4df7a286c73397639e4f423a99ee46f0f73b2",
-                    "factual_record_sha256": "914e9a49835fdc0e60f4403fd89872b79b0d8b1eb5575d0c529f2d4c0ec51d2e",
+                    "blind_record_sha256": "80b2b2f3b33567902af0bbc49585269c95d24ae35c928cc0e3ae0e0ed9b6e1b9",
+                    "factual_record_sha256": "0a71baebf4d1de76de192df75fefa9de0b71055e05429a63718a7691e7bb77ac",
                     "input_sha256": "d40505070ee0b9a72213c82e316183111706d0a9789f35a2005c60433779b663",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-bd058d798eb7a5ae",
-                    "raw_output_sha256": "cd7da24706b403c04b38994e8e01047b92c50b833161ee7a4409565138671879"
+                    "provider_request_id": "chatcmpl-9e5db467f126d91d",
+                    "raw_output_sha256": "3a5f7a151ee85c16bebcf5e6c56762e10006bf35eb49e281b0953481d0b797b1"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -16539,14 +16539,14 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                      "claim": "The package name is 'aspose-note' and version is 26.3.2.",
+                      "claim": "Package name and version are correctly stated.",
                       "criterion": "installation.coordinates",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": ".",
                       "evidence_location": "repository://pyproject.toml",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "installation.coordinates:manifest",
-                      "finding_id": "factual.installation.coordinates",
+                      "finding_id": "factual.installation_coordinates",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
@@ -16558,14 +16558,14 @@
                     },
                     {
                       "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                      "claim": "The library supports reading Microsoft OneNote (.one) files, exporting to PDF, and accessing rich text, images, tables, and tags.",
+                      "claim": "Listed capabilities match the public API surface and source evidence.",
                       "criterion": "product.capabilities",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": "class DocumentVisitor:",
                       "evidence_location": "repository://src/aspose/note/__init__.py,src/aspose/note/enums.py,src/aspose/note/model.py,src/aspose/note/saving/options.py",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "product.capabilities:repository-evidence",
-                      "finding_id": "factual.capabilities.verified",
+                      "finding_id": "factual.capabilities_source",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
@@ -16578,8 +16578,8 @@
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "factual.capabilities.verified",
-                      "factual.installation.coordinates"
+                      "factual.capabilities_source",
+                      "factual.installation_coordinates"
                     ],
                     "errors": [],
                     "valid": true
@@ -16590,8 +16590,8 @@
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "role": "factual_plan_reviewer"
                   },
-                  "input_sha256": "9cf1920f3a05b8ab373724d269e7d8807b34d80fb8e5ccbfb2f64c3dd67bebf7",
-                  "reasoning": "All material claims in the README are supported by the selected fact packet. The installation instructions match the manifest and registry evidence. The capabilities listed in Key Capabilities and At a Glance are verified by repository evidence. The license, identity, and third-party notices sections align with the provided facts. The development and testing section accurately reflects the repository's test files, tools, and golden workflow. No contradictions or missing evidence were found.",
+                  "input_sha256": "3fe1853afd15297552a4912485b4afb0b5b5f096e7e355fcc502c92ff46efc1d",
+                  "reasoning": "All material claims in the README are supported by the selected fact packet. The installation instructions match the manifest and registry evidence. The API surface, capabilities, and limitations are consistent with source code and repository evidence. The navigation, documentation links, and development/testing sections align with repository inventory and command guidance. The license, identity, and third-party notices are verified. No contradictions or missing evidence were found.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -16612,8 +16612,8 @@
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "quality.clarity.h1_blocks",
-                        "quality.example.minimal"
+                        "quality.h1_blocks",
+                        "quality.quick_start_example"
                       ],
                       "errors": [],
                       "valid": true
@@ -16629,15 +16629,15 @@
                     "pre_normalization_errors": [],
                     "reconciled_candidate_span_ids": [],
                     "reconciled_factual_polarity_ids": [
-                      "factual.installation.coordinates",
-                      "factual.capabilities.verified"
+                      "factual.installation_coordinates",
+                      "factual.capabilities_source"
                     ],
                     "role": "factual_plan",
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "factual.capabilities.verified",
-                        "factual.installation.coordinates"
+                        "factual.capabilities_source",
+                        "factual.installation_coordinates"
                       ],
                       "errors": [],
                       "valid": true
@@ -52796,7 +52796,7 @@
               }
             ],
             "source_sha256": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4",
-            "template_sha256": "6ed8367f4b0bb99d819ac4b5a0c8c137dd7378773b8b828af1fd225bd6951a24"
+            "template_sha256": "20f8dd555a810b1f231ab32edac05bd87ba43bec0498c2f52be375ae334debc4"
           }
         },
         "proposal_only": true,
@@ -52836,7 +52836,7 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260812-050344-1bf1",
+          "nonce": "20260812-124611-f216",
           "official_mermaid_render": {
             "aspect_ratio": 2.4718,
             "cached": true,
@@ -52937,7 +52937,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "12580bae3862433f6e2d135dd45797572c9881a1394d2be4641e48ae90daea3f",
+          "token": "50c2b7cd1f08cc3f9cac05ed4130949d17a2729f8db57b0f622fa4ca1ef55455",
           "verdict": "accept"
         },
         "written": false
@@ -52945,7 +52945,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-12T05:06:06.871368+00:00",
+      "last_run_timestamp": "2026-08-12T12:48:58.782183+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "6d97a522a9ed24708687911f1aabb76e2dea2da7"
@@ -64107,7 +64107,7 @@
     "updated_at": "2026-08-12T12:48:51.114211+00:00"
   },
   "schema_version": 2,
-  "state_version": 3915,
+  "state_version": 3916,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a7fb6ee707c69ec327948f74ca27700a56ae32a13e2446fae9c66894b573d478",
