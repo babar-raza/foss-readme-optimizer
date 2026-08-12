@@ -2083,9 +2083,9 @@
       "total_repository_lanes": 2
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-12T15:03:33.293381+00:00",
-    "claim_id": "24b98f80542f41928872677789d7a3de",
-    "claimed_at": "2026-08-12T14:33:33.293381+00:00",
+    "claim_expires_at": "2026-08-12T15:14:33.810855+00:00",
+    "claim_id": "cf13a75423164c2ea06ff7520442bec2",
+    "claimed_at": "2026-08-12T14:44:33.810855+00:00",
     "claimed_by": "claude-coordinator",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
@@ -2292,12 +2292,12 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-12T14:33:33.293381+00:00",
+    "last_evaluated_at": "2026-08-12T14:44:33.810855+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 8,
+      "agent_approved": 9,
       "candidate_generated": 10,
       "denominator": 32,
-      "derived_at": "2026-08-12T14:31:48.556156+00:00",
+      "derived_at": "2026-08-12T14:43:11.129515+00:00",
       "deterministic_validated": 10,
       "facts_ready": 10,
       "first_failing_boundary": "FACTS_READY",
@@ -2308,7 +2308,7 @@
         "NO_OP_PROVEN": 10
       },
       "missing_lifecycle_repositories": [],
-      "no_op_proven": 8,
+      "no_op_proven": 9,
       "raw_agent_approved": 10,
       "raw_candidate_generated": 10,
       "raw_deterministic_validated": 10,
@@ -2319,10 +2319,6 @@
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
       "stale_acceptance_repositories": {
-        "aspose-email-foss/Aspose.Email-FOSS-for-Python": [
-          "presentation_component_protected_content_changed",
-          "presentation_component_severe_acceptance_changed"
-        ],
         "aspose-slides-foss/Aspose.Slides-FOSS-for-Python": [
           "presentation_component_protected_content_changed"
         ]
@@ -11877,7 +11873,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1182,
+  "state_version": 1183,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
