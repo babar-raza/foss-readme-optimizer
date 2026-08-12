@@ -2240,26 +2240,23 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-12T11:04:21.430463+00:00",
+    "last_evaluated_at": "2026-08-12T11:43:14.853570+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 6,
+      "agent_approved": 0,
       "candidate_generated": 9,
       "denominator": 32,
-      "derived_at": "2026-08-12T11:02:50.068595+00:00",
+      "derived_at": "2026-08-12T11:06:24.092909+00:00",
       "deterministic_validated": 9,
       "facts_ready": 10,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
-        "BLOCKED_MISSING_EVIDENCE": 14,
-        "DISCOVERED": 1,
+        "BLOCKED_MISSING_EVIDENCE": 15,
         "FACTS_READY": 8,
         "NO_OP_PROVEN": 9
       },
-      "missing_lifecycle_repositories": [
-        "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
-      ],
-      "no_op_proven": 6,
+      "missing_lifecycle_repositories": [],
+      "no_op_proven": 0,
       "raw_agent_approved": 9,
       "raw_candidate_generated": 9,
       "raw_deterministic_validated": 9,
@@ -2270,6 +2267,9 @@
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
       "stale_acceptance_repositories": {
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
+          "presentation_component_protected_content_changed"
+        ],
         "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": [
           "presentation_component_protected_content_changed",
           "presentation_component_severe_acceptance_changed"
@@ -2281,6 +2281,21 @@
         "aspose-email-foss/Aspose.Email-FOSS-for-Python": [
           "presentation_component_protected_content_changed",
           "presentation_component_severe_acceptance_changed"
+        ],
+        "aspose-font-foss/Aspose.Font-FOSS-for-Python": [
+          "presentation_component_protected_content_changed"
+        ],
+        "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
+          "presentation_component_protected_content_changed"
+        ],
+        "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
+          "presentation_component_protected_content_changed"
+        ],
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
+          "presentation_component_protected_content_changed"
+        ],
+        "aspose-slides-foss/Aspose.Slides-FOSS-for-Python": [
+          "presentation_component_protected_content_changed"
         ]
       },
       "stale_fact_contract_repositories": {
@@ -2443,11 +2458,11 @@
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "IN_PROGRESS",
-      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
+      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "REGRESSED",
       "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
-      "L8-VPY-03C-PAGE-CURRENT-REFRESH": "CLOSED",
-      "L8-VPY-03D-NOTE-CURRENT-REFRESH": "CLOSED",
-      "L8-VPY-03E-3D-CURRENT-REFRESH": "CLOSED",
+      "L8-VPY-03C-PAGE-CURRENT-REFRESH": "REGRESSED",
+      "L8-VPY-03D-NOTE-CURRENT-REFRESH": "REGRESSED",
+      "L8-VPY-03E-3D-CURRENT-REFRESH": "REGRESSED",
       "L8-VPY-04-PRODUCTION-TRANSPORT": "TODO",
       "L8-VPY-05-PRODUCTION-ADMISSION": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -11550,6 +11565,42 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "CLOSED",
+        "observed_by": "mission-lifecycle-freshness",
+        "occurred_at": "2026-08-12T11:43:14.852321+00:00",
+        "reason": "repository deliverable became stale for aspose-3d-foss/Aspose.3D-FOSS-for-Python: presentation_component_protected_content_changed",
+        "task_id": "L8-VPY-03E-3D-CURRENT-REFRESH",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "CLOSED",
+        "observed_by": "mission-lifecycle-freshness",
+        "occurred_at": "2026-08-12T11:43:14.852392+00:00",
+        "reason": "repository deliverable became stale for aspose-note-foss/Aspose.Note-FOSS-for-Python: presentation_component_protected_content_changed",
+        "task_id": "L8-VPY-03D-NOTE-CURRENT-REFRESH",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "CLOSED",
+        "observed_by": "mission-lifecycle-freshness",
+        "occurred_at": "2026-08-12T11:43:14.852433+00:00",
+        "reason": "repository deliverable became stale for aspose-page-foss/Aspose.Page-FOSS-for-Python: presentation_component_protected_content_changed",
+        "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "CLOSED",
+        "observed_by": "mission-lifecycle-freshness",
+        "occurred_at": "2026-08-12T11:43:14.852449+00:00",
+        "reason": "repository deliverable became stale for aspose-pdf-foss/Aspose-PDF-FOSS-for-Python: presentation_component_protected_content_changed",
+        "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -11559,7 +11610,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1149,
+  "state_version": 1150,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
