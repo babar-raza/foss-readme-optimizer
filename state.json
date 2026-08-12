@@ -7572,6 +7572,15 @@
         "reason": "independent README review started after deterministic validation",
         "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-12T13:49:25.549761+00:00",
+        "reason": "blind_quality:ACCEPT; factual_plan:ACCEPT",
+        "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+        "to_status": "AGENT_APPROVED"
       }
     ],
     "human_acceptance_history": [],
@@ -7628,11 +7637,11 @@
     "reviewer_standard_hash": "831bac00046be9bc3017075f514138ac6e44822c163ec7789603c543bdce5dca",
     "schema_version": 2,
     "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-08-12T13:48:47.352188+00:00"
+    "status": "AGENT_APPROVED",
+    "updated_at": "2026-08-12T13:49:25.549761+00:00"
   },
   "schema_version": 2,
-  "state_version": 171,
+  "state_version": 172,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28b6eb6ac83e14c637db7804b6dbc47dcf4b35ef760e130b8644bc92031ca608",
