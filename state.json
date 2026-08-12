@@ -17357,6 +17357,17 @@
         "reason": "blind_quality:ACCEPT; factual_plan:ACCEPT",
         "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
         "to_status": "AGENT_APPROVED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-words-foss__Aspose.Words-FOSS-for-Python\\4473f8cbeef1a65961adc7de304d982ada53a1dd"
+        ],
+        "from_status": "AGENT_APPROVED",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-08-12T13:52:53.528068+00:00",
+        "reason": "unchanged approved bundle reused before author or reviewer dispatch",
+        "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+        "to_status": "NO_OP_PROVEN"
       }
     ],
     "human_acceptance_history": [],
@@ -17413,11 +17424,11 @@
     "reviewer_standard_hash": "831bac00046be9bc3017075f514138ac6e44822c163ec7789603c543bdce5dca",
     "schema_version": 2,
     "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
-    "status": "AGENT_APPROVED",
-    "updated_at": "2026-08-12T13:49:25.549761+00:00"
+    "status": "NO_OP_PROVEN",
+    "updated_at": "2026-08-12T13:52:53.528068+00:00"
   },
   "schema_version": 2,
-  "state_version": 184,
+  "state_version": 185,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28b6eb6ac83e14c637db7804b6dbc47dcf4b35ef760e130b8644bc92031ca608",
