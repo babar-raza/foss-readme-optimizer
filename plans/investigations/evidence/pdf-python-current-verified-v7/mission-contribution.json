@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+  "goal_ids": [
+    "GOAL-TRUTH",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Deliver the current PDF Python README before any further Python fan-out."
+  },
+  "acceptance_checks_passed": [
+    "PDF uses the frozen structure without copied product prose",
+    "Every material claim and Mermaid label is repository-verified or explicitly omitted or blocked",
+    "The PDF candidate passes deterministic gates and independent non-authoring review",
+    "The unchanged PDF rerun is byte-identical and makes zero provider calls and effects",
+    "The exact PDF README path is reported before a broad suite or another repository begins"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/pdf--537b8273b185--189b3321da5e/README.md",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/pdf--537b8273b185--189b3321da5e/runtime-manifest.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/pdf--537b8273b185--189b3321da5e/no-op-proof.json",
+    "runs/evidence/20260812-115611-1ae5/manifest.json",
+    "runs/evidence/20260812-115827-c901/manifest.json",
+    "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/independent-current/receipt.json"
+  ],
+  "scoreboard_before_sha256": "9b81aa548a62fadb5ff8d968ae494b4db11db886231764438230a533cab697c5",
+  "scoreboard_after_sha256": "9b81aa548a62fadb5ff8d968ae494b4db11db886231764438230a533cab697c5",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "contribution_boundary_before": "PDF's acceptance chain was regressed to stale by commit 533db4948 (fix for the Words claim-matching EOF-boundary bug in verified_source_claim_matching.py), which advanced PDF's deterministic-validation dependency key (source_claim_accountability group) even though the fix does not touch PDF's own format family or facts. Source revision 537b8273b185 did not change (independently reconfirmed).",
+  "contribution_boundary_after": "PDF Python lifecycle: NO_OP_PROVEN, complete, re-approved and re-proven no-op with byte-identical candidate content (189b3321da5e...), independently PASS-verified an eighth time, including a positive re-derivation of current_candidate_stage_dependency_manifest() confirming the dependency-key change traces exactly to commit 533db4948.",
+  "independently_verified": true
+}

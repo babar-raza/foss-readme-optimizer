@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03D-NOTE-CURRENT-REFRESH",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+  "goal_ids": [
+    "GOAL-TRUTH",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Reconcile and show one current Note Python README without broad rework."
+  },
+  "acceptance_checks_passed": [
+    "Existing valid Note receipts are reused and only invalid dependencies rerun",
+    "Note is current AGENT_APPROVED and NO_OP_PROVEN with zero effects",
+    "The exact Note README is shown before another repository begins"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--2333e0c29565/README.md",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--2333e0c29565/runtime-manifest.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/note--6d97a522a9ed--2333e0c29565/no-op-proof.json",
+    "runs/evidence/20260812-125031-edfc/manifest.json",
+    "runs/evidence/20260812-125240-98e7/manifest.json",
+    "runs/multi-agent/L8-VPY-03D-NOTE-CURRENT-REFRESH/independent-current/receipt.json"
+  ],
+  "scoreboard_before_sha256": "e81a5c9bae44e9b7c32ed62de4191ce3a83b8ebd53f5cf1637f5affc2b4b38a8",
+  "scoreboard_after_sha256": "e81a5c9bae44e9b7c32ed62de4191ce3a83b8ebd53f5cf1637f5affc2b4b38a8",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "contribution_boundary_before": "Note's acceptance chain was regressed to stale by commit 533db4948 (fix for the Words claim-matching EOF-boundary bug in verified_source_claim_matching.py), which advanced Note's deterministic-validation dependency key (source_claim_accountability group) even though the fix does not touch Note's own format family or facts. Source revision 6d97a522a9ed did not change.",
+  "contribution_boundary_after": "Note Python lifecycle: NO_OP_PROVEN, complete, re-approved and re-proven no-op with byte-identical candidate content (2333e0c29565...), independently PASS-verified a sixth time. The independent verifier caught and corrected a stale receipt (covering the earlier dde47b0b3-triggered cycle, not this one) and re-derived the correct post-commit pair (run 20260812-125031-edfc / 20260812-125240-98e7) from scratch, confirming dependency-key causation directly against the file's pre/post blob hashes.",
+  "independently_verified": true
+}

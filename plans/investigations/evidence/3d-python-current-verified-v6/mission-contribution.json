@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03E-3D-CURRENT-REFRESH",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+  "goal_ids": [
+    "GOAL-TRUTH",
+    "GOAL-README"
+  ],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Reconcile and show one current Aspose.3D Python README before cohort fan-out."
+  },
+  "acceptance_checks_passed": [
+    "Existing valid Aspose.3D receipts are reused and only invalid dependencies rerun",
+    "Aspose.3D is current AGENT_APPROVED and NO_OP_PROVEN with zero effects",
+    "The exact Aspose.3D README is shown before the remaining Python cohort begins"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/3d--62fb89f3ca76--5735c3f66e57/README.md",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/3d--62fb89f3ca76--5735c3f66e57/runtime-manifest.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/3d--62fb89f3ca76--5735c3f66e57/no-op-proof.json",
+    "runs/evidence/20260812-131821-71d8/manifest.json",
+    "runs/evidence/20260812-132110-4835/manifest.json",
+    "runs/multi-agent/L8-VPY-03E-3D-CURRENT-REFRESH/independent-current/receipt.json"
+  ],
+  "scoreboard_before_sha256": "f0f028e06c799e1d4848b4caf7979c3cf276ce5a106aed33b3cac6fce75a7564",
+  "scoreboard_after_sha256": "f0f028e06c799e1d4848b4caf7979c3cf276ce5a106aed33b3cac6fce75a7564",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "contribution_boundary_before": "Aspose.3D's acceptance chain was regressed to stale by commit 533db4948 (fix for the Words claim-matching EOF-boundary bug in verified_source_claim_matching.py), which advanced Aspose.3D's deterministic-validation dependency key (source_claim_accountability group) even though the fix does not touch Aspose.3D's own format family or facts.",
+  "contribution_boundary_after": "Aspose.3D Python lifecycle: NO_OP_PROVEN, complete, re-approved and re-proven no-op with byte-identical candidate content (5735c3f66e57...), independently PASS-verified a sixth time. The independent verifier proactively applied the same defensive stale-receipt check that caught the Page/Note near-misses in this same sweep and confirmed the correct post-commit pair (run 20260812-131821-71d8 / 20260812-132110-4835) from the start. This closes the four-repository (PDF, Page, Note, Aspose.3D) Words-claim-matching-fix reopen re-verification pass; BarCode, Cells, Email, Font, Slides remain under the cohort task, and Words itself is next.",
+  "independently_verified": true
+}
