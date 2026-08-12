@@ -1113,10 +1113,11 @@
         {
           "evidence_refs": [
             "Closed PDF/Page/Note/3D re-verification cycles (commit 39bfce278) after the limitation_semantics.py object-discriminator fix reopened them; Font's presentation-plan block is now fixed and Font reached NO_OP_PROVEN for the first time (2 transactions, independent verifier dispatched).",
-            "Slides processed fresh: two-transaction no-op proof complete (AGENT_APPROVED then NO_OP_PROVEN, provider_calls=0 on run 2); independent verifier dispatched. Proceeding to Words."
+            "Slides processed fresh: two-transaction no-op proof complete (AGENT_APPROVED then NO_OP_PROVEN, provider_calls=0 on run 2); independent verifier dispatched. Proceeding to Words.",
+            "HTML confirmed a genuine external blocker: pyproject.toml declares build-backend='setuptools.backends.legacy:build', not a real PEP 517 entry point (valid values are setuptools.build_meta or setuptools.build_meta:__legacy__); package is also not published on PyPI (404). Pipeline's own deterministic build attempt independently confirmed installation.verified_acquisition BLOCKED_MISSING_EVIDENCE. Words' presentation-plan block under independent research (verified_equivalences_have_exact_candidate_claims). Proceeding to attempt TeX."
           ],
           "fingerprint": "7eab48b74512b28f340785e99422bc0b0a88419dcf7f91a2ae403ef898dd2186",
-          "last_material_narrowing_at": "2026-08-12T10:42:46.599324+00:00",
+          "last_material_narrowing_at": "2026-08-12T11:00:00.912263+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-12T10:10:14.675015+00:00",
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
@@ -2239,12 +2240,12 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-12T10:53:53.272561+00:00",
+    "last_evaluated_at": "2026-08-12T11:00:00.912301+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 6,
       "candidate_generated": 9,
       "denominator": 32,
-      "derived_at": "2026-08-12T10:45:32.610941+00:00",
+      "derived_at": "2026-08-12T10:56:50.346565+00:00",
       "deterministic_validated": 9,
       "facts_ready": 10,
       "first_failing_boundary": "FACTS_READY",
@@ -11558,7 +11559,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1146,
+  "state_version": 1147,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
