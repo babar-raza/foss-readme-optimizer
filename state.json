@@ -99,6 +99,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-psd-foss__Aspose.PSD-FOSS-for-Python\\2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-08-12T11:06:00.680784+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3",
+        "to_status": "PROFILED"
       }
     ],
     "human_acceptance_history": [],
@@ -155,11 +166,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-08-12T11:05:52.995657+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-12T11:06:00.680784+00:00"
   },
   "schema_version": 2,
-  "state_version": 7,
+  "state_version": 8,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260812-110446-7428:aspose-psd-foss/Aspose.PSD-FOSS-for-Python": {
