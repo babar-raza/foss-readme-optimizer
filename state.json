@@ -1167,12 +1167,21 @@
           "evidence_refs": [
             "Words processed fresh: two-transaction no-op proof complete with the claim-matching fix in place (first-ever AGENT_APPROVED then NO_OP_PROVEN); independent verifier dispatched. BarCode transaction 1 converged (2 provider calls, dependency-key bump from Words fix); transaction 2 pending.",
             "BarCode independently verified PASS (cycle 4, same content as cycle 3). Cells transactions converged (0 provider calls on run 2); independent verifier dispatched. Font transaction 1 converged (2 provider calls, dependency-key bump); transaction 2 pending.",
-            "Font and Cells independently verified PASS (cycles 2 and 5, both byte-identical). Email transaction 2 reached NO_OP_PROVEN despite a transient GitHub-side lock-release error (self-healing, non-blocking per the tool's own warning); independent verifier dispatched. Slides transaction 1 pending."
+            "Font and Cells independently verified PASS (cycles 2 and 5, both byte-identical). Email transaction 2 reached NO_OP_PROVEN despite a transient GitHub-side lock-release error (self-healing, non-blocking per the tool's own warning); independent verifier dispatched. Slides transaction 1 pending.",
+            "claim lease expired"
           ],
           "fingerprint": "7eab48b74512b28f340785e99422bc0b0a88419dcf7f91a2ae403ef898dd2186",
           "last_material_narrowing_at": "2026-08-12T14:46:11.697488+00:00",
-          "outcome": "in_progress",
+          "outcome": "effective",
           "started_at": "2026-08-12T13:42:39.016235+00:00",
+          "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "7eab48b74512b28f340785e99422bc0b0a88419dcf7f91a2ae403ef898dd2186",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-12T18:35:52.338429+00:00",
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
         }
       ],
@@ -2084,9 +2093,9 @@
       "total_repository_lanes": 2
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-12T15:16:38.600330+00:00",
-    "claim_id": "41e7f5fed7f44a24a1e88cdfafb06fcf",
-    "claimed_at": "2026-08-12T14:46:38.600330+00:00",
+    "claim_expires_at": "2026-08-12T19:05:52.338429+00:00",
+    "claim_id": "f4fed7f8525b45649064fb06eacbcf9c",
+    "claimed_at": "2026-08-12T18:35:52.338429+00:00",
     "claimed_by": "claude-coordinator",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
@@ -2293,7 +2302,7 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-12T18:35:06.437408+00:00",
+    "last_evaluated_at": "2026-08-12T18:35:52.338429+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 10,
       "candidate_generated": 10,
@@ -11861,6 +11870,24 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-12T18:35:52.338451+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "claude-coordinator",
+        "occurred_at": "2026-08-12T18:35:52.338834+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -11870,7 +11897,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1189,
+  "state_version": 1190,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
