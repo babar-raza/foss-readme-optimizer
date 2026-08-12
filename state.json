@@ -60,9 +60,9 @@
       "acceptance_contract_hash": null,
       "evidence_identity": null,
       "facts_hash": null,
-      "observed_by": "migration",
-      "occurred_at": "2026-08-12T11:05:22.719650+00:00",
-      "reason": "not evaluated",
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-12T11:05:52.995657+00:00",
+      "reason": "source or fact inputs changed",
       "schema_version": 1,
       "source_revision": null,
       "status": "UNKNOWN"
@@ -88,6 +88,17 @@
         "reason": "read-only intake classified READY_FULL_PIPELINE",
         "source_revision": "2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3",
         "to_status": "INTAKE_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-psd-foss__Aspose.PSD-FOSS-for-Python\\2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3\\source\\revision.json"
+        ],
+        "from_status": "INTAKE_READY",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-08-12T11:05:52.995657+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3",
+        "to_status": "SNAPSHOTTED"
       }
     ],
     "human_acceptance_history": [],
@@ -115,10 +126,10 @@
       "candidate_hash": null,
       "component_manifest_hash": null,
       "evidence_identity": null,
-      "observed_by": "migration",
-      "occurred_at": "2026-08-12T11:05:22.719666+00:00",
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-12T11:05:52.995657+00:00",
       "presentation_version": null,
-      "reason": "not evaluated",
+      "reason": "source or fact inputs changed",
       "schema_version": 1,
       "source_revision": null,
       "status": "UNKNOWN"
@@ -129,11 +140,11 @@
     "publication_eligibility": {
       "admitted_repositories": [],
       "evidence_identity": null,
-      "observed_by": "migration",
-      "occurred_at": "2026-08-12T11:05:22.719681+00:00",
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-12T11:05:52.995657+00:00",
       "registry_revision": null,
       "rejection_reasons": [
-        "not evaluated"
+        "source or fact inputs changed"
       ],
       "schema_version": 1,
       "status": "INELIGIBLE"
@@ -143,12 +154,12 @@
     "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": null,
-    "status": "INTAKE_READY",
-    "updated_at": "2026-08-12T11:05:33.418006+00:00"
+    "source_revision": "2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-08-12T11:05:52.995657+00:00"
   },
   "schema_version": 2,
-  "state_version": 6,
+  "state_version": 7,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260812-110446-7428:aspose-psd-foss/Aspose.PSD-FOSS-for-Python": {
