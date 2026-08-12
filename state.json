@@ -2293,12 +2293,12 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-12T14:46:38.600330+00:00",
+    "last_evaluated_at": "2026-08-12T15:08:52.956305+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 9,
+      "agent_approved": 10,
       "candidate_generated": 10,
       "denominator": 32,
-      "derived_at": "2026-08-12T14:43:11.129515+00:00",
+      "derived_at": "2026-08-12T14:58:19.482237+00:00",
       "deterministic_validated": 10,
       "facts_ready": 10,
       "first_failing_boundary": "FACTS_READY",
@@ -2309,7 +2309,7 @@
         "NO_OP_PROVEN": 10
       },
       "missing_lifecycle_repositories": [],
-      "no_op_proven": 9,
+      "no_op_proven": 10,
       "raw_agent_approved": 10,
       "raw_candidate_generated": 10,
       "raw_deterministic_validated": 10,
@@ -2319,11 +2319,7 @@
       "registry_path": "data/products.json",
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
-      "stale_acceptance_repositories": {
-        "aspose-slides-foss/Aspose.Slides-FOSS-for-Python": [
-          "presentation_component_protected_content_changed"
-        ]
-      },
+      "stale_acceptance_repositories": {},
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
@@ -11874,7 +11870,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1185,
+  "state_version": 1186,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
