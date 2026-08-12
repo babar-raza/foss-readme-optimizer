@@ -6967,7 +6967,7 @@
   "readme_poc_lifecycle": {
     "assessment_hash": "a4dfe6675b74bd77f54ecbc368603c2622a19a053af454a7a9cbd5b36a7f7466",
     "assurance_history": [],
-    "candidate_hash": null,
+    "candidate_hash": "3149de5127ef78390726563e497da3692a9ca91161932ae954a653889cb2e7bc",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -7537,6 +7537,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\1c01e38cd1942de7d638\\r\\c30d68f488692d90\\s\\4473f8cbeef1\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-words-foss__Aspose.Words-FOSS-for-Python\\4473f8cbeef1a65961adc7de304d982ada53a1dd\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-12T13:47:30.113555+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "human_acceptance_history": [],
@@ -7593,11 +7605,11 @@
     "reviewer_standard_hash": "831bac00046be9bc3017075f514138ac6e44822c163ec7789603c543bdce5dca",
     "schema_version": 2,
     "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
-    "status": "PLAN_READY",
-    "updated_at": "2026-08-12T13:47:24.089901+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-08-12T13:47:30.113555+00:00"
   },
   "schema_version": 2,
-  "state_version": 168,
+  "state_version": 169,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28b6eb6ac83e14c637db7804b6dbc47dcf4b35ef760e130b8644bc92031ca608",
