@@ -1742,7 +1742,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "da4268a056b3e140973b6d584b9627df17a9886ee11a689caa4ed6418a4f17b4",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -2737,13 +2737,15 @@
         "last_failure_envelope": {
           "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "GroundedRoleFailure",
-          "failure_reason": "independent_review_exception",
-          "message": " blind_quality reviewer repeatedly returned ungrounded findings: ['f1:quoted span is outside the named candidate section', 'f2:heading-only quote cannot prove the claimed section content', 'f2:Enterprise Edition term premise contradicts candidate']",
-          "occurred_at": "2026-08-01T08:52:11.649116+00:00",
+          "error_type": "blocked",
+          "facts_hash": "9bdd331242e69af5c3954316e6f717d8b3fb432b45220483bbe1bc223705ff0b",
+          "failure_reason": "presentation_plan",
+          "fresh_fingerprint": "c3cb1b2f5784f17676e3fb707662480c6273a086dc54d4750974f29fe85050ce",
+          "message": "['presentation.semantic_duplicate.75541b1de842: The same visitor-facing limitation is expressed more than once.']",
+          "occurred_at": "2026-08-12T03:18:20.011572+00:00",
           "schema_version": 1,
-          "source_revision": "54004305922b8a45e241fae6066c35c439615d28",
-          "stage": null
+          "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+          "stage": "document_validation"
         },
         "llm_called": false,
         "llm_calls": [],
@@ -74778,9 +74780,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-04T18:27:36.108244+00:00",
+      "last_run_timestamp": "2026-08-12T03:18:20.013184+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "54004305922b8a45e241fae6066c35c439615d28"
@@ -75969,7 +75971,7 @@
     "updated_at": "2026-08-12T03:14:22.915232+00:00"
   },
   "schema_version": 2,
-  "state_version": 334,
+  "state_version": 335,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a0d53186e6eef2fddca9fb6b2dd4a9c2c5d45271f8ea902e1155543af936641e",
