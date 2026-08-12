@@ -22,19 +22,19 @@
         "candidate_sha256": "2333e0c2956532284141cf356b1a2ef34d237a3c2419a836ade7f13c91eb6a40",
         "input_sha256": "6b7277cb59d13c10c7c5dc11b38cb4118b6af8801e8eec156b8da879d54d62b9",
         "verdict": "ACCEPT",
-        "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses a single H1, properly prefixed H2s (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and includes all required H2s per the navigation standard. Badges are correctly placed in one row, and the Quick Start section contains only one fenced block with 6 non-blank lines, well under the 12-line limit. Mermaid diagram in At a Glance is well-structured and rendered as a block. All sections follow title case, and internal terminology (e.g., 'Enterprise Edition') is used appropriately. License benefits are clearly stated, and markdown integrity is preserved with no visible duplication or forbidden comments.",
+        "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes exactly one H1, compliant badge row, all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a single Quick Start fenced block with 6 non-blank lines (under the 12-line limit). The navigation list is complete and correctly formatted, the At a Glance Mermaid diagram is well-structured, and the Quick Start example is minimal and executable. License, scope, and third-party notices are present and correctly described. No visible duplication, internal terminology conflicts, or markdown integrity issues were observed.",
         "failed_criteria": [],
         "sections_affected": [],
         "required_repair": "",
         "findings": [
           {
-            "finding_id": "quality.h2_navigation_prefix",
+            "finding_id": "quality.h1_blocks",
             "kind": "quality",
-            "criterion": "hierarchy",
-            "section": "Navigation",
-            "claim": "All required H2 headings are present and correctly prefixed.",
-            "quoted_candidate_span": "## Navigation",
-            "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
+            "criterion": "clarity",
+            "section": "Header",
+            "claim": "Document has exactly one H1 heading.",
+            "quoted_candidate_span": "# Aspose.Note FOSS for Python",
+            "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
             "disposition": "supports_acceptance",
             "fact_id": null,
             "evidence_excerpt": null,
@@ -42,18 +42,18 @@
             "expected_polarity": null,
             "observed_polarity": null,
             "polarity_result": "not_applicable",
-            "mechanical_check_id": "document.required_h2_prefix",
-            "reported_observed_value": true,
+            "mechanical_check_id": "document.h1_blocks",
+            "reported_observed_value": 1,
             "required_repair": ""
           },
           {
-            "finding_id": "quality.quick_start_fenced_block",
+            "finding_id": "quality.quick_start_example",
             "kind": "quality",
             "criterion": "example_presentation",
             "section": "Quick Start",
-            "claim": "Quick Start section contains only one fenced block with ≤12 non-blank lines.",
-            "quoted_candidate_span": "```python\nfrom aspose.note import Document, Image\n\ndoc = Document(\"testfiles/3ImagesWithDifferentAlignment.one\")\nfor i, img in enumerate(doc.GetChildNodes(Image), start=1):\n    name = img.FileName or f\"image_{i}.bin\"\n    with open(name, \"wb\") as f:\n        f.write(img.Bytes)\n```",
-            "candidate_anchor_id": "candidate.anchor.a92879934a8c2d54bc4d.1",
+            "claim": "Quick Start section contains a single, minimal, executable fenced code block.",
+            "quoted_candidate_span": "## Quick Start",
+            "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
             "disposition": "supports_acceptance",
             "fact_id": null,
             "evidence_excerpt": null,
@@ -61,8 +61,8 @@
             "expected_polarity": null,
             "observed_polarity": null,
             "polarity_result": "not_applicable",
-            "mechanical_check_id": "quick_start.max_nonblank_code_lines",
-            "reported_observed_value": 6,
+            "mechanical_check_id": "quick_start.fenced_blocks",
+            "reported_observed_value": 1,
             "required_repair": ""
           }
         ],
@@ -70,8 +70,8 @@
           "valid": true,
           "errors": [],
           "checked_finding_ids": [
-            "quality.h2_navigation_prefix",
-            "quality.quick_start_fenced_block"
+            "quality.h1_blocks",
+            "quality.quick_start_example"
           ]
         }
       },
@@ -84,9 +84,9 @@
           "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
         },
         "candidate_sha256": "2333e0c2956532284141cf356b1a2ef34d237a3c2419a836ade7f13c91eb6a40",
-        "input_sha256": "f5d030aa5d8b460233007cae70435053645bb7ba31b6bc08f02a2689d8d6274f",
+        "input_sha256": "3fe1853afd15297552a4912485b4afb0b5b5f096e7e355fcc502c92ff46efc1d",
         "verdict": "ACCEPT",
-        "reasoning": "All material claims in the README are supported by the selected fact packet. Installation coordinates (aspose-note, version 26.3.2) match pyproject.toml and PyPI. Python ≥3.10 compatibility is confirmed in pyproject.toml. Capabilities (e.g., PDF export, document traversal) are verified by source code evidence. Limitations (no password-protected input, PDF-only output, ReportLab requirement) are explicitly stated in source code and README. License is MIT per LICENSE file. API surface (61 public types across 3 namespaces) is verified by Python source exports. Development assets (13 test files, 1 tool, golden workflow) are confirmed. Documentation links point to governed aspose.org URLs. Third-party notices reference the correct file. No conflicts or missing evidence were found.",
+        "reasoning": "All material claims in the README are supported by the selected fact packet. The installation instructions match the manifest and registry evidence. The API surface, capabilities, and limitations are consistent with source code and repository evidence. The navigation, documentation links, and development/testing sections align with repository inventory and command guidance. The license, identity, and third-party notices are verified. No contradictions or missing evidence were found.",
         "failed_criteria": [],
         "sections_affected": [],
         "required_repair": "",
@@ -96,7 +96,7 @@
             "kind": "factual",
             "criterion": "installation.coordinates",
             "section": "Installation",
-            "claim": "Package name and version match the manifest and registry.",
+            "claim": "Package name and version are correctly stated.",
             "quoted_candidate_span": "## Installation",
             "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
             "disposition": "supports_acceptance",
@@ -111,17 +111,17 @@
             "required_repair": ""
           },
           {
-            "finding_id": "factual.limited_output_formats",
+            "finding_id": "factual.capabilities_source",
             "kind": "factual",
-            "criterion": "product.limitations",
-            "section": "Scope and Limitations",
-            "claim": "Output is limited to PDF files.",
-            "quoted_candidate_span": "- Password-protected documents are not supported as input.\n- Output is limited to PDF files.\n- PDF exports require ReportLab.",
-            "candidate_anchor_id": "candidate.anchor.e515d974629d91c1672e.1",
+            "criterion": "product.capabilities",
+            "section": "Key Capabilities",
+            "claim": "Listed capabilities match the public API surface and source evidence.",
+            "quoted_candidate_span": "## Key Capabilities",
+            "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
             "disposition": "supports_acceptance",
-            "fact_id": "product.limitations:source-guidance",
-            "evidence_excerpt": "Password-protected documents are not supported",
-            "evidence_location": "repository://src/aspose/note/model.py,src/aspose/note/saving/pdf_writer.py",
+            "fact_id": "product.capabilities:repository-evidence",
+            "evidence_excerpt": "class DocumentVisitor:",
+            "evidence_location": "repository://src/aspose/note/__init__.py,src/aspose/note/enums.py,src/aspose/note/model.py,src/aspose/note/saving/options.py",
             "expected_polarity": "positive_implementation",
             "observed_polarity": "positive_implementation",
             "polarity_result": "supports",
@@ -134,8 +134,8 @@
           "valid": true,
           "errors": [],
           "checked_finding_ids": [
-            "factual.installation_coordinates",
-            "factual.limited_output_formats"
+            "factual.capabilities_source",
+            "factual.installation_coordinates"
           ]
         }
       },
@@ -154,19 +154,19 @@
           "candidate_sha256": "2333e0c2956532284141cf356b1a2ef34d237a3c2419a836ade7f13c91eb6a40",
           "input_sha256": "6b7277cb59d13c10c7c5dc11b38cb4118b6af8801e8eec156b8da879d54d62b9",
           "verdict": "ACCEPT",
-          "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses a single H1, properly prefixed H2s (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and includes all required H2s per the navigation standard. Badges are correctly placed in one row, and the Quick Start section contains only one fenced block with 6 non-blank lines, well under the 12-line limit. Mermaid diagram in At a Glance is well-structured and rendered as a block. All sections follow title case, and internal terminology (e.g., 'Enterprise Edition') is used appropriately. License benefits are clearly stated, and markdown integrity is preserved with no visible duplication or forbidden comments.",
+          "reasoning": "The README demonstrates strong adherence to the visitor contract. It includes exactly one H1, compliant badge row, all required H2 prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start), and a single Quick Start fenced block with 6 non-blank lines (under the 12-line limit). The navigation list is complete and correctly formatted, the At a Glance Mermaid diagram is well-structured, and the Quick Start example is minimal and executable. License, scope, and third-party notices are present and correctly described. No visible duplication, internal terminology conflicts, or markdown integrity issues were observed.",
           "failed_criteria": [],
           "sections_affected": [],
           "required_repair": "",
           "findings": [
             {
-              "finding_id": "quality.h2_navigation_prefix",
+              "finding_id": "quality.h1_blocks",
               "kind": "quality",
-              "criterion": "hierarchy",
-              "section": "Navigation",
-              "claim": "All required H2 headings are present and correctly prefixed.",
-              "quoted_candidate_span": "## Navigation",
-              "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
+              "criterion": "clarity",
+              "section": "Header",
+              "claim": "Document has exactly one H1 heading.",
+              "quoted_candidate_span": "# Aspose.Note FOSS for Python",
+              "candidate_anchor_id": "candidate.anchor.8b5f140ea0e23c50efa5.1",
               "disposition": "supports_acceptance",
               "fact_id": null,
               "evidence_excerpt": null,
@@ -174,18 +174,18 @@
               "expected_polarity": null,
               "observed_polarity": null,
               "polarity_result": "not_applicable",
-              "mechanical_check_id": "document.required_h2_prefix",
-              "reported_observed_value": true,
+              "mechanical_check_id": "document.h1_blocks",
+              "reported_observed_value": 1,
               "required_repair": ""
             },
             {
-              "finding_id": "quality.quick_start_fenced_block",
+              "finding_id": "quality.quick_start_example",
               "kind": "quality",
               "criterion": "example_presentation",
               "section": "Quick Start",
-              "claim": "Quick Start section contains only one fenced block with ≤12 non-blank lines.",
-              "quoted_candidate_span": "```python\nfrom aspose.note import Document, Image\n\ndoc = Document(\"testfiles/3ImagesWithDifferentAlignment.one\")\nfor i, img in enumerate(doc.GetChildNodes(Image), start=1):\n    name = img.FileName or f\"image_{i}.bin\"\n    with open(name, \"wb\") as f:\n        f.write(img.Bytes)\n```",
-              "candidate_anchor_id": "candidate.anchor.a92879934a8c2d54bc4d.1",
+              "claim": "Quick Start section contains a single, minimal, executable fenced code block.",
+              "quoted_candidate_span": "## Quick Start",
+              "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
               "disposition": "supports_acceptance",
               "fact_id": null,
               "evidence_excerpt": null,
@@ -193,8 +193,8 @@
               "expected_polarity": null,
               "observed_polarity": null,
               "polarity_result": "not_applicable",
-              "mechanical_check_id": "quick_start.max_nonblank_code_lines",
-              "reported_observed_value": 6,
+              "mechanical_check_id": "quick_start.fenced_blocks",
+              "reported_observed_value": 1,
               "required_repair": ""
             }
           ],
@@ -202,8 +202,8 @@
             "valid": true,
             "errors": [],
             "checked_finding_ids": [
-              "quality.h2_navigation_prefix",
-              "quality.quick_start_fenced_block"
+              "quality.h1_blocks",
+              "quality.quick_start_example"
             ]
           }
         },
@@ -216,9 +216,9 @@
             "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
           },
           "candidate_sha256": "2333e0c2956532284141cf356b1a2ef34d237a3c2419a836ade7f13c91eb6a40",
-          "input_sha256": "f5d030aa5d8b460233007cae70435053645bb7ba31b6bc08f02a2689d8d6274f",
+          "input_sha256": "3fe1853afd15297552a4912485b4afb0b5b5f096e7e355fcc502c92ff46efc1d",
           "verdict": "ACCEPT",
-          "reasoning": "All material claims in the README are supported by the selected fact packet. Installation coordinates (aspose-note, version 26.3.2) match pyproject.toml and PyPI. Python ≥3.10 compatibility is confirmed in pyproject.toml. Capabilities (e.g., PDF export, document traversal) are verified by source code evidence. Limitations (no password-protected input, PDF-only output, ReportLab requirement) are explicitly stated in source code and README. License is MIT per LICENSE file. API surface (61 public types across 3 namespaces) is verified by Python source exports. Development assets (13 test files, 1 tool, golden workflow) are confirmed. Documentation links point to governed aspose.org URLs. Third-party notices reference the correct file. No conflicts or missing evidence were found.",
+          "reasoning": "All material claims in the README are supported by the selected fact packet. The installation instructions match the manifest and registry evidence. The API surface, capabilities, and limitations are consistent with source code and repository evidence. The navigation, documentation links, and development/testing sections align with repository inventory and command guidance. The license, identity, and third-party notices are verified. No contradictions or missing evidence were found.",
           "failed_criteria": [],
           "sections_affected": [],
           "required_repair": "",
@@ -228,7 +228,7 @@
               "kind": "factual",
               "criterion": "installation.coordinates",
               "section": "Installation",
-              "claim": "Package name and version match the manifest and registry.",
+              "claim": "Package name and version are correctly stated.",
               "quoted_candidate_span": "## Installation",
               "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
               "disposition": "supports_acceptance",
@@ -243,17 +243,17 @@
               "required_repair": ""
             },
             {
-              "finding_id": "factual.limited_output_formats",
+              "finding_id": "factual.capabilities_source",
               "kind": "factual",
-              "criterion": "product.limitations",
-              "section": "Scope and Limitations",
-              "claim": "Output is limited to PDF files.",
-              "quoted_candidate_span": "- Password-protected documents are not supported as input.\n- Output is limited to PDF files.\n- PDF exports require ReportLab.",
-              "candidate_anchor_id": "candidate.anchor.e515d974629d91c1672e.1",
+              "criterion": "product.capabilities",
+              "section": "Key Capabilities",
+              "claim": "Listed capabilities match the public API surface and source evidence.",
+              "quoted_candidate_span": "## Key Capabilities",
+              "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
               "disposition": "supports_acceptance",
-              "fact_id": "product.limitations:source-guidance",
-              "evidence_excerpt": "Password-protected documents are not supported",
-              "evidence_location": "repository://src/aspose/note/model.py,src/aspose/note/saving/pdf_writer.py",
+              "fact_id": "product.capabilities:repository-evidence",
+              "evidence_excerpt": "class DocumentVisitor:",
+              "evidence_location": "repository://src/aspose/note/__init__.py,src/aspose/note/enums.py,src/aspose/note/model.py,src/aspose/note/saving/options.py",
               "expected_polarity": "positive_implementation",
               "observed_polarity": "positive_implementation",
               "polarity_result": "supports",
@@ -266,8 +266,8 @@
             "valid": true,
             "errors": [],
             "checked_finding_ids": [
-              "factual.installation_coordinates",
-              "factual.limited_output_formats"
+              "factual.capabilities_source",
+              "factual.installation_coordinates"
             ]
           }
         },
@@ -275,11 +275,11 @@
           "actor_id": "llm-route:merged-readme-review",
           "prompt_id": "merged_readme_review",
           "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
-          "input_sha256": "7f5d5e3f7ea2629658ef67b78a65971626e9c96fd4df545a2fc54ebd7e61a472",
-          "raw_output_sha256": "2bdcef2ef7479dd035ef7be5d288897203aff7287459419f3a169d30a26e82d7",
-          "blind_record_sha256": "2c4ded10d1ddc2fa49a1c8edda87eab6b2abd7350bb3cbb2c71e600be026d409",
-          "factual_record_sha256": "84316a6dd15c7e8d3fbe627d4e2888b6375da49c0fb1ef5ab08267c97bc237ca",
-          "provider_request_id": "chatcmpl-abe1efb770b42316",
+          "input_sha256": "d40505070ee0b9a72213c82e316183111706d0a9789f35a2005c60433779b663",
+          "raw_output_sha256": "3a5f7a151ee85c16bebcf5e6c56762e10006bf35eb49e281b0953481d0b797b1",
+          "blind_record_sha256": "80b2b2f3b33567902af0bbc49585269c95d24ae35c928cc0e3ae0e0ed9b6e1b9",
+          "factual_record_sha256": "0a71baebf4d1de76de192df75fefa9de0b71055e05429a63718a7691e7bb77ac",
+          "provider_request_id": "chatcmpl-9e5db467f126d91d",
           "provider_model": "qwen3-next"
         },
         "identity_separation_valid": true,
@@ -300,8 +300,8 @@
             "valid": true,
             "errors": [],
             "checked_finding_ids": [
-              "quality.h2_navigation_prefix",
-              "quality.quick_start_fenced_block"
+              "quality.h1_blocks",
+              "quality.quick_start_example"
             ]
           },
           "deterministically_dismissed_finding_ids": [],
@@ -321,15 +321,15 @@
             "valid": true,
             "errors": [],
             "checked_finding_ids": [
-              "factual.installation_coordinates",
-              "factual.limited_output_formats"
+              "factual.capabilities_source",
+              "factual.installation_coordinates"
             ]
           },
           "deterministically_dismissed_finding_ids": [],
           "reconciled_candidate_span_ids": [],
           "reconciled_factual_polarity_ids": [
             "factual.installation_coordinates",
-            "factual.limited_output_formats"
+            "factual.capabilities_source"
           ],
           "pre_normalization_errors": [],
           "invalid_findings": []
@@ -373,8 +373,8 @@
         "verified_example": true,
         "protected_content": true
       },
-      "nonce": "20260811-165411-4bbf",
-      "token": "e13f59b9c7afc58d6c0ab797a5ed34b32b2de94edd9783c261e7ca3ad4effd5e",
+      "nonce": "20260812-124611-f216",
+      "token": "50c2b7cd1f08cc3f9cac05ed4130949d17a2729f8db57b0f622fa4ca1ef55455",
       "official_mermaid_render": {
         "status": "passed",
         "schema_version": 1,
@@ -470,7 +470,7 @@
       }
     },
     "evidence_refs": [
-      "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\20260811-165411-4bbf"
+      "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-note-foss__Aspose.Note-FOSS-for-Python\\20260812-124611-f216"
     ],
     "reviewer_call_count": 1
   }

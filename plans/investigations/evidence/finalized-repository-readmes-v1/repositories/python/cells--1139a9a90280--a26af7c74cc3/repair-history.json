@@ -22,36 +22,17 @@
         "candidate_sha256": "a26af7c74cc3d061e60e6f114e5a7283fbe3c451c67935693af8e1b72f6d217c",
         "input_sha256": "1b06ae514e3ecc3c015415ffe4fe1b38c9fbed8555ea2f55277135e0f97dd369",
         "verdict": "ACCEPT",
-        "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses clear H1/H2 structure, required H2 prefixes are present, navigation is complete with anchor links, installation and quick start sections are well presented with minimal fenced blocks and code lines, and license benefits are explicitly stated. Markdown integrity is preserved, and no visible duplication or promotional imbalance is observed.",
+        "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.Cells FOSS for Python. It follows the required header structure (H1, badges, H2 prefixes), includes a functional Mermaid diagram in 'At a Glance', provides a minimal Quick Start example, lists installation steps with optional extras, and offers detailed API reference and examples. The navigation section is complete, headings are in title case, and license benefits are clearly stated. No visible duplication, forbidden comments, or markdown corruption is present. All mechanical checks pass.",
         "failed_criteria": [],
         "sections_affected": [],
         "required_repair": "",
         "findings": [
           {
-            "finding_id": "quality.h2_navigation_complete",
+            "finding_id": "quality.clarity.1",
             "kind": "quality",
-            "criterion": "navigation",
-            "section": "Navigation",
-            "claim": "All required H2 headings are present and linked in the navigation list.",
-            "quoted_candidate_span": "- [At a Glance](#at-a-glance)\n- [Key Capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Additional Examples](#additional-examples)\n- [API Reference](#api-reference)\n- [Documentation and Resources](#documentation-and-resources)\n- [Scope and Limitations](#scope-and-limitations)\n- [Development and Testing](#development-and-testing)\n- [Contributing](#contributing)\n- [License](#license)",
-            "candidate_anchor_id": "candidate.anchor.fa74f2e85b6bd7307c51.1",
-            "disposition": "supports_acceptance",
-            "fact_id": null,
-            "evidence_excerpt": null,
-            "evidence_location": null,
-            "expected_polarity": null,
-            "observed_polarity": null,
-            "polarity_result": "not_applicable",
-            "mechanical_check_id": null,
-            "reported_observed_value": null,
-            "required_repair": ""
-          },
-          {
-            "finding_id": "quality.quick_start_minimal",
-            "kind": "quality",
-            "criterion": "example_presentation",
+            "criterion": "clarity",
             "section": "Quick Start",
-            "claim": "The Quick Start section contains a single minimal example with ≤12 nonblank code lines.",
+            "claim": "The Quick Start section provides a minimal, executable Python example that clearly demonstrates basic usage.",
             "quoted_candidate_span": "## Quick Start",
             "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
             "disposition": "supports_acceptance",
@@ -64,14 +45,33 @@
             "mechanical_check_id": "quick_start.max_nonblank_code_lines",
             "reported_observed_value": 2,
             "required_repair": ""
+          },
+          {
+            "finding_id": "quality.hierarchy.1",
+            "kind": "quality",
+            "criterion": "hierarchy",
+            "section": "Navigation",
+            "claim": "All required H2 headings are present and prefixed correctly per the visitor contract.",
+            "quoted_candidate_span": "## Navigation",
+            "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
+            "disposition": "supports_acceptance",
+            "fact_id": null,
+            "evidence_excerpt": null,
+            "evidence_location": null,
+            "expected_polarity": null,
+            "observed_polarity": null,
+            "polarity_result": "not_applicable",
+            "mechanical_check_id": "document.required_h2_prefix",
+            "reported_observed_value": true,
+            "required_repair": ""
           }
         ],
         "grounding_validation": {
           "valid": true,
           "errors": [],
           "checked_finding_ids": [
-            "quality.h2_navigation_complete",
-            "quality.quick_start_minimal"
+            "quality.clarity.1",
+            "quality.hierarchy.1"
           ]
         }
       },
@@ -84,25 +84,25 @@
           "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
         },
         "candidate_sha256": "a26af7c74cc3d061e60e6f114e5a7283fbe3c451c67935693af8e1b72f6d217c",
-        "input_sha256": "d99d59a81c7dc251bca8cedaa6c4ee17610489ce849c20c1e17bddf40775c54d",
+        "input_sha256": "f3cfc28ca3e11163894240eca4642cfa6456ba0e78d15ecf16020b9b2a70c3c7",
         "verdict": "ACCEPT",
-        "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, capabilities, limitations, API surface, installation, and examples align with the evidence. The commercial Enterprise Edition terminology is correctly used, and no conflicts or missing evidence is found.",
+        "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, installation method, public API surface, capabilities, limitations, documentation links, and repository examples are all verified by the supplied evidence. The 'Beta' status, commercial upgrade path, and Enterprise Edition terminology are consistent with the relationship and scope facts. No contradictions or missing evidence were found.",
         "failed_criteria": [],
         "sections_affected": [],
         "required_repair": "",
         "findings": [
           {
-            "finding_id": "factual.installation_pypi",
+            "finding_id": "factual.installation.1",
             "kind": "factual",
-            "criterion": "installation.verified_acquisition",
+            "criterion": "installation.coordinates",
             "section": "Installation",
-            "claim": "The package is available on PyPI as 'aspose-cells-foss'.",
-            "quoted_candidate_span": "[![PyPI: aspose-cells-foss](https://img.shields.io/pypi/v/aspose-cells-foss.svg?label=PyPI)](https://pypi.org/project/aspose-cells-foss/) ![Python versions](https://img.shields.io/pypi/pyversions/aspose-cells-foss.svg) ![Requires: Python >=3.7](https://img.shields.io/badge/Requires-Python%20%3E%3D3.7-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](License/LICENSE.txt) [![Contributors: aspose-cells-foss/Aspose.Cells-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-cells-foss/Aspose.Cells-FOSS-for-Python.svg)](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Python/graphs/contributors)",
-            "candidate_anchor_id": "candidate.anchor.6e35962be768e52c6ac5.1",
+            "claim": "The package name 'aspose-cells-foss' and version '26.7.0' match the manifest and registry.",
+            "quoted_candidate_span": "```bash\npython -m pip install aspose-cells-foss\n```",
+            "candidate_anchor_id": "candidate.anchor.926722df35f22705fff6.1",
             "disposition": "supports_acceptance",
-            "fact_id": "installation.verified_acquisition:registry-pypi",
-            "evidence_excerpt": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
-            "evidence_location": "https://pypi.org/pypi/aspose-cells-foss/json",
+            "fact_id": "installation.coordinates:manifest",
+            "evidence_excerpt": ".",
+            "evidence_location": "repository://pyproject.toml",
             "expected_polarity": "positive_implementation",
             "observed_polarity": "positive_implementation",
             "polarity_result": "supports",
@@ -111,11 +111,11 @@
             "required_repair": ""
           },
           {
-            "finding_id": "factual.limits_source",
+            "finding_id": "factual.limits.1",
             "kind": "factual",
-            "criterion": "product.limitations:source-guidance",
+            "criterion": "product.limitations",
             "section": "Scope and Limitations",
-            "claim": "Only Agile encryption and line/bar/pie/area/stock charts are supported; unsupported chart types raise NotImplementedError.",
+            "claim": "The documented limitations (unsupported chart types, Agile-only encryption, limited chart support) are confirmed by source code exceptions.",
             "quoted_candidate_span": "- Unsupported chart type for creations are rejected.\n- Only Agile encryption is currently supported.\n- Only line, bar, pie, area and stock charts are currently supported.",
             "candidate_anchor_id": "candidate.anchor.06b6beb6ec1fc2285c54.1",
             "disposition": "supports_acceptance",
@@ -134,8 +134,8 @@
           "valid": true,
           "errors": [],
           "checked_finding_ids": [
-            "factual.installation_pypi",
-            "factual.limits_source"
+            "factual.installation.1",
+            "factual.limits.1"
           ]
         }
       },
@@ -154,36 +154,17 @@
           "candidate_sha256": "a26af7c74cc3d061e60e6f114e5a7283fbe3c451c67935693af8e1b72f6d217c",
           "input_sha256": "1b06ae514e3ecc3c015415ffe4fe1b38c9fbed8555ea2f55277135e0f97dd369",
           "verdict": "ACCEPT",
-          "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses clear H1/H2 structure, required H2 prefixes are present, navigation is complete with anchor links, installation and quick start sections are well presented with minimal fenced blocks and code lines, and license benefits are explicitly stated. Markdown integrity is preserved, and no visible duplication or promotional imbalance is observed.",
+          "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.Cells FOSS for Python. It follows the required header structure (H1, badges, H2 prefixes), includes a functional Mermaid diagram in 'At a Glance', provides a minimal Quick Start example, lists installation steps with optional extras, and offers detailed API reference and examples. The navigation section is complete, headings are in title case, and license benefits are clearly stated. No visible duplication, forbidden comments, or markdown corruption is present. All mechanical checks pass.",
           "failed_criteria": [],
           "sections_affected": [],
           "required_repair": "",
           "findings": [
             {
-              "finding_id": "quality.h2_navigation_complete",
+              "finding_id": "quality.clarity.1",
               "kind": "quality",
-              "criterion": "navigation",
-              "section": "Navigation",
-              "claim": "All required H2 headings are present and linked in the navigation list.",
-              "quoted_candidate_span": "- [At a Glance](#at-a-glance)\n- [Key Capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Additional Examples](#additional-examples)\n- [API Reference](#api-reference)\n- [Documentation and Resources](#documentation-and-resources)\n- [Scope and Limitations](#scope-and-limitations)\n- [Development and Testing](#development-and-testing)\n- [Contributing](#contributing)\n- [License](#license)",
-              "candidate_anchor_id": "candidate.anchor.fa74f2e85b6bd7307c51.1",
-              "disposition": "supports_acceptance",
-              "fact_id": null,
-              "evidence_excerpt": null,
-              "evidence_location": null,
-              "expected_polarity": null,
-              "observed_polarity": null,
-              "polarity_result": "not_applicable",
-              "mechanical_check_id": null,
-              "reported_observed_value": null,
-              "required_repair": ""
-            },
-            {
-              "finding_id": "quality.quick_start_minimal",
-              "kind": "quality",
-              "criterion": "example_presentation",
+              "criterion": "clarity",
               "section": "Quick Start",
-              "claim": "The Quick Start section contains a single minimal example with ≤12 nonblank code lines.",
+              "claim": "The Quick Start section provides a minimal, executable Python example that clearly demonstrates basic usage.",
               "quoted_candidate_span": "## Quick Start",
               "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
               "disposition": "supports_acceptance",
@@ -196,14 +177,33 @@
               "mechanical_check_id": "quick_start.max_nonblank_code_lines",
               "reported_observed_value": 2,
               "required_repair": ""
+            },
+            {
+              "finding_id": "quality.hierarchy.1",
+              "kind": "quality",
+              "criterion": "hierarchy",
+              "section": "Navigation",
+              "claim": "All required H2 headings are present and prefixed correctly per the visitor contract.",
+              "quoted_candidate_span": "## Navigation",
+              "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
+              "disposition": "supports_acceptance",
+              "fact_id": null,
+              "evidence_excerpt": null,
+              "evidence_location": null,
+              "expected_polarity": null,
+              "observed_polarity": null,
+              "polarity_result": "not_applicable",
+              "mechanical_check_id": "document.required_h2_prefix",
+              "reported_observed_value": true,
+              "required_repair": ""
             }
           ],
           "grounding_validation": {
             "valid": true,
             "errors": [],
             "checked_finding_ids": [
-              "quality.h2_navigation_complete",
-              "quality.quick_start_minimal"
+              "quality.clarity.1",
+              "quality.hierarchy.1"
             ]
           }
         },
@@ -216,25 +216,25 @@
             "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
           },
           "candidate_sha256": "a26af7c74cc3d061e60e6f114e5a7283fbe3c451c67935693af8e1b72f6d217c",
-          "input_sha256": "d99d59a81c7dc251bca8cedaa6c4ee17610489ce849c20c1e17bddf40775c54d",
+          "input_sha256": "f3cfc28ca3e11163894240eca4642cfa6456ba0e78d15ecf16020b9b2a70c3c7",
           "verdict": "ACCEPT",
-          "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, capabilities, limitations, API surface, installation, and examples align with the evidence. The commercial Enterprise Edition terminology is correctly used, and no conflicts or missing evidence is found.",
+          "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, installation method, public API surface, capabilities, limitations, documentation links, and repository examples are all verified by the supplied evidence. The 'Beta' status, commercial upgrade path, and Enterprise Edition terminology are consistent with the relationship and scope facts. No contradictions or missing evidence were found.",
           "failed_criteria": [],
           "sections_affected": [],
           "required_repair": "",
           "findings": [
             {
-              "finding_id": "factual.installation_pypi",
+              "finding_id": "factual.installation.1",
               "kind": "factual",
-              "criterion": "installation.verified_acquisition",
+              "criterion": "installation.coordinates",
               "section": "Installation",
-              "claim": "The package is available on PyPI as 'aspose-cells-foss'.",
-              "quoted_candidate_span": "[![PyPI: aspose-cells-foss](https://img.shields.io/pypi/v/aspose-cells-foss.svg?label=PyPI)](https://pypi.org/project/aspose-cells-foss/) ![Python versions](https://img.shields.io/pypi/pyversions/aspose-cells-foss.svg) ![Requires: Python >=3.7](https://img.shields.io/badge/Requires-Python%20%3E%3D3.7-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](License/LICENSE.txt) [![Contributors: aspose-cells-foss/Aspose.Cells-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-cells-foss/Aspose.Cells-FOSS-for-Python.svg)](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Python/graphs/contributors)",
-              "candidate_anchor_id": "candidate.anchor.6e35962be768e52c6ac5.1",
+              "claim": "The package name 'aspose-cells-foss' and version '26.7.0' match the manifest and registry.",
+              "quoted_candidate_span": "```bash\npython -m pip install aspose-cells-foss\n```",
+              "candidate_anchor_id": "candidate.anchor.926722df35f22705fff6.1",
               "disposition": "supports_acceptance",
-              "fact_id": "installation.verified_acquisition:registry-pypi",
-              "evidence_excerpt": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
-              "evidence_location": "https://pypi.org/pypi/aspose-cells-foss/json",
+              "fact_id": "installation.coordinates:manifest",
+              "evidence_excerpt": ".",
+              "evidence_location": "repository://pyproject.toml",
               "expected_polarity": "positive_implementation",
               "observed_polarity": "positive_implementation",
               "polarity_result": "supports",
@@ -243,11 +243,11 @@
               "required_repair": ""
             },
             {
-              "finding_id": "factual.limits_source",
+              "finding_id": "factual.limits.1",
               "kind": "factual",
-              "criterion": "product.limitations:source-guidance",
+              "criterion": "product.limitations",
               "section": "Scope and Limitations",
-              "claim": "Only Agile encryption and line/bar/pie/area/stock charts are supported; unsupported chart types raise NotImplementedError.",
+              "claim": "The documented limitations (unsupported chart types, Agile-only encryption, limited chart support) are confirmed by source code exceptions.",
               "quoted_candidate_span": "- Unsupported chart type for creations are rejected.\n- Only Agile encryption is currently supported.\n- Only line, bar, pie, area and stock charts are currently supported.",
               "candidate_anchor_id": "candidate.anchor.06b6beb6ec1fc2285c54.1",
               "disposition": "supports_acceptance",
@@ -266,8 +266,8 @@
             "valid": true,
             "errors": [],
             "checked_finding_ids": [
-              "factual.installation_pypi",
-              "factual.limits_source"
+              "factual.installation.1",
+              "factual.limits.1"
             ]
           }
         },
@@ -275,11 +275,11 @@
           "actor_id": "llm-route:merged-readme-review",
           "prompt_id": "merged_readme_review",
           "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
-          "input_sha256": "c3dc624984d796e2395e76cd4b3a9c97754596617b80999c4a74ccc180b45cf6",
-          "raw_output_sha256": "1ace2b3e728d1d7a283c95833a7c2d4c5bd407138e62b911204f81e00cb8dfae",
-          "blind_record_sha256": "5fb1c64013edfe70f7bce5c4a886f62799e518acba8833c8401239574fad326f",
-          "factual_record_sha256": "a3c16f10a4696d54ac61badc15ce3141f844b7ad5f777d1f5bdcb5d03088fd54",
-          "provider_request_id": "chatcmpl-bd7bb51b01972798",
+          "input_sha256": "921be5ac82a29dd95859189ea425c20f14f8305c26b028beaf892af7a1bfe148",
+          "raw_output_sha256": "36cb70124c3f64da3c3dc95a82e1537db6f1f858bd789e60cb24d8d20e8ce417",
+          "blind_record_sha256": "cd35b945613adc2c168c1d0c7f31c20eaf550951e91a34cb56419ff1612e1bb3",
+          "factual_record_sha256": "f0b5de61a46b674b88874f16fd148ca32c7a3b8d521704fabde2bca0087f90cc",
+          "provider_request_id": "chatcmpl-91aff7115bcb569e",
           "provider_model": "qwen3-next"
         },
         "identity_separation_valid": true,
@@ -300,8 +300,8 @@
             "valid": true,
             "errors": [],
             "checked_finding_ids": [
-              "quality.h2_navigation_complete",
-              "quality.quick_start_minimal"
+              "quality.clarity.1",
+              "quality.hierarchy.1"
             ]
           },
           "deterministically_dismissed_finding_ids": [],
@@ -321,15 +321,15 @@
             "valid": true,
             "errors": [],
             "checked_finding_ids": [
-              "factual.installation_pypi",
-              "factual.limits_source"
+              "factual.installation.1",
+              "factual.limits.1"
             ]
           },
           "deterministically_dismissed_finding_ids": [],
           "reconciled_candidate_span_ids": [],
           "reconciled_factual_polarity_ids": [
-            "factual.installation_pypi",
-            "factual.limits_source"
+            "factual.installation.1",
+            "factual.limits.1"
           ],
           "pre_normalization_errors": [],
           "invalid_findings": []
@@ -373,8 +373,8 @@
         "verified_example": true,
         "protected_content": true
       },
-      "nonce": "20260811-151758-3265",
-      "token": "f160e6eceba4e65a3278b8d414e254155152fcbf3de752db4ec2c079fc7efbdb",
+      "nonce": "20260812-141134-c7e4",
+      "token": "6689eb7f10335fc5affbf49a8be9ef4b654f8d8edf2cce6208593d3db41ec00c",
       "official_mermaid_render": {
         "status": "passed",
         "schema_version": 1,
@@ -493,12 +493,12 @@
           "semantic_relationship_connectors_rendered": true
         },
         "errors": [],
-        "cached": false,
-        "render_duration_seconds": 9.102
+        "cached": true,
+        "render_duration_seconds": 0.0
       }
     },
     "evidence_refs": [
-      "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-cells-foss__Aspose.Cells-FOSS-for-Python\\20260811-151758-3265"
+      "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-cells-foss__Aspose.Cells-FOSS-for-Python\\20260812-141134-c7e4"
     ],
     "reviewer_call_count": 1
   }

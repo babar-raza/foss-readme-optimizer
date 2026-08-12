@@ -1,0 +1,342 @@
+{
+  "content_assurance": "repository_verified",
+  "verdict": "ACCEPT",
+  "reasoning": "blind_quality:ACCEPT; factual_plan:ACCEPT",
+  "failed_criteria": [],
+  "sections_affected": [],
+  "required_repair": "",
+  "preserve": [],
+  "blind_quality_review": {
+    "content_assurance": "repository_verified",
+    "identity": {
+      "actor_id": "llm-route:merged-readme-review",
+      "role": "blind_quality_reviewer",
+      "prompt_id": "merged_readme_review",
+      "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+    },
+    "candidate_sha256": "080d395ba7cc39d65bb17febf3dd9a1bd12f1e594d9ff9dcaa05e398686e1dd1",
+    "input_sha256": "8448efda4ef1518a298d5ab364cff2af0a962e8a3b127b09a8fd17456573459e",
+    "verdict": "ACCEPT",
+    "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses clear H1/H2 structure, compliant badge row, and required H2 prefixes. Navigation is complete with all 12 required sections. At-a-glance Mermaid diagram is well-formed and matches the topology. Quick Start section meets the 12 nonblank code line limit and uses a single fenced block. License section includes required benefit terms. Enterprise Edition terminology is present in Scope and Limitations. No visible duplication, forbidden comments, or markdown integrity issues were found.",
+    "failed_criteria": [],
+    "sections_affected": [],
+    "required_repair": "",
+    "findings": [
+      {
+        "finding_id": "quality.clarity.h1_blocks",
+        "kind": "quality",
+        "criterion": "clarity",
+        "section": "Document header",
+        "claim": "Single H1 block provides clear product title.",
+        "quoted_candidate_span": "# Aspose.Email FOSS for Python",
+        "candidate_anchor_id": "candidate.anchor.048d6b80ac76e3b355fb.1",
+        "disposition": "supports_acceptance",
+        "fact_id": null,
+        "evidence_excerpt": null,
+        "evidence_location": null,
+        "expected_polarity": null,
+        "observed_polarity": null,
+        "polarity_result": "not_applicable",
+        "mechanical_check_id": "document.h1_blocks",
+        "reported_observed_value": 1,
+        "required_repair": ""
+      },
+      {
+        "finding_id": "quality.example.minimal",
+        "kind": "quality",
+        "criterion": "example_presentation",
+        "section": "Quick Start",
+        "claim": "Quick Start provides a single, concise, runnable example within line limits.",
+        "quoted_candidate_span": "## Quick Start",
+        "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
+        "disposition": "supports_acceptance",
+        "fact_id": null,
+        "evidence_excerpt": null,
+        "evidence_location": null,
+        "expected_polarity": null,
+        "observed_polarity": null,
+        "polarity_result": "not_applicable",
+        "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+        "reported_observed_value": 5,
+        "required_repair": ""
+      }
+    ],
+    "grounding_validation": {
+      "valid": true,
+      "errors": [],
+      "checked_finding_ids": [
+        "quality.clarity.h1_blocks",
+        "quality.example.minimal"
+      ]
+    }
+  },
+  "factual_plan_review": {
+    "content_assurance": "repository_verified",
+    "identity": {
+      "actor_id": "llm-route:merged-readme-review",
+      "role": "factual_plan_reviewer",
+      "prompt_id": "merged_readme_review",
+      "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+    },
+    "candidate_sha256": "080d395ba7cc39d65bb17febf3dd9a1bd12f1e594d9ff9dcaa05e398686e1dd1",
+    "input_sha256": "21c8490a4c0d80dc6ec35626facf8829a81a0a0c9d070e5e828f3bd43db98295",
+    "verdict": "ACCEPT",
+    "reasoning": "All material claims in the README are supported by the selected fact packet. Installation coordinates match pyproject.toml and PyPI. Quick Start example is verified as compiled/salvaged. Capabilities, compatibility, formats, license, API surface, development assets, commands, documentation links, examples, and enterprise edition terminology are all factually grounded. No unsupported or contradictory claims were found.",
+    "failed_criteria": [],
+    "sections_affected": [],
+    "required_repair": "",
+    "findings": [
+      {
+        "finding_id": "factual.installation.coordinates",
+        "kind": "factual",
+        "criterion": "installation.coordinates",
+        "section": "Installation",
+        "claim": "Package name and version in installation match pyproject.toml and PyPI.",
+        "quoted_candidate_span": "## Installation",
+        "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+        "disposition": "supports_acceptance",
+        "fact_id": "installation.coordinates:manifest",
+        "evidence_excerpt": ".",
+        "evidence_location": "repository://pyproject.toml",
+        "expected_polarity": "positive_implementation",
+        "observed_polarity": "positive_implementation",
+        "polarity_result": "supports",
+        "mechanical_check_id": null,
+        "reported_observed_value": null,
+        "required_repair": ""
+      },
+      {
+        "finding_id": "factual.example.verified",
+        "kind": "factual",
+        "criterion": "example.minimal",
+        "section": "Quick Start",
+        "claim": "Quick Start example is compiled/salvaged and verified.",
+        "quoted_candidate_span": "## Quick Start",
+        "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
+        "disposition": "supports_acceptance",
+        "fact_id": "example.minimal:compiled-salvaged-example",
+        "evidence_excerpt": "python",
+        "evidence_location": "local-verifier://example.minimal",
+        "expected_polarity": "positive_implementation",
+        "observed_polarity": "positive_implementation",
+        "polarity_result": "supports",
+        "mechanical_check_id": null,
+        "reported_observed_value": null,
+        "required_repair": ""
+      }
+    ],
+    "grounding_validation": {
+      "valid": true,
+      "errors": [],
+      "checked_finding_ids": [
+        "factual.example.verified",
+        "factual.installation.coordinates"
+      ]
+    }
+  },
+  "combined_review": {
+    "content_assurance": "repository_verified",
+    "verdict": "ACCEPT",
+    "candidate_sha256": "080d395ba7cc39d65bb17febf3dd9a1bd12f1e594d9ff9dcaa05e398686e1dd1",
+    "blind_quality": {
+      "content_assurance": "repository_verified",
+      "identity": {
+        "actor_id": "llm-route:merged-readme-review",
+        "role": "blind_quality_reviewer",
+        "prompt_id": "merged_readme_review",
+        "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+      },
+      "candidate_sha256": "080d395ba7cc39d65bb17febf3dd9a1bd12f1e594d9ff9dcaa05e398686e1dd1",
+      "input_sha256": "8448efda4ef1518a298d5ab364cff2af0a962e8a3b127b09a8fd17456573459e",
+      "verdict": "ACCEPT",
+      "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It uses clear H1/H2 structure, compliant badge row, and required H2 prefixes. Navigation is complete with all 12 required sections. At-a-glance Mermaid diagram is well-formed and matches the topology. Quick Start section meets the 12 nonblank code line limit and uses a single fenced block. License section includes required benefit terms. Enterprise Edition terminology is present in Scope and Limitations. No visible duplication, forbidden comments, or markdown integrity issues were found.",
+      "failed_criteria": [],
+      "sections_affected": [],
+      "required_repair": "",
+      "findings": [
+        {
+          "finding_id": "quality.clarity.h1_blocks",
+          "kind": "quality",
+          "criterion": "clarity",
+          "section": "Document header",
+          "claim": "Single H1 block provides clear product title.",
+          "quoted_candidate_span": "# Aspose.Email FOSS for Python",
+          "candidate_anchor_id": "candidate.anchor.048d6b80ac76e3b355fb.1",
+          "disposition": "supports_acceptance",
+          "fact_id": null,
+          "evidence_excerpt": null,
+          "evidence_location": null,
+          "expected_polarity": null,
+          "observed_polarity": null,
+          "polarity_result": "not_applicable",
+          "mechanical_check_id": "document.h1_blocks",
+          "reported_observed_value": 1,
+          "required_repair": ""
+        },
+        {
+          "finding_id": "quality.example.minimal",
+          "kind": "quality",
+          "criterion": "example_presentation",
+          "section": "Quick Start",
+          "claim": "Quick Start provides a single, concise, runnable example within line limits.",
+          "quoted_candidate_span": "## Quick Start",
+          "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
+          "disposition": "supports_acceptance",
+          "fact_id": null,
+          "evidence_excerpt": null,
+          "evidence_location": null,
+          "expected_polarity": null,
+          "observed_polarity": null,
+          "polarity_result": "not_applicable",
+          "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+          "reported_observed_value": 5,
+          "required_repair": ""
+        }
+      ],
+      "grounding_validation": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "quality.clarity.h1_blocks",
+          "quality.example.minimal"
+        ]
+      }
+    },
+    "factual_plan": {
+      "content_assurance": "repository_verified",
+      "identity": {
+        "actor_id": "llm-route:merged-readme-review",
+        "role": "factual_plan_reviewer",
+        "prompt_id": "merged_readme_review",
+        "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+      },
+      "candidate_sha256": "080d395ba7cc39d65bb17febf3dd9a1bd12f1e594d9ff9dcaa05e398686e1dd1",
+      "input_sha256": "21c8490a4c0d80dc6ec35626facf8829a81a0a0c9d070e5e828f3bd43db98295",
+      "verdict": "ACCEPT",
+      "reasoning": "All material claims in the README are supported by the selected fact packet. Installation coordinates match pyproject.toml and PyPI. Quick Start example is verified as compiled/salvaged. Capabilities, compatibility, formats, license, API surface, development assets, commands, documentation links, examples, and enterprise edition terminology are all factually grounded. No unsupported or contradictory claims were found.",
+      "failed_criteria": [],
+      "sections_affected": [],
+      "required_repair": "",
+      "findings": [
+        {
+          "finding_id": "factual.installation.coordinates",
+          "kind": "factual",
+          "criterion": "installation.coordinates",
+          "section": "Installation",
+          "claim": "Package name and version in installation match pyproject.toml and PyPI.",
+          "quoted_candidate_span": "## Installation",
+          "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+          "disposition": "supports_acceptance",
+          "fact_id": "installation.coordinates:manifest",
+          "evidence_excerpt": ".",
+          "evidence_location": "repository://pyproject.toml",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "polarity_result": "supports",
+          "mechanical_check_id": null,
+          "reported_observed_value": null,
+          "required_repair": ""
+        },
+        {
+          "finding_id": "factual.example.verified",
+          "kind": "factual",
+          "criterion": "example.minimal",
+          "section": "Quick Start",
+          "claim": "Quick Start example is compiled/salvaged and verified.",
+          "quoted_candidate_span": "## Quick Start",
+          "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
+          "disposition": "supports_acceptance",
+          "fact_id": "example.minimal:compiled-salvaged-example",
+          "evidence_excerpt": "python",
+          "evidence_location": "local-verifier://example.minimal",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "polarity_result": "supports",
+          "mechanical_check_id": null,
+          "reported_observed_value": null,
+          "required_repair": ""
+        }
+      ],
+      "grounding_validation": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "factual.example.verified",
+          "factual.installation.coordinates"
+        ]
+      }
+    },
+    "merged_call_receipt": {
+      "actor_id": "llm-route:merged-readme-review",
+      "prompt_id": "merged_readme_review",
+      "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
+      "input_sha256": "73df7d8c070e7f50fd4276665f116126db1e412c2fd21fb1f6e88ee327da41f6",
+      "raw_output_sha256": "e44acf889b87e22a2c0c4d9f93c616c33eadbb8ab021ce35e91d23236fab6c31",
+      "blind_record_sha256": "0437e86334ef2b9c034deaf794c58c2c4913d507adb61cd88b59722081807e95",
+      "factual_record_sha256": "2e6ca37947581072e728dc6e931c7dee4312b1c76160f82b4df5e1647542eff4",
+      "provider_request_id": "chatcmpl-a24f01841fafd94f",
+      "provider_model": "qwen3-next"
+    },
+    "identity_separation_valid": true,
+    "reasons": [
+      "blind_quality:ACCEPT",
+      "factual_plan:ACCEPT"
+    ]
+  },
+  "grounding_retry_history": [
+    {
+      "role": "blind_quality",
+      "attempt": 1,
+      "context_mode": "full_review_packet",
+      "input_character_count": 46016,
+      "valid": true,
+      "errors": [],
+      "validation_result": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "quality.clarity.h1_blocks",
+          "quality.example.minimal"
+        ]
+      },
+      "deterministically_dismissed_finding_ids": [],
+      "reconciled_candidate_span_ids": [],
+      "reconciled_factual_polarity_ids": [],
+      "pre_normalization_errors": [],
+      "invalid_findings": []
+    },
+    {
+      "role": "factual_plan",
+      "attempt": 1,
+      "context_mode": "full_review_packet",
+      "input_character_count": 46016,
+      "valid": true,
+      "errors": [],
+      "validation_result": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "factual.example.verified",
+          "factual.installation.coordinates"
+        ]
+      },
+      "deterministically_dismissed_finding_ids": [],
+      "reconciled_candidate_span_ids": [],
+      "reconciled_factual_polarity_ids": [
+        "factual.installation.coordinates",
+        "factual.example.verified"
+      ],
+      "pre_normalization_errors": [],
+      "invalid_findings": []
+    }
+  ],
+  "review_contract_version": "2",
+  "acceptance_binding": {
+    "schema_version": 1,
+    "candidate_hash": "080d395ba7cc39d65bb17febf3dd9a1bd12f1e594d9ff9dcaa05e398686e1dd1",
+    "candidate_stage_dependency_key": "37a551522db88ed1d01257c8fe7b22da589b20adcdacf26a4f78f772dc2c9dfd",
+    "mermaid_render_contract_version": "3",
+    "deterministic_validation_hash": "dcc359387d727da05d3c630e075804ad9acf29bb5212f4c395eb50d09793ce80",
+    "reviewer_standard_hash": "831bac00046be9bc3017075f514138ac6e44822c163ec7789603c543bdce5dca"
+  }
+}

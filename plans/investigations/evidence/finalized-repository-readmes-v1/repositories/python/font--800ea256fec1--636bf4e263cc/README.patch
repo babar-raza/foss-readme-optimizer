@@ -1,0 +1,807 @@
+diff --git a/README.md b/README.md
+index 836746e..547f625 100644
+--- a/README.md
++++ b/README.md
+@@ -1,44 +1,110 @@
+-# aspose-font
++# Aspose.Font FOSS for Python
++
++[![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-blue)](https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python/tree/800ea256fec1eec387cba1fc599530cd402ef515) ![Platform: Python](https://img.shields.io/badge/Platform-Python-blue) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE.txt) [![Contributors: aspose-font-foss/Aspose.Font-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-font-foss/Aspose.Font-FOSS-for-Python.svg)](https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python/graphs/contributors)
++
++![Aspose.Font FOSS for Python](https://products.aspose.org/media/font/python/banner-readme.png)
++
++Aspose.Font FOSS for Python is a pure-Python font automation library for developers using Python. It reads desktop and web font formats, converts between them, generates web font bundles with coverage diagnostics, and inspects variable-font deltas and compatibility.
++
++## Navigation
++
++- [At a Glance](#at-a-glance)
++- [Key Capabilities](#key-capabilities)
++- [Installation](#installation)
++- [Quick Start](#quick-start)
++- [Additional Examples](#additional-examples)
++- [API Reference](#api-reference)
++- [Documentation and Resources](#documentation-and-resources)
++- [Scope and Limitations](#scope-and-limitations)
++- [Development and Testing](#development-and-testing)
++- [Security](#security)
++- [License](#license)
++
++## At a Glance
++
++```mermaid
++flowchart LR
++  subgraph INPUTS["Inputs & Formats"]
++    direction TB
++    I1["<div style='width:150px'>.TTF</div>"]
++    I2["<div style='width:150px'>OTF</div>"]
++    I3["<div style='width:150px'>CFF</div>"]
++    I4["<div style='width:150px'>TYPE1</div>"]
++  end
++  PRODUCT["Aspose.Font FOSS<br/>for Python"]
++  subgraph CORE["Core Capabilities"]
++    direction TB
++    C1["Font format conversion"]
++    C2["Web font bundle<br/>generation"]
++    C3["Delta inspection for<br/>variable fonts"]
++    C1 ~~~ C2
++    C2 ~~~ C3
++  end
++  subgraph OUTPUTS["Outputs"]
++    direction TB
++    O1["TTF<br/>Format"]
++    O2["CFF<br/>Format"]
++    O3["WOFF<br/>Format"]
++    O4["WOFF2<br/>Format"]
++    O5["EOT<br/>Format"]
++  end
++  I1 --> PRODUCT
++  PRODUCT --> CORE
++  CORE --> O1
++  classDef product fill:#1F4E79,color:#FFFFFF,stroke:#163A5B,stroke-width:2px,font-weight:bold;
++  classDef input fill:#EAF2F8,color:#17324D,stroke:#7EA6C4,stroke-width:1.5px;
++  classDef capability fill:#F7F9FC,color:#243447,stroke:#AAB7C4,stroke-width:1.25px;
++  classDef output fill:#EAF6EF,color:#244A32,stroke:#78A889,stroke-width:1.5px,font-weight:bold;
++  class PRODUCT product;
++  class I1,I2,I3,I4 input;
++  class C1,C2,C3 capability;
++  class O1,O2,O3,O4,O5 output;
++  style INPUTS fill:#F8FBFD,stroke:#7EA6C4,stroke-width:1.5px
++  style CORE fill:#FFFFFF,stroke:#5F7791,stroke-width:2px
++  style OUTPUTS fill:#F7FBF8,stroke:#78A889,stroke-width:1.5px
++  linkStyle 2,3,4 stroke:#526D82,stroke-width:2px
++```
+ 
+-Pure-Python font workflow automation for teams that need to prepare, review, package, and explain fonts without native runtime dependencies.
++## Key Capabilities
+ 
+-Use it when you need deployable web-font packages, visual review assets, variable-font instances, and QA evidence from scripts, CI, or local CLI workflows.
++- **Work with Font format conversion** - Produce supported output through the public `Font` API.
++- **Work with Web font bundle generation** - Use the public `WebFontBundle` and `Font` APIs in application workflows.
++- **Work with Delta inspection for variable fonts** - Work directly with the public object model through the public `Font` API.
+ 
+-Public GitHub repository: [aspose-font-foss/Aspose.Font-FOSS-for-Python](https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python)
++## Installation
+ 
+-## What You Get
++Install the package directly from its source repository:
+ 
+-| Workflow | Output |
+-| --- | --- |
+-| Optimize fonts for the web | WOFF2/WOFF files, CSS, specimen HTML, JSON manifests, coverage diagnostics, variable-font export-mode explanations, and fallback reasons. |
+-| Review font quality | Font QA Reports as JSON/HTML/PNG package deliverables, compatibility reports, delta reports, and visual boards for release decisions. |
+-| Create release-safe variable instances | Static instance fonts with naming strategies, optional STAT metadata, custom family suffixes, family review boards, and handoff manifests. |
+-| Generate visual proof | PNG/SVG previews, axis-grid sheets, before/after comparisons, APNG animations, storyboard packages, and showcase outputs. |
+-| Automate font operations | Python APIs, CLI commands, and optional MCP tools over the same pure-Python engine. |
++```bash
++git clone https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python.git
++cd Aspose.Font-FOSS-for-Python
++git checkout --detach 800ea256fec1eec387cba1fc599530cd402ef515
++python -m pip install .
++```
+ 
+-## Why Teams Use It
++Use source installation for the `aspose-font` distribution.
+ 
+-- Pure Python: no native font-tooling runtime dependency for local scripts or CI.
+-- Business artifacts first: packages, reports, manifests, previews, and review boards.
+-- Variable-font aware: axes, named instances, static/live web modes, naming policies, and QA diagnostics.
+-- Broad format coverage: TrueType, OpenType, CFF, Type 1, WOFF, WOFF2, and EOT.
+-- Built for automation: Python, CLI, and optional MCP surfaces share the same capabilities.
++Install optional dependencies by scenario:
+ 
+-## Install
++- Installing the `dev` extra: `python -m pip install ".[dev]"`
++- Installing the `mcp` extra: `python -m pip install ".[mcp]"`
+ 
+-```bash
+-pip install aspose-font
+-```
++## Quick Start
+ 
+-Install MCP support only when you want the built-in server surface:
++```python
++from aspose_font import FontLoader
+ 
+-```bash
+-pip install "aspose-font[mcp]"
++font = FontLoader.open('Roboto-VariableFont_wdth,wght.ttf')
+ ```
+ 
+-## Quick Start
++## Additional Examples
++
++Expand this section to view examples for exploring the FontLoader and WebFontBuilder APIs, variable Instance Review, axis Grid Proof, and variable Font Discovery, plus 2 more workflows.
+ 
+-Build a web handoff package:
++<details>
++<summary>View additional examples and results</summary>
++
++### Explore the FontLoader and WebFontBuilder APIs
+ 
+ ```python
+ from aspose_font import FontLoader, WebFontBuilder
+@@ -57,7 +123,7 @@ print(bundle.manifest["export_mode"])
+ print(bundle.manifest["subset"]["coverage"]["covered_count"])
+ ```
+ 
+-Generate QA evidence:
++### Explore the FontLoader and FontQaReporter APIs
+ 
+ ```python
+ from aspose_font import FontLoader, FontQaReporter
+@@ -76,7 +142,7 @@ print(package.html_path)
+ print(package.preview_path)
+ ```
+ 
+-Create a release-safe static instance:
++### Explore the FontLoader APIs
+ 
+ ```python
+ from aspose_font import FontLoader
+@@ -91,49 +157,8 @@ instance = font.instantiate(
+ instance.save("roboto-beta-bold.ttf")
+ ```
+ 
+-## Real Outputs
+-
+-These fixture-backed examples mirror the generated demo site and show the kinds of artifacts the library produces.
+-
+-### Web Package Handoff
+-
+-`WebFontBuilder` and the `web-build` CLI produce browser-ready files plus machine-readable evidence:
+-
+-```text
+-web-out/
+-  roboto-instance-bold.woff2
+-  roboto-instance-bold.css
+-  roboto-instance-bold.html
+-  web-manifest.json
+-```
+-
+-The manifest records export mode, source/output variable status, coverage diagnostics, naming choices, and STAT policy guidance when applicable.
+-
+-```bash
+-aspose-font web-build Roboto-VariableFont_wdth,wght.ttf web-out --preset latin --text "Aspose Web" --variable-mode auto --no-woff
+-```
+-
+-### QA Report Package
+-
+-`FontQaReporter.build_package(...)` and `qa-report --package-output` produce a review folder with JSON, HTML, and a preview PNG:
+-
+-```text
+-qa-package/
+-  qa-report.json
+-  qa-report.html
+-  preview.png
+-```
+-
+-```bash
+-aspose-font qa-report Roboto-VariableFont_wdth,wght.ttf --preset latin --text "Aspose QA" --package-output qa-package --preview-instance-name Bold
+-```
+-
+-![Font QA Report summary](./website/generated/roboto-qa-report-summary.svg)
+-
+ ### Variable Instance Review
+ 
+-Generate approval-ready boards for selected named instances:
+-
+ ```python
+ from aspose_font import FontLoader
+ 
+@@ -147,12 +172,8 @@ board = font.smart_instancer.build_family_review_board(
+ board.write_to("roboto-family-review-board.png")
+ ```
+ 
+-![Family review board](./website/generated/roboto-family-review-board.png)
+-
+ ### Axis Grid Proof
+ 
+-Show how a variable font behaves across weight and width:
+-
+ ```python
+ from aspose_font import FontLoader
+ 
+@@ -169,80 +190,7 @@ grid = font.smart_instancer.build_axis_grid_sheet(
+ grid.write_to("roboto-axis-grid.png")
+ ```
+ 
+-![Axis grid preview](./website/generated/roboto-axis-grid.png)
+-
+-### Delta and Compatibility Evidence
+-
+-Inspect how outlines change between variable-font instances:
+-
+-```python
+-from aspose_font import FontLoader
+-
+-font = FontLoader.open("Roboto-VariableFont_wdth,wght.ttf")
+-report = font.smart_instancer.compare_delta_glyph(
+-    codepoint=ord("A"),
+-    before_instance_name="Regular",
+-    after_instance_name="Condensed Bold",
+-)
+-print(report.is_comparable, report.moved_point_count)
+-```
+-
+-```text
+-is_comparable = True
+-moved_point_count = 4
+-```
+-
+-![Delta comparison board](./website/generated/roboto-delta-compare.png)
+-
+-### Animation and Showcase Assets
+-
+-Create APNG sweeps, scripted paths, frame packages, review bundles, and showcase folders:
+-
+-```bash
+-aspose-font preview-animation Roboto-VariableFont_wdth,wght.ttf sweep.png --axis wdth --start 75 --end 100 --bounce
+-aspose-font preview-animation-path-showcase Roboto-VariableFont_wdth,wght.ttf story-showcase --state Regular --state "wght=700,wdth=75" --state Bold --preset showcase
+-```
+-
+-![Variable font animation sweep](./website/generated/roboto-animation-sweep.png)
+-
+-## Capability Snapshot
+-
+-| Area | What You Can Do Now |
+-| --- | --- |
+-| Load and inspect | Open TTF, OTF, CFF, Type 1, WOFF, WOFF2, and EOT fonts from paths, bytes, or streams; inspect names, metrics, encodings, glyphs, kerning, and loader source metadata. |
+-| Convert | Convert between desktop and web-facing formats in pure Python. |
+-| Clean metadata | Strip legacy sfnt metadata tables and old Mac `name` records before web or distribution export. |
+-| Subset | Build smaller fonts from text, glyph IDs, codepoints, or web-oriented preset groups including Latin, Cyrillic, Greek, Hebrew, Arabic, Devanagari, and Thai. |
+-| Preview | Generate PNG and SVG previews, APNG animation sweeps, scripted animation frame packages, preview batches, axis sweeps, specimen sheets, and before/after comparison boards with diff and overlay panels. |
+-| Variable fonts | Explore axes and named instances, resolve coordinates, suggest guided preset grids, instantiate static outputs with `HVAR`-aware widths, and auto-name exported instances with multiple naming policies plus optional custom family suffixes such as `Beta` or `Web`. |
+-| Web packaging | Emit WOFF2/WOFF bundles, JSON manifests, CSS, specimen HTML with reusable templates and live variable-axis sliders, navigable family packages with style filters, comparative preview artifacts, reusable family review export packs for docs and marketing handoff, variable-font subset flows that fall back to a clear static export mode when needed, explicit `auto`/`live`/`static` variable export selection, configurable naming strategies, family suffix controls, opt-in static STAT metadata, and coordinate-aware axis-grid web bundles or shared packages for custom sweeps. |
+-| QA workflows | Generate Font QA Reports as JSON/HTML deliverables, run compatibility checks with richer shape and interpolation diagnostics, and create Delta Inspector reports/boards with overlay, glyph-diagram, component-aware composite diagnostics, and richer text-level comparison review cards for variable-font review. |
+-| Animation | Export APNG sweeps and scripted paths with presets, easing controls, baked frame captions, frame-sequence packages, presentation-ready review bundles, and showcase packages that bundle APNG, storyboard, landing HTML, and manifests for downstream sharing. |
+-| Automation | Use the CLI directly or expose the library through the built-in MCP server, including machine-readable variable-font compatibility reports. |
+-
+-## Variable-Font-First Workflows
+-
+-The current roadmap is centered on variable fonts. The strongest surface area today is the combination of:
+-
+-- `font.axes`, `font.named_instances`, and `font.smart_instancer`
+-- `font.variable_axes` with labels, presets, and presentation metadata for common axes
+-- additive axis summaries such as `axis.range_summary`, `axis.default_ratio`, and preset-aware `axis.describe_value(...)`
+-- locale-aware axis and named-instance labels through `axis.name(...)`, `instance.name(...)`, and `var-info --language`
+-- ordered localization inventory through `axis.localized_labels(...)`, `instance.localized_labels(...)`, and broader common `name`-table locale coverage
+-- display-ready requested-language profile payloads through `axis.language_profiles(...)`, `instance.language_profiles(...)`, and `font.variable_presentation(...)`
+-- axis-aware named-instance coordinate labels through `instance.format_coordinates(...)` and richer `var-info` output
+-- JSON-ready Axes Explorer snapshots through `axis.to_presentation(...)`, `instance.to_presentation(...)`, `font.variable_presentation(...)`, and `var-info --json-output`; see `docs/variable-presentation-schema.md` for the stable integration contract
+-- preset-aware coordinate selection such as `wght="Bold"` or `wdth="Condensed"`
+-- guided axis-grid suggestions through `SmartInstancer.suggest_axis_values(...)` and preset-driven grid exports
+-- `HVAR`-aware static instancing so exported widths can follow horizontal metric variation data
+-- configurable naming strategies for generated static instances and web handoff packages, including `menu-safe` and `ribbi-safe` policies plus optional custom family suffixes and explicit family/style overrides for safer app/menu coexistence and release-channel labeling
+-- high-level previews through `FontPreviewBuilder`
+-- web handoff packaging through `WebFontBuilder`, `SmartInstancer.build_web_bundle(...)`, axis-grid web bundles, and coordinate-aware shared grid-family packages
+-- QA reporting through `FontQaReporter`, `CompatibilityChecker`, and `DeltaInspector`
+-- deeper compatibility issue notes for segment mix, control points, contour closure, and endpoint movement
+-- additive interpolation diagnostics for active `gvar` tuple changes between compared instance states
+-
+-## Variable Font Discovery
++### Variable Font Discovery
+ 
+ ```python
+ from aspose_font import FontLoader
+@@ -262,225 +210,315 @@ print(font.variable_presentation(preferred_languages=("en",))["axes"][0]["range_
+ print(font.variable_presentation(preferred_languages=("fr-CA", "en"))["axes"][0]["language_profiles"][0])
+ ```
+ 
+-```text
+-is_variable = True
+-axes = ['wght', 'wdth']
+-named_instances = 18
+-bold_preset = 700.0
+-preset_resolve = Condensed Bold
+-suggested_wght = [100.0, 200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0, 900.0]
+-localized_axis_name = Weight
+-weight_range_summary = 100 -> 900 (default: Regular (400))
+-condensed_bold_coordinates = ('Width [wdth]=Condensed (75%)', 'Weight [wght]=Bold (700)')
+-ordered_localizations = (('en', 'Weight'),)
+-presentation_snapshot_range = 100 -> 900 (default: Regular (400))
+-language_profile = {'requested_language': 'fr-ca', 'display_label': 'Weight', 'resolved_language': 'en', 'fallback_reason': 'english-fallback', 'has_requested_language_label': False}
+-```
++</details>
+ 
+-## Python API Highlights
++## API Reference
+ 
+-```python
+-from aspose_font import FontLoader, FontPreviewBuilder, FontQaReporter, WebFontBuilder
+-from aspose_font import FontCleaner
+-from aspose_font.subsetter import FontSubsetter
++The package documents 163 public types across 14 namespaces. Package namespaces include `aspose_font`, `aspose_font.cff`, `aspose_font.eot`, `aspose_font.ttf`, `aspose_font.ttf.tables`, `aspose_font.type1`, `aspose_font.woff`. See the complete API reference under Documentation and Resources for members, signatures, and inherited APIs.
+ 
+-font = FontLoader.open("Roboto-VariableFont_wdth,wght.ttf")
++<details>
++<summary>View public API by namespace</summary>
+ 
+-subset_result = FontSubsetter.subset_for_web_with_coverage(
+-    font,
+-    presets=("latin", "arabic"),
+-    text="Aspose مرحبا",
+-)
+-print(subset_result.font.num_glyphs)
+-print(subset_result.coverage.covered_count, subset_result.coverage.missing_codepoints)
++### Aspose.Font Namespace (`aspose_font`)
+ 
+-preview = FontPreviewBuilder.build(font, instance_name="Bold", text="Preview")
+-preview.write_to("preview.png")
++| Type | Description |
++| --- | --- |
++| `ActiveTupleSummary` | Represents an Active Tuple Summary in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `AnimationAsset` | Represents an Animation Asset in the public Aspose.Font API. |
++| `AnimationFramePackage` | Represents an Animation Frame Package in the public Aspose.Font API. |
++| `AnimationPreset` | Represents an Animation Preset in the public Aspose.Font API. |
++| `AnimationPreviewBuilder` | Builds Animation Preview through the Aspose.Font API. Supports availabling presets, building axis sweep, and building axis sweep package. |
++| `AnimationReviewPackage` | Represents an Animation Review Package in the public Aspose.Font API. |
++| `AnimationShowcasePackage` | Represents an Animation Showcase Package in the public Aspose.Font API. |
++| `AnimationStep` | Represents an Animation Step in the public Aspose.Font API. |
++| `AxisRecord` | Represents an Axis Record in the public Aspose.Font API. |
++| `CffFont(data, top_dict, private_dict, charset, encoding, charstrings, global_subrs, local_subrs, string_index)` | Represents a CFF font through the Aspose.Font API. Supports retrieving kern pairs, converting content to bytes, and saving document output. Inherits from `Font`. |
++| `ClosePath` | Represents a Close path through the Aspose.Font API. Inherits from `PathCommand`. |
++| `CompatibilityChecker` | Represents a Compatibility Checker in the public Aspose.Font API. Supports comparing fonts and comparing variable instances. |
++| `CompatibilityReport` | Represents a Compatibility Report in the public Aspose.Font API. Supports serializing values to a dictionary, converting content to JSON, and writing JSON. |
++| `CompositeComponentMovement` | Represents a Composite Component Movement in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `CompositeGlyphComponent` | Represents a Composite Glyph Component in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `CoverageGroup` | Represents a Coverage Group in the public Aspose.Font API. Supports summarying dict and serializing values to a dictionary. |
++| `CurveTo` | Represents a Curve To in the public Aspose.Font API. Inherits from `PathCommand`. |
++| `DeltaInspector` | Represents a Delta Inspector in the public Aspose.Font API. Supports building delta comparison sheet, building delta sheet, and building delta text comparison sheet. |
++| `DeltaPoint` | Represents a Delta Point in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `DeltaTupleReport` | Represents a Delta Tuple Report in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `EotFont(inner, eot_version, flags, charset, italic, weight, fs_type)` | Represents an EOT font through the Aspose.Font API. Supports retrieving kern pairs, converting content to bytes, and saving document output. Inherits from `Font`. |
++| `FamilyReviewExportPackage` | Represents a Family Review Export Package in the public Aspose.Font API. |
++| `Font` | Represents a font font through the Aspose.Font API. Supports retrieving kern pairs, saving document output, and saving to format. Inherits from `ABC`. |
++| `FontCleaner` | Represents a Font Cleaner in the public Aspose.Font API. Supports cleaning for web. |
++| `FontConversionException` | Signals a font conversion condition; derives from `FontException`. |
++| `FontEncoding` | Represents a Font Encoding in the public Aspose.Font API. Supports retrieving all codepoints and unicoding to gid. Inherits from `ABC`. |
++| `FontException` | Signals a font condition; derives from `Exception`. |
++| `FontLoader` | Represents a Font Loader in the public Aspose.Font API. Supports loading content and opening content. |
++| `FontMetrics` | Represents a Font Metrics in the public Aspose.Font API. |
++| `FontNotSupportedException` | Signals a font not supported condition; derives from `FontException`. |
++| `FontParseException(message, offset=-1, format_name='')` | Signals a font parse condition; derives from `FontException`. |
++| `FontPreviewBuilder` | Builds Font Preview through the Aspose.Font API. Supports building output, composing difference preview, and composing overlay preview. |
++| `FontQaPackage` | Represents a Font Qa Package in the public Aspose.Font API. |
++| `FontQaReport` | Represents a Font Qa Report in the public Aspose.Font API. Supports serializing values to a dictionary, converting content to JSON, and writing HTML. |
++| `FontQaReporter` | Represents a Font Qa Reporter in the public Aspose.Font API. Supports building output and building package. |
++| `FontSourceInfo` | Represents a Font Source Info in the public Aspose.Font API. |
++| `FontSubsetter` | Represents a Font Subsetter in the public Aspose.Font API. Supports analyzing coverage, analyzing web coverage, and availabling presets. |
++| `FontType` | Represents a Font Type in the public Aspose.Font API. Inherits from `enum.Enum`. |
++| `FvarTable` | Represents a Fvar Table in the public Aspose.Font API. Supports loading content from reader and converting content to bytes. |
++| `Glyph` | Represents a Glyph in the public Aspose.Font API. |
++| `GlyphAccessor(encoding)` | Represents a Glyph Accessor in the public Aspose.Font API. Supports retrieving all glyph ids, retrieving glyph by id, and retrieving glyph by unicode. Inherits from `ABC`. |
++| `GlyphCompatibilityIssue` | Represents a Glyph Compatibility Issue in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `GlyphDeltaComparisonReport` | Represents a Glyph Delta Comparison Report in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `GlyphDeltaReport` | Represents a Glyph Delta Report in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `GlyphId` | Represents a Glyph Id in the public Aspose.Font API. |
++| `GlyphInterpolationIssue` | Represents a Glyph Interpolation Issue in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `GlyphLayout` | Represents a Glyph Layout in the public Aspose.Font API. |
++| `GlyphNotFoundException(glyph_id)` | Signals a glyph not found condition; derives from `FontException`. |
++| `SmartInstancer(font)` | Represents a Smart Instancer in the public Aspose.Font API. Supports building axis grid previews, building axis grid sheet, and building axis grid web bundles. |
++| `WebFontBuilder` | Builds Web Font through the Aspose.Font API. Supports building output, building family matrix preview, and building family package. |
++| `VariableAxis` | Represents a Variable Axis in the public Aspose.Font API. Supports cssing variation setting, retrieving preset, and languaging profiles. |
++| `StatNamingDiagnostics` | Represents a Stat Naming Diagnostics in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `TtfFont(sfnt_data, tables, sfnt_version)` | Represents a TTF font through the Aspose.Font API. Supports availabling naming strategies, retrieving axis, and retrieving kern pairs. Inherits from `Font`. |
++| `VariableInstance` | Represents a Variable Instance in the public Aspose.Font API. Supports cssing variation settings, formating coordinates, and languaging profiles. |
++| `NamingPolicyPreview` | Represents a Naming Policy Preview in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `GlyphOutlineStats` | Represents a Glyph Outline Stats in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `TextDeltaComparisonReport` | Represents a Text Delta Comparison Report in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `WebFontBundle` | Represents a Web Font Bundle in the public Aspose.Font API. |
++| `Woff2Font(inner, metadata_xml='')` | Represents a WOFF2 font through the Aspose.Font API. Supports retrieving kern pairs, converting content to bytes, and saving document output. Inherits from `Font`. |
++| `WoffFont(inner, metadata_xml='')` | Represents a WOFF font through the Aspose.Font API. Supports retrieving kern pairs, converting content to bytes, and saving document output. Inherits from `Font`. |
++| `SubsetCoverage` | Represents a Subset Coverage in the public Aspose.Font API. Supports summarying dict and serializing values to a dictionary. |
++| `Type1Font(raw_data, font_data, is_pfa=False)` | Represents a TYPE1 font through the Aspose.Font API. Supports retrieving kern pairs, loading afm, and converting content to bytes. Inherits from `Font`. |
++| `LocalizationCoverage` | Represents a Localization Coverage in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `PlatformNamingDiagnostics` | Represents a Platform Naming Diagnostics in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `WebFontFamilyPackage` | Represents a Web Font Family Package in the public Aspose.Font API. |
++| `TextDeltaReport` | Represents a Text Delta Report in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `LoadedFont` | Represents a Loaded font through the Aspose.Font API. |
++| `LocalizationResolution` | Represents a Localization Resolution in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `WebFontOptimizerPackage` | Represents a Web Font Optimizer Package in the public Aspose.Font API. |
++| `LanguageProfile` | Represents a Language Profile in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `RequestedLanguageHint` | Represents a Requested Language Hint in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `TextRenderer` | Renders Text content through the Aspose.Font API. Supports layouting glyphs, rendering PNG, and rendering rgb. |
++| `PreviewImage` | Represents a Preview Image in the public Aspose.Font API. |
++| `QuadraticTo` | Represents a Quadratic To in the public Aspose.Font API. Inherits from `PathCommand`. |
++| `ResolvedInstance` | Represents a Resolved Instance in the public Aspose.Font API. |
++| `TextLayout` | Represents a Text Layout in the public Aspose.Font API. |
++| `TupleScalarDelta` | Represents a Tuple Scalar Delta in the public Aspose.Font API. Supports serializing values to a dictionary. |
++| `VariableAxisPreset` | Represents a Variable Axis Preset in the public Aspose.Font API. Supports converting content to presentation. |
++| `KernPair` | Represents a Kern Pair in the public Aspose.Font API. |
++| `NamedInstance` | Represents a Named Instance in the public Aspose.Font API. |
++| `Rasterizer(width, height, background=(255, 255, 255))` | Represents a Rasterizer in the public Aspose.Font API. Supports clearing content, drawing path, and encoding page content as PNG. |
++| `WebFontAsset` | Represents a Web Font Asset in the public Aspose.Font API. |
++| `GlyphPath(commands=None)` | Represents a Glyph path through the Aspose.Font API. Supports appending content. |
++| `LineTo` | Represents a Line To in the public Aspose.Font API. Inherits from `PathCommand`. |
++| `MoveTo` | Represents a Move To in the public Aspose.Font API. Inherits from `PathCommand`. |
++| `SubsetResult` | Stores Subset result data through the Aspose.Font API. |
++| `WebFontOptimizer` | Represents a Web Font Optimizer in the public Aspose.Font API. Supports building output. |
++| `PathCommand` | Represents a Path command through the Aspose.Font API. |
++| `SUBSET_PRESETS` | Defines the `SUBSET_PRESETS` public constant. |
++| `UnsupportedFontFormatException` | Signals an unsupported font format condition; derives from `FontException`. |
++
++### Aspose.Font.Animation Namespace (`aspose_font.animation`)
++
++| Type | Description |
++| --- | --- |
++| `AnimationAsset` | The `aspose_font.animation` namespace re-exports `AnimationAsset` from the primary `aspose_font` namespace. |
++| `AnimationFramePackage` | The `aspose_font.animation` namespace re-exports `AnimationFramePackage` from the primary `aspose_font` namespace. |
++| `AnimationPreset` | The `aspose_font.animation` namespace re-exports `AnimationPreset` from the primary `aspose_font` namespace. |
++| `AnimationPreviewBuilder` | The `aspose_font.animation` namespace re-exports `AnimationPreviewBuilder` from the primary `aspose_font` namespace. |
++| `AnimationReviewPackage` | The `aspose_font.animation` namespace re-exports `AnimationReviewPackage` from the primary `aspose_font` namespace. |
++| `AnimationShowcasePackage` | The `aspose_font.animation` namespace re-exports `AnimationShowcasePackage` from the primary `aspose_font` namespace. |
++| `AnimationStep` | The `aspose_font.animation` namespace re-exports `AnimationStep` from the primary `aspose_font` namespace. |
+ 
+-svg_preview = FontPreviewBuilder.build(
+-    font,
+-    instance_name="Bold",
+-    text="Preview",
+-    output_format="svg",
+-)
+-svg_preview.write_to("preview.svg")
++### Aspose.Font.CFF Namespace (`aspose_font.cff`)
+ 
+-instanced = font.smart_instancer.instantiate(
+-    {"wght": "Bold", "wdth": "Condensed"},
+-    naming_strategy="ribbi-safe",
+-    family_suffix="Beta",
+-)
+-print(instanced.font_family, instanced.font_style, instanced.ttf_tables.name.get(17))
++| Type | Description |
++| --- | --- |
++| `CffCharset` | Represents a CFF Charset in the public CFF API for Aspose.Font. Supports loading content from reader. |
++| `CffDict` | Represents a CFF Dict in the public CFF API for Aspose.Font. Supports loading content from bytes and converting content to bytes. |
++| `CffEncoding` | Represents a CFF Encoding in the public CFF API for Aspose.Font. Supports loading content from reader, retrieving all codepoints, and unicoding to gid. Inherits from `FontEncoding`. |
++| `CffFont(data, top_dict, private_dict, charset, encoding, charstrings, global_subrs, local_subrs, string_index)` | The `aspose_font.cff` namespace re-exports `CffFont` from the primary `aspose_font` namespace. |
++| `CffIndex(items)` | Represents a CFF Index in the public CFF API for Aspose.Font. Supports loading content from reader and converting content to bytes. |
++| `PrivateDict` | Represents a Private Dict in the public CFF API for Aspose.Font. Supports loading content from dict. |
++| `TopDict` | Represents a Top Dict in the public CFF API for Aspose.Font. Supports loading content from dict. |
++| `Type2Interpreter(global_subrs, local_subrs, default_width_x, nominal_width_x)` | Represents a Type2 Interpreter in the public CFF API for Aspose.Font. |
++
++### Aspose.Font.Compatibility Namespace (`aspose_font.compatibility`)
++
++| Type | Description |
++| --- | --- |
++| `ActiveTupleSummary` | The `aspose_font.compatibility` namespace re-exports `ActiveTupleSummary` from the primary `aspose_font` namespace. |
++| `CompatibilityChecker` | The `aspose_font.compatibility` namespace re-exports `CompatibilityChecker` from the primary `aspose_font` namespace. |
++| `CompatibilityReport` | The `aspose_font.compatibility` namespace re-exports `CompatibilityReport` from the primary `aspose_font` namespace. |
++| `GlyphCompatibilityIssue` | The `aspose_font.compatibility` namespace re-exports `GlyphCompatibilityIssue` from the primary `aspose_font` namespace. |
++| `GlyphInterpolationIssue` | The `aspose_font.compatibility` namespace re-exports `GlyphInterpolationIssue` from the primary `aspose_font` namespace. |
++| `GlyphOutlineStats` | The `aspose_font.compatibility` namespace re-exports `GlyphOutlineStats` from the primary `aspose_font` namespace. |
++| `TupleScalarDelta` | The `aspose_font.compatibility` namespace re-exports `TupleScalarDelta` from the primary `aspose_font` namespace. |
+ 
+-menu_named = font.instantiate(
+-    {"wght": 700, "wdth": 75},
+-    naming_strategy="ribbi-safe",
+-    legacy_family_name="Acme Sans Menu",
+-    typographic_family_name="Acme Sans Pro",
+-    stat_policy="static",
+-)
+-print(menu_named.ttf_tables.name.get(1), menu_named.ttf_tables.name.get(16))
+-print("STAT" in menu_named.ttf_tables._raw)
++### Aspose.Font.Converter Namespace (`aspose_font.converter`)
+ 
+-preview = font.preview_naming_policy(
+-    {"wght": 700, "wdth": 75},
+-    naming_strategy="ribbi-safe",
+-    stat_policy="static",
+-)
+-print(preview.stat_diagnostics.generated_stat_axis_value_flags)
++| Type | Description |
++| --- | --- |
++| `CurveAdapter` | Represents a Curve Adapter in the public converter API for Aspose.Font. Supports converting path cubic to quad, converting path quad to cubic, and cubicing to quads. |
++| `FontConverter` | Converts Font content through the Aspose.Font API. |
+ 
+-cleaned = FontCleaner.clean_for_web(font)
+-print("meta" in cleaned.ttf_tables._raw)
++### Aspose.Font.Delta Namespace (`aspose_font.delta`)
+ 
+-compat = font.smart_instancer.check_compatibility(
+-    before_instance_name="Regular",
+-    after_instance_name="Condensed Bold",
+-    text="Aspose",
+-)
+-print(compat.is_compatible, len(compat.issues))
++| Type | Description |
++| --- | --- |
++| `DeltaInspector` | The `aspose_font.delta` namespace re-exports `DeltaInspector` from the primary `aspose_font` namespace. |
++| `DeltaPoint` | The `aspose_font.delta` namespace re-exports `DeltaPoint` from the primary `aspose_font` namespace. |
++| `DeltaTupleReport` | The `aspose_font.delta` namespace re-exports `DeltaTupleReport` from the primary `aspose_font` namespace. |
++| `GlyphDeltaComparisonReport` | The `aspose_font.delta` namespace re-exports `GlyphDeltaComparisonReport` from the primary `aspose_font` namespace. |
++| `GlyphDeltaReport` | The `aspose_font.delta` namespace re-exports `GlyphDeltaReport` from the primary `aspose_font` namespace. |
++| `TextDeltaComparisonReport` | The `aspose_font.delta` namespace re-exports `TextDeltaComparisonReport` from the primary `aspose_font` namespace. |
++| `TextDeltaReport` | The `aspose_font.delta` namespace re-exports `TextDeltaReport` from the primary `aspose_font` namespace. |
+ 
+-delta = font.smart_instancer.inspect_deltas(
+-    instance_name="Bold",
+-    codepoint=ord("A"),
+-)
+-print(delta.total_tuple_count, len(delta.active_tuples))
++### Aspose.Font.EOT Namespace (`aspose_font.eot`)
+ 
+-text_compare = font.smart_instancer.compare_delta_text(
+-    text="Aspose",
+-    before_instance_name="Regular",
+-    after_instance_name="Condensed Bold",
+-)
+-print(text_compare.moved_glyph_count, text_compare.comparable_glyph_count)
++| Type | Description |
++| --- | --- |
++| `EotFont(inner, eot_version, flags, charset, italic, weight, fs_type)` | The `aspose_font.eot` namespace re-exports `EotFont` from the primary `aspose_font` namespace. |
+ 
+-qa_report = FontQaReporter.build(
+-    font,
+-    presets=("latin",),
+-    text="Aspose QA",
+-)
+-qa_report.write_html("font-qa-report.html")
++### Aspose.Font.Preview Namespace (`aspose_font.preview`)
+ 
+-bundle = font.smart_instancer.build_web_bundle(
+-    instance_name="Bold",
+-    family_suffix="Beta",
+-    include_woff=False,
+-    preview_text="Aspose Variable",
+-)
+-bundle.write_to("web-out")
++| Type | Description |
++| --- | --- |
++| `FontPreviewBuilder` | The `aspose_font.preview` namespace re-exports `FontPreviewBuilder` from the primary `aspose_font` namespace. |
++| `PreviewImage` | The `aspose_font.preview` namespace re-exports `PreviewImage` from the primary `aspose_font` namespace. |
+ 
+-subset_bundle = WebFontBuilder.build(
+-    font,
+-    presets=("latin", "arabic"),
+-    text="Aspose",
+-    include_woff=False,
+-)
+-print(subset_bundle.manifest["export_mode"])
+-print(subset_bundle.manifest["subset"]["coverage"]["missing_count"])
++### Aspose.Font.Qa Namespace (`aspose_font.qa`)
+ 
+-live_bundle = WebFontBuilder.build(
+-    font,
+-    include_woff=False,
+-    variable_mode="live",
+-)
+-print(live_bundle.manifest["requested_variable_mode"], live_bundle.manifest["export_mode"])
++| Type | Description |
++| --- | --- |
++| `FontQaPackage` | The `aspose_font.qa` namespace re-exports `FontQaPackage` from the primary `aspose_font` namespace. |
++| `FontQaReport` | The `aspose_font.qa` namespace re-exports `FontQaReport` from the primary `aspose_font` namespace. |
++| `FontQaReporter` | The `aspose_font.qa` namespace re-exports `FontQaReporter` from the primary `aspose_font` namespace. |
+ 
+-static_stat_bundle = WebFontBuilder.build(
+-    font,
+-    include_woff=False,
+-    variable_mode="static",
+-    instance_name="Bold",
+-    stat_policy="static",
+-)
+-print(static_stat_bundle.manifest["requested_stat_policy"])
++### Aspose.Font.TTF Namespace (`aspose_font.ttf`)
+ 
+-grid_package = font.smart_instancer.build_axis_grid_web_family_package(
+-    "wght",
+-    [400.0, 700.0],
+-    family_name="Roboto Grid",
+-    include_woff=False,
+-    preview_text="Grid Family",
+-    naming_strategy="preserve-family",
+-)
+-grid_package.write_to("web-grid-family")
+-print(grid_package.manifest["bundles"][1]["review_label"])
+-```
++| Type | Description |
++| --- | --- |
++| `TtfFont(sfnt_data, tables, sfnt_version)` | The `aspose_font.ttf` namespace re-exports `TtfFont` from the primary `aspose_font` namespace. |
++| `TtfTableSet` | Represents a TTF Table Set in the public TTF API for Aspose.Font. Supports retrieving raw and setting raw. |
+ 
+-The generated grid-family package links back to the demo-site direction: `family.html` shows
+-coordinate labels like `wdth=100 wght=700`, while `family-manifest.json` exposes the same
+-`review_label` and `instance_coordinates` fields for automation.
++### Aspose.Font.TYPE1 Namespace (`aspose_font.type1`)
+ 
+-## CLI Highlights
++| Type | Description |
++| --- | --- |
++| `AfmData` | Represents an Afm Data in the public TYPE1 API for Aspose.Font. |
++| `AfmGlyphMetric` | Represents an Afm Glyph Metric in the public TYPE1 API for Aspose.Font. |
++| `PFB_ASCII` | Defines the `PFB_ASCII` public constant. |
++| `PFB_BINARY` | Defines the `PFB_BINARY` public constant. |
++| `PFB_EOF` | Defines the `PFB_EOF` public constant. |
++| `PfbSegment` | Represents a Pfb Segment in the public TYPE1 API for Aspose.Font. |
++| `Type1Font(raw_data, font_data, is_pfa=False)` | The `aspose_font.type1` namespace re-exports `Type1Font` from the primary `aspose_font` namespace. |
++| `Type1FontData` | Represents a TYPE1 Font Data in the public TYPE1 API for Aspose.Font. |
++| `Type1Interpreter(subrs, len_iv=4)` | Represents a TYPE1 Interpreter in the public TYPE1 API for Aspose.Font. |
++
++### Aspose.Font.Web Namespace (`aspose_font.web`)
++
++| Type | Description |
++| --- | --- |
++| `WebFontAsset` | The `aspose_font.web` namespace re-exports `WebFontAsset` from the primary `aspose_font` namespace. |
++| `WebFontBuilder` | The `aspose_font.web` namespace re-exports `WebFontBuilder` from the primary `aspose_font` namespace. |
++| `WebFontBundle` | The `aspose_font.web` namespace re-exports `WebFontBundle` from the primary `aspose_font` namespace. |
++| `WebFontFamilyPackage` | The `aspose_font.web` namespace re-exports `WebFontFamilyPackage` from the primary `aspose_font` namespace. |
++| `WebFontOptimizer` | The `aspose_font.web` namespace re-exports `WebFontOptimizer` from the primary `aspose_font` namespace. |
++| `WebFontOptimizerPackage` | The `aspose_font.web` namespace re-exports `WebFontOptimizerPackage` from the primary `aspose_font` namespace. |
+ 
+-```bash
+-# General inspection and conversion
+-aspose-font info Roboto.ttf
+-aspose-font convert Roboto.ttf Roboto.woff2 --to woff2
+-aspose-font meta-clean Roboto.ttf Roboto-clean.ttf
+-
+-# Variable-font previews and review boards
+-aspose-font preview Roboto-VariableFont_wdth,wght.ttf preview.svg --instance-name Bold --format svg
+-aspose-font var-instance Roboto-VariableFont_wdth,wght.ttf bold-condensed.ttf --instance wght=Bold --instance wdth=Condensed
+-aspose-font var-instance Roboto-VariableFont_wdth,wght.ttf condensed-bold.ttf --instance-name condensedbold
+-aspose-font var-instance Roboto-VariableFont_wdth,wght.ttf qa-bold.ttf --instance-name Bold --naming-strategy qa-tagged
+-aspose-font var-instance Roboto-VariableFont_wdth,wght.ttf menu-safe-bold.ttf --instance-name Bold --naming-strategy menu-safe
+-aspose-font var-instance Roboto-VariableFont_wdth,wght.ttf ribbi-safe-bold.ttf --instance-name "Condensed Bold" --naming-strategy ribbi-safe
+-aspose-font var-instance Roboto-VariableFont_wdth,wght.ttf beta-bold.ttf --instance-name Bold --naming-strategy instance-family --family-suffix Beta
+-aspose-font var-instance Roboto-VariableFont_wdth,wght.ttf acme-bold.ttf --instance-name "Condensed Bold" --naming-strategy ribbi-safe --legacy-family-name "Acme Sans Menu" --typographic-family-name "Acme Sans Pro"
+-aspose-font var-instance Roboto-VariableFont_wdth,wght.ttf acme-display.ttf --instance-name "Condensed Bold" --naming-strategy ribbi-safe --legacy-style-name Bold --typographic-style-name "Condensed Display Bold"
+-aspose-font var-instance Roboto-VariableFont_wdth,wght.ttf bold-stat.ttf --instance-name Bold --stat-policy static
+-aspose-font var-naming-preview Roboto-VariableFont_wdth,wght.ttf --instance-name Bold --stat-policy static --json-output naming-preview.json
+-aspose-font var-info Roboto-VariableFont_wdth,wght.ttf
+-aspose-font var-info Roboto-VariableFont_wdth,wght.ttf --language fr-CA --language en
+-aspose-font var-info Roboto-VariableFont_wdth,wght.ttf --json-output variable-presentation.json
+-aspose-font preview-grid-sheet Roboto-VariableFont_wdth,wght.ttf grid-sheet.png --axis wght --use-presets
+-aspose-font preview-compare Roboto-VariableFont_wdth,wght.ttf compare.png --before-instance-name Regular --after-instance-name "Condensed Bold"
+-aspose-font preview-waterfall Roboto-VariableFont_wdth,wght.ttf waterfall.png --instance-name Bold --instance-name "Condensed Bold" --include-default
+-aspose-font preview-matrix Roboto-VariableFont_wdth,wght.ttf matrix.png --all-named
+-aspose-font preview-family-board Roboto-VariableFont_wdth,wght.ttf family-review-board.png --instance-name Bold --instance-name "Condensed Bold" --include-default
+-aspose-font preview-family-export Roboto-VariableFont_wdth,wght.ttf family-review-export --instance-name Bold --include-default --family-name "Roboto Review"
+-aspose-font web-grid-family Roboto-VariableFont_wdth,wght.ttf grid-family --axis wght --use-presets --axis2 wdth --use-secondary-presets --no-woff
+-
+-# QA tooling
+-aspose-font qa-report Roboto-VariableFont_wdth,wght.ttf --preset latin --text "Aspose QA" --json-output qa-report.json --html-output qa-report.html
+-aspose-font var-compat Roboto-VariableFont_wdth,wght.ttf --before-instance-name Regular --after-instance-name "Condensed Bold" --text Aspose
+-aspose-font var-compat Roboto-VariableFont_wdth,wght.ttf --before-instance-name Regular --after-instance-name "Condensed Bold" --text Aspose --json-output compat-report.json
+-aspose-font var-delta Roboto-VariableFont_wdth,wght.ttf --instance-name Bold --char A
+-aspose-font var-delta-text Roboto-VariableFont_wdth,wght.ttf --instance-name Bold --text "Aspose"
+-aspose-font var-delta-text-compare Roboto-VariableFont_wdth,wght.ttf --before-instance-name Regular --after-instance-name "Condensed Bold" --text "Aspose"
+-aspose-font var-delta-text-compare-board Roboto-VariableFont_wdth,wght.ttf delta-text-compare.png --before-instance-name Regular --after-instance-name "Condensed Bold" --text "Aspose"
+-aspose-font var-delta-compare Roboto-VariableFont_wdth,wght.ttf --before-instance-name Regular --after-instance-name "Condensed Bold" --char A
+-
+-# Web packaging
+-aspose-font web-build Roboto-VariableFont_wdth,wght.ttf web-out --instance-name Bold --template editorial --no-woff
+-aspose-font web-build Roboto-VariableFont_wdth,wght.ttf web-beta --instance-name Bold --family-suffix Beta --no-woff
+-aspose-font web-build Roboto-VariableFont_wdth,wght.ttf web-static-stat --variable-mode static --instance-name Bold --stat-policy static --no-woff
+-aspose-font web-family Roboto-VariableFont_wdth,wght.ttf family-out --instance-name Bold --naming-strategy preserve-family --no-woff
+-aspose-font web-grid Roboto-VariableFont_wdth,wght.ttf grid-web --axis wght --use-presets --no-woff
+-aspose-font web-grid-family Roboto-VariableFont_wdth,wght.ttf grid-family --axis wght --use-presets --family-name "Roboto Grid" --no-woff
+-```
++### Aspose.Font.WOFF Namespace (`aspose_font.woff`)
+ 
+-## MCP Server
++| Type | Description |
++| --- | --- |
++| `Woff2Font(inner, metadata_xml='')` | The `aspose_font.woff` namespace re-exports `Woff2Font` from the primary `aspose_font` namespace. |
++| `WoffFont(inner, metadata_xml='')` | The `aspose_font.woff` namespace re-exports `WoffFont` from the primary `aspose_font` namespace. |
+ 
+-Expose the library to AI clients and local toolchains:
++### Aspose.Font.TTF.Tables Namespace (`aspose_font.ttf.tables`)
++
++| Type | Description |
++| --- | --- |
++| `AxisRecord` | The `aspose_font.ttf.tables` namespace re-exports `AxisRecord` from the primary `aspose_font` namespace. |
++| `CmapTable` | Represents a CMap Table in the public tables API for Aspose.Font. Supports besting subtable, loading content from reader, and converting content to bytes. |
++| `FvarTable` | The `aspose_font.ttf.tables` namespace re-exports `FvarTable` from the primary `aspose_font` namespace. |
++| `GlyfTable` | Represents a Glyf Table in the public tables API for Aspose.Font. Supports loading content from reader, retrieving glyph bytes, and converting content to bytes. |
++| `HMetric` | Represents an H Metric in the public tables API for Aspose.Font. |
++| `HeadTable` | Represents a Head Table in the public tables API for Aspose.Font. Supports loading content from reader and converting content to bytes. |
++| `HheaTable` | Represents a Hhea Table in the public tables API for Aspose.Font. Supports loading content from reader and converting content to bytes. |
++| `HmtxTable` | Represents a Hmtx Table in the public tables API for Aspose.Font. Supports loading content from reader, retrieving metric, and converting content to bytes. |
++| `HvarTable` | Represents a Hvar Table in the public tables API for Aspose.Font. Supports advancing width delta and loading content from reader. |
++| `KernTable` | Represents a Kern Table in the public tables API for Aspose.Font. Supports building lookup, loading content from reader, and converting content to bytes. |
++| `LocaTable` | Represents a Loca Table in the public tables API for Aspose.Font. Supports loading content from reader, glyphing length, and glyphing offset. |
++| `MaxpTable` | Represents a Maxp Table in the public tables API for Aspose.Font. Supports loading content from reader and converting content to bytes. |
++| `NameTable` | Represents a Name Table in the public tables API for Aspose.Font. Supports besting name, ensuring english platform names, and ensuring name record. |
++| `NamedInstance` | The `aspose_font.ttf.tables` namespace re-exports `NamedInstance` from the primary `aspose_font` namespace. |
++| `Os2Table` | Represents an Os2 Table in the public tables API for Aspose.Font. Supports loading content from reader and converting content to bytes. |
++| `PostTable` | Represents a Post Table in the public tables API for Aspose.Font. Supports loading content from reader, glyphing name, and converting content to bytes. |
++| `TtfTableSet` | The `aspose_font.ttf.tables` namespace re-exports `TtfTableSet` from the primary `aspose_font.ttf` namespace. |
++
++</details>
++
++## Documentation and Resources
++
++- **[Getting started guide](https://docs.aspose.org/font/python/)** - installation, walkthroughs, and feature guides for this library.
++- **[Full API reference](https://reference.aspose.org/font/python/)** - the complete browsable reference for the public API.
++- Found a bug or have a feature request? [Open an issue](https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python/issues) on GitHub.
++
++## Scope and Limitations
++
++The library targets the workflows listed above; embedded-font support has documented boundaries. Ten specific constraints are listed below.
++
++- To_bytes not implemented for.
++- BinaryReader requires a binary stream, got text stream.
++- Animation paths require at least two steps.
++- Animation sweeps require a variable TTF font.
++- Animation paths require at least 2 frames per segment.
++- Animation requires at least 2 frames.
++- --chars require exactly one character.
++- Preview-batches require a --all-named or at least one --instance-name.
++- Preview-waterfalls require --all-named, --include-default, and or at least one --instance-name entries.
++- Preview-matrixes require --all-named, --include-default, and or at least one --instance-name entries.
++
++The package manifest classifies this release as **Beta**.
++
++This repository contains [Aspose.Font FOSS for Python](https://products.aspose.org/font/python/). For requirements beyond the FOSS scope described above, explore the [full-featured Aspose.Font Enterprise Edition](https://products.aspose.com/font/). It is a separate product, so features and APIs may differ.
++
++## Development and Testing
++
++The repository includes 29 test files, 2 declared Make targets.
++
++### Tests
++
++- [`tests/conftest.py`](tests/conftest.py)
++- [`tests/test_animation.py`](tests/test_animation.py)
++- [`tests/test_cff.py`](tests/test_cff.py)
++- [`tests/test_cff_glyphs.py`](tests/test_cff_glyphs.py)
++- [`tests/test_cleaner.py`](tests/test_cleaner.py)
++- [`tests/test_cli.py`](tests/test_cli.py)
++- [`tests/test_compatibility.py`](tests/test_compatibility.py)
++- [`tests/test_converter.py`](tests/test_converter.py)
++- [Browse all test files](tests)
++
++### Repository Make Targets
+ 
+ ```bash
+-pip install "aspose-font[mcp]"
+-python -m aspose_font.mcp
++make test
+ ```
+ 
+-The MCP server now covers low-level inspection tools, machine-readable variable-font compatibility
+-reports through `var_compat`, and high-level web export workflows including single-bundle web
+-packaging and shared family-package generation.
++```bash
++make build
++```
+ 
+-## Development
++### Focused Commands and Repository Scripts
+ 
+ ```bash
+-uv run python -m pytest tests/ -q
+-uv run --with ruff ruff check src tests setup.py
+-uv run --with build python -m build
++python -m pip install -e .
+ ```
+ 
+-These verification flows also refresh the generated demo site content.
++```bash
++python -m pytest tests
++```
++
++## Security
++
++Follow the repository's [`SECURITY.md`](SECURITY.md) policy.
+ 
+ ## License
+ 
+-[MIT](./LICENSE.txt)
++This project is available under the [MIT License](LICENSE.txt). It permits use, modification, distribution, and commercial use when the license and copyright notice are retained.

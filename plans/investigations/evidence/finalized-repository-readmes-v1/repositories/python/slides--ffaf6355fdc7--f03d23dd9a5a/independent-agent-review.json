@@ -1,0 +1,342 @@
+{
+  "content_assurance": "repository_verified",
+  "verdict": "ACCEPT",
+  "reasoning": "blind_quality:ACCEPT; factual_plan:ACCEPT",
+  "failed_criteria": [],
+  "sections_affected": [],
+  "required_repair": "",
+  "preserve": [],
+  "blind_quality_review": {
+    "content_assurance": "repository_verified",
+    "identity": {
+      "actor_id": "llm-route:merged-readme-review",
+      "role": "blind_quality_reviewer",
+      "prompt_id": "merged_readme_review",
+      "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+    },
+    "candidate_sha256": "f03d23dd9a5a10c2abc3c273ef22a16ca2ed732c2845151df3d9ba255e3949c7",
+    "input_sha256": "6556d07bf382023511e7c94c69cddd84abc079089db49073255fabb9048388d4",
+    "verdict": "ACCEPT",
+    "reasoning": "The README presents a clear, well-structured, and product-specific overview for developers using Python. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 headings with correct prefixes. The 'At a Glance' Mermaid diagram is rendered correctly and aligns with the inputs-product-capabilities-outputs topology. The 'Quick Start' section contains exactly one fenced block with 8 non-blank lines, meeting the 12-line limit. All examples are presented in Python with proper fenced code blocks, and the license section includes the required benefit terms. There is no visible duplication, internal assurance language, or forbidden comments. Markdown integrity is preserved, and the template is applied generically without generic filler.",
+    "failed_criteria": [],
+    "sections_affected": [],
+    "required_repair": "",
+    "findings": [
+      {
+        "finding_id": "quality.h2_navigation",
+        "kind": "quality",
+        "criterion": "navigation",
+        "section": "Navigation",
+        "claim": "The Navigation section provides a complete list of H2 headings as markdown bullets.",
+        "quoted_candidate_span": "- [At a Glance](#at-a-glance)\n- [Key Capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Additional Examples](#additional-examples)\n- [API Reference](#api-reference)\n- [Documentation and Resources](#documentation-and-resources)\n- [Scope and Limitations](#scope-and-limitations)\n- [Development and Testing](#development-and-testing)\n- [License](#license)",
+        "candidate_anchor_id": "candidate.anchor.7b8bdd4983d4e45af810.1",
+        "disposition": "supports_acceptance",
+        "fact_id": null,
+        "evidence_excerpt": null,
+        "evidence_location": null,
+        "expected_polarity": null,
+        "observed_polarity": null,
+        "polarity_result": "not_applicable",
+        "mechanical_check_id": null,
+        "reported_observed_value": null,
+        "required_repair": ""
+      },
+      {
+        "finding_id": "quality.quick_start_example",
+        "kind": "quality",
+        "criterion": "example_presentation",
+        "section": "Quick Start",
+        "claim": "The Quick Start section contains a single, minimal, working Python example within the line limit.",
+        "quoted_candidate_span": "## Quick Start",
+        "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
+        "disposition": "supports_acceptance",
+        "fact_id": null,
+        "evidence_excerpt": null,
+        "evidence_location": null,
+        "expected_polarity": null,
+        "observed_polarity": null,
+        "polarity_result": "not_applicable",
+        "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+        "reported_observed_value": 8,
+        "required_repair": ""
+      }
+    ],
+    "grounding_validation": {
+      "valid": true,
+      "errors": [],
+      "checked_finding_ids": [
+        "quality.h2_navigation",
+        "quality.quick_start_example"
+      ]
+    }
+  },
+  "factual_plan_review": {
+    "content_assurance": "repository_verified",
+    "identity": {
+      "actor_id": "llm-route:merged-readme-review",
+      "role": "factual_plan_reviewer",
+      "prompt_id": "merged_readme_review",
+      "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+    },
+    "candidate_sha256": "f03d23dd9a5a10c2abc3c273ef22a16ca2ed732c2845151df3d9ba255e3949c7",
+    "input_sha256": "89601127c1eef303b7a955b121fe04258f971bec276612aa3b73a2eab118d323",
+    "verdict": "ACCEPT",
+    "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, audience, license, compatibility, formats, capabilities, and limitations are all verified by repository evidence, manifest data, registry information, and source code guidance. The API surface claim of 458 public types across 8 namespaces is consistent with the inventory counts in the fact packet. The installation and acquisition claims match the manifest and PyPI registry data. The examples and development assets are confirmed by repository inventory. No contradictions or missing evidence were found.",
+    "failed_criteria": [],
+    "sections_affected": [],
+    "required_repair": "",
+    "findings": [
+      {
+        "finding_id": "factual.product_identity",
+        "kind": "factual",
+        "criterion": "product_identity",
+        "section": "Summary",
+        "claim": "The product is Aspose.Slides FOSS for Python, an open-source library for developers using Python.",
+        "quoted_candidate_span": "Aspose.Slides FOSS for Python is an open-source library for developers using Python. It reads PPTX files and writes PPTX files and MD files.",
+        "candidate_anchor_id": "candidate.anchor.09436dbafd90b6b8d844.1",
+        "disposition": "supports_acceptance",
+        "fact_id": "product.identity:manifest-and-registry",
+        "evidence_excerpt": "slides",
+        "evidence_location": "repository://pyproject.toml",
+        "expected_polarity": "positive_implementation",
+        "observed_polarity": "positive_implementation",
+        "polarity_result": "supports",
+        "mechanical_check_id": null,
+        "reported_observed_value": null,
+        "required_repair": ""
+      },
+      {
+        "finding_id": "factual.installation_acquisition",
+        "kind": "factual",
+        "criterion": "installation_acquisition",
+        "section": "Installation",
+        "claim": "The package can be installed with `python -m pip install aspose-slides-foss` and requires Python 3.10+.",
+        "quoted_candidate_span": "## Installation",
+        "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+        "disposition": "supports_acceptance",
+        "fact_id": "installation.verified_acquisition:registry-pypi",
+        "evidence_excerpt": "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+        "evidence_location": "https://pypi.org/pypi/aspose-slides-foss/json",
+        "expected_polarity": "positive_implementation",
+        "observed_polarity": "positive_implementation",
+        "polarity_result": "supports",
+        "mechanical_check_id": null,
+        "reported_observed_value": null,
+        "required_repair": ""
+      }
+    ],
+    "grounding_validation": {
+      "valid": true,
+      "errors": [],
+      "checked_finding_ids": [
+        "factual.installation_acquisition",
+        "factual.product_identity"
+      ]
+    }
+  },
+  "combined_review": {
+    "content_assurance": "repository_verified",
+    "verdict": "ACCEPT",
+    "candidate_sha256": "f03d23dd9a5a10c2abc3c273ef22a16ca2ed732c2845151df3d9ba255e3949c7",
+    "blind_quality": {
+      "content_assurance": "repository_verified",
+      "identity": {
+        "actor_id": "llm-route:merged-readme-review",
+        "role": "blind_quality_reviewer",
+        "prompt_id": "merged_readme_review",
+        "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+      },
+      "candidate_sha256": "f03d23dd9a5a10c2abc3c273ef22a16ca2ed732c2845151df3d9ba255e3949c7",
+      "input_sha256": "6556d07bf382023511e7c94c69cddd84abc079089db49073255fabb9048388d4",
+      "verdict": "ACCEPT",
+      "reasoning": "The README presents a clear, well-structured, and product-specific overview for developers using Python. It follows the required header structure with a single H1, compliant badges in one row, and all mandatory H2 headings with correct prefixes. The 'At a Glance' Mermaid diagram is rendered correctly and aligns with the inputs-product-capabilities-outputs topology. The 'Quick Start' section contains exactly one fenced block with 8 non-blank lines, meeting the 12-line limit. All examples are presented in Python with proper fenced code blocks, and the license section includes the required benefit terms. There is no visible duplication, internal assurance language, or forbidden comments. Markdown integrity is preserved, and the template is applied generically without generic filler.",
+      "failed_criteria": [],
+      "sections_affected": [],
+      "required_repair": "",
+      "findings": [
+        {
+          "finding_id": "quality.h2_navigation",
+          "kind": "quality",
+          "criterion": "navigation",
+          "section": "Navigation",
+          "claim": "The Navigation section provides a complete list of H2 headings as markdown bullets.",
+          "quoted_candidate_span": "- [At a Glance](#at-a-glance)\n- [Key Capabilities](#key-capabilities)\n- [Installation](#installation)\n- [Quick Start](#quick-start)\n- [Additional Examples](#additional-examples)\n- [API Reference](#api-reference)\n- [Documentation and Resources](#documentation-and-resources)\n- [Scope and Limitations](#scope-and-limitations)\n- [Development and Testing](#development-and-testing)\n- [License](#license)",
+          "candidate_anchor_id": "candidate.anchor.7b8bdd4983d4e45af810.1",
+          "disposition": "supports_acceptance",
+          "fact_id": null,
+          "evidence_excerpt": null,
+          "evidence_location": null,
+          "expected_polarity": null,
+          "observed_polarity": null,
+          "polarity_result": "not_applicable",
+          "mechanical_check_id": null,
+          "reported_observed_value": null,
+          "required_repair": ""
+        },
+        {
+          "finding_id": "quality.quick_start_example",
+          "kind": "quality",
+          "criterion": "example_presentation",
+          "section": "Quick Start",
+          "claim": "The Quick Start section contains a single, minimal, working Python example within the line limit.",
+          "quoted_candidate_span": "## Quick Start",
+          "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
+          "disposition": "supports_acceptance",
+          "fact_id": null,
+          "evidence_excerpt": null,
+          "evidence_location": null,
+          "expected_polarity": null,
+          "observed_polarity": null,
+          "polarity_result": "not_applicable",
+          "mechanical_check_id": "quick_start.max_nonblank_code_lines",
+          "reported_observed_value": 8,
+          "required_repair": ""
+        }
+      ],
+      "grounding_validation": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "quality.h2_navigation",
+          "quality.quick_start_example"
+        ]
+      }
+    },
+    "factual_plan": {
+      "content_assurance": "repository_verified",
+      "identity": {
+        "actor_id": "llm-route:merged-readme-review",
+        "role": "factual_plan_reviewer",
+        "prompt_id": "merged_readme_review",
+        "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+      },
+      "candidate_sha256": "f03d23dd9a5a10c2abc3c273ef22a16ca2ed732c2845151df3d9ba255e3949c7",
+      "input_sha256": "89601127c1eef303b7a955b121fe04258f971bec276612aa3b73a2eab118d323",
+      "verdict": "ACCEPT",
+      "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity, audience, license, compatibility, formats, capabilities, and limitations are all verified by repository evidence, manifest data, registry information, and source code guidance. The API surface claim of 458 public types across 8 namespaces is consistent with the inventory counts in the fact packet. The installation and acquisition claims match the manifest and PyPI registry data. The examples and development assets are confirmed by repository inventory. No contradictions or missing evidence were found.",
+      "failed_criteria": [],
+      "sections_affected": [],
+      "required_repair": "",
+      "findings": [
+        {
+          "finding_id": "factual.product_identity",
+          "kind": "factual",
+          "criterion": "product_identity",
+          "section": "Summary",
+          "claim": "The product is Aspose.Slides FOSS for Python, an open-source library for developers using Python.",
+          "quoted_candidate_span": "Aspose.Slides FOSS for Python is an open-source library for developers using Python. It reads PPTX files and writes PPTX files and MD files.",
+          "candidate_anchor_id": "candidate.anchor.09436dbafd90b6b8d844.1",
+          "disposition": "supports_acceptance",
+          "fact_id": "product.identity:manifest-and-registry",
+          "evidence_excerpt": "slides",
+          "evidence_location": "repository://pyproject.toml",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "polarity_result": "supports",
+          "mechanical_check_id": null,
+          "reported_observed_value": null,
+          "required_repair": ""
+        },
+        {
+          "finding_id": "factual.installation_acquisition",
+          "kind": "factual",
+          "criterion": "installation_acquisition",
+          "section": "Installation",
+          "claim": "The package can be installed with `python -m pip install aspose-slides-foss` and requires Python 3.10+.",
+          "quoted_candidate_span": "## Installation",
+          "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
+          "disposition": "supports_acceptance",
+          "fact_id": "installation.verified_acquisition:registry-pypi",
+          "evidence_excerpt": "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+          "evidence_location": "https://pypi.org/pypi/aspose-slides-foss/json",
+          "expected_polarity": "positive_implementation",
+          "observed_polarity": "positive_implementation",
+          "polarity_result": "supports",
+          "mechanical_check_id": null,
+          "reported_observed_value": null,
+          "required_repair": ""
+        }
+      ],
+      "grounding_validation": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "factual.installation_acquisition",
+          "factual.product_identity"
+        ]
+      }
+    },
+    "merged_call_receipt": {
+      "actor_id": "llm-route:merged-readme-review",
+      "prompt_id": "merged_readme_review",
+      "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
+      "input_sha256": "ca8e987a4ea6725293859bdcb61bac04fc7b898f478033d423da672c91c1a8b9",
+      "raw_output_sha256": "e0c97480b49b68a04a9908703f53d48e602ce16c10e8f0b22212e199a3393c1a",
+      "blind_record_sha256": "8ceb51bd07311150a0e74199cee77cd2b3f16653442aedeb447694c11ecdecad",
+      "factual_record_sha256": "cd0ab0e903af0d4e26c5113c0fc3cc9f208f20c636dc6661c5c543bb64ca33fb",
+      "provider_request_id": "chatcmpl-8438d6607532ccee",
+      "provider_model": "qwen3-next"
+    },
+    "identity_separation_valid": true,
+    "reasons": [
+      "blind_quality:ACCEPT",
+      "factual_plan:ACCEPT"
+    ]
+  },
+  "grounding_retry_history": [
+    {
+      "role": "blind_quality",
+      "attempt": 1,
+      "context_mode": "full_review_packet",
+      "input_character_count": 164177,
+      "valid": true,
+      "errors": [],
+      "validation_result": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "quality.h2_navigation",
+          "quality.quick_start_example"
+        ]
+      },
+      "deterministically_dismissed_finding_ids": [],
+      "reconciled_candidate_span_ids": [],
+      "reconciled_factual_polarity_ids": [],
+      "pre_normalization_errors": [],
+      "invalid_findings": []
+    },
+    {
+      "role": "factual_plan",
+      "attempt": 1,
+      "context_mode": "full_review_packet",
+      "input_character_count": 164177,
+      "valid": true,
+      "errors": [],
+      "validation_result": {
+        "valid": true,
+        "errors": [],
+        "checked_finding_ids": [
+          "factual.installation_acquisition",
+          "factual.product_identity"
+        ]
+      },
+      "deterministically_dismissed_finding_ids": [],
+      "reconciled_candidate_span_ids": [],
+      "reconciled_factual_polarity_ids": [
+        "factual.product_identity",
+        "factual.installation_acquisition"
+      ],
+      "pre_normalization_errors": [],
+      "invalid_findings": []
+    }
+  ],
+  "review_contract_version": "2",
+  "acceptance_binding": {
+    "schema_version": 1,
+    "candidate_hash": "f03d23dd9a5a10c2abc3c273ef22a16ca2ed732c2845151df3d9ba255e3949c7",
+    "candidate_stage_dependency_key": "32c2035ee632b2b7ef910b1869e44318828641eb3bd9145b337d4c5af4c0be04",
+    "mermaid_render_contract_version": "3",
+    "deterministic_validation_hash": "0a42c5f92d53617640b7966ab5765caaee165db05dfb230ba991f129c216e784",
+    "reviewer_standard_hash": "831bac00046be9bc3017075f514138ac6e44822c163ec7789603c543bdce5dca"
+  }
+}

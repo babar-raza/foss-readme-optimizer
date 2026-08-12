@@ -1,0 +1,505 @@
+[
+  {
+    "review_pass": 1,
+    "repair_attempt": 0,
+    "candidate_sha256": "3149de5127ef78390726563e497da3692a9ca91161932ae954a653889cb2e7bc",
+    "review": {
+      "content_assurance": "repository_verified",
+      "verdict": "ACCEPT",
+      "reasoning": "blind_quality:ACCEPT; factual_plan:ACCEPT",
+      "failed_criteria": [],
+      "sections_affected": [],
+      "required_repair": "",
+      "preserve": [],
+      "blind_quality_review": {
+        "content_assurance": "repository_verified",
+        "identity": {
+          "actor_id": "llm-route:merged-readme-review",
+          "role": "blind_quality_reviewer",
+          "prompt_id": "merged_readme_review",
+          "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+        },
+        "candidate_sha256": "3149de5127ef78390726563e497da3692a9ca91161932ae954a653889cb2e7bc",
+        "input_sha256": "87254876810b4a09fb5d43b357a45fd2b7c8144743f58b3adbd1271dd13aa165",
+        "verdict": "ACCEPT",
+        "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.Words FOSS for Python. It follows the required header structure (H1 title, badges row, banner image, summary), includes all mandatory H2 headings with correct prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start, Additional Examples, API Reference, Documentation and Resources, Scope and Limitations, Development and Testing, License), and provides a complete navigation list. The Mermaid diagram in At a Glance is concise and accurately reflects the product's inputs, outputs, and core capabilities. The Quick Start section complies with the single-fenced-block and line-limit constraints. Installation and examples are clearly presented with correct syntax and minimal code. The license and scope sections are properly balanced and avoid promotional overreach. All mechanical checks pass (H1 count, no duplicate H2s, required H2 prefixes, badge rows, fenced blocks, code line limits).",
+        "failed_criteria": [],
+        "sections_affected": [],
+        "required_repair": "",
+        "findings": [
+          {
+            "finding_id": "quality.clarity.h1_blocks",
+            "kind": "quality",
+            "criterion": "clarity",
+            "section": "Title",
+            "claim": "The README has exactly one H1 heading, providing a clear and unambiguous product title.",
+            "quoted_candidate_span": "# Aspose.Words FOSS for Python",
+            "candidate_anchor_id": "candidate.anchor.984e94b8100702bc3a27.1",
+            "disposition": "supports_acceptance",
+            "fact_id": null,
+            "evidence_excerpt": null,
+            "evidence_location": null,
+            "expected_polarity": null,
+            "observed_polarity": null,
+            "polarity_result": "not_applicable",
+            "mechanical_check_id": "document.h1_blocks",
+            "reported_observed_value": 1,
+            "required_repair": ""
+          },
+          {
+            "finding_id": "quality.hierarchy.required_h2_prefix",
+            "kind": "quality",
+            "criterion": "hierarchy",
+            "section": "Navigation",
+            "claim": "All required H2 headings are present with correct prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start).",
+            "quoted_candidate_span": "## Navigation",
+            "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
+            "disposition": "supports_acceptance",
+            "fact_id": null,
+            "evidence_excerpt": null,
+            "evidence_location": null,
+            "expected_polarity": null,
+            "observed_polarity": null,
+            "polarity_result": "not_applicable",
+            "mechanical_check_id": "document.required_h2_prefix",
+            "reported_observed_value": true,
+            "required_repair": ""
+          }
+        ],
+        "grounding_validation": {
+          "valid": true,
+          "errors": [],
+          "checked_finding_ids": [
+            "quality.clarity.h1_blocks",
+            "quality.hierarchy.required_h2_prefix"
+          ]
+        }
+      },
+      "factual_plan_review": {
+        "content_assurance": "repository_verified",
+        "identity": {
+          "actor_id": "llm-route:merged-readme-review",
+          "role": "factual_plan_reviewer",
+          "prompt_id": "merged_readme_review",
+          "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+        },
+        "candidate_sha256": "3149de5127ef78390726563e497da3692a9ca91161932ae954a653889cb2e7bc",
+        "input_sha256": "8235b1af30e16c9eac3cfbe34ebf471e0c2f047153798ce7ff76bb9878cd409f",
+        "verdict": "ACCEPT",
+        "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity (name, version, registry, repository) is verified via manifest and registry facts. Installation coordinates, optional extras, and verified acquisition from PyPI are confirmed. Compatibility (Python >=3.10,<3.13) and runtime dependencies (olefile, fpdf2, pydantic) match the pyproject.toml. Capabilities (DOCX/DOC/MD input, DOCX/PDF/MD output, plain text extraction) are supported by repository evidence. Limitations (ZIP64 behavior, ISO29500_STRICT not supported) are explicitly cited from source code. The API surface (92 public types across 12 namespaces) aligns with the public surface inventory. Development commands and documentation links are correctly referenced. The license (MIT) and commercial context (FOSS vs Enterprise Edition) are accurately represented. No unsupported or contradictory claims were found.",
+        "failed_criteria": [],
+        "sections_affected": [],
+        "required_repair": "",
+        "findings": [
+          {
+            "finding_id": "factual.installation.verified_acquisition",
+            "kind": "factual",
+            "criterion": "installation.verified_acquisition",
+            "section": "Installation",
+            "claim": "The package is available on PyPI as 'aspose-words-foss' and can be installed via 'python -m pip install aspose-words-foss'.",
+            "quoted_candidate_span": "```bash\npython -m pip install aspose-words-foss\n```",
+            "candidate_anchor_id": "candidate.anchor.7ee3e5ec134fe9e4d56c.1",
+            "disposition": "supports_acceptance",
+            "fact_id": "installation.verified_acquisition:registry-pypi",
+            "evidence_excerpt": "aspose-words-foss/Aspose.Words-FOSS-for-Python",
+            "evidence_location": "https://pypi.org/pypi/aspose-words-foss/json",
+            "expected_polarity": "positive_implementation",
+            "observed_polarity": "positive_implementation",
+            "polarity_result": "supports",
+            "mechanical_check_id": null,
+            "reported_observed_value": null,
+            "required_repair": ""
+          },
+          {
+            "finding_id": "factual.product.capabilities",
+            "kind": "factual",
+            "criterion": "product.capabilities",
+            "section": "Key Capabilities",
+            "claim": "The library supports importing DOCX, DOC, and MD files, and exporting to DOCX, PDF, and MD formats.",
+            "quoted_candidate_span": "## Key Capabilities",
+            "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
+            "disposition": "supports_acceptance",
+            "fact_id": "product.capabilities:repository-evidence",
+            "evidence_excerpt": "Document class.",
+            "evidence_location": "repository://ApiExamples/convert_document.py,ApiExamples/loading_document.py,ApiExamples/working_with_markdown_save_options.py,ApiExamples/working_with_pdf_save_options.py,aspose/words_foss/document.py,aspose/words_foss/md_writer.py,aspose/words_foss/saving.py",
+            "expected_polarity": "positive_implementation",
+            "observed_polarity": "positive_implementation",
+            "polarity_result": "supports",
+            "mechanical_check_id": null,
+            "reported_observed_value": null,
+            "required_repair": ""
+          }
+        ],
+        "grounding_validation": {
+          "valid": true,
+          "errors": [],
+          "checked_finding_ids": [
+            "factual.installation.verified_acquisition",
+            "factual.product.capabilities"
+          ]
+        }
+      },
+      "combined_review": {
+        "content_assurance": "repository_verified",
+        "verdict": "ACCEPT",
+        "candidate_sha256": "3149de5127ef78390726563e497da3692a9ca91161932ae954a653889cb2e7bc",
+        "blind_quality": {
+          "content_assurance": "repository_verified",
+          "identity": {
+            "actor_id": "llm-route:merged-readme-review",
+            "role": "blind_quality_reviewer",
+            "prompt_id": "merged_readme_review",
+            "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+          },
+          "candidate_sha256": "3149de5127ef78390726563e497da3692a9ca91161932ae954a653889cb2e7bc",
+          "input_sha256": "87254876810b4a09fb5d43b357a45fd2b7c8144743f58b3adbd1271dd13aa165",
+          "verdict": "ACCEPT",
+          "reasoning": "The README presents a clear, well-structured, and product-specific overview of Aspose.Words FOSS for Python. It follows the required header structure (H1 title, badges row, banner image, summary), includes all mandatory H2 headings with correct prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start, Additional Examples, API Reference, Documentation and Resources, Scope and Limitations, Development and Testing, License), and provides a complete navigation list. The Mermaid diagram in At a Glance is concise and accurately reflects the product's inputs, outputs, and core capabilities. The Quick Start section complies with the single-fenced-block and line-limit constraints. Installation and examples are clearly presented with correct syntax and minimal code. The license and scope sections are properly balanced and avoid promotional overreach. All mechanical checks pass (H1 count, no duplicate H2s, required H2 prefixes, badge rows, fenced blocks, code line limits).",
+          "failed_criteria": [],
+          "sections_affected": [],
+          "required_repair": "",
+          "findings": [
+            {
+              "finding_id": "quality.clarity.h1_blocks",
+              "kind": "quality",
+              "criterion": "clarity",
+              "section": "Title",
+              "claim": "The README has exactly one H1 heading, providing a clear and unambiguous product title.",
+              "quoted_candidate_span": "# Aspose.Words FOSS for Python",
+              "candidate_anchor_id": "candidate.anchor.984e94b8100702bc3a27.1",
+              "disposition": "supports_acceptance",
+              "fact_id": null,
+              "evidence_excerpt": null,
+              "evidence_location": null,
+              "expected_polarity": null,
+              "observed_polarity": null,
+              "polarity_result": "not_applicable",
+              "mechanical_check_id": "document.h1_blocks",
+              "reported_observed_value": 1,
+              "required_repair": ""
+            },
+            {
+              "finding_id": "quality.hierarchy.required_h2_prefix",
+              "kind": "quality",
+              "criterion": "hierarchy",
+              "section": "Navigation",
+              "claim": "All required H2 headings are present with correct prefixes (Navigation, At a Glance, Key Capabilities, Installation, Quick Start).",
+              "quoted_candidate_span": "## Navigation",
+              "candidate_anchor_id": "candidate.anchor.44ffd1d0a732b89731e0.1",
+              "disposition": "supports_acceptance",
+              "fact_id": null,
+              "evidence_excerpt": null,
+              "evidence_location": null,
+              "expected_polarity": null,
+              "observed_polarity": null,
+              "polarity_result": "not_applicable",
+              "mechanical_check_id": "document.required_h2_prefix",
+              "reported_observed_value": true,
+              "required_repair": ""
+            }
+          ],
+          "grounding_validation": {
+            "valid": true,
+            "errors": [],
+            "checked_finding_ids": [
+              "quality.clarity.h1_blocks",
+              "quality.hierarchy.required_h2_prefix"
+            ]
+          }
+        },
+        "factual_plan": {
+          "content_assurance": "repository_verified",
+          "identity": {
+            "actor_id": "llm-route:merged-readme-review",
+            "role": "factual_plan_reviewer",
+            "prompt_id": "merged_readme_review",
+            "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766"
+          },
+          "candidate_sha256": "3149de5127ef78390726563e497da3692a9ca91161932ae954a653889cb2e7bc",
+          "input_sha256": "8235b1af30e16c9eac3cfbe34ebf471e0c2f047153798ce7ff76bb9878cd409f",
+          "verdict": "ACCEPT",
+          "reasoning": "All material claims in the README are supported by the selected fact packet. The product identity (name, version, registry, repository) is verified via manifest and registry facts. Installation coordinates, optional extras, and verified acquisition from PyPI are confirmed. Compatibility (Python >=3.10,<3.13) and runtime dependencies (olefile, fpdf2, pydantic) match the pyproject.toml. Capabilities (DOCX/DOC/MD input, DOCX/PDF/MD output, plain text extraction) are supported by repository evidence. Limitations (ZIP64 behavior, ISO29500_STRICT not supported) are explicitly cited from source code. The API surface (92 public types across 12 namespaces) aligns with the public surface inventory. Development commands and documentation links are correctly referenced. The license (MIT) and commercial context (FOSS vs Enterprise Edition) are accurately represented. No unsupported or contradictory claims were found.",
+          "failed_criteria": [],
+          "sections_affected": [],
+          "required_repair": "",
+          "findings": [
+            {
+              "finding_id": "factual.installation.verified_acquisition",
+              "kind": "factual",
+              "criterion": "installation.verified_acquisition",
+              "section": "Installation",
+              "claim": "The package is available on PyPI as 'aspose-words-foss' and can be installed via 'python -m pip install aspose-words-foss'.",
+              "quoted_candidate_span": "```bash\npython -m pip install aspose-words-foss\n```",
+              "candidate_anchor_id": "candidate.anchor.7ee3e5ec134fe9e4d56c.1",
+              "disposition": "supports_acceptance",
+              "fact_id": "installation.verified_acquisition:registry-pypi",
+              "evidence_excerpt": "aspose-words-foss/Aspose.Words-FOSS-for-Python",
+              "evidence_location": "https://pypi.org/pypi/aspose-words-foss/json",
+              "expected_polarity": "positive_implementation",
+              "observed_polarity": "positive_implementation",
+              "polarity_result": "supports",
+              "mechanical_check_id": null,
+              "reported_observed_value": null,
+              "required_repair": ""
+            },
+            {
+              "finding_id": "factual.product.capabilities",
+              "kind": "factual",
+              "criterion": "product.capabilities",
+              "section": "Key Capabilities",
+              "claim": "The library supports importing DOCX, DOC, and MD files, and exporting to DOCX, PDF, and MD formats.",
+              "quoted_candidate_span": "## Key Capabilities",
+              "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
+              "disposition": "supports_acceptance",
+              "fact_id": "product.capabilities:repository-evidence",
+              "evidence_excerpt": "Document class.",
+              "evidence_location": "repository://ApiExamples/convert_document.py,ApiExamples/loading_document.py,ApiExamples/working_with_markdown_save_options.py,ApiExamples/working_with_pdf_save_options.py,aspose/words_foss/document.py,aspose/words_foss/md_writer.py,aspose/words_foss/saving.py",
+              "expected_polarity": "positive_implementation",
+              "observed_polarity": "positive_implementation",
+              "polarity_result": "supports",
+              "mechanical_check_id": null,
+              "reported_observed_value": null,
+              "required_repair": ""
+            }
+          ],
+          "grounding_validation": {
+            "valid": true,
+            "errors": [],
+            "checked_finding_ids": [
+              "factual.installation.verified_acquisition",
+              "factual.product.capabilities"
+            ]
+          }
+        },
+        "merged_call_receipt": {
+          "actor_id": "llm-route:merged-readme-review",
+          "prompt_id": "merged_readme_review",
+          "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
+          "input_sha256": "0cff0bc253c419583ba744161ce0b9a4f210e555a1a7e33203c3f4fa15663b60",
+          "raw_output_sha256": "95b69e8713202aef73f76601b946ef8a6833a064dbe9db8f5c6555d74c62b9dd",
+          "blind_record_sha256": "622f34a20ebb5e1a6d42ee8f83d8c240dc4622209b9429419bbb71b310b94ce7",
+          "factual_record_sha256": "fe042c1c3e432933c5385a13029f8a130d8eaf7101092b255d38d6de4cc7bda2",
+          "provider_request_id": "chatcmpl-baa41c3a49fe0473",
+          "provider_model": "qwen3-next"
+        },
+        "identity_separation_valid": true,
+        "reasons": [
+          "blind_quality:ACCEPT",
+          "factual_plan:ACCEPT"
+        ]
+      },
+      "grounding_retry_history": [
+        {
+          "role": "blind_quality",
+          "attempt": 1,
+          "context_mode": "full_review_packet",
+          "input_character_count": 96877,
+          "valid": true,
+          "errors": [],
+          "validation_result": {
+            "valid": true,
+            "errors": [],
+            "checked_finding_ids": [
+              "quality.clarity.h1_blocks",
+              "quality.hierarchy.required_h2_prefix"
+            ]
+          },
+          "deterministically_dismissed_finding_ids": [],
+          "reconciled_candidate_span_ids": [],
+          "reconciled_factual_polarity_ids": [],
+          "pre_normalization_errors": [],
+          "invalid_findings": []
+        },
+        {
+          "role": "factual_plan",
+          "attempt": 1,
+          "context_mode": "full_review_packet",
+          "input_character_count": 96877,
+          "valid": true,
+          "errors": [],
+          "validation_result": {
+            "valid": true,
+            "errors": [],
+            "checked_finding_ids": [
+              "factual.installation.verified_acquisition",
+              "factual.product.capabilities"
+            ]
+          },
+          "deterministically_dismissed_finding_ids": [],
+          "reconciled_candidate_span_ids": [],
+          "reconciled_factual_polarity_ids": [
+            "factual.installation.verified_acquisition",
+            "factual.product.capabilities"
+          ],
+          "pre_normalization_errors": [],
+          "invalid_findings": []
+        }
+      ],
+      "review_contract_version": "2"
+    },
+    "deterministic_validation": {
+      "verdict": "accept",
+      "reason": null,
+      "checks": {
+        "candidate_matches_independent_render": true,
+        "source_document_hash": true,
+        "adoption_preserved_source": true,
+        "candidate_is_marker_free": true,
+        "candidate_has_no_comments": true,
+        "facts_hash_matches": true,
+        "template_hash_matches": true,
+        "candidate_hash_matches": true,
+        "source_span_hashes": true,
+        "fact_citations": true,
+        "document_reconstruction": true,
+        "composition_lineage": true,
+        "protected_content": true,
+        "verified_example_present": true,
+        "verified_overview_present": true,
+        "verified_limitations_present": true,
+        "example_assurance_claims_supported": true,
+        "no_introduced_duplicate_headings": true,
+        "header_visuals": true,
+        "enterprise_edition_terminology": true,
+        "contextual_links": true,
+        "claim_accountability_complete": true,
+        "claim_accountability_gaps_visible": true,
+        "presentation_lint": true,
+        "needs_write_matches": true
+      },
+      "requirement_map": {
+        "immutable_snapshot": true,
+        "fact_backed_document_plan": true,
+        "verified_example": true,
+        "protected_content": true
+      },
+      "nonce": "20260812-134702-7999",
+      "token": "4bda8f8f18a7a5d72df2197429049b5bbf8c2304e204471e431aaa09de577909",
+      "official_mermaid_render": {
+        "status": "passed",
+        "schema_version": 1,
+        "contract_version": "3",
+        "renderer": "@mermaid-js/mermaid-cli@11.10.1",
+        "source_sha256": "9f3b72831c52ad0549080bad599fa9e051257abb6b5940a3315d88ee18f428f0",
+        "svg_sha256": "89d9ffd0ae4b58b3f9303aa8e0f33d083ee80cae42cf8dfb75a0adca2af2ed71",
+        "view_box": [
+          0.0,
+          0.0,
+          2135.859375,
+          620.0
+        ],
+        "aspect_ratio": 3.4449,
+        "node_geometry": [
+          {
+            "node_id": "PRODUCT",
+            "center_x": 664.2265625,
+            "center_y": 310.0,
+            "width": 205.046875,
+            "height": 78.0
+          },
+          {
+            "node_id": "I1",
+            "center_x": 98.6171875,
+            "center_y": 310.0,
+            "width": 111.234375,
+            "height": 78.0
+          },
+          {
+            "node_id": "I2",
+            "center_x": 259.8515625,
+            "center_y": 310.0,
+            "width": 111.234375,
+            "height": 78.0
+          },
+          {
+            "node_id": "I3",
+            "center_x": 421.0859375,
+            "center_y": 310.0,
+            "width": 111.234375,
+            "height": 78.0
+          },
+          {
+            "node_id": "C1",
+            "center_x": 1003.1328125,
+            "center_y": 132.0,
+            "width": 227.765625,
+            "height": 78.0
+          },
+          {
+            "node_id": "C2",
+            "center_x": 1003.1328125,
+            "center_y": 310.0,
+            "width": 216.765625,
+            "height": 78.0
+          },
+          {
+            "node_id": "C3",
+            "center_x": 1003.1328125,
+            "center_y": 488.0,
+            "width": 216.078125,
+            "height": 78.0
+          },
+          {
+            "node_id": "C4",
+            "center_x": 1379.046875,
+            "center_y": 144.0,
+            "width": 234.0625,
+            "height": 78.0
+          },
+          {
+            "node_id": "C5",
+            "center_x": 1379.046875,
+            "center_y": 322.0,
+            "width": 220.203125,
+            "height": 78.0
+          },
+          {
+            "node_id": "C6",
+            "center_x": 1379.046875,
+            "center_y": 488.0,
+            "width": 207.25,
+            "height": 54.0
+          },
+          {
+            "node_id": "O1",
+            "center_x": 1710.125,
+            "center_y": 310.0,
+            "width": 113.09375,
+            "height": 78.0
+          },
+          {
+            "node_id": "O2",
+            "center_x": 1873.21875,
+            "center_y": 310.0,
+            "width": 113.09375,
+            "height": 78.0
+          },
+          {
+            "node_id": "O3",
+            "center_x": 2036.3125,
+            "center_y": 310.0,
+            "width": 113.09375,
+            "height": 78.0
+          }
+        ],
+        "checks": {
+          "official_renderer_succeeded": true,
+          "all_semantic_nodes_rendered": true,
+          "landscape_and_compact": true,
+          "capability_columns_adaptive": true,
+          "capability_nodes_do_not_overlap": true,
+          "input_peer_widths_uniform": true,
+          "output_peer_widths_uniform": true,
+          "semantic_relationship_connectors_rendered": true
+        },
+        "errors": [],
+        "cached": false,
+        "render_duration_seconds": 11.86
+      }
+    },
+    "evidence_refs": [
+      "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-words-foss__Aspose.Words-FOSS-for-Python\\20260812-134702-7999"
+    ],
+    "reviewer_call_count": 1
+  }
+]

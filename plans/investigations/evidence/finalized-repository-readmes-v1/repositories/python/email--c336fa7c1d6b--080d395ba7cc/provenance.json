@@ -1,0 +1,424 @@
+{
+  "product.identity:manifest-and-registry": {
+    "field": "product.identity",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.platforms:manifest": {
+    "field": "product.platforms",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "installation.coordinates:manifest": {
+    "field": "installation.coordinates",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation"
+    ]
+  },
+  "documentation.links:governed-aspose-org-catalog": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "external_registry",
+      "location": "data/aspose_org_links.json",
+      "source_revision": "sha256:680cca760849f8da67905f7bca6a310d1d8fa3149f2a961abdb47234a026984e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "documentation-catalog-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "documentation.links:primary": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-email-foss/Aspose.Email-FOSS-for-Python",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "documentation-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "release.state:manifest-and-registry": {
+    "field": "release.state",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.release"
+    ]
+  },
+  "product.compatibility:manifest": {
+    "field": "product.compatibility",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "readme.installation"
+    ]
+  },
+  "product.license:license-file": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://LICENSE",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "product.license:manifest": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "support.routes:primary": {
+    "field": "support.routes",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-email-foss/Aspose.Email-FOSS-for-Python",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "support-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "community.support"
+    ]
+  },
+  "relationship.commercial_foss:primary": {
+    "field": "relationship.commercial_foss",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-email-foss/Aspose.Email-FOSS-for-Python",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.9,
+    "authoritative_owner": "portfolio-policy-owner",
+    "affected_surfaces": [
+      "readme.relationship"
+    ]
+  },
+  "api.public_surface:python-exports": {
+    "field": "api.public_surface",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/email_foss/__init__.py,aspose/email_foss/cfb/__init__.py,aspose/email_foss/cfb/reader.py,aspose/email_foss/cfb/types.py,aspose/email_foss/cfb/writer.py,aspose/email_foss/msg/__init__.py,aspose/email_foss/msg/mapi_message.py,aspose/email_foss/msg/property_id.py,aspose/email_foss/msg/property_tags.py,aspose/email_foss/msg/property_types.py,aspose/email_foss/msg/reader.py,aspose/email_foss/msg/types.py,aspose/email_foss/msg/writer.py,pyproject.toml",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.api_reference"
+    ]
+  },
+  "development.assets:repository-inventory": {
+    "field": "development.assets",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://tests/test_cfb_formats.py,tests/test_msg_formats.py",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development"
+    ]
+  },
+  "development.commands:repository-guidance": {
+    "field": "development.commands",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://pyproject.toml,tests/test_cfb_formats.py,tests/test_msg_formats.py",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development",
+      "readme.contributing"
+    ]
+  },
+  "python.distribution:pyproject-manifest": {
+    "field": "python.distribution",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.release"
+    ]
+  },
+  "repository.ci:canonical-workflow": {
+    "field": "repository.ci",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://.github/workflows/ci.yml",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.header"
+    ]
+  },
+  "repository.contribution_guidance:repository-entry-points": {
+    "field": "repository.contribution_guidance",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://CONTRIBUTING.md",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.contributing"
+    ]
+  },
+  "repository.documentation_assets:root-documents": {
+    "field": "repository.documentation_assets",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://PUBLIC_API.md,CHANGELOG.md,SECURITY.md,CONTRIBUTING.md",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "readme.limitations"
+    ]
+  },
+  "repository.examples:repository-inventory": {
+    "field": "repository.examples",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://README.md,aspose/email_foss/__init__.py,aspose/email_foss/cfb/__init__.py,aspose/email_foss/cfb/reader.py,aspose/email_foss/cfb/types.py,aspose/email_foss/cfb/writer.py,aspose/email_foss/msg/__init__.py,aspose/email_foss/msg/mapi_message.py,aspose/email_foss/msg/property_id.py,aspose/email_foss/msg/property_tags.py,aspose/email_foss/msg/property_types.py,aspose/email_foss/msg/reader.py,aspose/email_foss/msg/types.py,aspose/email_foss/msg/writer.py,examples/README.md,examples/create_msg_and_eml.py,examples/msg_reader.py,examples/msg_summary.py,git-tree:a0c81baf9f683e5e157dc8dcb0bbca6aaa93a7ef",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.examples"
+    ]
+  },
+  "repository.security_guidance:security-policy-and-source": {
+    "field": "repository.security_guidance",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://SECURITY.md",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.security"
+    ]
+  },
+  "product.capabilities:repository-evidence": {
+    "field": "product.capabilities",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/email_foss/cfb/reader.py,aspose/email_foss/cfb/types.py,aspose/email_foss/msg/mapi_message.py,aspose/email_foss/msg/reader.py,aspose/email_foss/msg/types.py,aspose/email_foss/msg/writer.py,examples/create_msg_and_eml.py",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": "2026-08-12T03:02:25.387444+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.description",
+      "metadata.topics"
+    ]
+  },
+  "product.formats:native-direction-evidence": {
+    "field": "product.formats",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "repository://aspose/email_foss/cfb/reader.py#L181;repository://aspose/email_foss/cfb/writer.py#L127;repository://aspose/email_foss/msg/mapi_message.py#L908;repository://aspose/email_foss/msg/reader.py#L74;repository://aspose/email_foss/msg/writer.py#L181",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "product.limitations:source-guidance": {
+    "field": "product.limitations",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/email_foss/cfb/reader.py,aspose/email_foss/msg/mapi_message.py,aspose/email_foss/msg/reader.py",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.limitations"
+    ]
+  },
+  "product.audience:platform-derived": {
+    "field": "product.audience",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.problems_solved:capability-derived": {
+    "field": "product.problems_solved",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/email_foss/cfb/reader.py,aspose/email_foss/cfb/types.py,aspose/email_foss/msg/mapi_message.py,aspose/email_foss/msg/reader.py,aspose/email_foss/msg/types.py,aspose/email_foss/msg/writer.py,examples/create_msg_and_eml.py",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": "2026-08-12T03:02:25.387444+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "example.minimal:compiled-salvaged-example": {
+    "field": "example.minimal",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "local-verifier://example.minimal",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.example"
+    ]
+  },
+  "installation.verified_acquisition:registry-pypi": {
+    "field": "installation.verified_acquisition",
+    "source": {
+      "source_type": "external_registry",
+      "location": "https://pypi.org/pypi/aspose-email-foss/json",
+      "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+      "retrieved_at": "2026-08-12T03:02:25.387444+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.example"
+    ]
+  }
+}

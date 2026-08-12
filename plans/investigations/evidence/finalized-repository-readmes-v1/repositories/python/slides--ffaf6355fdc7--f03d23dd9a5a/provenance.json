@@ -1,0 +1,363 @@
+{
+  "product.identity:manifest-and-registry": {
+    "field": "product.identity",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.platforms:manifest": {
+    "field": "product.platforms",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "installation.coordinates:manifest": {
+    "field": "installation.coordinates",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation"
+    ]
+  },
+  "documentation.links:governed-aspose-org-catalog": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "external_registry",
+      "location": "data/aspose_org_links.json",
+      "source_revision": "sha256:680cca760849f8da67905f7bca6a310d1d8fa3149f2a961abdb47234a026984e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "documentation-catalog-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "documentation.links:primary": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "documentation-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "release.state:manifest-and-registry": {
+    "field": "release.state",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.release"
+    ]
+  },
+  "product.compatibility:manifest": {
+    "field": "product.compatibility",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "readme.installation"
+    ]
+  },
+  "product.license:license-file": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://LICENSE",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "product.license:manifest": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "support.routes:primary": {
+    "field": "support.routes",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "support-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "community.support"
+    ]
+  },
+  "relationship.commercial_foss:primary": {
+    "field": "relationship.commercial_foss",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.9,
+    "authoritative_owner": "portfolio-policy-owner",
+    "affected_surfaces": [
+      "readme.relationship"
+    ]
+  },
+  "api.public_surface:python-exports": {
+    "field": "api.public_surface",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/slides_foss/AdjustValue.py,aspose/slides_foss/AdjustValueCollection.py,aspose/slides_foss/AutoShape.py,aspose/slides_foss/Background.py,aspose/slides_foss/BackgroundType.py,aspose/slides_foss/BaseHandoutNotesSlideHeaderFooterManager.py,aspose/slides_foss/BasePortionFormat.py,aspose/slides_foss/BaseShapeLock.py,aspose/slides_foss/BaseSlide.py,aspose/slides_foss/BevelPresetType.py,aspose/slides_foss/BulletFormat.py,aspose/slides_foss/BulletType.py,aspose/slides_foss/Camera.py,aspose/slides_foss/CameraPresetType.py,aspose/slides_foss/Cell.py,aspose/slides_foss/CellCollection.py,aspose/slides_foss/CellFormat.py,aspose/slides_foss/ColorFormat.py,aspose/slides_foss/ColorType.py,aspose/slides_foss/Column.py,aspose/slides_foss/ColumnCollection.py,aspose/slides_foss/Comment.py,aspose/slides_foss/CommentAuthor.py,aspose/slides_foss/CommentAuthorCollection.py,aspose/slides_foss/CommentCollection.py,aspose/slides_foss/Connector.py,aspose/slides_foss/DocumentProperties.py,aspose/slides_foss/EffectFormat.py,aspose/slides_foss/FillBlendMode.py,aspose/slides_foss/FillFormat.py,aspose/slides_foss/FillType.py,aspose/slides_foss/FontAlignment.py,aspose/slides_foss/FontData.py,aspose/slides_foss/Fonts.py,aspose/slides_foss/GeometryShape.py,aspose/slides_foss/GlobalLayoutSlideCollection.py,aspose/slides_foss/GradientDirection.py,aspose/slides_foss/GradientFormat.py,aspose/slides_foss/GradientShape.py,aspose/slides_foss/GradientStop.py,aspose/slides_foss/GradientStopCollection.py,aspose/slides_foss/GraphicalObject.py,aspose/slides_foss/GraphicalObjectLock.py,aspose/slides_foss/GroupShape.py,aspose/slides_foss/GroupShapeLock.py,aspose/slides_foss/HeadingPair.py,aspose/slides_foss/IAdjustValue.py,aspose/slides_foss/IAdjustValueCollection.py,aspose/slides_foss/IAnimationTimeLine.py,aspose/slides_foss/IAutoShape.py,aspose/slides_foss/IBackground.py,aspose/slides_foss/IBackgroundEffectiveData.py,aspose/slides_foss/IBasePortionFormat.py,aspose/slides_foss/IBaseShapeLock.py,aspose/slides_foss/IBaseSlide.py,aspose/slides_foss/IBulkTextFormattable.py,aspose/slides_foss/IBulletFormat.py,aspose/slides_foss/ICamera.py,aspose/slides_foss/ICell.py,aspose/slides_foss/ICellCollection.py,aspose/slides_foss/ICellFormat.py,aspose/slides_foss/IColorFormat.py,aspose/slides_foss/IColumn.py,aspose/slides_foss/IColumnCollection.py,aspose/slides_foss/IComment.py,aspose/slides_foss/ICommentAuthor.py,aspose/slides_foss/ICommentAuthorCollection.py,aspose/slides_foss/ICommentCollection.py,aspose/slides_foss/IConnector.py,aspose/slides_foss/IDocumentProperties.py,aspose/slides_foss/IEffectFormat.py,aspose/slides_foss/IEffectParamSource.py,aspose/slides_foss/IFillFormat.py,aspose/slides_foss/IFillParamSource.py,aspose/slides_foss/IFontData.py,aspose/slides_foss/IFonts.py,aspose/slides_foss/IGeometryShape.py,aspose/slides_foss/IGlobalLayoutSlideCollection.py,aspose/slides_foss/IGradientFormat.py,aspose/slides_foss/IGradientStop.py,aspose/slides_foss/IGradientStopCollection.py,aspose/slides_foss/IGraphicalObject.py,aspose/slides_foss/IGroupShape.py,aspose/slides_foss/IGroupShapeLock.py,aspose/slides_foss/IHeadingPair.py,aspose/slides_foss/IHyperlinkContainer.py,aspose/slides_foss/IImage.py,aspose/slides_foss/IImageCollection.py,aspose/slides_foss/ILayoutSlide.py,aspose/slides_foss/ILayoutSlideCollection.py,aspose/slides_foss/ILightRig.py,aspose/slides_foss/ILineFillFormat.py,aspose/slides_foss/ILineFormat.py,aspose/slides_foss/ILineParamSource.py,aspose/slides_foss/ILoadOptions.py,aspose/slides_foss/IMasterLayoutSlideCollection.py,aspose/slides_foss/IMasterSlide.py,aspose/slides_foss/IMasterSlideCollection.py,aspose/slides_foss/INotesSize.py,aspose/slides_foss/INotesSlide.py,aspose/slides_foss/INotesSlideHeaderFooterManager.py,aspose/slides_foss/INotesSlideManager.py,aspose/slides_foss/IPPImage.py,aspose/slides_foss/IParagraph.py,aspose/slides_foss/IParagraphCollection.py,aspose/slides_foss/IParagraphFormat.py,aspose/slides_foss/IPatternFormat.py,aspose/slides_foss/IPictureFillFormat.py,aspose/slides_foss/IPictureFrame.py,aspose/slides_foss/IPictureFrameLock.py,aspose/slides_foss/IPortion.py,aspose/slides_foss/IPortionCollection.py,aspose/slides_foss/IPortionFormat.py,aspose/slides_foss/IPresentation.py,aspose/slides_foss/IPresentationComponent.py,aspose/slides_foss/IRow.py,aspose/slides_foss/IRowCollection.py,aspose/slides_foss/ISection.py,aspose/slides_foss/IShape.py,aspose/slides_foss/IShapeBevel.py,aspose/slides_foss/IShapeCollection.py,aspose/slides_foss/IShapeFrame.py,aspose/slides_foss/ISlide.py,aspose/slides_foss/ISlideCollection.py,aspose/slides_foss/ISlideComponent.py,aspose/slides_foss/ISlideShowTransition.py,aspose/slides_foss/ISlidesPicture.py,aspose/slides_foss/ITable.py,aspose/slides_foss/ITableFormat.py,aspose/slides_foss/ITextFrame.py,aspose/slides_foss/ITextFrameFormat.py,aspose/slides_foss/IThreeDFormat.py,aspose/slides_foss/IThreeDParamSource.py,aspose/slides_foss/Image.py,aspose/slides_foss/ImageCollection.py,aspose/slides_foss/Images.py,aspose/slides_foss/LayoutSlide.py,aspose/slides_foss/LayoutSlideCollection.py,aspose/slides_foss/LightRig.py,aspose/slides_foss/LightRigPresetType.py,aspose/slides_foss/LightingDirection.py,aspose/slides_foss/LineAlignment.py,aspose/slides_foss/LineArrowheadLength.py,aspose/slides_foss/LineArrowheadStyle.py,aspose/slides_foss/LineArrowheadWidth.py,aspose/slides_foss/LineCapStyle.py,aspose/slides_foss/LineDashStyle.py,aspose/slides_foss/LineFillFormat.py,aspose/slides_foss/LineFormat.py,aspose/slides_foss/LineJoinStyle.py,aspose/slides_foss/LineStyle.py,aspose/slides_foss/MasterLayoutSlideCollection.py,aspose/slides_foss/MasterSlide.py,aspose/slides_foss/MasterSlideCollection.py,aspose/slides_foss/MaterialPresetType.py,aspose/slides_foss/NotesSize.py,aspose/slides_foss/NotesSlide.py,aspose/slides_foss/NotesSlideHeaderFooterManager.py,aspose/slides_foss/NotesSlideManager.py,aspose/slides_foss/NullableBool.py,aspose/slides_foss/NumberedBulletStyle.py,aspose/slides_foss/Orientation.py,aspose/slides_foss/PPImage.py,aspose/slides_foss/PVIObject.py,aspose/slides_foss/Paragraph.py,aspose/slides_foss/ParagraphCollection.py,aspose/slides_foss/ParagraphFormat.py,aspose/slides_foss/PatternFormat.py,aspose/slides_foss/PatternStyle.py,aspose/slides_foss/Picture.py,aspose/slides_foss/PictureFillFormat.py,aspose/slides_foss/PictureFillMode.py,aspose/slides_foss/PictureFrame.py,aspose/slides_foss/PictureFrameLock.py,aspose/slides_foss/Portion.py,aspose/slides_foss/PortionCollection.py,aspose/slides_foss/PortionFormat.py,aspose/slides_foss/Presentation.py,aspose/slides_foss/PresetColor.py,aspose/slides_foss/PresetShadowType.py,aspose/slides_foss/RectangleAlignment.py,aspose/slides_foss/Row.py,aspose/slides_foss/RowCollection.py,aspose/slides_foss/SchemeColor.py,aspose/slides_foss/Shape.py,aspose/slides_foss/ShapeBevel.py,aspose/slides_foss/ShapeCollection.py,aspose/slides_foss/ShapeFrame.py,aspose/slides_foss/ShapeType.py,aspose/slides_foss/Slide.py,aspose/slides_foss/SlideCollection.py,aspose/slides_foss/SlideLayoutType.py,aspose/slides_foss/SourceFormat.py,aspose/slides_foss/Table.py,aspose/slides_foss/TableFormat.py,aspose/slides_foss/TableStylePreset.py,aspose/slides_foss/TextAlignment.py,aspose/slides_foss/TextAnchorType.py,aspose/slides_foss/TextAutofitType.py,aspose/slides_foss/TextCapType.py,aspose/slides_foss/TextFrame.py,aspose/slides_foss/TextFrameFormat.py,aspose/slides_foss/TextShapeType.py,aspose/slides_foss/TextStrikethroughType.py,aspose/slides_foss/TextUnderlineType.py,aspose/slides_foss/TextVerticalType.py,aspose/slides_foss/ThreeDFormat.py,aspose/slides_foss/TileFlip.py,aspose/slides_foss/__init__.py,aspose/slides_foss/animation/AfterAnimationType.py,aspose/slides_foss/animation/AnimateTextType.py,aspose/slides_foss/animation/AnimationTimeLine.py,aspose/slides_foss/animation/Behavior.py,aspose/slides_foss/animation/BehaviorAccumulateType.py,aspose/slides_foss/animation/BehaviorAdditiveType.py,aspose/slides_foss/animation/BehaviorCollection.py,aspose/slides_foss/animation/BehaviorFactory.py,aspose/slides_foss/animation/BehaviorProperty.py,aspose/slides_foss/animation/BehaviorPropertyCollection.py,aspose/slides_foss/animation/BuildType.py,aspose/slides_foss/animation/ColorDirection.py,aspose/slides_foss/animation/ColorEffect.py,aspose/slides_foss/animation/ColorOffset.py,aspose/slides_foss/animation/ColorSpace.py,aspose/slides_foss/animation/CommandEffect.py,aspose/slides_foss/animation/CommandEffectType.py,aspose/slides_foss/animation/Effect.py,aspose/slides_foss/animation/EffectChartMajorGroupingType.py,aspose/slides_foss/animation/EffectChartMinorGroupingType.py,aspose/slides_foss/animation/EffectFillType.py,aspose/slides_foss/animation/EffectPresetClassType.py,aspose/slides_foss/animation/EffectRestartType.py,aspose/slides_foss/animation/EffectSubtype.py,aspose/slides_foss/animation/EffectTriggerType.py,aspose/slides_foss/animation/EffectType.py,aspose/slides_foss/animation/FilterEffect.py,aspose/slides_foss/animation/FilterEffectRevealType.py,aspose/slides_foss/animation/FilterEffectSubtype.py,aspose/slides_foss/animation/FilterEffectType.py,aspose/slides_foss/animation/IBehavior.py,aspose/slides_foss/animation/IBehaviorCollection.py,aspose/slides_foss/animation/IBehaviorFactory.py,aspose/slides_foss/animation/IBehaviorProperty.py,aspose/slides_foss/animation/IBehaviorPropertyCollection.py,aspose/slides_foss/animation/IColorEffect.py,aspose/slides_foss/animation/IColorOffset.py,aspose/slides_foss/animation/ICommandEffect.py,aspose/slides_foss/animation/IEffect.py,aspose/slides_foss/animation/IFilterEffect.py,aspose/slides_foss/animation/IMotionCmdPath.py,aspose/slides_foss/animation/IMotionEffect.py,aspose/slides_foss/animation/IMotionPath.py,aspose/slides_foss/animation/IPoint.py,aspose/slides_foss/animation/IPointCollection.py,aspose/slides_foss/animation/IPropertyEffect.py,aspose/slides_foss/animation/IRotationEffect.py,aspose/slides_foss/animation/IScaleEffect.py,aspose/slides_foss/animation/ISequence.py,aspose/slides_foss/animation/ISequenceCollection.py,aspose/slides_foss/animation/ISetEffect.py,aspose/slides_foss/animation/ITextAnimation.py,aspose/slides_foss/animation/ITextAnimationCollection.py,aspose/slides_foss/animation/ITiming.py,aspose/slides_foss/animation/MotionCmdPath.py,aspose/slides_foss/animation/MotionCommandPathType.py,aspose/slides_foss/animation/MotionEffect.py,aspose/slides_foss/animation/MotionOriginType.py,aspose/slides_foss/animation/MotionPath.py,aspose/slides_foss/animation/MotionPathEditMode.py,aspose/slides_foss/animation/MotionPathPointsType.py,aspose/slides_foss/animation/Point.py,aspose/slides_foss/animation/PointCollection.py,aspose/slides_foss/animation/PropertyCalcModeType.py,aspose/slides_foss/animation/PropertyEffect.py,aspose/slides_foss/animation/PropertyValueType.py,aspose/slides_foss/animation/RotationEffect.py,aspose/slides_foss/animation/ScaleEffect.py,aspose/slides_foss/animation/Sequence.py,aspose/slides_foss/animation/SequenceCollection.py,aspose/slides_foss/animation/SetEffect.py,aspose/slides_foss/animation/TextAnimation.py,aspose/slides_foss/animation/TextAnimationCollection.py,aspose/slides_foss/animation/Timing.py,aspose/slides_foss/animation/__init__.py,aspose/slides_foss/charts/AxesManager.py,aspose/slides_foss/charts/Axis.py,aspose/slides_foss/charts/AxisPositionType.py,aspose/slides_foss/charts/BaseChartValue.py,aspose/slides_foss/charts/BubbleSizeRepresentationType.py,aspose/slides_foss/charts/CategoryAxisType.py,aspose/slides_foss/charts/Chart.py,aspose/slides_foss/charts/ChartCategory.py,aspose/slides_foss/charts/ChartCategoryCollection.py,aspose/slides_foss/charts/ChartData.py,aspose/slides_foss/charts/ChartDataCell.py,aspose/slides_foss/charts/ChartDataPoint.py,aspose/slides_foss/charts/ChartDataPointCollection.py,aspose/slides_foss/charts/ChartDataSourceType.py,aspose/slides_foss/charts/ChartDataWorkbook.py,aspose/slides_foss/charts/ChartDataWorksheet.py,aspose/slides_foss/charts/ChartLinesFormat.py,aspose/slides_foss/charts/ChartPlotArea.py,aspose/slides_foss/charts/ChartPortionFormat.py,aspose/slides_foss/charts/ChartSeries.py,aspose/slides_foss/charts/ChartSeriesCollection.py,aspose/slides_foss/charts/ChartSeriesGroup.py,aspose/slides_foss/charts/ChartSeriesGroupCollection.py,aspose/slides_foss/charts/ChartSeriesReadonlyCollection.py,aspose/slides_foss/charts/ChartTextFormat.py,aspose/slides_foss/charts/ChartTitle.py,aspose/slides_foss/charts/ChartType.py,aspose/slides_foss/charts/ChartWall.py,aspose/slides_foss/charts/CombinableSeriesTypesGroup.py,aspose/slides_foss/charts/CrossesType.py,aspose/slides_foss/charts/DataLabel.py,aspose/slides_foss/charts/DataLabelCollection.py,aspose/slides_foss/charts/DataLabelFormat.py,aspose/slides_foss/charts/DataSourceType.py,aspose/slides_foss/charts/DataSourceTypeForErrorBarsCustomValues.py,aspose/slides_foss/charts/DataTable.py,aspose/slides_foss/charts/DisplayBlanksAsType.py,aspose/slides_foss/charts/DisplayUnitType.py,aspose/slides_foss/charts/DoubleChartValue.py,aspose/slides_foss/charts/ErrorBarType.py,aspose/slides_foss/charts/ErrorBarValueType.py,aspose/slides_foss/charts/ErrorBarsCustomValues.py,aspose/slides_foss/charts/ErrorBarsFormat.py,aspose/slides_foss/charts/Format.py,aspose/slides_foss/charts/IActualLayout.py,aspose/slides_foss/charts/IAxesManager.py,aspose/slides_foss/charts/IAxis.py,aspose/slides_foss/charts/IAxisFormat.py,aspose/slides_foss/charts/IBaseChartValue.py,aspose/slides_foss/charts/IChart.py,aspose/slides_foss/charts/IChartCategory.py,aspose/slides_foss/charts/IChartCategoryCollection.py,aspose/slides_foss/charts/IChartCategoryLevelsManager.py,aspose/slides_foss/charts/IChartCellCollection.py,aspose/slides_foss/charts/IChartComponent.py,aspose/slides_foss/charts/IChartData.py,aspose/slides_foss/charts/IChartDataCell.py,aspose/slides_foss/charts/IChartDataPoint.py,aspose/slides_foss/charts/IChartDataPointCollection.py,aspose/slides_foss/charts/IChartDataWorkbook.py,aspose/slides_foss/charts/IChartDataWorksheet.py,aspose/slides_foss/charts/IChartDataWorksheetCollection.py,aspose/slides_foss/charts/IChartLinesFormat.py,aspose/slides_foss/charts/IChartParagraphFormat.py,aspose/slides_foss/charts/IChartPlotArea.py,aspose/slides_foss/charts/IChartPortionFormat.py,aspose/slides_foss/charts/IChartSeries.py,aspose/slides_foss/charts/IChartSeriesCollection.py,aspose/slides_foss/charts/IChartSeriesGroup.py,aspose/slides_foss/charts/IChartSeriesGroupCollection.py,aspose/slides_foss/charts/IChartSeriesReadonlyCollection.py,aspose/slides_foss/charts/IChartTextBlockFormat.py,aspose/slides_foss/charts/IChartTextFormat.py,aspose/slides_foss/charts/IChartTitle.py,aspose/slides_foss/charts/IChartWall.py,aspose/slides_foss/charts/IDataLabel.py,aspose/slides_foss/charts/IDataLabelCollection.py,aspose/slides_foss/charts/IDataLabelFormat.py,aspose/slides_foss/charts/IDataSourceTypeForErrorBarsCustomValues.py,aspose/slides_foss/charts/IDataTable.py,aspose/slides_foss/charts/IDoubleChartValue.py,aspose/slides_foss/charts/IErrorBarsCustomValues.py,aspose/slides_foss/charts/IErrorBarsFormat.py,aspose/slides_foss/charts/IFormat.py,aspose/slides_foss/charts/IFormattedTextContainer.py,aspose/slides_foss/charts/ILayoutable.py,aspose/slides_foss/charts/ILegend.py,aspose/slides_foss/charts/ILegendEntryCollection.py,aspose/slides_foss/charts/ILegendEntryProperties.py,aspose/slides_foss/charts/IMarker.py,aspose/slides_foss/charts/IMultipleCellChartValue.py,aspose/slides_foss/charts/IOverridableText.py,aspose/slides_foss/charts/IPieSplitCustomPointCollection.py,aspose/slides_foss/charts/IRotation3D.py,aspose/slides_foss/charts/ISingleCellChartValue.py,aspose/slides_foss/charts/IStringChartValue.py,aspose/slides_foss/charts/IStringOrDoubleChartValue.py,aspose/slides_foss/charts/ITrendline.py,aspose/slides_foss/charts/ITrendlineCollection.py,aspose/slides_foss/charts/IUpDownBarsManager.py,aspose/slides_foss/charts/LayoutTargetType.py,aspose/slides_foss/charts/Legend.py,aspose/slides_foss/charts/LegendDataLabelPosition.py,aspose/slides_foss/charts/LegendEntryCollection.py,aspose/slides_foss/charts/LegendEntryProperties.py,aspose/slides_foss/charts/LegendPositionType.py,aspose/slides_foss/charts/Marker.py,aspose/slides_foss/charts/MarkerStyleType.py,aspose/slides_foss/charts/PieSplitType.py,aspose/slides_foss/charts/Rotation3D.py,aspose/slides_foss/charts/StringChartValue.py,aspose/slides_foss/charts/StringOrDoubleChartValue.py,aspose/slides_foss/charts/StyleType.py,aspose/slides_foss/charts/TickLabelPositionType.py,aspose/slides_foss/charts/TickMarkType.py,aspose/slides_foss/charts/TimeUnitType.py,aspose/slides_foss/charts/Trendline.py,aspose/slides_foss/charts/TrendlineCollection.py,aspose/slides_foss/charts/TrendlineType.py,aspose/slides_foss/charts/__init__.py,aspose/slides_foss/drawing/Color.py,aspose/slides_foss/drawing/PointF.py,aspose/slides_foss/drawing/Size.py,aspose/slides_foss/drawing/SizeF.py,aspose/slides_foss/drawing/__init__.py,aspose/slides_foss/effects/Blur.py,aspose/slides_foss/effects/FillOverlay.py,aspose/slides_foss/effects/Glow.py,aspose/slides_foss/effects/IBlur.py,aspose/slides_foss/effects/IFillOverlay.py,aspose/slides_foss/effects/IGlow.py,aspose/slides_foss/effects/IImageTransformOperation.py,aspose/slides_foss/effects/IInnerShadow.py,aspose/slides_foss/effects/IOuterShadow.py,aspose/slides_foss/effects/IPresetShadow.py,aspose/slides_foss/effects/IReflection.py,aspose/slides_foss/effects/ISoftEdge.py,aspose/slides_foss/effects/ImageTransformOperation.py,aspose/slides_foss/effects/InnerShadow.py,aspose/slides_foss/effects/OuterShadow.py,aspose/slides_foss/effects/PresetShadow.py,aspose/slides_foss/effects/Reflection.py,aspose/slides_foss/effects/SoftEdge.py,aspose/slides_foss/effects/__init__.py,aspose/slides_foss/export/Flavor.py,aspose/slides_foss/export/HandleRepeatedSpaces.py,aspose/slides_foss/export/ISaveOptions.py,aspose/slides_foss/export/MarkdownExportType.py,aspose/slides_foss/export/MarkdownSaveOptions.py,aspose/slides_foss/export/NewLineType.py,aspose/slides_foss/export/SaveFormat.py,aspose/slides_foss/export/SaveOptions.py,aspose/slides_foss/export/__init__.py,aspose/slides_foss/slideshow/CornerDirectionTransition.py,aspose/slides_foss/slideshow/EightDirectionTransition.py,aspose/slides_foss/slideshow/EmptyTransition.py,aspose/slides_foss/slideshow/FlyThroughTransition.py,aspose/slides_foss/slideshow/GlitterTransition.py,aspose/slides_foss/slideshow/ICornerDirectionTransition.py,aspose/slides_foss/slideshow/IEightDirectionTransition.py,aspose/slides_foss/slideshow/IEmptyTransition.py,aspose/slides_foss/slideshow/IFlyThroughTransition.py,aspose/slides_foss/slideshow/IGlitterTransition.py,aspose/slides_foss/slideshow/IInOutTransition.py,aspose/slides_foss/slideshow/ILeftRightDirectionTransition.py,aspose/slides_foss/slideshow/IMorphTransition.py,aspose/slides_foss/slideshow/IOptionalBlackTransition.py,aspose/slides_foss/slideshow/IOrientationTransition.py,aspose/slides_foss/slideshow/IRevealTransition.py,aspose/slides_foss/slideshow/IRippleTransition.py,aspose/slides_foss/slideshow/IShredTransition.py,aspose/slides_foss/slideshow/ISideDirectionTransition.py,aspose/slides_foss/slideshow/ISplitTransition.py,aspose/slides_foss/slideshow/ITransitionValueBase.py,aspose/slides_foss/slideshow/IWheelTransition.py,aspose/slides_foss/slideshow/InOutTransition.py,aspose/slides_foss/slideshow/LeftRightDirectionTransition.py,aspose/slides_foss/slideshow/MorphTransition.py,aspose/slides_foss/slideshow/OptionalBlackTransition.py,aspose/slides_foss/slideshow/OrientationTransition.py,aspose/slides_foss/slideshow/RevealTransition.py,aspose/slides_foss/slideshow/RippleTransition.py,aspose/slides_foss/slideshow/ShredTransition.py,aspose/slides_foss/slideshow/SideDirectionTransition.py,aspose/slides_foss/slideshow/SlideShowTransition.py,aspose/slides_foss/slideshow/SplitTransition.py,aspose/slides_foss/slideshow/TransitionCornerAndCenterDirectionType.py,aspose/slides_foss/slideshow/TransitionCornerDirectionType.py,aspose/slides_foss/slideshow/TransitionEightDirectionType.py,aspose/slides_foss/slideshow/TransitionInOutDirectionType.py,aspose/slides_foss/slideshow/TransitionLeftRightDirectionType.py,aspose/slides_foss/slideshow/TransitionMorphType.py,aspose/slides_foss/slideshow/TransitionPattern.py,aspose/slides_foss/slideshow/TransitionShredPattern.py,aspose/slides_foss/slideshow/TransitionSideDirectionType.py,aspose/slides_foss/slideshow/TransitionSoundMode.py,aspose/slides_foss/slideshow/TransitionSpeed.py,aspose/slides_foss/slideshow/TransitionType.py,aspose/slides_foss/slideshow/TransitionValueBase.py,aspose/slides_foss/slideshow/WheelTransition.py,aspose/slides_foss/slideshow/__init__.py,aspose/slides_foss/theme/BaseOverrideThemeManager.py,aspose/slides_foss/theme/BaseThemeManager.py,aspose/slides_foss/theme/ColorScheme.py,aspose/slides_foss/theme/EffectStyle.py,aspose/slides_foss/theme/EffectStyleCollection.py,aspose/slides_foss/theme/ExtraColorScheme.py,aspose/slides_foss/theme/ExtraColorSchemeCollection.py,aspose/slides_foss/theme/FillFormatCollection.py,aspose/slides_foss/theme/FontScheme.py,aspose/slides_foss/theme/FormatScheme.py,aspose/slides_foss/theme/IColorScheme.py,aspose/slides_foss/theme/IEffectStyle.py,aspose/slides_foss/theme/IEffectStyleCollection.py,aspose/slides_foss/theme/IExtraColorScheme.py,aspose/slides_foss/theme/IExtraColorSchemeCollection.py,aspose/slides_foss/theme/IFillFormatCollection.py,aspose/slides_foss/theme/IFontScheme.py,aspose/slides_foss/theme/IFormatScheme.py,aspose/slides_foss/theme/ILineFormatCollection.py,aspose/slides_foss/theme/IMasterTheme.py,aspose/slides_foss/theme/IMasterThemeManager.py,aspose/slides_foss/theme/IMasterThemeable.py,aspose/slides_foss/theme/IOverrideTheme.py,aspose/slides_foss/theme/IOverrideThemeManager.py,aspose/slides_foss/theme/IOverrideThemeable.py,aspose/slides_foss/theme/ITheme.py,aspose/slides_foss/theme/IThemeManager.py,aspose/slides_foss/theme/IThemeable.py,aspose/slides_foss/theme/LayoutSlideThemeManager.py,aspose/slides_foss/theme/LineFormatCollection.py,aspose/slides_foss/theme/MasterTheme.py,aspose/slides_foss/theme/MasterThemeManager.py,aspose/slides_foss/theme/NotesSlideThemeManager.py,aspose/slides_foss/theme/OverrideTheme.py,aspose/slides_foss/theme/SlideThemeManager.py,aspose/slides_foss/theme/Theme.py,aspose/slides_foss/theme/__init__.py,pyproject.toml",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.api_reference"
+    ]
+  },
+  "development.assets:repository-inventory": {
+    "field": "development.assets",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://tests/conftest.py,tests/test_animation.py,tests/test_axis_formatting.py,tests/test_background.py,tests/test_bubble_scatter.py,tests/test_chart_markers.py,tests/test_chart_plot_area.py,tests/test_charts.py",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development"
+    ]
+  },
+  "development.commands:repository-guidance": {
+    "field": "development.commands",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://pyproject.toml,tests/test_charts.py,tests/test_xlsx_package.py",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development",
+      "readme.contributing"
+    ]
+  },
+  "python.distribution:pyproject-manifest": {
+    "field": "python.distribution",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.release"
+    ]
+  },
+  "repository.examples:repository-inventory": {
+    "field": "repository.examples",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://README.md,aspose/slides_foss/AdjustValue.py,aspose/slides_foss/AdjustValueCollection.py,aspose/slides_foss/AutoShape.py,aspose/slides_foss/Background.py,aspose/slides_foss/BackgroundType.py,aspose/slides_foss/BaseHandoutNotesSlideHeaderFooterManager.py,aspose/slides_foss/BasePortionFormat.py,aspose/slides_foss/BaseShapeLock.py,aspose/slides_foss/BaseSlide.py,aspose/slides_foss/BevelPresetType.py,aspose/slides_foss/BulletFormat.py,aspose/slides_foss/BulletType.py,aspose/slides_foss/Camera.py,aspose/slides_foss/CameraPresetType.py,aspose/slides_foss/Cell.py,aspose/slides_foss/CellCollection.py,aspose/slides_foss/CellFormat.py,aspose/slides_foss/ColorFormat.py,aspose/slides_foss/ColorType.py,aspose/slides_foss/Column.py,aspose/slides_foss/ColumnCollection.py,aspose/slides_foss/Comment.py,aspose/slides_foss/CommentAuthor.py,aspose/slides_foss/CommentAuthorCollection.py,aspose/slides_foss/CommentCollection.py,aspose/slides_foss/Connector.py,aspose/slides_foss/DocumentProperties.py,aspose/slides_foss/EffectFormat.py,aspose/slides_foss/FillBlendMode.py,aspose/slides_foss/FillFormat.py,aspose/slides_foss/FillType.py,aspose/slides_foss/FontAlignment.py,aspose/slides_foss/FontData.py,aspose/slides_foss/Fonts.py,aspose/slides_foss/GeometryShape.py,aspose/slides_foss/GlobalLayoutSlideCollection.py,aspose/slides_foss/GradientDirection.py,aspose/slides_foss/GradientFormat.py,aspose/slides_foss/GradientShape.py,aspose/slides_foss/GradientStop.py,aspose/slides_foss/GradientStopCollection.py,aspose/slides_foss/GraphicalObject.py,aspose/slides_foss/GraphicalObjectLock.py,aspose/slides_foss/GroupShape.py,aspose/slides_foss/GroupShapeLock.py,aspose/slides_foss/HeadingPair.py,aspose/slides_foss/IAdjustValue.py,aspose/slides_foss/IAdjustValueCollection.py,aspose/slides_foss/IAnimationTimeLine.py,aspose/slides_foss/IAutoShape.py,aspose/slides_foss/IBackground.py,aspose/slides_foss/IBackgroundEffectiveData.py,aspose/slides_foss/IBasePortionFormat.py,aspose/slides_foss/IBaseShapeLock.py,aspose/slides_foss/IBaseSlide.py,aspose/slides_foss/IBulkTextFormattable.py,aspose/slides_foss/IBulletFormat.py,aspose/slides_foss/ICamera.py,aspose/slides_foss/ICell.py,aspose/slides_foss/ICellCollection.py,aspose/slides_foss/ICellFormat.py,aspose/slides_foss/IColorFormat.py,aspose/slides_foss/IColumn.py,aspose/slides_foss/IColumnCollection.py,aspose/slides_foss/IComment.py,aspose/slides_foss/ICommentAuthor.py,aspose/slides_foss/ICommentAuthorCollection.py,aspose/slides_foss/ICommentCollection.py,aspose/slides_foss/IConnector.py,aspose/slides_foss/IDocumentProperties.py,aspose/slides_foss/IEffectFormat.py,aspose/slides_foss/IEffectParamSource.py,aspose/slides_foss/IFillFormat.py,aspose/slides_foss/IFillParamSource.py,aspose/slides_foss/IFontData.py,aspose/slides_foss/IFonts.py,aspose/slides_foss/IGeometryShape.py,aspose/slides_foss/IGlobalLayoutSlideCollection.py,aspose/slides_foss/IGradientFormat.py,aspose/slides_foss/IGradientStop.py,aspose/slides_foss/IGradientStopCollection.py,aspose/slides_foss/IGraphicalObject.py,aspose/slides_foss/IGroupShape.py,aspose/slides_foss/IGroupShapeLock.py,aspose/slides_foss/IHeadingPair.py,aspose/slides_foss/IHyperlinkContainer.py,aspose/slides_foss/IImage.py,aspose/slides_foss/IImageCollection.py,aspose/slides_foss/ILayoutSlide.py,aspose/slides_foss/ILayoutSlideCollection.py,aspose/slides_foss/ILightRig.py,aspose/slides_foss/ILineFillFormat.py,aspose/slides_foss/ILineFormat.py,aspose/slides_foss/ILineParamSource.py,aspose/slides_foss/ILoadOptions.py,aspose/slides_foss/IMasterLayoutSlideCollection.py,aspose/slides_foss/IMasterSlide.py,aspose/slides_foss/IMasterSlideCollection.py,aspose/slides_foss/INotesSize.py,aspose/slides_foss/INotesSlide.py,aspose/slides_foss/INotesSlideHeaderFooterManager.py,aspose/slides_foss/INotesSlideManager.py,aspose/slides_foss/IPPImage.py,aspose/slides_foss/IParagraph.py,aspose/slides_foss/IParagraphCollection.py,aspose/slides_foss/IParagraphFormat.py,aspose/slides_foss/IPatternFormat.py,aspose/slides_foss/IPictureFillFormat.py,aspose/slides_foss/IPictureFrame.py,aspose/slides_foss/IPictureFrameLock.py,aspose/slides_foss/IPortion.py,aspose/slides_foss/IPortionCollection.py,aspose/slides_foss/IPortionFormat.py,aspose/slides_foss/IPresentation.py,aspose/slides_foss/IPresentationComponent.py,aspose/slides_foss/IRow.py,aspose/slides_foss/IRowCollection.py,aspose/slides_foss/ISection.py,aspose/slides_foss/IShape.py,aspose/slides_foss/IShapeBevel.py,aspose/slides_foss/IShapeCollection.py,aspose/slides_foss/IShapeFrame.py,aspose/slides_foss/ISlide.py,aspose/slides_foss/ISlideCollection.py,aspose/slides_foss/ISlideComponent.py,aspose/slides_foss/ISlideShowTransition.py,aspose/slides_foss/ISlidesPicture.py,aspose/slides_foss/ITable.py,aspose/slides_foss/ITableFormat.py,aspose/slides_foss/ITextFrame.py,aspose/slides_foss/ITextFrameFormat.py,aspose/slides_foss/IThreeDFormat.py,aspose/slides_foss/IThreeDParamSource.py,aspose/slides_foss/Image.py,aspose/slides_foss/ImageCollection.py,aspose/slides_foss/Images.py,aspose/slides_foss/LayoutSlide.py,aspose/slides_foss/LayoutSlideCollection.py,aspose/slides_foss/LightRig.py,aspose/slides_foss/LightRigPresetType.py,aspose/slides_foss/LightingDirection.py,aspose/slides_foss/LineAlignment.py,aspose/slides_foss/LineArrowheadLength.py,aspose/slides_foss/LineArrowheadStyle.py,aspose/slides_foss/LineArrowheadWidth.py,aspose/slides_foss/LineCapStyle.py,aspose/slides_foss/LineDashStyle.py,aspose/slides_foss/LineFillFormat.py,aspose/slides_foss/LineFormat.py,aspose/slides_foss/LineJoinStyle.py,aspose/slides_foss/LineStyle.py,aspose/slides_foss/MasterLayoutSlideCollection.py,aspose/slides_foss/MasterSlide.py,aspose/slides_foss/MasterSlideCollection.py,aspose/slides_foss/MaterialPresetType.py,aspose/slides_foss/NotesSize.py,aspose/slides_foss/NotesSlide.py,aspose/slides_foss/NotesSlideHeaderFooterManager.py,aspose/slides_foss/NotesSlideManager.py,aspose/slides_foss/NullableBool.py,aspose/slides_foss/NumberedBulletStyle.py,aspose/slides_foss/Orientation.py,aspose/slides_foss/PPImage.py,aspose/slides_foss/PVIObject.py,aspose/slides_foss/Paragraph.py,aspose/slides_foss/ParagraphCollection.py,aspose/slides_foss/ParagraphFormat.py,aspose/slides_foss/PatternFormat.py,aspose/slides_foss/PatternStyle.py,aspose/slides_foss/Picture.py,aspose/slides_foss/PictureFillFormat.py,aspose/slides_foss/PictureFillMode.py,aspose/slides_foss/PictureFrame.py,aspose/slides_foss/PictureFrameLock.py,aspose/slides_foss/Portion.py,aspose/slides_foss/PortionCollection.py,aspose/slides_foss/PortionFormat.py,aspose/slides_foss/Presentation.py,aspose/slides_foss/PresetColor.py,aspose/slides_foss/PresetShadowType.py,aspose/slides_foss/RectangleAlignment.py,aspose/slides_foss/Row.py,aspose/slides_foss/RowCollection.py,aspose/slides_foss/SchemeColor.py,aspose/slides_foss/Shape.py,aspose/slides_foss/ShapeBevel.py,aspose/slides_foss/ShapeCollection.py,aspose/slides_foss/ShapeFrame.py,aspose/slides_foss/ShapeType.py,aspose/slides_foss/Slide.py,aspose/slides_foss/SlideCollection.py,aspose/slides_foss/SlideLayoutType.py,aspose/slides_foss/SourceFormat.py,aspose/slides_foss/Table.py,aspose/slides_foss/TableFormat.py,aspose/slides_foss/TableStylePreset.py,aspose/slides_foss/TextAlignment.py,aspose/slides_foss/TextAnchorType.py,aspose/slides_foss/TextAutofitType.py,aspose/slides_foss/TextCapType.py,aspose/slides_foss/TextFrame.py,aspose/slides_foss/TextFrameFormat.py,aspose/slides_foss/TextShapeType.py,aspose/slides_foss/TextStrikethroughType.py,aspose/slides_foss/TextUnderlineType.py,aspose/slides_foss/TextVerticalType.py,aspose/slides_foss/ThreeDFormat.py,aspose/slides_foss/TileFlip.py,aspose/slides_foss/__init__.py,aspose/slides_foss/animation/AfterAnimationType.py,aspose/slides_foss/animation/AnimateTextType.py,aspose/slides_foss/animation/AnimationTimeLine.py,aspose/slides_foss/animation/Behavior.py,aspose/slides_foss/animation/BehaviorAccumulateType.py,aspose/slides_foss/animation/BehaviorAdditiveType.py,aspose/slides_foss/animation/BehaviorCollection.py,aspose/slides_foss/animation/BehaviorFactory.py,aspose/slides_foss/animation/BehaviorProperty.py,aspose/slides_foss/animation/BehaviorPropertyCollection.py,aspose/slides_foss/animation/BuildType.py,aspose/slides_foss/animation/ColorDirection.py,aspose/slides_foss/animation/ColorEffect.py,aspose/slides_foss/animation/ColorOffset.py,aspose/slides_foss/animation/ColorSpace.py,aspose/slides_foss/animation/CommandEffect.py,aspose/slides_foss/animation/CommandEffectType.py,aspose/slides_foss/animation/Effect.py,aspose/slides_foss/animation/EffectChartMajorGroupingType.py,aspose/slides_foss/animation/EffectChartMinorGroupingType.py,aspose/slides_foss/animation/EffectFillType.py,aspose/slides_foss/animation/EffectPresetClassType.py,aspose/slides_foss/animation/EffectRestartType.py,aspose/slides_foss/animation/EffectSubtype.py,aspose/slides_foss/animation/EffectTriggerType.py,aspose/slides_foss/animation/EffectType.py,aspose/slides_foss/animation/FilterEffect.py,aspose/slides_foss/animation/FilterEffectRevealType.py,aspose/slides_foss/animation/FilterEffectSubtype.py,aspose/slides_foss/animation/FilterEffectType.py,aspose/slides_foss/animation/IBehavior.py,aspose/slides_foss/animation/IBehaviorCollection.py,aspose/slides_foss/animation/IBehaviorFactory.py,aspose/slides_foss/animation/IBehaviorProperty.py,aspose/slides_foss/animation/IBehaviorPropertyCollection.py,aspose/slides_foss/animation/IColorEffect.py,aspose/slides_foss/animation/IColorOffset.py,aspose/slides_foss/animation/ICommandEffect.py,aspose/slides_foss/animation/IEffect.py,aspose/slides_foss/animation/IFilterEffect.py,aspose/slides_foss/animation/IMotionCmdPath.py,aspose/slides_foss/animation/IMotionEffect.py,aspose/slides_foss/animation/IMotionPath.py,aspose/slides_foss/animation/IPoint.py,aspose/slides_foss/animation/IPointCollection.py,aspose/slides_foss/animation/IPropertyEffect.py,aspose/slides_foss/animation/IRotationEffect.py,aspose/slides_foss/animation/IScaleEffect.py,aspose/slides_foss/animation/ISequence.py,aspose/slides_foss/animation/ISequenceCollection.py,aspose/slides_foss/animation/ISetEffect.py,aspose/slides_foss/animation/ITextAnimation.py,aspose/slides_foss/animation/ITextAnimationCollection.py,aspose/slides_foss/animation/ITiming.py,aspose/slides_foss/animation/MotionCmdPath.py,aspose/slides_foss/animation/MotionCommandPathType.py,aspose/slides_foss/animation/MotionEffect.py,aspose/slides_foss/animation/MotionOriginType.py,aspose/slides_foss/animation/MotionPath.py,aspose/slides_foss/animation/MotionPathEditMode.py,aspose/slides_foss/animation/MotionPathPointsType.py,aspose/slides_foss/animation/Point.py,aspose/slides_foss/animation/PointCollection.py,aspose/slides_foss/animation/PropertyCalcModeType.py,aspose/slides_foss/animation/PropertyEffect.py,aspose/slides_foss/animation/PropertyValueType.py,aspose/slides_foss/animation/RotationEffect.py,aspose/slides_foss/animation/ScaleEffect.py,aspose/slides_foss/animation/Sequence.py,aspose/slides_foss/animation/SequenceCollection.py,aspose/slides_foss/animation/SetEffect.py,aspose/slides_foss/animation/TextAnimation.py,aspose/slides_foss/animation/TextAnimationCollection.py,aspose/slides_foss/animation/Timing.py,aspose/slides_foss/animation/__init__.py,aspose/slides_foss/charts/AxesManager.py,aspose/slides_foss/charts/Axis.py,aspose/slides_foss/charts/AxisPositionType.py,aspose/slides_foss/charts/BaseChartValue.py,aspose/slides_foss/charts/BubbleSizeRepresentationType.py,aspose/slides_foss/charts/CategoryAxisType.py,aspose/slides_foss/charts/Chart.py,aspose/slides_foss/charts/ChartCategory.py,aspose/slides_foss/charts/ChartCategoryCollection.py,aspose/slides_foss/charts/ChartData.py,aspose/slides_foss/charts/ChartDataCell.py,aspose/slides_foss/charts/ChartDataPoint.py,aspose/slides_foss/charts/ChartDataPointCollection.py,aspose/slides_foss/charts/ChartDataSourceType.py,aspose/slides_foss/charts/ChartDataWorkbook.py,aspose/slides_foss/charts/ChartDataWorksheet.py,aspose/slides_foss/charts/ChartLinesFormat.py,aspose/slides_foss/charts/ChartPlotArea.py,aspose/slides_foss/charts/ChartPortionFormat.py,aspose/slides_foss/charts/ChartSeries.py,aspose/slides_foss/charts/ChartSeriesCollection.py,aspose/slides_foss/charts/ChartSeriesGroup.py,aspose/slides_foss/charts/ChartSeriesGroupCollection.py,aspose/slides_foss/charts/ChartSeriesReadonlyCollection.py,aspose/slides_foss/charts/ChartTextFormat.py,aspose/slides_foss/charts/ChartTitle.py,aspose/slides_foss/charts/ChartType.py,aspose/slides_foss/charts/ChartWall.py,aspose/slides_foss/charts/CombinableSeriesTypesGroup.py,aspose/slides_foss/charts/CrossesType.py,aspose/slides_foss/charts/DataLabel.py,aspose/slides_foss/charts/DataLabelCollection.py,aspose/slides_foss/charts/DataLabelFormat.py,aspose/slides_foss/charts/DataSourceType.py,aspose/slides_foss/charts/DataSourceTypeForErrorBarsCustomValues.py,aspose/slides_foss/charts/DataTable.py,aspose/slides_foss/charts/DisplayBlanksAsType.py,aspose/slides_foss/charts/DisplayUnitType.py,aspose/slides_foss/charts/DoubleChartValue.py,aspose/slides_foss/charts/ErrorBarType.py,aspose/slides_foss/charts/ErrorBarValueType.py,aspose/slides_foss/charts/ErrorBarsCustomValues.py,aspose/slides_foss/charts/ErrorBarsFormat.py,aspose/slides_foss/charts/Format.py,aspose/slides_foss/charts/IActualLayout.py,aspose/slides_foss/charts/IAxesManager.py,aspose/slides_foss/charts/IAxis.py,aspose/slides_foss/charts/IAxisFormat.py,aspose/slides_foss/charts/IBaseChartValue.py,aspose/slides_foss/charts/IChart.py,aspose/slides_foss/charts/IChartCategory.py,aspose/slides_foss/charts/IChartCategoryCollection.py,aspose/slides_foss/charts/IChartCategoryLevelsManager.py,aspose/slides_foss/charts/IChartCellCollection.py,aspose/slides_foss/charts/IChartComponent.py,aspose/slides_foss/charts/IChartData.py,aspose/slides_foss/charts/IChartDataCell.py,aspose/slides_foss/charts/IChartDataPoint.py,aspose/slides_foss/charts/IChartDataPointCollection.py,aspose/slides_foss/charts/IChartDataWorkbook.py,aspose/slides_foss/charts/IChartDataWorksheet.py,aspose/slides_foss/charts/IChartDataWorksheetCollection.py,aspose/slides_foss/charts/IChartLinesFormat.py,aspose/slides_foss/charts/IChartParagraphFormat.py,aspose/slides_foss/charts/IChartPlotArea.py,aspose/slides_foss/charts/IChartPortionFormat.py,aspose/slides_foss/charts/IChartSeries.py,aspose/slides_foss/charts/IChartSeriesCollection.py,aspose/slides_foss/charts/IChartSeriesGroup.py,aspose/slides_foss/charts/IChartSeriesGroupCollection.py,aspose/slides_foss/charts/IChartSeriesReadonlyCollection.py,aspose/slides_foss/charts/IChartTextBlockFormat.py,aspose/slides_foss/charts/IChartTextFormat.py,aspose/slides_foss/charts/IChartTitle.py,aspose/slides_foss/charts/IChartWall.py,aspose/slides_foss/charts/IDataLabel.py,aspose/slides_foss/charts/IDataLabelCollection.py,aspose/slides_foss/charts/IDataLabelFormat.py,aspose/slides_foss/charts/IDataSourceTypeForErrorBarsCustomValues.py,aspose/slides_foss/charts/IDataTable.py,aspose/slides_foss/charts/IDoubleChartValue.py,aspose/slides_foss/charts/IErrorBarsCustomValues.py,aspose/slides_foss/charts/IErrorBarsFormat.py,aspose/slides_foss/charts/IFormat.py,aspose/slides_foss/charts/IFormattedTextContainer.py,aspose/slides_foss/charts/ILayoutable.py,aspose/slides_foss/charts/ILegend.py,aspose/slides_foss/charts/ILegendEntryCollection.py,aspose/slides_foss/charts/ILegendEntryProperties.py,aspose/slides_foss/charts/IMarker.py,aspose/slides_foss/charts/IMultipleCellChartValue.py,aspose/slides_foss/charts/IOverridableText.py,aspose/slides_foss/charts/IPieSplitCustomPointCollection.py,aspose/slides_foss/charts/IRotation3D.py,aspose/slides_foss/charts/ISingleCellChartValue.py,aspose/slides_foss/charts/IStringChartValue.py,aspose/slides_foss/charts/IStringOrDoubleChartValue.py,aspose/slides_foss/charts/ITrendline.py,aspose/slides_foss/charts/ITrendlineCollection.py,aspose/slides_foss/charts/IUpDownBarsManager.py,aspose/slides_foss/charts/LayoutTargetType.py,aspose/slides_foss/charts/Legend.py,aspose/slides_foss/charts/LegendDataLabelPosition.py,aspose/slides_foss/charts/LegendEntryCollection.py,aspose/slides_foss/charts/LegendEntryProperties.py,aspose/slides_foss/charts/LegendPositionType.py,aspose/slides_foss/charts/Marker.py,aspose/slides_foss/charts/MarkerStyleType.py,aspose/slides_foss/charts/PieSplitType.py,aspose/slides_foss/charts/Rotation3D.py,aspose/slides_foss/charts/StringChartValue.py,aspose/slides_foss/charts/StringOrDoubleChartValue.py,aspose/slides_foss/charts/StyleType.py,aspose/slides_foss/charts/TickLabelPositionType.py,aspose/slides_foss/charts/TickMarkType.py,aspose/slides_foss/charts/TimeUnitType.py,aspose/slides_foss/charts/Trendline.py,aspose/slides_foss/charts/TrendlineCollection.py,aspose/slides_foss/charts/TrendlineType.py,aspose/slides_foss/charts/__init__.py,aspose/slides_foss/drawing/Color.py,aspose/slides_foss/drawing/PointF.py,aspose/slides_foss/drawing/Size.py,aspose/slides_foss/drawing/SizeF.py,aspose/slides_foss/drawing/__init__.py,aspose/slides_foss/effects/Blur.py,aspose/slides_foss/effects/FillOverlay.py,aspose/slides_foss/effects/Glow.py,aspose/slides_foss/effects/IBlur.py,aspose/slides_foss/effects/IFillOverlay.py,aspose/slides_foss/effects/IGlow.py,aspose/slides_foss/effects/IImageTransformOperation.py,aspose/slides_foss/effects/IInnerShadow.py,aspose/slides_foss/effects/IOuterShadow.py,aspose/slides_foss/effects/IPresetShadow.py,aspose/slides_foss/effects/IReflection.py,aspose/slides_foss/effects/ISoftEdge.py,aspose/slides_foss/effects/ImageTransformOperation.py,aspose/slides_foss/effects/InnerShadow.py,aspose/slides_foss/effects/OuterShadow.py,aspose/slides_foss/effects/PresetShadow.py,aspose/slides_foss/effects/Reflection.py,aspose/slides_foss/effects/SoftEdge.py,aspose/slides_foss/effects/__init__.py,aspose/slides_foss/export/Flavor.py,aspose/slides_foss/export/HandleRepeatedSpaces.py,aspose/slides_foss/export/ISaveOptions.py,aspose/slides_foss/export/MarkdownExportType.py,aspose/slides_foss/export/MarkdownSaveOptions.py,aspose/slides_foss/export/NewLineType.py,aspose/slides_foss/export/SaveFormat.py,aspose/slides_foss/export/SaveOptions.py,aspose/slides_foss/export/__init__.py,aspose/slides_foss/slideshow/CornerDirectionTransition.py,aspose/slides_foss/slideshow/EightDirectionTransition.py,aspose/slides_foss/slideshow/EmptyTransition.py,aspose/slides_foss/slideshow/FlyThroughTransition.py,aspose/slides_foss/slideshow/GlitterTransition.py,aspose/slides_foss/slideshow/ICornerDirectionTransition.py,aspose/slides_foss/slideshow/IEightDirectionTransition.py,aspose/slides_foss/slideshow/IEmptyTransition.py,aspose/slides_foss/slideshow/IFlyThroughTransition.py,aspose/slides_foss/slideshow/IGlitterTransition.py,aspose/slides_foss/slideshow/IInOutTransition.py,aspose/slides_foss/slideshow/ILeftRightDirectionTransition.py,aspose/slides_foss/slideshow/IMorphTransition.py,aspose/slides_foss/slideshow/IOptionalBlackTransition.py,aspose/slides_foss/slideshow/IOrientationTransition.py,aspose/slides_foss/slideshow/IRevealTransition.py,aspose/slides_foss/slideshow/IRippleTransition.py,aspose/slides_foss/slideshow/IShredTransition.py,aspose/slides_foss/slideshow/ISideDirectionTransition.py,aspose/slides_foss/slideshow/ISplitTransition.py,aspose/slides_foss/slideshow/ITransitionValueBase.py,aspose/slides_foss/slideshow/IWheelTransition.py,aspose/slides_foss/slideshow/InOutTransition.py,aspose/slides_foss/slideshow/LeftRightDirectionTransition.py,aspose/slides_foss/slideshow/MorphTransition.py,aspose/slides_foss/slideshow/OptionalBlackTransition.py,aspose/slides_foss/slideshow/OrientationTransition.py,aspose/slides_foss/slideshow/RevealTransition.py,aspose/slides_foss/slideshow/RippleTransition.py,aspose/slides_foss/slideshow/ShredTransition.py,aspose/slides_foss/slideshow/SideDirectionTransition.py,aspose/slides_foss/slideshow/SlideShowTransition.py,aspose/slides_foss/slideshow/SplitTransition.py,aspose/slides_foss/slideshow/TransitionCornerAndCenterDirectionType.py,aspose/slides_foss/slideshow/TransitionCornerDirectionType.py,aspose/slides_foss/slideshow/TransitionEightDirectionType.py,aspose/slides_foss/slideshow/TransitionInOutDirectionType.py,aspose/slides_foss/slideshow/TransitionLeftRightDirectionType.py,aspose/slides_foss/slideshow/TransitionMorphType.py,aspose/slides_foss/slideshow/TransitionPattern.py,aspose/slides_foss/slideshow/TransitionShredPattern.py,aspose/slides_foss/slideshow/TransitionSideDirectionType.py,aspose/slides_foss/slideshow/TransitionSoundMode.py,aspose/slides_foss/slideshow/TransitionSpeed.py,aspose/slides_foss/slideshow/TransitionType.py,aspose/slides_foss/slideshow/TransitionValueBase.py,aspose/slides_foss/slideshow/WheelTransition.py,aspose/slides_foss/slideshow/__init__.py,aspose/slides_foss/theme/BaseOverrideThemeManager.py,aspose/slides_foss/theme/BaseThemeManager.py,aspose/slides_foss/theme/ColorScheme.py,aspose/slides_foss/theme/EffectStyle.py,aspose/slides_foss/theme/EffectStyleCollection.py,aspose/slides_foss/theme/ExtraColorScheme.py,aspose/slides_foss/theme/ExtraColorSchemeCollection.py,aspose/slides_foss/theme/FillFormatCollection.py,aspose/slides_foss/theme/FontScheme.py,aspose/slides_foss/theme/FormatScheme.py,aspose/slides_foss/theme/IColorScheme.py,aspose/slides_foss/theme/IEffectStyle.py,aspose/slides_foss/theme/IEffectStyleCollection.py,aspose/slides_foss/theme/IExtraColorScheme.py,aspose/slides_foss/theme/IExtraColorSchemeCollection.py,aspose/slides_foss/theme/IFillFormatCollection.py,aspose/slides_foss/theme/IFontScheme.py,aspose/slides_foss/theme/IFormatScheme.py,aspose/slides_foss/theme/ILineFormatCollection.py,aspose/slides_foss/theme/IMasterTheme.py,aspose/slides_foss/theme/IMasterThemeManager.py,aspose/slides_foss/theme/IMasterThemeable.py,aspose/slides_foss/theme/IOverrideTheme.py,aspose/slides_foss/theme/IOverrideThemeManager.py,aspose/slides_foss/theme/IOverrideThemeable.py,aspose/slides_foss/theme/ITheme.py,aspose/slides_foss/theme/IThemeManager.py,aspose/slides_foss/theme/IThemeable.py,aspose/slides_foss/theme/LayoutSlideThemeManager.py,aspose/slides_foss/theme/LineFormatCollection.py,aspose/slides_foss/theme/MasterTheme.py,aspose/slides_foss/theme/MasterThemeManager.py,aspose/slides_foss/theme/NotesSlideThemeManager.py,aspose/slides_foss/theme/OverrideTheme.py,aspose/slides_foss/theme/SlideThemeManager.py,aspose/slides_foss/theme/Theme.py,aspose/slides_foss/theme/__init__.py,git-tree:ad9fc33ed7bf983515e707a1b82368db137ac900",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.examples"
+    ]
+  },
+  "product.capabilities:repository-evidence": {
+    "field": "product.capabilities",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/slides_foss/AutoShape.py,aspose/slides_foss/Background.py,aspose/slides_foss/Connector.py,aspose/slides_foss/FillFormat.py",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": "2026-08-12T10:29:10.431528+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.description",
+      "metadata.topics"
+    ]
+  },
+  "product.formats:native-direction-evidence": {
+    "field": "product.formats",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "repository://aspose/slides_foss/Presentation.py#L357;repository://aspose/slides_foss/_internal/export/markdown/writers.py#L42;repository://aspose/slides_foss/_internal/opc/opc_package.py#L33",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "product.limitations:source-guidance": {
+    "field": "product.limitations",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/slides_foss/Column.py,aspose/slides_foss/Image.py,aspose/slides_foss/ImageCollection.py,aspose/slides_foss/Images.py,aspose/slides_foss/PPImage.py,aspose/slides_foss/Presentation.py,aspose/slides_foss/ShapeCollection.py",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.limitations"
+    ]
+  },
+  "product.audience:platform-derived": {
+    "field": "product.audience",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.problems_solved:capability-derived": {
+    "field": "product.problems_solved",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/slides_foss/AutoShape.py,aspose/slides_foss/Background.py,aspose/slides_foss/Connector.py,aspose/slides_foss/FillFormat.py",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": "2026-08-12T10:29:10.431528+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "example.minimal:compiled-salvaged-example": {
+    "field": "example.minimal",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "local-verifier://example.minimal",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.example"
+    ]
+  },
+  "installation.verified_acquisition:registry-pypi": {
+    "field": "installation.verified_acquisition",
+    "source": {
+      "source_type": "external_registry",
+      "location": "https://pypi.org/pypi/aspose-slides-foss/json",
+      "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+      "retrieved_at": "2026-08-12T10:29:10.431528+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.example"
+    ]
+  }
+}

@@ -3,17 +3,17 @@
   "org_repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
   "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
   "lifecycle_status": "NO_OP_PROVEN",
-  "facts_hash": "48fa4b08433a9e3c846972bd795105b8de62ffc30d2616af7d6f5563c399b685",
+  "facts_hash": "831a5afeefaf10318661b921f12c004bf02edf4d8e04458594a482403f6128f7",
   "resolution_source": "deterministic_salvage",
   "prompt_hash": null,
-  "local_verification_contract_hash": "443655d3f14e5f7a655796895ab900eee02054ad4742ee66ceaf29c593837395",
-  "fact_acceptance_contract_hash": "be7219827ac56b92a02e1171fce08c42adc786515d702592b1f5f8d11493704d",
+  "local_verification_contract_hash": "e8bcb12c2168e7ef9cf8f4020a6d014c1affd7a8320bdb1dce8f19a489640983",
+  "fact_acceptance_contract_hash": "fa94743a463fa235e6198793c16fa63f5bef632635907ff3e381390a781b3692",
   "fact_acceptance_component_hashes": {
     "acquisition_truth": "ab0d8351d3dd95277251a8e51cb04086649f4f29784291b692370b4fff6a1836",
     "classification_semantics": "15dc5774d8e53cb28ea3ab3d001c17a7e41debe6ecc663a5fad4c1153986075e",
     "conflict_semantics": "4c6e753e2d732ff60cf4ea017d7c84051a50a972155835e0de0ef4b962948fe1",
     "documentation_catalog": "426a76936c19f5b8bc1ed822c60a907c32b65bf4ceb3c35932140ae0b779525e",
-    "drafting_and_example_selection": "4120319e8393a88a1c22645a690a1318a881e6258a91f07d3ac5d726fd746c7f",
+    "drafting_and_example_selection": "6050fdb59920779aecdab50ea74a9d614fc719799a243ef60924bc47678dc47a",
     "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
     "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
     "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
@@ -67,28 +67,26 @@
     "TRUSTED_REVIEWING": "b4078dbee6d17c76e8edf19b28be1249da35f451e518e086cd1d4e5c4411538e"
   },
   "llm_accounting_status": "EXACT",
-  "llm_call_count": 3,
+  "llm_call_count": 2,
   "llm_call_ids": [
-    "27cee044-cb9d-4d30-bf07-3909b263155c",
-    "577f18e9-a4bd-45c7-8fab-fd71fa145de6",
-    "e7e9b65d-3073-42a5-9b94-b4bf5a0a1f73"
+    "079855ad-4444-41a5-88b4-fd60b99072a9",
+    "56034fca-60dd-4b86-9b31-d8423e348164"
   ],
   "llm_calls_by_job": {
     "merged_readme_review": 1,
-    "plan_readme_composition": 1,
     "specialist_selection": 1
   },
   "llm_fixture_call_count": 0,
   "llm_cache_reuse_count": 1,
-  "llm_prompt_tokens": 167181,
-  "llm_completion_tokens": 3295,
-  "llm_total_tokens": 170476,
-  "llm_ledger_sha256": "766cad3210fb4931ea9adb9b921bff1df64e6b3e1eed5bd5d3aa2e7efce95c05",
-  "assessment_hash": "f863cb82caecbfed145c3255ce847b2faf3f0d35ef442e44faf5bad840b82d05",
-  "presentation_plan_hash": "e02df3d8cee7d21a06c3c554553cac617ed61fcafb4ad21ff7fcc89449356be9",
-  "agentic_composition_plan_hash": "fcc38494251876f1917f46d238e5bb203a0d57e195b126e25cd688cb237f03be",
+  "llm_prompt_tokens": 17164,
+  "llm_completion_tokens": 1819,
+  "llm_total_tokens": 18983,
+  "llm_ledger_sha256": "aceb6dfe87d48a45a2a1d12f008604a6627f1594702ec58cfb154ac4c3778b5a",
+  "assessment_hash": "5a1863733c740c6af9f74a7a555c5634eb97f4b40a15d6dfae2343bcf0503f73",
+  "presentation_plan_hash": "a284782df803788c48cf18561957361b9d13598fa01224307abd7784d6045c42",
+  "agentic_composition_plan_hash": "891a3b3dfb1df18c34eb26f3f328e894b1d2cb899e04f46e5ff4a10693bf814f",
   "candidate_hash": "e607c404e5afa57bc0aa000da991fe570f1bd7709ff021e636ad6218591a7832",
-  "candidate_stage_dependency_key": "89846281a56d56250dd5899244f6348b4c7eafba9433267f6f1cac332268f97e",
+  "candidate_stage_dependency_key": "1cd16296c8c8d63ec2b23813121c1fbb5777e5e8aa3b7f4c5d62b46bf75d0f14",
   "candidate_stage_dependency_manifest": {
     "schema_version": "StageDependencyManifestV1",
     "repository": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
@@ -226,7 +224,7 @@
           "src/readme_agent/readme/claim_accountability_validation.py": "68b2322a6df98a0336d1549928e3c478f6ba1d7dd9f4eb59a31b3d50a6737eb0",
           "src/readme_agent/readme/document_validation.py": "b7fb78b49a60d274ebc919bc4eb2be86f8540ce9036ebf45dee93d58afb0402b",
           "src/readme_agent/readme/header_visual_validation.py": "0abb03dc508a8d10fd1f89a79b2bf158fc13b7df8f71fd7382aadda41d49ca60",
-          "src/readme_agent/readme/limitation_semantics.py": "cc02de2bbf7ccdbf295286cbfdc81e04092c22b2ad9885c4706cd01680cef043",
+          "src/readme_agent/readme/limitation_semantics.py": "923cdda0c0683bba5ca6dacdbe441b4adee673be904b138524d969aac65c55f6",
           "src/readme_agent/readme/limitation_validation.py": "0e2e2f172aebd102fa6a7c1856eb3921c7ebf119331770ec66eb348ea8a82f30",
           "src/readme_agent/readme/presentation_lint.py": "97be5ebebd753139e4ad3d89ae5dd70f81e0060944a74c6734498c9179c407ee",
           "src/readme_agent/readme/presentation_lint_api_reference.py": "f179ea567b1023e21a8268c6d1ae2ecf214e4a536484dbcc77420bf07fb42115",
@@ -237,7 +235,7 @@
         },
         "semantic_scope": "severe_acceptance",
         "earliest_affected_stage": "CANDIDATE_GENERATED",
-        "component_version": "826935084768cdf5b58611c9fd9fa7575e2b94d79b1704ee9d407bd997cacd9b"
+        "component_version": "9a24f2f68bf8a7ea073195cbd6dcf28bfc34255634bcaf9dae21918edbe09769"
       },
       {
         "dependency_id": "prompt:blind_readme_quality_review",
@@ -398,7 +396,7 @@
         "dependency_id": "source_claim_accountability",
         "files": {
           "src/readme_agent/presentation/verified_source_assurance_projection.py": "528d7e6a7fae875984fe5b1c7802987c713ef183c7e0eb1cda4a1f7ae5b1d5cb",
-          "src/readme_agent/presentation/verified_source_claim_matching.py": "4de1a09951d6e0aa2fe4fcb52c0af312df6997c1d4eae384055cf1215960739f",
+          "src/readme_agent/presentation/verified_source_claim_matching.py": "8d73c8182754b9bf91c0227caa4e40818d16f25787ae3a31d90a91e34088a922",
           "src/readme_agent/presentation/verified_source_claim_obligations.py": "03973508913a9eb44b78df2c084174e86fba19991b5f679cef65be12cd4915b7",
           "src/readme_agent/presentation/verified_source_claim_omissions.py": "db6696654e9b9f81c3b691d0b1abcb2ea9a6b72cde1f1ac6c79fc6255adf1a84",
           "src/readme_agent/presentation/verified_source_claim_resolution_engine.py": "7a85139ed48c6e1524115e71d38a62f58aaddcef1f6f7b06614427e8546a37df",
@@ -416,7 +414,7 @@
           "src/readme_agent/readme/claim_accountability_golden_workflow_coordinates.py": "1097e881c3994c9f11e5a018c1be13e1ac512ff6df2ab945648a10da841f999d",
           "src/readme_agent/readme/claim_replacement_validation.py": "d7b6879cc891c9f05ff012f4d76151edd6f177de11220c42a6f08fce95f5ade3",
           "src/readme_agent/readme/example_assurance_validation.py": "2c3c90048b361ad37df1899d59b28ca6e90f43b8a6f9bb40d28e554e0ed5b7c2",
-          "src/readme_agent/readme/limitation_semantics.py": "cc02de2bbf7ccdbf295286cbfdc81e04092c22b2ad9885c4706cd01680cef043",
+          "src/readme_agent/readme/limitation_semantics.py": "923cdda0c0683bba5ca6dacdbe441b4adee673be904b138524d969aac65c55f6",
           "src/readme_agent/readme/source_claim_assurance.py": "9a6c0f8ddfcbd4e4a5a795ca48204443d4d418d4663dfd3ec82d842f45a94135",
           "src/readme_agent/readme/source_claim_conversion_binding.py": "a13e433757deb4c804f08c27c307e259457140b2b32e98534e44e30b711f0840",
           "src/readme_agent/readme/source_claim_fact_binding.py": "5ca234b5a2e73b8875451ea287562987937d55262a7a0f674641fbddd61fdb96",
@@ -428,7 +426,7 @@
         },
         "semantic_scope": "protected_content",
         "earliest_affected_stage": "README_ASSESSED",
-        "component_version": "4cd82923654a140005d7b88cd35df7d0e4d5d77c195a51a4c85029b34ef6d71a"
+        "component_version": "c98423f31942b5d5b438982fdfc9545c7f537e2ff379c4d7a01d67e276b0b989"
       },
       {
         "dependency_id": "stage_bundle_persistence",
@@ -455,25 +453,25 @@
         "component_version": "e2a2959cf74ee2e5cebb8cd4e55464e2a1871fdb291d79141a65dce493b09e7a"
       }
     ],
-    "stage_key": "89846281a56d56250dd5899244f6348b4c7eafba9433267f6f1cac332268f97e"
+    "stage_key": "1cd16296c8c8d63ec2b23813121c1fbb5777e5e8aa3b7f4c5d62b46bf75d0f14"
   },
-  "repair_budget_origin_hash": "1bf3b80f03902fa8461ad12c6919bf00caf639d5b43e5afc8cb386a5aeb8a1c9",
-  "campaign_id": "6627485b149d54e9145aae85eaeff7b644d8242ac6ebea5b13a6926473447b69",
+  "repair_budget_origin_hash": "d1dd69f8eb9204d321e4c2f0a9b98e0b680d8fa703e5535dc92861bded3ad435",
+  "campaign_id": "460f33417a0ceb5667c0ccce9ad3cc1a5927b639ffb4bc0ca22c83054cdee2c9",
   "acceptance_authority": "sealed_stage_receipts",
   "stage_receipts": {
     "CANDIDATE_GENERATED": {
-      "campaign_id": "936c247db127243c1dbe563f7946280bf5423e2ec6c11c326393d6c3a84d556d",
-      "work_id": "4176cddfc5a61fd0bca011f95ce99129aa4a2d3a4518b919341cd441a46fcdb0",
-      "output_hash": "a2efef034d211008cd54ce4a0ebee74e0fa3943c27a1b1c04d3d953a9d024a37",
+      "campaign_id": "b32e05f589e813ac5c7d4622ae1fa8ec18bcdbdd93442b74cce6b49b6bc6b7dd",
+      "work_id": "15bb17f19787e515dca5bff330607083a8893c8f7c597d717953c4e7083a9502",
+      "output_hash": "c449211a3e966133b89e39460b86dc8030f255693908815ce4bef18c0af845f6",
       "receipt_path": "receipts/CANDIDATE_GENERATED.json"
     },
     "DETERMINISTIC_VALIDATED": {
-      "campaign_id": "6627485b149d54e9145aae85eaeff7b644d8242ac6ebea5b13a6926473447b69",
-      "work_id": "43c9dc164239000e64fb3996fe88a3be36543bb8e26ad7f6ecc455e45c899d07",
-      "output_hash": "64b1be9d9906fedba4daecf3b25bd9ec6438942cbbd6e19a41ab8b89e3aca206",
+      "campaign_id": "460f33417a0ceb5667c0ccce9ad3cc1a5927b639ffb4bc0ca22c83054cdee2c9",
+      "work_id": "21ffad6ca5b2c034fc0dcf63d0c85a39822d920ec220d291c9c450fb086daa3d",
+      "output_hash": "dd7e5bf171e1e012375813a9df0b86722875ab09914ebda9d2b67891772a2718",
       "receipt_path": "receipts/DETERMINISTIC_VALIDATED.json"
     }
   },
-  "deterministic_validation_hash": "b5031fb027692521b148bb8b16c2b4eaa93eabf7b150bcd6be62ff2f10c039c7",
+  "deterministic_validation_hash": "67a7d8d96dcf95c771a897786f66da78b145597231132926c46b9b56e057b9f4",
   "reviewer_standard_hash": "831bac00046be9bc3017075f514138ac6e44822c163ec7789603c543bdce5dca"
 }

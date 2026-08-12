@@ -1,0 +1,410 @@
+{
+  "product.identity:manifest-and-registry": {
+    "field": "product.identity",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml,setup.py",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.platforms:manifest": {
+    "field": "product.platforms",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml,setup.py",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "installation.coordinates:manifest": {
+    "field": "installation.coordinates",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml,setup.py",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation"
+    ]
+  },
+  "documentation.links:governed-aspose-org-catalog": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "external_registry",
+      "location": "data/aspose_org_links.json",
+      "source_revision": "sha256:680cca760849f8da67905f7bca6a310d1d8fa3149f2a961abdb47234a026984e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "documentation-catalog-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "documentation.links:primary": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-font-foss/Aspose.Font-FOSS-for-Python",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "documentation-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "release.state:manifest-and-registry": {
+    "field": "release.state",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml,setup.py",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.release"
+    ]
+  },
+  "product.compatibility:manifest": {
+    "field": "product.compatibility",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml,setup.py",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "readme.installation"
+    ]
+  },
+  "product.license:license-file": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://LICENSE.txt",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "product.license:manifest": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml,setup.py",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "support.routes:primary": {
+    "field": "support.routes",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-font-foss/Aspose.Font-FOSS-for-Python",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "support-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "community.support"
+    ]
+  },
+  "relationship.commercial_foss:primary": {
+    "field": "relationship.commercial_foss",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-font-foss/Aspose.Font-FOSS-for-Python",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.9,
+    "authoritative_owner": "portfolio-policy-owner",
+    "affected_surfaces": [
+      "readme.relationship"
+    ]
+  },
+  "api.public_surface:python-exports": {
+    "field": "api.public_surface",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://pyproject.toml,src/aspose_font/__init__.py,src/aspose_font/_exceptions.py,src/aspose_font/_font_base.py,src/aspose_font/_types.py,src/aspose_font/animation.py,src/aspose_font/cff/__init__.py,src/aspose_font/cff/charset.py,src/aspose_font/cff/dict_.py,src/aspose_font/cff/encoding.py,src/aspose_font/cff/font.py,src/aspose_font/cff/index.py,src/aspose_font/cff/type2.py,src/aspose_font/cleaner.py,src/aspose_font/cli.py,src/aspose_font/compatibility.py,src/aspose_font/converter.py,src/aspose_font/delta.py,src/aspose_font/eot/__init__.py,src/aspose_font/eot/font.py,src/aspose_font/instancing.py,src/aspose_font/loader.py,src/aspose_font/mcp.py,src/aspose_font/preview.py,src/aspose_font/qa.py,src/aspose_font/rasterizer.py,src/aspose_font/reporting.py,src/aspose_font/serializer.py,src/aspose_font/subset_presets.py,src/aspose_font/subsetter.py,src/aspose_font/text.py,src/aspose_font/ttf/__init__.py,src/aspose_font/ttf/collection.py,src/aspose_font/ttf/font.py,src/aspose_font/ttf/glyph.py,src/aspose_font/ttf/instancer.py,src/aspose_font/ttf/tables/__init__.py,src/aspose_font/ttf/tables/avar.py,src/aspose_font/ttf/tables/cmap.py,src/aspose_font/ttf/tables/fvar.py,src/aspose_font/ttf/tables/glyf.py,src/aspose_font/ttf/tables/gvar.py,src/aspose_font/ttf/tables/head.py,src/aspose_font/ttf/tables/hhea.py,src/aspose_font/ttf/tables/hmtx.py,src/aspose_font/ttf/tables/hvar.py,src/aspose_font/ttf/tables/kern.py,src/aspose_font/ttf/tables/loca.py,src/aspose_font/ttf/tables/maxp.py,src/aspose_font/ttf/tables/name.py,src/aspose_font/ttf/tables/os2.py,src/aspose_font/ttf/tables/post.py,src/aspose_font/ttf/tables/stat.py,src/aspose_font/type1/__init__.py,src/aspose_font/type1/afm.py,src/aspose_font/type1/charstring.py,src/aspose_font/type1/eexec.py,src/aspose_font/type1/font.py,src/aspose_font/type1/pfa.py,src/aspose_font/type1/pfb.py,src/aspose_font/type1/ps_lexer.py,src/aspose_font/variation.py,src/aspose_font/web.py,src/aspose_font/woff/__init__.py,src/aspose_font/woff/woff1.py,src/aspose_font/woff/woff2.py",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.api_reference"
+    ]
+  },
+  "development.assets:repository-inventory": {
+    "field": "development.assets",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://tests/conftest.py,tests/test_animation.py,tests/test_cff.py,tests/test_cff_glyphs.py,tests/test_cleaner.py,tests/test_cli.py,tests/test_compatibility.py,tests/test_converter.py,Makefile",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development"
+    ]
+  },
+  "development.commands:repository-guidance": {
+    "field": "development.commands",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://pyproject.toml,tests/test_animation.py,tests/test_cff.py,tests/test_cff_glyphs.py,tests/test_cleaner.py,tests/test_cli.py,tests/test_compatibility.py,tests/test_converter.py,tests/test_delta.py,tests/test_exceptions.py,tests/test_fixture_corpus.py,tests/test_io.py,tests/test_kerning.py,tests/test_loader.py,tests/test_makefile_publish_targets.py,tests/test_mcp.py,tests/test_qa.py,tests/test_rasterizer.py,tests/test_readme.py,tests/test_reporting.py,tests/test_serializer.py,tests/test_subsetter.py,tests/test_text.py,tests/test_ttf.py,tests/test_ttf_glyphs.py,tests/test_type1.py,tests/test_variable.py,tests/test_web.py,tests/test_woff.py",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development",
+      "readme.contributing"
+    ]
+  },
+  "installation.optional_extras:python-manifest": {
+    "field": "installation.optional_extras",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.development"
+    ]
+  },
+  "python.distribution:pyproject-manifest": {
+    "field": "python.distribution",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.release"
+    ]
+  },
+  "repository.documentation_assets:root-documents": {
+    "field": "repository.documentation_assets",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://CHANGELOG.md,SECURITY.md",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "readme.limitations"
+    ]
+  },
+  "repository.examples:repository-inventory": {
+    "field": "repository.examples",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://README.md,git-tree:75a0b491aee6a9c20abd5c9aaba3275edbfd3c03,src/aspose_font/__init__.py,src/aspose_font/_exceptions.py,src/aspose_font/_font_base.py,src/aspose_font/_types.py,src/aspose_font/animation.py,src/aspose_font/cff/__init__.py,src/aspose_font/cff/charset.py,src/aspose_font/cff/dict_.py,src/aspose_font/cff/encoding.py,src/aspose_font/cff/font.py,src/aspose_font/cff/index.py,src/aspose_font/cff/type2.py,src/aspose_font/cleaner.py,src/aspose_font/cli.py,src/aspose_font/compatibility.py,src/aspose_font/converter.py,src/aspose_font/delta.py,src/aspose_font/eot/__init__.py,src/aspose_font/eot/font.py,src/aspose_font/instancing.py,src/aspose_font/loader.py,src/aspose_font/mcp.py,src/aspose_font/preview.py,src/aspose_font/qa.py,src/aspose_font/rasterizer.py,src/aspose_font/reporting.py,src/aspose_font/serializer.py,src/aspose_font/subset_presets.py,src/aspose_font/subsetter.py,src/aspose_font/text.py,src/aspose_font/ttf/__init__.py,src/aspose_font/ttf/collection.py,src/aspose_font/ttf/font.py,src/aspose_font/ttf/glyph.py,src/aspose_font/ttf/instancer.py,src/aspose_font/ttf/tables/__init__.py,src/aspose_font/ttf/tables/avar.py,src/aspose_font/ttf/tables/cmap.py,src/aspose_font/ttf/tables/fvar.py,src/aspose_font/ttf/tables/glyf.py,src/aspose_font/ttf/tables/gvar.py,src/aspose_font/ttf/tables/head.py,src/aspose_font/ttf/tables/hhea.py,src/aspose_font/ttf/tables/hmtx.py,src/aspose_font/ttf/tables/hvar.py,src/aspose_font/ttf/tables/kern.py,src/aspose_font/ttf/tables/loca.py,src/aspose_font/ttf/tables/maxp.py,src/aspose_font/ttf/tables/name.py,src/aspose_font/ttf/tables/os2.py,src/aspose_font/ttf/tables/post.py,src/aspose_font/ttf/tables/stat.py,src/aspose_font/type1/__init__.py,src/aspose_font/type1/afm.py,src/aspose_font/type1/charstring.py,src/aspose_font/type1/eexec.py,src/aspose_font/type1/font.py,src/aspose_font/type1/pfa.py,src/aspose_font/type1/pfb.py,src/aspose_font/type1/ps_lexer.py,src/aspose_font/variation.py,src/aspose_font/web.py,src/aspose_font/woff/__init__.py,src/aspose_font/woff/woff1.py,src/aspose_font/woff/woff2.py",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.examples"
+    ]
+  },
+  "repository.security_guidance:security-policy-and-source": {
+    "field": "repository.security_guidance",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://SECURITY.md",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.security"
+    ]
+  },
+  "product.capabilities:repository-evidence": {
+    "field": "product.capabilities",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://README.md,src/aspose_font/_font_base.py,src/aspose_font/converter.py,src/aspose_font/delta.py,src/aspose_font/web.py",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": "2026-08-12T03:13:54.148996+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.description",
+      "metadata.topics"
+    ]
+  },
+  "product.formats:native-direction-evidence": {
+    "field": "product.formats",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "local-verifier://example.minimal;repository://src/aspose_font/cff/font.py#L236;repository://src/aspose_font/cff/font.py#L90;repository://src/aspose_font/eot/font.py#L114;repository://src/aspose_font/eot/font.py#L202;repository://src/aspose_font/ttf/font.py#L121;repository://src/aspose_font/ttf/font.py#L639;repository://src/aspose_font/type1/font.py#L196;repository://src/aspose_font/type1/font.py#L93;repository://src/aspose_font/woff/woff1.py#L150;repository://src/aspose_font/woff/woff1.py#L33;repository://src/aspose_font/woff/woff2.py#L147;repository://src/aspose_font/woff/woff2.py#L236",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "product.limitations:source-guidance": {
+    "field": "product.limitations",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://src/aspose_font/_font_base.py,src/aspose_font/_io.py,src/aspose_font/animation.py,src/aspose_font/cli.py",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.limitations"
+    ]
+  },
+  "product.audience:platform-derived": {
+    "field": "product.audience",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml,setup.py",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.problems_solved:capability-derived": {
+    "field": "product.problems_solved",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://README.md,src/aspose_font/_font_base.py,src/aspose_font/converter.py,src/aspose_font/delta.py,src/aspose_font/web.py",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": "2026-08-12T03:13:54.148996+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "example.minimal:compiled-salvaged-example": {
+    "field": "example.minimal",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "local-verifier://example.minimal",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.example"
+    ]
+  },
+  "installation.verified_acquisition:disposable-source-build": {
+    "field": "installation.verified_acquisition",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "https://pypi.org/pypi/aspose-font-foss/json",
+      "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+      "retrieved_at": "2026-08-12T03:13:54.148996+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.example"
+    ]
+  }
+}

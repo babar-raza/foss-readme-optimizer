@@ -1,0 +1,380 @@
+{
+  "product.identity:manifest-and-registry": {
+    "field": "product.identity",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.platforms:manifest": {
+    "field": "product.platforms",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "installation.coordinates:manifest": {
+    "field": "installation.coordinates",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation"
+    ]
+  },
+  "documentation.links:governed-aspose-org-catalog": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "external_registry",
+      "location": "data/aspose_org_links.json",
+      "source_revision": "sha256:680cca760849f8da67905f7bca6a310d1d8fa3149f2a961abdb47234a026984e",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "documentation-catalog-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "documentation.links:primary": {
+    "field": "documentation.links",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-words-foss/Aspose.Words-FOSS-for-Python",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "documentation-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "metadata.homepage"
+    ]
+  },
+  "release.state:manifest-and-registry": {
+    "field": "release.state",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.release"
+    ]
+  },
+  "product.compatibility:manifest": {
+    "field": "product.compatibility",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "readme.installation"
+    ]
+  },
+  "product.license:license-file": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://LICENSE",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "product.license:manifest": {
+    "field": "product.license",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.license",
+      "community.license"
+    ]
+  },
+  "support.routes:primary": {
+    "field": "support.routes",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-words-foss/Aspose.Words-FOSS-for-Python",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.75,
+    "authoritative_owner": "support-policy-owner",
+    "affected_surfaces": [
+      "readme.resources",
+      "community.support"
+    ]
+  },
+  "relationship.commercial_foss:primary": {
+    "field": "relationship.commercial_foss",
+    "source": {
+      "source_type": "approved_policy",
+      "location": "registry-policy://aspose-words-foss/Aspose.Words-FOSS-for-Python",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "policy_approved",
+    "confidence": 0.9,
+    "authoritative_owner": "portfolio-policy-owner",
+    "affected_surfaces": [
+      "readme.relationship"
+    ]
+  },
+  "api.public_surface:python-exports": {
+    "field": "api.public_surface",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/words_foss/__init__.py,aspose/words_foss/converters/__init__.py,aspose/words_foss/converters/list_handler.py,aspose/words_foss/converters/paragraph.py,aspose/words_foss/converters/table.py,aspose/words_foss/doc_reader/__init__.py,aspose/words_foss/doc_reader/constants.py,aspose/words_foss/doc_reader/doc_file_reader.py,aspose/words_foss/doc_reader/doc_file_reader_core.py,aspose/words_foss/doc_reader/fib.py,aspose/words_foss/doc_reader/fonts.py,aspose/words_foss/doc_reader/images.py,aspose/words_foss/doc_reader/lists.py,aspose/words_foss/doc_reader/properties.py,aspose/words_foss/doc_reader/styles.py,aspose/words_foss/doc_reader/table_builder.py,aspose/words_foss/doc_reader/tables.py,aspose/words_foss/doc_reader/text.py,aspose/words_foss/document.py,aspose/words_foss/docx_reader/__init__.py,aspose/words_foss/docx_reader/data_classes.py,aspose/words_foss/docx_reader/document_reader.py,aspose/words_foss/docx_reader/ldm_builder/__init__.py,aspose/words_foss/docx_reader/ldm_builder/cascading.py,aspose/words_foss/docx_reader/ldm_builder/definitions.py,aspose/words_foss/docx_reader/ldm_builder/mixin.py,aspose/words_foss/docx_reader/ldm_builder/paragraphs.py,aspose/words_foss/docx_reader/ldm_builder/sections.py,aspose/words_foss/docx_reader/ldm_builder/tables.py,aspose/words_foss/docx_reader/shapes.py,aspose/words_foss/docx_reader/utils.py,aspose/words_foss/docx_writer/__init__.py,aspose/words_foss/docx_writer/blank_template.py,aspose/words_foss/docx_writer/bookmarks.py,aspose/words_foss/docx_writer/constants.py,aspose/words_foss/docx_writer/doc_props_part.py,aspose/words_foss/docx_writer/document_part.py,aspose/words_foss/docx_writer/drawing.py,aspose/words_foss/docx_writer/headers_footers.py,aspose/words_foss/docx_writer/numbering_part.py,aspose/words_foss/docx_writer/package.py,aspose/words_foss/docx_writer/paragraphs.py,aspose/words_foss/docx_writer/runs.py,aspose/words_foss/docx_writer/settings_part.py,aspose/words_foss/docx_writer/styles_part.py,aspose/words_foss/docx_writer/tables.py,aspose/words_foss/docx_writer/writer.py,aspose/words_foss/docx_writer/xml_utils.py,aspose/words_foss/drawing.py,aspose/words_foss/light_document_model.py,aspose/words_foss/loading.py,aspose/words_foss/markdown_reader.py,aspose/words_foss/md_import/__init__.py,aspose/words_foss/md_import/block_parser.py,aspose/words_foss/md_import/blocks.py,aspose/words_foss/md_import/document_builder.py,aspose/words_foss/md_import/inline_parser.py,aspose/words_foss/md_import/reader_context.py,aspose/words_foss/md_import/traversal.py,aspose/words_foss/md_writer.py,aspose/words_foss/model/enums/__init__.py,aspose/words_foss/model/enums/border.py,aspose/words_foss/model/enums/font.py,aspose/words_foss/model/enums/image.py,aspose/words_foss/model/enums/layout.py,aspose/words_foss/model/enums/paragraph.py,aspose/words_foss/model/enums/style.py,aspose/words_foss/model/enums/table.py,aspose/words_foss/model/style_identifiers.py,aspose/words_foss/model/wrap_type.py,aspose/words_foss/models.py,aspose/words_foss/parsers/__init__.py,aspose/words_foss/parsers/numbering_parser.py,aspose/words_foss/parsers/style_parser.py,aspose/words_foss/pdf_writer/__init__.py,aspose/words_foss/pdf_writer/color.py,aspose/words_foss/pdf_writer/font.py,aspose/words_foss/pdf_writer/page_bands.py,aspose/words_foss/pdf_writer/paragraph_renderer.py,aspose/words_foss/pdf_writer/run_renderer.py,aspose/words_foss/pdf_writer/shape_renderer.py,aspose/words_foss/pdf_writer/table_renderer.py,aspose/words_foss/pdf_writer/text.py,aspose/words_foss/pdf_writer/writer.py,aspose/words_foss/reader_factory.py,aspose/words_foss/rtf_reader.py,aspose/words_foss/text_reader.py,aspose/words_foss/utils/__init__.py,aspose/words_foss/utils/xml_helpers.py,pyproject.toml",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.api_reference"
+    ]
+  },
+  "development.commands:repository-guidance": {
+    "field": "development.commands",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://pyproject.toml",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.development",
+      "readme.contributing"
+    ]
+  },
+  "installation.optional_extras:python-manifest": {
+    "field": "installation.optional_extras",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.development"
+    ]
+  },
+  "python.distribution:pyproject-manifest": {
+    "field": "python.distribution",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.release"
+    ]
+  },
+  "repository.examples:repository-inventory": {
+    "field": "repository.examples",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://README.md,aspose/words_foss/__init__.py,aspose/words_foss/converters/__init__.py,aspose/words_foss/converters/list_handler.py,aspose/words_foss/converters/paragraph.py,aspose/words_foss/converters/table.py,aspose/words_foss/doc_reader/__init__.py,aspose/words_foss/doc_reader/constants.py,aspose/words_foss/doc_reader/doc_file_reader.py,aspose/words_foss/doc_reader/doc_file_reader_core.py,aspose/words_foss/doc_reader/fib.py,aspose/words_foss/doc_reader/fonts.py,aspose/words_foss/doc_reader/images.py,aspose/words_foss/doc_reader/lists.py,aspose/words_foss/doc_reader/properties.py,aspose/words_foss/doc_reader/styles.py,aspose/words_foss/doc_reader/table_builder.py,aspose/words_foss/doc_reader/tables.py,aspose/words_foss/doc_reader/text.py,aspose/words_foss/document.py,aspose/words_foss/docx_reader/__init__.py,aspose/words_foss/docx_reader/data_classes.py,aspose/words_foss/docx_reader/document_reader.py,aspose/words_foss/docx_reader/ldm_builder/__init__.py,aspose/words_foss/docx_reader/ldm_builder/cascading.py,aspose/words_foss/docx_reader/ldm_builder/definitions.py,aspose/words_foss/docx_reader/ldm_builder/mixin.py,aspose/words_foss/docx_reader/ldm_builder/paragraphs.py,aspose/words_foss/docx_reader/ldm_builder/sections.py,aspose/words_foss/docx_reader/ldm_builder/tables.py,aspose/words_foss/docx_reader/shapes.py,aspose/words_foss/docx_reader/utils.py,aspose/words_foss/docx_writer/__init__.py,aspose/words_foss/docx_writer/blank_template.py,aspose/words_foss/docx_writer/bookmarks.py,aspose/words_foss/docx_writer/constants.py,aspose/words_foss/docx_writer/doc_props_part.py,aspose/words_foss/docx_writer/document_part.py,aspose/words_foss/docx_writer/drawing.py,aspose/words_foss/docx_writer/headers_footers.py,aspose/words_foss/docx_writer/numbering_part.py,aspose/words_foss/docx_writer/package.py,aspose/words_foss/docx_writer/paragraphs.py,aspose/words_foss/docx_writer/runs.py,aspose/words_foss/docx_writer/settings_part.py,aspose/words_foss/docx_writer/styles_part.py,aspose/words_foss/docx_writer/tables.py,aspose/words_foss/docx_writer/writer.py,aspose/words_foss/docx_writer/xml_utils.py,aspose/words_foss/drawing.py,aspose/words_foss/light_document_model.py,aspose/words_foss/loading.py,aspose/words_foss/markdown_reader.py,aspose/words_foss/md_import/__init__.py,aspose/words_foss/md_import/block_parser.py,aspose/words_foss/md_import/blocks.py,aspose/words_foss/md_import/document_builder.py,aspose/words_foss/md_import/inline_parser.py,aspose/words_foss/md_import/reader_context.py,aspose/words_foss/md_import/traversal.py,aspose/words_foss/md_writer.py,aspose/words_foss/model/enums/__init__.py,aspose/words_foss/model/enums/border.py,aspose/words_foss/model/enums/font.py,aspose/words_foss/model/enums/image.py,aspose/words_foss/model/enums/layout.py,aspose/words_foss/model/enums/paragraph.py,aspose/words_foss/model/enums/style.py,aspose/words_foss/model/enums/table.py,aspose/words_foss/model/style_identifiers.py,aspose/words_foss/model/wrap_type.py,aspose/words_foss/models.py,aspose/words_foss/parsers/__init__.py,aspose/words_foss/parsers/numbering_parser.py,aspose/words_foss/parsers/style_parser.py,aspose/words_foss/pdf_writer/__init__.py,aspose/words_foss/pdf_writer/color.py,aspose/words_foss/pdf_writer/font.py,aspose/words_foss/pdf_writer/page_bands.py,aspose/words_foss/pdf_writer/paragraph_renderer.py,aspose/words_foss/pdf_writer/run_renderer.py,aspose/words_foss/pdf_writer/shape_renderer.py,aspose/words_foss/pdf_writer/table_renderer.py,aspose/words_foss/pdf_writer/text.py,aspose/words_foss/pdf_writer/writer.py,aspose/words_foss/reader_factory.py,aspose/words_foss/rtf_reader.py,aspose/words_foss/text_reader.py,aspose/words_foss/utils/__init__.py,aspose/words_foss/utils/xml_helpers.py,git-tree:c3ee7505d3c661027825f7dfdc1002c583a5cd0e",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.examples"
+    ]
+  },
+  "repository.implementation_components:python-implementation-components": {
+    "field": "repository.implementation_components",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/words_foss/doc_reader/doc_file_reader.py,aspose/words_foss/doc_reader/doc_file_reader_core.py,aspose/words_foss/doc_reader/fib.py,aspose/words_foss/doc_reader/images.py,aspose/words_foss/doc_reader/lists.py,aspose/words_foss/doc_reader/properties.py,aspose/words_foss/doc_reader/styles.py,aspose/words_foss/doc_reader/table_builder.py,aspose/words_foss/docx_reader/data_classes.py,aspose/words_foss/docx_reader/document_reader.py,aspose/words_foss/docx_reader/ldm_builder/_context.py,aspose/words_foss/docx_reader/ldm_builder/cascading.py,aspose/words_foss/docx_reader/ldm_builder/definitions.py,aspose/words_foss/docx_reader/ldm_builder/mixin.py,aspose/words_foss/docx_reader/ldm_builder/paragraphs.py,aspose/words_foss/docx_reader/ldm_builder/sections.py,aspose/words_foss/docx_reader/ldm_builder/tables.py,aspose/words_foss/docx_reader/shapes.py,aspose/words_foss/docx_writer/bookmarks.py,aspose/words_foss/docx_writer/drawing.py,aspose/words_foss/docx_writer/writer.py,aspose/words_foss/markdown_reader.py,aspose/words_foss/md_writer.py,aspose/words_foss/pdf_writer/_context.py,aspose/words_foss/pdf_writer/paragraph_renderer.py,aspose/words_foss/pdf_writer/run_renderer.py,aspose/words_foss/pdf_writer/shape_renderer.py,aspose/words_foss/pdf_writer/table_renderer.py,aspose/words_foss/pdf_writer/writer.py,aspose/words_foss/rtf_reader.py,aspose/words_foss/text_reader.py",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "readme.api_reference"
+    ]
+  },
+  "product.capabilities:repository-evidence": {
+    "field": "product.capabilities",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://ApiExamples/convert_document.py,ApiExamples/loading_document.py,ApiExamples/working_with_markdown_save_options.py,ApiExamples/working_with_pdf_save_options.py,aspose/words_foss/document.py,aspose/words_foss/md_writer.py,aspose/words_foss/saving.py",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": "2026-08-12T10:45:09.137782+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.description",
+      "metadata.topics"
+    ]
+  },
+  "product.formats:native-direction-evidence": {
+    "field": "product.formats",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "repository://aspose/words_foss/doc_reader/doc_file_reader.py#L61;repository://aspose/words_foss/docx_reader/document_reader.py#L84;repository://aspose/words_foss/docx_writer/writer.py#L257;repository://aspose/words_foss/markdown_reader.py#L48;repository://aspose/words_foss/md_writer.py#L168;repository://aspose/words_foss/pdf_writer/writer.py#L150",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.capabilities",
+      "metadata.topics"
+    ]
+  },
+  "product.limitations:source-guidance": {
+    "field": "product.limitations",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://aspose/words_foss/docx_writer/writer.py,aspose/words_foss/saving.py",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.limitations"
+    ]
+  },
+  "product.audience:platform-derived": {
+    "field": "product.audience",
+    "source": {
+      "source_type": "mechanical_manifest",
+      "location": "repository://pyproject.toml",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "product.problems_solved:capability-derived": {
+    "field": "product.problems_solved",
+    "source": {
+      "source_type": "mechanical_repository",
+      "location": "repository://ApiExamples/convert_document.py,ApiExamples/loading_document.py,ApiExamples/working_with_markdown_save_options.py,ApiExamples/working_with_pdf_save_options.py,aspose/words_foss/document.py,aspose/words_foss/md_writer.py,aspose/words_foss/saving.py",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": "2026-08-12T10:45:09.137782+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.opening",
+      "metadata.description"
+    ]
+  },
+  "example.minimal:compiled-salvaged-example": {
+    "field": "example.minimal",
+    "source": {
+      "source_type": "mechanical_test",
+      "location": "local-verifier://example.minimal",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": null
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.example"
+    ]
+  },
+  "installation.verified_acquisition:registry-pypi": {
+    "field": "installation.verified_acquisition",
+    "source": {
+      "source_type": "external_registry",
+      "location": "https://pypi.org/pypi/aspose-words-foss/json",
+      "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+      "retrieved_at": "2026-08-12T10:45:09.137782+00:00"
+    },
+    "verification_state": "verified",
+    "confidence": 1.0,
+    "authoritative_owner": "repository-owner",
+    "affected_surfaces": [
+      "readme.installation",
+      "readme.example"
+    ]
+  }
+}
