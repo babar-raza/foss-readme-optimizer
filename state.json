@@ -7501,60 +7501,51 @@
     "updated_at": "2026-08-12T10:45:32.610941+00:00"
   },
   "schema_version": 2,
-  "state_version": 151,
+  "state_version": 152,
   "supervisor_state": {
     "capability_gaps": [],
-    "control_plane_fingerprint": "86ad6753688dd1d4c39c2e62761a6c843872bd670f2cf267323b1dc2a690ed88",
+    "control_plane_fingerprint": "28b6eb6ac83e14c637db7804b6dbc47dcf4b35ef760e130b8644bc92031ca608",
     "domain_coverage_complete": true,
-    "in_flight_domains": [
-      "readme_reconciliation",
-      "github_generated_surface_audit",
-      "package_release_audit",
-      "metadata_presentation",
-      "community_files_presentation",
-      "cross_surface_validation",
-      "readme_presentation",
-      "visual_preparation",
-      "presentation_benchmarking",
-      "independent_verification"
-    ],
-    "in_flight_run_id": "20260812-104604-651d",
+    "in_flight_domains": [],
+    "in_flight_run_id": null,
     "last_observed_upstream_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
-    "last_run_id": null,
-    "last_run_timestamp": "2026-08-01T11:20:08.102542+00:00",
-    "last_status": "CONVERGED_NO_TRACKED_CHANGE",
+    "last_run_id": "20260812-105038-19d3",
+    "last_run_timestamp": "2026-08-12T10:50:38.830829+00:00",
+    "last_status": "BLOCKED",
     "repair_history": [],
     "surface_freshness": {
       "github_generated_surface_audit": {
         "authoritative_source": "github_api",
-        "last_checked_at": "2026-08-01T11:18:22.438624+00:00",
+        "last_checked_at": "2026-08-12T10:50:38.830757+00:00",
         "observed_hash": "4e148bbdb3df30df57ae90c2f8f1450ec28201c827fd96f7d171202fef456ee4",
         "surface_id": "github_generated_surface_audit",
         "ttl_seconds": 86400
       },
       "metadata_presentation": {
         "authoritative_source": "github_api",
-        "last_checked_at": "2026-08-01T11:18:22.438624+00:00",
-        "observed_hash": "6fdcee807ba369088e5034fc0deda6aa67b02d7e827acc2c57bd34baca7018d3",
+        "last_checked_at": "2026-08-12T10:50:38.830757+00:00",
+        "observed_hash": "13971527f3c0d8d12997bc2f41440d35000ab7d8e64b0bffc3e4c13476ec404e",
         "surface_id": "metadata_presentation",
         "ttl_seconds": 86400
       },
       "package_release_audit": {
         "authoritative_source": "registry_api",
-        "last_checked_at": "2026-08-01T11:18:22.438624+00:00",
+        "last_checked_at": "2026-08-12T10:50:38.830757+00:00",
         "observed_hash": "eac0c9a8c82ed0c313a7d5d6a6dc64c2b031afe61fdee1d52b627a8165539009",
         "surface_id": "package_release_audit",
         "ttl_seconds": 21600
       },
       "visual_preparation": {
         "authoritative_source": "local_filesystem",
-        "last_checked_at": "2026-08-01T11:18:22.438624+00:00",
+        "last_checked_at": "2026-08-12T10:50:38.830757+00:00",
         "observed_hash": "a5fff1721d25c20e8103637b03ae8cd3f9dea5095d3466530a4ce448f465d73a",
         "surface_id": "visual_preparation",
         "ttl_seconds": 86400
       }
     },
-    "task_graph_snapshot": null
+    "task_graph_snapshot": {
+      "tasks": []
+    }
   },
   "trigger_lifecycles": {
     "delivery:registry:1199624632:debdb33acc688ec9ad25aa9f0f33810877cddf0a78a4f4670d0c863c0efe726d": {
