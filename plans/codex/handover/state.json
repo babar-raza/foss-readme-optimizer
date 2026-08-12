@@ -1,151 +1,165 @@
 {
-  "schema_version": 13,
+  "schema_version": 14,
   "handover_status": "HANDOVER_READY",
-  "snapshot_time": "2026-08-11T09:49:47+05:00",
+  "snapshot_time": "2026-08-12T23:07:28+05:00",
   "snapshot_is_historical_after_any_change": true,
   "repository": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer",
   "branch": "main",
-  "source_checkpoint_head": "e0b26d8c3eac2b0fd7b32b5320a0d656a3bc699a",
-  "ahead_of_origin_main": 54,
-  "goal_interface_status": "paused",
+  "head": "cd0dab38c6a9de0b927bb7bf673549edb7664c8c",
+  "origin_main": "dde47b0b3885253cff631c276da5f9a94edf8f5f",
+  "ahead_of_origin_main": 6,
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "authoritative_plan": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "authoritative_plan_hash": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
-  "durable_state_version": 980,
+  "document_hashes": {
+    "plans/idea.md": "8fa42dfb87fa568aa43fd99683e52b5fc45c640acf65ac2d537dd2cae200da9d",
+    "plans/master.md": "e7e2b56ce1b0686d626cf92ab6b2ecfbcae3fd107a59444910f775ed4e0510d4",
+    "plans/requirements/catalog.jsonl": "70ad633d7d180367bf3fd42ca4d2d1bce792fb165043de1709d1506ef017464d",
+    "plans/investigations/control/level8-deferred-task-catalog.jsonl": "abe4df2ea729326d71f1f930a8bb45ef1f87207d50c778f5f860b0dd4fe9e06c",
+    "data/platform_priorities.json": "8874ba61d75a319e41e1e3b77ae7a99df2cd291f2dedb4ff15242b7bfa6e66ec"
+  },
+  "durable_state_version": 1188,
+  "durable_state_ref": "refs/readme-agent-state/mission__LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_drift": false,
-  "current_phase": "verified Python local qualification",
-  "current_stage_goal": "GOAL-V0-VERIFIED-PYTHON-POC",
-  "current_task": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
-  "current_task_status": "IN_PROGRESS_OR_EXPIRED_CLAIM_REQUIRING_EVALUATE",
-  "immediate_goal": "DELIVERY-PY-PDF-CURRENT",
-  "repository_scope": [
-    "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
-  ],
-  "first_failing_boundary": "PDF current candidate-stage dependency key is not bound by deterministic validation, independent review, final verdict, or no-op proof",
-  "next_action": "Run live mission status and evaluate, claim the printed PDF task, reproduce and repair deterministic_manifest_dependency_key_mismatch, then produce a current acceptance chain followed by an exact zero-provider-call complete-transaction replay and independent PASS.",
+  "active_goal": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "active_task": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+  "active_claim_owner": "claude-coordinator",
+  "active_claim_expiry": "2026-08-12T15:16:38.600330+00:00",
+  "active_claim_status_at_snapshot": "EXPIRED_REQUIRES_EVALUATE_AND_RECLAIM",
+  "handoff_mission": "Expand the established verified workflow across all 19 current non-Python registry entries after existing graph dependencies admit the work.",
+  "next_action": "Verify live state, run mission evaluate, recover the expired Python parent claim, reconcile the existing ten strict promotions plus HTML/PSD/TeX dispositions without reopening Python README design, and complete graph-required Python transport/admission before claiming L8-VNET-01-ACCELERATED-LOCAL-NO-OP.",
   "registry": {
     "path": "data/products.json",
     "sha256": "22b203b1a3094f40be8fae1474620eb54ce67bb70b762c7275cbaaa22383d8ee",
     "denominator": 32,
-    "python_denominator": 13,
+    "non_python_denominator": 19,
     "platform_counts": {
-      "python": 13,
       "net": 6,
       "java": 4,
       "cpp": 4,
       "typescript": 2,
       "rust": 1,
-      "go": 2
+      "go": 2,
+      "python": 13
     }
   },
-  "portfolio_scoreboard": {
-    "facts_ready_current": 2,
-    "candidate_generated_current": 2,
-    "deterministic_validated_current": 2,
-    "agent_approved_current": 1,
-    "no_op_proven_current": 0,
-    "human_accepted_current": 0
+  "platform_priority": [
+    "python",
+    "net",
+    "java",
+    "cpp",
+    "typescript",
+    "rust",
+    "go"
+  ],
+  "python_reference_checkpoint": {
+    "strict_no_op_proven": 10,
+    "working_condition_exceptions": 1,
+    "deferred_no_source": [
+      "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
+    ],
+    "upstream_source_defect": [
+      "aspose-tex-foss/Aspose.TeX-FOSS-for-Python"
+    ],
+    "human_accepted_strict": 0,
+    "production_admitted": false
   },
-  "current_repository_boundaries": [
-    {
-      "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
-      "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
-      "candidate_sha256": "189b3321da5e10ff2c14d6c84f49a53127cd52713189f532b732cfe70f2f550e",
-      "status": "PARTIAL_CURRENT_ACCEPTANCE_CHAIN_MISMATCH",
-      "current_dependency_key": "1ad32dace2a72d16c7a2df1e0d35566ce82e4c53c1b78224b3530e0534782740",
-      "stale_acceptance_dependency_key": "fd9d313c829587f34aa71e206b442cbcd8882cb6915062012d4821ed5a308904",
-      "independent_receipt": "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/independent-current/receipt.json",
-      "independent_verdict": "FAIL"
-    },
-    {
-      "repository": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
-      "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
-      "candidate_sha256": "e607c404e5afa57bc0aa000da991fe570f1bd7709ff021e636ad6218591a7832",
-      "status": "PARTIAL_AGENT_APPROVED_NO_TRANSACTION_NO_OP",
-      "current_dependency_key": "33180086badefa967fac12900f20676de9c00f8bfe690812e2a03890206d6889"
-    },
-    {
-      "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
-      "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
-      "status": "CONTRADICTED_ZERO_BYTE_RUNTIME_CANDIDATE_AND_STALE_FACT_CONTRACT",
-      "approved_review_copy_sha256": "8bd6b05df9078fa55adeb9ceaab7448ab5d1b53aba523b7a1bec53731d5b4936"
-    }
+  "strict_scoreboard": {
+    "facts_ready": 10,
+    "candidate_generated": 10,
+    "deterministic_validated": 10,
+    "agent_approved": 10,
+    "no_op_proven": 10,
+    "human_accepted": 0,
+    "portfolio_denominator": 32,
+    "first_failing_boundary": "FACTS_READY"
+  },
+  "non_python_status": {
+    "inventory_complete": 19,
+    "diagnostic_candidates": 19,
+    "strict_no_op_proven": 0,
+    "platforms_strict_complete": 0,
+    "product_effects": 0
+  },
+  "selected_pilots": [
+    "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+    "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    "aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp",
+    "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+    "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+    "aspose-cells-foss/Aspose.Cells-FOSS-for-Go"
   ],
-  "verified_completed": [
-    "commit:e0b26d8c3:shared mixed Mermaid endpoint width repair",
-    "runs/toolchains/mermaid-render-proofs/11.10.1/3/39ec5a97c81f4726ea458de1a86fa4ea0995f296a76e8370680162c991214428.json:official Page geometry pass",
-    "commit:f7f124699:bounded implementation capability fallback",
-    "commit:2697611ed:Page semantic duplicate reconciliation"
-  ],
-  "implemented_unverified_or_partial": [
-    "PDF candidate bytes current but acceptance chain stale",
-    "Page agent-approved candidate lacks complete-transaction no-op and separate closeout",
-    "Note prior review copy exists but runtime candidate is empty and stale",
-    "accelerated portfolio candidates exist but do not satisfy verified lifecycle"
-  ],
-  "ordered_tasks": [
-    "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
-    "L8-VPY-03C-PAGE-CURRENT-REFRESH",
-    "L8-VPY-03D-NOTE-CURRENT-REFRESH",
-    "L8-VPY-03E-3D-CURRENT-REFRESH",
-    "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+  "ordered_execution": [
+    "reconcile L8-VPY-03-ALL-PYTHON-VERIFIED-POC from existing evidence",
     "L8-VPY-04-PRODUCTION-TRANSPORT",
     "L8-VPY-05-PRODUCTION-ADMISSION",
     "L8-VNET-01-ACCELERATED-LOCAL-NO-OP",
     "L8-VNET-02-PRODUCTION-TRANSPORT",
-    "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"
+    "active-graph Java vertical task currently identified as L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
+    "promote dependency-ready C++ work from the deferred catalog through existing governance",
+    "promote dependency-ready TypeScript work from the deferred catalog through existing governance",
+    "promote dependency-ready Rust work from the deferred catalog through existing governance",
+    "promote dependency-ready Go work from the deferred catalog through existing governance",
+    "full-registry Gate-A cohorts and independent reproduction"
   ],
-  "blockers": [
-    "Goal interface is paused until the human activates Claude goal/loop",
-    "Docker Desktop Linux daemon unavailable, relevant only at later act stage",
-    "One unrelated durable external task exists and does not block current PDF repair"
+  "known_limitations": [
+    "Latest complete non-live receipt is not green: 3697 passed and 9 failed at aea52c9fe.",
+    "Commit cd0dab38c reports 3693 unit tests passed and 10 pre-existing failures.",
+    "The active Java vertical task has a stale Python-looking identifier despite a Java title.",
+    "The active graph does not expose one executable task per C++, TypeScript, Rust, and Go platform; future records must be promoted from the hashed deferred catalog, never executed directly.",
+    "Local source snapshots for 3D Java, 3D TypeScript, and PDF Go are stale against live upstream and must be refreshed before facts are accepted.",
+    "Diagnostic non-Python POC candidates are not strict acceptance or fresh-process no-op proof."
   ],
-  "known_current_test_failures": [
-    "tests/unit/test_readme_header_visual.py::test_mermaid_uses_the_normalized_pdf_capability_view"
-  ],
-  "uncommitted_preserve_paths": [
+  "preserve_uncommitted_paths": [
     "plans/backlog-post-poc.md"
   ],
   "critical_references": [
     "AGENTS.md",
+    "plans/GOVERNANCE.md",
     "plans/idea.md",
     "plans/master.md",
-    "plans/requirements.md",
     "plans/requirements/catalog.jsonl",
-    "plans/GOVERNANCE.md",
     "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
     "plans/investigations/control/level8-deferred-task-catalog.jsonl",
-    "plans/codex/handover/HANDOVER.md",
-    "plans/codex/handover/CLAUDE_GOAL.md",
-    "plans/codex/handover/CLAUDE_LOOP.md"
-  ],
-  "evidence_paths": [
-    "runs/evidence/20260811-012437-3e3f/manifest.json",
-    "runs/evidence/20260811-011205-4fc0/manifest.json",
-    "runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/independent-current/receipt.json",
-    "runs/toolchains/mermaid-render-proofs/11.10.1/3/39ec5a97c81f4726ea458de1a86fa4ea0995f296a76e8370680162c991214428.json",
-    "runs/share/note-python-review/README.md"
+    "data/products.json",
+    "data/platform_priorities.json",
+    "templates/readme/repository-presentation-v1.json",
+    "docs/architecture.md",
+    "docs/safety-model.md",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/README.md",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json",
+    "plans/investigations/evidence/working-condition-presentation-exceptions-v1/README.md",
+    "report/findings/tex/python/upstream-issues.md",
+    "plans/codex/handover/HANDOVER.md"
   ],
   "resume_protocol": [
-    "Read HANDOVER.md and current authority",
-    "Verify Git, processes, mission status, graph hash, and claim",
-    "Run mission evaluate and claim only the printed task",
-    "Repair PDF acceptance dependency rebinding before another no-op claim",
-    "Require a later zero-provider complete-transaction replay",
-    "Obtain independent non-authoring PASS",
-    "Promote and show exact README",
-    "Transition with evidence and continue the graph"
+    "Read HANDOVER.md and the authority files in its required order.",
+    "Verify Git and ensure no repository-owned process is active.",
+    "Run live mission status and evaluate against origin.",
+    "Recover only the graph-printed expired claim; do not infer a task from this snapshot.",
+    "Reconcile the existing Python checkpoint without re-auditing or redesigning Python READMEs.",
+    "Complete graph-required Python transport/admission dependencies.",
+    "Claim .NET only when mission evaluate prints it as eligible.",
+    "Pilot, freeze, cohort, independently verify, promote, transition, and continue by platform priority.",
+    "Perform no product effect without fresh exact what/why/where approval."
   ],
   "focused_verification": {
-    "result": "PASS",
-    "live_branch": "main",
-    "live_source_checkpoint_head": "e0b26d8c3eac2b0fd7b32b5320a0d656a3bc699a",
-    "live_state_version": 980,
-    "live_graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
-    "critical_references_exist": true,
-    "representative_claims_reproduced": true,
+    "status": "PASS",
+    "verified_at": "2026-08-12T23:16:13+05:00",
+    "json_valid": true,
+    "paths_checked": true,
+    "critical_paths_checked": 17,
+    "missing_critical_paths": 0,
+    "inventory_rows": 19,
+    "unique_inventory_repositories": 19,
+    "registry_non_python_entries": 19,
     "artifact_agreement": true,
-    "secret_value_scan": "PASS",
+    "branch_head_rechecked": true,
+    "durable_state_refreshed": true,
+    "durable_state_version_rechecked": 1188,
+    "durable_graph_hash_rechecked": true,
+    "git_diff_check": "PASS",
+    "repository_owned_processes": 0,
     "unrelated_dirty_work_preserved": true
   }
 }

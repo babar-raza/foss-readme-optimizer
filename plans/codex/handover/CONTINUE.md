@@ -1,22 +1,17 @@
 # Claude Start Here
 
-Read these files in order before taking action:
+Read and execute:
 
-1. `AGENTS.md`
-2. `plans/codex/handover/HANDOVER.md`
-3. `plans/codex/handover/state.json`
-4. `plans/codex/handover/CLAUDE_GOAL.md`
-5. `plans/codex/handover/CLAUDE_LOOP.md`
-6. the authoritative files named in `HANDOVER.md` section 3
+`D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\plans\codex\handover\HANDOVER.md`
 
-The human should paste `CLAUDE_GOAL.md` into Claude's `/goal`, then paste
-`CLAUDE_LOOP.md` into `/loop`. Until that activation, this repository is at a stopped handover
-checkpoint.
+That file is the self-contained non-Python portfolio execution handoff. Before editing, verify its
+snapshot against Git and live durable mission state. The current snapshot is `main` at
+`cd0dab38c6a9de0b927bb7bf673549edb7664c8c`; the recorded active Python parent claim is expired.
 
-The first implementation action is not a new README or a non-Python task. Verify live Git and
-mission status, reconcile and claim `L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES` if it remains the
-printed task, then repair the PDF current-dependency acceptance-chain mismatch documented in:
+Do not re-audit or redesign completed Python READMEs. Reconcile their existing strict and exception
+evidence through the current mission graph, complete any graph-required Python transport/admission
+dependency, then claim the printed `.NET` task. Continue `.NET`, Java, C++, TypeScript, Rust, and Go
+in `data/platform_priorities.json` order. Create no parallel plan and perform no product effect.
 
-`runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/independent-current/receipt.json`
-
-Never treat this continuation pointer as plan or state authority.
+Use `CLAUDE_GOAL.md` as the goal-interface objective and `CLAUDE_LOOP.md` as the recurring loop only
+if that interface is being used. Durable supervisor state remains the execution authority.

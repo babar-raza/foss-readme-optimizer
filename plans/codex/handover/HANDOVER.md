@@ -1,548 +1,764 @@
-# Claude Execution Handover
+# Claude Non-Python Portfolio Execution Handover
 
-This is a derived continuation record, not a new plan, controller, queue, or status authority.
-Claude must verify every snapshot value against Git and durable supervisor state before acting.
+This is the canonical, self-contained execution handoff for expanding the proven README workflow
+across the non-Python registry. It is a derived continuation record, not a plan, controller, queue,
+task graph, or status authority. Claude must verify the snapshot against Git and durable supervisor
+state before acting.
+
+This handoff task did not re-audit or change Python READMEs and did not implement any non-Python
+README. It inspected completed Python evidence only to identify the reusable transaction,
+presentation contract, safeguards, and limitations.
 
 ## 1. Project Intent
 
-`readme-agent` is intended to become an autonomous, capability-driven repository-presentation
-system. It discovers admitted product repositories, captures an immutable revision, derives and
-reconciles product truth from repository evidence, builds a repository-specific README and other
-applicable GitHub presentation proposals, validates them deterministically, obtains independent
-non-authoring review, proves complete-transaction idempotency, and later operates through a
-fail-closed GitHub App workflow.
-
-The immediate product outcome is narrower but complete: make Python the first fully verified,
-human-accepted, transport-qualified, and production-admitted platform. Every dynamically admitted
-Python README must be individually visible and reviewable before any non-Python platform task can
-execute. After Python production admission, reuse the same contract and production system in the
-configured order: .NET, Java, C++, TypeScript, Rust, Go.
-
-Production-ready means more than attractive Markdown or green unit tests. It requires repository-
-verified facts, source-content accountability, deterministic validation, independent review,
-fresh-process zero-provider-call no-op proof, recovery and deduplication, canonical GitHub Actions
-and `act` proof, disposable staging, GitHub App analysis/effect isolation, explicit human
-acceptance, authorization, and no unauthorized/default-branch write. Level-7 and Level-8 elapsed
-windows are later background certification; they do not block useful delivery.
-
-The human expects professional, branded, repository-specific output. Shortcuts that are expressly
-unacceptable include trusting README claims as truth, calling same-process rendering a transaction
-no-op, treating accelerated `poc` files as verified closure, hiding unsupported claims in generic
-marketing prose, skipping independent review, relying on the sibling `aspose.org` checkout in an
-accepted/deployed run, or publishing without a fresh exact what/why/where authorization.
-
-## 2. Current Goal and Scope
-
-The paused goal-interface objective at handover is:
-
-> Deliver Python as the first complete production-admitted verified repository-presentation
-> platform. Correct and freeze the global README presentation contract; regenerate,
-> independently verify, display, and obtain human acceptance for every dynamically admitted
-> Python README; prove complete-transaction no-op, canonical GitHub Actions, act, staging, GitHub
-> App isolation, recovery, deduplication, and authorized production admission. Do not execute any
-> non-Python platform task until Python production admission closes. Then reuse the same verified
-> contract and production system platform by platform in the configured order, without weakening
-> factuality, safety, source-content accountability, independent review, or no-write authorization
-> controls.
-
-Current executable scope is only `L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES`, repository
-`aspose-pdf-foss/Aspose-PDF-FOSS-for-Python`, immediate goal `DELIVERY-PY-PDF-CURRENT`.
-
-Included now:
-
-- repair the current PDF acceptance-binding invalidation;
-- rebind deterministic validation, review, final verdict, manifest, and inventory to the current
-  candidate-stage dependency key;
-- run a subsequent complete identical transaction with zero provider calls, cache reuse, no patch,
-  no duplicate bundle, and no effect;
-- obtain independent non-authoring verification, promote exact bytes, show the README, and close
-  the durable task with evidence.
-
-Excluded now:
-
-- Page, Note, Aspose.3D, remaining Python, workflow transport, staging, and production admission
-  until the graph makes them eligible;
-- every non-Python execution task until `L8-VPY-05-PRODUCTION-ADMISSION` closes;
-- trusted-lane execution;
-- product-repository commits, pushes, PRs, merges, settings writes, or default-branch writes;
-- broad cleanup, speculative architecture, and a replacement plan/controller.
-
-The goal interface is currently **paused**. Creating/pasting the supplied Claude `/goal` is the
-human-controlled resume action. The handover task itself does not resume implementation.
-
-## 3. Canonical Execution Path
-
-Authority is resolved by subject, not by total file order:
-
-| Authority | Exact path | Role and current status |
-| --- | --- | --- |
-| Product outcome | `plans/idea.md` | Current; SHA-256 `8fa42dfb87fa568aa43fd99683e52b5fc45c640acf65ac2d537dd2cae200da9d`. |
-| Architecture and sequence | `plans/master.md`, `plans/decisions/catalog.jsonl` | Current; hashes `a18ac5a5...22994`, `92cdbab1...45fb8f`. |
-| Normative acceptance | `plans/requirements.md`, `plans/requirements/catalog.jsonl` | Current; 475 typed requirements; catalog hash `70ad633d...17464d`. |
-| Editing/execution governance | `AGENTS.md`, `plans/GOVERNANCE.md` | Current; hashes `37d3d9e9...fa3a17`, `7aeb0464...e68ec`. |
-| Executable task graph | `plans/investigations/control/level8-autonomous-mission-task-graph.yaml` | Sole graph; 15 active tasks; hash `d40cae91...0ef568`. |
-| Deferred work | `plans/investigations/control/level8-deferred-task-catalog.jsonl` | Non-executable; 125 records; graph-bound hash `abe4df2e...e9e06c`. |
-| Live status | Git-ref durable supervisor state | Sole live claims/transitions authority; state version 980 at snapshot. |
-| Derived execution guidance | `plans/codex/idea-fidelity-to-level-8-autonomous-execution-plan.md` | Supporting only and partly stale where it permits post-Python slices before Python admission. |
-| Derived views | `plans/roadmap.md`, `plans/status.md`, `runs/share/poc/RESULTS.md` | Supporting/stale; never override mission status. |
-
-The current graph order is:
-
-1. `L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES` / `DELIVERY-PY-PDF-CURRENT`.
-2. `L8-VPY-03C-PAGE-CURRENT-REFRESH` / `DELIVERY-PY-PAGE-CURRENT`.
-3. `L8-VPY-03D-NOTE-CURRENT-REFRESH` / `DELIVERY-PY-NOTE-CURRENT`.
-4. `L8-VPY-03E-3D-CURRENT-REFRESH` / `DELIVERY-PY-3D-CURRENT`.
-5. `L8-VPY-03-ALL-PYTHON-VERIFIED-POC` / all remaining Python plus platform package.
-6. `L8-VPY-04-PRODUCTION-TRANSPORT` / human acceptance, canonical workflow, `act`, disposable
-   staging, GitHub App isolation, recovery, deduplication, and proposal reconciliation.
-7. `L8-VPY-05-PRODUCTION-ADMISSION` / authorized hosted Python operation.
-8. `L8-VNET-01-ACCELERATED-LOCAL-NO-OP`, then .NET transport.
-9. First Java slice, then deferred portfolio work promoted into the same graph in platform order.
-
-Entry to each repository task requires current graph hash, a dependency-ready task, an unexpired
-claim owned by the named observer, the exact repository scope, and an open approach budget. Exit
-requires the taskcard's deterministic, independent, no-op, evidence, visibility, safety, and
-transition checks. Only `CLOSED` satisfies a dependency.
-
-Restart protocol:
-
-1. Run mission `status`.
-2. Run `evaluate` to reconcile freshness and an expired claim before claiming.
-3. Claim only the exact printed task; never steal a live unexpired claim.
-4. Execute only the repository in `next_repository_scope` with both `--mission-task-id` and
-   `--mission-observer`.
-5. Record material narrowing or a first-principles replan when the approach guard requires it.
-6. Transition through the existing task with checksum-complete evidence, evaluate, and follow the
-   next printed task.
-
-Human approval gates are separate: explicit acceptance per Python candidate; any manual App
-installation/organization authorization that cannot be performed by supported CLI/API; and a fresh
-what/why/where confirmation before every product-repository push. Transport qualification itself
-does not authorize a product effect.
-
-## 4. Current State Snapshot
-
-Snapshot time: `2026-08-11T09:49:47+05:00`.
-
-### Repository and runtime
-
-- Repository: `D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer`.
-- Source checkpoint: branch `main`, HEAD `e0b26d8c3eac2b0fd7b32b5320a0d656a3bc699a`.
-- Divergence at snapshot: `main` is 54 commits ahead of `origin/main`; nothing is pushed by this
-  handover.
-- Pre-existing uncommitted user-owned work: `plans/backlog-post-poc.md`, 10 inserted lines. Do not
-  stage, overwrite, reset, restore, clean, or stash it.
-- No Python/pytest/Node/Mermaid repository process was running when inspected.
-- Goal interface: paused.
-
-### Durable mission
-
-- Mission: `LEVEL8-CENTRAL-REPOSITORY-PRESENTATION`.
-- State version: 980.
-- Graph hash: `d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568`;
-  no graph drift.
-- Active task: `L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES`; the prior claim has probably expired and
-  must be reconciled, not assumed live.
-- Stage goal: `GOAL-V0-VERIFIED-PYTHON-POC`.
-- Immediate goal/repository: `DELIVERY-PY-PDF-CURRENT`,
-  `aspose-pdf-foss/Aspose-PDF-FOSS-for-Python`.
-- Dynamic denominator: 32 repositories; 13 Python, 6 .NET, 4 Java, 4 C++, 2 TypeScript, 1 Rust,
-  2 Go.
-- Current-contract scoreboard: facts 2/32, candidates 2/32, deterministic 2/32, agent-approved
-  1/32, exact no-op 0/32, human-accepted 0/32.
-- Raw historical lifecycle labels are higher (facts 13, candidates 3, deterministic 3, approved 3,
-  no-op 2) but are not closure evidence.
-
-### Exact repository boundaries
-
-**PDF/Python — current first failing boundary (`PARTIAL`, not approved):**
-
-- First failing boundary: PDF current candidate-stage dependency key is not bound by deterministic
-  validation, independent review, final verdict, or no-op proof.
-- Source revision: `537b8273b185e4f7440b201cacad56567e55b2f0`.
-- Candidate:
-  `runs/readme-poc/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python/537b8273b185e4f7440b201cacad56567e55b2f0/candidate/README.md`.
-- Candidate SHA-256: `189b3321da5e10ff2c14d6c84f49a53127cd52713189f532b732cfe70f2f550e`.
-- Current candidate-stage dependency key: `1ad32dace2a72d16c7a2df1e0d35566ce82e4c53c1b78224b3530e0534782740`.
-- Stored deterministic/review/final/no-op records still bind stale key
-  `fd9d313c829587f34aa71e206b442cbcd8882cb6915062012d4821ed5a308904`.
-- Independent receipt is correctly `FAIL`:
-  `runs/multi-agent/L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES/independent-current/receipt.json`,
-  SHA-256 `bad981866ce2c99bc3cc1486388cfe6b9180aba0d14793dbef067274628feba1`.
-- Latest run `runs/evidence/20260811-012437-3e3f` returned
-  `CONVERGED_NO_TRACKED_CHANGE` but made 2 provider calls, reused no cache, and left the canonical
-  bundle incomplete. It is **not** an exact current-contract no-op.
-- Required repair is listed verbatim in the independent receipt. Do not transition or promote PDF
-  until the acceptance-chain mismatch is repaired and a later zero-call replay passes.
-
-**Page/Python — current candidate accepted internally, no transaction no-op yet (`PARTIAL`):**
-
-- Source revision: `dac5d70e0f91949a780f2e98dfbb12314a5fbc70`.
-- Candidate:
-  `runs/readme-poc/aspose-page-foss__Aspose.Page-FOSS-for-Python/dac5d70e0f91949a780f2e98dfbb12314a5fbc70/candidate/README.md`.
-- Candidate SHA-256: `e607c404e5afa57bc0aa000da991fe570f1bd7709ff021e636ad6218591a7832`.
-- Run `runs/evidence/20260811-011205-4fc0` is `CONVERGED_PROPOSAL_READY`, with 3 provider calls.
-- Final verdict is `AGENT_APPROVED` against current dependency key
-  `33180086badefa967fac12900f20676de9c00f8bfe690812e2a03890206d6889`.
-- `review/no-op-proof.json` is absent. Page cannot close until PDF closes, Page is reclaimed, an
-  exact zero-call replay passes, independent non-authoring verification passes, and the README is
-  shown to the human.
-
-**Note/Python — prior approved copy reusable, current runtime candidate corrupted/stale
-(`CONTRADICTED`):**
-
-- Prior human-approved review copy:
-  `runs/share/note-python-review/README.md`, 25,760 bytes, SHA-256
-  `8bd6b05df9078fa55adeb9ceaab7448ab5d1b53aba523b7a1bec53731d5b4936`.
-- Current revision-addressed runtime candidate at
-  `runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/6d97a522a9ed24708687911f1aabb76e2dea2da7/candidate/README.md`
-  is zero bytes at handover. Its manifest still says `complete: true`, so the artifact/manifest
-  pair is contradicted and must fail closed.
-- The mission also lists Note's fact contract as stale. Do not manually copy the review file over
-  the candidate. Investigate artifact history/checksums and recover through the canonical
-  transaction when Note becomes eligible.
-
-### Completed and verified work
-
-- `e0b26d8c3`: shared Mermaid mixed-endpoint width repair. It uses Mermaid's supported HTML label
-  box to equalize mixed semantic endpoints; pure format groups and approved Note/PDF topology stay
-  unchanged.
-- Official Page Mermaid proof:
-  `runs/toolchains/mermaid-render-proofs/11.10.1/3/39ec5a97c81f4726ea458de1a86fa4ea0995f296a76e8370680162c991214428.json`,
-  all geometry/topology checks true, SHA-256
-  `cd11dd347320598369d5a7cdbf35e5bd3915b28f7507efb02c6942e197c676ee`.
-- Current-HEAD static/focused proof for that slice: Ruff passed; formatting passed; mypy passed on
-  676 source files; 8 focused Mermaid/header tests passed.
-- `f7f124699`: low-level implementation capability fallback is bounded below product-level facts.
-- `2697611ed`: Page semantic duplicates repaired across capability selection, MCP code identity,
-  and limitation-subject equivalence.
-- No product write/effect was observed in these runs.
-
-### Current test truth
-
-- Current focused regression failure, reproduced at handover:
-  `tests/unit/test_readme_header_visual.py::test_mermaid_uses_the_normalized_pdf_capability_view`
-  fails because `PDF file editing operations` remains as a fourth capability. This is current and
-  must be repaired before an official repository-wide gate.
-- The last broad suite report in `logs/2026-08-09.md` is historical: 3,540 passed / 36 failed under
-  the accelerated `readme-agent poc` contract. It is not a current-HEAD complete-suite result.
-- Therefore the current complete non-live suite status is **UNKNOWN / NOT RUN**. Do not claim it
-  green or assume the historical 36 are the only current failures.
-
-### Historical artifacts that are not closure
-
-- Commit `69b2af21d` and `runs/share/poc/RESULTS.md` expose accelerated candidates for the former
-  31-repository denominator. They used `readme-agent poc`, same-process recomposition, and often
-  retained validation/review blockers. They are reusable diagnostic assets only.
-- Trusted-lane candidates, reviews, PRs, and no-op labels remain non-executable and cannot satisfy
-  verified facts or any gate.
-- `plans/status.md` is stale (31 repositories, state version 766). `plans/roadmap.md` and the
-  supporting Codex guide still describe post-Python slices before Python production admission;
-  the current graph/master/AGENTS rules supersede that ordering.
-
-## 5. Decision and Approval Ledger
-
-The following decisions are settled unless new evidence requires a governed amendment:
-
-- `verified_repository_presentation` is the only executable content lane; trusted execution is
-  suspended, but compatible machinery may be reused behind verified contracts.
-- Python is the sole executable platform until the complete Python cohort is independently
-  accepted, transaction-no-op-proven, human-accepted, transport-qualified, and production-admitted.
-- The presentation contract is global for trusted historical assets and verified output, but the
-  verified lane alone has authority now.
-- Existing README information is valuable evidence and should be reused where verified; source
-  tone/layout is not preserved. Public tone follows the approved template/candidate contract.
-- Standard README requirements include a professional consistent title/header, one useful badge
-  row, list-form TOC, visible Key Capabilities, visible material limitations, visible representative
-  Development and Testing items, tagged compact code fences, MIT-benefit prose when applicable,
-  separate Third-Party Notices, no comments, no emoji, no internal verification narration, no
-  duplicate sections/workflows, and no raw export dump.
-- Approved Mermaid topology: Inputs -> full product name -> Core Capabilities -> Outputs; exactly
-  the external semantic connectors; no visible connectors inside Core; one vertical Core column
-  through five capabilities, two balanced vertical columns above five; equal peer endpoint widths;
-  inputs/capabilities/outputs must be semantically distinct and fact-backed.
-- Abbreviations such as PDF, PS, EPS, XPS, XLSX, and HTML remain uppercase.
-- Aspose.com products are called **Enterprise Edition**, never "On-Premise edition" or another
-  synonym.
-- Contextual links must be natural and content-relevant, selected only from
-  `data/aspose_com_links.json` and `plans/aspose_org_links.json`; `products.*` destinations have
-  priority; configured budgets override size-based automatic budgets; promotional links do not
-  dominate the opening.
-- Aspose.org is development comparison only. Accepted/deployed runs must succeed with the sibling
-  checkout unavailable.
-- Active package routes are only repository-declared pip/PyPI, NuGet, Maven, npm, Go modules/proxy,
-  and Cargo/crates.io. Conan/vcpkg are outside the active POC. Missing dependencies are provisioned
-  autonomously when safe; a missing local SDK is not itself an external blocker.
-- Work occurs on control-repository `main`; no control branches. Preserve unrelated dirty work.
-- `plans/master.md` may be updated routinely without fresh section-specific approval. Requirement
-  catalog edits still follow governance.
-- No product repo is published while Python READMEs are still being generated/reviewed. Any later
-  product push requires the complete platform gate and fresh exact what/why/where authorization.
-- Multi-agent execution is adaptive: coordinator owns shared state/commits; independent verifier is
-  mandatory; only disjoint repository paths may run concurrently after isolation proof.
-
-Still human-owned later:
-
-- explicit acceptance of every current Python README hash;
-- manual GitHub App/browser/organization authorization if supported CLI/API cannot perform it;
-- fresh per-effect what/why/where confirmation;
-- elapsed certification and independent maturity awards.
-
-## 6. Tools and Operating Methods Used by Codex
-
-All commands run from
-`D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer` in PowerShell.
-
-| Purpose | Command | Success / recovery |
-| --- | --- | --- |
-| Live mission truth | `.venv/Scripts/readme-agent supervise --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml --mission-action status --mission-observer claude-coordinator` | Exit 0; trust printed graph/state/task/scope over handover prose. |
-| Reconcile freshness/expired claim | Same command with `--mission-action evaluate` | Run before claim after restart. Does not execute a repo. |
-| Claim exact task | Same command with `--mission-action claim --mission-task-id <printed-id>` | Fails closed if dependency/goal differs. Never force a foreign live claim. |
-| Current PDF transaction | `.venv/Scripts/readme-agent supervise --repo aspose-pdf-foss/Aspose-PDF-FOSS-for-Python --execution-profile local_poc --bounded-verified-canary --mission-task-id L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES --mission-observer claude-coordinator` | Read-only remote/local-write artifacts only; no product effect. A zero exit is insufficient—inspect canonical bundle and independent receipt. |
-| Record material narrowing | Mission command with `--mission-action record-narrowing --mission-task-id <id> --mission-evidence <path>` | Required when the approach guard rejects elapsed work. Evidence path must exist. |
-| First-principles replan | Mission command with `--mission-action record-replan --mission-control-input <typed-json>` | Changes tactic/causal owner, never goal or controller. |
-| Task requirement slice | `.venv/Scripts/python scripts/governance/query_requirement_catalog.py --task-id <id>` | Fails on graph/catalog drift or >25 rows. Current PDF task owns zero explicit rows; always-on invariants still apply. |
-| Focused tests | `.venv/Scripts/python -m pytest -q <exact tests>` | Run serially for the touched seam. Do not use a focused pass as platform proof. |
-| Static gates | `.venv/Scripts/python -m ruff check .`; `.venv/Scripts/python -m ruff format --check .`; `.venv/Scripts/python -m mypy src`; `git diff --check` | Required for coherent code slices. |
-| Complete non-live gate | `.venv/Scripts/python scripts/governance/run_full_pytest.py` | Run only at declared shared/Python/Gate-A boundaries or a recorded P0 exception. It records inventory-bound evidence and detects leaked descendants. |
-| Evidence promotion | `.venv/Scripts/python scripts/governance/promote_finalized_verified_readmes.py --independent-receipt <receipt>` | Use only after current acceptance/no-op and independent PASS. It must not promote stale bundles. |
-| Git inspection | `git status --short`; `git rev-parse HEAD`; `git log`; exact-path `git diff` | Preserve `plans/backlog-post-poc.md`; stage only owned paths. |
-
-Common operational failures and recovery:
-
-- A live canary can outlive the mission claim lease. The next run fails before clone with
-  `active mission claim expired`; run `evaluate`, then claim the graph-selected task.
-- After two equivalent failures or 15 minutes without material narrowing, the guard rejects another
-  run. Record a genuine first-principles replan or material narrowing; do not merely retry.
-- Official Mermaid uses `@mermaid-js/mermaid-cli@11.10.1` and an installed Chrome/Edge or
-  auto-provisioned browser. Passing proofs live under
-  `runs/toolchains/mermaid-render-proofs/11.10.1/3/`.
-- Docker client 28.4.0 is installed, but the Docker Desktop Linux daemon was unavailable at
-  handover. This does not block local PDF work; it must be started/provisioned at the later `act`
-  stage.
-- `gh` is authenticated as `babar-raza`. The active `GH_TOKEN` has `repo,workflow` but lacks
-  `read:org`; an inactive keyring login reports `gist,read:org,repo`. Do not expose tokens. Use an
-  organization-complete credential only when discovery/transport reaches its governed stage.
-- `GH_APP_CLIENT_ID` and `GH_APP_PRIVATE_KEY` are present in the environment. Never print their
-  values. Their presence is not proof of correct App installation or production authorization.
-
-## 7. Environment and Repository Rules
-
-- Use only `.venv\Scripts\python.exe`; current version is Python 3.13.2. Never use global Python,
-  bare `pip`, or another venv.
-- Installed tools observed: Git 2.48.1, GitHub CLI 2.83.2, `act` 0.2.89, Node 24.13.1,
-  npm/npx 11.8.0, Docker client 28.4.0 (daemon unavailable).
-- D: had about 53 GB free at snapshot.
-- Evidence under `runs/` must pass redaction; never write credentials to evidence.
-- Preserve content-addressed caches. Reuse only when the complete stage dependency key matches.
-- Never use `git reset --hard`, `git restore`, `git clean`, broad stash, force-push, or overwrite
-  user/concurrent work.
-- Direct commits are to `main` and require correct AI `Co-Authored-By` trailers.
-- Before a long test/campaign, inspect repository-owned processes and hold one top-level command
-  lease. Do not overlap complete suites or aggregate mutations.
-- Product clones remain push-neutered and hooked; allow-list checks occur before network access.
-- `local_poc` may write only control-repository/runtime artifacts. It may not perform a product
-  remote write.
-- Package/example execution requiring hooks/builds must use the governed disposable OS-isolated
-  executor; credential filtering alone is not sandboxing.
-- Candidate existence, static graph status, plan prose, or a stored verdict does not prove current
-  acceptance. Verify hashes, dependency bindings, inventories, lifecycle, and consumer result.
-
-## 8. Known Problems and Proven Solutions
-
-| Problem | Verified cause / failed approach | Proven solution or next repair |
-| --- | --- | --- |
-| PDF reported no-op after renderer change but acceptance stayed stale | Candidate dependency key advanced; deterministic/review/no-op files retained the old key. Latest run made 2 calls and no cache reuse. Runtime status alone was misleading. | Treat independent receipt `bad981...` as authoritative failure. Repair cache/invalidation/persistence around `local_poc_cache.py`, `local_poc_acceptance_binding.py`, `local_poc_review_evidence.py`, and supervisor review dispatch; add regression proving changed candidate-stage dependencies cannot emit no-op until every acceptance record is rebound. |
-| Page mixed output boxes had unequal width | Mermaid ignores `width:` on `classDef`; text controls rectangle geometry. | `e0b26d8c3` wraps mixed peer labels in fixed-width supported HTML label boxes. Pinned official render proves all Page output boxes 210 px. Do not revert to text padding or Page-specific labels. |
-| Page duplicated capability, MCP code, and limitations | Low-level implementation facts competed with product capabilities; MCP identity was text-location based; limitations lacked subject-aware semantics. | `f7f124699` and `2697611ed` fix the shared causal owners. Keep product facts above low-level fallback, normalized code identity, and subject-aware limitation equivalence. |
-| PDF capability normalization test now fails | `PDF file editing operations` survives as a fourth semantic duplicate after the implementation fallback change. | Repair shared normalized-capability identity; retain the three expected visitor-level labels. Do not update the test to accept duplication. |
-| Note runtime candidate is empty while manifest says complete | Exact cause is currently unknown; prior review copy is intact. Blindly copying bytes would hide lifecycle corruption. | At Note's eligible task, inspect superseded bundle/inventory/history, prove the expected candidate hash, repair artifact persistence/recovery, and rerun canonical acceptance. |
-| Same-process `readme-agent poc` was fast but overstated no-op | It bypassed complete supervisor lifecycle/recovery and called recomposition `NO_OP_PROVEN`. | Reuse its candidate/diagnostic assets only. `TRANSACTION_NO_OP_PROVEN` requires a fresh process, full transaction, zero new provider work, byte-identical artifacts, and no duplicate effects. |
-| Repeated broad fixes caused portfolio invalidation | Candidate dependency manifests correctly hash shared code, but overly broad code ownership and stale acceptance reuse caused expensive requalification. | Fix the earliest causal owner once; component-scope dependencies; preserve unaffected stage receipts; verify invalidation semantics before fan-out. |
-| Multi-agent work did not initially improve throughput | Parallelism began before transaction/state/aggregation isolation and workers crossed shared paths. | Coordinator owns shared files/state/commits; use only disjoint repository leases after isolation; measure speedup/overhead; independent verifier authors no candidate code. |
-| `plans/status.md` and old handover drifted | Derived views were not regenerated after registry/graph changes. | Always run mission status. Update/regenerate derived views only at governed synchronization boundaries; never use them to select a task. |
-| Docker unavailable | Docker Desktop Linux engine pipe absent. | Defer until Python transport; start/provision Docker then run the actual workflow via `act`. Do not call it a blocker for local README qualification. |
-
-## 9. Remaining Work Queue
-
-### Q1 — Repair and close current PDF (`L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES`)
-
-- Dependencies: presentation contract task already closed, but freshness reopened this task.
-- Entry: mission `evaluate`, then claim exact task as `claude-coordinator`.
-- Allowed paths: taskcard lines 818-826; narrow initial owners to the local POC cache/acceptance/
-  review evidence seam and focused tests.
-- Actions: reproduce the dependency mismatch from the independent receipt; add the smallest
-  regression; repair stage reopening/persistence; regenerate deterministic/review/final records on
-  key `1ad32...`; run a second identical transaction proving zero provider calls/cache reuse/no
-  patch/no duplicate/no effects; assign a non-authoring verifier; promote exact bytes; show README;
-  transition task through required statuses with evidence.
-- Verification: focused cache, acceptance-binding, review-evidence, supervisor, PDF presentation,
-  no-write tests; pinned Mermaid; canonical manifests/inventories; independent PASS.
-- Completion: PDF current, independently approved, exact no-op, zero-effect, promoted and shown.
-- Independent lane: verifier only, after coordinator seals artifacts.
-
-### Q2 — Page exact no-op and closeout (`L8-VPY-03C-PAGE-CURRENT-REFRESH`)
-
-- Dependency: Q1 `CLOSED`.
-- Reuse current candidate/dependency key; do not regenerate accepted prose without invalidation.
-- Run a complete identical transaction; require zero provider calls, cache reuse, no patch/duplicate/
-  effect; independently verify current candidate and official mixed-endpoint Mermaid; promote/show;
-  close task.
-
-### Q3 — Note recovery/current refresh (`L8-VPY-03D-NOTE-CURRENT-REFRESH`)
-
-- Dependency: Q2 `CLOSED`.
-- Diagnose zero-byte candidate against approved review copy, previous candidate hash/inventories,
-  superseded artifacts, and durable state. Recover through canonical machinery, not file copy.
-- Reconcile stale fact contract; revalidate approved no-visible-internal-Core-connector Mermaid;
-  independent review, fresh no-op, promote/show, close.
-
-### Q4 — Aspose.3D current refresh (`L8-VPY-03E-3D-CURRENT-REFRESH`)
-
-- Dependency: Q3 `CLOSED`.
-- Reuse valid source/facts/candidate stages, repair only current invalid dependencies, obtain current
-  deterministic/independent/no-op evidence, promote/show, close.
-
-### Q5 — Complete all 13 Python repositories (`L8-VPY-03-ALL-PYTHON-VERIFIED-POC`)
-
-- Dynamic cohort: 3D, BarCode, Cells, Email, Font, HTML, Note, Page, PDF, PSD, Slides, TeX, Words.
-- Finalize one at a time, expose each accepted README immediately, then build the indexed committed
-  cohort package. Every current Python entry must reach verified facts, deterministic and
-  independent acceptance, fresh transaction no-op, zero effect, checksum-valid manifest.
-- Prove cache, cancellation/resume, serialized aggregation, redaction, allow-list and push blocking.
-- Run the optimized complete non-live suite at Python platform closure and repair all current
-  failures relevant to closure.
-
-### Q6 — Human acceptance and Python production transport (`L8-VPY-04-PRODUCTION-TRANSPORT`)
-
-- Present the complete candidate-index package and record explicit human acceptance per candidate
-  hash.
-- Run the sole supervisor through canonical GitHub Actions, full `act`, disposable staging, App
-  token isolation, create/no-op/update/drift/lost-response/recovery/dedup matrices, with default
-  branches byte-identical and no product effect.
-- A manual App/organization boundary is external only after supported CLI/API paths are exhausted
-  and an exact instruction/resume predicate is produced.
-
-### Q7 — Python production admission (`L8-VPY-05-PRODUCTION-ADMISSION`)
-
-- Admit only the complete human-accepted cohort.
-- Every draft-PR effect requires exact current content, repository/branch/remote, reason, and fresh
-  human what/why/where approval. Never merge, mark ready, force-push, or write default branches.
-
-### Q8 — Later platforms and final mission
-
-- Only after Q7: .NET, Java, C++, TypeScript, Rust, Go in `data/platform_priorities.json` order.
-- Then full source-complete Gate A/B/C, remaining presentation surfaces, Level 5, deployable Level
-  6, and background Level-7/8 certification. Promote deferred tasks into the same graph; do not
-  create another graph.
-
-## 10. Multi-Lane and Agent-Orchestration Rules
-
-- Claude is coordinator and sole operator of shared state, graph transitions, plans, aggregate
-  evidence, integration, staging, and commits.
-- Calibration, shared renderer/cache/lifecycle repair, complete suites, and aggregation are serial.
-- A delegated worker needs `runs/multi-agent/<task-id>/execution-plan.json` with one objective,
-  exclusive paths, focused checks, evidence destination, and forbidden shared paths.
-- Workers never transition tasks, commit, edit plans/data/shared state, or perform effects.
-- No two agents write the same path. Read-only investigation can overlap only if it does not consume
-  the top-level command lease.
-- Independent acceptance uses a non-authoring verifier. Its receipt must bind HEAD, source,
-  candidate, patch, dependency key, deterministic/review/final chain, no-op, inventories, Mermaid,
-  authorization, and effects.
-- Python repository parallelism remains unavailable until transaction/cache/cancellation/
-  aggregation isolation is proven. The current PDF repair is serial.
-- Non-Python agents/tasks are prohibited until Python production admission, regardless of idle
-  capacity or historical .NET work.
-- Continue unaffected eligible lanes when a narrow external blocker exists, but the durable graph
-  currently exposes no concurrent goal.
-
-## 11. Failure and Recovery Protocol
-
-After two materially equivalent failures or 15 minutes without a new accepted artifact, resolved
-finding, changed candidate, or narrower root cause:
-
-1. stop that approach;
-2. preserve logs/evidence;
-3. reread the current taskcard, state, implementation owner, and acceptance condition;
-4. restate the invariant and first failing boundary;
-5. identify the false/unverified assumption;
-6. change causal owner, mechanism, or dependency-ready sequence—not the approved goal;
-7. run the smallest decisive test;
-8. persist typed first-principles replan/material narrowing in the same mission state;
-9. resume through the corrected route.
-
-On interruption/restart, do not infer that a process completed. Check process ownership, evidence
-manifest completeness, inventories, state version, graph hash, and claim expiry. Reclaim through
-the mission controller. Preserve all valid content-addressed stages; reopen only the earliest
-invalid dependency. An unclassified block is `agent_fixable`. Only unavailable external authority,
-credentials, infrastructure, manual UI, or irrecoverable external fact ownership is
-`infra_external`.
-
-## 12. Autonomous Continuation Rules
-
-Once the user activates the Claude goal, continue the canonical loop until the full goal is proven
-or a genuine gate is reached. Do not stop for a test failure, completed subtask, commit, evidence
-bundle, context/session limit, dirty unrelated file, difficult bug, or an agent-fixable block.
-
-When context compacts or the machine restarts, reread this handover, then discard its snapshot in
-favor of live Git and mission status. Update these same handover files only at a deliberate
-handover/checkpoint; never create timestamped competing copies.
-
-A valid blocker report names the exact objective, evidence, attempts, why no safe progress remains,
-which lanes can continue, the smallest human/external action, and the exact resume predicate.
+`readme-agent` is intended to become an autonomous repository-presentation system. For each
+allow-listed product repository it captures one immutable source revision, derives and reconciles
+facts from repository and registry evidence, assesses the existing README, creates a
+repository-specific candidate and native patch, validates every material claim and protected
+region, obtains independent non-authoring review, proves a fresh-process unchanged transaction,
+and later submits only separately authorized draft proposals through the canonical GitHub App
+workflow.
+
+The next portfolio objective is to reuse the established Python workflow for every non-Python
+entry in `data/products.json`, in the configured order `.NET`, Java, C++, TypeScript, Rust, Go.
+Python is a workflow and presentation reference, not a prose, example, package, API, feature, or
+format template. Every non-Python fact must be recovered from the target repository and an
+authoritative registry at its current immutable revision.
+
+No product repository write is authorized by this handoff.
+
+## 2. Exact Checkpoint
+
+Snapshot taken on 2026-08-12 at 23:07 +05:00.
+
+| Item | Current value |
+| --- | --- |
+| Repository | `D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer` |
+| Branch | `main` |
+| HEAD | `cd0dab38c6a9de0b927bb7bf673549edb7664c8c` |
+| `origin/main` | `dde47b0b3885253cff631c276da5f9a94edf8f5f` |
+| Divergence | local `main` is 6 commits ahead of `origin/main` |
+| Uncommitted path to preserve | `plans/backlog-post-poc.md` (pre-existing/user-owned; do not stage or overwrite) |
+| Registry | 32 active entries: Python 13, .NET 6, Java 4, C++ 4, TypeScript 2, Rust 1, Go 2 |
+| Registry SHA-256 | `22b203b1a3094f40be8fae1474620eb54ce67bb70b762c7275cbaaa22383d8ee` |
+| Platform-priority SHA-256 | `8874ba61d75a319e41e1e3b77ae7a99df2cd291f2dedb4ff15242b7bfa6e66ec` |
+| Mission ID | `LEVEL8-CENTRAL-REPOSITORY-PRESENTATION` |
+| Mission graph SHA-256 | `d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568` |
+| Durable remote state version | `1188` |
+| Durable active task | `L8-VPY-03-ALL-PYTHON-VERIFIED-POC` |
+| Active task claim | `claude-coordinator`; expired 2026-08-12T15:16:38.600330Z |
+| Durable active goal | `GOAL-V0-VERIFIED-PYTHON-POC` |
+| Current contract-valid scoreboard | facts/candidate/deterministic/agent/no-op = `10/10/10/10/10` of 32; human accepted = 0 |
+| First portfolio boundary | `FACTS_READY` |
+| Product effects at this checkpoint | zero |
+
+The live graph hash and durable-state graph hash agree. The claim is expired, so the first agent
+must run mission `status`, then `evaluate`, then claim only the task printed by the controller. Do
+not transition a task from this narrative file.
+
+### Python reference checkpoint
+
+The completed content evidence available for reuse is:
+
+- Ten strict, repository-verified Python candidates are promoted as `NO_OP_PROVEN` under
+  `plans/investigations/evidence/finalized-repository-readmes-v1/`.
+- HTML/Python is separately promoted as
+  `HUMAN_ACCEPTED_WORKING_CONDITION_EXCEPTION` under
+  `plans/investigations/evidence/working-condition-presentation-exceptions-v1/`. It is not
+  `NO_OP_PROVEN` and does not count toward Gate A/B.
+- PSD/Python is deferred until upstream provides meaningful source.
+- TeX/Python is excluded pending upstream repair; the product-team report is
+  `report/findings/tex/python/upstream-issues.md`.
+- The strict promotion has zero product effects, default-branch writes, or pull requests.
+
+This is a reliable README-content and transaction reference checkpoint. It is not evidence that
+Python human acceptance, production transport, or production admission is closed. Durable state
+still owns those later boundaries.
+
+The relevant final checkpoint range is `dde47b0b3..cd0dab38c`:
+
+- `533db4948`: source-claim EOF-boundary correction.
+- `9b61722fa`: PDF/Page/Note/3D re-close evidence.
+- `d50f4fbf9`: clean ten-repository strict Python promotion.
+- `aea52c9fe`: log/state checkpoint for cohort closure work.
+- `cd0dab38c`: reusable HTML working-condition exception lane, HTML promotion, PSD disposition,
+  and independent TeX upstream report.
+
+### Current verification limitation
+
+Do not claim a green full control-repository suite. The latest complete receipt at
+`runs/verification/pytest-full-latest.json` is bound to `aea52c9fe` and records 3,697 passed and
+9 failed. Commit `cd0dab38c` reports a later unit run of 3,693 passed and 10 pre-existing failures.
+These are a known control-repository proof debt to reconcile at the next declared broad gate; they
+do not authorize weakening or deleting tests. A handoff-only probe accidentally started the
+official runner and was terminated with all owned descendants; no result from that interrupted
+probe is evidence.
+
+## 3. Authority Map
+
+Read and obey authority by subject:
+
+1. `AGENTS.md` and `plans/GOVERNANCE.md`: execution, safety, coordination, editing, and effects.
+2. `plans/idea.md`: product outcome and human-facing presentation intent.
+3. `plans/master.md` and `plans/decisions/catalog.jsonl`: architecture, decisions, platform order,
+   and maturity gates.
+4. `plans/requirements/catalog.jsonl` plus `plans/requirements.md`: normative obligations and
+   acceptance.
+5. `plans/investigations/control/level8-autonomous-mission-task-graph.yaml`: sole executable graph.
+6. Supervisor Git-ref state at
+   `refs/readme-agent-state/mission__LEVEL8-CENTRAL-REPOSITORY-PRESENTATION`: claims,
+   transitions, leases, and runtime status.
+7. `plans/investigations/control/level8-deferred-task-catalog.jsonl`: hashed future task records;
+   never execute one until governance promotes it into the active graph.
+8. This handoff, roadmap, status, reports, logs, and `runs/share/poc/RESULTS.md`: supporting
+   guidance/evidence only.
+
+Key document hashes at the checkpoint:
+
+| Path | SHA-256 |
+| --- | --- |
+| `plans/idea.md` | `8fa42dfb87fa568aa43fd99683e52b5fc45c640acf65ac2d537dd2cae200da9d` |
+| `plans/master.md` | `e7e2b56ce1b0686d626cf92ab6b2ecfbcae3fd107a59444910f775ed4e0510d4` |
+| `plans/requirements/catalog.jsonl` | `70ad633d7d180367bf3fd42ca4d2d1bce792fb165043de1709d1506ef017464d` |
+| active mission graph | `d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568` |
+| deferred-task catalog | `abe4df2ea729326d71f1f930a8bb45ef1f87207d50c778f5f860b0dd4fe9e06c` |
+
+## 4. Required Reading Order
+
+Before editing:
+
+1. `AGENTS.md`.
+2. `plans/GOVERNANCE.md`.
+3. This `plans/codex/handover/HANDOVER.md`.
+4. `plans/idea.md`, especially “Portfolio README Presentation Contract” and ordered delivery gates.
+5. `plans/master.md`, especially Status, Decisions #78/#85/#88/#91/#94/#95/#98/#99/#100/#101,
+   Architecture, Presentation Contract, Execution and Concurrency, and Build/Verification checklists.
+6. `plans/requirements/catalog.jsonl`, queried for the claimed task’s requirement IDs.
+7. `plans/investigations/control/level8-autonomous-mission-task-graph.yaml`.
+8. Live mission `status` and `evaluate` output.
+9. `data/products.json` and `data/platform_priorities.json`.
+10. `docs/architecture.md`, `docs/safety-model.md`, and `docs/policy-authoring.md`.
+11. `templates/readme/repository-presentation-v1.json`,
+    `src/readme_agent/readme/presentation_contract.py`, and the current target-platform adapters.
+12. Python reference indexes only, not every Python file:
+    `plans/investigations/evidence/finalized-repository-readmes-v1/README.md`,
+    `plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json`, and
+    `plans/investigations/evidence/working-condition-presentation-exceptions-v1/README.md`.
+13. One strict reference bundle such as the current Note/Python directory named by the cohort
+    manifest. Read its README, original, facts, provenance, document plan, patch, claim map,
+    deterministic validation, independent review, no-op proof, ledger, and runtime manifest.
+14. The selected target repository’s own instructions, current README, manifests, source,
+    examples, tests, docs, license, release metadata, and authoritative package-registry record.
+15. Only the currently claimed taskcard and its direct dependencies/evidence.
+
+There are no repository-local `SKILL.md` files in this checkout. Do not invent a required skill.
+The sibling `aspose.org` skills/reports may be used only as development comparison material when
+the authoritative plan permits it; accepted or deployed runs must not depend on that sibling.
+
+## 5. Reusable README Contract
+
+### 5.1 Portfolio-wide invariants
+
+Every README must:
+
+- Use one H1 containing the complete product name.
+- Place exactly one useful badge row immediately under the H1. Badges must be fact-backed and
+  platform-appropriate; no duplicate rows or token repetition.
+- Place at most one verified product banner after the badge row. The candidate banner convention
+  is `https://products.aspose.org/media/<family>/<platform>/banner-readme.png`; probe it before use
+  and omit it if unavailable. Never invent a URL.
+- Open with a concise, repository-specific value proposition, not internal verification prose,
+  generic marketing, or early promotional clutter.
+- Provide list-form navigation and title-case headings.
+- Keep installation and a minimal verified quick start near the top.
+- Show Key Capabilities and material limitations visibly. Do not hide essential onboarding,
+  capabilities, or limitations in disclosures.
+- Present capabilities as bold, action-led, search-oriented phrases followed by a short factual
+  explanation. Do not repeat the same material in “Why” and capability sections.
+- Use a compact, fact-backed Mermaid graph with inputs/formats, the complete product, core
+  capabilities, and outputs. Core is one vertical column through five capabilities and two
+  balanced vertical columns above five. It has one external product-to-core connector and one
+  applicable core-to-output connector; layout-only links inside Core are invisible. Endpoint peer
+  boxes have uniform widths. All diagrams must render through the pinned official Mermaid CLI and
+  pass SVG geometry checks.
+- Normalize technical abbreviations such as PDF, PS, EPS, XPS, XLSX, HTML, XML, JSON, SVG, TIFF,
+  and API consistently without corrupting code or identifiers.
+- Use language-tagged code fences with no repeated blank-line padding. Examples must use real
+  public APIs and compile or execute where practical in the required isolated environment.
+- Show representative development/test assets visibly; link the complete inventory in the last
+  bullet when the list is longer. Long additional examples and API inventories may collapse only
+  after a useful visible summary.
+- Give collapsed examples meaningful names. API inventories use one namespace/module/package per
+  table with type and non-duplicated description.
+- Preserve verified useful information from the original README by mapping each material claim to
+  exactly one candidate location, evidence-backed correction, or explicit omission disposition.
+  Source tone and layout are not preservation requirements; the candidate’s professional tone is.
+- State limitations in visitor-facing language without internal process narration such as
+  “not syntax checked,” “verification environment,” “inventory only,” or model/reviewer notes.
+- Use only governed contextual links. `products.aspose.org` and `products.aspose.com` have priority;
+  configured per-README slots override automatic size-based budgets. Aspose.com products are always
+  called “Enterprise Edition.” Commercial links belong naturally in relevant below-the-fold prose,
+  not as an opening promotion block.
+- Use product-specific links from `data/aspose_com_links.json` and `plans/aspose_org_links.json`;
+  never construct them from naming assumptions.
+- Provide readable MIT-license prose when MIT applies, a separate Third-Party Notices heading when
+  the file exists, and normal repository-relative link text.
+- Emit no comments, emojis, raw extraction dumps, placeholder prose, copyright default, duplicated
+  sections, repeated workflows, or cross-product text.
+- Be deterministic and component-versioned. A changed source, fact, template, prompt, policy,
+  reviewer standard, protected-content fingerprint, or validator version invalidates only its
+  dependent stages. An identical fresh-process transaction must produce identical bytes, no patch,
+  no duplicate lifecycle/effect, no unnecessary provider call, and justified cache reuse.
+
+### 5.2 Product-family variables
+
+Derive these from the target family, never Python or another family:
+
+- complete product name and concise positioning;
+- inputs, outputs, supported formats, and exact abbreviations;
+- implemented capabilities and limitations;
+- family terminology and public API concepts;
+- family-specific examples and test assets;
+- product, documentation, API-reference, support, and Enterprise Edition links;
+- banner/media path after a successful probe;
+- license and third-party notices.
+
+### 5.3 Platform variables
+
+Derive these from the target platform:
+
+- package manager/registry and exact coordinates;
+- import/include/module/namespace syntax;
+- build system and runtime/compiler/JDK/Node/Go/Rust requirements;
+- static/shared-library behavior and native dependencies;
+- platform-specific install command and badges;
+- idiomatic public example and error handling;
+- registry, documentation, and API-reference targets;
+- platform-specific troubleshooting supported by evidence.
+
+### 5.4 Repository-specific exceptions
+
+Do not generalize without explicit evidence:
+
+- unpublished or source-only acquisition;
+- multi-root or generated-binding layouts;
+- missing or malformed README;
+- Git LFS defects;
+- package coordinate mismatches;
+- exceptional compiler/runtime requirements;
+- repository-only supported formats or capability subsets;
+- absent fixtures or examples;
+- generated files and protected maintainer regions;
+- human-approved working-condition exceptions.
+
+An exception must be repository- and revision-bound, have an owner, evidence, visible public
+disposition, and a re-entry predicate. It cannot silently weaken the standard for siblings.
+
+## 6. Exact Machinery
+
+### Shared production path
+
+- CLI: `.venv/Scripts/readme-agent`.
+- Canonical runtime: `readme-agent supervise`.
+- Execution profile: `local_poc`; it is durable, fail-closed, dynamically planned, and no-write.
+- Immutable snapshot/intake: `src/readme_agent/supervisor/intake.py`,
+  `local_poc_snapshot_evidence.py`, and repository baselines/work clones under `runs/`.
+- Product truth: `src/readme_agent/supervisor/product_truth.py`, `src/readme_agent/facts/`, and
+  `ProductFactsV2` contracts.
+- Existing-README reconciliation: `src/readme_agent/presentation/verified_source_*`,
+  `src/readme_agent/readme/source_claim_policy_validation.py`, and
+  `claim_accountability_validation.py`.
+- Presentation structure: `templates/readme/repository-presentation-v1.json`,
+  `src/readme_agent/readme/presentation_contract.py`, and
+  `src/readme_agent/presentation/verified_template_*`.
+- Candidate/patch: `src/readme_agent/presentation/verified_template_document.py`,
+  `git_patch.py`, and revision-addressed `runs/readme-poc/<org>__<repo>/<revision>/candidate/`.
+- Deterministic README validation: `src/readme_agent/readme/document_validation.py`,
+  `presentation_lint.py`, `header_visual_validation.py`, `limitation_validation.py`,
+  claim/accountability validators, and `src/readme_agent/validation/registry.py`.
+- Links: `src/readme_agent/links/validator.py`, contextual selection/validation modules, and
+  `readme-agent validate --repo <org/repo> --check-links` for the compatibility validation seam.
+- Markdown: `markdown-it-py` through `markdown_structure.py` and document/presentation validators.
+- Mermaid: `src/readme_agent/verification/mermaid_render.py`; pinned
+  `@mermaid-js/mermaid-cli@11.10.1`, automatic pinned browser provisioning, SVG geometry receipt,
+  and source-hash-bound cache.
+- Examples: platform adapters under `src/readme_agent/facts/*_example_verifier.py` and
+  `src/readme_agent/facts/example_verifiers/`; repository code must execute only in the disposable,
+  secret-free isolated boundary required by `AGENTS.md`.
+- Independent review/repair: `src/readme_agent/specialists/independent_readme_review.py`,
+  separated review/reducer/repair modules, distinct author/reviewer identities, and reviewer evidence.
+- Lifecycle/state: `src/readme_agent/state/readme_poc_lifecycle.py`, Git-ref backend, and mission
+  control under `src/readme_agent/supervisor/mission_*`.
+- Evidence: `src/readme_agent/supervisor/local_poc_evidence.py`,
+  `local_poc_review_evidence.py`, `src/readme_agent/evidence/`, redaction, manifest, and inventory.
+- Strict promotion: `scripts/governance/promote_finalized_verified_readmes.py`; it only promotes
+  current strict `NO_OP_PROVEN` evidence.
+- Human exception promotion: `scripts/governance/promote_working_condition_exceptions.py`; never
+  use it as a substitute for strict platform closure.
+
+### Platform adapters
+
+- .NET: `src/readme_agent/ecosystems/dotnet.py`, `dotnet_public_types.py`, and
+  `src/readme_agent/facts/dotnet_*`; `dotnet_capability_distillation.py` prevents raw XML-doc type
+  summaries becoming visitor-facing capabilities.
+- Java: `src/readme_agent/ecosystems/java.py` and `src/readme_agent/facts/java_example_verifier.py`.
+- C++: `src/readme_agent/ecosystems/cpp.py`, `src/readme_agent/facts/cpp_example_verifier.py`, and
+  `src/readme_agent/facts/example_verifiers/cpp.py`.
+- TypeScript: TypeScript ecosystem/export/package-layout modules plus
+  `typescript_example_verifier.py` and `example_verifiers/typescript.py` where registered.
+- Rust: Rust ecosystem/API/schema modules, `rust_example_verifier.py`, and
+  `example_verifiers/rust.py`.
+- Go: Go ecosystem modules and `go_example_verifier.py`.
+
+### Exact control commands
+
+From repository root, always using `.venv`:
+
+```powershell
+# Live authority. Origin is the production durable-state remote unless the execution profile
+# explicitly selects the repository-local POC state remote.
+.venv/Scripts/readme-agent supervise `
+  --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml `
+  --mission-action status `
+  --mission-observer claude-coordinator
+
+.venv/Scripts/readme-agent supervise `
+  --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml `
+  --mission-action evaluate `
+  --mission-observer claude-coordinator
+
+.venv/Scripts/readme-agent supervise `
+  --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml `
+  --mission-action claim `
+  --mission-task-id <exact-task-printed-by-evaluate> `
+  --mission-observer claude-coordinator
+
+# One graph-authorized representative. Replace both values only with the current task focus.
+.venv/Scripts/readme-agent supervise `
+  --repo aspose-cells-foss/Aspose.Cells-FOSS-for-.NET `
+  --execution-profile local_poc `
+  --bounded-verified-canary `
+  --mission-task-graph plans/investigations/control/level8-autonomous-mission-task-graph.yaml `
+  --mission-task-id L8-VNET-01-ACCELERATED-LOCAL-NO-OP `
+  --mission-observer claude-coordinator
+
+# Complete dynamic Gate-A path only when the graph reaches that gate.
+.venv/Scripts/readme-agent supervise `
+  --registry data/products.json `
+  --execution-profile local_poc
+
+# Focused compatibility validation for an existing candidate/work clone.
+.venv/Scripts/readme-agent validate --repo <org/repository> --check-links
+
+# Strict evidence promotion after durable NO_OP_PROVEN and independent acceptance.
+.venv/Scripts/python scripts/governance/promote_finalized_verified_readmes.py `
+  --independent-receipt <current-non-authoring-receipt.json>
+```
+
+Before using the representative command, confirm the CLI’s current accepted argument combination;
+the mission task graph and repository canary are one supervisor authority and the task binding must
+match an unexpired claim. Never remove that binding merely to make the command run.
+
+Focused checks follow the touched platform. Shared/cohort boundaries run:
+
+```powershell
+.venv/Scripts/python -m ruff check .
+.venv/Scripts/python -m ruff format --check .
+.venv/Scripts/python -m mypy src
+.venv/Scripts/python scripts/governance/run_full_pytest.py
+.venv/Scripts/python scripts/governance/validate_plan_structure.py
+.venv/Scripts/python scripts/governance/build_level8_requirement_taskcard_coverage.py --check
+.venv/Scripts/python scripts/governance/check_verifiers_are_wired.py
+.venv/Scripts/python scripts/governance/check_prompt_hygiene.py
+git diff --check
+actionlint
+```
+
+`run_full_pytest.py` is the optimized complete non-live runner. Do not invoke
+`run_official_checks.py --help`; it has no help-only mode and executes the gate.
+
+## 7. Authoritative Non-Python Inventory
+
+The table is derived from the 19 non-Python rows in `data/products.json`, current GitHub repository
+observations on 2026-08-12, and repository manifests/fact bundles. Package identifiers marked
+“reverify” are declared inputs, not accepted publication claims. Every row remains in scope even
+when a package is unpublished or source-only.
+
+“Banner” means probe the named governed URL and emit it only on success.
+
+| Family | Platform | Repository | Package registry | Package identifier | Current README | Product status | Source accessible | Expected banner | Priority | Special constraints |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 3D | .NET | `aspose-3d-foss/Aspose.3D-FOSS-for-.NET` | NuGet | `Aspose.3D.FOSS` | `main/README.md` | active; `dry_run` | yes, `92ff427b71e5` | `media/3d/net/banner-readme.png` | 1 | multi-target `net10.0;net8.0;net6.0;netcoreapp3.1`; verify consumer target |
+| Cells | .NET | `aspose-cells-foss/Aspose.Cells-FOSS-for-.NET` | NuGet | `Aspose.Cells.FOSS` | `master/README.md` | active; `dry_run` | yes, `c0176f510f13` | `media/cells/net/banner-readme.png` | 1, pilot | rich sample matrix; `netstandard2.0;net8.0`; distinguish FOSS package from Enterprise Edition |
+| Email | .NET | `aspose-email-foss/Aspose.Email-FOSS-for-.Net` | NuGet | `Aspose.Email.Foss` | `main/README.md` | active; `dry_run` | yes, `a8999e259143` | `media/email/net/banner-readme.png` | 1 | repository casing is `.Net`; keep exact repo identity; `net8.0` |
+| PDF | .NET | `aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET` | NuGet | `Aspose.PDF.FOSS` | `main/README.md` | active; `dry_run` | yes, `8a3131b9a6f7` | `media/pdf/net/banner-readme.png` | 1 | large API/source-claim surface; `net8.0` |
+| Slides | .NET | `aspose-slides-foss/Aspose.Slides-FOSS-for-.NET` | source build; NuGet candidate not published | `Aspose.Slides.FOSS` is a prior 404 and must be rechecked | `main/README.md` | active; `dry_run` | yes, `bd19e16057b6` | `media/slides/net/banner-readme.png` | 1 | requires .NET 9; provision SDK automatically; do not present an unverified NuGet install |
+| Words | .NET | `aspose-words-foss/Aspose.Words-FOSS-for-.NET` | NuGet | `Aspose.Words.FOSS` | `master/README.md` | active; `dry_run` | yes, `572fc748b45f` | `media/words/net/banner-readme.png` | 1 | Git LFS object defect documented; clone with LFS smudge disabled; multi-target and large source tree |
+| 3D | Java | `aspose-3d-foss/Aspose.3D-FOSS-for-Java` | Maven Central | `org.aspose:aspose-3d-foss` | `main/README.md` | active; `full` | yes, `e308de588886`; local baseline stale | `media/3d/java/banner-readme.png` | 2 | refresh immutable snapshot before facts; JDK 21 |
+| Cells | Java | `aspose-cells-foss/Aspose.Cells-FOSS-for-Java` | Maven Central | `org.aspose:aspose-cells-foss` | `master/README.md` | active; `full` | yes, `2be25d979d1f` | `media/cells/java/banner-readme.png` | 2, pilot | JDK 17; complex README; known acquisition/claim-conflict regression case |
+| PDF | Java | `aspose-pdf-foss/Aspose.PDF-FOSS-for-Java` | Maven Central | `org.aspose:aspose-pdf-foss` | `main/README.md` | active; `dry_run` | yes, `12ae9e183a09` | `media/pdf/java/banner-readme.png` | 2 | JDK 11; verify audience/overview and claim placement |
+| Slides | Java | `aspose-slides-foss/Aspose.Slides-FOSS-for-Java` | Maven Central | `org.aspose:aspose-slides-foss` | `main/README.md` | active; `dry_run` | yes, `9968c5b42525` | `media/slides/java/banner-readme.png` | 2 | JDK 21; verify Gradle snippet independently from Maven metadata |
+| Cells | C++ | `aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp` | NuGet plus CMake | `Aspose.Cells.Cpp.FOSS` | `main/README.md` | active; `dry_run` | yes, `3e1edeacd4c1` | `media/cells/cpp/banner-readme.png` | 3 | use only declared NuGet/CMake route; Conan/vcpkg are out of scope |
+| Email | C++ | `aspose-email-foss/Aspose.Email-FOSS-for-Cpp` | source/CMake | no accepted package ID | `master/README.md` | active; `dry_run` | yes, `c7252b3e4f6b` | `media/email/cpp/banner-readme.png` | 3 | source build; example/fixture proof is required; do not invent package-manager availability |
+| PDF | C++ | `aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp` | source/CMake | target `aspose_pdf_foss` | `main/README.md` | active; `dry_run` | yes, `40858b60e9ba` | `media/pdf/cpp/banner-readme.png` | 3, pilot | C++20, CMake 3.20+ manifest/3.22+ README discrepancy must be reconciled; static library |
+| Slides | C++ | `aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp` | source/CMake | target `aspose_slides_foss` | `main/README.md` | active; `dry_run` | yes, `25adb25c8796` | `media/slides/cpp/banner-readme.png` | 3 | C++20; native dependencies and example fixtures must be verified |
+| 3D | TypeScript | `aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript` | npm, declared | `@aspose/3d` (publication reverify) | `master/README.md` | active; `dry_run` | yes, `7b959706f2ad`; local baseline stale | `media/3d/typescript/banner-readme.png` | 4, pilot | refresh snapshot; verify exports, types, Node/browser, ESM/CJS, and consumer build |
+| Cells | TypeScript | `aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript` | npm, declared | `excel-cells` (publication reverify) | `master/README.md` | active; `dry_run` | yes, `cabbb9d8ba20` | `media/cells/typescript/banner-readme.png` | 4 | `index.ts` entry; verify packaging/export conditions and source-only fallback |
+| Cells | Rust | `aspose-cells-foss/Aspose.Cells-FOSS-for-Rust` | crates.io, declared | `aspose-cells-foss-rust` (publication reverify) | `master/README.md` | active; `dry_run` | yes, `0339b7e7dcb6` | `media/cells/rust/banner-readme.png` | 5, only/pilot | edition 2021; verify exact crate ID, MSRV, re-exports, features, and `unsafe` claims |
+| Cells | Go | `aspose-cells-foss/Aspose.Cells-FOSS-for-Go` | Go proxy / pkg.go.dev | `github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Go/v26` | `main/README.md` | active; `dry_run` | yes, `d15a985af628` | `media/cells/go/banner-readme.png` | 6, pilot | Go 1.24.5; `/v26` major-version path must appear in install/import commands |
+| PDF | Go | `aspose-pdf-foss/Aspose-PDF-FOSS-for-Go` | Go proxy / pkg.go.dev | `github.com/aspose-pdf-foss/aspose-pdf-foss-for-go` | `main/README.md` | active; `dry_run` | yes, `4a8d9cd1df39`; local baseline stale | `media/pdf/go/banner-readme.png` | 6 | refresh snapshot; Go 1.24; very large inherited-claim surface |
+
+The old diagnostic `runs/share/poc/RESULTS.md` is useful only as a defect inventory. Its 19
+non-Python same-process candidates are not strict approvals or transaction no-op proof. Do not
+promote, copy, or count them as delivered.
+
+## 8. Platform Verification Contracts
+
+### .NET
+
+For each repository verify from the current `.csproj`/`.nuspec`, source, examples, tests, and
+NuGet flat-container API:
+
+- exact `PackageId`, published versions, and `dotnet add package <ID>`;
+- target frameworks, consumer framework, runtime/native dependencies, and SDK provisioning;
+- public root namespace and actual public types/members;
+- one C# example built in an isolated, secret-free environment;
+- source, NuGet, product, docs, and API-reference links;
+- distilled visitor-facing capabilities, never raw XML-doc type summaries.
+
+The platform pilot is Cells/.NET because it combines a verified NuGet route, multi-target library,
+large public surface, and broad sample matrix. It is representative enough to expose fact
+selection, source reconciliation, example compilation, capability distillation, and API-table
+quality—not merely the easiest package.
+
+### Java
+
+Verify from current POM/source/tests and Maven Central:
+
+- exact group/artifact/version and Maven Central availability;
+- correct Maven and Gradle snippets independently;
+- supported JDK and toolchain provisioning;
+- public Java packages/types/methods and one compiled/executed example;
+- runtime dependencies and source/docs/Javadoc links.
+
+The pilot is Cells/Java because it is a full-mode, published Maven artifact with JDK 17, substantial
+source/API complexity, and a known claim-conflict regression history.
+
+### C++
+
+Verify from current CMake/build files, headers, source, examples, and tests:
+
+- supported compiler matrix and C++ standard;
+- actual CMake minimum and complete configure/build/link commands;
+- include paths, namespaces, library target, and static/shared behavior;
+- platform/native dependencies and network-fetch behavior;
+- package-manager support only where the repository declares it;
+- one isolated compilable executable using public headers.
+
+Conan and vcpkg are inactive for this POC. The pilot is PDF/C++ because it exercises a large C++20
+API, source/CMake acquisition, static-library consumption, dependencies, include paths, and
+realistic examples. Its CMake-version discrepancy is a useful reconciliation test.
+
+### TypeScript/JavaScript
+
+Verify from current `package.json`, lockfiles, exports, declarations, source, tests, and npm:
+
+- exact package/scope and publication status;
+- Node/browser support, ESM/CommonJS behavior, exports, entry points, and `.d.ts` coverage;
+- runtime and development dependencies;
+- installation/import syntax and one consumer typecheck/build/test;
+- npm/source/product/docs/API links.
+
+The pilot is 3D/TypeScript because it has a scoped package declaration, build/test/typecheck
+scripts, runtime dependency, declarations, and meaningful API complexity. Refresh its stale local
+snapshot before drawing conclusions.
+
+### Rust
+
+Verify from current `Cargo.toml`, source, re-exports, examples, tests, crates.io, and docs.rs:
+
+- exact crate name, publication, edition, and explicitly supported MSRV;
+- Cargo dependency snippet, module paths, feature flags, and public re-exports;
+- any safety or `unsafe` claim from source, never assumption;
+- one isolated `cargo check`/test/example;
+- source, crates.io, docs.rs, product, and docs links.
+
+Cells/Rust is the only registered Rust repository and therefore both pilot and cohort. Do not query
+or advertise a shortened crate name when the manifest declares `aspose-cells-foss-rust`.
+
+### Go
+
+Verify from current `go.mod`, source, examples, tests, the Go proxy, and pkg.go.dev:
+
+- exact module and import paths, including major-version suffixes;
+- supported Go version and `go get` command;
+- public package symbols and idiomatic error handling;
+- one isolated `go test`/consumer example;
+- repository and pkg.go.dev links.
+
+The pilot is Cells/Go because its current source and explicit `/v26` module path exercise the
+identity rule that commonly breaks Go installation/import documentation.
+
+## 9. Critical Path and Rollout
+
+Do not create a new plan or execute a deferred task directly.
+
+### Gate 0: Reconcile the existing checkpoint
+
+1. Verify HEAD/status and that only the known backlog edit is dirty.
+2. Run live mission `status` and `evaluate` against `origin`.
+3. Recover the expired `L8-VPY-03-ALL-PYTHON-VERIFIED-POC` claim through the controller.
+4. Reconcile the existing ten strict promotions plus the separately governed HTML/PSD/TeX
+   dispositions. Do not re-audit or redesign Python READMEs.
+5. Transition only if the active task’s own current closeout rules and evidence permit it. If its
+   rules still require 13 strict no-ops, record the conflict against Decision #101 and repair the
+   task/state semantics through the existing graph/governance mechanism; do not falsify closure.
+
+### Gate 1: Python transport and admission dependency
+
+The active graph requires:
+
+1. `L8-VPY-04-PRODUCTION-TRANSPORT`.
+2. `L8-VPY-05-PRODUCTION-ADMISSION`.
+
+This handoff does not authorize skipping them. Complete them from existing accepted Python bytes;
+do not reopen Python presentation decisions. Non-Python implementation begins only when mission
+evaluation makes the next task eligible.
+
+### Gate 2: .NET
+
+1. Claim `L8-VNET-01-ACCELERATED-LOCAL-NO-OP` only after it is printed as eligible.
+2. Run the Cells/.NET pilot through the complete current transaction.
+3. Repair reusable .NET adapters, not the candidate by hand.
+4. Freeze the .NET platform contract after pilot acceptance.
+5. Process 3D, Email, PDF, Slides, and Words through repository-specific transactions.
+6. Require six current strict bundles and fresh-process no-op proofs.
+7. Claim and complete `L8-VNET-02-PRODUCTION-TRANSPORT` only afterward.
+
+### Gate 3: Java
+
+The active graph’s Java vertical task is currently named
+`L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES` despite its title “Prove the first current Java verified
+vertical slice.” Treat that identifier/title mismatch as recorded graph debt; execute only what
+the loaded taskcard and mission focus say. Pilot Cells/Java, freeze the Java contract, then process
+3D, PDF, and Slides only through graph-admitted work.
+
+### Gates 4-7: C++, TypeScript, Rust, Go
+
+The active compact graph does not yet expose one executable task per remaining platform. Relevant
+future work is preserved in the deferred catalog, including TypeScript export truth, Rust API
+truth, seven-ecosystem qualification, full-registry truth, heterogeneous qualification, and Gate-A
+cohorts. Promote only the dependency-ready records through the existing graph migration process.
+Within those tasks, follow the binding order C++, TypeScript, Rust, Go and the pilots in section 8.
+Never invent a parallel platform ledger.
+
+### Final portfolio gate
+
+After all 19 non-Python entries:
+
+- reload `data/products.json`; do not use a hard-coded denominator;
+- confirm every current non-Python row has a terminal strict result or a precise external blocker;
+- run cross-product leakage, branding, badge, banner, link, abbreviation, heading, Mermaid,
+  source-accountability, example, license/notices, and public-prose consistency checks;
+- prove independent review and complete-transaction no-op per repository;
+- reproduce the checksum inventory independently;
+- keep every product effect at zero until a later, separately authorized platform publication gate.
+
+## 10. One Repository Transaction
+
+For each pilot and cohort member:
+
+1. Acquire a repository/path lease and record the exact task/goal/revision.
+2. Capture the current default branch, immutable revision, original README bytes, inventory,
+   manifests, package roots, examples, tests, docs, license, releases, and tags.
+3. Verify acquisition via only the repository-declared supported registry or source-build route.
+4. Extract platform API truth and execute/compile one minimal example in the required isolation.
+5. Parse the existing README as evidence; classify each material claim and protected region.
+6. Build `ProductFactsV2`, conflicts, provenance, and source-claim obligations.
+7. Produce a repository-specific document plan and candidate using the shared structural contract.
+8. Generate a native patch and claim map.
+9. Run deterministic factual, source-accountability, structural, link, example, Mermaid, and safety
+   validation.
+10. Run independent non-authoring review. Repair only at the first causal owner.
+11. Inspect the rendered README, not merely Markdown source.
+12. Run a later complete fresh process and require exact transaction no-op semantics.
+13. Build redacted checksum-complete evidence and obtain an independent closeout receipt.
+14. Promote exact bytes only after strict durable state permits it.
+15. Transition the same mission task with evidence, evaluate, and continue.
+
+Generated is not verified; verified is not human accepted; human accepted is not publication
+eligible; publication eligible is not a merged/default-branch effect.
+
+## 11. Safe Parallel Lanes
+
+The coordinator owns shared code, templates, prompts, inventory, plans, state, integration,
+transitions, commits, and aggregate evidence.
+
+Parallelism is allowed only after one pilot proves transaction isolation:
+
+- one platform pilot/repair lane at a time while shared machinery is changing;
+- then at most two repository workers, later three only with measured >=1.5x speedup and <=25%
+  coordination overhead;
+- disjoint repository and runtime paths per worker;
+- no worker edits shared presentation/validator/config/state files;
+- one validation/render lane may inspect immutable candidate artifacts but not author them;
+- one independent verifier must not have authored the accepted implementation;
+- aggregation, task transitions, promotion, and commits remain serialized.
+
+Record actual delegated lanes in `runs/multi-agent/<task-id>/execution-plan.json`. Do not create
+ceremonial roles. If two lanes discover the same shared defect, stop both candidate edits, repair
+the shared owner once serially, then invalidate/replay only dependent stages.
+
+## 12. README Acceptance Gates
+
+Every repository must pass:
+
+### Accuracy
+
+- product/package/module identity and install command;
+- runtime/compiler/JDK/Node/Go/Rust requirements;
+- public API names, features, formats, license, dependencies, links, and support policy;
+- no unsupported or cross-product claim.
+
+### Source reconciliation
+
+- existing useful content reviewed;
+- verified content preserved or accurately restated;
+- stale content corrected with evidence;
+- limitations retained visibly;
+- every material source claim has one placement, correction, or justified omission.
+
+### Developer usability
+
+- installation near the top;
+- concise, runnable/compilable quick start using public API;
+- inputs, outputs, required files, dependencies, and expected behavior clear;
+- platform-idiomatic code and error handling.
+
+### Presentation
+
+- one badge row and at most one verified banner;
+- consistent hierarchy and title case;
+- compact approved Mermaid topology and official render proof;
+- essential onboarding visible; lengthy detail collapsed only after a summary;
+- no placeholder, internal-process, generic, duplicated, or Python-leaked text.
+
+### Automation
+
+- deterministic component-bound generation;
+- complete fresh-process no-op with zero unnecessary provider work;
+- unchanged files unchanged;
+- missing evidence fails explicitly;
+- repository overrides survive regeneration;
+- source, facts, plan, candidate, patch, validation, review, and no-op are traceable.
+
+### Evidence
+
+- commands, versions, start/end, branch/HEAD, dirty fingerprint, inputs, outputs, and hashes;
+- example, links, Markdown, Mermaid, deterministic, independent, recovery, and no-op results;
+- explicit external blocker or omission records;
+- redacted manifest and SHA-256 inventory;
+- mission task closure linked to independent evidence.
+
+A platform is not complete from one pilot. A diagnostic `poc` candidate, same-process no-op,
+stored historical approval, or green focused test does not satisfy these gates.
 
 ## 13. Anti-Drift Rules
 
-Claude must not:
+- Follow the active mission graph and durable state; create no competing plan/controller/store.
+- Do not mechanically translate Python prose, examples, packages, APIs, features, formats, or links.
+- Do not invent or infer a package registry merely from the language.
+- Do not trust a README claim because it sounds plausible.
+- Do not discard useful existing README content or preserve stale content without reconciliation.
+- Do not hand-edit a candidate to hide a machinery defect; fix the responsible reusable owner.
+- Do not weaken validators, skip independent review, or relabel diagnostic evidence.
+- Do not batch a platform before its representative pilot passes all applicable gates.
+- Do not declare a platform complete until every current platform member passes or has an accepted
+  typed external disposition allowed by that gate.
+- Do not use Conan or vcpkg in the active C++ POC unless a future explicit decision changes scope.
+- Do not depend on `aspose.org` at acceptance or runtime.
+- Do not reset, restore, clean, broad-stash, force-push, or overwrite unrelated work.
+- Preserve `plans/backlog-post-poc.md` unless the user explicitly assigns it.
+- Do not push, open PRs, publish, merge, mark ready, close proposals, or modify default branches
+  without existing approval gates.
+- After two materially equivalent failures or 15 minutes without material narrowing, stop that
+  tactic, preserve evidence, identify the false assumption, record a first-principles replan, and
+  change the causal owner/mechanism/sequence. A broad rerun is not a replan.
+- Continue unaffected safe work around a narrow external block. Agent-fixable blocks are work, not
+  stop conditions.
 
-- select work from `plans/status.md`, `plans/roadmap.md`, `runs/share/poc/RESULTS.md`, static graph
-  statuses, or this handover over durable mission status;
-- create a new master plan, mission graph, queue, controller, or state store;
-- execute trusted or non-Python work early;
-- expand a repository task into broad cleanup/refactoring;
-- repeat the same failed tactic past the approach budget;
-- treat an internal `AGENT_APPROVED` file, zero-diff render, or exit 0 as complete proof;
-- weaken validators/tests to accept duplicate, stale, unsupported, generic, promotional, or
-  unaccountable content;
-- overwrite the Note artifact or user-owned backlog to make status appear clean;
-- expose credentials or pass product-write tokens to analysis/build/example work;
-- publish, merge, deploy, or write any product surface before its explicit gate and authorization;
-- ask the human to restate decisions recoverable from the authority files.
+## 14. Resume and Interruption
 
-## 14. Definition of Done
+On every restart:
 
-The current PDF task is done only when the current dependency key binds deterministic validation,
-independent review, final verdict, no-op proof, manifest and inventory; the next complete identical
-transaction makes zero provider calls and no effect; an independent non-authoring verifier passes;
-the exact bytes are promoted and shown; and the durable task is closed with evidence.
+1. Read this handoff, then immediately refresh Git status/HEAD, repository-owned processes, graph
+   hash, live mission status, claim owner/expiry, and registry hash.
+2. If the graph or registry differs from this snapshot, run `evaluate`; trust its printed task.
+3. Never steal an unexpired claim. Recover an expired claim through mission control.
+4. Load the current task’s `TaskExecutionFocusV1`, direct dependencies, last transition, and
+   evidence only.
+5. For a partial pilot, resume from the earliest invalid lifecycle state. Reuse a stage only when
+   revision, facts, prompts, template, policies, validators, reviewer standard, protected content,
+   manifests, and receipt hashes still match.
+6. Distinguish states:
+   `CANDIDATE_GENERATED` -> `DETERMINISTIC_VALIDATED` -> `AGENT_APPROVED` -> `NO_OP_PROVEN` ->
+   `HUMAN_ACCEPTED` -> `PR_ELIGIBLE` -> `PR_PROOF_COMPLETE`.
+7. Record external blocks with exact evidence, unaffected lanes, owner, smallest required external
+   action, and resume predicate. Do not count them as success unless the governing gate explicitly
+   allows that typed disposition.
+8. Transition only after evidence is durable and independently verified.
 
-The current Python platform goal is done only when all 13 current Python repositories satisfy that
-same full verified transaction, are indexed and shown, explicitly accepted by the human, and pass
-canonical workflow/`act`/staging/App/recovery/dedup/authorization proof before hosted admission.
+The last completed platform/product is determined from current lifecycle state and checksum-valid
+promotion manifests, not filenames, timestamps, or `RESULTS.md` prose.
 
-The umbrella mission is done only when the dynamically discovered/admitted portfolio completes all
-verified content and surface gates, deployable Level 6 is operating, background Level-7/8 evidence
-windows and independent audits close, every mandatory task is `CLOSED`, requirements and evidence
-are current, and mission reevaluation finds no ready, agent-fixable, reopened, regressed, or missing
-mandatory work. Partial portfolio results, plans, schemas, code, tests, candidates, reports, or
-elapsed time never substitute.
+## 15. Publication Boundary
 
-## 15. Immediate Resume Procedure
+Local implementation, tests, candidate generation, evidence, and control-repository commits are
+allowed under repository policy. Product effects are not.
 
-1. Read `AGENTS.md`, `plans/idea.md`, `plans/master.md`, `plans/requirements.md`,
-   `plans/GOVERNANCE.md`, this file, `CLAUDE_GOAL.md`, `CLAUDE_LOOP.md`, and `state.json`.
-2. Run `git branch --show-current`, `git rev-parse HEAD`, `git status --short`, and inspect
-   repository-owned processes. Preserve `plans/backlog-post-poc.md`.
-3. Run mission `status` with observer `claude-coordinator`; compare graph hash and scope.
-4. Run mission `evaluate`; then claim only the printed task. At this snapshot it should be
-   `L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES`.
-5. Read the current independent PDF FAIL receipt and the latest run manifest before editing.
-6. Reproduce `deterministic_manifest_dependency_key_mismatch` with a focused test around
-   `local_poc_cache.py`/acceptance persistence.
-7. Implement the smallest permanent invalidation/rebinding repair, run focused static/tests, and
-   commit only owned files to `main` with Claude attribution.
-8. Run the exact bound PDF command from section 6; inspect artifacts rather than trusting status.
-9. Run a second identical fresh process and require zero provider calls, cache reuse, no patch,
-   duplicate, or effect.
-10. Assign an independent non-authoring verifier, promote/show the exact README, transition with
-    evidence, evaluate, and continue with the graph-selected Page task.
+Before any product-repository push, Claude must present:
+
+- what: exact candidate, patch, and commit;
+- why: accepted facts, plan, validators, and review;
+- where: exact repository, remote, and proposal branch.
+
+Then obtain fresh explicit what/why/where approval for that instance. Draft PRs never merge, mark
+ready, force-push, close, publish packages/releases, or write default branches automatically.
+
+## 16. Definition of Done
+
+The non-Python portfolio handoff objective is done only when:
+
+- Python dependency gates required by the active graph are reconciled without reopening README
+  design;
+- all 19 current non-Python registry entries are accounted for at current immutable revisions;
+- each platform pilot passes its full factual, presentation, recovery, independent-review, and
+  complete-transaction no-op gates;
+- each remaining member passes the frozen platform contract without blind templating;
+- every package/API/example/link claim is repository- and registry-verified;
+- every useful original README claim is placed, corrected, or explicitly dispositioned;
+- every strict bundle is redacted, checksum-complete, independently accepted, and reproducible;
+- cross-portfolio leakage/consistency checks pass;
+- no unauthorized product effect or default-branch write occurred;
+- durable graph/state, requirements, logs, promotion indexes, and evidence agree;
+- no mandatory non-Python task is ready, regressed, agent-fixable, missing, or unverified.
+
+## 17. Required Final Report From Claude
+
+Claude’s final report must include:
+
+1. branch, HEAD, graph hash, state version, and registry hash;
+2. exact active/closed tasks and transition evidence;
+3. a 19-row final non-Python matrix with source revisions and terminal states;
+4. per-platform pilot, frozen contract, tests, example/toolchain proof, and limitations;
+5. per-repository original/candidate/patch/facts/validation/review/no-op/manifest paths and hashes;
+6. static, focused, integration, complete-suite, recovery, idempotency, and independent results;
+7. current diagnostic versus strict versus human-accepted versus publication-eligible counts;
+8. all external blockers with owners and resume predicates;
+9. product-effect/default-branch-write/PR counts;
+10. unresolved test or evidence debt;
+11. the next graph-selected task, or proof that no mandatory executable work remains.
+
+Claude must report partial truth as partial. It must not call the full portfolio, Gate A, a platform,
+or production complete from attractive Markdown, diagnostic POC output, one pilot, focused tests,
+or an implementation-only commit.
