@@ -2455,13 +2455,13 @@
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
     },
     "readme_presentation": {
-      "accepted_facts_hash": "5f3597bedbd9fe4ad5c757d46b2a3c45d73c074b1b2f47159c2e5caf8daf3aac",
+      "accepted_facts_hash": "4bf0b4307d5021e2b46966d222ac3466a47fe73a7af5d44908bd6f577a0b1acb",
       "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
-          "assessment_hash": "f63dfe46d9a38146851bab1b412b390f01c35b6360f4612dc372d3845008530f",
+          "assessment_hash": "ce89069b1d73d595692e9d231985d12194c90bba98c28abf9e1e6f0bf112ef2d",
           "attempt_count": 1,
           "authoring_hints": "AUTHORITATIVE DIAGRAM ROLE VOCABULARY. You may omit or reorder exact labels, but must not relabel or reclassify them:\n{\"capability\": [\"Compound File Binary (CFB) container reading\", \"Outlook MSG file reading\", \"Outlook MSG file writing\", \"High-level MAPI-style message object manipulation\", \"EmailMessage conversion\", \"Recipient, attachment, and embedded message handling\"], \"input\": [\"Compound File Binary (CFB) files\", \"Outlook .msg files\", \"CFB files\", \"MSG files\"], \"output\": [\"Compound File Binary (CFB) files\", \"Outlook .msg files\", \"email.message.EmailMessage (.eml) files\", \"MSG files\"]}",
           "diagram": {
@@ -2566,8 +2566,8 @@
               }
             ]
           },
-          "facts_hash": "5f3597bedbd9fe4ad5c757d46b2a3c45d73c074b1b2f47159c2e5caf8daf3aac",
-          "input_sha256": "f3f58ebaccd68c4fb82ee2236b4b6b022a3af4c4fbe43941ea289a9e93ce67b1",
+          "facts_hash": "4bf0b4307d5021e2b46966d222ac3466a47fe73a7af5d44908bd6f577a0b1acb",
+          "input_sha256": "0ee096e4d62d50043c2ebebe2f284dcaffc2fd37dfbd253aa51906f1cd903827",
           "model": "qwen3-next",
           "opening_summary": {
             "supporting_fact_ids": [
@@ -2623,14 +2623,14 @@
             }
           ],
           "prompt_sha256": "98469972eaf193d86547e949cc520786a5d922a26b13f7077ade30049462aa23",
-          "repository_summary": "Aspose.Email FOSS for Python is a pure Python toolkit for reading, writing, and manipulating Outlook MSG files and Compound File Binary (CFB) containers. It enables developers to inspect low-level structures, build high-level MAPI-style message objects, and convert between MSG and standard email formats. The library is open-source (MIT), requires Python 3.10+, and is distributed via PyPI as `aspose-email-foss`.",
+          "repository_summary": "Aspose.Email FOSS for Python is a pure Python toolkit for reading, writing, and manipulating Outlook MSG files and Compound File Binary (CFB) containers, with support for converting to and from email.message.EmailMessage (.eml) files.",
           "review_repair": null,
           "schema_version": 1,
           "section_decisions": [
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The opening paragraph accurately reflects the product identity and open-source nature, supported by manifest and registry facts and the commercial FOSS relationship policy.",
+              "rationale": "The opening section accurately introduces the product and its open-source nature, supported by the manifest identity and commercial FOSS relationship facts.",
               "section_id": "opening",
               "supporting_fact_ids": [
                 "product.identity:manifest-and-registry",
@@ -2640,14 +2640,14 @@
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The main heading 'Aspose.Email FOSS for Python' is consistent with the product identity and requires no change.",
+              "rationale": "The main heading 'Aspose.Email FOSS for Python' is consistent with the product identity and requires no changes.",
               "section_id": "heading:0",
               "supporting_fact_ids": []
             },
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The 'Features' section accurately lists verified capabilities and format support, backed by repository evidence and format direction facts.",
+              "rationale": "The Features section accurately reflects verified capabilities and format support, including CFB and MSG handling, and EmailMessage conversion.",
               "section_id": "heading:422",
               "supporting_fact_ids": [
                 "product.capabilities:repository-evidence",
@@ -2657,7 +2657,7 @@
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The installation command matches the manifest coordinates and is verified via PyPI registry.",
+              "rationale": "The Installation section correctly provides the PyPI package name and installation command, verified by manifest and registry facts.",
               "section_id": "heading:843",
               "supporting_fact_ids": [
                 "installation.coordinates:manifest",
@@ -2667,7 +2667,7 @@
             {
               "disposition": "repair",
               "priority": 0,
-              "rationale": "The 'Quick Start' section does not contain the exact locally verified minimal example; it must be replaced with the verified snippet to ensure reproducibility.",
+              "rationale": "The Quick Start section does not contain the exact locally verified minimal example; it should be replaced with the verified minimal example to ensure correctness and reproducibility.",
               "section_id": "heading:903",
               "supporting_fact_ids": [
                 "example.minimal:compiled-salvaged-example"
@@ -2676,35 +2676,35 @@
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The 'Package Entry Points' section correctly lists the public API modules and classes as defined in the repository.",
+              "rationale": "The Package Entry Points section accurately lists the public API modules and classes, consistent with the repository structure and public surface.",
               "section_id": "heading:1661",
               "supporting_fact_ids": []
             },
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The 'Compatibility' section accurately describes supported scenarios and API layers, consistent with repository evidence and compatibility manifest.",
+              "rationale": "The Compatibility section provides accurate information about supported scenarios and API layers, consistent with the product capabilities and formats.",
               "section_id": "heading:1987",
               "supporting_fact_ids": []
             },
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The 'Examples' section contains verified conversion workflows and matches the inline examples in the repository.",
+              "rationale": "The Examples section includes verified conversion examples for MSG to EML and EML to MSG, matching the documented capabilities and format support.",
               "section_id": "heading:3061",
               "supporting_fact_ids": []
             },
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The 'Links' section provides correct repository, issue tracker, and PyPI URLs.",
+              "rationale": "The Links section correctly provides repository, issue tracker, and PyPI links, which are standard and useful for users.",
               "section_id": "heading:3676",
               "supporting_fact_ids": []
             },
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The 'Development' section correctly points to the contribution and test assets documented in the repository.",
+              "rationale": "The Development section references CONTRIBUTING.md, which is part of the documented development assets and contribution guidance.",
               "section_id": "heading:3908",
               "supporting_fact_ids": [
                 "development.assets:repository-inventory"
@@ -2713,21 +2713,21 @@
             {
               "disposition": "investigate",
               "priority": 0,
-              "rationale": "The 'Security' section currently lacks dedicated repository-source evidence; it must be updated with content from SECURITY.md or removed if no further detail is available.",
+              "rationale": "The Security section currently only references SECURITY.md without additional context; further investigation is needed to ensure it meets the required evidence standards.",
               "section_id": "heading:3965",
               "supporting_fact_ids": []
             },
             {
               "disposition": "preserve",
               "priority": 0,
-              "rationale": "The 'Changelog' section correctly points to CHANGELOG.md.",
+              "rationale": "The Changelog section correctly references CHANGELOG.md, which is part of the documented assets.",
               "section_id": "heading:4011",
               "supporting_fact_ids": []
             },
             {
               "disposition": "add",
               "priority": 0,
-              "rationale": "A fact-backed overview section is missing and should be added to help developers quickly understand the product's purpose, audience, and capabilities.",
+              "rationale": "A fact-backed overview section is needed to clearly state the audience, problems solved, and capabilities, supported by verified descriptive facts.",
               "section_id": "missing:at-a-glance",
               "supporting_fact_ids": [
                 "product.audience:platform-derived",
@@ -2738,7 +2738,7 @@
             {
               "disposition": "add",
               "priority": 0,
-              "rationale": "A limitations section is missing but supported by explicit exception and error statements in the source code.",
+              "rationale": "A limitations section should be added to explicitly state known constraints, supported by verified repository evidence.",
               "section_id": "missing:limitations",
               "supporting_fact_ids": [
                 "product.limitations:source-guidance"
@@ -2748,9 +2748,9 @@
           "source_sha256": "31908acb90cbec46e3da854db6e37863c4692a3f6cd5e4d82240acbf76690a35",
           "tool_schema_sha256": "fe46b90776ae3ce6e9cc892c30b86a20764d5188a28dd9c4969ed60909c2a1fb"
         },
-        "agentic_composition_reused": true,
+        "agentic_composition_reused": false,
         "bundle_verification": {
-          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-email-foss__Aspose.Email-FOSS-for-Python\\20260811-183809-aa99",
+          "bundle_dir": "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-email-foss__Aspose.Email-FOSS-for-Python\\20260812-030534-998b",
           "checks": {
             "acquisition_matches_live_registry": true,
             "agentic_plan_assessment_hash_matches": true,
@@ -2787,7 +2787,7 @@
         "factuality": {
           "claim_conflicts": [],
           "error": null,
-          "product_facts_v2_hash": "5f3597bedbd9fe4ad5c757d46b2a3c45d73c074b1b2f47159c2e5caf8daf3aac",
+          "product_facts_v2_hash": "4bf0b4307d5021e2b46966d222ac3466a47fe73a7af5d44908bd6f577a0b1acb",
           "protected_content_losses": [],
           "valid": true
         },
@@ -2803,14 +2803,14 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.048d6b80ac76e3b355fb.1",
-                  "claim": "The title clearly identifies the product and its open-source nature.",
+                  "claim": "The README contains exactly one H1 heading, providing a clear primary title.",
                   "criterion": "clarity",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.clarity.1",
+                  "finding_id": "quality.clarity.h1_blocks",
                   "kind": "quality",
                   "mechanical_check_id": "document.h1_blocks",
                   "observed_polarity": null,
@@ -2818,18 +2818,18 @@
                   "quoted_candidate_span": "# Aspose.Email FOSS for Python",
                   "reported_observed_value": 1,
                   "required_repair": "",
-                  "section": "candidate.anchor.048d6b80ac76e3b355fb.1"
+                  "section": "Document header"
                 },
                 {
                   "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                  "claim": "The Quick Start example is minimal, self-contained, and fits within the 12 non-blank line limit.",
+                  "claim": "The Quick Start section presents a single, minimal, and self-contained code example that fits within the 12 nonblank line limit.",
                   "criterion": "example_presentation",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": null,
                   "evidence_location": null,
                   "expected_polarity": null,
                   "fact_id": null,
-                  "finding_id": "quality.example_presentation.1",
+                  "finding_id": "quality.example_presentation.quick_start",
                   "kind": "quality",
                   "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                   "observed_polarity": null,
@@ -2837,13 +2837,13 @@
                   "quoted_candidate_span": "## Quick Start",
                   "reported_observed_value": 5,
                   "required_repair": "",
-                  "section": "candidate.anchor.1985dd2230f19f78053d.1"
+                  "section": "Quick Start"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "quality.clarity.1",
-                  "quality.example_presentation.1"
+                  "quality.clarity.h1_blocks",
+                  "quality.example_presentation.quick_start"
                 ],
                 "errors": [],
                 "valid": true
@@ -2855,7 +2855,7 @@
                 "role": "blind_quality_reviewer"
               },
               "input_sha256": "8448efda4ef1518a298d5ab364cff2af0a962e8a3b127b09a8fd17456573459e",
-              "reasoning": "The README presents a clear, well-structured, and product-specific overview for Python developers. It follows the required header conventions (single H1, required H2 prefixes), includes compliant badges in one row, and provides a navigable table of contents. The 'At a Glance' Mermaid diagram is visually appropriate and correctly renders the inputs-product-capabilities-outputs topology. The 'Quick Start' section meets the constraint of \u226412 non-blank code lines and uses a single fenced block. All required sections are present with appropriate headings in title case. There is no visible duplication, internal assurance language, or forbidden comments. Markdown integrity is preserved, and the template is applied generically without overuse of placeholder text.",
+              "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 headings with correct prefixes, a single H1, and compliant badge rows. The installation and quick start sections are clearly presented with minimal, compliant fenced code blocks. Navigation is complete and accurate. License benefits are explicitly stated. No visible duplication, internal terminology issues, or markdown integrity problems were found. All mechanical checks pass.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -2868,14 +2868,14 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.048d6b80ac76e3b355fb.1",
-                    "claim": "The title clearly identifies the product and its open-source nature.",
+                    "claim": "The README contains exactly one H1 heading, providing a clear primary title.",
                     "criterion": "clarity",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.clarity.1",
+                    "finding_id": "quality.clarity.h1_blocks",
                     "kind": "quality",
                     "mechanical_check_id": "document.h1_blocks",
                     "observed_polarity": null,
@@ -2883,18 +2883,18 @@
                     "quoted_candidate_span": "# Aspose.Email FOSS for Python",
                     "reported_observed_value": 1,
                     "required_repair": "",
-                    "section": "candidate.anchor.048d6b80ac76e3b355fb.1"
+                    "section": "Document header"
                   },
                   {
                     "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                    "claim": "The Quick Start example is minimal, self-contained, and fits within the 12 non-blank line limit.",
+                    "claim": "The Quick Start section presents a single, minimal, and self-contained code example that fits within the 12 nonblank line limit.",
                     "criterion": "example_presentation",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": null,
                     "evidence_location": null,
                     "expected_polarity": null,
                     "fact_id": null,
-                    "finding_id": "quality.example_presentation.1",
+                    "finding_id": "quality.example_presentation.quick_start",
                     "kind": "quality",
                     "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                     "observed_polarity": null,
@@ -2902,13 +2902,13 @@
                     "quoted_candidate_span": "## Quick Start",
                     "reported_observed_value": 5,
                     "required_repair": "",
-                    "section": "candidate.anchor.1985dd2230f19f78053d.1"
+                    "section": "Quick Start"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "quality.clarity.1",
-                    "quality.example_presentation.1"
+                    "quality.clarity.h1_blocks",
+                    "quality.example_presentation.quick_start"
                   ],
                   "errors": [],
                   "valid": true
@@ -2920,7 +2920,7 @@
                   "role": "blind_quality_reviewer"
                 },
                 "input_sha256": "8448efda4ef1518a298d5ab364cff2af0a962e8a3b127b09a8fd17456573459e",
-                "reasoning": "The README presents a clear, well-structured, and product-specific overview for Python developers. It follows the required header conventions (single H1, required H2 prefixes), includes compliant badges in one row, and provides a navigable table of contents. The 'At a Glance' Mermaid diagram is visually appropriate and correctly renders the inputs-product-capabilities-outputs topology. The 'Quick Start' section meets the constraint of \u226412 non-blank code lines and uses a single fenced block. All required sections are present with appropriate headings in title case. There is no visible duplication, internal assurance language, or forbidden comments. Markdown integrity is preserved, and the template is applied generically without overuse of placeholder text.",
+                "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 headings with correct prefixes, a single H1, and compliant badge rows. The installation and quick start sections are clearly presented with minimal, compliant fenced code blocks. Navigation is complete and accurate. License benefits are explicitly stated. No visible duplication, internal terminology issues, or markdown integrity problems were found. All mechanical checks pass.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -2934,14 +2934,14 @@
                 "findings": [
                   {
                     "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                    "claim": "Installation command matches the package name and version from pyproject.toml.",
+                    "claim": "The package name 'aspose-email-foss' and version '26.3' are correctly stated in the README and match the pyproject.toml manifest.",
                     "criterion": "installation.coordinates",
                     "disposition": "supports_acceptance",
                     "evidence_excerpt": ".",
                     "evidence_location": "repository://pyproject.toml",
                     "expected_polarity": "positive_implementation",
                     "fact_id": "installation.coordinates:manifest",
-                    "finding_id": "factual.installation.1",
+                    "finding_id": "factual.installation.coordinates",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
@@ -2949,32 +2949,32 @@
                     "quoted_candidate_span": "## Installation",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                    "section": "Installation"
                   },
                   {
-                    "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                    "claim": "Key Capabilities list matches verified source evidence for CFB/MSG reading/writing and MAPI-style manipulation.",
-                    "criterion": "product.capabilities",
+                    "candidate_anchor_id": "candidate.anchor.6c549a56db01e021f248.1",
+                    "claim": "The README correctly states the license is MIT and describes its permissions (use, modification, distribution, commercial use).",
+                    "criterion": "product.license",
                     "disposition": "supports_acceptance",
-                    "evidence_excerpt": "class CFBReader:",
-                    "evidence_location": "repository://aspose/email_foss/cfb/reader.py,aspose/email_foss/cfb/types.py,aspose/email_foss/msg/mapi_message.py,aspose/email_foss/msg/reader.py,aspose/email_foss/msg/types.py,aspose/email_foss/msg/writer.py,examples/create_msg_and_eml.py",
+                    "evidence_excerpt": "MIT",
+                    "evidence_location": "repository://LICENSE",
                     "expected_polarity": "positive_implementation",
-                    "fact_id": "product.capabilities:repository-evidence",
-                    "finding_id": "factual.capabilities.1",
+                    "fact_id": "product.license:license-file",
+                    "finding_id": "factual.product.license",
                     "kind": "factual",
                     "mechanical_check_id": null,
                     "observed_polarity": "positive_implementation",
                     "polarity_result": "supports",
-                    "quoted_candidate_span": "## Key Capabilities",
+                    "quoted_candidate_span": "## License",
                     "reported_observed_value": null,
                     "required_repair": "",
-                    "section": "candidate.anchor.78a4314321b11916555e.1"
+                    "section": "License"
                   }
                 ],
                 "grounding_validation": {
                   "checked_finding_ids": [
-                    "factual.capabilities.1",
-                    "factual.installation.1"
+                    "factual.installation.coordinates",
+                    "factual.product.license"
                   ],
                   "errors": [],
                   "valid": true
@@ -2985,8 +2985,8 @@
                   "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                   "role": "factual_plan_reviewer"
                 },
-                "input_sha256": "9f861ea7657ce5a88f31c1b691403bdcb2ea82a609113e1c2509303b4f56cb35",
-                "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, API surface, capabilities, installation, and documentation links are all verified by evidence. The 'Scope and Limitations' section accurately reflects source-level constraints (CFBError, MSGError, unsupported byte order, etc.). The 'Enterprise Edition' terminology is correctly placed below the fold and aligned with the commercial-FOSS relationship. No contradictions or missing evidence were found.",
+                "input_sha256": "194f9a783407caee8675f4c844615408021e27c87215fc243bb43b9fae72ce65",
+                "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, installation command, and public API surface match the manifest and registry evidence. Capabilities, limitations, examples, and documentation links are all verified. The Enterprise Edition terminology and commercial/FOSS relationship are correctly represented. No unsupported or contradictory claims were found.",
                 "required_repair": "",
                 "sections_affected": [],
                 "verdict": "ACCEPT"
@@ -2994,14 +2994,14 @@
               "identity_separation_valid": true,
               "merged_call_receipt": {
                 "actor_id": "llm-route:merged-readme-review",
-                "blind_record_sha256": "46ea84bb25c2343ae257e68e17522d9819d96c49a635933c18b261b339ebbbce",
-                "factual_record_sha256": "7ba0aac003c1c2f59b0a984a1983d5910493fdc11df9c4bee155cee0902cd1b6",
-                "input_sha256": "0c1c18809168be0e9d4e6c1f75d5d802f30c5bccec76beba7d1b7a013b2d91de",
+                "blind_record_sha256": "8b5de5cdba6e5fead4cebe3a40452d2d8c7217642ef4c43b29b5f27004232352",
+                "factual_record_sha256": "195234894ecc091a177060121d20b50f5aaf3233607c32b7192ec2190f015eaa",
+                "input_sha256": "73df7d8c070e7f50fd4276665f116126db1e412c2fd21fb1f6e88ee327da41f6",
                 "prompt_id": "merged_readme_review",
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "provider_model": "qwen3-next",
-                "provider_request_id": "chatcmpl-83c9479aff911d20",
-                "raw_output_sha256": "4b3f81656af1a5946cda6776c070ee18ab24d07f83be4ba88a95cabf9b558af4"
+                "provider_request_id": "chatcmpl-9ae4f435ac70d3ab",
+                "raw_output_sha256": "bd39835b46faaf5c84e21dadba9d42b006426e350ead02e388b035bd7791df90"
               },
               "reasons": [
                 "blind_quality:ACCEPT",
@@ -3017,14 +3017,14 @@
               "findings": [
                 {
                   "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                  "claim": "Installation command matches the package name and version from pyproject.toml.",
+                  "claim": "The package name 'aspose-email-foss' and version '26.3' are correctly stated in the README and match the pyproject.toml manifest.",
                   "criterion": "installation.coordinates",
                   "disposition": "supports_acceptance",
                   "evidence_excerpt": ".",
                   "evidence_location": "repository://pyproject.toml",
                   "expected_polarity": "positive_implementation",
                   "fact_id": "installation.coordinates:manifest",
-                  "finding_id": "factual.installation.1",
+                  "finding_id": "factual.installation.coordinates",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
@@ -3032,32 +3032,32 @@
                   "quoted_candidate_span": "## Installation",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                  "section": "Installation"
                 },
                 {
-                  "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                  "claim": "Key Capabilities list matches verified source evidence for CFB/MSG reading/writing and MAPI-style manipulation.",
-                  "criterion": "product.capabilities",
+                  "candidate_anchor_id": "candidate.anchor.6c549a56db01e021f248.1",
+                  "claim": "The README correctly states the license is MIT and describes its permissions (use, modification, distribution, commercial use).",
+                  "criterion": "product.license",
                   "disposition": "supports_acceptance",
-                  "evidence_excerpt": "class CFBReader:",
-                  "evidence_location": "repository://aspose/email_foss/cfb/reader.py,aspose/email_foss/cfb/types.py,aspose/email_foss/msg/mapi_message.py,aspose/email_foss/msg/reader.py,aspose/email_foss/msg/types.py,aspose/email_foss/msg/writer.py,examples/create_msg_and_eml.py",
+                  "evidence_excerpt": "MIT",
+                  "evidence_location": "repository://LICENSE",
                   "expected_polarity": "positive_implementation",
-                  "fact_id": "product.capabilities:repository-evidence",
-                  "finding_id": "factual.capabilities.1",
+                  "fact_id": "product.license:license-file",
+                  "finding_id": "factual.product.license",
                   "kind": "factual",
                   "mechanical_check_id": null,
                   "observed_polarity": "positive_implementation",
                   "polarity_result": "supports",
-                  "quoted_candidate_span": "## Key Capabilities",
+                  "quoted_candidate_span": "## License",
                   "reported_observed_value": null,
                   "required_repair": "",
-                  "section": "candidate.anchor.78a4314321b11916555e.1"
+                  "section": "License"
                 }
               ],
               "grounding_validation": {
                 "checked_finding_ids": [
-                  "factual.capabilities.1",
-                  "factual.installation.1"
+                  "factual.installation.coordinates",
+                  "factual.product.license"
                 ],
                 "errors": [],
                 "valid": true
@@ -3068,8 +3068,8 @@
                 "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                 "role": "factual_plan_reviewer"
               },
-              "input_sha256": "9f861ea7657ce5a88f31c1b691403bdcb2ea82a609113e1c2509303b4f56cb35",
-              "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, API surface, capabilities, installation, and documentation links are all verified by evidence. The 'Scope and Limitations' section accurately reflects source-level constraints (CFBError, MSGError, unsupported byte order, etc.). The 'Enterprise Edition' terminology is correctly placed below the fold and aligned with the commercial-FOSS relationship. No contradictions or missing evidence were found.",
+              "input_sha256": "194f9a783407caee8675f4c844615408021e27c87215fc243bb43b9fae72ce65",
+              "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, installation command, and public API surface match the manifest and registry evidence. Capabilities, limitations, examples, and documentation links are all verified. The Enterprise Edition terminology and commercial/FOSS relationship are correctly represented. No unsupported or contradictory claims were found.",
               "required_repair": "",
               "sections_affected": [],
               "verdict": "ACCEPT"
@@ -3090,8 +3090,8 @@
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "quality.clarity.1",
-                    "quality.example_presentation.1"
+                    "quality.clarity.h1_blocks",
+                    "quality.example_presentation.quick_start"
                   ],
                   "errors": [],
                   "valid": true
@@ -3107,15 +3107,14 @@
                 "pre_normalization_errors": [],
                 "reconciled_candidate_span_ids": [],
                 "reconciled_factual_polarity_ids": [
-                  "factual.installation.1",
-                  "factual.capabilities.1"
+                  "factual.installation.coordinates"
                 ],
                 "role": "factual_plan",
                 "valid": true,
                 "validation_result": {
                   "checked_finding_ids": [
-                    "factual.capabilities.1",
-                    "factual.installation.1"
+                    "factual.installation.coordinates",
+                    "factual.product.license"
                   ],
                   "errors": [],
                   "valid": true
@@ -3161,10 +3160,10 @@
                   "verified_limitations_present": true,
                   "verified_overview_present": true
                 },
-                "nonce": "20260811-183809-aa99",
+                "nonce": "20260812-030534-998b",
                 "official_mermaid_render": {
                   "aspect_ratio": 5.1924,
-                  "cached": false,
+                  "cached": true,
                   "checks": {
                     "all_semantic_nodes_rendered": true,
                     "capability_columns_adaptive": true,
@@ -3284,7 +3283,7 @@
                       "width": 210.0
                     }
                   ],
-                  "render_duration_seconds": 8.272,
+                  "render_duration_seconds": 0.0,
                   "renderer": "@mermaid-js/mermaid-cli@11.10.1",
                   "schema_version": 1,
                   "source_sha256": "618ffb71060799cf04b9c80b84658f8b300161a602ddce4d613c5304972236fd",
@@ -3304,11 +3303,11 @@
                   "protected_content": true,
                   "verified_example": true
                 },
-                "token": "8d0a96e8b5814f0f6e19e4ec2c49f21f68546aff8fc84bcbdeeaf0b504b05a26",
+                "token": "6f14c4bd71fa1ca6d5e0ace6fc027c5a69107d9025ba7c31c73402e6fccd441c",
                 "verdict": "accept"
               },
               "evidence_refs": [
-                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-email-foss__Aspose.Email-FOSS-for-Python\\20260811-183809-aa99"
+                "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-proposal-bundles\\aspose-email-foss__Aspose.Email-FOSS-for-Python\\20260812-030534-998b"
               ],
               "repair_attempt": 0,
               "review": {
@@ -3319,14 +3318,14 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.048d6b80ac76e3b355fb.1",
-                      "claim": "The title clearly identifies the product and its open-source nature.",
+                      "claim": "The README contains exactly one H1 heading, providing a clear primary title.",
                       "criterion": "clarity",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.clarity.1",
+                      "finding_id": "quality.clarity.h1_blocks",
                       "kind": "quality",
                       "mechanical_check_id": "document.h1_blocks",
                       "observed_polarity": null,
@@ -3334,18 +3333,18 @@
                       "quoted_candidate_span": "# Aspose.Email FOSS for Python",
                       "reported_observed_value": 1,
                       "required_repair": "",
-                      "section": "candidate.anchor.048d6b80ac76e3b355fb.1"
+                      "section": "Document header"
                     },
                     {
                       "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                      "claim": "The Quick Start example is minimal, self-contained, and fits within the 12 non-blank line limit.",
+                      "claim": "The Quick Start section presents a single, minimal, and self-contained code example that fits within the 12 nonblank line limit.",
                       "criterion": "example_presentation",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": null,
                       "evidence_location": null,
                       "expected_polarity": null,
                       "fact_id": null,
-                      "finding_id": "quality.example_presentation.1",
+                      "finding_id": "quality.example_presentation.quick_start",
                       "kind": "quality",
                       "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                       "observed_polarity": null,
@@ -3353,13 +3352,13 @@
                       "quoted_candidate_span": "## Quick Start",
                       "reported_observed_value": 5,
                       "required_repair": "",
-                      "section": "candidate.anchor.1985dd2230f19f78053d.1"
+                      "section": "Quick Start"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "quality.clarity.1",
-                      "quality.example_presentation.1"
+                      "quality.clarity.h1_blocks",
+                      "quality.example_presentation.quick_start"
                     ],
                     "errors": [],
                     "valid": true
@@ -3371,7 +3370,7 @@
                     "role": "blind_quality_reviewer"
                   },
                   "input_sha256": "8448efda4ef1518a298d5ab364cff2af0a962e8a3b127b09a8fd17456573459e",
-                  "reasoning": "The README presents a clear, well-structured, and product-specific overview for Python developers. It follows the required header conventions (single H1, required H2 prefixes), includes compliant badges in one row, and provides a navigable table of contents. The 'At a Glance' Mermaid diagram is visually appropriate and correctly renders the inputs-product-capabilities-outputs topology. The 'Quick Start' section meets the constraint of \u226412 non-blank code lines and uses a single fenced block. All required sections are present with appropriate headings in title case. There is no visible duplication, internal assurance language, or forbidden comments. Markdown integrity is preserved, and the template is applied generically without overuse of placeholder text.",
+                  "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 headings with correct prefixes, a single H1, and compliant badge rows. The installation and quick start sections are clearly presented with minimal, compliant fenced code blocks. Navigation is complete and accurate. License benefits are explicitly stated. No visible duplication, internal terminology issues, or markdown integrity problems were found. All mechanical checks pass.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -3384,14 +3383,14 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.048d6b80ac76e3b355fb.1",
-                        "claim": "The title clearly identifies the product and its open-source nature.",
+                        "claim": "The README contains exactly one H1 heading, providing a clear primary title.",
                         "criterion": "clarity",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.clarity.1",
+                        "finding_id": "quality.clarity.h1_blocks",
                         "kind": "quality",
                         "mechanical_check_id": "document.h1_blocks",
                         "observed_polarity": null,
@@ -3399,18 +3398,18 @@
                         "quoted_candidate_span": "# Aspose.Email FOSS for Python",
                         "reported_observed_value": 1,
                         "required_repair": "",
-                        "section": "candidate.anchor.048d6b80ac76e3b355fb.1"
+                        "section": "Document header"
                       },
                       {
                         "candidate_anchor_id": "candidate.anchor.1985dd2230f19f78053d.1",
-                        "claim": "The Quick Start example is minimal, self-contained, and fits within the 12 non-blank line limit.",
+                        "claim": "The Quick Start section presents a single, minimal, and self-contained code example that fits within the 12 nonblank line limit.",
                         "criterion": "example_presentation",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": null,
                         "evidence_location": null,
                         "expected_polarity": null,
                         "fact_id": null,
-                        "finding_id": "quality.example_presentation.1",
+                        "finding_id": "quality.example_presentation.quick_start",
                         "kind": "quality",
                         "mechanical_check_id": "quick_start.max_nonblank_code_lines",
                         "observed_polarity": null,
@@ -3418,13 +3417,13 @@
                         "quoted_candidate_span": "## Quick Start",
                         "reported_observed_value": 5,
                         "required_repair": "",
-                        "section": "candidate.anchor.1985dd2230f19f78053d.1"
+                        "section": "Quick Start"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "quality.clarity.1",
-                        "quality.example_presentation.1"
+                        "quality.clarity.h1_blocks",
+                        "quality.example_presentation.quick_start"
                       ],
                       "errors": [],
                       "valid": true
@@ -3436,7 +3435,7 @@
                       "role": "blind_quality_reviewer"
                     },
                     "input_sha256": "8448efda4ef1518a298d5ab364cff2af0a962e8a3b127b09a8fd17456573459e",
-                    "reasoning": "The README presents a clear, well-structured, and product-specific overview for Python developers. It follows the required header conventions (single H1, required H2 prefixes), includes compliant badges in one row, and provides a navigable table of contents. The 'At a Glance' Mermaid diagram is visually appropriate and correctly renders the inputs-product-capabilities-outputs topology. The 'Quick Start' section meets the constraint of \u226412 non-blank code lines and uses a single fenced block. All required sections are present with appropriate headings in title case. There is no visible duplication, internal assurance language, or forbidden comments. Markdown integrity is preserved, and the template is applied generically without overuse of placeholder text.",
+                    "reasoning": "The README demonstrates strong clarity, product specificity, and hierarchy. It includes all required H2 headings with correct prefixes, a single H1, and compliant badge rows. The installation and quick start sections are clearly presented with minimal, compliant fenced code blocks. Navigation is complete and accurate. License benefits are explicitly stated. No visible duplication, internal terminology issues, or markdown integrity problems were found. All mechanical checks pass.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -3450,14 +3449,14 @@
                     "findings": [
                       {
                         "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                        "claim": "Installation command matches the package name and version from pyproject.toml.",
+                        "claim": "The package name 'aspose-email-foss' and version '26.3' are correctly stated in the README and match the pyproject.toml manifest.",
                         "criterion": "installation.coordinates",
                         "disposition": "supports_acceptance",
                         "evidence_excerpt": ".",
                         "evidence_location": "repository://pyproject.toml",
                         "expected_polarity": "positive_implementation",
                         "fact_id": "installation.coordinates:manifest",
-                        "finding_id": "factual.installation.1",
+                        "finding_id": "factual.installation.coordinates",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
@@ -3465,32 +3464,32 @@
                         "quoted_candidate_span": "## Installation",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                        "section": "Installation"
                       },
                       {
-                        "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                        "claim": "Key Capabilities list matches verified source evidence for CFB/MSG reading/writing and MAPI-style manipulation.",
-                        "criterion": "product.capabilities",
+                        "candidate_anchor_id": "candidate.anchor.6c549a56db01e021f248.1",
+                        "claim": "The README correctly states the license is MIT and describes its permissions (use, modification, distribution, commercial use).",
+                        "criterion": "product.license",
                         "disposition": "supports_acceptance",
-                        "evidence_excerpt": "class CFBReader:",
-                        "evidence_location": "repository://aspose/email_foss/cfb/reader.py,aspose/email_foss/cfb/types.py,aspose/email_foss/msg/mapi_message.py,aspose/email_foss/msg/reader.py,aspose/email_foss/msg/types.py,aspose/email_foss/msg/writer.py,examples/create_msg_and_eml.py",
+                        "evidence_excerpt": "MIT",
+                        "evidence_location": "repository://LICENSE",
                         "expected_polarity": "positive_implementation",
-                        "fact_id": "product.capabilities:repository-evidence",
-                        "finding_id": "factual.capabilities.1",
+                        "fact_id": "product.license:license-file",
+                        "finding_id": "factual.product.license",
                         "kind": "factual",
                         "mechanical_check_id": null,
                         "observed_polarity": "positive_implementation",
                         "polarity_result": "supports",
-                        "quoted_candidate_span": "## Key Capabilities",
+                        "quoted_candidate_span": "## License",
                         "reported_observed_value": null,
                         "required_repair": "",
-                        "section": "candidate.anchor.78a4314321b11916555e.1"
+                        "section": "License"
                       }
                     ],
                     "grounding_validation": {
                       "checked_finding_ids": [
-                        "factual.capabilities.1",
-                        "factual.installation.1"
+                        "factual.installation.coordinates",
+                        "factual.product.license"
                       ],
                       "errors": [],
                       "valid": true
@@ -3501,8 +3500,8 @@
                       "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                       "role": "factual_plan_reviewer"
                     },
-                    "input_sha256": "9f861ea7657ce5a88f31c1b691403bdcb2ea82a609113e1c2509303b4f56cb35",
-                    "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, API surface, capabilities, installation, and documentation links are all verified by evidence. The 'Scope and Limitations' section accurately reflects source-level constraints (CFBError, MSGError, unsupported byte order, etc.). The 'Enterprise Edition' terminology is correctly placed below the fold and aligned with the commercial-FOSS relationship. No contradictions or missing evidence were found.",
+                    "input_sha256": "194f9a783407caee8675f4c844615408021e27c87215fc243bb43b9fae72ce65",
+                    "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, installation command, and public API surface match the manifest and registry evidence. Capabilities, limitations, examples, and documentation links are all verified. The Enterprise Edition terminology and commercial/FOSS relationship are correctly represented. No unsupported or contradictory claims were found.",
                     "required_repair": "",
                     "sections_affected": [],
                     "verdict": "ACCEPT"
@@ -3510,14 +3509,14 @@
                   "identity_separation_valid": true,
                   "merged_call_receipt": {
                     "actor_id": "llm-route:merged-readme-review",
-                    "blind_record_sha256": "46ea84bb25c2343ae257e68e17522d9819d96c49a635933c18b261b339ebbbce",
-                    "factual_record_sha256": "7ba0aac003c1c2f59b0a984a1983d5910493fdc11df9c4bee155cee0902cd1b6",
-                    "input_sha256": "0c1c18809168be0e9d4e6c1f75d5d802f30c5bccec76beba7d1b7a013b2d91de",
+                    "blind_record_sha256": "8b5de5cdba6e5fead4cebe3a40452d2d8c7217642ef4c43b29b5f27004232352",
+                    "factual_record_sha256": "195234894ecc091a177060121d20b50f5aaf3233607c32b7192ec2190f015eaa",
+                    "input_sha256": "73df7d8c070e7f50fd4276665f116126db1e412c2fd21fb1f6e88ee327da41f6",
                     "prompt_id": "merged_readme_review",
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "provider_model": "qwen3-next",
-                    "provider_request_id": "chatcmpl-83c9479aff911d20",
-                    "raw_output_sha256": "4b3f81656af1a5946cda6776c070ee18ab24d07f83be4ba88a95cabf9b558af4"
+                    "provider_request_id": "chatcmpl-9ae4f435ac70d3ab",
+                    "raw_output_sha256": "bd39835b46faaf5c84e21dadba9d42b006426e350ead02e388b035bd7791df90"
                   },
                   "reasons": [
                     "blind_quality:ACCEPT",
@@ -3533,14 +3532,14 @@
                   "findings": [
                     {
                       "candidate_anchor_id": "candidate.anchor.a15d12503bf00f654df0.1",
-                      "claim": "Installation command matches the package name and version from pyproject.toml.",
+                      "claim": "The package name 'aspose-email-foss' and version '26.3' are correctly stated in the README and match the pyproject.toml manifest.",
                       "criterion": "installation.coordinates",
                       "disposition": "supports_acceptance",
                       "evidence_excerpt": ".",
                       "evidence_location": "repository://pyproject.toml",
                       "expected_polarity": "positive_implementation",
                       "fact_id": "installation.coordinates:manifest",
-                      "finding_id": "factual.installation.1",
+                      "finding_id": "factual.installation.coordinates",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
@@ -3548,32 +3547,32 @@
                       "quoted_candidate_span": "## Installation",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "candidate.anchor.a15d12503bf00f654df0.1"
+                      "section": "Installation"
                     },
                     {
-                      "candidate_anchor_id": "candidate.anchor.78a4314321b11916555e.1",
-                      "claim": "Key Capabilities list matches verified source evidence for CFB/MSG reading/writing and MAPI-style manipulation.",
-                      "criterion": "product.capabilities",
+                      "candidate_anchor_id": "candidate.anchor.6c549a56db01e021f248.1",
+                      "claim": "The README correctly states the license is MIT and describes its permissions (use, modification, distribution, commercial use).",
+                      "criterion": "product.license",
                       "disposition": "supports_acceptance",
-                      "evidence_excerpt": "class CFBReader:",
-                      "evidence_location": "repository://aspose/email_foss/cfb/reader.py,aspose/email_foss/cfb/types.py,aspose/email_foss/msg/mapi_message.py,aspose/email_foss/msg/reader.py,aspose/email_foss/msg/types.py,aspose/email_foss/msg/writer.py,examples/create_msg_and_eml.py",
+                      "evidence_excerpt": "MIT",
+                      "evidence_location": "repository://LICENSE",
                       "expected_polarity": "positive_implementation",
-                      "fact_id": "product.capabilities:repository-evidence",
-                      "finding_id": "factual.capabilities.1",
+                      "fact_id": "product.license:license-file",
+                      "finding_id": "factual.product.license",
                       "kind": "factual",
                       "mechanical_check_id": null,
                       "observed_polarity": "positive_implementation",
                       "polarity_result": "supports",
-                      "quoted_candidate_span": "## Key Capabilities",
+                      "quoted_candidate_span": "## License",
                       "reported_observed_value": null,
                       "required_repair": "",
-                      "section": "candidate.anchor.78a4314321b11916555e.1"
+                      "section": "License"
                     }
                   ],
                   "grounding_validation": {
                     "checked_finding_ids": [
-                      "factual.capabilities.1",
-                      "factual.installation.1"
+                      "factual.installation.coordinates",
+                      "factual.product.license"
                     ],
                     "errors": [],
                     "valid": true
@@ -3584,8 +3583,8 @@
                     "prompt_sha256": "19c9f6eeb6caf124a366306922d8000e2d880b46fac39aabba096250414e3766",
                     "role": "factual_plan_reviewer"
                   },
-                  "input_sha256": "9f861ea7657ce5a88f31c1b691403bdcb2ea82a609113e1c2509303b4f56cb35",
-                  "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, API surface, capabilities, installation, and documentation links are all verified by evidence. The 'Scope and Limitations' section accurately reflects source-level constraints (CFBError, MSGError, unsupported byte order, etc.). The 'Enterprise Edition' terminology is correctly placed below the fold and aligned with the commercial-FOSS relationship. No contradictions or missing evidence were found.",
+                  "input_sha256": "194f9a783407caee8675f4c844615408021e27c87215fc243bb43b9fae72ce65",
+                  "reasoning": "All material claims in the README are supported by the selected fact packet. The package name, version, Python compatibility, license, installation command, and public API surface match the manifest and registry evidence. Capabilities, limitations, examples, and documentation links are all verified. The Enterprise Edition terminology and commercial/FOSS relationship are correctly represented. No unsupported or contradictory claims were found.",
                   "required_repair": "",
                   "sections_affected": [],
                   "verdict": "ACCEPT"
@@ -3606,8 +3605,8 @@
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "quality.clarity.1",
-                        "quality.example_presentation.1"
+                        "quality.clarity.h1_blocks",
+                        "quality.example_presentation.quick_start"
                       ],
                       "errors": [],
                       "valid": true
@@ -3623,15 +3622,14 @@
                     "pre_normalization_errors": [],
                     "reconciled_candidate_span_ids": [],
                     "reconciled_factual_polarity_ids": [
-                      "factual.installation.1",
-                      "factual.capabilities.1"
+                      "factual.installation.coordinates"
                     ],
                     "role": "factual_plan",
                     "valid": true,
                     "validation_result": {
                       "checked_finding_ids": [
-                        "factual.capabilities.1",
-                        "factual.installation.1"
+                        "factual.installation.coordinates",
+                        "factual.product.license"
                       ],
                       "errors": [],
                       "valid": true
@@ -3654,7 +3652,7 @@
         "llm_called": true,
         "llm_calls": [
           {
-            "input_sha256": "f3f58ebaccd68c4fb82ee2236b4b6b022a3af4c4fbe43941ea289a9e93ce67b1",
+            "input_sha256": "0ee096e4d62d50043c2ebebe2f284dcaffc2fd37dfbd253aa51906f1cd903827",
             "job": "plan_readme_composition",
             "model": "qwen3-next",
             "prompt_sha256": "98469972eaf193d86547e949cc520786a5d922a26b13f7077ade30049462aa23"
@@ -3664,7 +3662,7 @@
         "note": "local-POC profile stops at an independently reviewed proposal",
         "presentation_plan": {
           "agentic_composition_plan": {
-            "assessment_hash": "f63dfe46d9a38146851bab1b412b390f01c35b6360f4612dc372d3845008530f",
+            "assessment_hash": "ce89069b1d73d595692e9d231985d12194c90bba98c28abf9e1e6f0bf112ef2d",
             "attempt_count": 1,
             "authoring_hints": "AUTHORITATIVE DIAGRAM ROLE VOCABULARY. You may omit or reorder exact labels, but must not relabel or reclassify them:\n{\"capability\": [\"Compound File Binary (CFB) container reading\", \"Outlook MSG file reading\", \"Outlook MSG file writing\", \"High-level MAPI-style message object manipulation\", \"EmailMessage conversion\", \"Recipient, attachment, and embedded message handling\"], \"input\": [\"Compound File Binary (CFB) files\", \"Outlook .msg files\", \"CFB files\", \"MSG files\"], \"output\": [\"Compound File Binary (CFB) files\", \"Outlook .msg files\", \"email.message.EmailMessage (.eml) files\", \"MSG files\"]}",
             "diagram": {
@@ -3769,8 +3767,8 @@
                 }
               ]
             },
-            "facts_hash": "5f3597bedbd9fe4ad5c757d46b2a3c45d73c074b1b2f47159c2e5caf8daf3aac",
-            "input_sha256": "f3f58ebaccd68c4fb82ee2236b4b6b022a3af4c4fbe43941ea289a9e93ce67b1",
+            "facts_hash": "4bf0b4307d5021e2b46966d222ac3466a47fe73a7af5d44908bd6f577a0b1acb",
+            "input_sha256": "0ee096e4d62d50043c2ebebe2f284dcaffc2fd37dfbd253aa51906f1cd903827",
             "model": "qwen3-next",
             "opening_summary": {
               "supporting_fact_ids": [
@@ -3826,14 +3824,14 @@
               }
             ],
             "prompt_sha256": "98469972eaf193d86547e949cc520786a5d922a26b13f7077ade30049462aa23",
-            "repository_summary": "Aspose.Email FOSS for Python is a pure Python toolkit for reading, writing, and manipulating Outlook MSG files and Compound File Binary (CFB) containers. It enables developers to inspect low-level structures, build high-level MAPI-style message objects, and convert between MSG and standard email formats. The library is open-source (MIT), requires Python 3.10+, and is distributed via PyPI as `aspose-email-foss`.",
+            "repository_summary": "Aspose.Email FOSS for Python is a pure Python toolkit for reading, writing, and manipulating Outlook MSG files and Compound File Binary (CFB) containers, with support for converting to and from email.message.EmailMessage (.eml) files.",
             "review_repair": null,
             "schema_version": 1,
             "section_decisions": [
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The opening paragraph accurately reflects the product identity and open-source nature, supported by manifest and registry facts and the commercial FOSS relationship policy.",
+                "rationale": "The opening section accurately introduces the product and its open-source nature, supported by the manifest identity and commercial FOSS relationship facts.",
                 "section_id": "opening",
                 "supporting_fact_ids": [
                   "product.identity:manifest-and-registry",
@@ -3843,14 +3841,14 @@
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The main heading 'Aspose.Email FOSS for Python' is consistent with the product identity and requires no change.",
+                "rationale": "The main heading 'Aspose.Email FOSS for Python' is consistent with the product identity and requires no changes.",
                 "section_id": "heading:0",
                 "supporting_fact_ids": []
               },
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The 'Features' section accurately lists verified capabilities and format support, backed by repository evidence and format direction facts.",
+                "rationale": "The Features section accurately reflects verified capabilities and format support, including CFB and MSG handling, and EmailMessage conversion.",
                 "section_id": "heading:422",
                 "supporting_fact_ids": [
                   "product.capabilities:repository-evidence",
@@ -3860,7 +3858,7 @@
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The installation command matches the manifest coordinates and is verified via PyPI registry.",
+                "rationale": "The Installation section correctly provides the PyPI package name and installation command, verified by manifest and registry facts.",
                 "section_id": "heading:843",
                 "supporting_fact_ids": [
                   "installation.coordinates:manifest",
@@ -3870,7 +3868,7 @@
               {
                 "disposition": "repair",
                 "priority": 0,
-                "rationale": "The 'Quick Start' section does not contain the exact locally verified minimal example; it must be replaced with the verified snippet to ensure reproducibility.",
+                "rationale": "The Quick Start section does not contain the exact locally verified minimal example; it should be replaced with the verified minimal example to ensure correctness and reproducibility.",
                 "section_id": "heading:903",
                 "supporting_fact_ids": [
                   "example.minimal:compiled-salvaged-example"
@@ -3879,35 +3877,35 @@
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The 'Package Entry Points' section correctly lists the public API modules and classes as defined in the repository.",
+                "rationale": "The Package Entry Points section accurately lists the public API modules and classes, consistent with the repository structure and public surface.",
                 "section_id": "heading:1661",
                 "supporting_fact_ids": []
               },
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The 'Compatibility' section accurately describes supported scenarios and API layers, consistent with repository evidence and compatibility manifest.",
+                "rationale": "The Compatibility section provides accurate information about supported scenarios and API layers, consistent with the product capabilities and formats.",
                 "section_id": "heading:1987",
                 "supporting_fact_ids": []
               },
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The 'Examples' section contains verified conversion workflows and matches the inline examples in the repository.",
+                "rationale": "The Examples section includes verified conversion examples for MSG to EML and EML to MSG, matching the documented capabilities and format support.",
                 "section_id": "heading:3061",
                 "supporting_fact_ids": []
               },
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The 'Links' section provides correct repository, issue tracker, and PyPI URLs.",
+                "rationale": "The Links section correctly provides repository, issue tracker, and PyPI links, which are standard and useful for users.",
                 "section_id": "heading:3676",
                 "supporting_fact_ids": []
               },
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The 'Development' section correctly points to the contribution and test assets documented in the repository.",
+                "rationale": "The Development section references CONTRIBUTING.md, which is part of the documented development assets and contribution guidance.",
                 "section_id": "heading:3908",
                 "supporting_fact_ids": [
                   "development.assets:repository-inventory"
@@ -3916,21 +3914,21 @@
               {
                 "disposition": "investigate",
                 "priority": 0,
-                "rationale": "The 'Security' section currently lacks dedicated repository-source evidence; it must be updated with content from SECURITY.md or removed if no further detail is available.",
+                "rationale": "The Security section currently only references SECURITY.md without additional context; further investigation is needed to ensure it meets the required evidence standards.",
                 "section_id": "heading:3965",
                 "supporting_fact_ids": []
               },
               {
                 "disposition": "preserve",
                 "priority": 0,
-                "rationale": "The 'Changelog' section correctly points to CHANGELOG.md.",
+                "rationale": "The Changelog section correctly references CHANGELOG.md, which is part of the documented assets.",
                 "section_id": "heading:4011",
                 "supporting_fact_ids": []
               },
               {
                 "disposition": "add",
                 "priority": 0,
-                "rationale": "A fact-backed overview section is missing and should be added to help developers quickly understand the product's purpose, audience, and capabilities.",
+                "rationale": "A fact-backed overview section is needed to clearly state the audience, problems solved, and capabilities, supported by verified descriptive facts.",
                 "section_id": "missing:at-a-glance",
                 "supporting_fact_ids": [
                   "product.audience:platform-derived",
@@ -3941,7 +3939,7 @@
               {
                 "disposition": "add",
                 "priority": 0,
-                "rationale": "A limitations section is missing but supported by explicit exception and error statements in the source code.",
+                "rationale": "A limitations section should be added to explicitly state known constraints, supported by verified repository evidence.",
                 "section_id": "missing:limitations",
                 "supporting_fact_ids": [
                   "product.limitations:source-guidance"
@@ -3975,7 +3973,7 @@
                 "claim_text_sha256": "4d12cc5629a4cf9b93e7866cad5b481438ba0d30e1f854072060f86a2eb60514",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:registry-pypi",
-                "fact_value_sha256": "2ddf5ec95dab622a892c501d75f0751ad7fecf32e7a3dd0ecf83857b4eb027d1",
+                "fact_value_sha256": "19ec023b45b19a9c5294afd748f393c75277bd692fca3a86488e6e3109bc85a1",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "9ba93fc2d6d32b6afda486bf4f0b6959c7fcc46c807e7a3f545efe4dc4dac1b8",
                 "operation_id": "template.badges",
@@ -4185,7 +4183,7 @@
                 "claim_text_sha256": "b115c9fa2c5e26faf7076352868d6b6ec3697447bed036e8c71bf556ca316d66",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:registry-pypi",
-                "fact_value_sha256": "2ddf5ec95dab622a892c501d75f0751ad7fecf32e7a3dd0ecf83857b4eb027d1",
+                "fact_value_sha256": "19ec023b45b19a9c5294afd748f393c75277bd692fca3a86488e6e3109bc85a1",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "513df8ae9ddcd8fe5d4b58cfab2292c5ddd2d4a28e8d9c13dccf9563e48b1168",
                 "operation_id": "template.section.installation.claim:0:513df8ae9ddcd8fe",
@@ -4213,7 +4211,7 @@
                 "claim_text_sha256": "71b49a7b5a0f9c9d3cdf51b4c9b32af4d2ffc52fe4a1db3b8f516f7dff4a60f4",
                 "coordinate_space": "candidate_utf8",
                 "fact_id": "installation.verified_acquisition:registry-pypi",
-                "fact_value_sha256": "2ddf5ec95dab622a892c501d75f0751ad7fecf32e7a3dd0ecf83857b4eb027d1",
+                "fact_value_sha256": "19ec023b45b19a9c5294afd748f393c75277bd692fca3a86488e6e3109bc85a1",
                 "field": "installation.verified_acquisition",
                 "introduced_text_sha256": "71b49a7b5a0f9c9d3cdf51b4c9b32af4d2ffc52fe4a1db3b8f516f7dff4a60f4",
                 "operation_id": "template.section.installation.claim:53:71b49a7b5a0f9c9d",
@@ -4725,7 +4723,7 @@
                 "verification_state": "verified"
               }
             ],
-            "facts_hash": "5f3597bedbd9fe4ad5c757d46b2a3c45d73c074b1b2f47159c2e5caf8daf3aac",
+            "facts_hash": "4bf0b4307d5021e2b46966d222ac3466a47fe73a7af5d44908bd6f577a0b1acb",
             "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
             "schema_version": 1
           },
@@ -5544,7 +5542,7 @@
             "archetype": "python-library",
             "candidate_sha256": "080d395ba7cc39d65bb17febf3dd9a1bd12f1e594d9ff9dcaa05e398686e1dd1",
             "content_assurance": "repository_verified",
-            "facts_hash": "5f3597bedbd9fe4ad5c757d46b2a3c45d73c074b1b2f47159c2e5caf8daf3aac",
+            "facts_hash": "4bf0b4307d5021e2b46966d222ac3466a47fe73a7af5d44908bd6f577a0b1acb",
             "findings": [
               {
                 "dimension": "product_clarity",
@@ -5653,7 +5651,7 @@
             "source_sha256": "31908acb90cbec46e3da854db6e37863c4692a3f6cd5e4d82240acbf76690a35"
           },
           "readme_assessment": {
-            "facts_hash": "5f3597bedbd9fe4ad5c757d46b2a3c45d73c074b1b2f47159c2e5caf8daf3aac",
+            "facts_hash": "4bf0b4307d5021e2b46966d222ac3466a47fe73a7af5d44908bd6f577a0b1acb",
             "immutable_base_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
             "material_claims": [
               {
@@ -6867,7 +6865,7 @@
                     "field": "installation.verified_acquisition",
                     "normalization_version": "structured-fact-coordinate-v1",
                     "path": "/verified-rendered-acquisition",
-                    "value_sha256": "2ddf5ec95dab622a892c501d75f0751ad7fecf32e7a3dd0ecf83857b4eb027d1"
+                    "value_sha256": "19ec023b45b19a9c5294afd748f393c75277bd692fca3a86488e6e3109bc85a1"
                   }
                 ],
                 "fact_ids": [
@@ -6891,7 +6889,7 @@
                     "field": "installation.verified_acquisition",
                     "normalization_version": "structured-fact-coordinate-v1",
                     "path": "/verified-rendered-acquisition",
-                    "value_sha256": "2ddf5ec95dab622a892c501d75f0751ad7fecf32e7a3dd0ecf83857b4eb027d1"
+                    "value_sha256": "19ec023b45b19a9c5294afd748f393c75277bd692fca3a86488e6e3109bc85a1"
                   }
                 ],
                 "fact_ids": [
@@ -9399,7 +9397,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "2ddf5ec95dab622a892c501d75f0751ad7fecf32e7a3dd0ecf83857b4eb027d1"
+                      "value_sha256": "19ec023b45b19a9c5294afd748f393c75277bd692fca3a86488e6e3109bc85a1"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -9435,7 +9433,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "2ddf5ec95dab622a892c501d75f0751ad7fecf32e7a3dd0ecf83857b4eb027d1"
+                      "value_sha256": "19ec023b45b19a9c5294afd748f393c75277bd692fca3a86488e6e3109bc85a1"
                     }
                   ],
                   "accepted_fact_ids": [
@@ -10541,7 +10539,7 @@
                   "survives_in_candidate": null
                 }
               ],
-              "facts_hash": "5f3597bedbd9fe4ad5c757d46b2a3c45d73c074b1b2f47159c2e5caf8daf3aac",
+              "facts_hash": "4bf0b4307d5021e2b46966d222ac3466a47fe73a7af5d44908bd6f577a0b1acb",
               "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
               "schema_version": 1,
               "source_sha256": "31908acb90cbec46e3da854db6e37863c4692a3f6cd5e4d82240acbf76690a35"
@@ -10856,7 +10854,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "2ddf5ec95dab622a892c501d75f0751ad7fecf32e7a3dd0ecf83857b4eb027d1"
+                      "value_sha256": "19ec023b45b19a9c5294afd748f393c75277bd692fca3a86488e6e3109bc85a1"
                     }
                   ],
                   "fact_ids": [
@@ -10880,7 +10878,7 @@
                       "field": "installation.verified_acquisition",
                       "normalization_version": "structured-fact-coordinate-v1",
                       "path": "/verified-rendered-acquisition",
-                      "value_sha256": "2ddf5ec95dab622a892c501d75f0751ad7fecf32e7a3dd0ecf83857b4eb027d1"
+                      "value_sha256": "19ec023b45b19a9c5294afd748f393c75277bd692fca3a86488e6e3109bc85a1"
                     }
                   ],
                   "fact_ids": [
@@ -14946,7 +14944,7 @@
               "schema_version": 1
             },
             "enterprise_terminology_corrections": [],
-            "facts_hash": "5f3597bedbd9fe4ad5c757d46b2a3c45d73c074b1b2f47159c2e5caf8daf3aac",
+            "facts_hash": "4bf0b4307d5021e2b46966d222ac3466a47fe73a7af5d44908bd6f577a0b1acb",
             "header_visuals": {
               "badge_markdown": "[![PyPI: aspose-email-foss](https://img.shields.io/pypi/v/aspose-email-foss.svg?label=PyPI)](https://pypi.org/project/aspose-email-foss/) ![Python versions](https://img.shields.io/pypi/pyversions/aspose-email-foss.svg) ![Requires: Python >=3.10](https://img.shields.io/badge/Requires-Python%20%3E%3D3.10-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](LICENSE) [![Contributors: aspose-email-foss/Aspose.Email-FOSS-for-Python](https://img.shields.io/github/contributors/aspose-email-foss/Aspose.Email-FOSS-for-Python.svg)](https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python/graphs/contributors)",
               "badges": [
@@ -16439,10 +16437,10 @@
             "verified_limitations_present": true,
             "verified_overview_present": true
           },
-          "nonce": "20260811-183809-aa99",
+          "nonce": "20260812-030534-998b",
           "official_mermaid_render": {
             "aspect_ratio": 5.1924,
-            "cached": false,
+            "cached": true,
             "checks": {
               "all_semantic_nodes_rendered": true,
               "capability_columns_adaptive": true,
@@ -16562,7 +16560,7 @@
                 "width": 210.0
               }
             ],
-            "render_duration_seconds": 8.272,
+            "render_duration_seconds": 0.0,
             "renderer": "@mermaid-js/mermaid-cli@11.10.1",
             "schema_version": 1,
             "source_sha256": "618ffb71060799cf04b9c80b84658f8b300161a602ddce4d613c5304972236fd",
@@ -16582,7 +16580,7 @@
             "protected_content": true,
             "verified_example": true
           },
-          "token": "8d0a96e8b5814f0f6e19e4ec2c49f21f68546aff8fc84bcbdeeaf0b504b05a26",
+          "token": "6f14c4bd71fa1ca6d5e0ace6fc027c5a69107d9025ba7c31c73402e6fccd441c",
           "verdict": "accept"
         },
         "written": false
@@ -16590,7 +16588,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-11T18:40:31.840260+00:00",
+      "last_run_timestamp": "2026-08-12T03:07:27.916893+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
@@ -17940,7 +17938,7 @@
     "updated_at": "2026-08-12T03:07:22.090398+00:00"
   },
   "schema_version": 2,
-  "state_version": 408,
+  "state_version": 409,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e97319003e7a5196f04b73723fe07bea1b704e7a5157f301801e4a6dd796cbcb",
