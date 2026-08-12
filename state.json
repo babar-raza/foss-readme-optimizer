@@ -2281,7 +2281,7 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-12T13:39:36.672250+00:00",
+    "last_evaluated_at": "2026-08-12T13:40:20.205547+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 4,
       "candidate_generated": 9,
@@ -2474,7 +2474,7 @@
       "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
       "L8-VPY-03C-PAGE-CURRENT-REFRESH": "CLOSED",
       "L8-VPY-03D-NOTE-CURRENT-REFRESH": "CLOSED",
-      "L8-VPY-03E-3D-CURRENT-REFRESH": "VERIFIED",
+      "L8-VPY-03E-3D-CURRENT-REFRESH": "SCORED",
       "L8-VPY-04-PRODUCTION-TRANSPORT": "TODO",
       "L8-VPY-05-PRODUCTION-ADMISSION": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -11818,6 +11818,18 @@
         "reason": "Independent non-authoring verifier confirmed PASS against the correct post-commit transaction pair: byte-identical candidate, no-op proof, dependency-key change traced to 533db4948.",
         "task_id": "L8-VPY-03E-3D-CURRENT-REFRESH",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/3d-python-current-verified-v6/mission-contribution.json",
+          "plans/investigations/evidence/3d-python-current-verified-v6/closeout-control.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "claude-coordinator",
+        "occurred_at": "2026-08-12T13:40:20.205569+00:00",
+        "reason": "Closeout-control and mission-contribution evidence built (3d-python-current-verified-v6).",
+        "task_id": "L8-VPY-03E-3D-CURRENT-REFRESH",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -11827,7 +11839,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1171,
+  "state_version": 1172,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
