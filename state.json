@@ -2174,32 +2174,32 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-11T21:56:10.887925+00:00",
+    "last_evaluated_at": "2026-08-12T02:43:10.396271+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 5,
       "candidate_generated": 5,
       "denominator": 32,
-      "derived_at": "2026-08-11T21:32:26.324188+00:00",
+      "derived_at": "2026-08-11T21:58:13.754328+00:00",
       "deterministic_validated": 5,
-      "facts_ready": 5,
+      "facts_ready": 6,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
         "BLOCKED_MISSING_EVIDENCE": 16,
         "DISCOVERED": 1,
-        "FACTS_READY": 8,
-        "NO_OP_PROVEN": 7
+        "FACTS_READY": 9,
+        "NO_OP_PROVEN": 6
       },
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
       "no_op_proven": 5,
-      "raw_agent_approved": 7,
-      "raw_candidate_generated": 7,
-      "raw_deterministic_validated": 7,
+      "raw_agent_approved": 6,
+      "raw_candidate_generated": 6,
+      "raw_deterministic_validated": 6,
       "raw_facts_ready": 15,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 7,
+      "raw_no_op_proven": 6,
       "registry_path": "data/products.json",
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
@@ -2218,10 +2218,6 @@
           "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ],
@@ -11202,7 +11198,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1107,
+  "state_version": 1108,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
