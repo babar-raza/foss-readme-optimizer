@@ -77,18 +77,38 @@
         "reason": "claimed source-bound read-only intake preflight",
         "source_revision": "2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3",
         "to_status": "INTAKE_PREFLIGHTING"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-psd-foss__Aspose.PSD-FOSS-for-Python\\2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3\\intake\\receipts\\1ce31eac4a4a7dc4-a1.json"
+        ],
+        "from_status": "INTAKE_PREFLIGHTING",
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-12T11:05:33.418006+00:00",
+        "reason": "read-only intake classified READY_FULL_PIPELINE",
+        "source_revision": "2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3",
+        "to_status": "INTAKE_READY"
       }
     ],
     "human_acceptance_history": [],
-    "intake_preflight_history": [],
-    "intake_preflight_pending": {
-      "attempt": 1,
-      "dedup_key": "1ce31eac4a4a7dc4c662845dc0bd8cd5f08b8e60f4c2f617df1958e68c32b859",
-      "schema_version": 1,
-      "source_revision": "2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3",
-      "source_revision_resolved": true,
-      "started_at": "2026-08-12T11:05:21.089930+00:00"
-    },
+    "intake_preflight_history": [
+      {
+        "attempt": 1,
+        "dedup_key": "1ce31eac4a4a7dc4c662845dc0bd8cd5f08b8e60f4c2f617df1958e68c32b859",
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-psd-foss__Aspose.PSD-FOSS-for-Python\\2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3\\intake\\receipts\\1ce31eac4a4a7dc4-a1.json"
+        ],
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-12T11:05:33.417984+00:00",
+        "outcome": "READY_FULL_PIPELINE",
+        "reason": "the existing README needs the ordinary evidence-backed assessment pipeline",
+        "result_hash": "f63d504e07d26ebcf4aaf14a21f6d0727909fa625faffbca7416d6132c5b7c74",
+        "schema_version": 1,
+        "source_revision": "2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3",
+        "source_revision_resolved": true
+      }
+    ],
+    "intake_preflight_pending": null,
     "presentation_plan_hash": null,
     "presentation_validity": {
       "available_component_manifest_hash": null,
@@ -124,11 +144,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": null,
-    "status": "INTAKE_PREFLIGHTING",
-    "updated_at": "2026-08-12T11:05:21.089937+00:00"
+    "status": "INTAKE_READY",
+    "updated_at": "2026-08-12T11:05:33.418006+00:00"
   },
   "schema_version": 2,
-  "state_version": 5,
+  "state_version": 6,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260812-110446-7428:aspose-psd-foss/Aspose.PSD-FOSS-for-Python": {
