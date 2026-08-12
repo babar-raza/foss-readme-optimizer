@@ -260,7 +260,7 @@
     "updated_at": "2026-08-12T11:06:24.092909+00:00"
   },
   "schema_version": 2,
-  "state_version": 12,
+  "state_version": 13,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "operator:20260812-110446-7428:aspose-psd-foss/Aspose.PSD-FOSS-for-Python": {
@@ -277,13 +277,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "product_truth_not_ready:BLOCKED_MISSING_EVIDENCE",
       "last_checkpoint_id": "9ac6a9c93d276398253611dbe5b65483c3167c22d87aa5eac75cc327757c3615",
-      "lease_expires_at": "2026-08-12T11:20:02.563779+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-12T11:06:31.233154+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-12T11:06:41.719577+00:00"
     }
   },
   "trigger_records": {},
