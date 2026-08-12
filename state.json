@@ -1164,9 +1164,11 @@
           "task_id": "L8-VPY-03E-3D-CURRENT-REFRESH"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "Words processed fresh: two-transaction no-op proof complete with the claim-matching fix in place (first-ever AGENT_APPROVED then NO_OP_PROVEN); independent verifier dispatched. BarCode transaction 1 converged (2 provider calls, dependency-key bump from Words fix); transaction 2 pending."
+          ],
           "fingerprint": "7eab48b74512b28f340785e99422bc0b0a88419dcf7f91a2ae403ef898dd2186",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-12T14:03:55.330858+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-12T13:42:39.016235+00:00",
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
@@ -2289,20 +2291,21 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-12T13:54:36.852723+00:00",
+    "last_evaluated_at": "2026-08-12T14:03:55.330896+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 5,
+      "agent_approved": 6,
       "candidate_generated": 10,
       "denominator": 32,
-      "derived_at": "2026-08-12T13:52:53.528068+00:00",
+      "derived_at": "2026-08-12T14:00:38.887937+00:00",
       "deterministic_validated": 10,
       "facts_ready": 10,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
+        "AGENT_APPROVED": 1,
         "BLOCKED_MISSING_EVIDENCE": 15,
         "FACTS_READY": 7,
-        "NO_OP_PROVEN": 10
+        "NO_OP_PROVEN": 9
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 5,
@@ -2311,15 +2314,11 @@
       "raw_deterministic_validated": 10,
       "raw_facts_ready": 17,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 10,
+      "raw_no_op_proven": 9,
       "registry_path": "data/products.json",
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
       "stale_acceptance_repositories": {
-        "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": [
-          "presentation_component_protected_content_changed",
-          "presentation_component_severe_acceptance_changed"
-        ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Python": [
           "presentation_component_protected_content_changed",
           "presentation_component_severe_acceptance_changed"
@@ -11885,7 +11884,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1175,
+  "state_version": 1176,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
