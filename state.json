@@ -1111,9 +1111,11 @@
           "task_id": "L8-VPY-03E-3D-CURRENT-REFRESH"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "Closed PDF/Page/Note/3D re-verification cycles (commit 39bfce278) after the limitation_semantics.py object-discriminator fix reopened them; Font's presentation-plan block is now fixed and Font reached NO_OP_PROVEN for the first time (2 transactions, independent verifier dispatched)."
+          ],
           "fingerprint": "7eab48b74512b28f340785e99422bc0b0a88419dcf7f91a2ae403ef898dd2186",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-12T10:26:20.899311+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-12T10:10:14.675015+00:00",
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
@@ -2236,32 +2238,32 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-12T10:10:14.675015+00:00",
+    "last_evaluated_at": "2026-08-12T10:26:20.899332+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 4,
-      "candidate_generated": 7,
+      "agent_approved": 5,
+      "candidate_generated": 8,
       "denominator": 32,
-      "derived_at": "2026-08-12T09:50:52.084336+00:00",
-      "deterministic_validated": 7,
+      "derived_at": "2026-08-12T10:24:10.935741+00:00",
+      "deterministic_validated": 8,
       "facts_ready": 8,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
         "BLOCKED_MISSING_EVIDENCE": 16,
         "DISCOVERED": 1,
-        "FACTS_READY": 8,
-        "NO_OP_PROVEN": 7
+        "FACTS_READY": 7,
+        "NO_OP_PROVEN": 8
       },
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
-      "no_op_proven": 4,
-      "raw_agent_approved": 7,
-      "raw_candidate_generated": 7,
-      "raw_deterministic_validated": 7,
+      "no_op_proven": 5,
+      "raw_agent_approved": 8,
+      "raw_candidate_generated": 8,
+      "raw_deterministic_validated": 8,
       "raw_facts_ready": 15,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 7,
+      "raw_no_op_proven": 8,
       "registry_path": "data/products.json",
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
@@ -11555,7 +11557,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1141,
+  "state_version": 1142,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
