@@ -18245,7 +18245,7 @@
     "updated_at": "2026-08-12T14:43:11.129515+00:00"
   },
   "schema_version": 2,
-  "state_version": 457,
+  "state_version": 458,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e97319003e7a5196f04b73723fe07bea1b704e7a5157f301801e4a6dd796cbcb",
@@ -18812,13 +18812,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:StateBackendError:could not acquire lock for 'aspose-email-foss/Aspose.Email-FOSS-for-Python' to save domain 'readme_presentation'",
       "last_checkpoint_id": "995db24444b30e36a662a349424a57628648b693b0db097bb8c8fbe6ff37a8ad",
-      "lease_expires_at": "2026-08-12T14:57:27.877589+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-12T14:42:39.430877+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-12T14:43:23.457072+00:00"
     }
   },
   "trigger_records": {},
