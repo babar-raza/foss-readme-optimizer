@@ -763,7 +763,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "03843395754d70e894658df431e78486fd4e6ab2eba25ad199808d5107067543",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -1760,6 +1760,19 @@
             }
           ],
           "review_call_count": 1
+        },
+        "last_failure_envelope": {
+          "attempt": 1,
+          "domain": "readme_presentation",
+          "error_type": "blocked",
+          "facts_hash": "7986edae1b919feb820847b62f4b03f6294249f90579a2cd577ddc326e47be36",
+          "failure_reason": "presentation_plan",
+          "fresh_fingerprint": "0cac9164ecc47aca40861676c20c1755886f3c886f9580220ace4b3d5c2dccc6",
+          "message": "['verified_equivalences_have_exact_candidate_claims failed']",
+          "occurred_at": "2026-08-12T10:49:06.483544+00:00",
+          "schema_version": 1,
+          "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+          "stage": "document_validation"
         },
         "llm_called": false,
         "llm_calls": [],
@@ -6789,9 +6802,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-04T11:07:48.480215+00:00",
+      "last_run_timestamp": "2026-08-12T10:49:06.489346+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "4473f8cbeef1a65961adc7de304d982ada53a1dd"
@@ -7466,7 +7479,7 @@
     "updated_at": "2026-08-12T10:45:32.610941+00:00"
   },
   "schema_version": 2,
-  "state_version": 146,
+  "state_version": 147,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "86ad6753688dd1d4c39c2e62761a6c843872bd670f2cf267323b1dc2a690ed88",
