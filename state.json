@@ -1060,10 +1060,11 @@
         },
         {
           "evidence_refs": [
-            "Cells re-verification: two-transaction no-op proof completed (AGENT_APPROVED then CONVERGED_NO_TRACKED_CHANGE, provider_calls=0, cache_reuse=1); independent verifier dispatched. Email transaction 1 blocked on container registry acquisition (Docker daemon not running); diagnosed and resolved by starting Docker Desktop, confirmed ready via docker info."
+            "Cells re-verification: two-transaction no-op proof completed (AGENT_APPROVED then CONVERGED_NO_TRACKED_CHANGE, provider_calls=0, cache_reuse=1); independent verifier dispatched. Email transaction 1 blocked on container registry acquisition (Docker daemon not running); diagnosed and resolved by starting Docker Desktop, confirmed ready via docker info.",
+            "Diagnosed and fixed Font's presentation-plan block: public_limitations_equivalent() fell through its domain-less subject-only check for two same-subject, different-object animation limitations (animation.py:693/797 path-waypoint-count vs animation.py:808 frames-per-segment). Added _constraint_object() discriminator; commit added."
           ],
           "fingerprint": "7eab48b74512b28f340785e99422bc0b0a88419dcf7f91a2ae403ef898dd2186",
-          "last_material_narrowing_at": "2026-08-12T02:59:59.383078+00:00",
+          "last_material_narrowing_at": "2026-08-12T03:52:00.151106+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-12T02:43:31.436786+00:00",
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
@@ -2186,14 +2187,14 @@
     ],
     "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-12T03:11:35.451193+00:00",
+    "last_evaluated_at": "2026-08-12T03:52:00.151132+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 7,
+      "agent_approved": 0,
       "candidate_generated": 7,
       "denominator": 32,
-      "derived_at": "2026-08-12T03:10:01.634543+00:00",
+      "derived_at": "2026-08-12T03:14:22.915232+00:00",
       "deterministic_validated": 7,
-      "facts_ready": 7,
+      "facts_ready": 8,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -2205,7 +2206,7 @@
       "missing_lifecycle_repositories": [
         "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
       ],
-      "no_op_proven": 7,
+      "no_op_proven": 0,
       "raw_agent_approved": 7,
       "raw_candidate_generated": 7,
       "raw_deterministic_validated": 7,
@@ -2215,7 +2216,36 @@
       "registry_path": "data/products.json",
       "registry_sha256": "69efe1d778eaaaa95dc9e9a6ea0774bc921d2cc301c6599567ab94e1e3d8027e",
       "schema_version": 1,
-      "stale_acceptance_repositories": {},
+      "stale_acceptance_repositories": {
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
+          "presentation_component_protected_content_changed",
+          "presentation_component_severe_acceptance_changed"
+        ],
+        "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": [
+          "presentation_component_protected_content_changed",
+          "presentation_component_severe_acceptance_changed"
+        ],
+        "aspose-cells-foss/Aspose.Cells-FOSS-for-Python": [
+          "presentation_component_protected_content_changed",
+          "presentation_component_severe_acceptance_changed"
+        ],
+        "aspose-email-foss/Aspose.Email-FOSS-for-Python": [
+          "presentation_component_protected_content_changed",
+          "presentation_component_severe_acceptance_changed"
+        ],
+        "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
+          "presentation_component_protected_content_changed",
+          "presentation_component_severe_acceptance_changed"
+        ],
+        "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
+          "presentation_component_protected_content_changed",
+          "presentation_component_severe_acceptance_changed"
+        ],
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
+          "presentation_component_protected_content_changed",
+          "presentation_component_severe_acceptance_changed"
+        ]
+      },
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
@@ -2232,12 +2262,6 @@
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-font-foss/Aspose.Font-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_facts_hash_mismatch",
-          "manifest_local_verification_contract_hash_mismatch",
-          "product_truth_hash_mismatch"
         ],
         "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
@@ -2382,11 +2406,11 @@
       "L8-VPY-01-NOTE-VERIFIED-CANARY": "CLOSED",
       "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
       "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "IN_PROGRESS",
-      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "CLOSED",
+      "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "REGRESSED",
       "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": "CLOSED",
-      "L8-VPY-03C-PAGE-CURRENT-REFRESH": "CLOSED",
-      "L8-VPY-03D-NOTE-CURRENT-REFRESH": "CLOSED",
-      "L8-VPY-03E-3D-CURRENT-REFRESH": "CLOSED",
+      "L8-VPY-03C-PAGE-CURRENT-REFRESH": "REGRESSED",
+      "L8-VPY-03D-NOTE-CURRENT-REFRESH": "REGRESSED",
+      "L8-VPY-03E-3D-CURRENT-REFRESH": "REGRESSED",
       "L8-VPY-04-PRODUCTION-TRANSPORT": "TODO",
       "L8-VPY-05-PRODUCTION-ADMISSION": "TODO",
       "L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION": "CLOSED",
@@ -11215,6 +11239,42 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "CLOSED",
+        "observed_by": "mission-lifecycle-freshness",
+        "occurred_at": "2026-08-12T03:52:00.150429+00:00",
+        "reason": "repository deliverable became stale for aspose-3d-foss/Aspose.3D-FOSS-for-Python: presentation_component_protected_content_changed,presentation_component_severe_acceptance_changed",
+        "task_id": "L8-VPY-03E-3D-CURRENT-REFRESH",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "CLOSED",
+        "observed_by": "mission-lifecycle-freshness",
+        "occurred_at": "2026-08-12T03:52:00.150485+00:00",
+        "reason": "repository deliverable became stale for aspose-note-foss/Aspose.Note-FOSS-for-Python: presentation_component_protected_content_changed,presentation_component_severe_acceptance_changed",
+        "task_id": "L8-VPY-03D-NOTE-CURRENT-REFRESH",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "CLOSED",
+        "observed_by": "mission-lifecycle-freshness",
+        "occurred_at": "2026-08-12T03:52:00.150500+00:00",
+        "reason": "repository deliverable became stale for aspose-page-foss/Aspose.Page-FOSS-for-Python: presentation_component_protected_content_changed,presentation_component_severe_acceptance_changed",
+        "task_id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "CLOSED",
+        "observed_by": "mission-lifecycle-freshness",
+        "occurred_at": "2026-08-12T03:52:00.150513+00:00",
+        "reason": "repository deliverable became stale for aspose-pdf-foss/Aspose-PDF-FOSS-for-Python: presentation_component_protected_content_changed,presentation_component_severe_acceptance_changed",
+        "task_id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -11224,7 +11284,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1112,
+  "state_version": 1113,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
