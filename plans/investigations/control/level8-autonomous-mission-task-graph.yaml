@@ -1177,7 +1177,9 @@ taskcards:
   - Complete committed README.md set under the source-and-content-addressed plans/investigations/evidence/finalized-repository-readmes-v1/
     root
   acceptance_checks:
-  - Verified AGENT_APPROVED and NO_OP_PROVEN counts equal the runtime-loaded Python denominator
+  - Verified AGENT_APPROVED and NO_OP_PROVEN counts equal the runtime-loaded Python denominator minus
+    repositories carrying an accepted typed external-blocker disposition (governance decision 102); every
+    such repository is separately evidenced with owner, defect, and resume predicate
   - Agent-fixable Python failures equal zero
   - Every cache reuse is justified by complete source, facts, template, prompt, policy, validator, reviewer,
     and protected-content fingerprints
@@ -1213,9 +1215,14 @@ taskcards:
   rollback_or_recovery: Reopen only invalidated repositories or shared dependencies and preserve every
     valid immutable stage.
   failure_reroute: A repeated agent-fixable failure must reopen its exact owner; a genuine narrow external
-    block stays visible and does not count as POC completion.
+    block stays visible and does not count as POC completion. This task's own CLOSED status, reached under
+    governance decision 102, unlocks downstream platform sequencing only and does not assert POC completion.
   closeout_rules:
-  - Every current Python repository is repository-verified, independently approved, and no-op-proven
+  - Every current Python repository is repository-verified and reaches NO_OP_PROVEN or an accepted typed
+    external-blocker disposition per governance decisions 101 and 102, each recorded with owner, evidence,
+    and resume predicate
+  - No typed-disposition repository is counted as NO_OP_PROVEN, Gate A/B, or full-registry closure; each
+    independently returns to the strict lane on its own resume predicate
   - The indexed Python POC is reproducible without any product-remote write
   goal_ids:
   - GOAL-TRUTH

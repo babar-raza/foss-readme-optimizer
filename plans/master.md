@@ -37,7 +37,7 @@ never override the mission graph or durable state.
 
 ## Decision Ledger
 
-The complete typed ledger contains 101 stable decisions in
+The complete typed ledger contains 102 stable decisions in
 `plans/decisions/catalog.jsonl`. This section is the human-readable current decision index; the
 catalog preserves the complete text and hashes of every prior decision.
 
@@ -100,6 +100,16 @@ Binding current decisions:
   EXCEPTION`, never counted toward Gate A/B or full-registry closure. A repository whose source
   itself is non-importable or missing does not qualify; its defect goes to
   `report/findings/<family>/<platform>/upstream-issues.md` for the owning product team instead.
+- **#102 — Typed external-blocker dispositions satisfy a platform-cohort gate task for
+  downstream-sequencing only.** A gate task (e.g. `L8-VPY-03-ALL-PYTHON-VERIFIED-POC`) may close,
+  solely to unlock the dependency graph's `CLOSED` check on later tasks, once every repository in
+  its scope is `NO_OP_PROVEN` or carries an accepted, human-reviewed typed disposition (a #101
+  exception, or a deferred/excluded external-blocker record with owner, evidence, and resume
+  predicate). This never reclassifies a typed-disposition repository as `NO_OP_PROVEN` and never
+  satisfies Gate A/B or full-registry closure; each independently returns to the strict lane on its
+  own resume predicate. Applying this to a specific gate task requires updating that task's own
+  `closeout_rules`/`acceptance_checks` text in place so its closure evidence asserts something
+  true.
 
 Aspose.org remains a development-only comparative corpus, never a deployed dependency or factual
 authority. Repository order may change only through the durable dependency graph; changing a

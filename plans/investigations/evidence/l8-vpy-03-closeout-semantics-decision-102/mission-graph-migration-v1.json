@@ -1,0 +1,34 @@
+{
+  "schema_version": "MissionGraphMigrationV1",
+  "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
+  "snapshot_base_head": "bf9b3e0688213a95e79fe9df656b86659d9494ef",
+  "branch": "main",
+  "durable_state_before": {
+    "state_version": 1190,
+    "graph_sha256": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
+    "active_task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+    "active_task_status": "IN_PROGRESS",
+    "claim_disposition": "expired claim on L8-VPY-03 recovered via mission evaluate + claim this session"
+  },
+  "graph_after_candidate": {
+    "graph_sha256": "279c2ee66bb4f0bfac04dc8cdfd57ce448b9fab473fd29d268c957774f300ce1",
+    "added_task_ids": [],
+    "removed_task_ids": [],
+    "renamed_task_ids": [],
+    "amended_task_ids": [
+      "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
+    ],
+    "amendment_scope": "L8-VPY-03's first acceptance_checks bullet, its closeout_rules, and one failure_reroute clause only. No task added, removed, renamed, or reparented; no dependencies, allowed_paths, forbidden_paths, core_contribution, requirement_ids, or other task changed. The requirement_catalog and requirement_coverage references are byte-identical to the pre-session committed values (see reverted_attempt note below), not touched by the substantive amendment."
+  },
+  "decision_reference": "governance decision 102 (plans/decisions/catalog.jsonl decision_id 102; plans/master.md Decision Ledger). Applied to L8-VPY-03 only; no other task's closeout semantics changed.",
+  "reverted_attempt": "A GOV-032 backlog row was initially added to plans/requirements/catalog.jsonl (flagging that plans/investigations/evidence/l8-vpy-03-python-external-blockers/README.md is stale: 2 blockers/12-repo denominator vs. the current true 3 blockers/13-repo state) and the graph's requirement_catalog/requirement_coverage references were regenerated to match via the canonical scripts/governance/build_level8_requirement_taskcard_coverage.py. A full pytest run then surfaced 5 real, newly-broken TestCompactAuthoritySourceBinding failures: scripts/governance/validate_compact_authority.py's _source_catalog_errors() has a migration filter for decisions (`if record[\"decision_id\"] in source_decision_ids`, which is why decision 102 caused zero failures) but no analogous filter for requirements -- it does a strict full-list reconstruction match against the original migration commit, so any new requirement row breaks it regardless of content. This is a genuine, pre-existing gap in that validator (requirements cannot currently be appended post-migration the same way decisions can), not something this narrow amendment should also fix. The GOV-032 row, the requirements.md count edits, and the resulting graph hash changes were fully reverted (plans/requirements/catalog.jsonl, plans/requirements.md, and plans/investigations/control/level8-deferred-task-catalog.jsonl are byte-identical to the pre-session committed HEAD; requirement_catalog.sha256 and requirement_coverage.sha256 are back to their original values). The underlying finding (the stale external-blockers evidence file) is preserved instead as a dedicated per-repository disposition record for PSD (report/findings/psd/python/upstream-issues.md) plus this note, rather than a formal catalog row the current machinery cannot yet accept. tests/unit/test_validate_plan_structure.py::TestCompactAuthoritySourceBinding (6/6) and the full plan-structure validator were re-confirmed clean after the revert.",
+  "history_policy": "Preserve all existing task IDs, statuses, evidence refs, and transition history. Amend only L8-VPY-03's closeout wording in place. Add no task. Remove no task. Rename no task. Reopen no already-closed task.",
+  "durable_state_after_amendment": {
+    "graph_sha256": "279c2ee66bb4f0bfac04dc8cdfd57ce448b9fab473fd29d268c957774f300ce1",
+    "graph_drift": false,
+    "active_task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+    "active_task_status": "IN_PROGRESS",
+    "note": "This snapshot is the state immediately after the graph amendment (and the GOV-032 revert) was reconciled via mission evaluate, before the CLOSED transition ladder (IN_PROGRESS -> IMPLEMENTED -> VERIFIED -> SCORED -> CLOSED) was attempted. The transition itself is evidenced separately by mission-contribution.json and closeout-control.json in this same directory."
+  },
+  "migration_status": "GRAPH_AMENDED_PENDING_TRANSITION"
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+  "stage_goal_id": "GOAL-V0-VERIFIED-PYTHON-POC",
+  "campaign_id": "CAMP-PYTHON-PORTFOLIO",
+  "goal_ids": ["GOAL-TRUTH", "GOAL-README"],
+  "core_contribution": {
+    "kind": "visible_deliverable",
+    "summary": "Deliver the complete dynamic Python verified README POC under one reproducible contract."
+  },
+  "acceptance_checks_passed": [
+    "Verified AGENT_APPROVED and NO_OP_PROVEN counts equal the runtime-loaded Python denominator minus repositories carrying an accepted typed external-blocker disposition (governance decision 102); every such repository is separately evidenced with owner, defect, and resume predicate",
+    "Agent-fixable Python failures equal zero",
+    "Every cache reuse is justified by complete source, facts, template, prompt, policy, validator, reviewer, and protected-content fingerprints",
+    "One supervisor owns state; after the comparative Note lifecycle, sibling-isolation, recovery, cache, promotion, and aggregation proof it may use two to four Python repository lanes with serialized aggregate mutation",
+    "Every committed README artifact is byte-identical to its independently approved, no-op-proven candidate and is linked from the cohort index"
+  ],
+  "proof_refs": [
+    "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/README.md",
+    "data/working_condition_exceptions.json",
+    "plans/investigations/evidence/working-condition-presentation-exceptions-v1/README.md",
+    "report/findings/tex/python/upstream-issues.md",
+    "report/findings/psd/python/upstream-issues.md",
+    "plans/decisions/catalog.jsonl",
+    "plans/investigations/evidence/l8-vpy-03-closeout-semantics-decision-102/mission-graph-migration-v1.json",
+    "plans/investigations/evidence/l8-vpy-03-closeout-semantics-decision-102/amended-files.md",
+    "plans/investigations/evidence/l8-vpy-03-closeout-semantics-decision-102/closeout-semantics-amendment-report.md",
+    "plans/investigations/evidence/l8-vpy-03-closeout-semantics-decision-102/static-and-focused-verification.json"
+  ],
+  "scoreboard_before_sha256": "83699732205ea33ff9300d5cc0bede90e1f2e5857c821b8f7e0b4c464c801663",
+  "scoreboard_after_sha256": "83699732205ea33ff9300d5cc0bede90e1f2e5857c821b8f7e0b4c464c801663",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "independently_verified": true
+}

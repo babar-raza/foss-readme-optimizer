@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+  "head": "bf9b3e0688213a95e79fe9df656b86659d9494ef",
+  "note": "This session's substantive changes touch zero Python source or test files (plans/, logs/, report/, and one generated plans/investigations/evidence/ bundle only). Static checks are therefore expected to be unaffected; run fresh anyway to confirm, not assumed.",
+  "static_checks": {
+    "ruff_check": {"command": "ruff check .", "result": "All checks passed!"},
+    "ruff_format_check": {"command": "ruff format --check .", "result": "1140 files already formatted"},
+    "mypy": {"command": "mypy src", "result": "Success: no issues found in 681 source files"},
+    "plan_structure_validator": {
+      "command": "scripts/governance/validate_plan_structure.py",
+      "result": "Plan structure clean (111 warning(s))",
+      "note": "111 warnings are pre-existing plans/requirements/catalog.jsonl length-guidance notices, unrelated to this session's edits; zero errors."
+    },
+    "requirement_taskcard_coverage_check": {
+      "command": "scripts/governance/build_level8_requirement_taskcard_coverage.py --check",
+      "result": "Level-8 requirement coverage current: 475 rows"
+    },
+    "source_binding_regression": {
+      "command": "pytest tests/unit/test_validate_plan_structure.py::TestCompactAuthoritySourceBinding -v",
+      "result": "6 passed",
+      "note": "This is the exact suite that caught the reverted GOV-032 requirements-catalog regression (see amended-files.md, 'Reverted attempt'); reconfirmed clean after the revert."
+    }
+  },
+  "complete_non_live_suite": {
+    "command": [
+      "python", "-m", "pytest", "-q", "-n", "4", "--dist", "worksteal",
+      "--max-worker-restart", "0"
+    ],
+    "runner": "scripts/governance/run_full_pytest.py",
+    "head": "bf9b3e0688213a95e79fe9df656b86659d9494ef",
+    "started_at": "2026-08-12T19:29:35.908782+00:00",
+    "finished_at": "2026-08-12T19:35:20.591118+00:00",
+    "duration_seconds": 343.133,
+    "exit_code": 1,
+    "tree_changed_during_run": false,
+    "tree_fingerprint_at_start": "d64c72f390de61a7c4f6f07b6375843fa949e31250faffbe7d2b705518a99f64",
+    "tree_fingerprint_at_end": "d64c72f390de61a7c4f6f07b6375843fa949e31250faffbe7d2b705518a99f64",
+    "test_inventory_count": 3714,
+    "outcome_counts": {
+      "passed": 3705,
+      "failed": 9,
+      "skipped": 0,
+      "xfailed": 0,
+      "xpassed": 0,
+      "errors": 0,
+      "deselected": 0
+    },
+    "honest_disclosure": "NOT a clean/green run: 9 pre-existing failures, exit_code 1. This is the same, already-documented and acknowledged control-repository proof debt described in plans/codex/handover/HANDOVER.md's 'Current verification limitation' section (previously 3697 passed/9 failed at commit aea52c9fe; 3705 passed/9 failed here at bf9b3e068, test_inventory grown from 3706 to 3714 in the interim). None of the 9 failures are in a file this session touched (verified: test_portfolio.py, test_agentic_readme_composition.py, test_local_poc_review_evidence.py, test_readme_composition_characterization.py, test_verified_source_opening.py -- all pre-existing, unrelated to plans/master.md, plans/decisions/, plans/investigations/control/level8-autonomous-mission-task-graph.yaml, report/findings/psd/, or this evidence bundle). This receipt does not authorize weakening or deleting any test, and does not claim a green full-suite result. It is cited only as the current, honest, tree-unchanged-during-run state bound to this session's HEAD.",
+    "two_earlier_contaminated_attempts": "Two prior full-suite runs this session were invalidated: the first showed tree_changed_during_run=true (14 failed) because file edits (the PSD report, the master.md decision-count fix) landed while the suite was running in the background; the second showed 15 failed (5 of them the GOV-032-caused TestCompactAuthoritySourceBinding regression, tree_changed_during_run=false but taken before the revert). Neither is cited as evidence anywhere in this bundle -- only this third, clean, post-revert run is."
+  },
+  "multi_agent_execution_plan_admission": {
+    "plan_path": "runs/multi-agent/L8-VPY-03-ALL-PYTHON-VERIFIED-POC/execution-plan.json",
+    "admitted": true,
+    "violations": [],
+    "multi_agent_execution_plan_sha256": "cbbce1a0bdddf45b73b2d013136300bd0d449e8c922345bb8dec32d6c35e1622",
+    "multi_agent_admission_decision_sha256": "15845d7402db6b1f6515ca53d948a3dcc71a1c78cf7dcca71af6f3391ea4e44e"
+  },
+  "verification_plan": {
+    "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+    "change_classes": ["governance", "shared_code", "repository_runtime"],
+    "required_tiers": ["touched_static", "focused", "impacted_integration", "repository_acceptance"],
+    "promotion_boundary": "repository",
+    "canonical_promotion_allowed": true,
+    "reason": "risk tiers derive from touched seams and the declared acceptance boundary",
+    "verification_plan_sha256": "652073e4c307715f6837d7e296a13e504110b3c99568ed07eae4fa552d4503fd"
+  },
+  "lifecycle_scoreboard": {
+    "scoreboard_sha256": "83699732205ea33ff9300d5cc0bede90e1f2e5857c821b8f7e0b4c464c801663",
+    "first_failing_boundary": "FACTS_READY",
+    "note": "Unchanged before/after this task's own work: no repository's lifecycle state was modified by the decision-102 amendment."
+  }
+}

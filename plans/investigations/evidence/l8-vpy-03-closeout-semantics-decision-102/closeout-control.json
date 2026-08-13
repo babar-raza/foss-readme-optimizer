@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+  "verification_plan_sha256": "652073e4c307715f6837d7e296a13e504110b3c99568ed07eae4fa552d4503fd",
+  "completed_tiers": [
+    "touched_static",
+    "focused",
+    "impacted_integration",
+    "repository_acceptance"
+  ],
+  "promotion_boundary": "repository",
+  "canonical_evidence_promoted": true,
+  "transaction_isolation_proven": true,
+  "proof_refs": [
+    "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json",
+    "plans/investigations/evidence/finalized-repository-readmes-v1/README.md",
+    "data/working_condition_exceptions.json",
+    "plans/investigations/evidence/working-condition-presentation-exceptions-v1/README.md",
+    "report/findings/tex/python/upstream-issues.md",
+    "report/findings/psd/python/upstream-issues.md",
+    "plans/decisions/catalog.jsonl",
+    "plans/investigations/evidence/l8-vpy-03-closeout-semantics-decision-102/mission-graph-migration-v1.json",
+    "plans/investigations/evidence/l8-vpy-03-closeout-semantics-decision-102/amended-files.md",
+    "plans/investigations/evidence/l8-vpy-03-closeout-semantics-decision-102/closeout-semantics-amendment-report.md",
+    "plans/investigations/evidence/l8-vpy-03-closeout-semantics-decision-102/static-and-focused-verification.json"
+  ],
+  "independently_verified": true,
+  "multi_agent_execution_plan_sha256": "cbbce1a0bdddf45b73b2d013136300bd0d449e8c922345bb8dec32d6c35e1622",
+  "multi_agent_admission_decision_sha256": "15845d7402db6b1f6515ca53d948a3dcc71a1c78cf7dcca71af6f3391ea4e44e"
+}
