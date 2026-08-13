@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
-    "active_task_id": "L8-HORIZON-01-ACTIVATE-GATE-A",
+    "active_task_id": null,
     "approach_control": {
       "attempts": [
         {
@@ -1187,10 +1187,12 @@
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "plans/investigations/evidence/l8-horizon-01-deferral-2026-08-13/findings.md"
+          ],
           "fingerprint": "2af78fc65ffb3304c9608e238f96d2eb4c285ea77e519ff6c05a807ec43a9e64",
-          "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "last_material_narrowing_at": "2026-08-13T00:24:54.569533+00:00",
+          "outcome": "effective",
           "started_at": "2026-08-13T00:11:57.779719+00:00",
           "task_id": "L8-HORIZON-01-ACTIVATE-GATE-A"
         }
@@ -2103,10 +2105,10 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-13T00:41:57.779719+00:00",
-    "claim_id": "602c6430585b4007932aac2fc10f27cc",
-    "claimed_at": "2026-08-13T00:11:57.779719+00:00",
-    "claimed_by": "claude-coordinator",
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "279c2ee66bb4f0bfac04dc8cdfd57ce448b9fab473fd29d268c957774f300ce1",
@@ -2321,7 +2323,7 @@
     ],
     "graph_sha256": "279c2ee66bb4f0bfac04dc8cdfd57ce448b9fab473fd29d268c957774f300ce1",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-13T00:11:57.779719+00:00",
+    "last_evaluated_at": "2026-08-13T00:24:54.569533+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 10,
       "candidate_generated": 10,
@@ -2387,19 +2389,22 @@
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "next_task": {
-      "campaign_id": "CAMP-GATE-A-PORTFOLIO",
+      "campaign_id": "CAMP-GATE-B-AND-LATER",
       "core_contribution": {
-        "kind": "first_boundary_removal",
-        "summary": "Advance the sole mission graph without reloading its complete future backlog."
+        "kind": "acceptance_proof",
+        "summary": "Prove Python through the actual autonomous workflow and GitHub App transport without an unauthorized effect."
       },
       "goal_ids": [
-        "GOAL-AUTONOMY"
+        "GOAL-AUTONOMY",
+        "GOAL-DELIVERY"
       ],
-      "immediate_goal_id": null,
-      "immediate_outcome": null,
-      "repository_scope": [],
+      "immediate_goal_id": "DELIVERY-PYTHON-PRODUCTION-TRANSPORT",
+      "immediate_outcome": "Make the accepted Python platform safely operable through the production workflow and App path.",
+      "repository_scope": [
+        "platform:Python"
+      ],
       "stage_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
-      "task_id": "L8-HORIZON-01-ACTIVATE-GATE-A"
+      "task_id": "L8-VPY-04-PRODUCTION-TRANSPORT"
     },
     "parallelism_control": {
       "calibration_active": false,
@@ -2439,7 +2444,7 @@
       "L8-GATEA-03-NO-OP": "TODO",
       "L8-GATEA-03A-REPRO-CONTROLS": "TODO",
       "L8-GATEA-04-REPRODUCE": "TODO",
-      "L8-HORIZON-01-ACTIVATE-GATE-A": "IN_PROGRESS",
+      "L8-HORIZON-01-ACTIVATE-GATE-A": "REROUTED",
       "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY": "CLOSED",
       "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": "CLOSED",
       "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": "CLOSED",
@@ -11958,6 +11963,17 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-HORIZON-01-ACTIVATE-GATE-A",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/l8-horizon-01-deferral-2026-08-13/findings.md"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "claude-coordinator",
+        "occurred_at": "2026-08-13T00:24:54.569567+00:00",
+        "reason": "Investigated fully: active graph is at its 15-task cap; all 10 closed tasks occupying slots are transitive dependencies of the active near-term critical path (L8-VPY-04/05, L8-VNET-01/02, L8-VPY-02) and cannot be safely retired without a real mission_graph.py/mission_control.py dependency-resolution extension (deferred_task_index CLOSED entries are not currently recognized by the active-taskcard referential-integrity check). The 6 dependency-ready deferred candidates all belong to the separate verified-gate-a/CAMP-GATE-A-PORTFOLIO campaign and gate nothing on the actively-requested .NET/Java/etc. delivery sequence. Per decision 92 (just-in-time infrastructure), deferring this in favor of L8-VPY-04-PRODUCTION-TRANSPORT, which is already active and ready. Full findings: plans/investigations/evidence/l8-horizon-01-deferral-2026-08-13/findings.md",
+        "task_id": "L8-HORIZON-01-ACTIVATE-GATE-A",
+        "to_status": "REROUTED"
       }
     ]
   },
@@ -11967,7 +11983,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1198,
+  "state_version": 1199,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
