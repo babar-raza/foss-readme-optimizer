@@ -7,6 +7,7 @@ from pathlib import Path
 
 from readme_agent.facts.aspose_detectors import (
     detect_archetype,
+    detect_enterprise_link,
     detect_install_info,
     detect_license_file,
     detect_seo_keywords,
@@ -118,3 +119,49 @@ def test_detect_license_file_correctly_excludes_a_non_mit_license(tmp_path):
 
 def test_detect_license_file_missing_directory_returns_none(tmp_path):
     assert detect_license_file(tmp_path / "does-not-exist") is None
+
+
+def test_detect_enterprise_link_real_direct_platform_match():
+    result = detect_enterprise_link("cells", "java", data_root=_DATA_ROOT)
+
+    assert result.url is not None
+    assert result.relationship == "platform"
+    assert result.public_platform == "Java"
+
+
+def test_detect_enterprise_link_real_bridge_platform_never_discloses_the_bridge():
+    """MT044's permanent rule, proven against real data: cells/python resolves
+    through a compound ("python-net") URL segment, but the detector must
+    surface ONLY the normalized public platform -- never the bridge language,
+    never "via", never the raw compound segment."""
+
+    result = detect_enterprise_link("cells", "python", data_root=_DATA_ROOT)
+
+    assert result.relationship == "platform"
+    assert result.public_platform == "Python"
+    assert "net" not in (result.public_platform or "").lower()
+    assert "via" not in (result.public_platform or "").lower()
+
+
+def test_detect_enterprise_link_real_unmatched_platform_falls_back_to_family():
+    result = detect_enterprise_link("3d", "typescript", data_root=_DATA_ROOT)
+
+    assert result.link_type == "family"
+    assert result.relationship == "family"
+    assert result.public_platform is None
+    assert result.fallback_reason is not None
+
+
+def test_detect_enterprise_link_real_target_map_age_is_a_positive_float():
+    result = detect_enterprise_link("cells", "java", data_root=_DATA_ROOT)
+
+    assert isinstance(result.target_map_age_days, float)
+    assert result.target_map_age_days >= 0
+
+
+def test_detect_enterprise_link_missing_target_map_degrades_gracefully(tmp_path):
+    result = detect_enterprise_link("cells", "java", data_root=tmp_path)
+
+    assert result.url is None
+    assert result.fallback_reason is not None
+    assert "target_map_unavailable" in result.fallback_reason

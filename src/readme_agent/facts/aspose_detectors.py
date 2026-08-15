@@ -10,22 +10,60 @@ depending on that module's global, test-injection-only `_repo_root` state
 (discovered while probing T4: importing the whole orchestration module pulls
 in `session_identity`/`advisory_lock`/`core.fs`, none of which belong here).
 
-**Honest scope**: this covers 4 of the vendored module's 11 `_detect_*`
-functions (archetype, SEO keywords, install info, license file) -- the ones
-verified self-contained (pure path/JSON logic, no dependency on run-level
-orchestration state). The remaining 7
-(`_detect_capability_dependencies`, `_detect_enterprise_link`,
-`_detect_homepage_link`, `_detect_available_badges`,
-`_detect_dependency_claims`, `_detect_dev_test_artifacts`,
-`_detect_archetype_entry_raw`) were not extracted this session.
+**Honest scope**: this covers 5 of the vendored module's 11 `_detect_*`
+functions (archetype, SEO keywords, install info, license file, enterprise
+link) -- the ones verified self-contained or tractably adaptable (pure
+path/JSON/YAML logic plus, for the enterprise-link detector, the already-
+vendored `backlink_targets.py`). The remaining 6
+(`_detect_capability_dependencies`, `_detect_homepage_link`,
+`_detect_available_badges`, `_detect_dependency_claims`,
+`_detect_dev_test_artifacts`, `_detect_archetype_entry_raw`) were not
+extracted this session.
 """
 
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict
+
+# aspose_detectors.py lives at src/readme_agent/facts/ -- parents[2] is src/.
+_VENDORED_PIPELINE_ROOT = (
+    Path(__file__).resolve().parents[2]
+    / "readme_agent"
+    / "vendored_asposeorg"
+    / "scripts"
+    / "pipeline"
+)
+_VENDORED_LIB_ROOT = _VENDORED_PIPELINE_ROOT / "lib"
+_VENDORED_FOSS_ROOT = _VENDORED_PIPELINE_ROOT / "commands" / "foss"
+
+
+def _ensure_vendored_on_path() -> None:
+    # `_VENDORED_PIPELINE_ROOT` (the parent of `lib/`) must be on sys.path,
+    # not `lib/` itself -- readme_refresh_checks.py does `from lib.
+    # api_table_dupes import ...`, resolving `lib` as an (implicit
+    # namespace) package relative to its parent directory.
+    for path in (str(_VENDORED_PIPELINE_ROOT), str(_VENDORED_LIB_ROOT), str(_VENDORED_FOSS_ROOT)):
+        if path not in sys.path:
+            sys.path.insert(0, path)
+
+
+def _load_backlink_targets_module() -> Any:
+    _ensure_vendored_on_path()
+    import backlink_targets  # noqa: PLC0415 -- deliberately lazy; see module docstring
+
+    return backlink_targets
+
+
+def _load_readme_refresh_checks_module() -> Any:
+    _ensure_vendored_on_path()
+    import readme_refresh_checks  # noqa: PLC0415 -- deliberately lazy; see module docstring
+
+    return readme_refresh_checks
 
 
 class ArchetypeDetectionV1(BaseModel):
@@ -164,12 +202,129 @@ def detect_license_file(clone_cache: Path) -> LicenseFileDetectionV1 | None:
     return None
 
 
+class EnterpriseLinkDetectionV1(BaseModel):
+    """Adapted from `_detect_enterprise_link` + `_classify_enterprise_relationship`
+    (readme_refresh_run.py). `relationship`/`public_platform` implement the
+    MT044 rule this repo's own TW-... T10 anchor-destination check enforces
+    from the opposite direction (T10 catches a wrong anchor after the fact;
+    this detector computes the correct relationship up front so a correct
+    anchor can be composed in the first place) -- `public_platform` is always
+    the normalized, implementation-neutral platform name; the bridge/suffix
+    information is discarded entirely and never surfaced, matching MT044's
+    permanent rule."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    url: str | None
+    link_type: str | None
+    fallback_reason: str | None
+    # Verified against the real backlink_targets.target_map_age_days() output:
+    # a fractional number of days (elapsed time), not a whole-day count.
+    target_map_age_days: float | None
+    target_map_stale: bool | None
+    relationship: str | None
+    public_platform: str | None
+
+
+def _load_canonical_overrides(data_root: Path) -> dict | None:
+    """Adapted from `_load_canonical_overrides` (readme_refresh_run.py)."""
+
+    path = data_root / "data" / "backlinks" / "platform_canonical_overrides.yaml"
+    if not path.is_file():
+        return None
+    try:
+        import yaml
+
+        return yaml.safe_load(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+
+def _classify_enterprise_relationship(
+    source_platform: str, url: str | None, *, backlink_targets: Any, checks: Any
+) -> tuple[str | None, str | None]:
+    """Adapted verbatim (logic unchanged) from `_classify_enterprise_relationship`
+    (readme_refresh_run.py) -- see that function's docstring in the vendored
+    source for the full, incident-backed derivation of this classification
+    rule. Returns (relationship, public_platform) instead of a dict."""
+
+    if not url:
+        return None, None
+    path = url.split("products.aspose.com/", 1)[-1].strip("/")
+    parts = path.split("/", 1)
+    if len(parts) < 2 or not parts[1]:
+        return "family", None
+    segment = parts[1].split("/", 1)[0]
+
+    if "-" in segment:
+        normalized = backlink_targets.PLATFORM_ALIASES.get(segment)
+        public_platform = checks._PLATFORM_DISPLAY_NAMES.get(normalized) if normalized else None
+        if not public_platform:
+            return "unresolved", None
+        return "platform", public_platform
+
+    normalized_dest = backlink_targets.PLATFORM_ALIASES.get(segment, segment)
+    normalized_source = backlink_targets.PLATFORM_ALIASES.get(source_platform, source_platform)
+    if normalized_dest != normalized_source:
+        return "unresolved", None
+    return "platform", checks._PLATFORM_DISPLAY_NAMES.get(normalized_dest)
+
+
+def detect_enterprise_link(
+    family: str, platform: str, *, data_root: Path
+) -> EnterpriseLinkDetectionV1:
+    """Adapted from `_detect_enterprise_link` (readme_refresh_run.py). Reuses
+    the already-vendored `backlink_targets.py` (T1B) for URL/target
+    resolution; deliberately does NOT reuse its
+    `build_enterprise_anchor_suffix()` (a different, rejected anchor-text
+    convention for this project -- "Enterprise Edition" portfolio-wide is
+    this repo's own binding rule)."""
+
+    backlink_targets = _load_backlink_targets_module()
+    checks = _load_readme_refresh_checks_module()
+    try:
+        target_map = backlink_targets.load_target_map(data_root)
+    except (FileNotFoundError, ValueError) as exc:
+        return EnterpriseLinkDetectionV1(
+            url=None,
+            link_type=None,
+            fallback_reason=f"target_map_unavailable: {exc}",
+            target_map_age_days=None,
+            target_map_stale=None,
+            relationship=None,
+            public_platform=None,
+        )
+    canonical_overrides = _load_canonical_overrides(data_root)
+    url, target_type, _subdomain, fallback_reason = backlink_targets.resolve_backlink(
+        family,
+        platform,
+        source_subdomain="readme-refresh",
+        target_map=target_map,
+        canonical_overrides=canonical_overrides,
+    )
+    age_days = backlink_targets.target_map_age_days(target_map)
+    relationship, public_platform = _classify_enterprise_relationship(
+        platform, url, backlink_targets=backlink_targets, checks=checks
+    )
+    return EnterpriseLinkDetectionV1(
+        url=url,
+        link_type=target_type,
+        fallback_reason=fallback_reason,
+        target_map_age_days=age_days,
+        target_map_stale=bool(age_days is not None and age_days > backlink_targets.STALE_WARN_DAYS),
+        relationship=relationship,
+        public_platform=public_platform,
+    )
+
+
 __all__ = [
     "ArchetypeDetectionV1",
+    "EnterpriseLinkDetectionV1",
     "InstallInfoDetectionV1",
     "LicenseFileDetectionV1",
     "SeoKeywordsDetectionV1",
     "detect_archetype",
+    "detect_enterprise_link",
     "detect_install_info",
     "detect_license_file",
     "detect_seo_keywords",
