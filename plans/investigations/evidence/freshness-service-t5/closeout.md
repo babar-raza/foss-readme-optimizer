@@ -133,6 +133,42 @@ exactly the kind of expanding, uncertain-payoff scope this session's discipline 
 This finding — materially more precise than either prior guess — is left as the documented
 starting point for whoever takes on the real fix.
 
+## Fourth check: exactly which of the 13 flagged units would the groundable fix actually resolve?
+
+Rather than leave the payoff as "uncertain," the real `dispositions.json` was cross-checked
+directly against the exact 13 flagged unit names:
+
+| Unit | Disposition | Reason (verbatim prefix) |
+|---|---|---|
+| H1 title | SUPERSEDED | "replaced by a mandatory golden-contract slot..." |
+| Navigation | VERIFIED_MERGED | "policy-owned spans cover the complete claim..." |
+| At a Glance | VERIFIED_MERGED | "policy-owned spans cover the complete claim..." |
+| Installation | SUPERSEDED | "replaced by a mandatory golden-contract slot..." |
+| Additional Examples | SUPERSEDED | "replaced by a mandatory golden-contract slot..." |
+| Add Data Validation (H3) | VERIFIED_MERGED | "bound to an exact independently accountable candidate claim..." |
+| Export to CSV (H3) | VERIFIED_MERGED | "bound to an exact independently accountable candidate claim..." |
+| Password-Protect a Workbook (H3) | SUPERSEDED | "replaced by a mandatory golden-contract slot..." |
+| API Reference | SUPERSEDED | "replaced by a mandatory golden-contract slot..." |
+| Documentation & Resources | SUPERSEDED | "replaced by a mandatory golden-contract slot..." |
+| Scope and Limitations | SUPERSEDED | "replaced by a mandatory golden-contract slot..." |
+| Development and Testing | SUPERSEDED | "replaced by a mandatory golden-contract slot..." |
+| License | SUPERSEDED | "replaced by a mandatory golden-contract slot..." |
+
+**9 of 13 are `SUPERSEDED` via the golden-contract-slot-replacement reason** (the
+`verified_obligation_replacement`/`authoritative_correction` bucket — confirmed ungrounded, no
+candidate-side cross-reference found anywhere). **2 of 13 (Navigation, At a Glance) carry the
+"policy-owned spans" reason** (`presentation_policy_correction`/`configured_standard` bucket —
+also confirmed ungrounded). **Only 2 of 13 (the two H3 examples) show the `accepted_fact`-style
+reason** — the one bucket with a real, groundable cross-reference via `claim_map`.
+
+**This confirms, with exact numbers rather than an estimate, that the groundable fix would
+resolve at most 2 of the 13 currently-flagged units — the earlier "uncertain payoff" judgment
+was correct.** Genuinely fixing this ledger requires resolving the golden-contract-slot and
+policy-owned-span buckets (11 of 13), for which no candidate-side location data exists anywhere
+in this run's real output. Confirmed not worth implementing the partial `accepted_fact` fix
+alone; the real fix is comprehensive candidate-span tracking across all disposition sources, a
+properly-scoped card of its own.
+
 ## Downstream effect
 
 `GC-03` (Gate G3 close) requires **both** `T14` (COMPLETE) and `T5` COMPLETE — it stays blocked.
