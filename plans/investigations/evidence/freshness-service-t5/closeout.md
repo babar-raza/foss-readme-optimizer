@@ -230,6 +230,27 @@ substantially more complete per-section placement data (or equivalent structured
 a real feature addition to the composition mechanism, not data that merely needs to be threaded
 through from an existing, already-sufficient source.
 
+## Why, architecturally: `source_placements` is not a "hasn't been wired up yet" gap
+
+Tracing `build_verified_template_compilation` (`presentation/verified_template_runtime.py:63-
+159`) end to end: the compiled candidate is built by `compile_repository_presentation` (freshly
+generating template-driven prose from `ProductFactsV2`, the great majority of the document's
+bytes), then `compose_verified_source_preservation` (`verified_source_policy_application.py`)
+splices back in the *specific, narrow* spans of the **original** README that are authorized to
+survive verbatim. `composition.source_placements` — the 5 real entries found above — comes from
+*that splice-back step alone*. It is not a general "every unit's candidate location" registry;
+by construction it only covers verbatim-preserved source bytes. Freshly-generated,
+template-compiled content (the `SUPERSEDED`/"golden-contract-slot" bucket, 9 of the 13 flagged
+units, and the bulk of the document) was never copied from source at all, so there is no
+"placement" for it to have — not a bug, a category the concept doesn't apply to.
+
+**This confirms the earlier verdict with real understanding of the mechanism, not just an
+absence of data found by searching**: a genuine fix needs a *different kind of tracking* than
+`source_placements` provides — a slot-to-candidate-byte-range map from the template compiler
+itself (`compile_repository_presentation`, in `presentation_template.py` or its compiler
+module), recording which compiled slot occupies which candidate bytes and which original units
+it replaces. That is new instrumentation inside the template compiler, not a wiring fix.
+
 ## Downstream effect
 
 `GC-03` (Gate G3 close) requires **both** `T14` (COMPLETE) and `T5` COMPLETE — it stays blocked.
