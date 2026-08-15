@@ -56,10 +56,49 @@ local_dry_run` did not finish within available session time (terminated, no outp
 data/products.json` — a whole-30+-product portfolio run, disproportionate for a single-repo
 pilot and not attempted for that reason.
 
+## Investigated: is the disposition-ledger `target` defect a small, bounded fix?
+
+A first pass (research delegated, not yet verified firsthand) suggested yes: `build_source_
+disposition_ledger` (`commands_poc.py:96-205`) hardcodes `"target": ""` at line 181 regardless
+of disposition, while a `ReadmeDocumentPlanV1.composition_ledger` field
+(`readme/document_plan.py:266`) with exact source-to-candidate byte-span placements
+(`ExactSourcePlacementV1.structural_role`, e.g. `"h2:Installation"`) appeared to sit one field
+away, unread.
+
+**Direct verification (reading the actual code paths, not trusting the first pass) found this
+was too optimistic.** `composition_ledger: ReadmeCompositionLedgerV1 | None = None` defaults to
+`None`, and grepping confirms `document_renderer.py` — the module `build_readme_document_
+candidate` lives in, which is exactly what `idea_candidate.py::prepare_idea_fidelity_candidate`
+(the function `commands_poc.py::_compose` calls) uses — **never sets it**. The real builder,
+`composition_lineage.py::build_composition_ledger`, is only called from `document_plan_
+finalizer.py` and `presentation/verified_template_document.py` — a **different** finalization
+path than the one the diagnostic `poc` runner exercises. So `composition_ledger` is always
+`None` on this code path; there is no unread byte-span data sitting nearby to consume.
+
+A byte-accurate `target` genuinely does not exist anywhere in this run's data for the majority
+of units (the ones disposed via `claim_accountability` records): `ReadmeClaimAccountabilityV1`
+(`claim_accountability_models.py`) stores only the *source*-side byte span
+(`source_byte_start/end`, `survives_in_candidate: bool`); the candidate-side span is computed
+transiently inside `_source_claim_has_candidate_placement`
+(`claim_accountability.py:145-163`) and **discarded before being stored anywhere**. A correct
+fix requires either (a) extending `ReadmeClaimAccountabilityV1` to retain that candidate-side
+span — a change to shared, validated, heavily-consumed claim-accountability machinery, not a
+localized one — or (b) wiring `build_composition_ledger()` into the `document_renderer.py`/
+`idea_candidate.py` path, with unassessed effects on other consumers of that plan.
+
+A cheaper heuristic (match each unit's own heading text against the candidate's real H2
+headings, confirmed present: `## Navigation`, `## Installation`, `## API Reference`, etc.) was
+considered and **deliberately rejected**: the real candidate is missing an `## At a Glance` H2
+entirely (its content was apparently folded elsewhere), yet that exact unit is disposed
+`VERIFIED_MERGED` — a same-name-heading heuristic would leave it unresolved (correctly, by
+accident) for that one case, but would produce a plausible-looking-yet-unverified `target` label
+for every other unit, exactly the kind of "looks fixed but isn't semantically accurate" shortcut
+this session's own discipline rejects. **Not implemented.**
+
 ## Downstream effect
 
 `GC-03` (Gate G3 close) requires **both** `T14` (COMPLETE) and `T5` COMPLETE — it stays blocked.
-`T6` onward (G4, prereq'd on `GC-03`) cannot start until T5's genuine gap above is resolved: either
-by debugging the old composer's disposition/claim-accountability wiring (a bounded, well-scoped
-follow-up now that the exact defect is documented) or by reaching G4's new deterministic pipeline
-by some other legitimate route this plan's own cards define.
+The genuine fix is real but larger than a pilot-skeleton card's scope: extend candidate-side
+span tracking in the claim-accountability model (touches shared, validated machinery) or wire
+the existing `build_composition_ledger()` into the diagnostic composition path — both warrant
+their own scoped card with dedicated tests, not a rushed patch inside T5.
