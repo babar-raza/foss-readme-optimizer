@@ -247,9 +247,36 @@ units, and the bulk of the document) was never copied from source at all, so the
 **This confirms the earlier verdict with real understanding of the mechanism, not just an
 absence of data found by searching**: a genuine fix needs a *different kind of tracking* than
 `source_placements` provides — a slot-to-candidate-byte-range map from the template compiler
-itself (`compile_repository_presentation`, in `presentation_template.py` or its compiler
-module), recording which compiled slot occupies which candidate bytes and which original units
-it replaces. That is new instrumentation inside the template compiler, not a wiring fix.
+itself (`compile_repository_presentation`, `presentation/template_compiler.py`), recording which
+compiled slot occupies which candidate bytes and which original units it replaces.
+
+## Assessed implementation directly (not just conceptually) — a real, additional complication found
+
+`compile_repository_presentation` (`template_compiler.py:74-112`) does build each slot's content
+as one discrete, identifiable block (`blocks.append(f"## {contract.headings[slot]}\n\n{body}")`,
+line 106) joined with a fixed `"\n\n"` separator — a byte-range-tracking sibling function
+(compute each block's position via `.find()` in the joined output, in order) is genuinely
+implementable without touching the existing function's behavior at all.
+
+**But that only gives spans in the *freshly-template-compiled* candidate — not the *final* one.**
+`compose_verified_source_preservation` (`presentation/verified_source_preservation.py:60-`)
+runs afterward and, for preserved source sections, explicitly **inserts** blocks whose heading
+is `not in block_by_identity` (line 99: `if heading_identity(section.title) not in
+block_by_identity`) — i.e. it adds *new* H2 blocks for headings the compiler's output doesn't
+already contain, rather than substituting equal-length bytes within an existing slot. An
+insertion shifts every byte position after it. So a slot-span map computed against the
+pre-preservation candidate would **not** be valid against the actual final candidate
+(`render["final_text"]`) without also accounting for every insertion's effect on downstream
+offsets — a second, distinct piece of correctness work, not merely "thread the data through."
+
+**Decision: not implemented.** Producing spans that are subtly wrong in a way that looks
+authoritative would be worse than the current honest empty `target` — it would silently mislabel
+content instead of visibly failing the ledger check. Correctly reconciling the two coordinate
+systems (pre-insertion template-compiled offsets vs. post-insertion final-candidate offsets) is
+real, additional engineering — confirmed by reading the actual insertion logic, not assumed —
+and belongs in the same properly-scoped fix card as the rest of this investigation's findings,
+with its own dedicated tests proving span correctness under insertion, not a rushed addition
+here.
 
 ## Downstream effect
 
