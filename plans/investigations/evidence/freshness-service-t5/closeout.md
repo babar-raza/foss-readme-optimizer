@@ -95,6 +95,44 @@ accident) for that one case, but would produce a plausible-looking-yet-unverifie
 for every other unit, exactly the kind of "looks fixed but isn't semantically accurate" shortcut
 this session's own discipline rejects. **Not implemented.**
 
+## Third-round correction: empirical verification supersedes both prior static-analysis guesses
+
+Static code reading alone produced two successive wrong conclusions above (first "small fix,"
+then "claim_accountability is always None on this path"). Rather than trust a third round of
+static tracing, the actual `render` dict was inspected directly (a small, throwaway diagnostic
+script monkeypatching `build_source_disposition_ledger` to print its real inputs, run against
+the same hash-bound cached plan — zero new LLM calls, not repo-committed):
+
+- `readme_document_plan.claim_accountability` **is populated** — 137 real claim records, by
+  `expected_disposition`: `accepted_fact` 76, `verified_obligation_replacement` 20,
+  `presentation_policy_correction` 13, `unjustified_loss` 9, `configured_standard` 9,
+  `verified_equivalence` 8, `deferred_verification` 2.
+- A separate, ALSO-real, top-level `render["claim_map"]` (72 entries,
+  `ReadmeClaimMapV1`, not the same type) carries genuine **candidate-side** byte positions
+  (`byte_start`/`byte_end`, `coordinate_space: "candidate_utf8"`), keyed by `fact_id` — a
+  namespace shared with `claim_accountability` records' `accepted_fact_ids`. **12 of the 13
+  distinct fact IDs referenced by `accepted_fact`-disposed records resolve in this cross-
+  reference** — a real, groundable path for that bucket (the largest, 76 of 137 records).
+- `equivalent_candidate_claims` (the field that would ground `verified_equivalence` records
+  directly) is populated in **zero of the 8** `verified_equivalence` records for this real run —
+  the structured-equivalence machinery that fills it is wired to `composition_ledger`
+  (confirmed absent on this path, see above), so it's empty here too.
+- No grounding path was found for `presentation_policy_correction` (13), `verified_obligation_
+  replacement` (20), `configured_standard` (9), or `deferred_verification`/`unjustified_loss`
+  (11) — 53 of 137 records, over a third of the total.
+
+**Decision: still not implemented.** The `accepted_fact` cross-reference is real and would let
+`target` be computed correctly for a genuine subset of units — but building it requires new
+logic (byte-range block aggregation per unit, mapping a resolved candidate byte position to its
+containing H2 section, honest partial-coverage handling for the remaining ~40% of records with
+no grounding found), and — critically — **doing so is very unlikely to flip `disposition_ledger
+_valid` to `true` for this run**, since several of the 13 originally-flagged units may depend on
+the ungrounded buckets. Implementing a genuinely new, partially-effective feature under
+continued time pressure, without being able to confirm it reaches T5's actual completion bar, is
+exactly the kind of expanding, uncertain-payoff scope this session's discipline steers away from.
+This finding — materially more precise than either prior guess — is left as the documented
+starting point for whoever takes on the real fix.
+
 ## Downstream effect
 
 `GC-03` (Gate G3 close) requires **both** `T14` (COMPLETE) and `T5` COMPLETE — it stays blocked.
