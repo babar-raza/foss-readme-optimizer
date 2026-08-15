@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+  "source_sha256": "49b4e52a68337bffded87836457141a428987d48d41feb6449449ea154c4c4f3",
+  "facts_hash": "17ff28b15e766ad3fe2b096352d1347dbcbd026e41e2a68b599d75fb6ec19e08",
+  "assessment_hash": "c3c7165944ce00939eff77f23bf3a300249f09f3462bf2217adb225c7b5ff4af",
+  "prompt_sha256": "98469972eaf193d86547e949cc520786a5d922a26b13f7077ade30049462aa23",
+  "tool_schema_sha256": "563dccf8f0448c2b113abee7892e1736d226dad38019f1756dec1a03771429ef",
+  "input_sha256": "16e63f84747cd4940c822b92c7bb1ab1b93c9a01c902ff0dd760e2c47cbf1dbc",
+  "model": "qwen3-next",
+  "attempt_count": 2,
+  "authoring_hints": "REPAIR ATTEMPT 2. The previous JSON was rejected: composition opening summary exceeds the identity-only evidence boundary\nCall submit_readme_composition_plan again. Include exactly one section_decision for each source-bound ID and copy its paired disposition exactly:\n[{\"disposition\": \"preserve\", \"section_id\": \"opening\"}, {\"disposition\": \"preserve\", \"section_id\": \"heading:0\"}, {\"disposition\": \"preserve\", \"section_id\": \"heading:1226\"}, {\"disposition\": \"preserve\", \"section_id\": \"heading:1637\"}, {\"disposition\": \"preserve\", \"section_id\": \"heading:2872\"}, {\"disposition\": \"preserve\", \"section_id\": \"heading:5502\"}, {\"disposition\": \"investigate\", \"section_id\": \"heading:5668\"}, {\"disposition\": \"preserve\", \"section_id\": \"heading:6232\"}, {\"disposition\": \"preserve\", \"section_id\": \"heading:7477\"}, {\"disposition\": \"preserve\", \"section_id\": \"heading:17891\"}, {\"disposition\": \"preserve\", \"section_id\": \"heading:18789\"}, {\"disposition\": \"preserve\", \"section_id\": \"heading:19587\"}, {\"disposition\": \"preserve\", \"section_id\": \"heading:19721\"}]\nFor overview_fact_ids, select fact IDs from these options; deterministic code will materialize literal phrases:\n[{\"fact_id\": \"product.limitations:source-guidance\", \"phrases\": [\"Unsupported chart type for creation\", \"Only Agile encryption is currently supported\", \"Only line, bar, pie, area and stock charts are currently supported\"]}, {\"fact_id\": \"product.compatibility:manifest\", \"phrases\": [\"Requires Python 3.7 or later.\"]}, {\"fact_id\": \"product.identity:manifest-and-registry\", \"phrases\": [\"Aspose.Cells FOSS for Python\"]}]\nFor opening_summary, use the complete product identity, cite that identity plus the accepted audience fact and at least one accepted purpose/capability/format fact, and omit promotion, Enterprise Edition comparisons, commercial terminology, and hashes.\nFor diagram.nodes, use only labels from the role-compatible vocabulary below. Do not fill a count, reclassify a capability as an output, or invent a missing role; deterministic evidence owns role assignment. Every proposed label must retain at least one literal product term from the supplied vocabulary; do not use action phrases as inputs, and do not use runtime, source-code, package, installation, API, license, or support nouns unless they literally occur in this vocabulary:\n{\"capability\": [], \"input\": [], \"output\": []}",
+  "repository_summary": "Aspose.Cells FOSS for Python is a free, open-source, pure-Python library for creating, reading, and modifying Excel .xlsx workbooks without requiring Microsoft Excel. It runs on Python 3.7 or later and depends only on pycryptodome (AES encryption) and olefile (Compound File Binary handling).",
+  "section_decisions": [
+    {
+      "section_id": "opening",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry",
+        "relationship.commercial_foss:primary"
+      ],
+      "rationale": "The opening section is preserved as per the deterministic assessment. It contains the product identity and relationship to commercial FOSS, which are essential for accurate representation."
+    },
+    {
+      "section_id": "heading:0",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The main heading 'Aspose.Cells FOSS for Python' is preserved as per the deterministic assessment."
+    },
+    {
+      "section_id": "heading:1226",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Navigation' section is preserved as per the deterministic assessment."
+    },
+    {
+      "section_id": "heading:1637",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'At a Glance' section is preserved as per the deterministic assessment."
+    },
+    {
+      "section_id": "heading:2872",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Key Capabilities' section is preserved as per the deterministic assessment."
+    },
+    {
+      "section_id": "heading:5502",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [
+        "installation.coordinates:manifest",
+        "installation.verified_acquisition:registry-pypi",
+        "installation.optional_extras:python-manifest"
+      ],
+      "rationale": "The 'Installation' section is preserved as per the deterministic assessment and includes verified installation facts."
+    },
+    {
+      "section_id": "heading:5668",
+      "disposition": "investigate",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Quick Start' section is under investigation as per the deterministic assessment due to unresolved executable example evidence."
+    },
+    {
+      "section_id": "heading:6232",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Additional Examples' section is preserved as per the deterministic assessment."
+    },
+    {
+      "section_id": "heading:7477",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'API Reference' section is preserved as per the deterministic assessment."
+    },
+    {
+      "section_id": "heading:17891",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Documentation & Resources' section is preserved as per the deterministic assessment."
+    },
+    {
+      "section_id": "heading:18789",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Scope and Limitations' section is preserved as per the deterministic assessment."
+    },
+    {
+      "section_id": "heading:19587",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'Development and Testing' section is preserved as per the deterministic assessment."
+    },
+    {
+      "section_id": "heading:19721",
+      "disposition": "preserve",
+      "priority": 0,
+      "supporting_fact_ids": [],
+      "rationale": "The 'License' section is preserved as per the deterministic assessment."
+    }
+  ],
+  "overview_sentences": [
+    {
+      "text": "Aspose.Cells FOSS for Python",
+      "supporting_fact_ids": [
+        "product.identity:manifest-and-registry"
+      ]
+    },
+    {
+      "text": "Requires Python 3.7 or later.",
+      "supporting_fact_ids": [
+        "product.compatibility:manifest"
+      ]
+    },
+    {
+      "text": "Unsupported chart type for creation",
+      "supporting_fact_ids": [
+        "product.limitations:source-guidance"
+      ]
+    }
+  ],
+  "opening_summary": {
+    "text": "Aspose.Cells FOSS for Python is an open-source library.",
+    "supporting_fact_ids": [
+      "product.identity:manifest-and-registry"
+    ]
+  },
+  "diagram": {
+    "nodes": []
+  },
+  "review_repair": null
+}
