@@ -10,20 +10,27 @@ depending on that module's global, test-injection-only `_repo_root` state
 (discovered while probing T4: importing the whole orchestration module pulls
 in `session_identity`/`advisory_lock`/`core.fs`, none of which belong here).
 
-**Honest scope**: this covers 5 of the vendored module's 11 `_detect_*`
-functions (archetype, SEO keywords, install info, license file, enterprise
-link) -- the ones verified self-contained or tractably adaptable (pure
+**Honest scope**: this covers 9 of the vendored module's 11 `_detect_*`
+functions -- the ones verified self-contained or tractably adaptable (pure
 path/JSON/YAML logic plus, for the enterprise-link detector, the already-
-vendored `backlink_targets.py`). The remaining 6
-(`_detect_capability_dependencies`, `_detect_homepage_link`,
-`_detect_available_badges`, `_detect_dependency_claims`,
-`_detect_dev_test_artifacts`, `_detect_archetype_entry_raw`) were not
-extracted this session.
+vendored `backlink_targets.py`). `detect_homepage_link` always returns
+`verified=False` in this repo, honestly: it checks for a real file under
+`content/products.aspose.org/`, the Hugo website-content tree, which was
+never in TD-01's authorized lean-import scope (a large, separate tree, out
+of proportion to a "check-battery corpus" import) -- the vendored logic's
+own graceful-degradation contract ("never invent a URL not backed by
+verified data") makes this the correct, safe behavior, not a bug.
+The remaining 2 (`_detect_available_badges` -- has its own language-
+version-template table and per-ecosystem branching; `_detect_archetype_
+entry_raw` -- a near-duplicate of the already-adapted `detect_archetype`
+returning the full raw row instead of a filtered view) were not extracted
+this session.
 """
 
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -384,16 +391,101 @@ def detect_dev_test_artifacts(clone_cache: Path) -> tuple[DevTestArtifactV1, ...
     return tuple(found)
 
 
+def detect_capability_dependencies(
+    family: str, platform: str, *, data_root: Path
+) -> tuple[str, ...] | None:
+    """Adapted from `_detect_capability_dependencies` (readme_refresh_run.py).
+    `None` means "never traced" -- distinct from an empty tuple ("confirmed
+    independent, no pipeline edges"), preserved as the vendored logic's own
+    documented distinction, not collapsed."""
+
+    path = data_root / "data" / "diagram_capability_dependencies.json"
+    if not path.is_file():
+        return None
+    rows = json.loads(path.read_text(encoding="utf-8"))
+    for row in rows:
+        if row.get("family") == family and row.get("platform") == platform:
+            return tuple(row.get("pipeline_edges", []))
+    return None
+
+
+class HomepageLinkDetectionV1(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    url: str
+    verified: bool
+
+
+def detect_homepage_link(family: str, platform: str, *, data_root: Path) -> HomepageLinkDetectionV1:
+    """Adapted from `_detect_homepage_link` (readme_refresh_run.py). Honest
+    scope note (module docstring): `content/products.aspose.org/` was never
+    imported (TD-01's lean-import scope excluded the website-content tree),
+    so `verified` is always False in this repo today -- the vendored
+    logic's own "never invent a URL not backed by verified data" contract
+    makes that the correct, safe behavior when the evidence isn't present,
+    not a defect in this adaptation."""
+
+    url = f"https://products.aspose.org/{family}/{platform}/"
+    index_path = (
+        data_root / "content" / "products.aspose.org" / "en" / family / platform / "_index.md"
+    )
+    return HomepageLinkDetectionV1(url=url, verified=index_path.is_file())
+
+
+_MODEL_YAML_REPO_SHA_RE = re.compile(r"^repo_sha:\s*(\S+)\s*$", re.MULTILINE)
+
+
+class DependencyClaimsDetectionV1(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    claims: tuple[dict, ...]
+    repo_sha: str | None
+
+
+def detect_dependency_claims(
+    family: str, platform: str, *, data_root: Path
+) -> DependencyClaimsDetectionV1:
+    """Adapted from `_detect_dependency_claims` (readme_refresh_run.py).
+    Reads the already-imported `knowledge/{family}/{platform}/merged/` tree
+    (T1B); never fatal on absence, matching every other detector's
+    graceful-degradation posture."""
+
+    merged_dir = data_root / "knowledge" / family / platform / "merged"
+    claims: list[dict] = []
+    claims_path = merged_dir / "claims.json"
+    if claims_path.is_file():
+        try:
+            raw = json.loads(claims_path.read_text(encoding="utf-8"))
+            all_claims = raw if isinstance(raw, list) else raw.get("claims", [])
+            claims = [c for c in all_claims if c.get("kind") == "dependency"]
+        except (json.JSONDecodeError, OSError):
+            claims = []
+    repo_sha = None
+    model_path = merged_dir / "model.yaml"
+    if model_path.is_file():
+        try:
+            match = _MODEL_YAML_REPO_SHA_RE.search(model_path.read_text(encoding="utf-8"))
+            repo_sha = match.group(1) if match else None
+        except OSError:
+            repo_sha = None
+    return DependencyClaimsDetectionV1(claims=tuple(claims), repo_sha=repo_sha)
+
+
 __all__ = [
     "ArchetypeDetectionV1",
+    "DependencyClaimsDetectionV1",
     "DevTestArtifactV1",
     "EnterpriseLinkDetectionV1",
+    "HomepageLinkDetectionV1",
     "InstallInfoDetectionV1",
     "LicenseFileDetectionV1",
     "SeoKeywordsDetectionV1",
     "detect_archetype",
+    "detect_capability_dependencies",
+    "detect_dependency_claims",
     "detect_dev_test_artifacts",
     "detect_enterprise_link",
+    "detect_homepage_link",
     "detect_install_info",
     "detect_license_file",
     "detect_seo_keywords",

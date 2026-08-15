@@ -7,8 +7,11 @@ from pathlib import Path
 
 from readme_agent.facts.aspose_detectors import (
     detect_archetype,
+    detect_capability_dependencies,
+    detect_dependency_claims,
     detect_dev_test_artifacts,
     detect_enterprise_link,
+    detect_homepage_link,
     detect_install_info,
     detect_license_file,
     detect_seo_keywords,
@@ -225,3 +228,103 @@ def test_detect_dev_test_artifacts_deduplicates_a_single_physical_file(tmp_path)
 
 def test_detect_dev_test_artifacts_missing_directory_returns_empty(tmp_path):
     assert detect_dev_test_artifacts(tmp_path / "does-not-exist") == ()
+
+
+def test_detect_capability_dependencies_real_traced_product_returns_edges():
+    """Real data: barcode/python has 4 documented pipeline edges in
+    diagram_capability_dependencies.json."""
+
+    result = detect_capability_dependencies("barcode", "python", data_root=_DATA_ROOT)
+
+    assert result == (["c1", "c5"], ["c2", "c5"], ["c3", "c5"], ["c4", "c5"])
+
+
+def test_detect_capability_dependencies_real_never_traced_returns_none():
+    """None (never traced) is distinct from an empty tuple (confirmed
+    independent) -- this real product has no row in the source file at all."""
+
+    result = detect_capability_dependencies("nonexistent-family-xyz", "java", data_root=_DATA_ROOT)
+
+    assert result is None
+
+
+def test_detect_capability_dependencies_missing_source_file_returns_none(tmp_path):
+    assert detect_capability_dependencies("barcode", "python", data_root=tmp_path) is None
+
+
+def test_detect_homepage_link_real_url_format_is_always_constructed():
+    result = detect_homepage_link("cells", "java", data_root=_DATA_ROOT)
+
+    assert result.url == "https://products.aspose.org/cells/java/"
+
+
+def test_detect_homepage_link_real_verified_is_always_false_in_this_repo():
+    """Honest scope limitation: content/products.aspose.org/ was never
+    imported (TD-01's lean-import scope excluded the website-content tree),
+    so verified is False for every product today, even ones with an
+    otherwise complete real data footprint like cells/java."""
+
+    result = detect_homepage_link("cells", "java", data_root=_DATA_ROOT)
+
+    assert result.verified is False
+
+
+def test_detect_homepage_link_verified_true_when_index_file_present(tmp_path):
+    index_path = (
+        tmp_path / "content" / "products.aspose.org" / "en" / "cells" / "java" / "_index.md"
+    )
+    index_path.parent.mkdir(parents=True)
+    index_path.write_text("x", encoding="utf-8")
+
+    result = detect_homepage_link("cells", "java", data_root=tmp_path)
+
+    assert result.verified is True
+    assert result.url == "https://products.aspose.org/cells/java/"
+
+
+def test_detect_dependency_claims_real_dependency_kind_filter_and_repo_sha():
+    """Real data: cells/rust's claims.json has 7 claims with kind ==
+    'dependency' among a larger mixed-kind set, plus a real repo_sha in
+    model.yaml."""
+
+    result = detect_dependency_claims("cells", "rust", data_root=_DATA_ROOT)
+
+    assert len(result.claims) == 7
+    assert all(c["kind"] == "dependency" for c in result.claims)
+    assert result.repo_sha == "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e"
+
+
+def test_detect_dependency_claims_real_absent_product_degrades_gracefully():
+    result = detect_dependency_claims("nonexistent-family-xyz", "java", data_root=_DATA_ROOT)
+
+    assert result.claims == ()
+    assert result.repo_sha is None
+
+
+def test_detect_dependency_claims_synthetic_repo_sha_regex_extraction(tmp_path):
+    merged_dir = tmp_path / "knowledge" / "widget" / "python" / "merged"
+    merged_dir.mkdir(parents=True)
+    (merged_dir / "claims.json").write_text(
+        '[{"kind": "dependency", "text": "Depends on foo"}, '
+        '{"kind": "api_method", "text": "irrelevant"}]',
+        encoding="utf-8",
+    )
+    (merged_dir / "model.yaml").write_text(
+        "some_field: value\nrepo_sha: deadbeefcafe\nanother_field: 1\n", encoding="utf-8"
+    )
+
+    result = detect_dependency_claims("widget", "python", data_root=tmp_path)
+
+    assert result.claims == ({"kind": "dependency", "text": "Depends on foo"},)
+    assert result.repo_sha == "deadbeefcafe"
+
+
+def test_detect_dependency_claims_malformed_claims_json_degrades_gracefully(tmp_path):
+    merged_dir = tmp_path / "knowledge" / "widget" / "python" / "merged"
+    merged_dir.mkdir(parents=True)
+    (merged_dir / "claims.json").write_text("{not valid json", encoding="utf-8")
+
+    result = detect_dependency_claims("widget", "python", data_root=tmp_path)
+
+    assert result.claims == ()
+    assert result.repo_sha is None

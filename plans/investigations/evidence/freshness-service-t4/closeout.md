@@ -9,7 +9,7 @@ and found it pulls in `session_identity`, `advisory_lock`, `core.fs` — real or
 machinery this repo already owns an equivalent for. Correctly did NOT import that, matching
 this plan's own capability-reuse table ("port only detector logic").
 
-Instead, extracted and adapted **6 of the 11** `_detect_*` functions
+Instead, extracted and adapted **9 of the 11** `_detect_*` functions
 (`src/readme_agent/facts/aspose_detectors.py`) as standalone, typed (pydantic) functions taking
 explicit parameters instead of the vendored module's global `configure()`-injected state:
 
@@ -23,14 +23,29 @@ explicit parameters instead of the vendored module's global `configure()`-inject
 - `detect_dev_test_artifacts` — a pure filesystem scan; both of its documented real-world fixes
   (case-insensitive `Agents.md` discovery, `.pytest_cache/` exclusion despite containing "test"
   as a substring) verified working via synthetic fixtures.
+- `detect_capability_dependencies` — reads `data/diagram_capability_dependencies.json`; tested
+  against a real traced product (`barcode/python`, 4 real pipeline edges) and confirmed the
+  `None` ("never traced") vs `()` ("confirmed independent") distinction is preserved, matching
+  the vendored logic's own documented contract.
+- `detect_homepage_link` — honest scope-limited adaptation: `content/products.aspose.org/` was
+  never imported (TD-01's lean-import scope excluded the website-content tree), so `verified` is
+  always `False` in this repo today; proven against real data (`cells/java`) that the URL is
+  still correctly constructed even though verification can't succeed, and proven via a synthetic
+  fixture that `verified` flips `True` once the evidence file is present — confirming this is a
+  real, correct scope gap, not a latent bug.
+- `detect_dependency_claims` — reads `knowledge/{family}/{platform}/merged/claims.json` +
+  `model.yaml`; tested against real data (`cells/rust`, 7 real `kind: dependency` claims among a
+  larger mixed-kind set, plus real `repo_sha` regex extraction) and against synthetic fixtures
+  for the regex-extraction and malformed-JSON graceful-degradation paths.
 
-**20 tests, all passing.**
+**30 tests, all passing** (20 from the first 6 detectors + 10 for these 3).
 
 ## What is NOT done (honest gap)
 
-- **5 of 11 detectors not extracted**: `_detect_capability_dependencies`,
-  `_detect_homepage_link`, `_detect_available_badges` (has its own language-version-template
-  table), `_detect_dependency_claims`, `_detect_archetype_entry_raw`.
+- **2 of 11 detectors not extracted**: `_detect_available_badges` (has its own
+  per-ecosystem language-version-template table — materially larger scope than the other
+  detectors), `_detect_archetype_entry_raw` (a lower-value near-duplicate of
+  `detect_archetype`).
 - **No `ComposerFactpack` merge with `ProductFactsV2`** — this repo's own richer fact type was
   not wired to consume these detector outputs.
 - **No `EvidenceGroundedRenderViewV2`** (closing RC1) and **no per-source
