@@ -169,6 +169,40 @@ in this run's real output. Confirmed not worth implementing the partial `accepte
 alone; the real fix is comprehensive candidate-span tracking across all disposition sources, a
 properly-scoped card of its own.
 
+## Fifth, final check: is the golden-contract-slot (SUPERSEDED, 9/13) bucket groundable via
+`document_plan.operations`?
+
+One more real candidate data source existed and was checked before concluding: `ReadmeDocument
+PlanV1.operations` (`document_plan.py:267`), each a `ReadmeDocumentOperationV1` with a `source_
+byte_start/end` span and a literal `replacement_text` — the exact same "find the literal
+replacement string in the candidate" technique `claim_map.py` itself already uses elsewhere.
+Diagnostic: for each of the 20 real `verified_obligation_replacement`/`authoritative_correction`
+claim records, find the operation(s) whose source span covers/overlaps the claim's source span,
+then check whether that operation's `replacement_text` is findable in the real candidate bytes.
+
+**Result: `operations count: 1`.** The entire candidate is produced by a single, monolithic
+`readme.verified-template.compile` operation spanning source bytes `0`–`20006` (the whole
+original document) with a `15,775`-byte `replacement_text` (essentially the whole new document
+body, `candidate_text` is `15,778` bytes total). Every one of the 20 claims trivially "resolves"
+to this one operation — not because a genuine per-section mapping exists, but because there is
+only one operation, covering everything. Its `replacement_text` is found in the candidate at
+byte 0 for every claim, which reveals *nothing* about where within that block each specific
+unit's replacement content actually landed. **This is a real dead end**: the golden-contract
+compile step does not track section-level provenance internally at all — it operates as one
+whole-document rewrite, not a set of per-section operations. Confirmed via the operation's own
+byte-span (matching the whole source) and replacement-text length (matching nearly the whole
+candidate), not assumed.
+
+**This closes the investigation exhaustively.** Three genuinely distinct real candidate data
+sources were checked across four/five rounds — `composition_ledger.source_placements` (never
+populated on this path), `equivalent_candidate_claims` (populated in 0 of 8 eligible records),
+and `document_plan.operations` (exists, but is a single whole-document operation with no
+internal section structure) — and none provides real, per-section candidate-location data for
+the 11 of 13 flagged units outside the `accepted_fact` bucket. A genuine fix requires the
+compile step itself to emit per-section operations (or equivalent structured provenance) — a
+real feature addition to the composition mechanism, not data that merely needs to be threaded
+through from an existing source.
+
 ## Downstream effect
 
 `GC-03` (Gate G3 close) requires **both** `T14` (COMPLETE) and `T5` COMPLETE — it stays blocked.
