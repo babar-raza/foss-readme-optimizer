@@ -371,6 +371,31 @@ method-level table's format, sourcing method-level facts, wiring it into the tem
 squarely out of scope for a "pilot skeleton" card, and belongs to the composition-worker cards
 (T6-T8's design territory) this plan already anticipates.
 
+### One more precision check: is this a total absence, or a truncation?
+
+Before concluding, checked whether the underlying `api.public_surface` fact data already
+contains method-level detail entirely unused by the renderer (which would make this a smaller
+rendering-completion fix) or something else. It does: each class row's `members` list
+(`document_validation.py:158-160`) already carries method names, and the class-level table's
+description column already summarizes *some* of them in transformed prose — e.g. the real
+`Workbook` row reads "Supports adding worksheets, copying worksheet, and creating worksheet,"
+covering `add_worksheet`/`copy_worksheet` in paraphrased form. Checking all 9 lost terms against
+the real candidate: **4 of 9** (`add_worksheet`, `copy_worksheet`, `save_as_json`,
+`save_as_markdown`, `load_csv`) appear as transformed, gerund-form prose in their class's row;
+**5 of 9** (`remove_worksheet`, `Worksheet.rename`, `merge_range`, `get_active_worksheet`) have
+no trace anywhere, even in paraphrased form.
+
+This means the class-description renderer **deliberately truncates** its member summary to a
+short sample (matching an existing, intentional test name found earlier this session,
+`test_capability_renderer_keeps_first_rich_row_and_omits_semantic_repeats`) rather than omitting
+a method tier wholesale. This *refines*, and does not contradict, the conclusion above: the real
+gap is a genuine tension between an existing, deliberate "keep descriptions concise" design and
+the protected-content check's "a verified API name must never be silently dropped" guarantee —
+resolvable only by adding a genuine method-level presentation surface (the "two-tier" reference),
+not by adjusting a truncation limit (which would either re-bloat concise rows or still cut off
+classes with many members). The precise mechanism is now understood exactly, which is real,
+useful groundwork for T6-T8, even though building the fix itself remains out of T5's scope.
+
 ## Downstream effect
 
 `GC-03` (Gate G3 close) requires **both** `T14` (COMPLETE) and `T5` COMPLETE — it stays blocked.
