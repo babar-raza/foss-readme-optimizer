@@ -193,15 +193,42 @@ whole-document rewrite, not a set of per-section operations. Confirmed via the o
 byte-span (matching the whole source) and replacement-text length (matching nearly the whole
 candidate), not assumed.
 
-**This closes the investigation exhaustively.** Three genuinely distinct real candidate data
-sources were checked across four/five rounds — `composition_ledger.source_placements` (never
-populated on this path), `equivalent_candidate_claims` (populated in 0 of 8 eligible records),
-and `document_plan.operations` (exists, but is a single whole-document operation with no
-internal section structure) — and none provides real, per-section candidate-location data for
-the 11 of 13 flagged units outside the `accepted_fact` bucket. A genuine fix requires the
-compile step itself to emit per-section operations (or equivalent structured provenance) — a
-real feature addition to the composition mechanism, not data that merely needs to be threaded
-through from an existing source.
+## Correction to the above: `composition_ledger` is NOT "never populated" — that claim was wrong
+
+The paragraph above (and the commit that recorded it) stated `composition_ledger.source_
+placements` is "never populated on this path," reasoning from a `grep` of `document_renderer.py`
+that found no direct `composition_ledger` assignment. That grep missed a delegation:
+`document_renderer.py::build_readme_document_candidate` (line 138) calls `presentation/
+verified_template_document.py::build_verified_template_document_candidate` whenever
+`facts.content_assurance == "repository_verified"` and an agentic plan is present — both true
+for this real run — and *that* function (`verified_template_document.py:154-160`) does call
+`build_composition_ledger(...)` with real `compiled.source_placements`.
+
+**Empirically re-checked directly** (not re-grepped): `composition_ledger` **is populated** —
+`source_placements` has **5 real entries**, each with genuine, non-fabricated `final_byte_start/
+end` candidate-side positions (e.g. `source_byte_start=4207` → `final_byte_start=14464`,
+content-hash-verified equal on both ends). `structural_role` is `null` on all 5 (reserved for a
+different `placement_basis`, per the schema's own validator), so there's no ready-made heading
+label, but the byte positions themselves are real and usable.
+
+**However — cross-checked against the exact 13 flagged units' source byte ranges: zero overlap.**
+None of the 5 real placements' `source_byte_start/end` falls inside any of the 13 flagged units'
+block ranges. So the earlier practical conclusion (this data source does not ground the 11
+ungrounded flagged units) **is still correct** — only the stated reason ("never populated") was
+wrong; the accurate reason is "populated, but with too few placements (5, versus 137 claim
+records) to cover this run's flagged units." Recorded here rather than left standing as a
+factual error in committed evidence, per this session's standing discipline.
+
+**This closes the investigation exhaustively, with a corrected record.** Three genuinely
+distinct real candidate data sources were checked — `composition_ledger.source_placements`
+(real, populated, but 0/13 flagged-unit overlap for this run), `equivalent_candidate_claims`
+(populated in 0 of 8 eligible records), and `document_plan.operations` (exists, but is a single
+whole-document operation with no internal section structure) — and none provides usable,
+per-section candidate-location data for the 11 of 13 flagged units outside the `accepted_fact`
+bucket, on this specific run. A genuine, general fix requires the compile step to emit
+substantially more complete per-section placement data (or equivalent structured provenance) —
+a real feature addition to the composition mechanism, not data that merely needs to be threaded
+through from an existing, already-sufficient source.
 
 ## Downstream effect
 
