@@ -317,13 +317,82 @@ def detect_enterprise_link(
     )
 
 
+class DevTestArtifactV1(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    relative_path: str
+    kind: str
+    section: str
+
+
+def detect_dev_test_artifacts(clone_cache: Path) -> tuple[DevTestArtifactV1, ...]:
+    """Adapted verbatim from `_detect_dev_test_artifacts` (readme_refresh_run.py) --
+    a deliberately narrow, real-audit-confirmed allowlist (never guessed at),
+    plus the case-insensitive AGENTS.md discovery fix and the pytest-cache
+    exclusion, both preserved exactly."""
+
+    if not clone_cache.is_dir():
+        return ()
+    found: list[DevTestArtifactV1] = []
+    seen_real_paths: set[str] = set()
+
+    def _add(path: Path, kind: str, section: str) -> None:
+        if not path.is_file():
+            return
+        try:
+            real_name = next(p.name for p in path.parent.iterdir() if p.name == path.name)
+        except StopIteration:
+            return
+        if real_name != path.name:
+            return
+        relative_path = str(path.relative_to(clone_cache)).replace("\\", "/")
+        if relative_path in seen_real_paths:
+            return
+        seen_real_paths.add(relative_path)
+        found.append(DevTestArtifactV1(relative_path=relative_path, kind=kind, section=section))
+
+    try:
+        agents_entries = list(clone_cache.iterdir())
+    except OSError:
+        agents_entries = []
+    for entry in agents_entries:
+        if entry.is_file() and entry.name.lower() == "agents.md":
+            _add(entry, "agents_guide", "Documentation & Resources")
+            break
+    for name in ("CONTRIBUTING.md", "CONTRIBUTING.rst"):
+        _add(clone_cache / name, "contributing_guide", "Documentation & Resources")
+    _add(clone_cache / "PUBLIC_API.md", "public_api_doc", "Documentation & Resources")
+    _add(clone_cache / "CHANGELOG.md", "changelog", "Documentation & Resources")
+    _add(clone_cache / "PUBLISHING.md", "publishing_guide", "Documentation & Resources")
+
+    docs_dir = clone_cache / "docs"
+    if docs_dir.is_dir():
+        for md in sorted(docs_dir.glob("*.md")):
+            _add(md, "docs_guide", "Documentation & Resources")
+
+    workflows_dir = clone_cache / ".github" / "workflows"
+    if workflows_dir.is_dir():
+        for wf in sorted(workflows_dir.glob("*.yml")) + sorted(workflows_dir.glob("*.yaml")):
+            _add(wf, "ci_workflow", "Development and Testing")
+
+    _add(clone_cache / "examples" / "README.md", "examples_readme", "Development and Testing")
+
+    for child in sorted(clone_cache.iterdir()):
+        if child.is_dir() and "test" in child.name.lower() and not child.name.startswith("."):
+            _add(child / "README.md", "test_dir_readme", "Development and Testing")
+
+    return tuple(found)
+
+
 __all__ = [
     "ArchetypeDetectionV1",
+    "DevTestArtifactV1",
     "EnterpriseLinkDetectionV1",
     "InstallInfoDetectionV1",
     "LicenseFileDetectionV1",
     "SeoKeywordsDetectionV1",
     "detect_archetype",
+    "detect_dev_test_artifacts",
     "detect_enterprise_link",
     "detect_install_info",
     "detect_license_file",

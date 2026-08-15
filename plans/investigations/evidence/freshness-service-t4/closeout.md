@@ -6,48 +6,31 @@
 
 Investigated importing the vendored orchestration module (`readme_refresh_run.py`) wholesale
 and found it pulls in `session_identity`, `advisory_lock`, `core.fs` — real orchestration
-machinery (locking, atomic writes, session identity) this repo already owns an equivalent for.
-Correctly did NOT import that, matching this plan's own capability-reuse table ("port only
-detector logic").
+machinery this repo already owns an equivalent for. Correctly did NOT import that, matching
+this plan's own capability-reuse table ("port only detector logic").
 
-Instead, extracted and adapted **5 of the 11** `_detect_*` functions
+Instead, extracted and adapted **6 of the 11** `_detect_*` functions
 (`src/readme_agent/facts/aspose_detectors.py`) as standalone, typed (pydantic) functions taking
-an explicit `data_root: Path` parameter instead of the vendored module's global
-`configure()`-injected `_repo_root` state:
+explicit parameters instead of the vendored module's global `configure()`-injected state:
 
-- `detect_archetype` — tested against real `data/imported/data/diagram_archetypes.json`.
-- `detect_seo_keywords` — tested against real `data/imported/keywords/cells.json`, including
-  the platform-then-family fallback (found real data has entries for all 7 real platforms, so
-  the fallback test uses a genuinely-absent hypothetical platform to exercise it for real).
-- `detect_install_info` — tested against real `data/imported/data/package_registry.json`;
-  **found and fixed a real type mismatch**: the vendored code's `candidate` field is an untyped
-  dict in practice (Maven group_id/artifact_id/version/repo_sha), not the scalar my first draft
-  assumed — caught immediately by the pydantic model raising on the real data, not silently
-  accepted.
-- `detect_license_file` — the widened MIT-preamble match (the real TC-HARDEN-20 fix) preserved
-  verbatim and proven with both a positive fixture (`"The MIT License (MIT)"` preamble) and a
-  negative one (Apache-2.0 correctly excluded).
-- `detect_enterprise_link` — the MT044 anchor-relationship classification (never disclose an
-  implementation bridge, e.g. `cells/python`'s real `python-net` compound URL segment must
-  surface `public_platform="Python"`, never "via .NET" or the raw segment). Reuses the already-
-  vendored `backlink_targets.py` for URL resolution; **found and fixed two real bugs while
-  wiring it up**: (1) `data/backlinks/*.yaml` (needed by `backlink_targets.py`) was in the
-  TD-01/TL-01 authorized scope but never actually enumerated by T1A's `data/*.json`-only walk —
-  a genuine execution gap, now fixed with a proper import + manifest update; (2) a namespace-
-  package `sys.path` bug (the vendored `lib.api_table_dupes` import needs `lib/`'s *parent*
-  directory on the path, not `lib/` itself) and a path-depth-off-by-one bug copied from the
-  T3 registry module (this file is one directory shallower). Also caught a real type bug in
-  passing: `target_map_age_days` is a fractional float, not a whole-day int.
+- `detect_archetype`, `detect_seo_keywords`, `detect_install_info`, `detect_license_file` — all
+  tested against the real imported corpus; found and fixed a real type bug (install-info
+  `candidate` is a structured dict, not a scalar).
+- `detect_enterprise_link` — the MT044 bridge-disclosure rule, proven against a genuine real
+  bridge case (`cells/python`'s `python-net` compound segment). Found and fixed a real T1A
+  execution gap (`data/backlinks/*.yaml` was authorized but never enumerated) plus a namespace-
+  package path bug and a float/int type bug.
+- `detect_dev_test_artifacts` — a pure filesystem scan; both of its documented real-world fixes
+  (case-insensitive `Agents.md` discovery, `.pytest_cache/` exclusion despite containing "test"
+  as a substring) verified working via synthetic fixtures.
 
-**15 tests, all passing**, testing against the real imported corpus wherever real data exists —
-including proving the MT044 bridge-disclosure rule holds against a genuine real bridge case
-(`cells/python`), not just a synthetic one.
+**20 tests, all passing.**
 
 ## What is NOT done (honest gap)
 
-- **6 of 11 detectors not extracted**: `_detect_capability_dependencies`,
+- **5 of 11 detectors not extracted**: `_detect_capability_dependencies`,
   `_detect_homepage_link`, `_detect_available_badges` (has its own language-version-template
-  table), `_detect_dependency_claims`, `_detect_dev_test_artifacts`, `_detect_archetype_entry_raw`.
+  table), `_detect_dependency_claims`, `_detect_archetype_entry_raw`.
 - **No `ComposerFactpack` merge with `ProductFactsV2`** — this repo's own richer fact type was
   not wired to consume these detector outputs.
 - **No `EvidenceGroundedRenderViewV2`** (closing RC1) and **no per-source
@@ -55,5 +38,5 @@ including proving the MT044 bridge-disclosure rule holds against a genuine real 
 
 ## Downstream effect
 
-`T14` (section registry) depends on both `T3` and `T4`; neither is complete, so `T14` and
-everything gated behind it remain out of reach this session.
+`T14` (section registry) depends on both `T3` (now COMPLETE) and `T4` (still in progress);
+`T14` and everything gated behind it remain out of reach until T4 is also complete.

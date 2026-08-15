@@ -7,6 +7,7 @@ from pathlib import Path
 
 from readme_agent.facts.aspose_detectors import (
     detect_archetype,
+    detect_dev_test_artifacts,
     detect_enterprise_link,
     detect_install_info,
     detect_license_file,
@@ -165,3 +166,62 @@ def test_detect_enterprise_link_missing_target_map_degrades_gracefully(tmp_path)
     assert result.url is None
     assert result.fallback_reason is not None
     assert "target_map_unavailable" in result.fallback_reason
+
+
+def test_detect_dev_test_artifacts_finds_expected_categories(tmp_path):
+    (tmp_path / "CONTRIBUTING.md").write_text("x", encoding="utf-8")
+    (tmp_path / "docs").mkdir()
+    (tmp_path / "docs" / "guide.md").write_text("x", encoding="utf-8")
+    (tmp_path / ".github" / "workflows").mkdir(parents=True)
+    (tmp_path / ".github" / "workflows" / "ci.yml").write_text("x", encoding="utf-8")
+
+    result = detect_dev_test_artifacts(tmp_path)
+
+    kinds = {item.kind for item in result}
+    assert kinds == {"contributing_guide", "docs_guide", "ci_workflow"}
+
+
+def test_detect_dev_test_artifacts_case_insensitive_agents_discovery(tmp_path):
+    """Real confirmed defect: cells/java's actual on-disk file is cased
+    'Agents.md' -- neither 'AGENTS.md' nor 'agents.md' literal lookups
+    matched it. The fix scans case-insensitively then verifies the exact
+    on-disk name."""
+
+    (tmp_path / "Agents.md").write_text("x", encoding="utf-8")
+
+    result = detect_dev_test_artifacts(tmp_path)
+
+    assert len(result) == 1
+    assert result[0].relative_path == "Agents.md"
+    assert result[0].kind == "agents_guide"
+
+
+def test_detect_dev_test_artifacts_excludes_pytest_cache_boilerplate(tmp_path):
+    """Real confirmed defect: pytest itself writes a boilerplate README.md
+    into .pytest_cache/ on every run -- 'test' is a substring of
+    'pytest_cache', so this must be excluded by the leading-dot rule, not
+    picked up as a genuine test_dir_readme."""
+
+    (tmp_path / ".pytest_cache").mkdir()
+    (tmp_path / ".pytest_cache" / "README.md").write_text("x", encoding="utf-8")
+    (tmp_path / "tests_integration").mkdir()
+    (tmp_path / "tests_integration" / "README.md").write_text("x", encoding="utf-8")
+
+    result = detect_dev_test_artifacts(tmp_path)
+
+    paths = {item.relative_path for item in result}
+    assert ".pytest_cache/README.md" not in paths
+    assert "tests_integration/README.md" in paths
+
+
+def test_detect_dev_test_artifacts_deduplicates_a_single_physical_file(tmp_path):
+    (tmp_path / "CONTRIBUTING.md").write_text("x", encoding="utf-8")
+
+    result = detect_dev_test_artifacts(tmp_path)
+
+    paths = [item.relative_path for item in result]
+    assert paths.count("CONTRIBUTING.md") == 1
+
+
+def test_detect_dev_test_artifacts_missing_directory_returns_empty(tmp_path):
+    assert detect_dev_test_artifacts(tmp_path / "does-not-exist") == ()
