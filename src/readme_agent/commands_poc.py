@@ -109,6 +109,14 @@ def build_source_disposition_ledger(
         if isinstance(record, dict) and record.get("stage") == "source"
     ]
     candidate_text = _normalized(render.get("final_text", ""))
+    raw_candidate_text = render.get("final_text", "")
+    # Heading -> exact compiled block text ("## Heading\n\nBody"), computed by
+    # the template compiler itself (presentation/template_compiler.py::
+    # compiled_slot_blocks) at composition time. A unit's disposed content is
+    # only given a `target` when that exact block genuinely appears in the
+    # final candidate -- proven by substring match against the compiler's own
+    # output, never guessed from the heading name alone.
+    compiled_blocks = plan.get("compiled_slot_blocks") or {}
 
     units: list[dict] = []
     current: dict | None = None
@@ -174,11 +182,20 @@ def build_source_disposition_ledger(
             "NON_CONTENT",
         )
         reason = next(reason for outcome, reason in block_outcomes if outcome == chosen)
+        target = ""
+        if chosen in {"VERIFIED_MERGED", "SUPERSEDED"}:
+            # heading_text carries the extracted source heading's literal
+            # markdown prefix (e.g. "## Installation"); compiled_blocks is
+            # keyed by the bare contract heading text (e.g. "Installation").
+            heading = unit.get("heading_text", "").lstrip("#").strip()
+            block_text = compiled_blocks.get(heading)
+            if block_text and block_text in raw_candidate_text:
+                target = heading
         ledger_units.append(
             {
                 "unit": unit["unit"],
                 "disposition": chosen,
-                "target": "",
+                "target": target,
                 "reason": reason[:200],
             }
         )

@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.links.contextual_models import ContextualLinkPlanV1
 from readme_agent.presentation.template_adapters import bind_product_facts
-from readme_agent.presentation.template_compiler import compile_repository_presentation
+from readme_agent.presentation.template_compiler import (
+    compile_repository_presentation,
+    compiled_slot_blocks,
+)
 from readme_agent.presentation.template_schema import PresentationTemplateInputV1
 from readme_agent.presentation.verified_preservation_sections import (
     build_verified_source_preservation_selection,
@@ -50,6 +53,7 @@ class VerifiedTemplateCompilationV1(BaseModel):
     provenance: list[CandidateContentProvenanceV1]
     source_placements: list[ExactSourcePlacementV1]
     source_policy_corrections: list[SourceClaimPolicyCorrectionV1]
+    compiled_slot_blocks: dict[str, str] = Field(default_factory=dict)
 
 
 def declared_preserve_ranges(
@@ -85,6 +89,7 @@ def build_verified_template_compilation(
     errors = validate_repository_presentation(candidate, template_input)
     if errors:
         raise ValueError("compiled verified presentation is invalid: " + "; ".join(errors))
+    slot_blocks = compiled_slot_blocks(template_input)
     provenance = build_template_provenance(
         candidate,
         template_input,
@@ -156,4 +161,5 @@ def build_verified_template_compilation(
         provenance=composition.provenance,
         source_placements=composition.source_placements,
         source_policy_corrections=composition.source_policy_corrections,
+        compiled_slot_blocks=slot_blocks,
     )

@@ -1,9 +1,12 @@
 # T5 — deterministic pilot skeleton (cells/python)
 
 **Status: SUBSTANTIAL PROGRESS, not COMPLETE.** Recorded honestly — the card's own closeout bar
-("full battery green + byte-identical double run") is only half met: the double-run proof is
-real and complete; the battery did **not** go green, for reasons genuinely outside this card's
-scope (see below). `GC-03` (G3 close) correctly stays blocked until this is resolved.
+("full battery green + byte-identical double run") is only partly met: the double-run proof is
+real and complete; a real, tested, verified fix landed for the disposition-ledger `target`
+defect (`disposition_ledger_errors` 13 → 7 on the real pilot, see below), but the overall
+candidate is still `deterministic_verdict: reject` due to two separate, unaddressed defects
+(protected-content losses, claim-accountability gaps) — "full battery green" is not yet reached.
+`GC-03` (G3 close) correctly stays blocked until all of this is resolved.
 
 ## What is genuinely done and verified
 
@@ -269,14 +272,64 @@ pre-preservation candidate would **not** be valid against the actual final candi
 (`render["final_text"]`) without also accounting for every insertion's effect on downstream
 offsets — a second, distinct piece of correctness work, not merely "thread the data through."
 
-**Decision: not implemented.** Producing spans that are subtly wrong in a way that looks
-authoritative would be worse than the current honest empty `target` — it would silently mislabel
-content instead of visibly failing the ledger check. Correctly reconciling the two coordinate
-systems (pre-insertion template-compiled offsets vs. post-insertion final-candidate offsets) is
-real, additional engineering — confirmed by reading the actual insertion logic, not assumed —
-and belongs in the same properly-scoped fix card as the rest of this investigation's findings,
-with its own dedicated tests proving span correctness under insertion, not a rushed addition
-here.
+**Revised decision: implemented, using a different technique that sidesteps the coordinate-shift
+problem entirely.** Byte *offsets* computed at the pre-insertion stage are invalid after
+insertion — but a *substring search* against the actual final candidate is not, since `.find()`
+re-locates content wherever it ends up regardless of what happened in between (the same safe
+pattern `claim_map.py` already uses for `operation.replacement_text`). So instead of tracking
+byte offsets, a new sibling function tracks each slot's exact compiled **block text**
+("`## Heading\n\nBody`"), computed once at compile time, then looked up by substring search
+against the real final candidate at ledger-build time — no offset arithmetic, no coordinate
+systems to reconcile.
+
+### What was built (real, tested, verified against the live pilot)
+
+- `presentation/template_compiler.py::compiled_slot_blocks()` (new, additive-only — the existing
+  `compile_repository_presentation` is untouched, verified via `git diff`): returns each included
+  slot's exact compiled block text, keyed by heading.
+- `VerifiedTemplateCompilationV1` (`verified_template_runtime.py`) and `ReadmeDocumentPlanV1`
+  (`readme/document_plan.py`) each gain a new, additive, defaulted field
+  (`compiled_slot_blocks: dict[str, str] = Field(default_factory=dict)`) threaded through
+  `build_verified_template_compilation` → `build_verified_template_document_candidate`.
+- `commands_poc.py::build_source_disposition_ledger`: for any unit disposed `VERIFIED_MERGED`/
+  `SUPERSEDED`, look up its heading in `compiled_slot_blocks` and confirm the exact block text is
+  present in the real final candidate before setting `target` — grounded proof, never a guess.
+
+**First attempt had a real bug, found and fixed via direct debugging, not assumed correct**: the
+extracted source heading label carries its literal markdown prefix (`"## Installation"`), while
+`compiled_slot_blocks` is keyed by the bare contract heading (`"Installation"`) — a plain string
+mismatch, fixed with `heading.lstrip("#").strip()`, confirmed via a monkeypatched live pilot
+re-run showing the exact before/after.
+
+**Verified against the real pilot (`aspose-cells-foss/Aspose.Cells-FOSS-for-Python`)**:
+`disposition_ledger_errors` dropped from **13 to 7** — Installation, Additional Examples, API
+Reference, Scope and Limitations, Development and Testing, and License now correctly resolve
+their `target`, each proven by real substring match against the compiler's own output (evidence:
+`validation-after-fix.json`, `dispositions-after-fix.json`). The remaining 7 have individually
+understood, legitimate reasons untouched by this fix: H1/Navigation are fixed, non-slot blocks
+(not part of the per-slot loop this fix targets); the 3 H3 examples are sub-headings nested
+*within* the (now-resolved) Additional Examples slot, not their own top-level slots; "At a
+Glance" genuinely was not included in this compilation; "Documentation & Resources" (source
+spelling, with `&`) does not match the contract's canonical "Documentation and Resources" (with
+"and") — a real, different, disclosed finding (a spelling divergence between the source README
+and the template contract), not something this fix should paper over with a fuzzy match.
+
+**3 new tests** (`tests/unit/test_template_compiler_slot_blocks.py`), all passing, proving
+`compiled_slot_blocks` matches the real compiler's output, omits non-included slots, and never
+alters `compile_repository_presentation`'s own behavior (byte-identical output before/after).
+Adding fields to `ReadmeDocumentPlanV1`/`VerifiedTemplateCompilationV1` legitimately shifted 4
+pre-existing TB-01-style plan-hash characterization constants (`test_agentic_readme_
+composition.py`, `test_readme_composition_characterization.py` ×3) — confirmed via the same
+`DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS` mechanism already encountered once this session for
+T10, re-baselined with the fresh values, all other characterization hashes (source/facts/
+assessment/candidate bytes) unchanged. **Full governed suite: 3,911 passed, 1 skipped, 0
+failed** (up from 3,908 before this fix — the delta is exactly the 3 new tests).
+
+**Still not COMPLETE**: even with this real fix, the overall candidate remains
+`deterministic_verdict: reject` — 9 unauthorized protected-content losses and 9 blocking
+claim-accountability gaps are separate, independent defects this fix does not address (and
+which were never in scope for the disposition-ledger investigation). "Full battery green"
+requires resolving those too, which is real, separate, unstarted work.
 
 ## Downstream effect
 

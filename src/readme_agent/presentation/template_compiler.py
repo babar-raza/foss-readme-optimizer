@@ -112,6 +112,43 @@ def compile_repository_presentation(
     return candidate
 
 
+def compiled_slot_blocks(
+    template_input: PresentationTemplateInputV1,
+    *,
+    template: RepositoryPresentationTemplateV1 | None = None,
+) -> dict[str, str]:
+    """Return each included slot's exact compiled block text, keyed by its
+    heading -- the same block text `compile_repository_presentation` joins
+    into the candidate, computed the same way, never altering that
+    function's own behavior (this is an additive sibling, called only
+    after a `compile_repository_presentation` call on the same input has
+    already succeeded).
+
+    Callers use this to locate a slot's freshly-compiled content in the
+    *final* candidate by exact substring search, which stays correct even
+    when a later step (verified-source-preservation splicing) inserts
+    additional blocks and shifts byte offsets downstream -- unlike a
+    byte-offset computed at this stage, a substring search re-locates the
+    content wherever it ends up.
+    """
+
+    contract = template or load_repository_presentation_template()
+    profile = select_density_profile(
+        template_input.source_line_count,
+        configured_profile=template_input.profile,
+        template=contract,
+    )
+    included = _included_sections(template_input, contract)
+    collapse = set(contract.profiles[profile].collapse_slots)
+    blocks: dict[str, str] = {}
+    for slot, content in included:
+        body = content.markdown.strip()
+        if slot in collapse and body.count("\n") >= 12 and "<details>" not in body:
+            continue
+        blocks[contract.headings[slot]] = f"## {contract.headings[slot]}\n\n{body}"
+    return blocks
+
+
 def presentation_input_hash(template_input: PresentationTemplateInputV1) -> str:
     """Hash every bound slot independently of runtime serialization order."""
 

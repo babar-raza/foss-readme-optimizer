@@ -266,6 +266,7 @@ class ReadmeDocumentPlanV1(_StrictModel):
     composition_ledger: ReadmeCompositionLedgerV1 | None = None
     operations: list[ReadmeDocumentOperationV1]
     candidate_sha256: str
+    compiled_slot_blocks: dict[str, str] = Field(default_factory=dict)
 
     @field_validator("facts_hash", "template_sha256", "source_sha256", "candidate_sha256")
     @classmethod

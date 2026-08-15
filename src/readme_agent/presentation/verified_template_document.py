@@ -181,6 +181,7 @@ def build_verified_template_document_candidate(
         composition_ledger=composition_ledger,
         operations=operations,
         candidate_sha256=sha256_hex(candidate),
+        compiled_slot_blocks=compiled.compiled_slot_blocks,
     )
     claim_map = build_readme_claim_map(
         plan,
