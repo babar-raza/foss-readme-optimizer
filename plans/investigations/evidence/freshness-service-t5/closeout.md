@@ -3,10 +3,12 @@
 **Status: SUBSTANTIAL PROGRESS, not COMPLETE.** Recorded honestly — the card's own closeout bar
 ("full battery green + byte-identical double run") is only partly met: the double-run proof is
 real and complete; a real, tested, verified fix landed for the disposition-ledger `target`
-defect (`disposition_ledger_errors` 13 → 7 on the real pilot, see below), but the overall
-candidate is still `deterministic_verdict: reject` due to two separate, unaddressed defects
-(protected-content losses, claim-accountability gaps) — "full battery green" is not yet reached.
-`GC-03` (G3 close) correctly stays blocked until all of this is resolved.
+defect (`disposition_ledger_errors` 13 → 7 on the real pilot, see below); and the two remaining
+"full battery green" blockers (protected-content losses, claim-accountability gaps) have been
+fully diagnosed down to **one single, well-understood root cause** (see the final section below)
+— but not fixed, since the real fix is a genuine, already-anticipated future feature (this plan's
+own §4 "two-tier API reference"), not a pilot-skeleton-scoped patch. `GC-03` (G3 close) correctly
+stays blocked until that feature exists.
 
 ## What is genuinely done and verified
 
@@ -327,14 +329,53 @@ failed** (up from 3,908 before this fix — the delta is exactly the 3 new tests
 
 **Still not COMPLETE**: even with this real fix, the overall candidate remains
 `deterministic_verdict: reject` — 9 unauthorized protected-content losses and 9 blocking
-claim-accountability gaps are separate, independent defects this fix does not address (and
-which were never in scope for the disposition-ledger investigation). "Full battery green"
-requires resolving those too, which is real, separate, unstarted work.
+claim-accountability gaps are separate, independent-looking defects this fix does not address.
+The following section diagnoses both down to their real, single root cause.
+
+## The two remaining "full battery green" blockers: diagnosed to one single root cause
+
+Both remaining `deterministic_verdict: reject` reasons were investigated directly (extracting
+real content, not inferring from category names):
+
+- **`unauthorized protected-content loss` (9 fragments)**: `readme/document_validation.py:398`
+  reports fragments present in the source's `technical_terminology` protected-content fingerprint
+  (`facts/protected_content.py::fingerprint_protected_content`, inline-code spans in the source
+  README) that are absent from the candidate. `readme/document_validation.py:206-221`
+  (`working_condition_hidden_fragment_ids`) deliberately, by documented policy, never lets a
+  *verified public API name* qualify for the "hide unverifiable content" exemption — "a presented
+  API name genuinely absent from the candidate is a real terminology loss and stays
+  unauthorized." Extracting the actual lost fragment text (not just their hashes) found real
+  method names from the source: `add_worksheet()`, `remove_worksheet()`, `copy_worksheet()`,
+  `get_active_worksheet()`, `Worksheet.rename()`, `merge_range()`, `load_csv()`,
+  `save_as_json()`, `save_as_markdown()` — confirmed absent anywhere in the real candidate
+  (`grep` against `candidate-README.md`, zero matches).
+- **`claim accountability has 9 blocking claim(s)`**: all 9 share the identical generic
+  `unjustified_loss` rationale ("Preserved source knowledge disappeared without an exact
+  correction, equivalence, or omission authority") and byte positions consistent with the same
+  source locations as the 9 terminology losses above — the **same 9 real method names**,
+  surfaced by a second, independent validator rather than a distinct defect.
+
+**Root cause, confirmed by reading the actual candidate content**: the compiled "API Reference"
+section lists **classes/types only** (e.g. `Worksheet(name='Sheet1')` — one row per type, with a
+constructor-shaped signature), never individual **methods**. The 9 lost items are all
+method-level identifiers the original README mentioned in prose/examples; nothing in this
+compiled candidate's API Reference format has a slot for method-level entries at all — not a
+rendering bug (the data isn't being dropped by a broken renderer), but a real granularity gap in
+what this compiled section format can express.
+
+**This is not a new, unscoped problem — it matches this plan's own documented future work.**
+This plan's §4 contract explicitly names a "two-tier API reference mirroring the reference
+index" as part of its target design — "two-tier" (class-level + method-level) is exactly the
+capability missing here. Building that tier is real composition-design work (deciding the
+method-level table's format, sourcing method-level facts, wiring it into the template compiler)
+squarely out of scope for a "pilot skeleton" card, and belongs to the composition-worker cards
+(T6-T8's design territory) this plan already anticipates.
 
 ## Downstream effect
 
 `GC-03` (Gate G3 close) requires **both** `T14` (COMPLETE) and `T5` COMPLETE — it stays blocked.
-The genuine fix is real but larger than a pilot-skeleton card's scope: extend candidate-side
-span tracking in the claim-accountability model (touches shared, validated machinery) or wire
-the existing `build_composition_ledger()` into the diagnostic composition path — both warrant
-their own scoped card with dedicated tests, not a rushed patch inside T5.
+T5's real, remaining gap is now fully diagnosed and singular: a method-level API reference tier
+does not exist yet in the compiled template format. Building it is genuine engineering scoped to
+the composition-worker design (T6-T8), not a rushed addition here — but future work on those
+cards now has an exact, real, evidence-backed requirement to build against, rather than an
+abstract goal.
