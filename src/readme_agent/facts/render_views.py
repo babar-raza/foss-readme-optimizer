@@ -5,13 +5,14 @@ from __future__ import annotations
 import re
 from collections.abc import Callable
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from readme_agent.facts.compatibility_rendering import (
     compatibility_phrases,
     ecosystem_display_label,
     ecosystem_label_items,
 )
+from readme_agent.facts.composer_factpack import ComposerFactpack
 from readme_agent.facts.limitation_rendering import limitation_phrases
 from readme_agent.facts.product_identity import canonical_aspose_family_name
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
@@ -247,3 +248,119 @@ def visitor_fact_render_view(
         phrases=phrases,
         citation_fact_ids=list(dict.fromkeys([fact.fact_id, *fact.supporting_fact_ids])),
     )
+
+
+class AsposeEvidenceCitationV1(BaseModel):
+    """A grounding citation into the T4 aspose.org detector evidence --
+    distinct from a ProductFactsV2 `fact_id` citation, since this evidence
+    has no FactRecordV2 counterpart yet."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    detector: str
+    family: str
+    platform: str
+    source_id: str
+
+
+class EvidenceGroundedRenderViewV2(BaseModel):
+    """T4 / RC1 ("grounding evidence stripped before composition"): a render
+    view whose citations can point at EITHER a ProductFactsV2 `fact_id` OR
+    an aspose.org detector-sourced evidence reference, so a phrase drawn
+    from `ComposerFactpack.aspose_detections` (which
+    `VisitorFactRenderViewV1` cannot cite -- it only knows `ProductFactsV2`)
+    never silently loses its grounding on the way into future composition.
+    Deliberately does not compose new prose for aspose-only fields (that is
+    later composition work, T5+/T7-series) -- it only carries literal
+    source text (a keyword, a claim sentence) forward with its citation
+    intact.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    field: str
+    phrases: list[str]
+    product_fact_citations: list[str] = Field(default_factory=list)
+    aspose_evidence_citations: list[AsposeEvidenceCitationV1] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def _grounded(self) -> EvidenceGroundedRenderViewV2:
+        if self.phrases and not (self.product_fact_citations or self.aspose_evidence_citations):
+            raise ValueError("rendered phrases must carry at least one grounding citation")
+        return self
+
+
+def _aspose_seo_keywords_view(factpack: ComposerFactpack) -> EvidenceGroundedRenderViewV2 | None:
+    keywords = factpack.aspose_detections.seo_keywords
+    if not keywords.entry_found or not keywords.keywords:
+        return None
+    return EvidenceGroundedRenderViewV2(
+        field="aspose.seo_keywords",
+        phrases=list(keywords.keywords),
+        aspose_evidence_citations=[
+            AsposeEvidenceCitationV1(
+                detector="detect_seo_keywords",
+                family=factpack.family,
+                platform=factpack.platform,
+                source_id=f"keywords/{factpack.family}.json",
+            )
+        ],
+    )
+
+
+def _aspose_dependency_claims_view(
+    factpack: ComposerFactpack,
+) -> EvidenceGroundedRenderViewV2 | None:
+    claims = factpack.aspose_detections.dependency_claims
+    phrases = [
+        str(claim["text"])
+        for claim in claims.claims
+        if isinstance(claim.get("text"), str) and claim["text"].strip()
+    ]
+    if not phrases:
+        return None
+    return EvidenceGroundedRenderViewV2(
+        field="aspose.dependency_claims",
+        phrases=phrases,
+        aspose_evidence_citations=[
+            AsposeEvidenceCitationV1(
+                detector="detect_dependency_claims",
+                family=factpack.family,
+                platform=factpack.platform,
+                source_id=f"knowledge/{factpack.family}/{factpack.platform}/merged/claims.json",
+            )
+        ],
+    )
+
+
+_ASPOSE_ONLY_RENDERERS: dict[
+    str, Callable[[ComposerFactpack], EvidenceGroundedRenderViewV2 | None]
+] = {
+    "aspose.seo_keywords": _aspose_seo_keywords_view,
+    "aspose.dependency_claims": _aspose_dependency_claims_view,
+}
+
+
+def evidence_grounded_render_view(
+    factpack: ComposerFactpack,
+    field: str,
+) -> EvidenceGroundedRenderViewV2 | None:
+    """Return a grounded render view for one field, drawing from
+    `ComposerFactpack.product_facts` (delegating to `visitor_fact_render_view`
+    for every field that view already covers, so it never loses any of V1's
+    grounding) or `ComposerFactpack.aspose_detections` (for fields with no
+    `ProductFactsV2` counterpart yet)."""
+
+    if field in _FIELD_RENDERERS:
+        v1_view = visitor_fact_render_view(factpack.product_facts, field)
+        if v1_view is None:
+            return None
+        return EvidenceGroundedRenderViewV2(
+            field=field,
+            phrases=v1_view.phrases,
+            product_fact_citations=list(v1_view.citation_fact_ids),
+        )
+    aspose_renderer = _ASPOSE_ONLY_RENDERERS.get(field)
+    if aspose_renderer is None:
+        return None
+    return aspose_renderer(factpack)
