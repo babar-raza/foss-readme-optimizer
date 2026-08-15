@@ -1,0 +1,327 @@
+{
+  "schema_version": 2,
+  "family": "tex",
+  "platform": "python",
+  "display_name": "Aspose.Tex",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "scout_claims": 523,
+    "enriched_claims": 93,
+    "supplemental_claims": 0,
+    "total_claims": 613,
+    "class_count": 83,
+    "forbidden_count": 0,
+    "snippet_count": 100
+  },
+  "classes": [
+    "AsposeTeXError",
+    "BoxProvider",
+    "BoxRegisterSet",
+    "Catcode",
+    "CatcodeTable",
+    "CharMetrics",
+    "CharNode",
+    "CharToken",
+    "CodeArrays",
+    "ControlSequenceToken",
+    "DiscretionaryNode",
+    "DviDevice",
+    "DviFontDef",
+    "DviWriter",
+    "EngineError",
+    "Expander",
+    "FileInputSource",
+    "FontEncoding",
+    "FontError",
+    "FontManager",
+    "FontMetrics",
+    "Glue",
+    "GlueNode",
+    "GlueOrder",
+    "GlueSign",
+    "GlyphOutline",
+    "GroupKind",
+    "GroupStack",
+    "HBoxBuilder",
+    "HlistNode",
+    "InputError",
+    "InputReader",
+    "InputSource",
+    "InsertAccumulator",
+    "InsertNode",
+    "InternalQuantityRegistry",
+    "KernNode",
+    "LeadersKind",
+    "LeadersNode",
+    "LinebreakParams",
+    "MacroDefinition",
+    "MarkNode",
+    "MarksProvider",
+    "MarksRegistry",
+    "MathFamilyRegistry",
+    "MathOperandKind",
+    "MathShellRegistry",
+    "ModeKind",
+    "ModeStack",
+    "NamedParameterRegistry",
+    "OutputDevice",
+    "OutputFormat",
+    "OutputRoutineBase",
+    "OverfullBoxWarning",
+    "PageBuilder",
+    "PageBuilderConfig",
+    "PageNumberRegister",
+    "ParagraphList",
+    "ParamKind",
+    "PdfDevice",
+    "PdfWriter",
+    "PenaltyNode",
+    "PfbData",
+    "PlainOutputRoutine",
+    "QuantityKind",
+    "RegisterBank",
+    "RegisterProvider",
+    "RegisterSet",
+    "RuleNode",
+    "ShipoutBackend",
+    "SourceLocation",
+    "StringInputSource",
+    "SvgDevice",
+    "SvgWriter",
+    "TeXInterpreter",
+    "TeXJob",
+    "TeXOptions",
+    "TfmData",
+    "Tokenizer",
+    "UnderfullBoxWarning",
+    "VBoxBuilder",
+    "VlistNode",
+    "WhatsitNode"
+  ],
+  "class_graph": [
+    {
+      "child": "InputSource",
+      "parent": "abc.ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FileInputSource",
+      "parent": "InputSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StringInputSource",
+      "parent": "InputSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OverfullBoxWarning",
+      "parent": "UserWarning",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "UnderfullBoxWarning",
+      "parent": "UserWarning",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RegisterProvider",
+      "parent": "Protocol",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BoxProvider",
+      "parent": "Protocol",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GroupKind",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "QuantityKind",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ModeKind",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MarksProvider",
+      "parent": "Protocol",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MathOperandKind",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ParamKind",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GlueSign",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LeadersKind",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShipoutBackend",
+      "parent": "Protocol",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageNumberRegister",
+      "parent": "Protocol",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OutputRoutineBase",
+      "parent": "abc.ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PlainOutputRoutine",
+      "parent": "OutputRoutineBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GlueOrder",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Catcode",
+      "parent": "enum.IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AsposeTeXError",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InputError",
+      "parent": "AsposeTeXError",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EngineError",
+      "parent": "AsposeTeXError",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FontError",
+      "parent": "AsposeTeXError",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OutputFormat",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OutputDevice",
+      "parent": "abc.ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DviDevice",
+      "parent": "OutputDevice",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfDevice",
+      "parent": "OutputDevice",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SvgDevice",
+      "parent": "OutputDevice",
+      "relationship": "inherits",
+      "internal": true
+    }
+  ],
+  "formats": {
+    "import": [],
+    "export": [],
+    "caveats": {}
+  },
+  "install": {
+    "command": "pip install aspose-tex-foss",
+    "version": "26.5"
+  },
+  "not_implemented": [],
+  "forbidden_claims": [],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 83,
+    "with_methods": 42,
+    "with_properties": 50,
+    "with_enums": 10,
+    "method_pct": 50.6,
+    "property_pct": 60.2,
+    "surface_tier": 2
+  },
+  "snippets_coverage": {
+    "total_snippets": 100,
+    "classes_with_snippet": 0,
+    "classes_total": 83,
+    "coverage_ratio": 0.0,
+    "effective_denominator": 77,
+    "concrete_coverage": {
+      "classes_total": 77,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    },
+    "interface_coverage": {
+      "classes_total": 0,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

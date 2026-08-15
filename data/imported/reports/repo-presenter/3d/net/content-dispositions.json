@@ -1,0 +1,444 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "A free and open-source implementation of Aspose.3D for .NET, released under the permissive **MIT License**. It provides an API-compatible, open-source alternative for working with 3D scenes and models in .NET, supporting common formats such as OBJ, STL, FBX, and glTF.",
+    "salient_tokens": ["NET", "MIT", "API", "OBJ", "STL", "FBX", "glTF"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Tagline restating free/open-source/API-compatible framing and format support; already covered by the candidate's Intro paragraph, which lists a superset of formats (OBJ, STL, glTF/GLB, FBX, COLLADA, 3MF, PLY).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro already states 'free, open-source, MIT-licensed .NET library... Aspose.3D-compatible scene-graph API... OBJ, STL, glTF/GLB, FBX, COLLADA, 3MF, and PLY' -- a superset of the old README's format list."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Free/open-source/API-compatible framing and format list already present, as a superset, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "> 🏠 **Aspose.3D FOSS** lives on [aspose.org](https://products.aspose.org/3d/net/) — Aspose's home for free, open-source file-format libraries. The full commercial edition, [Aspose.3D for .NET](https://products.aspose.com/3d/net/), is available on [aspose.com](https://products.aspose.com/3d).",
+    "salient_tokens": ["FOSS", "NET"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Orientation banner; its one checkable fact -- a commercial edition exists at products.aspose.com -- is already present via the Scope and Limitations Enterprise Edition pointer.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations links to Aspose.3D for .NET -- Enterprise Edition at products.aspose.com/3d/net/, same URL as this banner's commercial-edition claim."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Commercial-edition-exists fact already present via the Enterprise Edition link in Scope and Limitations."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "Aspose.3D FOSS is the free, open-source edition of Aspose.3D. It shares the same public API design as the commercial Aspose.3D On-Premise library, so you can:",
+    "salient_tokens": ["FOSS", "API"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in restating free/open-source/same-API-design; already covered by the Intro's 'Aspose.3D-compatible scene-graph API' framing.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro states the library exposes 'an Aspose.3D-compatible scene-graph API' -- same claim, different phrasing."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Same-API-design claim already present, differently phrased, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Build and ship 3D applications at no cost** under a permissive MIT License.",
+    "salient_tokens": ["MIT"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Free-of-cost/MIT-license claim already present via Intro's 'free, open-source, MIT-licensed' framing and the License section's MIT statement.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the MIT License. The MIT License permits use, copying, modification, distribution, sublicensing, and commercial use...' -- covers the no-cost/MIT claim in full."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "MIT license and no-cost claim already present, in expanded form, in the License section."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Start free and grow without rewriting code** — code written against the FOSS edition works with the commercial edition.",
+    "salient_tokens": ["FOSS"],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable claim about code-portability between the FOSS and commercial editions -- not previously stated anywhere in the candidate. Merged together with u0006 into one Scope and Limitations sentence rather than duplicating the same fact twice.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "docs/release-26.2.0.md",
+      "evidence_note": "docs/release-26.2.0.md 'API Compatibility': 'FOSS 26.2.0 is fully compatible with code written for Aspose.3D 26.2.0 On-Premise. Any code that compiles against On-Premise will also compile against FOSS without changes.' Also 'API Alignment Status: Public Type Differences: 0 (for end users); API Surface: Identical to On-Premise 26.2.0.' Directly confirms code portability in both directions."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Upgrade only when you need to** — when you require the broader feature set, higher performance, rendering, or proprietary format support of the [commercial On-Premise edition](https://products.aspose.com/3d/net/), simply swap in the commercial package, no API rewrites required.",
+    "salient_tokens": ["API"],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "States the real upgrade mechanism -- swapping the package reference requires no API rewrite -- a genuinely missing, checkable fact about how upgrading to Enterprise Edition works.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "docs/release-26.2.0.md",
+      "evidence_note": "docs/release-26.2.0.md 'Migration from On-Premise': 'To migrate from On-Premise to FOSS: 1. Replace Aspose.3D package with Aspose.3D.FOSS 2. Rebuild your project 3. Test functionality - most code will work without changes.' Confirms the package-swap mechanism is real and current, applying symmetrically to upgrading from FOSS to On-Premise since the API surface is identical."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "The FOSS edition focuses on the most widely used open 3D formats. The commercial edition additionally covers proprietary and high-performance scenarios such as rendering, advanced mesh operations, and formats like USD, PDF, A3DW, JT, and more.",
+    "salient_tokens": ["FOSS", "USD", "PDF", "JT"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Same fact (commercial edition adds rendering, advanced mesh ops, and proprietary formats including USD/PDF/JT) already present, near-verbatim, in the candidate's Scope and Limitations closing paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'Aspose.3D for .NET — Enterprise Edition, which adds proprietary formats (A3DW, PDF, USD, JT), rendering, working text watermarking, and advanced mesh operations.' Same facts, same format list."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Commercial-edition format/capability list already present, near-verbatim, in Scope and Limitations."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "**This is a work-in-progress FOSS implementation.**",
+    "salient_tokens": ["FOSS"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "This exact sentence already opens the candidate's Scope and Limitations bullet list, verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'This is a work-in-progress FOSS implementation focused on the most widely used open 3D formats.' -- verbatim opening clause match."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Work-in-progress statement already present, verbatim, as the opening clause of Scope and Limitations."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "Currently implementing core functionality:\n- Scene graph management\n- Basic geometry primitives\n- Common file format support (OBJ, STL, FBX, glTF)",
+    "salient_tokens": ["OBJ", "STL", "FBX", "glTF"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Stale progress snapshot superseded by the candidate's much more complete and current Key Capabilities section, which lists scene graph construction, primitives, and a superset of formats (OBJ, STL, glTF/GLB, FBX, COLLADA, 3MF, PLY).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Build and traverse a scene graph...', 'Create parametric primitives...', 'Load and save OBJ..., STL..., glTF 2.0/GLB..., FBX..., COLLADA, and 3MF; PLY is import-only.' Same core functionality, more complete and current."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Stale progress snapshot superseded by the more complete, current Key Capabilities section."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "Some advanced features are not available in this FOSS version:\n- License/trial management APIs (not applicable to an open-source project)\n- Rendering functionality\n- Advanced mesh operations\n- Proprietary formats (A3DW, PDF, USD, JT)",
+    "salient_tokens": ["FOSS", "APIs", "PDF", "USD", "JT"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Same limitation categories (license/trial APIs, rendering, advanced mesh operations, proprietary formats) already present, in more specific and current form, in the candidate's Scope and Limitations section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations lists NotImplementedException members by name, 'License and trial-management APIs (License, Metered) are intentionally not implemented', 'Rendering (Scene.Render) is not implemented', and the Enterprise Edition paragraph names the same proprietary formats (A3DW, PDF, USD, JT). Same categories, more specific and current."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Same limitation categories already present, in more specific and current form, in Scope and Limitations."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "For the full feature set, consider the [commercial Aspose.3D for .NET On-Premise API](https://products.aspose.com/3d/net/).",
+    "salient_tokens": ["NET", "API"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Commercial-edition pointer already present, same URL, via the Scope and Limitations Enterprise Edition link.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations links to '[Aspose.3D for .NET — Enterprise Edition](https://products.aspose.com/3d/net/)' -- identical URL already present."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Commercial-edition link already present, identical URL, in Scope and Limitations."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "See [AGENTS.md](AGENTS.md) for implementation status and development guidelines.",
+    "salient_tokens": ["AGENTS"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "AGENTS.md pointer already present, verbatim, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: '**[AGENTS.md](AGENTS.md)** — implementation status and development guidelines for contributors.' Same pointer, already present, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "AGENTS.md pointer already present, verbatim, in Documentation & Resources."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "Contributions are welcome! Please feel free to submit issues and pull requests.",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Generic contribution-invite boilerplate with no distinct process detail beyond the bug/feature-request pointer already present elsewhere -- pure community-engagement CTA, nothing independently checkable.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure CTA prose."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure community-engagement CTA prose with no distinct checkable process detail beyond the issue-tracker pointer already present."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.",
+    "salient_tokens": ["MIT", "LICENSE"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "License statement already present, expanded, in the candidate's License section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the [MIT License](LICENSE). The MIT License permits use, copying, modification, distribution, sublicensing, and commercial use...' Same fact, expanded."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "License statement already present, in expanded form, in the License section."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Aspose.3D FOSS for .NET](https://products.aspose.org/3d/net/) — product page",
+    "salient_tokens": ["FOSS", "NET"],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Bare self-referential navigation link to the product's own landing page -- no technical, branding, or process claim beyond the URL's existence.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure navigational link."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure navigational self-link with no distinct technical or branding claim to verify."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Aspose.3D FOSS family](https://products.aspose.org/3d/) — all platforms (Python, .NET, Java, TypeScript)",
+    "salient_tokens": ["FOSS", "NET", "TypeScript"],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Cross-platform family navigation link, not a distinct technical or branding claim about this platform's library.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure navigational link."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure navigational link to the product family page, nothing distinctly checkable."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Aspose FOSS documentation](https://docs.aspose.org/) — guides for all open-source libraries",
+    "salient_tokens": ["FOSS"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "General cross-product documentation portal link; the platform-specific, more useful version of this pointer is already present in Documentation & Resources.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: '**[Getting started guide](https://docs.aspose.org/3d/net/)** — installation, walkthroughs, and feature guides for this library.' A more specific, platform-scoped version of the same docs.aspose.org resource."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "General docs.aspose.org pointer superseded by the more specific getting-started guide link already present."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Aspose FOSS blog](https://blog.aspose.org/) — tutorials and announcements",
+    "salient_tokens": ["FOSS"],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Cross-product blog pointer, not a distinct technical or branding claim about this library.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure navigational/marketing link."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Cross-product marketing/navigation link, nothing distinctly checkable about this library."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Aspose.3D for .NET](https://products.aspose.com/3d/net/) — full-featured commercial edition",
+    "salient_tokens": ["NET"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Commercial-edition pointer already present, same URL, via the Scope and Limitations Enterprise Edition link.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations links to '[Aspose.3D for .NET — Enterprise Edition](https://products.aspose.com/3d/net/)' -- identical URL already present."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Commercial-edition link already present, identical URL, in Scope and Limitations."
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Aspose.3D product family](https://products.aspose.com/3d) — overview",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Commercial product-family overview link, not a distinct technical or branding claim about this library.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure navigational link."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure navigational link to the commercial family overview page."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Developer documentation](https://docs.aspose.com/3d/net/) — API guides",
+    "salient_tokens": ["API"],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, useful resource pointer justified by the verified API-identity fact (u0005/u0006): since the API surface is identical to the commercial edition, its developer documentation is a genuinely useful supplementary resource -- not previously pointed to anywhere in the candidate.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "docs/release-26.2.0.md",
+      "evidence_note": "docs/release-26.2.0.md confirms 'API Surface: Identical to On-Premise 26.2.0', the basis for treating commercial documentation as a valid supplementary resource. Merged together with u0022 into one API Reference sentence."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [API reference](https://reference.aspose.com/3d/net/) — complete API documentation",
+    "salient_tokens": ["API"],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Same rationale as u0021 -- a real, useful pointer to the commercial API reference, justified by verified API identity, merged into the same API Reference sentence rather than as a separate duplicate bullet.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "docs/release-26.2.0.md",
+      "evidence_note": "Same docs/release-26.2.0.md evidence as u0021 -- 'API Surface: Identical to On-Premise 26.2.0' justifies pointing readers to the commercial API reference as a supplementary resource."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Download / free trial](https://releases.aspose.com/3d/net/) — get the commercial package",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Commercial-upsell download/trial pointer; the underlying fact (a commercial edition exists) is already covered via the Enterprise Edition link, and the trial-download mechanics add no distinct checkable content.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- commercial-upsell CTA link."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Commercial-upsell CTA link; the underlying commercial-edition fact is already covered elsewhere."
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Aspose.3D support forum](https://forum.aspose.com/c/3d/19) — questions and help",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Community-support pointer, not a distinct technical or branding claim about this library; the GitHub issue tracker already serves as this repository's primary support channel.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure navigational/community link."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Community-support navigational link; GitHub issues already serve as this repo's support channel."
+  },
+  {
+    "unit_id": "u0025",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Free online 3D apps](https://products.aspose.app/3d/) — convert and view 3D files in your browser",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Pointer to an unrelated commercial online-tools product, not a claim about this library itself.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure navigational link to a separate commercial product."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pointer to a separate commercial product (free online 3D apps), not a claim about this library."
+  },
+  {
+    "unit_id": "u0026",
+    "source": "clone_cache/README.md",
+    "excerpt": "This is a clean-room FOSS implementation designed for API compatibility with Aspose.3D for .NET.",
+    "salient_tokens": ["FOSS", "API", "NET"],
+    "classification": "3_branding_positioning",
+    "classification_basis": "Important, currently-missing positioning claim: this library is a clean-room reimplementation built to match the commercial API, not a reduction of the commercial source code. Worth stating explicitly so readers don't assume the wrong provenance.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "AGENTS.md",
+      "evidence_note": "AGENTS.md: 'This is a FOSS (Free and Open Source) implementation of Aspose.3D for .NET 26.2.0.' Describes an independently-built implementation targeting API compatibility, consistent with a clean-room implementation rather than a reduction of proprietary source. No source anywhere in the clone cache claims this library reuses commercial source code."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Intro",
+    "excluded_reason": null
+  }
+]

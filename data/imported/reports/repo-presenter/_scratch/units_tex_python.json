@@ -1,0 +1,81 @@
+[
+  {
+    "unit_id": "u0001",
+    "excerpt": "Pure-Python library for TeX/LaTeX processing. Parses TeX input and produces PDF,\nSVG, and DVI output. No external TeX installation required — Computer Modern\nfonts and hyphenation patterns are bundled.",
+    "salient_tokens": [
+      "TeX",
+      "LaTeX",
+      "PDF",
+      "SVG",
+      "DVI"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0002",
+    "excerpt": "> **Status: Pre-Alpha.** The core engine and public API are under active\n> development. Interfaces may change between releases.",
+    "salient_tokens": [
+      "API"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0003",
+    "excerpt": "Multi-page in-memory output:",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0004",
+    "excerpt": "SVG output is self-contained — glyph outlines are extracted from the bundled\nComputer Modern PFB fonts and embedded as `<path>` elements, so no external\nfonts are required by the SVG viewer.",
+    "salient_tokens": [
+      "<path>",
+      "SVG",
+      "PFB"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0005",
+    "excerpt": "`TeXJob.messages` returns a copy of the messages collected during the most\nrecent run. `\\message` and `\\write 16` append plain-text messages; `\\errmessage`\nappends messages with a leading `! ` prefix; `\\write -1` logs only.",
+    "salient_tokens": [
+      "TeXJob.messages",
+      "\\message",
+      "\\write 16",
+      "\\errmessage",
+      "!",
+      "\\write -1",
+      "TeXJob"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0006",
+    "excerpt": "`extra_format_paths` is searched after bundled format data and before the\ncurrent working directory for `\\input` files.",
+    "salient_tokens": [
+      "extra_format_paths",
+      "\\input"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0007",
+    "excerpt": "The package registers a `logging.NullHandler` on the `aspose_tex` logger so\napplications can opt into standard Python logging without receiving default\nhandler warnings:",
+    "salient_tokens": [
+      "logging.NullHandler",
+      "aspose_tex",
+      "NullHandler"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0008",
+    "excerpt": "Released under the MIT License — see [LICENSE](LICENSE). Bundled Computer Modern\nfonts are covered separately — see [LICENSE-FONTS](LICENSE-FONTS).",
+    "salient_tokens": [
+      "MIT",
+      "LICENSE",
+      "FONTS"
+    ],
+    "likely_category_1_prefilter": false
+  }
+]

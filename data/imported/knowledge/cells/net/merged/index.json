@@ -1,0 +1,266 @@
+{
+  "schema_version": 2,
+  "family": "cells",
+  "platform": "net",
+  "display_name": "Aspose.Cells",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "6ee32c08a6090a778fab03e66afac731859f93a9",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "class_count": 96,
+    "enriched_claims": 0,
+    "forbidden_count": 0,
+    "scout_claims": 671,
+    "snippet_count": 7,
+    "supplemental_claims": 0,
+    "total_claims": 665
+  },
+  "classes": [
+    "AutoFilter",
+    "AutoFilterColorFilter",
+    "AutoFilterCustomFilter",
+    "AutoFilterCustomFilterCollection",
+    "AutoFilterDynamicFilter",
+    "AutoFilterSortCondition",
+    "AutoFilterSortConditionCollection",
+    "AutoFilterSortState",
+    "AutoFilterTop10",
+    "AutoShapeType",
+    "Border",
+    "BorderStyleType",
+    "Borders",
+    "CalculationProperties",
+    "Cell",
+    "CellArea",
+    "CellValueType",
+    "Cells",
+    "CellsException",
+    "Chart",
+    "ChartCollection",
+    "ChartType",
+    "Color",
+    "Column",
+    "ColumnCollection",
+    "Comment",
+    "CommentCollection",
+    "ConditionalFormattingCollection",
+    "CoreDocumentProperties",
+    "DefinedName",
+    "DefinedNameCollection",
+    "DiagnosticSeverity",
+    "DocumentProperties",
+    "ExtendedDocumentProperties",
+    "FillPattern",
+    "FilterColumn",
+    "FilterColumnCollection",
+    "FilterOperatorType",
+    "FilterValueCollection",
+    "Font",
+    "FontUnderlineType",
+    "FormatCondition",
+    "FormatConditionCollection",
+    "FormatConditionType",
+    "FormulaException",
+    "HorizontalAlignmentType",
+    "Hyperlink",
+    "HyperlinkCollection",
+    "IWarningCallback",
+    "ImageType",
+    "InvalidFileFormatException",
+    "ListColumn",
+    "ListColumnCollection",
+    "ListObject",
+    "ListObjectCollection",
+    "LoadDiagnostics",
+    "LoadFormat",
+    "LoadIssue",
+    "LoadOptions",
+    "NumberFormat",
+    "OperatorType",
+    "PageOrientationType",
+    "PageSetup",
+    "PaperSizeType",
+    "Picture",
+    "PictureCollection",
+    "Row",
+    "RowCollection",
+    "SaveFormat",
+    "SaveOptions",
+    "Shape",
+    "ShapeCollection",
+    "Style",
+    "StyleException",
+    "StyleFlag",
+    "TableStyleType",
+    "TargetModeType",
+    "TotalsCalculation",
+    "UnsupportedFeatureException",
+    "Validation",
+    "ValidationAlertType",
+    "ValidationCollection",
+    "ValidationType",
+    "VerticalAlignmentType",
+    "VisibilityType",
+    "WarningInfo",
+    "Workbook",
+    "WorkbookLoadException",
+    "WorkbookProperties",
+    "WorkbookProtection",
+    "WorkbookSaveException",
+    "WorkbookSettings",
+    "WorkbookView",
+    "Worksheet",
+    "WorksheetCollection",
+    "WorksheetProtection"
+  ],
+  "class_graph": [
+    {
+      "child": "InvalidFileFormatException",
+      "parent": "CellsException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AutoFilterCustomFilterCollection",
+      "parent": "IEnumerable<AutoFilterCustomFilter>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterSortConditionCollection",
+      "parent": "IEnumerable<AutoFilterSortCondition>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellArea",
+      "parent": "IComparable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellsException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Color",
+      "parent": "IEquatable<Color>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DefinedNameCollection",
+      "parent": "IEnumerable<DefinedName>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FilterColumnCollection",
+      "parent": "IEnumerable<FilterColumn>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FilterValueCollection",
+      "parent": "IEnumerable<string>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormulaException",
+      "parent": "CellsException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ListObjectCollection",
+      "parent": "IListObjectOwner",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleException",
+      "parent": "CellsException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "UnsupportedFeatureException",
+      "parent": "CellsException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Workbook",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookLoadException",
+      "parent": "CellsException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "WorkbookSaveException",
+      "parent": "CellsException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "WorksheetCollection",
+      "parent": "IEnumerable<Worksheet>",
+      "relationship": "inherits",
+      "internal": false
+    }
+  ],
+  "formats": {
+    "import": [
+      "Xlsx"
+    ],
+    "export": [
+      "Xlsx"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "dotnet add package aspose.cells.foss",
+    "version": "26.7.0.0"
+  },
+  "not_implemented": [],
+  "forbidden_claims": [],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 96,
+    "with_methods": 43,
+    "with_properties": 62,
+    "with_enums": 23,
+    "method_pct": 44.8,
+    "property_pct": 64.6,
+    "surface_tier": 2
+  },
+  "snippets_coverage": {
+    "total_snippets": 7,
+    "classes_with_snippet": 24,
+    "classes_total": 96,
+    "coverage_ratio": 0.25,
+    "effective_denominator": 94,
+    "concrete_coverage": {
+      "classes_total": 93,
+      "classes_with_snippet": 24,
+      "coverage_ratio": 0.26
+    },
+    "interface_coverage": {
+      "classes_total": 1,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

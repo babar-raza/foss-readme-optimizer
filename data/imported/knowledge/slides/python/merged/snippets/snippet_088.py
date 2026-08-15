@@ -1,0 +1,27 @@
+# Adapted from aspose.org: knowledge/slides/python/merged/snippets/snippet_088.py @ 7f72da4e1423546104b40fa8cebf5b9ae3ce9c91
+# Imported under the authorization recorded in
+# plans/investigations/evidence/imported-corpus-v1/licensing-resolution-state.md
+
+def test_bubble_size_representation_round_trip(self, rep, tmp_pptx):
+
+        """bubble_size_representation persists across save/reload."""
+
+        pres = Presentation()
+
+        chart = _add_clean_chart(pres, ChartType.BUBBLE)
+
+        s = chart.chart_data.series.add("B", ChartType.BUBBLE)
+
+        for x, y, sz in [(1.0, 1.0, 10), (2.0, 2.0, 20)]:
+
+            s.data_points.add_data_point_for_bubble_series(x, y, sz)
+
+        chart.chart_data.series_groups[0].bubble_size_representation = rep
+
+
+
+        pres2 = tmp_pptx(pres)
+
+        grp = _first_chart(pres2).chart_data.series_groups[0]
+
+        assert grp.bubble_size_representation == rep

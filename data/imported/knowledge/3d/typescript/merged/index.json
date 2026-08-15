@@ -1,0 +1,664 @@
+{
+  "schema_version": 2,
+  "family": "3d",
+  "platform": "typescript",
+  "display_name": "Aspose.3D",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "7b959706f2ad976db929f26ec079f43a07d578e1",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "class_count": 140,
+    "enriched_claims": 977,
+    "forbidden_count": 0,
+    "scout_claims": 1381,
+    "snippet_count": 100,
+    "supplemental_claims": 0,
+    "total_claims": 2276
+  },
+  "classes": [
+    "A3DObject",
+    "AnimationChannel",
+    "AnimationClip",
+    "AnimationNode",
+    "ApertureMode",
+    "AssetInfo",
+    "Axis",
+    "BinaryTokenizer",
+    "BindPoint",
+    "BooleanOperation",
+    "BoundingBox",
+    "BoundingBox2D",
+    "BoundingBoxExtent",
+    "Camera",
+    "ColladaExporter",
+    "ColladaFormat",
+    "ColladaFormatDetector",
+    "ColladaImporter",
+    "ColladaLoadOptions",
+    "ColladaPlugin",
+    "ColladaSaveOptions",
+    "ColladaTransformStyle",
+    "ComposeOrder",
+    "CustomObject",
+    "Entity",
+    "Extrapolation",
+    "ExtrapolationType",
+    "FMatrix4",
+    "FVector2",
+    "FVector3",
+    "FVector4",
+    "FbxElement",
+    "FbxExporter",
+    "FbxFormat",
+    "FbxFormatDetector",
+    "FbxImporter",
+    "FbxLoadOptions",
+    "FbxParser",
+    "FbxPlugin",
+    "FbxProperty",
+    "FbxSaveOptions",
+    "FbxTokenizer",
+    "FileSystem",
+    "Geometry",
+    "GlobalTransform",
+    "GltfAccessor",
+    "GltfBufferView",
+    "GltfData",
+    "GltfExporter",
+    "GltfFormat",
+    "GltfFormatDetector",
+    "GltfImporter",
+    "GltfLoadOptions",
+    "GltfMaterial",
+    "GltfMesh",
+    "GltfNode",
+    "GltfPlugin",
+    "GltfPrimitive",
+    "GltfSaveOptions",
+    "GltfScene",
+    "IIndexedVertexElement",
+    "INamedObject",
+    "IOConfig",
+    "IOExtension",
+    "IOService",
+    "ImageRenderOptions",
+    "Interpolation",
+    "KeyFrame",
+    "KeyframeSequence",
+    "LambertMaterial",
+    "Light",
+    "LightType",
+    "MappingMode",
+    "Material",
+    "MathUtils",
+    "Matrix4",
+    "Mesh",
+    "Node",
+    "ObjExporter",
+    "ObjFormat",
+    "ObjFormatDetector",
+    "ObjImporter",
+    "ObjLoadOptions",
+    "ObjPlugin",
+    "ObjSaveOptions",
+    "ParseException",
+    "PbrMaterial",
+    "PhongMaterial",
+    "PolygonModifier",
+    "ProjectionType",
+    "Property",
+    "PropertyCollection",
+    "Quaternion",
+    "Rect",
+    "ReferenceMode",
+    "RelativeRectangle",
+    "RotationMode",
+    "RotationOrder",
+    "Scene",
+    "SceneObject",
+    "SemanticAttribute",
+    "SplitMeshPolicy",
+    "StepMode",
+    "StlExporter",
+    "StlFormat",
+    "StlFormatDetector",
+    "StlImporter",
+    "StlLoadOptions",
+    "StlPlugin",
+    "StlSaveOptions",
+    "TextureBase",
+    "TextureMapping",
+    "ThreeMfExporter",
+    "ThreeMfFormat",
+    "ThreeMfFormatDetector",
+    "ThreeMfImporter",
+    "ThreeMfLoadOptions",
+    "ThreeMfPlugin",
+    "ThreeMfSaveOptions",
+    "Transform",
+    "TransformBuilder",
+    "Vector2",
+    "Vector3",
+    "Vector4",
+    "Vertex",
+    "VertexDeclaration",
+    "VertexElementBinormal",
+    "VertexElementFVector",
+    "VertexElementIntsTemplate",
+    "VertexElementNormal",
+    "VertexElementSmoothingGroup",
+    "VertexElementTangent",
+    "VertexElementType",
+    "VertexElementUV",
+    "VertexElementVertexColor",
+    "VertexField",
+    "VertexFieldDataType",
+    "VertexFieldSemantic",
+    "Watermark",
+    "WeightedMode"
+  ],
+  "class_graph": [
+    {
+      "child": "ColladaExporter",
+      "parent": "Exporter",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColladaFormat",
+      "parent": "FileFormat",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColladaFormatDetector",
+      "parent": "FormatDetector",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColladaImporter",
+      "parent": "Importer",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FbxExporter",
+      "parent": "Exporter",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FbxFormat",
+      "parent": "FileFormat",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FbxFormatDetector",
+      "parent": "FormatDetector",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FbxImporter",
+      "parent": "Importer",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GltfExporter",
+      "parent": "Exporter",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GltfFormat",
+      "parent": "FileFormat",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GltfFormatDetector",
+      "parent": "FormatDetector",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GltfImporter",
+      "parent": "Importer",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ObjExporter",
+      "parent": "Exporter",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ObjFormat",
+      "parent": "FileFormat",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ObjFormatDetector",
+      "parent": "FormatDetector",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ObjImporter",
+      "parent": "Importer",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StlExporter",
+      "parent": "Exporter",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StlFormat",
+      "parent": "FileFormat",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StlFormatDetector",
+      "parent": "FormatDetector",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StlImporter",
+      "parent": "Importer",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ThreeMfExporter",
+      "parent": "Exporter",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ThreeMfFormat",
+      "parent": "FileFormat",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ThreeMfFormatDetector",
+      "parent": "FormatDetector",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ThreeMfImporter",
+      "parent": "Importer",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "A3DObject",
+      "parent": "INamedObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AssetInfo",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CustomObject",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Entity",
+      "parent": "SceneObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Node",
+      "parent": "SceneObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Scene",
+      "parent": "SceneObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SceneObject",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Transform",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AnimationChannel",
+      "parent": "KeyframeSequence",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AnimationClip",
+      "parent": "SceneObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AnimationNode",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BindPoint",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "KeyframeSequence",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Camera",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Geometry",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Light",
+      "parent": "Camera",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Mesh",
+      "parent": "Geometry",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementBinormal",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementFVector",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VertexElementIntsTemplate",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VertexElementNormal",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementSmoothingGroup",
+      "parent": "VertexElementIntsTemplate",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementTangent",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementUV",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementVertexColor",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColladaLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColladaPlugin",
+      "parent": "Plugin",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColladaSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FbxLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FbxPlugin",
+      "parent": "Plugin",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FbxSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GltfLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GltfPlugin",
+      "parent": "Plugin",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GltfSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ObjLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ObjPlugin",
+      "parent": "Plugin",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ObjSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StlLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StlPlugin",
+      "parent": "Plugin",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StlSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ThreeMfLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ThreeMfPlugin",
+      "parent": "Plugin",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ThreeMfSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LambertMaterial",
+      "parent": "Material",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Material",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PbrMaterial",
+      "parent": "Material",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PhongMaterial",
+      "parent": "LambertMaterial",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextureBase",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParseException",
+      "parent": "Error",
+      "relationship": "inherits",
+      "internal": false
+    }
+  ],
+  "formats": {
+    "import": [
+      "Collada",
+      "Fbx",
+      "Gltf",
+      "Obj",
+      "Stl",
+      "Collada",
+      "Fbx",
+      "Gltf",
+      "Obj",
+      "Stl"
+    ],
+    "export": [
+      "Collada",
+      "Fbx",
+      "Gltf",
+      "Obj",
+      "Stl",
+      "Collada",
+      "Fbx",
+      "Gltf",
+      "Obj",
+      "Stl"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "npm install aspose-3d-foss",
+    "version": "24.12.0"
+  },
+  "not_implemented": [],
+  "forbidden_claims": [],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 142,
+    "with_methods": 113,
+    "with_properties": 108,
+    "with_enums": 4,
+    "method_pct": 79.6,
+    "property_pct": 76.1,
+    "surface_tier": 1
+  },
+  "snippets_coverage": {
+    "total_snippets": 100,
+    "classes_with_snippet": 43,
+    "classes_total": 142,
+    "coverage_ratio": 0.3,
+    "effective_denominator": 139,
+    "concrete_coverage": {
+      "classes_total": 137,
+      "classes_with_snippet": 43,
+      "coverage_ratio": 0.31
+    },
+    "interface_coverage": {
+      "classes_total": 2,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

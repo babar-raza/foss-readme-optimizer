@@ -1,0 +1,262 @@
+{
+  "schema_version": 2,
+  "family": "note",
+  "platform": "python",
+  "display_name": "Aspose.Note",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "scout_claims": 333,
+    "enriched_claims": 0,
+    "supplemental_claims": 0,
+    "total_claims": 333,
+    "class_count": 39,
+    "forbidden_count": 0,
+    "snippet_count": 97
+  },
+  "classes": [
+    "AsposeNoteError",
+    "AttachedFile",
+    "AttachmentTagFlowable",
+    "CompositeNode",
+    "Document",
+    "DocumentVisitor",
+    "FileCorruptedException",
+    "FileFormat",
+    "HorizontalAlignment",
+    "Image",
+    "IncorrectDocumentStructureException",
+    "IncorrectPasswordException",
+    "License",
+    "LoadOptions",
+    "Metered",
+    "Node",
+    "NodeType",
+    "NoteTag",
+    "NumberList",
+    "Outline",
+    "OutlineElement",
+    "OutlinePrefixFlowable",
+    "Page",
+    "PageHistory",
+    "ParagraphStyle",
+    "PdfSaveOptions",
+    "RichText",
+    "SaveFormat",
+    "SaveOptions",
+    "Table",
+    "TableCell",
+    "TableColumn",
+    "TableRow",
+    "TagStatus",
+    "TextRun",
+    "TextStyle",
+    "Title",
+    "UnsupportedFileFormatException",
+    "UnsupportedSaveFormatException"
+  ],
+  "class_graph": [
+    {
+      "child": "OutlinePrefixFlowable",
+      "parent": "Flowable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AttachmentTagFlowable",
+      "parent": "Flowable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SaveFormat",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FileFormat",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "HorizontalAlignment",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TagStatus",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NodeType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AsposeNoteError",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FileCorruptedException",
+      "parent": "AsposeNoteError",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IncorrectDocumentStructureException",
+      "parent": "AsposeNoteError",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IncorrectPasswordException",
+      "parent": "AsposeNoteError",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "UnsupportedFileFormatException",
+      "parent": "AsposeNoteError",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "UnsupportedSaveFormatException",
+      "parent": "AsposeNoteError",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CompositeNode",
+      "parent": "Node",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RichText",
+      "parent": "Node",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Title",
+      "parent": "Node",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OutlineElement",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Outline",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Image",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AttachedFile",
+      "parent": "Node",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TableCell",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TableRow",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Table",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Page",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Document",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    }
+  ],
+  "formats": {
+    "import": [],
+    "export": [
+      "Pdf",
+      "Pdf"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "pip install aspose-note-foss",
+    "version": "26.3.2"
+  },
+  "not_implemented": [],
+  "forbidden_claims": [],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 39,
+    "with_methods": 26,
+    "with_properties": 26,
+    "with_enums": 5,
+    "method_pct": 66.7,
+    "property_pct": 66.7,
+    "surface_tier": 2
+  },
+  "snippets_coverage": {
+    "total_snippets": 97,
+    "classes_with_snippet": 33,
+    "classes_total": 39,
+    "coverage_ratio": 0.85,
+    "effective_denominator": 34,
+    "concrete_coverage": {
+      "classes_total": 34,
+      "classes_with_snippet": 31,
+      "coverage_ratio": 0.91
+    },
+    "interface_coverage": {
+      "classes_total": 0,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

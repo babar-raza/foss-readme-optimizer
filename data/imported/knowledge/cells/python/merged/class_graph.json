@@ -1,0 +1,110 @@
+[
+  {
+    "child": "ChartType",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "DataValidationType",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "DataValidationOperator",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "DataValidationAlertStyle",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "DataValidationImeMode",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "EncryptionType",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "CipherAlgorithm",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "HashAlgorithm",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "AgileEncryptionParameters",
+    "parent": "EncryptionParameters",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "StandardEncryptionParameters",
+    "parent": "EncryptionParameters",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "MsoDrawingType",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FillType",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "MsoLineDashStyle",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "TextAlignmentType",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "TextAnchorType",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "SparklineType",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "SparklineEmptyCells",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "SaveFormat",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  }
+]

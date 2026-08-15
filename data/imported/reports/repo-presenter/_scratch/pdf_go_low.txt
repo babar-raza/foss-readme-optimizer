@@ -1,0 +1,73 @@
+u0067 0.0 None cat1=False | Field values containing non-ASCII characters (e.g. Cyrillic) are encoded as UTF-16BE with a BOM so any spec-conforming viewer reads them back correctly.
+u0077 0.0 None cat1=False | For long tables, mark a header row to repeat on every continuation page and use `Cell.SetColSpan` for summary rows:
+u0098 0.0 None cat1=False | Rasterize a page to an image with a dependency-free, pure-Go renderer (own anti-aliased rasterizer — no `golang.org/x/image`, no cgo).
+u0116 0.0 None cat1=False | Or run everything in one pass with the unified optimizer:
+u0090 0.17 Additional Examples cat1=False | Issue codes: `INVALID_HEADER`, `XREF_ERROR`, `OBJECT_ERROR`, `PAGE_TREE_ERROR`, `STREAM_ERROR`, `ENCRYPTED`.
+u0101 0.17 Additional Examples cat1=False | In both modes the text is selectable, copyable and Ctrl+F-searchable, link annotations become clickable `<a>` overlays (external URLs and in-document `#pageN` j
+u0042 0.2 Additional Examples cat1=False | - **Add text** — draw text on pages with font selection, alignment, word wrap, color, background, underline, strikethrough, rotation, and behind-content mode. *
+u0047 0.2 API Reference cat1=False | - **Page-label authoring** — `Document.SetPageLabels` writes the `/PageLabels` number tree (roman/decimal/alphabetic styles, prefix, start value) so viewers sho
+u0080 0.21 API Reference cat1=False | Supports: basic shapes, full SVG 1.1 path syntax (with elliptical-arc decomposition),
+transforms (`translate`/`rotate`/`scale`/`matrix`/`skewX`/`skewY`), viewBo
+u0049 0.22 Additional Examples cat1=False | - **Stream I/O** — open PDFs from any `io.Reader` via `OpenStream`/`OpenStreamWithPassword`; serialize to any `io.Writer` via `Document.WriteTo` (implements `io
+u0016 0.27 Key Capabilities cat1=False | - **Digital signatures** — sign (`Document.Sign`) with a PKCS#7-detached signature (SHA-256, RSA or ECDSA) covering the whole file — invisible or a visible "Dig
+u0099 0.29 API Reference cat1=False | > **Status:** the renderer draws **vector graphics** (paths, fills, strokes, Gray/RGB/CMYK plus Separation/DeviceN colour, axial/radial **shadings**, tiling pat
+u0105 0.29 API Reference cat1=False | Headings scale from `BaseSize`; bold/italic/strikethrough/code spans render as real styled runs, links become clickable annotations, task items draw vector chec
+u0059 0.3 API Reference cat1=False | - **Flatten** — bake interactive content into static page content: `Document.Flatten()` / `Form.Flatten()` (all fields + drop `/AcroForm`), `Field.Flatten()` (o
+u0085 0.3 API Reference cat1=False | Border styles available: `BorderSolid`, `BorderDashed`, `BorderBeveled`, `BorderInset`,
+`BorderUnderline` (per ISO 32000-1 Table 168). Line endings: `LineEnding
+u0051 0.31 API Reference cat1=False | - **Font embedding & subsetting** — embed TrueType (`.ttf`) and OpenType-CFF (`.otf`) fonts with `Document.LoadFont` (full Unicode, Identity-H): TTF as `CIDFont
+u0024 0.33 API Reference cat1=False | - **Text extraction** — extract text from pages in visual reading order (or raw content-stream order via `TextExtractOptions{Mode: TextExtractRaw}`) with full l
+u0053 0.33 API Reference cat1=False | - **Tiling patterns** — `Document.CreateTilingPattern(w, h)` returns a pattern whose `Canvas()` you draw a cell into, then fill any shape with the repeating mot
+u0097 0.33 API Reference cat1=False | Lists tag themselves too, and decoration (headers/footers, page numbers) is marked as an artifact so it stays out of the structure tree:
+u0095 0.35 API Reference cat1=False | `ValidatePDFUA` is a read-only check of the PDF/UA-1 (ISO 14289-1) accessibility prerequisites: the document is a Tagged PDF with a logical structure tree (`/St
+u0015 0.36 API Reference cat1=False | - **Encrypt** — password-protect PDFs with AES-128 (default, ISO 32000-1 §7.6.3.2 V=4 R=4 `/CFM /AESV2`), AES-256 (ISO 32000-2 §7.6.4 V=5 R=6 `/CFM /AESV3`, PDF
+u0022 0.36 Key Capabilities cat1=False | - **Tagged PDF / PDF/UA** — author accessible PDFs: `Document.TaggedContent()` builds a logical structure tree as you draw — `Page.TagContent(parent, type, draw
+u0058 0.37 API Reference cat1=False | - **Render to image** — rasterize pages to PNG/JPEG/GIF/BMP and single- or multi-page TIFF with a dependency-free, pure-Go anti-aliased renderer (`Page.RenderIm
+u0023 0.38 API Reference cat1=False | - **PDF/A validate + convert** — `Document.ValidatePDFA(PDFA1B/2B/3B/1A/2A/3A)` reports archival-conformance violations (XMP `pdfaid`, font embedding, encryptio
+u0034 0.38 API Reference cat1=False | - **PDF to HTML** — `Document.SaveHTML`/`WriteHTML` export the document as a single self-contained HTML file in four modes: **faithful** (pages rendered by the 
+u0092 0.38 API Reference cat1=False | `ValidatePDFA` is a read-only diagnostic for all six PDF/A levels (ISO 19005-1/2/3): `PDFA1B/2B/3B` (basic) and `PDFA1A/2A/3A` (accessible). It checks the XMP `
+u0114 0.38 API Reference cat1=False | Images are output as JPEG (passthrough for DCTDecode streams) or PNG (everything else). Supported color spaces: DeviceRGB, DeviceGray, DeviceCMYK (converted to 
+u0087 0.39 API Reference cat1=False | `TextAnnotation` icon names: `TextIconNote` (default), `Comment`, `Key`, `Help`, `NewParagraph`,
+`Paragraph`, `Insert`. `FreeTextAnnotation` supports three inte
+u0019 0.41 Additional Examples cat1=False | - **Tables** — `pdf.NewTable()` builds a Table/Row/Cell tree with Aspose.PDF for .NET-parity naming (`BorderInfo`, `MarginInfo`, `ColumnWidths`). `(*Page).AddTa
+u0014 0.43 API Reference cat1=False | - **XMP metadata** — full CRUD of the `/Catalog/Metadata` RDF/XML packet (ISO 32000-1 §14.3.2) via `Document.XMP()/SetXMP()/ClearXMP()` and a raw `XMPRaw()/SetX
+u0026 0.43 Key Capabilities cat1=False | - **Image extraction** — extract images as JPEG (passthrough) or PNG with position, dimensions, and color space metadata; supports DeviceRGB, DeviceGray, Device
+u0002 0.44 API Reference cat1=False | Spec references throughout follow ISO 32000-1 (PDF 1.7) and ISO 32000-2 (PDF 2.0). The API shape mirrors Aspose.PDF for .NET where natural, so concepts transfer
+u0033 0.44 API Reference cat1=False | - **Optimize (unified)** — `Document.Optimize(OptimizationOptions)` runs a size-reduction pass in one call: remove unused objects, subset fonts, **Flate-compres
+u0038 0.44 API Reference cat1=False | - **PDF to Markdown** — `Document.SaveMarkdown`/`WriteMarkdown` re-assemble the document as GFM Markdown: inferred `#`–`###` headings, real `**bold**`/`*italic*
+u0052 0.44 API Reference cat1=False | - **Linearization (fast web view)** — `Document.SaveLinearized(path)` / `WriteToLinearized(w)` write a linearized PDF (ISO 32000-1 Annex F) with the first page'
+u0072 0.44 API Reference cat1=False | Every field is given a pre-generated `/AP` appearance stream on creation and whenever its value or style changes, so the form renders identically across Acrobat
+u0088 0.44 API Reference cat1=False | `FileAttachmentAnnotation` icons: `Paperclip` (default), `Graph`, `PushPin`, `Tag`.
+MIME type auto-detected from file extension. After save, viewers display the
+u0094 0.44 API Reference cat1=False | `ConvertToPDFA` removes encryption, JavaScript/Launch actions and (for PDF/A-1) attachments, sets annotation print flags, **auto-embeds non-embedded simple font
+u0039 0.45 API Reference cat1=False | - **AI copilots (`ai` subpackage)** — document **summarization** (`ai.NewSummaryCopilot` — plain text or rendered as a new PDF), **OCR of scanned pages** (`ai.N
+u0082 0.45 Key Capabilities cat1=False | Bake interactive form fields and annotations into static page content — the document renders identically but is no longer fillable or editable.
+u0066 0.49 API Reference cat1=False | `Document.Sign` adds one **PKCS#7-detached** signature (SHA-256; RSA or ECDSA),
+covering the whole file, configured like encryption and applied on `Save`/`Write
+u0010 0.5 Key Capabilities cat1=False | - **Imposition** — `Document.NUp` lays multiple source pages onto larger sheets in a Rows×Cols grid; `Document.Booklet` reorders pages two-up for saddle-stitch 
+u0031 0.5 Key Capabilities cat1=False | - **Remove unused objects** — clean up orphaned objects after modifications to reduce file size
+u0036 0.5 Key Capabilities cat1=False | - **Markdown to PDF** — `MarkdownToDocument`/`FromStream` render CommonMark + GFM (tables, strikethrough, task lists, autolinks) as clean paginated PDFs with on
+u0043 0.5 Key Capabilities cat1=False | - **Text watermarks** — apply text watermarks to all or selected pages with full styling control
+u0068 0.5 API Reference cat1=False | Forms can also be exported as **fillable HTML** — `doc.SaveHTML(path, pdf.HTMLSaveOptions{Mode: pdf.HTMLModeText, InteractiveForms: true})` turns every field in
+u0086 0.5 API Reference cat1=False | `PolygonAnnotation` (closed) and `PolylineAnnotation` (open) take a `[]pdf.Point`
+of vertices and share the same border/interior-colour surface; the polyline
+al
+u0117 0.5 Key Capabilities cat1=False | `ConvertToGrayscale` maps every colour to its luminance grey in place — content-stream device colours, raster images (re-encoded as DeviceGray), axial/radial sh
+u0121 0.5 API Reference cat1=False | **Floating boxes** are positioned containers (border/background/padding + their own content). Place one absolutely on a page, or insert it into a flow where it 
+u0050 0.52 API Reference cat1=False | - **Forms (AcroForm)** — read, fill, and build from scratch all standard field types (text, checkbox, radio, combo box, list box, push button); programmatic fie
+u0037 0.54 API Reference cat1=False | - **PDF to SVG** — `Page.SaveSVG`/`WriteSVG` and `Document.SaveSVG` export pages as standalone true-vector SVG files: real Bézier paths and native strokes, text
+u0013 0.55 API Reference cat1=False | - **Info metadata** — read and write the document `/Info` dictionary (title, author, subject, keywords, creator, producer, creation/mod dates, plus arbitrary cu
+u0055 0.55 Key Capabilities cat1=False | - **Layers (optional content)** — author OCG layers with `Document.AddLayer(name)`, bracket page content with `Page.BeginLayer`/`EndLayer`, and toggle default v
+u0018 0.56 Key Capabilities cat1=False | - **Flow layout (document generator)** — `Document.NewFlow(...)` lays content out top-to-bottom and **paginates automatically**: chainable `AddParagraph`/`AddHe
+u0062 0.56 API Reference cat1=False | A document must keep at least one page — a call that would remove every page returns an error and changes nothing.
+u0075 0.56 API Reference cat1=False | API mirrors Aspose.PDF for .NET's `NamedDestinations` collection and `NamedDestination` class 1:1. Reads both `/Catalog/Dests` (legacy PDF 1.1) and `/Catalog/Na
+u0025 0.57 API Reference cat1=False | - **Structural extraction** — `(*Page/*Document).Paragraphs()` groups text into columns (`MarkupSection`) and paragraphs (`MarkupParagraph{Text, Rectangle, Line
+u0041 0.57 API Reference cat1=False | - **Add blank pages** — append or insert blank pages into existing documents at any position
+u0054 0.57 API Reference cat1=False | - **Reusable Form XObjects** — `Document.CreateForm(w, h)` returns an `XForm` you draw into once (via `Canvas()`, the full page drawing API), then place on any 
+u0061 0.57 API Reference cat1=False | `NUp` arranges pages in a `Rows`×`Cols` grid, scaling each to fit its cell
+(aspect preserved, centered) and filling sheet after sheet. `Booklet` imposes
+pages t
+u0096 0.57 At a Glance cat1=False | Tables tag themselves — `AddTaggedTable` renders a `Table` and builds its `/Table → /TR → /TH/TD` structure in one call (repeating header rows become `/TH`; bac
+u0103 0.57 API Reference cat1=False | `SVGSaveOptions.DPI` (default 150) sets the coordinate scale and the resolution of raster patches — the vector content itself is resolution-independent. Mirrors
+u0076 0.58 API Reference cat1=False | `GenerateTOC` sources entries from the document outline (nesting becomes the indent
+level) and inserts the TOC as new page(s) at the front; `AddTOC` renders a c

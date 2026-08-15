@@ -1,0 +1,1188 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "A free, open-source PDF library for modern C++ — open and save PDFs, extract text, render pages to raster images, build documents from scratch (text, images, tables, vector graphics, annotations, AcroForm fields, bookmarks), encrypt with RC4-128 / AES-128 / AES-256, and digitally sign with a detached PKCS#7 signature. **No runtime dependency on any commercial PDF stack — the library links against nothing but the C++ standard library; every primitive, including the TIFF / JPEG / PNG codecs and the rasteriser, is implemented from scratch.**",
+    "salient_tokens": [
+      "PDF",
+      "PDFs",
+      "AcroForm",
+      "RC4",
+      "AES",
+      "PKCS",
+      "TIFF",
+      "JPEG",
+      "PNG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The full capability overview and 'no runtime dependency / implemented from scratch' claim is already the candidate's opening Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Present verbatim (RC4-40 added to the algorithm list) in the Intro paragraph before the first ## heading."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Already present verbatim in the Intro paragraph before the first ## heading."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "The public API is a strict subset of the public API of the commercial [Aspose.PDF for .NET](https://products.aspose.com/pdf/) library — class names, method names, and shapes mirror it where natural for migrants. Spec references throughout follow ISO 32000-1 (PDF 1.7) and ISO 32000-2 (PDF 2.0).",
+    "salient_tokens": [
+      "API",
+      "PDF",
+      "NET",
+      "ISO",
+      "1.7",
+      "2.0"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Branding/positioning claim (subset of Aspose.PDF for .NET) already present verbatim in the Intro.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Present verbatim in the Intro paragraph (second half, after the free/open-source sentence)."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Already present verbatim in the Intro paragraph (subset-of-.NET claim plus ISO 32000 spec references)."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "The library builds as a static library you link into your project. Add it as a subdirectory of your CMake build, or build and install it standalone (see [Build](#build)).",
+    "salient_tokens": [
+      "CMake"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Describes the two real build/link pathways (subdirectory vs. standalone) and cross-references the standalone Build steps -- a concrete installation-mechanism fact. The first sentence was already present; the '(see [Build](#build))' cross-reference specifically was dropped along with the old '## Build' heading (flagged by check_dropped_content as a dropped link).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "CMakeLists.txt",
+      "evidence_note": "CMakeLists.txt defines the aspose_pdf_foss target consumable both via add_subdirectory() and as a standalone cmake -S/-B build -- confirms both pathways this unit describes are real."
+    },
+    "disposition": "merged_verbatim",
+    "target_section": "Installation",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- C++20 compiler (clang ≥ 16, gcc ≥ 13, MSVC 2022 ≥ 17.5)",
+    "salient_tokens": [
+      "MSVC",
+      "17.5"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Compiler requirement already stated verbatim in Installation's Requirements paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Present verbatim in the **Requirements** paragraph."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "C++20 compiler requirement already stated verbatim in the Requirements paragraph."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- CMake ≥ 3.22",
+    "salient_tokens": [
+      "CMake",
+      "3.22"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "CMake version-floor requirement already present verbatim in Installation's Requirements paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: '**Requirements**: a C++20 compiler (clang ≥ 16, gcc ≥ 13, MSVC 2022 ≥ 17.5), CMake ≥ 3.22, and Python 3 at build time only...' Present verbatim. Note: the real CMakeLists.txt's own cmake_minimum_required() only declares VERSION 3.20, so the 3.22 floor (repeated by both the old README's badge and this old-README bullet) is a pre-existing candidate/old-README discrepancy, not introduced here -- this unit's text is already present verbatim in the candidate regardless, so it is excluded as redundant rather than merged; the discrepancy is noted for the record, same as this product's own u0010/u0012 precedent of flagging pre-existing accuracy questions instead of editing them under this unit's scope."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "CMake ≥ 3.22 requirement already stated verbatim in the Requirements paragraph."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Python 3 (build-time only — a generator step embeds the bundled font outlines into a generated source file)",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Python build-time dependency already stated verbatim in Installation's Requirements paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Present verbatim in the **Requirements** paragraph."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Python 3 build-time-only requirement already stated verbatim in the Requirements paragraph."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Runtime dependencies: none.** The test suite alone fetches [GoogleTest](https://github.com/google/googletest) v1.14.0 via CMake `FetchContent` at configure time; it is not needed to build or consume the library itself.",
+    "salient_tokens": [
+      "FetchContent",
+      "GoogleTest",
+      "CMake",
+      "14.0"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Runtime-dependencies-none / GoogleTest FetchContent fact already present verbatim in Installation.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Present verbatim in the **Requirements** paragraph's closing sentence."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Runtime-dependency-none / GoogleTest FetchContent fact already present verbatim in Installation."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "See [`examples/`](examples/) for 12 runnable programs covering the whole surface, including a from-scratch [feature showcase](examples/12_create_features.cpp).",
+    "salient_tokens": [
+      "examples/"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Points to the specific, real from-scratch example file demonstrating the full creation surface -- a concrete usage reference. Its link target (examples/12_create_features.cpp) was confirmed dropped by check_dropped_content and was not present anywhere else in the candidate.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "examples/12_create_features.cpp",
+      "evidence_note": "File exists in the clone cache examples/ directory alongside the other 11 numbered examples -- confirms the specific showcase file this unit points to is real."
+    },
+    "disposition": "merged_verbatim",
+    "target_section": "Quick Start",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Open & save** — open existing PDFs; save with byte-verbatim round-trip, or edit `/Info` metadata via an incremental update that preserves the original bytes",
+    "salient_tokens": [
+      "/Info",
+      "PDFs"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Bullet already present verbatim in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Present verbatim as the first Key Capabilities bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Open & save bullet already present verbatim in Key Capabilities."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Open encrypted PDFs** — supply the user or owner password to `Document(path, password)`; `IsEncrypted()` reports the state",
+    "salient_tokens": [
+      "Document(path, password)",
+      "IsEncrypted()",
+      "PDFs",
+      "IsEncrypted"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Bullet already present verbatim in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Present verbatim in Key Capabilities."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Open encrypted PDFs bullet already present verbatim in Key Capabilities."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Text extraction** — `Text::TextAbsorber` walks a whole `Document` or a single `Page`; `Text::TextFragmentAbsorber` returns positioned fragments with font, size, and colour",
+    "salient_tokens": [
+      "Text::TextAbsorber",
+      "Document",
+      "Page",
+      "Text::TextFragmentAbsorber",
+      "TextAbsorber",
+      "TextFragmentAbsorber"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Bullet already present verbatim in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Present verbatim in Key Capabilities."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Text extraction bullet already present verbatim in Key Capabilities."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Render to image** — rasterise pages through `PngDevice`, `JpegDevice`, `BmpDevice`, and `TiffDevice` (single page or multi-page), driven by a dependency-free anti-aliased renderer. TIFF supports 1/4/8/24-bpp output with median-cut palette quantisation",
+    "salient_tokens": [
+      "PngDevice",
+      "JpegDevice",
+      "BmpDevice",
+      "TiffDevice",
+      "TIFF"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "The device/TIFF-bpp facts already survive, but the 'dependency-free, anti-aliased renderer' characterization of the underlying rasteriser -- a real mechanism-level fact about the implementation -- was dropped from the Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/internal/page_renderer.cpp",
+      "evidence_note": "Rasteriser is implemented via coverage-mask-based compositing (fractional path coverage, alpha blending per ISO 32000 section 11.6.4.4 comments) -- confirms genuine anti-aliasing. No external rasterisation library is included; combined with the Intro's own 'implemented from scratch' / 'links against nothing but the C++ standard library' claim, confirms dependency-free."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Pluggable palette quantisation** — implement `IIndexBitmapConverter` (`Get1Bpp`/`Get4Bpp`/`Get8Bpp`) and pass it to a `TiffDevice` ctor for caller-controlled palette generation; the default is median-cut",
+    "salient_tokens": [
+      "IIndexBitmapConverter",
+      "Get1Bpp",
+      "Get4Bpp",
+      "Get8Bpp",
+      "TiffDevice"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Caller-controlled-palette fact already present (Key Capabilities + API Reference); verification found the old excerpt's method names are stale.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "include/aspose/pdf/i_index_bitmap_converter.hpp confirms the real method names are Get1BppImage/Get4BppImage/Get8BppImage, not Get1Bpp/Get4Bpp/Get8Bpp as the old README states. The candidate's Rendering Devices bullet already uses the correct real names -- merging the old excerpt verbatim would have introduced a factual regression."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Already present in Key Capabilities and API Reference; old excerpt's method names (Get1Bpp/etc.) are stale versus real source, so verbatim reuse was rejected."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Standard-14 font fallback** — references to `/Helvetica`, `/Times-Roman`, `/Courier` (× 4 styles each — 12 of the 14 in v1) without an embedded `/FontFile` paint correctly via system fonts, falling back to the bundled Liberation substitutes (SIL OFL 1.1) so glyphs render even in fontless Linux/CI containers",
+    "salient_tokens": [
+      "/Helvetica",
+      "/Times-Roman",
+      "/Courier",
+      "/FontFile",
+      "FontFile",
+      "SIL",
+      "OFL",
+      "CI",
+      "1.1"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Explains WHY/HOW the Standard-14 fallback works (system-font search first, then bundled Liberation, so glyphs still render in fontless CI); the candidate had kept only the bare '12 of the 14' fact with the mechanism/rationale gone -- the headline example that motivated this mission.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/internal/standard14_outlines.cpp",
+      "evidence_note": "Resolve() probes per-OS system font search directories (BuiltinDefaults(): Windows Fonts dir, /usr/share/fonts on Linux, etc.) first; falls through to the bundled Liberation font data (compiled in via standard14_outlines_bundle.inc) only when no system font file is found. Confirms the system-font-first / Liberation-fallback / fontless-CI mechanism exactly as the old README described it."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Document metadata** — typed `DocumentInfo` accessors (title, author, subject, keywords, creator, producer, dates) plus `Add` / `Remove` / `ClearCustomData` for arbitrary entries; XMP read via `Metadata`",
+    "salient_tokens": [
+      "DocumentInfo",
+      "Add",
+      "Remove",
+      "ClearCustomData",
+      "Metadata",
+      "XMP"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Accessor list already present in API Reference's Document and Pages detail; verification found the old excerpt's 'dates' claim is itself inaccurate.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "include/aspose/pdf/document_info.hpp explicitly states 'Date / timezone properties ... are out of scope until the corresponding placeholder types land' -- DocumentInfo does NOT currently expose date accessors. The old README's 'dates' claim is inaccurate; the candidate's omission of it is correct, not a genericization, so it was not restored."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "DocumentInfo accessor list already present; real source shows the old excerpt's 'dates' claim is inaccurate and correctly not carried forward."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Charset codec** — `Encoding` substitutes the BCL `System.Text.Encoding` for `TextDevice` output (utf-8, utf-16-le, utf-16-be, latin-1, windows-1252)",
+    "salient_tokens": [
+      "Encoding",
+      "System.Text.Encoding",
+      "TextDevice",
+      "BCL"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Bullet already present (reframed as 'Extract text via a device') in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Present as the 'Extract text via a device' bullet, same charset list."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Charset codec / TextDevice encoding list already present verbatim in Key Capabilities."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Encryption** — `Document::Encrypt(user, owner, permissions, algorithm)` with RC4-128, AES-128, or AES-256 (PDF 2.0, R=6); granular viewer permissions (print, modify, extract, annotate, fill form, accessibility, assemble, high-res print); applied on `Save`. Re-open with the password to round-trip",
+    "salient_tokens": [
+      "Document::Encrypt(user, owner, permissions, algorithm)",
+      "Save",
+      "RC4",
+      "AES",
+      "PDF",
+      "2.0"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Core encryption fact present in Key Capabilities; the permissions enumeration lives in API Reference Security, and the Save/re-open round-trip detail lives in Additional Examples code comments.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Permission list (print, modify, extract, annotate, fill form, accessibility, assemble, high-res print) present verbatim in API Reference's Security bullet; 'applied on Save' / 'Re-open with the password' present as code comments in the Additional Examples 'Encrypt a Document With AES-256' example."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Core fact plus permission enumeration and round-trip detail all independently present across Key Capabilities, API Reference, and Additional Examples."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Digital signatures** — `Facades::PdfFileSignature` adds a detached PKCS#7 (`adbe.pkcs7.detached`) signature with a byte-exact `/ByteRange`; output verifies under the OpenSSL CLI",
+    "salient_tokens": [
+      "Facades::PdfFileSignature",
+      "adbe.pkcs7.detached",
+      "/ByteRange",
+      "PdfFileSignature",
+      "PKCS",
+      "ByteRange",
+      "OpenSSL",
+      "CLI"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Core signing fact present in Key Capabilities; OpenSSL-CLI verification detail present in Additional Examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "'verifiable with the OpenSSL CLI' present verbatim as a code comment in the Additional Examples Digital Signatures subsection."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Digital-signature fact present in Key Capabilities; OpenSSL-CLI verification detail present in Additional Examples code comment."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Create from scratch** — build documents with positioned and word-wrapped text (`Text::TextBuilder` / `TextFragment` / `TextParagraph`), font lookup (`FontRepository::FindFont`), image placement (`Page::AddImage`, PNG/JPEG), tables, vector graphics, watermarks, annotations, AcroForm fields, and bookmark outlines",
+    "salient_tokens": [
+      "Text::TextBuilder",
+      "TextFragment",
+      "TextParagraph",
+      "FontRepository::FindFont",
+      "Page::AddImage",
+      "TextBuilder",
+      "FontRepository",
+      "FindFont",
+      "AddImage",
+      "PNG",
+      "JPEG",
+      "AcroForm"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Bullet already present in Key Capabilities; FontRepository::FindFont and TextParagraph specifically appear in the API Reference Text section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Text::FontRepository::FindFont(name) and Text::TextParagraph both present in API Reference's Text detail bullets / class table."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Create-from-scratch bullet present in Key Capabilities; FontRepository::FindFont and TextParagraph present in API Reference."
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Tables** — `Table` / `Row` / `Cell` with `ColumnWidths`, per-cell and default borders (`BorderInfo`), background colours, and column-spanning cells (`Cell::ColSpan`); positioned on a page via `Page::Paragraphs().Add(table)`",
+    "salient_tokens": [
+      "Table",
+      "Row",
+      "Cell",
+      "ColumnWidths",
+      "BorderInfo",
+      "Cell::ColSpan",
+      "Page::Paragraphs().Add(table)",
+      "ColSpan"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Table mechanics already present in API Reference's Creation Building Blocks and in the Additional Examples code.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "ColumnWidths/BorderInfo/BackgroundColor/Cell::ColSpan all present verbatim in the API Reference Table/Row/Cell bullet; page.Paragraphs().Add(table) present in the Additional Examples code."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Table/Row/Cell mechanics already present in API Reference and Additional Examples code."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Vector graphics** — `Drawing::Graph` holds `Line`, `Rectangle`, `Circle`, and `Ellipse` shapes drawn directly onto a page",
+    "salient_tokens": [
+      "Drawing::Graph",
+      "Line",
+      "Rectangle",
+      "Circle",
+      "Ellipse"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Shape list already present verbatim in API Reference's Creation Building Blocks.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Present verbatim as the Drawing::Graph bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Drawing::Graph shape list already present verbatim in API Reference."
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Watermarks** — `WatermarkArtifact` overlays or underlays rotated, semi-transparent text on a page via `Page::Artifacts()`",
+    "salient_tokens": [
+      "WatermarkArtifact",
+      "Page::Artifacts()"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "WatermarkArtifact had been compressed to a bare class-name mention in the API Reference table; its real overlay/underlay, rotation, and opacity behavior is a mechanism fact, not narrative.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "include/aspose/pdf/watermark_artifact.hpp",
+      "evidence_note": "Header comment confirms the real configuration surface: SetTextAndState / SetImage / Position / Rotation / Opacity / IsBackground, added via Page::Artifacts(). Confirms overlay-or-underlay (IsBackground), rotated (Rotation), and semi-transparent (Opacity) behavior exactly as described."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Annotations** — a gallery of subtypes: `Highlight`, `Underline`, `Squiggly`, `StrikeOut`, `Square`, `Circle`, `Line`, `Ink`, `Text` (sticky note), `FreeText`, `Stamp`, `Link` (with `GoTo` / `GoToURI` actions), and `FileAttachment`. Each gets a pre-generated `/AP` appearance stream so it renders in any spec-conforming viewer",
+    "salient_tokens": [
+      "Highlight",
+      "Underline",
+      "Squiggly",
+      "StrikeOut",
+      "Square",
+      "Circle",
+      "Line",
+      "Ink",
+      "Text",
+      "FreeText",
+      "Stamp",
+      "Link",
+      "GoTo",
+      "GoToURI",
+      "FileAttachment",
+      "/AP",
+      "AP"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "The subtype list already survives in API Reference, but the '/AP pre-generated appearance stream' mechanism explaining WHY annotations render correctly in any viewer without extra work had been dropped entirely (confirmed via grep: no '/AP' or 'appearance' text anywhere in the pre-edit candidate outside one unrelated Border-appearance sentence).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/public/document.cpp",
+      "evidence_note": "document.cpp writes a real '/AP' dictionary entry for annotation objects (entries.emplace_back(\"AP\", ...)) when the document is saved -- confirms the pre-generated appearance-stream mechanism is real, not aspirational."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Forms (AcroForm)** — build `TextBox`, `Checkbox`, `RadioButton`, `ComboBox`, `ListBox`, and push-button (`ButtonField`) fields with pre-generated `/AP` appearances; `Form::Flatten()` bakes every field into static page content",
+    "salient_tokens": [
+      "TextBox",
+      "Checkbox",
+      "RadioButton",
+      "ComboBox",
+      "ListBox",
+      "ButtonField",
+      "/AP",
+      "Form::Flatten()",
+      "AcroForm",
+      "AP"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Field-type list and Form::Flatten() already survive in API Reference, but the pre-generated-/AP-appearances mechanism for form fields had been dropped -- same pattern as the Annotations case (u0022).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/public/document.cpp",
+      "evidence_note": "The same document.cpp write logic emits an 'AP' dictionary entry for form-field widget dictionaries when the document is saved -- confirms fields also get pre-generated appearances, matching the old README's claim."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0025",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Outlines (bookmarks)** — build a hierarchical `OutlineItemCollection` tree with bold/italic styling and `XYZExplicitDestination` targets",
+    "salient_tokens": [
+      "OutlineItemCollection",
+      "XYZExplicitDestination"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "XYZExplicitDestination already survives, but the real bold/italic text-style capability of OutlineItemCollection had been compressed to a bare 'Class with 18 methods' table row -- a specific class's real, verifiable behavior.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "include/aspose/pdf/outline_item_collection.hpp",
+      "evidence_note": "Header declares real Bold()/Italic() getter/setter pairs (the outline label's /F text-style flags) -- confirms the bold/italic styling capability the API table's bare method count had dropped."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0026",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Named destinations & embedded files** — define reusable destinations; attach companion files document-level via `Document::EmbeddedFiles()` (shown in the viewer's attachment panel)",
+    "salient_tokens": [
+      "Document::EmbeddedFiles()",
+      "EmbeddedFiles"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "EmbeddedFiles() had been compressed to a bare method-name mention in the API Reference Document bullet, with the real viewer-attachment-panel behavior dropped entirely -- the second headline example that motivated this mission.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/public/document.cpp",
+      "evidence_note": "Document::EmbeddedFiles()/AppendEmbeddedFilesUpdate()/LoadEmbeddedFiles() write and read a document-level /EmbeddedFiles name tree under the Catalog's /Names dictionary -- the real ISO 32000 mechanism for document-level attachments, which conforming viewers surface in an attachments panel. Confirms the claim exactly."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0027",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Aspose.Pdf.Facades** — the classic facade API surface, with these wired to the real engine: `PdfConverter` (rasterise a PDF to multi-page TIFF or per-page PNG), `PdfExtractor` (text extraction honouring `StartPage`/`EndPage`), `PdfFileSecurity` (encrypt / decrypt / change passwords), `PdfFileSignature` (sign), and `PdfBookmarkEditor` (create / extract bookmarks)",
+    "salient_tokens": [
+      "PdfConverter",
+      "PdfExtractor",
+      "StartPage",
+      "EndPage",
+      "PdfFileSecurity",
+      "PdfFileSignature",
+      "PdfBookmarkEditor",
+      "API",
+      "PDF",
+      "TIFF",
+      "PNG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Facades summary already present near-verbatim in both Key Capabilities and the API Reference Facades subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Each facade + its parenthetical description present verbatim in the API Reference Facades (Aspose::Pdf::Facades) detail bullets."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Facades summary already present near-verbatim in Key Capabilities and API Reference."
+  },
+  {
+    "unit_id": "u0028",
+    "source": "clone_cache/README.md",
+    "excerpt": "> **Scope note.** This is a v1 release and a deliberate *subset* of Aspose.PDF for .NET. Some facade methods (e.g. `PdfFileEditor` concatenate/split, `PdfFileStamp` header/footer stamping) ship their public surface but are not yet wired to the engine; the feature list above reflects what is exercised by the examples and the test suite.",
+    "salient_tokens": [
+      "PdfFileEditor",
+      "PdfFileStamp",
+      "PDF",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Scope note already present verbatim in Scope and Limitations.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Present verbatim as the first two Scope and Limitations bullets."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Scope note already present verbatim in Scope and Limitations."
+  },
+  {
+    "unit_id": "u0029",
+    "source": "clone_cache/README.md",
+    "excerpt": "Out-of-source build under `build/`. The static library lands at `build/libaspose_pdf_foss.a` (or `aspose_pdf_foss.lib` on MSVC).",
+    "salient_tokens": [
+      "build/",
+      "build/libaspose_pdf_foss.a",
+      "aspose_pdf_foss.lib",
+      "MSVC"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Build output path already present verbatim in Installation.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Present verbatim in Installation."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Out-of-source build path / library filename already present verbatim in Installation."
+  },
+  {
+    "unit_id": "u0030",
+    "source": "clone_cache/README.md",
+    "excerpt": "Release build:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Release-build lead-in and the CMAKE_BUILD_TYPE=Release command it introduces are already present, near-verbatim, in Installation.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'For a release build: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release / cmake --build build' -- same commands, same lead-in intent, only the wording of the lead-in itself differs ('For a release build:' vs 'Release build:')."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Release-build lead-in and its CMAKE_BUILD_TYPE=Release command already present, near-verbatim, in Installation."
+  },
+  {
+    "unit_id": "u0031",
+    "source": "clone_cache/README.md",
+    "excerpt": "`CMakePresets.json` carries host-conditional Windows-MSVC presets — e.g. `cmake --preset windows-msvc-debug`. Sources with non-ASCII bytes need `/utf-8` under MSVC.",
+    "salient_tokens": [
+      "CMakePresets.json",
+      "cmake --preset windows-msvc-debug",
+      "/utf-8",
+      "CMakePresets",
+      "MSVC",
+      "ASCII"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "CMakePresets / non-ASCII note already present verbatim in Installation.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Present verbatim in Installation."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "CMakePresets.json / non-ASCII /utf-8 note already present verbatim in Installation."
+  },
+  {
+    "unit_id": "u0032",
+    "source": "clone_cache/README.md",
+    "excerpt": "For caller-controlled palettes, subclass `Aspose::Pdf::IIndexBitmapConverter` and pass it to a `TiffDevice` ctor.",
+    "salient_tokens": [
+      "Aspose::Pdf::IIndexBitmapConverter",
+      "TiffDevice",
+      "IIndexBitmapConverter"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Caller-controlled-palette fact already present in Key Capabilities and API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Present in the Key Capabilities Render-to-image bullet and the API Reference IIndexBitmapConverter bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "IIndexBitmapConverter caller-controlled-palette fact already present in Key Capabilities and API Reference."
+  },
+  {
+    "unit_id": "u0033",
+    "source": "clone_cache/README.md",
+    "excerpt": "> The incremental-update writer patches an existing `/Info` object; a from-scratch document has no `/Info` to patch, so setting metadata on one and saving throws.",
+    "salient_tokens": [
+      "/Info"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Caveat already present verbatim as a blockquote in Additional Examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Present verbatim as the blockquote following the Read and Update Document Metadata example."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Incremental-update /Info-patch caveat already present verbatim in Additional Examples."
+  },
+  {
+    "unit_id": "u0034",
+    "source": "clone_cache/README.md",
+    "excerpt": "`CryptoAlgorithm` covers `RC4x40`, `RC4x128`, `AESx128`, and `AESx256`. `Permissions` is a `[Flags]` enum (ISO 32000-1 §7.6.3.2 Table 22) — compose with `|`. Permissions are enforced by viewers; the library is not a DRM mechanism.",
+    "salient_tokens": [
+      "CryptoAlgorithm",
+      "RC4x40",
+      "RC4x128",
+      "AESx128",
+      "AESx256",
+      "Permissions",
+      "[Flags]",
+      "|",
+      "ISO",
+      "DRM",
+      "7.6.3.2"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT049 remediation (2026-08-16): the CryptoAlgorithm enum's own token set (RC4x40/RC4x128/AESx128/AESx256) was a separate, independently-droppable fact within this compound excerpt -- it previously matched only in Additional Examples, not this unit's own target_section, so check_content_unit_merged_into_target_section's corrected per-sentence-group test flagged it as silently dropped. Restored as its own bullet in Scope and Limitations alongside the pre-existing DRM/enforcement bullet. The Permissions/[Flags]/ISO-compose-with-`|` sentence remains intentionally covered only in Additional Examples (redundant if duplicated here).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "include/aspose/pdf/crypto_algorithm.hpp",
+      "evidence_note": "crypto_algorithm.hpp confirms the enum still has exactly 4 values (RC4x40=0, RC4x128=1, AESx128=2, AESx256=3), matching the restored bullet. Permissions enforcement fact separately confirmed against include/aspose/pdf/permissions.hpp: Permissions is defined purely as an /Encrypt /P bitfield with no enforcement logic there; a grep of src/internal/encrypt_parser.cpp (the real crypto engine) found zero matches for 'Permissions' or 'enforce' -- confirms the library only encodes the bitfield and never itself restricts print/copy/etc.; enforcement is left to the consuming viewer, matching standard PDF-spec behavior."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0035",
+    "source": "clone_cache/README.md",
+    "excerpt": "See [`tests/facades_pdf_file_signature_smoke_test.cpp`](tests/facades_pdf_file_signature_smoke_test.cpp) for the full signing flow.",
+    "salient_tokens": [
+      "tests/facades_pdf_file_signature_smoke_test.cpp"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Smoke-test pointer already present verbatim in Additional Examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Present verbatim following the Digital Signatures example."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Smoke-test file pointer already present verbatim in Additional Examples."
+  },
+  {
+    "unit_id": "u0036",
+    "source": "clone_cache/README.md",
+    "excerpt": "The `12_create_features` example builds a 10-page showcase exercising the whole creation surface. Highlights:",
+    "salient_tokens": [
+      "12_create_features"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The '10-page showcase' description already present verbatim in the Additional Examples table row for 12_create_features.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Table row: '12_create_features | from-scratch 10-page showcase: text, image, tables, graphics, annotations, AcroForm fields, bookmarks'."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "'10-page showcase' phrasing already present verbatim in the examples table row."
+  },
+  {
+    "unit_id": "u0037",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Images** — `page.AddImage(pngBytes, Rectangle(...))` accepts PNG or JPEG byte streams.",
+    "salient_tokens": [
+      "page.AddImage(pngBytes, Rectangle(...))",
+      "AddImage",
+      "pngBytes",
+      "PNG",
+      "JPEG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "AddImage / PNG-or-JPEG-byte-streams fact already present in the API Reference Document and Pages bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "'AddImage(bytes, rectangle) (PNG or JPEG byte streams)' present verbatim in API Reference's Page bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "AddImage(bytes, rectangle) / PNG-or-JPEG fact already present in the API Reference Document and Pages bullet."
+  },
+  {
+    "unit_id": "u0038",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Tables** — `Table` / `Row` / `Cell` with column-spanning rows:",
+    "salient_tokens": [
+      "Table",
+      "Row",
+      "Cell"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Table/Row/Cell code example already present in Additional Examples' Build a Page From Scratch section; Cell::ColSpan named in API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Table/Row/Cell code present in the Build a Page From Scratch example; note the specific ColSpan usage line from the old example was thinned to a header-row-only demo -- a code-completeness observation flagged in the final report, not a prose-content loss this unit tracks."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Table/Row/Cell mechanics already present in Additional Examples code and API Reference."
+  },
+  {
+    "unit_id": "u0039",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Vector graphics** — `Drawing::Graph` holding `Line` / `Rectangle` / `Circle` / `Ellipse`:",
+    "salient_tokens": [
+      "Drawing::Graph",
+      "Line",
+      "Rectangle",
+      "Circle",
+      "Ellipse"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Caption fact already present in the API Reference Creation Building Blocks bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Present verbatim as the Drawing::Graph bullet. Note: the candidate's 'Build a Page From Scratch (Text, Table, Vector Graphics)' Additional-Examples code no longer actually shows Drawing::Graph/Circle code despite the section title -- a code-completeness gap flagged in the final report as out of this prose-only pass's scope."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Drawing::Graph fact already present in API Reference; underlying code-example completeness is a separate, out-of-scope observation."
+  },
+  {
+    "unit_id": "u0040",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Annotations** — pre-generated `/AP` appearances; render in any viewer:",
+    "salient_tokens": [
+      "/AP",
+      "AP"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Caption content now covered by the merged Annotations::* bullet in API Reference (see u0022's merge).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "The /AP pre-generated-appearance-stream fact this caption introduces is now present via u0022's merge into the API Reference Annotations::* bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Covered by the Annotations::* /AP-appearance merge (u0022) in API Reference."
+  },
+  {
+    "unit_id": "u0041",
+    "source": "clone_cache/README.md",
+    "excerpt": "Available subtypes: `Highlight`, `Underline`, `Squiggly`, `StrikeOut`, `Square`, `Circle`, `Line`, `Ink`, `Text`, `FreeText`, `Stamp`, `Link` (with `GoToAction` / `GoToURIAction`), `FileAttachment`.",
+    "salient_tokens": [
+      "Highlight",
+      "Underline",
+      "Squiggly",
+      "StrikeOut",
+      "Square",
+      "Circle",
+      "Line",
+      "Ink",
+      "Text",
+      "FreeText",
+      "Stamp",
+      "Link",
+      "GoToAction",
+      "GoToURIAction",
+      "FileAttachment"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Full annotation-subtype list already present verbatim in the API Reference Annotations::* bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Present verbatim (same subtype names and GoToAction/GoToURIAction) in the Annotations::* bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Full annotation-subtype list already present verbatim in the API Reference Annotations::* bullet."
+  },
+  {
+    "unit_id": "u0042",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Forms (AcroForm)** — fields with pre-generated appearances + `Form::Flatten()`:",
+    "salient_tokens": [
+      "Form::Flatten()",
+      "AcroForm"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Caption content now covered by the merged Forms::* bullet in API Reference (see u0023's merge).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "The pre-generated-/AP-appearances + Form::Flatten() facts this caption introduces are now present via u0023's merge into the API Reference Forms::* bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Covered by the Forms::* /AP-appearance merge (u0023) in API Reference."
+  },
+  {
+    "unit_id": "u0043",
+    "source": "clone_cache/README.md",
+    "excerpt": "Field types: `TextBoxField`, `CheckboxField`, `RadioButtonField`, `ComboBoxField`, `ListBoxField`, `ButtonField`.",
+    "salient_tokens": [
+      "TextBoxField",
+      "CheckboxField",
+      "RadioButtonField",
+      "ComboBoxField",
+      "ListBoxField",
+      "ButtonField"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Full form field-type list already present verbatim in the API Reference Forms::* bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Present verbatim in the Forms::* bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Full form field-type list already present verbatim in the API Reference Forms::* bullet."
+  },
+  {
+    "unit_id": "u0044",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Outlines (bookmarks)**:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Caption content now covered by the merged OutlineCollection/OutlineItemCollection bullet in API Reference (see u0024's merge).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "The bold/italic bookmark-styling fact this caption introduces is now present via u0024's merge into the API Reference OutlineCollection/OutlineItemCollection bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Covered by the OutlineItemCollection bold/italic merge (u0024) in API Reference."
+  },
+  {
+    "unit_id": "u0045",
+    "source": "clone_cache/README.md",
+    "excerpt": "> **Lifetime rule for creation.** `Paragraphs`, `Annotations`, `Form`, `Artifacts`, and `Outlines` store the object **by reference**, so every table, graph, annotation, field, watermark, and outline item must outlive `Save()`. The example parks them in an arena of `shared_ptr`s; see [`12_create_features.cpp`](examples/12_create_features.cpp).",
+    "salient_tokens": [
+      "Paragraphs",
+      "Annotations",
+      "Form",
+      "Artifacts",
+      "Outlines",
+      "Save()",
+      "shared_ptr",
+      "12_create_features.cpp"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT049 remediation (2026-08-16): the shared_ptr/12_create_features.cpp clause was a separate, independently-droppable fact within this compound excerpt, wrongly folded into the 'already present verbatim' redundancy call for the rest of the blockquote -- check_content_unit_merged_into_target_section's corrected per-sentence-group test flagged it as silently dropped, since neither 'shared_ptr' nor '12_create_features.cpp' appeared anywhere in Additional Examples. On review this is a real, useful pointer (which example demonstrates the lifetime rule across many objects, and how), not trivia -- restored as an added sentence on the existing Lifetime-rule blockquote.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "examples/12_create_features.cpp",
+      "evidence_note": "File exists at examples/12_create_features.cpp (796 lines) and defines an Arena struct wrapping std::vector<std::shared_ptr<void>> as a heterogeneous keep-alive store, with a make<T>() helper used throughout the example to hold every Paragraphs/Annotations/Form/Artifacts/Outlines object alive past Save() -- confirms the 'arena of shared_ptrs' description is accurate."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Additional Examples",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0046",
+    "source": "clone_cache/README.md",
+    "excerpt": "12 runnable examples live in [`examples/`](examples/). After `cmake --build build`, executables land at `build/examples/<name>`. Run them in numeric order — each builds on the previous; see [`examples/README.md`](examples/README.md) for the full tour.",
+    "salient_tokens": [
+      "examples/",
+      "cmake --build build",
+      "build/examples/<name>",
+      "examples/README.md",
+      "README"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Examples-directory intro already present (reframed) in Additional Examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Present as the Additional Examples intro paragraph plus the 'See examples/README.md for the full tour' sentence."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Examples intro (numeric order, examples/README.md pointer) already present in Additional Examples."
+  },
+  {
+    "unit_id": "u0047",
+    "source": "clone_cache/README.md",
+    "excerpt": "| Example | Shows |\n|---|---|\n| `01_pages` | open a PDF, count pages, iterate the 1-based indexer |\n| `02_read_metadata` / `03_write_metadata` | read `DocumentInfo`; edit + incremental-update save |\n| `04_text_extraction` | `TextAbsorber::Visit(Document)` |\n| `05_save_roundtrip` | byte-verbatim save |\n| `06_devices_surface` | construct + round-trip device properties |\n| `07_render_png` | end-to-end `PngDevice::Process(Page, ostream)` |\n| `08_render_tiff` | multi-page TIFF via `TiffDevice::Process(Document, …)` |\n| `09_indexed_tiff` | 8-bpp palettised TIFF (median-cut) |\n| `10_render_text_pdf` | render a page with an embedded TrueType font |\n| `11_render_standard14` | render `/Helvetica` with no embedded font (fallback path) |\n| `12_create_features` | **from-scratch** 10-page showcase: text, image, tables, graphics, annotations, AcroForm fields, bookmarks |",
+    "salient_tokens": [
+      "01_pages",
+      "02_read_metadata",
+      "03_write_metadata",
+      "DocumentInfo",
+      "04_text_extraction",
+      "TextAbsorber::Visit(Document)",
+      "05_save_roundtrip",
+      "06_devices_surface",
+      "07_render_png",
+      "PngDevice::Process(Page, ostream)",
+      "08_render_tiff",
+      "TiffDevice::Process(Document, …)",
+      "09_indexed_tiff",
+      "10_render_text_pdf",
+      "11_render_standard14",
+      "/Helvetica",
+      "12_create_features",
+      "PDF",
+      "TextAbsorber",
+      "PngDevice",
+      "TIFF",
+      "TiffDevice",
+      "TrueType",
+      "AcroForm"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Full examples table already present with equivalent row content in Additional Examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Same 12 rows with equivalent descriptions present in the Additional Examples <details> table."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Full examples table already present with equivalent row content in Additional Examples."
+  },
+  {
+    "unit_id": "u0048",
+    "source": "clone_cache/README.md",
+    "excerpt": "Public-API bodies under `src/public/` call directly into foundation primitives under `src/internal/`. Foundation primitives never reach back into the public API.",
+    "salient_tokens": [
+      "src/public/",
+      "src/internal/",
+      "API"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Explains the real internal architecture (public bodies call into internal primitives, never the reverse) -- a genuine dependency-direction/mechanism fact. This was dropped entirely along with the old '## Project structure' section (which had no replacement in the candidate at all, confirmed by check_dropped_content).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "CMakeLists.txt",
+      "evidence_note": "CMakeLists.txt lists src/public/*.cpp and src/internal/*.cpp as the real build source sets, confirming the directory split. Direct grep of src/internal for any '#include \"aspose/pdf/' found zero matches, confirming foundation primitives never include public headers; src/public files do include internal headers (e.g. document.cpp includes encrypt_parser.hpp, standard14 headers, etc.) -- confirms the one-directional layering this unit describes."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0049",
+    "source": "clone_cache/README.md",
+    "excerpt": "A GoogleTest suite covers both the public-API surface and the foundation primitives. GoogleTest is fetched at configure time and is the only test-time dependency.",
+    "salient_tokens": [
+      "GoogleTest",
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "GoogleTest suite fact already present verbatim in Development and Testing.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Present verbatim (now with a 'Tests --' label prefix added for the dropped-heading resolution) in Development and Testing."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "GoogleTest suite / FetchContent / only-test-dependency fact already present verbatim in Development and Testing."
+  },
+  {
+    "unit_id": "u0050",
+    "source": "clone_cache/README.md",
+    "excerpt": "This project is licensed under the [MIT License](LICENSE).",
+    "salient_tokens": [
+      "MIT",
+      "LICENSE"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "MIT License statement already present verbatim in License.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "Present verbatim as the first sentence of License."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "MIT License statement already present verbatim in License."
+  },
+  {
+    "unit_id": "u0051",
+    "source": "clone_cache/README.md",
+    "excerpt": "It bundles metric-compatible **Liberation** fonts (Sans / Serif / Mono), compiled into the static library to render the PDF Standard-14 fonts when no embedded or system font is available. These are licensed under the SIL Open Font License 1.1, which permits bundling with software under any license — see [`src/internal/standard14_outlines.fonts/OFL.txt`](src/internal/standard14_outlines.fonts/OFL.txt). The MIT license covers the library's own code (SPDX: `MIT AND OFL-1.1` for the distribution as a whole).",
+    "salient_tokens": [
+      "src/internal/standard14_outlines.fonts/OFL.txt",
+      "MIT AND OFL-1.1",
+      "PDF",
+      "SIL",
+      "OFL",
+      "MIT",
+      "SPDX",
+      "AND",
+      "1.1"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Liberation-fonts / SIL OFL 1.1 / SPDX fact already present in both License and Third-Party Notices.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "Present in License (SPDX line) and in more detail, including the OFL.txt link, in Third-Party Notices."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "Liberation fonts / SIL OFL 1.1 / SPDX MIT AND OFL-1.1 fact already present in License and Third-Party Notices."
+  }
+]

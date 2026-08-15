@@ -1,0 +1,276 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "Pure-Python library for TeX/LaTeX processing. Parses TeX input and produces PDF,\nSVG, and DVI output. No external TeX installation required — Computer Modern\nfonts and hyphenation patterns are bundled.",
+    "salient_tokens": [
+      "TeX",
+      "LaTeX",
+      "PDF",
+      "SVG",
+      "DVI"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Tagline/description paragraph, already present, near-verbatim, as the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Candidate readme.md lines 7-9: 'Aspose.TeX FOSS for Python (`aspose-tex`) is a pure-Python library for TeX/LaTeX processing. It parses TeX input and produces PDF, SVG, and DVI output. No external TeX installation is required -- Computer Modern fonts and hyphenation patterns are bundled.' -- word-for-word match, product name prefixed."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Fact already present, near-verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "> **Status: Pre-Alpha.** The core engine and public API are under active\n> development. Interfaces may change between releases.",
+    "salient_tokens": [
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Pre-alpha status caveat, already present, near-verbatim, as the first bullet of Scope and Limitations.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations bullet 1: 'This project is pre-alpha -- the core engine and public API are under active development, and interfaces may change between releases.' -- same claim, same wording."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Fact already present, near-verbatim, in the Scope and Limitations section."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "Multi-page in-memory output:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in sentence for the multi-page SVG example, already present, near-verbatim, in the candidate's Additional Examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Candidate readme.md line 152: 'Multi-page, in-memory output:' immediately precedes the same multi-page SVG code example -- near-identical lead-in."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Lead-in sentence already present, near-verbatim, before the same code example in Additional Examples."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "SVG output is self-contained — glyph outlines are extracted from the bundled\nComputer Modern PFB fonts and embedded as `<path>` elements, so no external\nfonts are required by the SVG viewer.",
+    "salient_tokens": [
+      "<path>",
+      "SVG",
+      "PFB"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Mechanism-explanation sentence, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 4: 'SVG output is self-contained: glyph outlines are extracted from the bundled Computer Modern PFB fonts and embedded as `<path>` elements, so no external fonts are required by the SVG viewer.' -- word-for-word match."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "`TeXJob.messages` returns a copy of the messages collected during the most\nrecent run. `\\message` and `\\write 16` append plain-text messages; `\\errmessage`\nappends messages with a leading `! ` prefix; `\\write -1` logs only.",
+    "salient_tokens": [
+      "TeXJob.messages",
+      "\\message",
+      "\\write 16",
+      "\\errmessage",
+      "\\write -1",
+      "TeXJob"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable diagnostics mechanism -- the candidate's Key Capabilities bullet covers `messages`/`\\message`/`\\write 16`/`\\errmessage` but drops the `\\write -1` behavior entirely, which is a distinct, currently-true, and non-obvious mechanism (it logs but does NOT append to `messages`) confirmed directly in the real source docstring.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_tex/presentation/__init__.py",
+      "evidence_note": "runs/.clone_cache/aspose_tex_python/src/aspose_tex/presentation/__init__.py lines 498-509, `TeXJob.messages` property docstring: 'It includes entries produced by ``\\\\message``, ``\\\\write 16``, and ``\\\\errmessage``. ``\\\\write -1`` logs through the ``aspose_tex`` logger but does not append here. The returned list is a copy.' Confirms the old README's `\\write -1` claim is real and current, and is genuinely absent from the candidate's Key Capabilities bullet 7 ('Collect run diagnostics through `TeXJob.messages` -- `\\message` and `\\write 16` append plain-text entries, `\\errmessage` prefixes entries with `! `.')."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "`extra_format_paths` is searched after bundled format data and before the\ncurrent working directory for `\\input` files.",
+    "salient_tokens": [
+      "extra_format_paths",
+      "\\input"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Mechanism-explanation sentence, already carried into the candidate's Additional Examples verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Candidate readme.md lines 189-190: '`extra_format_paths` is searched after bundled format data and before the current working directory for `\\input` files.' -- word-for-word match."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Fact already present verbatim in Additional Examples."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "The package registers a `logging.NullHandler` on the `aspose_tex` logger so\napplications can opt into standard Python logging without receiving default\nhandler warnings:",
+    "salient_tokens": [
+      "logging.NullHandler",
+      "aspose_tex",
+      "NullHandler"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Mechanism-explanation sentence, already carried into the candidate's Additional Examples (Standard Logging Integration) verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Candidate readme.md lines 194-195, under '### Standard Logging Integration': 'The package registers a `logging.NullHandler` on the `aspose_tex` logger so applications can opt into standard Python logging without receiving default handler warnings:' -- word-for-word match."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Fact already present verbatim in Additional Examples."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "Released under the MIT License — see [LICENSE](LICENSE). Bundled Computer Modern\nfonts are covered separately — see [LICENSE-FONTS](LICENSE-FONTS).",
+    "salient_tokens": [
+      "MIT",
+      "LICENSE",
+      "FONTS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "License statement; the MIT/LICENSE fact is in the candidate's License section, and the separate font-license fact is covered, with more detail, in the candidate's dedicated Third-Party Notices section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the [MIT License](LICENSE).' Third-Party Notices section: 'These fonts are covered by a separate [font license file](LICENSE-FONTS), which documents the Computer Modern family as distributed under the LaTeX Project Public License (LPPL) and/or the SIL Open Font License (OFL).' -- both facts present, the font-license fact in more detail than the old text."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "MIT/LICENSE fact present in License; separate font-license fact present, in more detail, in Third-Party Notices."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "SVG output is self-contained — glyph outlines are extracted from the bundled\nComputer Modern PFB fonts and embedded as `<path>` elements, so no external\nfonts are required by the SVG viewer.",
+    "salient_tokens": [
+      "<path>",
+      "SVG",
+      "PFB"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Second, later occurrence of the same mechanism-explanation sentence already classified once in this file (see u0004, same excerpt shifted by the extractor's noise-filter fix); already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 4: 'SVG output is self-contained: glyph outlines are extracted from the bundled Computer Modern PFB fonts and embedded as `<path>` elements, so no external fonts are required by the SVG viewer.' -- word-for-word match, matching this exact fact as already confirmed for u0004."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list (duplicate occurrence of u0004's fact)."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "`TeXJob.messages` returns a copy of the messages collected during the most\nrecent run. `\\message` and `\\write 16` append plain-text messages; `\\errmessage`\nappends messages with a leading `! ` prefix; `\\write -1` logs only.",
+    "salient_tokens": [
+      "TeXJob.messages",
+      "\\message",
+      "\\write 16",
+      "\\errmessage",
+      "!",
+      "\\write -1",
+      "TeXJob"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Second, later occurrence of the same real diagnostics-mechanism claim this file already merged once (see u0005, same excerpt shifted by the extractor's noise-filter fix): the `\\write -1` behavior is already live in the candidate's Key Capabilities bullet, so re-merging a second occurrence of the identical fact would create an exact-duplicate merge into the same section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 7: 'Collect run diagnostics through `TeXJob.messages` (returns a copy) — `\\message` and `\\write 16` append plain-text entries, `\\errmessage` prefixes entries with `! `, and `\\write -1` logs through the `aspose_tex` logger without appending to `messages`.' Already carries the full fact, including the `\\write -1` detail merged in via u0005."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Diagnostics-mechanism fact, including the `\\write -1` detail, already merged into Key Capabilities via u0005; this is a duplicate occurrence of the identical fact, not a second thing to merge."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "`extra_format_paths` is searched after bundled format data and before the\ncurrent working directory for `\\input` files.",
+    "salient_tokens": [
+      "extra_format_paths",
+      "\\input"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Second, later occurrence of the same mechanism-explanation sentence already classified once in this file (see u0006, same excerpt shifted by the extractor's noise-filter fix); already carried into the candidate's Additional Examples verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Candidate readme.md: '`extra_format_paths` is searched after bundled format data and before the current working directory for `\\input` files.' -- word-for-word match, matching this exact fact as already confirmed for u0006."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Fact already present verbatim in Additional Examples (duplicate occurrence of u0006's fact)."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "The package registers a `logging.NullHandler` on the `aspose_tex` logger so\napplications can opt into standard Python logging without receiving default\nhandler warnings:",
+    "salient_tokens": [
+      "logging.NullHandler",
+      "aspose_tex",
+      "NullHandler"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Second, later occurrence of the same mechanism-explanation sentence already classified once in this file (see u0007, same excerpt shifted by the extractor's noise-filter fix); already carried into the candidate's Additional Examples (Standard Logging Integration) verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Candidate readme.md, under '### Standard Logging Integration': 'The package registers a `logging.NullHandler` on the `aspose_tex` logger so applications can opt into standard Python logging without receiving default handler warnings:' -- word-for-word match, matching this exact fact as already confirmed for u0007."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Fact already present verbatim in Additional Examples (duplicate occurrence of u0007's fact)."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "Released under the MIT License — see [LICENSE](LICENSE). Bundled Computer Modern\nfonts are covered separately — see [LICENSE-FONTS](LICENSE-FONTS).",
+    "salient_tokens": [
+      "MIT",
+      "LICENSE",
+      "FONTS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Second, later occurrence of the same license statement already classified once in this file (see u0008, same excerpt shifted by the extractor's noise-filter fix); the MIT/LICENSE fact is in the candidate's License section, and the separate font-license fact is covered, with more detail, in the candidate's dedicated Third-Party Notices section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the [MIT License](LICENSE).' Third-Party Notices section: 'These fonts are covered by a separate [font license file](LICENSE-FONTS), which documents the Computer Modern family as distributed under the LaTeX Project Public License (LPPL) and/or the SIL Open Font License (OFL).' -- both facts present, matching this exact fact as already confirmed for u0008."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "MIT/LICENSE fact present in License; separate font-license fact present, in more detail, in Third-Party Notices (duplicate occurrence of u0008's fact)."
+  }
+]

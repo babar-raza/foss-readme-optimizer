@@ -1,0 +1,1808 @@
+[
+  {
+    "child": "DracoFormat",
+    "parent": "FileFormat",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ObjLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ObjSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "StlLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "StlSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "GltfLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "GltfSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FbxLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FbxSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ColladaSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Microsoft3MFSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PlyLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PlySaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "DracoSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PdfLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PdfSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Microsoft3MFFormat",
+    "parent": "FileFormat",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PdfFormat",
+    "parent": "FileFormat",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PlyFormat",
+    "parent": "FileFormat",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RvmFormat",
+    "parent": "FileFormat",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "A3DObject",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "AnimationChannel",
+    "parent": "KeyframeSequence",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "AnimationClip",
+    "parent": "SceneObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "AnimationClip",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "AnimationNode",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "BindPoint",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "KeyframeSequence",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "AssetInfo",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "AssetInfo",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "BonePose",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CustomObject",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Bone",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Bone",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Deformer",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Deformer",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "MorphTargetChannel",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "MorphTargetChannel",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "MorphTargetDeformer",
+    "parent": "Deformer",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "MorphTargetDeformer",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "SkinDeformer",
+    "parent": "Deformer",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "SkinDeformer",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "BooleanOperator",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "BooleanOperator",
+    "parent": "IMeshConvertible",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Box",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Frustum",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Frustum",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Frustum",
+    "parent": "IOrientable",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Camera",
+    "parent": "Frustum",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Camera",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Camera",
+    "parent": "IOrientable",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Circle",
+    "parent": "Curve",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Circle",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CompositeCurve",
+    "parent": "Curve",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CompositeCurve",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Curve",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Curve",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Cylinder",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Dish",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Dish",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Dish",
+    "parent": "IMeshConvertible",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Ellipse",
+    "parent": "Curve",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Ellipse",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Geometry",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HalfSpace",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HalfSpace",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Light",
+    "parent": "Frustum",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Light",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Light",
+    "parent": "IOrientable",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Line",
+    "parent": "Curve",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Line",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "LinearExtrusion",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "LinearExtrusion",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "LinearExtrusion",
+    "parent": "IMeshConvertible",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Mesh",
+    "parent": "Geometry",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Mesh",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Mesh",
+    "parent": "IEnumerable<int[]>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Mesh",
+    "parent": "IEnumerable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Mesh",
+    "parent": "IMeshConvertible",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "NurbsCurve",
+    "parent": "Curve",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "NurbsCurve",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "NurbsSurface",
+    "parent": "Geometry",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "NurbsSurface",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "NurbsSurface",
+    "parent": "IMeshConvertible",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Patch",
+    "parent": "Geometry",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Patch",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Plane",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Plane",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Plane",
+    "parent": "IMeshConvertible",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PointCloud",
+    "parent": "Geometry",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PointCloud",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Primitive",
+    "parent": "Geometry",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Primitive",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Primitive",
+    "parent": "IMeshConvertible",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Pyramid",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Pyramid",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Pyramid",
+    "parent": "IMeshConvertible",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RectangularTorus",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RectangularTorus",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RectangularTorus",
+    "parent": "IMeshConvertible",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RevolvedAreaSolid",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RevolvedAreaSolid",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RevolvedAreaSolid",
+    "parent": "IMeshConvertible",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Shape",
+    "parent": "Geometry",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Shape",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Skeleton",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Skeleton",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Sphere",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "SweptAreaSolid",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "SweptAreaSolid",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "SweptAreaSolid",
+    "parent": "IMeshConvertible",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Torus",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Torus",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Torus",
+    "parent": "IMeshConvertible",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TransformedCurve",
+    "parent": "Curve",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TransformedCurve",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TriMesh",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TriMesh",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TriMesh",
+    "parent": "IEnumerable<Vertex>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "TriMesh",
+    "parent": "IEnumerable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "TrimmedCurve",
+    "parent": "Curve",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TrimmedCurve",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElement",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementUV",
+    "parent": "VertexElementFVector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementUV",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementVertexColor",
+    "parent": "VertexElementFVector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementVertexColor",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementMaterial",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementMaterial",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementDoublesTemplate",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementDoublesTemplate",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementEdgeCrease",
+    "parent": "VertexElementDoublesTemplate",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementEdgeCrease",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementNormal",
+    "parent": "VertexElementFVector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementNormal",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementTangent",
+    "parent": "VertexElementFVector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementTangent",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementBinormal",
+    "parent": "VertexElementFVector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementBinormal",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementFVector",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementFVector",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementHole",
+    "parent": "VertexElementTemplate<bool>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "VertexElementHole",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementIntsTemplate",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementIntsTemplate",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementPolygonGroup",
+    "parent": "VertexElementIntsTemplate",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementPolygonGroup",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementSmoothingGroup",
+    "parent": "VertexElementIntsTemplate",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementSmoothingGroup",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementSpecular",
+    "parent": "VertexElementFVector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementSpecular",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementTemplate",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementTemplate",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementUserData",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementUserData",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementVector4",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementVector4",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementVertexCrease",
+    "parent": "VertexElementDoublesTemplate",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementVertexCrease",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementVisibility",
+    "parent": "VertexElementTemplate<bool>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "VertexElementVisibility",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementWeight",
+    "parent": "VertexElementDoublesTemplate",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementWeight",
+    "parent": "IIndexedVertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Entity",
+    "parent": "SceneObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "A3dwSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "AmfSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Discreet3dsLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Discreet3dsSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Html5SaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "JtLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "LoadOptions",
+    "parent": "IOConfig",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RvmLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RvmSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "SaveOptions",
+    "parent": "IOConfig",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "U3dLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "U3dSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "UsdSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "XLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Group",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ImageRenderOptions",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ImageRenderOptions",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TrialException",
+    "parent": "System.Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ImportException",
+    "parent": "System.IO.IOException",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ExportException",
+    "parent": "System.IO.IOException",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ExportException",
+    "parent": "System.Runtime.Serialization.ISerializable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Node",
+    "parent": "SceneObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Pose",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Pose",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ArbitraryProfile",
+    "parent": "Profile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ArbitraryProfile",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CShape",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CenterLineProfile",
+    "parent": "Profile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CenterLineProfile",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CircleShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CircleShape",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "EllipseShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "EllipseShape",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FontFile",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FontFile",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HShape",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HollowCircleShape",
+    "parent": "CircleShape",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HollowCircleShape",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HollowRectangleShape",
+    "parent": "RectangleShape",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HollowRectangleShape",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "LShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "LShape",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "MirroredProfile",
+    "parent": "Profile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "MirroredProfile",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ParameterizedProfile",
+    "parent": "Profile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ParameterizedProfile",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Profile",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Profile",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RectangleShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RectangleShape",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TShape",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Text",
+    "parent": "Profile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Text",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TrapeziumShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TrapeziumShape",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "UShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "UShape",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ZShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ZShape",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PropertyCollection",
+    "parent": "IEnumerable<Property>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "DescriptorSetUpdater",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "DriverException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "GLSLSource",
+    "parent": "ShaderSource",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "IBuffer",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ICommandList",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "IDescriptorSet",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "IIndexBuffer",
+    "parent": "IBuffer",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "IIndexBuffer",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "IPipeline",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "IRenderQueue",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "IRenderTarget",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "IRenderTexture",
+    "parent": "IRenderTarget",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "IRenderTexture",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "IRenderWindow",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ITexture1D",
+    "parent": "ITextureUnit",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ITexture1D",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ITexture2D",
+    "parent": "ITextureUnit",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ITexture2D",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ITextureCubemap",
+    "parent": "ITextureUnit",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ITextureCubemap",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ITextureUnit",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "IVertexBuffer",
+    "parent": "IBuffer",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "IVertexBuffer",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "InitializationException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PixelMapping",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PostProcessing",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PostProcessing",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RenderResource",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "RenderState",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "RenderState",
+    "parent": "IComparable<RenderState>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Renderer",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "SPIRVSource",
+    "parent": "ShaderSource",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ShaderException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ShaderProgram",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ShaderSet",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "TextureData",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TextureData",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Scene",
+    "parent": "SceneObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Scene",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "SceneObject",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "LambertMaterial",
+    "parent": "Material",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Material",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Material",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Material",
+    "parent": "IEnumerable<TextureSlot>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Material",
+    "parent": "IEnumerable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PbrMaterial",
+    "parent": "Material",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PbrSpecularMaterial",
+    "parent": "Material",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PhongMaterial",
+    "parent": "LambertMaterial",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ShaderMaterial",
+    "parent": "Material",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Texture",
+    "parent": "TextureBase",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Texture",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TextureBase",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TextureBase",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Transform",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Transform",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FVector2",
+    "parent": "IComparable<FVector2>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FVector2",
+    "parent": "IEquatable<FVector2>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FVector3",
+    "parent": "IComparable<FVector3>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FVector4",
+    "parent": "IComparable<FVector4>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FileSystem",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "IArrayList",
+    "parent": "IList<T>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "IArrayList",
+    "parent": "ICollection<T>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "IArrayList",
+    "parent": "IEnumerable<T>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "IArrayList",
+    "parent": "IEnumerable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ParseException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "SemanticAttribute",
+    "parent": "Attribute",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Vector2",
+    "parent": "IComparable<Vector2>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Vector2",
+    "parent": "IEquatable<Vector2>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Vector3",
+    "parent": "IComparable<Vector3>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Vector4",
+    "parent": "IComparable<Vector4>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Vertex",
+    "parent": "IComparable<Vertex>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "VertexDeclaration",
+    "parent": "IEnumerable<VertexField>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "VertexDeclaration",
+    "parent": "IEnumerable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "VertexDeclaration",
+    "parent": "IComparable<VertexDeclaration>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "VertexField",
+    "parent": "IComparable<VertexField>",
+    "relationship": "inherits",
+    "internal": false
+  }
+]

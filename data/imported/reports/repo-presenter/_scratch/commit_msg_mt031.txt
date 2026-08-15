@@ -1,0 +1,38 @@
+feat(readme-refresh): MT031 recover real history/fact from mixed narrative-CTA units
+
+- Add optional H3 "### Project History" template section (stays inside
+  _split_into_sections' "__preamble__" boundary alongside the unheaded Intro
+  paragraph -- no change needed to check_required_sections/
+  check_only_sections_changed)
+- Add classification "4_verifiable_history" + verification status
+  "verified_by_corroboration" (a real but categorically weaker standard than
+  verified_against_source -- a past-event claim, corroborated not proven) to
+  the MT030 content-unit disposition schema, with a new symmetric pairing
+  rule in check_content_unit_disposition_coverage
+- Add heuristic check_content_unit_embedded_actionable_fact: flags an
+  excluded 1_narrative_cta unit whose excerpt contains a real request/
+  contact phrase, catching the case where a genuine, independently-
+  actionable fact is bundled with pure hedge/CTA prose and excluded wholesale
+- Extend check_content_unit_merged_into_target_section's preamble mapping to
+  cover "Project History" alongside "Intro"
+- Retroactive fix for words/net (local-only, not committed):
+  content-dispositions.json u0021 reclassified 1_narrative_cta -> 2_
+  mechanism_explanation (real, AGENTS.md-corroborated "open an issue to
+  request a currently-excluded capability" process recovered from a unit
+  that also contained a pure, still-excluded hedge); u0024 reclassified
+  1_narrative_cta -> 4_verifiable_history (DOC-reverse-engineering/WordML/
+  OOXML format-history, corroborated by AGENTS.md, merged into the new
+  Project History section); u0025/u0026 stay excluded, per direct user
+  decision (internal tooling detail with zero independent corroboration)
+- 13 new regression tests, real captured-verbatim fixtures (u0021/u0025/
+  u0026 real text), including fail-closed proofs for the new pairing rule
+  and a proof the H3 section never disturbs an existing Intro-targeted
+  disposition
+- skills/readme-refresh.md updated and synced to all 3 provider mirrors
+
+Verification: pytest scripts/pipeline/tests/test_readme_refresh_checks.py
+scripts/pipeline/tests/test_readme_refresh_run.py -q -> 302 passed (was 291)
+
+Skills invoked: [S-99]
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>

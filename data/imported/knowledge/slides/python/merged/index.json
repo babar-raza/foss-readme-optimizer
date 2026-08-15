@@ -1,0 +1,5689 @@
+{
+  "schema_version": 2,
+  "family": "slides",
+  "platform": "python",
+  "display_name": "Aspose.Slides",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "class_count": 515,
+    "enriched_claims": 3387,
+    "forbidden_count": 1,
+    "scout_claims": 3733,
+    "snippet_count": 100,
+    "supplemental_claims": 0,
+    "total_claims": 7081
+  },
+  "classes": [
+    "AdjustValue",
+    "AdjustValueCollection",
+    "AfterAnimationType",
+    "AnimateTextType",
+    "AnimationTimeLine",
+    "AutoShape",
+    "AxesManager",
+    "Axis",
+    "AxisPositionType",
+    "Background",
+    "BackgroundType",
+    "BaseChartValue",
+    "BaseHandoutNotesSlideHeaderFooterManager",
+    "BaseOverrideThemeManager",
+    "BasePortionFormat",
+    "BaseShapeLock",
+    "BaseSlide",
+    "BaseThemeManager",
+    "Behavior",
+    "BehaviorAccumulateType",
+    "BehaviorAdditiveType",
+    "BehaviorCollection",
+    "BehaviorFactory",
+    "BehaviorProperty",
+    "BehaviorPropertyCollection",
+    "BevelPresetType",
+    "Blur",
+    "BubbleSizeRepresentationType",
+    "BuildType",
+    "BulletFormat",
+    "BulletType",
+    "Camera",
+    "CameraPresetType",
+    "CategoryAxisType",
+    "Cell",
+    "CellCollection",
+    "CellFormat",
+    "Chart",
+    "ChartCategory",
+    "ChartCategoryCollection",
+    "ChartData",
+    "ChartDataCell",
+    "ChartDataPoint",
+    "ChartDataPointCollection",
+    "ChartDataSourceType",
+    "ChartDataWorkbook",
+    "ChartDataWorksheet",
+    "ChartLinesFormat",
+    "ChartPlotArea",
+    "ChartPortionFormat",
+    "ChartSeries",
+    "ChartSeriesCollection",
+    "ChartSeriesGroup",
+    "ChartSeriesGroupCollection",
+    "ChartSeriesReadonlyCollection",
+    "ChartTextFormat",
+    "ChartTitle",
+    "ChartType",
+    "ChartWall",
+    "Color",
+    "ColorDirection",
+    "ColorEffect",
+    "ColorFormat",
+    "ColorOffset",
+    "ColorScheme",
+    "ColorSpace",
+    "ColorType",
+    "Column",
+    "ColumnCollection",
+    "CombinableSeriesTypesGroup",
+    "CommandEffect",
+    "CommandEffectType",
+    "Comment",
+    "CommentAuthor",
+    "CommentAuthorCollection",
+    "CommentCollection",
+    "Connector",
+    "CornerDirectionTransition",
+    "CrossesType",
+    "DataLabel",
+    "DataLabelCollection",
+    "DataLabelFormat",
+    "DataSourceType",
+    "DataSourceTypeForErrorBarsCustomValues",
+    "DataTable",
+    "DisplayBlanksAsType",
+    "DisplayUnitType",
+    "DocumentProperties",
+    "DoubleChartValue",
+    "Effect",
+    "EffectChartMajorGroupingType",
+    "EffectChartMinorGroupingType",
+    "EffectFillType",
+    "EffectFormat",
+    "EffectPresetClassType",
+    "EffectRestartType",
+    "EffectStyle",
+    "EffectStyleCollection",
+    "EffectSubtype",
+    "EffectTriggerType",
+    "EffectType",
+    "EightDirectionTransition",
+    "EmptyTransition",
+    "ErrorBarType",
+    "ErrorBarValueType",
+    "ErrorBarsCustomValues",
+    "ErrorBarsFormat",
+    "ExtraColorScheme",
+    "ExtraColorSchemeCollection",
+    "FillBlendMode",
+    "FillFormat",
+    "FillFormatCollection",
+    "FillOverlay",
+    "FillType",
+    "FilterEffect",
+    "FilterEffectRevealType",
+    "FilterEffectSubtype",
+    "FilterEffectType",
+    "Flavor",
+    "FlyThroughTransition",
+    "FontAlignment",
+    "FontData",
+    "FontScheme",
+    "Fonts",
+    "Format",
+    "FormatScheme",
+    "GeometryShape",
+    "GlitterTransition",
+    "GlobalLayoutSlideCollection",
+    "Glow",
+    "GradientDirection",
+    "GradientFormat",
+    "GradientShape",
+    "GradientStop",
+    "GradientStopCollection",
+    "GraphicalObject",
+    "GraphicalObjectLock",
+    "GroupShape",
+    "GroupShapeLock",
+    "HandleRepeatedSpaces",
+    "HeadingPair",
+    "IActualLayout",
+    "IAdjustValue",
+    "IAdjustValueCollection",
+    "IAnimationTimeLine",
+    "IAutoShape",
+    "IAxesManager",
+    "IAxis",
+    "IAxisFormat",
+    "IBackground",
+    "IBackgroundEffectiveData",
+    "IBaseChartValue",
+    "IBasePortionFormat",
+    "IBaseShapeLock",
+    "IBaseSlide",
+    "IBehavior",
+    "IBehaviorCollection",
+    "IBehaviorFactory",
+    "IBehaviorProperty",
+    "IBehaviorPropertyCollection",
+    "IBlur",
+    "IBulkTextFormattable",
+    "IBulletFormat",
+    "ICamera",
+    "ICell",
+    "ICellCollection",
+    "ICellFormat",
+    "IChart",
+    "IChartCategory",
+    "IChartCategoryCollection",
+    "IChartCategoryLevelsManager",
+    "IChartCellCollection",
+    "IChartComponent",
+    "IChartData",
+    "IChartDataCell",
+    "IChartDataPoint",
+    "IChartDataPointCollection",
+    "IChartDataWorkbook",
+    "IChartDataWorksheet",
+    "IChartDataWorksheetCollection",
+    "IChartLinesFormat",
+    "IChartParagraphFormat",
+    "IChartPlotArea",
+    "IChartPortionFormat",
+    "IChartSeries",
+    "IChartSeriesCollection",
+    "IChartSeriesGroup",
+    "IChartSeriesGroupCollection",
+    "IChartSeriesReadonlyCollection",
+    "IChartTextBlockFormat",
+    "IChartTextFormat",
+    "IChartTitle",
+    "IChartWall",
+    "IColorEffect",
+    "IColorFormat",
+    "IColorOffset",
+    "IColorScheme",
+    "IColumn",
+    "IColumnCollection",
+    "ICommandEffect",
+    "IComment",
+    "ICommentAuthor",
+    "ICommentAuthorCollection",
+    "ICommentCollection",
+    "ICommentList",
+    "IConnector",
+    "ICornerDirectionTransition",
+    "IDataLabel",
+    "IDataLabelCollection",
+    "IDataLabelFormat",
+    "IDataSourceTypeForErrorBarsCustomValues",
+    "IDataTable",
+    "IDocumentProperties",
+    "IDoubleChartValue",
+    "IEffect",
+    "IEffectFormat",
+    "IEffectParamSource",
+    "IEffectStyle",
+    "IEffectStyleCollection",
+    "IEightDirectionTransition",
+    "IEmptyTransition",
+    "IErrorBarsCustomValues",
+    "IErrorBarsFormat",
+    "IExtraColorScheme",
+    "IExtraColorSchemeCollection",
+    "IFillFormat",
+    "IFillFormatCollection",
+    "IFillOverlay",
+    "IFillParamSource",
+    "IFilterEffect",
+    "IFlyThroughTransition",
+    "IFontData",
+    "IFontScheme",
+    "IFonts",
+    "IFormat",
+    "IFormatScheme",
+    "IFormattedTextContainer",
+    "IGeometryShape",
+    "IGlitterTransition",
+    "IGlobalLayoutSlideCollection",
+    "IGlow",
+    "IGradientFormat",
+    "IGradientStop",
+    "IGradientStopCollection",
+    "IGraphicalObject",
+    "IGroupShape",
+    "IGroupShapeLock",
+    "IHeadingPair",
+    "IHyperlinkContainer",
+    "IImage",
+    "IImageCollection",
+    "IImageTransformOperation",
+    "IInOutTransition",
+    "IInnerShadow",
+    "ILayoutSlide",
+    "ILayoutSlideCollection",
+    "ILayoutable",
+    "ILeftRightDirectionTransition",
+    "ILegend",
+    "ILegendEntryCollection",
+    "ILegendEntryProperties",
+    "ILightRig",
+    "ILineFillFormat",
+    "ILineFormat",
+    "ILineFormatCollection",
+    "ILineParamSource",
+    "ILoadOptions",
+    "IMarker",
+    "IMasterLayoutSlideCollection",
+    "IMasterSlide",
+    "IMasterSlideCollection",
+    "IMasterTheme",
+    "IMasterThemeManager",
+    "IMasterThemeable",
+    "IMorphTransition",
+    "IMotionCmdPath",
+    "IMotionEffect",
+    "IMotionPath",
+    "IMultipleCellChartValue",
+    "INotesSize",
+    "INotesSlide",
+    "INotesSlideHeaderFooterManager",
+    "INotesSlideManager",
+    "IOptionalBlackTransition",
+    "IOrientationTransition",
+    "IOuterShadow",
+    "IOverridableText",
+    "IOverrideTheme",
+    "IOverrideThemeManager",
+    "IOverrideThemeable",
+    "IPPImage",
+    "IParagraph",
+    "IParagraphCollection",
+    "IParagraphFormat",
+    "IPatternFormat",
+    "IPictureFillFormat",
+    "IPictureFrame",
+    "IPictureFrameLock",
+    "IPieSplitCustomPointCollection",
+    "IPoint",
+    "IPointCollection",
+    "IPortion",
+    "IPortionCollection",
+    "IPortionFormat",
+    "IPresentation",
+    "IPresentationComponent",
+    "IPresetShadow",
+    "IPropertyEffect",
+    "IReflection",
+    "IRevealTransition",
+    "IRippleTransition",
+    "IRotation3D",
+    "IRotationEffect",
+    "IRow",
+    "IRowCollection",
+    "ISaveOptions",
+    "IScaleEffect",
+    "ISection",
+    "ISequence",
+    "ISequenceCollection",
+    "ISetEffect",
+    "IShape",
+    "IShapeBevel",
+    "IShapeCollection",
+    "IShapeFrame",
+    "IShredTransition",
+    "ISideDirectionTransition",
+    "ISingleCellChartValue",
+    "ISlide",
+    "ISlideCollection",
+    "ISlideComponent",
+    "ISlideShowTransition",
+    "ISlidesPicture",
+    "ISoftEdge",
+    "ISplitTransition",
+    "IStringChartValue",
+    "IStringOrDoubleChartValue",
+    "ITable",
+    "ITableFormat",
+    "ITextAnimation",
+    "ITextAnimationCollection",
+    "ITextFrame",
+    "ITextFrameFormat",
+    "ITheme",
+    "IThemeManager",
+    "IThemeable",
+    "IThreeDFormat",
+    "IThreeDParamSource",
+    "ITiming",
+    "ITransitionValueBase",
+    "ITrendline",
+    "ITrendlineCollection",
+    "IUpDownBarsManager",
+    "IWheelTransition",
+    "Image",
+    "ImageCollection",
+    "ImageTransformOperation",
+    "Images",
+    "InOutTransition",
+    "InnerShadow",
+    "LayoutSlide",
+    "LayoutSlideCollection",
+    "LayoutSlideThemeManager",
+    "LayoutTargetType",
+    "LeftRightDirectionTransition",
+    "Legend",
+    "LegendDataLabelPosition",
+    "LegendEntryCollection",
+    "LegendEntryProperties",
+    "LegendPositionType",
+    "LightRig",
+    "LightRigPresetType",
+    "LightingDirection",
+    "LineAlignment",
+    "LineArrowheadLength",
+    "LineArrowheadStyle",
+    "LineArrowheadWidth",
+    "LineCapStyle",
+    "LineDashStyle",
+    "LineFillFormat",
+    "LineFormat",
+    "LineFormatCollection",
+    "LineJoinStyle",
+    "LineStyle",
+    "MarkdownExportType",
+    "MarkdownSaveOptions",
+    "Marker",
+    "MarkerStyleType",
+    "MasterLayoutSlideCollection",
+    "MasterSlide",
+    "MasterSlideCollection",
+    "MasterTheme",
+    "MasterThemeManager",
+    "MaterialPresetType",
+    "MorphTransition",
+    "MotionCmdPath",
+    "MotionCommandPathType",
+    "MotionEffect",
+    "MotionOriginType",
+    "MotionPath",
+    "MotionPathEditMode",
+    "MotionPathPointsType",
+    "NewLineType",
+    "NotesSize",
+    "NotesSlide",
+    "NotesSlideHeaderFooterManager",
+    "NotesSlideManager",
+    "NotesSlideThemeManager",
+    "NullableBool",
+    "NumberedBulletStyle",
+    "OptionalBlackTransition",
+    "Orientation",
+    "OrientationTransition",
+    "OuterShadow",
+    "OverrideTheme",
+    "PPImage",
+    "PVIObject",
+    "Paragraph",
+    "ParagraphCollection",
+    "ParagraphFormat",
+    "PatternFormat",
+    "PatternStyle",
+    "Picture",
+    "PictureFillFormat",
+    "PictureFillMode",
+    "PictureFrame",
+    "PictureFrameLock",
+    "PieSplitType",
+    "Point",
+    "PointCollection",
+    "PointF",
+    "Portion",
+    "PortionCollection",
+    "PortionFormat",
+    "Presentation",
+    "PresetColor",
+    "PresetShadow",
+    "PresetShadowType",
+    "PropertyCalcModeType",
+    "PropertyEffect",
+    "PropertyValueType",
+    "RectangleAlignment",
+    "Reflection",
+    "RevealTransition",
+    "RippleTransition",
+    "Rotation3D",
+    "RotationEffect",
+    "Row",
+    "RowCollection",
+    "SaveFormat",
+    "SaveOptions",
+    "ScaleEffect",
+    "SchemeColor",
+    "Sequence",
+    "SequenceCollection",
+    "SetEffect",
+    "Shape",
+    "ShapeBevel",
+    "ShapeCollection",
+    "ShapeFrame",
+    "ShapeType",
+    "ShredTransition",
+    "SideDirectionTransition",
+    "Size",
+    "SizeF",
+    "Slide",
+    "SlideCollection",
+    "SlideLayoutType",
+    "SlideShowTransition",
+    "SlideThemeManager",
+    "SoftEdge",
+    "SourceFormat",
+    "SplitTransition",
+    "StringChartValue",
+    "StringOrDoubleChartValue",
+    "StyleType",
+    "Table",
+    "TableFormat",
+    "TableStylePreset",
+    "TextAlignment",
+    "TextAnchorType",
+    "TextAnimation",
+    "TextAnimationCollection",
+    "TextAutofitType",
+    "TextCapType",
+    "TextFrame",
+    "TextFrameFormat",
+    "TextShapeType",
+    "TextStrikethroughType",
+    "TextUnderlineType",
+    "TextVerticalType",
+    "Theme",
+    "ThreeDFormat",
+    "TickLabelPositionType",
+    "TickMarkType",
+    "TileFlip",
+    "TimeUnitType",
+    "Timing",
+    "TransitionCornerAndCenterDirectionType",
+    "TransitionCornerDirectionType",
+    "TransitionEightDirectionType",
+    "TransitionInOutDirectionType",
+    "TransitionLeftRightDirectionType",
+    "TransitionMorphType",
+    "TransitionPattern",
+    "TransitionShredPattern",
+    "TransitionSideDirectionType",
+    "TransitionSoundMode",
+    "TransitionSpeed",
+    "TransitionType",
+    "TransitionValueBase",
+    "Trendline",
+    "TrendlineCollection",
+    "TrendlineType",
+    "WheelTransition"
+  ],
+  "class_graph": [
+    {
+      "child": "BackgroundEffectiveData",
+      "parent": "IBackgroundEffectiveData",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ExporterBase",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Feature",
+      "parent": "IntFlag",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PptxExporter",
+      "parent": "ExporterBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Relationship",
+      "parent": "NamedTuple",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TableColumn",
+      "parent": "NamedTuple",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SheetInfo",
+      "parent": "NamedTuple",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BasePortionFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BasePortionFormat",
+      "parent": "IBasePortionFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BulletFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BulletFormat",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BulletFormat",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BulletFormat",
+      "parent": "IBulletFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CellFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CellFormat",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CellFormat",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CellFormat",
+      "parent": "ICellFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColorFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColorFormat",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColorFormat",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColorFormat",
+      "parent": "IColorFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColorFormat",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EffectFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EffectFormat",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EffectFormat",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EffectFormat",
+      "parent": "IEffectFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EffectFormat",
+      "parent": "IEffectParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillFormat",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillFormat",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillFormat",
+      "parent": "IFillFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillFormat",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientFormat",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientFormat",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientFormat",
+      "parent": "IGradientFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientFormat",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IBasePortionFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IBulkTextFormattable",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IBulletFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ICellFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IColorFormat",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IColorFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IEffectFormat",
+      "parent": "IEffectParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IEffectFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IFillFormat",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IFillFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IGradientFormat",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IGradientFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ILineFillFormat",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ILineFillFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ILineFormat",
+      "parent": "ILineParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ILineFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IParagraphFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPatternFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPictureFillFormat",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IPictureFillFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPortionFormat",
+      "parent": "IBasePortionFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IPortionFormat",
+      "parent": "IHyperlinkContainer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IPortionFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ITableFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ITextFrameFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IThreeDFormat",
+      "parent": "IThreeDParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IThreeDFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LineFillFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LineFillFormat",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LineFillFormat",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LineFillFormat",
+      "parent": "ILineFillFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LineFillFormat",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LineFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LineFormat",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LineFormat",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LineFormat",
+      "parent": "ILineFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LineFormat",
+      "parent": "ILineParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParagraphFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParagraphFormat",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParagraphFormat",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParagraphFormat",
+      "parent": "IParagraphFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PatternFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PatternFormat",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PatternFormat",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PatternFormat",
+      "parent": "IPatternFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFillFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFillFormat",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFillFormat",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFillFormat",
+      "parent": "IPictureFillFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFillFormat",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PortionFormat",
+      "parent": "BasePortionFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PortionFormat",
+      "parent": "IPortionFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SourceFormat",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TableFormat",
+      "parent": "ITableFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextFrameFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextFrameFormat",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextFrameFormat",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextFrameFormat",
+      "parent": "ITextFrameFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ThreeDFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ThreeDFormat",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ThreeDFormat",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ThreeDFormat",
+      "parent": "IThreeDFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ThreeDFormat",
+      "parent": "IThreeDParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartLinesFormat",
+      "parent": "IChartLinesFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartPortionFormat",
+      "parent": "IChartPortionFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartPortionFormat",
+      "parent": "BasePortionFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartTextFormat",
+      "parent": "IChartTextFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DataLabelFormat",
+      "parent": "IDataLabelFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ErrorBarsFormat",
+      "parent": "IErrorBarsFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Format",
+      "parent": "IFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IAxisFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartLinesFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartParagraphFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartPortionFormat",
+      "parent": "IBasePortionFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IChartPortionFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartTextBlockFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartTextFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IDataLabelFormat",
+      "parent": "IFormattedTextContainer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IDataLabelFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IErrorBarsFormat",
+      "parent": "IChartComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IErrorBarsFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IFormat",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IFormattedTextContainer",
+      "parent": "IChartComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IFormattedTextContainer",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SaveFormat",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillFormatCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillFormatCollection",
+      "parent": "IFillFormatCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FormatScheme",
+      "parent": "IFormatScheme",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FormatScheme",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FormatScheme",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IFillFormatCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IFormatScheme",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IFormatScheme",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IFormatScheme",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ILineFormatCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LineFormatCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LineFormatCollection",
+      "parent": "ILineFormatCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AdjustValue",
+      "parent": "IAdjustValue",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AdjustValueCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AdjustValueCollection",
+      "parent": "IAdjustValueCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AutoShape",
+      "parent": "GeometryShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AutoShape",
+      "parent": "IAutoShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Background",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Background",
+      "parent": "IBackground",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BackgroundType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BaseSlide",
+      "parent": "IBaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BaseSlide",
+      "parent": "IThemeable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BaseSlide",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BaseSlide",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BevelPresetType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BulletType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Camera",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Camera",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Camera",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Camera",
+      "parent": "ICamera",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CameraPresetType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Cell",
+      "parent": "ICell",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Cell",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Cell",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CellCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CellCollection",
+      "parent": "ICellCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColorType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Column",
+      "parent": "CellCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Column",
+      "parent": "IColumn",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColumnCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColumnCollection",
+      "parent": "IColumnCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Comment",
+      "parent": "IComment",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CommentAuthor",
+      "parent": "ICommentAuthor",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CommentAuthorCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CommentAuthorCollection",
+      "parent": "ICommentAuthorCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CommentCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CommentCollection",
+      "parent": "ICommentCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Connector",
+      "parent": "GeometryShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Connector",
+      "parent": "IConnector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DocumentProperties",
+      "parent": "IDocumentProperties",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillBlendMode",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FontAlignment",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FontData",
+      "parent": "IFontData",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Fonts",
+      "parent": "IFonts",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GeometryShape",
+      "parent": "Shape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GeometryShape",
+      "parent": "IGeometryShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GeometryShape",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GlobalLayoutSlideCollection",
+      "parent": "LayoutSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GlobalLayoutSlideCollection",
+      "parent": "IGlobalLayoutSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientDirection",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GradientShape",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GradientStop",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientStop",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientStop",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientStop",
+      "parent": "IGradientStop",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientStopCollection",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientStopCollection",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientStopCollection",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientStopCollection",
+      "parent": "IGradientStopCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GraphicalObject",
+      "parent": "Shape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GraphicalObject",
+      "parent": "IGraphicalObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GraphicalObject",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GraphicalObjectLock",
+      "parent": "BaseShapeLock",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GroupShape",
+      "parent": "Shape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GroupShape",
+      "parent": "IGroupShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GroupShapeLock",
+      "parent": "BaseShapeLock",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GroupShapeLock",
+      "parent": "IGroupShapeLock",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HeadingPair",
+      "parent": "IHeadingPair",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IAdjustValue",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IAdjustValueCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IAnimationTimeLine",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IAutoShape",
+      "parent": "IGeometryShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IAutoShape",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IBackground",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IBackground",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IBackground",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IBackground",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IBackgroundEffectiveData",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IBackgroundEffectiveData",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IBaseShapeLock",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IBaseSlide",
+      "parent": "IThemeable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IBaseSlide",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IBaseSlide",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IBaseSlide",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ICamera",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ICell",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ICell",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ICell",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ICellCollection",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ICellCollection",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ICellCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IColumn",
+      "parent": "ICellCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IColumn",
+      "parent": "IBulkTextFormattable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IColumn",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IColumnCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IComment",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ICommentAuthor",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ICommentAuthorCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ICommentCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IConnector",
+      "parent": "IGeometryShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IConnector",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IDocumentProperties",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IEffectParamSource",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IFillParamSource",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IFontData",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IFonts",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IGeometryShape",
+      "parent": "IShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IGeometryShape",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IGlobalLayoutSlideCollection",
+      "parent": "ILayoutSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IGlobalLayoutSlideCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IGradientStop",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IGradientStopCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IGraphicalObject",
+      "parent": "IShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IGraphicalObject",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IGroupShape",
+      "parent": "IShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IGroupShape",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IGroupShapeLock",
+      "parent": "IBaseShapeLock",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IGroupShapeLock",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IHeadingPair",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IHyperlinkContainer",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IImage",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IImageCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ILayoutSlide",
+      "parent": "IBaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ILayoutSlide",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ILayoutSlideCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ILightRig",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ILineParamSource",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ILoadOptions",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IMasterLayoutSlideCollection",
+      "parent": "ILayoutSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IMasterLayoutSlideCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IMasterSlide",
+      "parent": "IBaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IMasterSlide",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IMasterSlideCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "INotesSize",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "INotesSlide",
+      "parent": "IBaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "INotesSlide",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "INotesSlideHeaderFooterManager",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "INotesSlideManager",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPPImage",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IParagraph",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IParagraph",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IParagraph",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IParagraphCollection",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IParagraphCollection",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IParagraphCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPictureFrame",
+      "parent": "IGeometryShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IPictureFrame",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPictureFrameLock",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPortion",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IPortion",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IPortion",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPortionCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPresentation",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IPresentation",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPresentationComponent",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IRow",
+      "parent": "ICellCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IRow",
+      "parent": "IBulkTextFormattable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IRow",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IRowCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IShape",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IShape",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IShape",
+      "parent": "IHyperlinkContainer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IShape",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IShapeBevel",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IShapeCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IShapeFrame",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISlide",
+      "parent": "IBaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ISlide",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISlideCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISlideComponent",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ISlideComponent",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISlideShowTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISlidesPicture",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ISlidesPicture",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ISlidesPicture",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ITable",
+      "parent": "IGraphicalObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ITable",
+      "parent": "IBulkTextFormattable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ITable",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ITextFrame",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ITextFrame",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ITextFrame",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IThreeDParamSource",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Image",
+      "parent": "IImage",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImageCollection",
+      "parent": "IImageCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Images",
+      "parent": "object",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LayoutSlide",
+      "parent": "BaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LayoutSlide",
+      "parent": "ILayoutSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LayoutSlideCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LayoutSlideCollection",
+      "parent": "ILayoutSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LightRig",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LightRig",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LightRig",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LightRig",
+      "parent": "ILightRig",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LightRigPresetType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LightingDirection",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LineAlignment",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LineArrowheadLength",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LineArrowheadStyle",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LineArrowheadWidth",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LineCapStyle",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LineDashStyle",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LineJoinStyle",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LineStyle",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MasterLayoutSlideCollection",
+      "parent": "LayoutSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterLayoutSlideCollection",
+      "parent": "IMasterLayoutSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterSlide",
+      "parent": "BaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterSlide",
+      "parent": "IMasterSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterSlideCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterSlideCollection",
+      "parent": "IMasterSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MaterialPresetType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NotesSize",
+      "parent": "INotesSize",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NotesSlide",
+      "parent": "BaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NotesSlide",
+      "parent": "INotesSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NotesSlideHeaderFooterManager",
+      "parent": "BaseHandoutNotesSlideHeaderFooterManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NotesSlideHeaderFooterManager",
+      "parent": "INotesSlideHeaderFooterManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NotesSlideManager",
+      "parent": "INotesSlideManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NullableBool",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NumberedBulletStyle",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Orientation",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PPImage",
+      "parent": "IPPImage",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PVIObject",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PVIObject",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Paragraph",
+      "parent": "IParagraph",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Paragraph",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Paragraph",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParagraphCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParagraphCollection",
+      "parent": "IParagraphCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParagraphCollection",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParagraphCollection",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PatternStyle",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Picture",
+      "parent": "ISlidesPicture",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Picture",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Picture",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFillMode",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PictureFrame",
+      "parent": "GeometryShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFrame",
+      "parent": "IPictureFrame",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFrameLock",
+      "parent": "BaseShapeLock",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFrameLock",
+      "parent": "IPictureFrameLock",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Portion",
+      "parent": "IPortion",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Portion",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Portion",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PortionCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PortionCollection",
+      "parent": "IPortionCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Presentation",
+      "parent": "IPresentation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Presentation",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PresetColor",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PresetShadowType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RectangleAlignment",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Row",
+      "parent": "CellCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Row",
+      "parent": "IRow",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RowCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RowCollection",
+      "parent": "IRowCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SchemeColor",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Shape",
+      "parent": "IShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Shape",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Shape",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Shape",
+      "parent": "IHyperlinkContainer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Shape",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeBevel",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShapeBevel",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShapeBevel",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShapeBevel",
+      "parent": "IShapeBevel",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShapeCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShapeCollection",
+      "parent": "IShapeCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShapeFrame",
+      "parent": "IShapeFrame",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShapeType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Slide",
+      "parent": "BaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Slide",
+      "parent": "ISlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ICommentList",
+      "parent": "list",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SlideCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SlideCollection",
+      "parent": "ISlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SlideLayoutType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Table",
+      "parent": "GraphicalObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Table",
+      "parent": "ITable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TableStylePreset",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextAlignment",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextAnchorType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextAutofitType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextCapType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextFrame",
+      "parent": "ITextFrame",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextFrame",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextFrame",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextShapeType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextStrikethroughType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextUnderlineType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextVerticalType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TileFlip",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AfterAnimationType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AnimateTextType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AnimationTimeLine",
+      "parent": "IAnimationTimeLine",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Behavior",
+      "parent": "IBehavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BehaviorAccumulateType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BehaviorAdditiveType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BehaviorCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BehaviorCollection",
+      "parent": "IBehaviorCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BehaviorFactory",
+      "parent": "IBehaviorFactory",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BehaviorProperty",
+      "parent": "IBehaviorProperty",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BehaviorPropertyCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BehaviorPropertyCollection",
+      "parent": "IBehaviorPropertyCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BuildType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColorDirection",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColorEffect",
+      "parent": "Behavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColorEffect",
+      "parent": "IColorEffect",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColorOffset",
+      "parent": "IColorOffset",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColorSpace",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CommandEffect",
+      "parent": "Behavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CommandEffect",
+      "parent": "ICommandEffect",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CommandEffectType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Effect",
+      "parent": "IEffect",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EffectChartMajorGroupingType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EffectChartMinorGroupingType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EffectFillType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EffectPresetClassType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EffectRestartType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EffectSubtype",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EffectTriggerType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EffectType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FilterEffect",
+      "parent": "Behavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FilterEffect",
+      "parent": "IFilterEffect",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FilterEffectRevealType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FilterEffectSubtype",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FilterEffectType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IBehavior",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IBehaviorCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IBehaviorFactory",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IBehaviorProperty",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IBehaviorPropertyCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IColorEffect",
+      "parent": "IBehavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IColorEffect",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IColorOffset",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ICommandEffect",
+      "parent": "IBehavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ICommandEffect",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IEffect",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IFilterEffect",
+      "parent": "IBehavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IFilterEffect",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IMotionCmdPath",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IMotionEffect",
+      "parent": "IBehavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IMotionEffect",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IMotionPath",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPoint",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPointCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPropertyEffect",
+      "parent": "IBehavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IPropertyEffect",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IRotationEffect",
+      "parent": "IBehavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IRotationEffect",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IScaleEffect",
+      "parent": "IBehavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IScaleEffect",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISequence",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISequenceCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISetEffect",
+      "parent": "IBehavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ISetEffect",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ITextAnimation",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ITextAnimationCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ITiming",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MotionCmdPath",
+      "parent": "IMotionCmdPath",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MotionCommandPathType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MotionEffect",
+      "parent": "Behavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MotionEffect",
+      "parent": "IMotionEffect",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MotionOriginType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MotionPath",
+      "parent": "IMotionPath",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MotionPathEditMode",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MotionPathPointsType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Point",
+      "parent": "IPoint",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PointCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PointCollection",
+      "parent": "IPointCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PropertyCalcModeType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PropertyEffect",
+      "parent": "Behavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PropertyEffect",
+      "parent": "IPropertyEffect",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PropertyValueType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RotationEffect",
+      "parent": "Behavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RotationEffect",
+      "parent": "IRotationEffect",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ScaleEffect",
+      "parent": "Behavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ScaleEffect",
+      "parent": "IScaleEffect",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Sequence",
+      "parent": "ISequence",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SequenceCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SequenceCollection",
+      "parent": "ISequenceCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetEffect",
+      "parent": "Behavior",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetEffect",
+      "parent": "ISetEffect",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextAnimation",
+      "parent": "ITextAnimation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextAnimationCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextAnimationCollection",
+      "parent": "ITextAnimationCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Timing",
+      "parent": "ITiming",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AxesManager",
+      "parent": "IAxesManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Axis",
+      "parent": "IAxis",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AxisPositionType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BaseChartValue",
+      "parent": "IBaseChartValue",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BubbleSizeRepresentationType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CategoryAxisType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Chart",
+      "parent": "IChart",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Chart",
+      "parent": "GraphicalObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartCategory",
+      "parent": "IChartCategory",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartCategoryCollection",
+      "parent": "IChartCategoryCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartData",
+      "parent": "IChartData",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartDataCell",
+      "parent": "IChartDataCell",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartDataPoint",
+      "parent": "IChartDataPoint",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartDataPointCollection",
+      "parent": "IChartDataPointCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartDataSourceType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartDataWorkbook",
+      "parent": "IChartDataWorkbook",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartDataWorksheet",
+      "parent": "IChartDataWorksheet",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartPlotArea",
+      "parent": "IChartPlotArea",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartSeries",
+      "parent": "IChartSeries",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartSeriesCollection",
+      "parent": "IChartSeriesCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartSeriesGroup",
+      "parent": "IChartSeriesGroup",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartSeriesGroupCollection",
+      "parent": "IChartSeriesGroupCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartSeriesReadonlyCollection",
+      "parent": "IChartSeriesReadonlyCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartTitle",
+      "parent": "IChartTitle",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartWall",
+      "parent": "IChartWall",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CombinableSeriesTypesGroup",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CrossesType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DataLabel",
+      "parent": "IDataLabel",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DataLabelCollection",
+      "parent": "IDataLabelCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DataSourceType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DataSourceTypeForErrorBarsCustomValues",
+      "parent": "IDataSourceTypeForErrorBarsCustomValues",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DataTable",
+      "parent": "IDataTable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DisplayBlanksAsType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayUnitType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DoubleChartValue",
+      "parent": "BaseChartValue",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DoubleChartValue",
+      "parent": "IDoubleChartValue",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ErrorBarType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ErrorBarValueType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ErrorBarsCustomValues",
+      "parent": "IErrorBarsCustomValues",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IActualLayout",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IAxesManager",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IAxis",
+      "parent": "IFormattedTextContainer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IAxis",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IBaseChartValue",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChart",
+      "parent": "IGraphicalObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IChart",
+      "parent": "IFormattedTextContainer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IChart",
+      "parent": "IChartComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IChart",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartCategory",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartCategoryCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartCategoryLevelsManager",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartCellCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartComponent",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IChartComponent",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IChartComponent",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartData",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartDataCell",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartDataPoint",
+      "parent": "IActualLayout",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IChartDataPoint",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartDataPointCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartDataWorkbook",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartDataWorksheet",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartDataWorksheetCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartPlotArea",
+      "parent": "ILayoutable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IChartPlotArea",
+      "parent": "IActualLayout",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IChartPlotArea",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartSeries",
+      "parent": "IChartComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IChartSeries",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartSeriesCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartSeriesGroup",
+      "parent": "IChartComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IChartSeriesGroup",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartSeriesGroupCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartSeriesReadonlyCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartTitle",
+      "parent": "ILayoutable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IChartTitle",
+      "parent": "IOverridableText",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IChartTitle",
+      "parent": "IFormattedTextContainer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IChartTitle",
+      "parent": "IActualLayout",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IChartTitle",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IChartWall",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IDataLabel",
+      "parent": "ILayoutable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IDataLabel",
+      "parent": "IOverridableText",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IDataLabel",
+      "parent": "IActualLayout",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IDataLabel",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IDataLabelCollection",
+      "parent": "IChartComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IDataLabelCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IDataSourceTypeForErrorBarsCustomValues",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IDataTable",
+      "parent": "IFormattedTextContainer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IDataTable",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IDoubleChartValue",
+      "parent": "ISingleCellChartValue",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IDoubleChartValue",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IErrorBarsCustomValues",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ILayoutable",
+      "parent": "IChartComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ILayoutable",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ILegend",
+      "parent": "ILayoutable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ILegend",
+      "parent": "IFormattedTextContainer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ILegend",
+      "parent": "IActualLayout",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ILegend",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ILegendEntryCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ILegendEntryProperties",
+      "parent": "IFormattedTextContainer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ILegendEntryProperties",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IMarker",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IMultipleCellChartValue",
+      "parent": "IBaseChartValue",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IMultipleCellChartValue",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IOverridableText",
+      "parent": "IFormattedTextContainer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IOverridableText",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPieSplitCustomPointCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IRotation3D",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISingleCellChartValue",
+      "parent": "IBaseChartValue",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ISingleCellChartValue",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IStringChartValue",
+      "parent": "IMultipleCellChartValue",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IStringChartValue",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IStringOrDoubleChartValue",
+      "parent": "ISingleCellChartValue",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IStringOrDoubleChartValue",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ITrendline",
+      "parent": "IOverridableText",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ITrendline",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ITrendlineCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IUpDownBarsManager",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LayoutTargetType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Legend",
+      "parent": "ILegend",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LegendDataLabelPosition",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LegendEntryCollection",
+      "parent": "ILegendEntryCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LegendEntryCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LegendEntryProperties",
+      "parent": "ILegendEntryProperties",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LegendPositionType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Marker",
+      "parent": "IMarker",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MarkerStyleType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PieSplitType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Rotation3D",
+      "parent": "IRotation3D",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StringChartValue",
+      "parent": "BaseChartValue",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StringChartValue",
+      "parent": "IStringChartValue",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StringOrDoubleChartValue",
+      "parent": "BaseChartValue",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StringOrDoubleChartValue",
+      "parent": "IStringOrDoubleChartValue",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StyleType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TickLabelPositionType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TickMarkType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TimeUnitType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Trendline",
+      "parent": "ITrendline",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TrendlineCollection",
+      "parent": "ITrendlineCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TrendlineType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Blur",
+      "parent": "ImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Blur",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Blur",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Blur",
+      "parent": "IBlur",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Blur",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillOverlay",
+      "parent": "ImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillOverlay",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillOverlay",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillOverlay",
+      "parent": "IFillOverlay",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillOverlay",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Glow",
+      "parent": "IGlow",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Glow",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IBlur",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IBlur",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IFillOverlay",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IFillOverlay",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IGlow",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IGlow",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IImageTransformOperation",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IInnerShadow",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IInnerShadow",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IOuterShadow",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IOuterShadow",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPresetShadow",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IPresetShadow",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IReflection",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IReflection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISoftEdge",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ISoftEdge",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ImageTransformOperation",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImageTransformOperation",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImageTransformOperation",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImageTransformOperation",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "InnerShadow",
+      "parent": "IInnerShadow",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "InnerShadow",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OuterShadow",
+      "parent": "IOuterShadow",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OuterShadow",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PresetShadow",
+      "parent": "IPresetShadow",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PresetShadow",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Reflection",
+      "parent": "IReflection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Reflection",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SoftEdge",
+      "parent": "ISoftEdge",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SoftEdge",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Flavor",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "HandleRepeatedSpaces",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISaveOptions",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MarkdownExportType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MarkdownSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MarkdownSaveOptions",
+      "parent": "ISaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NewLineType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SaveOptions",
+      "parent": "ISaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CornerDirectionTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CornerDirectionTransition",
+      "parent": "ICornerDirectionTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EightDirectionTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EightDirectionTransition",
+      "parent": "IEightDirectionTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EmptyTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EmptyTransition",
+      "parent": "IEmptyTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FlyThroughTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FlyThroughTransition",
+      "parent": "IFlyThroughTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GlitterTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GlitterTransition",
+      "parent": "IGlitterTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ICornerDirectionTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ICornerDirectionTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IEightDirectionTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IEightDirectionTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IEmptyTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IEmptyTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IFlyThroughTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IFlyThroughTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IGlitterTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IGlitterTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IInOutTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IInOutTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ILeftRightDirectionTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ILeftRightDirectionTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IMorphTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IMorphTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IOptionalBlackTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IOptionalBlackTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IOrientationTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IOrientationTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IRevealTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IRevealTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IRippleTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IRippleTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IShredTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IShredTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISideDirectionTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ISideDirectionTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISplitTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ISplitTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ITransitionValueBase",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IWheelTransition",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IWheelTransition",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InOutTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "InOutTransition",
+      "parent": "IInOutTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LeftRightDirectionTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LeftRightDirectionTransition",
+      "parent": "ILeftRightDirectionTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MorphTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MorphTransition",
+      "parent": "IMorphTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OptionalBlackTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OptionalBlackTransition",
+      "parent": "IOptionalBlackTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OrientationTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OrientationTransition",
+      "parent": "IOrientationTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RevealTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RevealTransition",
+      "parent": "IRevealTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RippleTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RippleTransition",
+      "parent": "IRippleTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShredTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShredTransition",
+      "parent": "IShredTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SideDirectionTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SideDirectionTransition",
+      "parent": "ISideDirectionTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SlideShowTransition",
+      "parent": "ISlideShowTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SplitTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SplitTransition",
+      "parent": "ISplitTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TransitionCornerAndCenterDirectionType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TransitionCornerDirectionType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TransitionEightDirectionType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TransitionInOutDirectionType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TransitionLeftRightDirectionType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TransitionMorphType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TransitionPattern",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TransitionShredPattern",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TransitionSideDirectionType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TransitionSoundMode",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TransitionSpeed",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TransitionType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TransitionValueBase",
+      "parent": "ITransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "WheelTransition",
+      "parent": "TransitionValueBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "WheelTransition",
+      "parent": "IWheelTransition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BaseOverrideThemeManager",
+      "parent": "BaseThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BaseOverrideThemeManager",
+      "parent": "IOverrideThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BaseOverrideThemeManager",
+      "parent": "IThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BaseThemeManager",
+      "parent": "object",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColorScheme",
+      "parent": "IColorScheme",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColorScheme",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColorScheme",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EffectStyle",
+      "parent": "IEffectStyle",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EffectStyleCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EffectStyleCollection",
+      "parent": "IEffectStyleCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ExtraColorScheme",
+      "parent": "IExtraColorScheme",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ExtraColorSchemeCollection",
+      "parent": "BaseCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ExtraColorSchemeCollection",
+      "parent": "IExtraColorSchemeCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FontScheme",
+      "parent": "IFontScheme",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IColorScheme",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IColorScheme",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IColorScheme",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IEffectStyle",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IEffectStyleCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IExtraColorScheme",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IExtraColorSchemeCollection",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IFontScheme",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IMasterTheme",
+      "parent": "ITheme",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IMasterTheme",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IMasterThemeManager",
+      "parent": "IThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IMasterThemeManager",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IMasterThemeable",
+      "parent": "IThemeable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IMasterThemeable",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IMasterThemeable",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IMasterThemeable",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IOverrideTheme",
+      "parent": "ITheme",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IOverrideTheme",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IOverrideThemeManager",
+      "parent": "IThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IOverrideThemeManager",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IOverrideThemeable",
+      "parent": "IThemeable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IOverrideThemeable",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IOverrideThemeable",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IOverrideThemeable",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ITheme",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ITheme",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IThemeManager",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IThemeable",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IThemeable",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IThemeable",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LayoutSlideThemeManager",
+      "parent": "BaseOverrideThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LayoutSlideThemeManager",
+      "parent": "IOverrideThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LayoutSlideThemeManager",
+      "parent": "IThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterTheme",
+      "parent": "Theme",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterTheme",
+      "parent": "IMasterTheme",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterThemeManager",
+      "parent": "BaseThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterThemeManager",
+      "parent": "IMasterThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterThemeManager",
+      "parent": "IThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NotesSlideThemeManager",
+      "parent": "BaseOverrideThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NotesSlideThemeManager",
+      "parent": "IOverrideThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NotesSlideThemeManager",
+      "parent": "IThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OverrideTheme",
+      "parent": "Theme",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OverrideTheme",
+      "parent": "IOverrideTheme",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SlideThemeManager",
+      "parent": "BaseOverrideThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SlideThemeManager",
+      "parent": "IOverrideThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SlideThemeManager",
+      "parent": "IThemeManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Theme",
+      "parent": "ITheme",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Theme",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    }
+  ],
+  "formats": {
+    "import": [
+      "PPTX"
+    ],
+    "export": [
+      "Pptx",
+      "Pptm",
+      "Ppsx",
+      "Ppsm",
+      "Potx",
+      "Potm",
+      "Pptx",
+      "PPTX",
+      "PPSX",
+      "PPTM",
+      "PPSM",
+      "POTX",
+      "POTM",
+      "Markdown",
+      "cache"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "pip install aspose-slides-foss",
+    "version": "26.8.0"
+  },
+  "not_implemented": [
+    "TextAnimation.add_effect"
+  ],
+  "forbidden_claims": [
+    "supports TextAnimation.add_effect"
+  ],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 515,
+    "with_methods": 180,
+    "with_properties": 376,
+    "with_enums": 107,
+    "method_pct": 35.0,
+    "property_pct": 73.0,
+    "surface_tier": 3
+  },
+  "snippets_coverage": {
+    "total_snippets": 100,
+    "classes_with_snippet": 46,
+    "classes_total": 515,
+    "coverage_ratio": 0.09,
+    "effective_denominator": 491,
+    "concrete_coverage": {
+      "classes_total": 296,
+      "classes_with_snippet": 46,
+      "coverage_ratio": 0.16
+    },
+    "interface_coverage": {
+      "classes_total": 195,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

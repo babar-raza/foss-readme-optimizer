@@ -1,0 +1,529 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "A free and open-source implementation of Aspose.3D for Java, released under the permissive **MIT License**. It provides an API-compatible, open-source alternative for working with 3D scenes and models in Java, maintaining the `com.aspose.threed.*` package structure of the commercial library.",
+    "salient_tokens": ["com.aspose.threed.*", "MIT", "API"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Tagline restating the product's free/open-source/API-compatible framing; already covered by the candidate's Intro paragraph. The package-structure detail is a more granular restatement of the same 'Aspose.3D-compatible API' claim, itself further expanded by the merged API Reference parity sentence (u0009).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro paragraph already states 'free, open-source Java library... through an Aspose.3D-compatible API', and (after this batch's edits) also names com.aspose.threed.* explicitly via the merged API Reference parity sentence. Nothing further to add here."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Free/open-source/API-compatible framing already present in the Intro paragraph; package-structure detail covered by the merged API Reference parity sentence (u0009)."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "> 🏠 **Aspose.3D FOSS** lives on [aspose.org](https://products.aspose.org/3d/java/) — Aspose's home for free, open-source file-format libraries. The full commercial edition, [Aspose.3D for Java](https://products.aspose.com/3d/java/), is available on [aspose.com](https://products.aspose.com/3d).",
+    "salient_tokens": ["FOSS"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Orientation banner; its one checkable fact -- a commercial edition exists at products.aspose.com -- is already present via the Scope and Limitations Enterprise Edition pointer. The aspose.org/aspose.com split itself is site-navigation framing, not a distinct product claim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations links to Aspose.3D for Java -- Enterprise Edition at products.aspose.com/3d/java/, the same commercial-edition fact this banner makes. Checked: this is the same URL."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Commercial-edition-exists fact already present via the Enterprise Edition link in Scope and Limitations."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "Aspose.3D FOSS is the free, open-source edition of Aspose.3D. It shares the same public API design as the commercial Aspose.3D On-Premise library, so you can:",
+    "salient_tokens": ["FOSS", "API"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in restating free/open-source/same-API-design; already covered by the Intro paragraph's 'Aspose.3D-compatible API' framing.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro states the library works 'through an Aspose.3D-compatible API' -- same claim, different phrasing."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Same-API-design claim already present, differently phrased, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Build and ship 3D applications at no cost** under a permissive MIT License.",
+    "salient_tokens": ["MIT"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Free-of-cost/MIT-license claim already present via the Intro's 'free, open-source' framing and the License section's MIT statement.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the MIT License. The MIT License permits use, copying, modification, distribution, sublicensing, and commercial use...' -- covers the no-cost/MIT claim in full."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "MIT license and no-cost claim already present, in expanded form, in the License section."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Start free and grow without rewriting code** — code written against the FOSS edition works with the commercial edition.",
+    "salient_tokens": ["FOSS"],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable claim about code-portability between the FOSS and commercial editions, distinct from the general 'API-compatible' framing already in the Intro -- not previously stated anywhere in the candidate.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "AGENTS.md",
+      "evidence_note": "AGENTS.md 'Public API Match': 'The public API must exactly match Aspose.3D's interface: Package structure: com.aspose.threed.*; Method signatures: Identical to Aspose.3D; Class names: Same as Aspose.3D.' Confirms code written against the FOSS API surface uses the same names/signatures as the commercial library, supporting the portability claim. Merged together with u0006 into one Scope and Limitations sentence rather than duplicating the same fact twice."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Upgrade only when you need to** — when you require the broader feature set, higher performance, rendering, or proprietary format support of the [commercial On-Premise edition](https://products.aspose.com/3d/java/), simply swap in the commercial package, no API rewrites required.",
+    "salient_tokens": ["API"],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "States the real upgrade mechanism -- swapping the package reference requires no API rewrite -- a genuinely missing, checkable fact about how upgrading to Enterprise Edition works in practice.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "AGENTS.md",
+      "evidence_note": "AGENTS.md 'Public API Match' confirms the FOSS package structure, method signatures, and class names are engineered to match the commercial library exactly (within implemented capabilities), so swapping the Maven coordinate for the commercial package does not require touching calling code."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "The FOSS edition focuses on the most widely used open 3D formats. The commercial edition additionally covers proprietary and high-performance scenarios such as rendering, advanced mesh operations, and formats like USD, PDF, A3DW, JT, and more.",
+    "salient_tokens": ["FOSS", "USD", "PDF", "JT"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Same fact (commercial edition adds rendering, advanced mesh ops, and more formats including USD/PDF/JT) already present, near-verbatim, in the candidate's Scope and Limitations closing paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'Aspose.3D for Java — Enterprise Edition, which adds rendering, the broader exchange-format set (FBX, glTF, USD, PDF, JT, and more), and advanced mesh operations.' Same facts, same format list (minus A3DW, a minor omission not worth a separate merge)."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Commercial-edition format/capability list already present, near-verbatim, in Scope and Limitations."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "This is a work-in-progress port. See [TODO.md](TODO.md) for current progress and [FILE_FORMATS.md](FILE_FORMATS.md) for format support status.",
+    "salient_tokens": ["TODO"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Pointers to TODO.md and FILE_FORMATS.md already present, verbatim, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: '**[FILE_FORMATS.md](FILE_FORMATS.md)** — per-format support status...' and '**[TODO.md](TODO.md)** — current porting progress and planned work.' Both links already present."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "TODO.md and FILE_FORMATS.md pointers already present, verbatim, in Documentation & Resources."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "The public API matches Aspose.3D for Java 26.1.0:\n- Package structure: `com.aspose.threed.*`\n- Method signatures: Identical to Aspose.3D\n- Class names: Same as Aspose.3D",
+    "salient_tokens": ["com.aspose.threed.*", "API", "26.1.0"],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable design fact about API parity (package/method/class-name matching) not previously stated in the candidate's API Reference section, which currently only lists the entry points without stating the parity design. The specific '26.1.0' version number is deliberately NOT carried into the merge -- it is the target version the API alignment was designed against, not the FOSS package's own release version (which is 26.5.0 per Installation), and repeating it risks readers mistaking it for the current package version.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "AGENTS.md",
+      "evidence_note": "AGENTS.md 'Public API Match': 'The public API must exactly match Aspose.3D's interface: Package structure: com.aspose.threed.*; Method signatures: Identical to Aspose.3D; Class names: Same as Aspose.3D.' Confirms the parity design is real and current. Deliberately omitted the '26.1.0' figure from the merged text since it names a design-target version distinct from the package's actual current release (26.5.0, confirmed in pom.xml and the Installation section)."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Excluded APIs:**\n- No licensing, trial, or DRM-related functionality (not applicable to an open-source project)\n- Some advanced features have stub implementations",
+    "salient_tokens": ["APIs", "DRM"],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "The 'stub implementations' half is already covered by the candidate's specific, more accurate examples (Draco/Scene.render/Camera.moveForward throwing UnsupportedOperationException, toMesh() gaps). The 'no licensing/trial/DRM' half used more precise terminology (DRM) than the candidate's existing 'licensing/metering' phrasing -- worth folding in as a reframe for precision.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "AGENTS.md",
+      "evidence_note": "AGENTS.md 'Category 1: Excluded (Do Not Implement)' lists 'License-related classes... Trial-related APIs... DRM-related APIs' as intentionally omitted -- confirms the DRM terminology is accurate and current, not just old-README wording. Merged into the existing 'Cryptographic and licensing/metering' bullet rather than adding a duplicate bullet."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "Aspose.3D FOSS for Java is published to [Maven Central](https://central.sonatype.com/). Add it to your project as a dependency — no extra repositories or configuration required.",
+    "salient_tokens": ["FOSS"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Maven Central publication and no-extra-config install already demonstrated by the candidate's Installation section (badge + dependency snippet, no repository block shown).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "package_registry_field",
+      "evidence_ref": "3d.java.verification.published",
+      "evidence_note": "data/package_registry.json confirms 3d/java is published=true, verified live against repo1.maven.org/maven2/org/aspose/aspose-3d-foss/ (evidence_url), matching the old README's Maven Central claim. Candidate's Installation section already shows the plain <dependency> snippet with no extra repository configuration, matching 'no extra repositories or configuration required'."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Maven Central publication and no-extra-config installation already demonstrated by the Installation section's dependency snippet."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "The artifact coordinates are `org.aspose:aspose-3d-foss:26.5.0`. Use them with [SBT](https://www.scala-sbt.org/), [Leiningen](https://leiningen.org/), [Apache Ivy](https://ant.apache.org/ivy/), or any tool that resolves from Maven Central. It requires **Java 8** or later.",
+    "salient_tokens": ["org.aspose:aspose-3d-foss:26.5.0", "SBT", "26.5.0"],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "States a specific, checkable minimum-Java-version requirement, but the claim itself is stale and contradicted by the current build configuration -- not merged. The SBT/Leiningen/Ivy tooling list is generic build-tool trivia with nothing distinct to verify beyond the version claim.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "pom.xml",
+      "evidence_note": "pom.xml sets maven.compiler.source/target to 21 (and the maven-compiler-plugin source/target to 21), matching the candidate's own 'Java 21' badge and Installation text ('The library targets Java 21'). The old README's 'requires Java 8 or later' is stale/incorrect for the current build -- must NOT be merged, since it would contradict the verified-current Java 21 requirement."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Stale: old README claims Java 8+, but pom.xml confirms the current build requires Java 21, matching the candidate's existing Java 21 statement."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "This is a Maven project. Build and test from source with:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in sentence already present, near-verbatim, in the candidate's Development and Testing section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing: 'This is a Maven project targeting Java 21. Build and test from source:' -- same lead-in, near-verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "Lead-in sentence already present, near-verbatim, in Development and Testing."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "Load a 3D file and convert it to another format:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Generic load-and-convert narration already demonstrated by the candidate's Quick Start section, which uses a corrected STL-to-STL example instead of the old README's OBJ-based example (OBJ loading is a known non-functional path, see upstream-issues.md).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Quick Start",
+      "evidence_note": "Quick Start: 'Load an STL file and re-save it in an explicit STL representation — format is detected automatically for the load'. Same load-and-save narration; the candidate deliberately swapped the old README's broken OBJ-load example for a functional STL one (see upstream-issues.md: OBJ loader is a no-op stub in the published jar)."
+    },
+    "disposition": "excluded",
+    "target_section": "Quick Start",
+    "excluded_reason": "Load-and-convert narration already covered by Quick Start, using a corrected format since the old README's OBJ example does not work against the published artifact."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "To explicitly specify the output format, or load with custom options:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in narration for an explicit-format-and-options example already demonstrated by the candidate's Additional Examples section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: 'Save in an Explicit Format or With Save Options' section shows scene.save(\"output.stl\", FileFormat.STLASCII) and scene.save(\"output.stl\", new StlSaveOptions()); a further nested example detects a format from a stream and loads it with custom handling. Same explicit-format/custom-options narration."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Explicit-format/custom-options narration already demonstrated in Additional Examples."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "See [FILE_FORMATS.md](FILE_FORMATS.md) for the list of supported formats.",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Pointer to FILE_FORMATS.md already present, verbatim, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: '**[FILE_FORMATS.md](FILE_FORMATS.md)** — per-format support status in this repository.' Same pointer, already present."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "FILE_FORMATS.md pointer already present, verbatim, in Documentation & Resources."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "Contributions are welcome! Please feel free to submit issues and pull requests.",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Generic contribution-invite boilerplate with no distinct process detail (no case-by-case triage note, no contribution guideline) beyond the bug/feature-request pointer already present elsewhere -- pure community-engagement CTA, nothing independently checkable.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure CTA prose."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure community-engagement CTA prose with no distinct checkable process detail beyond the issue-tracker pointer already present."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.",
+    "salient_tokens": ["MIT", "LICENSE"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "License statement already present, expanded, in the candidate's License section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the [MIT License](LICENSE). The MIT License permits use, copying, modification, distribution, sublicensing, and commercial use...' Same fact, expanded."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "License statement already present, in expanded form, in the License section."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Aspose.3D FOSS for Java](https://products.aspose.org/3d/java/) — product page",
+    "salient_tokens": ["FOSS"],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Bare self-referential navigation link to the product's own landing page -- no technical, branding, or process claim beyond the URL's existence; the reader is already on this repository's README.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure navigational link, not a checkable technical/branding/mechanism fact."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure navigational self-link with no distinct technical or branding claim to verify."
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Aspose.3D FOSS family](https://products.aspose.org/3d/) — all platforms (Python, .NET, Java, TypeScript)",
+    "salient_tokens": ["FOSS", "NET", "TypeScript"],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Cross-platform family navigation link, not a distinct technical or branding claim about this platform's library.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure navigational link."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure navigational link to the product family page, nothing distinctly checkable."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Aspose FOSS documentation](https://docs.aspose.org/) — guides for all open-source libraries",
+    "salient_tokens": ["FOSS"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "General cross-product documentation portal link; the platform-specific, more useful version of this pointer is already present in Documentation & Resources.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: '**[Getting started guide](https://docs.aspose.org/3d/java/)** — installation, walkthroughs, and feature guides for this library.' A more specific, platform-scoped version of the same docs.aspose.org resource."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "General docs.aspose.org pointer superseded by the more specific getting-started guide link already present."
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Aspose FOSS blog](https://blog.aspose.org/) — tutorials and announcements",
+    "salient_tokens": ["FOSS"],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Cross-product blog pointer, not a distinct technical or branding claim about this library; closer to a 'check us out elsewhere' pointer than checkable product documentation.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure navigational/marketing link."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Cross-product marketing/navigation link, nothing distinctly checkable about this library."
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Java FAQ](https://kb.aspose.org/3d/java/faq/) — frequently asked questions",
+    "salient_tokens": ["FAQ"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "FAQ pointer already present, same domain and platform, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: '**[How-to guides & FAQ](https://kb.aspose.org/3d/java/)** — task-focused answers for common 3D-processing questions.' Same kb.aspose.org/3d/java FAQ resource, already present."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "FAQ pointer already present, same domain and platform, in Documentation & Resources."
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Aspose.3D for Java](https://products.aspose.com/3d/java/) — full-featured commercial edition",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Commercial-edition pointer already present, same URL, via the Scope and Limitations Enterprise Edition link.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations links to '[Aspose.3D for Java — Enterprise Edition](https://products.aspose.com/3d/java/)' -- identical URL already present."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Commercial-edition link already present, identical URL, in Scope and Limitations."
+  },
+  {
+    "unit_id": "u0025",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Aspose.3D product family](https://products.aspose.com/3d) — overview",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Commercial product-family overview link, not a distinct technical or branding claim about this library.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure navigational link."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure navigational link to the commercial family overview page."
+  },
+  {
+    "unit_id": "u0026",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Developer documentation](https://docs.aspose.com/3d/java/) — API guides",
+    "salient_tokens": ["API"],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, useful resource pointer justified by the verified API-parity fact (u0009/u0006): since the public API is engineered to match the commercial library, its developer documentation is a genuinely useful supplementary resource -- not previously pointed to anywhere in the candidate.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "AGENTS.md",
+      "evidence_note": "AGENTS.md 'Public API Match' confirms package/method/class-name parity with the commercial library, which is the basis for treating its documentation as a valid supplementary resource within the supported feature set. Merged together with u0027 into one API Reference sentence."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0027",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [API reference](https://reference.aspose.com/3d/java/) — complete API documentation",
+    "salient_tokens": ["API"],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Same rationale as u0026 -- a real, useful pointer to the commercial API reference, justified by verified API parity, merged together into the same API Reference sentence rather than as a separate duplicate bullet.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "AGENTS.md",
+      "evidence_note": "Same AGENTS.md 'Public API Match' evidence as u0026 -- API parity with the commercial library justifies pointing readers to its API reference as a supplementary resource."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0028",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Download / free trial](https://releases.aspose.com/3d/java/) — get the commercial package",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Commercial-upsell download/trial pointer; the underlying fact (a commercial edition exists) is already covered via the Enterprise Edition link, and the trial-download mechanics add no distinct checkable content.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- commercial-upsell CTA link."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Commercial-upsell CTA link; the underlying commercial-edition fact is already covered elsewhere."
+  },
+  {
+    "unit_id": "u0029",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Aspose.3D support forum](https://forum.aspose.com/c/3d/19) — questions and help",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Community-support pointer, not a distinct technical or branding claim about this library; the GitHub issue tracker already serves as this repository's primary support channel.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure navigational/community link."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Community-support navigational link; GitHub issues already serve as this repo's support channel."
+  },
+  {
+    "unit_id": "u0030",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Free online 3D apps](https://products.aspose.app/3d/) — convert and view 3D files in your browser",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Pointer to an unrelated commercial online-tools product, not a claim about this library itself.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure navigational link to a separate commercial product."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pointer to a separate commercial product (free online 3D apps), not a claim about this library."
+  },
+  {
+    "unit_id": "u0031",
+    "source": "clone_cache/README.md",
+    "excerpt": "This is a clean-room FOSS implementation designed for API compatibility with Aspose.3D for Java.",
+    "salient_tokens": ["FOSS", "API"],
+    "classification": "3_branding_positioning",
+    "classification_basis": "Important, currently-missing positioning claim: this library is a clean-room reimplementation built to match the commercial API, NOT a reduction of the commercial source code -- the opposite methodology from some other Aspose FOSS products (e.g. words/net, which literally is reduced commercial source). Worth stating explicitly so readers don't assume the wrong provenance.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "AGENTS.md",
+      "evidence_note": "AGENTS.md: 'This is a FOSS (Free and Open Source Software) port of Aspose.3D for Java version 26.1.0. The goal is to maintain API compatibility with Aspose.3D while excluding all licensing, trial, and DRM-related functionality.' Describes an independently-built port targeting API compatibility, consistent with a clean-room implementation rather than a reduction of proprietary source. No source anywhere in the clone cache claims this library reuses commercial source code."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Intro",
+    "excluded_reason": null
+  }
+]

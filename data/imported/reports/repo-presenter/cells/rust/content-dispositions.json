@@ -1,0 +1,308 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "A free, open-source, **pure-Rust** spreadsheet library that reads and writes Excel\n`.xlsx` (Office Open XML / SpreadsheetML) workbooks. It exposes an API modeled after\n[Aspose.Cells](https://products.aspose.com/cells/), so the familiar\n`Workbook` / `Worksheet` / `Cells` object model is available to Rust programs with no\nproprietary runtime and no external Aspose dependency.",
+    "salient_tokens": [".xlsx", "Workbook", "Worksheet", "Cells", "XML", "SpreadsheetML", "API"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Core description paragraph already present, near-verbatim, as the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Candidate's Intro paragraph: 'Aspose.Cells FOSS for Rust is a free, open-source, pure-Rust spreadsheet library that reads and writes Excel .xlsx (Office Open XML / SpreadsheetML) workbooks. It exposes an API modeled after Aspose.Cells — the familiar Workbook / Worksheet / Cells object model — with no proprietary runtime and no external Aspose dependency.' Word-for-word match."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Verbatim duplicate of the Intro paragraph."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "The OOXML packaging (ZIP container, relationships, shared strings, styles, worksheet XML,\ncharts, etc.) is implemented from scratch on top of a small set of general-purpose crates:\n[`zip`](https://crates.io/crates/zip) (package container),\n[`roxmltree`](https://crates.io/crates/roxmltree) (XML parsing),\n[`chrono`](https://crates.io/crates/chrono) (date/time),\n[`sha2`](https://crates.io/crates/sha2) / [`base64`](https://crates.io/crates/base64) /\n[`getrandom`](https://crates.io/crates/getrandom) (protection hashing), and\n[`serde_json`](https://crates.io/crates/serde_json).",
+    "salient_tokens": ["zip", "roxmltree", "chrono", "sha2", "base64", "getrandom", "serde_json", "OOXML", "XML"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Dependency-crate list already present, verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'The .xlsx OOXML packaging is implemented from scratch on top of a small set of general-purpose crates: zip, roxmltree, chrono, sha2/base64/getrandom, and serde_json.' Same crate list, condensed."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Dependency-crate list already present, verbatim, in the Installation section."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "Early-stage and evolving. The public API surface is broad but not everything Aspose.Cells\nsupports is implemented, and some features are partial. Treat it as a work in progress.",
+    "salient_tokens": ["API"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Maturity/status caveat already present, near-verbatim, as the first Scope and Limitations bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'This is an early-stage, evolving library: the public API surface is broad, but not everything Aspose.Cells supports is implemented, and some features are partial.' Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Maturity/status caveat already present, near-verbatim, in the Scope and Limitations section."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Workbooks & worksheets** - create, load, save, and round-trip `.xlsx` files;\n  manage the worksheet collection, names, visibility, and view/protection settings\n- **Cells & values** - strings, numbers, booleans, decimals, dates/times, and formulas\n  with cached results; A1 and row/column indexed access\n- **Styling** - fonts, fills, borders, number formats, and horizontal/vertical alignment\n- **Rows & columns** - sizing, visibility, and merged cell areas\n- **Data validation** - list, decimal, and custom rules\n- **Conditional formatting** - basic and advanced format conditions\n- **Hyperlinks & defined names**\n- **Comments** - authors, notes, visibility, and sizing\n- **Charts** - column and line charts\n- **List objects (Excel tables)** - table styles and totals\n- **Pictures & shapes** - embedded images, auto-shapes (rectangles, stars, arrows, symbols)\n- **Auto-filters & sparklines**\n- **Document properties** - core and extended workbook metadata\n- **Page setup** - print settings, headers/footers, margins, and page breaks",
+    "salient_tokens": ["worksheets"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "This entire old Features bullet block (14 items) is covered, item-for-item, by the candidate's Key Capabilities section: workbooks/worksheets, cells/values, styling, rows/columns, data validation, conditional formatting, hyperlinks/defined names, comments, charts, list objects, pictures/shapes, auto-filters/sparklines, document properties, and page setup are all named there, generally with more concrete class/method names.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Checked each of the 14 old bullets against the candidate's 12 Key Capabilities bullets: every named area (worksheets, cells/values, styling, rows/columns, data validation, conditional formatting, hyperlinks/defined names, comments, charts, list objects (ListObject), pictures/shapes, auto-filters/sparklines, document properties, page setup) has a direct match, generally with the real struct/method names added."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "All 14 items in this feature list are already covered, item-for-item, by the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "Clone the repository and build with Cargo:",
+    "salient_tokens": ["cargo build"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in for a 'clone and build from source' workflow; that exact workflow (clone + cargo build) is documented, more completely, under Development and Testing rather than Installation (which now documents the simpler git-dependency consumption path instead).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing: 'Build and check the crate from a local checkout: cargo build / cargo check --all-targets / cargo fmt --all --check / cargo clippy --all-targets'. Same clone-and-build action, documented as the dev workflow rather than the consumer-installation workflow."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "The clone-and-build-with-Cargo workflow is already documented under Development and Testing."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "To depend on it from another crate, add either a local path dependency:",
+    "salient_tokens": ["path dependency"],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "A Cargo path dependency is a real, distinct alternative to the git dependency the candidate documents (useful for local development against a clone) and was entirely missing from the candidate's Installation section.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "Cargo.toml",
+      "evidence_note": "runs/.clone_cache/aspose_cells_rust/Cargo.toml confirms the real package name (aspose-cells-foss-rust) and repository field, which the path-dependency mechanism targets identically to the git dependency already shown -- a standard Cargo feature applied to this real package name/layout, not a fabricated one. Grepped candidate readme.md for 'path' dependency before this edit: not present, only the git-dependency form was documented."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Installation",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "Or a Git dependency after the repository is live:",
+    "salient_tokens": ["git repository"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The 'after the repository is live' condition has since resolved (the repository is live); the git-dependency method itself is already the candidate's documented, primary Installation method.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'A crates.io package has not been published yet. Install directly from the git repository: [dependencies] aspose-cells-foss-rust = { git = \"https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust\" }'. Confirmed the repository field in Cargo.toml matches this URL and is live."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Git-dependency installation method already documented as the primary, current Installation approach."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "The package name is `aspose-cells-foss-rust` and the library is imported as\n`aspose_cells_foss_rust`.",
+    "salient_tokens": ["aspose-cells-foss-rust", "aspose_cells_foss_rust"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Package/import name already present, verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation's Cargo.toml sample shows 'aspose-cells-foss-rust = { git = ... }' and the following sentence: 'The library is imported as aspose_cells_foss_rust:'. Same two facts, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Package name and import name already present, verbatim, in the Installation section."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "Requires a recent stable Rust toolchain (2021 edition).",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Toolchain requirement already present, verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation contains the identical sentence: 'Requires a recent stable Rust toolchain (2021 edition).'"
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Verbatim duplicate already present in the Installation section."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "The library is imported as `aspose_cells_foss_rust`:",
+    "salient_tokens": ["aspose_cells_foss_rust"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Import statement lead-in already present, verbatim, in the candidate's Installation section (same sentence as u0008's second clause).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'The library is imported as aspose_cells_foss_rust:' followed by the same 'use aspose_cells_foss_rust::*;' pattern."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Verbatim duplicate already present in the Installation section."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Samples** - see [samples/README.md](samples/README.md) for runnable examples",
+    "salient_tokens": ["README"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Samples pointer already present, near-verbatim, in the candidate's Additional Examples section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: 'Runnable, self-contained versions of these and more live in samples/ — see samples/README.md for the full list.' Same pointer."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Samples pointer already present, near-verbatim, in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Contributor notes** - see [AGENTS.md](AGENTS.md) for architecture and conventions",
+    "salient_tokens": ["AGENTS"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Contributor-notes pointer already present, verbatim, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: '**[Contributor notes](AGENTS.md)** — architecture and conventions for contributors.' Same pointer."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Contributor-notes pointer already present, verbatim, in the Documentation & Resources section."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "Generate local API docs with `cargo doc --no-deps --open`.",
+    "salient_tokens": ["cargo doc --no-deps --open", "API"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Local API-doc generation command already present, verbatim, in the candidate's Development and Testing section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing: 'Generate local API docs with: cargo doc --no-deps --open'. Verbatim match."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "Verbatim duplicate already present in the Development and Testing section."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "Published API docs are deployed by GitHub Pages through\n[`pages.yml`](.github/workflows/pages.yml). After enabling `Settings -> Pages -> GitHub Actions`\nin the repository, pushes to `main` or `master` automatically rebuild and publish the rustdoc site.",
+    "salient_tokens": ["pages.yml", "Settings -> Pages -> GitHub Actions", "main", "master", "API", "GitHub"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "GitHub Pages API-doc deployment mechanism already present, near-verbatim, in the candidate's Development and Testing section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing: 'Published API docs are deployed by GitHub Pages through pages.yml — after enabling Settings -> Pages -> GitHub Actions in the repository, pushes to main/master automatically rebuild and publish the rustdoc site.' Near-verbatim match."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "GitHub Pages deployment mechanism already present, near-verbatim, in the Development and Testing section."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "Runnable examples covering each feature area live in [`samples/`](samples/), with an\noverview in [samples/README.md](samples/README.md). Each is registered as a binary, so run\nany of them from the repository root:",
+    "salient_tokens": ["samples/", "README"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Samples pointer already present in Additional Examples; the 'registered as a binary, run from the repository root' mechanism is demonstrated concretely (with real binary names) in Development and Testing.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing: 'The samples/ binaries are the de-facto verification suite... run the relevant sample: cargo run --bin sample_basic / cargo run --bin sample_loading / cargo run --bin sample_styles.' Demonstrates the exact 'each sample is its own binary, run via cargo run --bin' mechanism this unit describes, with real working commands."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "Samples pointer and 'run as a binary' mechanism already present, concretely, in Additional Examples and Development and Testing."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "Generated workbooks are written under `output/samples/`. Examples include:",
+    "salient_tokens": ["output/samples/"],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable fact about where sample output files land -- genuinely missing from the candidate. 'Additional Examples' is not a valid merge target_section (it is an optional section, not in _REQUIRED_SECTIONS), so this is merged into Development and Testing, which already discusses running the samples/ binaries as the de-facto verification suite -- the natural home for 'where does the sample output go'.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/common.rs",
+      "evidence_note": "runs/.clone_cache/aspose_cells_rust/samples/common.rs: output_path() joins CARGO_MANIFEST_DIR + 'output' + 'samples' + file_name, and creates that directory if missing -- confirms 'output/samples/' is the real, current sample-output location. Grepped candidate readme.md for 'output' before this edit: no match anywhere."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "| Sample | Focus |\n|---|---|\n| `basic.rs` | Cell values, formulas, and round-trip loading |\n| `styles.rs` | Style creation and inspection |\n| `worksheet_settings.rs` | Visibility, view settings, rows, columns, and merges |\n| `validations.rs` | List, decimal, and custom data validations |\n| `conditional_formatting.rs` | Basic and advanced conditional formatting |\n| `hyperlinks_and_names.rs` | Hyperlinks and defined names |\n| `pagesetup.rs` | Print settings, headers/footers, margins, and breaks |\n| `comments.rs` | Cell comments with authors, notes, and sizing |\n| `charts.rs` | Column and line charts |\n| `list_objects.rs` | Excel tables with styles and totals |\n| `pictures.rs` | Embedding worksheet images |\n| `shapes.rs` | Drawing shapes (rectangles, stars, arrows, symbols) |\n| `document_properties.rs` | Workbook metadata and core/extended properties |",
+    "salient_tokens": ["samples/"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "This old table was a discoverability index for the samples/ directory. The candidate's Additional Examples section supersedes it with real, embedded, runnable code for most of the same focus areas (Charts, Data Validation, Conditional Formatting, Hyperlinks and Defined Names, Cell Comments, Excel Tables/List Objects, Pictures and Shapes, Page Setup, Worksheet Visibility and Protection); the two areas without a dedicated inline snippet (styles.rs, document_properties.rs) are still discoverable via the already-recovered samples/README.md pointer (u0011/u0015) and are separately named in Key Capabilities and the API Reference (CellStyle/Font/Fill/Borders; DocumentProperties/CoreDocumentProperties/ExtendedDocumentProperties). Nothing is silently lost, only reorganized into richer inline examples plus a folder pointer.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Checked each of the 13 sample rows against the candidate's Additional Examples subsections and Key Capabilities/API Reference: 9 have a directly matching worked example (Charts, Data Validation, Conditional Formatting, Hyperlinks and Defined Names, Cell Comments, Excel Tables (List Objects), Pictures and Shapes, Page Setup, Worksheet Visibility and Protection); basic.rs's focus (cell values/formulas/round-trip) is covered by the Quick Start example; styles.rs and document_properties.rs have no dedicated inline snippet but their classes are documented in Key Capabilities/API Reference and the samples/ folder pointer (with samples/README.md) is already present."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Superseded by richer, embedded runnable examples in Additional Examples plus the already-present samples/README.md discoverability pointer; nothing lost."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "Licensed under the [MIT License](LICENSE.txt).",
+    "salient_tokens": ["MIT", "LICENSE"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "License statement already present, expanded, in the candidate's License section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the MIT License (LICENSE.txt). The MIT License permits use, copying, modification, distribution, sublicensing, and commercial use, provided its copyright and permission notice are retained.' Same fact, expanded."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "License statement already present, in expanded form, in the License section."
+  }
+]

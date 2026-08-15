@@ -1,0 +1,718 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "Aspose.Cells FOSS is an open-source .NET library for creating, loading, editing, and saving Excel `.xlsx` workbooks without requiring Microsoft Excel.",
+    "salient_tokens": [
+      ".xlsx",
+      "FOSS",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Tagline already present, near-verbatim, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'Aspose.Cells FOSS for .NET is a free, open-source, MIT-licensed .NET library for creating, loading, editing, and saving Excel .xlsx workbooks without requiring Microsoft Excel.' Word-for-word match on the checkable substance."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Content already present, near-verbatim, in the Intro paragraph of the candidate."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Aspose.Cells-compatible API surface for common XLSX scenarios",
+    "salient_tokens": [
+      "API",
+      "XLSX"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Positioning claim already present, near-verbatim, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'It exposes an Aspose.Cells-compatible API surface -- Workbook, Worksheet, Cells, Cell -- covering values, formulas, styles, conditional formatting, data validation, hyperlinks, defined names, tables, charts, shapes, and comments...' Same claim, expanded."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Content already present, near-verbatim, in the Intro paragraph of the candidate."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `.xlsx` load/save from file paths and streams",
+    "salient_tokens": [
+      ".xlsx"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, equivalent, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Create, load, and save .xlsx workbooks from a file path or stream with Workbook.' Same fact, reframed with the real class name."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, reframed with the real class name, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Cell values, formulas, styles, merges, and number formats",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Cell values, formulas, styles, and number formats are covered by Key Capabilities bullets 2-3. 'Merges' (merged cell ranges) was checked against the real source and against the candidate's own API Reference, where it is already named -- not merged separately since it is already documented there, not genuinely missing from the document.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference Core API table: 'Cells | Provides access to worksheet cells, rows, columns, and merged ranges.' Detailed Member Reference (Cells, Rows, and Columns): 'Cells -- Rows, Columns, Style, MergedCells; Merge(...).' Both explicitly name merged-range support; combined with Key Capabilities' coverage of values/formulas/styles/number-formats, every part of this unit is already documented somewhere in the candidate."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Values/formulas/styles/number-formats already in Key Capabilities; merges already named (MergedCells, Merge()) in the API Reference."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Conditional formatting, data validation, hyperlinks, names, tables, charts, shapes, comments, pictures",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Every item in this list already appears in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Add conditional formatting...', 'Add data validation...', and 'Work with Excel tables (ListObject), charts, shapes, pictures, legacy comments, hyperlinks (HyperlinkCollection), and workbook/sheet-scoped defined names (DefinedNameCollection).' Every one of the nine items (conditional formatting, data validation, hyperlinks, names, tables, charts, shapes, comments, pictures) is present."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "All nine listed capabilities already present, verbatim or near-verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Recovery-oriented loading with diagnostics and warning callbacks",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Repair/diagnostics were already covered by Key Capabilities, but the 'recovery-oriented' framing and the explicit warning-callback mechanism (previously named only inside the collapsed API Reference, not summarized in Key Capabilities) are real and worth surfacing at the Key Capabilities level.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/LoadOptions.cs",
+      "evidence_note": "LoadOptions.cs exposes a real WarningCallback property of type IWarningCallback, invoked during load to report recoverable issues -- confirms the old README's 'warning callbacks' claim is real and current. Previously named only in the API Reference's Interfaces table and Detailed Member Reference, not in the reader-facing Key Capabilities summary."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Multi-targeted library: `netstandard2.0` and `net8.0`",
+    "salient_tokens": [
+      "netstandard2.0",
+      "net8.0"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'The library (src/Aspose.Cells_FOSS/Aspose.Cells_FOSS.csproj) multi-targets netstandard2.0 and net8.0...' Same fact, same target names."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Fact already present, verbatim, in the Installation section."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Workbook and worksheet management",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, in substance, in the candidate's Key Capabilities section and the API Reference's Workbook and Worksheets subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Create, load, and save .xlsx workbooks from a file path or stream with Workbook.' API Reference Detailed Member Reference has a full 'Workbook and Worksheets' subsection. Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, in substance, in the Key Capabilities and API Reference sections."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Cells and formulas",
+    "salient_tokens": [
+      "Cell.Formula"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, reframed with the real API member names, in the candidate Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Read and write cell values, string/display values, and formula strings through Cell.PutValue and Cell.Formula.' Same fact (cells + formulas), reframed with real member names."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, reframed with real API member names, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Style model (font, fill, borders, alignment, number formats)",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Apply a full style model -- font, fill pattern, borders, alignment, number formats -- via Cell.GetStyle() / SetStyle().' Same list, reframed with real API names."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, reframed with real API names, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Worksheet settings (visibility, zoom, RTL, gridlines, protection)",
+    "salient_tokens": [
+      "RTL"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Zoom and gridlines were already covered by Key Capabilities' worksheet-view bullet. 'Visibility' and 'protection' are real, verified capabilities that were named only inside the collapsed API Reference (VisibilityType enum, Worksheet.Protection member), not summarized in Key Capabilities -- recovered here, along with an explicit RTL alias for the existing 'right-to-left' phrasing.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/Worksheet.cs",
+      "evidence_note": "Worksheet.cs confirms a real VisibilityType property (Hidden/VeryHidden/Visible) backed by the worksheet model. The API Reference's Worksheet Detailed Member Reference bullet already lists 'Protection ... Protect() / Unprotect()', confirming protection is real and current, but neither was previously named in the Key Capabilities worksheet-view bullet."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Hyperlinks and defined names",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: '...hyperlinks (HyperlinkCollection), and workbook/sheet-scoped defined names (DefinedNameCollection).' Both facts present."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Both capabilities already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Data validation and conditional formatting",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate's Key Capabilities section (as two separate bullets).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Add conditional formatting (CellValue, Expression, ColorScale, DataBar, IconSet)...' and 'Add data validation (WholeNumber, Decimal, List, Date, Custom)...' Both facts present, expanded with real type names."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Both capabilities already present, expanded with real type names, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Page setup and print-related settings",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, in substance, in the candidate's API Reference (PageSetup class and Worksheet member).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference Core API table: 'PageSetup | Represents worksheet print and page-layout settings.' Detailed Member Reference: 'Worksheet -- Cells, Hyperlinks, Validations, ConditionalFormattings, PageSetup, Protection, AutoFilter, ...' Same fact, already named."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Capability already present, verbatim, in the API Reference section."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Tables (`ListObjects`)",
+    "salient_tokens": [
+      "ListObject"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present in Key Capabilities under the real (singular) class name ListObject -- the old README's plural 'ListObjects' does not match the actual class name, verified against the candidate's own API Reference (ListObject / ListObjectCollection).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Work with Excel tables (ListObject), charts, shapes, ...' API Reference Core API table: 'ListObject | Represents an Excel table (structured reference / ListObject).' The real class is singular ListObject, not plural ListObjects -- same capability, corrected naming."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present in Key Capabilities under the real class name (ListObject, not the old plural ListObjects)."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Pictures, shapes, and charts",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Work with Excel tables (ListObject), charts, shapes, pictures, legacy comments, ...' Same three items present."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Document properties",
+    "salient_tokens": [
+      "DocumentProperties"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "A real, current capability (CoreDocumentProperties/DocumentProperties/ExtendedDocumentProperties classes, a Workbook.DocumentProperties member, and a dedicated samples/Aspose.Cells_FOSS.Samples.DocumentProperties project) that was named in the API Reference and Additional Examples but never summarized as a Key Capabilities bullet -- recovered here, matching the precedent set by u0006/u0010 (real capabilities named only in the collapsed API Reference, surfaced at the Key Capabilities level).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/DocumentProperties.cs",
+      "evidence_note": "DocumentProperties.cs exists in the clone cache alongside CoreDocumentProperties.cs and ExtendedDocumentProperties.cs (Core has Title/Subject/Creator/Keywords/Description/etc.); Workbook.cs exposes a public DocumentProperties DocumentProperties member. Confirms the old README's claim is real and current. Merged into Key Capabilities as a new bullet citing Workbook.DocumentProperties / DocumentProperties.Core / .Extended."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "For runnable examples, see [`samples/`](samples/):",
+    "salient_tokens": [
+      "samples/"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the candidate's Additional Examples section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: 'Runnable projects are available under samples/ (Basic, Loading, Styles, WorksheetSettings, Validations, ConditionalFormatting, HyperlinksAndNames, PageSetup, Shapes, Charts, Comments, DocumentProperties, ListObjects, Pictures).' Same link, same lead-in intent."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Lead-in sentence and link already present, near-verbatim, in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Basic`",
+    "salient_tokens": [
+      "Aspose.Cells_FOSS.Samples.Basic"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample project name already present in the candidate's Additional Examples section's project list. Verified the fully-qualified project name (Aspose.Cells_FOSS.Samples.Basic) against the real samples/ directory and expanded the Additional Examples list to use fully-qualified names (more precise/copy-pasteable than the old README's own bare short names) so the exact identifier is now present, not just the short form.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples now lists `Aspose.Cells_FOSS.Samples.Basic` explicitly (verified against samples/Aspose.Cells_FOSS.Samples.Basic/Aspose.Cells_FOSS.Samples.Basic.csproj in the clone cache, which exists). Same project, now named with its exact, fully-qualified identifier."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample project name already present, now with its fully-qualified identifier (Aspose.Cells_FOSS.Samples.Basic), in the Additional Examples section's project list."
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Loading`",
+    "salient_tokens": [
+      "Aspose.Cells_FOSS.Samples.Loading"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample project name already present in the candidate's Additional Examples section's project list. Verified the fully-qualified project name (Aspose.Cells_FOSS.Samples.Loading) against the real samples/ directory and expanded the Additional Examples list to use fully-qualified names (more precise/copy-pasteable than the old README's own bare short names) so the exact identifier is now present, not just the short form.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples now lists `Aspose.Cells_FOSS.Samples.Loading` explicitly (verified against samples/Aspose.Cells_FOSS.Samples.Loading/Aspose.Cells_FOSS.Samples.Loading.csproj in the clone cache, which exists). Same project, now named with its exact, fully-qualified identifier."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample project name already present, now with its fully-qualified identifier (Aspose.Cells_FOSS.Samples.Loading), in the Additional Examples section's project list."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Styles`",
+    "salient_tokens": [
+      "Aspose.Cells_FOSS.Samples.Styles"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample project name already present in the candidate's Additional Examples section's project list. Verified the fully-qualified project name (Aspose.Cells_FOSS.Samples.Styles) against the real samples/ directory and expanded the Additional Examples list to use fully-qualified names (more precise/copy-pasteable than the old README's own bare short names) so the exact identifier is now present, not just the short form.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples now lists `Aspose.Cells_FOSS.Samples.Styles` explicitly (verified against samples/Aspose.Cells_FOSS.Samples.Styles/Aspose.Cells_FOSS.Samples.Styles.csproj in the clone cache, which exists). Same project, now named with its exact, fully-qualified identifier."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample project name already present, now with its fully-qualified identifier (Aspose.Cells_FOSS.Samples.Styles), in the Additional Examples section's project list."
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.WorksheetSettings`",
+    "salient_tokens": [
+      "Aspose.Cells_FOSS.Samples.WorksheetSettings",
+      "WorksheetSettings"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample project name already present in the candidate's Additional Examples section's project list. Verified the fully-qualified project name (Aspose.Cells_FOSS.Samples.WorksheetSettings) against the real samples/ directory and expanded the Additional Examples list to use fully-qualified names (more precise/copy-pasteable than the old README's own bare short names) so the exact identifier is now present, not just the short form.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples now lists `Aspose.Cells_FOSS.Samples.WorksheetSettings` explicitly (verified against samples/Aspose.Cells_FOSS.Samples.WorksheetSettings/Aspose.Cells_FOSS.Samples.WorksheetSettings.csproj in the clone cache, which exists). Same project, now named with its exact, fully-qualified identifier."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample project name already present, now with its fully-qualified identifier (Aspose.Cells_FOSS.Samples.WorksheetSettings), in the Additional Examples section's project list."
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Validations`",
+    "salient_tokens": [
+      "Aspose.Cells_FOSS.Samples.Validations"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample project name already present in the candidate's Additional Examples section's project list. Verified the fully-qualified project name (Aspose.Cells_FOSS.Samples.Validations) against the real samples/ directory and expanded the Additional Examples list to use fully-qualified names (more precise/copy-pasteable than the old README's own bare short names) so the exact identifier is now present, not just the short form.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples now lists `Aspose.Cells_FOSS.Samples.Validations` explicitly (verified against samples/Aspose.Cells_FOSS.Samples.Validations/Aspose.Cells_FOSS.Samples.Validations.csproj in the clone cache, which exists). Same project, now named with its exact, fully-qualified identifier."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample project name already present, now with its fully-qualified identifier (Aspose.Cells_FOSS.Samples.Validations), in the Additional Examples section's project list."
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.ConditionalFormatting`",
+    "salient_tokens": [
+      "Aspose.Cells_FOSS.Samples.ConditionalFormatting",
+      "ConditionalFormatting"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample project name already present in the candidate's Additional Examples section's project list. Verified the fully-qualified project name (Aspose.Cells_FOSS.Samples.ConditionalFormatting) against the real samples/ directory and expanded the Additional Examples list to use fully-qualified names (more precise/copy-pasteable than the old README's own bare short names) so the exact identifier is now present, not just the short form.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples now lists `Aspose.Cells_FOSS.Samples.ConditionalFormatting` explicitly (verified against samples/Aspose.Cells_FOSS.Samples.ConditionalFormatting/Aspose.Cells_FOSS.Samples.ConditionalFormatting.csproj in the clone cache, which exists). Same project, now named with its exact, fully-qualified identifier."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample project name already present, now with its fully-qualified identifier (Aspose.Cells_FOSS.Samples.ConditionalFormatting), in the Additional Examples section's project list."
+  },
+  {
+    "unit_id": "u0025",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.HyperlinksAndNames`",
+    "salient_tokens": [
+      "Aspose.Cells_FOSS.Samples.HyperlinksAndNames",
+      "HyperlinksAndNames"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample project name already present in the candidate's Additional Examples section's project list. Verified the fully-qualified project name (Aspose.Cells_FOSS.Samples.HyperlinksAndNames) against the real samples/ directory and expanded the Additional Examples list to use fully-qualified names (more precise/copy-pasteable than the old README's own bare short names) so the exact identifier is now present, not just the short form.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples now lists `Aspose.Cells_FOSS.Samples.HyperlinksAndNames` explicitly (verified against samples/Aspose.Cells_FOSS.Samples.HyperlinksAndNames/Aspose.Cells_FOSS.Samples.HyperlinksAndNames.csproj in the clone cache, which exists). Same project, now named with its exact, fully-qualified identifier."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample project name already present, now with its fully-qualified identifier (Aspose.Cells_FOSS.Samples.HyperlinksAndNames), in the Additional Examples section's project list."
+  },
+  {
+    "unit_id": "u0026",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.PageSetup`",
+    "salient_tokens": [
+      "Aspose.Cells_FOSS.Samples.PageSetup",
+      "PageSetup"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample project name already present in the candidate's Additional Examples section's project list. Verified the fully-qualified project name (Aspose.Cells_FOSS.Samples.PageSetup) against the real samples/ directory and expanded the Additional Examples list to use fully-qualified names (more precise/copy-pasteable than the old README's own bare short names) so the exact identifier is now present, not just the short form.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples now lists `Aspose.Cells_FOSS.Samples.PageSetup` explicitly (verified against samples/Aspose.Cells_FOSS.Samples.PageSetup/Aspose.Cells_FOSS.Samples.PageSetup.csproj in the clone cache, which exists). Same project, now named with its exact, fully-qualified identifier."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample project name already present, now with its fully-qualified identifier (Aspose.Cells_FOSS.Samples.PageSetup), in the Additional Examples section's project list."
+  },
+  {
+    "unit_id": "u0027",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Shapes`",
+    "salient_tokens": [
+      "Aspose.Cells_FOSS.Samples.Shapes"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample project name already present in the candidate's Additional Examples section's project list. Verified the fully-qualified project name (Aspose.Cells_FOSS.Samples.Shapes) against the real samples/ directory and expanded the Additional Examples list to use fully-qualified names (more precise/copy-pasteable than the old README's own bare short names) so the exact identifier is now present, not just the short form.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples now lists `Aspose.Cells_FOSS.Samples.Shapes` explicitly (verified against samples/Aspose.Cells_FOSS.Samples.Shapes/Aspose.Cells_FOSS.Samples.Shapes.csproj in the clone cache, which exists). Same project, now named with its exact, fully-qualified identifier."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample project name already present, now with its fully-qualified identifier (Aspose.Cells_FOSS.Samples.Shapes), in the Additional Examples section's project list."
+  },
+  {
+    "unit_id": "u0028",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Charts`",
+    "salient_tokens": [
+      "Aspose.Cells_FOSS.Samples.Charts"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample project name already present in the candidate's Additional Examples section's project list. Verified the fully-qualified project name (Aspose.Cells_FOSS.Samples.Charts) against the real samples/ directory and expanded the Additional Examples list to use fully-qualified names (more precise/copy-pasteable than the old README's own bare short names) so the exact identifier is now present, not just the short form.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples now lists `Aspose.Cells_FOSS.Samples.Charts` explicitly (verified against samples/Aspose.Cells_FOSS.Samples.Charts/Aspose.Cells_FOSS.Samples.Charts.csproj in the clone cache, which exists). Same project, now named with its exact, fully-qualified identifier."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample project name already present, now with its fully-qualified identifier (Aspose.Cells_FOSS.Samples.Charts), in the Additional Examples section's project list."
+  },
+  {
+    "unit_id": "u0029",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Comments`",
+    "salient_tokens": [
+      "Aspose.Cells_FOSS.Samples.Comments"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample project name already present in the candidate's Additional Examples section's project list. Verified the fully-qualified project name (Aspose.Cells_FOSS.Samples.Comments) against the real samples/ directory and expanded the Additional Examples list to use fully-qualified names (more precise/copy-pasteable than the old README's own bare short names) so the exact identifier is now present, not just the short form.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples now lists `Aspose.Cells_FOSS.Samples.Comments` explicitly (verified against samples/Aspose.Cells_FOSS.Samples.Comments/Aspose.Cells_FOSS.Samples.Comments.csproj in the clone cache, which exists). Same project, now named with its exact, fully-qualified identifier."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample project name already present, now with its fully-qualified identifier (Aspose.Cells_FOSS.Samples.Comments), in the Additional Examples section's project list."
+  },
+  {
+    "unit_id": "u0030",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.DocumentProperties`",
+    "salient_tokens": [
+      "Aspose.Cells_FOSS.Samples.DocumentProperties",
+      "DocumentProperties"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample project name already present in the candidate's Additional Examples section's project list. Verified the fully-qualified project name (Aspose.Cells_FOSS.Samples.DocumentProperties) against the real samples/ directory and expanded the Additional Examples list to use fully-qualified names (more precise/copy-pasteable than the old README's own bare short names) so the exact identifier is now present, not just the short form.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples now lists `Aspose.Cells_FOSS.Samples.DocumentProperties` explicitly (verified against samples/Aspose.Cells_FOSS.Samples.DocumentProperties/Aspose.Cells_FOSS.Samples.DocumentProperties.csproj in the clone cache, which exists). Same project, now named with its exact, fully-qualified identifier."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample project name already present, now with its fully-qualified identifier (Aspose.Cells_FOSS.Samples.DocumentProperties), in the Additional Examples section's project list."
+  },
+  {
+    "unit_id": "u0031",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.ListObjects`",
+    "salient_tokens": [
+      "Aspose.Cells_FOSS.Samples.ListObjects",
+      "ListObjects"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample project name already present in the candidate's Additional Examples section's project list. Verified the fully-qualified project name (Aspose.Cells_FOSS.Samples.ListObjects) against the real samples/ directory and expanded the Additional Examples list to use fully-qualified names (more precise/copy-pasteable than the old README's own bare short names) so the exact identifier is now present, not just the short form.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples now lists `Aspose.Cells_FOSS.Samples.ListObjects` explicitly (verified against samples/Aspose.Cells_FOSS.Samples.ListObjects/Aspose.Cells_FOSS.Samples.ListObjects.csproj in the clone cache, which exists). Same project, now named with its exact, fully-qualified identifier."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample project name already present, now with its fully-qualified identifier (Aspose.Cells_FOSS.Samples.ListObjects), in the Additional Examples section's project list."
+  },
+  {
+    "unit_id": "u0032",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Pictures`",
+    "salient_tokens": [
+      "Aspose.Cells_FOSS.Samples.Pictures"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample project name already present in the candidate's Additional Examples section's project list. Verified the fully-qualified project name (Aspose.Cells_FOSS.Samples.Pictures) against the real samples/ directory and expanded the Additional Examples list to use fully-qualified names (more precise/copy-pasteable than the old README's own bare short names) so the exact identifier is now present, not just the short form.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples now lists `Aspose.Cells_FOSS.Samples.Pictures` explicitly (verified against samples/Aspose.Cells_FOSS.Samples.Pictures/Aspose.Cells_FOSS.Samples.Pictures.csproj in the clone cache, which exists). Same project, now named with its exact, fully-qualified identifier."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample project name already present, now with its fully-qualified identifier (Aspose.Cells_FOSS.Samples.Pictures), in the Additional Examples section's project list."
+  },
+  {
+    "unit_id": "u0033",
+    "source": "clone_cache/README.md",
+    "excerpt": "Run commands from the repository root:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the candidate's Development and Testing section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing: 'Build the library and a sample project from the repository root:' followed by the identical two dotnet build commands. Same fact, same intent."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "Lead-in sentence already present, near-verbatim, in the Development and Testing section."
+  },
+  {
+    "unit_id": "u0034",
+    "source": "clone_cache/README.md",
+    "excerpt": "Primary targets:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Structural lead-in label for the target-framework list; the facts under it are already present, verbatim, in the candidate Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'The library ... multi-targets netstandard2.0 and net8.0 ...' Same target-framework facts the old README's 'Primary targets:' label introduces."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Structural lead-in label; the target-framework facts it introduces are already present, verbatim, in the Installation section."
+  },
+  {
+    "unit_id": "u0035",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `netstandard2.0`",
+    "salient_tokens": [
+      "netstandard2.0"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'The library ... multi-targets netstandard2.0 and net8.0 ...' Same target name, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Target framework already present, verbatim, in the Installation section."
+  },
+  {
+    "unit_id": "u0036",
+    "source": "clone_cache/README.md",
+    "excerpt": "Because the package targets `netstandard2.0`, it can also be consumed by many compatible runtimes (for example .NET Framework 4.6.1+ and modern .NET).",
+    "salient_tokens": [
+      "netstandard2.0",
+      "NET",
+      "4.6.1"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: '...so it can also be consumed by compatible runtimes such as .NET Framework 4.6.1+ in addition to modern .NET.' Same fact, same version threshold."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Fact already present, near-verbatim, in the Installation section."
+  },
+  {
+    "unit_id": "u0037",
+    "source": "clone_cache/README.md",
+    "excerpt": "MIT. See [License/LICENSE.txt](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-.NET/blob/master/License/LICENSE.txt).",
+    "salient_tokens": [
+      "MIT",
+      "LICENSE",
+      "FOSS",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, expanded, in the candidate's License section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License: 'This project is licensed under the MIT License (License/LICENSE.txt). The MIT License permits use, copying, modification, distribution, sublicensing, and commercial use...' Same license, same file reference, expanded."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "License statement already present, in expanded form, in the License section."
+  },
+  {
+    "unit_id": "u0038",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Issues: <https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-.NET/issues>",
+    "salient_tokens": [
+      "FOSS",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: 'Found a bug or have a feature request? Open an issue on GitHub.' with the same issues URL linked."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Content already present, near-verbatim, as a bullet under Documentation & Resources."
+  }
+]

@@ -1,0 +1,438 @@
+[
+  {
+    "unit_id": "u0001",
+    "excerpt": "Pure-Python font workflow automation for teams that need to prepare, review, package, and explain fonts without native runtime dependencies.",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0002",
+    "excerpt": "Use it when you need deployable web-font packages, visual review assets, variable-font instances, and QA evidence from scripts, CI, or local CLI workflows.",
+    "salient_tokens": [
+      "QA",
+      "CI",
+      "CLI"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0003",
+    "excerpt": "Public GitHub repository: [aspose-font-foss/Aspose.Font-FOSS-for-Python](https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python)",
+    "salient_tokens": [
+      "GitHub",
+      "FOSS"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0004",
+    "excerpt": "| Workflow | Output |\n| --- | --- |\n| Optimize fonts for the web | WOFF2/WOFF files, CSS, specimen HTML, JSON manifests, coverage diagnostics, variable-font export-mode explanations, and fallback reasons. |\n| Review font quality | Font QA Reports as JSON/HTML/PNG package deliverables, compatibility reports, delta reports, and visual boards for release decisions. |\n| Create release-safe variable instances | Static instance fonts with naming strategies, optional STAT metadata, custom family suffixes, family review boards, and handoff manifests. |\n| Generate visual proof | PNG/SVG previews, axis-grid sheets, before/after comparisons, APNG animations, storyboard packages, and showcase outputs. |\n| Automate font operations | Python APIs, CLI commands, and optional MCP tools over the same pure-Python engine. |",
+    "salient_tokens": [
+      "WOFF2",
+      "WOFF",
+      "CSS",
+      "HTML",
+      "JSON",
+      "QA",
+      "PNG",
+      "STAT",
+      "SVG",
+      "APNG",
+      "APIs",
+      "CLI",
+      "MCP"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0005",
+    "excerpt": "- Pure Python: no native font-tooling runtime dependency for local scripts or CI.",
+    "salient_tokens": [
+      "CI"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0006",
+    "excerpt": "- Business artifacts first: packages, reports, manifests, previews, and review boards.",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0007",
+    "excerpt": "- Variable-font aware: axes, named instances, static/live web modes, naming policies, and QA diagnostics.",
+    "salient_tokens": [
+      "QA"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0008",
+    "excerpt": "- Broad format coverage: TrueType, OpenType, CFF, Type 1, WOFF, WOFF2, and EOT.",
+    "salient_tokens": [
+      "TrueType",
+      "OpenType",
+      "CFF",
+      "WOFF",
+      "WOFF2",
+      "EOT"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0009",
+    "excerpt": "- Built for automation: Python, CLI, and optional MCP surfaces share the same capabilities.",
+    "salient_tokens": [
+      "CLI",
+      "MCP"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0010",
+    "excerpt": "Install MCP support only when you want the built-in server surface:",
+    "salient_tokens": [
+      "MCP"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0011",
+    "excerpt": "Build a web handoff package:",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0012",
+    "excerpt": "Create a release-safe static instance:",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0013",
+    "excerpt": "These fixture-backed examples mirror the generated demo site and show the kinds of artifacts the library produces.",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0014",
+    "excerpt": "`WebFontBuilder` and the `web-build` CLI produce browser-ready files plus machine-readable evidence:",
+    "salient_tokens": [
+      "WebFontBuilder",
+      "web-build",
+      "CLI"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0015",
+    "excerpt": "The manifest records export mode, source/output variable status, coverage diagnostics, naming choices, and STAT policy guidance when applicable.",
+    "salient_tokens": [
+      "STAT"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0016",
+    "excerpt": "`FontQaReporter.build_package(...)` and `qa-report --package-output` produce a review folder with JSON, HTML, and a preview PNG:",
+    "salient_tokens": [
+      "FontQaReporter.build_package(...)",
+      "qa-report --package-output",
+      "FontQaReporter",
+      "JSON",
+      "HTML",
+      "PNG"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0017",
+    "excerpt": "![Font QA Report summary](./website/generated/roboto-qa-report-summary.svg)",
+    "salient_tokens": [
+      "QA"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0018",
+    "excerpt": "Generate approval-ready boards for selected named instances:",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0019",
+    "excerpt": "![Family review board](./website/generated/roboto-family-review-board.png)",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0020",
+    "excerpt": "Show how a variable font behaves across weight and width:",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0021",
+    "excerpt": "![Axis grid preview](./website/generated/roboto-axis-grid.png)",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0022",
+    "excerpt": "Inspect how outlines change between variable-font instances:",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0023",
+    "excerpt": "![Delta comparison board](./website/generated/roboto-delta-compare.png)",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0024",
+    "excerpt": "Create APNG sweeps, scripted paths, frame packages, review bundles, and showcase folders:",
+    "salient_tokens": [
+      "APNG"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0025",
+    "excerpt": "![Variable font animation sweep](./website/generated/roboto-animation-sweep.png)",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0026",
+    "excerpt": "| Area | What You Can Do Now |\n| --- | --- |\n| Load and inspect | Open TTF, OTF, CFF, Type 1, WOFF, WOFF2, and EOT fonts from paths, bytes, or streams; inspect names, metrics, encodings, glyphs, kerning, and loader source metadata. |\n| Convert | Convert between desktop and web-facing formats in pure Python. |\n| Clean metadata | Strip legacy sfnt metadata tables and old Mac `name` records before web or distribution export. |\n| Subset | Build smaller fonts from text, glyph IDs, codepoints, or web-oriented preset groups including Latin, Cyrillic, Greek, Hebrew, Arabic, Devanagari, and Thai. |\n| Preview | Generate PNG and SVG previews, APNG animation sweeps, scripted animation frame packages, preview batches, axis sweeps, specimen sheets, and before/after comparison boards with diff and overlay panels. |\n| Variable fonts | Explore axes and named instances, resolve coordinates, suggest guided preset grids, instantiate static outputs with `HVAR`-aware widths, and auto-name exported instances with multiple naming policies plus optional custom family suffixes such as `Beta` or `Web`. |\n| Web packaging | Emit WOFF2/WOFF bundles, JSON manifests, CSS, specimen HTML with reusable templates and live variable-axis sliders, navigable family packages with style filters, comparative preview artifacts, reusable family review export packs for docs and marketing handoff, variable-font subset flows that fall back to a clear static export mode when needed, explicit `auto`/`live`/`static` variable export selection, configurable naming strategies, family suffix controls, opt-in static STAT metadata, and coordinate-aware axis-grid web bundles or shared packages for custom sweeps. |\n| QA workflows | Generate Font QA Reports as JSON/HTML deliverables, run compatibility checks with richer shape and interpolation diagnostics, and create Delta Inspector reports/boards with overlay, glyph-diagram, component-aware composite diagnostics, and richer text-level comparison review cards for variable-font review. |\n| Animation | Export APNG sweeps and scripted paths with presets, easing controls, baked frame captions, frame-sequence packages, presentation-ready review bundles, and showcase packages that bundle APNG, storyboard, landing HTML, and manifests for downstream sharing. |\n| Automation | Use the CLI directly or expose the library through the built-in MCP server, including machine-readable variable-font compatibility reports. |",
+    "salient_tokens": [
+      "name",
+      "HVAR",
+      "Beta",
+      "Web",
+      "auto",
+      "live",
+      "static",
+      "TTF",
+      "OTF",
+      "CFF",
+      "WOFF",
+      "WOFF2",
+      "EOT",
+      "IDs",
+      "PNG",
+      "SVG",
+      "APNG",
+      "JSON",
+      "CSS",
+      "HTML",
+      "STAT",
+      "QA",
+      "CLI",
+      "MCP"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0027",
+    "excerpt": "The current roadmap is centered on variable fonts. The strongest surface area today is the combination of:",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0028",
+    "excerpt": "- `font.axes`, `font.named_instances`, and `font.smart_instancer`",
+    "salient_tokens": [
+      "font.axes",
+      "font.named_instances",
+      "font.smart_instancer"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0029",
+    "excerpt": "- `font.variable_axes` with labels, presets, and presentation metadata for common axes",
+    "salient_tokens": [
+      "font.variable_axes"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0030",
+    "excerpt": "- additive axis summaries such as `axis.range_summary`, `axis.default_ratio`, and preset-aware `axis.describe_value(...)`",
+    "salient_tokens": [
+      "axis.range_summary",
+      "axis.default_ratio",
+      "axis.describe_value(...)"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0031",
+    "excerpt": "- locale-aware axis and named-instance labels through `axis.name(...)`, `instance.name(...)`, and `var-info --language`",
+    "salient_tokens": [
+      "axis.name(...)",
+      "instance.name(...)",
+      "var-info --language"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0032",
+    "excerpt": "- ordered localization inventory through `axis.localized_labels(...)`, `instance.localized_labels(...)`, and broader common `name`-table locale coverage",
+    "salient_tokens": [
+      "axis.localized_labels(...)",
+      "instance.localized_labels(...)",
+      "name"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0033",
+    "excerpt": "- display-ready requested-language profile payloads through `axis.language_profiles(...)`, `instance.language_profiles(...)`, and `font.variable_presentation(...)`",
+    "salient_tokens": [
+      "axis.language_profiles(...)",
+      "instance.language_profiles(...)",
+      "font.variable_presentation(...)"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0034",
+    "excerpt": "- axis-aware named-instance coordinate labels through `instance.format_coordinates(...)` and richer `var-info` output",
+    "salient_tokens": [
+      "instance.format_coordinates(...)",
+      "var-info"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0035",
+    "excerpt": "- JSON-ready Axes Explorer snapshots through `axis.to_presentation(...)`, `instance.to_presentation(...)`, `font.variable_presentation(...)`, and `var-info --json-output`; see `docs/variable-presentation-schema.md` for the stable integration contract",
+    "salient_tokens": [
+      "axis.to_presentation(...)",
+      "instance.to_presentation(...)",
+      "font.variable_presentation(...)",
+      "var-info --json-output",
+      "docs/variable-presentation-schema.md",
+      "JSON"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0036",
+    "excerpt": "- preset-aware coordinate selection such as `wght=\"Bold\"` or `wdth=\"Condensed\"`",
+    "salient_tokens": [
+      "wght=\"Bold\"",
+      "wdth=\"Condensed\"",
+      "Bold",
+      "Condensed"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0037",
+    "excerpt": "- guided axis-grid suggestions through `SmartInstancer.suggest_axis_values(...)` and preset-driven grid exports",
+    "salient_tokens": [
+      "SmartInstancer.suggest_axis_values(...)",
+      "SmartInstancer"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0038",
+    "excerpt": "- `HVAR`-aware static instancing so exported widths can follow horizontal metric variation data",
+    "salient_tokens": [
+      "HVAR"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0039",
+    "excerpt": "- configurable naming strategies for generated static instances and web handoff packages, including `menu-safe` and `ribbi-safe` policies plus optional custom family suffixes and explicit family/style overrides for safer app/menu coexistence and release-channel labeling",
+    "salient_tokens": [
+      "menu-safe",
+      "ribbi-safe"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0040",
+    "excerpt": "- high-level previews through `FontPreviewBuilder`",
+    "salient_tokens": [
+      "FontPreviewBuilder"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0041",
+    "excerpt": "- web handoff packaging through `WebFontBuilder`, `SmartInstancer.build_web_bundle(...)`, axis-grid web bundles, and coordinate-aware shared grid-family packages",
+    "salient_tokens": [
+      "WebFontBuilder",
+      "SmartInstancer.build_web_bundle(...)",
+      "SmartInstancer"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0042",
+    "excerpt": "- QA reporting through `FontQaReporter`, `CompatibilityChecker`, and `DeltaInspector`",
+    "salient_tokens": [
+      "FontQaReporter",
+      "CompatibilityChecker",
+      "DeltaInspector",
+      "QA"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0043",
+    "excerpt": "- deeper compatibility issue notes for segment mix, control points, contour closure, and endpoint movement",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0044",
+    "excerpt": "- additive interpolation diagnostics for active `gvar` tuple changes between compared instance states",
+    "salient_tokens": [
+      "gvar"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0045",
+    "excerpt": "The generated grid-family package links back to the demo-site direction: `family.html` shows\ncoordinate labels like `wdth=100 wght=700`, while `family-manifest.json` exposes the same\n`review_label` and `instance_coordinates` fields for automation.",
+    "salient_tokens": [
+      "family.html",
+      "wdth=100 wght=700",
+      "family-manifest.json",
+      "review_label",
+      "instance_coordinates"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0046",
+    "excerpt": "Expose the library to AI clients and local toolchains:",
+    "salient_tokens": [
+      "AI"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0047",
+    "excerpt": "The MCP server now covers low-level inspection tools, machine-readable variable-font compatibility\nreports through `var_compat`, and high-level web export workflows including single-bundle web\npackaging and shared family-package generation.",
+    "salient_tokens": [
+      "var_compat",
+      "MCP"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0048",
+    "excerpt": "These verification flows also refresh the generated demo site content.",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  }
+]

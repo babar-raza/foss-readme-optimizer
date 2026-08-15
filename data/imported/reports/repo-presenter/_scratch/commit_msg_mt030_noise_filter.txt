@@ -1,0 +1,36 @@
+fix(readme-refresh): content-unit noise filter dropped real short bullets
+
+- extract_old_readme_content_units used a flat `len(excerpt) < 25`
+  noise filter -- found live during MT030 Phase 2 (2026-08-10) to
+  silently drop real, substantive short capability-list bullets
+- Confirmed on 2 products independently before fixing: cells/cpp's
+  "- Cells and formulas"/"- Document properties" and cells/java's
+  "- Merged cells"/"- Defined names"/"- Hyperlinks"/"- Data
+  validation"/"- Conditional formatting"/"- Page setup"/"- Worksheet
+  protection" (9 real bullets, none ever reachable for MT030/MT031
+  recovery)
+- Replaced with a "must contain at least one 4+-letter word" test
+  (_CONTENT_UNIT_SIGNIFICANT_WORD_RE) -- keeps every one of the 9 real
+  bullets above while the original noise cases ("---", "Ok.") are
+  still correctly dropped (confirmed: "---" has zero letters, "Ok" is
+  only 2 letters)
+- 1 new regression test proving the fix; existing noise-drop test
+  re-confirmed unchanged
+
+Portfolio impact (documented, not fixed by this commit): re-running
+extraction against all 30 real old READMEs with the fixed filter
+surfaced 139 additional real content units across 21 products that
+have no disposition entry yet -- including 3 products already marked
+"closed" under earlier passes (pdf/cpp, email/cpp, note/python). A
+separate, scoped coverage-completion pass closes those gaps against
+the missing-unit lists already captured; this commit is the code fix
+only.
+
+Verification: pytest scripts/pipeline/tests/test_readme_refresh_checks.py
+scripts/pipeline/tests/test_readme_refresh_run.py -q -> 303 passed (was
+302). Full suite: pytest scripts/pipeline/tests/ -q -> 9106 passed, 2
+failed (both pre-existing/unrelated, no change in the failing set).
+
+Skills invoked: [S-99]
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>

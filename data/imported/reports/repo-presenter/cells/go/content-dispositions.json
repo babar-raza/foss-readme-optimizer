@@ -1,0 +1,373 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "A pure-Go Excel (.xlsx) library — create, read, and write ECMA-376 Office Open XML spreadsheets.",
+    "salient_tokens": [
+      "ECMA",
+      "XML"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Tagline restating the product's core capability; already merged into the Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro paragraph: 'Aspose.Cells FOSS for Go is a free, open-source, pure-Go library for creating, reading, and modifying Excel .xlsx spreadsheets.' Same core claim; 'ECMA-376 Office Open XML' framing is covered by the .xlsx format identification."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Content already present, in substance, in the Intro paragraph of the candidate."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Cells** — A1-style references, read/write/remove cells, supports `string`, `float64`, `int`, `bool`",
+    "salient_tokens": [
+      "string",
+      "float64",
+      "int",
+      "bool"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031 mixed-unit treatment: A1-style references and Get/Set/Remove are already covered by Key Capabilities' first bullet, but the specific set of supported cell-value Go types (string/float64/int/bool) is a real, distinct, currently-missing fact -- the candidate's bullet named the API shape but not what value types it accepts.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "aspose/cells_foss/xmlsaver.go",
+      "evidence_note": "xmlsaver.go line ~395: 'switch v := c.Value.(type)' handles 'case bool', 'case string', 'case int', 'case int64', 'case float64' when serializing a cell's value to XML -- confirms the old README's string/float64/int/bool list is real and current (plus int64, not claimed by the old README, so not added). Cells.Set(ref, value interface{}) itself takes any type, but this switch is what the library actually understands on save; the candidate's Key Capabilities bullet described the access pattern (Get/Set/Remove) without ever naming the supported value types."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Styles** — Font (bold/italic/size/color), fill, alignment, borders with automatic deduplication",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031 mixed-unit treatment: Font/Fill/Alignment/Border grouping is already covered by Key Capabilities' second bullet, but 'automatic deduplication' names a real, distinct, currently-functional save-time mechanism that was not mentioned anywhere in the candidate.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "aspose/cells_foss/workbook.go",
+      "evidence_note": "workbook.go: 'registerStyle adds style to the workbook's style registry (deduplicating ...)'; style.go line ~93: '... automatically deduplicates identical styles during save.' Confirms the claim is real and current, and genuinely missing from the candidate's styling bullet before this edit."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Formulas** — Write Excel formulas, built-in `SUM` / `AVERAGE` / `MAX` / `MIN` calculation engine",
+    "salient_tokens": [
+      "SUM",
+      "AVERAGE",
+      "MAX",
+      "MIN"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim in substance, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Write Excel formulas with Cell.SetFormula/GetFormula ... and evaluate SUM/AVERAGE/MAX/MIN locally with the built-in CalculateFormula engine.' Same fact, reframed with real API names."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, reframed with real API names, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Data Validation** — Dropdown lists, whole/decimal ranges, custom error messages and styles",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031 mixed-unit treatment: dropdown lists and custom error messages/styles are already covered by Key Capabilities' data-validation bullet, but 'decimal ranges' names a real, distinct, currently-missing validation type -- the candidate's bullet mentioned only whole-number ranges.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "aspose/cells_foss/datavalidation.go",
+      "evidence_note": "datavalidation.go lines 8-15: DataValidationTypeWhole and DataValidationTypeDecimal are both real, declared validation types (alongside List, Date, Time, TextLength, Custom). Confirms 'decimal' ranges are genuinely supported and were missing from the candidate's bullet, which named only 'whole-number ranges'."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Tables** — Structured data regions with header rows and auto-filters",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031 mixed-unit treatment: structured ranges with a header row are already covered by Key Capabilities' table bullet, but 'auto-filters' names a real, distinct, currently-missing fact -- tables genuinely emit Excel auto-filter dropdowns on save, which the candidate's bullet never mentioned.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "aspose/cells_foss/xml_feature_saver.go",
+      "evidence_note": "xml_feature_saver.go lines ~361-410: table XML output includes 'AutoFilter *outAutoFilter `xml:\"autoFilter\"`' populated as '&outAutoFilter{Ref: t.Range}' for every saved table -- confirms auto-filter emission is real, automatic, and current. table.go's own doc comment on HasHeaderRow also states the header row is 'formatted as a header row with auto-filter dropdowns.' Genuinely missing from the candidate's table bullet before this edit. (Note: AGENTS.md's Project Structure section lists a separate 'autofilter.go # Filter models' file that does not actually exist in this clone cache -- the real implementation lives inline in table.go/xml_feature_saver.go; not acted on here, out of MT030 scope, flagged in the final report.)"
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Pictures** — PNG / JPEG embedding with anchor positioning",
+    "salient_tokens": [
+      "PNG",
+      "JPEG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Embed Picture images (PNG/JPEG) with SetAnchor(row, col) positioning.' Identical fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **CSV Import/Export** — Custom delimiters, automatic type conversion",
+    "salient_tokens": [
+      "CSV"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Custom delimiters are already covered by Key Capabilities' CSV bullet. 'Automatic type conversion' was independently checked against the real CSV import/export source and found NOT to hold for import -- deliberately not merged to avoid introducing an inaccurate claim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Import and export CSV with configurable delimiters via Workbook.ImportFromCSV/ExportToCSV and Worksheet.FromCSV/ToCSV.' Delimiter support covered. Checked csv_handler.go's FromCSV (the import path): every field is set as its raw Go `string` from the CSV row ('ws.Cells().Set(ref, val)' where val is always a string) -- there is no numeric/bool type inference on import, cells simply hold string values. CellToString (the export path) does format various Go value types to string for writing, which is output serialization, not import-side 'automatic type conversion' in the sense the old README's phrase implies alongside the other Highlights items. Since this cannot be verified as true for import, it is correctly excluded rather than merged."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Delimiter support already present in Key Capabilities; the 'automatic type conversion' claim was checked against source and does not hold for CSV import (values are stored as plain strings), so it is not merged."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Streaming Reader** — Row-by-row processing, O(row-width) memory, handles 100K+ row files",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031 mixed-unit treatment: row-by-row streaming without loading the whole sheet was already covered by Key Capabilities' streaming bullet in vaguer terms, but the precise memory characteristic (peak memory proportional to row width, not file size) and the concrete scale claim (hundreds of thousands of rows) are real, distinct, currently-missing technical details worth restoring in more precise form.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "aspose/cells_foss/streaming_reader.go",
+      "evidence_note": "streaming_reader.go's own doc comments: 'It is suitable for files with hundreds of thousands of rows where a full Workbook load would be too expensive' and '... the sheet XML is never fully buffered -- peak memory is proportional to the widest row, not the file size.' Confirms both the O(row-width)-memory claim and the 100K+-row claim are real, current, and stated by the source itself in almost the same words -- genuinely more precise than the candidate's prior generic 'without loading the entire sheet into memory' phrasing."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Encryption** — ECMA-376 Agile Encryption (SHA-512 + AES-256-CBC) with password protection",
+    "salient_tokens": [
+      "ECMA",
+      "SHA",
+      "AES",
+      "CBC"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, near-verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Protect and verify workbook passwords with Workbook.SetPassword/VerifyPassword (ECMA-376 Agile Encryption: SHA-512 + AES-256-CBC).' Identical fact, reframed with real API names."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, reframed with real API names, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "Requires **Go 1.18+**. Only depends on the standard library + `golang.org/x/crypto`.",
+    "salient_tokens": [
+      "golang.org/x/crypto",
+      "1.18"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Stale on both counts: checked against the real, current go.mod and go.sum rather than taken on the old README's word. Correctly excluded, not merged -- merging would reintroduce two claims that are no longer true.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "go.mod",
+      "evidence_note": "go.mod: 'go 1.24.5' -- the minimum Go version has been raised well past the old README's 'Go 1.18+' claim, matching the candidate's existing Installation text ('Requires Go 1.24.5 or later (per go.mod)'). go.sum in the clone cache is completely empty (zero recorded external modules), and crypto.go imports only stdlib packages (crypto/aes, crypto/cipher, crypto/rand, crypto/sha512, ...) -- confirms the golang.org/x/crypto dependency has since been removed entirely, matching the candidate's existing Key Capabilities claim ('Zero third-party runtime dependencies -- built entirely on the Go standard library'). Both old-README claims are stale and superseded by the candidate's own, already-correct text."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Stale: minimum Go version and the golang.org/x/crypto dependency are both superseded -- go.mod requires Go 1.24.5 and go.sum shows zero external dependencies, matching the candidate's existing (correct) Installation and Key Capabilities text."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "Run: `go run main.go` → produces `hello.xlsx`",
+    "salient_tokens": [
+      "go run main.go",
+      "hello.xlsx"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Line already present, verbatim, in the candidate's Quick Start section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Quick Start",
+      "evidence_note": "Quick Start: 'Run: `go run main.go` → produces `hello.xlsx`' -- word-for-word match, following the identical Quick Start code sample."
+    },
+    "disposition": "excluded",
+    "target_section": "Quick Start",
+    "excluded_reason": "Line already present verbatim in the Quick Start section."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "For the complete API reference and usage guide, see **[docs/usage.md](docs/usage.md)**.",
+    "salient_tokens": [
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "docs/usage.md pointer already present, expanded, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: 'In-repo usage guide (docs/usage.md) -- a detailed usage guide bundled in this repository, covering Workbook/Cell/Styles/Formulas/Data Validation/Tables/Pictures/CSV/Streaming/Encryption/API Reference.' Same link, expanded description."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Link already present, in expanded form, in the Documentation & Resources section."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **A1-style references** (e.g. `\"A1\"`, `\"B2\"`) — tuple/array indices (e.g. `[0, 0]`) are not supported",
+    "salient_tokens": [
+      "\"A1\"",
+      "\"B2\"",
+      "[0, 0]",
+      "A1",
+      "B2"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Limitation already present, near-verbatim, in the candidate's Scope and Limitations section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'Cell addressing is A1-style only (e.g. \"A1\", \"B2\") -- tuple or array indices are not supported.' Word-for-word match."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Limitation already present, near-verbatim, in the Scope and Limitations section."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Modified content regenerates XML; unmodified content reuses original XML",
+    "salient_tokens": [
+      "XML"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Limitation/mechanism already present, near-verbatim, in the candidate's Scope and Limitations section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'On save, unmodified XML parts are reused verbatim and only modified content is regenerated, preserving ECMA-376-compatible element ordering.' Same fact, same direction (modified -> regenerated, unmodified -> reused)."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Content already present, near-verbatim, in the Scope and Limitations section."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "- ECMA-376-compatible element ordering",
+    "salient_tokens": [
+      "ECMA"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Fact already present, verbatim, in the same Scope and Limitations bullet as u0015.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: '...preserving ECMA-376-compatible element ordering.' Verbatim phrase already present."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Phrase already present, verbatim, in the Scope and Limitations section."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "- No third-party dependencies beyond `golang.org/x/crypto`",
+    "salient_tokens": [
+      "golang.org/x/crypto"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Stale, same evidence as u0011: golang.org/x/crypto is no longer a dependency at all. The candidate's existing 'zero third-party runtime dependencies' claim is a strict improvement on this old fact, not merely a rewording of it, so citing it as source-verified (clone_cache_path), not as a same-fact restatement (candidate_section_reference).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "go.sum",
+      "evidence_note": "go.sum in the clone cache is empty -- zero recorded external Go modules, including no golang.org/x/crypto entry. crypto.go (the file that would need it) imports only crypto/aes, crypto/cipher, crypto/rand, crypto/sha512 from the standard library. The old README's claim of depending on golang.org/x/crypto is stale; the candidate's existing Key Capabilities bullet ('Zero third-party runtime dependencies -- built entirely on the Go standard library') already states the current, correct, stronger fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Stale: golang.org/x/crypto is no longer a dependency (go.sum is empty, crypto.go uses only the standard library); the candidate's existing 'zero third-party dependencies' claim already states the current, correct fact."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Do not commit generated `.xlsx` files or contents of `outputfiles/`",
+    "salient_tokens": [
+      ".xlsx",
+      "outputfiles/"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, current contributor/testing guidance -- the example programs write into outputfiles/, and the project's own AGENTS.md repeats this exact rule, so it is a genuine, checkable Development and Testing fact missing from the candidate, not narrative.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "AGENTS.md",
+      "evidence_note": "AGENTS.md (aspose_cells_go): 'Never commit generated .xlsx files or contents from outputfiles/' appears twice (under 'Never' and under 'Never do'). The candidate's own Additional Examples code samples call os.MkdirAll(\"outputfiles\", 0755) then wb.Save(\"outputfiles/...\"), confirming outputfiles/ is genuinely where example output lands. The candidate's Development and Testing section explained how to run the examples but never mentioned this rule."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "MIT License",
+    "salient_tokens": [
+      "MIT"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "License statement already present, expanded, in the candidate's License section, citing the same real LICENSE file.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the [MIT License](LICENSE). The MIT License permits use, copying, modification, distribution, sublicensing, and commercial use, provided its copyright and permission notice are retained.' Same license, same real LICENSE file (confirmed present at the repo root), expanded detail."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "MIT License statement already present, in expanded form, in the License section, citing the same real LICENSE file."
+  }
+]

@@ -1,0 +1,575 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "Aspose.Page FOSS for Python is an open-source Python document conversion library for developers who need PostScript (PS), Encapsulated PostScript (EPS), and XPS conversion in backend services, automation pipelines, and document workflows.",
+    "salient_tokens": [
+      "FOSS",
+      "PostScript",
+      "PS",
+      "EPS",
+      "XPS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Tagline already present, near-verbatim, in the candidate Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'a free, open-source Python library for converting PostScript (PS), Encapsulated PostScript (EPS), and XPS documents to PDF and raster images.' Same core claim."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Core tagline already present, near-verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Convert PS/EPS to PDF in Python",
+    "salient_tokens": [
+      "PS",
+      "EPS",
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim, in the candidate Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Convert PostScript (.ps) and Encapsulated PostScript (.eps) files to PDF and raster images with PsDocument.'"
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Convert PS/EPS to PNG and JPEG in Python",
+    "salient_tokens": [
+      "PS",
+      "EPS",
+      "PNG",
+      "JPEG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability already present in Key Capabilities' raster-image bullet and demonstrated with real code (PNG in Quick Start's 'Convert EPS to PNG' example).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Convert PostScript (.ps) and Encapsulated PostScript (.eps) files to PDF and raster images with PsDocument.' Additional Examples' 'Convert EPS to PNG' demonstrates the PNG case with ImageSaveOptions(format=\"png\", ...)."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Capability already present in Key Capabilities and demonstrated with real code."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Convert XPS to PDF in Python",
+    "salient_tokens": [
+      "XPS",
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim, in the candidate Key Capabilities section and demonstrated in Quick Start.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Convert XPS packages to PDF and raster images with XpsDocument.' Quick Start demonstrates XpsDocument.to_pdf()."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Convert XPS to PNG and JPEG in Python",
+    "salient_tokens": [
+      "XPS",
+      "PNG",
+      "JPEG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability already present in Key Capabilities' raster-image bullet and demonstrated with real code (JPEG in the 'Convert XPS to JPEG' example).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples 'Convert XPS to JPEG': 'xps.to_image(ImageSaveOptions(format=\"jpeg\", dpi=150))' -- same capability, demonstrated with real code."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Capability already present in Key Capabilities and demonstrated with real code in Additional Examples."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Integrate conversion workflows through MCP server tools",
+    "salient_tokens": [
+      "MCP"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, with more detail (named tools and FastMCP), in the candidate Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Optional MCP server (aspose.page.mcp.create_server) exposes ps_to_pdf, ps_to_image, xps_to_pdf, xps_to_image, and eps_metadata as remote tools through FastMCP, for use in agent and automation pipelines.'"
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Capability already present, with more detail, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "For PS/EPS to image and XPS to image conversion:",
+    "salient_tokens": [
+      "PS",
+      "EPS",
+      "XPS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Transitional sentence whose underlying fact (both PS/EPS and XPS support raster-image conversion) is already present in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities states both PsDocument and XpsDocument convert 'to PDF and raster images' -- covers PS/EPS-to-image and XPS-to-image alike."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Underlying image-conversion capability already present, for both PS/EPS and XPS, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- PS/EPS to PDF conversion",
+    "salient_tokens": [
+      "PS",
+      "EPS",
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Convert PostScript (.ps) and Encapsulated PostScript (.eps) files to PDF and raster images with PsDocument.'"
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- PS/EPS to PNG/JPEG conversion",
+    "salient_tokens": [
+      "PS",
+      "EPS",
+      "PNG",
+      "JPEG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present in Key Capabilities' raster-image bullet and demonstrated with real code (PNG example).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities covers PsDocument-to-raster-image conversion; Additional Examples' 'Convert EPS to PNG' demonstrates it with real code."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Capability already present in Key Capabilities and demonstrated with real code."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- XPS to PNG/JPEG conversion",
+    "salient_tokens": [
+      "XPS",
+      "PNG",
+      "JPEG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present in Key Capabilities' raster-image bullet and demonstrated with real code (JPEG example).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples 'Convert XPS to JPEG' demonstrates XpsDocument.to_image() with real code producing a JPEG."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Capability already present and demonstrated with real code in Additional Examples."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "![mb03 xps2pdf result](readme.resources/mb03.png)",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Identical image (same file path) already embedded in the candidate Additional Examples section, under a clearer caption.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: '![XPS to PDF to PNG result](readme.resources/mb03.png)' -- identical file path (readme.resources/mb03.png), confirmed still real in the clone cache; caption reworded for clarity."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Identical image (same file path) already embedded, under a clearer caption, in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "![ps2pdf result](readme.resources/TestImages.png)",
+    "salient_tokens": [
+      "TestImages"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Identical image (same file path) already embedded in the candidate Additional Examples section, under a clearer caption.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: '![PS to PDF to PNG result](readme.resources/TestImages.png)' -- identical file path, confirmed still real in the clone cache; caption reworded for clarity."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Identical image (same file path) already embedded, under a clearer caption, in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "![PS to image sample](readme.resources/RGB10.png)",
+    "salient_tokens": [
+      "PS",
+      "RGB10"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Identical image (same caption and file path) already embedded, verbatim, in the candidate Additional Examples section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: '![PS to image sample](readme.resources/RGB10.png)' -- word-for-word identical, confirmed still a real file in the clone cache."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Identical image already embedded, verbatim, in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "MCP tools currently exposed:",
+    "salient_tokens": [
+      "MCP"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Transitional sentence introducing the MCP tool list; the actual 5 tool names it introduces are already listed in Key Capabilities and the API Reference MCP Server section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities names all 5 MCP tools: 'exposes ps_to_pdf, ps_to_image, xps_to_pdf, xps_to_image, and eps_metadata as remote tools through FastMCP.'"
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "The MCP tool list this sentence introduces is already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `FastMCP` is required to start the MCP server.",
+    "salient_tokens": [
+      "FastMCP",
+      "MCP"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate Additional Examples section (and restated in Scope and Limitations).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: '`FastMCP` is required to start the MCP server; `skia-python` is required for the ps_to_image and xps_to_image tools.' Verbatim match on the FastMCP clause."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Dependency requirement already present, verbatim, in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `skia-python` is required for image conversion flows (`ps_to_image`, `xps_to_image`).",
+    "salient_tokens": [
+      "skia-python",
+      "ps_to_image",
+      "xps_to_image"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate Additional Examples section (and restated in Scope and Limitations).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: '`FastMCP` is required to start the MCP server; `skia-python` is required for the ps_to_image and xps_to_image tools.' Verbatim match on the skia-python clause."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Dependency requirement already present, verbatim, in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "Build distribution artifacts:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate Development and Testing collapsed block, immediately followed by the identical `make build` command.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing collapsed block: 'Build distribution artifacts:' followed by 'make build' -- exact match, same command."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Transitional sentence and command already present, verbatim, in the Development and Testing section."
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "For MCP server hosting:",
+    "salient_tokens": [
+      "MCP server hosting"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix (originally extraction-order u0007); the fastmcp install command this lead-in introduces is already present, verbatim, in the candidate's Installation section, under an inline comment instead of a standalone lead-in.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation code block: '# MCP server hosting' followed by 'pip install fastmcp' -- identical command and identical label text, now an inline comment inside one combined optional-dependencies block instead of a separate lead-in sentence."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Lead-in and command already present, verbatim, as an inline comment in the Installation section."
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "For running tests:",
+    "salient_tokens": [
+      "test suite"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix (originally extraction-order u0009); the pypdf/pypdfium2/Pillow install command this lead-in introduces is already present, verbatim, in the candidate's Installation section, under an inline comment instead of a standalone lead-in.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation code block: '# Running the test suite' followed by 'pip install pypdf pypdfium2 Pillow' -- identical command, near-identical label, now an inline comment inside one combined optional-dependencies block."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Lead-in and command already present, verbatim, as an inline comment in the Installation section."
+  },
+  {
+    "unit_id": "u0028",
+    "source": "clone_cache/README.md",
+    "excerpt": "- XPS to PDF conversion",
+    "salient_tokens": [
+      "XPS",
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix (originally extraction-order u0012); already present, in substance, in the candidate's Key Capabilities section and demonstrated in Quick Start.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Convert XPS packages to PDF and raster images with XpsDocument...' Quick Start demonstrates XpsDocument.from_file(...).to_pdf(). Same capability as the old README's Currently Available Features bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, in substance, in the Key Capabilities section and demonstrated in Quick Start."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `ps_to_image`",
+    "salient_tokens": [
+      "ps_to_image"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; already present, verbatim, in the candidate's Key Capabilities MCP-tool list.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'exposes ps_to_pdf, ps_to_image, xps_to_pdf, xps_to_image, and eps_metadata as remote tools through FastMCP...' Exact tool name already named."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "MCP tool name already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `xps_to_image`",
+    "salient_tokens": [
+      "xps_to_image"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; already present, verbatim, in the candidate's Key Capabilities MCP-tool list.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'exposes ps_to_pdf, ps_to_image, xps_to_pdf, xps_to_image, and eps_metadata as remote tools through FastMCP...' Exact tool name already named."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "MCP tool name already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `eps_metadata`",
+    "salient_tokens": [
+      "eps_metadata"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; already present, verbatim, in the candidate's Key Capabilities MCP-tool list.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'exposes ps_to_pdf, ps_to_image, xps_to_pdf, xps_to_image, and eps_metadata as remote tools through FastMCP...' Exact tool name already named."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "MCP tool name already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "Run MCP server:",
+    "salient_tokens": [
+      "MCP Server"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; the worked example this lead-in introduces already exists, near-verbatim, as 'Run the MCP Server' in the candidate's Additional Examples section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples heading 'Run the MCP Server': identical create_server()/server.run(...) example (candidate adds a real, current transport parameter not present in the old README's version -- both verified against aspose/page/mcp in the clone cache)."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Worked example already present, near-verbatim (with an updated, current API call), in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "Important notes:",
+    "salient_tokens": [
+      "FastMCP"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; a lead-in label whose two underlying facts (FastMCP and skia-python requirements) are already present, verbatim, in the candidate's Additional Examples section (see existing u0015/u0016), just without this specific label.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: 'FastMCP is required to start the MCP server; skia-python is required for the ps_to_image and xps_to_image tools.' Both facts this lead-in introduces are already present verbatim, immediately after the MCP server example."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Both facts this lead-in label introduces are already present, verbatim, in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0025",
+    "source": "clone_cache/README.md",
+    "excerpt": "Sync dependencies:",
+    "salient_tokens": [
+      "Sync dependencies"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; the make sync command this lead-in introduces is already present, verbatim, in the candidate's Development and Testing section, combined with make test under one lead-in.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing: 'Sync dependencies and run the test suite:' followed by 'make sync' / 'make test' -- Makefile confirms 'sync' is a real target (runs 'uv sync --all-groups'). Same command, combined lead-in."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "Command and lead-in wording already present, verbatim, combined with the test command, in the Development and Testing section."
+  },
+  {
+    "unit_id": "u0026",
+    "source": "clone_cache/README.md",
+    "excerpt": "Run tests:",
+    "salient_tokens": [
+      "make test"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; the make test command this lead-in introduces is already present, verbatim, in the candidate's Development and Testing section, combined with make sync under one lead-in.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing: 'Sync dependencies and run the test suite:' followed by 'make sync' / 'make test' -- Makefile confirms 'test' is a real target (runs unittest discover via uv). Same command, combined lead-in."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "Command already present, verbatim, combined with the sync command, in the Development and Testing section."
+  },
+  {
+    "unit_id": "u0027",
+    "source": "clone_cache/README.md",
+    "excerpt": "Run MCP-focused checks:",
+    "salient_tokens": [
+      "MCP-focused checks"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; already present, near-verbatim, in the candidate's Development and Testing collapsed block -- and the candidate's version is more accurate than the old README's, which references a test module that no longer exists.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing: 'Run only the MCP-focused checks:' followed by 'python3 -m unittest tests.mcp.test_handlers' -- verified against the clone cache: tests/mcp/ contains only test_handlers.py (no test_server.py), confirming the old README's two-module command is stale and the candidate's single-module command is the current, correct one. Not merged, to avoid reintroducing a broken test reference."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "Command already present (and more accurate than the old README's stale two-module version) in the Development and Testing section."
+  },
+  {
+    "unit_id": "u0029",
+    "source": "clone_cache/README.md",
+    "excerpt": "[MIT](LICENSE.txt).",
+    "salient_tokens": [
+      "LICENSE.txt"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; already present, expanded, in the candidate's License section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License: 'This project is licensed under the MIT License (LICENSE.txt). The MIT License permits use, copying, modification, distribution, sublicensing, and commercial use...' Same license, same file path, expanded."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "License statement already present, in expanded form, in the License section."
+  }
+]

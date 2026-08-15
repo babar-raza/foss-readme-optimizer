@@ -1,0 +1,218 @@
+[
+  {
+    "child": "Main",
+    "parent": "decode_Decode",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "haxe_io_Error",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "python_io_NativeInput",
+    "parent": "haxe_io_Input",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "python_io_NativeBytesInput",
+    "parent": "python_io_NativeInput",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "python_io_FileBytesInput",
+    "parent": "python_io_NativeBytesInput",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "python_io_NativeOutput",
+    "parent": "haxe_io_Output",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "python_io_NativeBytesOutput",
+    "parent": "python_io_NativeOutput",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "python_io_FileBytesOutput",
+    "parent": "python_io_NativeBytesOutput",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "python_io_NativeTextInput",
+    "parent": "python_io_NativeInput",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "python_io_FileTextInput",
+    "parent": "python_io_NativeTextInput",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "python_io_NativeTextOutput",
+    "parent": "python_io_NativeOutput",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "python_io_FileTextOutput",
+    "parent": "python_io_NativeTextOutput",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "sys_io_FileInput",
+    "parent": "haxe_io_Input",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "sys_io_FileOutput",
+    "parent": "haxe_io_Output",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FontException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FontParseException",
+    "parent": "FontException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FontConversionException",
+    "parent": "FontException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FontNotSupportedException",
+    "parent": "FontException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "GlyphNotFoundException",
+    "parent": "FontException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "UnsupportedFontFormatException",
+    "parent": "FontException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FontType",
+    "parent": "enum.Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FontEncoding",
+    "parent": "ABC",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "GlyphAccessor",
+    "parent": "ABC",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Font",
+    "parent": "ABC",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "MoveTo",
+    "parent": "PathCommand",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "LineTo",
+    "parent": "PathCommand",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "QuadraticTo",
+    "parent": "PathCommand",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CurveTo",
+    "parent": "PathCommand",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ClosePath",
+    "parent": "PathCommand",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CffEncoding",
+    "parent": "FontEncoding",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CffFont",
+    "parent": "Font",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "EotFont",
+    "parent": "Font",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TtfFont",
+    "parent": "Font",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Type1Font",
+    "parent": "Font",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "WoffFont",
+    "parent": "Font",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Woff2Font",
+    "parent": "Font",
+    "relationship": "inherits",
+    "internal": true
+  }
+]

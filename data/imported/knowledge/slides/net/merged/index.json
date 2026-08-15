@@ -1,0 +1,1546 @@
+{
+  "schema_version": 2,
+  "family": "slides",
+  "platform": "net",
+  "display_name": "Aspose.Slides",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "bd19e16057b628310b4a04330585d366cb40e9b7",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "scout_claims": 2098,
+    "enriched_claims": 2090,
+    "supplemental_claims": 0,
+    "total_claims": 4176,
+    "class_count": 264,
+    "forbidden_count": 0,
+    "snippet_count": 100
+  },
+  "classes": [
+    "AdjustValue",
+    "AdjustValueCollection",
+    "AppPropertiesPart",
+    "AuthorData",
+    "AutoShape",
+    "BaseCollection",
+    "BaseHandoutNotesSlideHeaderFooterManager",
+    "BasePortionFormat",
+    "BaseShapeLock",
+    "BaseSlide",
+    "BevelPresetType",
+    "Blur",
+    "BulletFormat",
+    "BulletType",
+    "Camera",
+    "CameraPresetType",
+    "Cell",
+    "CellCollection",
+    "CellFormat",
+    "Color",
+    "ColorFormat",
+    "ColorType",
+    "Column",
+    "ColumnCollection",
+    "ColumnFormat",
+    "Comment",
+    "CommentAuthor",
+    "CommentAuthorCollection",
+    "CommentAuthorsPart",
+    "CommentCollection",
+    "CommentData",
+    "CommentsPart",
+    "Connector",
+    "ConnectorLock",
+    "ContentTypesManager",
+    "CorePropertiesPart",
+    "CustomData",
+    "CustomPropertiesPart",
+    "DateTimeHelpers",
+    "DocumentProperties",
+    "EffectFormat",
+    "FillBlendMode",
+    "FillFormat",
+    "FillOverlay",
+    "FillType",
+    "FontAlignment",
+    "FontData",
+    "GeometryShape",
+    "GlobalLayoutSlideCollection",
+    "Glow",
+    "GradientDirection",
+    "GradientFormat",
+    "GradientShape",
+    "GradientStop",
+    "GradientStopCollection",
+    "GraphicalObject",
+    "GraphicalObjectLock",
+    "GroupShape",
+    "HeadingPair",
+    "HeadingPairData",
+    "IAdjustValue",
+    "IAdjustValueCollection",
+    "IAutoShape",
+    "IBaseHandoutNotesSlideHeaderFooterManager",
+    "IBaseHeaderFooterManager",
+    "IBasePortionFormat",
+    "IBaseSlide",
+    "IBaseSlideHeaderFooterManager",
+    "IBlur",
+    "IBulkTextFormattable",
+    "IBulletFormat",
+    "ICamera",
+    "ICell",
+    "ICellCollection",
+    "ICellFormat",
+    "IColorFormat",
+    "IColumn",
+    "IColumnCollection",
+    "IColumnFormat",
+    "IComment",
+    "ICommentAuthor",
+    "ICommentAuthorCollection",
+    "ICommentCollection",
+    "IConnector",
+    "IConnectorLock",
+    "ICustomData",
+    "IDocumentProperties",
+    "IEffectFormat",
+    "IEffectParamSource",
+    "IFillFormat",
+    "IFillOverlay",
+    "IFillParamSource",
+    "IFontData",
+    "IGeometryShape",
+    "IGlobalLayoutSlideCollection",
+    "IGlow",
+    "IGradientFormat",
+    "IGradientStop",
+    "IGradientStopCollection",
+    "IGraphicalObject",
+    "IGraphicalObjectLock",
+    "IGroupShape",
+    "IHeadingPair",
+    "IHyperlinkContainer",
+    "IImage",
+    "IImageCollection",
+    "IImageTransformOperation",
+    "IInnerShadow",
+    "ILayoutSlide",
+    "ILayoutSlideCollection",
+    "ILightRig",
+    "ILineFillFormat",
+    "ILineFormat",
+    "ILineParamSource",
+    "ILoadOptions",
+    "IMasterLayoutSlideCollection",
+    "IMasterSlide",
+    "IMasterSlideCollection",
+    "INotesSize",
+    "INotesSlide",
+    "INotesSlideHeaderFooterManager",
+    "INotesSlideManager",
+    "IOuterShadow",
+    "IPPImage",
+    "IParagraph",
+    "IParagraphCollection",
+    "IParagraphFormat",
+    "IPatternFormat",
+    "IPictureFillFormat",
+    "IPictureFrame",
+    "IPictureFrameLock",
+    "IPlaceholder",
+    "IPortion",
+    "IPortionCollection",
+    "IPortionFormat",
+    "IPresentation",
+    "IPresentationComponent",
+    "IPresetShadow",
+    "IReflection",
+    "IRow",
+    "IRowCollection",
+    "IRowFormat",
+    "ISaveOptions",
+    "ISection",
+    "ISectionCollection",
+    "IShape",
+    "IShapeBevel",
+    "IShapeCollection",
+    "IShapeFrame",
+    "IShapeStyle",
+    "ISlide",
+    "ISlideCollection",
+    "ISlideComponent",
+    "ISlidesPicture",
+    "ISoftEdge",
+    "ITable",
+    "ITableFormat",
+    "ITextFrame",
+    "ITextFrameFormat",
+    "IThemeable",
+    "IThreeDFormat",
+    "IThreeDParamSource",
+    "Image",
+    "ImageCollection",
+    "ImageTransformOperation",
+    "Images",
+    "InnerShadow",
+    "LayoutSlide",
+    "LayoutSlideCollection",
+    "LayoutSlidePart",
+    "LightRig",
+    "LightRigPresetType",
+    "LightingDirection",
+    "LineAlignment",
+    "LineArrowheadLength",
+    "LineArrowheadStyle",
+    "LineArrowheadWidth",
+    "LineCapStyle",
+    "LineDashStyle",
+    "LineFillFormat",
+    "LineFormat",
+    "LineJoinStyle",
+    "LineStyle",
+    "LoadOptions",
+    "MasterLayoutSlideCollection",
+    "MasterReference",
+    "MasterSlide",
+    "MasterSlideCollection",
+    "MasterSlidePart",
+    "MaterialPresetType",
+    "NotesSize",
+    "NotesSlide",
+    "NotesSlideHeaderFooterManager",
+    "NotesSlideManager",
+    "NotesSlidePart",
+    "NullableBool",
+    "NumberedBulletStyle",
+    "OpcPackage",
+    "OuterShadow",
+    "PPImage",
+    "PVIObject",
+    "Paragraph",
+    "ParagraphCollection",
+    "ParagraphFormat",
+    "PatternFormat",
+    "PatternStyle",
+    "Picture",
+    "PictureFillFormat",
+    "PictureFillMode",
+    "PictureFrame",
+    "PictureFrameLock",
+    "Placeholder",
+    "PointF",
+    "Portion",
+    "PortionCollection",
+    "PortionFormat",
+    "Presentation",
+    "PresentationPart",
+    "PresetColor",
+    "PresetShadow",
+    "PresetShadowType",
+    "RectangleAlignment",
+    "Reflection",
+    "RelConstants",
+    "Relationship",
+    "RelationshipsManager",
+    "Row",
+    "RowCollection",
+    "RowFormat",
+    "SaveFormat",
+    "SaveOptions",
+    "SchemeColor",
+    "Section",
+    "SectionCollection",
+    "Shape",
+    "ShapeBevel",
+    "ShapeCollection",
+    "ShapeFrame",
+    "ShapeStyle",
+    "ShapeType",
+    "Size",
+    "SizeF",
+    "Slide",
+    "SlideCollection",
+    "SlideLayoutType",
+    "SlideReference",
+    "SoftEdge",
+    "SourceFormat",
+    "Table",
+    "TableFormat",
+    "TableStylePreset",
+    "Template",
+    "TextAlignment",
+    "TextAnchorType",
+    "TextAutofitType",
+    "TextCapType",
+    "TextFrame",
+    "TextFrameFormat",
+    "TextShapeType",
+    "TextStrikethroughType",
+    "TextUnderlineType",
+    "TextVerticalType",
+    "ThreeDFormat",
+    "TileFlip"
+  ],
+  "class_graph": [
+    {
+      "child": "BasePortionFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BasePortionFormat",
+      "parent": "IBasePortionFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BulletFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BulletFormat",
+      "parent": "IBulletFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CellFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CellFormat",
+      "parent": "ICellFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColorFormat",
+      "parent": "IColorFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColumnFormat",
+      "parent": "IColumnFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EffectFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EffectFormat",
+      "parent": "IEffectFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EffectFormat",
+      "parent": "IEffectParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillFormat",
+      "parent": "IFillFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillFormat",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientFormat",
+      "parent": "IGradientFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IEffectFormat",
+      "parent": "IEffectParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IFillFormat",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IGradientFormat",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IPortionFormat",
+      "parent": "IBasePortionFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IPortionFormat",
+      "parent": "IHyperlinkContainer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LineFillFormat",
+      "parent": "ILineFillFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LineFormat",
+      "parent": "ILineFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParagraphFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParagraphFormat",
+      "parent": "IParagraphFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PatternFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PatternFormat",
+      "parent": "IPatternFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFillFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFillFormat",
+      "parent": "IPictureFillFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFillFormat",
+      "parent": "IFillParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PortionFormat",
+      "parent": "BasePortionFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PortionFormat",
+      "parent": "IPortionFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RowFormat",
+      "parent": "IRowFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TableFormat",
+      "parent": "ITableFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextFrameFormat",
+      "parent": "ITextFrameFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ThreeDFormat",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ThreeDFormat",
+      "parent": "IThreeDFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ThreeDFormat",
+      "parent": "IThreeDParamSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AdjustValue",
+      "parent": "IAdjustValue",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AdjustValueCollection",
+      "parent": "IAdjustValueCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AdjustValueCollection",
+      "parent": "IEnumerable<IAdjustValue>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoShape",
+      "parent": "GeometryShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AutoShape",
+      "parent": "IAutoShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BaseHandoutNotesSlideHeaderFooterManager",
+      "parent": "IBaseHandoutNotesSlideHeaderFooterManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BaseSlide",
+      "parent": "IBaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Camera",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Camera",
+      "parent": "ICamera",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Cell",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Cell",
+      "parent": "ICell",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CellCollection",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CellCollection",
+      "parent": "ICellCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CellCollection",
+      "parent": "IEnumerable<ICell>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Column",
+      "parent": "CellCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Column",
+      "parent": "IColumn",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Column",
+      "parent": "IBulkTextFormattable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColumnCollection",
+      "parent": "IColumnCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColumnCollection",
+      "parent": "IEnumerable<IColumn>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Comment",
+      "parent": "IComment",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CommentAuthor",
+      "parent": "ICommentAuthor",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CommentAuthorCollection",
+      "parent": "ICommentAuthorCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CommentCollection",
+      "parent": "ICommentCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Connector",
+      "parent": "GeometryShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Connector",
+      "parent": "IConnector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ConnectorLock",
+      "parent": "IConnectorLock",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CustomData",
+      "parent": "ICustomData",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DocumentProperties",
+      "parent": "IDocumentProperties",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Blur",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Blur",
+      "parent": "IBlur",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Blur",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillOverlay",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillOverlay",
+      "parent": "IFillOverlay",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillOverlay",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Glow",
+      "parent": "IGlow",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IBlur",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IFillOverlay",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IGlow",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IInnerShadow",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IOuterShadow",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IPresetShadow",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IReflection",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ISoftEdge",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImageTransformOperation",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImageTransformOperation",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "InnerShadow",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "InnerShadow",
+      "parent": "IInnerShadow",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "InnerShadow",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OuterShadow",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OuterShadow",
+      "parent": "IOuterShadow",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OuterShadow",
+      "parent": "IImageTransformOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PresetShadow",
+      "parent": "IPresetShadow",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Reflection",
+      "parent": "IReflection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SoftEdge",
+      "parent": "ISoftEdge",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SaveOptions",
+      "parent": "ISaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FontData",
+      "parent": "IFontData",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GeometryShape",
+      "parent": "Shape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GeometryShape",
+      "parent": "IGeometryShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GlobalLayoutSlideCollection",
+      "parent": "LayoutSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GlobalLayoutSlideCollection",
+      "parent": "IGlobalLayoutSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientStop",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientStop",
+      "parent": "IGradientStop",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientStopCollection",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientStopCollection",
+      "parent": "IGradientStopCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GradientStopCollection",
+      "parent": "IEnumerable<IGradientStop>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GraphicalObject",
+      "parent": "Shape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GraphicalObject",
+      "parent": "IGraphicalObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GraphicalObjectLock",
+      "parent": "BaseShapeLock",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GroupShape",
+      "parent": "Shape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HeadingPair",
+      "parent": "IHeadingPair",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IAutoShape",
+      "parent": "IGeometryShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IBaseHandoutNotesSlideHeaderFooterManager",
+      "parent": "IBaseSlideHeaderFooterManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IBaseSlideHeaderFooterManager",
+      "parent": "IBaseHeaderFooterManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IColumn",
+      "parent": "ICellCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IColumn",
+      "parent": "IBulkTextFormattable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IConnector",
+      "parent": "IGeometryShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IGeometryShape",
+      "parent": "IShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IGlobalLayoutSlideCollection",
+      "parent": "ILayoutSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IGraphicalObject",
+      "parent": "IShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IGroupShape",
+      "parent": "IShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ILayoutSlide",
+      "parent": "IBaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ILayoutSlideCollection",
+      "parent": "IEnumerable<ILayoutSlide>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IMasterLayoutSlideCollection",
+      "parent": "ILayoutSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IMasterSlide",
+      "parent": "IBaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "INotesSlide",
+      "parent": "IBaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "INotesSlideHeaderFooterManager",
+      "parent": "IBaseHandoutNotesSlideHeaderFooterManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IParagraph",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IPictureFrame",
+      "parent": "IGeometryShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IPortion",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IPresentation",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IRow",
+      "parent": "ICellCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IRow",
+      "parent": "IBulkTextFormattable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ISectionCollection",
+      "parent": "IEnumerable<ISection>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IShape",
+      "parent": "IHyperlinkContainer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IShapeCollection",
+      "parent": "IEnumerable<IShape>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISlide",
+      "parent": "IBaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ISlideCollection",
+      "parent": "IEnumerable<ISlide>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISlideComponent",
+      "parent": "IPresentationComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ISlidesPicture",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ITable",
+      "parent": "IGraphicalObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ITable",
+      "parent": "IBulkTextFormattable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Image",
+      "parent": "IImage",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Image",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ImageCollection",
+      "parent": "IImageCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImageCollection",
+      "parent": "IEnumerable<IPPImage>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BaseCollection",
+      "parent": "IEnumerable<T>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LayoutSlide",
+      "parent": "BaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LayoutSlide",
+      "parent": "ILayoutSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LayoutSlideCollection",
+      "parent": "ILayoutSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LightRig",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LightRig",
+      "parent": "ILightRig",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LoadOptions",
+      "parent": "ILoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterLayoutSlideCollection",
+      "parent": "LayoutSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterLayoutSlideCollection",
+      "parent": "IMasterLayoutSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterSlide",
+      "parent": "BaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterSlide",
+      "parent": "IMasterSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterSlideCollection",
+      "parent": "IMasterSlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MasterSlideCollection",
+      "parent": "IEnumerable<IMasterSlide>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NotesSize",
+      "parent": "INotesSize",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NotesSlide",
+      "parent": "BaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NotesSlide",
+      "parent": "INotesSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NotesSlideHeaderFooterManager",
+      "parent": "BaseHandoutNotesSlideHeaderFooterManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NotesSlideHeaderFooterManager",
+      "parent": "INotesSlideHeaderFooterManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NotesSlideManager",
+      "parent": "INotesSlideManager",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PPImage",
+      "parent": "IPPImage",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PVIObject",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Paragraph",
+      "parent": "IParagraph",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParagraphCollection",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParagraphCollection",
+      "parent": "IParagraphCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParagraphCollection",
+      "parent": "IEnumerable<IParagraph>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Picture",
+      "parent": "ISlidesPicture",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFrame",
+      "parent": "GeometryShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFrame",
+      "parent": "IPictureFrame",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFrameLock",
+      "parent": "BaseShapeLock",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PictureFrameLock",
+      "parent": "IPictureFrameLock",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Placeholder",
+      "parent": "IPlaceholder",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Portion",
+      "parent": "IPortion",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PortionCollection",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PortionCollection",
+      "parent": "IPortionCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PortionCollection",
+      "parent": "IEnumerable<IPortion>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Presentation",
+      "parent": "IPresentation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Presentation",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Row",
+      "parent": "CellCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Row",
+      "parent": "IRow",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Row",
+      "parent": "IBulkTextFormattable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RowCollection",
+      "parent": "IRowCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RowCollection",
+      "parent": "IEnumerable<IRow>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Section",
+      "parent": "ISection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SectionCollection",
+      "parent": "ISectionCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Shape",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Shape",
+      "parent": "IShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShapeBevel",
+      "parent": "PVIObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShapeBevel",
+      "parent": "IShapeBevel",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShapeCollection",
+      "parent": "IShapeCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShapeFrame",
+      "parent": "IShapeFrame",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShapeFrame",
+      "parent": "ICloneable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeStyle",
+      "parent": "IShapeStyle",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Slide",
+      "parent": "BaseSlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Slide",
+      "parent": "ISlide",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SlideCollection",
+      "parent": "ISlideCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Table",
+      "parent": "GraphicalObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Table",
+      "parent": "ITable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextFrame",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextFrame",
+      "parent": "ITextFrame",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IThemeable",
+      "parent": "ISlideComponent",
+      "relationship": "inherits",
+      "internal": true
+    }
+  ],
+  "formats": {
+    "import": [
+      "Pptx"
+    ],
+    "export": [
+      "Pptx",
+      "Pptx",
+      "Pptx"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "dotnet add package aspose.slides.foss",
+    "version": ""
+  },
+  "not_implemented": [],
+  "forbidden_claims": [],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 264,
+    "with_methods": 110,
+    "with_properties": 193,
+    "with_enums": 42,
+    "method_pct": 41.7,
+    "property_pct": 73.1,
+    "surface_tier": 2
+  },
+  "snippets_coverage": {
+    "total_snippets": 100,
+    "classes_with_snippet": 47,
+    "classes_total": 264,
+    "coverage_ratio": 0.18,
+    "effective_denominator": 238,
+    "concrete_coverage": {
+      "classes_total": 153,
+      "classes_with_snippet": 44,
+      "coverage_ratio": 0.29
+    },
+    "interface_coverage": {
+      "classes_total": 85,
+      "classes_with_snippet": 3,
+      "coverage_ratio": 0.04
+    }
+  }
+}

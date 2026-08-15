@@ -1,0 +1,2932 @@
+[
+  {
+    "class": "FileFormat",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/FileFormat.cs",
+    "kind": "class_declaration",
+    "method_count": 6,
+    "property_count": 58,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FileFormatType",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/FileFormatType.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 28,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DracoFormat",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/DracoFormat.cs",
+    "kind": "class_declaration",
+    "method_count": 11,
+    "property_count": 58,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ObjLoadOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 10,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ObjSaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 14,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "StlLoadOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "StlSaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 4,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GltfLoadOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GltfSaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 4,
+    "property_count": 19,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FbxLoadOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FbxSaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 4,
+    "property_count": 14,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ColladaSaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Microsoft3MFSaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 9,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PlyLoadOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 7,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PlySaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 4,
+    "property_count": 17,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DracoSaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 14,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DracoCompressionLevel",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "PdfLoadOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfSaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 14,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfRenderMode",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 15
+  },
+  {
+    "class": "PdfLightingScheme",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/FormatOptions.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 12
+  },
+  {
+    "class": "GltfEmbeddedImageFormat",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/GltfEmbeddedImageFormat.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "Microsoft3MFFormat",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/Microsoft3MFFormat.cs",
+    "kind": "class_declaration",
+    "method_count": 11,
+    "property_count": 58,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfFormat",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/PdfFormat.cs",
+    "kind": "class_declaration",
+    "method_count": 11,
+    "property_count": 58,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PlyFormat",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/PlyFormat.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 58,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RvmFormat",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/RvmFormat.cs",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 58,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PixelFormat",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/PixelFormat.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 44
+  },
+  {
+    "class": "A3DObject",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/A3DObject.cs",
+    "kind": "class_declaration",
+    "method_count": 7,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AnimationChannel",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Animation/AnimationChannel.cs",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 9,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AnimationClip",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Animation/AnimationClip.cs",
+    "kind": "class_declaration",
+    "method_count": 12,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AnimationNode",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Animation/AnimationNode.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BindPoint",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Animation/BindPoint.cs",
+    "kind": "class_declaration",
+    "method_count": 17,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Extrapolation",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Animation/Extrapolation.cs",
+    "kind": "class_declaration",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ExtrapolationType",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Animation/ExtrapolationType.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 5
+  },
+  {
+    "class": "Interpolation",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Animation/Interpolation.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 6
+  },
+  {
+    "class": "KeyFrame",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Animation/KeyFrame.cs",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 15,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "KeyframeSequence",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Animation/KeyframeSequence.cs",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 6,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "StepMode",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Animation/StepMode.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "WeightedMode",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Animation/WeightedMode.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "AssetInfo",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/AssetInfo.cs",
+    "kind": "class_declaration",
+    "method_count": 9,
+    "property_count": 22,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CoordinateSystem",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/AxisSystem.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "Axis",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/AxisSystem.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 6
+  },
+  {
+    "class": "AxisSystem",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/AxisSystem.cs",
+    "kind": "class_declaration",
+    "method_count": 6,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BonePose",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/BonePose.cs",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CustomObject",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/CustomObject.cs",
+    "kind": "class_declaration",
+    "method_count": 9,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Bone",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Deformers/Bone.cs",
+    "kind": "class_declaration",
+    "method_count": 11,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BoneLinkMode",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Deformers/BoneLinkMode.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "Deformer",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Deformers/Deformer.cs",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MorphTargetChannel",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Deformers/MorphTargetChannel.cs",
+    "kind": "class_declaration",
+    "method_count": 11,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MorphTargetDeformer",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Deformers/MorphTargetDeformer.cs",
+    "kind": "class_declaration",
+    "method_count": 10,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SkinDeformer",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Deformers/SkinDeformer.cs",
+    "kind": "class_declaration",
+    "method_count": 10,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ApertureMode",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/ApertureMode.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "BooleanOperand",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/BooleanOperand.cs",
+    "kind": "class_declaration",
+    "method_count": 4,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BooleanOperator",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/BooleanOperator.cs",
+    "kind": "class_declaration",
+    "method_count": 15,
+    "property_count": 9,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Box",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Box.cs",
+    "kind": "class_declaration",
+    "method_count": 26,
+    "property_count": 18,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Frustum",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Camera.cs",
+    "kind": "class_declaration",
+    "method_count": 12,
+    "property_count": 15,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Camera",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Camera.cs",
+    "kind": "class_declaration",
+    "method_count": 17,
+    "property_count": 24,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Circle",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Circle.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CompositeCurve",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/CompositeCurve.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Segment",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/CompositeCurve.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Curve",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Curve.cs",
+    "kind": "class_declaration",
+    "method_count": 12,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Cylinder",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Cylinder.cs",
+    "kind": "class_declaration",
+    "method_count": 28,
+    "property_count": 25,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Dish",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Dish.cs",
+    "kind": "class_declaration",
+    "method_count": 26,
+    "property_count": 16,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Ellipse",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Ellipse.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EndPoint",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/EndPoint.cs",
+    "kind": "struct_declaration",
+    "method_count": 5,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementType",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Enums.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 15
+  },
+  {
+    "class": "MappingMode",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Enums.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 5
+  },
+  {
+    "class": "ReferenceMode",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Enums.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "TextureMapping",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Enums.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 12
+  },
+  {
+    "class": "BooleanOperation",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Enums.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "CurveDimension",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Enums.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "NurbsType",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Enums.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "PatchDirectionType",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Enums.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 5
+  },
+  {
+    "class": "SplitMeshPolicy",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Enums.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "SkeletonType",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Enums.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "Geometry",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Geometry.cs",
+    "kind": "class_declaration",
+    "method_count": 21,
+    "property_count": 12,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "HalfSpace",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/HalfSpace.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IIndexedVertexElement",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/IIndexedVertexElement.cs",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IMeshConvertible",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/IMeshConvertible.cs",
+    "kind": "interface_declaration",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IOrientable",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/IOrientable.cs",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Light",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Light.cs",
+    "kind": "class_declaration",
+    "method_count": 15,
+    "property_count": 26,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LightType",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/LightType.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 5
+  },
+  {
+    "class": "Line",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Line.cs",
+    "kind": "class_declaration",
+    "method_count": 16,
+    "property_count": 10,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LinearExtrusion",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/LinearExtrusion.cs",
+    "kind": "class_declaration",
+    "method_count": 15,
+    "property_count": 13,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Mesh",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Mesh.cs",
+    "kind": "class_declaration",
+    "method_count": 38,
+    "property_count": 15,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NurbsCurve",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/NurbsCurve.cs",
+    "kind": "class_declaration",
+    "method_count": 16,
+    "property_count": 15,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NurbsDirection",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/NurbsDirection.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NurbsSurface",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/NurbsSurface.cs",
+    "kind": "class_declaration",
+    "method_count": 24,
+    "property_count": 14,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Patch",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Patch.cs",
+    "kind": "class_declaration",
+    "method_count": 23,
+    "property_count": 14,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PatchDirection",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/PatchDirection.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Plane",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Plane.cs",
+    "kind": "class_declaration",
+    "method_count": 26,
+    "property_count": 17,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PointCloud",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/PointCloud.cs",
+    "kind": "class_declaration",
+    "method_count": 25,
+    "property_count": 13,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PolygonBuilder",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/PolygonBuilder.cs",
+    "kind": "class_declaration",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PolygonModifier",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/PolygonModifier.cs",
+    "kind": "class_declaration",
+    "method_count": 20,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Primitive",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Primitive.cs",
+    "kind": "class_declaration",
+    "method_count": 23,
+    "property_count": 12,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ProjectionType",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/ProjectionType.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "Pyramid",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Pyramid.cs",
+    "kind": "class_declaration",
+    "method_count": 27,
+    "property_count": 16,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RectangularTorus",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/RectangularTorus.cs",
+    "kind": "class_declaration",
+    "method_count": 25,
+    "property_count": 18,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RevolvedAreaSolid",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/RevolvedAreaSolid.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RotationMode",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/RotationMode.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "Shape",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Shape.cs",
+    "kind": "class_declaration",
+    "method_count": 24,
+    "property_count": 13,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Skeleton",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Skeleton.cs",
+    "kind": "class_declaration",
+    "method_count": 15,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Sphere",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Sphere.cs",
+    "kind": "class_declaration",
+    "method_count": 27,
+    "property_count": 19,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SweptAreaSolid",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/SweptAreaSolid.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 10,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Torus",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/Torus.cs",
+    "kind": "class_declaration",
+    "method_count": 27,
+    "property_count": 17,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TransformedCurve",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/TransformedCurve.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TriMesh",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/TriMesh.cs",
+    "kind": "class_declaration",
+    "method_count": 40,
+    "property_count": 12,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TrimmedCurve",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/TrimmedCurve.cs",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElement",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElement.cs",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementUV",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElement.cs",
+    "kind": "class_declaration",
+    "method_count": 11,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementVertexColor",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElement.cs",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementMaterial",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElement.cs",
+    "kind": "class_declaration",
+    "method_count": 4,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementDoublesTemplate",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementDoublesTemplate.cs",
+    "kind": "class_declaration",
+    "method_count": 5,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementEdgeCrease",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementEdgeCrease.cs",
+    "kind": "class_declaration",
+    "method_count": 6,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementNormal",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementExtras.cs",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 6,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementTangent",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementExtras.cs",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 6,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementBinormal",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementExtras.cs",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 6,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementFVector",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementFVector.cs",
+    "kind": "class_declaration",
+    "method_count": 7,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementHole",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementHole.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementIntsTemplate",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementIntsTemplate.cs",
+    "kind": "class_declaration",
+    "method_count": 5,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementPolygonGroup",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementPolygonGroup.cs",
+    "kind": "class_declaration",
+    "method_count": 6,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementSmoothingGroup",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementSmoothingGroup.cs",
+    "kind": "class_declaration",
+    "method_count": 6,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementSpecular",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementSpecular.cs",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementTemplate",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementTemplate.cs",
+    "kind": "class_declaration",
+    "method_count": 5,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementUserData",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementUserData.cs",
+    "kind": "class_declaration",
+    "method_count": 4,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementVector4",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementVector4.cs",
+    "kind": "class_declaration",
+    "method_count": 5,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementVertexCrease",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementVertexCrease.cs",
+    "kind": "class_declaration",
+    "method_count": 6,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementVisibility",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementVisibility.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexElementWeight",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entities/VertexElementWeight.cs",
+    "kind": "class_declaration",
+    "method_count": 6,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Entity",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Entity.cs",
+    "kind": "class_declaration",
+    "method_count": 12,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FileContentType",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/FileContentType.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "Chunk",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/3DSHelper.cs",
+    "kind": "struct_declaration",
+    "method_count": 1,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "A3dwSaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/A3dwSaveOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AmfSaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/AmfSaveOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ColladaTransformStyle",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/ColladaTransformStyle.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "Discreet3dsLoadOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/Discreet3dsLoadOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Discreet3dsSaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/Discreet3dsSaveOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 16,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "StructuralMetadata",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/GLTF/StructuralMetadata.cs",
+    "kind": "class_declaration",
+    "method_count": 6,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ClassType",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/GLTF/StructuralMetadata.cs",
+    "kind": "class_declaration",
+    "method_count": 7,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EnumType",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/GLTF/StructuralMetadata.cs",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Property",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/GLTF/StructuralMetadata.cs",
+    "kind": "class_declaration",
+    "method_count": 4,
+    "property_count": 7,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EnumValue",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/GLTF/StructuralMetadata.cs",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PropertyTable",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/GLTF/StructuralMetadata.cs",
+    "kind": "class_declaration",
+    "method_count": 6,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Html5SaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/Html5SaveOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 17,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IOConfig",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/IOConfig.cs",
+    "kind": "class_declaration",
+    "method_count": 0,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "JtLoadOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/JtLoadOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LoadOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/LoadOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 0,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RvmLoadOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/RvmLoadOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 15,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RvmSaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/RvmSaveOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 4,
+    "property_count": 13,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/SaveOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "U3dLoadOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/U3dLoadOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "U3dSaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/U3dSaveOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 14,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "UsdSaveOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/UsdSaveOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 4,
+    "property_count": 10,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "XLoadOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Formats/XLoadOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GlobalTransform",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/GlobalTransform.cs",
+    "kind": "class_declaration",
+    "method_count": 0,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Group",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Group.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "INamedObject",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/INamedObject.cs",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ImageRenderOptions",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/ImageRenderOptions.cs",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "License",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/License.cs",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Metered",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/License.cs",
+    "kind": "class_declaration",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TrialException",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/License.cs",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ImportException",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/License.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ExportException",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/License.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Node",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Node.cs",
+    "kind": "class_declaration",
+    "method_count": 29,
+    "property_count": 15,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Pose",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Pose.cs",
+    "kind": "class_declaration",
+    "method_count": 11,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PoseType",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/PoseType.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "ArbitraryProfile",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/ArbitraryProfile.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CShape",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/CShape.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CenterLineProfile",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/CenterLineProfile.cs",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CircleShape",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/CircleShape.cs",
+    "kind": "class_declaration",
+    "method_count": 15,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EllipseShape",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/EllipseShape.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FontFile",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/FontFile.cs",
+    "kind": "class_declaration",
+    "method_count": 9,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "HShape",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/HShape.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 16,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "HollowCircleShape",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/HollowCircleShape.cs",
+    "kind": "class_declaration",
+    "method_count": 16,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "HollowRectangleShape",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/HollowRectangleShape.cs",
+    "kind": "class_declaration",
+    "method_count": 16,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LShape",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/LShape.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MirroredProfile",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/MirroredProfile.cs",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ParameterizedProfile",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/ParameterizedProfile.cs",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Profile",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/Profile.cs",
+    "kind": "class_declaration",
+    "method_count": 12,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RectangleShape",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/RectangleShape.cs",
+    "kind": "class_declaration",
+    "method_count": 15,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TShape",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/TShape.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 13,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Text",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/Text.cs",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TrapeziumShape",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/TrapeziumShape.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 10,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "UShape",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/UShape.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 12,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ZShape",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Profiles/ZShape.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 12,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Property",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Property.cs",
+    "kind": "class_declaration",
+    "method_count": 5,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PropertyCollection",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/PropertyCollection.cs",
+    "kind": "class_declaration",
+    "method_count": 4,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PropertyFlags",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/PropertyFlags.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 6
+  },
+  {
+    "class": "BlendFactor",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/BlendFactor.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 15
+  },
+  {
+    "class": "CompareFunction",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/CompareFunction.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 8
+  },
+  {
+    "class": "CubeFace",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/CubeFace.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 6
+  },
+  {
+    "class": "CubeFaceData",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/CubeFaceData.cs",
+    "kind": "struct_declaration",
+    "method_count": 0,
+    "property_count": 13,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CullFaceMode",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/CullFaceMode.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "DescriptorSetUpdater",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/DescriptorSetUpdater.cs",
+    "kind": "class_declaration",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DrawOperation",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/DrawOperation.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 6
+  },
+  {
+    "class": "DriverException",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/DriverException.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EntityRenderer",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/EntityRenderer.cs",
+    "kind": "class_declaration",
+    "method_count": 9,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EntityRendererFeatures",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/EntityRendererFeatures.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "EntityRendererKey",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/EntityRendererKey.cs",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FrontFace",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/FrontFace.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "GLSLSource",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/GLSLSource.cs",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IBuffer",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/IBuffer.cs",
+    "kind": "interface_declaration",
+    "method_count": 2,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ICommandList",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/ICommandList.cs",
+    "kind": "interface_declaration",
+    "method_count": 11,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IDescriptorSet",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/IDescriptorSet.cs",
+    "kind": "interface_declaration",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IIndexBuffer",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/IIndexBuffer.cs",
+    "kind": "interface_declaration",
+    "method_count": 6,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IPipeline",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/IPipeline.cs",
+    "kind": "interface_declaration",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IRenderQueue",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/IRenderQueue.cs",
+    "kind": "interface_declaration",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IRenderTarget",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/IRenderTarget.cs",
+    "kind": "interface_declaration",
+    "method_count": 4,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IRenderTexture",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/IRenderTexture.cs",
+    "kind": "interface_declaration",
+    "method_count": 4,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IRenderWindow",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/IRenderWindow.cs",
+    "kind": "interface_declaration",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ITexture1D",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/ITexture1D.cs",
+    "kind": "interface_declaration",
+    "method_count": 5,
+    "property_count": 12,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ITexture2D",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/ITexture2D.cs",
+    "kind": "interface_declaration",
+    "method_count": 5,
+    "property_count": 12,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ITextureCodec",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/ITextureCodec.cs",
+    "kind": "interface_declaration",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ITextureCubemap",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/ITextureCubemap.cs",
+    "kind": "interface_declaration",
+    "method_count": 8,
+    "property_count": 12,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ITextureDecoder",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/ITextureDecoder.cs",
+    "kind": "interface_declaration",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ITextureEncoder",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/ITextureEncoder.cs",
+    "kind": "interface_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ITextureUnit",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/ITextureUnit.cs",
+    "kind": "interface_declaration",
+    "method_count": 1,
+    "property_count": 12,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IVertexBuffer",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/IVertexBuffer.cs",
+    "kind": "interface_declaration",
+    "method_count": 5,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IndexDataType",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/IndexDataType.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "InitializationException",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/InitializationException.cs",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PixelMapMode",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/PixelMapMode.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "PixelMapping",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/PixelMapping.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 4,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PolygonMode",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/PolygonMode.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "PostProcessing",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/PostProcessing.cs",
+    "kind": "class_declaration",
+    "method_count": 7,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PresetShaders",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/PresetShaders.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "PushConstant",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/PushConstant.cs",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RenderFactory",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/RenderFactory.cs",
+    "kind": "class_declaration",
+    "method_count": 12,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RenderParameters",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/RenderParameters.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RenderQueueGroupId",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/RenderQueueGroupId.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 6
+  },
+  {
+    "class": "RenderResource",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/RenderResource.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RenderStage",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/RenderStage.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "RenderState",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/RenderState.cs",
+    "kind": "class_declaration",
+    "method_count": 5,
+    "property_count": 17,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Renderer",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/Renderer.cs",
+    "kind": "class_declaration",
+    "method_count": 7,
+    "property_count": 14,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RendererVariableManager",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/RendererVariableManager.cs",
+    "kind": "class_declaration",
+    "method_count": 0,
+    "property_count": 14,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SPIRVSource",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/SPIRVSource.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ShaderException",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/ShaderException.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ShaderProgram",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/ShaderProgram.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ShaderSet",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/ShaderSet.cs",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ShaderSource",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/ShaderSource.cs",
+    "kind": "class_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ShaderStage",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/ShaderStage.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "ShaderVariable",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/ShaderVariable.cs",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "StencilAction",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/StencilAction.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 8
+  },
+  {
+    "class": "StencilState",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/StencilState.cs",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextureCodec",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/TextureCodec.cs",
+    "kind": "class_declaration",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextureData",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/TextureData.cs",
+    "kind": "class_declaration",
+    "method_count": 19,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextureType",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/TextureType.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 5
+  },
+  {
+    "class": "Viewport",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/Viewport.cs",
+    "kind": "class_declaration",
+    "method_count": 0,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "WindowHandle",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Render/WindowHandle.cs",
+    "kind": "class_declaration",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Scene",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Scene.cs",
+    "kind": "class_declaration",
+    "method_count": 45,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SceneObject",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/SceneObject.cs",
+    "kind": "class_declaration",
+    "method_count": 9,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AlphaSource",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/AlphaSource.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "LambertMaterial",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/LambertMaterial.cs",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 12,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Material",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/Material.cs",
+    "kind": "class_declaration",
+    "method_count": 11,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PbrMaterial",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/PbrMaterial.cs",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 19,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PbrSpecularMaterial",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/PbrSpecularMaterial.cs",
+    "kind": "class_declaration",
+    "method_count": 12,
+    "property_count": 17,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PhongMaterial",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/PhongMaterial.cs",
+    "kind": "class_declaration",
+    "method_count": 15,
+    "property_count": 17,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ShaderMaterial",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/ShaderMaterial.cs",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ShaderTechnique",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/ShaderTechnique.cs",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Texture",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/Texture.cs",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 16,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextureBase",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/TextureBase.cs",
+    "kind": "class_declaration",
+    "method_count": 11,
+    "property_count": 13,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextureFilter",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/TextureFilter.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "TextureSlot",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/TextureSlot.cs",
+    "kind": "class_declaration",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "WrapMode",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Shading/WrapMode.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 5
+  },
+  {
+    "class": "Transform",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Transform.cs",
+    "kind": "class_declaration",
+    "method_count": 16,
+    "property_count": 16,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BoundingBox",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/BoundingBox.cs",
+    "kind": "struct_declaration",
+    "method_count": 16,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BoundingBox2D",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/BoundingBox2D.cs",
+    "kind": "struct_declaration",
+    "method_count": 4,
+    "property_count": 5,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BoundingBoxExtent",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/BoundingBoxExtent.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "ComposeOrder",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/ComposeOrder.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "FMatrix4",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/FMatrix4.cs",
+    "kind": "struct_declaration",
+    "method_count": 7,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FVector2",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/FVector2.cs",
+    "kind": "struct_declaration",
+    "method_count": 8,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FVector3",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/FVector3.cs",
+    "kind": "struct_declaration",
+    "method_count": 10,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FVector4",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/FVector4.cs",
+    "kind": "struct_declaration",
+    "method_count": 8,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FileSystem",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/FileSystem.cs",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IArrayList",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/IArrayList.cs",
+    "kind": "interface_declaration",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IOExtension",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/IOExtension.cs",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MathUtils",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/MathUtils.cs",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Matrix4",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/Matrix4.cs",
+    "kind": "struct_declaration",
+    "method_count": 22,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ParseException",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/ParseException.cs",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Quaternion",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/Quaternion.cs",
+    "kind": "struct_declaration",
+    "method_count": 19,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Rect",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/Rect.cs",
+    "kind": "struct_declaration",
+    "method_count": 2,
+    "property_count": 8,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RelativeRectangle",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/RelativeRectangle.cs",
+    "kind": "struct_declaration",
+    "method_count": 4,
+    "property_count": 8,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RotationOrder",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/RotationOrder.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 6
+  },
+  {
+    "class": "SemanticAttribute",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/SemanticAttribute.cs",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TransformBuilder",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/TransformBuilder.cs",
+    "kind": "class_declaration",
+    "method_count": 20,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Vector2",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/Vector2.cs",
+    "kind": "struct_declaration",
+    "method_count": 12,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Vector3",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/Vector3.cs",
+    "kind": "struct_declaration",
+    "method_count": 17,
+    "property_count": 8,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Vector4",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/Vector4.cs",
+    "kind": "struct_declaration",
+    "method_count": 11,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Vertex",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/Vertex.cs",
+    "kind": "class_declaration",
+    "method_count": 9,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexDeclaration",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/VertexDeclaration.cs",
+    "kind": "class_declaration",
+    "method_count": 10,
+    "property_count": 4,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexField",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/VertexField.cs",
+    "kind": "class_declaration",
+    "method_count": 4,
+    "property_count": 6,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VertexFieldDataType",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/VertexFieldDataType.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 13
+  },
+  {
+    "class": "VertexFieldSemantic",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/VertexFieldSemantic.cs",
+    "kind": "enum_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 14
+  },
+  {
+    "class": "Watermark",
+    "file": "src/main/Aspose.ThreeD/Aspose/ThreeD/Utilities/Watermark.cs",
+    "kind": "class_declaration",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  }
+]

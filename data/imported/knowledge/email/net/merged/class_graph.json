@@ -1,0 +1,74 @@
+[
+  {
+    "child": "CfbReader",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "MsgReader",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "CfbException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "CfbStorage",
+    "parent": "CfbNode",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CfbStream",
+    "parent": "CfbNode",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "DirectoryColorFlag",
+    "parent": "byte",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "DirectoryObjectType",
+    "parent": "byte",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "SectorMarker",
+    "parent": "uint",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "CommonMessagePropertyId",
+    "parent": "ushort",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "MapiMessage",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "MsgException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PropertyTypeCode",
+    "parent": "ushort",
+    "relationship": "inherits",
+    "internal": false
+  }
+]

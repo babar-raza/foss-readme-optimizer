@@ -1,0 +1,932 @@
+{
+  "schema_version": 2,
+  "family": "words",
+  "platform": "python",
+  "display_name": "Aspose.Words",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "class_count": 188,
+    "enriched_claims": 781,
+    "forbidden_count": 1,
+    "scout_claims": 1268,
+    "snippet_count": 33,
+    "supplemental_claims": 0,
+    "total_claims": 2048
+  },
+  "classes": [
+    "AtxHeadingBlock",
+    "AutolinkBlock",
+    "BlipInfo",
+    "Block",
+    "BlockType",
+    "Body",
+    "BoldInlineBlock",
+    "BookmarkEnd",
+    "BookmarkStart",
+    "BookmarkState",
+    "Border",
+    "BulletListItemBlock",
+    "Cell",
+    "CellBlock",
+    "CellBuilder",
+    "CellData",
+    "CellFormat",
+    "CellMerge",
+    "CellVerticalAlignment",
+    "CharProps",
+    "ChildAnchorInfo",
+    "CodeBlockStyle",
+    "ColorMode",
+    "CompressionLevel",
+    "ConditionalStyleMask",
+    "ConversionOptions",
+    "DocFileReader",
+    "DocFileReaderCore",
+    "DocList",
+    "DocTableBuilderMixin",
+    "Document",
+    "DocumentBlock",
+    "DocumentFormatReader",
+    "DocumentReader",
+    "DocxWriterLossyWarning",
+    "FencedCodeBlock",
+    "FibData",
+    "FieldEnd",
+    "FieldSeparator",
+    "FieldStart",
+    "Font",
+    "FontBuilder",
+    "FontResolver",
+    "FootnoteDefinitionBlock",
+    "FootnoteReferenceBlock",
+    "FrameFormat",
+    "GroupShapeInfo",
+    "HeaderFooter",
+    "HeadingBlock",
+    "HeadingStyle",
+    "HeightRule",
+    "HorizontalRuleBlock",
+    "HtmlInsertOptions",
+    "HtmlTagBlock",
+    "ImageData",
+    "ImageEntry",
+    "ImageRenderState",
+    "ImageType",
+    "IndentedCodeBlock",
+    "InlineCodeBlock",
+    "ItalicInlineBlock",
+    "LdmBuilderMixin",
+    "LdmDocxWriter",
+    "LdmMarkdownWriter",
+    "LdmPdfWriter",
+    "LineBreakBlock",
+    "LineSpacingRule",
+    "LineStyle",
+    "LinkTextBlock",
+    "ListBlock",
+    "ListBuilder",
+    "ListDef",
+    "ListFormat",
+    "ListHandler",
+    "ListInfo",
+    "ListItemBlock",
+    "ListLabel",
+    "ListLevel",
+    "ListLevelData",
+    "ListLevelInfo",
+    "ListLevelOverride",
+    "LoadFormat",
+    "LoadOptions",
+    "MarkdownBlockLevel",
+    "MarkdownDocumentBuilder",
+    "MarkdownEmptyParagraphExportMode",
+    "MarkdownExportAsHtml",
+    "MarkdownFileReader",
+    "MarkdownLinkExportMode",
+    "MarkdownListExportMode",
+    "MarkdownLoadOptions",
+    "MarkdownReader",
+    "MarkdownReaderContext",
+    "MarkdownSaveOptions",
+    "NodeCastMixin",
+    "NodeType",
+    "NumberStyle",
+    "NumberingInfo",
+    "NumberingLevel",
+    "NumberingParser",
+    "OoxmlCompliance",
+    "OoxmlSaveOptions",
+    "OrderedListItemBlock",
+    "Orientation",
+    "OutlineOptions",
+    "PDFWriterContext",
+    "PageSetup",
+    "PageSetupBuilder",
+    "ParaProps",
+    "Paragraph",
+    "ParagraphAlignment",
+    "ParagraphBlock",
+    "ParagraphBuilder",
+    "ParagraphConverter",
+    "ParagraphData",
+    "ParagraphFormat",
+    "ParagraphFormatBuilder",
+    "ParagraphFormatResolver",
+    "ParagraphInfo",
+    "ParagraphRenderer",
+    "ParsedStyle",
+    "PdfCompliance",
+    "PdfFontEmbeddingMode",
+    "PdfImageCompression",
+    "PdfPageMode",
+    "PdfSaveOptions",
+    "PdfTextCompression",
+    "PdfZoomBehavior",
+    "PreferredWidth",
+    "PreferredWidthType",
+    "QuoteBlock",
+    "ReaderContext",
+    "Row",
+    "RowBlock",
+    "RowBuilder",
+    "RowData",
+    "RowFormat",
+    "RtfFileReader",
+    "Run",
+    "RunBuilder",
+    "RunData",
+    "RunFormatting",
+    "RunRenderer",
+    "SaveFormat",
+    "Section",
+    "SectionBuilder",
+    "SectionStart",
+    "SetextHeadingBlock",
+    "Shading",
+    "Shape",
+    "ShapeAnchor",
+    "ShapeCropInfo",
+    "ShapeLineProps",
+    "ShapeParserMixin",
+    "ShapeRenderer",
+    "StrikethroughBlock",
+    "Style",
+    "StyleBuilder",
+    "StyleChainResolver",
+    "StyleData",
+    "StyleIdentifier",
+    "StyleParser",
+    "StyleType",
+    "TabAlignment",
+    "TabLeader",
+    "TabStop",
+    "TabStopCollection",
+    "Table",
+    "TableBlock",
+    "TableBuilder",
+    "TableCell",
+    "TableContentAlignment",
+    "TableConverter",
+    "TableData",
+    "TableRenderer",
+    "TableRow",
+    "TableRowProps",
+    "TableStyleFormat",
+    "TableStyleProperty",
+    "TextBlock",
+    "TextColumn",
+    "TextColumns",
+    "TextFileReader",
+    "Underline",
+    "UnderlineBlock",
+    "UnknownNode",
+    "WrapType",
+    "Zip64Mode"
+  ],
+  "class_graph": [
+    {
+      "child": "DocFileReader",
+      "parent": "DocTableBuilderMixin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DocFileReader",
+      "parent": "DocFileReaderCore",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DocumentReader",
+      "parent": "LdmBuilderMixin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DocumentReader",
+      "parent": "ShapeParserMixin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DocxWriterLossyWarning",
+      "parent": "UserWarning",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MarkdownReaderContext",
+      "parent": "_StyleMixin",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MarkdownReaderContext",
+      "parent": "_ListMixin",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocumentFormatReader",
+      "parent": "Protocol",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadFormat",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MarkdownLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SaveFormat",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ReaderContext",
+      "parent": "Protocol",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Border",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Shading",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ConditionalStyleMask",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TabStop",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TabStopCollection",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Font",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ParagraphFormat",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FrameFormat",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListFormat",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListLabel",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ImageData",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Run",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Run",
+      "parent": "NodeCastMixin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Shape",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Shape",
+      "parent": "NodeCastMixin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldStart",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldSeparator",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldEnd",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BookmarkStart",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BookmarkEnd",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Paragraph",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Paragraph",
+      "parent": "NodeCastMixin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PreferredWidth",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellFormat",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Cell",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Cell",
+      "parent": "NodeCastMixin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RowFormat",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Row",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Row",
+      "parent": "NodeCastMixin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Table",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Table",
+      "parent": "NodeCastMixin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "UnknownNode",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextColumn",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextColumns",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageSetup",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "HeaderFooter",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Body",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Body",
+      "parent": "NodeCastMixin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Section",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Section",
+      "parent": "NodeCastMixin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TableStyleFormat",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TableStyleProperty",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Style",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListLevel",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListLevelOverride",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocList",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Document",
+      "parent": "BaseModel",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MarkdownBlockLevel",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BlockType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocumentBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LineBreakBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParagraphBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HeadingBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AtxHeadingBlock",
+      "parent": "HeadingBlock",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetextHeadingBlock",
+      "parent": "HeadingBlock",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "QuoteBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IndentedCodeBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FencedCodeBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HorizontalRuleBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ListBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ListItemBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BulletListItemBlock",
+      "parent": "ListItemBlock",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OrderedListItemBlock",
+      "parent": "ListItemBlock",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TableBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RowBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CellBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HtmlTagBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LinkTextBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AutolinkBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BoldInlineBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ItalicInlineBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StrikethroughBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "UnderlineBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "InlineCodeBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FootnoteReferenceBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FootnoteDefinitionBlock",
+      "parent": "Block",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HeadingStyle",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CodeBlockStyle",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PDFWriterContext",
+      "parent": "Protocol",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TableContentAlignment",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MarkdownListExportMode",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MarkdownLinkExportMode",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MarkdownExportAsHtml",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MarkdownEmptyParagraphExportMode",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfCompliance",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfTextCompression",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfImageCompression",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfPageMode",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfZoomBehavior",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfFontEmbeddingMode",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColorMode",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OoxmlCompliance",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CompressionLevel",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Zip64Mode",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    }
+  ],
+  "formats": {
+    "import": [
+      "Markdown",
+      "left",
+      "center",
+      "right",
+      "DOC",
+      "DOCX",
+      "RTF",
+      "TEXT",
+      "MARKDOWN",
+      "Markdown",
+      "Context",
+      "Words",
+      "val",
+      "points",
+      "percent",
+      "mime"
+    ],
+    "export": [
+      "DOCX",
+      "PDF",
+      "TEXT",
+      "MARKDOWN",
+      "PDFContext",
+      "Paragraph",
+      "Run",
+      "Pdf",
+      "Ooxml",
+      "Markdown",
+      "reference",
+      "val",
+      "markdown",
+      "text",
+      "pdf",
+      "docx"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "pip install aspose-words-foss",
+    "version": "26.7.0"
+  },
+  "not_implemented": [
+    "LdmDocxWriter._enforce_compliance"
+  ],
+  "forbidden_claims": [
+    "supports LdmDocxWriter._enforce_compliance"
+  ],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 188,
+    "with_methods": 99,
+    "with_properties": 116,
+    "with_enums": 41,
+    "method_pct": 52.7,
+    "property_pct": 61.7,
+    "surface_tier": 2
+  },
+  "snippets_coverage": {
+    "total_snippets": 33,
+    "classes_with_snippet": 14,
+    "classes_total": 188,
+    "coverage_ratio": 0.07,
+    "effective_denominator": 184,
+    "concrete_coverage": {
+      "classes_total": 184,
+      "classes_with_snippet": 14,
+      "coverage_ratio": 0.08
+    },
+    "interface_coverage": {
+      "classes_total": 0,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

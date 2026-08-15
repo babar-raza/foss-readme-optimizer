@@ -1,0 +1,506 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "A pure-Python library for barcode generation. It produces deterministic,\nstandards-compliant barcodes and renders them as SVG or PNG.",
+    "salient_tokens": [
+      "SVG",
+      "PNG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Tagline restating the product's core framing (pure-Python, standards-compliant, SVG/PNG output); already merged into the Intro paragraph. The 'deterministic' adjective is not separately stated, but it is a minor descriptive nuance of the same already-covered fact, not a distinct checkable claim worth a standalone merge.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro states: 'a free, open-source, pure-Python library for generating standards-compliant linear and 2D barcodes... renders them to SVG or PNG.' Same core claim already present."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Core tagline already present, near-verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "- No system dependencies — pure Python, with [Pillow](https://python-pillow.org/) used only for PNG output.",
+    "salient_tokens": [
+      "PNG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Dependency-shape bullet already present, split across the Intro ('no native or system dependencies') and Installation ('depends only on Pillow >= 10.1.0 (used for PNG output)') sections.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation states: 'depends only on Pillow >= 10.1.0 (used for PNG output).' Same fact, same dependency, same PNG-only role."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Dependency fact already present in Installation (and the no-system-dependencies half already in Intro)."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Fully typed (ships a `py.typed` marker).",
+    "salient_tokens": [
+      "py.typed"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Fully typed (ships a py.typed marker) for static type checkers.' Verbatim match plus extra detail."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Linear and 2D symbologies: Code 128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, and QR Code.",
+    "salient_tokens": [
+      "EAN",
+      "UPC",
+      "QR"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Symbology list already present, verbatim, in the candidate Intro paragraph and restated across Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'It encodes Code 128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, and QR Code symbols' -- same list, same order."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Symbology list already present, verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "The package is not yet published to PyPI. Install it from a source checkout (run from\nthe repository root, where `pyproject.toml` lives):",
+    "salient_tokens": [
+      "pyproject.toml",
+      "PyPI"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Install-state fact (not yet on PyPI, build from source checkout) already present, near-verbatim, in the candidate Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "package_registry_field",
+      "evidence_ref": "barcode.python.verification.published",
+      "evidence_note": "data/package_registry.json: barcode/python verification.published=false, verified_at 2026-08-01, method pypi-backfill-scan, note 'no live match found for any tried candidate (aspose-barcode-foss)'. Confirms the 'not yet published to PyPI' claim is still current, not stale (unlike the words/net NuGet precedent) -- the candidate's own Installation section already states the identical fact: 'A PyPI package has not been published yet. Install it from a source checkout (run from the repository root, where pyproject.toml lives):' -- near word-for-word match."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Install-state fact already present, near-verbatim, in the Installation section; independently confirmed still current via package_registry.json."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "The distribution is named `aspose-barcode-foss`; the import package is\n`aspose_barcode_foss`:",
+    "salient_tokens": [
+      "aspose-barcode-foss",
+      "aspose_barcode_foss"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Package/import naming fact already present, verbatim, in the candidate Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'The distribution is named aspose-barcode-foss; the import package is aspose_barcode_foss.' Verbatim match."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Naming fact already present, verbatim, in the Installation section."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "Write the output to a file:",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Purely transitional filler sentence introducing a code example, with no independent factual claim to verify -- structural filler rather than promotional tone, but nothing checkable of its own (same pattern as note/python's u0023).",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure transitional/structural filler."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure transitional/structural filler with no checkable factual content of its own."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "QR Code works the same way:",
+    "salient_tokens": [
+      "QR"
+    ],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Purely transitional filler sentence introducing a code example, with no independent factual claim to verify.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure transitional/structural filler."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure transitional/structural filler with no checkable factual content of its own."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "Each symbology has a dedicated helper; all of them are also reachable through the\ngeneric `generate()` function by name (canonical name or one of its aliases).",
+    "salient_tokens": [
+      "generate()"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Mechanism fact (per-symbology helper functions plus a generic name-dispatch function) already present in the candidate Key Capabilities section and demonstrated throughout Quick Start/Additional Examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Select any symbology by canonical name or alias through the generic generate() function.' Same fact; the per-symbology helper functions are independently demonstrated in Quick Start."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Mechanism fact already present in Key Capabilities and demonstrated in Quick Start."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "| Symbology | Function | Accepted input |\n|-----------|----------|----------------|\n| Code 128 | `code128()` | Printable ASCII; Code Sets A/B/C with automatic optimal switching |\n| Code 39 | `code39()` | The 43-character set: digits, `A`–`Z`, space, and ``- . $ / + %`` |\n| Code 39 (Extended) | `code39ext()` | Full ASCII (128 characters) via two-character shift encoding |\n| EAN-13 | `ean13()` | 12 digits (check digit computed), or 13 with `allow_check_digit_input=True` |\n| EAN-8 | `ean8()` | 7 digits (check digit computed), or 8 with `allow_check_digit_input=True` |\n| UPC-A | `upca()` | 11 digits (check digit computed), or 12 with `allow_check_digit_input=True` |\n| UPC-E | `upce()` | An 11- or 12-digit number-system-0 GTIN-12, zero-suppressed to UPC-E |\n| QR Code | `qr()` | Text in numeric, alphanumeric, byte (Latin-1), or Kanji mode; Model 2, versions 1–40 |",
+    "salient_tokens": [
+      "code128()",
+      "code39()",
+      "EAN",
+      "UPC",
+      "GTIN",
+      "QR"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "A real, checkable per-symbology accepted-input reference table (character sets, digit counts, check-digit rules, QR encoding modes) that is genuinely missing from the candidate -- the candidate's API Reference lists function signatures and option types but never states what raw input each accepts.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_barcode_foss/_internal/encoders/upce.py",
+      "evidence_note": "Cross-checked each row against real encoder/standards source: upce.py docstring confirms 'GTIN-12 is not zero-suppressible into a valid UPC-E form' (GTIN-12/zero-suppression claim, real); code39.py's expand_full_ascii + 43-char base pattern (from standards/code39) confirms the Code 39 character-set claims; code128.py confirms Code Set A/B/C automatic switching; qr's standards package (_MIN_VERSION=1, _MAX_VERSION=40 in encoders/qr.py) confirms versions 1-40, and standards/qr/bitstream.py's latin1_bytes()/kanji handling confirms the numeric/alphanumeric/byte(Latin-1)/Kanji mode list. Grepped candidate readme.md for 'GTIN', '43-character', 'zero-suppressed', 'Latin-1', 'Kanji' before this edit: zero matches -- genuinely missing, not redundant."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "Select a symbology by name with `generate()`:",
+    "salient_tokens": [
+      "generate()"
+    ],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Purely transitional filler sentence introducing a code example, with no independent factual claim to verify beyond what u0009 already covers.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure transitional/structural filler."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure transitional/structural filler with no checkable factual content of its own."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "> Rendering backends: SVG and PNG are implemented for every symbology. PDF output is\n> planned but not yet implemented (`to_pdf()` raises `NotImplementedError`).",
+    "salient_tokens": [
+      "to_pdf()",
+      "NotImplementedError",
+      "SVG",
+      "PNG",
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Caveat already present, near-verbatim, in the candidate Scope and Limitations section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'Barcode.to_pdf() / PdfRenderer.render() is present in the API but not yet implemented and currently raises NotImplementedError -- SVG and PNG are the only implemented output formats.' Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Caveat already present, near-verbatim, in the Scope and Limitations section."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "Rendering is controlled with `RenderOptions`, passed as the keyword-only `options`\nargument:",
+    "salient_tokens": [
+      "RenderOptions",
+      "options"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Mechanism fact (RenderOptions controls rendering, passed via the options argument) already present in Key Capabilities and demonstrated throughout Additional Examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Style output with RenderOptions: scale, DPI, module width/height, quiet zone, foreground/background color, transparent background, and human-readable text (font family and size).' Same mechanism; the keyword-only options= argument is independently shown in every rendering example."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Mechanism fact already present in Key Capabilities and demonstrated in Additional Examples."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "Available fields: `scale`, `dpi`, `module_width`, `module_height`, `quiet_zone`,\n`foreground_color`, `background_color`, `transparent_background`, `show_text`,\n`font_family`, `font_size`. Any field left as `None` falls back to the symbology's\ndefault.",
+    "salient_tokens": [
+      "scale",
+      "dpi",
+      "module_width",
+      "module_height",
+      "quiet_zone",
+      "foreground_color",
+      "background_color",
+      "transparent_background",
+      "show_text",
+      "font_family",
+      "font_size",
+      "None"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031-style partial merge: the field list itself is already redundant with the candidate's Key Capabilities bullet, but the trailing sentence -- unset fields fall back to the symbology's own default -- is a real, distinct, checkable option-resolution caveat that is genuinely missing. Reclassified to carry only that new fact forward, not the already-covered field list.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_barcode_foss/_internal/resolver.py",
+      "evidence_note": "resolver.py's OptionsResolver.resolve() merges user-supplied overrides with profile.defaults (per-symbology defaults) field by field -- confirms an unset/None field genuinely falls back to the symbology's own default. Grepped candidate readme.md for 'falls back'/'symbology's default' before this edit: zero matches -- genuinely missing, not redundant. The field list itself is not re-merged since it already appears verbatim in Key Capabilities."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "Each symbology helper accepts a keyword-only `encode` argument with a symbology-specific\noptions type.",
+    "salient_tokens": [
+      "encode"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Mechanism fact already demonstrated concretely and more precisely in the candidate API Reference (function signatures showing `*, encode=None, render=None`, plus the dedicated Encoding Options subsection listing each symbology-specific options type).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference 'Top-Level Functions' shows every helper's real signature with the keyword-only encode=None parameter; 'Encoding Options' subsection lists Code128Options, Code39Options, Ean13Options, etc. -- the same fact, demonstrated with more precision than the old README's prose statement."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Mechanism already demonstrated, with more precision, via real function signatures and the Encoding Options subsection in API Reference."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "`Code128EncodeMode` values: `AUTO`, `CODE_A`, `CODE_B`, `CODE_C`, `CODE_AB`, `CODE_AC`,\n`CODE_BC`.",
+    "salient_tokens": [
+      "Code128EncodeMode",
+      "AUTO",
+      "CODE_A",
+      "CODE_B",
+      "CODE_C",
+      "CODE_AB",
+      "CODE_AC",
+      "CODE_BC"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Enumeration value list already present, verbatim, in the candidate API Reference Enumerations subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference Enumerations: 'Code128EncodeMode: AUTO, CODE_A, CODE_B, CODE_C, CODE_AB, CODE_AC, CODE_BC' -- verbatim match."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Enumeration value list already present, verbatim, in the API Reference section."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "The same `allow_check_digit_input` option is available for `ean8()`, `upca()`, and\n`upce()`.",
+    "salient_tokens": [
+      "allow_check_digit_input",
+      "ean8()",
+      "upca()",
+      "upce()"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sentence already present, verbatim, in the candidate Additional Examples section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: 'The same allow_check_digit_input option is available for ean8(), upca(), and upce().' Verbatim, word-for-word match."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Sentence already present, verbatim, in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "`to_svg()` and `to_png()` are convenience wrappers around `render()`, which accepts any\n`Renderer` instance:",
+    "salient_tokens": [
+      "to_svg()",
+      "to_png()",
+      "render()",
+      "Renderer"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Mechanism fact already present, near-verbatim, in the candidate Additional Examples section (code comment) and structurally confirmed by the API Reference Barcode Result signatures.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples code comment: '# to_svg() is a convenience wrapper around render(SvgRenderer(), ...).' Same fact; API Reference's Barcode Result signatures (render(), to_svg(), to_png()) independently confirm the wrapper relationship."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Mechanism fact already present, near-verbatim, in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "Available renderers: `SvgRenderer`, `PngRenderer`, and `PdfRenderer` (not yet\nimplemented).",
+    "salient_tokens": [
+      "SvgRenderer",
+      "PngRenderer",
+      "PdfRenderer"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Renderer list already present, verbatim, in the candidate API Reference Rendering subsection (and named in Key Capabilities).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference Rendering subsection: 'SvgRenderer(Renderer) -- renders to SVG', 'PngRenderer(Renderer) -- renders to PNG', 'PdfRenderer(Renderer) -- not implemented, render() raises NotImplementedError'. Same list, same not-implemented caveat."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Renderer list already present, verbatim, in the API Reference section."
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "Exception hierarchy (all inherit from `BarcodeError`):",
+    "salient_tokens": [
+      "BarcodeError"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Fact already present, verbatim, in the candidate API Reference Exceptions subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference Exceptions subsection: 'All inherit from BarcodeError.' Verbatim match."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Fact already present, verbatim, in the API Reference section."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "| Exception | Raised when |\n|-----------|-------------|\n| `BarcodeError` | Base class for all library exceptions |\n| `InvalidInputError` | Input fails validation (bad characters, wrong length, etc.) |\n| `SymbologyNotFoundError` | Unknown symbology name passed to `generate()` |\n| `UnsupportedFeatureError` | Feature exists in the spec but is not yet implemented |\n| `UnsupportedCapabilityError` | Unsupported feature combination for a symbology |\n| `EncodingError` | Encoder-level failure |\n| `RenderingError` | Renderer-level failure |",
+    "salient_tokens": [
+      "BarcodeError",
+      "InvalidInputError",
+      "SymbologyNotFoundError",
+      "generate()",
+      "UnsupportedFeatureError",
+      "UnsupportedCapabilityError",
+      "EncodingError",
+      "RenderingError"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Exception table already present, verbatim (same names and descriptions), in the candidate API Reference Exceptions subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference Exceptions subsection reproduces this exact list with the same descriptions: BarcodeError, InvalidInputError, SymbologyNotFoundError, UnsupportedFeatureError, UnsupportedCapabilityError, EncodingError, RenderingError."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Exception table already present, verbatim, in the API Reference section."
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Python 3.12+",
+    "salient_tokens": [
+      "3.12"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Python version-floor requirement already present, in substance, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'The package requires Python 3.12 or later and depends only on Pillow >= 10.1.0 (used for PNG output).' Same version floor, confirmed against the real pyproject.toml (requires-python = \">=3.12\")."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Python 3.12+ requirement already present, in substance, in the Installation section."
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Pillow ≥ 10.1.0 (for PNG rendering)",
+    "salient_tokens": [
+      "PNG",
+      "10.1.0"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Dependency version already present, verbatim, in the candidate Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'depends only on Pillow >= 10.1.0 (used for PNG output).' Same package, same version floor."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Dependency version already present, verbatim, in the Installation section."
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "Released under the [MIT License](LICENSE).",
+    "salient_tokens": [
+      "MIT",
+      "LICENSE"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "License statement already present, expanded, in the candidate License section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License: 'This project is licensed under the MIT License. The MIT License permits use, copying, modification, distribution, sublicensing, and commercial use, provided its copyright and permission notice are retained.' Covers 'released under MIT' with more detail."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "License statement already present, in expanded form, in the License section."
+  }
+]

@@ -1,0 +1,391 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "A lightweight, open-source Python library for converting DOCX, DOC, RTF, TXT, and MD files to Markdown, plain text, and PDF without requiring Microsoft Word.",
+    "salient_tokens": [
+      "DOCX",
+      "DOC",
+      "RTF",
+      "TXT",
+      "MD",
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Tagline sentence, already present, near-verbatim, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Candidate readme.md lines 7-9: 'Aspose.Words FOSS for Python is a lightweight, open-source Python library for reading Word documents (DOCX, DOC, RTF, TXT, Markdown) and exporting them to Markdown, plain text, and PDF -- without requiring Microsoft Word.' -- same fact, same format list, same no-Word-required claim."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Fact already present, near-verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "A free, lightweight version of [Aspose.Words for Python via .NET](https://github.com/aspose-words/Aspose.Words-for-Python-via-.NET) with a compatible API (`Document`, `SaveFormat`, `SaveOptions`).",
+    "salient_tokens": [
+      "Document",
+      "SaveFormat",
+      "SaveOptions",
+      "NET",
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Branding/positioning sentence, already present, near-verbatim (same link, same API list), in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Candidate readme.md lines 9-11 (corrected 2026-08-14, MT044/Thirty-Fourth incident -- the visible link text no longer discloses the implementation-bridge qualifier): 'It is a free, lightweight companion to the [commercial Aspose.Words for Python](https://github.com/aspose-words/Aspose.Words-for-Python-via-.NET) with a compatible API (`Document`, `SaveFormat`, `SaveOptions`).' -- same real href (the GitHub repo's own actual name still contains 'via-.NET', unavoidable since that is the repo's real, existing name), same API tuple; only the VISIBLE anchor text was reworded to drop the implementation-bridge disclosure, per MT044's permanent rule that no generated content may expose how one platform is implemented through another."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Fact already present, near-verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **DOCX Support**: Pure Python reader using only the standard library (`zipfile`, `xml.etree`)",
+    "salient_tokens": [
+      "zipfile",
+      "xml.etree",
+      "DOCX"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 2: 'Load DOCX (pure-Python, via `zipfile`/`xml.etree`)...' -- same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **DOC Support**: Word 97-2003 binary format reader via `olefile`",
+    "salient_tokens": [
+      "olefile",
+      "DOC"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 2: '...legacy DOC (Word 97-2003 binary, via `olefile`)...' -- same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **RTF Support**: Rich Text Format reader via OLE2 delegation",
+    "salient_tokens": [
+      "RTF",
+      "OLE2"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 2: '...and RTF (OLE2 delegation) documents...' -- same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Plain Text & Markdown Input**: Read `.txt` and `.md` files",
+    "salient_tokens": [
+      ".txt",
+      ".md"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 3: 'Load plain text (`.txt`) and Markdown (`.md`) files directly through `Document(path)`...' -- same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Markdown Export**: Rich formatting — headings, bold/italic/strikethrough/underline, ordered and unordered lists (including nested), tables, block quotes, code blocks, and hyperlinks",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 1: '...preserving rich formatting -- headings, bold/italic/strikethrough/underline, ordered and unordered lists (including nested), tables, block quotes, code blocks, and hyperlinks...' -- identical list."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **PDF Export**: Generate PDF output via `fpdf2`",
+    "salient_tokens": [
+      "fpdf2",
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 4: 'Export to PDF via `fpdf2` with `PdfSaveOptions`.' -- same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Plain Text Export**: Extract document text content",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 5: 'Export or extract plain text with `SaveFormat.TEXT` and `Document.get_text()`.' -- same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Python 3.10 or higher",
+    "salient_tokens": [
+      "3.10"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Version floor verified against pyproject.toml (requires-python = '>=3.10,<3.13') -- still current and accurate. Already present, verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "pyproject.toml: 'requires-python = \">=3.10,<3.13\"' -- confirms 3.10 is the real, current floor. Installation: 'Requirements: the package requires Python 3.10 or higher (and below 3.13) ...' Same fact, same version."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Version floor already present, verbatim and still accurate, in the Installation section."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "- olefile >= 0.46",
+    "salient_tokens": [
+      "0.46"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Dependency floor verified against pyproject.toml ('olefile>=0.46') -- still current and accurate. Already present, verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "pyproject.toml dependencies: 'olefile>=0.46'. Installation: '...depends on olefile>=0.46, fpdf2>=2.7.0, and pydantic>=2.0.0, installed automatically.' Same dependency and version, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Dependency version floor already present, verbatim and still accurate, in the Installation section."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "- fpdf2 >= 2.7.0",
+    "salient_tokens": [
+      "2.7.0"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Dependency floor verified against pyproject.toml ('fpdf2>=2.7.0') -- still current and accurate. Already present, verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "pyproject.toml dependencies: 'fpdf2>=2.7.0'. Installation: '...depends on olefile>=0.46, fpdf2>=2.7.0, and pydantic>=2.0.0, installed automatically.' Same dependency and version, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Dependency version floor already present, verbatim and still accurate, in the Installation section."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "- pydantic >= 2.0.0",
+    "salient_tokens": [
+      "2.0.0"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Dependency floor verified against pyproject.toml ('pydantic>=2.0.0') -- still current and accurate. Already present, verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "pyproject.toml dependencies: 'pydantic>=2.0.0'. Installation: '...depends on olefile>=0.46, fpdf2>=2.7.0, and pydantic>=2.0.0, installed automatically.' Same dependency and version, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Dependency version floor already present, verbatim and still accurate, in the Installation section."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "Runnable examples demonstrating the `aspose.words_foss` API:\nApiExamples folder",
+    "salient_tokens": [
+      "aspose.words_foss",
+      "API",
+      "ApiExamples"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in sentence for the examples section, already carried into the candidate's Additional Examples intro.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: 'Runnable examples for the same APIs live under `ApiExamples/` in the repository, covering every input format converted to every output format.' -- same fact, same folder reference."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Lead-in fact already present, near-verbatim, in Additional Examples."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "| File | What it shows |\n|------|---------------|\n| `convert_document.py` | Every input format (DOCX, DOC, RTF, TXT, MD) to every output format (Markdown, PDF, TXT) |\n| `working_with_markdown_save_options.py` | `MarkdownSaveOptions` — only options that are actually applied |\n| `working_with_pdf_save_options.py` | PDF export from all input formats |\n| `working_with_txt_save_options.py` | Plain-text export and `get_text()` |\n| `working_with_images.py` | Image-containing documents to all output formats |",
+    "salient_tokens": [
+      "convert_document.py",
+      "working_with_markdown_save_options.py",
+      "MarkdownSaveOptions",
+      "working_with_pdf_save_options.py",
+      "working_with_txt_save_options.py",
+      "get_text()",
+      "working_with_images.py",
+      "DOCX",
+      "DOC",
+      "RTF",
+      "TXT",
+      "MD",
+      "PDF"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable file-to-purpose index for the example scripts; the candidate only names 2 of these 5 real files (`convert_document.py`, `working_with_images.py`) -- `working_with_markdown_save_options.py`, `working_with_pdf_save_options.py`, and `working_with_txt_save_options.py` are confirmed real, current example files that are never named anywhere in the candidate, even though their content (MarkdownSaveOptions usage, PDF export, plain-text export) is demonstrated inline without attribution to the file.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "ApiExamples/working_with_markdown_save_options.py",
+      "evidence_note": "Confirmed all 5 files exist in runs/.clone_cache/aspose_words_python/ApiExamples/: convert_document.py, working_with_markdown_save_options.py, working_with_pdf_save_options.py, working_with_txt_save_options.py, working_with_images.py (plus a sixth, working_with_ooxml_save_options.py, already named in the candidate's Additional Examples closing paragraph). Merging restores the 3 real, unreferenced filenames as a short pointer in Development and Testing (the section that already discusses running the ApiExamples/ suite), since 'Additional Examples' is not a valid merge target_section for this checker."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Input**: `tests/data/input/` (shared test fixtures)",
+    "salient_tokens": [
+      "tests/data/input/"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable fact about where the example/test input fixtures live, genuinely absent from the candidate's Development and Testing section.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "tests/data/input/consecutive_images.docx",
+      "evidence_note": "runs/.clone_cache/aspose_words_python/tests/data/input/ exists on disk and contains real fixture files, e.g. consecutive_images.docx (cited path), image_in_footer.docx, image_in_header.docx. Not mentioned anywhere in the candidate readme.md."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Output**: `ApiExamples/output/` (git-ignored)",
+    "salient_tokens": [
+      "ApiExamples/output/",
+      "ApiExamples"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable fact about where example-run output is written and that it is git-ignored, genuinely absent from the candidate's Development and Testing section.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": ".gitignore",
+      "evidence_note": "runs/.clone_cache/aspose_words_python/.gitignore contains an '/output/' entry matching ApiExamples/output/, confirming the git-ignored claim. Not mentioned anywhere in the candidate readme.md."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "This project is licensed under the MIT License - see the [LICENSE](License/license.txt) file for details.",
+    "salient_tokens": [
+      "MIT",
+      "LICENSE"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "License statement; the MIT/LICENSE fact is already present in the candidate's License section, with a corrected (currently-real) link path -- the old README's 'License/license.txt' path is stale and no longer matches the real on-disk location.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the [MIT License](license/LICENSE).' Confirmed the real on-disk path is runs/.clone_cache/aspose_words_python/license/LICENSE -- the old README's 'License/license.txt' path (different casing, different filename) is stale and was correctly not carried forward verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "Same MIT License fact already present in License, with a corrected link path; the old README's link path is stale."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Issues**: [GitHub Issues](https://github.com/aspose-words-foss/Aspose.Words-FOSS-for-Python/issues)",
+    "salient_tokens": [
+      "GitHub",
+      "FOSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Same issue-tracker URL already linked in the new candidate, under different anchor text.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: 'Found a bug or have a feature request? Open an issue on GitHub' links to https://github.com/aspose-words-foss/Aspose.Words-FOSS-for-Python/issues -- identical URL, different anchor text."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Same issue-tracker URL already present in Documentation & Resources under different anchor text."
+  }
+]

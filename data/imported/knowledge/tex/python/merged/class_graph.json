@@ -1,0 +1,182 @@
+[
+  {
+    "child": "InputSource",
+    "parent": "abc.ABC",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FileInputSource",
+    "parent": "InputSource",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "StringInputSource",
+    "parent": "InputSource",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "OverfullBoxWarning",
+    "parent": "UserWarning",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "UnderfullBoxWarning",
+    "parent": "UserWarning",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "RegisterProvider",
+    "parent": "Protocol",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "BoxProvider",
+    "parent": "Protocol",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "GroupKind",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "QuantityKind",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ModeKind",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "MarksProvider",
+    "parent": "Protocol",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "MathOperandKind",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ParamKind",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "GlueSign",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "LeadersKind",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ShipoutBackend",
+    "parent": "Protocol",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PageNumberRegister",
+    "parent": "Protocol",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "OutputRoutineBase",
+    "parent": "abc.ABC",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PlainOutputRoutine",
+    "parent": "OutputRoutineBase",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "GlueOrder",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Catcode",
+    "parent": "enum.IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "AsposeTeXError",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "InputError",
+    "parent": "AsposeTeXError",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "EngineError",
+    "parent": "AsposeTeXError",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FontError",
+    "parent": "AsposeTeXError",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "OutputFormat",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "OutputDevice",
+    "parent": "abc.ABC",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "DviDevice",
+    "parent": "OutputDevice",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PdfDevice",
+    "parent": "OutputDevice",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "SvgDevice",
+    "parent": "OutputDevice",
+    "relationship": "inherits",
+    "internal": true
+  }
+]

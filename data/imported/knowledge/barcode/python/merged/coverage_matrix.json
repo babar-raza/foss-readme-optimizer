@@ -1,0 +1,792 @@
+[
+  {
+    "class": "SymbologyEncoder",
+    "file": "src/aspose_barcode_foss/_internal/encoders/base.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Code128Encoder",
+    "file": "src/aspose_barcode_foss/_internal/encoders/code128.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Code39Encoder",
+    "file": "src/aspose_barcode_foss/_internal/encoders/code39.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Ean13Encoder",
+    "file": "src/aspose_barcode_foss/_internal/encoders/ean13.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Ean8Encoder",
+    "file": "src/aspose_barcode_foss/_internal/encoders/ean8.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "QrEncoder",
+    "file": "src/aspose_barcode_foss/_internal/encoders/qr.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "UpcaEncoder",
+    "file": "src/aspose_barcode_foss/_internal/encoders/upca.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "UpceEncoder",
+    "file": "src/aspose_barcode_foss/_internal/encoders/upce.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BarcodeError",
+    "file": "src/aspose_barcode_foss/_internal/exceptions.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SymbologyNotFoundError",
+    "file": "src/aspose_barcode_foss/_internal/exceptions.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "EncodingError",
+    "file": "src/aspose_barcode_foss/_internal/exceptions.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RenderingError",
+    "file": "src/aspose_barcode_foss/_internal/exceptions.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "InvalidInputError",
+    "file": "src/aspose_barcode_foss/_internal/exceptions.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "UnsupportedFeatureError",
+    "file": "src/aspose_barcode_foss/_internal/exceptions.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "UnsupportedCapabilityError",
+    "file": "src/aspose_barcode_foss/_internal/exceptions.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "RenderedArtifact",
+    "file": "src/aspose_barcode_foss/_internal/models/artifacts.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SymbologyCapabilities",
+    "file": "src/aspose_barcode_foss/_internal/models/capabilities.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Code128EncodeMode",
+    "file": "src/aspose_barcode_foss/_internal/models/options.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 7
+  },
+  {
+    "class": "Code39EncodeMode",
+    "file": "src/aspose_barcode_foss/_internal/models/options.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 2
+  },
+  {
+    "class": "QrEncodeMode",
+    "file": "src/aspose_barcode_foss/_internal/models/options.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 5
+  },
+  {
+    "class": "QrErrorCorrectionLevel",
+    "file": "src/aspose_barcode_foss/_internal/models/options.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "EncodeOptions",
+    "file": "src/aspose_barcode_foss/_internal/models/options.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Code128Options",
+    "file": "src/aspose_barcode_foss/_internal/models/options.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Code39Options",
+    "file": "src/aspose_barcode_foss/_internal/models/options.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "QrOptions",
+    "file": "src/aspose_barcode_foss/_internal/models/options.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Ean13Options",
+    "file": "src/aspose_barcode_foss/_internal/models/options.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Ean8Options",
+    "file": "src/aspose_barcode_foss/_internal/models/options.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "UpcaOptions",
+    "file": "src/aspose_barcode_foss/_internal/models/options.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "UpceOptions",
+    "file": "src/aspose_barcode_foss/_internal/models/options.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RenderOptions",
+    "file": "src/aspose_barcode_foss/_internal/models/options.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "ResolvedRenderOptions",
+    "file": "src/aspose_barcode_foss/_internal/models/options.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NormalizedPayload",
+    "file": "src/aspose_barcode_foss/_internal/models/payloads.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 14,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "ModuleMatrix",
+    "file": "src/aspose_barcode_foss/_internal/models/symbols.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SymbolMetadata",
+    "file": "src/aspose_barcode_foss/_internal/models/symbols.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EncodedSymbol",
+    "file": "src/aspose_barcode_foss/_internal/models/symbols.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextSegment",
+    "file": "src/aspose_barcode_foss/_internal/models/text.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextLayout",
+    "file": "src/aspose_barcode_foss/_internal/models/text.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "InputParser",
+    "file": "src/aspose_barcode_foss/_internal/parsers/base.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Code128InputParser",
+    "file": "src/aspose_barcode_foss/_internal/parsers/code128.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Code39InputParser",
+    "file": "src/aspose_barcode_foss/_internal/parsers/code39.py",
+    "kind": "class_definition",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Ean13InputParser",
+    "file": "src/aspose_barcode_foss/_internal/parsers/ean13.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Ean8InputParser",
+    "file": "src/aspose_barcode_foss/_internal/parsers/ean8.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "QrInputParser",
+    "file": "src/aspose_barcode_foss/_internal/parsers/qr.py",
+    "kind": "class_definition",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "UpcaInputParser",
+    "file": "src/aspose_barcode_foss/_internal/parsers/upca.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "UpceInputParser",
+    "file": "src/aspose_barcode_foss/_internal/parsers/upce.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SymbologyProfile",
+    "file": "src/aspose_barcode_foss/_internal/profiles/base.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Code128Profile",
+    "file": "src/aspose_barcode_foss/_internal/profiles/code128.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Code39Profile",
+    "file": "src/aspose_barcode_foss/_internal/profiles/code39.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Ean13Profile",
+    "file": "src/aspose_barcode_foss/_internal/profiles/ean13.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Ean8Profile",
+    "file": "src/aspose_barcode_foss/_internal/profiles/ean8.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "QrProfile",
+    "file": "src/aspose_barcode_foss/_internal/profiles/qr.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "UpcaProfile",
+    "file": "src/aspose_barcode_foss/_internal/profiles/upca.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "UpceProfile",
+    "file": "src/aspose_barcode_foss/_internal/profiles/upce.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SymbologyDefinition",
+    "file": "src/aspose_barcode_foss/_internal/registry.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "SymbologyRegistry",
+    "file": "src/aspose_barcode_foss/_internal/registry.py",
+    "kind": "class_definition",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "EncoderRegistry",
+    "file": "src/aspose_barcode_foss/_internal/registry.py",
+    "kind": "class_definition",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Renderer",
+    "file": "src/aspose_barcode_foss/_internal/renderers/base.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfRenderer",
+    "file": "src/aspose_barcode_foss/_internal/renderers/pdf.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PngRenderer",
+    "file": "src/aspose_barcode_foss/_internal/renderers/png.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SvgRenderer",
+    "file": "src/aspose_barcode_foss/_internal/renderers/svg.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OptionsResolver",
+    "file": "src/aspose_barcode_foss/_internal/resolver.py",
+    "kind": "class_definition",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "BarcodeService",
+    "file": "src/aspose_barcode_foss/_internal/service.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "EciDesignator",
+    "file": "src/aspose_barcode_foss/_internal/standards/eci.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EciHelper",
+    "file": "src/aspose_barcode_foss/_internal/standards/eci.py",
+    "kind": "class_definition",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Gs1ApplicationIdentifier",
+    "file": "src/aspose_barcode_foss/_internal/standards/gs1.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Gs1ElementString",
+    "file": "src/aspose_barcode_foss/_internal/standards/gs1.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Gs1Message",
+    "file": "src/aspose_barcode_foss/_internal/standards/gs1.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Gs1Helper",
+    "file": "src/aspose_barcode_foss/_internal/standards/gs1.py",
+    "kind": "class_definition",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "QrMode",
+    "file": "src/aspose_barcode_foss/_internal/standards/qr/segments.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "Segment",
+    "file": "src/aspose_barcode_foss/_internal/standards/qr/segments.py",
+    "kind": "class_definition",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextLayoutPolicy",
+    "file": "src/aspose_barcode_foss/_internal/text/base.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Code128TextLayoutPolicy",
+    "file": "src/aspose_barcode_foss/_internal/text/code128.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Code39TextLayoutPolicy",
+    "file": "src/aspose_barcode_foss/_internal/text/code39.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Ean13TextLayoutPolicy",
+    "file": "src/aspose_barcode_foss/_internal/text/ean13.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Ean8TextLayoutPolicy",
+    "file": "src/aspose_barcode_foss/_internal/text/ean8.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "QrTextLayoutPolicy",
+    "file": "src/aspose_barcode_foss/_internal/text/qr.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "UpcaTextLayoutPolicy",
+    "file": "src/aspose_barcode_foss/_internal/text/upca.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "UpceTextLayoutPolicy",
+    "file": "src/aspose_barcode_foss/_internal/text/upce.py",
+    "kind": "class_definition",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Barcode",
+    "file": "src/aspose_barcode_foss/result.py",
+    "kind": "class_definition",
+    "method_count": 4,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  }
+]

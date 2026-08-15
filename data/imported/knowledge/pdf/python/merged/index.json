@@ -1,0 +1,932 @@
+{
+  "schema_version": 2,
+  "family": "pdf",
+  "platform": "python",
+  "display_name": "Aspose.Pdf",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "537b8273b185e4f7440b201cacad56567e55b2f0",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "class_count": 227,
+    "enriched_claims": 515,
+    "forbidden_count": 7,
+    "scout_claims": 1782,
+    "snippet_count": 100,
+    "supplemental_claims": 0,
+    "total_claims": 2249
+  },
+  "classes": [
+    "Action",
+    "Annotation",
+    "AnnotationCollection",
+    "AnnotationFlags",
+    "AnnotationName",
+    "AnnotationType",
+    "AsposePdfException",
+    "AuthoredFont",
+    "AuthoredImage",
+    "BitStream",
+    "ByteArrayDataSource",
+    "CdrLoadOptions",
+    "CertificationLevel",
+    "CffOutlines",
+    "CgmLoadOptions",
+    "ChainResult",
+    "CharacterCollection",
+    "CidTextCodec",
+    "Cluster",
+    "ClusterCollection",
+    "Color",
+    "ColorPrimitive",
+    "CompositeFontMetric",
+    "CompromiseCheckResult",
+    "ContentStreamParser",
+    "CosExtractor",
+    "DataPoint",
+    "DataSource",
+    "DecodedJpeg",
+    "DeprecatedFeatureException",
+    "Destination",
+    "DocFormat",
+    "Document",
+    "DssMaterial",
+    "Duplex",
+    "Encoding",
+    "EncodingType",
+    "EncryptionUtils",
+    "Field",
+    "FieldType",
+    "FileDataSource",
+    "FileFontSource",
+    "FileSpecification",
+    "FillMode",
+    "FilterType",
+    "FitBDestination",
+    "FitBHDestination",
+    "FitBVDestination",
+    "FitDestination",
+    "FitHDestination",
+    "FitRDestination",
+    "FitVDestination",
+    "FolderFontSource",
+    "FontDescriptor",
+    "FontEmbeddingException",
+    "FontRegistry",
+    "FontRepository",
+    "FontSource",
+    "Form",
+    "FormType",
+    "GeneratedAppearance",
+    "GlyphPlacement",
+    "GoToAction",
+    "GoToRAction",
+    "GradientAxialShading",
+    "GraphicElementCollection",
+    "GraphicsAbsorber",
+    "HtmlLoadOptions",
+    "HtmlSaveOptions",
+    "IMatrix",
+    "IPath",
+    "IncorrectCMapUsageException",
+    "IncrementalUpdate",
+    "IncrementalWriter",
+    "InvalidFormTypeOperationException",
+    "InvalidOperationException",
+    "InvalidPasswordException",
+    "InvalidPdfFileFormatException",
+    "InvalidValueFormatException",
+    "JavaScriptAction",
+    "LatexFragment",
+    "LaunchAction",
+    "LayoutElement",
+    "LayoutLine",
+    "LayoutResult",
+    "LazyImageDict",
+    "LazyPdfObjectStore",
+    "License",
+    "LinkAnnotation",
+    "Margin",
+    "MarkdownSaveOptions",
+    "MarkupAnnotation",
+    "Matrix",
+    "Matrix3D",
+    "MemoryFontSource",
+    "MergeOptions",
+    "Merger",
+    "NamedAction",
+    "NamespaceProvider",
+    "OfdLoadOptions",
+    "OperationResult",
+    "OptimizationOptions",
+    "OptimizeOptions",
+    "Optimizer",
+    "OutlineCollection",
+    "OutlineItem",
+    "PDF3DAnnotation",
+    "PDF3DArtwork",
+    "PDF3DContent",
+    "PDF3DLightingScheme",
+    "PDF3DRenderMode",
+    "PDF3DView",
+    "PadesLevel",
+    "Page",
+    "PageCollection",
+    "PageInfo",
+    "ParseWarnings",
+    "PdfAConversionResult",
+    "PdfAValidateOptions",
+    "PdfAValidationResult",
+    "PdfAValidator",
+    "PdfArray",
+    "PdfBoolean",
+    "PdfConsts",
+    "PdfCorruptedError",
+    "PdfCosParser",
+    "PdfCosWriter",
+    "PdfDictionary",
+    "PdfDocument",
+    "PdfEncodingError",
+    "PdfException",
+    "PdfExtractor",
+    "PdfFileEditor",
+    "PdfIOException",
+    "PdfIndirectReference",
+    "PdfLoadLimits",
+    "PdfMalformedError",
+    "PdfName",
+    "PdfNull",
+    "PdfNumber",
+    "PdfObject",
+    "PdfObjectID",
+    "PdfObjectRegistry",
+    "PdfParseError",
+    "PdfParseException",
+    "PdfParseWarning",
+    "PdfPlugin",
+    "PdfResourceLimitException",
+    "PdfSecurityError",
+    "PdfSecurityException",
+    "PdfSignature",
+    "PdfStream",
+    "PdfString",
+    "PdfTrailerable",
+    "PdfUaValidateOptions",
+    "PdfUaValidationResult",
+    "PdfUaValidator",
+    "PdfValidationError",
+    "PdfValidationException",
+    "PdfWriterV0",
+    "PerformanceLogger",
+    "Plugin",
+    "PluginOptions",
+    "Point",
+    "Point3D",
+    "PredefinedCMap",
+    "PredefinedCMapEncoding",
+    "PrintRange",
+    "PrinterSettings",
+    "RasterizedPage",
+    "RegexResult",
+    "Reshaper",
+    "ResultContainer",
+    "RevocationResult",
+    "RevocationStatus",
+    "RichRun",
+    "RichStyle",
+    "SaveFormat",
+    "SfntFace",
+    "Shading",
+    "SignaturesCompromiseDetector",
+    "SignedDataInfo",
+    "SignerVerification",
+    "SigningUtils",
+    "SimpleFontMetric",
+    "SimplePdf",
+    "SplitOptions",
+    "Splitter",
+    "StandardFonts",
+    "StatisticsEntry",
+    "StreamDataSource",
+    "StreamDecoder",
+    "StreamEncoder",
+    "StructureElement",
+    "StructureTypeStandard",
+    "SystemFontSource",
+    "TaggedContent",
+    "TaggedContext",
+    "TextAbsorber",
+    "TextExtractionOptions",
+    "TextExtractor",
+    "TextExtractorOptions",
+    "TextFormattingMode",
+    "TextFragment",
+    "TextLayoutOptions",
+    "TextObject",
+    "TextSearchOptions",
+    "TimestampInfo",
+    "TrueTypeOutlines",
+    "TrustStatus",
+    "Type1Outlines",
+    "URIAction",
+    "UnsupportedFeatureException",
+    "ValidationMethod",
+    "ValidationMode",
+    "ValidationOptions",
+    "ValidationResult",
+    "ValidationStatus",
+    "VirtualizationPerformance",
+    "WarichuWPElement",
+    "XYZDestination",
+    "XmpArray",
+    "XmpField",
+    "XmpNamespaceProvider",
+    "XmpPacket",
+    "XmpProperty",
+    "XmpStruct"
+  ],
+  "class_graph": [
+    {
+      "child": "SaveFormat",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AnnotationFlags",
+      "parent": "IntFlag",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AnnotationType",
+      "parent": "str",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AnnotationType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MarkupAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LinkAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PDF3DRenderMode",
+      "parent": "str",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PDF3DRenderMode",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PDF3DLightingScheme",
+      "parent": "str",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PDF3DLightingScheme",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfObject",
+      "parent": "abc.ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfNull",
+      "parent": "PdfObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfBoolean",
+      "parent": "PdfObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfNumber",
+      "parent": "PdfObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfString",
+      "parent": "PdfObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfName",
+      "parent": "PdfObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfArray",
+      "parent": "PdfObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfDictionary",
+      "parent": "PdfObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfStream",
+      "parent": "PdfDictionary",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfIndirectReference",
+      "parent": "PdfObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AnnotationName",
+      "parent": "str",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FilterType",
+      "parent": "str",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FilterType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EncodingType",
+      "parent": "str",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EncodingType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfParseError",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfMalformedError",
+      "parent": "PdfParseError",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfCorruptedError",
+      "parent": "PdfParseError",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfSecurityError",
+      "parent": "PdfParseError",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfEncodingError",
+      "parent": "PdfParseError",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfValidationError",
+      "parent": "PdfParseError",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LazyImageDict",
+      "parent": "dict",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AsposePdfException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfException",
+      "parent": "AsposePdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfParseException",
+      "parent": "PdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "InvalidPdfFileFormatException",
+      "parent": "PdfParseException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IncorrectCMapUsageException",
+      "parent": "AsposePdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfValidationException",
+      "parent": "PdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfResourceLimitException",
+      "parent": "PdfValidationException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfSecurityException",
+      "parent": "PdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "InvalidPasswordException",
+      "parent": "PdfSecurityException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "InvalidValueFormatException",
+      "parent": "AsposePdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FontEmbeddingException",
+      "parent": "AsposePdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfIOException",
+      "parent": "PdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DeprecatedFeatureException",
+      "parent": "AsposePdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "UnsupportedFeatureException",
+      "parent": "AsposePdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "UnsupportedFeatureException",
+      "parent": "NotImplementedError",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FileFontSource",
+      "parent": "FontSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FolderFontSource",
+      "parent": "FontSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MemoryFontSource",
+      "parent": "FontSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SystemFontSource",
+      "parent": "FontSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InvalidFormTypeOperationException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InvalidOperationException",
+      "parent": "RuntimeError",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FitDestination",
+      "parent": "Destination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FitBDestination",
+      "parent": "Destination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "XYZDestination",
+      "parent": "Destination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FitHDestination",
+      "parent": "Destination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FitBHDestination",
+      "parent": "Destination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FitVDestination",
+      "parent": "Destination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FitBVDestination",
+      "parent": "Destination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FitRDestination",
+      "parent": "Destination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GoToAction",
+      "parent": "Action",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "URIAction",
+      "parent": "Action",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GoToRAction",
+      "parent": "Action",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NamedAction",
+      "parent": "Action",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "JavaScriptAction",
+      "parent": "Action",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LaunchAction",
+      "parent": "Action",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CdrLoadOptions",
+      "parent": "_BaseLoadOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CgmLoadOptions",
+      "parent": "_BaseLoadOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OfdLoadOptions",
+      "parent": "_BaseLoadOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StructureTypeStandard",
+      "parent": "str",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StructureTypeStandard",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Plugin",
+      "parent": "str",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Plugin",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FileDataSource",
+      "parent": "DataSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StreamDataSource",
+      "parent": "DataSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ByteArrayDataSource",
+      "parent": "DataSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MergeOptions",
+      "parent": "PluginOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OptimizeOptions",
+      "parent": "PluginOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SplitOptions",
+      "parent": "PluginOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextExtractorOptions",
+      "parent": "PluginOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Merger",
+      "parent": "PdfPlugin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Optimizer",
+      "parent": "PdfPlugin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Splitter",
+      "parent": "PdfPlugin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextExtractor",
+      "parent": "PdfPlugin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Duplex",
+      "parent": "str",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Duplex",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PrintRange",
+      "parent": "str",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PrintRange",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocFormat",
+      "parent": "str",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocFormat",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationMode",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationMethod",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationStatus",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TrustStatus",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RevocationStatus",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PadesLevel",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CertificationLevel",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NamespaceProvider",
+      "parent": "XmpNamespaceProvider",
+      "relationship": "inherits",
+      "internal": true
+    }
+  ],
+  "formats": {
+    "import": [
+      "Html",
+      "Cdr",
+      "Svg",
+      "Cgm",
+      "Ofd",
+      "Svg",
+      "Pdf"
+    ],
+    "export": [
+      "Html",
+      "Markdown",
+      "tiff",
+      "verify",
+      "sign",
+      "unicode",
+      "shading",
+      "visit",
+      "rgb",
+      "insert"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "pip install aspose-pdf-foss",
+    "version": ""
+  },
+  "not_implemented": [
+    "Shading._color_at",
+    "FontSource.get_font_definitions",
+    "Destination._spec",
+    "Action._spec",
+    "DataSource.read_bytes",
+    "DataSource.write_bytes",
+    "PdfPlugin.process"
+  ],
+  "forbidden_claims": [
+    "supports Shading._color_at",
+    "supports FontSource.get_font_definitions",
+    "supports Destination._spec",
+    "supports Action._spec",
+    "supports DataSource.read_bytes",
+    "supports DataSource.write_bytes",
+    "supports PdfPlugin.process"
+  ],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 227,
+    "with_methods": 135,
+    "with_properties": 152,
+    "with_enums": 26,
+    "method_pct": 59.5,
+    "property_pct": 67.0,
+    "surface_tier": 2
+  },
+  "snippets_coverage": {
+    "total_snippets": 100,
+    "classes_with_snippet": 10,
+    "classes_total": 227,
+    "coverage_ratio": 0.04,
+    "effective_denominator": 204,
+    "concrete_coverage": {
+      "classes_total": 202,
+      "classes_with_snippet": 9,
+      "coverage_ratio": 0.04
+    },
+    "interface_coverage": {
+      "classes_total": 2,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "unit_id": "s0001",
+    "source": "clone_cache/README.md",
+    "heading": "Create, style, and save a workbook",
+    "excerpt": "import { Workbook, Style } from \"./aspose_cells\";\n\nconst workbook = new Workbook();\nconst sheet = workbook.worksheets.get(0)!;\n\nsheet.name = \"Products\";\nsheet.putValue(\"A1\", \"Product\");\n...\nawait workbook.save(\"products.xlsx\");",
+    "kind": "code_example",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "aspose_cells/workbook.ts",
+      "evidence_note": "Every API call in this example (Workbook constructor, worksheets.get(), putValue, getCell2, setFormula, Style/setBold/setFontColor/setForegroundColor, setStyle, save) confirmed real and matching the real method signatures in workbook.ts/worksheet.ts/cell.ts/style.ts."
+    },
+    "disposition": "merged_verbatim",
+    "target_section": "Quick Start",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "s0002",
+    "source": "clone_cache/README.md",
+    "heading": "Load and update a workbook",
+    "excerpt": "import { Workbook } from \"./aspose_cells\";\n\nconst workbook = await Workbook.load(\"input.xlsx\");\nconst sheet = workbook.worksheets.get(0)!;\n\nsheet.getCell2(\"A1\").putValue(\"Updated\");\n\nawait workbook.save(\"updated.xlsx\");",
+    "kind": "code_example",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "aspose_cells/workbook.ts",
+      "evidence_note": "Workbook.load() (async, real) and save() (real) confirmed; getCell2/putValue confirmed real Cell methods."
+    },
+    "disposition": "merged_verbatim",
+    "target_section": "Quick Start",
+    "excluded_reason": null
+  }
+]

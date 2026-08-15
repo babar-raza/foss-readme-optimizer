@@ -1,0 +1,173 @@
+{
+  "schema_version": 2,
+  "family": "email",
+  "platform": "net",
+  "display_name": "Aspose.Email",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "a8999e259143a9ffc660086b34a7f39516da29f5",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "scout_claims": 221,
+    "enriched_claims": 0,
+    "supplemental_claims": 0,
+    "total_claims": 221,
+    "class_count": 29,
+    "forbidden_count": 0,
+    "snippet_count": 26
+  },
+  "classes": [
+    "CfbConstants",
+    "CfbDocument",
+    "CfbException",
+    "CfbNode",
+    "CfbReader",
+    "CfbStorage",
+    "CfbStream",
+    "CfbWriter",
+    "CommonMessagePropertyId",
+    "DirectoryColorFlag",
+    "DirectoryEntry",
+    "DirectoryEntryNameComparer",
+    "DirectoryObjectType",
+    "Header",
+    "MapiAttachment",
+    "MapiMessage",
+    "MapiProperty",
+    "MapiPropertyCollection",
+    "MapiRecipient",
+    "MsgConstants",
+    "MsgDocument",
+    "MsgException",
+    "MsgReader",
+    "MsgStorage",
+    "MsgStorageRole",
+    "MsgStream",
+    "MsgWriter",
+    "PropertyTypeCode",
+    "SectorMarker"
+  ],
+  "class_graph": [
+    {
+      "child": "CfbReader",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MsgReader",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CfbException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CfbStorage",
+      "parent": "CfbNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CfbStream",
+      "parent": "CfbNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DirectoryColorFlag",
+      "parent": "byte",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DirectoryObjectType",
+      "parent": "byte",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SectorMarker",
+      "parent": "uint",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CommonMessagePropertyId",
+      "parent": "ushort",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MapiMessage",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MsgException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PropertyTypeCode",
+      "parent": "ushort",
+      "relationship": "inherits",
+      "internal": false
+    }
+  ],
+  "formats": {
+    "import": [
+      "Cfb",
+      "Mime",
+      "Msg"
+    ],
+    "export": [
+      "Cfb",
+      "Mime",
+      "Msg"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "dotnet add package aspose.email.foss",
+    "version": ""
+  },
+  "not_implemented": [],
+  "forbidden_claims": [],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 29,
+    "with_methods": 18,
+    "with_properties": 16,
+    "with_enums": 6,
+    "method_pct": 62.1,
+    "property_pct": 55.2,
+    "surface_tier": 2
+  },
+  "snippets_coverage": {
+    "total_snippets": 26,
+    "classes_with_snippet": 20,
+    "classes_total": 29,
+    "coverage_ratio": 0.69,
+    "effective_denominator": 29,
+    "concrete_coverage": {
+      "classes_total": 29,
+      "classes_with_snippet": 20,
+      "coverage_ratio": 0.69
+    },
+    "interface_coverage": {
+      "classes_total": 0,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

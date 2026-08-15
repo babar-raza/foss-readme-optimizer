@@ -1,0 +1,407 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "Aspose.Email FOSS for .NET is a dependency-free C# library for working with:",
+    "salient_tokens": [
+      "FOSS",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Core one-line description lead-in already present, expanded, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'Aspose.Email FOSS for .NET is a free, open-source, MIT-licensed, dependency-free C# library for deterministic binary and message processing — working with Compound File Binary (CFB) containers, Outlook .msg files, and EML/MIME messages.' Same lead-in, expanded."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Lead-in sentence already present, expanded, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Compound File Binary (CFB) containers",
+    "salient_tokens": [
+      "CFB"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Named domain object (CFB containers) already present, verbatim, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro names 'Compound File Binary (CFB) containers' verbatim as one of the three things the library works with."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Verbatim duplicate already present in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Outlook MSG files",
+    "salient_tokens": [
+      "MSG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'Aspose.Email FOSS for .NET is a free, open-source, MIT-licensed, dependency-free C# library for deterministic binary and message processing -- working with Compound File Binary (CFB) containers, Outlook .msg files, and EML/MIME messages.' Same fact, expanded."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Content already present, near-verbatim, in the Intro paragraph of the candidate."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- High-level mutable message objects",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "'High-level, mutable message objects' already present, near-verbatim, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'a high-level, mutable MapiMessage API for creating, editing, and converting messages.' Same fact, plus the concrete class name."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Fact already present, near-verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- EML parsing and serialization through an in-repository MIME implementation",
+    "salient_tokens": [
+      "EML",
+      "MIME"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "EML/MIME parsing-and-serialization capability already present, near-verbatim, in the candidate's Key Capabilities section; the 'in-repository' (self-implemented, no external MIME library) characteristic is conveyed by the candidate's 'no System.Net.Mail dependency' clause.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Load .eml (RFC 5322 / MIME) into a MapiMessage with MapiMessage.LoadFromEml, and save a MapiMessage back to .eml with SaveToEml — no System.Net.Mail dependency.' Same MIME/.eml fact, plus the concrete no-external-dependency clarification."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "EML/MIME capability already present, near-verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "The package is designed for deterministic binary and message processing without external runtime dependencies.",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "'Without external runtime dependencies' is already redundant (present in Installation), but 'deterministic binary and message processing' is a real, distinct, checkable design characteristic entirely missing from the candidate -- unlike the sibling email/cpp product, whose candidate already carries this exact characterization in its Intro.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Email.Foss/Cfb/CfbWriter.cs",
+      "evidence_note": "runs/.clone_cache/aspose_email_net/src/Aspose.Email.Foss/Cfb/CfbWriter.cs defines and calls a private SortedChildren(IEnumerable<CfbNode> children) helper (line ~512, used at line ~200) that writes each storage's children in sorted order rather than arbitrary iteration order -- concrete evidence the writer is built for deterministic (reproducible) binary output, not just an unverified marketing adjective. (Note: Directory.Build.props' <Deterministic>true</Deterministic> was also checked but is MSBuild's compiler-output-determinism flag, a different concept from binary/message processing determinism, so it was NOT used as the basis for this claim.) 'Without external runtime dependencies' is separately, already verified redundant against Installation: 'The library ... has no external runtime dependencies.'"
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Intro",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Email.Foss.Cfb`",
+    "salient_tokens": [
+      "Aspose.Email.Foss.Cfb"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real namespace organization fact; PUBLIC_API.md (linked from the candidate's Documentation & Resources) lists this namespace, but the candidate's own README text never states it, so it was not actually traceable from the README body.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "PUBLIC_API.md",
+      "evidence_note": "runs/.clone_cache/aspose_email_net/PUBLIC_API.md lines 3-6: 'Stable namespaces: - Aspose.Email.Foss.Cfb - Aspose.Email.Foss.Msg'. Confirmed current and real. Grepped candidate readme.md before this edit: 'Aspose.Email.Foss.Cfb' had zero matches (only 'Aspose.Email.Foss.Msg' appeared, inside code-sample `using` statements, never named as an organizing namespace)."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `Aspose.Email.Foss.Msg`",
+    "salient_tokens": [
+      "Aspose.Email.Foss.Msg"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Companion namespace fact to u0006 -- also never explicitly named as an organizing namespace in the candidate's own README body text (only used inside code-sample `using` statements).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "PUBLIC_API.md",
+      "evidence_note": "runs/.clone_cache/aspose_email_net/PUBLIC_API.md lines 3-6 confirms both namespaces. Same edit as u0006 (single sentence naming both namespaces added to API Reference)."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Read and write CFB containers through `CfbReader` and `CfbWriter`",
+    "salient_tokens": [
+      "CfbReader",
+      "CfbWriter",
+      "CFB"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, near-verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Read and write raw CFB containers with CfbReader / CfbWriter, traversing storages and streams via IterStorages(), IterStreams(), IterChildren(), IterTree(), and ResolvePath(names).' Same fact, plus concrete traversal methods."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, near-verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Read and write MSG documents through `MsgReader`, `MsgWriter`, and `MsgDocument`",
+    "salient_tokens": [
+      "MsgReader",
+      "MsgWriter",
+      "MsgDocument",
+      "MSG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, near-verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Read and write Outlook .msg documents at the MAPI level with MsgReader, MsgWriter, and MsgDocument — property streams, recipient tables, and attachment sub-storages.' Same fact, plus concrete detail."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, near-verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Create, edit, save, and reload high-level messages through `MapiMessage`",
+    "salient_tokens": [
+      "MapiMessage"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim, as the opening clause of an existing Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Create, edit, save, and reload high-level messages through MapiMessage: subject, body, HTML body, sender, recipients, and attachments...' Verbatim opening clause."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Verbatim duplicate of an existing Key Capabilities bullet's opening clause."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Load `.eml` into `MapiMessage` with `MapiMessage.LoadFromEml`",
+    "salient_tokens": [
+      ".eml",
+      "MapiMessage",
+      "MapiMessage.LoadFromEml",
+      "LoadFromEml"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim, as the opening clause of an existing Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Load .eml (RFC 5322 / MIME) into a MapiMessage with MapiMessage.LoadFromEml, and save a MapiMessage back to .eml with SaveToEml...' Verbatim opening clause."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Verbatim duplicate of an existing Key Capabilities bullet's opening clause."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Save `MapiMessage` back to `.eml` with `MapiMessage.SaveToEml`",
+    "salient_tokens": [
+      "MapiMessage",
+      ".eml",
+      "MapiMessage.SaveToEml",
+      "SaveToEml"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim, as the second clause of the same existing Key Capabilities bullet as u0011.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Same bullet, second clause: '...and save a MapiMessage back to .eml with SaveToEml — no System.Net.Mail dependency.' Verbatim match."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Verbatim duplicate of the second clause of an existing Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Work with recipients, regular attachments, and embedded message attachments",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recipients/attachments/embedded-message-attachments capability already present, near-verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: '...subject, body, HTML body, sender, recipients, and attachments (including embedded-message attachments).' Same three concepts (recipients, attachments, embedded-message attachments); 'regular' is the implicit default sense of 'attachments' vs. the explicitly-called-out embedded-message case."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Recipients/attachments/embedded-message-attachments capability already present, near-verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "Read a subject from an MSG file:",
+    "salient_tokens": [
+      "MSG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in sentence for the first Quick Start code example, reused verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Quick Start",
+      "evidence_note": "Candidate's Quick Start section opens with this identical sentence, immediately before the same File.OpenRead / MapiMessage.FromStream example."
+    },
+    "disposition": "excluded",
+    "target_section": "Quick Start",
+    "excluded_reason": "Verbatim duplicate already used as the first Quick Start example's lead-in."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "Create and save a message:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in sentence for the second Quick Start code example, reused verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Quick Start",
+      "evidence_note": "Candidate's Quick Start section's second example opens with this identical sentence, immediately before the same MapiMessage.Create/AddRecipient/Save example."
+    },
+    "disposition": "excluded",
+    "target_section": "Quick Start",
+    "excluded_reason": "Verbatim duplicate already used as the second Quick Start example's lead-in."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "Bridge between EML and MSG:",
+    "salient_tokens": [
+      "EML",
+      "MSG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in sentence for an example already present, near-verbatim as a heading, in the candidate's Additional Examples section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: '### Bridge Between EML and MSG' heading, immediately followed by the same LoadFromEml/Save/SaveToEml example."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Same example already present, as a title-case heading, in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "Examples are available under `csharp/examples/`:",
+    "salient_tokens": [
+      "examples/"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "States that runnable examples exist and where; the substance is already conveyed in Additional Examples -- but the old README's own path is stale against the current source tree.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Checked runs/.clone_cache/aspose_email_net/ directly: the examples directory is at ./examples/ (containing create_msg_and_eml.cs, msg_reader.cs, msg_summary.cs, and per-example subfolders), NOT csharp/examples/ as the old README states -- the old path is stale/incorrect. Candidate's Additional Examples section correctly says 'available under examples/'. The old path was deliberately not carried over verbatim because it is wrong."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Substance (examples exist, here is where) is already present with the corrected, verified path; the old path itself is stale."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `create_msg_and_eml.cs`",
+    "salient_tokens": [
+      "create_msg_and_eml.cs"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Names one of the three old-README example files; the file is confirmed to exist and is named, verbatim, in the candidate's Additional Examples section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Confirmed create_msg_and_eml.cs exists at runs/.clone_cache/aspose_email_net/examples/create_msg_and_eml.cs. Candidate's Additional Examples: 'Runnable examples are available under examples/: create_msg_and_eml.cs, msg_reader.cs, and msg_summary.cs.' All three old-README example files (including the two too-short-to-extract-as-separate-units msg_reader.cs/msg_summary.cs bullets) are named verbatim -- confirming no example was silently dropped."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "The named example file is already listed by name in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `msg_reader.cs`",
+    "salient_tokens": [
+      "msg_reader.cs"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample file name already present, verbatim, in the candidate's Additional Examples section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: 'Runnable examples are available under examples/: create_msg_and_eml.cs, msg_reader.cs, and msg_summary.cs.' Same file name, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample file name already present, verbatim, in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `msg_summary.cs`",
+    "salient_tokens": [
+      "msg_summary.cs"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Sample file name already present, verbatim, in the candidate's Additional Examples section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: 'Runnable examples are available under examples/: create_msg_and_eml.cs, msg_reader.cs, and msg_summary.cs.' Same file name, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sample file name already present, verbatim, in the Additional Examples section."
+  }
+]

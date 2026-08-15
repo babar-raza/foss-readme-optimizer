@@ -1,0 +1,926 @@
+[
+  {
+    "child": "ColladaExporter",
+    "parent": "Exporter",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ColladaFormat",
+    "parent": "FileFormat",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ColladaFormatDetector",
+    "parent": "FormatDetector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ColladaImporter",
+    "parent": "Importer",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FbxExporter",
+    "parent": "Exporter",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FbxFormat",
+    "parent": "FileFormat",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FbxFormatDetector",
+    "parent": "FormatDetector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FbxImporter",
+    "parent": "Importer",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "GltfExporter",
+    "parent": "Exporter",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "GltfFormatDetector",
+    "parent": "FormatDetector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "GltfImporter",
+    "parent": "Importer",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ObjExporter",
+    "parent": "Exporter",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ObjFormat",
+    "parent": "FileFormat",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ObjFormatDetector",
+    "parent": "FormatDetector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ObjImporter",
+    "parent": "Importer",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "StlExporter",
+    "parent": "Exporter",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "StlFormatDetector",
+    "parent": "FormatDetector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "StlImporter",
+    "parent": "Importer",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ThreeMfExporter",
+    "parent": "Exporter",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ThreeMfFormatDetector",
+    "parent": "FormatDetector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ThreeMfImporter",
+    "parent": "Importer",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "A3DObject",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "AssetInfo",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "BonePose",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CustomObject",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Entity",
+    "parent": "SceneObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ExportException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Group",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ImageRenderOptions",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ImportException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Node",
+    "parent": "SceneObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Pose",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Pose",
+    "parent": "INamedObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PoseType",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Scene",
+    "parent": "SceneObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "SceneObject",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Transform",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TrialException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "AnimationChannel",
+    "parent": "KeyframeSequence",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "AnimationClip",
+    "parent": "SceneObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "AnimationNode",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "BindPoint",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ExtrapolationType",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Interpolation",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "KeyframeSequence",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "StepMode",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "WeightedMode",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Bone",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Deformer",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "MorphTargetChannel",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "MorphTargetDeformer",
+    "parent": "Deformer",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "SkinDeformer",
+    "parent": "Deformer",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "BooleanOperator",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Box",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Camera",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Circle",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CompositeCurve",
+    "parent": "Curve",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Curve",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Cylinder",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Dish",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Ellipse",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Frustum",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Geometry",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "IOrientable",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Light",
+    "parent": "Camera",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Line",
+    "parent": "Curve",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "LinearExtrusion",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Mesh",
+    "parent": "Geometry",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "NurbsCurve",
+    "parent": "Curve",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "NurbsSurface",
+    "parent": "Geometry",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Patch",
+    "parent": "Geometry",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Plane",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "InvalidOperationException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Primitive",
+    "parent": "Geometry",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Pyramid",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RectangularTorus",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RevolvedAreaSolid",
+    "parent": "Curve",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Shape",
+    "parent": "Curve",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Skeleton",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Sphere",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "SweptAreaSolid",
+    "parent": "Curve",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Torus",
+    "parent": "Primitive",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TransformedCurve",
+    "parent": "Curve",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TriMesh",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TrimmedCurve",
+    "parent": "Curve",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementBinormal",
+    "parent": "VertexElementFVector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementDoublesTemplate",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementEdgeCrease",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementFVector",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementHole",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementIntsTemplate",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementMaterial",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementNormal",
+    "parent": "VertexElementFVector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementPolygonGroup",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementSmoothingGroup",
+    "parent": "VertexElementIntsTemplate",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementSpecular",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementTangent",
+    "parent": "VertexElementFVector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementTemplate",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementUV",
+    "parent": "VertexElementFVector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementUserData",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementVector4",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementVertexColor",
+    "parent": "VertexElementFVector",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementVertexCrease",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementVisibility",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "VertexElementWeight",
+    "parent": "VertexElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "BasicLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "LoadOptions",
+    "parent": "IOConfig",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Plugin",
+    "parent": "ABC",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "SaveOptions",
+    "parent": "IOConfig",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ColladaLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ColladaPlugin",
+    "parent": "Plugin",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ColladaSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FbxLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FbxPlugin",
+    "parent": "Plugin",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FbxSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "GltfLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "GltfPlugin",
+    "parent": "Plugin",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "GltfSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ObjLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ObjPlugin",
+    "parent": "Plugin",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ObjSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "StlLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "StlPlugin",
+    "parent": "Plugin",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "StlSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ThreeMfLoadOptions",
+    "parent": "LoadOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ThreeMfPlugin",
+    "parent": "Plugin",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ThreeMfSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ArbitraryProfile",
+    "parent": "Profile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CenterLineProfile",
+    "parent": "Profile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CircleShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "EllipseShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FontFile",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HollowCircleShape",
+    "parent": "CircleShape",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HollowRectangleShape",
+    "parent": "RectangleShape",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "LShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "MirroredProfile",
+    "parent": "Profile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ParameterizedProfile",
+    "parent": "Profile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Profile",
+    "parent": "Entity",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RectangleShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Text",
+    "parent": "Profile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TrapeziumShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "UShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ZShape",
+    "parent": "ParameterizedProfile",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "DriverException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "InitializationException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ShaderException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "LambertMaterial",
+    "parent": "Material",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Material",
+    "parent": "A3DObject",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PbrMaterial",
+    "parent": "Material",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PhongMaterial",
+    "parent": "LambertMaterial",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ParseException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  }
+]

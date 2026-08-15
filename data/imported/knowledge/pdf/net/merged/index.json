@@ -1,0 +1,3280 @@
+{
+  "schema_version": 2,
+  "family": "pdf",
+  "platform": "net",
+  "display_name": "Aspose.Pdf",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "8a3131b9a6f7e97c20214896c615dbee86272459",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "class_count": 836,
+    "enriched_claims": 1272,
+    "forbidden_count": 2,
+    "scout_claims": 7558,
+    "snippet_count": 100,
+    "supplemental_claims": 0,
+    "total_claims": 8664
+  },
+  "classes": [
+    "AFRelationship",
+    "AbsorbedCell",
+    "AbsorbedRow",
+    "AbsorbedTable",
+    "AcroFormData",
+    "ActionCollection",
+    "ActionType",
+    "ActivationEvent",
+    "Algorithm",
+    "AlignmentType",
+    "AnnotElement",
+    "Annotation",
+    "AnnotationActionCollection",
+    "AnnotationCollection",
+    "AnnotationFlags",
+    "AnnotationSelector",
+    "AnnotationState",
+    "AnnotationStateModel",
+    "AnnotationType",
+    "AntialiasingProcessingType",
+    "AppearanceDictionary",
+    "AppearanceEntry",
+    "Arc",
+    "ArtElement",
+    "Artifact",
+    "ArtifactCollection",
+    "ArtifactSubtype",
+    "ArtifactType",
+    "AttributeKey",
+    "AttributeName",
+    "AttributeOwnerStandard",
+    "AutoFiller",
+    "AutoRotateMode",
+    "AutoTaggingSettings",
+    "AxialShading",
+    "BDC",
+    "BDCProperties",
+    "BI",
+    "BMC",
+    "BT",
+    "BX",
+    "BackgroundArtifact",
+    "BaseOperatorCollection",
+    "BaseParagraph",
+    "BasicSetColorAndPatternOperator",
+    "BasicSetColorOperator",
+    "BibEntryElement",
+    "BitString",
+    "BitmapInfo",
+    "BleedMarkAnnotation",
+    "BlendMode",
+    "BlendingColorSpace",
+    "BlockQuoteElement",
+    "BlockTextOperator",
+    "BmpDevice",
+    "Bookmark",
+    "Bookmarks",
+    "Border",
+    "BorderCornerStyle",
+    "BorderEffect",
+    "BorderInfo",
+    "BorderPartStyle",
+    "BorderSide",
+    "BorderStyle",
+    "BoundsCheckMode",
+    "BoundsCheckableList",
+    "BoxShape",
+    "BoxStyle",
+    "BuildVersionInfo",
+    "ButtonField",
+    "CMapEncodingTableType",
+    "CapStyle",
+    "CaptionElement",
+    "CaptionPosition",
+    "CaretAnnotation",
+    "CaretSymbol",
+    "Cell",
+    "Cells",
+    "CertificateEncryptionOptions",
+    "CharInfo",
+    "CharInfoCollection",
+    "Characteristics",
+    "CheckboxField",
+    "ChoiceField",
+    "Circle",
+    "CircleAnnotation",
+    "Clip",
+    "ClippingPathsProcessingMode",
+    "ClosePath",
+    "ClosePathEOFillStroke",
+    "ClosePathFillStroke",
+    "ClosePathStroke",
+    "CodeElement",
+    "Collection",
+    "CollectionField",
+    "CollectionFieldSubtype",
+    "CollectionItem",
+    "CollectionSchema",
+    "Color",
+    "ColorBarAnnotation",
+    "ColorDepth",
+    "ColorSpace",
+    "ColorType",
+    "ColorsOfCMYK",
+    "ColumnAdjustment",
+    "ColumnInfo",
+    "ComboBoxField",
+    "CommonFigureAnnotation",
+    "CompositingParameters",
+    "CompressionType",
+    "ConcatenateCorruptedFileAction",
+    "ConcatenateMatrix",
+    "ContentStreamBuilder",
+    "ContentType",
+    "ContentsAppender",
+    "ContentsResizeParameters",
+    "ContentsResizeValue",
+    "ConversionEngines",
+    "ConvertErrorAction",
+    "ConvertSoftMaskAction",
+    "ConvertTransparencyAction",
+    "CoonsPatchShading",
+    "CoordinateOrigin",
+    "CorruptedItem",
+    "CrashReportOptions",
+    "CryptoAlgorithm",
+    "CryptographicStandard",
+    "CssSavingInfo",
+    "CssUrlRequestInfo",
+    "Curve",
+    "CurveTo",
+    "CurveTo1",
+    "CurveTo2",
+    "CustomFontSubstitutionBase",
+    "CustomPrintEventArgs",
+    "DP",
+    "Dash",
+    "DataType",
+    "DefaultAppearance",
+    "DefaultMetadataProperties",
+    "DefaultResourcesData",
+    "DefaultState",
+    "DestinationArray",
+    "DestinationCollection",
+    "DiffOperation",
+    "DiffUtils",
+    "DigestHashAlgorithm",
+    "Direction",
+    "DivElement",
+    "Do",
+    "DocMDPAccessPermissions",
+    "DocMDPSignature",
+    "Document",
+    "DocumentActionCollection",
+    "DocumentCollection",
+    "DocumentDevice",
+    "DocumentElement",
+    "DocumentInfo",
+    "DocumentPrivilege",
+    "DrawingPath",
+    "DrawingRectangle",
+    "EI",
+    "EMC",
+    "EOClip",
+    "EOFill",
+    "EOFillStroke",
+    "ET",
+    "EX",
+    "EditOperationsOrder",
+    "Element",
+    "ElementCollection",
+    "ElementList",
+    "Ellipse",
+    "EmbeddedFileCollection",
+    "EncodingType",
+    "EncryptedPayload",
+    "EncryptionInfo",
+    "EncryptionParameters",
+    "EndPath",
+    "EngineDocFacade",
+    "ExplicitDestination",
+    "ExplicitDestinationType",
+    "ExponentialFunction",
+    "ExportFieldsToJsonOptions",
+    "ExtGState",
+    "ExtGStateValue",
+    "ExtendedBoolean",
+    "ExternalFontCache",
+    "ExtractImageMode",
+    "ExtractTextMode",
+    "ExtractedPath",
+    "Field",
+    "FieldDateTimeFormatter",
+    "FieldExportingData",
+    "FieldNumberCurrencyFormatter",
+    "FieldNumberPercentFormatter",
+    "FieldSerializationResult",
+    "FieldSerializationStatus",
+    "FieldType",
+    "FieldValueType",
+    "FigureElement",
+    "FileAttachmentAnnotation",
+    "FileEncoding",
+    "FileFontSource",
+    "FileHyperlink",
+    "FileIcon",
+    "FileParams",
+    "FileSpecification",
+    "Fill",
+    "FillStroke",
+    "FitBExplicitDestination",
+    "FitBHExplicitDestination",
+    "FitBVExplicitDestination",
+    "FitExplicitDestination",
+    "FitHExplicitDestination",
+    "FitRExplicitDestination",
+    "FitVExplicitDestination",
+    "FixedPrint",
+    "Fixup",
+    "FlattenSettings",
+    "FloatingBox",
+    "FolderFontSource",
+    "Font",
+    "FontAbsorber",
+    "FontCollection",
+    "FontColor",
+    "FontData",
+    "FontEmbedder",
+    "FontEmbeddingOptions",
+    "FontEncodingRules",
+    "FontInfo",
+    "FontNotFoundException",
+    "FontReplace",
+    "FontRepository",
+    "FontSavingModes",
+    "FontSizeAdjustment",
+    "FontSource",
+    "FontSourceCollection",
+    "FontStyle",
+    "FontStyles",
+    "FontSubsetStrategy",
+    "FontSubstitution",
+    "FontSubstitutionCollection",
+    "FontType",
+    "FontTypes",
+    "FontUtilities",
+    "Form",
+    "FormDataConverter",
+    "FormEditor",
+    "FormElement",
+    "FormFieldBuilder",
+    "FormFieldFacade",
+    "FormImportResult",
+    "FormPresentationMode",
+    "FormType",
+    "FormattedText",
+    "FormattedTextFont",
+    "FormulaElement",
+    "FractionStyle",
+    "FreeFormGouraudShading",
+    "FreeTextAnnotation",
+    "FreeTextIntent",
+    "FunctionBasedShading",
+    "GRestore",
+    "GS",
+    "GSave",
+    "GdiPlusPageRenderer",
+    "GenericAnnotation",
+    "GifDevice",
+    "GlyphPosition",
+    "GoToAction",
+    "GoToRemoteAction",
+    "GoToURIAction",
+    "GradientAxialShading",
+    "Graph",
+    "GraphInfo",
+    "GraphicElement",
+    "GraphicElementCollection",
+    "GraphicsAbsorber",
+    "GraphicsState",
+    "Group",
+    "HashAlgorithmFactory",
+    "HeaderArtifact",
+    "HeaderElement",
+    "HeaderFooter",
+    "Heading",
+    "HeadingLevels",
+    "HeadingRecognitionStrategy",
+    "HighlightAnnotation",
+    "HighlightingMode",
+    "HorizontalAlignment",
+    "HtmlBorderLineType",
+    "HtmlDocumentType",
+    "HtmlFragment",
+    "HtmlImageSavingInfo",
+    "HtmlImageType",
+    "HtmlLoadOptions",
+    "HtmlMarkupGenerationModes",
+    "HtmlMediaType",
+    "HtmlPageLayoutOption",
+    "HtmlPageMarkupSavingInfo",
+    "HtmlSaveOptions",
+    "Hyperlink",
+    "IAppointment",
+    "ICustomSecurityHandler",
+    "ID",
+    "IDiffOptimizationOperation",
+    "IDocumentFontUtilities",
+    "IFacade",
+    "IFontOptions",
+    "IIndexBitmapConverter",
+    "IOperatorSelector",
+    "IPageRenderer",
+    "ISaveableFacade",
+    "ITaggedContent",
+    "ITextElement",
+    "IWarningCallback",
+    "IconCaptionPosition",
+    "IconFit",
+    "Id",
+    "IllustrationElement",
+    "Image",
+    "ImageCollection",
+    "ImageCompressionOptions",
+    "ImageCompressionVersion",
+    "ImageDeleteAction",
+    "ImageDevice",
+    "ImageEncoding",
+    "ImageFileType",
+    "ImageFilterType",
+    "ImageFormat",
+    "ImageMergeMode",
+    "ImagePageDevice",
+    "ImageParentTypes",
+    "ImagePlacement",
+    "ImagePlacementAbsorber",
+    "ImagePlacementCollection",
+    "ImageStamp",
+    "ImageXObject",
+    "ImportDataAction",
+    "ImportStatus",
+    "IncorrectFontUsageException",
+    "IndexBitmapConverter",
+    "IndexElement",
+    "InkAnnotation",
+    "InterruptMonitor",
+    "InvalidFormTypeOperationException",
+    "InvalidPasswordException",
+    "InvalidPdfFileFormatException",
+    "JavaScriptCollection",
+    "JavascriptAction",
+    "JpegDevice",
+    "Justification",
+    "KeySize",
+    "LanguageTransformation",
+    "LatticeFormGouraudShading",
+    "LaunchAction",
+    "LaunchActionOperation",
+    "LaunchActionOperationConverter",
+    "Layer",
+    "LayerCollection",
+    "LayerEntry",
+    "LettersPositioningMethods",
+    "LevelFormat",
+    "LightingSchemeType",
+    "Line",
+    "LineAnnotation",
+    "LineCap",
+    "LineEnding",
+    "LineInfo",
+    "LineIntent",
+    "LineJoin",
+    "LineSpacingMode",
+    "LineTo",
+    "LinkAnnotation",
+    "LinkElement",
+    "ListBoxField",
+    "ListElement",
+    "ListLBodyElement",
+    "ListLIElement",
+    "ListLblElement",
+    "LoadFormat",
+    "LoadOptions",
+    "LocalHyperlink",
+    "MCRElement",
+    "MP",
+    "MarginInfo",
+    "MarginPartStyle",
+    "Margins",
+    "MarkdownConverterOptions",
+    "MarkedContentInfo",
+    "MarkupAnnotation",
+    "MarkupParagraph",
+    "MarkupSection",
+    "MathExtensions",
+    "Matrix",
+    "Matrix3D",
+    "MdLoadOptions",
+    "Measure",
+    "MediaClip",
+    "MediaClipData",
+    "MediaClipSection",
+    "MediaRendition",
+    "MemoryFontSource",
+    "MergeOptions",
+    "MergingOptimizer",
+    "Metadata",
+    "MoveTextPosition",
+    "MoveTextPositionSetLeading",
+    "MoveTo",
+    "MoveToNextLine",
+    "MoveToNextLineShowText",
+    "MovieAnnotation",
+    "NamedAction",
+    "NamedDestination",
+    "NamedDestinationCollection",
+    "NoCharacterAction",
+    "NodeLevelResourceType",
+    "NonStructElement",
+    "Note",
+    "NoteElement",
+    "NumberFormat",
+    "NumberFormatList",
+    "NumberingStyle",
+    "OBJRElement",
+    "ObjectKey",
+    "ObsoleteFill",
+    "OcspSettings",
+    "OneBasedList",
+    "Operation",
+    "OperationsMerger",
+    "OperationsSlideMerger",
+    "Operator",
+    "OperatorCollection",
+    "OperatorSelector",
+    "Opi",
+    "OptimizationOptions",
+    "OptimizedMemoryStream",
+    "Option",
+    "OptionCollection",
+    "OptionalContentBuilder",
+    "OptionalContentGroup",
+    "OptionalContentProperties",
+    "OriginalFontSpecification",
+    "OutlineBuilder",
+    "OutlineCollection",
+    "OutlineItem",
+    "OutlineItemBuilder",
+    "OutlineItemCollection",
+    "Outlines",
+    "OutputIntent",
+    "OutputIntents",
+    "PDF3DActivation",
+    "PDF3DAnnotation",
+    "PDF3DArtwork",
+    "PDF3DContent",
+    "PDF3DCrossSection",
+    "PDF3DCrossSectionArray",
+    "PDF3DCuttingPlaneOrientation",
+    "PDF3DLightingScheme",
+    "PDF3DRenderMode",
+    "PDF3DStream",
+    "PDF3DView",
+    "PDF3DViewArray",
+    "PKCS1",
+    "PKCS7",
+    "PKCS7Detached",
+    "Page",
+    "PageActionCollection",
+    "PageBreak",
+    "PageCollection",
+    "PageCoordinateType",
+    "PageDevice",
+    "PageExtensions",
+    "PageInfo",
+    "PageInformationAnnotation",
+    "PageLabel",
+    "PageLabelBuilder",
+    "PageLabelCollection",
+    "PageLayout",
+    "PageLayoutMode",
+    "PageMarkup",
+    "PageMode",
+    "PageModeValue",
+    "PageNumberStamp",
+    "PageResources",
+    "PageSettings",
+    "PageSize",
+    "PageSizeInfo",
+    "PageTransition",
+    "PaperSize",
+    "ParagraphAbsorber",
+    "ParagraphAbsorberOptions",
+    "ParagraphElement",
+    "ParagraphPositioningMode",
+    "Paragraphs",
+    "PartElement",
+    "PartsEmbeddingModes",
+    "PasswordType",
+    "PathCommand",
+    "PathExtractor",
+    "PathOp",
+    "PathOperationType",
+    "PathPaintMode",
+    "PathSegment",
+    "Pattern",
+    "PatternColorSpace",
+    "PdfANonSpecificationFlags",
+    "PdfAStandardVersion",
+    "PdfASymbolicFontEncodingStrategy",
+    "PdfAction",
+    "PdfActionCollection",
+    "PdfAnnotationEditor",
+    "PdfBookmarkEditor",
+    "PdfCertificate",
+    "PdfContentEditor",
+    "PdfConverter",
+    "PdfConverterImageFormat",
+    "PdfDocumentDevice",
+    "PdfException",
+    "PdfExceptionMessages",
+    "PdfExtractor",
+    "PdfFileEditor",
+    "PdfFileInfo",
+    "PdfFileMend",
+    "PdfFileSecurity",
+    "PdfFileSignature",
+    "PdfFileStamp",
+    "PdfFontView",
+    "PdfFormat",
+    "PdfFormatConversionOptions",
+    "PdfFunction",
+    "PdfJavaScriptStripper",
+    "PdfPageEditor",
+    "PdfPageStamp",
+    "PdfPrintPageInfo",
+    "PdfQueryPageSettingsEventArgs",
+    "PdfSaveOptions",
+    "PdfSigner",
+    "PdfTextDecodingException",
+    "PdfToHtmlConverter",
+    "PdfToMarkdownConverter",
+    "PdfToSvgConverter",
+    "PdfToTextConverter",
+    "PdfVersion",
+    "PdfViewer",
+    "PdfXmpMetadata",
+    "Permissions",
+    "PhysicalTextSegment",
+    "PixelFormat",
+    "PngDevice",
+    "Point",
+    "Point3D",
+    "PolyAnnotation",
+    "PolyIntent",
+    "Polygon",
+    "PolygonAnnotation",
+    "PolygonsHelper",
+    "PolylineAnnotation",
+    "PopupAnnotation",
+    "Position",
+    "PositionSettings",
+    "PositioningMode",
+    "PostScriptEvaluator",
+    "PostScriptFunction",
+    "PredefinedAction",
+    "PrintDuplex",
+    "PrintScaling",
+    "PrinterMarkAnnotation",
+    "PrinterMarkCornerPosition",
+    "PrinterMarkSidePosition",
+    "PrinterMarksKind",
+    "PrinterSettings",
+    "PrivateElement",
+    "ProgressEventHandlerInfo",
+    "ProgressEventType",
+    "PropertyFlag",
+    "PuaProcessingStrategy",
+    "QueueItem",
+    "QuoteElement",
+    "RadialShading",
+    "RadioButtonField",
+    "RadioButtonGroup",
+    "RadioButtonOption",
+    "RadioButtonOptionField",
+    "RasterImagesSavingModes",
+    "RawOperator",
+    "Re",
+    "Rectangle",
+    "RectanglePosition",
+    "RedactAnnotation",
+    "RedactionAnnotation",
+    "ReferenceElement",
+    "RegexManager",
+    "RegistrationMarkAnnotation",
+    "RemoveFontsStrategy",
+    "RenderModeType",
+    "RenderingOptions",
+    "Rendition",
+    "RenditionAction",
+    "RepairOptions",
+    "ReplaceAdjustment",
+    "ReplaceTextStrategy",
+    "ReplyType",
+    "Resolution",
+    "ResourceLoadingResult",
+    "ResourceSavingInfo",
+    "Resources",
+    "ReturnAction",
+    "RgbToDeviceGrayConversionStrategy",
+    "RgbaBuffer",
+    "RichMediaAnnotation",
+    "RichTextBoxField",
+    "RichTextFontStyles",
+    "RichTextToFlatStructureTransformer",
+    "RootElement",
+    "Rotation",
+    "Row",
+    "Rows",
+    "RubyElement",
+    "SampledFunction",
+    "SaveFormat",
+    "SaveOptions",
+    "ScalingMode",
+    "ScalingReason",
+    "Scope",
+    "ScreenAnnotation",
+    "SectElement",
+    "SegmentAlignStrategy",
+    "SelectFont",
+    "SelectorRendition",
+    "SetAdvancedColor",
+    "SetAdvancedColorStroke",
+    "SetCMYKColor",
+    "SetCMYKColorStroke",
+    "SetCharWidth",
+    "SetCharWidthBoundingBox",
+    "SetCharacterSpacing",
+    "SetColor",
+    "SetColorOperator",
+    "SetColorRenderingIntent",
+    "SetColorSpace",
+    "SetColorSpaceStroke",
+    "SetColorStroke",
+    "SetDash",
+    "SetFlat",
+    "SetGlyphsPositionShowText",
+    "SetGray",
+    "SetGrayStroke",
+    "SetHorizontalTextScaling",
+    "SetLineCap",
+    "SetLineJoin",
+    "SetLineWidth",
+    "SetMiterLimit",
+    "SetRGBColor",
+    "SetRGBColorStroke",
+    "SetSpacingMoveToNextLineShowText",
+    "SetTextLeading",
+    "SetTextMatrix",
+    "SetTextRenderingMode",
+    "SetTextRise",
+    "SetWordSpacing",
+    "ShFill",
+    "Sha3_256",
+    "Sha3_384",
+    "Sha3_512",
+    "ShadingBase",
+    "ShadingPattern",
+    "ShadingType",
+    "Shape",
+    "ShapeType",
+    "ShowText",
+    "SignDependentElementsRenderingModes",
+    "Signature",
+    "SignatureAlgorithmInfo",
+    "SignatureAlgorithmType",
+    "SignatureAppearance",
+    "SignatureCustomAppearance",
+    "SignatureField",
+    "SignatureName",
+    "SignatureOptions",
+    "SimpleFontSubstitution",
+    "SoftwarePageRenderer",
+    "SoundAnnotation",
+    "SoundData",
+    "SoundEncoding",
+    "SoundIcon",
+    "SoundSampleData",
+    "SoundSampleDataEncodingFormat",
+    "SpanElement",
+    "SquareAnnotation",
+    "SquigglyAnnotation",
+    "Stamp",
+    "StampAnnotation",
+    "StampIcon",
+    "StampInfo",
+    "StampType",
+    "StartEndPageEventArgs",
+    "StitchingFunction",
+    "StrikeOutAnnotation",
+    "Stroke",
+    "StructElement",
+    "StructTreeElement",
+    "StructTreeRoot",
+    "StructTreeRootElement",
+    "StructureAttribute",
+    "StructureAttributes",
+    "StructureElement",
+    "StructureElementAttributes",
+    "StructureElementBuilder",
+    "StructureTextState",
+    "StructureTreeBuilder",
+    "StructureType",
+    "SubPath",
+    "SubjectNameElements",
+    "SubmitFormAction",
+    "SubmitFormFlag",
+    "SvgDevice",
+    "SvgExternalImageType",
+    "SvgImageSavingInfo",
+    "SvgLoadOptions",
+    "SvgSaveOptions",
+    "SystemFontSource",
+    "TOCElement",
+    "TOCIElement",
+    "TabAlignmentType",
+    "TabLeaderType",
+    "TabOrder",
+    "TabStop",
+    "TabStops",
+    "Table",
+    "TableAbsorber",
+    "TableBroken",
+    "TableElement",
+    "TableTBodyElement",
+    "TableTDElement",
+    "TableTFootElement",
+    "TableTHElement",
+    "TableTHeadElement",
+    "TableTRElement",
+    "TaggedContent",
+    "TaggedException",
+    "TensorPatchShading",
+    "TextAbsorber",
+    "TextAlignment",
+    "TextAnnotation",
+    "TextBoxField",
+    "TextBuilder",
+    "TextDevice",
+    "TextEditOptions",
+    "TextElement",
+    "TextExtractionError",
+    "TextExtractionErrorLocation",
+    "TextExtractionOptions",
+    "TextFormattingMode",
+    "TextFormattingOptions",
+    "TextFragment",
+    "TextFragmentAbsorber",
+    "TextFragmentCollection",
+    "TextFragmentState",
+    "TextIcon",
+    "TextMarkupAnnotation",
+    "TextOperator",
+    "TextOptions",
+    "TextParagraph",
+    "TextPlaceOperator",
+    "TextProperties",
+    "TextRenderingMode",
+    "TextReplaceOptions",
+    "TextReplacer",
+    "TextSearchOptions",
+    "TextSegment",
+    "TextSegmentCollection",
+    "TextShowOperator",
+    "TextStamp",
+    "TextState",
+    "TextStateOperator",
+    "TextStyle",
+    "TiffDevice",
+    "TiffSettings",
+    "TilingPattern",
+    "TimestampSettings",
+    "ToUnicodeProcessingRules",
+    "TocInfo",
+    "TrimMarkAnnotation",
+    "TxtLoadOptions",
+    "UnderlineAnnotation",
+    "UnifiedSaveOptions",
+    "UnsupportedFontTypeException",
+    "UriAction",
+    "ValidationIssue",
+    "ValidationMethod",
+    "ValidationMode",
+    "ValidationOptions",
+    "ValidationResult",
+    "ValidationStatus",
+    "Value",
+    "VerticalAlignment",
+    "VerticalAlignmentType",
+    "ViewerPreference",
+    "ViewerPreferences",
+    "WarichuElement",
+    "WarningInfo",
+    "WarningType",
+    "Watermark",
+    "WatermarkAnnotation",
+    "WatermarkArtifact",
+    "WatermarkStamp",
+    "WebHyperlink",
+    "WidgetAnnotation",
+    "WordWrapMode",
+    "XFA",
+    "XForm",
+    "XFormCollection",
+    "XFormPlacement",
+    "XFormResources",
+    "XImage",
+    "XImageCollection",
+    "XYZExplicitDestination",
+    "XfaAccessor",
+    "XfaField",
+    "XmpField",
+    "XmpFieldType",
+    "XmpMetadata",
+    "XmpPacketContainer",
+    "XmpPdfAExtensionCategoryType",
+    "XmpPdfAExtensionField",
+    "XmpPdfAExtensionObject",
+    "XmpPdfAExtensionProperty",
+    "XmpPdfAExtensionSchema",
+    "XmpPdfAExtensionSchemaDescription",
+    "XmpPdfAExtensionValueType",
+    "XmpValue",
+    "XmpWorkingPacket",
+    "ZDeflaterOutputStream",
+    "ZInflaterInputStream"
+  ],
+  "class_graph": [
+    {
+      "child": "CMapEncodingTableType",
+      "parent": "short",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SegmentAlignStrategy",
+      "parent": "byte",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RemoveFontsStrategy",
+      "parent": "byte",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ActionCollection",
+      "parent": "IEnumerable<PdfAction>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfAction",
+      "parent": "IAppointment",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GoToAction",
+      "parent": "PdfAction",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "UriAction",
+      "parent": "PdfAction",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GoToURIAction",
+      "parent": "PdfAction",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GoToRemoteAction",
+      "parent": "PdfAction",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LaunchAction",
+      "parent": "PdfAction",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NamedAction",
+      "parent": "PdfAction",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "JavascriptAction",
+      "parent": "PdfAction",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SubmitFormAction",
+      "parent": "PdfAction",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImportDataAction",
+      "parent": "PdfAction",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Annotation",
+      "parent": "BaseParagraph",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LinkAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextAnnotation",
+      "parent": "MarkupAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FreeTextAnnotation",
+      "parent": "MarkupAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MarkupAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextMarkupAnnotation",
+      "parent": "MarkupAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HighlightAnnotation",
+      "parent": "TextMarkupAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StrikeOutAnnotation",
+      "parent": "TextMarkupAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "UnderlineAnnotation",
+      "parent": "TextMarkupAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SquigglyAnnotation",
+      "parent": "TextMarkupAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "WidgetAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RedactionAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RedactAnnotation",
+      "parent": "RedactionAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FileAttachmentAnnotation",
+      "parent": "MarkupAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PopupAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StampAnnotation",
+      "parent": "MarkupAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "InkAnnotation",
+      "parent": "MarkupAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LineAnnotation",
+      "parent": "MarkupAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CommonFigureAnnotation",
+      "parent": "MarkupAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SquareAnnotation",
+      "parent": "CommonFigureAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CircleAnnotation",
+      "parent": "CommonFigureAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PolyAnnotation",
+      "parent": "MarkupAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PolygonAnnotation",
+      "parent": "PolyAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PolylineAnnotation",
+      "parent": "PolyAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CaretAnnotation",
+      "parent": "MarkupAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SoundAnnotation",
+      "parent": "MarkupAnnotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MovieAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ScreenAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RichMediaAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GenericAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AnnotationCollection",
+      "parent": "IReadOnlyList<Annotation>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfActionCollection",
+      "parent": "IEnumerable<PdfAction>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AppearanceDictionary",
+      "parent": "IDictionary<string",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AppearanceDictionary",
+      "parent": "XForm>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BleedMarkAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColorBarAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PDF3DAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PageInformationAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RegistrationMarkAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TrimMarkAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PrinterMarkAnnotation",
+      "parent": "Annotation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ExplicitDestination",
+      "parent": "IAppointment",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "XYZExplicitDestination",
+      "parent": "ExplicitDestination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FitExplicitDestination",
+      "parent": "ExplicitDestination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FitBExplicitDestination",
+      "parent": "ExplicitDestination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FitHExplicitDestination",
+      "parent": "ExplicitDestination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FitVExplicitDestination",
+      "parent": "ExplicitDestination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FitBHExplicitDestination",
+      "parent": "ExplicitDestination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FitBVExplicitDestination",
+      "parent": "ExplicitDestination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FitRExplicitDestination",
+      "parent": "ExplicitDestination",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MediaRendition",
+      "parent": "Rendition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SelectorRendition",
+      "parent": "Rendition",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MediaClipData",
+      "parent": "MediaClip",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MediaClipSection",
+      "parent": "MediaClip",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RenditionAction",
+      "parent": "PdfAction",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ArtifactCollection",
+      "parent": "IEnumerable<Artifact>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BackgroundArtifact",
+      "parent": "Artifact",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HeaderArtifact",
+      "parent": "Artifact",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "WatermarkArtifact",
+      "parent": "Artifact",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Collection",
+      "parent": "EmbeddedFileCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImageCollection",
+      "parent": "IReadOnlyList<ImageXObject>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XImageCollection",
+      "parent": "ImageCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "XImage",
+      "parent": "ImageXObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PageCollection",
+      "parent": "IEnumerable<Page>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DiffOperation",
+      "parent": "IEquatable<DiffOperation>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MergingOptimizer",
+      "parent": "IDiffOptimizationOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OperationsMerger",
+      "parent": "IDiffOptimizationOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OperationsSlideMerger",
+      "parent": "IDiffOptimizationOperation",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OperatorSelector",
+      "parent": "IOperatorSelector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GSave",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GRestore",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Clip",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EOClip",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BT",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ET",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EMC",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BDC",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetRGBColor",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SelectFont",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetTextMatrix",
+      "parent": "TextPlaceOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MoveTextPosition",
+      "parent": "TextPlaceOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MoveTextPositionSetLeading",
+      "parent": "TextPlaceOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MoveToNextLine",
+      "parent": "TextPlaceOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextShowOperator",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MoveToNextLineShowText",
+      "parent": "TextShowOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetSpacingMoveToNextLineShowText",
+      "parent": "TextShowOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetGlyphsPositionShowText",
+      "parent": "TextShowOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ConcatenateMatrix",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Do",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShowText",
+      "parent": "TextShowOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextOperator",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextStateOperator",
+      "parent": "TextOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextPlaceOperator",
+      "parent": "TextOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BlockTextOperator",
+      "parent": "TextOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetColorOperator",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BasicSetColorOperator",
+      "parent": "SetColorOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BasicSetColorAndPatternOperator",
+      "parent": "SetColorOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MoveTo",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LineTo",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CurveTo",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CurveTo1",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CurveTo2",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Re",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ClosePath",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Stroke",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ClosePathStroke",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Fill",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ObsoleteFill",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EOFill",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FillStroke",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EOFillStroke",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ClosePathFillStroke",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ClosePathEOFillStroke",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EndPath",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GS",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetLineWidth",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetLineCap",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetLineJoin",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetMiterLimit",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetDash",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetFlat",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetGray",
+      "parent": "BasicSetColorOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetGrayStroke",
+      "parent": "BasicSetColorOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetRGBColorStroke",
+      "parent": "BasicSetColorOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetCMYKColor",
+      "parent": "BasicSetColorOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetCMYKColorStroke",
+      "parent": "BasicSetColorOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetColorSpace",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetColorSpaceStroke",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetColor",
+      "parent": "SetColorOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetColorStroke",
+      "parent": "SetColorOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetAdvancedColor",
+      "parent": "BasicSetColorAndPatternOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetAdvancedColorStroke",
+      "parent": "BasicSetColorAndPatternOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetColorRenderingIntent",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetCharacterSpacing",
+      "parent": "TextStateOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetWordSpacing",
+      "parent": "TextStateOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetHorizontalTextScaling",
+      "parent": "TextStateOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetTextLeading",
+      "parent": "TextStateOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetTextRenderingMode",
+      "parent": "TextStateOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetTextRise",
+      "parent": "TextStateOperator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetCharWidth",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SetCharWidthBoundingBox",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BMC",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MP",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DP",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BX",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EX",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BI",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ID",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EI",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShFill",
+      "parent": "Operator",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Operator",
+      "parent": "Aspose.Pdf.Operator",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MdLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SvgLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TxtLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BmpDevice",
+      "parent": "ImageDevice",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfDocumentDevice",
+      "parent": "DocumentDevice",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GdiPlusPageRenderer",
+      "parent": "IPageRenderer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GifDevice",
+      "parent": "ImageDevice",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "JpegDevice",
+      "parent": "ImageDevice",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImagePageDevice",
+      "parent": "PageDevice",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PngDevice",
+      "parent": "ImageDevice",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SoftwarePageRenderer",
+      "parent": "IPageRenderer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TiffDevice",
+      "parent": "ImageDevice",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Document",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OptimizationOptions",
+      "parent": "Aspose.Pdf.Optimization.OptimizationOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GradientAxialShading",
+      "parent": "PatternColorSpace",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Line",
+      "parent": "Shape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DrawingRectangle",
+      "parent": "Shape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Circle",
+      "parent": "Shape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Ellipse",
+      "parent": "Shape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Polygon",
+      "parent": "Shape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Arc",
+      "parent": "Shape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Curve",
+      "parent": "Shape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DrawingPath",
+      "parent": "Shape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Rectangle",
+      "parent": "Shape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Graph",
+      "parent": "BaseParagraph",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InvalidPasswordException",
+      "parent": "PdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "InvalidPdfFileFormatException",
+      "parent": "PdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "InvalidFormTypeOperationException",
+      "parent": "PdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfTextDecodingException",
+      "parent": "PdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IncorrectFontUsageException",
+      "parent": "PdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FontNotFoundException",
+      "parent": "PdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "UnsupportedFontTypeException",
+      "parent": "PdfException",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AutoFiller",
+      "parent": "ISaveableFacade",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AutoFiller",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Bookmarks",
+      "parent": "List<Bookmark>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocumentPrivilege",
+      "parent": "IComparable<object>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IFacade",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ISaveableFacade",
+      "parent": "IFacade",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Form",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormEditor",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfAnnotationEditor",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfBookmarkEditor",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfContentEditor",
+      "parent": "System.IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfConverter",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfExtractor",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfFileInfo",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfFileMend",
+      "parent": "ISaveableFacade",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfFileSecurity",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfFileSignature",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfFileStamp",
+      "parent": "System.IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfPageEditor",
+      "parent": "System.IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfViewer",
+      "parent": "IFacade",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfViewer",
+      "parent": "System.IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfXmpMetadata",
+      "parent": "IDictionary<string",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfXmpMetadata",
+      "parent": "XmpValue>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FileSpecification",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EmbeddedFileCollection",
+      "parent": "IReadOnlyList<FileSpecification>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Field",
+      "parent": "Aspose.Pdf.Annotations.WidgetAnnotation",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Field",
+      "parent": "IEnumerable<Aspose.Pdf.Annotations.WidgetAnnotation>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextBoxField",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RichTextBoxField",
+      "parent": "TextBoxField",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CheckboxField",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RadioButtonField",
+      "parent": "ChoiceField",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChoiceField",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OptionCollection",
+      "parent": "ICollection<Option>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ComboBoxField",
+      "parent": "ChoiceField",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ListBoxField",
+      "parent": "ChoiceField",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ButtonField",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SignatureField",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RadioButtonOptionField",
+      "parent": "RadioButtonField",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Form",
+      "parent": "ICollection<Aspose.Pdf.Annotations.WidgetAnnotation>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PKCS1",
+      "parent": "Signature",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PKCS7",
+      "parent": "Signature",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PKCS7Detached",
+      "parent": "Signature",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ExponentialFunction",
+      "parent": "PdfFunction",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StitchingFunction",
+      "parent": "PdfFunction",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PostScriptFunction",
+      "parent": "PdfFunction",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SampledFunction",
+      "parent": "PdfFunction",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FloatingBox",
+      "parent": "BaseParagraph",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "WebHyperlink",
+      "parent": "Hyperlink",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FileHyperlink",
+      "parent": "Hyperlink",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LocalHyperlink",
+      "parent": "Hyperlink",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Paragraphs",
+      "parent": "IList<BaseParagraph>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Paragraphs",
+      "parent": "IReadOnlyList<BaseParagraph>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Table",
+      "parent": "BaseParagraph",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Rows",
+      "parent": "IEnumerable<Row>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Rows",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Cells",
+      "parent": "IEnumerable<Cell>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Heading",
+      "parent": "BaseParagraph",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ObjectKey",
+      "parent": "IEquatable<ObjectKey>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BoundsCheckableList",
+      "parent": "System.Collections.Generic.IEnumerable<T>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OptimizedMemoryStream",
+      "parent": "Stream",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "HtmlFragment",
+      "parent": "BaseParagraph",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HtmlLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HtmlSaveOptions",
+      "parent": "UnifiedSaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FontEncodingRules",
+      "parent": "byte",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ZDeflaterOutputStream",
+      "parent": "Stream",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ZInflaterInputStream",
+      "parent": "Stream",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Image",
+      "parent": "BaseParagraph",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImagePlacementCollection",
+      "parent": "IReadOnlyList<ImagePlacement>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ImageStamp",
+      "parent": "BaseParagraph",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ElementList",
+      "parent": "List<StructureElement>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StructureElement",
+      "parent": "Element",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StructureElement",
+      "parent": "ITextElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StructTreeRootElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AnnotElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ArtElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BibEntryElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BlockQuoteElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CaptionElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CodeElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DivElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IllustrationElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FigureElement",
+      "parent": "IllustrationElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FormElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FormulaElement",
+      "parent": "IllustrationElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HeaderElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IndexElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LinkElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ListElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ListLBodyElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ListLIElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ListLblElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NonStructElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NoteElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParagraphElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PartElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DocumentElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MCRElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OBJRElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PrivateElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "QuoteElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ReferenceElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RubyElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SectElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SpanElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TOCElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TOCIElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TableElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TableTBodyElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TableTDElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TableTFootElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TableTHElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TableTHeadElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TableTRElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "WarichuElement",
+      "parent": "StructureElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NamedDestination",
+      "parent": "Aspose.Pdf.Annotations.IAppointment",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NamedDestinationCollection",
+      "parent": "IEnumerable<NamedDestination>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DestinationCollection",
+      "parent": "System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DestinationCollection",
+      "parent": "object>>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OutlineItemCollection",
+      "parent": "OutlineItem",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OutlineItemCollection",
+      "parent": "System.Collections.Generic.IEnumerable<OutlineItemCollection>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OutlineCollection",
+      "parent": "System.Collections.Generic.IEnumerable<OutlineItem>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageLabelCollection",
+      "parent": "IEnumerable<PageLabel>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LayerCollection",
+      "parent": "IReadOnlyList<OptionalContentGroup>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OutputIntents",
+      "parent": "IEnumerable<OutputIntent>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "UnifiedSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SvgSaveOptions",
+      "parent": "UnifiedSaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Page",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Resources",
+      "parent": "PageResources",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "XFormCollection",
+      "parent": "IEnumerable<XForm>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BaseOperatorCollection",
+      "parent": "System.Collections.Generic.IEnumerable<Operator>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OperatorCollection",
+      "parent": "IEnumerable<Operator>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OperatorCollection",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RawOperator",
+      "parent": "Aspose.Pdf.Operators.Operator",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocumentCollection",
+      "parent": "IEnumerable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfQueryPageSettingsEventArgs",
+      "parent": "EventArgs",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StartEndPageEventArgs",
+      "parent": "System.EventArgs",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CustomPrintEventArgs",
+      "parent": "System.EventArgs",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BitString",
+      "parent": "IEquatable<BitString>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Sha3_256",
+      "parent": "HashAlgorithm",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Sha3_384",
+      "parent": "HashAlgorithm",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Sha3_512",
+      "parent": "HashAlgorithm",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FreeFormGouraudShading",
+      "parent": "ShadingBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LatticeFormGouraudShading",
+      "parent": "ShadingBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CoonsPatchShading",
+      "parent": "ShadingBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TensorPatchShading",
+      "parent": "ShadingBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TilingPattern",
+      "parent": "Pattern",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShadingPattern",
+      "parent": "Pattern",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FunctionBasedShading",
+      "parent": "ShadingBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AxialShading",
+      "parent": "ShadingBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RadialShading",
+      "parent": "ShadingBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PageNumberStamp",
+      "parent": "Aspose.Pdf.Stamps.Stamp",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfPageStamp",
+      "parent": "Aspose.Pdf.Stamps.Stamp",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextStamp",
+      "parent": "Stamp",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "WatermarkStamp",
+      "parent": "Stamp",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ElementCollection",
+      "parent": "IEnumerable<Element>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RootElement",
+      "parent": "Element",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StructElement",
+      "parent": "Element",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextElement",
+      "parent": "Element",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FigureElement",
+      "parent": "Element",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TaggedContent",
+      "parent": "ITaggedContent",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TaggedException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FontCollection",
+      "parent": "IEnumerable<Font>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Font",
+      "parent": "FontInfo",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FolderFontSource",
+      "parent": "FontSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FileFontSource",
+      "parent": "FontSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MemoryFontSource",
+      "parent": "FontSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MemoryFontSource",
+      "parent": "IDisposable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SystemFontSource",
+      "parent": "FontSource",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FontSourceCollection",
+      "parent": "System.Collections.Generic.IEnumerable<FontSource>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CustomFontSubstitutionBase",
+      "parent": "FontSubstitution",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SimpleFontSubstitution",
+      "parent": "CustomFontSubstitutionBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FontSubstitutionCollection",
+      "parent": "IReadOnlyCollection<FontSubstitution>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FontSubsetStrategy",
+      "parent": "byte",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FontUtilities",
+      "parent": "Document.IDocumentFontUtilities",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AbsorbedCell",
+      "parent": "IComparable<AbsorbedCell>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OneBasedList",
+      "parent": "IReadOnlyList<T>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AbsorbedRow",
+      "parent": "IComparable<AbsorbedRow>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AbsorbedTable",
+      "parent": "IComparable<AbsorbedTable>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextEditOptions",
+      "parent": "TextOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CharInfoCollection",
+      "parent": "System.Collections.Generic.IEnumerable<CharInfo>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextSegmentCollection",
+      "parent": "System.Collections.Generic.IEnumerable<TextSegment>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextFragment",
+      "parent": "BaseParagraph",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextFragmentCollection",
+      "parent": "System.Collections.Generic.IEnumerable<TextFragment>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextFragmentState",
+      "parent": "TextState",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextStamp",
+      "parent": "Stamps.TextStamp",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SubPath",
+      "parent": "GraphicElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GraphicElementCollection",
+      "parent": "IEnumerable<GraphicElement>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Metadata",
+      "parent": "IDictionary<string",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Metadata",
+      "parent": "XmpValue>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XmpPdfAExtensionField",
+      "parent": "XmpPdfAExtensionObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "XmpPdfAExtensionProperty",
+      "parent": "XmpPdfAExtensionField",
+      "relationship": "inherits",
+      "internal": true
+    }
+  ],
+  "formats": {
+    "import": [
+      "Pdf",
+      "HTML",
+      "SVG",
+      "MD",
+      "TXT",
+      "Asn1",
+      "Md",
+      "Svg",
+      "Txt",
+      "Html",
+      "Jpeg",
+      "Packet"
+    ],
+    "export": [
+      "Pdf",
+      "Pdf",
+      "Html",
+      "Tiff",
+      "Svg",
+      "Asn1",
+      "Bmp",
+      "Gif",
+      "Jpeg",
+      "IPage",
+      "Null",
+      "Svg",
+      "Text",
+      "Tiff",
+      "Xfa",
+      "Html",
+      "Jpeg",
+      "Pdf",
+      "Unified",
+      "Svg"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "dotnet add package aspose.pdf.foss",
+    "version": "26.7.0"
+  },
+  "not_implemented": [
+    "TiffDevice.BinarizeBradley",
+    "DocumentCollection"
+  ],
+  "forbidden_claims": [
+    "supports TiffDevice.BinarizeBradley",
+    "supports DocumentCollection"
+  ],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 854,
+    "with_methods": 564,
+    "with_properties": 587,
+    "with_enums": 186,
+    "method_pct": 66.0,
+    "property_pct": 68.7,
+    "surface_tier": 2
+  },
+  "snippets_coverage": {
+    "total_snippets": 100,
+    "classes_with_snippet": 73,
+    "classes_total": 854,
+    "coverage_ratio": 0.09,
+    "effective_denominator": 820,
+    "concrete_coverage": {
+      "classes_total": 807,
+      "classes_with_snippet": 73,
+      "coverage_ratio": 0.09
+    },
+    "interface_coverage": {
+      "classes_total": 13,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

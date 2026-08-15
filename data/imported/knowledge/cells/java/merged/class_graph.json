@@ -1,0 +1,116 @@
+[
+  {
+    "child": "InvalidFileFormatException",
+    "parent": "CellsException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FilterColumnCollection",
+    "parent": "Iterable<FilterColumn>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FilterValueCollection",
+    "parent": "Iterable<String>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "AutoFilterSortConditionCollection",
+    "parent": "Iterable<AutoFilterSortCondition>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "AutoFilterCustomFilterCollection",
+    "parent": "Iterable<AutoFilterCustomFilter>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "CellsException",
+    "parent": "RuntimeException",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "DefinedNameCollection",
+    "parent": "Iterable<DefinedName>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FormulaException",
+    "parent": "CellsException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ListColumnCollection",
+    "parent": "Iterable<ListColumn>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "StyleException",
+    "parent": "CellsException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "UnsupportedFeatureException",
+    "parent": "CellsException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Workbook",
+    "parent": "AutoCloseable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "WorkbookLoadException",
+    "parent": "CellsException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "WorkbookSaveException",
+    "parent": "CellsException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "WorksheetCollection",
+    "parent": "Iterable<Worksheet>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "MissingPartException",
+    "parent": "PackageStructureException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PackageStructureException",
+    "parent": "RuntimeException",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "RelationshipResolutionException",
+    "parent": "PackageStructureException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "XmlParsingException",
+    "parent": "RuntimeException",
+    "relationship": "inherits",
+    "internal": false
+  }
+]

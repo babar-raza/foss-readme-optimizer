@@ -1,0 +1,151 @@
+{
+  "schema_version": 2,
+  "family": "email",
+  "platform": "python",
+  "display_name": "Aspose.Email",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "scout_claims": 303,
+    "enriched_claims": 0,
+    "supplemental_claims": 0,
+    "total_claims": 303,
+    "class_count": 30,
+    "forbidden_count": 0,
+    "snippet_count": 21
+  },
+  "classes": [
+    "CFBDocument",
+    "CFBError",
+    "CFBReader",
+    "CFBStorage",
+    "CFBStream",
+    "CFBWriter",
+    "CommonMessagePropertyId",
+    "DirectoryColorFlag",
+    "DirectoryEntry",
+    "DirectoryObjectType",
+    "Header",
+    "MapiAttachment",
+    "MapiMessage",
+    "MapiNamedProperty",
+    "MapiProperty",
+    "MapiPropertyCollection",
+    "MapiRecipient",
+    "MsgDocument",
+    "MsgError",
+    "MsgReader",
+    "MsgStorage",
+    "MsgStream",
+    "MsgWriter",
+    "PropertyEntryFixedLength",
+    "PropertyId",
+    "PropertyStreamHeaderSubobject",
+    "PropertyStreamHeaderTopLevel",
+    "PropertyTypeCode",
+    "SectorMarker",
+    "StorageLayout"
+  ],
+  "class_graph": [
+    {
+      "child": "CFBError",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MsgError",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SectorMarker",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DirectoryObjectType",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DirectoryColorFlag",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PropertyId",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CommonMessagePropertyId",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PropertyTypeCode",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    }
+  ],
+  "formats": {
+    "import": [
+      "CFB",
+      "Msg",
+      "eml"
+    ],
+    "export": [
+      "CFB",
+      "CFB",
+      "Msg",
+      "eml"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "pip install aspose-email-foss",
+    "version": "26.3"
+  },
+  "not_implemented": [],
+  "forbidden_claims": [],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 30,
+    "with_methods": 16,
+    "with_properties": 19,
+    "with_enums": 8,
+    "method_pct": 53.3,
+    "property_pct": 63.3,
+    "surface_tier": 2
+  },
+  "snippets_coverage": {
+    "total_snippets": 21,
+    "classes_with_snippet": 17,
+    "classes_total": 30,
+    "coverage_ratio": 0.57,
+    "effective_denominator": 28,
+    "concrete_coverage": {
+      "classes_total": 28,
+      "classes_with_snippet": 15,
+      "coverage_ratio": 0.54
+    },
+    "interface_coverage": {
+      "classes_total": 0,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

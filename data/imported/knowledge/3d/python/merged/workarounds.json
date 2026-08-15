@@ -1,0 +1,9 @@
+[
+  {
+    "class": "Mesh",
+    "private_member": "_control_points",
+    "reason": "No public mutation API exists for adding vertices. The control_points property returns a defensive copy (list(self._control_points)), so appending to it is a no-op. Direct access to _control_points is the only way to build mesh geometry programmatically.",
+    "tracking": "TC-HCR-002B",
+    "added": "2026-05-19"
+  }
+]

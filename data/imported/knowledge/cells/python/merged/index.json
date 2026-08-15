@@ -1,0 +1,330 @@
+{
+  "schema_version": 2,
+  "family": "cells",
+  "platform": "python",
+  "display_name": "Aspose.Cells",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "26c3bd1633e84b91c0f6fad1fd353662fd61fb54",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "class_count": 128,
+    "enriched_claims": 1068,
+    "forbidden_count": 5,
+    "scout_claims": 1314,
+    "snippet_count": 100,
+    "supplemental_claims": 0,
+    "total_claims": 2381
+  },
+  "classes": [
+    "AgileEncryptionParameters",
+    "Alignment",
+    "AutoFilter",
+    "AutoFilterXMLLoader",
+    "AutoFilterXMLWriter",
+    "Border",
+    "Borders",
+    "CFBReader",
+    "CSVHandler",
+    "CSVLoadOptions",
+    "CSVSaveOptions",
+    "CalculationProperties",
+    "Cell",
+    "CellValueHandler",
+    "Cells",
+    "Chart",
+    "ChartAxis",
+    "ChartCollection",
+    "ChartErrorBars",
+    "ChartSeries",
+    "ChartType",
+    "ChartView3D",
+    "ChartXmlLoader",
+    "ChartXmlSaver",
+    "CipherAlgorithm",
+    "CommentXMLReader",
+    "CommentXMLWriter",
+    "ConditionalFormat",
+    "ConditionalFormatCollection",
+    "ConditionalFormatXMLLoader",
+    "ConditionalFormatXMLWriter",
+    "CoreProperties",
+    "DataValidation",
+    "DataValidationAlertStyle",
+    "DataValidationCollection",
+    "DataValidationImeMode",
+    "DataValidationOperator",
+    "DataValidationType",
+    "DataValidationXmlLoader",
+    "DataValidationXmlSaver",
+    "DefinedName",
+    "DefinedNameCollection",
+    "DocumentProperties",
+    "EncryptionParameters",
+    "EncryptionType",
+    "EncryptionVerifier",
+    "ExtendedProperties",
+    "FileVersion",
+    "Fill",
+    "FillType",
+    "FilterColumn",
+    "Font",
+    "FormulaEvaluator",
+    "HashAlgorithm",
+    "HeaderFooter",
+    "HorizontalPageBreakCollection",
+    "Hyperlink",
+    "HyperlinkRelationshipWriter",
+    "HyperlinkXMLLoader",
+    "HyperlinkXMLSaver",
+    "Hyperlinks",
+    "JsonHandler",
+    "JsonSaveOptions",
+    "MarkdownHandler",
+    "MarkdownSaveOptions",
+    "MinimalCFBWriter",
+    "MsoDrawingType",
+    "MsoFillFormat",
+    "MsoLineDashStyle",
+    "MsoLineFormat",
+    "NSeries",
+    "NumberFormat",
+    "PackageEncryption",
+    "PageMargins",
+    "PageSetup",
+    "Pane",
+    "PasswordDerivation",
+    "Picture",
+    "PictureCollection",
+    "PictureXmlLoader",
+    "PictureXmlSaver",
+    "PrintOptions",
+    "Protection",
+    "SaveFormat",
+    "Selection",
+    "Shape",
+    "ShapeCollection",
+    "ShapeFont",
+    "ShapeXmlLoader",
+    "ShapeXmlSaver",
+    "SharedStringTable",
+    "SheetFormatProperties",
+    "SheetProtection",
+    "SheetProtectionDictWrapper",
+    "SheetView",
+    "Sparkline",
+    "SparklineEmptyCells",
+    "SparklineGroup",
+    "SparklineGroupCollection",
+    "SparklineType",
+    "SparklineXmlLoader",
+    "SparklineXmlSaver",
+    "StandardEncryptionParameters",
+    "Style",
+    "Table",
+    "TableCollection",
+    "TableColumn",
+    "TableStyleInfo",
+    "TableXmlLoader",
+    "TableXmlSaver",
+    "TextAlignmentType",
+    "TextAnchorType",
+    "VerticalPageBreakCollection",
+    "Workbook",
+    "WorkbookPr",
+    "WorkbookProperties",
+    "WorkbookPropertiesXMLLoader",
+    "WorkbookPropertiesXMLWriter",
+    "WorkbookProtection",
+    "WorkbookView",
+    "Worksheet",
+    "WorksheetProperties",
+    "WorksheetPropertiesXMLLoader",
+    "WorksheetPropertiesXMLWriter",
+    "XLSXDecryptor",
+    "XLSXEncryptor",
+    "XMLLoader",
+    "XMLSaver"
+  ],
+  "class_graph": [
+    {
+      "child": "ChartType",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DataValidationType",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DataValidationOperator",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DataValidationAlertStyle",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DataValidationImeMode",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EncryptionType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CipherAlgorithm",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "HashAlgorithm",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AgileEncryptionParameters",
+      "parent": "EncryptionParameters",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StandardEncryptionParameters",
+      "parent": "EncryptionParameters",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MsoDrawingType",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillType",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MsoLineDashStyle",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextAlignmentType",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextAnchorType",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SparklineType",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SparklineEmptyCells",
+      "parent": "IntEnum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SaveFormat",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    }
+  ],
+  "formats": {
+    "import": [
+      "CSV",
+      "xlsx"
+    ],
+    "export": [
+      "CSV",
+      "Json",
+      "Markdown",
+      "XLSX",
+      "CSV",
+      "MARKDOWN",
+      "JSON",
+      "csv",
+      "markdown",
+      "xlsx",
+      "xlsx",
+      "csv",
+      "markdown",
+      "json"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "pip install aspose-cells-foss",
+    "version": "26.7.0"
+  },
+  "not_implemented": [
+    "ChartXmlSaver._format_chart_xml",
+    "CFBReader._parse_standard_encryption_info",
+    "ChartCollection.add",
+    "XLSXEncryptor._encrypt_package",
+    "XLSXDecryptor._decrypt_package"
+  ],
+  "forbidden_claims": [
+    "supports ChartXmlSaver._format_chart_xml",
+    "supports CFBReader._parse_standard_encryption_info",
+    "supports ChartCollection.add",
+    "supports XLSXEncryptor._encrypt_package",
+    "supports XLSXDecryptor._decrypt_package"
+  ],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 128,
+    "with_methods": 115,
+    "with_properties": 82,
+    "with_enums": 22,
+    "method_pct": 89.8,
+    "property_pct": 64.1,
+    "surface_tier": 1
+  },
+  "snippets_coverage": {
+    "total_snippets": 100,
+    "classes_with_snippet": 22,
+    "classes_total": 128,
+    "coverage_ratio": 0.17,
+    "effective_denominator": 128,
+    "concrete_coverage": {
+      "classes_total": 128,
+      "classes_with_snippet": 22,
+      "coverage_ratio": 0.17
+    },
+    "interface_coverage": {
+      "classes_total": 0,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

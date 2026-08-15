@@ -1,0 +1,1003 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "Pure-Python font workflow automation for teams that need to prepare, review, package, and explain fonts without native runtime dependencies.",
+    "salient_tokens": [
+      "pure-Python"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Tagline restating the product's core framing (pure-Python, no native dependencies, prepare/review/package fonts); already covered by the Intro paragraph's own framing.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'a free, open-source, pure-Python library for loading, inspecting, converting, subsetting, and previewing fonts... with no native OS font-library dependencies.' Same core claim."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Core tagline already present, in equivalent form, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "Use it when you need deployable web-font packages, visual review assets, variable-font instances, and QA evidence from scripts, CI, or local CLI workflows.",
+    "salient_tokens": [
+      "QA",
+      "CI",
+      "CLI"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Use-case framing whose underlying facts (web-font packages, variable-font instances, QA evidence, CLI workflows) are all already present as concrete Key Capabilities bullets.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities already covers web bundles (WebFontBuilder), variable-font instancing (SmartInstancer), and QA/compatibility reports (FontQaReporter, CompatibilityChecker, DeltaInspector), all also available through the CLI."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Underlying use-case facts already present as concrete bullets in Key Capabilities."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "Public GitHub repository: [aspose-font-foss/Aspose.Font-FOSS-for-Python](https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python)",
+    "salient_tokens": [
+      "GitHub",
+      "FOSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Repository identity already present via the Installation section's git clone URL (identical repo) and the badge row's contributors link.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'git clone https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python.git' -- identical repository."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Repository URL already present, identically, in the Installation section."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "| Workflow | Output |\n| --- | --- |\n| Optimize fonts for the web | WOFF2/WOFF files, CSS, specimen HTML, JSON manifests, coverage diagnostics, variable-font export-mode explanations, and fallback reasons. |\n| Review font quality | Font QA Reports as JSON/HTML/PNG package deliverables, compatibility reports, delta reports, and visual boards for release decisions. |\n| Create release-safe variable instances | Static instance fonts with naming strategies, optional STAT metadata, custom family suffixes, family review boards, and handoff manifests. |\n| Generate visual proof | PNG/SVG previews, axis-grid sheets, before/after comparisons, APNG animations, storyboard packages, and showcase outputs. |\n| Automate font operations | Python APIs, CLI commands, and optional MCP tools over the same pure-Python engine. |",
+    "salient_tokens": [
+      "WOFF2",
+      "WOFF",
+      "CSS",
+      "HTML",
+      "JSON",
+      "QA",
+      "PNG",
+      "STAT",
+      "SVG",
+      "APNG",
+      "APIs",
+      "CLI",
+      "MCP"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "A by-workflow summary table whose underlying facts are the same ones already stated by-capability across the candidate's Key Capabilities bullets (web bundles, QA reports, static instancing with naming strategies, previews/animation, Python/CLI/MCP automation). The 'export-mode explanations and fallback reasons' and STAT-metadata/naming-strategy/manifest granularity are separately assessed and recovered where genuinely new (see u0015, u0026, u0039, u0045).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullets already state: WOFF2/WOFF web bundles, QA/compatibility reports, static instance export, APNG animation sweeps/showcase packages, PNG/SVG previews, and Python/CLI/MCP parity -- the same five workflow rows, reframed by capability instead of by workflow."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Same underlying facts already present, reframed by-capability, across Key Capabilities; specific granular gaps recovered separately (see u0015/u0026/u0039/u0045)."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Pure Python: no native font-tooling runtime dependency for local scripts or CI.",
+    "salient_tokens": [
+      "CI"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'It runs on Python 3.10 or later with no native OS font-library dependencies.' Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Dependency-shape fact already present, near-verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Business artifacts first: packages, reports, manifests, previews, and review boards.",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Positioning bullet whose underlying artifact types (packages, reports, manifests, previews, review boards) are all concretely named in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities names WOFF2/WOFF packages, QA reports, manifests (via WebFontBundle), PNG/SVG previews, and review/showcase packages -- the same artifact types."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Underlying artifact types already named concretely in Key Capabilities."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Variable-font aware: axes, named instances, static/live web modes, naming policies, and QA diagnostics.",
+    "salient_tokens": [
+      "QA"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Positioning bullet whose underlying facts (axes, named instances, static instancing, QA diagnostics) are already present in Key Capabilities; the 'static/live web modes' and 'naming policies' granularity is recovered separately where genuinely new (see u0026, u0039).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Explore variable-font axes and named instances, and export static instances with SmartInstancer / TtfFont.instantiate()' plus the QA/compatibility bullet."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Underlying variable-font-aware facts already present in Key Capabilities; granular gaps recovered separately (see u0026/u0039)."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Broad format coverage: TrueType, OpenType, CFF, Type 1, WOFF, WOFF2, and EOT.",
+    "salient_tokens": [
+      "TrueType",
+      "OpenType",
+      "CFF",
+      "WOFF",
+      "WOFF2",
+      "EOT"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Format list already present, verbatim, in the candidate Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'across the TrueType, OpenType, CFF, Type 1, WOFF, WOFF2, and EOT formats.' Verbatim match."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Format list already present, verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Built for automation: Python, CLI, and optional MCP surfaces share the same capabilities.",
+    "salient_tokens": [
+      "CLI",
+      "MCP"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the Intro paragraph and restated in Key Capabilities' final bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'exposes the same capabilities through a Python API, a bundled aspose-font command-line tool, and an optional MCP server.' Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Automation-parity fact already present, near-verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "Install MCP support only when you want the built-in server surface:",
+    "salient_tokens": [
+      "MCP"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Transitional sentence introducing the optional-install command; the same optionality is already conveyed by the candidate Installation section's own equivalent transitional sentence and 'optional' framing.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'Install with MCP server support:' immediately followed by the pip install command with the [mcp] extra -- same optional-install mechanism."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Equivalent transitional sentence and optional-install mechanism already present in Installation."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "Build a web handoff package:",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Purely transitional filler sentence introducing a code example, with no independent factual claim to verify.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure transitional/structural filler."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure transitional/structural filler with no checkable factual content of its own."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "Generate QA evidence:",
+    "salient_tokens": [
+      "QA"
+    ],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Purely transitional filler sentence introducing a Python code example (FontQaReporter.build_package(...) writing a 'qa-package' directory); the underlying build_package()/FontQaPackage mechanism it introduces is already fully documented in API Reference and demonstrated via the CLI equivalent in Additional Examples ('Generate a QA Report').",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No independent source claim to verify beyond the already-documented build_package()/FontQaPackage mechanism -- transitional filler, matching the treatment of this product's other bare code-example lead-ins (e.g. 'Build a web handoff package:', 'Create a release-safe static instance:'). Confirmed build_package is a real method at src/aspose_font/qa.py."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure transitional/structural filler with no independent checkable content; the FontQaReporter.build_package() mechanism it introduces is already documented in API Reference and demonstrated via the CLI in Additional Examples."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "Create a release-safe static instance:",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Purely transitional filler sentence introducing a code example, with no independent factual claim to verify.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure transitional/structural filler."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure transitional/structural filler with no checkable factual content of its own."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "These fixture-backed examples mirror the generated demo site and show the kinds of artifacts the library produces.",
+    "salient_tokens": [
+      "artifacts"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Serves the same purpose (introducing real generated visual artifacts) as the candidate's own 'Example Output' intro sentence in Additional Examples; the 'fixture-backed'/'mirrors the demo site' detail is internal test-process narration, not reader-facing product fact.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples 'Example Output': 'The QA/compatibility reporter and family review board produce real visual artifacts, not just text -- for example:' Same functional purpose, without the internal fixture/demo-site process detail."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Same functional purpose already served by the Additional Examples 'Example Output' intro; the fixture/demo-site detail is internal process narration."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "`WebFontBuilder` and the `web-build` CLI produce browser-ready files plus machine-readable evidence:",
+    "salient_tokens": [
+      "WebFontBuilder",
+      "web-build",
+      "CLI"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "WebFontBuilder and CLI parity already stated in Key Capabilities' final bullet and demonstrated throughout API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Produce WOFF2/WOFF web bundles with WebFontBuilder... all also available through the bundled aspose-font CLI or the optional MCP server.'"
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "WebFontBuilder/CLI mechanism already stated in Key Capabilities."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "The manifest records export mode, source/output variable status, coverage diagnostics, naming choices, and STAT policy guidance when applicable.",
+    "salient_tokens": [
+      "STAT"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable manifest-content fact that is genuinely missing -- the candidate API Reference names WebFontBundle's manifest field only as generic 'dict[str, object]' without stating what it actually records.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_font/web.py",
+      "evidence_note": "web.py's manifest-building code sets a real 'export_mode' key (values include 'static', 'static-instance', 'variable-live', 'static-subset-from-variable-default', 'static-subset-from-instance' -- grepped export_mode assignments directly). Grepped candidate readme.md for 'export_mode'/'export mode' before this edit: zero matches -- genuinely missing."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "`FontQaReporter.build_package(...)` and `qa-report --package-output` produce a review folder with JSON, HTML, and a preview PNG:",
+    "salient_tokens": [
+      "FontQaReporter.build_package(...)",
+      "qa-report --package-output",
+      "FontQaReporter",
+      "JSON",
+      "HTML",
+      "PNG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "FontQaReporter.build_package's JSON/HTML/preview-PNG package output is already fully documented in API Reference; the specific `--package-output` CLI flag name is a minor variant of the already-demonstrated qa-report CLI example and not independently significant enough to merit its own recovery.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'FontQaReporter.build_package(font, output_dir, ...) -> FontQaPackage' and 'FontQaPackage: report, directory, json_path, html_path, preview_path, artifacts' -- same JSON/HTML/preview-PNG package shape already documented."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "build_package's JSON/HTML/preview-PNG output already fully documented in the API Reference FontQaPackage entry."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "![Font QA Report summary](./website/generated/roboto-qa-report-summary.svg)",
+    "salient_tokens": [
+      "QA"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Identical image already embedded, verbatim, in the candidate Additional Examples section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: '![Font QA Report summary](./website/generated/roboto-qa-report-summary.svg)' -- identical image reference, confirmed still a real file at that path in the clone cache."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Identical image already embedded, verbatim, in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "Generate approval-ready boards for selected named instances:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Transitional sentence introducing the family review board image; the underlying capability (FamilyReviewExportPackage, SmartInstancer.build_family_review_board) is already documented in API Reference and the resulting image already embedded in Additional Examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'FamilyReviewExportPackage.write_to(directory) creates a set of HTML, CSS, and manifest files for a font family' and SmartInstancer.build_family_review_board(...) -- same capability already documented; the resulting image is already embedded in Additional Examples."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Underlying capability already documented in API Reference; resulting image already embedded in Additional Examples."
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "![Family review board](./website/generated/roboto-family-review-board.png)",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Identical image already embedded, verbatim, in the candidate Additional Examples section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: '![Family review board](./website/generated/roboto-family-review-board.png)' -- identical image reference, confirmed still a real file at that path in the clone cache."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Identical image already embedded, verbatim, in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "Show how a variable font behaves across weight and width:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Transitional sentence for an axis-grid preview image; the underlying axis-grid capability (SmartInstancer.resolve_axis_grid) is already documented in API Reference, even though this specific generated image was dropped from the candidate.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'SmartInstancer.resolve_axis_grid(...) -> list[ResolvedInstance]' -- the axis-grid-across-weight-and-width capability is already documented, even though the specific roboto-axis-grid.png image (confirmed still a real file in the clone cache) is not re-embedded."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Underlying axis-grid capability already documented in API Reference (SmartInstancer.resolve_axis_grid); the specific dropped image is a cosmetic, not substantive, gap."
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "![Axis grid preview](./website/generated/roboto-axis-grid.png)",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The underlying axis-grid capability this image demonstrates is already documented (see u0020); the specific image file was dropped from the candidate but this is a cosmetic gap, not a substantive one -- the file itself is confirmed real and still present in the clone cache.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "File confirmed to exist at runs/.clone_cache/aspose_font_python/website/generated/roboto-axis-grid.png; the capability it demonstrates (SmartInstancer.resolve_axis_grid) is already documented in API Reference even though this specific image is not re-embedded."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Underlying capability already documented; the dropped image itself is a cosmetic gap noted for the record, not recovered as a merge (image embeds are not a valid merge target section)."
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "Inspect how outlines change between variable-font instances:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Transitional sentence for a delta-comparison image; the underlying delta/difference-comparison capability (FontPreviewBuilder.compose_difference_preview/compose_overlay_preview, DeltaInspector) is already documented in API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'FontPreviewBuilder.compose_difference_preview(before, after, ...) -> PreviewImage, compose_overlay_preview(...) -> PreviewImage' and the full DeltaInspector entry -- the outline-delta-inspection capability is already documented."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Underlying delta/difference-comparison capability already documented in API Reference."
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "![Delta comparison board](./website/generated/roboto-delta-compare.png)",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The underlying delta-comparison capability this image demonstrates is already documented (see u0022); the specific image file was dropped from the candidate but this is a cosmetic gap -- the file is confirmed real and still present in the clone cache.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "File confirmed to exist at runs/.clone_cache/aspose_font_python/website/generated/roboto-delta-compare.png; the capability it demonstrates is already documented in API Reference."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Underlying capability already documented; the dropped image itself is a cosmetic gap noted for the record."
+  },
+  {
+    "unit_id": "u0025",
+    "source": "clone_cache/README.md",
+    "excerpt": "Create APNG sweeps, scripted paths, frame packages, review bundles, and showcase folders:",
+    "salient_tokens": [
+      "APNG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Transitional sentence for an animation-sweep image; the underlying animation-sweep capability is already documented in Key Capabilities and API Reference, and additionally demonstrated with a real, runnable Python example (Build a Variable-Font Axis-Sweep Animation) producing an equivalent output.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Build APNG animation sweeps, scripted animation paths, frame-sequence packages, review bundles, and showcase packages...' -- same APNG animation-sweep capability. Additional Examples' 'Build a Variable-Font Axis-Sweep Animation' also demonstrates AnimationPreviewBuilder.build_axis_sweep(...) producing 'roboto-sweep-wdth.png', a real runnable equivalent to the old README's static animation-sweep image."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Underlying APNG animation-sweep capability already documented in Key Capabilities and demonstrated with a real runnable example producing an equivalent artifact."
+  },
+  {
+    "unit_id": "u0026",
+    "source": "clone_cache/README.md",
+    "excerpt": "![Variable font animation sweep](./website/generated/roboto-animation-sweep.png)",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The underlying animation-sweep capability this image demonstrates is already documented and demonstrated with an equivalent runnable example (see u0024); the specific image file was dropped from the candidate but this is a cosmetic gap -- the file is confirmed real and still present in the clone cache.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "File confirmed to exist at runs/.clone_cache/aspose_font_python/website/generated/roboto-animation-sweep.png; the capability it demonstrates is already documented and demonstrated with a real runnable equivalent example in Additional Examples."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Underlying capability already documented and demonstrated with a runnable equivalent; the dropped image itself is a cosmetic gap noted for the record."
+  },
+  {
+    "unit_id": "u0027",
+    "source": "clone_cache/README.md",
+    "excerpt": "| Area | What You Can Do Now |\n| --- | --- |\n| Load and inspect | Open TTF, OTF, CFF, Type 1, WOFF, WOFF2, and EOT fonts from paths, bytes, or streams; inspect names, metrics, encodings, glyphs, kerning, and loader source metadata. |\n| Convert | Convert between desktop and web-facing formats in pure Python. |\n| Clean metadata | Strip legacy sfnt metadata tables and old Mac `name` records before web or distribution export. |\n| Subset | Build smaller fonts from text, glyph IDs, codepoints, or web-oriented preset groups including Latin, Cyrillic, Greek, Hebrew, Arabic, Devanagari, and Thai. |\n| Preview | Generate PNG and SVG previews, APNG animation sweeps, scripted animation frame packages, preview batches, axis sweeps, specimen sheets, and before/after comparison boards with diff and overlay panels. |\n| Variable fonts | Explore axes and named instances, resolve coordinates, suggest guided preset grids, instantiate static outputs with `HVAR`-aware widths, and auto-name exported instances with multiple naming policies plus optional custom family suffixes such as `Beta` or `Web`. |\n| Web packaging | Emit WOFF2/WOFF bundles, JSON manifests, CSS, specimen HTML with reusable templates and live variable-axis sliders, navigable family packages with style filters, comparative preview artifacts, reusable family review export packs for docs and marketing handoff, variable-font subset flows that fall back to a clear static export mode when needed, explicit `auto`/`live`/`static` variable export selection, configurable naming strategies, family suffix controls, opt-in static STAT metadata, and coordinate-aware axis-grid web bundles or shared packages for custom sweeps. |\n| QA workflows | Generate Font QA Reports as JSON/HTML deliverables, run compatibility checks with richer shape and interpolation diagnostics, and create Delta Inspector reports/boards with overlay, glyph-diagram, component-aware composite diagnostics, and richer text-level comparison review cards for variable-font review. |\n| Animation | Export APNG sweeps and scripted paths with presets, easing controls, baked frame captions, frame-sequence packages, presentation-ready review bundles, and showcase packages that bundle APNG, storyboard, landing HTML, and manifests for downstream sharing. |\n| Automation | Use the CLI directly or expose the library through the built-in MCP server, including machine-readable variable-font compatibility reports. |",
+    "salient_tokens": [
+      "name",
+      "HVAR",
+      "Beta",
+      "Web",
+      "auto",
+      "live",
+      "static",
+      "TTF",
+      "OTF",
+      "CFF",
+      "WOFF",
+      "WOFF2",
+      "EOT",
+      "IDs",
+      "PNG",
+      "SVG",
+      "APNG",
+      "JSON",
+      "CSS",
+      "HTML",
+      "STAT",
+      "QA",
+      "CLI",
+      "MCP"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031-style partial merge: this large table's rows are almost entirely already covered by Key Capabilities and API Reference, EXCEPT the explicit `auto`/`live`/`static` variable-export-mode selection value list for web packaging, which is genuinely missing (API Reference names `variable_mode` as a bare parameter without its three real values). Reclassified to carry forward only that specific new fact.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_font/web.py",
+      "evidence_note": "web.py: WebFontBuilder.build's variable_mode parameter defaults to 'auto' and is normalized via _normalize_variable_export_mode; forcing logic checks variable_mode == 'static' / 'live' explicitly -- confirms exactly three real values: auto, live, static. Grepped candidate readme.md for 'variable_mode' values before this edit: only the bare parameter name appeared, never its three values -- genuinely missing. The rest of the table (load/inspect, convert, clean, subset, preview, HVAR-aware instancing, naming policies, QA, animation, automation) is independently verified redundant against Key Capabilities and API Reference, which already state every other row's substance."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0028",
+    "source": "clone_cache/README.md",
+    "excerpt": "The current roadmap is centered on variable fonts. The strongest surface area today is the combination of:",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Self-assessment/editorializing framing sentence introducing a sub-list ('the strongest surface area today') -- nothing independently checkable in the sentence itself beyond the volume of variable-font content that already exists in Key Capabilities/API Reference.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No independent source claim to verify -- editorializing/roadmap framing, not a checkable fact."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Editorializing/roadmap-framing prose with nothing independently checkable of its own."
+  },
+  {
+    "unit_id": "u0029",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `font.axes`, `font.named_instances`, and `font.smart_instancer`",
+    "salient_tokens": [
+      "axes",
+      "named_instances",
+      "smart_instancer"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Member names already present, verbatim, in the candidate API Reference Variable Fonts subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'axes: list[AxisRecord], named_instances: list[NamedInstance]' and 'smart_instancer' on TtfFont -- same three members."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Member names already present, verbatim, in the API Reference section."
+  },
+  {
+    "unit_id": "u0030",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `font.variable_axes` with labels, presets, and presentation metadata for common axes",
+    "salient_tokens": [
+      "variable_axes"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "variable_axes member and its labels/presets/presentation-metadata capabilities already present in the API Reference Variable Fonts subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'variable_axes: list[VariableAxis]' plus 'VariableAxis: localized_labels(...), ..., to_presentation(...)' and a dedicated VariableAxisPreset entry."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "variable_axes member and its labels/presets/presentation metadata already present in the API Reference section."
+  },
+  {
+    "unit_id": "u0031",
+    "source": "clone_cache/README.md",
+    "excerpt": "- additive axis summaries such as `axis.range_summary`, `axis.default_ratio`, and preset-aware `axis.describe_value(...)`",
+    "salient_tokens": [
+      "range_summary",
+      "default_ratio"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "describe_value(...) is already documented, but range_summary and default_ratio are real VariableAxis properties genuinely missing from the API Reference member list.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_font/variation.py",
+      "evidence_note": "variation.py defines 'def range_summary(self) -> str' (line ~673) and 'def default_ratio(self) -> float | None' (line ~553) as real VariableAxis properties. Grepped candidate readme.md for 'range_summary'/'default_ratio' before this edit: zero matches -- genuinely missing; describe_value(...) is already listed."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0032",
+    "source": "clone_cache/README.md",
+    "excerpt": "- locale-aware axis and named-instance labels through `axis.name(...)`, `instance.name(...)`, and `var-info --language`",
+    "salient_tokens": [
+      "name(language"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "The `name(language=...)` method is a real, distinct member (separate from the already-documented localized_labels) genuinely missing from the API Reference; the `var-info --language` CLI flag detail is a minor variant of the already-covered var-info CLI command and not independently merged.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_font/variation.py",
+      "evidence_note": "variation.py defines 'def name(self, language: str | tuple[str, ...] = \"en\") -> str | None' on both VariableAxis (line ~594) and VariableInstance (line ~784) -- a real, distinct single-label accessor separate from localized_labels(...) (which returns the full ordered inventory). Grepped candidate readme.md for '.name(language' before this edit: zero matches -- genuinely missing."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0033",
+    "source": "clone_cache/README.md",
+    "excerpt": "- ordered localization inventory through `axis.localized_labels(...)`, `instance.localized_labels(...)`, and broader common `name`-table locale coverage",
+    "salient_tokens": [
+      "axis.localized_labels(...)",
+      "instance.localized_labels(...)",
+      "name"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "localized_labels already present, verbatim, on both VariableAxis and VariableInstance in the API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'VariableAxis: localized_labels(...)...' and 'VariableInstance: localized_labels(...)...' -- verbatim match on both."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "localized_labels already present, verbatim, on both VariableAxis and VariableInstance in the API Reference section."
+  },
+  {
+    "unit_id": "u0034",
+    "source": "clone_cache/README.md",
+    "excerpt": "- display-ready requested-language profile payloads through `axis.language_profiles(...)`, `instance.language_profiles(...)`, and `font.variable_presentation(...)`",
+    "salient_tokens": [
+      "language_profiles"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "font.variable_presentation(...) is already documented, but language_profiles(...) is a real, distinct method on both VariableAxis and VariableInstance genuinely missing from the API Reference member list.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_font/variation.py",
+      "evidence_note": "variation.py defines 'def language_profiles(self, ...)' on both VariableAxis (line ~634) and VariableInstance (line ~821), each delegating to build_language_profiles(...). Grepped candidate readme.md for 'language_profiles' before this edit: zero matches -- genuinely missing; font.variable_presentation(...) is already listed on TtfFont."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0035",
+    "source": "clone_cache/README.md",
+    "excerpt": "- axis-aware named-instance coordinate labels through `instance.format_coordinates(...)` and richer `var-info` output",
+    "salient_tokens": [
+      "format_coordinates"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "format_coordinates(...) is a real, distinct VariableInstance method genuinely missing from the API Reference member list.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_font/variation.py",
+      "evidence_note": "variation.py defines 'def format_coordinates(self, ...)' on VariableInstance (line ~832), used internally by name() (line ~873) to render coordinate labels. Grepped candidate readme.md for 'format_coordinates' before this edit: zero matches -- genuinely missing."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0036",
+    "source": "clone_cache/README.md",
+    "excerpt": "- JSON-ready Axes Explorer snapshots through `axis.to_presentation(...)`, `instance.to_presentation(...)`, `font.variable_presentation(...)`, and `var-info --json-output`; see `docs/variable-presentation-schema.md` for the stable integration contract",
+    "salient_tokens": [
+      "axis.to_presentation(...)",
+      "instance.to_presentation(...)",
+      "font.variable_presentation(...)",
+      "var-info --json-output",
+      "docs/variable-presentation-schema.md",
+      "JSON"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "to_presentation(...) and variable_presentation(...) are already documented in API Reference. The docs/variable-presentation-schema.md pointer is STALE and deliberately not recovered: the docs/ directory does not exist anywhere in the current clone cache.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_font/variation.py",
+      "evidence_note": "API Reference already lists 'to_presentation(...)' on VariableAxis/VariableInstance/VariableAxisPreset and 'variable_presentation(preferred_languages, include_suggested_values) -> dict[str, object]' on TtfFont. Checked for docs/variable-presentation-schema.md in the clone cache: no docs/ directory exists at all in runs/.clone_cache/aspose_font_python/ -- this specific file pointer from the old README is stale and must not be merged forward as a live doc reference."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "to_presentation()/variable_presentation() already documented in API Reference; the docs/variable-presentation-schema.md pointer is stale (no docs/ directory exists in the current repo) and correctly not recovered."
+  },
+  {
+    "unit_id": "u0037",
+    "source": "clone_cache/README.md",
+    "excerpt": "- preset-aware coordinate selection such as `wght=\"Bold\"` or `wdth=\"Condensed\"`",
+    "salient_tokens": [
+      "wght=\"Bold\"",
+      "wdth=\"Condensed\"",
+      "Bold",
+      "Condensed"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The underlying named-instance-by-string-label selection UX is already demonstrated in Additional Examples using equivalent instance-name strings.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples CLI examples already use '--instance-name Bold' and '--after-instance-name \"Condensed Bold\"' -- the same named-coordinate-selection UX using equivalent Bold/Condensed labels."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Equivalent named-coordinate-selection UX (Bold/Condensed labels) already demonstrated in Additional Examples."
+  },
+  {
+    "unit_id": "u0038",
+    "source": "clone_cache/README.md",
+    "excerpt": "- guided axis-grid suggestions through `SmartInstancer.suggest_axis_values(...)` and preset-driven grid exports",
+    "salient_tokens": [
+      "SmartInstancer.suggest_axis_values(...)",
+      "SmartInstancer"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "suggest_axis_values already present, verbatim, in the API Reference SmartInstancer entry.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'suggest_axis_values(axis_tag, include_default, include_bounds) -> list[float]' on SmartInstancer -- verbatim match."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "suggest_axis_values already present, verbatim, in the API Reference SmartInstancer entry."
+  },
+  {
+    "unit_id": "u0039",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `HVAR`-aware static instancing so exported widths can follow horizontal metric variation data",
+    "salient_tokens": [
+      "HVAR"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable instancing mechanism -- static instances follow HVAR-table width-variation data when present -- genuinely missing from the candidate (HVAR only appears as a table-class name in the TrueType Font Handling API list, never connected to the instancing mechanism itself).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_font/ttf/instancer.py",
+      "evidence_note": "instancer.py: instantiate() reads 'hvar = font.hvar' and, when present, calls '_apply_hvar_metrics(...)' which uses 'hvar.advance_width_delta(gid, normalized)' to adjust exported glyph widths -- confirms HVAR-aware width instancing is real and current. Grepped candidate readme.md for 'HVAR' before this edit: only the HvarTable API-reference row existed, with no connection to static instancing -- genuinely missing as an instancing-mechanism fact."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0040",
+    "source": "clone_cache/README.md",
+    "excerpt": "- configurable naming strategies for generated static instances and web handoff packages, including `menu-safe` and `ribbi-safe` policies plus optional custom family suffixes and explicit family/style overrides for safer app/menu coexistence and release-channel labeling",
+    "salient_tokens": [
+      "menu-safe",
+      "ribbi-safe"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable naming-strategy value list genuinely missing -- the candidate API Reference shows `naming_strategy: str` as a bare parameter on TtfFont.instantiate/SmartInstancer.instantiate/WebFontBuilder.build without ever naming the actual accepted strategy values.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_font/ttf/instancer.py",
+      "evidence_note": "instancer.py declares 'INSTANCE_NAMING_STRATEGIES = (\"instance-family\", \"preserve-family\", \"qa-tagged\", \"menu-safe\", \"ribbi-safe\")' -- confirms exactly these 5 real strategy values. Grepped candidate readme.md for 'menu-safe'/'ribbi-safe' before this edit: zero matches -- genuinely missing."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0041",
+    "source": "clone_cache/README.md",
+    "excerpt": "- high-level previews through `FontPreviewBuilder`",
+    "salient_tokens": [
+      "FontPreviewBuilder"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in Key Capabilities and API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Generate PNG/SVG previews and specimen sheets with FontPreviewBuilder.'"
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "FontPreviewBuilder already named, verbatim, in Key Capabilities."
+  },
+  {
+    "unit_id": "u0042",
+    "source": "clone_cache/README.md",
+    "excerpt": "- web handoff packaging through `WebFontBuilder`, `SmartInstancer.build_web_bundle(...)`, axis-grid web bundles, and coordinate-aware shared grid-family packages",
+    "salient_tokens": [
+      "WebFontBuilder",
+      "SmartInstancer.build_web_bundle(...)",
+      "SmartInstancer"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "WebFontBuilder and build_web_bundle already present in Key Capabilities/API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'build_web_bundle(coordinates, instance_name) -> WebFontBundle' on SmartInstancer, plus WebFontBuilder's own build/build_family_package entries."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "WebFontBuilder/build_web_bundle already present in the API Reference section."
+  },
+  {
+    "unit_id": "u0043",
+    "source": "clone_cache/README.md",
+    "excerpt": "- QA reporting through `FontQaReporter`, `CompatibilityChecker`, and `DeltaInspector`",
+    "salient_tokens": [
+      "FontQaReporter",
+      "CompatibilityChecker",
+      "DeltaInspector",
+      "QA"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "These exact three class names already appear, verbatim, in the candidate Key Capabilities' final bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: '...QA/compatibility reports with FontQaReporter, CompatibilityChecker, and DeltaInspector.' Verbatim match."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "These three class names already appear, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0044",
+    "source": "clone_cache/README.md",
+    "excerpt": "- deeper compatibility issue notes for segment mix, control points, contour closure, and endpoint movement",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The CompatibilityChecker/GlyphCompatibilityIssue mechanism these granular issue-type notes belong to is already documented in API Reference; the specific sub-categories are an internal implementation nuance not critical to recover at README reference depth.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference already documents CompatibilityChecker.compare_fonts/compare_variable_instances, GlyphCompatibilityIssue.to_dict, and CompositeComponentMovement -- the mechanism that produces these deeper issue notes is already covered; the specific segment/control-point/contour-closure/endpoint-movement sub-taxonomy is confirmed real in compatibility.py but is implementation-level detail beyond README reference depth."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "CompatibilityChecker/GlyphCompatibilityIssue mechanism already documented; granular issue-type sub-taxonomy is implementation detail beyond README reference depth."
+  },
+  {
+    "unit_id": "u0045",
+    "source": "clone_cache/README.md",
+    "excerpt": "- additive interpolation diagnostics for active `gvar` tuple changes between compared instance states",
+    "salient_tokens": [
+      "gvar"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable fact about what DeltaInspector's diagnostics are actually computed from (the font's own gvar tuple-variation data) -- genuinely missing from the candidate's DeltaInspector entry, which lists only method signatures.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_font/delta.py",
+      "evidence_note": "delta.py: glyph-delta inspection reads the font's own gvar table ('gvar_raw = font.ttf_tables._raw.get(\"gvar\")', 'gvar = GvarTable.from_reader(...)') and calls 'gvar.glyph_variations(...)' to compute tuple-variation deltas between compared instance states. Grepped candidate readme.md for 'gvar' before this edit: zero matches -- genuinely missing."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0046",
+    "source": "clone_cache/README.md",
+    "excerpt": "The generated grid-family package links back to the demo-site direction: `family.html` shows\ncoordinate labels like `wdth=100 wght=700`, while `family-manifest.json` exposes the same\n`review_label` and `instance_coordinates` fields for automation.",
+    "salient_tokens": [
+      "family.html",
+      "wdth=100 wght=700",
+      "family-manifest.json",
+      "review_label",
+      "instance_coordinates"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031-style partial merge: the 'links back to the demo-site direction' framing is internal process narration and is dropped, but the default output filenames (family.html, family-manifest.json) and the manifest's review_label field are real, checkable, and genuinely missing from the candidate's WebFontFamilyPackage/build_family_package documentation.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_font/web.py",
+      "evidence_note": "web.py declares 'html_filename: str = \"family.html\"' and 'manifest_filename: str = \"family-manifest.json\"' as real default field values, and 'review_label: str | None = None' plus review-label assignment logic in instancing.py/web.py's family-page builder. Grepped candidate readme.md for 'family.html'/'family-manifest.json'/'review_label' before this edit: zero matches -- genuinely missing."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0047",
+    "source": "clone_cache/README.md",
+    "excerpt": "Expose the library to AI clients and local toolchains:",
+    "salient_tokens": [
+      "AI"
+    ],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Purely transitional filler sentence introducing the MCP server code example; the underlying MCP-server fact is already stated in Intro/Key Capabilities.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No independent source claim to verify beyond the already-covered MCP-server fact -- transitional filler."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure transitional/structural filler; underlying MCP-server fact already present in Intro and Key Capabilities."
+  },
+  {
+    "unit_id": "u0048",
+    "source": "clone_cache/README.md",
+    "excerpt": "The MCP server now covers low-level inspection tools, machine-readable variable-font compatibility\nreports through `var_compat`, and high-level web export workflows including single-bundle web\npackaging and shared family-package generation.",
+    "salient_tokens": [
+      "var_compat",
+      "MCP"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable fact about the MCP server's specific tool coverage (including the exact tool name var_compat, distinct from the CLI's var-compat command) that is genuinely missing -- the candidate only states an optional MCP server exists, never what tools it exposes.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_font/mcp.py",
+      "evidence_note": "mcp.py declares '@mcp.tool() def var_compat(...)' plus '@mcp.tool() def web_build(...)' (single-bundle web packaging) and '@mcp.tool() def web_family_package(...)' (shared family-package generation), alongside font_info/font_convert/glyph_outline/text_layout/font_subset (low-level inspection tools). Grepped candidate readme.md for 'var_compat' before this edit: zero matches (only the CLI's differently-named 'var-compat' command is shown) -- genuinely missing."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0049",
+    "source": "clone_cache/README.md",
+    "excerpt": "These verification flows also refresh the generated demo site content.",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Internal process narration about the maintainers' own demo-site refresh workflow -- not a reader-facing product fact.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No reader-facing product claim to verify -- internal maintenance-process narration."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Internal process narration about the maintainers' own demo-site refresh workflow, not a reader-facing product fact."
+  },
+  {
+    "unit_id": "u0050",
+    "source": "clone_cache/README.md",
+    "excerpt": "[MIT](./LICENSE.txt)",
+    "salient_tokens": [
+      "MIT",
+      "LICENSE"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "License statement already present, expanded, in the candidate's License section, citing the same real LICENSE.txt file.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the [MIT License](LICENSE.txt). The MIT License permits use, copying, modification, distribution, sublicensing, and commercial use, provided its copyright and permission notice are retained.' Same license, same file (LICENSE.txt, confirmed present at the repo root and already linked from the badge row), expanded detail."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "License statement already present, in expanded form, in the License section, citing the same real LICENSE.txt file."
+  }
+]

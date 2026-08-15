@@ -1,0 +1,800 @@
+=== 3d/java ===
+  real old-README content units: 31, dispositions on file: 31
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 9 finding(s) (heuristic)
+    - {'unit_id': 'u0002', 'reason': "prefilter suggests narrative/CTA tone but classified as 'redundant_with_existing' -- confirm this is a genuine checkable fact, not tone-driven prose"}
+    - {'unit_id': 'u0017', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0019', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0020', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0022', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0025', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0028', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0029', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    ... +1 more
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 12 finding(s) (hard gate)
+    - API Compatibility
+    - About Aspose.3D FOSS
+    - Acknowledgments
+    - Aspose.3D FOSS — free & open source (aspose.org)
+    - Aspose.3D — commercial On-Premise edition (aspose.com)
+    - Building
+    - Community & support
+    - Contributing
+    ... +4 more
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 0 finding(s) (heuristic)
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== 3d/net ===
+  real old-README content units: 26, dispositions on file: 26
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 9 finding(s) (heuristic)
+    - {'unit_id': 'u0002', 'reason': "prefilter suggests narrative/CTA tone but classified as 'redundant_with_existing' -- confirm this is a genuine checkable fact, not tone-driven prose"}
+    - {'unit_id': 'u0013', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0015', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0016', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0018', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0020', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0023', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0024', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    ... +1 more
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 6 finding(s) (hard gate)
+    - About Aspose.3D FOSS
+    - Acknowledgments
+    - Aspose.3D FOSS — free & open source (aspose.org)
+    - Aspose.3D — commercial On-Premise edition (aspose.com)
+    - Community & support
+    - Contributing
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 1 finding(s) (heuristic)
+    - {'capability_bullet': 'Build and traverse a scene graph with `Scene`, `Node`, `Group`, and `Entity` — nodes support', 'matched_keyword': 'Scene', 'scope_bullet': 'Rendering (`Scene.Render`) is not implemented in this edition.', 'reason': "'Scene' is named as a working capability here, but a Scope and Limitations bullet documents related functionality as not-implemented/stub -- verify this isn't a fabricated-capability contradiction"}
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 1 finding(s) (heuristic)
+    - {'anchor_text': 'Aspose.3D for .NET — Enterprise Edition', 'href': 'https://products.aspose.com/3d/net/', 'reason': 'missing_context', 'detail': "surrounding text doesn't explain the broader/full functionality gained", 'context': "These limitations don't apply to [Aspose.3D for .NET — Enterprise Edition](https://products.aspose.com/3d/net/), which adds proprietary formats (A3DW, PDF, USD, JT), rendering, working text watermarking, and adv"}
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== 3d/python ===
+  real old-README content units: 60, dispositions on file: 60
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 10 finding(s) (heuristic)
+    - {'unit_id': 'u0002', 'reason': "prefilter suggests narrative/CTA tone but classified as 'redundant_with_existing' -- confirm this is a genuine checkable fact, not tone-driven prose"}
+    - {'unit_id': 'u0046', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0048', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0049', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0051', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0053', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0056', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0057', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    ... +2 more
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 12 finding(s) (hard gate)
+    - About Aspose.3D FOSS
+    - Acknowledgments
+    - Aspose.3D FOSS — free & open source (aspose.org)
+    - Aspose.3D — commercial On-Premise edition (aspose.com)
+    - Community & support
+    - Contributing
+    - Export (Implemented)
+    - Format-Specific Features
+    ... +4 more
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 0 finding(s) (heuristic)
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== 3d/typescript ===
+  real old-README content units: 70, dispositions on file: 70
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 3 finding(s) (heuristic)
+    - {'unit_id': 'u0065', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0066', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0069', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 16 finding(s) (hard gate)
+    - LICENSE
+    - 3MF Format
+    - Acknowledgments
+    - Build & Test
+    - Collada Format
+    - Contributing
+    - Export (Implemented)
+    - FBX Format
+    ... +8 more
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 8 finding(s) (hard gate)
+    - {'module': 'Core Scene Graph', 'reason': 'unrecognized_module', 'detail': "README table module 'Core Scene Graph' does not correspond to any real reference.aspose.org module for this product"}
+    - {'module': 'Geometry and Mesh', 'reason': 'unrecognized_module', 'detail': "README table module 'Geometry and Mesh' does not correspond to any real reference.aspose.org module for this product"}
+    - {'module': 'Materials', 'reason': 'unrecognized_module', 'detail': "README table module 'Materials' does not correspond to any real reference.aspose.org module for this product"}
+    - {'module': 'Camera and Lighting', 'reason': 'unrecognized_module', 'detail': "README table module 'Camera and Lighting' does not correspond to any real reference.aspose.org module for this product"}
+    - {'module': 'Math Utilities', 'reason': 'unrecognized_module', 'detail': "README table module 'Math Utilities' does not correspond to any real reference.aspose.org module for this product"}
+    - {'module': 'Animation', 'reason': 'unrecognized_module', 'detail': "README table module 'Animation' does not correspond to any real reference.aspose.org module for this product"}
+    - {'module': 'Format I/O', 'reason': 'unrecognized_module', 'detail': "README table module 'Format I/O' does not correspond to any real reference.aspose.org module for this product"}
+    - {'module': 'Properties and Metadata', 'reason': 'unrecognized_module', 'detail': "README table module 'Properties and Metadata' does not correspond to any real reference.aspose.org module for this product"}
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 1 finding(s) (heuristic)
+    - {'phrase': 'currently fails', 'context': 'Binary glTF export (`binaryMode: true`) currently fails — JSON/ASCII glTF export (the   default'}
+  enterprise_edition_naming: 0 finding(s) (heuristic)
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== cells/cpp ===
+  real old-README content units: 13, dispositions on file: 13
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 0 finding(s) (heuristic)
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 4 finding(s) (hard gate)
+    - Create, style, and save a workbook
+    - Highlights
+    - How to build
+    - Supported Areas
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 1 finding(s) (heuristic)
+    - {'reason': "3 bullets all open with 'manage' -- likely fragmented single-format bullets that should consolidate into one", 'bullets': ['Manage worksheets through `WorksheetCollection` (`Add`, `RemoveAt`, active-sheet state) and', 'Manage named ranges through `Workbook.GetDefinedNames()` / `DefinedNameCollection`.', 'Manage hyperlinks and enforce data-validation rules through `Worksheet.GetHyperlinks()` /']}
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 0 finding(s) (heuristic)
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== cells/go ===
+  real old-README content units: 18, dispositions on file: 18
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 0 finding(s) (heuristic)
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 6 finding(s) (hard gate)
+    - Common Use Cases
+    - Constraints
+    - Detailed Documentation
+    - Features
+    - Project Structure
+    - Running Examples
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 0 finding(s) (heuristic)
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== cells/java ===
+  real old-README content units: 47, dispositions on file: 47
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 1 finding(s) (heuristic)
+    - {'unit_id': 'u0023', 'reason': "prefilter suggests narrative/CTA tone but classified as '2_mechanism_explanation' -- confirm this is a genuine checkable fact, not tone-driven prose"}
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 7 finding(s) (hard gate)
+    - Build And Test
+    - Current Scope
+    - Known Limits
+    - Notes For Contributors
+    - Project Layout
+    - Supported Features
+    - Testing Coverage
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 0 finding(s) (heuristic)
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== cells/net ===
+  real old-README content units: 33, dispositions on file: 33
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 0 finding(s) (heuristic)
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 5 finding(s) (hard gate)
+    - Build from Source
+    - Compatibility
+    - Highlights
+    - Load workbook with recovery options and diagnostics
+    - Supported Areas
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 0 finding(s) (heuristic)
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== cells/python ===
+  real old-README content units: 21, dispositions on file: 21
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 2 finding(s) (heuristic)
+    - {'unit_id': 'u0018', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0019', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 8 finding(s) (hard gate)
+    - Add data validation (dropdown list)
+    - Apply styling
+    - Contributing
+    - Create a new Excel file
+    - Features
+    - Password protection
+    - Read an existing Excel file
+    - Requirements
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 1 finding(s) (heuristic)
+    - {'anchor_text': 'Aspose.Cells for Python Enterprise Edition', 'href': 'https://products.aspose.com/cells/python-net/', 'reason': 'missing_context', 'detail': "surrounding text doesn't explain the broader/full functionality gained", 'context': "These limitations don't apply to [Aspose.Cells for Python Enterprise Edition](https://products.aspose.com/cells/python-net/), which adds a working generic chart-type dispatcher for every `ChartType`, Standard Encryption supp"}
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== cells/rust ===
+  real old-README content units: 18, dispositions on file: 18
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 0 finding(s) (heuristic)
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 2 finding(s) (hard gate)
+    - Project layout
+    - Status
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 0 finding(s) (heuristic)
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== email/net ===
+  real old-README content units: 18, dispositions on file: 18
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 0 finding(s) (heuristic)
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 3 finding(s) (hard gate)
+    - Build And Test
+    - Features
+    - Main Namespaces
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 1 finding(s) (heuristic)
+    - {'anchor_text': 'Aspose.Email for .NET — Enterprise Edition', 'href': 'https://products.aspose.com/email/net/', 'reason': 'missing_context', 'detail': "surrounding text doesn't explain the broader/full functionality gained", 'context': "These limitations don't apply to [Aspose.Email for .NET — Enterprise Edition](https://products.aspose.com/email/net/), which adds IMAP/SMTP/POP3 connectivity, TNEF parsing, a dedicated calendar and appointment API, an"}
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== email/python ===
+  real old-README content units: 40, dispositions on file: 40
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 0 finding(s) (heuristic)
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 3 finding(s) (hard gate)
+    - Convert EML to MSG
+    - Convert MSG to EML
+    - Package Entry Points
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 0 finding(s) (heuristic)
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== barcode/python ===
+  real old-README content units: 23, dispositions on file: 23
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 3 finding(s) (heuristic)
+    - {'unit_id': 'u0007', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0008', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0011', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 6 finding(s) (hard gate)
+    - Custom Renderer
+    - EAN / UPC
+    - Error Handling
+    - Render Options
+    - Requirements
+    - Supported Symbologies
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 1 finding(s) (heuristic)
+    - {'capability_bullet': 'Render every symbology to SVG or PNG through `Barcode.to_svg()` / `Barcode.to_png()`, or through an explicit `Renderer` (`SvgRenderer`, `PngRenderer`).', 'matched_keyword': 'Barcode', 'scope_bullet': '`Barcode.to_pdf()` / `PdfRenderer.render()` is present in the API but not yet implemented and', 'reason': "'Barcode' is named as a working capability here, but a Scope and Limitations bullet documents related functionality as not-implemented/stub -- verify this isn't a fabricated-capability contradiction"}
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 1 finding(s) (heuristic)
+    - {'anchor_text': 'Aspose.BarCode for Python — Enterprise Edition', 'href': 'https://products.aspose.com/barcode/python-net/', 'reason': 'missing_context', 'detail': "surrounding text doesn't explain the broader/full functionality gained", 'context': "These limitations don't apply to [Aspose.BarCode for Python — Enterprise Edition](https://products.aspose.com/barcode/python-net/), which adds PDF output, full ECI/GS1 compliance, barcode reading and recognition, and broader symbo"}
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== font/python ===
+  real old-README content units: 48, dispositions on file: 48
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 5 finding(s) (heuristic)
+    - {'unit_id': 'u0011', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0012', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0027', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0046', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+    - {'unit_id': 'u0048', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 18 finding(s) (hard gate)
+    - ./LICENSE.txt
+    - ./website/generated/roboto-animation-sweep.png
+    - ./website/generated/roboto-axis-grid.png
+    - ./website/generated/roboto-delta-compare.png
+    - Animation and Showcase Assets
+    - Axis Grid Proof
+    - CLI Highlights
+    - Capability Snapshot
+    ... +10 more
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 2 finding(s) (heuristic)
+    - {'capability_bullet': 'Inspect font metadata, metrics, encoding, and glyph outlines through the common `Font` base class (`font_name`, `font_family`, `num_glyphs`, `metrics`, `glyph_accessor`).', 'matched_keyword': 'Font', 'scope_bullet': '`Font.to_bytes()` is not implemented on the abstract `Font` base class — serialize a font with', 'reason': "'Font' is named as a working capability here, but a Scope and Limitations bullet documents related functionality as not-implemented/stub -- verify this isn't a fabricated-capability contradiction"}
+    - {'capability_bullet': 'Convert a loaded font to another supported format with `Font.convert()`.', 'matched_keyword': 'Font', 'scope_bullet': '`Font.to_bytes()` is not implemented on the abstract `Font` base class — serialize a font with', 'reason': "'Font' is named as a working capability here, but a Scope and Limitations bullet documents related functionality as not-implemented/stub -- verify this isn't a fabricated-capability contradiction"}
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 1 finding(s) (heuristic)
+    - {'anchor_text': 'Aspose.Font for Python — Enterprise Edition', 'href': 'https://products.aspose.com/font/', 'reason': 'missing_context', 'detail': "surrounding text doesn't explain the broader/full functionality gained", 'context': "This project focuses on programmatic font loading, inspection, conversion, subsetting, cleaning, and preview/QA generation. These limitations don't apply to [Aspose.Font for Python — Enterprise Edition](https://products.aspose.com/font/), which adds font hinting and instruction editing, complex text shaping, operating-system font insta"}
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== html/python ===
+  real old-README content units: 37, dispositions on file: 37
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 1 finding(s) (heuristic)
+    - {'unit_id': 'u0018', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 5 finding(s) (hard gate)
+    - Create DOM Nodes
+    - Features
+    - Package Entry Points
+    - Parse And Read HTML
+    - Work With URLs
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 1 finding(s) (heuristic)
+    - {'phrase': 'currently fails', 'context': 't been published yet, and `pip install` currently fails for this repository at any source (loca'}
+  enterprise_edition_naming: 0 finding(s) (heuristic)
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== page/python ===
+  real old-README content units: 17, dispositions on file: 17
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 0 finding(s) (heuristic)
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 10 finding(s) (hard gate)
+    - Build and Test (Developers)
+    - Convert PS to PDF
+    - Convert XPS to PDF
+    - Currently Available Features
+    - Install optional dependencies by scenario
+    - Install package
+    - PS file converted to PDF (that is converted than to PNG)
+    - PS/EPS to image conversion sample
+    ... +2 more
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 0 finding(s) (heuristic)
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== pdf/go ===
+  real old-README content units: 128, dispositions on file: 128
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 0 finding(s) (heuristic)
+  content_unit_probable_duplicate: 2 finding(s) (heuristic)
+    - {'unit_ids': ['u0033', 'u0034'], 'target_section': 'Key Capabilities', 'shared_tokens': ['net', 'pdf'], 'reason': 'two different content units share 2+ salient tokens merged into the same section -- likely restating the same fact twice'}
+    - {'unit_ids': ['u0034', 'u0099'], 'target_section': 'Key Capabilities', 'shared_tokens': ['acroform', 'jpeg', 'png', 'truetype'], 'reason': 'two different content units share 2+ salient tokens merged into the same section -- likely restating the same fact twice'}
+  dropped_content (links/headings): 46 finding(s) (hard gate)
+    - #encryption
+    - _examples/toc
+    - url
+    - …
+    - AI-powered operations (`ai` subpackage)
+    - Adding Blank Pages
+    - Adding Images
+    - Adding Text
+    ... +38 more
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 1 finding(s) (heuristic)
+    - {'anchor_text': 'Aspose.PDF Enterprise Edition', 'href': 'https://products.aspose.com/pdf/', 'reason': 'missing_context', 'detail': "surrounding text doesn't explain the broader/full functionality gained", 'context': "These limitations don't apply to [Aspose.PDF Enterprise Edition](https://products.aspose.com/pdf/), which adds full PDF/A and PDF/UA validation and signing-trust-chain verification, complete mesh-sh"}
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== pdf/java ===
+  real old-README content units: 35, dispositions on file: 35
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 1 finding(s) (heuristic)
+    - {'unit_id': 'u0029', 'reason': "prefilter suggests narrative/CTA tone but classified as 'redundant_with_existing' -- confirm this is a genuine checkable fact, not tone-driven prose"}
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 4 finding(s) (hard gate)
+    - #status--roadmap
+    - Related projects
+    - Status & Roadmap
+    - Work with forms
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 0 finding(s) (heuristic)
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== pdf/net ===
+  real old-README content units: 66, dispositions on file: 66
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 0 finding(s) (heuristic)
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 11 finding(s) (hard gate)
+    - #whats-included
+    - #whats-not-included-vs-asposepdf-for-net
+    - API overview
+    - Forms (AcroForm)
+    - Platform-specific notes
+    - Related projects
+    - Requirements
+    - Running tests
+    ... +3 more
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 0 finding(s) (heuristic)
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== pdf/python ===
+  real old-README content units: 27, dispositions on file: 27
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 0 finding(s) (heuristic)
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 3 finding(s) (hard gate)
+    - Feature Boundaries
+    - Read a document
+    - Requirements
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 1 finding(s) (heuristic)
+    - {'anchor_text': 'Aspose.PDF for Python — Enterprise Edition', 'href': 'https://products.aspose.com/pdf/python/', 'reason': 'missing_context', 'detail': "surrounding text doesn't explain the broader/full functionality gained", 'context': "These limitations don't apply to [Aspose.PDF for Python — Enterprise Edition](https://products.aspose.com/pdf/python/), which adds CDR/CGM/HTML/OFD/SVG/PPTX conversion, certification-grade PDF/A and PDF/UA validation, "}
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+
+=== slides/cpp ===
+  real old-README content units: 25, dispositions on file: 25
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 1 finding(s) (heuristic)
+    - {'unit_id': 'u0016', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 0 finding(s) (hard gate)
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 0 finding(s) (heuristic)
+  RESULT: CLEAN (hard gates)
+
+=== slides/net ===
+  real old-README content units: 23, dispositions on file: 23
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 1 finding(s) (heuristic)
+    - {'unit_id': 'u0014', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 0 finding(s) (hard gate)
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 0 finding(s) (heuristic)
+  RESULT: CLEAN (hard gates)
+
+=== slides/python ===
+  real old-README content units: 30, dispositions on file: 30
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 1 finding(s) (heuristic)
+    - {'unit_id': 'u0022', 'reason': 'classified as narrative/CTA but the prefilter found no tone signal -- confirm this genuinely has nothing checkable/reusable in it'}
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 0 finding(s) (hard gate)
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 1 finding(s) (heuristic)
+    - {'anchor_text': 'Aspose.Slides for Python — Enterprise Edition', 'href': 'https://products.aspose.com/slides/python-net/', 'reason': 'missing_context', 'detail': "surrounding text doesn't explain the broader/full functionality gained", 'context': "These limitations don't apply to [Aspose.Slides for Python — Enterprise Edition](https://products.aspose.com/slides/python-net/), which adds legacy `.ppt` and OpenDocument support, PDF/HTML/SVG/image export, SmartArt and OLE obj"}
+  RESULT: CLEAN (hard gates)
+
+=== tex/python ===
+  real old-README content units: 8, dispositions on file: 8
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 0 finding(s) (heuristic)
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 0 finding(s) (hard gate)
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 0 finding(s) (heuristic)
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 1 finding(s) (heuristic)
+    - {'anchor_text': 'Aspose.TeX for Python — Enterprise Edition', 'href': 'https://products.aspose.com/tex/python-net/', 'reason': 'missing_context', 'detail': "surrounding text doesn't explain the broader/full functionality gained", 'context': "These limitations don't carry over to [Aspose.TeX for Python — Enterprise Edition](https://products.aspose.com/tex/python-net/), which adds full `\\halign`/`\\valign` alignment, deferred-stream I/O, and broader production coverag"}
+  RESULT: CLEAN (hard gates)
+
+=== words/python ===
+  real old-README content units: 15, dispositions on file: 15
+  content_unit_disposition_coverage: 0 finding(s) (hard gate)
+  content_unit_evidence_resolves: 0 finding(s) (hard gate)
+  content_unit_merged_into_target_section: 0 finding(s) (hard gate)
+  content_unit_no_exact_duplicate_merge: 0 finding(s) (hard gate)
+  content_unit_classification_plausibility: 0 finding(s) (heuristic)
+  content_unit_probable_duplicate: 0 finding(s) (heuristic)
+  dropped_content (links/headings): 1 finding(s) (hard gate)
+    - License/license.txt
+  required_sections: 0 finding(s) (hard gate)
+  heading_title_case: 0 finding(s) (hard gate)
+  scope_limitations_format: 0 finding(s) (hard gate)
+  dev_test_artifacts_linked: 0 finding(s) (hard gate)
+  no_upstream_issue_leaked: 0 finding(s) (hard gate)
+  no_undisclosed_blocking_commands: 0 finding(s) (hard gate)
+  api_reference_table_completeness: 0 finding(s) (hard gate)
+  no_leaked_docstring_artifacts: 0 finding(s) (heuristic)
+  key_capabilities_quality: 0 finding(s) (heuristic)
+  capability_scope_contradiction: 1 finding(s) (heuristic)
+    - {'capability_bullet': 'One `Document` class and one `save()` method for every conversion — load once, save to', 'matched_keyword': 'Document', 'scope_bullet': '`LdmDocxWriter` has a documented `NotImplementedError` in its compliance-enforcement path', 'reason': "'Document' is named as a working capability here, but a Scope and Limitations bullet documents related functionality as not-implemented/stub -- verify this isn't a fabricated-capability contradiction"}
+  development_testing_collapse: 0 finding(s) (heuristic)
+  process_narration_smells: 0 finding(s) (heuristic)
+  enterprise_edition_naming: 1 finding(s) (heuristic)
+    - {'anchor_text': 'Aspose.Words for Python — Enterprise Edition', 'href': 'https://products.aspose.com/words/python-net/', 'reason': 'missing_context', 'detail': "surrounding text doesn't explain the broader/full functionality gained", 'context': "These limitations don't apply to [Aspose.Words for Python — Enterprise Edition](https://products.aspose.com/words/python-net/), which adds full `PdfSaveOptions` enforcement (text compression, full font embedding, core-font sub"}
+  RESULT: HARD-GATE FINDINGS PRESENT (see above)
+

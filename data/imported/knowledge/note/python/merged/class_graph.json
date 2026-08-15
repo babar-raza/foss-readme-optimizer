@@ -1,0 +1,158 @@
+[
+  {
+    "child": "OutlinePrefixFlowable",
+    "parent": "Flowable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "AttachmentTagFlowable",
+    "parent": "Flowable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "SaveFormat",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FileFormat",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "HorizontalAlignment",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "TagStatus",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "NodeType",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "AsposeNoteError",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FileCorruptedException",
+    "parent": "AsposeNoteError",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "IncorrectDocumentStructureException",
+    "parent": "AsposeNoteError",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "IncorrectPasswordException",
+    "parent": "AsposeNoteError",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "UnsupportedFileFormatException",
+    "parent": "AsposeNoteError",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "UnsupportedSaveFormatException",
+    "parent": "AsposeNoteError",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CompositeNode",
+    "parent": "Node",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RichText",
+    "parent": "Node",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Title",
+    "parent": "Node",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "OutlineElement",
+    "parent": "CompositeNode",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Outline",
+    "parent": "CompositeNode",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Image",
+    "parent": "CompositeNode",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "AttachedFile",
+    "parent": "Node",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TableCell",
+    "parent": "CompositeNode",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "TableRow",
+    "parent": "CompositeNode",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Table",
+    "parent": "CompositeNode",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Page",
+    "parent": "CompositeNode",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Document",
+    "parent": "CompositeNode",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PdfSaveOptions",
+    "parent": "SaveOptions",
+    "relationship": "inherits",
+    "internal": true
+  }
+]

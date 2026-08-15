@@ -1,0 +1,393 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "The official open-source .NET library by Aspose.Slides for creating, reading, and editing PowerPoint (`.pptx`) presentations.",
+    "salient_tokens": [".pptx", "NET", "PowerPoint"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Branding/tagline sentence; already present, word-for-word, as the opening clause of the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Candidate readme.md line 7: 'Aspose.Slides FOSS for .NET is the official open-source .NET library by Aspose.Slides for creating, reading, and editing PowerPoint (`.pptx`) presentations.' -- same sentence, product name moved to front."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Fact already present verbatim in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Presentation I/O** — Open, create, and save `.pptx` files with full round-trip fidelity",
+    "salient_tokens": [".pptx"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 1: 'Presentation I/O -- Open, create, and save `.pptx` files with full round-trip fidelity.' -- identical wording."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Slides** — Add, remove, clone, reorder, and iterate slides",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities with an added API reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 2: 'Slides -- Add, remove, clone, reorder, and iterate slides via `SlideCollection`.' -- same fact, backing type added."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present in the Key Capabilities bullet list, with the backing API type added."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Shapes** — AutoShapes, PictureFrames, Tables, Connectors",
+    "salient_tokens": ["AutoShapes", "PictureFrames"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 3: 'Shapes -- AutoShapes, PictureFrames, Tables, and Connectors.' -- identical items."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Text** — TextFrame, Paragraph, Portion with character, paragraph, and text frame formatting (including bullets)",
+    "salient_tokens": ["TextFrame"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 4: 'Text -- `TextFrame`, `Paragraph`, and `Portion` with character-, paragraph-, and text-frame-level formatting (including bullets).' -- same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Fill** — Solid, gradient, pattern, and picture fills",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into a combined fill/line Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 5: 'Fill and line formatting -- Solid, gradient, pattern, and picture fills; configurable line width, dash style, arrows, join style, and alignment.' -- fill portion matches exactly."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present in the Key Capabilities bullet list, merged with the related line-formatting bullet."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Lines** — Width, dash style, arrows, join and alignment",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into the same combined fill/line Key Capabilities bullet as u0006.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 5 line-formatting clause: 'configurable line width, dash style, arrows, join style, and alignment.' -- same properties, same order."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present in the Key Capabilities bullet list, merged with the related fill-formatting bullet."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Effects** — Outer shadow, glow, soft edge, blur, reflection, inner shadow",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 6: 'Effects -- Outer shadow, glow, soft edge, blur, reflection, and inner shadow.' -- identical effect list."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **3D** — Bevel, camera, light rig, material, extrusion depth",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 7: '3D -- Bevel, camera, light rig, material, and extrusion depth.' -- identical wording."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Document properties** — Core, app, and custom properties",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 8: 'Document properties -- Core, app, and custom properties.' -- identical wording."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Notes slides** — Per-slide notes with header/footer management",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into a combined notes/comments Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 9: 'Notes and comments -- Per-slide speaker notes with header/footer management, and threaded comments with authors, timestamps, and positions.' -- notes portion matches exactly."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present in the Key Capabilities bullet list, merged with the related comments bullet."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Comments** — Threaded comments with authors, timestamps, and positions",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into the same combined notes/comments Key Capabilities bullet as u0011.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 9 comments clause: 'threaded comments with authors, timestamps, and positions.' -- identical wording."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Images** — Embed from file, bytes, or stream",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 10: 'Images -- Embed from file, bytes, or stream.' -- identical wording."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "The following areas are not yet implemented:",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Bare structural lead-in sentence for the limitations list, no distinct checkable claim of its own -- same category as the sibling slides/cpp and slides/java products' identical lead-in sentences.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure structural framing sentence."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Structural lead-in sentence; the 'not yet implemented' concept it introduces is already stated in Scope and Limitations."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Charts, SmartArt, OLE objects, mathematical text",
+    "salient_tokens": ["SmartArt", "OLE"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Limitation list item, already carried into the candidate's Scope and Limitations bullet list.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations bullet 1: 'Charts, SmartArt, OLE objects, and mathematical text.' -- identical items, identical order."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Fact already present verbatim in the Scope and Limitations bullet list."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Animations and slide transitions",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Limitation list item, already carried into the candidate's Scope and Limitations bullet list.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations bullet 2: 'Animations and slide transitions.' -- identical wording."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Fact already present verbatim in the Scope and Limitations bullet list."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Export to non-PPTX formats (PDF, HTML, SVG, images)",
+    "salient_tokens": ["PPTX", "PDF", "HTML", "SVG"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Limitation list item, already carried into the candidate's Scope and Limitations bullet list, with the specific unimplemented SaveFormat enum members added.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations bullet 3: 'Export to non-PPTX formats (PDF, HTML, SVG, or images) -- `SaveFormat.Pptx` is the only save format implemented, even though the `SaveFormat` enum also lists `Ppt`, `Pdf`, `Xps`, `Ppsx`, and `Tiff` in the underlying source.' -- same format list, more detail added."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Fact already present in the Scope and Limitations bullet list, in more detail than the old text."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "- VBA macros, digital signatures",
+    "salient_tokens": ["VBA"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Limitation list item, already carried into the candidate's Scope and Limitations bullet list.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations bullet 4: 'VBA macros and digital signatures.' -- identical wording."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Fact already present verbatim in the Scope and Limitations bullet list."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Hyperlinks and action settings",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Limitation list item, already carried into the candidate's Scope and Limitations bullet list.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations bullet 5: 'Hyperlinks and action settings.' -- identical wording."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Fact already present verbatim in the Scope and Limitations bullet list."
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "Unknown XML parts encountered during load are preserved verbatim on save —\nopening and re-saving a file will never strip content this library does not yet understand.",
+    "salient_tokens": ["XML"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Mechanism-level round-trip-fidelity fact; already present, twice, in the new candidate (a dedicated Key Capabilities bullet and Scope and Limitations).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 11: 'Round-trip safety -- Unknown XML parts encountered during load are preserved verbatim on save, so opening and re-saving a file never strips content this library does not yet understand.' Word-for-word match; also restated in Scope and Limitations."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present, as its own dedicated bullet, in the Key Capabilities section, and again in Scope and Limitations."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [GitHub Repository](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET)",
+    "salient_tokens": ["GitHub", "FOSS", "NET"],
+    "classification": "3_branding_positioning",
+    "classification_basis": "Names the canonical public repository for this Aspose.Slides project -- confirmed genuinely absent from the new candidate's Documentation & Resources (Getting started, How-to/FAQ, Full API reference, Contributor guide, and an /issues deep link are present, but no bare repo-root link).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "AGENTS.md",
+      "evidence_note": "runs/.clone_cache/aspose_slides_net/AGENTS.md line 219: '[GitHub](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET)' -- exact match. .git/config remote 'origin' url also resolves to the same repository (minus .git suffix)."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Issue Tracker](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/issues)",
+    "salient_tokens": ["FOSS", "NET"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Same issue-tracker URL already linked in the new candidate, under different anchor text.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: 'Found a bug or have a feature request? Open an issue on GitHub' links to https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/issues -- identical URL, different anchor text."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Same issue-tracker URL already present in Documentation & Resources under different anchor text."
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "[MIT License](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/blob/main/LICENSE)",
+    "salient_tokens": ["MIT", "FOSS", "NET", "LICENSE"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Same MIT License fact and same link target already present in the new candidate's License section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the [MIT License](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/blob/main/LICENSE).' -- identical link target and anchor text, unlike the sibling slides/cpp and slides/java products which relinked to a repo-relative LICENSE file."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "Same MIT License fact and link target already present verbatim in the License section."
+  }
+]

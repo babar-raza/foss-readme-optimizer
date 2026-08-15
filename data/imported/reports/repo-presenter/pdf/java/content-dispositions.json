@@ -1,0 +1,740 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "> Pure Java PDF library, zero third-party dependencies",
+    "salient_tokens": [
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Tagline ('pure Java PDF library, zero third-party dependencies') restated in the Intro paragraph's second sentence.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Tagline ('pure Java PDF library, zero third-party dependencies') restated in the Intro paragraph's second sentence."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Tagline ('pure Java PDF library, zero third-party dependencies') restated in the Intro paragraph's second sentence."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "Aspose.PDF FOSS for Java is an open-source Java library for working with PDF documents. It is API-compatible with [Aspose.PDF for Java](https://products.aspose.com/pdf/java/), targets ISO 32000-1:2008 compliance, and depends only on the standard Java platform — no third-party libraries required.",
+    "salient_tokens": [
+      "PDF",
+      "FOSS",
+      "API",
+      "ISO"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Present near-verbatim: API-compatible with Aspose.PDF for Java, ISO 32000-1:2008 compliance, standard-Java-platform-only dependency claim all in the Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Present near-verbatim: API-compatible with Aspose.PDF for Java, ISO 32000-1:2008 compliance, standard-Java-platform-only dependency claim all in the Intro paragraph."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Present near-verbatim: API-compatible with Aspose.PDF for Java, ISO 32000-1:2008 compliance, standard-Java-platform-only dependency claim all in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Version 26.7** (Aspose-style year.month versioning). The library is functional for many common workflows but breaking changes may still happen between releases. See the [roadmap](#status--roadmap) below for current coverage.",
+    "salient_tokens": [
+      "26.7"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "The 'functional for many workflows, breaking changes may happen' framing is present verbatim in Intro, but the specific version literal (26.7) and '#status--roadmap' anchor are real, checkable facts that have since changed/moved -- verified against the tracked package registry rather than claimed present in Intro (which contains no version literal at all).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "package_registry_field",
+      "evidence_ref": "pdf.java.candidate.version",
+      "evidence_note": "package_registry.json tracks pdf.java.candidate.version=26.6.0 (repo_sha 1ed0a411...), not this old README snapshot's 26.7 -- version numbers naturally drift between scout snapshots and are not stable content to restore verbatim. The 'breaking changes may still happen' sentence this unit also contains is present verbatim in the Intro paragraph; the '#status--roadmap' anchor's target content is captured by u0029's Scope and Limitations merge-equivalent."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Breaking-changes framing already present in Intro verbatim; the specific version number is stale/drifted (registry shows 26.6.0, not 26.7) and not meaningful content to restore."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Text** — extraction, search, and replacement with `TextFragmentAbsorber` and `TextAbsorber`; RTL/Arabic shaping",
+    "salient_tokens": [
+      "TextFragmentAbsorber",
+      "TextAbsorber",
+      "RTL"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Text extraction/search with TextFragmentAbsorber/TextAbsorber including RTL/Arabic shaping present verbatim in a Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Text extraction/search with TextFragmentAbsorber/TextAbsorber including RTL/Arabic shaping present verbatim in a Key Capabilities bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Text extraction/search with TextFragmentAbsorber/TextAbsorber including RTL/Arabic shaping present verbatim in a Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Document generation** — pages, paragraphs, tables (`Table`/`Row`/`Cell`), floating boxes, headers/footers, text/image/page-number stamps, watermarks",
+    "salient_tokens": [
+      "Table",
+      "Row",
+      "Cell"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Document generation (pages, paragraphs, tables Table/Row/Cell, floating boxes, headers/footers, stamps) present verbatim in a Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Document generation (pages, paragraphs, tables Table/Row/Cell, floating boxes, headers/footers, stamps) present verbatim in a Key Capabilities bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Document generation (pages, paragraphs, tables Table/Row/Cell, floating boxes, headers/footers, stamps) present verbatim in a Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Drawing API** — graphs and shapes (`Line`, `Rectangle`, `Circle`, `Arc`, `Curve`, `Ellipse`), gradient shadings",
+    "salient_tokens": [
+      "Line",
+      "Rectangle",
+      "Circle",
+      "Arc",
+      "Curve",
+      "Ellipse",
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Drawing API shapes (Line/Rectangle/Circle/Arc/Curve/Ellipse) and gradient shadings present verbatim in a Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Drawing API shapes (Line/Rectangle/Circle/Arc/Curve/Ellipse) and gradient shadings present verbatim in a Key Capabilities bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Drawing API shapes (Line/Rectangle/Circle/Arc/Curve/Ellipse) and gradient shadings present verbatim in a Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Images** — extraction from PDF pages; rasterization of pages to PNG, JPEG, GIF, BMP, TIFF; multi-frame TIFF import",
+    "salient_tokens": [
+      "PDF",
+      "PNG",
+      "JPEG",
+      "GIF",
+      "BMP",
+      "TIFF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Image extraction and rasterization to PNG/JPEG/GIF/BMP/TIFF including multi-frame TIFF import present in a Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Image extraction and rasterization to PNG/JPEG/GIF/BMP/TIFF including multi-frame TIFF import present in a Key Capabilities bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Image extraction and rasterization to PNG/JPEG/GIF/BMP/TIFF including multi-frame TIFF import present in a Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Forms** — AcroForm support: text fields, checkboxes, radio buttons, combo boxes, list boxes, signature fields",
+    "salient_tokens": [
+      "AcroForm"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "AcroForm field types (text, checkbox, radio, combo, list, signature) present via Form/Field in a Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "AcroForm field types (text, checkbox, radio, combo, list, signature) present via Form/Field in a Key Capabilities bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "AcroForm field types (text, checkbox, radio, combo, list, signature) present via Form/Field in a Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **XFA forms** — fill and read XFA data, JavaScript and FormCalc scripting, rendering, conversion to AcroForm, flattening",
+    "salient_tokens": [
+      "XFA",
+      "JavaScript",
+      "FormCalc",
+      "AcroForm"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "XFA forms (fill, JavaScript/FormCalc scripting, conversion to AcroForm, flattening) present verbatim in a Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "XFA forms (fill, JavaScript/FormCalc scripting, conversion to AcroForm, flattening) present verbatim in a Key Capabilities bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "XFA forms (fill, JavaScript/FormCalc scripting, conversion to AcroForm, flattening) present verbatim in a Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Annotations** — text markup (highlight, underline, strikeout, squiggly), free text, ink, stamps, file attachments, links, redaction",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Annotation types present via AnnotationCollection bullet (text markup, free text, ink, stamps, file attachments, links, redaction); the specific highlight/underline/strikeout/squiggly text-markup subtypes are individually listed in the API Reference Annotations class table.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Annotation types present via AnnotationCollection bullet (text markup, free text, ink, stamps, file attachments, links, redaction); the specific highlight/underline/strikeout/squiggly text-markup subtypes are individually listed in the API Reference Annotations class table."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Annotation types present via AnnotationCollection bullet (text markup, free text, ink, stamps, file attachments, links, redaction); the specific highlight/underline/strikeout/squiggly text-markup subtypes are individually listed in the API Reference Annotations class table."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Bookmarks & Outlines** — read, modify, and create document outline trees",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Bookmark/outline-tree read/modify/create present via OutlineCollection in a Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Bookmark/outline-tree read/modify/create present via OutlineCollection in a Key Capabilities bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Bookmark/outline-tree read/modify/create present via OutlineCollection in a Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Digital Signatures** — PKCS#7 signing (RSA, DSA, ECDSA) and signature verification",
+    "salient_tokens": [
+      "PKCS",
+      "RSA",
+      "DSA",
+      "ECDSA"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "PKCS#7 signing (RSA/DSA/ECDSA) and verification present via PdfSigner in a Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "PKCS#7 signing (RSA/DSA/ECDSA) and verification present via PdfSigner in a Key Capabilities bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "PKCS#7 signing (RSA/DSA/ECDSA) and verification present via PdfSigner in a Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Encryption** — AES-128/256, RC4-40/128; password protection (user/owner)",
+    "salient_tokens": [
+      "AES",
+      "RC4"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "AES-128/256 and RC4 encryption with password protection present in a Key Capabilities bullet; the RC4-40-vs-128 bit-length distinction is enum-level detail not called out separately anywhere in the candidate, matching how other minor algorithm-variant enumerations were handled.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "AES-128/256 and RC4 encryption with password protection present in a Key Capabilities bullet; the RC4-40-vs-128 bit-length distinction is enum-level detail not called out separately anywhere in the candidate, matching how other minor algorithm-variant enumerations were handled."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "AES-128/256 and RC4 encryption with password protection present in a Key Capabilities bullet; the RC4-40-vs-128 bit-length distinction is enum-level detail not called out separately anywhere in the candidate, matching how other minor algorithm-variant enumerations were handled."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Optimization** — `Document.optimizeResources()`: unused-object removal, duplicate-stream linking, stream recompression, image compression/downsampling, font subsetting",
+    "salient_tokens": [
+      "Document.optimizeResources()",
+      "optimizeResources"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Document.optimizeResources() mechanism (unused-object removal, duplicate-stream linking, recompression, image downsampling, font subsetting) present near-verbatim in a Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Document.optimizeResources() mechanism (unused-object removal, duplicate-stream linking, recompression, image downsampling, font subsetting) present near-verbatim in a Key Capabilities bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Document.optimizeResources() mechanism (unused-object removal, duplicate-stream linking, recompression, image downsampling, font subsetting) present near-verbatim in a Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **PDF/A** — validation and conversion to PDF/A-1, PDF/A-2, PDF/A-3, PDF/A-4",
+    "salient_tokens": [
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "PDF/A-1 through PDF/A-4 validation and conversion present verbatim in a Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "PDF/A-1 through PDF/A-4 validation and conversion present verbatim in a Key Capabilities bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "PDF/A-1 through PDF/A-4 validation and conversion present verbatim in a Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **HTML** — HTML-to-PDF import (`HtmlLoadOptions`) and save to HTML/XML",
+    "salient_tokens": [
+      "HtmlLoadOptions",
+      "HTML",
+      "PDF",
+      "XML"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "HTML-to-PDF import (HtmlLoadOptions) and PDF-to-HTML/XML save present verbatim in a Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "HTML-to-PDF import (HtmlLoadOptions) and PDF-to-HTML/XML save present verbatim in a Key Capabilities bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "HTML-to-PDF import (HtmlLoadOptions) and PDF-to-HTML/XML save present verbatim in a Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **XMP Metadata** — read and write document metadata",
+    "salient_tokens": [
+      "XMP"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "XMP metadata read/write present via XmpMetadata in a Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "XMP metadata read/write present via XmpMetadata in a Key Capabilities bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "XMP metadata read/write present via XmpMetadata in a Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Page operations** — split, merge, rotate, resize content, reorder",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Split/merge/extract/resize/reorder page operations present via the PdfFileEditor facade bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Split/merge/extract/resize/reorder page operations present via the PdfFileEditor facade bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Split/merge/extract/resize/reorder page operations present via the PdfFileEditor facade bullet."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Layers (OCG)** — read and write optional content groups",
+    "salient_tokens": [
+      "OCG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "'OCG' abbreviation and the read/write optional-content-groups capability are present in the API Reference (both the SetOCGStateAction class table row and the Detailed Member Reference 'Layer -- read and write optional content groups (OCG)' line); the Key Capabilities bullet also states the same capability in expanded form ('optional content groups (layers)').",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "'OCG' appears literally in API Reference: SetOCGStateAction class row ('changes the state of Optional Content Groups') and the Detailed Member Reference Layer bullet ('read and write optional content groups (OCG)')."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Layers (OCG) capability present in both Key Capabilities (expanded, 'optional content groups (layers)') and API Reference (literal 'OCG' abbreviation in SetOCGStateAction and the Layer member-reference bullet)."
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Attachments** — embedded files collection, preserved across merges",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Embedded-files collection, preserved across merges, present verbatim via EmbeddedFileCollection in a Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Embedded-files collection, preserved across merges, present verbatim via EmbeddedFileCollection in a Key Capabilities bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Embedded-files collection, preserved across merges, present verbatim via EmbeddedFileCollection in a Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Document structure** — tagged PDF, logical structure",
+    "salient_tokens": [
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Tagged PDF / logical structure capability is covered by the large Logicalstructure API Reference class table (StructTreeRoot, StructureElement, etc.) and by the Scope and Limitations note that this support is partial.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Tagged PDF / logical structure capability is covered by the large Logicalstructure API Reference class table (StructTreeRoot, StructureElement, etc.) and by the Scope and Limitations note that this support is partial."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Tagged PDF / logical structure capability is covered by the large Logicalstructure API Reference class table (StructTreeRoot, StructureElement, etc.) and by the Scope and Limitations note that this support is partial."
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Facades** — `PdfFileEditor`, `PdfContentEditor`, `PdfBookmarkEditor`, `PdfExtractor`, `PdfConverter`, `PdfFileSignature`, and more",
+    "salient_tokens": [
+      "PdfFileEditor",
+      "PdfContentEditor",
+      "PdfBookmarkEditor",
+      "PdfExtractor",
+      "PdfConverter",
+      "PdfFileSignature"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Facades (PdfFileEditor, PdfContentEditor, PdfBookmarkEditor, PdfExtractor, PdfConverter, PdfFileSignature) present via the Key Capabilities page-editing bullet and the full API Reference Facades class table.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Facades (PdfFileEditor, PdfContentEditor, PdfBookmarkEditor, PdfExtractor, PdfConverter, PdfFileSignature) present via the Key Capabilities page-editing bullet and the full API Reference Facades class table."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Facades (PdfFileEditor, PdfContentEditor, PdfBookmarkEditor, PdfExtractor, PdfConverter, PdfFileSignature) present via the Key Capabilities page-editing bullet and the full API Reference Facades class table."
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Zero dependencies** — uses only `java.*`, `javax.crypto`, `javax.imageio`, `javax.xml.*`",
+    "salient_tokens": [
+      "java.*",
+      "javax.crypto",
+      "javax.imageio",
+      "javax.xml.*"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Zero-third-party-dependency claim (java.*, javax.crypto, javax.imageio, javax.xml.*) present verbatim in Installation.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Zero-third-party-dependency claim (java.*, javax.crypto, javax.imageio, javax.xml.*) present verbatim in Installation."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Zero-third-party-dependency claim (java.*, javax.crypto, javax.imageio, javax.xml.*) present verbatim in Installation."
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "Maven Central publication is planned but the artifact is **not yet available** on Central. For now, build from source:",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "This is a real, checkable claim (Maven Central publication status) -- but verification shows it is now STALE, not missing. The old README's clone-cache snapshot says the artifact is 'not yet available' on Central; the live package registry shows it went live weeks before this old-README snapshot's own capture. Restoring 'not yet available, build from source' would introduce a factual regression, not recover lost truth.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "package_registry_field",
+      "evidence_ref": "pdf.java.verification.published",
+      "evidence_note": "data/package_registry.json: pdf.java.verification.published=true, verified_at 2026-07-24 via a live curl of repo1.maven.org/maven2/org/aspose/aspose-pdf-foss/maven-metadata.xml returning HTTP 200 with lastUpdated 20260716135116 -- the artifact was live on Maven Central as of 2026-07-16, before this old README's own information was captured. The candidate's Installation section (real groupId org.aspose, artifactId aspose-pdf-foss, version 26.6.0, both Maven and Gradle snippets) correctly reflects the current, live state."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Old README's 'not yet available on Maven Central, build from source' claim is stale -- package_registry.json confirms the artifact has been live on Maven Central since 2026-07-16. Restoring it would be a factual regression, not a recovery."
+  },
+  {
+    "unit_id": "u0025",
+    "source": "clone_cache/README.md",
+    "excerpt": "Once on Maven Central, add to your `pom.xml`:",
+    "salient_tokens": [
+      "pom.xml"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Same stale-claim situation as u0024: this sentence's 'Once on Maven Central' conditional framing is now moot -- the pom.xml dependency snippet it introduces is already present in the candidate's Installation section, unconditionally, because the library is in fact published.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "package_registry_field",
+      "evidence_ref": "pdf.java.verification.published",
+      "evidence_note": "Same package_registry.json evidence as u0024 -- pdf.java.verification.published=true since 2026-07-16. The candidate's Installation pom.xml/Gradle snippets already exist unconditionally; restoring the old 'once available' framing would misrepresent current availability as hypothetical."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Stale 'once on Maven Central' conditional framing -- the dependency snippet is already present in Installation unconditionally because the artifact is live now."
+  },
+  {
+    "unit_id": "u0026",
+    "source": "clone_cache/README.md",
+    "excerpt": "Gradle:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Gradle install lead-in and its dependency-declaration mechanism are already present in the candidate's Installation section ('Gradle (Groovy DSL):' plus implementation 'org.aspose:aspose-pdf-foss:26.6.0'). The old README's own artifact coordinates under this label ('org.aspose:aspose-pdf:26.7') are additionally stale/wrong -- missing the real '-foss' artifactId suffix and an outdated version -- so they are not restored verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'Gradle (Groovy DSL): implementation 'org.aspose:aspose-pdf-foss:26.6.0'' -- same Gradle install mechanism, with the real, current artifactId (confirmed via pom.xml's own <artifactId>aspose-pdf-foss</artifactId>) and version. The old README's 'org.aspose:aspose-pdf:26.7' coordinates lack the '-foss' suffix and are version-stale."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Gradle install mechanism already present in Installation with the real, current artifactId and version; the old README's own coordinates under this label are stale/incorrect."
+  },
+  {
+    "unit_id": "u0027",
+    "source": "clone_cache/README.md",
+    "excerpt": "API documentation will be published at https://aspose-pdf-foss.github.io/Aspose.PDF-FOSS-for-Java/ once a stable release is tagged. For now, JavaDoc can be generated locally:",
+    "salient_tokens": [
+      "API",
+      "PDF",
+      "FOSS",
+      "JavaDoc"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The still-true, checkable mechanism this unit introduces -- generating JavaDoc locally with 'mvn javadoc:javadoc' -- is present verbatim in Development and Testing; the 'will be published once a stable release is tagged' hedge is superseded by the candidate's own live 'Full API reference' link to reference.aspose.org/pdf/java/ in Documentation & Resources, so restoring the hedge would be stale.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "The still-true, checkable mechanism this unit introduces -- generating JavaDoc locally with 'mvn javadoc:javadoc' -- is present verbatim in Development and Testing; the 'will be published once a stable release is tagged' hedge is superseded by the candidate's own live 'Full API reference' link to reference.aspose.org/pdf/java/ in Documentation & Resources, so restoring the hedge would be stale."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "The still-true, checkable mechanism this unit introduces -- generating JavaDoc locally with 'mvn javadoc:javadoc' -- is present verbatim in Development and Testing; the 'will be published once a stable release is tagged' hedge is superseded by the candidate's own live 'Full API reference' link to reference.aspose.org/pdf/java/ in Documentation & Resources, so restoring the hedge would be stale."
+  },
+  {
+    "unit_id": "u0028",
+    "source": "clone_cache/README.md",
+    "excerpt": "The generated HTML lives in `target/site/apidocs/`.",
+    "salient_tokens": [
+      "target/site/apidocs/",
+      "HTML"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "'The generated HTML lives in target/site/apidocs/' present verbatim in Development and Testing.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "'The generated HTML lives in target/site/apidocs/' present verbatim in Development and Testing."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "'The generated HTML lives in target/site/apidocs/' present verbatim in Development and Testing."
+  },
+  {
+    "unit_id": "u0029",
+    "source": "clone_cache/README.md",
+    "excerpt": "This is an early-stage open-source effort. The following coverage matrix tracks parity against the commercial Aspose.PDF for Java API:",
+    "salient_tokens": [
+      "PDF",
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The coverage-matrix concept this sentence introduces is distilled into the Scope and Limitations note (Tagged PDF/logical structure partial, everything else implemented); the 'early-stage' self-description is soft narrative framing around real, already-captured status information.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "The coverage-matrix concept this sentence introduces is distilled into the Scope and Limitations note (Tagged PDF/logical structure partial, everything else implemented); the 'early-stage' self-description is soft narrative framing around real, already-captured status information."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "The coverage-matrix concept this sentence introduces is distilled into the Scope and Limitations note (Tagged PDF/logical structure partial, everything else implemented); the 'early-stage' self-description is soft narrative framing around real, already-captured status information."
+  },
+  {
+    "unit_id": "u0030",
+    "source": "clone_cache/README.md",
+    "excerpt": "| Area | Status |\n|---|---|\n| Document model (COS layer, pages, resources) | ✅ Implemented |\n| Text extraction, search, replacement | ✅ Implemented |\n| Image extraction and page rasterization | ✅ Implemented |\n| Document generation (paragraphs, tables, stamps, headers/footers) | ✅ Implemented |\n| Drawing API (shapes, gradients) | ✅ Implemented |\n| AcroForm fields | ✅ Implemented |\n| XFA forms (fill, JavaScript/FormCalc, rendering, conversion to AcroForm, flattening) | ✅ Implemented |\n| Annotations | ✅ Implemented (most types, incl. redaction) |\n| Bookmarks & outlines | ✅ Implemented |\n| Digital signatures (PKCS#7: RSA/DSA/ECDSA) | ✅ Implemented |\n| Encryption (AES, RC4) | ✅ Implemented |\n| Resource optimization (`optimizeResources`: dedup, recompression, image downsampling, font subsetting) | ✅ Implemented |\n| PDF/A validation & conversion | ✅ Implemented |\n| HTML to PDF | ✅ Implemented |\n| Layers (optional content groups) | ✅ Implemented |\n| Attachments / embedded files | ✅ Implemented |\n| Facades (`PdfFileEditor`, `PdfContentEditor`, ...) | ✅ Implemented |\n| XMP metadata | ✅ Implemented |\n| Tagged PDF / logical structure | 🟡 Partial |",
+    "salient_tokens": [
+      "optimizeResources",
+      "PdfFileEditor",
+      "PdfContentEditor",
+      "COS",
+      "API",
+      "AcroForm",
+      "XFA",
+      "JavaScript",
+      "FormCalc",
+      "PKCS",
+      "RSA",
+      "DSA",
+      "ECDSA",
+      "AES",
+      "RC4",
+      "PDF",
+      "HTML",
+      "XMP"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The single non-'Implemented' row of this table (Tagged PDF / logical structure: Partial) is exactly what Scope and Limitations states, and it also explicitly names the same implemented-area list (document generation, text/image extraction, forms, XFA, annotations, digital signatures, encryption, PDF/A, editing facades) that makes up the rest of the table.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "The single non-'Implemented' row of this table (Tagged PDF / logical structure: Partial) is exactly what Scope and Limitations states, and it also explicitly names the same implemented-area list (document generation, text/image extraction, forms, XFA, annotations, digital signatures, encryption, PDF/A, editing facades) that makes up the rest of the table."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "The single non-'Implemented' row of this table (Tagged PDF / logical structure: Partial) is exactly what Scope and Limitations states, and it also explicitly names the same implemented-area list (document generation, text/image extraction, forms, XFA, annotations, digital signatures, encryption, PDF/A, editing facades) that makes up the rest of the table."
+  },
+  {
+    "unit_id": "u0031",
+    "source": "clone_cache/README.md",
+    "excerpt": "Bug reports and feature requests are welcome via [GitHub Issues](https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Java/issues).",
+    "salient_tokens": [
+      "GitHub",
+      "PDF",
+      "FOSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "GitHub Issues link for bug reports/feature requests present verbatim in Documentation & Resources.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "GitHub Issues link for bug reports/feature requests present verbatim in Documentation & Resources."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "GitHub Issues link for bug reports/feature requests present verbatim in Documentation & Resources."
+  },
+  {
+    "unit_id": "u0032",
+    "source": "clone_cache/README.md",
+    "excerpt": "Pull requests are welcome. Before opening one, please:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "'Pull requests are welcome. Before opening one' present near-verbatim as the opening of Contributing.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Contributing",
+      "evidence_note": "'Pull requests are welcome. Before opening one' present near-verbatim as the opening of Contributing."
+    },
+    "disposition": "excluded",
+    "target_section": "Contributing",
+    "excluded_reason": "'Pull requests are welcome. Before opening one' present near-verbatim as the opening of Contributing."
+  },
+  {
+    "unit_id": "u0033",
+    "source": "clone_cache/README.md",
+    "excerpt": "1. Open an issue describing the change you intend to make\n2. Ensure `mvn test` passes locally\n3. Follow the existing code style (run `mvn checkstyle:check` if configured)\n4. Keep changes focused — one PR per logical change\n5. Do not add third-party runtime dependencies; this is a zero-dependency library",
+    "salient_tokens": [
+      "mvn test",
+      "mvn checkstyle:check",
+      "PR"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "All 5 checklist points (open an issue first, mvn test passes, existing code style including the `mvn checkstyle:check` instruction, changes kept to one PR per logical change, no third-party runtime dependencies) are condensed but all present in the Contributing paragraph. (2026-08-16, MT049 remediation: the checkstyle-check instruction and the one-PR-per-logical-change detail had silently been dropped from the candidate paragraph despite this entry's own claim; restored into reports/repo-presenter/pdf/java/readme.md's Contributing section, re-verified against runs/.clone_cache/aspose_pdf_java/README.md lines 175-185, which is unchanged and still current.)",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Contributing",
+      "evidence_note": "All 5 checklist points (open an issue first, mvn test passes, existing code style including the `mvn checkstyle:check` instruction, changes kept to one PR per logical change, no third-party runtime dependencies) are condensed but all present in the Contributing paragraph."
+    },
+    "disposition": "excluded",
+    "target_section": "Contributing",
+    "excluded_reason": "All 5 checklist points (open an issue first, mvn test passes, existing code style including the `mvn checkstyle:check` instruction, changes kept to one PR per logical change, no third-party runtime dependencies) are condensed but all present in the Contributing paragraph."
+  },
+  {
+    "unit_id": "u0034",
+    "source": "clone_cache/README.md",
+    "excerpt": "See [AGENTS.md](AGENTS.md) for additional guidance, particularly if you are using an AI coding assistant.",
+    "salient_tokens": [
+      "AGENTS",
+      "AI"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "AGENTS.md pointer, with the same 'particularly if you're using an AI coding assistant' framing, present verbatim in Contributing (and again in Documentation & Resources).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Contributing",
+      "evidence_note": "AGENTS.md pointer, with the same 'particularly if you're using an AI coding assistant' framing, present verbatim in Contributing (and again in Documentation & Resources)."
+    },
+    "disposition": "excluded",
+    "target_section": "Contributing",
+    "excluded_reason": "AGENTS.md pointer, with the same 'particularly if you're using an AI coding assistant' framing, present verbatim in Contributing (and again in Documentation & Resources)."
+  },
+  {
+    "unit_id": "u0035",
+    "source": "clone_cache/README.md",
+    "excerpt": "This project is licensed under the **MIT License** — see [LICENSE](LICENSE) for the full text.",
+    "salient_tokens": [
+      "MIT",
+      "LICENSE"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "MIT License statement with LICENSE link present verbatim in License.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "MIT License statement with LICENSE link present verbatim in License."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "MIT License statement with LICENSE link present verbatim in License."
+  },
+  {
+    "unit_id": "u0036",
+    "source": "clone_cache/README.md",
+    "excerpt": "[Aspose.PDF for Java](https://products.aspose.com/pdf/java/) is a commercial library from Aspose Pty Ltd that offers a broader feature set, including OCR and conversion to many non-PDF formats. The FOSS edition shares the same API shape, so user code can often migrate between the two with minimal changes.",
+    "salient_tokens": [
+      "PDF",
+      "OCR",
+      "FOSS",
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The OCR and broader-non-PDF-format-conversion differentiators are present verbatim in the Scope and Limitations Enterprise Edition paragraph; the shared-API-shape/migration-ease claim is present in that same paragraph. (2026-08-16, MT049 remediation: this entry's own prior text claimed the migration-ease claim was covered by the Intro's separate, more general 'API-compatible with Aspose.PDF for Java' statement, but that statement does not carry the specific 'user code can often migrate between the two with minimal changes' fact -- check_content_unit_merged_into_target_section correctly flagged the FOSS/API tokens as unmatched against evidence_ref='Scope and Limitations'. Restored the specific migration-ease sentence directly into the Scope and Limitations Enterprise Edition paragraph, matching where the source's own excerpt places it; re-verified against runs/.clone_cache/aspose_pdf_java/README.md line 193 ('## Related projects'), which is unchanged and still current.)",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "The OCR and broader-non-PDF-format-conversion differentiators, and the shared-API-shape/migration-ease claim, are both present verbatim in the Scope and Limitations Enterprise Edition paragraph."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "The OCR and broader-non-PDF-format-conversion differentiators, and the shared-API-shape/migration-ease claim, are both present in the Scope and Limitations Enterprise Edition paragraph."
+  }
+]

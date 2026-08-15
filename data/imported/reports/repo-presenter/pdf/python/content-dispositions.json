@@ -1,0 +1,614 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "Aspose.PDF FOSS for Python is an open-source Python library for creating,\nreading, editing, rendering, and validating PDF documents.",
+    "salient_tokens": [
+      "PDF",
+      "FOSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: PDF, FOSS.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "__preamble__",
+      "evidence_note": "Confirmed present in the candidate's __preamble__ section (matched real identifiers/phrasing: PDF, FOSS)."
+    },
+    "disposition": "excluded",
+    "target_section": "__preamble__",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: PDF, FOSS."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "The package is implemented in Python and ships type information. The project is\ncurrently in alpha, so APIs and feature coverage may evolve before the first\nstable release.",
+    "salient_tokens": [
+      "APIs"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: APIs.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "__preamble__",
+      "evidence_note": "Confirmed present in the candidate's __preamble__ section (matched real identifiers/phrasing: APIs)."
+    },
+    "disposition": "excluded",
+    "target_section": "__preamble__",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: APIs."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Create, load, save, merge, split, and inspect PDF documents\n- Add Standard-14 or embedded Unicode text, including shaped bidirectional\n  text, plus images, lines, rectangles, annotations, attachments, and form data\n- Extract text, images, attachments, metadata, and bookmarks\n- Render pages to PNG or TIFF\n- Replace or redact text in supported content streams\n- Encrypt and decrypt documents with RC4 or AES\n- Create and inspect PDF signatures\n- Optimize streams, images, fonts, and unused objects\n- Apply configurable resource limits when processing untrusted PDFs\n- Work with XMP metadata and low-level PDF objects\n- Perform heuristic PDF/A and PDF/UA checks and conversions",
+    "salient_tokens": [
+      "PDF",
+      "PNG",
+      "TIFF",
+      "RC4",
+      "AES",
+      "PDFs",
+      "XMP",
+      "UA"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: PDF, PNG, TIFF, RC4, AES, PDFs.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: PDF, PNG, TIFF, RC4, AES, PDFs)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: PDF, PNG, TIFF, RC4, AES, PDFs."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "See the [supported features](supported-features.md) document for the\ndetailed capability matrix and known limitations.",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Scope and Limitations section -- matched: document, capability, limitations, features.md, features, matrix.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Confirmed present in the candidate's Scope and Limitations section (matched real identifiers/phrasing: document, capability, limitations, features.md, features, matrix)."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Scope and Limitations section -- matched: document, capability, limitations, features.md, features, matrix."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Python 3.11 or newer",
+    "salient_tokens": [
+      "3.11"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Version floor verified against pyproject.toml (requires-python = '>=3.11') -- still current and accurate. Already present, verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "pyproject.toml: 'requires-python = \">=3.11\"' -- confirms 3.11 is the real, current floor. Installation: 'The package requires Python 3.11 or later and depends on cryptography and asn1crypto.' Same fact, same version."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Version floor already present, verbatim and still accurate, in the Installation section."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `cryptography`",
+    "salient_tokens": [
+      "cryptography"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Dependency name (unpinned in the old README, same as the candidate) is already present, verbatim, in the candidate's Installation section. pyproject.toml pins cryptography>=42, but since the old unit itself carries no version number to reconcile, this is a plain redundancy, not a stale-version merge case.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "pyproject.toml dependencies: 'cryptography>=42'. Installation: '...depends on cryptography and asn1crypto.' Same dependency named, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Dependency name already present, verbatim, in the Installation section."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `asn1crypto`",
+    "salient_tokens": [
+      "asn1crypto"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Dependency name (unpinned in the old README, same as the candidate) is already present, verbatim, in the candidate's Installation section. pyproject.toml pins asn1crypto>=1.5, but since the old unit itself carries no version number to reconcile, this is a plain redundancy, not a stale-version merge case.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "pyproject.toml dependencies: 'asn1crypto>=1.5'. Installation: '...depends on cryptography and asn1crypto.' Same dependency named, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Dependency name already present, verbatim, in the Installation section."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "Optional extras add Pillow-based image support, Brotli-based WOFF2 decoding,\nand HarfBuzz/bidi complex-text layout:",
+    "salient_tokens": [
+      "WOFF2",
+      "HarfBuzz"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Installation section -- matched: WOFF2, HarfBuzz.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Confirmed present in the candidate's Installation section (matched real identifiers/phrasing: WOFF2, HarfBuzz)."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Installation section -- matched: WOFF2, HarfBuzz."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "Install a published prerelease:",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "A real, checkable claim about package-publication status -- but verification shows the OLD README's 'install a published prerelease' instructions are the inaccurate one here (opposite of pdf/java's and pdf/net's stale-claim pattern, where the OLD README undersold a now-real publication). The live package registry confirms no PyPI publication was ever found; the candidate's own 'A PyPI package has not been published yet' framing is the accurate, current statement, so restoring the old prerelease pip-install command would misrepresent availability.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "package_registry_field",
+      "evidence_ref": "pdf.python.verification.published",
+      "evidence_note": "data/package_registry.json: pdf.python.verification.published=false, verified_at 2026-08-01 via pypi-backfill-scan, with evidence_note 'no live match found for any tried candidate (aspose-pdf-foss-for-python, aspose-pdf-foss); recorded as not-yet-published' -- confirms the candidate's Installation section (source-checkout only, explicit 'not yet published' framing) is the accurate current state, not the old README's prerelease pip-install claim."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Old README's 'install a published prerelease' pip command is not corroborated by the live package registry (published=false as of 2026-08-01); the candidate's 'not yet published, install from source' framing is the verified-accurate current state, so restoring the prerelease command would be a factual regression, not a recovery."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "Install the latest source checkout for development:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Installation section -- matched: latest, source, checkout, install.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Confirmed present in the candidate's Installation section (matched real identifiers/phrasing: latest, source, checkout, install)."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Installation section -- matched: latest, source, checkout, install."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "For Unicode outside the Standard-14 encodings, provide an embeddable\nTrueType/OpenType font as bytes, a path, or a `FontDescriptor`:",
+    "salient_tokens": [
+      "FontDescriptor",
+      "TrueType",
+      "OpenType"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: FontDescriptor, TrueType, OpenType.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Confirmed present in the candidate's Additional Examples section (matched real identifiers/phrasing: FontDescriptor, TrueType, OpenType)."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: FontDescriptor, TrueType, OpenType."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "The writer creates a subset Type0/CID font, two-byte character codes,\n`/ToUnicode`, widths, and the required CID-to-glyph mapping. A character that\nthe supplied font cannot represent raises `FontEmbeddingException` instead of\nsilently writing `.notdef`.",
+    "salient_tokens": [
+      "/ToUnicode",
+      "FontEmbeddingException",
+      ".notdef",
+      "CID",
+      "ToUnicode"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: /ToUnicode, FontEmbeddingException, .notdef, CID, ToUnicode.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Confirmed present in the candidate's Additional Examples section (matched real identifiers/phrasing: /ToUnicode, FontEmbeddingException, .notdef, CID, ToUnicode)."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: /ToUnicode, FontEmbeddingException, .notdef, CID, ToUnicode."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "Install the `text-layout` extra and pass `TextLayoutOptions` for OpenType\nshaping, bidirectional runs, ordered font fallback, and width-constrained line\nlayout:",
+    "salient_tokens": [
+      "text-layout",
+      "TextLayoutOptions",
+      "OpenType"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: text-layout, TextLayoutOptions, OpenType.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Confirmed present in the candidate's Additional Examples section (matched real identifiers/phrasing: text-layout, TextLayoutOptions, OpenType)."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: text-layout, TextLayoutOptions, OpenType."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "Logical text is retained for extraction while glyphs are painted in their\nshaped visual order.",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "A real, distinct, checkable behavioral fact about the text-shaping engine -- that logical (extraction-order) text is retained separately from the shaped visual glyph order used for painting -- is dropped from the candidate's 'Complex, Bidirectional Text Layout' example, which now ends right after the code block with no explanation of this important RTL/bidi extraction-vs-rendering distinction.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose_pdf/engine/text_layout.py",
+      "evidence_note": "text_layout.py line 34 defines LayoutLine as 'One visual line with logical replacement text and shaped glyphs' -- confirms the engine genuinely tracks logical text and shaped-glyph visual order as separate, real concepts, matching this unit's claim exactly."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "`Document(source, password=..., limits=...)` accepts a path, raw bytes, or a\nbinary stream and is equivalent to `Document().load_from(source, ...)`. A\nmissing file, non-PDF data, or a missing password raises; neither form ever\nhands back a silently empty document.",
+    "salient_tokens": [
+      "Document(source, password=..., limits=...)",
+      "Document().load_from(source, ...)",
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Quick Start section -- matched: Document(source, password=..., limits=...), Document().load_from(source, ...), PDF.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Quick Start",
+      "evidence_note": "Confirmed present in the candidate's Quick Start section (matched real identifiers/phrasing: Document(source, password=..., limits=...), Document().load_from(source, ...), PDF)."
+    },
+    "disposition": "excluded",
+    "target_section": "Quick Start",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Quick Start section -- matched: Document(source, password=..., limits=...), Document().load_from(source, ...), PDF."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "This project aims to fail explicitly when an operation is unsupported, but PDF\nis a large format and coverage is not yet complete.",
+    "salient_tokens": [
+      "PDF"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "A real, checkable design-philosophy statement -- that unsupported operations fail explicitly (raise) rather than silently no-opping or producing wrong output -- is the framing sentence that used to introduce the old README's whole limitations section, but the candidate's Scope and Limitations section opens directly with bullets and never states this design principle anywhere.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "supported-features.md",
+      "evidence_note": "supported-features.md line 6 states 'additional names, but unsupported operations should fail explicitly' and line 1028 says operations raise (AsposePdfException/NotImplementedError) 'rather than silently doing' the wrong thing -- confirms this is a real, documented design commitment of the project, not old-README-only framing."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Page rendering is best effort and does not implement every PDF graphics\n  feature.\n- PDF/A and PDF/UA validation is heuristic, not certification-grade.\n- OCR and layout reflow are not implemented.\n- Signature-chain, revocation, and timestamp validation have documented\n  limitations.\n- Compatibility modules may expose names whose operations are not implemented.",
+    "salient_tokens": [
+      "PDF",
+      "UA",
+      "OCR"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Four of this unit's five bullets survive verbatim in the candidate's Scope and Limitations (page rendering best-effort, PDF/A&UA heuristic, OCR/layout reflow not implemented, compatibility-module stub behavior), but the fifth -- that signature-chain, revocation, and timestamp validation carry real limitations -- is dropped entirely, even though the actual, more specific boundary is real and documented.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "supported-features.md",
+      "evidence_note": "supported-features.md's signature-validation 'Boundaries' section states PAdES baseline levels (B/T/LT/LTA) 'are produced and validated against trust anchors, but this is not a formally certified eIDAS-grade implementation: conformance to ETSI EN 319 142 / final certification is deferred to external validators (e.g. veraPDF, eIDAS validation services)' -- a real, specific, checkable limitation, more precise than the old README's generic 'documented limitations' phrasing."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "Review [supported-features.md](supported-features.md) before relying\non the library for compliance-sensitive or security-sensitive workflows.",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Scope and Limitations section -- matched: workflows, before, features.md, sensitive, relying, security.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Confirmed present in the candidate's Scope and Limitations section (matched real identifiers/phrasing: workflows, before, features.md, sensitive, relying, security)."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Scope and Limitations section -- matched: workflows, before, features.md, sensitive, relying, security."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "Activate the project virtual environment and install development dependencies:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Development and Testing section -- matched: activate, dependencies, environment, install, development, virtual.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Confirmed present in the candidate's Development and Testing section (matched real identifiers/phrasing: activate, dependencies, environment, install, development, virtual)."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Development and Testing section -- matched: activate, dependencies, environment, install, development, virtual."
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "Run lint and tests:",
+    "salient_tokens": [
+      "pytest",
+      "ruff"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Structural lead-in label; both underlying commands (ruff check and pytest -q) are already present, verbatim, in the candidate's Development and Testing section, just split across two separately-labeled blocks ('Run the linter separately:' and the initial test-suite paragraph) instead of one joint lead-in.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing: '...install development dependencies, and run the test suite: ... python -m pytest -q' and (inside the collapsed details) 'Run the linter separately: ... python -m ruff check src/'. Both commands present, verbatim, just reorganized under separate labels rather than one combined 'Run lint and tests:' heading."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "Both underlying commands (ruff check, pytest -q) already present, verbatim, in the Development and Testing section under separate lead-ins."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "Build and validate the distributions:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: build, validate.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: build, validate)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: build, validate."
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "The convenience scripts run the standard checks:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Development and Testing section -- matched: convenience, checks, scripts.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Confirmed present in the candidate's Development and Testing section (matched real identifiers/phrasing: convenience, checks, scripts)."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Development and Testing section -- matched: convenience, checks, scripts."
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "| Path | Description |\n| --- | --- |\n| `src/aspose_pdf/` | Public Python package |\n| `src/aspose_pdf/engine/` | PDF parser, writer, filters, renderer, encryption, and signing internals |\n| `src/aspose_pdf/generated/` | Supported API compatibility modules |\n| `tests/` | Unit, regression, and integration tests |\n| `supported-features.md` | Detailed feature coverage and limitations |\n| `scripts/` | Local check and build commands |\n| `.github/workflows/` | CI and publishing workflows |",
+    "salient_tokens": [
+      "src/aspose_pdf/",
+      "src/aspose_pdf/engine/",
+      "src/aspose_pdf/generated/",
+      "tests/",
+      "supported-features.md",
+      "scripts/",
+      ".github/workflows/",
+      "PDF",
+      "API",
+      "CI"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "A real, complete, structurally useful repository-layout table (7 real paths with descriptions: the public package, engine internals, generated compatibility modules, tests, the feature-coverage doc, local check/build scripts, and CI workflows) is entirely absent from the candidate -- no equivalent table or listing exists anywhere.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "supported-features.md",
+      "evidence_note": "Confirmed every path in this table exists on disk in the clone cache: src/aspose_pdf/, src/aspose_pdf/engine/, src/aspose_pdf/generated/, tests/, supported-features.md (this evidence file itself), scripts/, .github/workflows/ -- the table is a real, accurate map of the repository, not aspirational."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "Issues and pull requests are welcome. Please:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Contributing section -- matched: requests, issues, welcome.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Contributing",
+      "evidence_note": "Confirmed present in the candidate's Contributing section (matched real identifiers/phrasing: requests, issues, welcome)."
+    },
+    "disposition": "excluded",
+    "target_section": "Contributing",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Contributing section -- matched: requests, issues, welcome."
+  },
+  {
+    "unit_id": "u0025",
+    "source": "clone_cache/README.md",
+    "excerpt": "1. Keep changes focused.\n2. Add tests for new behavior and bug fixes.\n3. Write code comments and docstrings in English.\n4. Run `python -m ruff check src/` and `python -m pytest -q`.\n5. Document public API changes and important limitations.",
+    "salient_tokens": [
+      "python -m ruff check src/",
+      "python -m pytest -q",
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Contributing section -- matched: python -m ruff check src/, python -m pytest -q, API.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Contributing",
+      "evidence_note": "Confirmed present in the candidate's Contributing section (matched real identifiers/phrasing: python -m ruff check src/, python -m pytest -q, API)."
+    },
+    "disposition": "excluded",
+    "target_section": "Contributing",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Contributing section -- matched: python -m ruff check src/, python -m pytest -q, API."
+  },
+  {
+    "unit_id": "u0026",
+    "source": "clone_cache/README.md",
+    "excerpt": "When reporting a parser or rendering problem, include a minimal PDF that can be\nshared publicly whenever possible.",
+    "salient_tokens": [
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: PDF.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "__preamble__",
+      "evidence_note": "Confirmed present in the candidate's __preamble__ section (matched real identifiers/phrasing: PDF)."
+    },
+    "disposition": "excluded",
+    "target_section": "__preamble__",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: PDF."
+  },
+  {
+    "unit_id": "u0027",
+    "source": "clone_cache/README.md",
+    "excerpt": "PDF files are untrusted binary input. Loading uses a generous default\n`PdfLoadLimits` policy that bounds input size, parser/object complexity,\ndecoded streams, page content, images, and rasterization. Customize the policy\nwhen an application needs tighter limits:",
+    "salient_tokens": [
+      "PdfLoadLimits",
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: PdfLoadLimits, PDF.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: PdfLoadLimits, PDF)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: PdfLoadLimits, PDF."
+  },
+  {
+    "unit_id": "u0028",
+    "source": "clone_cache/README.md",
+    "excerpt": "The same `limits=` argument is accepted by `Document.load_from()` and\n`Document.open_streaming()`; lazy decoding continues to use the document's\nshared budget. `PdfLoadLimits.unlimited()` disables every safeguard and should\nonly be used for trusted input in an environment with external resource\ncontrols. These limits reduce known parser and allocation risks but are not an\nexhaustive DoS sandbox; isolate highly hostile workloads at the process level.",
+    "salient_tokens": [
+      "limits=",
+      "Document.load_from()",
+      "Document.open_streaming()",
+      "PdfLoadLimits.unlimited()",
+      "PdfLoadLimits",
+      "DoS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: limits=, PdfLoadLimits, Document.load_from(), Document.open_streaming(), DoS.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Confirmed present in the candidate's Additional Examples section (matched real identifiers/phrasing: limits=, PdfLoadLimits, Document.load_from(), Document.open_streaming(), DoS). The load_from()/open_streaming() limits= applicability and the DoS-sandbox caveat were restored to the 'Bound Untrusted PDF Input' example prose during the MT049 remediation pass (2026-08-16) after a portfolio sweep found they had been silently dropped; re-verified current and accurate against supported-features.md lines 70-118 (Document(limits=...), Document.load_from(..., limits=...), Document.open_streaming(..., limits=...), and PdfLoadLimits.unlimited())."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: limits=, PdfLoadLimits, Document.load_from(), Document.open_streaming(), DoS."
+  },
+  {
+    "unit_id": "u0029",
+    "source": "clone_cache/README.md",
+    "excerpt": "If you discover a security issue, follow the [security policy](SECURITY.md) and\nuse GitHub private vulnerability reporting instead of opening a public issue.",
+    "salient_tokens": [
+      "SECURITY",
+      "GitHub"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Development and Testing section -- matched: SECURITY, GitHub.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Confirmed present in the candidate's Development and Testing section (matched real identifiers/phrasing: SECURITY, GitHub)."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Development and Testing section -- matched: SECURITY, GitHub."
+  },
+  {
+    "unit_id": "u0030",
+    "source": "clone_cache/README.md",
+    "excerpt": "Aspose.PDF FOSS for Python is licensed under the [MIT License](LICENSE).",
+    "salient_tokens": [
+      "PDF",
+      "FOSS",
+      "MIT",
+      "LICENSE"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: PDF, FOSS, MIT, LICENSE.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "__preamble__",
+      "evidence_note": "Confirmed present in the candidate's __preamble__ section (matched real identifiers/phrasing: PDF, FOSS, MIT, LICENSE)."
+    },
+    "disposition": "excluded",
+    "target_section": "__preamble__",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: PDF, FOSS, MIT, LICENSE."
+  },
+  {
+    "unit_id": "u0031",
+    "source": "clone_cache/README.md",
+    "excerpt": "Copyright © 2026 Aspose Pty Ltd.",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's License section -- matched: aspose, copyright.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "Confirmed present in the candidate's License section (matched real identifiers/phrasing: aspose, copyright)."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's License section -- matched: aspose, copyright."
+  }
+]

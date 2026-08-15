@@ -1,0 +1,247 @@
+[
+  {
+    "unit_id": "u0001",
+    "excerpt": "A pure-Python library for barcode generation. It produces deterministic,\nstandards-compliant barcodes and renders them as SVG or PNG.",
+    "salient_tokens": [
+      "SVG",
+      "PNG"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0002",
+    "excerpt": "- No system dependencies \u2014 pure Python, with [Pillow](https://python-pillow.org/) used only for PNG output.",
+    "salient_tokens": [
+      "PNG"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0003",
+    "excerpt": "- Fully typed (ships a `py.typed` marker).",
+    "salient_tokens": [
+      "py.typed"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0004",
+    "excerpt": "- Linear and 2D symbologies: Code 128, Code 39, EAN-13, EAN-8, UPC-A, UPC-E, and QR Code.",
+    "salient_tokens": [
+      "EAN",
+      "UPC",
+      "QR"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0005",
+    "excerpt": "The package is not yet published to PyPI. Install it from a source checkout (run from\nthe repository root, where `pyproject.toml` lives):",
+    "salient_tokens": [
+      "pyproject.toml",
+      "PyPI"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0006",
+    "excerpt": "The distribution is named `aspose-barcode-foss`; the import package is\n`aspose_barcode_foss`:",
+    "salient_tokens": [
+      "aspose-barcode-foss",
+      "aspose_barcode_foss"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0007",
+    "excerpt": "Write the output to a file:",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0008",
+    "excerpt": "QR Code works the same way:",
+    "salient_tokens": [
+      "QR"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0009",
+    "excerpt": "Each symbology has a dedicated helper; all of them are also reachable through the\ngeneric `generate()` function by name (canonical name or one of its aliases).",
+    "salient_tokens": [
+      "generate()"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0010",
+    "excerpt": "| Symbology | Function | Accepted input |\n|-----------|----------|----------------|\n| Code 128 | `code128()` | Printable ASCII; Code Sets A/B/C with automatic optimal switching |\n| Code 39 | `code39()` | The 43-character set: digits, `A`\u2013`Z`, space, and ``- . $ / + %`` |\n| Code 39 (Extended) | `code39ext()` | Full ASCII (128 characters) via two-character shift encoding |\n| EAN-13 | `ean13()` | 12 digits (check digit computed), or 13 with `allow_check_digit_input=True` |\n| EAN-8 | `ean8()` | 7 digits (check digit computed), or 8 with `allow_check_digit_input=True` |\n| UPC-A | `upca()` | 11 digits (check digit computed), or 12 with `allow_check_digit_input=True` |\n| UPC-E | `upce()` | An 11- or 12-digit number-system-0 GTIN-12, zero-suppressed to UPC-E |\n| QR Code | `qr()` | Text in numeric, alphanumeric, byte (Latin-1), or Kanji mode; Model 2, versions 1\u201340 |",
+    "salient_tokens": [
+      "code128()",
+      "code39()",
+      "A",
+      "Z",
+      "- . $ / + %",
+      "|\n| Code 39 (Extended) |",
+      "| Full ASCII (128 characters) via two-character shift encoding |\n| EAN-13 |",
+      "| 12 digits (check digit computed), or 13 with",
+      "|\n| EAN-8 |",
+      "| 7 digits (check digit computed), or 8 with",
+      "|\n| UPC-A |",
+      "| 11 digits (check digit computed), or 12 with",
+      "|\n| UPC-E |",
+      "| An 11- or 12-digit number-system-0 GTIN-12, zero-suppressed to UPC-E |\n| QR Code |",
+      "ASCII",
+      "EAN",
+      "UPC",
+      "GTIN",
+      "QR"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0011",
+    "excerpt": "Select a symbology by name with `generate()`:",
+    "salient_tokens": [
+      "generate()"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0012",
+    "excerpt": "> Rendering backends: SVG and PNG are implemented for every symbology. PDF output is\n> planned but not yet implemented (`to_pdf()` raises `NotImplementedError`).",
+    "salient_tokens": [
+      "to_pdf()",
+      "NotImplementedError",
+      "SVG",
+      "PNG",
+      "PDF"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0013",
+    "excerpt": "Rendering is controlled with `RenderOptions`, passed as the keyword-only `options`\nargument:",
+    "salient_tokens": [
+      "RenderOptions",
+      "options"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0014",
+    "excerpt": "Available fields: `scale`, `dpi`, `module_width`, `module_height`, `quiet_zone`,\n`foreground_color`, `background_color`, `transparent_background`, `show_text`,\n`font_family`, `font_size`. Any field left as `None` falls back to the symbology's\ndefault.",
+    "salient_tokens": [
+      "scale",
+      "dpi",
+      "module_width",
+      "module_height",
+      "quiet_zone",
+      "foreground_color",
+      "background_color",
+      "transparent_background",
+      "show_text",
+      "font_family",
+      "font_size",
+      "None"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0015",
+    "excerpt": "Each symbology helper accepts a keyword-only `encode` argument with a symbology-specific\noptions type.",
+    "salient_tokens": [
+      "encode"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0016",
+    "excerpt": "`Code128EncodeMode` values: `AUTO`, `CODE_A`, `CODE_B`, `CODE_C`, `CODE_AB`, `CODE_AC`,\n`CODE_BC`.",
+    "salient_tokens": [
+      "Code128EncodeMode",
+      "AUTO",
+      "CODE_A",
+      "CODE_B",
+      "CODE_C",
+      "CODE_AB",
+      "CODE_AC",
+      "CODE_BC"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0017",
+    "excerpt": "The same `allow_check_digit_input` option is available for `ean8()`, `upca()`, and\n`upce()`.",
+    "salient_tokens": [
+      "allow_check_digit_input",
+      "ean8()",
+      "upca()",
+      "upce()"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0018",
+    "excerpt": "`to_svg()` and `to_png()` are convenience wrappers around `render()`, which accepts any\n`Renderer` instance:",
+    "salient_tokens": [
+      "to_svg()",
+      "to_png()",
+      "render()",
+      "Renderer"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0019",
+    "excerpt": "Available renderers: `SvgRenderer`, `PngRenderer`, and `PdfRenderer` (not yet\nimplemented).",
+    "salient_tokens": [
+      "SvgRenderer",
+      "PngRenderer",
+      "PdfRenderer"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0020",
+    "excerpt": "Exception hierarchy (all inherit from `BarcodeError`):",
+    "salient_tokens": [
+      "BarcodeError"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0021",
+    "excerpt": "| Exception | Raised when |\n|-----------|-------------|\n| `BarcodeError` | Base class for all library exceptions |\n| `InvalidInputError` | Input fails validation (bad characters, wrong length, etc.) |\n| `SymbologyNotFoundError` | Unknown symbology name passed to `generate()` |\n| `UnsupportedFeatureError` | Feature exists in the spec but is not yet implemented |\n| `UnsupportedCapabilityError` | Unsupported feature combination for a symbology |\n| `EncodingError` | Encoder-level failure |\n| `RenderingError` | Renderer-level failure |",
+    "salient_tokens": [
+      "BarcodeError",
+      "InvalidInputError",
+      "SymbologyNotFoundError",
+      "generate()",
+      "UnsupportedFeatureError",
+      "UnsupportedCapabilityError",
+      "EncodingError",
+      "RenderingError"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0022",
+    "excerpt": "- Pillow \u2265 10.1.0 (for PNG rendering)",
+    "salient_tokens": [
+      "PNG",
+      "10.1.0"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0023",
+    "excerpt": "Released under the [MIT License](LICENSE).",
+    "salient_tokens": [
+      "MIT",
+      "LICENSE"
+    ],
+    "likely_category_1_prefilter": false
+  }
+]

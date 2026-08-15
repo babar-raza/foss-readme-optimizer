@@ -1,0 +1,890 @@
+[
+  {
+    "child": "ModuleNotFoundError",
+    "parent": "LookupError",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Combinator",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "AttributeOperator",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "CSSStyleRule",
+    "parent": "CSSRule",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CSSMediaRule",
+    "parent": "CSSRule",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CSSKeyframesRule",
+    "parent": "CSSRule",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CSSKeyframeRule",
+    "parent": "CSSRule",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CSSFontFaceRule",
+    "parent": "CSSRule",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CSSSupportsRule",
+    "parent": "CSSRule",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CSSImportRule",
+    "parent": "CSSRule",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CSSLayerBlockRule",
+    "parent": "CSSRule",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CSSLayerStatementRule",
+    "parent": "CSSRule",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CSSNamespaceRule",
+    "parent": "CSSRule",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CSSPageRule",
+    "parent": "CSSRule",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CSSPropertyRule",
+    "parent": "CSSRule",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CSSCounterStyleRule",
+    "parent": "CSSRule",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Attr",
+    "parent": "Node",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CharacterData",
+    "parent": "Node",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Text",
+    "parent": "CharacterData",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Comment",
+    "parent": "CharacterData",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CDATASection",
+    "parent": "Text",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Document",
+    "parent": "Node",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "DocumentFragment",
+    "parent": "Node",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "DocumentType",
+    "parent": "Node",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Element",
+    "parent": "Node",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "CustomEvent",
+    "parent": "Event",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PopStateEvent",
+    "parent": "Event",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HashChangeEvent",
+    "parent": "Event",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "UIEvent",
+    "parent": "Event",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "MouseEvent",
+    "parent": "UIEvent",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "KeyboardEvent",
+    "parent": "UIEvent",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FocusEvent",
+    "parent": "UIEvent",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "InputEvent",
+    "parent": "UIEvent",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ErrorEvent",
+    "parent": "Event",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "DOMException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "IndexSizeError",
+    "parent": "DOMException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HierarchyRequestError",
+    "parent": "DOMException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "WrongDocumentError",
+    "parent": "DOMException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "InvalidCharacterError",
+    "parent": "DOMException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "NoModificationAllowedError",
+    "parent": "DOMException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "NotFoundError",
+    "parent": "DOMException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "NotSupportedError",
+    "parent": "DOMException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "InUseAttributeError",
+    "parent": "DOMException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "InvalidStateError",
+    "parent": "DOMException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "SecurityError",
+    "parent": "DOMException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "SyntaxError",
+    "parent": "DOMException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLElement",
+    "parent": "Element",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Node",
+    "parent": "EventTarget",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Node",
+    "parent": "ABC",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ProcessingInstruction",
+    "parent": "CharacterData",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "StaticRange",
+    "parent": "AbstractRange",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Range",
+    "parent": "AbstractRange",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Window",
+    "parent": "EventTarget",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "MessagePort",
+    "parent": "EventTarget",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "BroadcastChannel",
+    "parent": "EventTarget",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "DataCloneError",
+    "parent": "DOMException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLAnchorElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLAreaElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLMapElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLImageElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLIFrameElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLEmbedElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLObjectElement",
+    "parent": "_ConstraintValidationMixin",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "HTMLObjectElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLCanvasElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLParamElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLInputElement",
+    "parent": "_ConstraintValidationMixin",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "HTMLInputElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLFormElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLButtonElement",
+    "parent": "_ConstraintValidationMixin",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "HTMLButtonElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLSelectElement",
+    "parent": "_ConstraintValidationMixin",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "HTMLSelectElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLTextAreaElement",
+    "parent": "_ConstraintValidationMixin",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "HTMLTextAreaElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLFieldSetElement",
+    "parent": "_ConstraintValidationMixin",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "HTMLFieldSetElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLOptionElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLOptGroupElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLOutputElement",
+    "parent": "_ConstraintValidationMixin",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "HTMLOutputElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLDataListElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLProgressElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLMeterElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLLabelElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLLegendElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLUListElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLOListElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLLIElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLDListElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLPictureElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLMediaElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLVideoElement",
+    "parent": "HTMLMediaElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLAudioElement",
+    "parent": "HTMLMediaElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLSourceElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLTrackElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLScriptElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLLinkElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLMetaElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLTitleElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLStyleElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLBaseElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLDetailsElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLDialogElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLHtmlElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLHeadElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLBodyElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLBRElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLHRElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLPreElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLModElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLNavElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLSectionElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLArticleElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLAsideElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLHeaderElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLFooterElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLMainElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLFigureElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLFigCaptionElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLAddressElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLWBRElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLNoScriptElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLMarkElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLSmallElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLRubyElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLSummaryElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLMenuElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLTemplateElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLTableElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLTableSectionElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLTableRowElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLTableCellElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLTableCaptionElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLTableColElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLDivElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLSpanElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLParagraphElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLHeadingElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLTimeElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLDataElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLQuoteElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLUnknownElement",
+    "parent": "HTMLElement",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "UnsupportedEncodingError",
+    "parent": "ValueError",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "JSEvaluationError",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "TokenizerState",
+    "parent": "IntEnum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "InsertionMode",
+    "parent": "enum.Enum",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "URLParseError",
+    "parent": "ValueError",
+    "relationship": "inherits",
+    "internal": false
+  }
+]

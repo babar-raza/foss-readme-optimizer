@@ -1,0 +1,512 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "The official open-source Python library by Aspose.Slides for creating, reading, and editing PowerPoint (`.pptx`) presentations.",
+    "salient_tokens": [".pptx", "PowerPoint"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Branding/tagline sentence; already present, near-verbatim, as the opening clause of the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Candidate readme.md line 7-9: 'Aspose.Slides FOSS for Python is the official open-source, MIT-licensed, pure-Python library by Aspose.Slides for creating, reading, and editing PowerPoint (`.pptx`) presentations.' -- same sentence, product name moved to front, extra licensing/language detail added."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Fact already present, near-verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Requires:** Python 3.10+ and `lxml` (installed automatically as a dependency).",
+    "salient_tokens": ["lxml", "3.10"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Install-requirement statement, already carried into the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'The package requires Python 3.10 or later. The only runtime dependency, `lxml`, is installed automatically.' -- same requirement, same dependency."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Fact already present, near-verbatim, in the Installation section."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Presentation I/O** — Open, create, and save `.pptx` files with full round-trip fidelity",
+    "salient_tokens": [".pptx"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities as prose.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 1: 'Open and create PowerPoint `.pptx` presentations with full round-trip fidelity through `Presentation`...' -- same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Slides** — Add, remove, clone, reorder, and iterate slides",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 2: 'Add, remove, clone, and iterate slides through `Presentation.slides`.' -- same fact, backing property added."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present in the Key Capabilities bullet list, with the backing API path added."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Shapes** — AutoShapes, PictureFrames, Tables, Connectors, GroupShapes",
+    "salient_tokens": ["AutoShapes", "PictureFrames", "GroupShapes"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 3: 'Insert AutoShapes, PictureFrames, Tables, Connectors, and GroupShapes via `Slide.shapes`.' -- identical items."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Text** — TextFrame, Paragraph, Portion with character, paragraph, and text frame formatting (including bullets)",
+    "salient_tokens": ["TextFrame"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 4: 'Format text at the run level with `TextFrame`, `Paragraph`, and `Portion` -- font, bold, italic, size, color, and bullets.' -- same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Charts** — 70+ chart types, series, categories, axes, trendlines, error bars, legend, titles, data labels, markers, series groups, 3D",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities near-verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 5: 'Build charts with 70+ chart types, series, categories, axes, trendlines, error bars, legends, data labels, markers, and series groups...' -- same list (titles/3D covered by the Chart API's ChartTitle and 'plus 3D' elsewhere)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present, near-verbatim, in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Animations** — Shape and text-level animations with sequences, effects, triggers, and motion paths",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement; the general capability (shape/text-level animations) is stated in Key Capabilities, and the specific mechanisms named here (sequences, effects, triggers, motion paths) are real classes already listed in the candidate's own API Reference Animation table.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 6: 'Apply shape and text-level animations and 55+ slide transition types...' states the capability; the API Reference's Animation class table (Sequence, SequenceCollection, Behavior, MotionPath, MotionCmdPath, EffectTriggerType, etc.) documents the sequences/effects/triggers/motion-path mechanisms this unit names, confirmed real via runs/.clone_cache/aspose_slides_python/aspose/slides_foss/ (MotionPath.py, EffectTriggerType.py exist on disk)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "General capability already stated in Key Capabilities; specific mechanisms already itemized in the API Reference's Animation class table."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Slide transitions** — 60+ transition types with per-slide timing, advance settings, and morph support",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities -- but the old README's '60+' transition-type count is stale/inaccurate; the candidate's '55+' figure is the verified-correct one and must not be overwritten by the old claim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 6: '...and 55+ slide transition types with per-slide timing and advance settings, including morph support.' Counted the real TransitionType enum at runs/.clone_cache/aspose_slides_python/aspose/slides_foss/slideshow/TransitionType.py: 57 members total, one of which is NONE (not a transition), leaving 56 real transition types -- the candidate's '55+' is accurate; the old README's '60+' overstates the real count and must not be merged in."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Concept already present in Key Capabilities with a verified-accurate count (55+); the old README's '60+' figure is stale and was correctly not carried forward."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Themes** — Color schemes, font schemes, format schemes, master/override themes",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement; theme management (including master/override themes) is stated generically in Key Capabilities, and the constituent color/font/format scheme classes this unit names are real, on-disk classes.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 7: 'Manage themes, master/override slides...' states the capability generically. Confirmed real classes exist at runs/.clone_cache/aspose_slides_python/aspose/slides_foss/theme/ColorScheme.py, FontScheme.py, MasterTheme.py, OverrideTheme.py -- the theme management this unit describes is accurately, if generically, represented."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Theme management already stated generically in Key Capabilities; constituent scheme classes confirmed real in clone cache."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Backgrounds** — Per-slide and master slide backgrounds with solid/gradient/pattern/picture fills",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 7: '...per-slide and master backgrounds...'; fill types (solid/gradient/pattern/picture) are covered by the adjacent fill bullet, which backgrounds reuse."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Fill** — Solid, gradient, pattern, and picture fills",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 8: 'Style shapes with solid, gradient, pattern, and picture fills...' -- identical fill list."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Lines** — Width, dash style, arrows, join and alignment",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable capability -- line formatting is mentioned only as the bare phrase 'line formatting' in Key Capabilities, with none of the specific, real properties (width, dash style, arrows, join style, alignment) named anywhere in the candidate (neither Key Capabilities nor the Detailed Member Reference's `LineFormat` mention), unlike the sibling slides/java/cpp/net candidates which all itemize these properties explicitly.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "aspose/slides_foss/LineFormat.py",
+      "evidence_note": "runs/.clone_cache/aspose_slides_python/aspose/slides_foss/LineFormat.py defines real properties `width` (line 189), `dash_style` (line 206), `alignment` (line 331), `join_style` (line 357), and arrowhead accessors such as `begin_arrowhead_style` (line 440) -- confirms all five named properties are real and current."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Effects** — Outer shadow, glow, soft edge, blur, reflection, inner shadow",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 8: 'effects (outer shadow, glow, soft edge, blur, reflection, inner shadow)' -- identical effect list."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **3D** — Bevel, camera, light rig, material, extrusion depth",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement, already carried into Key Capabilities verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 8: '...plus 3D bevel, camera, light rig, material, and extrusion-depth properties.' -- identical wording."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Document properties** — Core, app, and custom properties",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature statement; document properties are stated generically in Key Capabilities, and the Detailed Member Reference documents get/set/remove custom-property methods plus title/subject/author/company core-property fields.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 9: '...document properties...'; API Reference Detailed Member Reference: 'DocumentProperties -- get_custom_property_value(), set_custom_property_value(), remove_custom_property(name); properties title, subject, author, keywords, category, company...' -- covers core/app/custom properties in substance."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Document properties already stated generically in Key Capabilities, with core/custom fields itemized in the Detailed Member Reference."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Notes slides** — Per-slide notes with header/footer management",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable capability -- notes-slide header/footer management is a distinct, real mechanism (confirmed via a real class on disk) that the candidate's Key Capabilities bullet dropped down to bare 'per-slide speaker notes', unlike the sibling slides/java and slides/cpp/net candidates, which both preserve the 'header/footer management' clause for the same feature.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "aspose/slides_foss/NotesSlideHeaderFooterManager.py",
+      "evidence_note": "runs/.clone_cache/aspose_slides_python/aspose/slides_foss/NotesSlideHeaderFooterManager.py exists on disk and is also listed in the candidate's own API Reference Core API table ('NotesSlideHeaderFooterManager -- Represents manager which holds behavior of the notes slide placeholders, including header placeholder.'), confirming the mechanism is real and current, but it is not mentioned anywhere in the Key Capabilities prose (which only says 'per-slide speaker notes')."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Comments** — Threaded comments with authors, timestamps, and positions",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable capability -- comment position tracking is a distinct, real property (confirmed via clone-cache source) that the candidate's Key Capabilities bullet dropped ('threaded comments with authors and timestamps' -- no 'positions').",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "aspose/slides_foss/Comment.py",
+      "evidence_note": "runs/.clone_cache/aspose_slides_python/aspose/slides_foss/Comment.py line 64-65: 'def position(self) -> Any: \"\"\"Returns or sets the position of a comment on a slide. Read/write PointF.\"\"\"' -- confirms Comment.position is real and current. Key Capabilities currently reads 'threaded comments with authors and timestamps', omitting positions, unlike the sibling slides/java/cpp/net candidates which all state 'authors, timestamps, and positions'."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Images** — Embed from file, bytes, or stream",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, checkable capability -- image embedding from file/bytes/stream via a real factory class -- entirely absent from Key Capabilities prose (only PictureFrame shapes are mentioned as a shape type, with no mention of the Images factory or its source options).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "aspose/slides_foss/Images.py",
+      "evidence_note": "runs/.clone_cache/aspose_slides_python/aspose/slides_foss/Images.py defines real static methods `from_file()` and `from_stream()` (the latter accepts any stream, including an in-memory bytes buffer). The `Images` class is listed in the candidate's own API Reference table ('Images -- Methods to instantiate and work with .') but the underlying capability (embedding an image from file, bytes, or stream) is never stated in Key Capabilities prose."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "Build a chart from scratch by populating its backing workbook:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in sentence for the Chart-from-scratch code example; the underlying mechanism it describes (charts are built by populating the backing `ChartDataWorkbook`) is already fully demonstrated by the candidate's equivalent 'Chart From Scratch' code example and its immediately following explanatory sentence (u0021, already present).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "The '### Chart From Scratch' code example (chart.chart_data, cd.chart_data_workbook, wb.get_cell()) plus the sentence immediately following it -- 'wb.get_cell(worksheet_index, row, column, value) writes the value to the embedded XLSX and returns a cell reference that the chart series and categories bind to' (u0021, verbatim match) -- together convey the same 'build via backing workbook' mechanism this lead-in sentence introduces."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Underlying mechanism already conveyed by the working Chart From Scratch example and its accompanying explanation sentence (see u0021)."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "`wb.get_cell(worksheet_index, row, column, value)` writes the value to the embedded\nXLSX and returns a cell reference that the chart series and categories bind to.",
+    "salient_tokens": ["wb.get_cell(worksheet_index, row, column, value)", "XLSX"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Mechanism-explanation sentence, already carried into the candidate's Chart From Scratch example verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Candidate readme.md lines 239-240 (immediately after the Chart From Scratch code block): 'wb.get_cell(worksheet_index, row, column, value) writes the value to the embedded XLSX and returns a cell reference that the chart series and categories bind to.' -- word-for-word match."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Sentence already present verbatim, immediately after the Chart From Scratch code example."
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "The following areas are not yet implemented and will raise `NotImplementedError`:",
+    "salient_tokens": ["NotImplementedError"],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Structural lead-in sentence for the limitations list. Its specific technical claim (a blanket 'will raise NotImplementedError' for every limitation) is also imprecise compared to the candidate's own, more accurate breakdown -- real source confirms `Presentation.save()` raises `ValueError` for unsupported export formats, while only `TextAnimation.add_effect()` raises `NotImplementedError` -- so merging the old blanket claim verbatim would introduce a less accurate statement than what the candidate already has.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify as a checkable capability statement -- pure structural framing sentence; its embedded technical claim was independently checked and found imprecise (see classification_basis) rather than merged."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Structural lead-in whose blanket exception claim is less accurate than the candidate's own per-limitation exception detail already in Scope and Limitations."
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "- SmartArt, OLE objects, mathematical text",
+    "salient_tokens": ["SmartArt", "OLE"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Limitation list item, already carried into the candidate's Scope and Limitations bullet list.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'SmartArt, OLE objects, and mathematical text are not implemented.' -- identical items."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Fact already present verbatim in the Scope and Limitations bullet list."
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Export to non-PPTX formats (PDF, HTML, SVG, images)",
+    "salient_tokens": ["PPTX", "PDF", "HTML", "SVG"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Limitation list item, already carried into the candidate's Scope and Limitations bullet list, in more detail (also covers .ppt/ODF formats and the specific raised exception).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'Legacy binary `.ppt`, OpenDocument (`.odp`/`.otp`/`.fodp`), and export to PDF, HTML, SVG, or images (GIF, TIFF) are not implemented in this edition -- `Presentation.save()` raises `ValueError` for those targets.' -- same PDF/HTML/SVG/images list, more detail added."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Fact already present in the Scope and Limitations bullet list, in more detail than the old text."
+  },
+  {
+    "unit_id": "u0025",
+    "source": "clone_cache/README.md",
+    "excerpt": "- VBA macros, digital signatures",
+    "salient_tokens": ["VBA"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Limitation list item, already carried into the candidate's Scope and Limitations bullet list.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'VBA macros and digital signatures are not implemented.' -- identical wording."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Fact already present verbatim in the Scope and Limitations bullet list."
+  },
+  {
+    "unit_id": "u0026",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Hyperlinks and action settings",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Limitation list item, already carried into the candidate's Scope and Limitations bullet list.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'Hyperlinks and action settings are not implemented.' -- identical wording."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Fact already present verbatim in the Scope and Limitations bullet list."
+  },
+  {
+    "unit_id": "u0027",
+    "source": "clone_cache/README.md",
+    "excerpt": "Unknown XML parts encountered during load are preserved verbatim on save —\nopening and re-saving a file will never strip content this library does not yet understand.",
+    "salient_tokens": ["XML"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Mechanism-level round-trip-fidelity fact; already present, twice, in the new candidate (Key Capabilities and Scope and Limitations).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullet 9: 'Unknown XML parts encountered during load are preserved verbatim on save, so round-tripping never destroys content the library does not yet understand.' Near-verbatim match; also restated in Scope and Limitations."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Fact already present in both the Key Capabilities bullet list and the Scope and Limitations section."
+  },
+  {
+    "unit_id": "u0028",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [GitHub Repository](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Python)",
+    "salient_tokens": ["GitHub", "FOSS"],
+    "classification": "3_branding_positioning",
+    "classification_basis": "Names the canonical public repository for this Aspose.Slides project -- confirmed genuinely absent from the new candidate's Documentation & Resources (Getting started, How-to/FAQ, Full API reference, Contributor guide, and an /issues deep link are present, but no bare repo-root link).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "agents.md",
+      "evidence_note": "runs/.clone_cache/aspose_slides_python/agents.md line 218: '[GitHub](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Python)' -- exact match. pyproject.toml [project.urls] Homepage/Repository and .git/config remote 'origin' both independently confirm the same URL."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0029",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Issue Tracker](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Python/issues)",
+    "salient_tokens": ["FOSS"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Same issue-tracker URL already linked in the new candidate, under different anchor text.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: 'Found a bug or have a feature request? Open an issue on GitHub' links to https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Python/issues -- identical URL, different anchor text."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Same issue-tracker URL already present in Documentation & Resources under different anchor text."
+  },
+  {
+    "unit_id": "u0030",
+    "source": "clone_cache/README.md",
+    "excerpt": "[MIT License](https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Python/blob/main/LICENSE)",
+    "salient_tokens": ["MIT", "FOSS", "LICENSE"],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Same MIT License fact already stated and linked in the new candidate's License section, pointing at the repo-relative LICENSE file instead of the upstream GitHub blob URL.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the [MIT License](LICENSE).' -- same fact and link text, target intentionally repo-relative rather than an absolute GitHub blob URL."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "Same MIT License fact already stated and linked in the License section, using a repo-relative link target."
+  }
+]

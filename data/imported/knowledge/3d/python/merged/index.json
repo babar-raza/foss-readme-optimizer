@@ -1,0 +1,1467 @@
+{
+  "schema_version": 2,
+  "family": "3d",
+  "platform": "python",
+  "display_name": "Aspose.3D",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "class_count": 327,
+    "enriched_claims": 1209,
+    "forbidden_count": 50,
+    "scout_claims": 2278,
+    "snippet_count": 100,
+    "supplemental_claims": 0,
+    "total_claims": 3452
+  },
+  "classes": [
+    "A3DObject",
+    "A3dwSaveOptions",
+    "AlphaSource",
+    "AmfSaveOptions",
+    "AnimationChannel",
+    "AnimationClip",
+    "AnimationNode",
+    "ApertureMode",
+    "ArbitraryProfile",
+    "ArrayListAdapter",
+    "AssetInfo",
+    "Axis",
+    "AxisSystem",
+    "BasicLoadOptions",
+    "BinaryTokenizer",
+    "BindPoint",
+    "BlendFactor",
+    "Bone",
+    "BoneLinkMode",
+    "BonePose",
+    "BooleanOperand",
+    "BooleanOperation",
+    "BooleanOperator",
+    "BoundingBox",
+    "BoundingBox2D",
+    "BoundingBoxExtent",
+    "Box",
+    "CShape",
+    "Camera",
+    "CenterLineProfile",
+    "Circle",
+    "CircleShape",
+    "ColladaExporter",
+    "ColladaFormat",
+    "ColladaFormatDetector",
+    "ColladaImporter",
+    "ColladaLoadOptions",
+    "ColladaPlugin",
+    "ColladaSaveOptions",
+    "ColladaTransformStyle",
+    "CompareFunction",
+    "ComposeOrder",
+    "CompositeCurve",
+    "CoordinateSystem",
+    "CubeFace",
+    "CullFaceMode",
+    "Curve",
+    "CurveDimension",
+    "CustomObject",
+    "Cylinder",
+    "Deformer",
+    "DescriptorSetUpdater",
+    "Discreet3dsLoadOptions",
+    "Discreet3dsSaveOptions",
+    "Dish",
+    "DracoCompressionLevel",
+    "DracoFormat",
+    "DracoSaveOptions",
+    "DrawOperation",
+    "DriverException",
+    "Ellipse",
+    "EllipseShape",
+    "EndPoint",
+    "Entity",
+    "EntityRenderer",
+    "EntityRendererFeatures",
+    "EntityRendererKey",
+    "ExportException",
+    "Exporter",
+    "Extrapolation",
+    "ExtrapolationType",
+    "FMatrix4",
+    "FVector2",
+    "FVector3",
+    "FVector4",
+    "FbxElement",
+    "FbxExporter",
+    "FbxFormat",
+    "FbxFormatDetector",
+    "FbxImporter",
+    "FbxLoadOptions",
+    "FbxParser",
+    "FbxPlugin",
+    "FbxSaveOptions",
+    "FbxScope",
+    "FbxTokenizer",
+    "FileContentType",
+    "FileFormat",
+    "FileFormatType",
+    "FileSystem",
+    "FontFile",
+    "FormatDetector",
+    "FrontFace",
+    "Frustum",
+    "GLSLSource",
+    "Geometry",
+    "GlobalTransform",
+    "GltfEmbeddedImageFormat",
+    "GltfExporter",
+    "GltfFormat",
+    "GltfFormatDetector",
+    "GltfImporter",
+    "GltfLoadOptions",
+    "GltfPlugin",
+    "GltfSaveOptions",
+    "Group",
+    "HShape",
+    "HalfSpace",
+    "HollowCircleShape",
+    "HollowRectangleShape",
+    "Html5SaveOptions",
+    "IBuffer",
+    "ICommandList",
+    "IDescriptorSet",
+    "IIndexBuffer",
+    "IIndexedVertexElement",
+    "IMeshConvertible",
+    "INamedObject",
+    "IOConfig",
+    "IOExtension",
+    "IOService",
+    "IOrientable",
+    "IPipeline",
+    "IRenderQueue",
+    "IRenderTarget",
+    "IRenderTexture",
+    "IRenderWindow",
+    "ITexture1D",
+    "ITexture2D",
+    "ITextureCodec",
+    "ITextureCubemap",
+    "ITextureDecoder",
+    "ITextureEncoder",
+    "ITextureUnit",
+    "IVertexBuffer",
+    "ImageRenderOptions",
+    "ImportException",
+    "Importer",
+    "IndexDataType",
+    "InitializationException",
+    "Interpolation",
+    "InvalidOperationException",
+    "JtLoadOptions",
+    "KeyFrame",
+    "KeyframeSequence",
+    "LShape",
+    "LambertMaterial",
+    "Light",
+    "LightType",
+    "Line",
+    "LinearExtrusion",
+    "LoadOptions",
+    "MappingMode",
+    "Material",
+    "MathUtils",
+    "Matrix4",
+    "Mesh",
+    "Microsoft3MFFormat",
+    "Microsoft3MFSaveOptions",
+    "MirroredProfile",
+    "MorphTargetChannel",
+    "MorphTargetDeformer",
+    "Node",
+    "NurbsCurve",
+    "NurbsDirection",
+    "NurbsSurface",
+    "NurbsType",
+    "ObjExporter",
+    "ObjFormat",
+    "ObjFormatDetector",
+    "ObjImporter",
+    "ObjLoadOptions",
+    "ObjPlugin",
+    "ObjSaveOptions",
+    "ParameterizedProfile",
+    "ParseException",
+    "Patch",
+    "PatchDirection",
+    "PatchDirectionType",
+    "PbrMaterial",
+    "PbrSpecularMaterial",
+    "PdfFormat",
+    "PdfLightingScheme",
+    "PdfLoadOptions",
+    "PdfRenderMode",
+    "PdfSaveOptions",
+    "PhongMaterial",
+    "PixelFormat",
+    "PixelMapMode",
+    "PixelMapping",
+    "Plane",
+    "Plugin",
+    "PlyFormat",
+    "PlyLoadOptions",
+    "PlySaveOptions",
+    "PointCloud",
+    "PolygonBuilder",
+    "PolygonMode",
+    "PolygonModifier",
+    "Pose",
+    "PoseType",
+    "PostProcessing",
+    "PresetShaders",
+    "Primitive",
+    "Profile",
+    "ProjectionType",
+    "Property",
+    "PropertyCollection",
+    "PropertyFlags",
+    "PushConstant",
+    "Pyramid",
+    "Quaternion",
+    "Rect",
+    "RectangleShape",
+    "RectangularTorus",
+    "ReferenceMode",
+    "RelativeRectangle",
+    "RenderFactory",
+    "RenderParameters",
+    "RenderQueueGroupId",
+    "RenderResource",
+    "RenderStage",
+    "RenderState",
+    "Renderer",
+    "RendererVariableManager",
+    "RevolvedAreaSolid",
+    "RotationMode",
+    "RotationOrder",
+    "RvmFormat",
+    "RvmLoadOptions",
+    "RvmSaveOptions",
+    "SPIRVSource",
+    "SaveOptions",
+    "Scene",
+    "SceneObject",
+    "SemanticAttribute",
+    "ShaderException",
+    "ShaderMaterial",
+    "ShaderProgram",
+    "ShaderSet",
+    "ShaderSource",
+    "ShaderStage",
+    "ShaderTechnique",
+    "ShaderVariable",
+    "Shape",
+    "Skeleton",
+    "SkeletonType",
+    "SkinDeformer",
+    "Sphere",
+    "SplitMeshPolicy",
+    "StencilAction",
+    "StencilState",
+    "StepMode",
+    "StlExporter",
+    "StlFormat",
+    "StlFormatDetector",
+    "StlImporter",
+    "StlLoadOptions",
+    "StlPlugin",
+    "StlSaveOptions",
+    "SweptAreaSolid",
+    "TShape",
+    "Text",
+    "Texture",
+    "TextureBase",
+    "TextureCodec",
+    "TextureData",
+    "TextureFilter",
+    "TextureMapping",
+    "TextureSlot",
+    "TextureType",
+    "ThreeMfExporter",
+    "ThreeMfFormat",
+    "ThreeMfFormatDetector",
+    "ThreeMfImporter",
+    "ThreeMfLoadOptions",
+    "ThreeMfPlugin",
+    "ThreeMfSaveOptions",
+    "Torus",
+    "Transform",
+    "TransformBuilder",
+    "TransformedCurve",
+    "TrapeziumShape",
+    "TriMesh",
+    "TrialException",
+    "TrimmedCurve",
+    "U3dLoadOptions",
+    "U3dSaveOptions",
+    "UShape",
+    "UsdSaveOptions",
+    "Vector2",
+    "Vector3",
+    "Vector4",
+    "Vertex",
+    "VertexDeclaration",
+    "VertexElement",
+    "VertexElementBinormal",
+    "VertexElementDoublesTemplate",
+    "VertexElementEdgeCrease",
+    "VertexElementFVector",
+    "VertexElementHole",
+    "VertexElementIntsTemplate",
+    "VertexElementMaterial",
+    "VertexElementNormal",
+    "VertexElementPolygonGroup",
+    "VertexElementSmoothingGroup",
+    "VertexElementSpecular",
+    "VertexElementTangent",
+    "VertexElementTemplate",
+    "VertexElementType",
+    "VertexElementUV",
+    "VertexElementUserData",
+    "VertexElementVector4",
+    "VertexElementVertexColor",
+    "VertexElementVertexCrease",
+    "VertexElementVisibility",
+    "VertexElementWeight",
+    "VertexField",
+    "VertexFieldDataType",
+    "VertexFieldSemantic",
+    "Viewport",
+    "Watermark",
+    "WeightedMode",
+    "WindowHandle",
+    "WrapMode",
+    "XLoadOptions",
+    "ZShape"
+  ],
+  "class_graph": [
+    {
+      "child": "ColladaExporter",
+      "parent": "Exporter",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColladaFormat",
+      "parent": "FileFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColladaFormatDetector",
+      "parent": "FormatDetector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColladaImporter",
+      "parent": "Importer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FbxExporter",
+      "parent": "Exporter",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FbxFormat",
+      "parent": "FileFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FbxFormatDetector",
+      "parent": "FormatDetector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FbxImporter",
+      "parent": "Importer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GltfExporter",
+      "parent": "Exporter",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GltfFormatDetector",
+      "parent": "FormatDetector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GltfImporter",
+      "parent": "Importer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ObjExporter",
+      "parent": "Exporter",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ObjFormat",
+      "parent": "FileFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ObjFormatDetector",
+      "parent": "FormatDetector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ObjImporter",
+      "parent": "Importer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StlExporter",
+      "parent": "Exporter",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StlFormatDetector",
+      "parent": "FormatDetector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StlImporter",
+      "parent": "Importer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ThreeMfExporter",
+      "parent": "Exporter",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ThreeMfFormatDetector",
+      "parent": "FormatDetector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ThreeMfImporter",
+      "parent": "Importer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "A3DObject",
+      "parent": "INamedObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AssetInfo",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BonePose",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CustomObject",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Entity",
+      "parent": "SceneObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ExportException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Group",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImageRenderOptions",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImportException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Node",
+      "parent": "SceneObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Pose",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Pose",
+      "parent": "INamedObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PoseType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Scene",
+      "parent": "SceneObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SceneObject",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Transform",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TrialException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AnimationChannel",
+      "parent": "KeyframeSequence",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AnimationClip",
+      "parent": "SceneObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AnimationNode",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BindPoint",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ExtrapolationType",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Interpolation",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "KeyframeSequence",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StepMode",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WeightedMode",
+      "parent": "Enum",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Bone",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Deformer",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MorphTargetChannel",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MorphTargetDeformer",
+      "parent": "Deformer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SkinDeformer",
+      "parent": "Deformer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BooleanOperator",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Box",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Camera",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Circle",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CompositeCurve",
+      "parent": "Curve",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Curve",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Cylinder",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Dish",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Ellipse",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Frustum",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Geometry",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "IOrientable",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Light",
+      "parent": "Camera",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Line",
+      "parent": "Curve",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LinearExtrusion",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Mesh",
+      "parent": "Geometry",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NurbsCurve",
+      "parent": "Curve",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NurbsSurface",
+      "parent": "Geometry",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Patch",
+      "parent": "Geometry",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Plane",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "InvalidOperationException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Primitive",
+      "parent": "Geometry",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Pyramid",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RectangularTorus",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RevolvedAreaSolid",
+      "parent": "Curve",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Shape",
+      "parent": "Curve",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Skeleton",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Sphere",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SweptAreaSolid",
+      "parent": "Curve",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Torus",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TransformedCurve",
+      "parent": "Curve",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TriMesh",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TrimmedCurve",
+      "parent": "Curve",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementBinormal",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementDoublesTemplate",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementEdgeCrease",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementFVector",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementHole",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementIntsTemplate",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementMaterial",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementNormal",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementPolygonGroup",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementSmoothingGroup",
+      "parent": "VertexElementIntsTemplate",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementSpecular",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementTangent",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementTemplate",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementUV",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementUserData",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementVector4",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementVertexColor",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementVertexCrease",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementVisibility",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementWeight",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BasicLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LoadOptions",
+      "parent": "IOConfig",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Plugin",
+      "parent": "ABC",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SaveOptions",
+      "parent": "IOConfig",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColladaLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColladaPlugin",
+      "parent": "Plugin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColladaSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FbxLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FbxPlugin",
+      "parent": "Plugin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FbxSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GltfLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GltfPlugin",
+      "parent": "Plugin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GltfSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ObjLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ObjPlugin",
+      "parent": "Plugin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ObjSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StlLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StlPlugin",
+      "parent": "Plugin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StlSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ThreeMfLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ThreeMfPlugin",
+      "parent": "Plugin",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ThreeMfSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ArbitraryProfile",
+      "parent": "Profile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CenterLineProfile",
+      "parent": "Profile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CircleShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EllipseShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FontFile",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HollowCircleShape",
+      "parent": "CircleShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HollowRectangleShape",
+      "parent": "RectangleShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MirroredProfile",
+      "parent": "Profile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParameterizedProfile",
+      "parent": "Profile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Profile",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RectangleShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Text",
+      "parent": "Profile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TrapeziumShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "UShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ZShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DriverException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InitializationException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShaderException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LambertMaterial",
+      "parent": "Material",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Material",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PbrMaterial",
+      "parent": "Material",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PhongMaterial",
+      "parent": "LambertMaterial",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParseException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    }
+  ],
+  "formats": {
+    "import": [
+      "Collada",
+      "Fbx",
+      "Gltf",
+      "Obj",
+      "Stl",
+      "Collada",
+      "Fbx",
+      "Gltf",
+      "Jt",
+      "Obj",
+      "Pdf",
+      "Ply",
+      "Rvm",
+      "Stl",
+      "U3d",
+      "Collada",
+      "Fbx",
+      "Gltf",
+      "Obj",
+      "Stl",
+      "degree",
+      "radian",
+      "points"
+    ],
+    "export": [
+      "Collada",
+      "Fbx",
+      "Gltf",
+      "Obj",
+      "Stl",
+      "A3dw",
+      "Amf",
+      "Collada",
+      "Draco",
+      "Fbx",
+      "Gltf",
+      "Html5",
+      "Obj",
+      "Pdf",
+      "Ply",
+      "Rvm",
+      "Stl",
+      "U3d",
+      "Usd",
+      "Collada",
+      "Fbx",
+      "Gltf",
+      "Obj",
+      "Stl",
+      "absolute"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "pip install aspose-3d-foss",
+    "version": "26.1.0"
+  },
+  "not_implemented": [
+    "Exporter.supports_format",
+    "Exporter.export",
+    "FormatDetector.detect",
+    "Importer.supports_format",
+    "Importer.import_scene",
+    "FbxExporter.save",
+    "FbxExporter.save_to_stream",
+    "AxisSystem.__init__",
+    "AxisSystem.transform_to",
+    "AxisSystem.from_asset_info",
+    "AxisSystem.coordinate_system",
+    "AxisSystem.up",
+    "AxisSystem.front",
+    "Entity.get_bounding_box",
+    "Entity.get_entity_renderer_key",
+    "INamedObject.name",
+    "Node.select_single_object",
+    "Node.select_objects",
+    "Scene.render",
+    "Camera.get_entity_renderer_key",
+    "CompositeCurve.__init__",
+    "CompositeCurve.add_segment",
+    "CompositeCurve.segments",
+    "EndPoint.__init__",
+    "EndPoint.from_degree",
+    "EndPoint.from_radian",
+    "EndPoint.is_cartesian_point",
+    "EndPoint.as_point",
+    "EndPoint.as_value",
+    "Geometry.get_entity_renderer_key",
+    "HalfSpace.__init__",
+    "HalfSpace.remove_property",
+    "HalfSpace.get_property",
+    "HalfSpace.set_property",
+    "HalfSpace.find_property",
+    "HalfSpace.get_bounding_box",
+    "HalfSpace.get_entity_renderer_key",
+    "HalfSpace.name",
+    "HalfSpace.name",
+    "HalfSpace.properties",
+    "HalfSpace.scene",
+    "HalfSpace.parent_nodes",
+    "HalfSpace.excluded",
+    "HalfSpace.excluded",
+    "HalfSpace.parent_node",
+    "HalfSpace.parent_node",
+    "HalfSpace.normal",
+    "HalfSpace.normal",
+    "HalfSpace.position",
+    "HalfSpace.position"
+  ],
+  "forbidden_claims": [
+    "supports Exporter.supports_format",
+    "supports Exporter.export",
+    "supports FormatDetector.detect",
+    "supports Importer.supports_format",
+    "supports Importer.import_scene",
+    "supports FbxExporter.save",
+    "supports FbxExporter.save_to_stream",
+    "supports AxisSystem.__init__",
+    "supports AxisSystem.transform_to",
+    "supports AxisSystem.from_asset_info",
+    "supports AxisSystem.coordinate_system",
+    "supports AxisSystem.up",
+    "supports AxisSystem.front",
+    "supports Entity.get_bounding_box",
+    "supports Entity.get_entity_renderer_key",
+    "supports INamedObject.name",
+    "supports Node.select_single_object",
+    "supports Node.select_objects",
+    "supports Scene.render",
+    "supports Camera.get_entity_renderer_key",
+    "supports CompositeCurve.__init__",
+    "supports CompositeCurve.add_segment",
+    "supports CompositeCurve.segments",
+    "supports EndPoint.__init__",
+    "supports EndPoint.from_degree",
+    "supports EndPoint.from_radian",
+    "supports EndPoint.is_cartesian_point",
+    "supports EndPoint.as_point",
+    "supports EndPoint.as_value",
+    "supports Geometry.get_entity_renderer_key",
+    "supports HalfSpace.__init__",
+    "supports HalfSpace.remove_property",
+    "supports HalfSpace.get_property",
+    "supports HalfSpace.set_property",
+    "supports HalfSpace.find_property",
+    "supports HalfSpace.get_bounding_box",
+    "supports HalfSpace.get_entity_renderer_key",
+    "supports HalfSpace.name",
+    "supports HalfSpace.name",
+    "supports HalfSpace.properties",
+    "supports HalfSpace.scene",
+    "supports HalfSpace.parent_nodes",
+    "supports HalfSpace.excluded",
+    "supports HalfSpace.excluded",
+    "supports HalfSpace.parent_node",
+    "supports HalfSpace.parent_node",
+    "supports HalfSpace.normal",
+    "supports HalfSpace.normal",
+    "supports HalfSpace.position",
+    "supports HalfSpace.position"
+  ],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 327,
+    "with_methods": 252,
+    "with_properties": 168,
+    "with_enums": 51,
+    "method_pct": 77.1,
+    "property_pct": 51.4,
+    "surface_tier": 1
+  },
+  "snippets_coverage": {
+    "total_snippets": 100,
+    "classes_with_snippet": 53,
+    "classes_total": 327,
+    "coverage_ratio": 0.16,
+    "effective_denominator": 297,
+    "concrete_coverage": {
+      "classes_total": 276,
+      "classes_with_snippet": 53,
+      "coverage_ratio": 0.19
+    },
+    "interface_coverage": {
+      "classes_total": 21,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

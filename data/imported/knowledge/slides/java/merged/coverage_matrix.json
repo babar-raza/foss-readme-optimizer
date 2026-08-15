@@ -1,0 +1,2382 @@
+[
+  {
+    "class": "BasePortionFormat",
+    "file": "src/main/java/org/aspose/slides/foss/BasePortionFormat.java",
+    "kind": "class_declaration",
+    "method_count": 51,
+    "property_count": 28,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BulletFormat",
+    "file": "src/main/java/org/aspose/slides/foss/BulletFormat.java",
+    "kind": "class_declaration",
+    "method_count": 25,
+    "property_count": 12,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CellFormat",
+    "file": "src/main/java/org/aspose/slides/foss/CellFormat.java",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ColorFormat",
+    "file": "src/main/java/org/aspose/slides/foss/ColorFormat.java",
+    "kind": "class_declaration",
+    "method_count": 28,
+    "property_count": 13,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ColumnFormat",
+    "file": "src/main/java/org/aspose/slides/foss/ColumnFormat.java",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EffectFormat",
+    "file": "src/main/java/org/aspose/slides/foss/EffectFormat.java",
+    "kind": "class_declaration",
+    "method_count": 43,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "FillFormat",
+    "file": "src/main/java/org/aspose/slides/foss/FillFormat.java",
+    "kind": "class_declaration",
+    "method_count": 16,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "GradientFormat",
+    "file": "src/main/java/org/aspose/slides/foss/GradientFormat.java",
+    "kind": "class_declaration",
+    "method_count": 19,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "IBasePortionFormat",
+    "file": "src/main/java/org/aspose/slides/foss/IBasePortionFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 48,
+    "property_count": 27,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IBulkTextFormattable",
+    "file": "src/main/java/org/aspose/slides/foss/IBulkTextFormattable.java",
+    "kind": "interface_declaration",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IBulletFormat",
+    "file": "src/main/java/org/aspose/slides/foss/IBulletFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 18,
+    "property_count": 10,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ICellFormat",
+    "file": "src/main/java/org/aspose/slides/foss/ICellFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 7,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IColorFormat",
+    "file": "src/main/java/org/aspose/slides/foss/IColorFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 26,
+    "property_count": 13,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IColumnFormat",
+    "file": "src/main/java/org/aspose/slides/foss/IColumnFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IEffectFormat",
+    "file": "src/main/java/org/aspose/slides/foss/IEffectFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 35,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IFillFormat",
+    "file": "src/main/java/org/aspose/slides/foss/IFillFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 8,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IGradientFormat",
+    "file": "src/main/java/org/aspose/slides/foss/IGradientFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 11,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ILineFillFormat",
+    "file": "src/main/java/org/aspose/slides/foss/ILineFillFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 8,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ILineFormat",
+    "file": "src/main/java/org/aspose/slides/foss/ILineFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 30,
+    "property_count": 16,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IParagraphFormat",
+    "file": "src/main/java/org/aspose/slides/foss/IParagraphFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 30,
+    "property_count": 16,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IPatternFormat",
+    "file": "src/main/java/org/aspose/slides/foss/IPatternFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 4,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IPictureFillFormat",
+    "file": "src/main/java/org/aspose/slides/foss/IPictureFillFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 33,
+    "property_count": 17,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IPortionFormat",
+    "file": "src/main/java/org/aspose/slides/foss/IPortionFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 48,
+    "property_count": 27,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IRowFormat",
+    "file": "src/main/java/org/aspose/slides/foss/IRowFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ITableFormat",
+    "file": "src/main/java/org/aspose/slides/foss/ITableFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ITextFrameFormat",
+    "file": "src/main/java/org/aspose/slides/foss/ITextFrameFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 29,
+    "property_count": 15,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IThreeDFormat",
+    "file": "src/main/java/org/aspose/slides/foss/IThreeDFormat.java",
+    "kind": "interface_declaration",
+    "method_count": 14,
+    "property_count": 10,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LineFillFormat",
+    "file": "src/main/java/org/aspose/slides/foss/LineFillFormat.java",
+    "kind": "class_declaration",
+    "method_count": 19,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LineFormat",
+    "file": "src/main/java/org/aspose/slides/foss/LineFormat.java",
+    "kind": "class_declaration",
+    "method_count": 32,
+    "property_count": 16,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "ParagraphFormat",
+    "file": "src/main/java/org/aspose/slides/foss/ParagraphFormat.java",
+    "kind": "class_declaration",
+    "method_count": 41,
+    "property_count": 19,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PatternFormat",
+    "file": "src/main/java/org/aspose/slides/foss/PatternFormat.java",
+    "kind": "class_declaration",
+    "method_count": 12,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "PictureFillFormat",
+    "file": "src/main/java/org/aspose/slides/foss/PictureFillFormat.java",
+    "kind": "class_declaration",
+    "method_count": 41,
+    "property_count": 19,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "PortionFormat",
+    "file": "src/main/java/org/aspose/slides/foss/PortionFormat.java",
+    "kind": "class_declaration",
+    "method_count": 53,
+    "property_count": 28,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RowFormat",
+    "file": "src/main/java/org/aspose/slides/foss/RowFormat.java",
+    "kind": "class_declaration",
+    "method_count": 2,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SourceFormat",
+    "file": "src/main/java/org/aspose/slides/foss/SourceFormat.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "TableFormat",
+    "file": "src/main/java/org/aspose/slides/foss/TableFormat.java",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextFrameFormat",
+    "file": "src/main/java/org/aspose/slides/foss/TextFrameFormat.java",
+    "kind": "class_declaration",
+    "method_count": 38,
+    "property_count": 18,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ThreeDFormat",
+    "file": "src/main/java/org/aspose/slides/foss/ThreeDFormat.java",
+    "kind": "class_declaration",
+    "method_count": 21,
+    "property_count": 12,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SaveFormat",
+    "file": "src/main/java/org/aspose/slides/foss/export/SaveFormat.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 25
+  },
+  {
+    "class": "AdjustValue",
+    "file": "src/main/java/org/aspose/slides/foss/AdjustValue.java",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AdjustValueCollection",
+    "file": "src/main/java/org/aspose/slides/foss/AdjustValueCollection.java",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AutoShape",
+    "file": "src/main/java/org/aspose/slides/foss/AutoShape.java",
+    "kind": "class_declaration",
+    "method_count": 54,
+    "property_count": 34,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "BaseHandoutNotesSlideHeaderFooterManager",
+    "file": "src/main/java/org/aspose/slides/foss/BaseHandoutNotesSlideHeaderFooterManager.java",
+    "kind": "class_declaration",
+    "method_count": 11,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BaseShapeLock",
+    "file": "src/main/java/org/aspose/slides/foss/BaseShapeLock.java",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BaseSlide",
+    "file": "src/main/java/org/aspose/slides/foss/BaseSlide.java",
+    "kind": "class_declaration",
+    "method_count": 9,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BevelPresetType",
+    "file": "src/main/java/org/aspose/slides/foss/BevelPresetType.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 13
+  },
+  {
+    "class": "BulletType",
+    "file": "src/main/java/org/aspose/slides/foss/BulletType.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 5
+  },
+  {
+    "class": "Camera",
+    "file": "src/main/java/org/aspose/slides/foss/Camera.java",
+    "kind": "class_declaration",
+    "method_count": 9,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CameraPresetType",
+    "file": "src/main/java/org/aspose/slides/foss/CameraPresetType.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 63
+  },
+  {
+    "class": "Cell",
+    "file": "src/main/java/org/aspose/slides/foss/Cell.java",
+    "kind": "class_declaration",
+    "method_count": 41,
+    "property_count": 28,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CellCollection",
+    "file": "src/main/java/org/aspose/slides/foss/CellCollection.java",
+    "kind": "class_declaration",
+    "method_count": 16,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ColorType",
+    "file": "src/main/java/org/aspose/slides/foss/ColorType.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 7
+  },
+  {
+    "class": "Column",
+    "file": "src/main/java/org/aspose/slides/foss/Column.java",
+    "kind": "class_declaration",
+    "method_count": 17,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ColumnCollection",
+    "file": "src/main/java/org/aspose/slides/foss/ColumnCollection.java",
+    "kind": "class_declaration",
+    "method_count": 15,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Comment",
+    "file": "src/main/java/org/aspose/slides/foss/Comment.java",
+    "kind": "class_declaration",
+    "method_count": 10,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "CommentAuthor",
+    "file": "src/main/java/org/aspose/slides/foss/CommentAuthor.java",
+    "kind": "class_declaration",
+    "method_count": 9,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "CommentAuthorCollection",
+    "file": "src/main/java/org/aspose/slides/foss/CommentAuthorCollection.java",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CommentCollection",
+    "file": "src/main/java/org/aspose/slides/foss/CommentCollection.java",
+    "kind": "class_declaration",
+    "method_count": 20,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Connector",
+    "file": "src/main/java/org/aspose/slides/foss/Connector.java",
+    "kind": "class_declaration",
+    "method_count": 61,
+    "property_count": 37,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "ConnectorLock",
+    "file": "src/main/java/org/aspose/slides/foss/ConnectorLock.java",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DocumentProperties",
+    "file": "src/main/java/org/aspose/slides/foss/DocumentProperties.java",
+    "kind": "class_declaration",
+    "method_count": 67,
+    "property_count": 34,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "FillBlendMode",
+    "file": "src/main/java/org/aspose/slides/foss/FillBlendMode.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 5
+  },
+  {
+    "class": "FillType",
+    "file": "src/main/java/org/aspose/slides/foss/FillType.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 7
+  },
+  {
+    "class": "FontAlignment",
+    "file": "src/main/java/org/aspose/slides/foss/FontAlignment.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 6
+  },
+  {
+    "class": "GeometryShape",
+    "file": "src/main/java/org/aspose/slides/foss/GeometryShape.java",
+    "kind": "class_declaration",
+    "method_count": 48,
+    "property_count": 31,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GlobalLayoutSlideCollection",
+    "file": "src/main/java/org/aspose/slides/foss/GlobalLayoutSlideCollection.java",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GradientDirection",
+    "file": "src/main/java/org/aspose/slides/foss/GradientDirection.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 6
+  },
+  {
+    "class": "GradientShape",
+    "file": "src/main/java/org/aspose/slides/foss/GradientShape.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 5
+  },
+  {
+    "class": "GradientStop",
+    "file": "src/main/java/org/aspose/slides/foss/GradientStop.java",
+    "kind": "class_declaration",
+    "method_count": 12,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "GradientStopCollection",
+    "file": "src/main/java/org/aspose/slides/foss/GradientStopCollection.java",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GraphicalObject",
+    "file": "src/main/java/org/aspose/slides/foss/GraphicalObject.java",
+    "kind": "class_declaration",
+    "method_count": 65,
+    "property_count": 36,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GraphicalObjectLock",
+    "file": "src/main/java/org/aspose/slides/foss/GraphicalObjectLock.java",
+    "kind": "class_declaration",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GroupShape",
+    "file": "src/main/java/org/aspose/slides/foss/GroupShape.java",
+    "kind": "class_declaration",
+    "method_count": 65,
+    "property_count": 36,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "HeadingPair",
+    "file": "src/main/java/org/aspose/slides/foss/HeadingPair.java",
+    "kind": "class_declaration",
+    "method_count": 4,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IAdjustValue",
+    "file": "src/main/java/org/aspose/slides/foss/IAdjustValue.java",
+    "kind": "interface_declaration",
+    "method_count": 5,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IAdjustValueCollection",
+    "file": "src/main/java/org/aspose/slides/foss/IAdjustValueCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IAutoShape",
+    "file": "src/main/java/org/aspose/slides/foss/IAutoShape.java",
+    "kind": "interface_declaration",
+    "method_count": 49,
+    "property_count": 34,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IBaseHandoutNotesSlideHeaderFooterManager",
+    "file": "src/main/java/org/aspose/slides/foss/IBaseHandoutNotesSlideHeaderFooterManager.java",
+    "kind": "interface_declaration",
+    "method_count": 11,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IBaseHeaderFooterManager",
+    "file": "src/main/java/org/aspose/slides/foss/IBaseHeaderFooterManager.java",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IBaseSlide",
+    "file": "src/main/java/org/aspose/slides/foss/IBaseSlide.java",
+    "kind": "interface_declaration",
+    "method_count": 7,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IBaseSlideHeaderFooterManager",
+    "file": "src/main/java/org/aspose/slides/foss/IBaseSlideHeaderFooterManager.java",
+    "kind": "interface_declaration",
+    "method_count": 8,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ICamera",
+    "file": "src/main/java/org/aspose/slides/foss/ICamera.java",
+    "kind": "interface_declaration",
+    "method_count": 8,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ICell",
+    "file": "src/main/java/org/aspose/slides/foss/ICell.java",
+    "kind": "interface_declaration",
+    "method_count": 33,
+    "property_count": 26,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ICellCollection",
+    "file": "src/main/java/org/aspose/slides/foss/ICellCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 8,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IColumn",
+    "file": "src/main/java/org/aspose/slides/foss/IColumn.java",
+    "kind": "interface_declaration",
+    "method_count": 14,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IColumnCollection",
+    "file": "src/main/java/org/aspose/slides/foss/IColumnCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IComment",
+    "file": "src/main/java/org/aspose/slides/foss/IComment.java",
+    "kind": "interface_declaration",
+    "method_count": 9,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "ICommentAuthor",
+    "file": "src/main/java/org/aspose/slides/foss/ICommentAuthor.java",
+    "kind": "interface_declaration",
+    "method_count": 6,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "ICommentAuthorCollection",
+    "file": "src/main/java/org/aspose/slides/foss/ICommentAuthorCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 11,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ICommentCollection",
+    "file": "src/main/java/org/aspose/slides/foss/ICommentCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 12,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IConnector",
+    "file": "src/main/java/org/aspose/slides/foss/IConnector.java",
+    "kind": "interface_declaration",
+    "method_count": 56,
+    "property_count": 37,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "IConnectorLock",
+    "file": "src/main/java/org/aspose/slides/foss/IConnectorLock.java",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ICustomData",
+    "file": "src/main/java/org/aspose/slides/foss/ICustomData.java",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IDocumentProperties",
+    "file": "src/main/java/org/aspose/slides/foss/IDocumentProperties.java",
+    "kind": "interface_declaration",
+    "method_count": 65,
+    "property_count": 34,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "IEffectParamSource",
+    "file": "src/main/java/org/aspose/slides/foss/IEffectParamSource.java",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IFillParamSource",
+    "file": "src/main/java/org/aspose/slides/foss/IFillParamSource.java",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IFontData",
+    "file": "src/main/java/org/aspose/slides/foss/IFontData.java",
+    "kind": "interface_declaration",
+    "method_count": 2,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IGeometryShape",
+    "file": "src/main/java/org/aspose/slides/foss/IGeometryShape.java",
+    "kind": "interface_declaration",
+    "method_count": 45,
+    "property_count": 31,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IGlobalLayoutSlideCollection",
+    "file": "src/main/java/org/aspose/slides/foss/IGlobalLayoutSlideCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 6,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IGradientStop",
+    "file": "src/main/java/org/aspose/slides/foss/IGradientStop.java",
+    "kind": "interface_declaration",
+    "method_count": 3,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IGradientStopCollection",
+    "file": "src/main/java/org/aspose/slides/foss/IGradientStopCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 12,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IGraphicalObject",
+    "file": "src/main/java/org/aspose/slides/foss/IGraphicalObject.java",
+    "kind": "interface_declaration",
+    "method_count": 43,
+    "property_count": 30,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IGraphicalObjectLock",
+    "file": "src/main/java/org/aspose/slides/foss/IGraphicalObjectLock.java",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IGroupShape",
+    "file": "src/main/java/org/aspose/slides/foss/IGroupShape.java",
+    "kind": "interface_declaration",
+    "method_count": 43,
+    "property_count": 30,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IHeadingPair",
+    "file": "src/main/java/org/aspose/slides/foss/IHeadingPair.java",
+    "kind": "interface_declaration",
+    "method_count": 2,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IHyperlinkContainer",
+    "file": "src/main/java/org/aspose/slides/foss/IHyperlinkContainer.java",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IImage",
+    "file": "src/main/java/org/aspose/slides/foss/IImage.java",
+    "kind": "interface_declaration",
+    "method_count": 8,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IImageCollection",
+    "file": "src/main/java/org/aspose/slides/foss/IImageCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ILayoutSlide",
+    "file": "src/main/java/org/aspose/slides/foss/ILayoutSlide.java",
+    "kind": "interface_declaration",
+    "method_count": 10,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "ILayoutSlideCollection",
+    "file": "src/main/java/org/aspose/slides/foss/ILayoutSlideCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ILightRig",
+    "file": "src/main/java/org/aspose/slides/foss/ILightRig.java",
+    "kind": "interface_declaration",
+    "method_count": 6,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ILineParamSource",
+    "file": "src/main/java/org/aspose/slides/foss/ILineParamSource.java",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ILoadOptions",
+    "file": "src/main/java/org/aspose/slides/foss/ILoadOptions.java",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IMasterLayoutSlideCollection",
+    "file": "src/main/java/org/aspose/slides/foss/IMasterLayoutSlideCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IMasterSlide",
+    "file": "src/main/java/org/aspose/slides/foss/IMasterSlide.java",
+    "kind": "interface_declaration",
+    "method_count": 8,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IMasterSlideCollection",
+    "file": "src/main/java/org/aspose/slides/foss/IMasterSlideCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "INotesSize",
+    "file": "src/main/java/org/aspose/slides/foss/INotesSize.java",
+    "kind": "interface_declaration",
+    "method_count": 2,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "INotesSlide",
+    "file": "src/main/java/org/aspose/slides/foss/INotesSlide.java",
+    "kind": "interface_declaration",
+    "method_count": 11,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "INotesSlideHeaderFooterManager",
+    "file": "src/main/java/org/aspose/slides/foss/INotesSlideHeaderFooterManager.java",
+    "kind": "interface_declaration",
+    "method_count": 14,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "INotesSlideManager",
+    "file": "src/main/java/org/aspose/slides/foss/INotesSlideManager.java",
+    "kind": "interface_declaration",
+    "method_count": 3,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IPPImage",
+    "file": "src/main/java/org/aspose/slides/foss/IPPImage.java",
+    "kind": "interface_declaration",
+    "method_count": 10,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "IParagraph",
+    "file": "src/main/java/org/aspose/slides/foss/IParagraph.java",
+    "kind": "interface_declaration",
+    "method_count": 6,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IParagraphCollection",
+    "file": "src/main/java/org/aspose/slides/foss/IParagraphCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 14,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IPictureFrame",
+    "file": "src/main/java/org/aspose/slides/foss/IPictureFrame.java",
+    "kind": "interface_declaration",
+    "method_count": 52,
+    "property_count": 36,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IPictureFrameLock",
+    "file": "src/main/java/org/aspose/slides/foss/IPictureFrameLock.java",
+    "kind": "interface_declaration",
+    "method_count": 23,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IPlaceholder",
+    "file": "src/main/java/org/aspose/slides/foss/IPlaceholder.java",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IPortion",
+    "file": "src/main/java/org/aspose/slides/foss/IPortion.java",
+    "kind": "interface_declaration",
+    "method_count": 7,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IPortionCollection",
+    "file": "src/main/java/org/aspose/slides/foss/IPortionCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 12,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IPresentation",
+    "file": "src/main/java/org/aspose/slides/foss/IPresentation.java",
+    "kind": "interface_declaration",
+    "method_count": 26,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IPresentationComponent",
+    "file": "src/main/java/org/aspose/slides/foss/IPresentationComponent.java",
+    "kind": "interface_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IRow",
+    "file": "src/main/java/org/aspose/slides/foss/IRow.java",
+    "kind": "interface_declaration",
+    "method_count": 15,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IRowCollection",
+    "file": "src/main/java/org/aspose/slides/foss/IRowCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ISection",
+    "file": "src/main/java/org/aspose/slides/foss/ISection.java",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IShape",
+    "file": "src/main/java/org/aspose/slides/foss/IShape.java",
+    "kind": "interface_declaration",
+    "method_count": 42,
+    "property_count": 29,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "IShapeBevel",
+    "file": "src/main/java/org/aspose/slides/foss/IShapeBevel.java",
+    "kind": "interface_declaration",
+    "method_count": 6,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IShapeCollection",
+    "file": "src/main/java/org/aspose/slides/foss/IShapeCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 25,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IShapeFrame",
+    "file": "src/main/java/org/aspose/slides/foss/IShapeFrame.java",
+    "kind": "interface_declaration",
+    "method_count": 11,
+    "property_count": 10,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IShapeStyle",
+    "file": "src/main/java/org/aspose/slides/foss/IShapeStyle.java",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ISlide",
+    "file": "src/main/java/org/aspose/slides/foss/ISlide.java",
+    "kind": "interface_declaration",
+    "method_count": 16,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "ISlideCollection",
+    "file": "src/main/java/org/aspose/slides/foss/ISlideCollection.java",
+    "kind": "interface_declaration",
+    "method_count": 17,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ISlideComponent",
+    "file": "src/main/java/org/aspose/slides/foss/ISlideComponent.java",
+    "kind": "interface_declaration",
+    "method_count": 3,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ISlidesPicture",
+    "file": "src/main/java/org/aspose/slides/foss/ISlidesPicture.java",
+    "kind": "interface_declaration",
+    "method_count": 6,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ITable",
+    "file": "src/main/java/org/aspose/slides/foss/ITable.java",
+    "kind": "interface_declaration",
+    "method_count": 66,
+    "property_count": 41,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "ITextFrame",
+    "file": "src/main/java/org/aspose/slides/foss/ITextFrame.java",
+    "kind": "interface_declaration",
+    "method_count": 10,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IThreeDParamSource",
+    "file": "src/main/java/org/aspose/slides/foss/IThreeDParamSource.java",
+    "kind": "interface_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Image",
+    "file": "src/main/java/org/aspose/slides/foss/Image.java",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "ImageCollection",
+    "file": "src/main/java/org/aspose/slides/foss/ImageCollection.java",
+    "kind": "class_declaration",
+    "method_count": 12,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Images",
+    "file": "src/main/java/org/aspose/slides/foss/Images.java",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "LayoutSlide",
+    "file": "src/main/java/org/aspose/slides/foss/LayoutSlide.java",
+    "kind": "class_declaration",
+    "method_count": 15,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "LayoutSlideCollection",
+    "file": "src/main/java/org/aspose/slides/foss/LayoutSlideCollection.java",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LightRig",
+    "file": "src/main/java/org/aspose/slides/foss/LightRig.java",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LightRigPresetType",
+    "file": "src/main/java/org/aspose/slides/foss/LightRigPresetType.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 28
+  },
+  {
+    "class": "LightingDirection",
+    "file": "src/main/java/org/aspose/slides/foss/LightingDirection.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 9
+  },
+  {
+    "class": "LineAlignment",
+    "file": "src/main/java/org/aspose/slides/foss/LineAlignment.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "LineArrowheadLength",
+    "file": "src/main/java/org/aspose/slides/foss/LineArrowheadLength.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "LineArrowheadStyle",
+    "file": "src/main/java/org/aspose/slides/foss/LineArrowheadStyle.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 7
+  },
+  {
+    "class": "LineArrowheadWidth",
+    "file": "src/main/java/org/aspose/slides/foss/LineArrowheadWidth.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "LineCapStyle",
+    "file": "src/main/java/org/aspose/slides/foss/LineCapStyle.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "LineDashStyle",
+    "file": "src/main/java/org/aspose/slides/foss/LineDashStyle.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 13
+  },
+  {
+    "class": "LineJoinStyle",
+    "file": "src/main/java/org/aspose/slides/foss/LineJoinStyle.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "LineStyle",
+    "file": "src/main/java/org/aspose/slides/foss/LineStyle.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 6
+  },
+  {
+    "class": "MasterLayoutSlideCollection",
+    "file": "src/main/java/org/aspose/slides/foss/MasterLayoutSlideCollection.java",
+    "kind": "class_declaration",
+    "method_count": 10,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MasterSlide",
+    "file": "src/main/java/org/aspose/slides/foss/MasterSlide.java",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MasterSlideCollection",
+    "file": "src/main/java/org/aspose/slides/foss/MasterSlideCollection.java",
+    "kind": "class_declaration",
+    "method_count": 15,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MaterialPresetType",
+    "file": "src/main/java/org/aspose/slides/foss/MaterialPresetType.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 16
+  },
+  {
+    "class": "NotesSize",
+    "file": "src/main/java/org/aspose/slides/foss/NotesSize.java",
+    "kind": "class_declaration",
+    "method_count": 5,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "NotesSlide",
+    "file": "src/main/java/org/aspose/slides/foss/NotesSlide.java",
+    "kind": "class_declaration",
+    "method_count": 15,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "NotesSlideHeaderFooterManager",
+    "file": "src/main/java/org/aspose/slides/foss/NotesSlideHeaderFooterManager.java",
+    "kind": "class_declaration",
+    "method_count": 15,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NotesSlideManager",
+    "file": "src/main/java/org/aspose/slides/foss/NotesSlideManager.java",
+    "kind": "class_declaration",
+    "method_count": 6,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "NullableBool",
+    "file": "src/main/java/org/aspose/slides/foss/NullableBool.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "NumberedBulletStyle",
+    "file": "src/main/java/org/aspose/slides/foss/NumberedBulletStyle.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 42
+  },
+  {
+    "class": "PPImage",
+    "file": "src/main/java/org/aspose/slides/foss/PPImage.java",
+    "kind": "class_declaration",
+    "method_count": 12,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "PVIObject",
+    "file": "src/main/java/org/aspose/slides/foss/PVIObject.java",
+    "kind": "class_declaration",
+    "method_count": 5,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Paragraph",
+    "file": "src/main/java/org/aspose/slides/foss/Paragraph.java",
+    "kind": "class_declaration",
+    "method_count": 12,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ParagraphCollection",
+    "file": "src/main/java/org/aspose/slides/foss/ParagraphCollection.java",
+    "kind": "class_declaration",
+    "method_count": 21,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PatternStyle",
+    "file": "src/main/java/org/aspose/slides/foss/PatternStyle.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 56
+  },
+  {
+    "class": "Picture",
+    "file": "src/main/java/org/aspose/slides/foss/Picture.java",
+    "kind": "class_declaration",
+    "method_count": 14,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "PictureFillMode",
+    "file": "src/main/java/org/aspose/slides/foss/PictureFillMode.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 2
+  },
+  {
+    "class": "PictureFrame",
+    "file": "src/main/java/org/aspose/slides/foss/PictureFrame.java",
+    "kind": "class_declaration",
+    "method_count": 57,
+    "property_count": 36,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "PictureFrameLock",
+    "file": "src/main/java/org/aspose/slides/foss/PictureFrameLock.java",
+    "kind": "class_declaration",
+    "method_count": 26,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Portion",
+    "file": "src/main/java/org/aspose/slides/foss/Portion.java",
+    "kind": "class_declaration",
+    "method_count": 11,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PortionCollection",
+    "file": "src/main/java/org/aspose/slides/foss/PortionCollection.java",
+    "kind": "class_declaration",
+    "method_count": 16,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PptCorruptFileException",
+    "file": "src/main/java/org/aspose/slides/foss/PptCorruptFileException.java",
+    "kind": "class_declaration",
+    "method_count": 9,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PptException",
+    "file": "src/main/java/org/aspose/slides/foss/PptException.java",
+    "kind": "class_declaration",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PptReadException",
+    "file": "src/main/java/org/aspose/slides/foss/PptReadException.java",
+    "kind": "class_declaration",
+    "method_count": 6,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Presentation",
+    "file": "src/main/java/org/aspose/slides/foss/Presentation.java",
+    "kind": "class_declaration",
+    "method_count": 30,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "PresetColor",
+    "file": "src/main/java/org/aspose/slides/foss/PresetColor.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 141
+  },
+  {
+    "class": "PresetShadowType",
+    "file": "src/main/java/org/aspose/slides/foss/PresetShadowType.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 20
+  },
+  {
+    "class": "RectangleAlignment",
+    "file": "src/main/java/org/aspose/slides/foss/RectangleAlignment.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 10
+  },
+  {
+    "class": "Row",
+    "file": "src/main/java/org/aspose/slides/foss/Row.java",
+    "kind": "class_declaration",
+    "method_count": 27,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RowCollection",
+    "file": "src/main/java/org/aspose/slides/foss/RowCollection.java",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SchemeColor",
+    "file": "src/main/java/org/aspose/slides/foss/SchemeColor.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 18
+  },
+  {
+    "class": "Shape",
+    "file": "src/main/java/org/aspose/slides/foss/Shape.java",
+    "kind": "class_declaration",
+    "method_count": 62,
+    "property_count": 35,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "ShapeBevel",
+    "file": "src/main/java/org/aspose/slides/foss/ShapeBevel.java",
+    "kind": "class_declaration",
+    "method_count": 15,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ShapeCollection",
+    "file": "src/main/java/org/aspose/slides/foss/ShapeCollection.java",
+    "kind": "class_declaration",
+    "method_count": 42,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ShapeFrame",
+    "file": "src/main/java/org/aspose/slides/foss/ShapeFrame.java",
+    "kind": "class_declaration",
+    "method_count": 15,
+    "property_count": 10,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "ShapeStyle",
+    "file": "src/main/java/org/aspose/slides/foss/ShapeStyle.java",
+    "kind": "class_declaration",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ShapeType",
+    "file": "src/main/java/org/aspose/slides/foss/ShapeType.java",
+    "kind": "enum_declaration",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 190
+  },
+  {
+    "class": "Slide",
+    "file": "src/main/java/org/aspose/slides/foss/Slide.java",
+    "kind": "class_declaration",
+    "method_count": 18,
+    "property_count": 10,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "SlideCollection",
+    "file": "src/main/java/org/aspose/slides/foss/SlideCollection.java",
+    "kind": "class_declaration",
+    "method_count": 27,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SlideLayoutType",
+    "file": "src/main/java/org/aspose/slides/foss/SlideLayoutType.java",
+    "kind": "enum_declaration",
+    "method_count": 2,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 36
+  },
+  {
+    "class": "Table",
+    "file": "src/main/java/org/aspose/slides/foss/Table.java",
+    "kind": "class_declaration",
+    "method_count": 75,
+    "property_count": 43,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "TableStylePreset",
+    "file": "src/main/java/org/aspose/slides/foss/TableStylePreset.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 76
+  },
+  {
+    "class": "TextAlignment",
+    "file": "src/main/java/org/aspose/slides/foss/TextAlignment.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 7
+  },
+  {
+    "class": "TextAnchorType",
+    "file": "src/main/java/org/aspose/slides/foss/TextAnchorType.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 6
+  },
+  {
+    "class": "TextAutofitType",
+    "file": "src/main/java/org/aspose/slides/foss/TextAutofitType.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "TextCapType",
+    "file": "src/main/java/org/aspose/slides/foss/TextCapType.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "TextFrame",
+    "file": "src/main/java/org/aspose/slides/foss/TextFrame.java",
+    "kind": "class_declaration",
+    "method_count": 12,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "TextShapeType",
+    "file": "src/main/java/org/aspose/slides/foss/TextShapeType.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 43
+  },
+  {
+    "class": "TextStrikethroughType",
+    "file": "src/main/java/org/aspose/slides/foss/TextStrikethroughType.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "TextUnderlineType",
+    "file": "src/main/java/org/aspose/slides/foss/TextUnderlineType.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 19
+  },
+  {
+    "class": "TextVerticalType",
+    "file": "src/main/java/org/aspose/slides/foss/TextVerticalType.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 8
+  },
+  {
+    "class": "TileFlip",
+    "file": "src/main/java/org/aspose/slides/foss/TileFlip.java",
+    "kind": "enum_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 5
+  },
+  {
+    "class": "Color",
+    "file": "src/main/java/org/aspose/slides/foss/drawing/Color.java",
+    "kind": "class_declaration",
+    "method_count": 19,
+    "property_count": 147,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "PointF",
+    "file": "src/main/java/org/aspose/slides/foss/drawing/PointF.java",
+    "kind": "class_declaration",
+    "method_count": 10,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "RectangleF",
+    "file": "src/main/java/org/aspose/slides/foss/drawing/RectangleF.java",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Size",
+    "file": "src/main/java/org/aspose/slides/foss/drawing/Size.java",
+    "kind": "class_declaration",
+    "method_count": 12,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "SizeF",
+    "file": "src/main/java/org/aspose/slides/foss/drawing/SizeF.java",
+    "kind": "class_declaration",
+    "method_count": 12,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Blur",
+    "file": "src/main/java/org/aspose/slides/foss/effects/Blur.java",
+    "kind": "class_declaration",
+    "method_count": 16,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "FillOverlay",
+    "file": "src/main/java/org/aspose/slides/foss/effects/FillOverlay.java",
+    "kind": "class_declaration",
+    "method_count": 15,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Glow",
+    "file": "src/main/java/org/aspose/slides/foss/effects/Glow.java",
+    "kind": "class_declaration",
+    "method_count": 5,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "IBlur",
+    "file": "src/main/java/org/aspose/slides/foss/effects/IBlur.java",
+    "kind": "interface_declaration",
+    "method_count": 5,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IFillOverlay",
+    "file": "src/main/java/org/aspose/slides/foss/effects/IFillOverlay.java",
+    "kind": "interface_declaration",
+    "method_count": 4,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IGlow",
+    "file": "src/main/java/org/aspose/slides/foss/effects/IGlow.java",
+    "kind": "interface_declaration",
+    "method_count": 4,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IImageTransformOperation",
+    "file": "src/main/java/org/aspose/slides/foss/effects/IImageTransformOperation.java",
+    "kind": "interface_declaration",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IInnerShadow",
+    "file": "src/main/java/org/aspose/slides/foss/effects/IInnerShadow.java",
+    "kind": "interface_declaration",
+    "method_count": 8,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IOuterShadow",
+    "file": "src/main/java/org/aspose/slides/foss/effects/IOuterShadow.java",
+    "kind": "interface_declaration",
+    "method_count": 20,
+    "property_count": 10,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IPresetShadow",
+    "file": "src/main/java/org/aspose/slides/foss/effects/IPresetShadow.java",
+    "kind": "interface_declaration",
+    "method_count": 8,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IReflection",
+    "file": "src/main/java/org/aspose/slides/foss/effects/IReflection.java",
+    "kind": "interface_declaration",
+    "method_count": 29,
+    "property_count": 14,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ISoftEdge",
+    "file": "src/main/java/org/aspose/slides/foss/effects/ISoftEdge.java",
+    "kind": "interface_declaration",
+    "method_count": 3,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ImageTransformOperation",
+    "file": "src/main/java/org/aspose/slides/foss/effects/ImageTransformOperation.java",
+    "kind": "class_declaration",
+    "method_count": 8,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "InnerShadow",
+    "file": "src/main/java/org/aspose/slides/foss/effects/InnerShadow.java",
+    "kind": "class_declaration",
+    "method_count": 13,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OuterShadow",
+    "file": "src/main/java/org/aspose/slides/foss/effects/OuterShadow.java",
+    "kind": "class_declaration",
+    "method_count": 31,
+    "property_count": 12,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "PresetShadow",
+    "file": "src/main/java/org/aspose/slides/foss/effects/PresetShadow.java",
+    "kind": "class_declaration",
+    "method_count": 11,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Reflection",
+    "file": "src/main/java/org/aspose/slides/foss/effects/Reflection.java",
+    "kind": "class_declaration",
+    "method_count": 40,
+    "property_count": 16,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SoftEdge",
+    "file": "src/main/java/org/aspose/slides/foss/effects/SoftEdge.java",
+    "kind": "class_declaration",
+    "method_count": 4,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "ISaveOptions",
+    "file": "src/main/java/org/aspose/slides/foss/export/ISaveOptions.java",
+    "kind": "interface_declaration",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IThemeable",
+    "file": "src/main/java/org/aspose/slides/foss/theme/IThemeable.java",
+    "kind": "interface_declaration",
+    "method_count": 3,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  }
+]

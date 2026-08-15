@@ -1,0 +1,763 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "Aspose.HTML FOSS for Python is an open-source Python toolkit for working with HTML documents and DOM trees.",
+    "salient_tokens": [
+      "HTML",
+      "FOSS",
+      "DOM"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Tagline already present, in equivalent (more precise) form, in the candidate Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'a free, open-source Python library for parsing HTML into a standards-based DOM.' Same core claim."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Core tagline already present, in more precise form, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "It is focused on practical HTML parsing, DOM inspection and mutation, serialization, URL handling, and early CSS-oriented document workflows in a lightweight Python package.",
+    "salient_tokens": [
+      "HTML",
+      "DOM",
+      "URL",
+      "CSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Scope framing already present, and substantially exceeded, in the candidate Intro paragraph -- the candidate documents full CSS cascade resolution and stylesheet application, not just 'early CSS-oriented' support, reflecting a more mature current state of the library than this old README described.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'It builds and mutates WHATWG-style document trees, parses and applies CSS stylesheets and resolves the cascade, serializes documents back to markup, and parses URLs and character encodings.' Same scope, more advanced."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Scope already present, and exceeded, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Parse HTML strings, bytes, fragments, and files into a DOM document",
+    "salient_tokens": [
+      "HTML",
+      "DOM"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, near-verbatim, in the candidate Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Parse HTML strings, byte streams, fragments, and files into a DOM tree with HTMLDocument.' Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Capability already present, near-verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Inspect and manipulate DOM nodes, elements, attributes, text, comments, and document fragments",
+    "salient_tokens": [
+      "DOM"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim, in the candidate Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Create, inspect, and mutate DOM nodes with Document, Element, Node, and the standard HTML element classes.' Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Use familiar DOM APIs such as `Document`, `Element`, `NodeList`, `HTMLCollection`, `DOMParser`, and `XMLSerializer`",
+    "salient_tokens": [
+      "Document",
+      "Element",
+      "NodeList",
+      "HTMLCollection",
+      "DOMParser",
+      "XMLSerializer",
+      "DOM",
+      "APIs"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Every named class already documented, verbatim, in the candidate API Reference Dom subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference Dom table lists Document, Element, NodeList, HTMLCollection, DOMParser, and XMLSerializer, each with a real description."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "All named classes already documented, verbatim, in the API Reference section."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Work with common HTML element classes and form/table/list/media element surfaces",
+    "salient_tokens": [
+      "HTML"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The full WHATWG HTML element class set (form, table, list, media elements) is already documented in API Reference, far more thoroughly than this bullet's generic claim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference Dom table lists dozens of real HTML*Element classes including HTMLFormElement, HTMLTableElement, HTMLSelectElement, HTMLInputElement, HTMLAudioElement, HTMLVideoElement -- form/table/list/media coverage already documented in detail."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "HTML element class coverage already documented, in far more detail, in the API Reference section."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Serialize DOM trees back to HTML",
+    "salient_tokens": [
+      "DOM",
+      "HTML"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, near-verbatim, in the candidate Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Serialize DOM trees back to markup through the DOM-style DOMParser and XMLSerializer entry points, or the serialise() helper.' Same fact, more precise."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Capability already present, near-verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Use WHATWG-style URL and URL search parameter helpers",
+    "salient_tokens": [
+      "WHATWG",
+      "URL"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "URL/URLSearchParams capability already present in Key Capabilities, and the WHATWG-style framing already present in the API Reference intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'Document and Element expose a WHATWG-style DOM for traversal and mutation... URL / URLSearchParams cover URL handling.' Same facts."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "URL/URLSearchParams capability and WHATWG-style framing already present in the API Reference section."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Evaluate basic CSS selector matching and CSSOM-style declarations used by DOM workflows",
+    "salient_tokens": [
+      "CSS",
+      "CSSOM",
+      "DOM"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "CSS/CSSOM capability already present, and substantially exceeded (full cascade resolution, not just 'basic' selector matching), in the candidate Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Manage CSS stylesheets with CSSStyleSheet, individual CSSOM rule types, and CSS.supports(). Resolve the CSS cascade -- specificity, !important, and inheritance -- with Element.get_computed_style().' Same scope, more advanced."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "CSS/CSSOM capability already present, and exceeded, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `aspose_html.HTMLDocument`: parse HTML documents, fragments, and files",
+    "salient_tokens": [
+      "aspose_html.HTMLDocument",
+      "HTMLDocument",
+      "HTML"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "HTMLDocument already documented, with more member detail, in the candidate API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'HTMLDocument.parse(html, encoding=None, base_url=None) -> Document', 'HTMLDocument.parse_fragment(...)', 'HTMLDocument.load(path) -> Document' -- same class, with real member signatures."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "HTMLDocument already documented, with more detail, in the API Reference section."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `aspose_html.dom.Document`: DOM document root and node factory",
+    "salient_tokens": [
+      "aspose_html.dom.Document",
+      "DOM"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Document class already documented, with more member detail, in API Reference; the aspose_html.dom module path is also demonstrated in Quick Start/Additional Examples imports.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'Document(Node) -- the root of a DOM tree' with a full member list (create_element, get_element_by_id, query_selector, etc.)."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Document class already documented, with more detail, in the API Reference section."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `aspose_html.dom.Element`: element node API for attributes, traversal, and mutation",
+    "salient_tokens": [
+      "aspose_html.dom.Element",
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Element class already documented, with more member detail, in API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'Element(Node) -- an HTML or XML element node' with get_attribute/set_attribute/matches/closest/query_selector and more."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Element class already documented, with more detail, in the API Reference section."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `aspose_html.dom.DOMParser`: parse markup through a DOM-style parser entry point",
+    "salient_tokens": [
+      "aspose_html.dom.DOMParser",
+      "DOMParser",
+      "DOM"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "DOMParser already documented, with a real member signature, in API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'DOMParser.parse_from_string(string, type) -> Document' -- same class, real member signature."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "DOMParser already documented, with more detail, in the API Reference section."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `aspose_html.dom.XMLSerializer`: serialize DOM nodes through a DOM-style serializer entry point",
+    "salient_tokens": [
+      "aspose_html.dom.XMLSerializer",
+      "XMLSerializer",
+      "DOM"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "XMLSerializer already documented, with a real member signature, in API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'XMLSerializer.serialize_to_string(root) -> str' -- same class, real member signature."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "XMLSerializer already documented, with more detail, in the API Reference section."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `aspose_html.serialise`: serialize nodes to HTML strings",
+    "salient_tokens": [
+      "aspose_html.serialise",
+      "HTML"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "serialise() already documented, verbatim, in API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'serialise(node) -> str -- top-level helper to serialize a node or subtree back to HTML.' Verbatim match."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "serialise() already documented, verbatim, in the API Reference section."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `aspose_html.URL`: WHATWG-style URL object",
+    "salient_tokens": [
+      "aspose_html.URL",
+      "URL",
+      "WHATWG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "URL class already documented, with more member detail, in API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'URL | A WHATWG URL parser and serializer, with a parse() factory...' plus real member list (href, protocol, hostname, etc.)."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "URL class already documented, with more detail, in the API Reference section."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `aspose_html.URLSearchParams`: URL query parameter helper",
+    "salient_tokens": [
+      "aspose_html.URLSearchParams",
+      "URLSearchParams",
+      "URL"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "URLSearchParams already documented, with more member detail, in API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'URLSearchParams -- append, delete, get, get_all, has, set, sort, iteration via keys/values/items/entries.' Same class, more detail."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "URLSearchParams already documented, with more detail, in the API Reference section."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "Main supported scenarios:",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Purely transitional filler sentence introducing the following bullet list, with no independent factual claim of its own.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure transitional/structural filler."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure transitional/structural filler with no checkable factual content of its own."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Parse HTML into a document tree",
+    "salient_tokens": [
+      "HTML"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim in substance, in the candidate Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Parse HTML strings, byte streams, fragments, and files into a DOM tree with HTMLDocument.'"
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Capability already present in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Create and update DOM nodes programmatically",
+    "salient_tokens": [
+      "DOM"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim in substance, in the candidate Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Create, inspect, and mutate DOM nodes with Document, Element, Node, and the standard HTML element classes.'"
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Capability already present in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Query documents by ID, tag name, class name, and selector-oriented helpers",
+    "salient_tokens": [
+      "get_element_by_id"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The specific query methods (by ID, tag name, class name, CSS selector) are already documented, with real member signatures, in the API Reference DOM Core section -- more precise than this old bullet's generic claim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference Document members: 'get_element_by_id(id) -> Element | None', 'get_elements_by_tag_name(name) -> HTMLCollection', 'get_elements_by_class_name(names) -> HTMLCollection', 'query_selector(selector) -> Element | None', 'query_selector_all(selector) -> NodeList'."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Specific query methods already documented, with real signatures, in the API Reference section."
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Read and write element attributes, classes, datasets, inline styles, and text content",
+    "salient_tokens": [
+      "dataset"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The specific attribute/class/dataset/style/text-content members are already documented, with real member names, in the API Reference Element entry.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference Element members: 'get_attribute(name)', 'set_attribute(name, value)', and 'id, class_name, class_list, dataset, attributes, inner_html, outer_html, text_content, style' -- covers attributes, classes, datasets, inline styles, and text content, each by real member name."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Attribute/class/dataset/style/text-content members already documented, by real name, in the API Reference section."
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Serialize complete documents, fragments, and individual elements",
+    "salient_tokens": [
+      "serialise"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The serialise() helper serializes any node or subtree (a document, a fragment, or a single element), already documented in API Reference; DocumentFragment is also a documented class.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'serialise(node) -> str -- top-level helper to serialize a node or subtree back to HTML' -- 'node' covers documents, fragments (DocumentFragment is a documented class), and individual elements alike."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Serialization of any node (document, fragment, or element) already covered by the documented serialise() helper."
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Work with URL parsing and search parameters",
+    "salient_tokens": [
+      "URLSearchParams"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim in substance, in the candidate Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'parse URLs and query strings with URL and URLSearchParams.'"
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Capability already present in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0025",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Exercise CSS/CSSOM primitives used by document and style workflows",
+    "salient_tokens": [
+      "CSSOM"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, and substantially exceeded, in the candidate Key Capabilities section (full cascade resolution, not just primitive exercising).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Manage CSS stylesheets with CSSStyleSheet, individual CSSOM rule types, and CSS.supports(). Resolve the CSS cascade...'"
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "CSS/CSSOM capability already present, and exceeded, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0026",
+    "source": "clone_cache/README.md",
+    "excerpt": "API layers:",
+    "salient_tokens": [
+      "API"
+    ],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Purely transitional filler sentence introducing the following API-layer bullet list, with no independent factual claim of its own (same treatment as this product's 'Main supported scenarios:' lead-in).",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure transitional/structural filler."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure transitional/structural filler with no checkable factual content of its own; the bulleted API layers it introduces are separately verified redundant against API Reference."
+  },
+  {
+    "unit_id": "u0027",
+    "source": "clone_cache/README.md",
+    "excerpt": "- High-level HTML API: `aspose_html.HTMLDocument`",
+    "salient_tokens": [
+      "aspose_html.HTMLDocument",
+      "HTML",
+      "API",
+      "HTMLDocument"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "HTMLDocument already documented as the primary entry point in the API Reference intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'The primary entry point is HTMLDocument, which parses HTML into a Document tree.'"
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "HTMLDocument already documented as the primary entry point in the API Reference section."
+  },
+  {
+    "unit_id": "u0028",
+    "source": "clone_cache/README.md",
+    "excerpt": "- DOM API: `aspose_html.dom`, centered around `Document`, `Element`, `Node`, and HTML element classes",
+    "salient_tokens": [
+      "aspose_html.dom",
+      "Document",
+      "Element",
+      "Node",
+      "DOM",
+      "API",
+      "HTML"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, and the aspose_html.dom module path is directly demonstrated in real code imports throughout Quick Start/Additional Examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'Document and Element expose a WHATWG-style DOM for traversal and mutation'; the Dom subsection documents Document, Element, Node, and the full HTML element class set; 'from aspose_html.dom import Document' appears repeatedly in Quick Start/Additional Examples."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "DOM API and aspose_html.dom module already documented and demonstrated across API Reference and Additional Examples."
+  },
+  {
+    "unit_id": "u0029",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Serialization API: `aspose_html.serialise`",
+    "salient_tokens": [
+      "serialise"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "serialise() already documented in API Reference and imported directly in the Quick Start example.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'serialise(node) -> str'; Quick Start imports 'from aspose_html import HTMLDocument, serialise'."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Serialization API already documented in API Reference and demonstrated in Quick Start."
+  },
+  {
+    "unit_id": "u0030",
+    "source": "clone_cache/README.md",
+    "excerpt": "- URL API: `aspose_html.url`, centered around `URL` and `URLSearchParams`",
+    "salient_tokens": [
+      "URLSearchParams"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "URL and URLSearchParams already documented, with full member detail, in the API Reference Url subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference ### Url section documents URL and URLSearchParams with real member lists."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "URL API already documented, with more detail, in the API Reference section."
+  },
+  {
+    "unit_id": "u0031",
+    "source": "clone_cache/README.md",
+    "excerpt": "- CSS/CSSOM API: `aspose_html.css` and `aspose_html.cssom`",
+    "salient_tokens": [
+      "CSSOM"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "CSS and CSSOM already documented, with far more member detail (14+ CSSOM rule types, full selector AST), in the API Reference Css/Cssom subsections; aspose_html.cssom is also imported directly in real code examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference has dedicated ### Css and ### Cssom subsections listing selector AST types and CSSOM rule types; Quick Start/Additional Examples import 'from aspose_html.cssom import CSSStyleSheet' and 'from aspose_html.cssom import CSS'."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "CSS/CSSOM API already documented, with more detail, in the API Reference section and demonstrated in code examples."
+  },
+  {
+    "unit_id": "u0032",
+    "source": "clone_cache/README.md",
+    "excerpt": "For the stable API summary, see [PUBLIC_API.md](PUBLIC_API.md). For runnable scenarios, see [examples](examples).",
+    "salient_tokens": [
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Both pointers already present, verbatim, in the candidate: PUBLIC_API.md is linked in Documentation & Resources, and examples/ is linked in Additional Examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: 'Public API reference notes (PUBLIC_API.md) — the maintainers' own notes on the public API surface.' Additional Examples: 'Runnable scripts are available in the examples directory.' Both files confirmed to exist in the clone cache."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Both PUBLIC_API.md and examples/ pointers already present, verbatim, in the candidate."
+  },
+  {
+    "unit_id": "u0033",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Repository: [https://github.com/aspose-html-foss/Aspose.HTML-FOSS-for-Python](https://github.com/aspose-html-foss/Aspose.HTML-FOSS-for-Python)",
+    "salient_tokens": [
+      "HTML",
+      "FOSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Repository URL already present, identically, in the Installation section's git clone command.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'git clone https://github.com/aspose-html-foss/Aspose.HTML-FOSS-for-Python.git' -- identical repository."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Repository URL already present, identically, in the Installation section."
+  },
+  {
+    "unit_id": "u0034",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Issues: [https://github.com/aspose-html-foss/Aspose.HTML-FOSS-for-Python/issues](https://github.com/aspose-html-foss/Aspose.HTML-FOSS-for-Python/issues)",
+    "salient_tokens": [
+      "HTML",
+      "FOSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Issues URL already present, identically, in the Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: 'Found a bug or have a feature request? Open an issue on GitHub' linking to https://github.com/aspose-html-foss/Aspose.HTML-FOSS-for-Python/issues -- identical URL."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Issues URL already present, identically, in the Documentation & Resources section."
+  },
+  {
+    "unit_id": "u0035",
+    "source": "clone_cache/README.md",
+    "excerpt": "- PyPI: [https://pypi.org/project/aspose-html-foss/](https://pypi.org/project/aspose-html-foss/)",
+    "salient_tokens": [
+      "PyPI"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "This old-README PyPI link is STALE and must not be merged forward: the package is confirmed NOT published on PyPI, and pip install of this package currently fails entirely due to an upstream build-backend defect. The candidate's Installation section already states the correct, current, verified install state.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "package_registry_field",
+      "evidence_ref": "html.python.verification.published",
+      "evidence_note": "data/package_registry.json: html/python verification.published=false, verified_at 2026-08-01, method pypi-backfill-scan, note 'no live match found for any tried candidate (aspose-html-foss)'. Independently corroborated by this product's own reports/repo-presenter/html/python/upstream-issues.md (verified 2026-08-02, re-verified 2026-08-04 three ways): pyproject.toml's build-backend name is broken ('setuptools.backends.legacy:build' does not exist), so every pip install variant fails with ModuleNotFoundError -- there is no working pip-installable package, let alone one live on PyPI. The candidate's Installation section already correctly documents 'A PyPI package has not been published yet, and pip install currently fails' plus the verified PYTHONPATH workaround -- the old README's PyPI link would be actively misleading if merged forward."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Stale/incorrect: the package is confirmed not published on PyPI and pip install is confirmed broken upstream; the candidate's Installation section already states the correct, current install state."
+  },
+  {
+    "unit_id": "u0036",
+    "source": "clone_cache/README.md",
+    "excerpt": "See [CONTRIBUTING.md](CONTRIBUTING.md).",
+    "salient_tokens": [
+      "CONTRIBUTING"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: 'Contributing guide (CONTRIBUTING.md) — development setup and how to submit changes.' File confirmed to exist in the clone cache."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "CONTRIBUTING.md pointer already present, verbatim, in the Documentation & Resources section."
+  },
+  {
+    "unit_id": "u0037",
+    "source": "clone_cache/README.md",
+    "excerpt": "See [SECURITY.md](SECURITY.md).",
+    "salient_tokens": [
+      "SECURITY"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: 'Security policy (SECURITY.md) — report vulnerabilities through GitHub's private vulnerability reporting flow...' File confirmed to exist in the clone cache."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "SECURITY.md pointer already present, verbatim, in the Documentation & Resources section."
+  },
+  {
+    "unit_id": "u0038",
+    "source": "clone_cache/README.md",
+    "excerpt": "See [CHANGELOG.md](CHANGELOG.md).",
+    "salient_tokens": [
+      "CHANGELOG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: 'Changelog (CHANGELOG.md) — release history.' File confirmed to exist in the clone cache."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "CHANGELOG.md pointer already present, verbatim, in the Documentation & Resources section."
+  }
+]

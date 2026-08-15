@@ -1,0 +1,440 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "A Python library for creating, reading, and modifying Excel files (.xlsx format) without requiring Microsoft Excel.",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Core one-line description; already present, expanded, in the candidate's opening Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Candidate's Intro paragraph: 'Aspose.Cells FOSS for Python is a free, open-source Python library for creating, reading, and modifying Microsoft Excel .xlsx spreadsheets without requiring Microsoft Excel or any Office dependency.' Same fact, expanded with the Office-dependency detail."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Verbatim-equivalent claim already present, expanded, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Create & Edit Excel Files**: Create new workbooks or modify existing .xlsx files",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, near-verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Candidate's first Key Capabilities bullet: 'Create, open, and save Excel .xlsx workbooks with round-trip fidelity via Workbook.' Same fact, plus the real class name."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, near-verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Cell Operations**: Read/write cell values and formulas",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Candidate's second Key Capabilities bullet: 'Read and write cell values and formulas using A1-style bracket notation (ws.cells[\"A1\"].value = ...).' Same fact, plus the concrete API syntax."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Styling**: Apply fonts, colors, borders, number formats, and alignment",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, near-verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Candidate's third Key Capabilities bullet: 'Apply fonts, fills, borders, alignment, and number formats through Style, Font, Fill, Border, and Alignment.' 'colors' is covered by Fill/Font.color; same fact, plus the real class names."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, near-verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Multiple Worksheets**: Add, remove, rename, and manage worksheets",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Worksheet add/remove/rename capability; not a Key Capabilities bullet, but already fully documented in the candidate's API Reference detail list.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "aspose/cells_foss/workbook.py",
+      "evidence_note": "Confirmed runs/.clone_cache/aspose_cells_python/aspose/cells_foss/workbook.py implements add_worksheet/get_worksheet/remove_worksheet/copy_worksheet on Workbook, and worksheet.py implements rename()/copy()/delete()/move(). Candidate's API Reference already lists all of these under 'Workbook and Worksheets': 'worksheets, file_path, properties, ... add_worksheet(name), get_worksheet(index_or_name), remove_worksheet(index_or_name), copy_worksheet(...)' and 'rename(new_name), copy(name), delete(), move(index)'."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Add/remove/rename/manage-worksheets capability already documented via Workbook/Worksheet methods in the API Reference section."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Charts**: Create and modify charts (line, bar, pie, scatter, combo, waterfall, treemap, and more)",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, expanded, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Candidate's fourth Key Capabilities bullet lists all sixteen ChartType values (including line, bar, pie, scatter, combo, waterfall, treemap named here) via dedicated add_*() methods -- superset of this claim."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, as a superset, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Tables**: Add and manage ListObject tables with styles and auto-filters",
+    "salient_tokens": [
+      "ListObject"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031 mixed-unit re-examination: 'add and manage tables with styles and auto-filters' is already fully redundant (Table/TableStyleInfo/AutoFilter are all documented elsewhere), but the 'ListObject' cross-reference -- the Excel-object-model/VBA name this class is equivalent to -- is a real, distinct, checkable fact genuinely missing from the candidate. Reclassified to carry that one fact forward rather than excluding the whole unit.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "aspose/cells_foss/table.py",
+      "evidence_note": "runs/.clone_cache/aspose_cells_python/aspose/cells_foss/table.py line 7: 'Table — a single table (ListObject in .NET / VBA)'; line 107: 'Equivalent to ListObject in Aspose.Cells for .NET / Excel VBA.' Confirms the old README's ListObject claim is real and current. Grepped candidate readme.md for 'ListObject' before this edit: zero matches. Styles (TableStyleInfo) and auto-filters (AutoFilter) are separately, already documented in the candidate's Key Capabilities/API Reference."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Shapes & TextBoxes**: Add shapes, text boxes, and pictures with hyperlinks",
+    "salient_tokens": [
+      "text box"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Shapes/text-boxes/pictures-with-hyperlinks capability already documented across the candidate's Key Capabilities bullet and API Reference Shape/Picture entries.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Core API table: '`Shape` | Represents a drawing shape (rectangle, oval, text box, arrow, etc.) on a worksheet.' and Detailed Member Reference: 'Shape / ShapeCollection — add(...), add_text_box(...)' plus 'Picture / PictureCollection — add(...), image_bytes, hyperlink_url'. Shapes, text boxes, and picture-hyperlinks are all present."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Shapes/text-boxes/pictures-with-hyperlinks capability already documented in the API Reference section."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Data Validation**: Add dropdown lists, number ranges, and custom validation rules",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, near-verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Candidate's fifth Key Capabilities bullet: 'Add data validation rules, auto filters, and conditional formatting to worksheet ranges.' Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, near-verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Comments**: Add and manage cell comments with author and rich text",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Comments are a real, implemented capability (Cell.set_comment/get_comment/has_comment/clear_comment) that the candidate's Key Capabilities list omits entirely, and the 'rich text' storage detail is not documented anywhere in the candidate either -- genuinely missing, not redundant.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "aspose/cells_foss/cell.py",
+      "evidence_note": "runs/.clone_cache/aspose_cells_python/aspose/cells_foss/cell.py: set_comment(text, author='None', width=None, height=None), get_comment(), clear_comment(), and a comment property all exist on Cell. comment_xml.py line 109/143/157/332 confirms comments are serialized in 'ECMA-376 compliant rich text format with <r> (run) elements' -- the 'rich text' claim is real, at the storage-format level. Grepped candidate readme.md for 'comment' before this edit: zero matches in Key Capabilities or API Reference."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Hyperlinks**: Create links to URLs, emails, files, and internal references",
+    "salient_tokens": [
+      "URLs"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "The candidate's Key Capabilities only says 'manage hyperlinks' generically; the specific set of supported hyperlink target types (external URL, email, file, internal worksheet location) is a real, checkable mechanism detail that was dropped.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "aspose/cells_foss/hyperlink.py",
+      "evidence_note": "runs/.clone_cache/aspose_cells_python/aspose/cells_foss/hyperlink.py lines 20-22: 'Internal worksheet locations (Sheet2!A1)... Email addresses (mailto:)' and address/sub_address docstrings: 'For external hyperlinks (web URLs, files, email), this contains the target. For internal hyperlinks, use sub_address instead.' Confirms all four target types (URL, email, file, internal reference) are real and current."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Auto-Filters**: Apply filtering to data ranges",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Candidate's fifth Key Capabilities bullet already names 'auto filters' alongside data validation and conditional formatting."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Conditional Formatting**: Apply rules-based formatting",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Candidate's fifth Key Capabilities bullet already names 'conditional formatting' alongside data validation and auto filters."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **CSV / JSON / Markdown Export**: Save workbooks in multiple text formats",
+    "salient_tokens": [
+      "CSV",
+      "JSON"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Candidate's eighth Key Capabilities bullet: 'Export workbooks to CSV, Markdown, and JSON in addition to XLSX.' Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Encryption**: Password-protect Excel files with AES encryption",
+    "salient_tokens": [
+      "AES"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, near-verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Candidate's seventh Key Capabilities bullet: '...encrypt/decrypt .xlsx files with AES (Agile Encryption) via a password argument.' Same fact, plus the concrete mechanism."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, near-verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Workbook & Worksheet Protection**: Protect workbook structure and individual sheets",
+    "salient_tokens": [
+      "protect workbooks"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Candidate's seventh Key Capabilities bullet: 'Protect workbooks and worksheets and encrypt/decrypt .xlsx files with AES...' Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Python 3.7 or higher",
+    "salient_tokens": [
+      "3.7"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Version floor verified against pyproject.toml (requires-python = '>=3.7') -- still current and accurate. Already present, near-verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "pyproject.toml: 'requires-python = \">=3.7\"' -- confirms 3.7 is the real, current floor. Installation: 'The package supports Python 3.7 and later.' Same fact, same version."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Version floor already present, near-verbatim and still accurate, in the Installation section."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "- pycryptodome >= 3.15.0",
+    "salient_tokens": [
+      "3.15.0"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Dependency floor verified against pyproject.toml ('pycryptodome>=3.15.0') -- still current and accurate. Already present, verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "pyproject.toml dependencies: 'pycryptodome>=3.15.0'. Installation: 'Its only runtime dependencies are pycryptodome>=3.15.0 (AES encryption) and olefile>=0.46 ...' Same dependency and version, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Dependency version floor already present, verbatim and still accurate, in the Installation section."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- olefile >= 0.46",
+    "salient_tokens": [
+      "0.46"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Dependency floor verified against pyproject.toml ('olefile>=0.46') -- still current and accurate. Already present, verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "pyproject.toml dependencies: 'olefile>=0.46'. Installation: '...and olefile>=0.46 (Compound File Binary handling for encrypted workbooks).' Same dependency and version, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Dependency version floor already present, verbatim and still accurate, in the Installation section."
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "For more examples and detailed API documentation, see the [examples](https://github.com/aspose-cells-foss/aspose-cells-python/tree/main/examples) directory.",
+    "salient_tokens": [
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The two pointers this sentence bundles -- 'more examples' and 'detailed API documentation' -- are already present separately and more precisely in the candidate: the Additional Examples section for the former, the Documentation & Resources section's dedicated API reference link for the latter.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: '**Full API reference** — the complete, browsable reference for all 130 public types (the API reference section above covers the essentials).' Additional Examples section separately covers the examples pointer: 'Runnable, test-backed examples live in examples/.'"
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Both the examples pointer and the API-documentation pointer are already present, more precisely, in Additional Examples and Documentation & Resources respectively."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "Contributions are welcome! Please feel free to submit a Pull Request.",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Generic open-source contribution invitation with no product-specific, distinct, checkable process detail (unlike e.g. words/net's 'PRs are considered case by case, open an issue first' -- there is no such specific policy here, and AGENTS.md contains no contribution/PR guidance to corroborate one).",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure CTA prose. Checked runs/.clone_cache/aspose_cells_python/AGENTS.md for any contribution/PR policy to corroborate a distinct mechanism: none found."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure narrative/CTA prose with no product-specific checkable process fact; generic GitHub contribution boilerplate."
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "1. Fork the repository\n2. Create your feature branch (`git checkout -b feature/amazing-feature`)\n3. Commit your changes (`git commit -m 'Add some amazing feature'`)\n4. Push to the branch (`git push origin feature/amazing-feature`)\n5. Open a Pull Request",
+    "salient_tokens": [
+      "git checkout -b feature/amazing-feature",
+      "git commit -m 'Add some amazing feature'",
+      "git push origin feature/amazing-feature"
+    ],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Generic GitHub fork/branch/commit/push/PR workflow boilerplate, identical to what appears in countless unrelated open-source READMEs; not a distinguishing or product-specific fact about this library.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- generic GitHub contribution-workflow boilerplate, not specific to this product."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure generic GitHub contribution-workflow boilerplate, no product-specific checkable content."
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "This project is licensed under the MIT License - see the [LICENSE](https://github.com/aspose-cells-foss/aspose-cells-python/blob/main/License/license.txt) file for details.",
+    "salient_tokens": [
+      "MIT",
+      "LICENSE"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "License statement already present, expanded, in the candidate's License section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the MIT License (License/LICENSE.txt). The MIT License permits use, copying, modification, distribution, sublicensing, and commercial use, provided its copyright and permission notice are retained. The software is provided without warranty.' Covers the same fact with more detail."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "License statement already present, in expanded form, in the License section."
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Issues**: [GitHub Issues](https://github.com/aspose-cells-foss/aspose-cells-python/issues)",
+    "salient_tokens": [
+      "GitHub"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Issue-reporting pointer already present, near-verbatim, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: 'Found a bug or have a feature request? Open an issue on GitHub.' Same pointer, with an absolute issues URL."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Issue-reporting pointer already present, near-verbatim, in the Documentation & Resources section."
+  }
+]

@@ -1,0 +1,3313 @@
+{
+  "schema_version": 2,
+  "family": "words",
+  "platform": "net",
+  "display_name": "Aspose.Words",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "class_count": 617,
+    "enriched_claims": 911,
+    "forbidden_count": 32,
+    "scout_claims": 4136,
+    "snippet_count": 100,
+    "supplemental_claims": 0,
+    "total_claims": 5028
+  },
+  "classes": [
+    "AbsolutePositionTab",
+    "Adjustment",
+    "AdjustmentCollection",
+    "ArrowLength",
+    "ArrowType",
+    "ArrowWidth",
+    "AutoFitBehavior",
+    "AxisBound",
+    "AxisBuiltInUnit",
+    "AxisCategoryType",
+    "AxisCrosses",
+    "AxisDisplayUnit",
+    "AxisGroup",
+    "AxisScaleType",
+    "AxisScaling",
+    "AxisTickLabelPosition",
+    "AxisTickLabels",
+    "AxisTickMark",
+    "AxisTimeUnit",
+    "BarcodeParameters",
+    "BaseWebExtensionCollection",
+    "BaselineAlignment",
+    "Bibliography",
+    "BlockImportMode",
+    "Body",
+    "Bookmark",
+    "BookmarkCollection",
+    "BookmarkEnd",
+    "BookmarkStart",
+    "BookmarksOutlineLevelCollection",
+    "Border",
+    "BorderCollection",
+    "BorderType",
+    "BreakType",
+    "BubbleSizeCollection",
+    "BuildVersionInfo",
+    "BuildingBlock",
+    "BuildingBlockBehavior",
+    "BuildingBlockCollection",
+    "BuildingBlockGallery",
+    "BuildingBlockType",
+    "BuiltInDocumentProperties",
+    "CalendarType",
+    "Cell",
+    "CellCollection",
+    "CellFormat",
+    "CellMerge",
+    "CellVerticalAlignment",
+    "CertificateHolder",
+    "ChapterPageSeparator",
+    "Chart",
+    "ChartAxis",
+    "ChartAxisCollection",
+    "ChartAxisTitle",
+    "ChartAxisType",
+    "ChartDataLabel",
+    "ChartDataLabelCollection",
+    "ChartDataLabelLocationMode",
+    "ChartDataLabelPosition",
+    "ChartDataPoint",
+    "ChartDataPointCollection",
+    "ChartDataTable",
+    "ChartFormat",
+    "ChartLegend",
+    "ChartLegendEntry",
+    "ChartLegendEntryCollection",
+    "ChartMarker",
+    "ChartMultilevelValue",
+    "ChartNumberFormat",
+    "ChartSeries",
+    "ChartSeriesCollection",
+    "ChartSeriesGroup",
+    "ChartSeriesGroupCollection",
+    "ChartSeriesType",
+    "ChartShapeType",
+    "ChartStyle",
+    "ChartTitle",
+    "ChartType",
+    "ChartXValue",
+    "ChartXValueCollection",
+    "ChartXValueType",
+    "ChartYValue",
+    "ChartYValueCollection",
+    "ChartYValueType",
+    "CheckBoxControl",
+    "ChmLoadOptions",
+    "CleanupOptions",
+    "ColorMode",
+    "CommandButtonControl",
+    "Comment",
+    "CommentCollection",
+    "CommentRangeEnd",
+    "CommentRangeStart",
+    "ComparisonEvaluationResult",
+    "ComparisonExpression",
+    "Compatibility",
+    "CompatibilityOptions",
+    "CompositeNode",
+    "CompressionLevel",
+    "ConditionalStyle",
+    "ConditionalStyleCollection",
+    "ConditionalStyleType",
+    "ContentDisposition",
+    "Contributor",
+    "ContributorCollection",
+    "ControlChar",
+    "ConvertUtil",
+    "Corporate",
+    "CssSavingArgs",
+    "CssStyleSheetType",
+    "CustomDocumentProperties",
+    "CustomPart",
+    "CustomPartCollection",
+    "CustomXmlPart",
+    "CustomXmlPartCollection",
+    "CustomXmlProperty",
+    "CustomXmlPropertyCollection",
+    "CustomXmlSchemaCollection",
+    "DashStyle",
+    "DigitalSignature",
+    "DigitalSignatureCollection",
+    "DigitalSignatureDetails",
+    "DigitalSignatureType",
+    "DigitalSignatureUtil",
+    "Dml3DEffectsRenderingMode",
+    "DmlEffectsRenderingMode",
+    "DmlRenderingMode",
+    "Document",
+    "DocumentBase",
+    "DocumentBuilder",
+    "DocumentBuilderOptions",
+    "DocumentDirection",
+    "DocumentLoadingArgs",
+    "DocumentPartSavingArgs",
+    "DocumentPositionMovement",
+    "DocumentProperty",
+    "DocumentPropertyCollection",
+    "DocumentReaderPluginLoadException",
+    "DocumentRecoveryMode",
+    "DocumentSavingArgs",
+    "DocumentSecurity",
+    "DocumentSplitCriteria",
+    "DocumentVisitor",
+    "DropCapPosition",
+    "DropDownItemCollection",
+    "EditableRange",
+    "EditableRangeEnd",
+    "EditableRangeStart",
+    "EditingLanguage",
+    "EditorType",
+    "EmbeddedFontFormat",
+    "EmbeddedFontStyle",
+    "EmfPlusDualRenderingMode",
+    "EmphasisMark",
+    "EndCap",
+    "EndnoteOptions",
+    "EndnotePosition",
+    "ExportHeadersFootersMode",
+    "ExportListLabels",
+    "Field",
+    "FieldAddIn",
+    "FieldAddressBlock",
+    "FieldAdvance",
+    "FieldArgumentBuilder",
+    "FieldAsk",
+    "FieldAuthor",
+    "FieldAutoNum",
+    "FieldAutoNumLgl",
+    "FieldAutoNumOut",
+    "FieldAutoText",
+    "FieldAutoTextList",
+    "FieldBarcode",
+    "FieldBibliography",
+    "FieldBidiOutline",
+    "FieldBuilder",
+    "FieldChar",
+    "FieldCitation",
+    "FieldCollection",
+    "FieldComments",
+    "FieldCompare",
+    "FieldCreateDate",
+    "FieldData",
+    "FieldDatabase",
+    "FieldDatabaseDataRow",
+    "FieldDatabaseDataTable",
+    "FieldDate",
+    "FieldDde",
+    "FieldDdeAuto",
+    "FieldDisplayBarcode",
+    "FieldDocProperty",
+    "FieldDocVariable",
+    "FieldEQ",
+    "FieldEditTime",
+    "FieldEmbed",
+    "FieldEnd",
+    "FieldFileName",
+    "FieldFileSize",
+    "FieldFillIn",
+    "FieldFootnoteRef",
+    "FieldFormCheckBox",
+    "FieldFormDropDown",
+    "FieldFormText",
+    "FieldFormat",
+    "FieldFormula",
+    "FieldGlossary",
+    "FieldGoToButton",
+    "FieldGreetingLine",
+    "FieldHyperlink",
+    "FieldIf",
+    "FieldIfComparisonResult",
+    "FieldImport",
+    "FieldInclude",
+    "FieldIncludePicture",
+    "FieldIncludeText",
+    "FieldIndex",
+    "FieldIndexFormat",
+    "FieldInfo",
+    "FieldKeywords",
+    "FieldLastSavedBy",
+    "FieldLink",
+    "FieldListNum",
+    "FieldMacroButton",
+    "FieldMergeBarcode",
+    "FieldMergeField",
+    "FieldMergeRec",
+    "FieldMergeSeq",
+    "FieldNext",
+    "FieldNextIf",
+    "FieldNoteRef",
+    "FieldNumChars",
+    "FieldNumPages",
+    "FieldNumWords",
+    "FieldOcx",
+    "FieldOptions",
+    "FieldPage",
+    "FieldPageRef",
+    "FieldPrint",
+    "FieldPrintDate",
+    "FieldPrivate",
+    "FieldQuote",
+    "FieldRD",
+    "FieldRef",
+    "FieldRevNum",
+    "FieldSaveDate",
+    "FieldSection",
+    "FieldSectionPages",
+    "FieldSeparator",
+    "FieldSeq",
+    "FieldSet",
+    "FieldShape",
+    "FieldSkipIf",
+    "FieldStart",
+    "FieldStyleRef",
+    "FieldSubject",
+    "FieldSymbol",
+    "FieldTA",
+    "FieldTC",
+    "FieldTemplate",
+    "FieldTime",
+    "FieldTitle",
+    "FieldToa",
+    "FieldToc",
+    "FieldType",
+    "FieldUnknown",
+    "FieldUpdateCultureSource",
+    "FieldUpdatingProgressArgs",
+    "FieldUserAddress",
+    "FieldUserInitials",
+    "FieldUserName",
+    "FieldXE",
+    "FileCorruptedException",
+    "FileFormatInfo",
+    "FileFormatUtil",
+    "Fill",
+    "FillType",
+    "FindReplaceDirection",
+    "FindReplaceOptions",
+    "FlipOrientation",
+    "Font",
+    "FontEmbeddingLicensingRights",
+    "FontEmbeddingUsagePermissions",
+    "FontFamily",
+    "FontInfo",
+    "FontInfoCollection",
+    "FontPitch",
+    "FontSettings",
+    "Footnote",
+    "FootnoteNumberingRule",
+    "FootnoteOptions",
+    "FootnotePosition",
+    "FootnoteSeparator",
+    "FootnoteSeparatorCollection",
+    "FootnoteSeparatorType",
+    "FootnoteType",
+    "FormField",
+    "FormFieldCollection",
+    "Forms2OleControl",
+    "Forms2OleControlCollection",
+    "Forms2OleControlType",
+    "FrameFormat",
+    "Frameset",
+    "FramesetCollection",
+    "GeneralFormat",
+    "GeneralFormatCollection",
+    "GlossaryDocument",
+    "GlowFormat",
+    "GradientStop",
+    "GradientStopCollection",
+    "GradientStyle",
+    "GradientVariant",
+    "GraphicsQualityOptions",
+    "GroupShape",
+    "HeaderFooter",
+    "HeaderFooterBookmarksExportMode",
+    "HeaderFooterCollection",
+    "HeaderFooterType",
+    "HeightRule",
+    "HorizontalAlignment",
+    "HorizontalRuleAlignment",
+    "HorizontalRuleFormat",
+    "HtmlControlType",
+    "HtmlElementSizeOutputMode",
+    "HtmlInsertOptions",
+    "HtmlLoadOptions",
+    "HtmlMetafileFormat",
+    "HtmlOfficeMathOutputMode",
+    "HtmlSaveOptions",
+    "HtmlVersion",
+    "HyphenationOptions",
+    "IBarcodeGenerator",
+    "IBibliographyStylesProvider",
+    "IChartDataPoint",
+    "IComparisonExpressionEvaluator",
+    "ICssSavingCallback",
+    "IDocumentConverterPlugin",
+    "IDocumentLoadingCallback",
+    "IDocumentMergerPlugin",
+    "IDocumentPartSavingCallback",
+    "IDocumentReaderPlugin",
+    "IDocumentSavingCallback",
+    "IFieldDatabaseProvider",
+    "IFieldResultFormatter",
+    "IFieldUpdateCultureProvider",
+    "IFieldUpdatingCallback",
+    "IFieldUpdatingProgressCallback",
+    "IFieldUserPromptRespondent",
+    "IImageSavingCallback",
+    "INodeChangingCallback",
+    "INodeCollection",
+    "IPageSavingCallback",
+    "IReplacingCallback",
+    "IResourceLoadingCallback",
+    "IResourceSavingCallback",
+    "IRevisionCriteria",
+    "IStructuredDocumentTag",
+    "IWarningCallback",
+    "ImageBinarizationMethod",
+    "ImageColorMode",
+    "ImageData",
+    "ImagePixelFormat",
+    "ImageSavingArgs",
+    "ImageSize",
+    "ImageType",
+    "ImageWatermarkOptions",
+    "ImlRenderingMode",
+    "ImportFormatMode",
+    "ImportFormatOptions",
+    "IncorrectPasswordException",
+    "Inline",
+    "InlineStory",
+    "InternableComplexAttr",
+    "JoinStyle",
+    "JustificationMode",
+    "LanguagePreferences",
+    "LayoutFlow",
+    "LegendPosition",
+    "LineNumberRestartMode",
+    "LineSpacingRule",
+    "LineStyle",
+    "List",
+    "ListCollection",
+    "ListFormat",
+    "ListLabel",
+    "ListLevel",
+    "ListLevelAlignment",
+    "ListLevelCollection",
+    "ListTemplate",
+    "ListTrailingCharacter",
+    "LoadFormat",
+    "LoadOptions",
+    "MailMergeCheckErrors",
+    "MailMergeDataType",
+    "MailMergeDestination",
+    "MailMergeMainDocumentType",
+    "MailMergeSettings",
+    "Margins",
+    "MarkdownEmptyParagraphExportMode",
+    "MarkdownExportAsHtml",
+    "MarkdownLinkExportMode",
+    "MarkdownListExportMode",
+    "MarkdownLoadOptions",
+    "MarkdownOfficeMathExportMode",
+    "MarkdownSaveOptions",
+    "MarkerSymbol",
+    "MarkupLevel",
+    "MathObjectType",
+    "MeasurementUnits",
+    "MergeFieldImageDimension",
+    "MergeFieldImageDimensionUnit",
+    "MorphDataControl",
+    "MsWordVersion",
+    "MultiPageLayout",
+    "MultiplePagesType",
+    "Node",
+    "NodeChangingAction",
+    "NodeChangingArgs",
+    "NodeCollection",
+    "NodeEnumerator",
+    "NodeImporter",
+    "NodeList",
+    "NodeType",
+    "NumSpacing",
+    "NumberStyle",
+    "NumeralFormat",
+    "Odso",
+    "OdsoDataSourceType",
+    "OdsoFieldMapData",
+    "OdsoFieldMapDataCollection",
+    "OdsoFieldMappingType",
+    "OdsoRecipientData",
+    "OdsoRecipientDataCollection",
+    "OfficeMath",
+    "OfficeMathDisplayType",
+    "OfficeMathJustification",
+    "OleControl",
+    "OleFormat",
+    "OlePackage",
+    "OoxmlCompliance",
+    "OoxmlSaveOptions",
+    "OptionButtonControl",
+    "Orientation",
+    "OutlineLevel",
+    "OutlineOptions",
+    "PageBorderAppliesTo",
+    "PageBorderDistanceFrom",
+    "PageRange",
+    "PageSavingArgs",
+    "PageSet",
+    "PageSetup",
+    "PageVerticalAlignment",
+    "PaperSize",
+    "Paragraph",
+    "ParagraphAlignment",
+    "ParagraphCollection",
+    "ParagraphFormat",
+    "PatternType",
+    "PdfLoadOptions",
+    "Person",
+    "PersonCollection",
+    "PhoneticGuide",
+    "PlainTextDocument",
+    "PreferredWidth",
+    "PreferredWidthType",
+    "PresetTexture",
+    "PropertyType",
+    "ProtectionType",
+    "Range",
+    "ReflectionFormat",
+    "RelativeHorizontalPosition",
+    "RelativeHorizontalSize",
+    "RelativeVerticalPosition",
+    "RelativeVerticalSize",
+    "ReplaceAction",
+    "ReplacementFormat",
+    "ReplacingArgs",
+    "ResourceLoadingAction",
+    "ResourceLoadingArgs",
+    "ResourceSavingArgs",
+    "ResourceType",
+    "Revision",
+    "RevisionCollection",
+    "RevisionGroup",
+    "RevisionGroupCollection",
+    "RevisionType",
+    "RevisionsView",
+    "Row",
+    "RowCollection",
+    "RowFormat",
+    "RtfLoadOptions",
+    "Run",
+    "RunCollection",
+    "SaveFormat",
+    "SaveOptions",
+    "SaveOutputParameters",
+    "SdtAppearance",
+    "SdtCalendarType",
+    "SdtDateStorageFormat",
+    "SdtListItem",
+    "SdtListItemCollection",
+    "SdtType",
+    "Section",
+    "SectionCollection",
+    "SectionLayoutMode",
+    "SectionStart",
+    "Shading",
+    "ShadowFormat",
+    "ShadowType",
+    "Shape",
+    "ShapeBase",
+    "ShapeLineStyle",
+    "ShapeMarkupLanguage",
+    "ShapeTextOrientation",
+    "ShapeType",
+    "SignOptions",
+    "SignatureLine",
+    "SignatureLineOptions",
+    "SmartTag",
+    "SoftEdgeFormat",
+    "Source",
+    "SourceType",
+    "SpecialChar",
+    "Story",
+    "StoryType",
+    "Stroke",
+    "StructuredDocumentTag",
+    "StructuredDocumentTagCollection",
+    "StructuredDocumentTagRangeEnd",
+    "StructuredDocumentTagRangeStart",
+    "Style",
+    "StyleCollection",
+    "StyleIdentifier",
+    "StyleType",
+    "SubDocument",
+    "SvgTextOutputMode",
+    "TabAlignment",
+    "TabLeader",
+    "TabStop",
+    "TabStopCollection",
+    "Table",
+    "TableAlignment",
+    "TableCollection",
+    "TableContentAlignment",
+    "TableStyle",
+    "TableStyleOptions",
+    "TaskPane",
+    "TaskPaneCollection",
+    "TaskPaneDockState",
+    "TextBox",
+    "TextBoxAnchor",
+    "TextBoxControl",
+    "TextBoxWrapMode",
+    "TextColumn",
+    "TextColumnCollection",
+    "TextDmlEffect",
+    "TextEffect",
+    "TextFormFieldType",
+    "TextOrientation",
+    "TextPath",
+    "TextPathAlignment",
+    "TextWatermarkOptions",
+    "TextWrapping",
+    "TextureAlignment",
+    "TextureIndex",
+    "Theme",
+    "ThemeColor",
+    "ThemeColors",
+    "ThemeFont",
+    "ThemeFonts",
+    "TiffCompression",
+    "ToaCategories",
+    "TxtExportHeadersFootersMode",
+    "TxtLeadingSpacesOptions",
+    "TxtListIndentation",
+    "TxtLoadOptions",
+    "TxtOfficeMathExportMode",
+    "TxtSaveOptions",
+    "TxtSaveOptionsBase",
+    "TxtTrailingSpacesOptions",
+    "Underline",
+    "UnsupportedFileFormatException",
+    "UserInformation",
+    "VariableCollection",
+    "VbaModule",
+    "VbaModuleCollection",
+    "VbaModuleType",
+    "VbaProject",
+    "VbaReference",
+    "VbaReferenceCollection",
+    "VbaReferenceType",
+    "VerticalAlignment",
+    "ViewOptions",
+    "ViewType",
+    "VisitorAction",
+    "WarningInfo",
+    "WarningInfoCollection",
+    "WarningSource",
+    "WarningType",
+    "Watermark",
+    "WatermarkLayout",
+    "WatermarkType",
+    "WebExtension",
+    "WebExtensionBinding",
+    "WebExtensionBindingCollection",
+    "WebExtensionBindingType",
+    "WebExtensionProperty",
+    "WebExtensionPropertyCollection",
+    "WebExtensionReference",
+    "WebExtensionReferenceCollection",
+    "WebExtensionStoreType",
+    "WordML2003SaveOptions",
+    "WrapSide",
+    "WrapType",
+    "WriteProtection",
+    "XmlDsigLevel",
+    "XmlMapping",
+    "Zip64Mode",
+    "ZoomType"
+  ],
+  "class_graph": [
+    {
+      "child": "DocumentReaderPluginLoadException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "UnsupportedFileFormatException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartFormat",
+      "parent": "IFillable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartFormat",
+      "parent": "IStrokable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GeneralFormatCollection",
+      "parent": "IEnumerable<GeneralFormat>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellFormat",
+      "parent": "IBorderAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellFormat",
+      "parent": "IShadingAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RowFormat",
+      "parent": "IBorderAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ParagraphFormat",
+      "parent": "IBorderAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ParagraphFormat",
+      "parent": "IShadingAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ContributorCollection",
+      "parent": "IEnumerable<Contributor>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Corporate",
+      "parent": "Contributor",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PersonCollection",
+      "parent": "Contributor",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PersonCollection",
+      "parent": "IEnumerable<Person>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BookmarkCollection",
+      "parent": "IEnumerable<Bookmark>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BookmarkEnd",
+      "parent": "Node",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BookmarkEnd",
+      "parent": "IBookmarkNode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BookmarkEnd",
+      "parent": "IDisplaceableByCustomXml",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BookmarkStart",
+      "parent": "Node",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BookmarkStart",
+      "parent": "IBookmarkNode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BookmarkStart",
+      "parent": "IDisplaceableByCustomXml",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Border",
+      "parent": "InternableComplexAttr",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Border",
+      "parent": "IComplexAttr",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderCollection",
+      "parent": "IEnumerable<Border>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Shading",
+      "parent": "InternableComplexAttr",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Shading",
+      "parent": "IComplexAttr",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BuildingBlock",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BuildingBlockCollection",
+      "parent": "NodeCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GlossaryDocument",
+      "parent": "DocumentBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DigitalSignatureCollection",
+      "parent": "IEnumerable<DigitalSignature>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Document",
+      "parent": "DocumentBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Document",
+      "parent": "ISectionAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Document",
+      "parent": "IWatermarkProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocumentBase",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DocumentBuilder",
+      "parent": "IRunAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocumentBuilder",
+      "parent": "IParaAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocumentBuilder",
+      "parent": "IRowAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocumentBuilder",
+      "parent": "ICellAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FileCorruptedException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IncorrectPasswordException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SubDocument",
+      "parent": "Node",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VariableCollection",
+      "parent": "IEnumerable<KeyValuePair<string",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VariableCollection",
+      "parent": "string>>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WarningInfoCollection",
+      "parent": "IWarningCallback",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "WarningInfoCollection",
+      "parent": "IEnumerable<WarningInfo>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AxisDisplayUnit",
+      "parent": "IDmlChartTitleHolder",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AxisDisplayUnit",
+      "parent": "IDmlExtensionListSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AxisScaling",
+      "parent": "IDmlExtensionListSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AxisTickLabels",
+      "parent": "IChartItemTextProperties",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BubbleSizeCollection",
+      "parent": "IEnumerable<double>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Chart",
+      "parent": "IChartFormatSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartAxis",
+      "parent": "IDmlChartTitleHolder",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartAxis",
+      "parent": "IDmlExtensionListSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartAxis",
+      "parent": "INumberFormatProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartAxis",
+      "parent": "IChartFormatSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartAxisCollection",
+      "parent": "IEnumerable<ChartAxis>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartDataLabel",
+      "parent": "INumberFormatProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartDataLabel",
+      "parent": "IChartItemTextProperties",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartDataLabel",
+      "parent": "IChartFormatSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartDataLabelCollection",
+      "parent": "IEnumerable<ChartDataLabel>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartDataLabelCollection",
+      "parent": "INumberFormatProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartDataLabelCollection",
+      "parent": "IChartFormatSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartDataPoint",
+      "parent": "IChartDataPoint",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartDataPoint",
+      "parent": "IChartFormatSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartDataPointCollection",
+      "parent": "IEnumerable<ChartDataPoint>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartDataTable",
+      "parent": "IChartItemTextProperties",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartDataTable",
+      "parent": "IChartFormatSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartLegend",
+      "parent": "IDmlExtensionListSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartLegend",
+      "parent": "IChartFormatSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartLegendEntry",
+      "parent": "IDmlExtensionListSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartLegendEntry",
+      "parent": "IChartItemTextProperties",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartLegendEntryCollection",
+      "parent": "IEnumerable<ChartLegendEntry>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartMarker",
+      "parent": "IChartFormatSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartSeries",
+      "parent": "IChartDataPoint",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ChartSeries",
+      "parent": "IDmlExtensionListSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartSeriesCollection",
+      "parent": "IEnumerable<ChartSeries>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartSeriesGroupCollection",
+      "parent": "IEnumerable<ChartSeriesGroup>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartXValueCollection",
+      "parent": "IEnumerable<ChartXValue>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartYValueCollection",
+      "parent": "IEnumerable<ChartYValue>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GradientStopCollection",
+      "parent": "IEnumerable<GradientStop>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GroupShape",
+      "parent": "ShapeBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImageData",
+      "parent": "IBorderAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Forms2OleControl",
+      "parent": "OleControl",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Forms2OleControlCollection",
+      "parent": "IEnumerable<Forms2OleControl>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OleControl",
+      "parent": "IEmbeddedObject",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Shape",
+      "parent": "ShapeBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Shape",
+      "parent": "ITextBox",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Shape",
+      "parent": "IStrokable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeBase",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShapeBase",
+      "parent": "IInline",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeBase",
+      "parent": "IShape",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeBase",
+      "parent": "IShapeAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeBase",
+      "parent": "ITrackableNode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeBase",
+      "parent": "IFillable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeBase",
+      "parent": "IGlow",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeBase",
+      "parent": "IReflection",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeBase",
+      "parent": "ISoftEdge",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeBase",
+      "parent": "IShadow",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeMarkupLanguage",
+      "parent": "byte",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Stroke",
+      "parent": "IFillable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EditableRangeEnd",
+      "parent": "Node",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EditableRangeEnd",
+      "parent": "IDisplaceableByCustomXml",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EditableRangeEnd",
+      "parent": "INodeWithAnnotationId",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EditableRangeStart",
+      "parent": "Node",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EditableRangeStart",
+      "parent": "IDisplaceableByCustomXml",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EditableRangeStart",
+      "parent": "INodeWithAnnotationId",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldArgumentBuilder",
+      "parent": "IFieldBuildingBlock",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldBuilder",
+      "parent": "IFieldBuildingBlock",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldCollection",
+      "parent": "IEnumerable<Field>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldCreateDate",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldCreateDate",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldCreateDate",
+      "parent": "IFieldWithCalendar",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldDate",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldDate",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldDate",
+      "parent": "IFieldWithCalendar",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldEditTime",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldPrintDate",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldPrintDate",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldPrintDate",
+      "parent": "IFieldWithCalendar",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldSaveDate",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldSaveDate",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldSaveDate",
+      "parent": "IFieldWithCalendar",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldTime",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldCompare",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldDocVariable",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldGoToButton",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldIf",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldIf",
+      "parent": "IMergeFieldSurrogate",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldMacroButton",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldMacroButton",
+      "parent": "IMergeFieldSurrogate",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldPrint",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldPrint",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldAuthor",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldComments",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldDocProperty",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldFileName",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldFileName",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldFileSize",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldFileSize",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldKeywords",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldLastSavedBy",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldNumChars",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldNumPages",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldNumWords",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldPrivate",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldSubject",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldTemplate",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldTemplate",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldTitle",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldAdvance",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldAdvance",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldFormula",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldSymbol",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldSymbol",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldFormCheckBox",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldFormDropDown",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldFormText",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldIndex",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldIndex",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldRD",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldRD",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldTA",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldTA",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldTC",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldTC",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldTC",
+      "parent": "ITocEntry",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldToa",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldToa",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldToc",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldToc",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldXE",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldXE",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldAsk",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldAsk",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldAutoText",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldAutoText",
+      "parent": "IFieldAutoTextCode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldAutoTextList",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldAutoTextList",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldBibliography",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldBibliography",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldCitation",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldCitation",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldDde",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldDde",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldDdeAuto",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldDdeAuto",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldFillIn",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldFillIn",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldGlossary",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldGlossary",
+      "parent": "IFieldAutoTextCode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldHyperlink",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldHyperlink",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldHyperlink",
+      "parent": "IFieldResultFormatProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldImport",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldImport",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldImport",
+      "parent": "IFieldIncludePictureCode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldInclude",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldInclude",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldInclude",
+      "parent": "IFieldIncludeTextCode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldIncludePicture",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldIncludePicture",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldIncludePicture",
+      "parent": "IFieldIncludePictureCode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldIncludeText",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldIncludeText",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldIncludeText",
+      "parent": "IFieldIncludeTextCode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldLink",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldLink",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldNoteRef",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldNoteRef",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldPageRef",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldPageRef",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldQuote",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldRef",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldRef",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldRef",
+      "parent": "IMergeFieldSurrogate",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldSet",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldShape",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldStyleRef",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldStyleRef",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldAddressBlock",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldAddressBlock",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldDatabase",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldDatabase",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldGreetingLine",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldGreetingLine",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldMergeField",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldMergeField",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldMergeRec",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldMergeSeq",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldNext",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldNextIf",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldSkipIf",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldAutoNum",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldAutoNum",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldAutoNumLgl",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldAutoNumLgl",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldAutoNumOut",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldListNum",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldListNum",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldPage",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldRevNum",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldSection",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldSectionPages",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldSeq",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldSeq",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldAddIn",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldData",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldEmbed",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldOcx",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldUnknown",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldUnknown",
+      "parent": "IMergeFieldSurrogate",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldBarcode",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldBarcode",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldBidiOutline",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldDisplayBarcode",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldDisplayBarcode",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldEQ",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldFootnoteRef",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldInfo",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldInfo",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldMergeBarcode",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldMergeBarcode",
+      "parent": "IFieldCodeTokenInfoProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldMergeBarcode",
+      "parent": "IMergeFieldSurrogate",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldUserAddress",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldUserInitials",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldUserName",
+      "parent": "Field",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DropDownItemCollection",
+      "parent": "IEnumerable<string>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DropDownItemCollection",
+      "parent": "IComplexAttr",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormField",
+      "parent": "SpecialChar",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FormField",
+      "parent": "IRunAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormFieldCollection",
+      "parent": "IEnumerable<FormField>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FieldChar",
+      "parent": "SpecialChar",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldEnd",
+      "parent": "FieldChar",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldSeparator",
+      "parent": "FieldChar",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FieldStart",
+      "parent": "FieldChar",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FontInfoCollection",
+      "parent": "IEnumerable<FontInfo>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EndnoteOptions",
+      "parent": "IFootnoteOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Footnote",
+      "parent": "InlineStory",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Footnote",
+      "parent": "ITrackableNode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FootnoteOptions",
+      "parent": "IFootnoteOptions",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FootnoteSeparator",
+      "parent": "Story",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FootnoteSeparatorCollection",
+      "parent": "IEnumerable<FootnoteSeparator>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FramesetCollection",
+      "parent": "IEnumerable<Frameset>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "List",
+      "parent": "IComparable<List>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListCollection",
+      "parent": "IEnumerable<List>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListLabel",
+      "parent": "IRunAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListLevel",
+      "parent": "IRunAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListLevelCollection",
+      "parent": "IEnumerable<ListLevel>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChmLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HtmlLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MarkdownLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RtfLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TxtLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CustomPartCollection",
+      "parent": "IEnumerable<CustomPart>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CustomXmlPartCollection",
+      "parent": "IEnumerable<CustomXmlPart>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CustomXmlPropertyCollection",
+      "parent": "IEnumerable<CustomXmlProperty>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CustomXmlSchemaCollection",
+      "parent": "IEnumerable<string>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SdtListItemCollection",
+      "parent": "IEnumerable<SdtListItem>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StructuredDocumentTag",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StructuredDocumentTag",
+      "parent": "IMarkupNode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StructuredDocumentTag",
+      "parent": "ITrackableNode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StructuredDocumentTag",
+      "parent": "IRunAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StructuredDocumentTag",
+      "parent": "IStructuredDocumentTag",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StructuredDocumentTagCollection",
+      "parent": "IEnumerable<IStructuredDocumentTag>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StructuredDocumentTagRangeEnd",
+      "parent": "Node",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StructuredDocumentTagRangeStart",
+      "parent": "Node",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StructuredDocumentTagRangeStart",
+      "parent": "IEnumerable<Node>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StructuredDocumentTagRangeStart",
+      "parent": "IStructuredDocumentTag",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SmartTag",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SmartTag",
+      "parent": "IMarkupNode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OfficeMath",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OfficeMath",
+      "parent": "IInline",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OfficeMath",
+      "parent": "ITrackableNode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CompositeNode",
+      "parent": "Node",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CompositeNode",
+      "parent": "IEnumerable<Node>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CompositeNode",
+      "parent": "INodeCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CompositeNode",
+      "parent": "IXPathNavigable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NodeEnumerator",
+      "parent": "IEnumerator<Node>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NodeEnumerator",
+      "parent": "IDocumentPositionListener",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NodeCollection",
+      "parent": "INodeCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NodeCollection",
+      "parent": "IEnumerable<Node>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NodeList",
+      "parent": "IEnumerable<Node>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BuiltInDocumentProperties",
+      "parent": "DocumentPropertyCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CustomDocumentProperties",
+      "parent": "DocumentPropertyCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DocumentPropertyCollection",
+      "parent": "IEnumerable<DocumentProperty>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RevisionCollection",
+      "parent": "IEnumerable<Revision>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RevisionGroupCollection",
+      "parent": "IEnumerable<RevisionGroup>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BookmarksOutlineLevelCollection",
+      "parent": "IEnumerable<KeyValuePair<string",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BookmarksOutlineLevelCollection",
+      "parent": "int>>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "HtmlSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MarkdownSaveOptions",
+      "parent": "TxtSaveOptionsBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OoxmlSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PageSet",
+      "parent": "IEnumerable<int>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TxtSaveOptions",
+      "parent": "TxtSaveOptionsBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TxtSaveOptionsBase",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "WordML2003SaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Body",
+      "parent": "Story",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HeaderFooter",
+      "parent": "Story",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HeaderFooterCollection",
+      "parent": "NodeCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PageSetup",
+      "parent": "IBorderAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Section",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Section",
+      "parent": "ISectionAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SectionCollection",
+      "parent": "NodeCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Story",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Story",
+      "parent": "IStory",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OdsoFieldMapDataCollection",
+      "parent": "IEnumerable<OdsoFieldMapData>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OdsoRecipientDataCollection",
+      "parent": "IEnumerable<OdsoRecipientData>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ConditionalStyle",
+      "parent": "IBorderAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ConditionalStyle",
+      "parent": "IShadingAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ConditionalStyle",
+      "parent": "IParaAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ConditionalStyle",
+      "parent": "IRunAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ConditionalStyleCollection",
+      "parent": "IEnumerable<ConditionalStyle>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Style",
+      "parent": "IParaAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Style",
+      "parent": "IRunAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleCollection",
+      "parent": "IEnumerable<Style>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TableStyle",
+      "parent": "Style",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TableStyle",
+      "parent": "ICellAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TableStyle",
+      "parent": "IRowAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TableStyle",
+      "parent": "IBorderAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TableStyle",
+      "parent": "IShadingAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Cell",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Cell",
+      "parent": "ICellAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Cell",
+      "parent": "ITrackableNode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellCollection",
+      "parent": "NodeCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Row",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Row",
+      "parent": "IRowAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Row",
+      "parent": "ITrackableNode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RowCollection",
+      "parent": "NodeCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Table",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TableCollection",
+      "parent": "NodeCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AbsolutePositionTab",
+      "parent": "SpecialChar",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Comment",
+      "parent": "InlineStory",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Comment",
+      "parent": "INodeWithAnnotationId",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Comment",
+      "parent": "IMoveTrackableNode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CommentCollection",
+      "parent": "NodeCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CommentRangeEnd",
+      "parent": "Node",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CommentRangeEnd",
+      "parent": "IDisplaceableByCustomXml",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CommentRangeEnd",
+      "parent": "INodeWithAnnotationId",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CommentRangeStart",
+      "parent": "Node",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CommentRangeStart",
+      "parent": "IDisplaceableByCustomXml",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CommentRangeStart",
+      "parent": "INodeWithAnnotationId",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Font",
+      "parent": "IBorderAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Font",
+      "parent": "IShadingAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Font",
+      "parent": "IFillable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Inline",
+      "parent": "Node",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Inline",
+      "parent": "IInline",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Inline",
+      "parent": "ITrackableNode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InlineStory",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "InlineStory",
+      "parent": "IInline",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InlineStory",
+      "parent": "IStory",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Paragraph",
+      "parent": "CompositeNode",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Paragraph",
+      "parent": "IParaAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Paragraph",
+      "parent": "IRunAttrSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Paragraph",
+      "parent": "ITrackableNode",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ParagraphCollection",
+      "parent": "NodeCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Range",
+      "parent": "IEnumerable<Node>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Run",
+      "parent": "Inline",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RunCollection",
+      "parent": "NodeCollection",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SpecialChar",
+      "parent": "Inline",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TabStopCollection",
+      "parent": "InternableComplexAttr",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TabStopCollection",
+      "parent": "IExpandableAttr",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Theme",
+      "parent": "IThemeProvider",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Theme",
+      "parent": "IDmlExtensionListSource",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BaseWebExtensionCollection",
+      "parent": "IEnumerable<T>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TaskPaneCollection",
+      "parent": "BaseWebExtensionCollection<TaskPane>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WebExtensionBindingCollection",
+      "parent": "BaseWebExtensionCollection<WebExtensionBinding>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WebExtensionPropertyCollection",
+      "parent": "BaseWebExtensionCollection<WebExtensionProperty>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WebExtensionReferenceCollection",
+      "parent": "BaseWebExtensionCollection<WebExtensionReference>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CheckBoxControl",
+      "parent": "MorphDataControl",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CommandButtonControl",
+      "parent": "Forms2OleControl",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MorphDataControl",
+      "parent": "Forms2OleControl",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "OptionButtonControl",
+      "parent": "MorphDataControl",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextBoxControl",
+      "parent": "MorphDataControl",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VbaModuleCollection",
+      "parent": "IEnumerable<VbaModule>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VbaReferenceCollection",
+      "parent": "IEnumerable<VbaReference>",
+      "relationship": "inherits",
+      "internal": false
+    }
+  ],
+  "formats": {
+    "import": [
+      "Source",
+      "IDocument",
+      "Doc",
+      "Docx",
+      "Docm",
+      "Dotx",
+      "Dotm",
+      "FlatOpc",
+      "FlatOpcMacroEnabled",
+      "FlatOpcTemplate",
+      "FlatOpcTemplateMacroEnabled",
+      "Rtf",
+      "Html",
+      "Chm",
+      "Odt",
+      "Text",
+      "Markdown",
+      "Pdf",
+      "Node",
+      "Docx",
+      "Docx",
+      "Css",
+      "Html",
+      "Markdown",
+      "Odt",
+      "Forms2Pr",
+      "Txt",
+      "Chm",
+      "Html",
+      "Markdown",
+      "Pdf",
+      "Rtf",
+      "Txt",
+      "XPS",
+      "Doc",
+      "Svg",
+      "Html",
+      "Docx",
+      "Obj",
+      "Ico"
+    ],
+    "export": [
+      "Source",
+      "IDocument",
+      "Doc",
+      "Docx",
+      "Docm",
+      "Dotx",
+      "Dotm",
+      "FlatOpc",
+      "FlatOpcMacroEnabled",
+      "FlatOpcTemplate",
+      "FlatOpcTemplateMacroEnabled",
+      "Svg",
+      "Html",
+      "Text",
+      "Markdown",
+      "Docx",
+      "Theme",
+      "Fragment",
+      "Markdown",
+      "Forms2Pr",
+      "Txt",
+      "Html",
+      "Markdown",
+      "Ooxml",
+      "Txt",
+      "Doc",
+      "Svg",
+      "Html"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "dotnet add package aspose.words.foss",
+    "version": ""
+  },
+  "not_implemented": [
+    "ChartFormat.FillableForeThemeColor",
+    "ChartFormat.FillableBackThemeColor",
+    "ChartFormat.FillableForeTintAndShade",
+    "ChartFormat.FillableBackTintAndShade",
+    "ChartFormat.StrokeForeThemeColor",
+    "ChartFormat.StrokeBackThemeColor",
+    "ChartFormat.StrokeForeTintAndShade",
+    "ChartFormat.StrokeBackTintAndShade",
+    "ShadowFormat.Visible",
+    "HtmlReader.HandleDisplayInvariantElement",
+    "HtmlVmlShapeReaderContext.MarkMissingSource",
+    "HtmlVmlShapeReaderContext.GetMissingSource",
+    "OpcSignatureWriterDocx.GetCertificatePartName",
+    "VmlShapeTypeReaderContext.MarkMissingSource",
+    "VmlShapeTypeReaderContext.GetMissingSource",
+    "DocumentBuilder.InsertStructuredDocumentTag",
+    "CompatibilityOptions.OptimizeFor",
+    "NrxXmlBuilder.WriteRevisionStart",
+    "NrxXmlBuilder.WriteRevisionStart",
+    "NrxXmlBuilder.WriteRevisionStart",
+    "NrxXmlBuilder.WriteRevisionEnd",
+    "NrxXmlBuilder.WriteRevision",
+    "NrxXmlBuilder.WriteRevision",
+    "NrxXmlBuilder.WriteRevision",
+    "NrxXmlBuilder.WriteRevision",
+    "NrxXmlBuilder.WriteCellRevision",
+    "NrxXmlBuilder.WriteSdtRevisionStart",
+    "NrxXmlBuilder.WriteSdtRevisionStart",
+    "NrxXmlBuilder.WriteSdtRevisionEnd",
+    "NrxXmlBuilder.WriteSdtRevisionEnd",
+    "Ecma376AgileEncryption.Encrypt",
+    "ItemMoniker.Write"
+  ],
+  "forbidden_claims": [
+    "supports ChartFormat.FillableForeThemeColor",
+    "supports ChartFormat.FillableBackThemeColor",
+    "supports ChartFormat.FillableForeTintAndShade",
+    "supports ChartFormat.FillableBackTintAndShade",
+    "supports ChartFormat.StrokeForeThemeColor",
+    "supports ChartFormat.StrokeBackThemeColor",
+    "supports ChartFormat.StrokeForeTintAndShade",
+    "supports ChartFormat.StrokeBackTintAndShade",
+    "supports ShadowFormat.Visible",
+    "supports HtmlReader.HandleDisplayInvariantElement",
+    "supports HtmlVmlShapeReaderContext.MarkMissingSource",
+    "supports HtmlVmlShapeReaderContext.GetMissingSource",
+    "supports OpcSignatureWriterDocx.GetCertificatePartName",
+    "supports VmlShapeTypeReaderContext.MarkMissingSource",
+    "supports VmlShapeTypeReaderContext.GetMissingSource",
+    "supports DocumentBuilder.InsertStructuredDocumentTag",
+    "supports CompatibilityOptions.OptimizeFor",
+    "supports NrxXmlBuilder.WriteRevisionStart",
+    "supports NrxXmlBuilder.WriteRevisionStart",
+    "supports NrxXmlBuilder.WriteRevisionStart",
+    "supports NrxXmlBuilder.WriteRevisionEnd",
+    "supports NrxXmlBuilder.WriteRevision",
+    "supports NrxXmlBuilder.WriteRevision",
+    "supports NrxXmlBuilder.WriteRevision",
+    "supports NrxXmlBuilder.WriteRevision",
+    "supports NrxXmlBuilder.WriteCellRevision",
+    "supports NrxXmlBuilder.WriteSdtRevisionStart",
+    "supports NrxXmlBuilder.WriteSdtRevisionStart",
+    "supports NrxXmlBuilder.WriteSdtRevisionEnd",
+    "supports NrxXmlBuilder.WriteSdtRevisionEnd",
+    "supports Ecma376AgileEncryption.Encrypt",
+    "supports ItemMoniker.Write"
+  ],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 617,
+    "with_methods": 319,
+    "with_properties": 362,
+    "with_enums": 211,
+    "method_pct": 51.7,
+    "property_pct": 58.7,
+    "surface_tier": 2
+  },
+  "snippets_coverage": {
+    "total_snippets": 100,
+    "classes_with_snippet": 66,
+    "classes_total": 617,
+    "coverage_ratio": 0.11,
+    "effective_denominator": 606,
+    "concrete_coverage": {
+      "classes_total": 580,
+      "classes_with_snippet": 65,
+      "coverage_ratio": 0.11
+    },
+    "interface_coverage": {
+      "classes_total": 26,
+      "classes_with_snippet": 1,
+      "coverage_ratio": 0.04
+    }
+  }
+}

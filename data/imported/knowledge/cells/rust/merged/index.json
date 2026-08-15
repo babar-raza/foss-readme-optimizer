@@ -1,0 +1,4134 @@
+{
+  "schema_version": 2,
+  "family": "cells",
+  "platform": "rust",
+  "display_name": "Aspose.Cells",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "scout_claims": 2153,
+    "enriched_claims": 93,
+    "supplemental_claims": 0,
+    "total_claims": 1926,
+    "class_count": 213,
+    "forbidden_count": 0,
+    "snippet_count": 15
+  },
+  "classes": [
+    "AlignmentValue",
+    "AutoFilter",
+    "AutoFilterColorFilter",
+    "AutoFilterColorFilterModel",
+    "AutoFilterCustomFilter",
+    "AutoFilterCustomFilterCollection",
+    "AutoFilterCustomFilterModel",
+    "AutoFilterDynamicFilter",
+    "AutoFilterDynamicFilterModel",
+    "AutoFilterModel",
+    "AutoFilterSortCondition",
+    "AutoFilterSortConditionCollection",
+    "AutoFilterSortConditionModel",
+    "AutoFilterSortState",
+    "AutoFilterSortStateModel",
+    "AutoFilterTop10",
+    "AutoFilterTop10Model",
+    "AutoShapeType",
+    "Border",
+    "BorderLineStyle",
+    "BorderSideValue",
+    "BorderStyle",
+    "BorderStyleType",
+    "Borders",
+    "BordersValue",
+    "CalculationProperties",
+    "CalculationPropertiesModel",
+    "Cell",
+    "CellArea",
+    "CellFormatValue",
+    "CellMut",
+    "CellObjectValue",
+    "CellRange",
+    "CellRecord",
+    "CellRef",
+    "CellStyle",
+    "CellValue",
+    "CellValueKind",
+    "CellValueType",
+    "Cells",
+    "CellsError",
+    "CellsException",
+    "CellsMut",
+    "Chart",
+    "ChartCollection",
+    "ChartCompanionFile",
+    "ChartModel",
+    "ChartType",
+    "ChartXmlTemplates",
+    "Color",
+    "ColorValue",
+    "Column",
+    "ColumnMut",
+    "ColumnProperties",
+    "ColumnRangeModel",
+    "Columns",
+    "ColumnsMut",
+    "Comment",
+    "CommentCollection",
+    "CommentModel",
+    "ConditionalFormattingCollection",
+    "ConditionalFormattingModel",
+    "CoreDocumentProperties",
+    "CoreDocumentPropertiesModel",
+    "DateSystem",
+    "DefinedName",
+    "DefinedNameCollection",
+    "DefinedNameModel",
+    "DefinedNameUtility",
+    "DiagnosticBag",
+    "DiagnosticEntry",
+    "DiagnosticSeverity",
+    "DisplayFormatSectionInfo",
+    "DisplayTextDateFormatSupport",
+    "DisplayTextFormatter",
+    "DisplayTextFormatterSupport",
+    "DisplayTextLocaleSupport",
+    "DocumentProperties",
+    "DocumentPropertiesModel",
+    "ExtendedDocumentProperties",
+    "ExtendedDocumentPropertiesModel",
+    "ExternalLinkModel",
+    "Fill",
+    "FillPattern",
+    "FillPatternKind",
+    "FillValue",
+    "FilterColumn",
+    "FilterColumnCollection",
+    "FilterColumnModel",
+    "FilterOperatorType",
+    "FilterValueCollection",
+    "Font",
+    "FontUnderlineType",
+    "FontValue",
+    "FormatCondition",
+    "FormatConditionCollection",
+    "FormatConditionModel",
+    "FormatConditionType",
+    "FormulaException",
+    "FreezePane",
+    "HorizontalAlignment",
+    "Hyperlink",
+    "HyperlinkCollection",
+    "HyperlinkModel",
+    "IListObjectOwner",
+    "IPackageReader",
+    "IPackageWriter",
+    "IWarningCallback",
+    "ImageType",
+    "InvalidFileFormatException",
+    "ListColumn",
+    "ListColumnCollection",
+    "ListColumnModel",
+    "ListObject",
+    "ListObjectCollection",
+    "ListObjectModel",
+    "ListObjectSupport",
+    "LoadDiagnostics",
+    "LoadFormat",
+    "LoadIssue",
+    "LoadOptions",
+    "MergeRegion",
+    "MissingPartException",
+    "NumberFormat",
+    "NumberFormatValue",
+    "OperatorType",
+    "PackageLoadContext",
+    "PackageModel",
+    "PackagePartDescriptor",
+    "PackageStructureException",
+    "PackagingConventions",
+    "PageOrientation",
+    "PageOrientationType",
+    "PageSetup",
+    "PaperSizeType",
+    "Picture",
+    "PictureCollection",
+    "PictureModel",
+    "ProtectionValue",
+    "RelationshipDescriptor",
+    "RelationshipResolutionException",
+    "Row",
+    "RowModel",
+    "RowMut",
+    "RowProperties",
+    "Rows",
+    "RowsMut",
+    "SaveFormat",
+    "SaveOptions",
+    "Shape",
+    "ShapeCollection",
+    "ShapeImageModel",
+    "ShapeModel",
+    "SharedStringRepository",
+    "SharedStringTableXmlMapper",
+    "SheetVisibility",
+    "SparklineGroup",
+    "SparklineGroupCollection",
+    "SparklineType",
+    "StyleException",
+    "StyleFlag",
+    "StyleRepository",
+    "StyleValue",
+    "StyleValueSanitizer",
+    "StylesheetLoadContext",
+    "StylesheetSaveContext",
+    "StylesheetXmlMapper",
+    "TableStyleType",
+    "TargetModeType",
+    "TotalsCalculation",
+    "UnsupportedFeatureException",
+    "Validation",
+    "ValidationAlertType",
+    "ValidationCollection",
+    "ValidationMessage",
+    "ValidationMessageSeverity",
+    "ValidationModel",
+    "ValidationType",
+    "VerticalAlignment",
+    "VisibilityType",
+    "WarningInfo",
+    "Workbook",
+    "WorkbookLoadException",
+    "WorkbookModel",
+    "WorkbookProperties",
+    "WorkbookPropertiesModel",
+    "WorkbookProtection",
+    "WorkbookProtectionModel",
+    "WorkbookSaveException",
+    "WorkbookSettings",
+    "WorkbookSettingsModel",
+    "WorkbookValidator",
+    "WorkbookView",
+    "WorkbookViewModel",
+    "WorkbookXmlMapper",
+    "Worksheet",
+    "WorksheetDefinedNamesState",
+    "WorksheetModel",
+    "WorksheetProtection",
+    "WorksheetProtectionModel",
+    "WorksheetViewModel",
+    "WorksheetXmlMapper",
+    "Worksheets",
+    "WorksheetsMut",
+    "XlsxWorkbookCommentsLoader",
+    "XlsxWorkbookDefinedNames",
+    "XlsxWorkbookPicturesLoader",
+    "XlsxWorkbookProperties",
+    "XlsxWorkbookStylesValueHelpers",
+    "XlsxWorkbookStylesXml",
+    "XlsxWorkbookWorksheetProtection",
+    "XlsxWorkbookWorksheetViews",
+    "XmlParsingException"
+  ],
+  "class_graph": [
+    {
+      "child": "CellFormatValue",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellFormatValue",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellFormatValue",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ConditionalFormattingModel",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ConditionalFormattingModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ConditionalFormattingModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ConditionalFormattingModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormatConditionModel",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormatConditionModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormatConditionModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormatConditionModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NumberFormatValue",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NumberFormatValue",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NumberFormatValue",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayFormatSectionInfo",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayFormatSectionInfo",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayFormatSectionInfo",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayTextDateFormatSupport",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayTextDateFormatSupport",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayTextDateFormatSupport",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayTextFormatter",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayTextFormatter",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayTextFormatter",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayTextFormatterSupport",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayTextFormatterSupport",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayTextFormatterSupport",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormatConditionType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormatConditionType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormatConditionType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormatConditionType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormatConditionType",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InvalidFileFormatException",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InvalidFileFormatException",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InvalidFileFormatException",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InvalidFileFormatException",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InvalidFileFormatException",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InvalidFileFormatException",
+      "parent": "Display",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InvalidFileFormatException",
+      "parent": "From",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadFormat",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadFormat",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadFormat",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadFormat",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NumberFormat",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NumberFormat",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NumberFormat",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPackageReader",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPackageReader",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPackageReader",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPackageWriter",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPackageWriter",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IPackageWriter",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SaveFormat",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SaveFormat",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SaveFormat",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SaveFormat",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookCommentsLoader",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookCommentsLoader",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookCommentsLoader",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookPicturesLoader",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookPicturesLoader",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookPicturesLoader",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoShapeType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoShapeType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoShapeType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoShapeType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderLineStyle",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderLineStyle",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderLineStyle",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderLineStyle",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderLineStyle",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderLineStyle",
+      "parent": "Hash",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderLineStyle",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderLineStyle",
+      "parent": "From",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Border",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Border",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Border",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Border",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Border",
+      "parent": "Hash",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Border",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderStyleType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderStyleType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderStyleType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderStyleType",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderStyleType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderStyleType",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderStyleType",
+      "parent": "Hash",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderStyleType",
+      "parent": "From",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Borders",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Borders",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Borders",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Borders",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Borders",
+      "parent": "Hash",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Borders",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CalculationProperties",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CalculationProperties",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CalculationProperties",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CalculationProperties",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellArea",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellArea",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellArea",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellArea",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellArea",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellArea",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellArea",
+      "parent": "std::fmt::Display",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellValueType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellValueType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellValueType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellValueType",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellValueType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellValueType",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellsException",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellsException",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellsException",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellsException",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellsException",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellsException",
+      "parent": "Display",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellsException",
+      "parent": "From",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartXmlTemplates",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartXmlTemplates",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartXmlTemplates",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Color",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Color",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Color",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Color",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Color",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Color",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Color",
+      "parent": "Hash",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AlignmentValue",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AlignmentValue",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AlignmentValue",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterColorFilterModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterColorFilterModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterColorFilterModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterCustomFilterModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterCustomFilterModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterCustomFilterModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterDynamicFilterModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterDynamicFilterModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterDynamicFilterModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterSortConditionModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterSortConditionModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterSortConditionModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterSortStateModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterSortStateModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterSortStateModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterTop10Model",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterTop10Model",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AutoFilterTop10Model",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderSideValue",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderSideValue",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderSideValue",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderStyle",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderStyle",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderStyle",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BordersValue",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BordersValue",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BordersValue",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CalculationPropertiesModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CalculationPropertiesModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CalculationPropertiesModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellRecord",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellRecord",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellRecord",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellValueKind",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellValueKind",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellValueKind",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartCompanionFile",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartCompanionFile",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartCompanionFile",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ChartModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColorValue",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColorValue",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColorValue",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColorValue",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColorValue",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColorValue",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColorValue",
+      "parent": "Hash",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColumnRangeModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColumnRangeModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColumnRangeModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CommentModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CommentModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CommentModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CoreDocumentPropertiesModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CoreDocumentPropertiesModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CoreDocumentPropertiesModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DateSystem",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DateSystem",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DateSystem",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DefinedNameModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DefinedNameModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DefinedNameModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DiagnosticBag",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DiagnosticBag",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DiagnosticBag",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DiagnosticEntry",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DiagnosticEntry",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DiagnosticEntry",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DiagnosticSeverity",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DiagnosticSeverity",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DiagnosticSeverity",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocumentPropertiesModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocumentPropertiesModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocumentPropertiesModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ExtendedDocumentPropertiesModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ExtendedDocumentPropertiesModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ExtendedDocumentPropertiesModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ExternalLinkModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ExternalLinkModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ExternalLinkModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillPatternKind",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillPatternKind",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillPatternKind",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FilterColumnModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FilterColumnModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FilterColumnModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FontValue",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FontValue",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FontValue",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "HorizontalAlignment",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "HorizontalAlignment",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "HorizontalAlignment",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "HyperlinkModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "HyperlinkModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "HyperlinkModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListColumnModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListColumnModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListColumnModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListObjectModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListObjectModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListObjectModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MergeRegion",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MergeRegion",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MergeRegion",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageOrientation",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageOrientation",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageOrientation",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageOrientation",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageOrientation",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageOrientation",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageOrientation",
+      "parent": "From",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PictureModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PictureModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PictureModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ProtectionValue",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ProtectionValue",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ProtectionValue",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RowModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RowModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RowModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeImageModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeImageModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeImageModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SharedStringRepository",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SharedStringRepository",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SharedStringRepository",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SheetVisibility",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SheetVisibility",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SheetVisibility",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SheetVisibility",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SheetVisibility",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SheetVisibility",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleRepository",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleRepository",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleRepository",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleValue",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleValue",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleValue",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationModel",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VerticalAlignment",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VerticalAlignment",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VerticalAlignment",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookPropertiesModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookPropertiesModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookPropertiesModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookProtectionModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookProtectionModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookProtectionModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookSettingsModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookSettingsModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookSettingsModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookViewModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookViewModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookViewModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetProtectionModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetProtectionModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetProtectionModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetViewModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetViewModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetViewModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CoreDocumentProperties",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CoreDocumentProperties",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CoreDocumentProperties",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CoreDocumentProperties",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DefinedNameUtility",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DefinedNameUtility",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DefinedNameUtility",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DefinedNameUtility",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DefinedNameUtility",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DefinedNameUtility",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayTextLocaleSupport",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayTextLocaleSupport",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DisplayTextLocaleSupport",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocumentProperties",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocumentProperties",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocumentProperties",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocumentProperties",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ExtendedDocumentProperties",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ExtendedDocumentProperties",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ExtendedDocumentProperties",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ExtendedDocumentProperties",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillPattern",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillPattern",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillPattern",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillPattern",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillPattern",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillPattern",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillPattern",
+      "parent": "Hash",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillValue",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillValue",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FillValue",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FilterOperatorType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FilterOperatorType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FilterOperatorType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FilterOperatorType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Font",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Font",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Font",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Font",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Font",
+      "parent": "Hash",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Font",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FontUnderlineType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FontUnderlineType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FontUnderlineType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FontUnderlineType",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FontUnderlineType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FontUnderlineType",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FontUnderlineType",
+      "parent": "Hash",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormulaException",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormulaException",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormulaException",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormulaException",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormulaException",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormulaException",
+      "parent": "Display",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormulaException",
+      "parent": "From",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IListObjectOwner",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IListObjectOwner",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "IListObjectOwner",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ImageType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ImageType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ImageType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ImageType",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ImageType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ImageType",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListObjectSupport",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListObjectSupport",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListObjectSupport",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadDiagnostics",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadDiagnostics",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadDiagnostics",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadDiagnostics",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadDiagnostics",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadIssue",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadIssue",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadIssue",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadIssue",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadIssue",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadOptions",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadOptions",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadOptions",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LoadOptions",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OperatorType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OperatorType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OperatorType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OperatorType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "OperatorType",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MissingPartException",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MissingPartException",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MissingPartException",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PackageLoadContext",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PackageLoadContext",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PackageLoadContext",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PackageModel",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PackageModel",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PackageModel",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PackagePartDescriptor",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PackagePartDescriptor",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PackagePartDescriptor",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PackageStructureException",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PackageStructureException",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PackageStructureException",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PackagingConventions",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PackagingConventions",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PackagingConventions",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RelationshipDescriptor",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RelationshipDescriptor",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RelationshipDescriptor",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RelationshipResolutionException",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RelationshipResolutionException",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RelationshipResolutionException",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageOrientationType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageOrientationType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageOrientationType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageOrientationType",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageOrientationType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageOrientationType",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageOrientationType",
+      "parent": "From",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageSetup",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageSetup",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageSetup",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageSetup",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PaperSizeType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PaperSizeType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PaperSizeType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PaperSizeType",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PaperSizeType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PaperSizeType",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SaveOptions",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SaveOptions",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SaveOptions",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SaveOptions",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SparklineType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SparklineType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SparklineType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SparklineType",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Fill",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Fill",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Fill",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Fill",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Fill",
+      "parent": "Hash",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Fill",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellStyle",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellStyle",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellStyle",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellStyle",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellStyle",
+      "parent": "Hash",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellStyle",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleException",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleException",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleException",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleException",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleException",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleException",
+      "parent": "Display",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleException",
+      "parent": "From",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleFlag",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleFlag",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleFlag",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleValueSanitizer",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleValueSanitizer",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StyleValueSanitizer",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StylesheetLoadContext",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StylesheetLoadContext",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StylesheetLoadContext",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StylesheetSaveContext",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StylesheetSaveContext",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StylesheetSaveContext",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TableStyleType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TableStyleType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TableStyleType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TableStyleType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TargetModeType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TargetModeType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TargetModeType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TargetModeType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TargetModeType",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TotalsCalculation",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TotalsCalculation",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TotalsCalculation",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TotalsCalculation",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "UnsupportedFeatureException",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "UnsupportedFeatureException",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "UnsupportedFeatureException",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "UnsupportedFeatureException",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "UnsupportedFeatureException",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "UnsupportedFeatureException",
+      "parent": "Display",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "UnsupportedFeatureException",
+      "parent": "From",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationMessage",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationMessage",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationMessage",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationMessageSeverity",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationMessageSeverity",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationMessageSeverity",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookValidator",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookValidator",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookValidator",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationAlertType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationAlertType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationAlertType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationAlertType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationAlertType",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ValidationType",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VisibilityType",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VisibilityType",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VisibilityType",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VisibilityType",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VisibilityType",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VisibilityType",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WarningInfo",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WarningInfo",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WarningInfo",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WarningInfo",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WarningInfo",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Workbook",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Workbook",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Workbook",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Workbook",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookLoadException",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookLoadException",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookLoadException",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookLoadException",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookLoadException",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookLoadException",
+      "parent": "Display",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookLoadException",
+      "parent": "From",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookProperties",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookProperties",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookProperties",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookProperties",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookProtection",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookProtection",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookProtection",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookProtection",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookProtection",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookSaveException",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookSaveException",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookSaveException",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookSaveException",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookSaveException",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookSaveException",
+      "parent": "Display",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookSaveException",
+      "parent": "From",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookSettings",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookSettings",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookSettings",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookSettings",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookSettings",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookView",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookView",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookView",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookView",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FreezePane",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FreezePane",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FreezePane",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FreezePane",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FreezePane",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColumnProperties",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColumnProperties",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColumnProperties",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ColumnProperties",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RowProperties",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RowProperties",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RowProperties",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RowProperties",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Worksheet",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Worksheet",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Worksheet",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetDefinedNamesState",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetDefinedNamesState",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetDefinedNamesState",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetProtection",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetProtection",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetProtection",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetProtection",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetProtection",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetProtection",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookDefinedNames",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookDefinedNames",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookDefinedNames",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookProperties",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookProperties",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookProperties",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookStylesValueHelpers",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookStylesValueHelpers",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookStylesValueHelpers",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookStylesXml",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookStylesXml",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookStylesXml",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookWorksheetProtection",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookWorksheetProtection",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookWorksheetProtection",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookWorksheetViews",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookWorksheetViews",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XlsxWorkbookWorksheetViews",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SharedStringTableXmlMapper",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SharedStringTableXmlMapper",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SharedStringTableXmlMapper",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StylesheetXmlMapper",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StylesheetXmlMapper",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StylesheetXmlMapper",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookXmlMapper",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookXmlMapper",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorkbookXmlMapper",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetXmlMapper",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetXmlMapper",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WorksheetXmlMapper",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XmlParsingException",
+      "parent": "Default",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XmlParsingException",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XmlParsingException",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellsError",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellsError",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellsError",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellsError",
+      "parent": "Display",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellValue",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellValue",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellValue",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellObjectValue",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellObjectValue",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellObjectValue",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellObjectValue",
+      "parent": "From",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellRef",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellRef",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellRef",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellRef",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellRef",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellRange",
+      "parent": "Debug",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellRange",
+      "parent": "Clone",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellRange",
+      "parent": "Copy",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellRange",
+      "parent": "PartialEq",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CellRange",
+      "parent": "Eq",
+      "relationship": "inherits",
+      "internal": false
+    }
+  ],
+  "formats": {
+    "import": [
+      "Xlsx"
+    ],
+    "export": [
+      "Xlsx",
+      "xlsx"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "pip install aspose-cells-foss",
+    "version": "26.7.0"
+  },
+  "not_implemented": [],
+  "forbidden_claims": [],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 213,
+    "with_methods": 138,
+    "with_properties": 32,
+    "with_enums": 35,
+    "method_pct": 64.8,
+    "property_pct": 15.0,
+    "surface_tier": 2
+  },
+  "snippets_coverage": {
+    "total_snippets": 15,
+    "classes_with_snippet": 31,
+    "classes_total": 213,
+    "coverage_ratio": 0.15,
+    "effective_denominator": 172,
+    "concrete_coverage": {
+      "classes_total": 171,
+      "classes_with_snippet": 31,
+      "coverage_ratio": 0.18
+    },
+    "interface_coverage": {
+      "classes_total": 1,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

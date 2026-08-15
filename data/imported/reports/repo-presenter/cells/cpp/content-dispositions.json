@@ -1,0 +1,273 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "Aspose.Cells FOSS is an open-source C++ library for creating, loading, editing, and saving Excel `.xlsx` workbooks without requiring Microsoft Excel.",
+    "salient_tokens": [
+      ".xlsx",
+      "FOSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Tagline restating the product's core capability; already merged into the Intro paragraph (create/load/edit/save .xlsx, no Microsoft Excel required).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro paragraph: 'Aspose.Cells FOSS for C++ is a free, open-source C++ library for creating, loading, editing, and saving Excel .xlsx workbooks without requiring Microsoft Excel or any COM interop.' Word-for-word match on the checkable substance, nothing new to add."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Content already present, near-verbatim, in the Intro paragraph of the candidate."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Aspose.Cells-compatible API surface for common XLSX scenarios",
+    "salient_tokens": [
+      "API",
+      "XLSX"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Positioning/API-compatibility claim already present, near-verbatim, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro paragraph: 'It exposes an Aspose.Cells-compatible native API that integrates directly into CMake-based build systems with no external runtime dependencies.' Same claim, same wording."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Content already present, near-verbatim, in the Intro paragraph of the candidate."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `.xlsx` load/save from file paths and streams",
+    "salient_tokens": [
+      ".xlsx"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, equivalent, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Create a new Workbook or load an existing .xlsx file from a file path or a binary buffer' and 'Save workbooks back to .xlsx, to a file path or a stream, via Workbook.Save().' Same fact (load/save from path or stream), reframed with real API names."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, reframed with real API names, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Cell values, formulas, styles, merges, and number formats",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031 mixed-unit treatment: cell values, formulas, styles, and number formats are already covered by the candidate's Key Capabilities bullets, but 'merges' (merged cell ranges) names a real, distinct, currently-functional capability -- Cells::Merge()/GetMergedCells() -- that was not summarized anywhere in Key Capabilities (only buried in the collapsed API Reference detail table). Reclassified to the real category and only the genuinely missing fact is recovered.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "Aspose.Cells.Foss.Cpp/src/aspose/cells_foss/Cells.cpp",
+      "evidence_note": "Cells.cpp lines ~49-89 (aspose_cells_cpp clone cache): Cells::GetMergedCells() and Cells::Merge(firstRow, firstColumn, totalRows, totalColumns) are real, functional implementations (range validation, overlap checks, push into the worksheet's MergeRegion list) -- not stub methods. Confirmed genuinely missing from the candidate's Key Capabilities bullets before this edit (only 'values, formulas, styling, number formats' were summarized there)."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Conditional formatting, data validation, hyperlinks, names, comments",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031 mixed-unit treatment: five items bundled in one bullet. 'Conditional formatting' is already addressed (with a caveat) in Scope and Limitations; 'names' (defined names) is already covered by an existing Key Capabilities bullet; 'comments' does not correspond to any real feature in the current source (verified below -- excluded, not recovered, to avoid introducing a false capability claim). 'Hyperlinks' and 'data validation' are real, functional, currently-missing capabilities recovered here.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "Aspose.Cells.Foss.Cpp/src/aspose/cells_foss/HyperlinkCollection.cpp",
+      "evidence_note": "HyperlinkCollection.cpp (256 lines) and Worksheet.GetHyperlinks() are real, functional implementations. ValidationCollection.cpp (282 lines, aspose_cells_cpp/Aspose.Cells.Foss.Cpp/src/aspose/cells_foss/ValidationCollection.cpp) is likewise real and functional (Add/GetValidationInCell/overlap checks), confirming 'data validation' is genuinely supported and missing from Key Capabilities. Separately checked 'comments': grepped the entire Aspose.Cells.Foss.Cpp tree case-insensitively for 'comment' -- the only hits are a 'comment' string field on DefinedName/DocumentProperties (document metadata, e.g. Author/Title/Comments core-properties, and a comment attached to a defined name) and a NormalizeComment() trim helper for that field. There is no cell-level comment/note class or API anywhere in the source (no Comment.h/.cpp, no CommentCollection). The old README's 'comments' claim (in the sense of Excel cell comments, matching its sibling items values/hyperlinks/validation) does not correspond to a real current capability, so it is deliberately NOT merged. 'Conditional formatting': the candidate's own Scope and Limitations already lists ConditionalFormattingCollection as a named, if caveated, topic -- already addressed, not new; correcting that caveat's accuracy is outside this unit's scope (see final report). 'Names': Key Capabilities already has 'Manage named ranges through Workbook.GetDefinedNames() / DefinedNameCollection.' -- already covered."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Workbook and worksheet management",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability already present, verbatim in substance, in the candidate's Key Capabilities section (bullets on Workbook creation/loading and WorksheetCollection/Worksheet management).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities opens with a 'Workbook' creation/load bullet and a 'Manage worksheets through WorksheetCollection ... and Worksheet (...)' bullet -- same substance, expanded with real class/method names."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, expanded with real API names, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Cells and formulas",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim in substance, in the candidate's Key Capabilities section (cell values, GetValue/PutValue, and SetFormula).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Read and write cell values with Cell.PutValue() / Cell.GetValue(), and enter formulas with Cell.SetFormula().' Same fact (cells and formulas), reframed with real API names."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, reframed with real API names, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Style model (font, fill, borders, alignment, number formats)",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim list of sub-features, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Apply cell styling through Style, Font, Color, and fill patterns, including borders, alignment, and number formats (Style.SetNumberFormat(), DisplayTextFormatter).' Same sub-feature list (font, fill, borders, alignment, number formats), reframed with real API names."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, reframed with real API names, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Worksheet settings (visibility, zoom, RTL, gridlines, protection)",
+    "salient_tokens": [
+      "RTL"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031 mixed-unit treatment: visibility, zoom, RTL, and gridlines are already covered by the candidate's Key Capabilities worksheet-management bullet; 'protection' names a real, distinct, currently-functional capability (Worksheet::Protect()/Unprotect(), WorksheetProtection) that was not mentioned anywhere in the candidate. Recovered here alongside an explicit 'RTL' alias for the existing 'right-to-left' phrasing.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "Aspose.Cells.Foss.Cpp/src/aspose/cells_foss/WorksheetProtection.cpp",
+      "evidence_note": "WorksheetProtection.cpp (277 lines) is a real, functional implementation (GetIsProtected/SetIsProtected, GetObjects/SetObjects, etc.), and Worksheet.cpp lines ~291-324 show Worksheet::GetProtection()/Protect()/Unprotect() wired to it. Confirmed genuinely missing from the candidate's worksheet-management bullet, which listed 'visibility, gridlines, zoom, right-to-left, tab color' but not protection."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Hyperlinks and defined names",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Both items are now present in the candidate's Key Capabilities section: 'defined names' was already covered by the existing named-ranges bullet, and 'hyperlinks' was recovered by this same disposition pass under unit u0005's merge into Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities now reads '...manage named ranges through Workbook.GetDefinedNames() / DefinedNameCollection' and (via u0005's merge) 'Manage hyperlinks and enforce data-validation rules through Worksheet.GetHyperlinks() / HyperlinkCollection ... alongside the defined names and worksheet protection support described above.' Both facts are present."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Both hyperlinks and defined names are present in Key Capabilities -- defined names pre-existing, hyperlinks recovered via unit u0005's merge into the same section."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Data validation and conditional formatting",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Data validation is now present in the candidate's Key Capabilities section (recovered via unit u0005's merge); conditional formatting is separately addressed (with a stub caveat) in the candidate's existing Scope and Limitations section -- both halves of this bullet are covered, nothing further to merge.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities now includes 'enforce data-validation rules through Worksheet.GetValidations() / ValidationCollection' (added via u0005). Conditional formatting is separately named in Scope and Limitations ('several declared classes are stub-only in this release ... including ConditionalFormattingCollection'). Note: while verifying this, ConditionalFormattingCollection.cpp/FormatConditionCollection.cpp/FormatCondition.cpp were read directly and all contain real, non-stub logic (Add/RemoveAt/RemoveArea, AddCondition, etc.), which appears to contradict the candidate's own pre-existing 'stub-only' framing in Scope and Limitations. That framing predates this MT030 pass and is not sourced from any old-README content unit, so it is out of scope to correct here -- flagged separately in the task's final report rather than edited."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Data validation recovered via u0005's merge into Key Capabilities; conditional formatting already separately addressed in Scope and Limitations."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Page setup and print-related settings",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, equivalent, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Configure worksheet print/page layout via PageSetup (paper size, orientation, scale, fit-to-page).' Same fact (page setup / print-related settings), reframed with the real PageSetup class name."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, reframed with the real PageSetup class name, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Document properties",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Document-properties accessor already present in the candidate's API Reference (Workbook.GetDocumentProperties() plus the real, functional DocumentProperties/CoreDocumentProperties/ExtendedDocumentProperties classes); not called out as its own Key Capabilities bullet but not a functional gap.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference detailed member list: 'Workbook ... GetDocumentProperties() -> DocumentProperties'; class table lists DocumentProperties ('Represents document properties.'), CoreDocumentProperties, ExtendedDocumentProperties, and XlsxDocumentProperties. Confirmed real, non-stub implementations: DocumentProperties.cpp/CoreDocumentProperties.cpp/ExtendedDocumentProperties.cpp/XlsxDocumentProperties.cpp all exist with real bodies in the clone cache, and DocumentProperties is not named in Scope and Limitations' stub-only class list (ConditionalFormattingCollection, FormatCondition/FormatConditionCollection, the AutoFilter family)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Document-properties accessor already present, and confirmed functional (not stub), in the API Reference via Workbook.GetDocumentProperties() and the DocumentProperties class family."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "MIT. See [License/LICENSE.txt](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp/blob/main/License/LICENSE.txt).",
+    "salient_tokens": [
+      "MIT",
+      "LICENSE",
+      "FOSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "License statement already present, expanded, in the candidate's License section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the MIT License (License/LICENSE.txt). The MIT License permits use, copying, modification, distribution, sublicensing, and commercial use, provided its copyright and permission notice are retained.' Same license, same file reference, expanded detail."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "License statement already present, in expanded form, in the License section."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Issues: <https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp/issues>",
+    "salient_tokens": [
+      "FOSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Support/issues link already present, near-verbatim, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: 'Found a bug or have a feature request? Open an issue on GitHub.' with the issues URL linked -- same destination, restructured as a bullet under Documentation & Resources instead of a dedicated Support heading."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Content already present, near-verbatim, as a bullet under Documentation & Resources."
+  }
+]

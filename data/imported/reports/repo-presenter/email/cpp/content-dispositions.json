@@ -1,0 +1,291 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "Aspose.Email FOSS for C++ is a dependency-free C++17 library for deterministic binary email container and message processing without external runtime dependencies.",
+    "salient_tokens": [
+      "FOSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "This is the product's core one-line description; it is already present verbatim in the candidate's opening Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Candidate readme.md's opening paragraph (before '## Navigation') contains this exact sentence verbatim, word-for-word, then continues with additional detail about CFB/MSG/EML formats."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Verbatim duplicate of the existing Intro paragraph; nothing new to add."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Read CFB containers from file paths, streams, and in-memory byte buffers",
+    "salient_tokens": [
+      "CFB"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Plain feature-list bullet whose exact wording opens a Key Capabilities bullet in the candidate.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Candidate's first Key Capabilities bullet begins with this identical clause verbatim, then adds the concrete cfb_reader method names (from_file()/from_stream()/from_bytes()/from_buffer())."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Already present near-verbatim in the Key Capabilities bullet list."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Build and mutate CFB storage/stream trees in user code",
+    "salient_tokens": [
+      "CFB"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Feature bullet describing programmatic tree construction/mutation; the underlying mechanism is the cfb_storage class's add_storage/add_stream methods, which the candidate already documents.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Verified against runs/.clone_cache/aspose_email_cpp/include/aspose/email/foss/cfb/cfb_storage.hpp: cfb_storage::add_storage(cfb_storage)/add_stream(cfb_stream) are the real mutation methods. Candidate's API Reference table already describes cfb_storage as 'built with add_storage/add_stream', and the Low-Level CFB API detail list repeats 'cfb_storage — children(), add_storage(storage), add_stream(stream)'."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "The tree-mutation capability is already documented via cfb_storage's add_storage/add_stream methods."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Write deterministic CFB output to files, streams, and byte buffers",
+    "salient_tokens": [
+      "CFB"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Feature bullet about CFB serialization targets; covered by the candidate's cfb_writer description plus the 'deterministic' framing already stated in the Intro.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Candidate's second Key Capabilities bullet ('Build and write CFB containers with cfb_document and cfb_writer (to_bytes(), write_file(), write_stream())') covers files/streams/bytes; 'deterministic' is already asserted in the Intro paragraph (u0001)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Write targets (files/streams/bytes) and the deterministic framing are already present elsewhere."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Read and write low-level MSG documents through `msg_reader`, `msg_document`, and `msg_writer`",
+    "salient_tokens": [
+      "msg_reader",
+      "msg_document",
+      "msg_writer",
+      "MSG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Identical claim naming the same three classes; already a Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Candidate's third Key Capabilities bullet reproduces this sentence verbatim, then adds the msg_document::to_cfb_document() detail."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Verbatim duplicate of an existing Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Create, edit, save, and reload high-level messages through `mapi_message`",
+    "salient_tokens": [
+      "mapi_message"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Verbatim opening clause of an existing Key Capabilities bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Candidate's fourth Key Capabilities bullet reproduces this clause verbatim, then lists subject/body/HTML body/sender/MAPI properties/recipients/attachments."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Verbatim duplicate of an existing Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Work with recipients, regular attachments, and embedded-message attachments",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Compound feature claim whose three parts (recipients, regular attachments, embedded-message attachments) are split across two adjacent Key Capabilities bullets, fully covered.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "'recipients' is covered by the mapi_message bullet ('...recipients, and attachments'); 'regular attachments' and 'embedded-message attachments' are verbatim in the next bullet ('Work with regular attachments (mapi_attachment::from_bytes()/from_stream()) and embedded-message attachments (is_embedded_message())')."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "All three named concepts already appear across two adjacent Key Capabilities bullets."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Load `.eml` into `mapi_message` through an in-repository MIME engine",
+    "salient_tokens": [
+      ".eml",
+      "mapi_message",
+      "MIME"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Near-verbatim opening of an existing Key Capabilities bullet ('through' vs 'via' is the only wording difference).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Candidate's sixth Key Capabilities bullet: 'Load .eml into mapi_message via an in-repository MIME engine (mapi_message::load_from_eml())...' -- same claim plus the concrete method name."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Already present with the same facts; only a minor via/through wording difference."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Save `mapi_message` back to `.eml` without external MIME libraries",
+    "salient_tokens": [
+      "mapi_message",
+      ".eml",
+      "MIME"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Verbatim second half of the same Key Capabilities bullet as u0008.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Same bullet, second clause: '...and save a mapi_message back to .eml (save_to_eml()) without external MIME libraries.' -- verbatim match plus the concrete method name."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Verbatim duplicate of the second half of an existing Key Capabilities bullet."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "Read a subject from an MSG file:",
+    "salient_tokens": [
+      "MSG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in sentence for the first Quick Start code example, reused verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Quick Start",
+      "evidence_note": "Candidate's Quick Start section opens with this identical sentence, immediately before the same std::ifstream / mapi_message::from_stream example."
+    },
+    "disposition": "excluded",
+    "target_section": "Quick Start",
+    "excluded_reason": "Verbatim duplicate already used as the first Quick Start example's lead-in."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "Create a message and save both MSG and EML:",
+    "salient_tokens": [
+      "MSG",
+      "EML"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in sentence for the second Quick Start code example, reused verbatim.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Quick Start",
+      "evidence_note": "Candidate's Quick Start section's second example opens with this identical sentence, immediately before the same mapi_message::create/save/save_to_eml example."
+    },
+    "disposition": "excluded",
+    "target_section": "Quick Start",
+    "excluded_reason": "Verbatim duplicate already used as the second Quick Start example's lead-in."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "Examples are available under `cpp/examples/`:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "States that runnable examples exist and where; the substance is already conveyed in Additional Examples -- but the old README's own path is stale against the current source tree.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Checked runs/.clone_cache/aspose_email_cpp/ directly: the examples directory is at ./examples/ (containing create_msg_and_eml.cpp, msg_reader.cpp, msg_summary.cpp, CMakeLists.txt, README.md), NOT cpp/examples/ as the old README states -- the old path is stale/incorrect. Candidate's Additional Examples section correctly says 'available under examples/ (build with -DASPOSE_EMAIL_FOSS_BUILD_EXAMPLES=ON)'. The old path was deliberately not carried over verbatim because it is wrong."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Substance (examples exist, here is where) is already present with the corrected, verified path; the old path itself is stale."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `create_msg_and_eml.cpp`",
+    "salient_tokens": [
+      "create_msg_and_eml.cpp"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Names one of the three old-README example files; the file is confirmed to exist and is referenced by name in the candidate's Additional Examples section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Confirmed create_msg_and_eml.cpp exists at runs/.clone_cache/aspose_email_cpp/examples/create_msg_and_eml.cpp. Candidate's 'Build a Message With Custom MAPI Properties' example is explicitly excerpted from examples/create_msg_and_eml.cpp. The other two old-README example bullets (msg_reader.cpp, msg_summary.cpp) fell below the ~25-character unit-extraction threshold so were never emitted as separate units, but both are also referenced by name in the candidate's Additional Examples section ('excerpted from examples/msg_summary.cpp' and 'excerpted from examples/msg_reader.cpp') -- confirming no example was silently dropped."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "The named example file is already referenced by name in the Additional Examples section."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `msg_reader.cpp`",
+    "salient_tokens": [
+      "msg_reader.cpp"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Names one of the three old-README example files; the file is confirmed to exist and is referenced by name in the candidate's Additional Examples section (Inspect Low-Level MSG/CFB Structure).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Confirmed msg_reader.cpp exists at runs/.clone_cache/aspose_email_cpp/examples/msg_reader.cpp. Candidate's 'Inspect Low-Level MSG/CFB Structure' example is explicitly excerpted from examples/msg_reader.cpp."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "The named example file is already referenced by name in the Additional Examples section (Inspect Low-Level MSG/CFB Structure)."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `msg_summary.cpp`",
+    "salient_tokens": [
+      "msg_summary.cpp"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Names one of the three old-README example files; the file is confirmed to exist and is referenced by name in the candidate's Additional Examples section (Read a Message Summary Through the High-Level API).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Confirmed msg_summary.cpp exists at runs/.clone_cache/aspose_email_cpp/examples/msg_summary.cpp. Candidate's 'Read a Message Summary Through the High-Level API' example is explicitly excerpted from examples/msg_summary.cpp."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "The named example file is already referenced by name in the Additional Examples section (Read a Message Summary Through the High-Level API)."
+  }
+]

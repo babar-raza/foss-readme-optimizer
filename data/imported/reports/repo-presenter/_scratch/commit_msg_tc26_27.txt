@@ -1,0 +1,33 @@
+feat(readme-refresh): TC-HARDEN-26/27 -- License-template prose gate + banner homepage link
+
+- New hard gate check_license_section_matches_template: verifies the ## License section's
+  text starts with the fixed 2026-08-04 template sentence (linked/unlinked form per whether a
+  real license file exists) instead of free-form narration. The only prior check
+  (check_license_link_target) verified the link target alone, never the prose -- a blind
+  clean-room regeneration of 3d/typescript independently reproduced the exact 2026-08-04
+  narration-leak incident this rule was supposed to have already closed.
+- 4 new _PROCESS_NARRATION_PATTERNS phrases as a secondary safety net for the same defect
+  class recurring with different wording in a different section.
+- New _detect_homepage_link(family, platform): real local content/products.aspose.org/en/
+  {family}/{platform}/_index.md existence check, replacing factpack["homepage"]'s previously
+  unconditional, never-verified, never-consumed bare string.
+- New hard gate check_banner_links_to_homepage: the At-a-Glance banner must link to its real,
+  verified homepage when one exists, and stay unlinked otherwise -- never a guessed URL.
+  check_banner_present and its banner-line regex extended to tolerate both the bare and the
+  link-wrapped form.
+- Fixed the 3 real MT034 pilot candidates' banners to link to their real homepage
+  (barcode/python, cells/cpp, 3d/typescript); barcode/python and 3d/typescript now reach ALL
+  HARD GATES CLEAN. cells/cpp has one pre-existing, unrelated api_reference_table_completeness
+  gap (11 missing real _Iterator classes) -- disclosed, out of this taskcard's own scope.
+
+Verification: pytest scripts/pipeline/tests/test_readme_refresh_checks.py
+scripts/pipeline/tests/test_readme_refresh_run.py -q -> 366 passed (was 345). Both new gates
+proven against real content, not just fixtures: check_license_section_matches_template passes
+all 6 real/reproof candidates except the exact, captured-verbatim flagged 3d/typescript
+reproof narration text; check_banner_links_to_homepage correctly fired on all 6 real
+candidates before the 3 live ones were fixed (a genuinely new requirement -- none were
+pre-linked).
+
+Skills invoked: [S-120]
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>

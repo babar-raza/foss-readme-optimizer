@@ -1,0 +1,1618 @@
+{
+  "schema_version": 2,
+  "family": "3d",
+  "platform": "java",
+  "display_name": "Aspose.3D",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "e308de58888635956cd66e5b0e2994dd42cd4356",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "class_count": 266,
+    "enriched_claims": 1182,
+    "forbidden_count": 50,
+    "scout_claims": 3008,
+    "snippet_count": 75,
+    "supplemental_claims": 0,
+    "total_claims": 4147
+  },
+  "classes": [
+    "A3DObject",
+    "A3dwSaveOptions",
+    "AlphaSource",
+    "AmfSaveOptions",
+    "AnimationChannel",
+    "AnimationClip",
+    "AnimationNode",
+    "ApertureMode",
+    "ArbitraryProfile",
+    "ArrayListAdapter",
+    "AssetInfo",
+    "Axis",
+    "AxisSystem",
+    "BindPoint",
+    "BlendFactor",
+    "Bone",
+    "BoneLinkMode",
+    "BonePose",
+    "BooleanOperand",
+    "BooleanOperation",
+    "BooleanOperator",
+    "BoundingBox",
+    "BoundingBox2D",
+    "BoundingBoxExtent",
+    "Box",
+    "CShape",
+    "Camera",
+    "Cancellation",
+    "CenterLineProfile",
+    "Circle",
+    "CircleShape",
+    "ColladaSaveOptions",
+    "ColladaTransformStyle",
+    "CompareFunction",
+    "ComposeOrder",
+    "CompositeCurve",
+    "CoordinateSystem",
+    "CryptoUtils",
+    "CubeFace",
+    "CullFaceMode",
+    "Curve",
+    "CurveDimension",
+    "CustomObject",
+    "Cylinder",
+    "Deformer",
+    "Discreet3dsLoadOptions",
+    "Discreet3dsSaveOptions",
+    "Dish",
+    "DracoCompressionLevel",
+    "DracoFormat",
+    "DracoSaveOptions",
+    "DrawOperation",
+    "DummyFileSystem",
+    "Ellipse",
+    "EllipseShape",
+    "EndPoint",
+    "Entity",
+    "EntityRendererKey",
+    "Enumerable",
+    "Enumerator",
+    "EventCallback",
+    "ExportException",
+    "Extrapolation",
+    "ExtrapolationType",
+    "FMatrix4",
+    "FVector2",
+    "FVector3",
+    "FVector4",
+    "FbxLoadOptions",
+    "FbxSaveOptions",
+    "FileContentType",
+    "FileFormat",
+    "FileFormatType",
+    "FileStream",
+    "FileSystem",
+    "FileSystemFactory",
+    "FrontFace",
+    "Frustum",
+    "Geometry",
+    "GlobalTransform",
+    "GltfEmbeddedImageFormat",
+    "GltfLoadOptions",
+    "GltfSaveOptions",
+    "Group",
+    "HShape",
+    "HalfSpace",
+    "HollowCircleShape",
+    "HollowRectangleShape",
+    "Html5SaveOptions",
+    "IBuffer",
+    "IDescriptorSet",
+    "IIndexBuffer",
+    "IIndexedVertexElement",
+    "IMeshConvertible",
+    "INamedObject",
+    "IOConfig",
+    "IOExtension",
+    "IOrientable",
+    "IPipeline",
+    "IRenderQueue",
+    "IRenderTarget",
+    "IRenderTexture",
+    "IRenderWindow",
+    "ITextureUnit",
+    "IVertexBuffer",
+    "ImageRenderOptions",
+    "ImportException",
+    "IndexDataType",
+    "InitializationException",
+    "Interpolation",
+    "JtLoadOptions",
+    "KeyFrame",
+    "KeyframeSequence",
+    "LShape",
+    "LambertMaterial",
+    "License",
+    "Light",
+    "LightType",
+    "Line",
+    "LinearExtrusion",
+    "LoadOptions",
+    "LocalFileSystem",
+    "MappingMode",
+    "Material",
+    "MaterialConverter",
+    "MathUtils",
+    "Matrix4",
+    "MemoryFileSystem",
+    "MemoryStream",
+    "Mesh",
+    "Metered",
+    "Microsoft3MFSaveOptions",
+    "MirroredProfile",
+    "MorphTargetChannel",
+    "MorphTargetDeformer",
+    "Node",
+    "NodeVisitor",
+    "NotImplementedException",
+    "NurbsCurve",
+    "NurbsDirection",
+    "NurbsType",
+    "ObjLoadOptions",
+    "ObjSaveOptions",
+    "ObjectProperty",
+    "ParameterizedProfile",
+    "ParseException",
+    "PatchDirection",
+    "PatchDirectionType",
+    "PbrMaterial",
+    "PbrSpecularMaterial",
+    "PdfLightingScheme",
+    "PdfLoadOptions",
+    "PdfRenderMode",
+    "PdfSaveOptions",
+    "PhongMaterial",
+    "Plane",
+    "PlyLoadOptions",
+    "PlySaveOptions",
+    "PointCloud",
+    "PolygonMode",
+    "PolygonModifier",
+    "Pose",
+    "PoseType",
+    "PresetShaders",
+    "Primitive",
+    "Profile",
+    "ProjectionType",
+    "Property",
+    "PropertyCollection",
+    "Pyramid",
+    "Quaternion",
+    "Rect",
+    "RectangleShape",
+    "RectangularTorus",
+    "ReferenceMode",
+    "RelativeRectangle",
+    "RenderFactory",
+    "RenderParameters",
+    "RenderQueueGroupId",
+    "RenderResource",
+    "RenderStage",
+    "RenderState",
+    "Renderer",
+    "RendererException",
+    "RendererVariableManager",
+    "RevolvedAreaSolid",
+    "RotationMode",
+    "RotationOrder",
+    "RvmLoadOptions",
+    "RvmSaveOptions",
+    "SaveOptions",
+    "Scene",
+    "SceneObject",
+    "Segment",
+    "ShaderMaterial",
+    "ShaderProgram",
+    "ShaderSource",
+    "ShaderTechnique",
+    "Shape",
+    "Skeleton",
+    "SkeletonType",
+    "SkinDeformer",
+    "Sphere",
+    "SplitMeshPolicy",
+    "StepMode",
+    "StlLoadOptions",
+    "StlSaveOptions",
+    "Stream",
+    "Struct",
+    "Structs",
+    "TShape",
+    "Texture",
+    "TextureBase",
+    "TextureData",
+    "TextureFilter",
+    "TextureMapping",
+    "TextureSlot",
+    "TextureType",
+    "Torus",
+    "Transform",
+    "TransformBuilder",
+    "TrapeziumShape",
+    "TriMesh",
+    "TrialException",
+    "U3dLoadOptions",
+    "U3dSaveOptions",
+    "UShape",
+    "UsdSaveOptions",
+    "Vector2",
+    "Vector3",
+    "Vector4",
+    "Version",
+    "Vertex",
+    "VertexDeclaration",
+    "VertexElement",
+    "VertexElementBinormal",
+    "VertexElementDoublesTemplate",
+    "VertexElementEdgeCrease",
+    "VertexElementFVector",
+    "VertexElementHole",
+    "VertexElementIntsTemplate",
+    "VertexElementMaterial",
+    "VertexElementNormal",
+    "VertexElementPolygonGroup",
+    "VertexElementSmoothingGroup",
+    "VertexElementSpecular",
+    "VertexElementTangent",
+    "VertexElementTemplate",
+    "VertexElementType",
+    "VertexElementUV",
+    "VertexElementUserData",
+    "VertexElementVector4",
+    "VertexElementVertexColor",
+    "VertexElementVertexCrease",
+    "VertexElementVisibility",
+    "VertexElementWeight",
+    "VertexField",
+    "VertexFieldDataType",
+    "VertexFieldSemantic",
+    "Watermark",
+    "WeightedMode",
+    "WindowHandle",
+    "WrapMode",
+    "XLoadOptions",
+    "ZShape",
+    "ZipFileSystem"
+  ],
+  "class_graph": [
+    {
+      "child": "DracoFormat",
+      "parent": "FileFormat",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "A3DObject",
+      "parent": "INamedObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "A3dwSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AmfSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AnimationChannel",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AnimationClip",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "AnimationNode",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ArbitraryProfile",
+      "parent": "Profile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ArrayListAdapter",
+      "parent": "List<T>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "AssetInfo",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Bone",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BonePose",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BooleanOperator",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BooleanOperator",
+      "parent": "IMeshConvertible",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "BoundingBox",
+      "parent": "Struct<BoundingBox>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BoundingBox",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BoundingBox2D",
+      "parent": "Struct<BoundingBox2D>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BoundingBox2D",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Box",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Box",
+      "parent": "IMeshConvertible",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Camera",
+      "parent": "Frustum",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Camera",
+      "parent": "IOrientable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CenterLineProfile",
+      "parent": "Profile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Circle",
+      "parent": "Curve",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CircleShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ColladaSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CompositeCurve",
+      "parent": "Curve",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Curve",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "CustomObject",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Cylinder",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Cylinder",
+      "parent": "IMeshConvertible",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Deformer",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Discreet3dsLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Discreet3dsSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Dish",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DracoSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Ellipse",
+      "parent": "Curve",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EllipseShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "EndPoint",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Entity",
+      "parent": "SceneObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ExportException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FMatrix4",
+      "parent": "Struct<FMatrix4>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FMatrix4",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FVector2",
+      "parent": "Struct<FVector2>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FVector2",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FVector2",
+      "parent": "Comparable<FVector2>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FVector3",
+      "parent": "Struct<FVector3>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FVector3",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FVector3",
+      "parent": "Comparable<FVector3>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FVector4",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FbxLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FbxSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FileStream",
+      "parent": "Stream",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FileSystem",
+      "parent": "AutoCloseable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LocalFileSystem",
+      "parent": "FileSystem",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MemoryFileSystem",
+      "parent": "FileSystem",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DummyFileSystem",
+      "parent": "FileSystem",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ZipFileSystem",
+      "parent": "FileSystem",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Frustum",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Frustum",
+      "parent": "IOrientable",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Geometry",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GltfLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "GltfSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Group",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HalfSpace",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HollowCircleShape",
+      "parent": "CircleShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HollowRectangleShape",
+      "parent": "RectangleShape",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Html5SaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImageRenderOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ImportException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InitializationException",
+      "parent": "RuntimeException",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "JtLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "KeyFrame",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "KeyframeSequence",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "KeyframeSequence",
+      "parent": "Iterable<KeyFrame>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LambertMaterial",
+      "parent": "Material",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Light",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Line",
+      "parent": "Curve",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LinearExtrusion",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "LoadOptions",
+      "parent": "IOConfig",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Material",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Material",
+      "parent": "Iterable<TextureSlot>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Matrix4",
+      "parent": "Struct<Matrix4>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Matrix4",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "MemoryStream",
+      "parent": "Stream",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MemoryStream",
+      "parent": "AutoCloseable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Mesh",
+      "parent": "Geometry",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Mesh",
+      "parent": "Iterable<int[]>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Microsoft3MFSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MirroredProfile",
+      "parent": "Profile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MorphTargetChannel",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "MorphTargetDeformer",
+      "parent": "Deformer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Node",
+      "parent": "SceneObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NotImplementedException",
+      "parent": "RuntimeException",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NurbsCurve",
+      "parent": "Curve",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ObjLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ObjSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParameterizedProfile",
+      "parent": "Profile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ParseException",
+      "parent": "Exception",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PbrMaterial",
+      "parent": "Material",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PbrSpecularMaterial",
+      "parent": "Material",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PdfSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PhongMaterial",
+      "parent": "LambertMaterial",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Plane",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PlyLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PlySaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "PointCloud",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Pose",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Primitive",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Primitive",
+      "parent": "IMeshConvertible",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Profile",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Property",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PropertyCollection",
+      "parent": "Iterable<Property>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ObjectProperty",
+      "parent": "Property",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Pyramid",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Quaternion",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Rect",
+      "parent": "Struct<Rect>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Rect",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RectangleShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RectangularTorus",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RelativeRectangle",
+      "parent": "Struct<RelativeRectangle>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RelativeRectangle",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RevolvedAreaSolid",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RevolvedAreaSolid",
+      "parent": "IMeshConvertible",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RvmLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RvmSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SaveOptions",
+      "parent": "IOConfig",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Scene",
+      "parent": "SceneObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SceneObject",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShaderMaterial",
+      "parent": "Material",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ShaderProgram",
+      "parent": "java.io.Closeable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Shape",
+      "parent": "Geometry",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Skeleton",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "SkinDeformer",
+      "parent": "Deformer",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Sphere",
+      "parent": "Geometry",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Sphere",
+      "parent": "IMeshConvertible",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StlLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "StlSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Stream",
+      "parent": "java.io.Closeable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Struct",
+      "parent": "Cloneable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Struct",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Texture",
+      "parent": "TextureBase",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TextureBase",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Torus",
+      "parent": "Primitive",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Transform",
+      "parent": "A3DObject",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TrapeziumShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TriMesh",
+      "parent": "Entity",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "TriMesh",
+      "parent": "Iterable<Vertex>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TrialException",
+      "parent": "RuntimeException",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "U3dLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "U3dSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "UShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "UsdSaveOptions",
+      "parent": "SaveOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "Vector2",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Vector2",
+      "parent": "Comparable<Vector2>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Vector3",
+      "parent": "Struct<Vector3>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Vector3",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Vector3",
+      "parent": "Comparable<Vector3>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Vector4",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Version",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Version",
+      "parent": "Cloneable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "Vertex",
+      "parent": "Comparable<Vertex>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VertexDeclaration",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VertexDeclaration",
+      "parent": "Iterable<VertexField>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VertexElementBinormal",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementDoublesTemplate",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementEdgeCrease",
+      "parent": "VertexElementDoublesTemplate",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementFVector",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementHole",
+      "parent": "VertexElementTemplate<Boolean>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VertexElementIntsTemplate",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementMaterial",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementNormal",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementPolygonGroup",
+      "parent": "VertexElementIntsTemplate",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementSmoothingGroup",
+      "parent": "VertexElementIntsTemplate",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementSpecular",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementTangent",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementTemplate",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementUV",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementUserData",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementVector4",
+      "parent": "VertexElement",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementVertexColor",
+      "parent": "VertexElementFVector",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementVertexCrease",
+      "parent": "VertexElementDoublesTemplate",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexElementVisibility",
+      "parent": "VertexElementTemplate<Boolean>",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VertexElementWeight",
+      "parent": "VertexElementDoublesTemplate",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "VertexField",
+      "parent": "Serializable",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "XLoadOptions",
+      "parent": "LoadOptions",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "ZShape",
+      "parent": "ParameterizedProfile",
+      "relationship": "inherits",
+      "internal": true
+    }
+  ],
+  "formats": {
+    "import": [
+      "Stl",
+      "Obj",
+      "Gltf",
+      "Fbx",
+      "Fbx",
+      "Gltf",
+      "Jt",
+      "Obj",
+      "Pdf",
+      "Ply",
+      "Rvm",
+      "Stl",
+      "U3d"
+    ],
+    "export": [
+      "Stl",
+      "Obj",
+      "Gltf",
+      "Fbx",
+      "A3dw",
+      "Amf",
+      "Collada",
+      "Draco",
+      "Fbx",
+      "Gltf",
+      "Html5",
+      "Obj",
+      "Pdf",
+      "Ply",
+      "Exception",
+      "Rvm",
+      "Stl",
+      "U3d",
+      "Usd"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "<dependency><groupId>org.aspose</groupId><artifactId>aspose-3d-foss</artifactId><version>26.5.0</version></dependency>",
+    "version": "26.5.0"
+  },
+  "not_implemented": [
+    "DracoFormat.decode",
+    "DracoFormat.decode",
+    "DracoFormat.encode",
+    "DracoFormat.encode",
+    "DracoFormat.encode",
+    "DracoFormat.encode",
+    "DracoFormat.encode",
+    "DracoFormat.encode",
+    "FileFormat.createSaveOptions",
+    "Camera.moveForward",
+    "CryptoUtils.sha1",
+    "CryptoUtils.desDecrypt",
+    "CryptoUtils.desEncrypt",
+    "FileSystem.readFile",
+    "FileSystem.writeFile",
+    "License.setLicense",
+    "License.setLicense",
+    "LinearExtrusion.toMesh",
+    "Metered.setMeteredKey",
+    "Metered.getConsumptionCredit",
+    "Metered.getConsumptionQuantity",
+    "NurbsCurve.evaluate",
+    "NurbsCurve.evaluateAt",
+    "PbrSpecularMaterial.getTransparency",
+    "PbrSpecularMaterial.setTransparency",
+    "PbrSpecularMaterial.getNormalTexture",
+    "PbrSpecularMaterial.setNormalTexture",
+    "PbrSpecularMaterial.getSpecularGlossinessTexture",
+    "PbrSpecularMaterial.setSpecularGlossinessTexture",
+    "PbrSpecularMaterial.getGlossinessFactor",
+    "PbrSpecularMaterial.setGlossinessFactor",
+    "PbrSpecularMaterial.getSpecular",
+    "PbrSpecularMaterial.setSpecular",
+    "PbrSpecularMaterial.getDiffuseTexture",
+    "PbrSpecularMaterial.setDiffuseTexture",
+    "PbrSpecularMaterial.getDiffuse",
+    "PbrSpecularMaterial.setDiffuse",
+    "PbrSpecularMaterial.getEmissiveTexture",
+    "PbrSpecularMaterial.setEmissiveTexture",
+    "PbrSpecularMaterial.getEmissiveColor",
+    "PbrSpecularMaterial.setEmissiveColor",
+    "Pyramid.toMesh",
+    "RectangularTorus.toMesh",
+    "RenderFactory.createTextureUnit",
+    "RevolvedAreaSolid.toMesh",
+    "Scene.render",
+    "Scene.render",
+    "Scene.render",
+    "ShaderProgram.close",
+    "Structs.length"
+  ],
+  "forbidden_claims": [
+    "supports DracoFormat.decode",
+    "supports DracoFormat.decode",
+    "supports DracoFormat.encode",
+    "supports DracoFormat.encode",
+    "supports DracoFormat.encode",
+    "supports DracoFormat.encode",
+    "supports DracoFormat.encode",
+    "supports DracoFormat.encode",
+    "supports FileFormat.createSaveOptions",
+    "supports Camera.moveForward",
+    "supports CryptoUtils.sha1",
+    "supports CryptoUtils.desDecrypt",
+    "supports CryptoUtils.desEncrypt",
+    "supports FileSystem.readFile",
+    "supports FileSystem.writeFile",
+    "supports License.setLicense",
+    "supports License.setLicense",
+    "supports LinearExtrusion.toMesh",
+    "supports Metered.setMeteredKey",
+    "supports Metered.getConsumptionCredit",
+    "supports Metered.getConsumptionQuantity",
+    "supports NurbsCurve.evaluate",
+    "supports NurbsCurve.evaluateAt",
+    "supports PbrSpecularMaterial.getTransparency",
+    "supports PbrSpecularMaterial.setTransparency",
+    "supports PbrSpecularMaterial.getNormalTexture",
+    "supports PbrSpecularMaterial.setNormalTexture",
+    "supports PbrSpecularMaterial.getSpecularGlossinessTexture",
+    "supports PbrSpecularMaterial.setSpecularGlossinessTexture",
+    "supports PbrSpecularMaterial.getGlossinessFactor",
+    "supports PbrSpecularMaterial.setGlossinessFactor",
+    "supports PbrSpecularMaterial.getSpecular",
+    "supports PbrSpecularMaterial.setSpecular",
+    "supports PbrSpecularMaterial.getDiffuseTexture",
+    "supports PbrSpecularMaterial.setDiffuseTexture",
+    "supports PbrSpecularMaterial.getDiffuse",
+    "supports PbrSpecularMaterial.setDiffuse",
+    "supports PbrSpecularMaterial.getEmissiveTexture",
+    "supports PbrSpecularMaterial.setEmissiveTexture",
+    "supports PbrSpecularMaterial.getEmissiveColor",
+    "supports PbrSpecularMaterial.setEmissiveColor",
+    "supports Pyramid.toMesh",
+    "supports RectangularTorus.toMesh",
+    "supports RenderFactory.createTextureUnit",
+    "supports RevolvedAreaSolid.toMesh",
+    "supports Scene.render",
+    "supports Scene.render",
+    "supports Scene.render",
+    "supports ShaderProgram.close",
+    "supports Structs.length"
+  ],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 266,
+    "with_methods": 210,
+    "with_properties": 167,
+    "with_enums": 45,
+    "method_pct": 78.9,
+    "property_pct": 62.8,
+    "surface_tier": 1
+  },
+  "snippets_coverage": {
+    "total_snippets": 75,
+    "classes_with_snippet": 31,
+    "classes_total": 266,
+    "coverage_ratio": 0.12,
+    "effective_denominator": 255,
+    "concrete_coverage": {
+      "classes_total": 251,
+      "classes_with_snippet": 31,
+      "coverage_ratio": 0.12
+    },
+    "interface_coverage": {
+      "classes_total": 4,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

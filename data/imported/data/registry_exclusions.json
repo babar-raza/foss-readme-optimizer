@@ -1,0 +1,18 @@
+[
+  {
+    "match": "repo_name",
+    "value": "Aspose-PDF-FOSS-for-Go-MCP",
+    "repo_url": "https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Go-MCP",
+    "reason": "MCP (Model Context Protocol) server exposing the pdf/go library, not a language-SDK port. Has no class/method API surface for repo-scout to extract and does not match the family x platform docs model. Permanently excluded per operator direction 2026-07-28.",
+    "excluded_at": "2026-07-28",
+    "resolved_via": "gap-escalation-pending"
+  },
+  {
+    "match": "family_platform",
+    "family": "cells",
+    "platform": "typescript",
+    "reason": "BLOCKED_REPO_NOT_LAUNCHABLE per INV-002/INV-004: upstream repo has no LICENSE file, a GitLab-boilerplate README (recruitize.ai origin text), and package.json name \"excel-cells\" (not an official Aspose identifier). update_product_registry.py's merge logic could otherwise silently reactivate this entry on a routine (non --force) scan, exactly as INV-004 documented once already.",
+    "excluded_at": "2026-07-28",
+    "resolved_via": "INV-002/INV-004"
+  }
+]

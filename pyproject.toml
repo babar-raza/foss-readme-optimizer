@@ -80,6 +80,23 @@ addopts = "-m 'not live'"
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+# Immutable third-party evidence, not our code style -- see AGENTS.md "Testing conventions".
+# vendored_asposeorg + data/imported (T1B): vendored third-party implementation and
+# knowledge-tree content (including .py example snippets under knowledge/**/snippets/),
+# kept close to source form -- not restyled to this project's own conventions.
+extend-exclude = [
+    "src/readme_agent/vendored_asposeorg",
+    "data/imported",
+]
+
+[tool.ruff.format]
+# This project has never configured or used ruff's markdown-formatting support (no
+# [tool.ruff.format] section existed before this line). Newer ruff versions format
+# Markdown by default, which silently started rewriting embedded code samples inside
+# committed evidence/fixture Markdown files (immutable historical records -- see
+# AGENTS.md "Testing conventions"). Scope formatting back to what this project has
+# always actually meant: Python source.
+exclude = ["*.md"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
@@ -88,3 +105,6 @@ select = ["E", "F", "I", "UP", "B"]
 python_version = "3.11"
 files = ["src"]
 ignore_missing_imports = true
+# vendored_asposeorg (T1B): vendored third-party implementation, not typed against this
+# project's own stubs/conventions -- see the ruff extend-exclude note above.
+exclude = ["^src/readme_agent/vendored_asposeorg/"]

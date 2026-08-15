@@ -1,0 +1,98 @@
+[
+  {
+    "child": "RasterWriter",
+    "parent": "Protocol",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "DefaultRasterWriter",
+    "parent": "RenderModelRasterWriter",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ClipperException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PolyTree",
+    "parent": "PolyNode",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Clipper",
+    "parent": "ClipperBase",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PsError",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PsSyntaxError",
+    "parent": "PsError",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PsTypeError",
+    "parent": "PsError",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PsRangeError",
+    "parent": "PsError",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PsUndefinedError",
+    "parent": "PsError",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PsIOError",
+    "parent": "PsError",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PsLimitCheck",
+    "parent": "PsError",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PsInvalidAccess",
+    "parent": "PsError",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "PsQuit",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PrintTicketScope",
+    "parent": "str",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PrintTicketScope",
+    "parent": "Enum",
+    "relationship": "inherits",
+    "internal": false
+  }
+]

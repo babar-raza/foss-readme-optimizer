@@ -1,0 +1,3402 @@
+[
+  {
+    "class": "PageInformationAnnotation",
+    "file": "include/aspose/pdf/annotations/page_information_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfFormat",
+    "file": "include/aspose/pdf/pdf_format.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 27
+  },
+  {
+    "class": "EncryptOutput",
+    "file": "include/internal/encrypt_writer.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DirtyObject",
+    "file": "include/internal/pdf_writer_incremental.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AppendOptions",
+    "file": "include/internal/pdf_writer_incremental.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 6,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AFRelationship",
+    "file": "include/aspose/pdf/af_relationship.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 7
+  },
+  {
+    "class": "Annotation",
+    "file": "include/aspose/pdf/annotations/annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 36,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "AnnotationCollection",
+    "file": "include/aspose/pdf/annotations/annotation_collection.hpp",
+    "kind": "class_specifier",
+    "method_count": 11,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "AnnotationFlags",
+    "file": "include/aspose/pdf/annotations/annotation_flags.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 11
+  },
+  {
+    "class": "AnnotationSelector",
+    "file": "include/aspose/pdf/annotations/annotation_selector.hpp",
+    "kind": "class_specifier",
+    "method_count": 35,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "AnnotationState",
+    "file": "include/aspose/pdf/annotations/annotation_state.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 7
+  },
+  {
+    "class": "AnnotationStateModel",
+    "file": "include/aspose/pdf/annotations/annotation_state_model.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "AnnotationType",
+    "file": "include/aspose/pdf/annotations/annotation_type.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 33
+  },
+  {
+    "class": "BleedMarkAnnotation",
+    "file": "include/aspose/pdf/annotations/bleed_mark_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Border",
+    "file": "include/aspose/pdf/annotations/border.hpp",
+    "kind": "class_specifier",
+    "method_count": 12,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "BorderEffect",
+    "file": "include/aspose/pdf/annotations/border_effect.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 2
+  },
+  {
+    "class": "BorderStyle",
+    "file": "include/aspose/pdf/annotations/border_style.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 5
+  },
+  {
+    "class": "CapStyle",
+    "file": "include/aspose/pdf/annotations/cap_style.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "CaptionPosition",
+    "file": "include/aspose/pdf/annotations/caption_position.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "CaretAnnotation",
+    "file": "include/aspose/pdf/annotations/caret_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CaretSymbol",
+    "file": "include/aspose/pdf/annotations/caret_symbol.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "Characteristics",
+    "file": "include/aspose/pdf/annotations/characteristics.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "CircleAnnotation",
+    "file": "include/aspose/pdf/annotations/circle_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ColorBarAnnotation",
+    "file": "include/aspose/pdf/annotations/color_bar_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ColorsOfCMYK",
+    "file": "include/aspose/pdf/annotations/colors_of_cmyk.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "CommonFigureAnnotation",
+    "file": "include/aspose/pdf/annotations/common_figure_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CornerPrinterMarkAnnotation",
+    "file": "include/aspose/pdf/annotations/corner_printer_mark_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DefaultAppearance",
+    "file": "include/aspose/pdf/annotations/default_appearance.hpp",
+    "kind": "class_specifier",
+    "method_count": 8,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ExplicitDestination",
+    "file": "include/aspose/pdf/annotations/explicit_destination.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ExplicitDestinationType",
+    "file": "include/aspose/pdf/annotations/explicit_destination_type.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 8
+  },
+  {
+    "class": "FileAttachmentAnnotation",
+    "file": "include/aspose/pdf/annotations/file_attachment_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FileIcon",
+    "file": "include/aspose/pdf/annotations/file_icon.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "FitBExplicitDestination",
+    "file": "include/aspose/pdf/annotations/fit_b_explicit_destination.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FitBHExplicitDestination",
+    "file": "include/aspose/pdf/annotations/fit_bh_explicit_destination.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FitBVExplicitDestination",
+    "file": "include/aspose/pdf/annotations/fit_bv_explicit_destination.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FitExplicitDestination",
+    "file": "include/aspose/pdf/annotations/fit_explicit_destination.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FitHExplicitDestination",
+    "file": "include/aspose/pdf/annotations/fit_h_explicit_destination.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FitRExplicitDestination",
+    "file": "include/aspose/pdf/annotations/fit_r_explicit_destination.hpp",
+    "kind": "class_specifier",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FitVExplicitDestination",
+    "file": "include/aspose/pdf/annotations/fit_v_explicit_destination.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FreeTextAnnotation",
+    "file": "include/aspose/pdf/annotations/free_text_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 23,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FreeTextIntent",
+    "file": "include/aspose/pdf/annotations/free_text_intent.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "GoToAction",
+    "file": "include/aspose/pdf/annotations/go_to_action.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GoToURIAction",
+    "file": "include/aspose/pdf/annotations/go_to_uri_action.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "HighlightAnnotation",
+    "file": "include/aspose/pdf/annotations/highlight_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "HighlightingMode",
+    "file": "include/aspose/pdf/annotations/highlighting_mode.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 5
+  },
+  {
+    "class": "IAppointment",
+    "file": "include/aspose/pdf/annotations/i_appointment.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "InkAnnotation",
+    "file": "include/aspose/pdf/annotations/ink_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "JavascriptAction",
+    "file": "include/aspose/pdf/annotations/javascript_action.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Justification",
+    "file": "include/aspose/pdf/annotations/justification.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "LineAnnotation",
+    "file": "include/aspose/pdf/annotations/line_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 25,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LineEnding",
+    "file": "include/aspose/pdf/annotations/line_ending.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 10
+  },
+  {
+    "class": "LineIntent",
+    "file": "include/aspose/pdf/annotations/line_intent.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "LinkAnnotation",
+    "file": "include/aspose/pdf/annotations/link_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "MarkupAnnotation",
+    "file": "include/aspose/pdf/annotations/markup_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 21,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MovieAnnotation",
+    "file": "include/aspose/pdf/annotations/movie_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 11,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NamedAction",
+    "file": "include/aspose/pdf/annotations/named_action.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "NamedDestination",
+    "file": "include/aspose/pdf/annotations/named_destination.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfAction",
+    "file": "include/aspose/pdf/annotations/pdf_action.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PolyAnnotation",
+    "file": "include/aspose/pdf/annotations/poly_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 11,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PolyIntent",
+    "file": "include/aspose/pdf/annotations/poly_intent.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "PolygonAnnotation",
+    "file": "include/aspose/pdf/annotations/polygon_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PolylineAnnotation",
+    "file": "include/aspose/pdf/annotations/polyline_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PopupAnnotation",
+    "file": "include/aspose/pdf/annotations/popup_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PredefinedAction",
+    "file": "include/aspose/pdf/annotations/predefined_action.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 71
+  },
+  {
+    "class": "PrinterMarkAnnotation",
+    "file": "include/aspose/pdf/annotations/printer_mark_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PrinterMarkCornerPosition",
+    "file": "include/aspose/pdf/annotations/printer_mark_corner_position.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "PrinterMarkSidePosition",
+    "file": "include/aspose/pdf/annotations/printer_mark_side_position.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "PrinterMarksKind",
+    "file": "include/aspose/pdf/annotations/printer_marks_kind.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 7
+  },
+  {
+    "class": "RedactionAnnotation",
+    "file": "include/aspose/pdf/annotations/redaction_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 19,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RegistrationMarkAnnotation",
+    "file": "include/aspose/pdf/annotations/registration_mark_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ReplyType",
+    "file": "include/aspose/pdf/annotations/reply_type.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "RichMediaAnnotation",
+    "file": "include/aspose/pdf/annotations/rich_media_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 8,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RichTextFontStyles",
+    "file": "include/aspose/pdf/annotations/rich_text_font_styles.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "ScreenAnnotation",
+    "file": "include/aspose/pdf/annotations/screen_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SoundAnnotation",
+    "file": "include/aspose/pdf/annotations/sound_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SoundIcon",
+    "file": "include/aspose/pdf/annotations/sound_icon.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "SquareAnnotation",
+    "file": "include/aspose/pdf/annotations/square_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SquigglyAnnotation",
+    "file": "include/aspose/pdf/annotations/squiggly_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "StampAnnotation",
+    "file": "include/aspose/pdf/annotations/stamp_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "StampIcon",
+    "file": "include/aspose/pdf/annotations/stamp_icon.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 14
+  },
+  {
+    "class": "StrikeOutAnnotation",
+    "file": "include/aspose/pdf/annotations/strike_out_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SubmitFormAction",
+    "file": "include/aspose/pdf/annotations/submit_form_action.hpp",
+    "kind": "class_specifier",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "TextAlignment",
+    "file": "include/aspose/pdf/annotations/text_alignment.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 3
+  },
+  {
+    "class": "TextAnnotation",
+    "file": "include/aspose/pdf/annotations/text_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "TextIcon",
+    "file": "include/aspose/pdf/annotations/text_icon.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 15
+  },
+  {
+    "class": "TextMarkupAnnotation",
+    "file": "include/aspose/pdf/annotations/text_markup_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextStyle",
+    "file": "include/aspose/pdf/annotations/text_style.hpp",
+    "kind": "class_specifier",
+    "method_count": 9,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TrimMarkAnnotation",
+    "file": "include/aspose/pdf/annotations/trim_mark_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "UnderlineAnnotation",
+    "file": "include/aspose/pdf/annotations/underline_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "WatermarkAnnotation",
+    "file": "include/aspose/pdf/annotations/watermark_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "WidgetAnnotation",
+    "file": "include/aspose/pdf/annotations/widget_annotation.hpp",
+    "kind": "class_specifier",
+    "method_count": 14,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "XYZExplicitDestination",
+    "file": "include/aspose/pdf/annotations/xyz_explicit_destination.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Artifact",
+    "file": "include/aspose/pdf/artifact.hpp",
+    "kind": "class_specifier",
+    "method_count": 14,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ArtifactCollection",
+    "file": "include/aspose/pdf/artifact_collection.hpp",
+    "kind": "class_specifier",
+    "method_count": 7,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BaseParagraph",
+    "file": "include/aspose/pdf/base_paragraph.hpp",
+    "kind": "class_specifier",
+    "method_count": 23,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "BitmapInfo",
+    "file": "include/aspose/pdf/bitmap_info.hpp",
+    "kind": "class_specifier",
+    "method_count": 6,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "BmpDevice",
+    "file": "include/aspose/pdf/bmp_device.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "BorderInfo",
+    "file": "include/aspose/pdf/border_info.hpp",
+    "kind": "class_specifier",
+    "method_count": 10,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "BorderSide",
+    "file": "include/aspose/pdf/border_side.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 7
+  },
+  {
+    "class": "Cell",
+    "file": "include/aspose/pdf/cell.hpp",
+    "kind": "class_specifier",
+    "method_count": 27,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Cells",
+    "file": "include/aspose/pdf/cells.hpp",
+    "kind": "class_specifier",
+    "method_count": 9,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Color",
+    "file": "include/aspose/pdf/color.hpp",
+    "kind": "class_specifier",
+    "method_count": 147,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "ColorDepth",
+    "file": "include/aspose/pdf/color_depth.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 5
+  },
+  {
+    "class": "CompressionType",
+    "file": "include/aspose/pdf/compression_type.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 5
+  },
+  {
+    "class": "CryptoAlgorithm",
+    "file": "include/aspose/pdf/crypto_algorithm.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "Device",
+    "file": "include/aspose/pdf/device.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Document",
+    "file": "include/aspose/pdf/document.hpp",
+    "kind": "class_specifier",
+    "method_count": 22,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "DocumentDevice",
+    "file": "include/aspose/pdf/document_device.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DocumentInfo",
+    "file": "include/aspose/pdf/document_info.hpp",
+    "kind": "class_specifier",
+    "method_count": 24,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DocumentPrivilege",
+    "file": "include/aspose/pdf/document_privilege.hpp",
+    "kind": "class_specifier",
+    "method_count": 34,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Circle",
+    "file": "include/aspose/pdf/drawing/circle.hpp",
+    "kind": "class_specifier",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Ellipse",
+    "file": "include/aspose/pdf/drawing/ellipse.hpp",
+    "kind": "class_specifier",
+    "method_count": 9,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Graph",
+    "file": "include/aspose/pdf/drawing/graph.hpp",
+    "kind": "class_specifier",
+    "method_count": 16,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Line",
+    "file": "include/aspose/pdf/drawing/line.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Rectangle",
+    "file": "include/aspose/pdf/drawing/rectangle.hpp",
+    "kind": "class_specifier",
+    "method_count": 11,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Shape",
+    "file": "include/aspose/pdf/drawing/shape.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EmbeddedFileCollection",
+    "file": "include/aspose/pdf/embedded_file_collection.hpp",
+    "kind": "class_specifier",
+    "method_count": 9,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Algorithm",
+    "file": "include/aspose/pdf/facades/algorithm.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "AlignmentType",
+    "file": "include/aspose/pdf/facades/alignment_type.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AutoRotateMode",
+    "file": "include/aspose/pdf/facades/auto_rotate_mode.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "BlendingColorSpace",
+    "file": "include/aspose/pdf/facades/blending_color_space.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "Bookmark",
+    "file": "include/aspose/pdf/facades/bookmark.hpp",
+    "kind": "class_specifier",
+    "method_count": 35,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Bookmarks",
+    "file": "include/aspose/pdf/facades/bookmark.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DataType",
+    "file": "include/aspose/pdf/facades/data_type.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 6
+  },
+  {
+    "class": "DefaultMetadataProperties",
+    "file": "include/aspose/pdf/facades/default_metadata_properties.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 9
+  },
+  {
+    "class": "EncodingType",
+    "file": "include/aspose/pdf/facades/encoding_type.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 7
+  },
+  {
+    "class": "Facade",
+    "file": "include/aspose/pdf/facades/facade.hpp",
+    "kind": "class_specifier",
+    "method_count": 8,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FieldType",
+    "file": "include/aspose/pdf/facades/field_type.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 13
+  },
+  {
+    "class": "FontStyle",
+    "file": "include/aspose/pdf/facades/font_style.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 16
+  },
+  {
+    "class": "FormEditor",
+    "file": "include/aspose/pdf/facades/form_editor.hpp",
+    "kind": "class_specifier",
+    "method_count": 53,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FormFieldFacade",
+    "file": "include/aspose/pdf/facades/form_field_facade.hpp",
+    "kind": "class_specifier",
+    "method_count": 30,
+    "property_count": 26,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IFacade",
+    "file": "include/aspose/pdf/facades/i_facade.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ISaveableFacade",
+    "file": "include/aspose/pdf/facades/i_saveable_facade.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ImageMergeMode",
+    "file": "include/aspose/pdf/facades/image_merge_mode.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "KeySize",
+    "file": "include/aspose/pdf/facades/key_size.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "PdfAnnotationEditor",
+    "file": "include/aspose/pdf/facades/pdf_annotation_editor.hpp",
+    "kind": "class_specifier",
+    "method_count": 15,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfBookmarkEditor",
+    "file": "include/aspose/pdf/facades/pdf_bookmark_editor.hpp",
+    "kind": "class_specifier",
+    "method_count": 16,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfContentEditor",
+    "file": "include/aspose/pdf/facades/pdf_content_editor.hpp",
+    "kind": "class_specifier",
+    "method_count": 22,
+    "property_count": 6,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfConverter",
+    "file": "include/aspose/pdf/facades/pdf_converter.hpp",
+    "kind": "class_specifier",
+    "method_count": 37,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfExtractor",
+    "file": "include/aspose/pdf/facades/pdf_extractor.hpp",
+    "kind": "class_specifier",
+    "method_count": 24,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfFileEditor",
+    "file": "include/aspose/pdf/facades/pdf_file_editor.hpp",
+    "kind": "class_specifier",
+    "method_count": 72,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfFileInfo",
+    "file": "include/aspose/pdf/facades/pdf_file_info.hpp",
+    "kind": "class_specifier",
+    "method_count": 39,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfFileSecurity",
+    "file": "include/aspose/pdf/facades/pdf_file_security.hpp",
+    "kind": "class_specifier",
+    "method_count": 20,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfFileSignature",
+    "file": "include/aspose/pdf/facades/pdf_file_signature.hpp",
+    "kind": "class_specifier",
+    "method_count": 41,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfFileStamp",
+    "file": "include/aspose/pdf/facades/pdf_file_stamp.hpp",
+    "kind": "class_specifier",
+    "method_count": 26,
+    "property_count": 8,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfPageEditor",
+    "file": "include/aspose/pdf/facades/pdf_page_editor.hpp",
+    "kind": "class_specifier",
+    "method_count": 28,
+    "property_count": 16,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfXmpMetadata",
+    "file": "include/aspose/pdf/facades/pdf_xmp_metadata.hpp",
+    "kind": "class_specifier",
+    "method_count": 15,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PositioningMode",
+    "file": "include/aspose/pdf/facades/positioning_mode.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "PropertyFlag",
+    "file": "include/aspose/pdf/facades/property_flag.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "SaveableFacade",
+    "file": "include/aspose/pdf/facades/saveable_facade.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SignatureName",
+    "file": "include/aspose/pdf/facades/signature_name.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "StampType",
+    "file": "include/aspose/pdf/facades/stamp_type.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "SubmitFormFlag",
+    "file": "include/aspose/pdf/facades/submit_form_flag.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 6
+  },
+  {
+    "class": "VerticalAlignmentType",
+    "file": "include/aspose/pdf/facades/vertical_alignment_type.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "WordWrapMode",
+    "file": "include/aspose/pdf/facades/word_wrap_mode.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "FileEncoding",
+    "file": "include/aspose/pdf/file_encoding.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "FileSpecification",
+    "file": "include/aspose/pdf/file_specification.hpp",
+    "kind": "class_specifier",
+    "method_count": 20,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "FloatingBox",
+    "file": "include/aspose/pdf/floating_box.hpp",
+    "kind": "class_specifier",
+    "method_count": 12,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Font",
+    "file": "include/aspose/pdf/font.hpp",
+    "kind": "class_specifier",
+    "method_count": 6,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "FontRepository",
+    "file": "include/aspose/pdf/font_repository.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FormPresentationMode",
+    "file": "include/aspose/pdf/form_presentation_mode.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "BarcodeField",
+    "file": "include/aspose/pdf/forms/barcode_field.hpp",
+    "kind": "class_specifier",
+    "method_count": 6,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BoxStyle",
+    "file": "include/aspose/pdf/forms/box_style.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 6
+  },
+  {
+    "class": "ButtonField",
+    "file": "include/aspose/pdf/forms/button_field.hpp",
+    "kind": "class_specifier",
+    "method_count": 11,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CheckboxField",
+    "file": "include/aspose/pdf/forms/checkbox_field.hpp",
+    "kind": "class_specifier",
+    "method_count": 16,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ChoiceField",
+    "file": "include/aspose/pdf/forms/choice_field.hpp",
+    "kind": "class_specifier",
+    "method_count": 14,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ComboBoxField",
+    "file": "include/aspose/pdf/forms/combo_box_field.hpp",
+    "kind": "class_specifier",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DateField",
+    "file": "include/aspose/pdf/forms/date_field.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DocMDPAccessPermissions",
+    "file": "include/aspose/pdf/forms/doc_mdp_access_permissions.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "DocMDPSignature",
+    "file": "include/aspose/pdf/forms/doc_mdp_signature.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ExternalSignature",
+    "file": "include/aspose/pdf/forms/external_signature.hpp",
+    "kind": "class_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Field",
+    "file": "include/aspose/pdf/forms/field.hpp",
+    "kind": "class_specifier",
+    "method_count": 26,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FileSelectBoxField",
+    "file": "include/aspose/pdf/forms/file_select_box_field.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Form",
+    "file": "include/aspose/pdf/forms/form.hpp",
+    "kind": "class_specifier",
+    "method_count": 39,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "FormType",
+    "file": "include/aspose/pdf/forms/form_type.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "IconCaptionPosition",
+    "file": "include/aspose/pdf/forms/icon_caption_position.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 7
+  },
+  {
+    "class": "IconFit",
+    "file": "include/aspose/pdf/forms/icon_fit.hpp",
+    "kind": "class_specifier",
+    "method_count": 15,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ListBoxField",
+    "file": "include/aspose/pdf/forms/list_box_field.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NumberField",
+    "file": "include/aspose/pdf/forms/number_field.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Option",
+    "file": "include/aspose/pdf/forms/option.hpp",
+    "kind": "class_specifier",
+    "method_count": 8,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "OptionCollection",
+    "file": "include/aspose/pdf/forms/option_collection.hpp",
+    "kind": "class_specifier",
+    "method_count": 9,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PasswordBoxField",
+    "file": "include/aspose/pdf/forms/password_box_field.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PKCS1",
+    "file": "include/aspose/pdf/forms/pkcs1.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PKCS7",
+    "file": "include/aspose/pdf/forms/pkcs7.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PKCS7Detached",
+    "file": "include/aspose/pdf/forms/pkcs7_detached.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RadioButtonField",
+    "file": "include/aspose/pdf/forms/radio_button_field.hpp",
+    "kind": "class_specifier",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RadioButtonOptionField",
+    "file": "include/aspose/pdf/forms/radio_button_option_field.hpp",
+    "kind": "class_specifier",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RichTextBoxField",
+    "file": "include/aspose/pdf/forms/rich_text_box_field.hpp",
+    "kind": "class_specifier",
+    "method_count": 11,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ScalingMode",
+    "file": "include/aspose/pdf/forms/scaling_mode.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "ScalingReason",
+    "file": "include/aspose/pdf/forms/scaling_reason.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "Signature",
+    "file": "include/aspose/pdf/forms/signature.hpp",
+    "kind": "class_specifier",
+    "method_count": 23,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "SignatureCustomAppearance",
+    "file": "include/aspose/pdf/forms/signature_custom_appearance.hpp",
+    "kind": "class_specifier",
+    "method_count": 37,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SignatureField",
+    "file": "include/aspose/pdf/forms/signature_field.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SubjectNameElements",
+    "file": "include/aspose/pdf/forms/subject_name_elements.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 7
+  },
+  {
+    "class": "Symbology",
+    "file": "include/aspose/pdf/forms/symbology.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "TextBoxField",
+    "file": "include/aspose/pdf/forms/text_box_field.hpp",
+    "kind": "class_specifier",
+    "method_count": 15,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "XFA",
+    "file": "include/aspose/pdf/forms/xfa.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GraphInfo",
+    "file": "include/aspose/pdf/graph_info.hpp",
+    "kind": "class_specifier",
+    "method_count": 25,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "HorizontalAlignment",
+    "file": "include/aspose/pdf/horizontal_alignment.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 6
+  },
+  {
+    "class": "Hyperlink",
+    "file": "include/aspose/pdf/hyperlink.hpp",
+    "kind": "class_specifier",
+    "method_count": 6,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "IIndexBitmapConverter",
+    "file": "include/aspose/pdf/i_index_bitmap_converter.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ImageDevice",
+    "file": "include/aspose/pdf/image_device.hpp",
+    "kind": "class_specifier",
+    "method_count": 10,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "JpegDevice",
+    "file": "include/aspose/pdf/jpeg_device.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LoadOptions",
+    "file": "include/aspose/pdf/load_options.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MarginInfo",
+    "file": "include/aspose/pdf/margin_info.hpp",
+    "kind": "class_specifier",
+    "method_count": 9,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Margins",
+    "file": "include/aspose/pdf/margins.hpp",
+    "kind": "class_specifier",
+    "method_count": 8,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Metadata",
+    "file": "include/aspose/pdf/metadata.hpp",
+    "kind": "class_specifier",
+    "method_count": 21,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NamedDestinationCollection",
+    "file": "include/aspose/pdf/named_destination_collection.hpp",
+    "kind": "class_specifier",
+    "method_count": 6,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NumberingStyle",
+    "file": "include/aspose/pdf/numbering_style.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 6
+  },
+  {
+    "class": "OutlineCollection",
+    "file": "include/aspose/pdf/outline_collection.hpp",
+    "kind": "class_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OutlineItemCollection",
+    "file": "include/aspose/pdf/outline_item_collection.hpp",
+    "kind": "class_specifier",
+    "method_count": 18,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Outlines",
+    "file": "include/aspose/pdf/outlines.hpp",
+    "kind": "class_specifier",
+    "method_count": 12,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Page",
+    "file": "include/aspose/pdf/page.hpp",
+    "kind": "class_specifier",
+    "method_count": 28,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "PageCollection",
+    "file": "include/aspose/pdf/page_collection.hpp",
+    "kind": "class_specifier",
+    "method_count": 13,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PageCoordinateType",
+    "file": "include/aspose/pdf/page_coordinate_type.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "PageDevice",
+    "file": "include/aspose/pdf/page_device.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PageLabel",
+    "file": "include/aspose/pdf/page_label.hpp",
+    "kind": "class_specifier",
+    "method_count": 6,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PageLabelCollection",
+    "file": "include/aspose/pdf/page_label_collection.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PageSize",
+    "file": "include/aspose/pdf/page_size.hpp",
+    "kind": "class_specifier",
+    "method_count": 18,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Paragraphs",
+    "file": "include/aspose/pdf/paragraphs.hpp",
+    "kind": "class_specifier",
+    "method_count": 6,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "PasswordType",
+    "file": "include/aspose/pdf/password_type.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "Permissions",
+    "file": "include/aspose/pdf/permissions.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 8
+  },
+  {
+    "class": "PngDevice",
+    "file": "include/aspose/pdf/png_device.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Point",
+    "file": "include/aspose/pdf/point.hpp",
+    "kind": "class_specifier",
+    "method_count": 6,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Position",
+    "file": "include/aspose/pdf/position.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Rectangle",
+    "file": "include/aspose/pdf/rectangle.hpp",
+    "kind": "class_specifier",
+    "method_count": 28,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "RenderingOptions",
+    "file": "include/aspose/pdf/rendering_options.hpp",
+    "kind": "class_specifier",
+    "method_count": 26,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Resolution",
+    "file": "include/aspose/pdf/resolution.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Resources",
+    "file": "include/aspose/pdf/resources.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Rotation",
+    "file": "include/aspose/pdf/rotation.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 4
+  },
+  {
+    "class": "Row",
+    "file": "include/aspose/pdf/row.hpp",
+    "kind": "class_specifier",
+    "method_count": 23,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Rows",
+    "file": "include/aspose/pdf/rows.hpp",
+    "kind": "class_specifier",
+    "method_count": 9,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "ShapeType",
+    "file": "include/aspose/pdf/shape_type.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "SvgLoadOptions",
+    "file": "include/aspose/pdf/svg_load_options.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Table",
+    "file": "include/aspose/pdf/table.hpp",
+    "kind": "class_specifier",
+    "method_count": 30,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "TextAbsorber",
+    "file": "include/aspose/pdf/text_absorber.hpp",
+    "kind": "class_specifier",
+    "method_count": 6,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextBuilder",
+    "file": "include/aspose/pdf/text_builder.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextDevice",
+    "file": "include/aspose/pdf/text_device.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextFragment",
+    "file": "include/aspose/pdf/text_fragment.hpp",
+    "kind": "class_specifier",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextFragmentAbsorber",
+    "file": "include/aspose/pdf/text_fragment_absorber.hpp",
+    "kind": "class_specifier",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextFragmentCollection",
+    "file": "include/aspose/pdf/text_fragment_collection.hpp",
+    "kind": "class_specifier",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextFragmentState",
+    "file": "include/aspose/pdf/text_fragment_state.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextParagraph",
+    "file": "include/aspose/pdf/text_paragraph.hpp",
+    "kind": "class_specifier",
+    "method_count": 18,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextState",
+    "file": "include/aspose/pdf/text_state.hpp",
+    "kind": "class_specifier",
+    "method_count": 33,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TiffDevice",
+    "file": "include/aspose/pdf/tiff_device.hpp",
+    "kind": "class_specifier",
+    "method_count": 11,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TiffSettings",
+    "file": "include/aspose/pdf/tiff_settings.hpp",
+    "kind": "class_specifier",
+    "method_count": 13,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VerticalAlignment",
+    "file": "include/aspose/pdf/vertical_alignment.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 4
+  },
+  {
+    "class": "WatermarkArtifact",
+    "file": "include/aspose/pdf/watermark_artifact.hpp",
+    "kind": "class_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "XImage",
+    "file": "include/aspose/pdf/x_image.hpp",
+    "kind": "class_specifier",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "XImageCollection",
+    "file": "include/aspose/pdf/x_image_collection.hpp",
+    "kind": "class_specifier",
+    "method_count": 13,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "XmpValue",
+    "file": "include/aspose/pdf/xmp_value.hpp",
+    "kind": "class_specifier",
+    "method_count": 20,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Entry",
+    "file": "include/internal/agl.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BigUint",
+    "file": "include/internal/bigint.hpp",
+    "kind": "class_specifier",
+    "method_count": 6,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DecodedImage",
+    "file": "include/internal/bmp_decoder.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ColorType",
+    "file": "include/internal/bmp_encoder.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 2
+  },
+  {
+    "class": "Options",
+    "file": "include/internal/bmp_encoder.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Params",
+    "file": "include/internal/ccitt.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 8,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "DecodedImage",
+    "file": "include/internal/ccitt.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PathOp",
+    "file": "include/internal/cff.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "PathSegment",
+    "file": "include/internal/cff.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Glyph",
+    "file": "include/internal/cff.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 5,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Cff",
+    "file": "include/internal/cff.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Family",
+    "file": "include/internal/colorspace.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "ColorRgb",
+    "file": "include/internal/colorspace.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Operation",
+    "file": "include/internal/content_stream.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Stream",
+    "file": "include/internal/content_stream.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Method",
+    "file": "include/internal/crypt_filter.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 3
+  },
+  {
+    "class": "Photometric",
+    "file": "include/internal/dct_encoder.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "Options",
+    "file": "include/internal/dct_encoder.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "DecodedImage",
+    "file": "include/internal/dctdecode.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Bundle",
+    "file": "include/internal/digest.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 5,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Encoding",
+    "file": "include/internal/encoding.hpp",
+    "kind": "class_specifier",
+    "method_count": 17,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Encoding",
+    "file": "include/internal/encoding_tables.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "EncryptDict",
+    "file": "include/internal/encrypt_parser.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 10,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AuthResult",
+    "file": "include/internal/encrypt_parser.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OutlineOp",
+    "file": "include/internal/glyph_rasterizer.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "OutlineSegment",
+    "file": "include/internal/glyph_rasterizer.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Outline",
+    "file": "include/internal/glyph_rasterizer.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DecodedImage",
+    "file": "include/internal/glyph_rasterizer.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ImageSource",
+    "file": "include/internal/image_compositor.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DecodedImage",
+    "file": "include/internal/image_compositor.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DecodedImage",
+    "file": "include/internal/jbig2.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DecodedImage",
+    "file": "include/internal/jpx.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MqContext",
+    "file": "include/internal/jpx_detail.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MqDecoder",
+    "file": "include/internal/jpx_detail.hpp",
+    "kind": "class_specifier",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Component",
+    "file": "include/internal/jpx_detail.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SubbandQuant",
+    "file": "include/internal/jpx_detail.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Wavelet",
+    "file": "include/internal/jpx_detail.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "Tile",
+    "file": "include/internal/jpx_detail.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Image",
+    "file": "include/internal/jpx_detail.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 18,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "TokenKind",
+    "file": "include/internal/lexer.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 13
+  },
+  {
+    "class": "Token",
+    "file": "include/internal/lexer.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Lexer",
+    "file": "include/internal/lexer.hpp",
+    "kind": "class_specifier",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EarlyChange",
+    "file": "include/internal/lzw.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "StringKind",
+    "file": "include/internal/objects.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "String",
+    "file": "include/internal/objects.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Ref",
+    "file": "include/internal/objects.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Array",
+    "file": "include/internal/objects.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Dict",
+    "file": "include/internal/objects.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Stream",
+    "file": "include/internal/objects.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Value",
+    "file": "include/internal/objects.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "IndirectObject",
+    "file": "include/internal/objects.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Dump",
+    "file": "include/internal/objects.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OutlineItem",
+    "file": "include/internal/outlines.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Outline",
+    "file": "include/internal/outlines.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RenderedPage",
+    "file": "include/internal/page_renderer.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LeafPage",
+    "file": "include/internal/pages_tree.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 5,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Tree",
+    "file": "include/internal/pages_tree.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "IndexedImage",
+    "file": "include/internal/palette_quantiser.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DecodedImage",
+    "file": "include/internal/png_decoder.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ColorType",
+    "file": "include/internal/png_encoder.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 3
+  },
+  {
+    "class": "Options",
+    "file": "include/internal/png_encoder.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "FillRule",
+    "file": "include/internal/rasterizer.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "SegmentKind",
+    "file": "include/internal/rasterizer.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "PathSegment",
+    "file": "include/internal/rasterizer.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Path",
+    "file": "include/internal/rasterizer.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Raster",
+    "file": "include/internal/rasterizer.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ClipRect",
+    "file": "include/internal/rasterizer.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DecodedImage",
+    "file": "include/internal/rasterizer.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FontDescriptor",
+    "file": "include/internal/standard14_metrics.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 7,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DecodedImage",
+    "file": "include/internal/tiff_decoder.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Page",
+    "file": "include/internal/tiff_encoder.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "Compression",
+    "file": "include/internal/tiff_encoder.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 4
+  },
+  {
+    "class": "Photometric",
+    "file": "include/internal/tiff_encoder.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 4
+  },
+  {
+    "class": "Options",
+    "file": "include/internal/tiff_encoder.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 6,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "CodespaceRange",
+    "file": "include/internal/to_unicode.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Mapping",
+    "file": "include/internal/to_unicode.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ToUnicode",
+    "file": "include/internal/to_unicode.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Trailer",
+    "file": "include/internal/trailer.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Matrix",
+    "file": "include/internal/transform.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 6,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Point",
+    "file": "include/internal/transform.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Rect",
+    "file": "include/internal/transform.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "CmapEntry",
+    "file": "include/internal/truetype.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GlyphPoint",
+    "file": "include/internal/truetype.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Glyph",
+    "file": "include/internal/truetype.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TrueType",
+    "file": "include/internal/truetype.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 7,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Properties",
+    "file": "include/internal/xmp.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  },
+  {
+    "class": "EntryKind",
+    "file": "include/internal/xref.hpp",
+    "kind": "enum_specifier",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 2
+  },
+  {
+    "class": "Entry",
+    "file": "include/internal/xref.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 5,
+    "has_doc": false,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Table",
+    "file": "include/internal/xref.hpp",
+    "kind": "struct_specifier",
+    "method_count": 0,
+    "property_count": 6,
+    "has_doc": false,
+    "has_tests": true,
+    "enum_members": 0
+  }
+]

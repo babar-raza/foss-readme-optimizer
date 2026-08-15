@@ -1,0 +1,2152 @@
+[
+  {
+    "class": "ChatOptions",
+    "file": "ai/chat.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ChatCopilot",
+    "file": "ai/chat.go",
+    "kind": "type_spec",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AIClient",
+    "file": "ai/client.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Message",
+    "file": "ai/client.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MessageImage",
+    "file": "ai/client.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CompletionRequest",
+    "file": "ai/client.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Usage",
+    "file": "ai/client.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CompletionResponse",
+    "file": "ai/client.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "APIError",
+    "file": "ai/client.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ImageDescriptionOptions",
+    "file": "ai/imagedesc.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ImageDescriptionCopilot",
+    "file": "ai/imagedesc.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OCREngine",
+    "file": "ai/ocr.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OCRBox",
+    "file": "ai/ocr.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OCRResult",
+    "file": "ai/ocr.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OCRLine",
+    "file": "ai/ocr.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OCRWord",
+    "file": "ai/ocr.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LLMOCROptions",
+    "file": "ai/ocr.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LLMOCREngine",
+    "file": "ai/ocr.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OcrOptions",
+    "file": "ai/ocr.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextRecognitionResult",
+    "file": "ai/ocr.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OcrCopilot",
+    "file": "ai/ocr.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OpenAIClientOptions",
+    "file": "ai/openai.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OpenAIClient",
+    "file": "ai/openai.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SummaryOptions",
+    "file": "ai/summary.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SummaryCopilot",
+    "file": "ai/summary.go",
+    "kind": "type_spec",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FigureAlt",
+    "file": "alt_text.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AnnotationType",
+    "file": "annotation.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Annotation",
+    "file": "annotation.go",
+    "kind": "type_spec",
+    "method_count": 11,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AnnotationCollection",
+    "file": "annotation.go",
+    "kind": "type_spec",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "WidgetAnnotation",
+    "file": "annotation.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GenericAnnotation",
+    "file": "annotation.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ActionType",
+    "file": "annotation_action.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Action",
+    "file": "annotation_action.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GoToURIAction",
+    "file": "annotation_action.go",
+    "kind": "type_spec",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GoToAction",
+    "file": "annotation_action.go",
+    "kind": "type_spec",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NamedActionType",
+    "file": "annotation_action.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NamedAction",
+    "file": "annotation_action.go",
+    "kind": "type_spec",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SubmitFormFlags",
+    "file": "annotation_action.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SubmitFormAction",
+    "file": "annotation_action.go",
+    "kind": "type_spec",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ResetFormAction",
+    "file": "annotation_action.go",
+    "kind": "type_spec",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "JavaScriptAction",
+    "file": "annotation_action.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CaretSymbol",
+    "file": "annotation_caret.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CaretAnnotation",
+    "file": "annotation_caret.go",
+    "kind": "type_spec",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Point",
+    "file": "annotation_drawing.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BorderStyle",
+    "file": "annotation_drawing.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LineEndingStyle",
+    "file": "annotation_drawing.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SquareAnnotation",
+    "file": "annotation_drawing.go",
+    "kind": "type_spec",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CircleAnnotation",
+    "file": "annotation_drawing.go",
+    "kind": "type_spec",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LineAnnotation",
+    "file": "annotation_drawing.go",
+    "kind": "type_spec",
+    "method_count": 15,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "InkAnnotation",
+    "file": "annotation_drawing.go",
+    "kind": "type_spec",
+    "method_count": 6,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FileAttachmentIcon",
+    "file": "annotation_fileattachment.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FileAttachmentAnnotation",
+    "file": "annotation_fileattachment.go",
+    "kind": "type_spec",
+    "method_count": 13,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FreeTextIntent",
+    "file": "annotation_freetext.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BorderEffect",
+    "file": "annotation_freetext.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FreeTextAnnotation",
+    "file": "annotation_freetext.go",
+    "kind": "type_spec",
+    "method_count": 18,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LinkAnnotation",
+    "file": "annotation_link.go",
+    "kind": "type_spec",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LinkHighlightMode",
+    "file": "annotation_link.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "QuadPoint",
+    "file": "annotation_markup.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "HighlightAnnotation",
+    "file": "annotation_markup.go",
+    "kind": "type_spec",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "UnderlineAnnotation",
+    "file": "annotation_markup.go",
+    "kind": "type_spec",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "StrikeOutAnnotation",
+    "file": "annotation_markup.go",
+    "kind": "type_spec",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SquigglyAnnotation",
+    "file": "annotation_markup.go",
+    "kind": "type_spec",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PolygonAnnotation",
+    "file": "annotation_poly.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PolylineAnnotation",
+    "file": "annotation_poly.go",
+    "kind": "type_spec",
+    "method_count": 6,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RedactAnnotation",
+    "file": "annotation_redact.go",
+    "kind": "type_spec",
+    "method_count": 12,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "StampName",
+    "file": "annotation_stamp.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "StampAnnotation",
+    "file": "annotation_stamp.go",
+    "kind": "type_spec",
+    "method_count": 10,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextIcon",
+    "file": "annotation_text.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextAnnotation",
+    "file": "annotation_text.go",
+    "kind": "type_spec",
+    "method_count": 6,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LineCap",
+    "file": "appearance_builder.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LineJoin",
+    "file": "appearance_builder.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BmpDevice",
+    "file": "bmp.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Color",
+    "file": "color.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "HAlign",
+    "file": "color.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "VAlign",
+    "file": "color.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextStyle",
+    "file": "color.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 14,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Document",
+    "file": "document.go",
+    "kind": "type_spec",
+    "method_count": 99,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PageFormat",
+    "file": "document_new.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DocRecognitionMode",
+    "file": "docx_write.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DocSaveOptions",
+    "file": "docx_write.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EmbeddedFiles",
+    "file": "embedded_files.go",
+    "kind": "type_spec",
+    "method_count": 9,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EmbeddedFile",
+    "file": "embedded_files.go",
+    "kind": "type_spec",
+    "method_count": 8,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Permissions",
+    "file": "encrypt.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EncryptionAlgorithm",
+    "file": "encrypt.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EncryptionOptions",
+    "file": "encrypt.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "EpubSaveOptions",
+    "file": "epub_write.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Flow",
+    "file": "flow.go",
+    "kind": "type_spec",
+    "method_count": 13,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FlowOptions",
+    "file": "flow.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FloatingBox",
+    "file": "flow_box.go",
+    "kind": "type_spec",
+    "method_count": 10,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FloatSide",
+    "file": "flow_float.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Font",
+    "file": "font_api.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Form",
+    "file": "form.go",
+    "kind": "type_spec",
+    "method_count": 30,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Field",
+    "file": "form.go",
+    "kind": "type_spec",
+    "method_count": 11,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ButtonIconPosition",
+    "file": "form_button.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ButtonAppearance",
+    "file": "form_button.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 8,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RadioItem",
+    "file": "form_fields.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FormFieldType",
+    "file": "form_fields.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextBoxField",
+    "file": "form_fields.go",
+    "kind": "type_spec",
+    "method_count": 10,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CheckboxField",
+    "file": "form_fields.go",
+    "kind": "type_spec",
+    "method_count": 6,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RadioButtonField",
+    "file": "form_fields.go",
+    "kind": "type_spec",
+    "method_count": 5,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RadioButtonOptionField",
+    "file": "form_fields.go",
+    "kind": "type_spec",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ChoiceOption",
+    "file": "form_fields.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ComboBoxField",
+    "file": "form_fields.go",
+    "kind": "type_spec",
+    "method_count": 10,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ListBoxField",
+    "file": "form_fields.go",
+    "kind": "type_spec",
+    "method_count": 11,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ButtonField",
+    "file": "form_fields.go",
+    "kind": "type_spec",
+    "method_count": 6,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PasswordBoxField",
+    "file": "form_fields_extra.go",
+    "kind": "type_spec",
+    "method_count": 10,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FileSelectBoxField",
+    "file": "form_fields_extra.go",
+    "kind": "type_spec",
+    "method_count": 10,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RichTextBoxField",
+    "file": "form_fields_extra.go",
+    "kind": "type_spec",
+    "method_count": 12,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NumberField",
+    "file": "form_fields_extra.go",
+    "kind": "type_spec",
+    "method_count": 10,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DateField",
+    "file": "form_fields_extra.go",
+    "kind": "type_spec",
+    "method_count": 11,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NumberFormatOptions",
+    "file": "form_fields_extra.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "JSONExportOptions",
+    "file": "form_json.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "FieldStyle",
+    "file": "form_style.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "XForm",
+    "file": "form_xobject.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "HTMLMode",
+    "file": "html_export.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "HTMLSaveOptions",
+    "file": "html_export.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 10,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ImageFormat",
+    "file": "image.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ImageColorSpace",
+    "file": "image.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Image",
+    "file": "image.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ImageInfo",
+    "file": "image.go",
+    "kind": "type_spec",
+    "method_count": 4,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ImageToDocumentOptions",
+    "file": "image_convert.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OptimizeImageOptions",
+    "file": "image_optimize.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NUpOrder",
+    "file": "imposition.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NUpOptions",
+    "file": "imposition.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BookletBinding",
+    "file": "imposition.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BookletOptions",
+    "file": "imposition.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "JavaScriptCollection",
+    "file": "javascript.go",
+    "kind": "type_spec",
+    "method_count": 7,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MarkdownOptions",
+    "file": "markdown.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 14,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MarkdownSaveOptions",
+    "file": "markdown_export.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DocumentInfo",
+    "file": "metadata.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NamedDestination",
+    "file": "named_destinations.go",
+    "kind": "type_spec",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "NamedDestinations",
+    "file": "named_destinations.go",
+    "kind": "type_spec",
+    "method_count": 9,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OptimizationOptions",
+    "file": "optimize.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OptimizationResult",
+    "file": "optimize.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Layer",
+    "file": "optional_content.go",
+    "kind": "type_spec",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "OutlineItemCollection",
+    "file": "outline.go",
+    "kind": "type_spec",
+    "method_count": 23,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DestinationType",
+    "file": "outline_destination.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Destination",
+    "file": "outline_destination.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DestinationXYZ",
+    "file": "outline_destination.go",
+    "kind": "type_spec",
+    "method_count": 8,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DestinationFit",
+    "file": "outline_destination.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DestinationFitH",
+    "file": "outline_destination.go",
+    "kind": "type_spec",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DestinationFitV",
+    "file": "outline_destination.go",
+    "kind": "type_spec",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DestinationFitR",
+    "file": "outline_destination.go",
+    "kind": "type_spec",
+    "method_count": 6,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DestinationFitB",
+    "file": "outline_destination.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DestinationFitBH",
+    "file": "outline_destination.go",
+    "kind": "type_spec",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "DestinationFitBV",
+    "file": "outline_destination.go",
+    "kind": "type_spec",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RotationAngle",
+    "file": "page.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PageSize",
+    "file": "page.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Page",
+    "file": "page.go",
+    "kind": "type_spec",
+    "method_count": 60,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PageLabelStyle",
+    "file": "page_labels.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PageLabelRange",
+    "file": "page_labels.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PageRange",
+    "file": "page_range.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MarkupParagraph",
+    "file": "paragraph.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MarkupSection",
+    "file": "paragraph.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PageMarkup",
+    "file": "paragraph.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Rectangle",
+    "file": "rectangle.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RenderOptions",
+    "file": "render_device.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Resolution",
+    "file": "render_device.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PngDevice",
+    "file": "render_device.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "JpegDevice",
+    "file": "render_device.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GifDevice",
+    "file": "render_device.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ReplaceOptions",
+    "file": "replace.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SignOptions",
+    "file": "sign.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 16,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "CertifyPermission",
+    "file": "sign.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SignatureAppearance",
+    "file": "sign.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SignatureVerification",
+    "file": "sign_verify.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 10,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Stamp",
+    "file": "stamp.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextStamp",
+    "file": "stamp.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PageNumberStamp",
+    "file": "stamp.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ImageStamp",
+    "file": "stamp.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PdfPageStamp",
+    "file": "stamp_pdfpage.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SVGFontResolver",
+    "file": "svg.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SVGSaveOptions",
+    "file": "svg_export.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SVG",
+    "file": "svg_types.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BorderSide",
+    "file": "table.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "BorderInfo",
+    "file": "table.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "MarginInfo",
+    "file": "table.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Table",
+    "file": "table.go",
+    "kind": "type_spec",
+    "method_count": 18,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Row",
+    "file": "table.go",
+    "kind": "type_spec",
+    "method_count": 15,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Cell",
+    "file": "table.go",
+    "kind": "type_spec",
+    "method_count": 20,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TableAbsorber",
+    "file": "table_detect.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AbsorbedTable",
+    "file": "table_detect.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AbsorbedRow",
+    "file": "table_detect.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "AbsorbedCell",
+    "file": "table_detect.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "StructType",
+    "file": "tagged.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TaggedContent",
+    "file": "tagged.go",
+    "kind": "type_spec",
+    "method_count": 3,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "StructElement",
+    "file": "tagged.go",
+    "kind": "type_spec",
+    "method_count": 4,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextExtractionMode",
+    "file": "text.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextExtractOptions",
+    "file": "text.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 1,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextFragment",
+    "file": "text_layout.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 14,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextLine",
+    "file": "text_layout.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "SearchOptions",
+    "file": "text_search.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TextMatch",
+    "file": "text_search.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TiffDevice",
+    "file": "tiff.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TOCEntry",
+    "file": "toc.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TOCOptions",
+    "file": "toc.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 9,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ValidationIssue",
+    "file": "validate.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ValidationReport",
+    "file": "validate.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PDFAFormat",
+    "file": "validate_pdfa.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PDFAIssue",
+    "file": "validate_pdfa.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PDFAValidationReport",
+    "file": "validate_pdfa.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 3,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PDFUAIssue",
+    "file": "validate_pdfua.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "PDFUAValidationReport",
+    "file": "validate_pdfua.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LineStyle",
+    "file": "vector.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 7,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "ShapeStyle",
+    "file": "vector.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 11,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Path",
+    "file": "vector.go",
+    "kind": "type_spec",
+    "method_count": 6,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "GradientStop",
+    "file": "vector_gradient.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 2,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "Gradient",
+    "file": "vector_gradient.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "LinearGradient",
+    "file": "vector_gradient.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 5,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "RadialGradient",
+    "file": "vector_gradient.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 6,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "TilingPattern",
+    "file": "vector_tiling.go",
+    "kind": "type_spec",
+    "method_count": 2,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "XlsxRecognitionMode",
+    "file": "xlsx_write.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 0,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "XlsxSaveOptions",
+    "file": "xlsx_write.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "XMPProperty",
+    "file": "xmp.go",
+    "kind": "type_spec",
+    "method_count": 0,
+    "property_count": 4,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  },
+  {
+    "class": "XMPMetadata",
+    "file": "xmp.go",
+    "kind": "type_spec",
+    "method_count": 1,
+    "property_count": 10,
+    "has_doc": true,
+    "has_tests": false,
+    "enum_members": 0
+  }
+]

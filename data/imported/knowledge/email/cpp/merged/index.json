@@ -1,0 +1,98 @@
+{
+  "schema_version": 2,
+  "family": "email",
+  "platform": "cpp",
+  "display_name": "Aspose.Email",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "scout_claims": 251,
+    "enriched_claims": 0,
+    "supplemental_claims": 0,
+    "total_claims": 237,
+    "class_count": 26,
+    "forbidden_count": 0,
+    "snippet_count": 5
+  },
+  "classes": [
+    "cfb_document",
+    "cfb_exception",
+    "cfb_node",
+    "cfb_reader",
+    "cfb_storage",
+    "cfb_stream",
+    "cfb_writer",
+    "common_message_property_id",
+    "directory_color_flag",
+    "directory_entry",
+    "directory_object_type",
+    "header",
+    "mapi_attachment",
+    "mapi_message",
+    "mapi_property",
+    "mapi_property_collection",
+    "mapi_recipient",
+    "msg_document",
+    "msg_exception",
+    "msg_reader",
+    "msg_storage",
+    "msg_storage_role",
+    "msg_stream",
+    "msg_writer",
+    "property_type_code",
+    "sector_marker"
+  ],
+  "class_graph": [],
+  "formats": {
+    "import": [
+      "cfb",
+      "msg",
+      "cfb",
+      "eml"
+    ],
+    "export": [
+      "cfb",
+      "msg",
+      "eml"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "pip install aspose-email-foss",
+    "version": "0.1.0"
+  },
+  "not_implemented": [],
+  "forbidden_claims": [],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 26,
+    "with_methods": 16,
+    "with_properties": 8,
+    "with_enums": 6,
+    "method_pct": 61.5,
+    "property_pct": 30.8,
+    "surface_tier": 2
+  },
+  "snippets_coverage": {
+    "total_snippets": 5,
+    "classes_with_snippet": 6,
+    "classes_total": 26,
+    "coverage_ratio": 0.23,
+    "effective_denominator": 24,
+    "concrete_coverage": {
+      "classes_total": 24,
+      "classes_with_snippet": 6,
+      "coverage_ratio": 0.25
+    },
+    "interface_coverage": {
+      "classes_total": 0,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

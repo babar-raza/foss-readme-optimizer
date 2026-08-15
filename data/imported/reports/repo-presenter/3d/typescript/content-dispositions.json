@@ -1,0 +1,1543 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "A powerful and open-source 3D file format library for TypeScript/JavaScript. Aspose.3D for TypeScript enables developers to create, manipulate, and convert 3D scenes and models programmatically in Node.js and browser environments. Supports popular 3D file formats including OBJ, STL, FBX, GLTF, and more.",
+    "salient_tokens": [
+      "TypeScript",
+      "JavaScript",
+      "OBJ",
+      "STL",
+      "FBX",
+      "GLTF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Tagline restating open-source framing and format support; the create/manipulate/convert and format-list content is already covered, as a superset (adds 3MF/COLLADA), by the candidate's Intro paragraph. The 'browser environments' half of this claim is deliberately NOT carried forward -- it is contradicted by the candidate's own current Installation caveat.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro already states 'a free, open-source, MIT-licensed library for building, loading, and exporting 3D scenes in Node.js and TypeScript' with a superset format list (OBJ, glTF 2.0/GLB, STL, 3MF, FBX, COLLADA). Checked package.json: no 'browser' field or bundler config, and the candidate's own Installation section states browser use 'has not been verified there' -- the old README's 'browser environments' claim is stale/unconfirmed and intentionally not merged."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Core tagline/format-list already present, as a superset, in the Intro paragraph; the unverified 'browser environments' claim is deliberately not carried forward."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "- OBJ - Import/export with materials, textures, and grouping",
+    "salient_tokens": [
+      "OBJ"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "OBJ import/export-with-materials capability already present in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table lists OBJ (with .mtl materials) with both Import and Export checked. Same capability."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "OBJ import/export-with-materials capability already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- GLTF - GL Transmission Format with full PBR material support",
+    "salient_tokens": [
+      "GLTF",
+      "GL",
+      "PBR"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "glTF with PBR material support already present in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table lists glTF 2.0/GLB (import/export, binary export currently broken -- see below); Materials subsection covers PBR channels. Same capability, more precise."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "glTF with PBR material support already present, more precisely, in Key Capabilities."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- STL - Stereo Lithography format for 3D printing",
+    "salient_tokens": [
+      "STL"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "STL support already present in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table lists STL (ASCII and binary) with Import/Export both checked."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "STL support already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- 3MF - 3D Manufacturing Format for modern 3D printing workflows",
+    "salient_tokens": [
+      "3MF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "3MF support already present in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table lists 3MF with Import/Export both checked."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "3MF support already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- FBX - Autodesk FBX format support",
+    "salient_tokens": [
+      "FBX"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "FBX support already present in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table lists FBX with Import/Export both checked."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "FBX support already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Collada - COLLADA (DAE) format support",
+    "salient_tokens": [
+      "COLLADA",
+      "DAE"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "COLLADA support already present in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table lists COLLADA (.dae) with Import/Export both checked."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "COLLADA support already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Create and manipulate 3D scenes",
+    "salient_tokens": [
+      "scenes"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Generic scene-creation capability already present in Key Capabilities' Scene management subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Build 3D scenes from scratch with Scene, Node, Mesh, and Transform, or load existing files...'. Same capability."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Generic scene-creation capability already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Hierarchical node structure",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Node hierarchy already described in Key Capabilities' Scene management subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Hierarchical node structure via Node.childNodes/parentNode, with entity and material attachment per node.' Same capability, more specific."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Hierarchical node structure already present, more specifically, in Key Capabilities."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Mesh and entity management",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Mesh/entity handling already covered by Key Capabilities and detailed in API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference's Geometry and Mesh subsection details Mesh/Geometry methods (controlPoints, createPolygon, getBoundingBox, etc.). Same capability, more specific."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Mesh/entity management already covered, more specifically, in API Reference."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Material system with Lambert, Phong, and PBR materials",
+    "salient_tokens": [
+      "PBR"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lambert/Phong/PBR material system already present, verbatim, in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Apply LambertMaterial, PhongMaterial, and PbrMaterial materials, including glTF-style metallic/roughness PBR channels.' Same capability."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Lambert/Phong/PBR material system already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Vector math (Vector2, Vector3, Vector4, Matrix4, Quaternion)",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Vector/matrix/quaternion math already present, same classes, in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Vector/matrix math — Vector2, Vector3, Vector4, Matrix4, Quaternion, BoundingBox, BoundingBox2D.' Same classes."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Vector/matrix/quaternion math already present, same classes, in Key Capabilities."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Bounding boxes and transformations",
+    "salient_tokens": [
+      "BoundingBox"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Bounding boxes already present in Key Capabilities; transformations covered by the Scene management subsection's Transform mention.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities names BoundingBox/BoundingBox2D under 3D primitives, and Transform under Scene management ('Scene, Node, Mesh, and Transform')."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Bounding boxes and transformations already covered in Key Capabilities."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Camera and light objects",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Camera/Light objects already present, verbatim, in Key Capabilities' 3D primitives subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Camera and Light scene objects.' Same capability."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Camera and light objects already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- 2D bounding boxes (BoundingBox2D)",
+    "salient_tokens": [
+      "BoundingBox2D"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "BoundingBox2D already present, verbatim, in Key Capabilities' 3D primitives subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: '...BoundingBox, BoundingBox2D.' Same class, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "BoundingBox2D already present, verbatim, in Key Capabilities."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Triangulation support for polygon conversion",
+    "salient_tokens": [
+      "triangulate"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Triangulation already documented via Mesh.triangulate()/PolygonModifier.triangulate() in Key Capabilities' Mesh operations subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Triangulate arbitrary polygons with Mesh.triangulate() or the standalone PolygonModifier.triangulate().' Same capability, more specific."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Triangulation already documented, more specifically, in Key Capabilities."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Mesh manipulation and modification",
+    "salient_tokens": [
+      "Mesh"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Generic mesh-manipulation capability already covered by the Mesh operations subsection in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities' Mesh operations subsection details triangulation and per-vertex data management -- the concrete mechanism for mesh manipulation."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Generic mesh manipulation capability already covered, more concretely, in Key Capabilities."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Vertex element management",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Vertex element management already present, verbatim, in Key Capabilities' Mesh operations subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Manage per-vertex data through the typed VertexElement subclasses (normals, UVs, vertex colors, smoothing groups).' Same capability."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Vertex element management already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Keyframe animation support",
+    "salient_tokens": [
+      "Keyframe"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Keyframe animation support already present, verbatim, in Key Capabilities' Animation subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Keyframe animation types — AnimationClip, KeyframeSequence, Interpolation.' Same capability."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Keyframe animation support already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Animation curves and interpolation",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Interpolation already named in Key Capabilities and detailed in the API Reference Animation subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference's Animation subsection: 'Interpolation — CONSTANT, LINEAR, BEZIER, B_SPLINE, CARDINAL_SPLINE, TCB_SPLINE.' Same capability, more specific."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Animation curve/interpolation support already present, in more detail, in API Reference."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Animation clips and channels",
+    "salient_tokens": [
+      "AnimationClip"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "AnimationClip and AnimationChannel already present, verbatim, in Key Capabilities and API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference's Animation subsection details 'AnimationClip (extends SceneObject)' and 'AnimationChannel (extends KeyframeSequence)'. Same classes."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Animation clips and channels already present, in more detail, in API Reference."
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "Or add to your `package.json`:",
+    "salient_tokens": [
+      "package.json"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in for an alternate install method naming a specific package version that is no longer accurate (see u0037-adjacent staleness); the general 'add this to your package.json / build config' narration concept is already covered by the candidate's Installation section, updated to the current from-source install method.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation section: '`package.json` declares no minimum Node.js version; development uses @types/node ^22.15.17.' Same file referenced, current and accurate install narration -- the old README's alternate npm-dependency-pin method is stale since the package is confirmed not yet published (data/package_registry.json: 3d.typescript.verification.published = false)."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Alternate install-via-package.json narration superseded by the current, accurate from-source Installation section; the npm package is confirmed not yet published."
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **OBJ** - Wavefront OBJ with full material support",
+    "salient_tokens": [
+      "OBJ"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Duplicate of u0002's claim within the same old README; already covered by Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table lists OBJ (with .mtl materials). Same capability as u0002."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "OBJ with material support already present in Key Capabilities (same fact as u0002)."
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **GLTF** - GL Transmission Format (glTF 2.0)",
+    "salient_tokens": [
+      "GLTF",
+      "GL",
+      "2.0"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Duplicate of u0003's claim within the same old README; already covered by Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table lists glTF 2.0 / GLB. Same capability as u0003."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "glTF 2.0 support already present in Key Capabilities (same fact as u0003)."
+  },
+  {
+    "unit_id": "u0025",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **STL** - Stereo Lithography format",
+    "salient_tokens": [
+      "STL"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Duplicate of u0004's claim within the same old README; already covered by Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table lists STL. Same capability as u0004."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "STL support already present in Key Capabilities (same fact as u0004)."
+  },
+  {
+    "unit_id": "u0026",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **3MF** - 3D Manufacturing Format",
+    "salient_tokens": [
+      "3MF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Duplicate of u0005's claim within the same old README; already covered by Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table lists 3MF. Same capability as u0005."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "3MF support already present in Key Capabilities (same fact as u0005)."
+  },
+  {
+    "unit_id": "u0027",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **FBX** - Autodesk FBX format",
+    "salient_tokens": [
+      "FBX"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Duplicate of u0006's claim within the same old README; already covered by Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table lists FBX. Same capability as u0006."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "FBX support already present in Key Capabilities (same fact as u0006)."
+  },
+  {
+    "unit_id": "u0028",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Collada** - COLLADA (DAE) format",
+    "salient_tokens": [
+      "COLLADA",
+      "DAE"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Duplicate of u0007's claim within the same old README; already covered by Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table lists COLLADA (.dae). Same capability as u0007."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "COLLADA support already present in Key Capabilities (same fact as u0007)."
+  },
+  {
+    "unit_id": "u0029",
+    "source": "clone_cache/README.md",
+    "excerpt": "- More formats coming soon...",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Vague forward-looking promise with no attached mechanism and no way to verify as a present-tense fact -- pure hedge. The candidate already reflects the current, complete format set (all six formats this old README hoped for are now implemented).",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- unattached forward-looking hedge, not a checkable process."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Vague, unverifiable roadmap hedge; the candidate already reflects the complete, current format set."
+  },
+  {
+    "unit_id": "u0030",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **OBJ** - Export with vertices, faces, and materials",
+    "salient_tokens": [
+      "OBJ"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "OBJ export capability already present in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table shows OBJ Export checked. Same capability."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "OBJ export capability already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0031",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **GLTF** - Export to glTF 2.0 format",
+    "salient_tokens": [
+      "GLTF",
+      "2.0"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "glTF export capability already present in Key Capabilities, with the current binary-export caveat also documented.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table: 'glTF 2.0 / GLB | ✅ | JSON/ASCII ✅ — binary (.glb) currently broken...'. Same capability, more accurate/current."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "glTF export capability already present, more accurately, in Key Capabilities."
+  },
+  {
+    "unit_id": "u0032",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **STL** - Export to STL format",
+    "salient_tokens": [
+      "STL"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "STL export capability already present in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table shows STL Export checked. Same capability."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "STL export capability already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0033",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **3MF** - Export to 3MF format",
+    "salient_tokens": [
+      "3MF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "3MF export capability already present in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table shows 3MF Export checked. Same capability."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "3MF export capability already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0034",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **FBX** - Export to FBX format",
+    "salient_tokens": [
+      "FBX"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "FBX export capability already present in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table shows FBX Export checked. Same capability."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "FBX export capability already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0035",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Collada** - Export to COLLADA format",
+    "salient_tokens": [
+      "COLLADA"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "COLLADA export capability already present in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table shows COLLADA Export checked. Same capability."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "COLLADA export capability already present in Key Capabilities."
+  },
+  {
+    "unit_id": "u0036",
+    "source": "clone_cache/README.md",
+    "excerpt": "- More formats coming soon...",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Duplicate of u0029's vague, unattached roadmap hedge within the same old README.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- same unverifiable hedge as u0029."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Vague, unverifiable roadmap hedge, duplicate of u0029; candidate reflects the complete, current format set."
+  },
+  {
+    "unit_id": "u0037",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [API Reference](https://reference.aspose.com/3d/python-net/) - Complete API documentation (Python API, same structure as TypeScript)",
+    "salient_tokens": [
+      "API",
+      "TypeScript"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "A real, confirmed defect in the old README, not content worth recovering as-is: this Documentation section points a TypeScript reader at the commercial PYTHON API reference (reference.aspose.com/3d/python-net/), explicitly claiming it has 'same structure as TypeScript' -- almost certainly a copy-paste artifact from the sibling Python README template (compare u0068's identical 'for Python' mix-up in this same file's Acknowledgments section). No commercial TypeScript-specific product edition or API reference exists to substitute in its place -- the candidate's own Scope and Limitations points to a generic https://products.aspose.com/3d/ family page, not a platform-specific commercial SDK, for this platform.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations already points to the generic 'Aspose.3D — Enterprise Edition' at https://products.aspose.com/3d/, not a Python-specific or TypeScript-specific commercial API. Pointing readers to Python's commercial API reference from a TypeScript README would be actively misleading (different language, no cross-platform '1:1 same structure' relationship demonstrated anywhere in this product's own source or docs), so this claim is not merged in any form."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Confirmed copy-paste defect from the sibling Python README (points to Python's commercial API reference, not a TypeScript one); not recoverable content."
+  },
+  {
+    "unit_id": "u0038",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Modern browsers (ES2020+)",
+    "salient_tokens": [
+      "ES2020"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "A specific, checkable compatibility claim that is stale/unconfirmed against the current build: the candidate's own Installation section already states browser use 'has not been verified there' and recommends a bundler. Not merged since it would directly contradict the candidate's more accurate, more cautious current statement.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "tsconfig.json",
+      "evidence_note": "tsconfig.json compiles to module: 'commonjs' (a Node.js module system, not natively loadable in browsers without a bundler) with target ES2020 -- ES2020 language-level output does not by itself establish verified browser compatibility. package.json has no 'browser' field or bundler configuration. This corroborates the candidate's own 'has not been verified there' caveat over the old README's unqualified 'Modern browsers (ES2020+)' claim."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Stale/unconfirmed browser-compatibility claim, contradicted by the candidate's own current, more accurate 'not verified in a browser' caveat and the commonjs module target."
+  },
+  {
+    "unit_id": "u0039",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Import Features:**\n- Vertices (v), texture coordinates (vt), vertex normals (vn)\n- Faces (f) with multiple index formats\n- Objects (o), groups (g), smoothing groups (s)\n- Materials (usemtl, mtllib)",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Genuinely missing, checkable technical detail: which raw OBJ file tokens the importer actually parses. Not previously documented anywhere in the candidate, which only names the OBJ format without describing its token-level parsing support.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose/threed/formats/obj/ObjImporter.ts",
+      "evidence_note": "Read ObjImporter.ts directly: handles keyword==='v' (vertices, line 77), 'vn' (normals, line 88), 'vt' (tex coords, line 107), 'o' (objects, line 178), 'g' (groups, line 184), 's' (smoothing, line 192), and 'usemtl' (materials, line 193, gated on oOptions.enableMaterials). All tokens in this unit are confirmed currently implemented."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0040",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Load Options:**\n- `flipCoordinateSystem` - Swap Y and Z coordinates\n- `enableMaterials` - Enable/disable material loading\n- `scale` - Scale factor for all coordinates\n- `normalizeNormal` - Normalize normal vectors",
+    "salient_tokens": [
+      "flipCoordinateSystem",
+      "enableMaterials",
+      "scale",
+      "normalizeNormal"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "ObjLoadOptions field list already present, verbatim (all four fields), in the candidate's API Reference Format I/O subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'ObjLoadOptions: flipCoordinateSystem, enableMaterials, scale, normalizeNormal.' Identical field list, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "ObjLoadOptions field list already present, verbatim, in API Reference."
+  },
+  {
+    "unit_id": "u0041",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Save Options:**\n- `applyUnitScale` - Apply unit scaling\n- `pointCloud` - Export as point cloud\n- `verbose` - Verbose output\n- `serializeW` - Include W coordinate\n- `enableMaterials` - Export materials\n- `flipCoordinateSystem` - Flip coordinate system",
+    "salient_tokens": [
+      "applyUnitScale",
+      "pointCloud",
+      "verbose",
+      "serializeW",
+      "enableMaterials",
+      "flipCoordinateSystem"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "ObjSaveOptions field list already present as a superset (adds axisSystem) in the candidate's API Reference Format I/O subsection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'ObjSaveOptions: applyUnitScale, pointCloud, verbose, serializeW, enableMaterials, flipCoordinateSystem, axisSystem.' Contains all six fields plus one more."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "ObjSaveOptions field list already present, as a superset, in API Reference."
+  },
+  {
+    "unit_id": "u0042",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Features:**\n- glTF 2.0 specification support\n- PBR material system (metallic/roughness workflow)\n- Mesh primitives with attributes\n- Node hierarchy and transforms\n- Texture and image support",
+    "salient_tokens": [
+      "glTF",
+      "PBR",
+      "2.0"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "glTF 2.0/PBR support already present in Key Capabilities; mesh primitives, node hierarchy, and textures are generic scene-graph/material concepts already covered elsewhere and not glTF-specific new information.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'glTF 2.0 / GLB' format support plus PBR metallic/roughness channels under Materials. Same and more specific."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "glTF 2.0/PBR support already present, more specifically, in Key Capabilities; remaining bullets are generic scene-graph concepts covered elsewhere."
+  },
+  {
+    "unit_id": "u0043",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Features:**\n- Binary and ASCII STL support\n- Triangular mesh representation\n- Unit conversion and scaling\n- Import for 3D printing workflows",
+    "salient_tokens": [
+      "ASCII",
+      "STL"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Binary/ASCII STL support already present in Key Capabilities; unit scaling already present via the StlLoadOptions/StlSaveOptions 'scale' field.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'STL (ASCII and binary)'; API Reference: 'StlLoadOptions: flipCoordinateSystem, scale. StlSaveOptions: flipCoordinateSystem, scale, binaryMode.' Same facts."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Binary/ASCII STL support and scaling already present in Key Capabilities and API Reference."
+  },
+  {
+    "unit_id": "u0044",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Features:**\n- 3D Manufacturing Format 1.2 support\n- Rich metadata support\n- Production-grade 3D printing\n- Color and material support",
+    "salient_tokens": [
+      "3MF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "General 3MF support already present in Key Capabilities and API Reference; the specific '1.2' spec-version figure could not be independently confirmed in the current source and is deliberately not carried forward as an unverifiable specific.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities and API Reference (ThreeMfLoadOptions/ThreeMfSaveOptions) already cover 3MF support. Searched src/aspose/threed/formats/threemf/*.ts for a '1.2' or spec-version marker -- none found, so the old README's specific version claim is not confirmable against current source and is not merged."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "General 3MF support already present in Key Capabilities/API Reference; the specific spec-version figure is unverifiable against current source."
+  },
+  {
+    "unit_id": "u0045",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Features:**\n- Autodesk FBX format support\n- Scene hierarchy and nodes\n- Mesh and geometry data\n- Animation data\n- Materials and textures",
+    "salient_tokens": [
+      "FBX"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "FBX support already present in Key Capabilities; the remaining bullets (scene hierarchy, mesh/geometry, animation, materials) are generic scene-graph concepts already covered elsewhere, not FBX-specific new information.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table lists FBX (import/export both checked). Scene hierarchy, mesh/materials, and animation are already documented generically elsewhere in Key Capabilities, not specific to FBX."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "FBX support already present in Key Capabilities; remaining bullets are generic scene-graph concepts covered elsewhere."
+  },
+  {
+    "unit_id": "u0046",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Features:**\n- COLLADA (DAE) format support\n- Asset information and unit scaling\n- Geometry and mesh data\n- Materials and effects\n- Animation clips",
+    "salient_tokens": [
+      "COLLADA",
+      "DAE"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "COLLADA support already present in Key Capabilities; the remaining bullets are generic scene-graph concepts already covered elsewhere, not COLLADA-specific new information.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities format table lists COLLADA (.dae) (import/export both checked). API Reference's Format I/O subsection also lists ColladaLoadOptions/ColladaSaveOptions fields, superseding the generic old-README description."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "COLLADA support already present in Key Capabilities; remaining bullets are generic scene-graph concepts covered elsewhere."
+  },
+  {
+    "unit_id": "u0047",
+    "source": "clone_cache/README.md",
+    "excerpt": "The library is organized into several modules:",
+    "salient_tokens": [
+      "library"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in for a module-organization list; already covered by the candidate's API Reference intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'The public entry points are the scene-graph module... and one submodule per format... plus entities, animation, shading, and utilities.' Same module-organization narration."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Module-organization lead-in already covered by the API Reference intro paragraph."
+  },
+  {
+    "unit_id": "u0048",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `@aspose/3d` - Core scene classes (Scene, Node, Entity)",
+    "salient_tokens": [
+      "Scene"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Core scene classes (Scene, Node, Entity) already named in the API Reference intro paragraph and Core Scene Graph subsection. The '@aspose/3d' import-scope prefix itself is stale -- the package is confirmed not yet published, and the candidate's own Quick Start/Installation import from a relative './dist/aspose/threed' path instead. Not carried forward.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'the scene-graph module (Scene, Node, Entity, Mesh, Transform, ...)'. Same core classes. Checked Installation/Quick Start: both import from './dist/aspose/threed', not '@aspose/3d' -- the old README's scoped-package import path predates the current unpublished, from-source reality and is not merged."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Core scene classes already named in API Reference; the stale '@aspose/3d' import scope is not carried forward (package is unpublished, real imports use a relative dist path)."
+  },
+  {
+    "unit_id": "u0049",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `@aspose/3d/entities` - 3D entities (Mesh, Camera, Light, PolygonModifier)",
+    "salient_tokens": [
+      "PolygonModifier"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Mesh/Camera/Light/PolygonModifier already named in API Reference's Geometry and Mesh / Camera and Lighting subsections. The '@aspose/3d/entities' prefix is stale for the same reason as u0048 and is not carried forward.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'PolygonModifier.triangulate(...) -> any — standalone triangulation utility' plus Mesh/Camera/Light detailed in their own subsections. Same classes; stale import prefix not merged (see u0048)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Entity classes already named in API Reference; stale '@aspose/3d/entities' import prefix not carried forward."
+  },
+  {
+    "unit_id": "u0050",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `@aspose/3d/formats` - File format importers and exporters (OBJ, GLTF, STL, 3MF, FBX, Collada)",
+    "salient_tokens": [
+      "threemf"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The six-format list is already present, with correct current submodule names, in the API Reference intro paragraph. The '@aspose/3d/formats' prefix is stale for the same reason as u0048 and is not carried forward.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'one submodule per format (formats/obj, formats/gltf, formats/stl, formats/threemf, formats/fbx, formats/collada)'. Same six formats, current and correct paths (note: real submodule is 'threemf', not the old README's '3mf' -- confirmed against runs/.clone_cache/aspose_3d_typescript/src/aspose/threed/formats/threemf/ directory)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Format-module list already present, with correct current names, in API Reference; stale '@aspose/3d/formats' import prefix not carried forward."
+  },
+  {
+    "unit_id": "u0051",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `@aspose/3d/formats/obj` - OBJ format implementation",
+    "salient_tokens": [
+      "obj"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "OBJ format submodule already named, with the correct current path, in API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference lists 'formats/obj' and details ObjLoadOptions/ObjSaveOptions/ObjImporter under it. Same module; stale '@aspose/3d' prefix not merged (see u0048)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "OBJ format submodule already named, with the correct current path, in API Reference."
+  },
+  {
+    "unit_id": "u0052",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `@aspose/3d/formats/gltf` - GLTF format implementation",
+    "salient_tokens": [
+      "gltf"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "glTF format submodule already named, with the correct current path, in API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference lists 'formats/gltf' and details GltfLoadOptions/GltfSaveOptions under it. Same module; stale '@aspose/3d' prefix not merged (see u0048)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "glTF format submodule already named, with the correct current path, in API Reference."
+  },
+  {
+    "unit_id": "u0053",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `@aspose/3d/formats/stl` - STL format implementation",
+    "salient_tokens": [
+      "stl"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "STL format submodule already named, with the correct current path, in API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference lists 'formats/stl' and details StlLoadOptions/StlSaveOptions under it. Same module; stale '@aspose/3d' prefix not merged (see u0048)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "STL format submodule already named, with the correct current path, in API Reference."
+  },
+  {
+    "unit_id": "u0054",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `@aspose/3d/formats/3mf` - 3MF format implementation",
+    "salient_tokens": [
+      "threemf"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "This unit's specific claim -- a submodule at 'formats/3mf' -- is factually wrong against the current source, which uses 'formats/threemf'. The underlying concept (a 3MF format submodule exists) is genuinely real and already correctly documented in API Reference; only the stale/incorrect '3mf' spelling is not carried forward.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/aspose/threed/formats/threemf/ThreeMfFormat.ts",
+      "evidence_note": "Directory listing of runs/.clone_cache/aspose_3d_typescript/src/aspose/threed/formats/ confirms the real submodule directory is named 'threemf', not '3mf' as this old-README unit claims (ThreeMfFormat.ts and siblings live there). The candidate's API Reference already uses the correct 'formats/threemf' name."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Real submodule name is 'formats/threemf', not 'formats/3mf' as this unit claims (source-confirmed); the correct name is already present in API Reference."
+  },
+  {
+    "unit_id": "u0055",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `@aspose/3d/formats/fbx` - FBX format implementation",
+    "salient_tokens": [
+      "fbx"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "FBX format submodule already named, with the correct current path, in API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference lists 'formats/fbx' and details FbxLoadOptions/FbxSaveOptions under it. Same module; stale '@aspose/3d' prefix not merged (see u0048)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "FBX format submodule already named, with the correct current path, in API Reference."
+  },
+  {
+    "unit_id": "u0056",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `@aspose/3d/formats/collada` - Collada format implementation",
+    "salient_tokens": [
+      "collada"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "COLLADA format submodule already named, with the correct current path, in API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference lists 'formats/collada' and details ColladaLoadOptions/ColladaSaveOptions under it. Same module; stale '@aspose/3d' prefix not merged (see u0048)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "COLLADA format submodule already named, with the correct current path, in API Reference."
+  },
+  {
+    "unit_id": "u0057",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `@aspose/3d/shading` - Material system (Lambert, Phong, PBR materials)",
+    "salient_tokens": [
+      "shading"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Material system classes already named in API Reference's Materials subsection and intro paragraph. Stale '@aspose/3d' prefix not carried forward (see u0048).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference intro: '...plus entities, animation, shading, and utilities'; Materials subsection details LambertMaterial/PhongMaterial/PbrMaterial. Same module and classes."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Material system module already named in API Reference; stale '@aspose/3d/shading' import prefix not carried forward."
+  },
+  {
+    "unit_id": "u0058",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `@aspose/3d/utilities` - Math utilities (vectors, matrices, quaternions, bounding boxes)",
+    "salient_tokens": [
+      "utilities"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Math utilities module already named in API Reference intro paragraph and Math Utilities subsection. Stale '@aspose/3d' prefix not carried forward (see u0048).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference intro names 'utilities'; Math Utilities subsection details Vector2/3/4, Matrix4, Quaternion, BoundingBox/BoundingBox2D. Same module and classes."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Math utilities module already named in API Reference; stale '@aspose/3d/utilities' import prefix not carried forward."
+  },
+  {
+    "unit_id": "u0059",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `@aspose/3d/animation` - Animation system (keyframes, curves)",
+    "salient_tokens": [
+      "animation"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Animation module already named in API Reference intro paragraph and Animation subsection. Stale '@aspose/3d' prefix not carried forward (see u0048).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference intro names 'animation'; Animation subsection details AnimationClip/KeyframeSequence/KeyFrame. Same module and classes."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Animation module already named in API Reference; stale '@aspose/3d/animation' import prefix not carried forward."
+  },
+  {
+    "unit_id": "u0060",
+    "source": "clone_cache/README.md",
+    "excerpt": "See the `examples/` directory for code examples demonstrating:",
+    "salient_tokens": [
+      "examples/"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "This exact claim is directly addressed and corrected by the candidate's Additional Examples section, which explicitly states there is no separate examples/ directory in the current source.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples: 'Every example below is exercised by the project's own test suite. See the tests directory for the full set (there is no separate examples/ directory).' The candidate has already checked and corrected this exact claim."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Already checked and corrected by the candidate: there is no separate examples/ directory; the tests/ directory serves this purpose instead."
+  },
+  {
+    "unit_id": "u0061",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Creating 3D scenes programmatically",
+    "salient_tokens": [
+      "Scene"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Generic example-topic bullet; scene creation is already demonstrated by the candidate's own Additional Examples (Build a Mesh From Scratch and Export to STL).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples' 'Build a Mesh From Scratch and Export to STL' example demonstrates programmatic scene creation."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Scene-creation example topic already covered by the candidate's real, current Additional Examples."
+  },
+  {
+    "unit_id": "u0062",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Importing and exporting various file formats",
+    "salient_tokens": [
+      "Export"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Generic example-topic bullet; format import/export is already demonstrated across multiple candidate examples (Convert STL to GLTF, Export to COLLADA, Inspect PBR Material Imported From GLTF).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples includes 'Convert STL to GLTF', 'Export to COLLADA With a Phong Material', and 'Inspect a PBR Material Imported From GLTF' -- covers this topic directly."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Format import/export example topic already covered by multiple real, current Additional Examples."
+  },
+  {
+    "unit_id": "u0063",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Working with meshes and vertices",
+    "salient_tokens": [
+      "Mesh"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Generic example-topic bullet; mesh/vertex work is already demonstrated by the candidate's Build-a-Mesh and Triangulate-Polygons examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples includes 'Build a Mesh From Scratch and Export to STL' and 'Triangulate Polygons Directly With PolygonModifier' -- covers this topic directly."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Mesh/vertex example topic already covered by real, current Additional Examples."
+  },
+  {
+    "unit_id": "u0064",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Using materials and lighting",
+    "salient_tokens": [
+      "Material"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Generic example-topic bullet; materials are already demonstrated by the candidate's Apply-a-PBR-Material and Export-to-COLLADA-With-a-Phong-Material examples (lighting itself has no dedicated example, but Camera/Light are documented in Key Capabilities and API Reference).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples includes 'Apply a PBR Material' and 'Export to COLLADA With a Phong Material' -- covers the materials half of this topic directly."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Materials example topic already covered by real, current Additional Examples."
+  },
+  {
+    "unit_id": "u0065",
+    "source": "clone_cache/README.md",
+    "excerpt": "Contributions are welcome! Please feel free to submit issues and pull requests.",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Generic contribution-invite boilerplate with no distinct process detail beyond the bug/feature-request pointer already present elsewhere -- pure community-engagement CTA, nothing independently checkable.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure CTA prose."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure community-engagement CTA prose with no distinct checkable process detail beyond the issue-tracker pointer already present."
+  },
+  {
+    "unit_id": "u0066",
+    "source": "clone_cache/README.md",
+    "excerpt": "1. Fork the repository\n2. Create your feature branch (`git checkout -b feature/AmazingFeature`)\n3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)\n4. Push to the branch (`git push origin feature/AmazingFeature`)\n5. Open a Pull Request",
+    "salient_tokens": [
+      "AmazingFeature"
+    ],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Generic, templated GitHub fork-and-PR workflow instructions with a placeholder branch name ('AmazingFeature') -- boilerplate contribution mechanics common to countless unrelated repositories, not a claim specific to this product.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- generic templated contribution-workflow boilerplate, not product-specific."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Generic templated fork-and-PR workflow boilerplate with a placeholder feature name, not specific to this product."
+  },
+  {
+    "unit_id": "u0067",
+    "source": "clone_cache/README.md",
+    "excerpt": "This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.",
+    "salient_tokens": [
+      "MIT",
+      "LICENSE"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "License statement already present, expanded, in the candidate's License section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the MIT License. The MIT License permits use, copying, modification, distribution, sublicensing, and commercial use...' Same fact, expanded."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "License statement already present, in expanded form, in the License section."
+  },
+  {
+    "unit_id": "u0068",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Aspose.3D for Python is inspired by the original Aspose.3D API",
+    "salient_tokens": [
+      "API"
+    ],
+    "classification": "3_branding_positioning",
+    "classification_basis": "A confirmed copy-paste defect from the sibling Python README template: this TypeScript product's own Acknowledgments section literally names 'Aspose.3D for Python', not TypeScript. Not recoverable as a positioning claim for this product -- the candidate's own Scope and Limitations already states the real, TypeScript-specific positioning ('a from-scratch TypeScript port... not a native binding'), which is a distinct and more accurate framing than this mistaken Python-labeled bullet would provide.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "The excerpt names the wrong product ('Aspose.3D for Python') inside the TypeScript repository's own README -- self-evidently a copy-paste artifact, not a genuine claim about this library. The candidate's Scope and Limitations already carries the correct, TypeScript-specific positioning statement ('a from-scratch TypeScript port of the Aspose.3D scene-graph model, not a native binding'), so nothing further is merged."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Confirmed copy-paste defect naming the wrong product (Python, not TypeScript); the candidate already carries the correct, TypeScript-specific positioning statement."
+  },
+  {
+    "unit_id": "u0069",
+    "source": "clone_cache/README.md",
+    "excerpt": "- 3D format specification maintained by various 3D software vendors",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Generic industry trivia about the 3D file format ecosystem, not a specific, checkable claim about this product.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- generic industry-background statement, not product-specific."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Generic industry-background trivia, not a specific or checkable claim about this product."
+  },
+  {
+    "unit_id": "u0070",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Built with TypeScript and Node.js standards",
+    "salient_tokens": [
+      "TypeScript"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Vague marketing-adjacent claim about the implementation language; the concrete, checkable version of this fact (Node.js library, TypeScript, strict compiler settings) is already present in the Intro and Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'a free, open-source, MIT-licensed library for building, loading, and exporting 3D scenes in Node.js and TypeScript'; Key Capabilities: 'Fully typed API compiled under strict TypeScript settings (noImplicitAny, strictNullChecks).' Same and more specific."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "TypeScript/Node.js framing already present, more specifically, in the Intro paragraph and Key Capabilities."
+  },
+  {
+    "unit_id": "u0071",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Creating 3D scenes programmatically",
+    "salient_tokens": [
+      "Scene"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Second, later occurrence of the same generic example-topic bullet already classified once in this file (see u0061, same excerpt shifted by the extractor's noise-filter fix); scene creation is already demonstrated by the candidate's own Additional Examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples' 'Build a Mesh From Scratch and Export to STL' example demonstrates programmatic scene creation, matching this exact fact as already confirmed for u0061."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Scene-creation example topic already covered by the candidate's real, current Additional Examples (duplicate occurrence of u0061's fact)."
+  },
+  {
+    "unit_id": "u0072",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Importing and exporting various file formats",
+    "salient_tokens": [
+      "Export"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Second, later occurrence of the same generic example-topic bullet already classified once in this file (see u0062, same excerpt shifted by the extractor's noise-filter fix); format import/export is already demonstrated across multiple candidate examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples includes 'Convert STL to GLTF', 'Export to COLLADA With a Phong Material', and 'Inspect a PBR Material Imported From GLTF' -- covers this topic directly, matching this exact fact as already confirmed for u0062."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Format import/export example topic already covered by multiple real, current Additional Examples (duplicate occurrence of u0062's fact)."
+  },
+  {
+    "unit_id": "u0073",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Working with meshes and vertices",
+    "salient_tokens": [
+      "Mesh"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Second, later occurrence of the same generic example-topic bullet already classified once in this file (see u0063, same excerpt shifted by the extractor's noise-filter fix); mesh/vertex work is already demonstrated by the candidate's Build-a-Mesh and Triangulate-Polygons examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples includes 'Build a Mesh From Scratch and Export to STL' and 'Triangulate Polygons Directly With PolygonModifier' -- covers this topic directly, matching this exact fact as already confirmed for u0063."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Mesh/vertex example topic already covered by real, current Additional Examples (duplicate occurrence of u0063's fact)."
+  },
+  {
+    "unit_id": "u0074",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Using materials and lighting",
+    "salient_tokens": [
+      "Material"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Second, later occurrence of the same generic example-topic bullet already classified once in this file (see u0064, same excerpt shifted by the extractor's noise-filter fix); materials are already demonstrated by the candidate's Apply-a-PBR-Material and Export-to-COLLADA-With-a-Phong-Material examples (lighting itself has no dedicated example, but Camera/Light are documented in Key Capabilities and API Reference).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Additional Examples includes 'Apply a PBR Material' and 'Export to COLLADA With a Phong Material' -- covers the materials half of this topic directly, matching this exact fact as already confirmed for u0064."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Materials example topic already covered by real, current Additional Examples (duplicate occurrence of u0064's fact)."
+  },
+  {
+    "unit_id": "u0075",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Animation scenarios",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The fifth and final bullet in the old README's Examples-topic list (siblings 'Creating 3D scenes', 'Importing and exporting', 'Working with meshes', 'Using materials and lighting' at u0061/u0071, u0062/u0072, u0063/u0073, u0064/u0074 are all already classified redundant_with_existing against Additional Examples). This is a genuinely new unit -- the old 22-character bullet '- Animation scenarios' was previously dropped by the pre-fix len(excerpt)<25 noise filter and has never had a disposition before. Unlike its siblings, there is no dedicated animation code sample in Additional Examples, but the animation-scenarios topic itself is fully covered: Key Capabilities names the concrete types (AnimationClip, KeyframeSequence, Interpolation) and API Reference details their full member surface.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities' Animation subsection: 'Keyframe animation types — AnimationClip, KeyframeSequence, Interpolation.' API Reference's Animation subsection further details AnimationClip/AnimationNode/AnimationChannel/BindPoint/KeyframeSequence/KeyFrame/Interpolation/Extrapolation/StepMode/WeightedMode. No dedicated Additional Examples animation code sample exists (consistent with u0064's sibling precedent that lighting also has no dedicated example, yet the topic is still covered by capability/reference documentation)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Animation-scenarios example topic already covered by Key Capabilities' and API Reference's Animation subsections describing AnimationClip/KeyframeSequence/Interpolation, even though no dedicated Additional Examples code sample exists for it."
+  },
+  {
+    "unit_id": "u0076",
+    "source": "clone_cache/README.md",
+    "excerpt": "Contributions are welcome! Please feel free to submit issues and pull requests.",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Second, later occurrence of the same generic contribution-invite boilerplate already classified once in this file (see u0065, same excerpt shifted by the extractor's noise-filter fix) -- pure community-engagement CTA, nothing independently checkable.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- pure CTA prose, duplicate occurrence of u0065's fact."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Pure community-engagement CTA prose with no distinct checkable process detail (duplicate occurrence of u0065's fact)."
+  },
+  {
+    "unit_id": "u0077",
+    "source": "clone_cache/README.md",
+    "excerpt": "1. Fork the repository\n2. Create your feature branch (`git checkout -b feature/AmazingFeature`)\n3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)\n4. Push to the branch (`git push origin feature/AmazingFeature`)\n5. Open a Pull Request",
+    "salient_tokens": [
+      "git checkout -b feature/AmazingFeature",
+      "git commit -m 'Add some AmazingFeature'",
+      "git push origin feature/AmazingFeature",
+      "AmazingFeature"
+    ],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Second, later occurrence of the same generic templated GitHub fork-and-PR workflow instructions already classified once in this file (see u0066, same excerpt shifted by the extractor's noise-filter fix) -- boilerplate contribution mechanics with a placeholder branch name, not specific to this product.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- generic templated contribution-workflow boilerplate, duplicate occurrence of u0066's fact."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Generic templated fork-and-PR workflow boilerplate with a placeholder feature name (duplicate occurrence of u0066's fact)."
+  },
+  {
+    "unit_id": "u0078",
+    "source": "clone_cache/README.md",
+    "excerpt": "This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.",
+    "salient_tokens": [
+      "MIT",
+      "LICENSE"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Second, later occurrence of the same license statement already classified once in this file (see u0067, same excerpt shifted by the extractor's noise-filter fix); already present, expanded, in the candidate's License section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License section: 'This project is licensed under the MIT License. The MIT License permits use, copying, modification, distribution, sublicensing, and commercial use...' Same fact, expanded, matching this exact fact as already confirmed for u0067."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "License statement already present, in expanded form, in the License section (duplicate occurrence of u0067's fact)."
+  },
+  {
+    "unit_id": "u0079",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Aspose.3D for Python is inspired by the original Aspose.3D API",
+    "salient_tokens": [
+      "API"
+    ],
+    "classification": "3_branding_positioning",
+    "classification_basis": "Second, later occurrence of the same confirmed copy-paste defect already classified once in this file (see u0068, same excerpt shifted by the extractor's noise-filter fix): this TypeScript product's own Acknowledgments section literally names 'Aspose.3D for Python', not TypeScript. Not recoverable as a positioning claim for this product -- the candidate's own Scope and Limitations already states the real, TypeScript-specific positioning.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "The excerpt names the wrong product ('Aspose.3D for Python') inside the TypeScript repository's own README -- self-evidently a copy-paste artifact, not a genuine claim about this library, matching u0068's finding exactly. The candidate's Scope and Limitations already carries the correct, TypeScript-specific positioning statement ('a from-scratch TypeScript port of the Aspose.3D scene-graph model, not a native binding')."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Confirmed copy-paste defect naming the wrong product (Python, not TypeScript), duplicate occurrence of u0068's fact; the candidate already carries the correct, TypeScript-specific positioning statement."
+  },
+  {
+    "unit_id": "u0080",
+    "source": "clone_cache/README.md",
+    "excerpt": "- 3D format specification maintained by various 3D software vendors",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "classification_basis": "Second, later occurrence of the same generic industry trivia already classified once in this file (see u0069, same excerpt shifted by the extractor's noise-filter fix), not a specific, checkable claim about this product.",
+    "verification": {
+      "status": "not_applicable_category_1",
+      "evidence_type": null,
+      "evidence_ref": null,
+      "evidence_note": "No source claim to verify -- generic industry-background statement, duplicate occurrence of u0069's fact."
+    },
+    "disposition": "excluded",
+    "target_section": null,
+    "excluded_reason": "Generic industry-background trivia, not a specific or checkable claim about this product (duplicate occurrence of u0069's fact)."
+  },
+  {
+    "unit_id": "u0081",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Built with TypeScript and Node.js standards",
+    "salient_tokens": [
+      "TypeScript"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Second, later occurrence of the same vague marketing-adjacent claim already classified once in this file (see u0070, same excerpt shifted by the extractor's noise-filter fix); the concrete, checkable version of this fact is already present in the Intro and Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'a free, open-source, MIT-licensed library for building, loading, and exporting 3D scenes in Node.js and TypeScript'; Key Capabilities: 'Fully typed API compiled under strict TypeScript settings (noImplicitAny, strictNullChecks).' Same and more specific, matching this exact fact as already confirmed for u0070."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "TypeScript/Node.js framing already present, more specifically, in the Intro paragraph and Key Capabilities (duplicate occurrence of u0070's fact)."
+  }
+]

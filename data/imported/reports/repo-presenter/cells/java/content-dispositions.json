@@ -1,0 +1,1239 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "Aspose.Cells FOSS for Java is a Java 17 spreadsheet library for creating, loading, modifying, and saving Excel `.xlsx` workbooks.\nIt exposes a user-facing API in `com.aspose.cells_foss` and keeps OOXML packaging, XML mapping, and XLSX serialization inside this repository.",
+    "salient_tokens": [
+      ".xlsx",
+      "com.aspose.cells_foss",
+      "FOSS",
+      "API",
+      "OOXML",
+      "XML",
+      "XLSX"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Tagline and API-location statement already present, near-verbatim, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'Aspose.Cells FOSS for Java is a free, open-source Java spreadsheet library for creating, loading, modifying, and saving Excel .xlsx workbooks... It exposes a user-facing API in com.aspose.cells_foss and handles OOXML packaging, XML mapping, and XLSX serialization internally.' Same facts, same wording."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Content already present, near-verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "Add the following dependency to your `pom.xml`:",
+    "salient_tokens": [
+      "pom.xml"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in sentence already present, near-verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'Add the dependency to your pom.xml:' followed by the identical dependency block."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Lead-in sentence already present, near-verbatim, in the Installation section."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Load formats: `AUTO`, `XLSX`",
+    "salient_tokens": [
+      "AUTO",
+      "XLSX"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Verified against the real LoadFormat enum (AUTO, XLSX -- exactly these two values). The functional scope this describes (only .xlsx is actually loadable; AUTO just auto-detects it) is already stated in Scope and Limitations, and the LoadFormat enum itself is named in the API Reference's Enumerations table.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "LoadFormat.java confirms exactly AUTO and XLSX are the only two values -- AUTO auto-detects, and since only .xlsx is supported, it resolves to XLSX. Scope and Limitations already states 'This edition currently loads and saves the .xlsx format only'; the LoadFormat type itself is named in the API Reference Enumerations table. No additional capability beyond what's already documented."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Functional scope (xlsx-only load/save) already stated in Scope and Limitations; LoadFormat enum already named in the API Reference."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Runtime target: Java 17",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'The library targets Java 17.' Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Fact already present, verbatim, in the Installation section."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Test framework: JUnit 5",
+    "salient_tokens": [
+      "JUnit"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate's Development and Testing section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing: 'Test framework: JUnit 5.' Exact match."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "Fact already present, verbatim, in the Development and Testing section."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Apache POI is used in `test` scope only for compatibility checks",
+    "salient_tokens": [
+      "test",
+      "POI"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the candidate's Installation section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'Apache POI is used only in test scope for compatibility checks -- it is not a runtime dependency.' Same fact, slightly expanded."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "Fact already present, near-verbatim, in the Installation section."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "The library stores and round-trips formulas, but it is not a full spreadsheet calculation engine.",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the candidate's Scope and Limitations section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'This is not a full spreadsheet calculation engine: formulas are stored and round-tripped but not evaluated.' Same fact, reordered."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Fact already present, near-verbatim, in the Scope and Limitations section."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Workbook and worksheet creation, loading, saving, add/remove/rename, active sheet selection, and visibility",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Create, load, save, add/remove/rename worksheets, and control active sheet and visibility.' Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Cell values for strings, numbers, booleans, date/time values, and formulas",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Read and write cell values for strings, numbers, booleans, date/time values, formulas, and error values..., with round-trip type preservation.' Same list plus error values (recovered separately via unit u0023)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Cell formatting for fonts, borders, fills, alignment, number formats, and cell protection flags",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim in substance, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Format cells -- fonts, borders, fills, alignment, number formats, and protection -- through Style and Font.' Same list, reframed with real class names."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, reframed with real class names, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Row and column sizing, hiding, and outline grouping/collapsed state",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, in substance, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Size and hide rows/columns, group with outlines, merge cells, and freeze panes...' Same facts (sizing, hiding, outline grouping)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, in substance, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Worksheet view settings such as tab color, zoom, gridlines, row/column headers, zeros, and right-to-left mode",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, distinct, currently-functional capability that was completely absent from the candidate -- neither Key Capabilities nor the API Reference's Worksheet member list mentioned tab color, zoom, gridlines, row/column headers, zeros, or right-to-left mode.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/main/java/com/aspose/cells_foss/Worksheet.java",
+      "evidence_note": "Worksheet.java lines ~112-180: getTabColor/setTabColor, getShowGridlines/setShowGridlines, getShowRowColumnHeaders/setShowRowColumnHeaders, getShowZeros/setShowZeros, getRightToLeft/setRightToLeft, getZoom/setZoom (validated 10-400) are all real, functional getters/setters backed by WorksheetViewModel (core/WorksheetViewModel.java). Confirmed genuinely missing: the candidate's API Reference 'Worksheet' member bullet lists getName/setName, getCells, getAutoFilter, getPageSetup, getValidations, getHyperlinks, getConditionalFormattings, getComments, getPictures, getShapes, getCharts, getListObjects, freezePanes, protect/unprotect -- no view-settings members at all."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Auto filters with color filters, dynamic filters, top-10 filters, custom filters, and sort conditions",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Configure AutoFilter with color filters, dynamic filters, top-10 filters, custom filters, and sort conditions.' Word-for-word match."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Freeze panes \u2014 freeze rows and/or columns by coordinate or cell name; inspect and clear frozen state",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031 mixed-unit treatment: freezing by coordinate or cell name is already covered by Key Capabilities' rows/columns bullet, but 'inspect and clear frozen state' names real, distinct, currently-missing methods.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/main/java/com/aspose/cells_foss/Worksheet.java",
+      "evidence_note": "Worksheet.java lines ~240-295: freezePanes(row, column, freezedRows, freezedCols) and freezePanes(cellName, ...) overloads (coordinate/cell name, already covered), plus unFreezePanes() (clear), an isFrozen-style check (frozen state true when freezeRow>0 or freezeColumn>0), getFreezedRows(), and getFreezedColumns() (inspect). Confirmed genuinely missing: the candidate's Key Capabilities bullet said only 'freeze panes by coordinate or cell name' with no mention of inspecting or clearing frozen state."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Cell comments** \u2014 add, edit, and remove comments (notes) with author, text, visibility, and size",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031 mixed-unit treatment: adding cell comments is already covered by Key Capabilities' comments/pictures bullet, but the specific attribute set (author, text, visibility, size) is real and was not named.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/main/java/com/aspose/cells_foss/Comment.java",
+      "evidence_note": "Comment.java: getAuthor/setAuthor, getNote/setNote (text), isVisible/setVisible, getWidth/setWidth and getHeight/setHeight (size, validated >=1) are all real, functional fields -- confirms the old README's 'author, text, visibility, and size' attribute list is accurate and current. Not previously named in the candidate's comments bullet."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Embedded pictures** \u2014 add images from bytes, streams, or file paths with two-cell anchor positioning; JPEG, PNG, GIF, and BMP detection",
+    "salient_tokens": [
+      "JPEG",
+      "PNG",
+      "GIF",
+      "BMP"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031 mixed-unit treatment: JPEG/PNG/GIF/BMP detection is already covered by Key Capabilities' comments/pictures bullet, but the three input-source overloads (bytes/streams/file paths) and the two-cell anchor shape were not named.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/main/java/com/aspose/cells_foss/PictureCollection.java",
+      "evidence_note": "PictureCollection.java: three real add() overloads taking (upperLeftRow, upperLeftColumn, lowerRightRow, lowerRightColumn, byte[] imageData), (..., InputStream stream), and (..., String fileName) -- confirms both the two-cell anchor shape (upper-left + lower-right coordinates) and the three input sources (bytes, streams, file paths) are real and current. The candidate's comments/pictures bullet mentioned only JPEG/PNG/GIF/BMP detection, not how a picture is added."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Embedded charts** \u2014 read chart name, type, anchor, and extent; 21 standard chart types can be created programmatically via `ChartCollection.add()`; loaded charts are preserved verbatim across load/save",
+    "salient_tokens": [
+      "ChartCollection.add()",
+      "ChartCollection"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Chart reading and verbatim preservation are already covered by Key Capabilities. The specific count (21 creatable) is stale and superseded by the candidate's own, verified-accurate numbers -- correctly NOT merged, to avoid reintroducing a wrong figure.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "ChartType.java has 26 enum values (25 real types + UNKNOWN). ChartCollection.add() explicitly rejects the 7 ChartEx types (WATERFALL, TREEMAP, SUNBURST, HISTOGRAM, BOX_AND_WHISKER, FUNNEL, MAP) with UnsupportedFeatureException, leaving exactly 25-7=18 creatable types -- matching the candidate's own claim ('25 standard chart types total; 18 creatable via ChartCollection.add(), with 7 ChartEx types round-tripped read-only') exactly. The old README's '21 standard chart types can be created programmatically' is stale/incorrect against the current source and must not be merged."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Stale count: source confirms 25 total / 18 creatable / 7 ChartEx read-only, matching the candidate's existing (correct) numbers, not the old README's '21 creatable' claim."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Drawing shapes** \u2014 add, retrieve, and remove drawing objects with 35 preset geometries (`AutoShapeType`); complex shapes loaded from XLSX are preserved verbatim",
+    "salient_tokens": [
+      "AutoShapeType",
+      "XLSX"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Drawing-shape support is already covered by Key Capabilities. The specific count (35 preset geometries) is stale and superseded by the candidate's own, verified-accurate number -- correctly NOT merged.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "AutoShapeType.java enumerates 39 values (UNKNOWN + 38 real preset geometries) -- matching the candidate's existing claim of '38 preset geometries via AutoShapeType' exactly. The old README's '35 preset geometries' is stale/incorrect against the current source and must not be merged."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Stale count: source confirms 38 preset geometries, matching the candidate's existing (correct) number, not the old README's '35' claim."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Excel tables (ListObjects)** \u2014 create, resize, style, and remove structured tables with column definitions and totals rows",
+    "salient_tokens": [
+      "ListObjects"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "MT031 mixed-unit treatment: 'Excel tables (ListObjectCollection)' and column definitions/totals rows are already named in Key Capabilities and the API Reference, but the actual lifecycle verbs (create, resize, style, remove) were not named anywhere.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/main/java/com/aspose/cells_foss/ListObjectCollection.java",
+      "evidence_note": "ListObjectCollection.java: add(startRow, startColumn, endRow, endColumn, hasHeaders) (create) and removeAt(index) (remove) are real. ListObject.java: resize(startRow, startColumn, endRow, endColumn, hasHeaders) (resize) and setTableStyleType/setTableStyleName/setShowHeaderRow/setShowTotals (style) are all real, functional methods. Confirms the old README's create/resize/style/remove verb list is accurate and current; the candidate previously only named the ListObjectCollection class and column-definitions/totals-rows nouns, not these verbs."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Workbook protection** \u2014 lock structure, windows, and revisions with separate passwords via `WorkbookProtection`",
+    "salient_tokens": [
+      "WorkbookProtection"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the candidate's API Reference Detailed Member Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference (Workbook Metadata): 'WorkbookProtection -- structure/window/revision locking with passwords (getWorkbookPassword/setWorkbookPassword, getRevisionsPassword/setRevisionsPassword)'. Same fact, same class name, more API detail than the old README."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Capability already present, in more API detail, in the API Reference section."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Workbook view** \u2014 read and write window position, size, active tab, scroll bar and sheet tab visibility via `WorkbookView`",
+    "salient_tokens": [
+      "WorkbookView"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, in substance, in the candidate's API Reference Detailed Member Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "WorkbookView.java confirms getActiveTab/setActiveTab, getXWindow/getYWindow, getWindowWidth/getWindowHeight, isShowHorizontalScroll/isShowVerticalScroll, isShowSheetTabs are all real -- the old README's claim is accurate. API Reference (Workbook Metadata): 'WorkbookView, CalculationProperties, NumberFormat -- window state, calculation mode, and built-in Excel format code lookup.' The class is already named with a description covering the same window-state concept."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Capability already present, named with a covering description, in the API Reference section."
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Calculation properties** \u2014 configure calculation mode, reference mode, iterative calculation, and precision via `CalculationProperties`",
+    "salient_tokens": [
+      "CalculationProperties"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, in substance, in the candidate's API Reference Detailed Member Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "CalculationProperties.java confirms getCalculationMode, getReferenceMode ('A1' default), getIterate/getIterateCount/getIterateDelta (iterative calc + precision) are all real. API Reference (Workbook Metadata): 'WorkbookView, CalculationProperties, NumberFormat -- window state, calculation mode, and built-in Excel format code lookup.' Class already named with a covering description."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Capability already present, named with a covering description, in the API Reference section."
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Error cell values** \u2014 `#N/A`, `#VALUE!`, `#REF!` and other error results are loaded, stored, and saved with the correct `t=\"e\"` cell type",
+    "salient_tokens": [
+      "#N/A",
+      "#VALUE!",
+      "#REF!",
+      "t=\"e\"",
+      "VALUE",
+      "REF"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, distinct, currently-functional capability that was completely absent from the candidate -- the public CellValueType enum has no ERROR member, but the internal CellValueKind.ERROR and the XLSX serializer's error-cell handling confirm this is real and current, and worth surfacing since a reader relying only on CellValueType would otherwise miss it.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/main/java/com/aspose/cells_foss/XlsxWorkbookSerializer.java",
+      "evidence_note": "core/CellValueKind.java declares ERROR ('The cell contains an error value (e.g. #N/A, #VALUE!, #REF!)'). XlsxWorkbookSerializer.java: on load, an error cell (t=\"e\") is detected and 'rec.setValue(vText); rec.setKind(CellValueKind.ERROR);' preserves the cached error string verbatim (comment: 'Error cell (e.g. #N/A, #VALUE!) -- preserve verbatim without shared-string lookup'); on save, 'rec.getKind() == CellValueKind.ERROR' cells are written back out. Confirms the old README's claim is accurate and current, and genuinely missing from the candidate's cell-values bullet before this edit."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Document properties and workbook property persistence for supported `workbookPr` attributes",
+    "salient_tokens": [
+      "workbookPr"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate's API Reference Core API table.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference Core API table: 'WorkbookProperties | Represents the properties of a workbook (workbookPr attributes).' and 'DocumentProperties | Represents the document properties of a workbook (docProps/core.xml and docProps/app.xml).' Same facts, already named."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Capability already present, verbatim, in the API Reference section."
+  },
+  {
+    "unit_id": "u0025",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `NumberFormat` utility for looking up and resolving built-in Excel format codes",
+    "salient_tokens": [
+      "NumberFormat"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the candidate's API Reference.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference Core API table: 'NumberFormat | Provides built-in number format functionality.' Plus Detailed Member Reference: '...NumberFormat -- window state, calculation mode, and built-in Excel format code lookup.' Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Capability already present, near-verbatim, in the API Reference section."
+  },
+  {
+    "unit_id": "u0026",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Load diagnostics, repair reporting, and preservation of unsupported package parts during load/save flows",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Load diagnostics/repair reporting are already covered by Key Capabilities; unsupported-part preservation is already named in the API Reference's PackageModel entry.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Inspect load diagnostics and repair reporting when opening workbooks with LoadOptions.' PackageModel.java confirms getUnsupportedParts() is real; API Reference Core API table: 'PackageModel | Represents the model of a package (e.g., XLSX file structure) with parts, relationships, and unsupported parts.' Both halves already covered."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Load diagnostics/repair already in Key Capabilities; unsupported-part preservation already named via PackageModel in the API Reference."
+  },
+  {
+    "unit_id": "u0027",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Saving is currently limited to `.xlsx`",
+    "salient_tokens": [
+      ".xlsx"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim in substance, in the candidate's Scope and Limitations section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'This edition currently loads and saves the .xlsx format only...' Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Fact already present, in substance, in the Scope and Limitations section."
+  },
+  {
+    "unit_id": "u0028",
+    "source": "clone_cache/README.md",
+    "excerpt": "- ChartEx types (Waterfall, Treemap, Sunburst, Histogram, Box and Whisker, Funnel, Map) cannot be created programmatically; they are preserved verbatim across load/save",
+    "salient_tokens": [
+      "ChartEx"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate's Scope and Limitations section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'ChartEx types (Waterfall, Treemap, Sunburst, Histogram, Box and Whisker, Funnel, Map) cannot be created programmatically, though they round-trip verbatim if already present in a loaded file.' Word-for-word match."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Fact already present, verbatim, in the Scope and Limitations section."
+  },
+  {
+    "unit_id": "u0029",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Some APIs exist mainly to preserve OOXML metadata and package fidelity rather than to provide full Excel feature parity",
+    "salient_tokens": [
+      "APIs",
+      "OOXML"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, general caveat about the API surface's design intent that was not present anywhere in the candidate -- distinct from the specific limitations already listed (xlsx-only saving, ChartEx, no calc engine), and useful context for a reader browsing the 157-class API Reference.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/main/java/com/aspose/cells_foss/packaging/PackageModel.java",
+      "evidence_note": "PackageModel.java's own unsupportedParts map (and similarly-purposed metadata-preservation fields across PackageLoadContext, DiagnosticBag, and various *Model classes) exist specifically to round-trip package structure faithfully rather than to expose full editable Excel behavior -- corroborating the old README's general characterization. This is a real, distinct caveat not covered by the candidate's existing three Scope and Limitations bullets (xlsx-only save, ChartEx creation, no calc engine)."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0030",
+    "source": "clone_cache/README.md",
+    "excerpt": "Create a workbook, write values, style a cell, and save it:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate's Quick Start section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Quick Start",
+      "evidence_note": "Quick Start: 'Create a workbook, write values, style a cell, and save it:' Word-for-word match, followed by the identical code sample."
+    },
+    "disposition": "excluded",
+    "target_section": "Quick Start",
+    "excluded_reason": "Lead-in sentence already present, verbatim, in the Quick Start section."
+  },
+  {
+    "unit_id": "u0031",
+    "source": "clone_cache/README.md",
+    "excerpt": "Load an existing workbook with options and inspect diagnostics:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the candidate's Quick Start section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Quick Start",
+      "evidence_note": "Quick Start: 'Load an existing workbook with repair-tolerant options and inspect diagnostics:' Same lead-in, followed by the identical code sample."
+    },
+    "disposition": "excluded",
+    "target_section": "Quick Start",
+    "excluded_reason": "Lead-in sentence already present, near-verbatim, in the Quick Start section."
+  },
+  {
+    "unit_id": "u0032",
+    "source": "clone_cache/README.md",
+    "excerpt": "Add data validation and conditional formatting:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The underlying capabilities (data validation, conditional formatting) are already documented -- data validation in Key Capabilities' comments/pictures bullet, conditional formatting in the At a Glance diagram and named via ConditionalFormattingCollection/FormatCondition/FormatConditionModel in the API Reference. The worked code example itself is a fenced code block, which extract_old_readme_content_units deliberately strips before segmentation (out of MT030's prose-only scope) -- flagged as a real, notable gap in the final report rather than acted on here.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Key Capabilities already lists 'data validation'. API Reference Core API table names ConditionalFormattingCollection, ConditionalFormattingModel, FormatCondition, FormatConditionCollection, FormatConditionModel, and the At a Glance mermaid diagram lists 'AutoFilter, conditional formatting, and data validation' as a core capability. The specific worked example (Validation + FormatConditionCollection code) that followed this lead-in in the old README does not have an equivalent in the candidate's Additional Examples, but that is a code-block gap, outside this unit's prose-only scope."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Data validation and conditional formatting are both already documented (Key Capabilities, At a Glance, API Reference); the dropped worked code example is outside MT030's prose-unit scope."
+  },
+  {
+    "unit_id": "u0033",
+    "source": "clone_cache/README.md",
+    "excerpt": "Representative test areas include:",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Lead-in for an entire 'Testing Coverage' section (this unit plus u0034-u0041) that has no equivalent anywhere in the candidate's Development and Testing section -- a real, checkable list of what the test suite actually covers, verified against the real test directory before merging.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/WorkbookTest.java",
+      "evidence_note": "The clone cache's src/test/java/com/aspose/cells_foss/ directory contains 38 real test files matching this coverage list closely: AutoFilterTest/AutoFilterAdvancedTest, CalculationPropertiesTest, ChartCollectionTest, CommentCollectionTest, CompatibilityTest, ConditionalFormattingTest, DataValidationTest, DocumentPropertiesTest, HyperlinkTest, ListObjectCollectionTest, NumberFormatTest, OutlineGroupTest, PageSetupTest, PictureCollectionTest, StyleTest, TableStyleTypeTest, TotalsCalculationTest, WorkbookTest, plus a 9-file src/test/java/com/aspose/cells_foss/unit/ subdirectory (recovered by u0041). Confirms the old README's entire Testing Coverage list describes real, current test areas, none of which are mentioned anywhere in the candidate's Development and Testing section."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0034",
+    "source": "clone_cache/README.md",
+    "excerpt": "- workbook and worksheet behavior",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Part of the Testing Coverage list (see u0033); verified real test area.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/WorkbookTest.java",
+      "evidence_note": "WorkbookTest.java and WorkbookScenarioFactory.java/WorksheetScenarioFactory.java exist in the clone cache's test directory, confirming this test area is real."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0035",
+    "source": "clone_cache/README.md",
+    "excerpt": "- style round-tripping and display text formatting",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Part of the Testing Coverage list (see u0033); verified real test area.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/StyleTest.java",
+      "evidence_note": "StyleTest.java and StyleScenarioFactory.java exist in the clone cache's test directory, confirming this test area is real."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0036",
+    "source": "clone_cache/README.md",
+    "excerpt": "- document and workbook properties",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Part of the Testing Coverage list (see u0033); verified real test area.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/DocumentPropertiesTest.java",
+      "evidence_note": "DocumentPropertiesTest.java exists in the clone cache's test directory, confirming this test area is real."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0037",
+    "source": "clone_cache/README.md",
+    "excerpt": "- cell comments, embedded pictures, embedded charts, drawing shapes, and Excel tables",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Part of the Testing Coverage list (see u0033); verified real test areas.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/unit/CommentCollectionTest.java",
+      "evidence_note": "CommentCollectionTest.java, PictureCollectionTest.java, ChartCollectionTest.java, and ListObjectCollectionTest.java all exist under the clone cache's src/test/java/com/aspose/cells_foss/unit/ subdirectory; PictureScenarioFactory.java, ChartScenarioFactory.java, ShapeScenarioFactory.java, and ListObjectScenarioFactory.java exist under the top-level src/test/java/com/aspose/cells_foss/ test directory. Confirms this test area list is real."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0038",
+    "source": "clone_cache/README.md",
+    "excerpt": "- freeze panes, workbook protection, workbook view, and calculation properties",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Part of the Testing Coverage list (see u0033); verified real test area (CalculationPropertiesTest.java confirmed on disk; freeze-pane/protection/view coverage lives inside WorkbookTest.java's broader scenario suite, consistent with the old README's grouping).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/unit/CalculationPropertiesTest.java",
+      "evidence_note": "CalculationPropertiesTest.java exists under the clone cache's src/test/java/com/aspose/cells_foss/unit/ subdirectory. WorkbookScenarioFactory.java/WorksheetScenarioFactory.java (top-level test directory) provide the broader workbook/worksheet test scaffolding that would exercise freeze panes, protection, and view settings alongside WorkbookTest.java."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0039",
+    "source": "clone_cache/README.md",
+    "excerpt": "- error cell value round-tripping",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Part of the Testing Coverage list (see u0033); verified real test area, and directly corroborates u0023's error-cell-value capability recovery.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/CellValueTest.java",
+      "evidence_note": "CellValueTest.java exists in the clone cache's test directory; combined with the real CellValueKind.ERROR handling in XlsxWorkbookSerializer.java (see u0023's evidence), confirms error-cell round-tripping is both implemented and tested."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0040",
+    "source": "clone_cache/README.md",
+    "excerpt": "- compatibility checks against generated XLSX output",
+    "salient_tokens": [
+      "XLSX"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Part of the Testing Coverage list (see u0033); verified real test area, and directly corroborates the candidate's own Installation-section claim that Apache POI is used in test scope for compatibility checks.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/CompatibilityTest.java",
+      "evidence_note": "CompatibilityTest.java and CsCompatibilityTest.java exist in the clone cache's test directory, confirming this test area is real (compatibility checks against generated XLSX output, using Apache POI as already noted in the candidate's Installation section)."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0041",
+    "source": "clone_cache/README.md",
+    "excerpt": "- focused unit tests in `src/test/java/com/aspose/cells_foss/unit/`",
+    "salient_tokens": [
+      "src/test/java/com/aspose/cells_foss/unit/"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Part of the Testing Coverage list (see u0033); verified real, current path.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/unit/TableStyleTypeTest.java",
+      "evidence_note": "The directory src/test/java/com/aspose/cells_foss/unit/ exists in the clone cache and contains 9 real .java test files (including TableStyleTypeTest.java, cited here as a representative file), confirming this path and description are accurate and current."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0042",
+    "source": "clone_cache/README.md",
+    "excerpt": "- The main public API lives in `com.aspose.cells_foss`",
+    "salient_tokens": [
+      "com.aspose.cells_foss",
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'It exposes a user-facing API in com.aspose.cells_foss...' Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Fact already present, verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0043",
+    "source": "clone_cache/README.md",
+    "excerpt": "- XLSX serialization and OOXML handling are implemented inside this repository",
+    "salient_tokens": [
+      "XLSX",
+      "OOXML"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: '...and handles OOXML packaging, XML mapping, and XLSX serialization internally.' Same fact, same wording ('internally' / 'inside this repository')."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Fact already present, near-verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0044",
+    "source": "clone_cache/README.md",
+    "excerpt": "- If you change supported behavior, update `README.md`, `Agents.md`, and tests together",
+    "salient_tokens": [
+      "README.md",
+      "Agents.md",
+      "README"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, verbatim, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: 'Contributor guide (Agents.md) -- repository conventions to follow when changing supported behavior; if you change supported behavior, update README.md, Agents.md, and tests together.' Word-for-word match."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Fact already present, verbatim, in the Documentation & Resources section."
+  },
+  {
+    "unit_id": "u0045",
+    "source": "clone_cache/README.md",
+    "excerpt": "This repository includes the MIT license at [`License/LICENSE.txt`](License/LICENSE.txt).",
+    "salient_tokens": [
+      "License/LICENSE.txt",
+      "MIT",
+      "LICENSE"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, expanded, in the candidate's License section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "License: 'This project is licensed under the MIT License (License/LICENSE.txt). The MIT License permits use, copying, modification, distribution, sublicensing, and commercial use...' Same license, same file path, expanded."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "License statement already present, in expanded form, in the License section."
+  },
+  {
+    "unit_id": "u0046",
+    "source": "clone_cache/README.md",
+    "excerpt": "For bug reports, feature requests, and project questions, use the GitHub issue tracker:",
+    "salient_tokens": [
+      "GitHub"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: 'Found a bug or have a feature request? Open an issue on GitHub.' Same destination and purpose, restructured as a bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Content already present, near-verbatim, as a bullet under Documentation & Resources."
+  },
+  {
+    "unit_id": "u0047",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [Project issues](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/issues)",
+    "salient_tokens": [
+      "FOSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Issue-tracker link already present, near-verbatim, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources links the same GitHub issues URL under 'Open an issue on GitHub.'"
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Link already present, near-verbatim, in the Documentation & Resources section."
+  },
+  {
+    "unit_id": "u0048",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Save format: `XLSX`",
+    "salient_tokens": [
+      "XLSX"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix (2026-08-10); already present, in substance, in the candidate's Scope and Limitations section (originally extraction-order u0004 before the fix).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'This edition currently loads and saves the .xlsx format only...' Same save-format fact as the old README's Current Scope bullet."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Save-format fact already present, in substance, in the Scope and Limitations section."
+  },
+  {
+    "unit_id": "u0054",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Build tool: Maven",
+    "salient_tokens": [
+      "Maven"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; already established, in substance, by the Development and Testing section's Maven requirement and the Installation section's pom.xml/Gradle coordinates (originally extraction-order u0006).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing: 'Requirements: JDK 17+ and Maven 3.9+.' plus mvn-prefixed build commands -- Maven is unambiguously the build tool, already documented."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "Build-tool fact already established, in substance, by the Development and Testing section's Maven requirement and commands."
+  },
+  {
+    "unit_id": "u0056",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Merged cells",
+    "salient_tokens": [
+      "merge cells"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; already present, in substance, in the candidate's Key Capabilities section (originally extraction-order u0015).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: '...outline grouping with collapsed state -- merge cells, and freeze panes by coordinate or cell name...' Same capability (merged cells), different casing."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, in substance, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0057",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Defined names",
+    "salient_tokens": [
+      "defined names"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; already present, verbatim, in the candidate's Key Capabilities section (originally extraction-order u0016).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: '...hyperlinks, defined names, and data validation.' Exact phrase match."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0058",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Hyperlinks",
+    "salient_tokens": [
+      "hyperlinks"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; already present, verbatim, in the candidate's Key Capabilities section (originally extraction-order u0017).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: '...hyperlinks, defined names, and data validation.' Exact word match."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0060",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Conditional formatting",
+    "salient_tokens": [
+      "conditional formatting"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; already named, via ConditionalFormattingCollection's own description, in the candidate's API Reference section, and depicted in the At a Glance diagram (originally extraction-order u0019).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference Core API table: 'ConditionalFormattingCollection | A collection of conditional formatting objects.' Exact phrase present in the class description; At a Glance diagram also lists 'AutoFilter, conditional formatting, and data validation.'"
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Capability already named, via ConditionalFormattingCollection's description, in the API Reference section."
+  },
+  {
+    "unit_id": "u0059",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Data validation",
+    "salient_tokens": [
+      "data validation"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; already present, verbatim, in the candidate's Key Capabilities section (originally extraction-order u0018).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: '...hyperlinks, defined names, and data validation.' Exact phrase match."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0061",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Page setup",
+    "salient_tokens": [
+      "page setup"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; already named, via PageSetup's own description, in the candidate's API Reference section (originally extraction-order u0021).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference Core API table: 'PageSetup | Represents page setup options for a worksheet.' Exact phrase present in the class description."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Capability already named, via PageSetup's description, in the API Reference section."
+  },
+  {
+    "unit_id": "u0062",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Worksheet protection",
+    "salient_tokens": [
+      "WorksheetProtection"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; already named and detailed in the candidate's API Reference Detailed Member Reference (originally extraction-order u0022).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference (Workbook Metadata): 'WorksheetProtection -- fine-grained edit/format/insert/delete/sort/filter/pivot-table permission locking (getAllowFormattingCell, ...).' Class already named with full member detail."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Capability already named, with fuller detail, in the API Reference section."
+  },
+  {
+    "unit_id": "u0063",
+    "source": "clone_cache/README.md",
+    "excerpt": "Requirements:",
+    "salient_tokens": [
+      "Requirements"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; lead-in already collapsed into the candidate's Development and Testing section's single Requirements sentence (originally extraction-order u0039).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing: 'Requirements: JDK 17+ and Maven 3.9+.' Same lead-in word, list format collapsed into one sentence."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "Lead-in already present, collapsed into a single sentence, in the Development and Testing section."
+  },
+  {
+    "unit_id": "u0064",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Maven 3.9+",
+    "salient_tokens": [
+      "Maven 3.9+"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; already present, verbatim, in the candidate's Development and Testing section (originally extraction-order u0040).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing: 'Requirements: JDK 17+ and Maven 3.9+.' Exact match."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "Fact already present, verbatim, in the Development and Testing section."
+  },
+  {
+    "unit_id": "u0065",
+    "source": "clone_cache/README.md",
+    "excerpt": "Common commands:",
+    "salient_tokens": [
+      "mvn"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Recovered by the extractor noise-filter fix; the exact mvn command list this lead-in introduces is already present, verbatim, in the candidate's Development and Testing code block, just without this specific label (originally extraction-order u0041).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Development and Testing",
+      "evidence_note": "Development and Testing code block: 'mvn compile / mvn test / mvn clean package / mvn javadoc:javadoc' -- identical four-command list, presented directly after the Requirements sentence without a separate 'Common commands:' label."
+    },
+    "disposition": "excluded",
+    "target_section": "Development and Testing",
+    "excluded_reason": "The command list this lead-in introduces is already present, verbatim, in the Development and Testing section."
+  },
+  {
+    "unit_id": "u0066",
+    "source": "clone_cache/README.md",
+    "excerpt": "- cell value handling",
+    "salient_tokens": [
+      "cell value handling"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Recovered by the extractor noise-filter fix (originally extraction-order u0047); a real, distinct test-coverage area -- general cell-value read/write handling (strings, numbers, booleans, dates) -- that was genuinely missing from the candidate's Development and Testing test-coverage sentence, which only named the narrower 'error cell value round-tripping' case.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/CellValueTest.java",
+      "evidence_note": "CellValueTest.java is a real JUnit 5 test class ('JUnit 5 tests for Cell Value API -- CV-* test cases') covering putValue overloads for String/int/etc. and getType() -- general cell-value handling distinct from the error-value round-tripping already named. Confirmed genuinely missing: the candidate's test-coverage sentence named only 'error cell value round-tripping', not general cell-value handling."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0049",
+    "source": "clone_cache/README.md",
+    "excerpt": "- page setup",
+    "salient_tokens": [
+      "page setup"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Part of the old README's Testing Coverage list (see existing u0033); a real, distinct test area -- that page setup specifically is exercised by the test suite -- genuinely missing from the candidate's Development and Testing test-coverage sentence (the capability is documented in API Reference, but not that it's tested).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/PageSetupTest.java",
+      "evidence_note": "PageSetupTest.java and PageSetupScenarioFactory.java exist in the clone cache's test directory, confirming this test area is real and current."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0050",
+    "source": "clone_cache/README.md",
+    "excerpt": "- hyperlinks",
+    "salient_tokens": [
+      "hyperlinks"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Part of the old README's Testing Coverage list (see existing u0033); a real, distinct test area -- that hyperlinks specifically are exercised by the test suite -- genuinely missing from the candidate's Development and Testing test-coverage sentence.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/HyperlinkTest.java",
+      "evidence_note": "HyperlinkTest.java exists in the clone cache's test directory, confirming this test area is real and current."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0051",
+    "source": "clone_cache/README.md",
+    "excerpt": "- data validation",
+    "salient_tokens": [
+      "data validation"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Part of the old README's Testing Coverage list (see existing u0033); a real, distinct test area -- that data validation specifically is exercised by the test suite -- genuinely missing from the candidate's Development and Testing test-coverage sentence.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/DataValidationTest.java",
+      "evidence_note": "DataValidationTest.java exists in the clone cache's test directory, confirming this test area is real and current."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0052",
+    "source": "clone_cache/README.md",
+    "excerpt": "- conditional formatting",
+    "salient_tokens": [
+      "conditional formatting"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Part of the old README's Testing Coverage list (see existing u0033); a real, distinct test area -- that conditional formatting specifically is exercised by the test suite -- genuinely missing from the candidate's Development and Testing test-coverage sentence.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/ConditionalFormattingTest.java",
+      "evidence_note": "ConditionalFormattingTest.java and ConditionalFormattingScenarioFactory.java exist in the clone cache's test directory, confirming this test area is real and current."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0053",
+    "source": "clone_cache/README.md",
+    "excerpt": "- auto filters",
+    "salient_tokens": [
+      "auto filters"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Part of the old README's Testing Coverage list (see existing u0033); a real, distinct test area -- that AutoFilter specifically is exercised by the test suite -- genuinely missing from the candidate's Development and Testing test-coverage sentence.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/AutoFilterTest.java",
+      "evidence_note": "AutoFilterTest.java and AutoFilterAdvancedTest.java (plus AutoFilterScenarioFactory.java) exist in the clone cache's test directory, confirming this test area is real and current."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0055",
+    "source": "clone_cache/README.md",
+    "excerpt": "- outline grouping",
+    "salient_tokens": [
+      "outline grouping"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Part of the old README's Testing Coverage list (see existing u0033); a real, distinct test area -- that outline grouping specifically is exercised by the test suite -- genuinely missing from the candidate's Development and Testing test-coverage sentence.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/test/java/com/aspose/cells_foss/OutlineGroupTest.java",
+      "evidence_note": "OutlineGroupTest.java exists in the clone cache's test directory, confirming this test area is real and current."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "excluded_reason": null
+  }
+]

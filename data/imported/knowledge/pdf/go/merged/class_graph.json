@@ -1,0 +1,428 @@
+[
+  {
+    "child": "AnnotationType",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "WidgetAnnotation",
+    "parent": "annotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "GenericAnnotation",
+    "parent": "annotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ActionType",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "NamedActionType",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "SubmitFormFlags",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "CaretSymbol",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "CaretAnnotation",
+    "parent": "drawingAnnotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "BorderStyle",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "LineEndingStyle",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "SquareAnnotation",
+    "parent": "drawingAnnotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "CircleAnnotation",
+    "parent": "drawingAnnotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "LineAnnotation",
+    "parent": "drawingAnnotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "InkAnnotation",
+    "parent": "drawingAnnotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FileAttachmentIcon",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FileAttachmentAnnotation",
+    "parent": "annotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FreeTextIntent",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "BorderEffect",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FreeTextAnnotation",
+    "parent": "drawingAnnotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "LinkAnnotation",
+    "parent": "annotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "LinkHighlightMode",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "HighlightAnnotation",
+    "parent": "annotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "UnderlineAnnotation",
+    "parent": "annotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "StrikeOutAnnotation",
+    "parent": "annotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "SquigglyAnnotation",
+    "parent": "annotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PolygonAnnotation",
+    "parent": "polyAnnotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PolylineAnnotation",
+    "parent": "polyAnnotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "RedactAnnotation",
+    "parent": "drawingAnnotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "StampName",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "StampAnnotation",
+    "parent": "drawingAnnotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "TextIcon",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "TextAnnotation",
+    "parent": "annotationBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "LineCap",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "LineJoin",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "HAlign",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "VAlign",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "DocRecognitionMode",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "EncryptionAlgorithm",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FloatSide",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ButtonIconPosition",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FormFieldType",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "TextBoxField",
+    "parent": "fieldBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "CheckboxField",
+    "parent": "fieldBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "RadioButtonField",
+    "parent": "fieldBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ComboBoxField",
+    "parent": "fieldBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ListBoxField",
+    "parent": "fieldBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ButtonField",
+    "parent": "fieldBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PasswordBoxField",
+    "parent": "TextBoxField",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "FileSelectBoxField",
+    "parent": "TextBoxField",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "RichTextBoxField",
+    "parent": "TextBoxField",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "NumberField",
+    "parent": "TextBoxField",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "DateField",
+    "parent": "TextBoxField",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "HTMLMode",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ImageFormat",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ImageColorSpace",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "NUpOrder",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "BookletBinding",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "DestinationType",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "RotationAngle",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PageLabelStyle",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "CertifyPermission",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "TextStamp",
+    "parent": "stampBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PageNumberStamp",
+    "parent": "stampBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ImageStamp",
+    "parent": "stampBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PdfPageStamp",
+    "parent": "stampBase",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "BorderSide",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "StructType",
+    "parent": "string",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "TextExtractionMode",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "PDFAFormat",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "ShapeStyle",
+    "parent": "LineStyle",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "XlsxRecognitionMode",
+    "parent": "int",
+    "relationship": "inherits",
+    "internal": false
+  }
+]

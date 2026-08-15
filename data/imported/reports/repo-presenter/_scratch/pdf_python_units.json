@@ -1,0 +1,240 @@
+[
+  {
+    "unit_id": "u0001",
+    "excerpt": "Aspose.PDF FOSS for Python is an open-source Python library for creating,\nreading, editing, rendering, and validating PDF documents.",
+    "salient_tokens": [
+      "PDF",
+      "FOSS"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0002",
+    "excerpt": "The package is implemented in Python and ships type information. The project is\ncurrently in alpha, so APIs and feature coverage may evolve before the first\nstable release.",
+    "salient_tokens": [
+      "APIs"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0003",
+    "excerpt": "- Create, load, save, merge, split, and inspect PDF documents\n- Add Standard-14 or embedded Unicode text, including shaped bidirectional\n  text, plus images, lines, rectangles, annotations, attachments, and form data\n- Extract text, images, attachments, metadata, and bookmarks\n- Render pages to PNG or TIFF\n- Replace or redact text in supported content streams\n- Encrypt and decrypt documents with RC4 or AES\n- Create and inspect PDF signatures\n- Optimize streams, images, fonts, and unused objects\n- Apply configurable resource limits when processing untrusted PDFs\n- Work with XMP metadata and low-level PDF objects\n- Perform heuristic PDF/A and PDF/UA checks and conversions",
+    "salient_tokens": [
+      "PDF",
+      "PNG",
+      "TIFF",
+      "RC4",
+      "AES",
+      "PDFs",
+      "XMP",
+      "UA"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0004",
+    "excerpt": "See the [supported features](supported-features.md) document for the\ndetailed capability matrix and known limitations.",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0005",
+    "excerpt": "Optional extras add Pillow-based image support, Brotli-based WOFF2 decoding,\nand HarfBuzz/bidi complex-text layout:",
+    "salient_tokens": [
+      "WOFF2",
+      "HarfBuzz"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0006",
+    "excerpt": "Install a published prerelease:",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0007",
+    "excerpt": "Install the latest source checkout for development:",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0008",
+    "excerpt": "For Unicode outside the Standard-14 encodings, provide an embeddable\nTrueType/OpenType font as bytes, a path, or a `FontDescriptor`:",
+    "salient_tokens": [
+      "FontDescriptor",
+      "TrueType",
+      "OpenType"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0009",
+    "excerpt": "The writer creates a subset Type0/CID font, two-byte character codes,\n`/ToUnicode`, widths, and the required CID-to-glyph mapping. A character that\nthe supplied font cannot represent raises `FontEmbeddingException` instead of\nsilently writing `.notdef`.",
+    "salient_tokens": [
+      "/ToUnicode",
+      "FontEmbeddingException",
+      ".notdef",
+      "CID",
+      "ToUnicode"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0010",
+    "excerpt": "Install the `text-layout` extra and pass `TextLayoutOptions` for OpenType\nshaping, bidirectional runs, ordered font fallback, and width-constrained line\nlayout:",
+    "salient_tokens": [
+      "text-layout",
+      "TextLayoutOptions",
+      "OpenType"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0011",
+    "excerpt": "Logical text is retained for extraction while glyphs are painted in their\nshaped visual order.",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0012",
+    "excerpt": "`Document(source, password=..., limits=...)` accepts a path, raw bytes, or a\nbinary stream and is equivalent to `Document().load_from(source, ...)`. A\nmissing file, non-PDF data, or a missing password raises; neither form ever\nhands back a silently empty document.",
+    "salient_tokens": [
+      "Document(source, password=..., limits=...)",
+      "Document().load_from(source, ...)",
+      "PDF"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0013",
+    "excerpt": "This project aims to fail explicitly when an operation is unsupported, but PDF\nis a large format and coverage is not yet complete.",
+    "salient_tokens": [
+      "PDF"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0014",
+    "excerpt": "- Page rendering is best effort and does not implement every PDF graphics\n  feature.\n- PDF/A and PDF/UA validation is heuristic, not certification-grade.\n- OCR and layout reflow are not implemented.\n- Signature-chain, revocation, and timestamp validation have documented\n  limitations.\n- Compatibility modules may expose names whose operations are not implemented.",
+    "salient_tokens": [
+      "PDF",
+      "UA",
+      "OCR"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0015",
+    "excerpt": "Review [supported-features.md](supported-features.md) before relying\non the library for compliance-sensitive or security-sensitive workflows.",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0016",
+    "excerpt": "Activate the project virtual environment and install development dependencies:",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0017",
+    "excerpt": "Build and validate the distributions:",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0018",
+    "excerpt": "The convenience scripts run the standard checks:",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0019",
+    "excerpt": "| Path | Description |\n| --- | --- |\n| `src/aspose_pdf/` | Public Python package |\n| `src/aspose_pdf/engine/` | PDF parser, writer, filters, renderer, encryption, and signing internals |\n| `src/aspose_pdf/generated/` | Supported API compatibility modules |\n| `tests/` | Unit, regression, and integration tests |\n| `supported-features.md` | Detailed feature coverage and limitations |\n| `scripts/` | Local check and build commands |\n| `.github/workflows/` | CI and publishing workflows |",
+    "salient_tokens": [
+      "src/aspose_pdf/",
+      "src/aspose_pdf/engine/",
+      "src/aspose_pdf/generated/",
+      "tests/",
+      "supported-features.md",
+      "scripts/",
+      ".github/workflows/",
+      "PDF",
+      "API",
+      "CI"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0020",
+    "excerpt": "Issues and pull requests are welcome. Please:",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0021",
+    "excerpt": "1. Keep changes focused.\n2. Add tests for new behavior and bug fixes.\n3. Write code comments and docstrings in English.\n4. Run `python -m ruff check src/` and `python -m pytest -q`.\n5. Document public API changes and important limitations.",
+    "salient_tokens": [
+      "python -m ruff check src/",
+      "python -m pytest -q",
+      "API"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0022",
+    "excerpt": "When reporting a parser or rendering problem, include a minimal PDF that can be\nshared publicly whenever possible.",
+    "salient_tokens": [
+      "PDF"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0023",
+    "excerpt": "PDF files are untrusted binary input. Loading uses a generous default\n`PdfLoadLimits` policy that bounds input size, parser/object complexity,\ndecoded streams, page content, images, and rasterization. Customize the policy\nwhen an application needs tighter limits:",
+    "salient_tokens": [
+      "PdfLoadLimits",
+      "PDF"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0024",
+    "excerpt": "The same `limits=` argument is accepted by `Document.load_from()` and\n`Document.open_streaming()`; lazy decoding continues to use the document's\nshared budget. `PdfLoadLimits.unlimited()` disables every safeguard and should\nonly be used for trusted input in an environment with external resource\ncontrols. These limits reduce known parser and allocation risks but are not an\nexhaustive DoS sandbox; isolate highly hostile workloads at the process level.",
+    "salient_tokens": [
+      "limits=",
+      "Document.load_from()",
+      "Document.open_streaming()",
+      "PdfLoadLimits.unlimited()",
+      "PdfLoadLimits",
+      "DoS"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0025",
+    "excerpt": "If you discover a security issue, follow the [security policy](SECURITY.md) and\nuse GitHub private vulnerability reporting instead of opening a public issue.",
+    "salient_tokens": [
+      "SECURITY",
+      "GitHub"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0026",
+    "excerpt": "Aspose.PDF FOSS for Python is licensed under the [MIT License](LICENSE).",
+    "salient_tokens": [
+      "PDF",
+      "FOSS",
+      "MIT",
+      "LICENSE"
+    ],
+    "likely_category_1_prefilter": false
+  },
+  {
+    "unit_id": "u0027",
+    "excerpt": "Copyright © 2026 Aspose Pty Ltd.",
+    "salient_tokens": [],
+    "likely_category_1_prefilter": false
+  }
+]

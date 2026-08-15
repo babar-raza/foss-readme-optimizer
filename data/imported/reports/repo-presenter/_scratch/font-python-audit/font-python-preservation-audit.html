@@ -1,0 +1,701 @@
+<title>Aspose.Font Preservation Audit</title>
+<style>
+  :root {
+    --paper: #F7F3EA;
+    --paper-raised: #FFFFFF;
+    --ink: #211D17;
+    --ink-soft: #4A4536;
+    --ink-faint: #8A8266;
+    --rule: #DED2B8;
+    --rule-soft: #EDE6D4;
+    --accent: #1B4B5A;
+    --accent-soft: #E4EEEC;
+    --accent-ink: #0F343F;
+    --blocker: #A23B2E;
+    --blocker-bg: #F7E4DF;
+    --preserve-blocker: #A2531E;
+    --preserve-blocker-bg: #F6E3D2;
+    --machinery: #2C5F86;
+    --machinery-bg: #E1EDF3;
+    --improve: #93641A;
+    --improve-bg: #F5E9CE;
+    --minor: #5B5646;
+    --minor-bg: #EFEAD9;
+    --good: #2F6449;
+    --good-bg: #E1EEE5;
+    --code-bg: #EEE7D3;
+    --shadow: 0 1px 2px rgba(33,29,23,0.06), 0 8px 24px rgba(33,29,23,0.06);
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "URW Palladio L", Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Consolas, "Liberation Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #16130E;
+      --paper-raised: #1E1A13;
+      --ink: #EDE6D4;
+      --ink-soft: #C9C0A6;
+      --ink-faint: #8C8368;
+      --rule: #3A331F;
+      --rule-soft: #2A2517;
+      --accent: #7FC3D3;
+      --accent-soft: #1D3238;
+      --accent-ink: #BFE6EF;
+      --blocker: #E8917F;
+      --blocker-bg: #3A211B;
+      --preserve-blocker: #E3A468;
+      --preserve-blocker-bg: #382412;
+      --machinery: #8FC0E4;
+      --machinery-bg: #17293A;
+      --improve: #E0B85C;
+      --improve-bg: #362a10;
+      --minor: #C7BC97;
+      --minor-bg: #2A2517;
+      --good: #8FD1AC;
+      --good-bg: #17301F;
+      --code-bg: #241F14;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #16130E;
+    --paper-raised: #1E1A13;
+    --ink: #EDE6D4;
+    --ink-soft: #C9C0A6;
+    --ink-faint: #8C8368;
+    --rule: #3A331F;
+    --rule-soft: #2A2517;
+    --accent: #7FC3D3;
+    --accent-soft: #1D3238;
+    --accent-ink: #BFE6EF;
+    --blocker: #E8917F;
+    --blocker-bg: #3A211B;
+    --preserve-blocker: #E3A468;
+    --preserve-blocker-bg: #382412;
+    --machinery: #8FC0E4;
+    --machinery-bg: #17293A;
+    --improve: #E0B85C;
+    --improve-bg: #362a10;
+    --minor: #C7BC97;
+    --minor-bg: #2A2517;
+    --good: #8FD1AC;
+    --good-bg: #17301F;
+    --code-bg: #241F14;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent-ink); }
+  a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .shell { display: grid; grid-template-columns: 250px minmax(0,1fr); gap: 0; max-width: 1320px; margin: 0 auto; }
+  @media (max-width: 900px) { .shell { grid-template-columns: 1fr; } }
+
+  nav.docket {
+    position: sticky; top: 0; align-self: start; max-height: 100vh; overflow-y: auto;
+    padding: 28px 18px 40px 24px; border-right: 1px solid var(--rule);
+  }
+  @media (max-width: 900px) { nav.docket { position: static; max-height: none; border-right: none; border-bottom: 1px solid var(--rule); } }
+  nav.docket .brand { font-family: var(--serif); font-weight: 600; font-size: 17px; letter-spacing: 0.01em; margin-bottom: 2px; }
+  nav.docket .brand-sub { font-size: 11px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--ink-faint); margin-bottom: 22px; }
+  nav.docket ol { list-style: none; margin: 0; padding: 0; counter-reset: docket; }
+  nav.docket li { counter-increment: docket; margin: 0; }
+  nav.docket a {
+    display: flex; gap: 10px; align-items: baseline; text-decoration: none; color: var(--ink-soft);
+    padding: 6px 8px; border-radius: 6px; font-size: 13px; line-height: 1.35;
+  }
+  nav.docket a::before {
+    content: counter(docket, decimal-leading-zero); font-family: var(--mono); font-size: 11px;
+    color: var(--ink-faint); flex: none; padding-top: 1px;
+  }
+  nav.docket a:hover { background: var(--rule-soft); color: var(--ink); }
+
+  main { padding: 40px clamp(20px, 4vw, 64px) 100px; min-width: 0; }
+  .kicker { font-family: var(--mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent-ink); margin: 0 0 10px; }
+  h1.title { font-family: var(--serif); font-weight: 600; font-size: clamp(30px, 4vw, 42px); line-height: 1.08; margin: 0 0 8px; text-wrap: balance; letter-spacing: -0.01em; }
+  .subtitle { color: var(--ink-soft); font-size: 16px; max-width: 62ch; margin: 0 0 28px; }
+
+  .verdict {
+    background: var(--paper-raised); border: 1px solid var(--rule); border-radius: 12px;
+    padding: 22px 24px; box-shadow: var(--shadow); margin-bottom: 44px;
+    display: grid; grid-template-columns: auto 1fr; gap: 22px; align-items: center;
+  }
+  @media (max-width: 640px) { .verdict { grid-template-columns: 1fr; } }
+  .verdict-badge {
+    font-family: var(--serif); font-weight: 700; font-size: 15px; letter-spacing: 0.02em;
+    padding: 10px 16px; border-radius: 8px; white-space: nowrap; text-align: center;
+    background: var(--improve-bg); color: var(--improve); border: 1px solid color-mix(in srgb, var(--improve) 35%, transparent);
+  }
+  .verdict-stats { display: flex; flex-wrap: wrap; gap: 28px; }
+  .stat { min-width: 90px; }
+  .stat .n { font-family: var(--serif); font-weight: 600; font-size: 24px; font-variant-numeric: tabular-nums; line-height: 1; }
+  .stat .l { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin-top: 4px; }
+  .stat.blk .n { color: var(--blocker); }
+  .stat.pres .n { color: var(--preserve-blocker); }
+
+  section.doc { margin-bottom: 56px; scroll-margin-top: 24px; }
+  section.doc h2 {
+    font-family: var(--serif); font-weight: 600; font-size: 23px; margin: 0 0 6px;
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  section.doc h2 .num { font-family: var(--mono); font-size: 13px; color: var(--ink-faint); font-weight: 400; }
+  section.doc > .rule { border: none; border-top: 1px solid var(--rule); margin: 10px 0 22px; }
+  section.doc h3 { font-family: var(--serif); font-weight: 600; font-size: 17px; margin: 28px 0 10px; }
+  p { margin: 0 0 14px; max-width: 74ch; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin-bottom: 5px; }
+  strong { font-weight: 600; }
+  code, .mono { font-family: var(--mono); font-size: 0.88em; background: var(--code-bg); padding: 0.1em 0.4em; border-radius: 4px; }
+  pre { background: var(--code-bg); border-radius: 8px; padding: 14px 16px; overflow-x: auto; font-family: var(--mono); font-size: 12.5px; line-height: 1.55; }
+  pre code { background: none; padding: 0; }
+
+  .table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; margin-bottom: 20px; background: var(--paper-raised); }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  thead th {
+    position: sticky; top: 0; background: var(--paper-raised); font-family: var(--sans); font-weight: 600;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-faint);
+    border-bottom: 1px solid var(--rule);
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--rule-soft); }
+  td.num, th.num { font-variant-numeric: tabular-nums; text-align: right; }
+  td .mono, th .mono { white-space: nowrap; }
+
+  .chip {
+    display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 100px; white-space: nowrap; line-height: 1.6;
+  }
+  .chip.blocker { background: var(--blocker-bg); color: var(--blocker); }
+  .chip.preserve-blocker { background: var(--preserve-blocker-bg); color: var(--preserve-blocker); }
+  .chip.machinery { background: var(--machinery-bg); color: var(--machinery); }
+  .chip.improve { background: var(--improve-bg); color: var(--improve); }
+  .chip.minor { background: var(--minor-bg); color: var(--minor); }
+  .chip.good { background: var(--good-bg); color: var(--good); }
+
+  .callout {
+    border: 1px solid var(--rule); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0;
+    background: var(--paper-raised); padding: 14px 18px; margin: 0 0 20px;
+  }
+  .callout.blocker { border-left-color: var(--blocker); }
+  .callout.preserve-blocker { border-left-color: var(--preserve-blocker); }
+  .callout.machinery { border-left-color: var(--machinery); }
+  .callout.good { border-left-color: var(--good); }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout .lbl { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--ink-faint); margin-bottom: 6px; }
+
+  details.evidence { border: 1px solid var(--rule); border-radius: 8px; margin: 10px 0 18px; background: var(--paper-raised); }
+  details.evidence summary { cursor: pointer; padding: 10px 14px; font-size: 12.5px; font-weight: 600; color: var(--accent-ink); list-style: none; }
+  details.evidence summary::-webkit-details-marker { display: none; }
+  details.evidence summary::before { content: "▸ "; }
+  details.evidence[open] summary::before { content: "▾ "; }
+  details.evidence .inner { padding: 0 14px 14px; font-size: 12.5px; }
+  details.evidence .inner pre { font-size: 11.5px; }
+
+  .kv { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; font-size: 13px; margin-bottom: 20px; }
+  .kv dt { color: var(--ink-faint); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; padding-top: 2px; }
+  .kv dd { margin: 0; font-family: var(--mono); font-size: 12.5px; word-break: break-all; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  .outline-col { background: var(--paper-raised); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; }
+  .outline-col h4 { font-family: var(--serif); font-size: 14px; margin: 0 0 10px; }
+  .outline-col ol { padding-left: 20px; font-size: 13px; }
+  .outline-col ol li { margin-bottom: 6px; }
+  .outline-col .new { color: var(--good); font-size: 11px; font-family: var(--mono); }
+
+  footer.colophon { border-top: 1px solid var(--rule); margin-top: 60px; padding-top: 20px; color: var(--ink-faint); font-size: 12px; }
+</style>
+
+<div class="shell">
+  <nav class="docket" aria-label="Deliverables">
+    <div class="brand">Preservation Audit</div>
+    <div class="brand-sub">aspose-font · Python</div>
+    <ol>
+      <li><a href="#verdict">Executive verdict</a></li>
+      <li><a href="#identities">Pinned identities</a></li>
+      <li><a href="#outlines">Structural outlines</a></li>
+      <li><a href="#matrix">Reconciliation matrix</a></li>
+      <li><a href="#sections">Section audit</a></li>
+      <li><a href="#links">Links, badges &amp; images</a></li>
+      <li><a href="#examples">Code examples</a></li>
+      <li><a href="#missing">Missing &amp; weakened</a></li>
+      <li><a href="#excluded">Correct exclusions</a></li>
+      <li><a href="#regressions">Candidate regressions</a></li>
+      <li><a href="#machinery">Machinery defects</a></li>
+      <li><a href="#coverage">Coverage metrics</a></li>
+      <li><a href="#next-steps">Next steps</a></li>
+      <li><a href="#readiness">Readiness</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <p class="kicker">Preservation audit · analysis only, no files changed</p>
+    <h1 class="title">Original vs. candidate README, reconciled</h1>
+    <p class="subtitle">aspose-font-foss/Aspose.Font-FOSS-for-Python — every atomic claim in the upstream root README traced to a verified disposition in the regenerated candidate.</p>
+
+    <section id="verdict" class="verdict">
+      <div class="verdict-badge">READY&nbsp;WITH&nbsp;CONDITIONS</div>
+      <div class="verdict-stats">
+        <div class="stat blk"><div class="n">1</div><div class="l">Publication blocker</div></div>
+        <div class="stat pres"><div class="n">2</div><div class="l">Preservation blockers</div></div>
+        <div class="stat"><div class="n">2</div><div class="l">Machinery defects</div></div>
+        <div class="stat"><div class="n">92%</div><div class="l">Raw item coverage</div></div>
+        <div class="stat"><div class="n">81%</div><div class="l">Weighted value coverage</div></div>
+      </div>
+    </section>
+
+    <section id="ex-summary" class="doc">
+      <h2><span class="num">01</span> Executive preservation verdict</h2>
+      <hr class="rule">
+      <p>The candidate is a genuine, well-evidenced reconciliation of the original — not a superficial rewrite. Product identity, install truth, dependencies, formats, license, badges, links, and the majority of worked examples are preserved accurately, several of them <em>corrected</em> against real, verified defects the original silently carried (an unpublished PyPI package presented as installable; an unpinned <code>mcp</code> extra that breaks against the real, current <code>mcp</code> 2.0.0 release). The candidate also adds real, source-verified content the original never had at all: a Dependencies breakdown, a Scope and Limitations section, and a Documentation &amp; Resources block linking the project's own real SECURITY.md — none of which the original disclosed.</p>
+      <p>Three findings keep this from a clean pass:</p>
+      <div class="callout blocker">
+        <div class="lbl">Publication blocker</div>
+        <p>The <code>## API Reference</code> table lists three classes — <code>TaskTokenEstimate</code>, <code>TaskCompletionReceipt</code>, <code>CompletedTaskRecord</code> — that belong to <code>reporting.py</code>, an internal AI-agent build-pipeline reporting module (never re-exported from the public package, carrying hardcoded internal infrastructure references). The upstream repository's own <code>CHANGELOG.md</code> confirms this directly: its most recent entry documents "removed the hardcoded task reporting token fallback" among "reviewer-facing repository hygiene artifacts." This traces to a matching leak already present in <code>reference.aspose.org</code>'s own generated API index for this product — a shared, reusable data-quality defect, not something invented during this candidate's own composition. See §10 and §11.</p>
+      </div>
+      <div class="callout preserve-blocker">
+        <div class="lbl">Preservation blocker — CLI usage</div>
+        <p>The original's <code>## CLI Highlights</code> section documented ~24 subcommands across four workflow categories with ~40 concrete invocations — the CLI is the original's own headline differentiator ("Built for automation … CLI commands"). The candidate demonstrates exactly three concrete invocations across two categories (<code>web-build</code>, <code>preview-animation</code>, <code>preview-animation-path-showcase</code>). <code>var-instance</code> — the CLI equivalent of the candidate's own flagship "Create a Release-Safe Static Instance" Python example — is never shown as a CLI invocation anywhere. See §8.</p>
+      </div>
+      <div class="callout preserve-blocker">
+        <div class="lbl">Preservation blocker — Python API Highlights example</div>
+        <p>The original's largest, most comprehensive example (<code>## Python API Highlights</code>, ~120 lines) has no candidate equivalent. Several capabilities it uniquely demonstrated now have zero working code anywhere in the candidate — only prose or a bare method signature: font subsetting (<code>FontSubsetter</code>), <code>preview_naming_policy</code>, the <code>live</code>/<code>static</code> <code>variable_mode</code> options on <code>WebFontBuilder</code>, menu-safe naming with explicit <code>legacy_family_name</code>/<code>typographic_family_name</code> overrides, and the axis-grid web-family package. See §7–§8.</p>
+      </div>
+      <p>None of the three findings requires new investigation — every fact cited above is already verified against real source in this audit. Fixing them is composition work against evidence already in hand.</p>
+    </section>
+
+    <section id="identities" class="doc">
+      <h2><span class="num">02</span> Pinned source and candidate identities</h2>
+      <hr class="rule">
+      <dl class="kv">
+        <dt>Target repository</dt><dd>aspose-font-foss/Aspose.Font-FOSS-for-Python (github.com)</dd>
+        <dt>Default branch</dt><dd>main</dd>
+        <dt>Pinned commit</dt><dd>136b6e20c3916ac4c8efac0714948a4136b491a3 — "Release 26.8.2", 2026-08-13 21:48:13&nbsp;UTC</dd>
+        <dt>Live remote HEAD</dt><dd>136b6e20c3916ac4c8efac0714948a4136b491a3 (fetched live this audit — identical, no drift)</dd>
+        <dt>Prior release commit</dt><dd>800ea256fec1eec387cba1fc599530cd402ef515 — "Release 26.8.1", 2026-08-06 21:48:10&nbsp;UTC</dd>
+        <dt>Tree comparison</dt><dd>75a0b491aee6a9c20abd5c9aaba3275edbfd3c03 = 75a0b491aee6a9c20abd5c9aaba3275edbfd3c03 (byte-identical trees, 26.8.1 vs 26.8.2 — confirmed via <code>git rev-parse ^{tree}</code>, not assumed)</dd>
+        <dt>Original README hash</dt><dd>sha256:f6baba19f37b23352a1af69b068550f8119124380d8247d768367868dbbbb474 (486 lines)</dd>
+        <dt>Candidate README path</dt><dd>reports/repo-presenter-regen-full/font/python/readme.md</dd>
+        <dt>Candidate README hash</dt><dd>sha256:526e3652cb435e6229bf800dc6b7a462552f47723bd36aff51d7f6879efaeae3 (709 lines)</dd>
+        <dt>Candidate generation run ID</dt><dd>none — reports/readme_refresh_runs/font/python/ does not exist on disk</dd>
+        <dt>Reconciliation records</dt><dd>content-dispositions.json (50 units) · structure-dispositions.json (2 units) · badge-dispositions.json (0 — genuinely no old badges) · upstream-issues.md (4 findings, verified 2026-08-13)</dd>
+        <dt>Skill / contract revision</dt><dd>skills/readme-refresh.md — S-120, contract verified 2026-08-15, 83 check_* functions</dd>
+      </dl>
+      <div class="callout good">
+        <div class="lbl">Source-drift check</div>
+        <p>None. The clone cache is pinned to the live remote HEAD, and the prior release's tree is byte-identical to the current one — so regardless of the exact hour the candidate's disposition files were authored relative to the 26.8.2 tag, the underlying source content was never different. This is not the usual "report drift immediately" case.</p>
+      </div>
+      <div class="callout machinery">
+        <div class="lbl">A second, divergent candidate tree exists</div>
+        <p><code>reports/repo-presenter/font/python/readme.md</code> (sha256:754d604…, 633 lines, last touched 2026-08-14) is a materially different candidate for the same product, missing <code>structure-dispositions.json</code>/<code>badge-dispositions.json</code> entirely. This audit targets <code>repo-presenter-regen-full</code> as the canonical generation tree (this session's own established convention since the Twenty-Eighth incident), but the fact that two divergent, un-reconciled candidates exist for one product is itself a real, disclosed process gap — see §11.</p>
+      </div>
+    </section>
+
+    <section id="outlines" class="doc">
+      <h2><span class="num">03</span> Structural outlines</h2>
+      <hr class="rule">
+      <div class="grid2">
+        <div class="outline-col">
+          <h4>Original — 15 sections + title</h4>
+          <ol>
+            <li><code># aspose-font</code> + 2-sentence intro + GitHub link</li>
+            <li><code>## What You Get</code> — 5-row table</li>
+            <li><code>## Why Teams Use It</code> — 5 bullets</li>
+            <li><code>## Install</code> — 2 pip commands</li>
+            <li><code>## Quick Start</code> — 3 code examples</li>
+            <li><code>## Real Outputs</code> — 6 subsections, each with a real demo image</li>
+            <li><code>## Capability Snapshot</code> — 11-row table</li>
+            <li><code>## Variable-Font-First Workflows</code> — 18 bullets</li>
+            <li><code>## Variable Font Discovery</code> — 1 code example + output block</li>
+            <li><code>## Python API Highlights</code> — 1 ~120-line code example</li>
+            <li><code>## CLI Highlights</code> — 4-category CLI matrix, ~40 invocations</li>
+            <li><code>## MCP Server</code> — 2 sentences + code + 1 paragraph</li>
+            <li><code>## Development</code> — 3 commands + 1 sentence</li>
+            <li><code>## License</code> — 1 line</li>
+          </ol>
+        </div>
+        <div class="outline-col">
+          <h4>Candidate — 11 sections + intro</h4>
+          <ol>
+            <li><code># Aspose.Font FOSS for Python</code> + badges + banner + intro paragraph</li>
+            <li><code>## Navigation</code> <span class="new">new</span></li>
+            <li><code>## At a Glance</code> — Mermaid diagram <span class="new">new</span></li>
+            <li><code>## Key Capabilities</code> — 9 bullets</li>
+            <li><code>## Installation</code> — corrected git-clone method + mcp pin</li>
+            <li><code>## Dependencies</code> <span class="new">new</span> — required / optional / native / dev</li>
+            <li><code>## Quick Start</code> — 2 new, simpler examples</li>
+            <li><code>## Additional Examples</code> — flagship + 6 collapsed (matches Real Outputs 1:1) + Variable Font Discovery + 1 more</li>
+            <li><code>## API Reference</code> — 139-class table + Detailed Member Reference</li>
+            <li><code>## Documentation &amp; Resources</code> <span class="new">new</span></li>
+            <li><code>## Scope and Limitations</code> <span class="new">new</span> — 4 real, verified limitations</li>
+            <li><code>## Development and Testing</code> — expanded (pip/make/Docker)</li>
+            <li><code>## License</code> — fixed template, same file</li>
+          </ol>
+        </div>
+      </div>
+      <p style="margin-top:4px">No original heading survives by name alone — every one was reorganized into the standard template. The section audit (§5) traces each original heading's real, verified <em>purpose</em>, not its label, into its candidate home.</p>
+    </section>
+
+    <section id="matrix" class="doc">
+      <h2><span class="num">04</span> Full atomic reconciliation matrix</h2>
+      <hr class="rule">
+      <p>The machinery's own <code>content-dispositions.json</code> (50 units) covers every sentence and bullet of the original's <em>prose</em>. It structurally cannot see the original's <em>fenced code content</em> — <code>extract_old_readme_content_units</code> strips all fenced blocks before segmenting, by design (§9) — which is exactly where this audit's real findings live. The table below gives every prose unit its own row (grouped only where the disposition itself groups them, e.g. one table → one unit), then adds the code-block and structural items the automated inventory never tracked at all.</p>
+
+      <h3>Prose &amp; positioning (content-dispositions.json, 50/50 units)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>ID</th><th>Original item</th><th>Verification</th><th>Candidate location</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">u0001–u0002</td><td>Intro: "pure-Python font workflow automation… no native runtime deps" / use-case framing (web packages, review assets, QA, CI/CLI)</td><td>pyproject.toml — zero <code>[project.dependencies]</code>; __init__.py re-exports WebFontBuilder/SmartInstancer/FontQaReporter</td><td>Intro paragraph</td><td><span class="chip good">Merged &amp; reframed</span></td></tr>
+          <tr><td class="mono">u0003</td><td>"Public GitHub repository: …" link sentence</td><td>Same URL live at Contributors badge + Documentation &amp; Resources</td><td>Contributors badge; Documentation &amp; Resources</td><td><span class="chip minor">Correctly excluded — redundant</span></td></tr>
+          <tr><td class="mono">u0004</td><td>"What You Get" table, 5 rows (web-optimize / QA / instances / previews / automation)</td><td>Each row's class re-exported in __init__.py</td><td>Key Capabilities bullets</td><td><span class="chip good">Merged &amp; reframed</span></td></tr>
+          <tr><td class="mono">u0005–u0009</td><td>"Why Teams Use It", 5 bullets (pure-Python, business artifacts, variable-font-aware, format coverage, automation)</td><td>pyproject.toml, __init__.py, _font_base.py FontType enum, cli.py</td><td>Key Capabilities bullets 1, 5, 8</td><td><span class="chip good">Merged &amp; reframed</span> (2 of 5 correctly excluded as redundant with the merge)</td></tr>
+          <tr><td class="mono">u0010</td><td>"Install MCP support only when you want…" lead-in</td><td>pyproject.toml <code>[project.optional-dependencies].mcp</code></td><td>Installation</td><td><span class="chip good">Merged &amp; reframed</span></td></tr>
+          <tr><td class="mono">u0011–u0026</td><td>Quick Start / Real Outputs lead-in sentences + 5 real demo images (QA report, review board, axis grid, delta, animation) — see §6 for the dedicated image-by-image verification</td><td>Images individually confirmed git-tracked, non-empty, at website/generated/*</td><td>Additional Examples (images embedded verbatim, same alt text/path)</td><td><span class="chip good">Merged &amp; relocated</span> (lead-ins correctly excluded as redundant once the real worked example replaces them)</td></tr>
+          <tr><td class="mono">u0027</td><td>"Capability Snapshot" table, 11 rows (load/inspect, convert, clean, subset, preview, variable fonts, web packaging, QA, animation, automation)</td><td>Every row's class confirmed in __init__.py</td><td>Key Capabilities, all 9 bullets</td><td><span class="chip good">Merged &amp; reframed</span></td></tr>
+          <tr><td class="mono">u0028</td><td>"Current roadmap is centered on variable fonts… strongest surface area today"</td><td>instancing.py (1227 lines) is by far the largest single feature module — real, corroborating evidence</td><td><em>none — see finding below</em></td><td><span class="chip preserve-blocker">Stale exclusion — now Missing</span></td></tr>
+          <tr><td class="mono">u0029–u0038</td><td>Variable-Font-First Workflows, 10 of 18 bullets (entry points, presentation metadata, locale labels, JSON snapshots, preset coordinates, grid suggestions)</td><td>variation.py, ttf/tables/fvar.py — each cited method confirmed present</td><td>API Reference (classes already listed) / Key Capabilities (redundant restatement)</td><td><span class="chip good">Correctly excluded</span> — too granular, independently verified, not duplicated in error</td></tr>
+          <tr><td class="mono">u0039–u0043, u0045, u0047</td><td>Variable-Font-First Workflows, remaining 7 bullets (HVAR-aware instancing, naming strategies, FontPreviewBuilder, web packaging, QA/compat/delta classes, gvar diagnostics, MCP/AI exposure)</td><td>hvar.py, ttf/instancer.py, preview.py, web.py, qa.py/compatibility.py/delta.py, mcp.py</td><td>Key Capabilities bullets 5–8</td><td><span class="chip good">Merged &amp; reframed</span></td></tr>
+          <tr><td class="mono">u0044, u0046</td><td>Deeper compatibility-diagnostics detail; grid-family package field names (family.html, family-manifest.json)</td><td>compatibility.py, web.py</td><td>Key Capabilities bullet 7 (broad coverage only)</td><td><span class="chip good">Correctly excluded</span> — field-level detail, no example demonstrates the grid-family variant either way (see §8)</td></tr>
+          <tr><td class="mono">u0048</td><td>"The MCP server now covers low-level inspection tools, <code>var_compat</code>, and… web export workflows"</td><td>mcp.py implements the optional MCP surface</td><td>Installation (mcp pin + extra)</td><td><span class="chip good">Merged &amp; reframed</span></td></tr>
+          <tr><td class="mono">u0049</td><td>"These verification flows also refresh the generated demo site content"</td><td>Makefile <code>docs</code>/<code>serve-website</code> targets</td><td>Development and Testing (independently restated)</td><td><span class="chip good">Correctly excluded</span> — redundant, verified present elsewhere</td></tr>
+          <tr><td class="mono">u0050</td><td>"[MIT](./LICENSE.txt)"</td><td>LICENSE.txt present, real MIT text</td><td>License (fixed template)</td><td><span class="chip good">Merged &amp; reframed</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>Structural units (structure-dispositions.json, 2/2 units)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>ID</th><th>Original item</th><th>Verification</th><th>Candidate location</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">s0001</td><td>"Variable Font Discovery" fenced example + output block</td><td>variation.py / instancing.py / ttf/tables/fvar.py — every printed field confirmed real</td><td>Additional Examples → "Variable Font Discovery: Axes and Named Instances"</td><td><span class="chip good">Merged &amp; reframed</span> — trimmed of 4 too-granular print calls (independently re-verified, §7)</td></tr>
+          <tr><td class="mono">s0002</td><td>"CLI Highlights" — 4-category, ~40-invocation matrix</td><td>Every subcommand confirmed real in cli.py's argument parser</td><td>Installation / Additional Examples (2 representative invocations only)</td><td><span class="chip preserve-blocker">Preserved incompletely</span> — see §8, the audit's headline preservation blocker</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>Code-block content — never reached by the automated inventory (found by direct read, this audit)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>Original item</th><th>Verification</th><th>Candidate location</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><code>pip install aspose-font</code> / <code>pip install "aspose-font[mcp]"</code></td><td>Live 404 on <code>pypi.org/pypi/aspose-font/json</code> — package genuinely unpublished</td><td>Installation — git-clone method</td><td><span class="chip good">Corrected &amp; preserved</span></td></tr>
+          <tr><td>Quick Start: build web package / generate QA evidence / create static instance (3 examples)</td><td>Duplicates of the Real Outputs examples below, minus images</td><td>Relocated into Additional Examples (Real Outputs already carries the richer, image-backed versions)</td><td><span class="chip good">Relocated accurately</span></td></tr>
+          <tr><td>Real Outputs: 6 subsections, each a worked example + real demo image</td><td>All 6 images independently confirmed git-tracked; all 6 API calls confirmed real</td><td>Additional Examples — flagship + 5 inside <code>&lt;details&gt;</code></td><td><span class="chip good">Preserved accurately</span></td></tr>
+          <tr><td>Python API Highlights — ~120-line mega-example (subsetting, preview_naming_policy, menu-safe naming overrides, live/static variable_mode, grid-family package)</td><td>Every constituent method confirmed real; none demonstrated together or individually anywhere in the candidate</td><td><em>none</em></td><td><span class="chip preserve-blocker">Missing</span> — see §7–§8</td></tr>
+          <tr><td>MCP Server: <code>pip install "aspose-font[mcp]"</code> + <code>python -m aspose_font.mcp</code></td><td>mcp.py:416 real <code>main()</code> entry point</td><td>Installation (command shown, corrected with the real <code>mcp&lt;2.0</code> pin)</td><td><span class="chip good">Corrected &amp; preserved</span></td></tr>
+          <tr><td>Development: <code>uv run python -m pytest tests/ -q</code> / <code>uv run --with ruff ruff check …</code> / <code>uv run --with build python -m build</code></td><td>Makefile <code>test</code>/<code>lint</code> targets wrap the same <code>uv run</code> commands; pyproject.toml's <code>[dependency-groups].dev</code> pins pytest&gt;=9.0.2 for uv workflows specifically</td><td>Development and Testing — <code>pip install -e ".[dev]"</code> + <code>make test</code>/<code>make lint</code> + <code>uv run --with build …</code> inside the collapsed detail</td><td><span class="chip good">Preserved &amp; expanded</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section id="sections" class="doc">
+      <h2><span class="num">05</span> Section-preservation audit</h2>
+      <hr class="rule">
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>Original heading</th><th>Candidate equivalent</th><th>Distinct section preserved</th><th>Information preserved</th><th>Disposition</th></tr></thead>
+        <tbody>
+          <tr><td>Title + intro</td><td>Title + Intro paragraph</td><td>—</td><td>Yes</td><td>Reframed, accurate</td></tr>
+          <tr><td>What You Get</td><td>Key Capabilities</td><td>Merged, no</td><td>Yes</td><td>Flattened table → prose bullets (minor scannability cost, §8)</td></tr>
+          <tr><td>Why Teams Use It</td><td>Key Capabilities</td><td>Merged, no</td><td>Yes</td><td>Accurate</td></tr>
+          <tr><td>Install</td><td>Installation</td><td>Yes</td><td>Yes, corrected</td><td>Unpublished-package claim fixed to real git-clone method</td></tr>
+          <tr><td>Quick Start</td><td>Quick Start</td><td>Yes (name kept)</td><td>Content relocated, not retained here</td><td>Original 3 examples moved to Additional Examples; 2 new, simpler examples substituted — a defensible editorial improvement (§7)</td></tr>
+          <tr><td>Real Outputs</td><td>Additional Examples</td><td>Merged, yes (as flagship + details)</td><td>Yes, 6/6</td><td>Accurate, images intact</td></tr>
+          <tr><td>Capability Snapshot</td><td>Key Capabilities</td><td>Merged, no</td><td>Yes</td><td>Flattened table → prose (same cost as What You Get)</td></tr>
+          <tr><td>Variable-Font-First Workflows</td><td>Key Capabilities + API Reference</td><td>Merged, no</td><td>Mostly — 15 of 18 items traceable, 1 stale exclusion (§8)</td><td>Good-faith summarization, one real regression</td></tr>
+          <tr><td>Variable Font Discovery</td><td>Additional Examples</td><td>Yes, as a subsection</td><td>Yes, trimmed of 4 too-granular prints</td><td>Accurate</td></tr>
+          <tr><td>Python API Highlights</td><td><em>none</em></td><td>No</td><td><strong>No</strong></td><td><span class="chip preserve-blocker">Missing — recommend a new "Advanced Usage" subsection in Additional Examples</span></td></tr>
+          <tr><td>CLI Highlights</td><td>Installation / Additional Examples (2 invocations only)</td><td>No</td><td>Incomplete</td><td><span class="chip preserve-blocker">Preserved incompletely — recommend a dedicated CLI subsection, §13</span></td></tr>
+          <tr><td>MCP Server</td><td>Installation (folded in)</td><td>Merged, no</td><td>Yes, corrected (real <code>mcp&lt;2.0</code> pin added)</td><td>Accurate, improved</td></tr>
+          <tr><td>Development</td><td>Development and Testing</td><td>Yes</td><td>Yes, expanded (Docker, calendar-versioning note)</td><td>Accurate, improved</td></tr>
+          <tr><td>License</td><td>License</td><td>Yes</td><td>Yes</td><td>Same file, fixed template</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p><strong>Sections the candidate adds that the original never had, all independently verified:</strong> At a Glance (Mermaid), Navigation, Dependencies, Documentation &amp; Resources, Scope and Limitations. None of these displace original content — each is a net addition of real, source-verified fact the original silently omitted (e.g. the original never linked its own real <code>SECURITY.md</code>, never stated a Python version requirement in prose, and never disclosed a single limitation).</p>
+    </section>
+
+    <section id="links" class="doc">
+      <h2><span class="num">06</span> Link, badge, and image reconciliation</h2>
+      <hr class="rule">
+      <p>The original has <strong>zero badges</strong> (confirmed by direct read — <code>badge-dispositions.json</code>'s empty array is correct, not a gap) and exactly one link (the GitHub repo URL). The candidate adds three badges and several new links; every one was live-checked this audit, not assumed from the disposition record.</p>
+
+      <h3>Embedded images — given their own dedicated verification pass</h3>
+      <p>The original embeds exactly <strong>5</strong> images, all under <code>![alt](./website/generated/{file})</code> — an earlier draft of this audit under-counted this as 4 while folding images into the Additional Examples lead-in-sentence rows; corrected here with each image verified individually, not by category. Every one is a real, git-tracked, non-empty asset confirmed to exist at <code>website/generated/</code> from repo root at the pinned commit — not a placeholder, not a broken link.</p>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>Alt text</th><th>File</th><th class="num">Size</th><th>Git-tracked</th><th>Candidate embedding</th></tr></thead>
+        <tbody>
+          <tr><td>Font QA Report summary</td><td class="mono">roboto-qa-report-summary.svg</td><td class="num">2,885 B</td><td><span class="chip good">Yes</span></td><td>Byte-identical markdown line, same alt text + relative path</td></tr>
+          <tr><td>Family review board</td><td class="mono">roboto-family-review-board.png</td><td class="num">35,704 B</td><td><span class="chip good">Yes</span></td><td>Byte-identical markdown line, same alt text + relative path</td></tr>
+          <tr><td>Axis grid preview</td><td class="mono">roboto-axis-grid.png</td><td class="num">70,384 B</td><td><span class="chip good">Yes</span></td><td>Byte-identical markdown line, same alt text + relative path</td></tr>
+          <tr><td>Delta comparison board</td><td class="mono">roboto-delta-compare.png</td><td class="num">11,741 B</td><td><span class="chip good">Yes</span></td><td>Byte-identical markdown line, same alt text + relative path</td></tr>
+          <tr><td>Variable font animation sweep</td><td class="mono">roboto-animation-sweep.png</td><td class="num">141,328 B</td><td><span class="chip good">Yes</span></td><td>Byte-identical markdown line, same alt text + relative path</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <details class="evidence"><summary>Verification method — a direct diff, not a trust-the-disposition-record check</summary><div class="inner">
+        <p>Extracted every <code>![...](...)</code> token from both files independently (<code>grep -o '!\[[^]]*\]([^)]*)'</code>) and diffed the sorted sets. After removing the 4 candidate-only tokens that are new additions (the banner image and 3 badge images — none present in the original, none claiming to be), the two sets are <strong>identical</strong>: all 5 original images survive with exactly the same alt text and exactly the same <code>./website/generated/…</code> relative path, unchanged. Each backing file was independently confirmed present, git-tracked, and non-empty via <code>git ls-files</code> + a direct size check at the pinned commit — not inferred from the disposition record's own "confirmed git-tracked" claim.</p>
+        <pre>0a1
+&gt; ![Aspose.Font FOSS for Python](…banner-readme.png)      ← new: banner
+1a3
+&gt; ![Contributors](…contributors.svg)                       ← new: badge
+4a7,8
+&gt; ![License: MIT](…License-MIT-blue.svg)                   ← new: badge
+&gt; ![Python versions](…python-3.10%2B-blue.svg)             ← new: badge
+(zero diff lines for any of the 5 original images)</pre>
+      </div></details>
+      <p>No image was dropped, resized, re-hosted, or given different alt text. The relative-path convention (<code>./website/generated/…</code>, resolved from repo root) is preserved exactly as the original already used it — since this is the same convention already rendering correctly on the live, current GitHub README, the candidate will render identically once pushed, not merely "should."</p>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>Badge / link</th><th>Destination</th><th>Live check</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>License badge</td><td>LICENSE.txt (relative)</td><td><span class="chip good">200</span></td><td>Real, verified MIT file</td></tr>
+          <tr><td>Python versions badge</td><td>static badge → pyproject.toml</td><td>N/A (static)</td><td>Correctly static — <code>requires-python = ">=3.10"</code> matches exactly</td></tr>
+          <tr><td>Contributors badge</td><td>github.com/…/graphs/contributors</td><td>dynamic, real</td><td>Preserves the original's only link, in badge form</td></tr>
+          <tr><td>Banner image</td><td>products.aspose.org/media/font/python/banner-readme.png → products.aspose.org/font/python/</td><td><span class="chip good">200 / 200</span></td><td>Links to the real, verified product homepage</td></tr>
+          <tr><td>Getting started guide</td><td>docs.aspose.org/font/python/</td><td><span class="chip good">200</span></td><td>New — not in original</td></tr>
+          <tr><td>How-to guides &amp; FAQ</td><td>kb.aspose.org/font/python/</td><td><span class="chip good">200</span></td><td>New — not in original</td></tr>
+          <tr><td>Full API reference</td><td>reference.aspose.org/font/python/</td><td><span class="chip good">200</span></td><td>New — carries the internal-class leak, §10</td></tr>
+          <tr><td>Enterprise Edition</td><td>products.aspose.com/font/</td><td><span class="chip good">200</span></td><td>Family-level link, correctly platform-neutral — no font/python-specific commercial page exists</td></tr>
+          <tr><td>Security policy</td><td>SECURITY.md (relative)</td><td>file confirmed real</td><td>New — original never linked its own real SECURITY.md</td></tr>
+          <tr><td>Changelog</td><td>CHANGELOG.md (relative)</td><td>file confirmed real</td><td>New — and directly corroborates the reporting.py finding, §10</td></tr>
+          <tr><td>Issues</td><td>github.com/…/issues</td><td>real, preserves the original's repo link</td><td>Accurate</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>No duplicate or semantically-mismatched badges found. No template badge stands in for a lost product-specific signal, because the original carried none.</p>
+    </section>
+
+    <section id="examples" class="doc">
+      <h2><span class="num">07</span> Code-example verification</h2>
+      <hr class="rule">
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>Example</th><th>Developer task</th><th>Imports/APIs verified</th><th>Candidate equivalent</th><th>Unique value survives</th></tr></thead>
+        <tbody>
+          <tr><td>Quick Start #1 — web handoff package</td><td>Build a browser-ready web-font bundle</td><td><code>WebFontBuilder.build</code> confirmed real (web.py)</td><td>Additional Examples flagship (unchanged, visible before the fold)</td><td>Yes</td></tr>
+          <tr><td>Quick Start #2 — QA evidence</td><td>Generate a Font QA package</td><td><code>FontQaReporter.build_package</code> confirmed real (qa.py)</td><td>Additional Examples, inside <code>&lt;details&gt;</code></td><td>Yes</td></tr>
+          <tr><td>Quick Start #3 — static instance</td><td>Create a release-safe variable-font instance</td><td><code>font.instantiate</code> confirmed real (instancing.py)</td><td>Additional Examples, inside <code>&lt;details&gt;</code></td><td>Yes, but narrower — original also showed <code>legacy_family_name</code>/<code>typographic_family_name</code> overrides (Python API Highlights); candidate's version doesn't</td></tr>
+          <tr><td>Real Outputs ×6 (web, QA, review board, axis grid, delta/compat, animation)</td><td>Each shown with a real generated image</td><td>All confirmed real</td><td>Additional Examples, 1 flagship + 5 collapsed</td><td>Yes, full fidelity including images</td></tr>
+          <tr><td>Variable Font Discovery</td><td>Inspect axes, named instances, presets, coordinates</td><td>Confirmed real, minus 4 locale/presentation calls</td><td>Additional Examples, collapsed</td><td>Yes, core value intact</td></tr>
+          <tr><td><strong>Python API Highlights</strong></td><td>Subsetting with coverage, dual-format previews, menu-safe naming with explicit legacy/typographic overrides, naming-policy preview, cleaning with selective retention, compatibility checking, delta inspection (glyph + text), QA report (HTML), web bundle building, <code>live</code>/<code>static</code> variable-mode export, axis-grid family packaging</td><td>Every call independently confirmed real against source</td><td><strong>None</strong></td><td><strong>No</strong> — see §8</td></tr>
+          <tr><td>CLI Highlights (~40 invocations)</td><td>Every major capability's command-line equivalent</td><td>Every subcommand confirmed real in cli.py</td><td>2 of ~24 subcommands demonstrated</td><td>Partially — see §8</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>Executed/verified where practical: <code>pip install aspose-font</code> confirmed failing (live 404); MCP module entry point confirmed real; Dockerfile confirmed matches its own description exactly; Makefile <code>test</code>/<code>lint</code>/<code>docs</code>/<code>serve-website</code> targets confirmed present. Full compile/run execution of every example was not performed in this pass (a separate, heavier verification stage — <code>verify_examples</code> — exists in the skill but was not re-run here since this audit is analysis-only); every claim above rests on direct source inspection, which is a materially weaker guarantee than execution and is disclosed as such.</p>
+      <p><strong>Recommendation on flagship/collapsed structure (Stage 7):</strong> already correctly applied — the web-package example is visible before the fold, the remaining 6 are collapsed. The missing capabilities (subsetting, live/static export, menu-safe overrides, grid-family packaging) should each get either a short new worked example or, at minimum, a one-line snippet inside the existing collapsed block — see §13.</p>
+    </section>
+
+    <section id="missing" class="doc">
+      <h2><span class="num">08</span> Missing and weakened content report</h2>
+      <hr class="rule">
+
+      <h3>CLI usage — preserved but severely weakened</h3>
+      <p>The original documented ~24 real subcommands across four workflow categories (general inspection/conversion; variable-font previews and review boards; QA tooling; web packaging) with representative invocations for nearly every one. The candidate shows exactly three: <code>aspose-font web-build …</code>, <code>aspose-font preview-animation …</code>, and <code>aspose-font preview-animation-path-showcase …</code> — both from the same "web packaging"/"previews" pair of categories. Zero invocation survives for <code>info</code>, <code>convert</code>, <code>meta-clean</code> (general inspection/conversion — an entire category, gone); <code>var-instance</code>, <code>var-info</code> (variable-font CLI — the CLI equivalent of the candidate's own flagship Python example); or <code>qa-report</code>, <code>var-compat</code>, <code>var-delta*</code> (QA tooling — an entire category, gone).</p>
+      <p><strong>What developer value was lost:</strong> specific, copy-pasteable steps replaced by a bare prose mention ("Automate any of the above from the command line with the bundled <code>aspose-font</code> CLI"). A developer who wants to create a static instance from the shell — the exact task the candidate's own flagship Python example demonstrates — has no CLI equivalent to copy.</p>
+      <details class="evidence"><summary>Real, live cli.py subcommand inventory (35 total)</summary><div class="inner">
+        <pre>info · glyphs · convert · metrics · qa-report · meta-clean · web-build · web-optimize ·
+preview · preview-batch · preview-animation · preview-animation-path ·
+preview-animation-path-package · preview-animation-path-review · preview-animation-path-showcase ·
+preview-grid · preview-grid-sheet · preview-compare · preview-waterfall · preview-matrix ·
+preview-family-board · preview-family-export · var-compat · var-delta · var-delta-board ·
+var-delta-text · var-delta-text-compare · var-delta-text-board · var-delta-text-compare-board ·
+var-delta-compare · var-delta-compare-board · var-info · var-instance · var-naming-preview ·
+var-batch · web-batch · web-grid · web-grid-family · web-family</pre>
+        <p style="margin-top:10px">Note for context, not a preservation defect: cli.py's <em>real, current</em> command set is itself larger than what the <em>original</em> README ever documented (<code>glyphs</code>, <code>metrics</code>, <code>web-optimize</code>, <code>preview-batch</code>, several board/package variants, <code>var-batch</code>, <code>web-batch</code> appear in neither README). This audit measures preservation of what the original actually showed, not completeness against current source — that is a separate, real gap worth flagging to the product owner but out of this audit's scope.</p>
+      </div></details>
+
+      <h3>Python API Highlights — missing entirely</h3>
+      <p>No candidate example demonstrates: <code>FontSubsetter.subset_for_web_with_coverage</code> (subsetting is otherwise prose-only, confirmed by grep — zero calls to <code>FontSubsetter</code> anywhere in Quick Start or Additional Examples); <code>font.preview_naming_policy(...)</code> (confirmed real at instancing.py:206, never called in any candidate example); <code>WebFontBuilder.build(..., variable_mode="live"/"static")</code> (candidate's flagship only shows <code>variable_mode="auto"</code>); <code>font.instantiate(..., legacy_family_name=..., typographic_family_name=...)</code> (candidate's static-instance example only shows <code>naming_strategy</code>/<code>family_suffix</code>/<code>stat_policy</code>); <code>font.smart_instancer.build_axis_grid_web_family_package(...)</code> (mentioned in prose and listed in the Detailed Member Reference signature, never demonstrated).</p>
+      <p><strong>What developer value was lost:</strong> a working example reduced to an unsupported claim. Every one of these capabilities is still asserted in Key Capabilities prose or the API Reference table — but a developer who wants to see subsetting or menu-safe naming actually used has nothing to copy.</p>
+
+      <h3>Variable-font "strongest surface area" claim — a regression introduced by today's own earlier fix</h3>
+      <p>Unit <code>u0028</code> ("the current roadmap is centered on variable fonts… the strongest surface area today") was excluded as <em>redundant_with_existing</em>, citing the Key Capabilities section's own intro paragraph as the place this fact was independently restated. That intro paragraph — the exact sentence flagged and removed earlier in this same session (Thirty-Sixth incident / MT046, for narrating the document's own organization and leaking an internal source-file fact) — no longer exists. Its removal was correct on its own narrow terms, but it means <code>u0028</code>'s disposition record now cites evidence that is no longer present, and the one real, verified, developer-relevant fact it carried (variable-font support is genuinely the library's most mature, most actively developed surface area, corroborated by <code>instancing.py</code> being the largest module) has no home anywhere in the candidate.</p>
+      <details class="evidence"><summary>Why this matters and how it should be fixed</summary><div class="inner">
+        <p>This is a small, low-severity finding, but a real one — and a useful illustration of Stage 9's own point: reconciliation evidence is a snapshot, not a living guarantee. A later, unrelated edit that changes what a disposition <em>cited</em> silently invalidates that disposition without any mechanism noticing. Recommended fix: a short, narration-free clause restating the fact on its own terms — e.g. as a closing sentence of the Key Capabilities section, or the first Additional Examples sentence — never smuggled back in as a document-structure comparison.</p>
+      </div></details>
+
+      <h3>Minor: table-to-prose flattening reduces scannability on the densest bullets</h3>
+      <p>The original's two tables ("What You Get", "Capability Snapshot") let a reader scan by task in a fixed two-column format. Flattened into Key Capabilities prose, most bullets read well, but two — the web-packaging bullet and the QA-workflows bullet — each compress 6–8 distinct sub-capabilities into one long run-on sentence. This is a legitimate editorial trade (bullets carry real class names a table cell wouldn't), but it is measurably denser than the original at exactly the two points where the original table had the most rows to convey.</p>
+    </section>
+
+    <section id="excluded" class="doc">
+      <h2><span class="num">09</span> Correct-exclusion report</h2>
+      <hr class="rule">
+      <p>33 of 50 content-dispositions units, plus 1 of 2 structure-dispositions units, are dispositioned <code>excluded</code>. This audit independently spot-verified a representative sample across every excluded classification and found the evidence trail sound in every case checked, with the one exception already flagged in §8 (<code>u0028</code>, now stale, not wrong at the time it was written).</p>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>Pattern</th><th>Count</th><th>Verified sound?</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Lead-in sentence to an example the candidate demonstrates directly</td><td>9</td><td>Yes — every cited "real, working example" independently confirmed present</td><td>u0011 "Build a web handoff package:" — the candidate's Additional Examples flagship demonstrates this directly, no restatement needed</td></tr>
+          <tr><td>Restates a fact already independently present in the candidate, different wording</td><td>7</td><td>Yes</td><td>u0001 "no native runtime dependency" — the candidate's own Intro independently states "zero required third-party runtime dependencies"</td></tr>
+          <tr><td>Too-granular accessor/method detail on an already-listed API class</td><td>10</td><td>Yes — each underlying class confirmed present in the API Reference table</td><td>u0031 <code>axis.range_summary</code>/<code>axis.default_ratio</code> — <code>VariableAxis</code> is listed in the Core API table; enumerating every accessor would duplicate that table</td></tr>
+          <tr><td>Real demo image already embedded verbatim elsewhere</td><td>5</td><td>Yes — all 5 independently re-confirmed identical by direct diff, §6</td><td>u0018/u0020/u0022/u0024/u0026 — every one of the original's 5 images</td></tr>
+          <tr><td>Redundant internal contributor-docs pointer (not public-facing scope)</td><td>1</td><td>Yes</td><td>u0036 <code>docs/variable-presentation-schema.md</code> — a real file, correctly out of this candidate's public scope</td></tr>
+          <tr><td>Exhaustive CLI matrix — too long to reproduce in full</td><td>1 (s0002)</td><td><strong>Evidence sound, conclusion insufficient</strong> — see §8</td><td>The "already discloses the CLI surface" claim is technically true but materially thin</td></tr>
+          <tr><td>Now-stale — cited evidence removed by a later, unrelated edit</td><td>1 (u0028)</td><td>No longer, was sound when written</td><td>See §8</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>The empty <code>badge-dispositions.json</code> is itself a correct exclusion record — the original genuinely has zero badges, confirmed by direct read, not an oversight.</p>
+    </section>
+
+    <section id="regressions" class="doc">
+      <h2><span class="num">10</span> Candidate factual-regression report</h2>
+      <hr class="rule">
+      <div class="callout blocker">
+        <div class="lbl">Publication blocker — internal build-tooling classes in the public API surface</div>
+        <p>The candidate's API Reference table (Core API section) lists <code>TaskTokenEstimate</code>, <code>TaskCompletionReceipt</code>, and <code>CompletedTaskRecord</code> — all three defined only in <code>src/aspose_font/reporting.py</code> (764 lines), a module never re-exported from the public <code>aspose_font</code> package (confirmed: zero references to "reporting" anywhere in <code>__init__.py</code>'s import block or <code>__all__</code>). <code>reporting.py</code> implements task-token-estimate storage and a webhook-style completion-reporting mechanism with hardcoded internal defaults — <code>DEFAULT_AGENT_NAME = "AI Agent For Aspose Font FOSS"</code>, <code>DEFAULT_WEBSITE = "gitlab.recruitize.ai"</code>, <code>DEFAULT_AGENT_OWNER = "Maksym Kavun"</code> — and its own separate console-script entry point, <code>aspose-font-reporting</code>, that the candidate correctly never mentions. The repository's own <code>CHANGELOG.md</code> corroborates this directly: its "Unreleased" section documents "reviewer-facing repository hygiene artifacts" and "removed the hardcoded task reporting token fallback" — first-party confirmation this is internal agentic-development tooling, not product API.</p>
+      </div>
+      <p><strong>Root cause, confirmed not assumed:</strong> this is not something invented during this candidate's own composition. The identical three classes already appear in <code>content/reference.aspose.org/en/font/python/_index.md</code> — the real, published reference-site index this skill's own API Reference table is designed to mirror. The leak originates upstream, in whatever pipeline scouted this repository's source into that index; the candidate faithfully, mechanically reproduced a real but flawed source.</p>
+      <p><strong>Impact if shipped as-is:</strong> a public README would present internal build-pipeline plumbing — including a real internal hostname and a named individual — as part of the library's own public API. This is a real information-exposure and professionalism issue, independent of the shared-machinery question.</p>
+
+      <h3>No other factual regressions found</h3>
+      <p>Every other candidate-only claim checked in this audit — the Python 3.10+ requirement, the zero-required-dependency claim, the <code>mcp&lt;2.0</code> pin, the four Scope and Limitations items, the Dependencies section's version floors, every badge destination, every documentation link — independently verified true against real, current source. No invented capability, no incorrect installation command, no wrong link, no internal process language (beyond the reporting-class leak above) was found anywhere in the candidate.</p>
+    </section>
+
+    <section id="machinery" class="doc">
+      <h2><span class="num">11</span> Reconciliation-machinery defects</h2>
+      <hr class="rule">
+      <div class="callout machinery">
+        <div class="lbl">Defect 1 — fenced code content is structurally invisible to the content-unit inventory</div>
+        <p><code>extract_old_readme_content_units</code> strips every fenced code block before segmenting the README into prose units, by design (it exists to find sentence-level claims, not code). For most products this is a minor gap. For <code>font/python</code> it is unusually consequential: <strong>6 of the original's 15 sections are entirely or mostly fenced code</strong> (Install, Quick Start, Real Outputs, Variable Font Discovery, Python API Highlights, CLI Highlights, MCP Server) — meaning their preservation status has never once been mechanically checked by any existing validator. Every finding in §7, §8, and §10 of this audit was produced by direct manual reading and source verification, not by trusting the 50-unit inventory's own "complete" appearance. This is reusable and will recur on any other code-heavy product in the portfolio, not unique to this one.</p>
+      </div>
+      <div class="callout machinery">
+        <div class="lbl">Defect 2 — a disposition's cited evidence can go stale with no detection</div>
+        <p><code>u0028</code>'s exclusion cited the Key Capabilities intro paragraph as the place its fact was independently preserved. A later, unrelated fix (this same session, earlier today) deleted that exact paragraph for a legitimate, different reason — and nothing re-validated <code>u0028</code>'s own disposition against the new state of the file. No mechanism in this skill currently detects "a disposition's own cited <code>candidate_section_reference</code> evidence no longer resolves" after the fact.</p>
+      </div>
+      <div class="callout machinery">
+        <div class="lbl">Defect 3 (disclosed, lower confidence) — two divergent, un-reconciled candidate trees for one product</div>
+        <p><code>reports/repo-presenter/font/python/readme.md</code> and <code>reports/repo-presenter-regen-full/font/python/readme.md</code> differ materially (633 vs. 709 lines) with no shared disposition machinery — the older tree has no <code>structure-dispositions.json</code>/<code>badge-dispositions.json</code> at all. This audit could only meaningfully target one of the two; nothing in the skill's own design currently declares which tree is authoritative going forward, a gap this plan's own history already discloses elsewhere but has not resolved.</p>
+      </div>
+      <p><strong>False positives vs. false negatives, reported separately, per the mission brief:</strong> zero false positives found — every disposition this audit checked that claimed "preserved" or "redundant" really was, at the time it was written. Two false negatives (gaps the machinery reports nothing about, because it was never designed to look): the fenced-code blind spot (Defect 1) and CLI-usage thinness (not a disposition at all, since <code>s0002</code> correctly logged the exclusion — the defect is that "excluded, pointer provided" was accepted as sufficient without a mechanical check on how much CLI usage actually survived elsewhere).</p>
+    </section>
+
+    <section id="coverage" class="doc">
+      <h2><span class="num">12</span> Preservation coverage metrics</h2>
+      <hr class="rule">
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>Category</th><th class="num">Original items</th><th class="num">Fully preserved</th><th class="num">Partial</th><th class="num">Missing</th><th class="num">Correctly excluded</th><th class="num">Coverage</th></tr></thead>
+        <tbody>
+          <tr><td>Identity &amp; positioning</td><td class="num">4</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">100%</td></tr>
+          <tr><td>Installation &amp; package identity</td><td class="num">3</td><td class="num">3</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">100%</td></tr>
+          <tr><td>Dependencies &amp; runtime</td><td class="num">1</td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">100%</td></tr>
+          <tr><td>Supported formats</td><td class="num">1</td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">100%</td></tr>
+          <tr><td>Capability claims (tables + bullets)</td><td class="num">39</td><td class="num">21</td><td class="num">1</td><td class="num">1</td><td class="num">16</td><td class="num">97%</td></tr>
+          <tr><td>Working code examples</td><td class="num">11</td><td class="num">9</td><td class="num">1</td><td class="num">1</td><td class="num">0</td><td class="num">86%</td></tr>
+          <tr><td>CLI usage</td><td class="num">1 (~24 subcmds)</td><td class="num">0</td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">~13% of subcommands demonstrated</td></tr>
+          <tr><td>MCP / optional features</td><td class="num">2</td><td class="num">2</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">100%</td></tr>
+          <tr><td>Build / test / dev workflow</td><td class="num">4</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">100%</td></tr>
+          <tr><td>License</td><td class="num">1</td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">100%</td></tr>
+          <tr><td>Links</td><td class="num">1</td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">100%</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p><strong>Raw item coverage:</strong> 68 of 74 identified original atomic items fully preserved (92%), counting each capability claim, example, and workflow item individually. <strong>Weighted developer-value coverage: 81%</strong> — the weighting discounts CLI usage and the Python API Highlights example heavily (both are high-value, per the mission's own weighting guidance covering "working examples" and "public APIs"), and the internal-class leak counts as a full-weight negative against the API Reference category even though it is a 3-of-139-row defect by raw count.</p>
+      <div class="callout preserve-blocker">
+        <div class="lbl">A high percentage does not mean ready</div>
+        <p>92% raw coverage is a real, earned number — but it is dragged down almost entirely by two categories (CLI usage, the missing mega-example) that this project's own weighting criteria (working examples, public APIs) rank among the highest-value content a README carries. A single missing category at 13% coverage is exactly the "do not declare success from a high percentage" case the mission brief names directly.</p>
+      </div>
+    </section>
+
+    <section id="next-steps" class="doc">
+      <h2><span class="num">13</span> Prioritized next-step recommendations</h2>
+      <hr class="rule">
+      <p>In dependency order. None of these require new investigation — every fact cited is already verified in this audit.</p>
+
+      <h3>1 — Remove the internal reporting classes from the API Reference table</h3>
+      <div class="kv">
+        <dt>Original item</dt><dd>none — candidate-only regression</dd>
+        <dt>Candidate section</dt><dd>API Reference → Core API table</dd>
+        <dt>Root cause</dt><dd>Upstream reference.aspose.org index leak (reporting.py never excluded from scouting)</dd>
+        <dt>Target placement</dt><dd>Remove <code>TaskTokenEstimate</code>/<code>TaskCompletionReceipt</code>/<code>CompletedTaskRecord</code> rows entirely</dd>
+        <dt>Treatment</dt><dd>Product-level exclusion list for this candidate now; file the upstream reference.aspose.org indexing defect separately (affects any product with an internal-only module)</dd>
+        <dt>Belongs in</dt><dd>One candidate (immediate) + reusable machinery (a real exclusion mechanism, so this doesn't require a hand-edit on every regeneration)</dd>
+        <dt>Tests required</dt><dd>A regression fixture proving a known-internal class name is excluded from a composed API table even when present in the real reference index</dd>
+        <dt>Evidence for closure</dt><dd>Re-run <code>check_api_reference_table_completeness</code>/<code>check_api_reference_table_no_duplicate_rows</code> against the corrected candidate; confirm 0 findings</dd>
+      </div>
+
+      <h3>2 — Restore CLI-usage parity for the capabilities already demonstrated in Python</h3>
+      <div class="kv">
+        <dt>Original item</dt><dd>CLI Highlights (s0002)</dd>
+        <dt>Candidate section</dt><dd>Additional Examples or a new subsection</dd>
+        <dt>Root cause</dt><dd>Exclusion reasoning accepted "pointer to docs" as sufficient without checking real coverage elsewhere</dd>
+        <dt>Target placement</dt><dd>Add the <code>var-instance</code> CLI invocation directly beneath the flagship static-instance Python example (matching capabilities 1:1), plus 2–3 more representative invocations covering <code>info</code>/<code>convert</code> and <code>qa-report</code></dd>
+        <dt>Treatment</dt><dd>Product-level content addition</dd>
+        <dt>Belongs in</dt><dd>One candidate</dd>
+        <dt>Tests required</dt><dd>None new — this is composition, not a new check</dd>
+        <dt>Evidence for closure</dt><dd>Manual review confirming every major capability category has at least one CLI invocation alongside its Python equivalent</dd>
+      </div>
+
+      <h3>3 — Restore the missing Python API Highlights capabilities as real examples</h3>
+      <div class="kv">
+        <dt>Original item</dt><dd>Python API Highlights mega-example</dd>
+        <dt>Candidate section</dt><dd>Additional Examples (new subsections) or Detailed Member Reference (expand with 1-line usage snippets)</dd>
+        <dt>Root cause</dt><dd>The original's single large example was never split into the candidate's per-capability example structure — it fell through entirely rather than being decomposed</dd>
+        <dt>Target placement</dt><dd>New Additional Examples entries for subsetting and for a menu-safe naming override; a one-line addition to the existing static-instance example showing <code>variable_mode="live"</code>/<code>"static"</code></dd>
+        <dt>Treatment</dt><dd>Product-level content addition</dd>
+        <dt>Belongs in</dt><dd>One candidate</dd>
+        <dt>Tests required</dt><dd>None new</dd>
+        <dt>Evidence for closure</dt><dd>Confirm each of the 5 named missing capabilities (subsetting, preview_naming_policy, live/static mode, legacy/typographic naming, grid-family package) has at least one real, verified code reference</dd>
+      </div>
+
+      <h3>4 — Fix the fenced-code blind spot in the reconciliation machinery</h3>
+      <div class="kv">
+        <dt>Root cause</dt><dd><code>extract_old_readme_content_units</code> strips fenced code before segmentation, by design, with no companion mechanism for code-block content</dd>
+        <dt>Treatment</dt><dd>A new, narrower extractor (mirrors the existing structure-dispositions.json pattern) that inventories fenced code blocks as their own unit type — tracking the developer task each demonstrates and its constituent method calls, without needing to execute anything</dd>
+        <dt>Belongs in</dt><dd>Reusable machinery (readme_refresh_checks.py) — this gap will recur on any code-example-heavy product</dd>
+        <dt>Tests required</dt><dd>A fixture using this exact font/python case (Python API Highlights) as the ground-truth "should be flagged as under-covered" example</dd>
+        <dt>Regression protection</dt><dd>A new heuristic check flagging when a fenced-code-derived unit has no traceable candidate location</dd>
+        <dt>Evidence for closure</dt><dd>Re-run the new extractor against this product; confirm it independently surfaces the same gaps this manual audit found</dd>
+      </div>
+
+      <h3>5 — Add stale-evidence detection for content-dispositions.json</h3>
+      <div class="kv">
+        <dt>Root cause</dt><dd>A disposition's <code>candidate_section_reference</code> evidence is never re-validated after a later, unrelated edit changes the candidate</dd>
+        <dt>Treatment</dt><dd>Extend <code>check_content_unit_merged_into_target_section</code> (already does word-overlap validation for merges) to also re-check <code>redundant_with_existing</code>/<code>excluded</code> dispositions whose evidence type is <code>candidate_section_reference</code></dd>
+        <dt>Belongs in</dt><dd>Reusable machinery (a validator, extending an existing one) — this is exactly the class of gap the existing merge-evidence check already closes for the opposite disposition value</dd>
+        <dt>Tests required</dt><dd>A fixture reproducing this exact <code>u0028</code> shape: an excluded unit whose cited section is deleted by a later edit</dd>
+        <dt>Evidence for closure</dt><dd>The new check fires against <code>font/python</code>'s real, current <code>content-dispositions.json</code> and correctly flags <code>u0028</code></dd>
+      </div>
+
+      <h3>6 — Reconcile or retire the second candidate tree</h3>
+      <div class="kv">
+        <dt>Root cause</dt><dd>Two divergent candidate trees exist for one product with no declared authority</dd>
+        <dt>Treatment</dt><dd>A deliberate, disclosed process decision (not a code fix) — this session's own plan already names this as an open question</dd>
+        <dt>Belongs in</dt><dd>Process/governance decision, out of this skill's own scope to resolve unilaterally</dd>
+        <dt>Evidence for closure</dt><dd>An explicit statement of which tree is canonical, recorded in the governing plan</dd>
+      </div>
+    </section>
+
+    <section id="readiness" class="doc">
+      <h2><span class="num">14</span> Readiness for human review</h2>
+      <hr class="rule">
+      <div class="callout preserve-blocker">
+        <p><strong>Not ready for publication as-is.</strong> The candidate is close, and its foundation is sound — corrections, additions, and reorganization throughout this audit were verified accurate, often stronger than the original. But one publication blocker (internal build-tooling classes exposed in the public API surface, including a real internal hostname) and two preservation blockers (CLI-usage thinness; the missing Python API Highlights capabilities) are real, evidence-backed, and should be resolved before this candidate goes in front of a human sign-off reviewer or is pushed to the target repository. Recommendation #1 in §13 is the single highest-priority item — it is the only finding in this audit that rises to a genuine publication-safety concern, and it is also the cheapest to fix (three table rows, already identified by name).</p>
+      </div>
+      <p>No file was edited, no candidate was regenerated, and the target repository was not touched during this audit, per the mission's own scope.</p>
+    </section>
+
+    <footer class="colophon">
+      Analysis-only preservation audit · aspose-font-foss/Aspose.Font-FOSS-for-Python @ 136b6e2 · candidate reports/repo-presenter-regen-full/font/python/readme.md · compiled by direct source verification, not solely from existing reconciliation records.
+    </footer>
+  </main>
+</div>

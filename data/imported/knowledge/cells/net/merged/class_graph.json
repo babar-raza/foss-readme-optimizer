@@ -1,0 +1,104 @@
+[
+  {
+    "child": "InvalidFileFormatException",
+    "parent": "CellsException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "AutoFilterCustomFilterCollection",
+    "parent": "IEnumerable<AutoFilterCustomFilter>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "AutoFilterSortConditionCollection",
+    "parent": "IEnumerable<AutoFilterSortCondition>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "CellArea",
+    "parent": "IComparable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "CellsException",
+    "parent": "Exception",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "Color",
+    "parent": "IEquatable<Color>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "DefinedNameCollection",
+    "parent": "IEnumerable<DefinedName>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FilterColumnCollection",
+    "parent": "IEnumerable<FilterColumn>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FilterValueCollection",
+    "parent": "IEnumerable<string>",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "FormulaException",
+    "parent": "CellsException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "ListObjectCollection",
+    "parent": "IListObjectOwner",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "StyleException",
+    "parent": "CellsException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "UnsupportedFeatureException",
+    "parent": "CellsException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "Workbook",
+    "parent": "IDisposable",
+    "relationship": "inherits",
+    "internal": false
+  },
+  {
+    "child": "WorkbookLoadException",
+    "parent": "CellsException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "WorkbookSaveException",
+    "parent": "CellsException",
+    "relationship": "inherits",
+    "internal": true
+  },
+  {
+    "child": "WorksheetCollection",
+    "parent": "IEnumerable<Worksheet>",
+    "relationship": "inherits",
+    "internal": false
+  }
+]

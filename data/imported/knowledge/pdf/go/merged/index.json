@@ -1,0 +1,734 @@
+{
+  "schema_version": 2,
+  "family": "pdf",
+  "platform": "go",
+  "display_name": "Aspose.Pdf",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "high",
+  "repo_sha": "4a8d9cd1df39dce3f05d6ede8fb06c4ce39f2096",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "class_count": 215,
+    "enriched_claims": 1484,
+    "forbidden_count": 0,
+    "scout_claims": 3040,
+    "snippet_count": 100,
+    "supplemental_claims": 0,
+    "total_claims": 4356
+  },
+  "classes": [
+    "AIClient",
+    "APIError",
+    "AbsorbedCell",
+    "AbsorbedRow",
+    "AbsorbedTable",
+    "Action",
+    "ActionType",
+    "Annotation",
+    "AnnotationCollection",
+    "AnnotationType",
+    "BmpDevice",
+    "BookletBinding",
+    "BookletOptions",
+    "BorderEffect",
+    "BorderInfo",
+    "BorderSide",
+    "BorderStyle",
+    "ButtonAppearance",
+    "ButtonField",
+    "ButtonIconPosition",
+    "CaretAnnotation",
+    "CaretSymbol",
+    "Cell",
+    "CertifyPermission",
+    "ChatCopilot",
+    "ChatOptions",
+    "CheckboxField",
+    "ChoiceOption",
+    "CircleAnnotation",
+    "Color",
+    "ComboBoxField",
+    "CompletionRequest",
+    "CompletionResponse",
+    "DateField",
+    "Destination",
+    "DestinationFit",
+    "DestinationFitB",
+    "DestinationFitBH",
+    "DestinationFitBV",
+    "DestinationFitH",
+    "DestinationFitR",
+    "DestinationFitV",
+    "DestinationType",
+    "DestinationXYZ",
+    "DocRecognitionMode",
+    "DocSaveOptions",
+    "Document",
+    "DocumentInfo",
+    "EmbeddedFile",
+    "EmbeddedFiles",
+    "EncryptionAlgorithm",
+    "EncryptionOptions",
+    "EpubSaveOptions",
+    "Field",
+    "FieldStyle",
+    "FigureAlt",
+    "FileAttachmentAnnotation",
+    "FileAttachmentIcon",
+    "FileSelectBoxField",
+    "FloatSide",
+    "FloatingBox",
+    "Flow",
+    "FlowOptions",
+    "Font",
+    "Form",
+    "FormFieldType",
+    "FreeTextAnnotation",
+    "FreeTextIntent",
+    "GenericAnnotation",
+    "GifDevice",
+    "GoToAction",
+    "GoToURIAction",
+    "Gradient",
+    "GradientStop",
+    "HAlign",
+    "HTMLMode",
+    "HTMLSaveOptions",
+    "HighlightAnnotation",
+    "Image",
+    "ImageColorSpace",
+    "ImageDescriptionCopilot",
+    "ImageDescriptionOptions",
+    "ImageFormat",
+    "ImageInfo",
+    "ImageStamp",
+    "ImageToDocumentOptions",
+    "InkAnnotation",
+    "JSONExportOptions",
+    "JavaScriptAction",
+    "JavaScriptCollection",
+    "JpegDevice",
+    "LLMOCREngine",
+    "LLMOCROptions",
+    "Layer",
+    "LineAnnotation",
+    "LineCap",
+    "LineEndingStyle",
+    "LineJoin",
+    "LineStyle",
+    "LinearGradient",
+    "LinkAnnotation",
+    "LinkHighlightMode",
+    "ListBoxField",
+    "MarginInfo",
+    "MarkdownOptions",
+    "MarkdownSaveOptions",
+    "MarkupParagraph",
+    "MarkupSection",
+    "Message",
+    "MessageImage",
+    "NUpOptions",
+    "NUpOrder",
+    "NamedAction",
+    "NamedActionType",
+    "NamedDestination",
+    "NamedDestinations",
+    "NumberField",
+    "NumberFormatOptions",
+    "OCRBox",
+    "OCREngine",
+    "OCRLine",
+    "OCRResult",
+    "OCRWord",
+    "OcrCopilot",
+    "OcrOptions",
+    "OpenAIClient",
+    "OpenAIClientOptions",
+    "OptimizationOptions",
+    "OptimizationResult",
+    "OptimizeImageOptions",
+    "OutlineItemCollection",
+    "PDFAFormat",
+    "PDFAIssue",
+    "PDFAValidationReport",
+    "PDFUAIssue",
+    "PDFUAValidationReport",
+    "Page",
+    "PageFormat",
+    "PageLabelRange",
+    "PageLabelStyle",
+    "PageMarkup",
+    "PageNumberStamp",
+    "PageRange",
+    "PageSize",
+    "PasswordBoxField",
+    "Path",
+    "PdfPageStamp",
+    "Permissions",
+    "PngDevice",
+    "Point",
+    "PolygonAnnotation",
+    "PolylineAnnotation",
+    "QuadPoint",
+    "RadialGradient",
+    "RadioButtonField",
+    "RadioButtonOptionField",
+    "RadioItem",
+    "Rectangle",
+    "RedactAnnotation",
+    "RenderOptions",
+    "ReplaceOptions",
+    "ResetFormAction",
+    "Resolution",
+    "RichTextBoxField",
+    "RotationAngle",
+    "Row",
+    "SVG",
+    "SVGFontResolver",
+    "SVGSaveOptions",
+    "SearchOptions",
+    "ShapeStyle",
+    "SignOptions",
+    "SignatureAppearance",
+    "SignatureVerification",
+    "SquareAnnotation",
+    "SquigglyAnnotation",
+    "Stamp",
+    "StampAnnotation",
+    "StampName",
+    "StrikeOutAnnotation",
+    "StructElement",
+    "StructType",
+    "SubmitFormAction",
+    "SubmitFormFlags",
+    "SummaryCopilot",
+    "SummaryOptions",
+    "TOCEntry",
+    "TOCOptions",
+    "Table",
+    "TableAbsorber",
+    "TaggedContent",
+    "TextAnnotation",
+    "TextBoxField",
+    "TextExtractOptions",
+    "TextExtractionMode",
+    "TextFragment",
+    "TextIcon",
+    "TextLine",
+    "TextMatch",
+    "TextRecognitionResult",
+    "TextStamp",
+    "TextStyle",
+    "TiffDevice",
+    "TilingPattern",
+    "UnderlineAnnotation",
+    "Usage",
+    "VAlign",
+    "ValidationIssue",
+    "ValidationReport",
+    "WidgetAnnotation",
+    "XForm",
+    "XMPMetadata",
+    "XMPProperty",
+    "XlsxRecognitionMode",
+    "XlsxSaveOptions"
+  ],
+  "class_graph": [
+    {
+      "child": "AnnotationType",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "WidgetAnnotation",
+      "parent": "annotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "GenericAnnotation",
+      "parent": "annotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ActionType",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NamedActionType",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SubmitFormFlags",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CaretSymbol",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CaretAnnotation",
+      "parent": "drawingAnnotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderStyle",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LineEndingStyle",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SquareAnnotation",
+      "parent": "drawingAnnotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CircleAnnotation",
+      "parent": "drawingAnnotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LineAnnotation",
+      "parent": "drawingAnnotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "InkAnnotation",
+      "parent": "drawingAnnotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FileAttachmentIcon",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FileAttachmentAnnotation",
+      "parent": "annotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FreeTextIntent",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderEffect",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FreeTextAnnotation",
+      "parent": "drawingAnnotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LinkAnnotation",
+      "parent": "annotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LinkHighlightMode",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "HighlightAnnotation",
+      "parent": "annotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "UnderlineAnnotation",
+      "parent": "annotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StrikeOutAnnotation",
+      "parent": "annotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "SquigglyAnnotation",
+      "parent": "annotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PolygonAnnotation",
+      "parent": "polyAnnotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PolylineAnnotation",
+      "parent": "polyAnnotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RedactAnnotation",
+      "parent": "drawingAnnotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StampName",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StampAnnotation",
+      "parent": "drawingAnnotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextIcon",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextAnnotation",
+      "parent": "annotationBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LineCap",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "LineJoin",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "HAlign",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "VAlign",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DocRecognitionMode",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "EncryptionAlgorithm",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FloatSide",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ButtonIconPosition",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "FormFieldType",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextBoxField",
+      "parent": "fieldBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CheckboxField",
+      "parent": "fieldBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RadioButtonField",
+      "parent": "fieldBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ComboBoxField",
+      "parent": "fieldBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ListBoxField",
+      "parent": "fieldBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ButtonField",
+      "parent": "fieldBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PasswordBoxField",
+      "parent": "TextBoxField",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "FileSelectBoxField",
+      "parent": "TextBoxField",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "RichTextBoxField",
+      "parent": "TextBoxField",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "NumberField",
+      "parent": "TextBoxField",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "DateField",
+      "parent": "TextBoxField",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "HTMLMode",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ImageFormat",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ImageColorSpace",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "NUpOrder",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BookletBinding",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "DestinationType",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "RotationAngle",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageLabelStyle",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "CertifyPermission",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextStamp",
+      "parent": "stampBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PageNumberStamp",
+      "parent": "stampBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ImageStamp",
+      "parent": "stampBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PdfPageStamp",
+      "parent": "stampBase",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "BorderSide",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "StructType",
+      "parent": "string",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "TextExtractionMode",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "PDFAFormat",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    },
+    {
+      "child": "ShapeStyle",
+      "parent": "LineStyle",
+      "relationship": "inherits",
+      "internal": true
+    },
+    {
+      "child": "XlsxRecognitionMode",
+      "parent": "int",
+      "relationship": "inherits",
+      "internal": false
+    }
+  ],
+  "formats": {
+    "import": [
+      "jbig2",
+      "hint",
+      "Pdf",
+      "SVG",
+      "JSON",
+      "Markdown"
+    ],
+    "export": [
+      "Bmp",
+      "Doc",
+      "docx",
+      "Epub",
+      "epub",
+      "JSON",
+      "HTML",
+      "svg",
+      "Markdown",
+      "Jpeg",
+      "Gif",
+      "SVG",
+      "Tiff",
+      "Xlsx",
+      "Docx",
+      "Epub",
+      "Markdown",
+      "SVG",
+      "HTML",
+      "JSON",
+      "Xlsx"
+    ],
+    "caveats": {}
+  },
+  "install": {
+    "command": "go get github.com/aspose-pdf-foss/aspose-pdf-foss-for-go",
+    "version": ""
+  },
+  "not_implemented": [],
+  "forbidden_claims": [],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 215,
+    "with_methods": 98,
+    "with_properties": 87,
+    "with_enums": 0,
+    "method_pct": 45.6,
+    "property_pct": 40.5,
+    "surface_tier": 2
+  },
+  "snippets_coverage": {
+    "total_snippets": 100,
+    "classes_with_snippet": 91,
+    "classes_total": 215,
+    "coverage_ratio": 0.42,
+    "effective_denominator": 176,
+    "concrete_coverage": {
+      "classes_total": 176,
+      "classes_with_snippet": 84,
+      "coverage_ratio": 0.48
+    },
+    "interface_coverage": {
+      "classes_total": 0,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

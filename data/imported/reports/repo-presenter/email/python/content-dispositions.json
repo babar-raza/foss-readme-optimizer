@@ -1,0 +1,852 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "Aspose.Email FOSS for Python is a pure Python toolkit for working with:",
+    "salient_tokens": [
+      "FOSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Core one-line description lead-in already present, expanded, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'Aspose.Email FOSS for Python is a free, open-source, pure Python toolkit for reading and writing Microsoft Outlook .msg files and the underlying Compound File Binary (CFB) container format.' Same lead-in, expanded."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Lead-in sentence already present, expanded, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Compound File Binary (CFB) containers",
+    "salient_tokens": [
+      "CFB"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Named domain object already present, verbatim, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: '...the underlying Compound File Binary (CFB) container format.' Verbatim match."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Verbatim duplicate already present in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Outlook MSG files",
+    "salient_tokens": [
+      "MSG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, near-verbatim, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'Aspose.Email FOSS for Python is a free, open-source, pure Python toolkit for reading and writing Microsoft Outlook .msg files and the underlying Compound File Binary (CFB) container format.' Same fact, expanded."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Content already present, near-verbatim, in the Intro paragraph of the candidate."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "- High-level MAPI-style message objects",
+    "salient_tokens": [
+      "MAPI"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "MAPI-style object model already present, near-verbatim, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: 'It exposes a MAPI-style object model — MapiMessage, MapiRecipient, MapiAttachment — for creating, editing, and inspecting messages.' Same fact, plus the concrete class names."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Fact already present, near-verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "- [`email.message.EmailMessage`](https://docs.python.org/3/library/email.message.html#email.message.EmailMessage) conversion",
+    "salient_tokens": [
+      "email.message.EmailMessage",
+      "EmailMessage"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "EmailMessage conversion already present, verbatim, in the candidate's Intro paragraph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Intro: '...and converts between .msg and Python's built-in email.message.EmailMessage.' Same fact, same link target."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Fact already present, verbatim, in the Intro paragraph."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "It is focused on practical MSG read/write workflows in a lightweight open-source package.",
+    "salient_tokens": [
+      "MSG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "The checkable substance -- focused on MSG/CFB read-write, open-source -- is already present in Scope and Limitations and the Intro's 'free, open-source' framing; 'lightweight' is a subjective marketing adjective with nothing independently checkable about it and was not carried forward.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Scope and Limitations",
+      "evidence_note": "Scope and Limitations: 'This project focuses on reading and writing Outlook .msg files and Compound File Binary (CFB) containers directly, plus MAPI-style property, recipient, and attachment manipulation through MapiMessage.' Same 'focused on MSG/CFB' fact. 'Open-source' is separately covered by the Intro's 'free, open-source, pure Python toolkit.' 'Lightweight' has no independently checkable meaning (not a dependency count, size, or benchmark claim) and was correctly not carried over."
+    },
+    "disposition": "excluded",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": "Checkable substance (MSG/CFB focus, open-source) already present; 'lightweight' is unverifiable marketing language."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Read CFB and Outlook MSG containers",
+    "salient_tokens": [
+      "CFB",
+      "MSG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, expanded, across the candidate's first two Key Capabilities bullets.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullets 1-2: 'Parse Compound File Binary (CFB) containers with CFBReader...' and 'Read Outlook .msg files at the low level with MsgReader...'. Same facts, plus concrete class names."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, expanded, across two Key Capabilities bullets."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Inspect low-level storages, streams, and property bags",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Low-level storage/stream/property inspection capability already present, via the concrete class names, in the candidate's API Reference detail list; 'property bags' is informal phrasing for what the candidate calls MapiPropertyCollection/individual MapiProperty inspection.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference's CFB API detail list: 'CFBReader ... iter_storages(), iter_streams() ...'; MSG API detail list documents MapiPropertyCollection.set/add/get/remove and MapiMessage.iter_properties(). Same storages/streams/properties concepts, with concrete methods."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Storage/stream/property inspection capability already present, via concrete class/method names, in the API Reference section."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Read, edit, and write messages through `MapiMessage`",
+    "salient_tokens": [
+      "MapiMessage"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, near-verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Create, load, edit, and save messages with the high-level MapiMessage API (create(), from_file(), save(), to_bytes()).' Same fact, plus concrete method names."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, near-verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Work with recipients, attachments, and embedded messages",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, near-verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Manage recipients, file attachments, and embedded message attachments (add_recipient, add_attachment, add_embedded_message_attachment).' Same fact, plus concrete method names."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, near-verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Convert between MSG and [`email.message.EmailMessage`](https://docs.python.org/3/library/email.message.html#email.message.EmailMessage)",
+    "salient_tokens": [
+      "email.message.EmailMessage",
+      "MSG",
+      "EmailMessage"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability bullet already present, verbatim, in the candidate's Key Capabilities section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Convert between .msg messages and Python's email.message.EmailMessage with to_email_message() and from_email_message().' Same fact, plus concrete method names."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Create new Outlook-compatible `.msg` files in pure Python",
+    "salient_tokens": [
+      ".msg"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Capability covered by the candidate's MsgWriter/MapiMessage.save Key Capabilities bullets plus the Intro's 'pure Python toolkit' framing.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities bullets 2-3 cover writing .msg files via MsgWriter and MapiMessage.save()/to_bytes(); Intro states 'pure Python toolkit'."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Capability already present across existing Key Capabilities bullets and the Intro's pure-Python framing."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `aspose.email_foss.msg.MapiMessage`: high-level mutable MSG model",
+    "salient_tokens": [
+      "aspose.email_foss.msg.MapiMessage",
+      "MapiMessage",
+      "MSG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Module+class association and 'mutable high-level MSG object' description already present in the candidate's API Reference (module and class stated adjacently rather than as one concatenated dotted path -- same fact, different formatting).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference: 'Provided by the aspose.email_foss.msg module: - MapiMessage — mutable high-level MSG object with MSG and EmailMessage conversion support'. Same module + class + 'mutable/high-level/MSG' characterization."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Module/class association and description already present in the API Reference section."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `aspose.email_foss.msg.MsgReader`: low-level MSG reader",
+    "salient_tokens": [
+      "aspose.email_foss.msg.MsgReader",
+      "MsgReader",
+      "MSG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Module+class association already present, verbatim, in the candidate's Compatibility section's API layers list.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: 'Low-level MSG API: aspose.email_foss.msg, centered on MsgReader, MsgWriter, MsgDocument'. Same module + class association."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Module/class association already present, verbatim, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `aspose.email_foss.msg.MsgWriter`: low-level MSG writer",
+    "salient_tokens": [
+      "aspose.email_foss.msg.MsgWriter",
+      "MsgWriter",
+      "MSG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Module+class association already present, verbatim, in the same Compatibility bullet as u0013.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: 'Low-level MSG API: aspose.email_foss.msg, centered on MsgReader, MsgWriter, MsgDocument'. Same module + class association."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Module/class association already present, verbatim, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `aspose.email_foss.cfb.CFBReader`: low-level CFB reader",
+    "salient_tokens": [
+      "aspose.email_foss.cfb.CFBReader",
+      "CFBReader",
+      "CFB"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Module+class association already present, verbatim, in the candidate's Compatibility section's API layers list.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: 'CFB API: aspose.email_foss.cfb, centered on CFBReader, CFBWriter, CFBDocument'. Same module + class association."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Module/class association already present, verbatim, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `aspose.email_foss.cfb.CFBWriter`: low-level CFB writer",
+    "salient_tokens": [
+      "aspose.email_foss.cfb.CFBWriter",
+      "CFBWriter",
+      "CFB"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Module+class association already present, verbatim, in the same Compatibility bullet as u0015.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: 'CFB API: aspose.email_foss.cfb, centered on CFBReader, CFBWriter, CFBDocument'. Same module + class association."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Module/class association already present, verbatim, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "Main supported scenarios:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Section lead-in already present, verbatim, as a bolded lead-in in the candidate's Compatibility section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: '**Main supported scenarios**' — same text, now bolded instead of plain."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Verbatim duplicate already present in the Compatibility section."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Read Outlook `.msg` files",
+    "salient_tokens": [
+      ".msg"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Scenario bullet already present, verbatim, in the candidate's Compatibility section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility's first scenario bullet: 'Read Outlook .msg files'. Verbatim match."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Verbatim duplicate already present in the Compatibility section."
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Write Outlook `.msg` files",
+    "salient_tokens": [
+      ".msg"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Scenario bullet already present, verbatim, in the candidate's Compatibility section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility's second scenario bullet: 'Write Outlook .msg files'. Verbatim match."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Verbatim duplicate already present in the Compatibility section."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Inspect Compound File Binary (CFB) containers",
+    "salient_tokens": [
+      "CFB"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Scenario bullet already present, expanded, in the candidate's Compatibility section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: 'Inspect Compound File Binary (CFB) containers, and build new ones with CFBWriter'. Same fact, expanded."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Scenario already present, expanded, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Convert `.msg` to `.eml`",
+    "salient_tokens": [
+      ".msg",
+      ".eml"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Scenario bullet already present, expanded, in the candidate's Compatibility section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: 'Convert .msg to .eml (to_email_message())'. Same fact, plus the concrete method."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Scenario already present, expanded, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Convert `.eml` to `.msg`",
+    "salient_tokens": [
+      ".eml",
+      ".msg"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Scenario bullet already present, expanded, in the candidate's Compatibility section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: 'Convert .eml to .msg (from_email_message())'. Same fact, plus the concrete method."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Scenario already present, expanded, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Work with recipients, attachments, and embedded messages",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Scenario bullet already present, near-verbatim, in the candidate's Compatibility section (duplicate of the old README's own u0009 wording).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: 'Manage recipients, attachments, and embedded message attachments'. Same fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Scenario already present, near-verbatim, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0025",
+    "source": "clone_cache/README.md",
+    "excerpt": "API layers:",
+    "salient_tokens": [
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Structural lead-in label; the candidate's Compatibility section already has an identical bolded 'API layers' sub-heading covering the same three-layer breakdown.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: '**API layers**' followed by the High-level MSG API / Low-level MSG API / CFB API bullets -- same label, same three-layer breakdown, already present."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Lead-in label already present, as a bolded sub-heading, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0026",
+    "source": "clone_cache/README.md",
+    "excerpt": "- High-level MSG API: `aspose.email_foss.msg`, centered around `MapiMessage`",
+    "salient_tokens": [
+      "aspose.email_foss.msg",
+      "MapiMessage",
+      "MSG",
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "API-layer bullet already present, near-verbatim, in the candidate's Compatibility section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: 'High-level MSG API: aspose.email_foss.msg, centered on MapiMessage'. Same fact ('on' vs 'around' is the only wording difference)."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "API-layer bullet already present, near-verbatim, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0027",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Low-level MSG API: `aspose.email_foss.msg`, centered around `MsgReader`, `MsgWriter`, and `MsgDocument`",
+    "salient_tokens": [
+      "aspose.email_foss.msg",
+      "MsgReader",
+      "MsgWriter",
+      "MsgDocument",
+      "MSG",
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "API-layer bullet already present, near-verbatim, in the candidate's Compatibility section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: 'Low-level MSG API: aspose.email_foss.msg, centered on MsgReader, MsgWriter, MsgDocument'. Same fact ('on' vs 'around' is the only wording difference)."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "API-layer bullet already present, near-verbatim, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0028",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Low-level CFB API: `aspose.email_foss.cfb`, centered around `CFBReader`, `CFBWriter`, and `CFBDocument`",
+    "salient_tokens": [
+      "aspose.email_foss.cfb",
+      "CFBReader",
+      "CFBWriter",
+      "CFBDocument",
+      "CFB",
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "API-layer bullet already present, near-verbatim, in the candidate's Compatibility section (candidate drops the 'Low-level' qualifier since there is only one CFB API layer, not a high/low split like MSG).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: 'CFB API: aspose.email_foss.cfb, centered on CFBReader, CFBWriter, CFBDocument'. Same module/class facts."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "API-layer bullet already present, near-verbatim, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0029",
+    "source": "clone_cache/README.md",
+    "excerpt": "[`email.message.EmailMessage`](https://docs.python.org/3/library/email.message.html#email.message.EmailMessage) interop:",
+    "salient_tokens": [
+      "email.message.EmailMessage",
+      "EmailMessage"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Lead-in for the two EmailMessage-conversion method bullets that follow (u0028/u0029); the interop fact itself is already present, verbatim, in Key Capabilities.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: 'Convert between .msg messages and Python's email.message.EmailMessage with to_email_message() and from_email_message().' Same interop fact."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "EmailMessage interop fact already present, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0030",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `MapiMessage.from_email_message(...)`",
+    "salient_tokens": [
+      "MapiMessage.from_email_message(...)",
+      "MapiMessage"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Method already named, verbatim, in the candidate's Key Capabilities section (and API Reference).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: '...with to_email_message() and from_email_message().' Method named verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Method already named, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0031",
+    "source": "clone_cache/README.md",
+    "excerpt": "- `MapiMessage.to_email_message()`",
+    "salient_tokens": [
+      "MapiMessage.to_email_message()",
+      "MapiMessage"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Method already named, verbatim, in the same Key Capabilities bullet as u0028.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Key Capabilities: '...with to_email_message() and from_email_message().' Method named verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Method already named, verbatim, in the Key Capabilities section."
+  },
+  {
+    "unit_id": "u0032",
+    "source": "clone_cache/README.md",
+    "excerpt": "Outlook-oriented behavior:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Section lead-in already present, verbatim, as a bolded lead-in in the candidate's Compatibility section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: '**Outlook-oriented behavior**' — same text, now bolded."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Verbatim duplicate already present in the Compatibility section."
+  },
+  {
+    "unit_id": "u0033",
+    "source": "clone_cache/README.md",
+    "excerpt": "- standard message creation",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Item already present, verbatim, in the candidate's Compatibility section's Outlook-oriented-behavior bullet.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: 'Standard message creation, recipients, file attachments, embedded message attachments, and common message property defaults for practical Outlook interoperability'. Same item, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Item already present, verbatim, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0034",
+    "source": "clone_cache/README.md",
+    "excerpt": "- recipients",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, in substance, in the candidate's Compatibility section's Outlook-oriented behavior bullet (collapsed into a single sentence rather than separate sub-bullets).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: '**Outlook-oriented behavior**\\n- Standard message creation, recipients, file attachments, embedded message attachments, and common message property defaults for practical Outlook interoperability.' 'Recipients' is explicitly named."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Fact already present, collapsed into the Outlook-oriented behavior bullet, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0035",
+    "source": "clone_cache/README.md",
+    "excerpt": "- file attachments",
+    "salient_tokens": [
+      "attachments"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Already present, in substance, in the candidate's Compatibility section's Outlook-oriented behavior bullet (collapsed into a single sentence rather than separate sub-bullets).",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: '**Outlook-oriented behavior**\\n- Standard message creation, recipients, file attachments, embedded message attachments, and common message property defaults for practical Outlook interoperability.' 'File attachments' is explicitly named."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Fact already present, collapsed into the Outlook-oriented behavior bullet, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0036",
+    "source": "clone_cache/README.md",
+    "excerpt": "- embedded message attachments",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Item already present, verbatim, in the same Compatibility bullet as u0031.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: '...recipients, file attachments, embedded message attachments, and common message property defaults...'. Same item, verbatim."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Item already present, verbatim, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0037",
+    "source": "clone_cache/README.md",
+    "excerpt": "- common message property defaults for practical Outlook interoperability",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Item already present, verbatim, in the same Compatibility bullet as u0031/u0032.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Compatibility",
+      "evidence_note": "Compatibility: '...and common message property defaults for practical Outlook interoperability'. Verbatim match."
+    },
+    "disposition": "excluded",
+    "target_section": "Compatibility",
+    "excluded_reason": "Item already present, verbatim, in the Compatibility section."
+  },
+  {
+    "unit_id": "u0038",
+    "source": "clone_cache/README.md",
+    "excerpt": "For the stable API summary, see [PUBLIC_API.md](PUBLIC_API.md).\nFor runnable scenarios, see [examples](examples).",
+    "salient_tokens": [
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Both pointers already present separately: the PUBLIC_API.md pointer in Documentation & Resources, and the examples pointer in Additional Examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: '**Stable API summary** (PUBLIC_API.md) — the maintained summary of the supported public surface.' Additional Examples separately: 'Runnable scripts are available in the examples directory...'."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Both pointers (PUBLIC_API.md, examples) already present, separately, in Documentation & Resources and Additional Examples."
+  },
+  {
+    "unit_id": "u0039",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Repository: <https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python>",
+    "salient_tokens": [
+      "FOSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "No explicit 'Repository:' pointer exists in the candidate, but the repository is already identified via the badge links in the same preamble/Intro section (Build and Contributors badges both resolve to this exact repository), and this README itself lives inside that repository -- a bare self-link adds no new, independently checkable information.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Intro",
+      "evidence_note": "Candidate's badge row (in the Intro/preamble section) links to 'https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python/actions/workflows/ci.yml' and '.../graphs/contributors' -- both resolve to the same repository named in this unit. The repository identity is already discoverable from those existing links."
+    },
+    "disposition": "excluded",
+    "target_section": "Intro",
+    "excluded_reason": "Repository identity already discoverable via existing badge links in the Intro/preamble; a bare self-referential repository link adds no new checkable fact."
+  },
+  {
+    "unit_id": "u0040",
+    "source": "clone_cache/README.md",
+    "excerpt": "- Issues: <https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python/issues>",
+    "salient_tokens": [
+      "FOSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Issue-reporting pointer already present, with the identical URL, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: 'Found a bug or have a feature request? Open an issue on GitHub.' linking to the identical https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python/issues URL."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Issue-reporting pointer already present, with the identical URL, in the Documentation & Resources section."
+  },
+  {
+    "unit_id": "u0041",
+    "source": "clone_cache/README.md",
+    "excerpt": "- PyPI: <https://pypi.org/project/aspose-email-foss/>",
+    "salient_tokens": [
+      "PyPI"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "PyPI package identity already present via the PyPI badge (same URL) and the Installation section's PyPI install instructions.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation",
+      "evidence_note": "Installation: 'Install the library from PyPI: python -m pip install aspose-email-foss'. The candidate's PyPI version badge (in the preamble) also links to the identical https://pypi.org/project/aspose-email-foss/ URL."
+    },
+    "disposition": "excluded",
+    "target_section": "Installation",
+    "excluded_reason": "PyPI package identity already present via the Installation section and the PyPI badge, both using the identical URL/package name."
+  },
+  {
+    "unit_id": "u0042",
+    "source": "clone_cache/README.md",
+    "excerpt": "See [CONTRIBUTING.md](CONTRIBUTING.md).",
+    "salient_tokens": [
+      "CONTRIBUTING"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Contributing-guide pointer already present, verbatim, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: '**Contributing guide** (CONTRIBUTING.md) — how to set up and submit changes.' Same pointer."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Pointer already present, verbatim, in the Documentation & Resources section."
+  },
+  {
+    "unit_id": "u0043",
+    "source": "clone_cache/README.md",
+    "excerpt": "See [SECURITY.md](SECURITY.md).",
+    "salient_tokens": [
+      "SECURITY"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Security-policy pointer already present, verbatim, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: '**Security policy** (SECURITY.md) — how to report a suspected security issue without posting details in a public issue first.' Same pointer, expanded."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Pointer already present, expanded, in the Documentation & Resources section."
+  },
+  {
+    "unit_id": "u0044",
+    "source": "clone_cache/README.md",
+    "excerpt": "See [CHANGELOG.md](CHANGELOG.md).",
+    "salient_tokens": [
+      "CHANGELOG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Changelog pointer already present, verbatim, in the candidate's Documentation & Resources section.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Documentation & Resources",
+      "evidence_note": "Documentation & Resources: '**Changelog** (CHANGELOG.md) — release history.' Same pointer."
+    },
+    "disposition": "excluded",
+    "target_section": "Documentation & Resources",
+    "excluded_reason": "Pointer already present, verbatim, in the Documentation & Resources section."
+  }
+]

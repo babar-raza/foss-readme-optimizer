@@ -1,0 +1,80 @@
+{
+  "schema_version": 2,
+  "family": "cells",
+  "platform": "go",
+  "display_name": "Aspose.Cells",
+  "provenance": "scout_only",
+  "stale": false,
+  "has_conflicts": false,
+  "api_confidence": "medium",
+  "repo_sha": "9f0a4033b59e9127afec7662ec9079b500af8032",
+  "last_merged": "",
+  "vectors_available": false,
+  "stats": {
+    "class_count": 14,
+    "enriched_claims": 0,
+    "forbidden_count": 0,
+    "scout_claims": 113,
+    "snippet_count": 20,
+    "supplemental_claims": 0,
+    "total_claims": 113
+  },
+  "classes": [
+    "Alignment",
+    "Border",
+    "Cell",
+    "Cells",
+    "DataValidation",
+    "Fill",
+    "Font",
+    "Picture",
+    "RowCallback",
+    "StreamingReader",
+    "Style",
+    "Table",
+    "Workbook",
+    "Worksheet"
+  ],
+  "class_graph": [],
+  "formats": {
+    "import": [
+      "Streaming",
+      "byte"
+    ],
+    "export": [],
+    "caveats": {}
+  },
+  "install": {
+    "command": "go get github.com/aspose-cells-foss/aspose-cells-foss-for-go",
+    "version": ""
+  },
+  "not_implemented": [],
+  "forbidden_claims": [],
+  "truth_gaps": [],
+  "api_coverage": {
+    "total_classes": 14,
+    "with_methods": 6,
+    "with_properties": 11,
+    "with_enums": 0,
+    "method_pct": 42.9,
+    "property_pct": 78.6,
+    "surface_tier": 2
+  },
+  "snippets_coverage": {
+    "total_snippets": 20,
+    "classes_with_snippet": 13,
+    "classes_total": 14,
+    "coverage_ratio": 0.93,
+    "effective_denominator": 13,
+    "concrete_coverage": {
+      "classes_total": 13,
+      "classes_with_snippet": 13,
+      "coverage_ratio": 1.0
+    },
+    "interface_coverage": {
+      "classes_total": 0,
+      "classes_with_snippet": 0,
+      "coverage_ratio": 0.0
+    }
+  }
+}

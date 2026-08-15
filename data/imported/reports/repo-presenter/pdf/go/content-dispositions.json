@@ -1,0 +1,3494 @@
+[
+  {
+    "unit_id": "u0001",
+    "source": "clone_cache/README.md",
+    "excerpt": "A **pure Go PDF library** — **no CGo, no native libraries, no external dependencies** (standard library only), MIT-licensed. Create, edit, render, sign, encrypt, convert, and validate PDF documents: split/merge/extract pages, extract and search text, fill and build AcroForms, draw text/vector graphics/tables, embed and subset fonts, apply digital signatures (PKCS#7, PAdES, timestamps), validate and convert PDF/A, author accessible Tagged PDF, and render pages to images (PNG/JPEG/GIF/BMP, multi-page TIFF) with a built-in dependency-free rasterizer. Convert **Markdown ⇄ PDF** (652/652 official CommonMark suite), export **PDF → HTML** (with fillable forms), **PDF → SVG**, **PDF → Markdown**, and place **SVG** or images onto pages. The `ai` subpackage adds AI copilots — summarization, OCR with a searchable-PDF pipeline, document Q&A — over any OpenAI-compatible endpoint.",
+    "salient_tokens": [
+      "ai",
+      "PDF",
+      "CGo",
+      "MIT",
+      "AcroForms",
+      "PKCS",
+      "PAdES",
+      "PNG",
+      "JPEG",
+      "GIF",
+      "BMP",
+      "TIFF",
+      "CommonMark",
+      "HTML",
+      "SVG",
+      "OCR",
+      "OpenAI"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: ai, PDF, PKCS, PAdES, PNG, JPEG.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: ai, PDF, PKCS, PAdES, PNG, JPEG)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: ai, PDF, PKCS, PAdES, PNG, JPEG."
+  },
+  {
+    "unit_id": "u0002",
+    "source": "clone_cache/README.md",
+    "excerpt": "Spec references throughout follow ISO 32000-1 (PDF 1.7) and ISO 32000-2 (PDF 2.0). The API shape mirrors Aspose.PDF for .NET where natural, so concepts transfer directly for migrants. Not to be confused with `aspose-pdf-go-cpp` (a CGo wrapper around a native library) — this project is 100% Go source, `go get` and cross-compile anywhere.",
+    "salient_tokens": [
+      "aspose-pdf-go-cpp",
+      "go get",
+      "ISO",
+      "PDF",
+      "API",
+      "NET",
+      "CGo",
+      "1.7",
+      "2.0"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: ISO, PDF, API, NET.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: ISO, PDF, API, NET)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: ISO, PDF, API, NET."
+  },
+  {
+    "unit_id": "u0003",
+    "source": "clone_cache/README.md",
+    "excerpt": "Requires Go 1.24 or newer. Standard library only — no transitive dependencies.",
+    "salient_tokens": [
+      "1.24"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: 1.24.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "__preamble__",
+      "evidence_note": "Confirmed present in the candidate's __preamble__ section (matched real identifiers/phrasing: 1.24)."
+    },
+    "disposition": "excluded",
+    "target_section": "__preamble__",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: 1.24."
+  },
+  {
+    "unit_id": "u0004",
+    "source": "clone_cache/README.md",
+    "excerpt": "See [`_examples/`](_examples/) for full runnable programs covering text, forms, annotations, tables, vector graphics, SVG, and the end-to-end `feature_showcase` demo. Short focused API snippets also appear under \"Examples\" on [pkg.go.dev](https://pkg.go.dev/github.com/aspose-pdf-foss/aspose-pdf-foss-for-go).",
+    "salient_tokens": [
+      "_examples/",
+      "feature_showcase",
+      "SVG",
+      "API",
+      "Examples"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Quick Start section -- matched: _examples/, feature_showcase, SVG, API, Examples.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Quick Start",
+      "evidence_note": "Confirmed present in the candidate's Quick Start section (matched real identifiers/phrasing: _examples/, feature_showcase, SVG, API, Examples)."
+    },
+    "disposition": "excluded",
+    "target_section": "Quick Start",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Quick Start section -- matched: _examples/, feature_showcase, SVG, API, Examples."
+  },
+  {
+    "unit_id": "u0005",
+    "source": "clone_cache/README.md",
+    "excerpt": "[**docs/feature_showcase.pdf**](docs/feature_showcase.pdf) is a single 14-page PDF generated by [`_examples/feature_showcase`](_examples/feature_showcase/main.go). One narrative covers a clickable table of contents (built with `Page.AddTOC`), text (with an embedded, subsetted Unicode TTF), image embedding, styled AcroForm fields, the full annotation gallery (16 types incl. Polygon/Polyline/Caret), redactions (mark-mode + applied), tables (multi-page with repeating headers and spans), a landscape chart, the vector primitives, form/annotation flattening, and a meta \"Rendering & Imposition\" page whose thumbnails are renders of this very document — plus N-up and booklet imposition sheets — all drawn by the built-in renderer. Cross-cutting features include bookmarks, named destinations, page labels, Info + XMP metadata, and font subsetting. The showcase itself is left unencrypted so it previews inline on GitHub and opens in any viewer; encryption (RC4 / AES-128 / AES-256) is covered in the [Encryption](#encryption) section below.",
+    "salient_tokens": [
+      "_examples/feature_showcase",
+      "Page.AddTOC",
+      "PDF",
+      "AddTOC",
+      "TTF",
+      "AcroForm",
+      "XMP",
+      "GitHub",
+      "RC4",
+      "AES",
+      "Rendering & Imposition"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: PDF, AddTOC, TTF, AcroForm, XMP, RC4.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: PDF, AddTOC, TTF, AcroForm, XMP, RC4)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: PDF, AddTOC, TTF, AcroForm, XMP, RC4."
+  },
+  {
+    "unit_id": "u0006",
+    "source": "clone_cache/README.md",
+    "excerpt": "Regenerate locally with `go run ./_examples/feature_showcase`.",
+    "salient_tokens": [
+      "go run ./_examples/feature_showcase"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Feature Showcase section -- matched: go run ./_examples/feature_showcase.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Feature Showcase",
+      "evidence_note": "Confirmed present in the candidate's Feature Showcase section (matched real identifiers/phrasing: go run ./_examples/feature_showcase)."
+    },
+    "disposition": "excluded",
+    "target_section": "Feature Showcase",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Feature Showcase section -- matched: go run ./_examples/feature_showcase."
+  },
+  {
+    "unit_id": "u0007",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Split** — split a document into individual pages",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Quick Start section -- matched: document, pages, split, individual.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Quick Start",
+      "evidence_note": "Confirmed present in the candidate's Quick Start section (matched real identifiers/phrasing: document, pages, split, individual)."
+    },
+    "disposition": "excluded",
+    "target_section": "Quick Start",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Quick Start section -- matched: document, pages, split, individual."
+  },
+  {
+    "unit_id": "u0008",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Extract** — build a new Document from selected page ranges without mutating the source",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: document, without, ranges, source, extract, build.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: document, without, ranges, source, extract, build)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: document, without, ranges, source, extract, build."
+  },
+  {
+    "unit_id": "u0009",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Merge** — combine multiple PDFs into a single document",
+    "salient_tokens": [
+      "PDFs"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Quick Start section -- matched: PDFs.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Quick Start",
+      "evidence_note": "Confirmed present in the candidate's Quick Start section (matched real identifiers/phrasing: PDFs)."
+    },
+    "disposition": "excluded",
+    "target_section": "Quick Start",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Quick Start section -- matched: PDFs."
+  },
+  {
+    "unit_id": "u0010",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Imposition** — `Document.NUp` lays multiple source pages onto larger sheets in a Rows×Cols grid; `Document.Booklet` reorders pages two-up for saddle-stitch binding. Both return a new document (source untouched), built from Form XObjects",
+    "salient_tokens": [
+      "Document.NUp",
+      "Document.Booklet",
+      "NUp",
+      "XObjects"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: NUp, XObjects.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: NUp, XObjects)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: NUp, XObjects."
+  },
+  {
+    "unit_id": "u0011",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Rotate** — rotate pages by 90°, 180°, or 270°",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's At a Glance section -- matched: pages, rotate.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "At a Glance",
+      "evidence_note": "Confirmed present in the candidate's At a Glance section (matched real identifiers/phrasing: pages, rotate)."
+    },
+    "disposition": "excluded",
+    "target_section": "At a Glance",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's At a Glance section -- matched: pages, rotate."
+  },
+  {
+    "unit_id": "u0012",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Page geometry** — read page count, dimensions, and all PDF boxes (MediaBox, CropBox, TrimBox, BleedBox, ArtBox) as `Rectangle`s with spec fallback chains, plus page labels; set any box or resize a page via `SetMediaBox`/`SetCropBox`/… and `SetPageSize`",
+    "salient_tokens": [
+      "Rectangle",
+      "SetMediaBox",
+      "SetCropBox",
+      "SetPageSize",
+      "PDF",
+      "MediaBox",
+      "CropBox",
+      "TrimBox",
+      "BleedBox",
+      "ArtBox"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Rectangle, PDF, MediaBox, CropBox, TrimBox, BleedBox.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: Rectangle, PDF, MediaBox, CropBox, TrimBox, BleedBox)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Rectangle, PDF, MediaBox, CropBox, TrimBox, BleedBox."
+  },
+  {
+    "unit_id": "u0013",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Info metadata** — read and write the document `/Info` dictionary (title, author, subject, keywords, creator, producer, creation/mod dates, plus arbitrary custom entries) via `Document.Info()/SetInfo()/ClearInfo()` and the `DocumentInfo` struct; mirrors Aspose.PDF for .NET's `Document.Info`. (In Aspose.PDF for .NET, `Document.Metadata` is the XMP store — here `Document.XMP()`.)",
+    "salient_tokens": [
+      "/Info",
+      "Document.Info()/SetInfo()/ClearInfo()",
+      "DocumentInfo",
+      "Document.Info",
+      "Document.Metadata",
+      "Document.XMP()",
+      "SetInfo",
+      "ClearInfo",
+      "PDF",
+      "NET",
+      "XMP"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: DocumentInfo, SetInfo, ClearInfo, PDF, NET, XMP.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: DocumentInfo, SetInfo, ClearInfo, PDF, NET, XMP)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: DocumentInfo, SetInfo, ClearInfo, PDF, NET, XMP."
+  },
+  {
+    "unit_id": "u0014",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **XMP metadata** — full CRUD of the `/Catalog/Metadata` RDF/XML packet (ISO 32000-1 §14.3.2) via `Document.XMP()/SetXMP()/ClearXMP()` and a raw `XMPRaw()/SetXMPRaw()` escape hatch. `XMPMetadata` models Dublin Core / XMP Basic / PDF schemas (title, authors, description, keywords, creator tool, producer, create/modify/metadata dates) plus arbitrary namespaced custom properties; parser handles both attribute and `rdf:Alt`/`Seq`/`Bag` element forms. `SyncInfoToXMP()` mirrors the `/Info` dictionary into XMP as the spec recommends",
+    "salient_tokens": [
+      "/Catalog/Metadata",
+      "Document.XMP()/SetXMP()/ClearXMP()",
+      "XMPRaw()/SetXMPRaw()",
+      "XMPMetadata",
+      "rdf:Alt",
+      "Seq",
+      "Bag",
+      "SyncInfoToXMP()",
+      "/Info",
+      "XMP",
+      "CRUD",
+      "RDF",
+      "XML",
+      "ISO",
+      "SetXMP",
+      "ClearXMP",
+      "XMPRaw",
+      "SetXMPRaw",
+      "PDF",
+      "SyncInfoToXMP",
+      "14.3.2"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: XMPMetadata, Seq, SyncInfoToXMP(), XMP, ISO, SetXMP.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: XMPMetadata, Seq, SyncInfoToXMP(), XMP, ISO, SetXMP)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: XMPMetadata, Seq, SyncInfoToXMP(), XMP, ISO, SetXMP."
+  },
+  {
+    "unit_id": "u0015",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Encrypt** — password-protect PDFs with AES-128 (default, ISO 32000-1 §7.6.3.2 V=4 R=4 `/CFM /AESV2`), AES-256 (ISO 32000-2 §7.6.4 V=5 R=6 `/CFM /AESV3`, PDF 2.0), or RC4-128 (legacy V=2 R=3); Standard Security Handler with user + owner passwords and granular viewer permissions (print, copy, modify, annotate, form fill, accessibility, assembly, high-res print). Round-trip preserves AcroForm fields, annotations, and embedded files",
+    "salient_tokens": [
+      "/CFM /AESV2",
+      "/CFM /AESV3",
+      "PDFs",
+      "AES",
+      "ISO",
+      "CFM",
+      "AESV2",
+      "AESV3",
+      "PDF",
+      "RC4",
+      "AcroForm",
+      "7.6.3.2",
+      "7.6.4",
+      "2.0"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: AES, ISO, PDF, RC4, AcroForm.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: AES, ISO, PDF, RC4, AcroForm)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: AES, ISO, PDF, RC4, AcroForm."
+  },
+  {
+    "unit_id": "u0016",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Digital signatures** — sign (`Document.Sign`) with a PKCS#7-detached signature (SHA-256, RSA or ECDSA) covering the whole file — invisible or a visible \"Digitally signed by …\" appearance block, optionally **PAdES** (ETSI.CAdES.detached), a **certification** (DocMDP) signature, and an **RFC 3161 trusted timestamp** — and verify (`Document.VerifySignatures`) integrity, coverage, and the signer certificate. **Multiple signatures** are supported: re-signing an already-signed document appends an incremental update so earlier signatures stay valid. **Encrypted documents** (RC4-128 / AES-128 / AES-256) can be signed as well. The PKCS#7/CMS is built on the standard library alone (no external dependency); output validates in OpenSSL and pyHanko (incl. the timestamp token as trusted, earlier signatures as intact, and encrypted files as `ENTIRE_FILE`). Keys are passed as `crypto.Signer` + `*x509.Certificate` — no `.p12` file required",
+    "salient_tokens": [
+      "Document.Sign",
+      "Document.VerifySignatures",
+      "ENTIRE_FILE",
+      "crypto.Signer",
+      "*x509.Certificate",
+      ".p12",
+      "PKCS",
+      "SHA",
+      "RSA",
+      "ECDSA",
+      "PAdES",
+      "ETSI",
+      "CAdES",
+      "DocMDP",
+      "RFC",
+      "VerifySignatures",
+      "RC4",
+      "AES",
+      "CMS",
+      "OpenSSL",
+      "pyHanko",
+      "Digitally signed by …"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: PKCS, PAdES, DocMDP, RFC, RC4, AES.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: PKCS, PAdES, DocMDP, RFC, RC4, AES)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: PKCS, PAdES, DocMDP, RFC, RC4, AES."
+  },
+  {
+    "unit_id": "u0017",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Outlines (bookmarks)** — read, create, and edit hierarchical bookmarks via `OutlineItemCollection`. Recursive tree model 1:1 with Aspose.PDF for .NET. All 8 destination types (XYZ/Fit/FitH/FitV/FitR/FitB/FitBH/FitBV) per ISO 32000-1 §12.3.2.2. Style attributes (Bold, Italic, Color), expand/collapse state, and `Action` attachment all roundtrip. Named destinations (`Document.NamedDestinations()`) integrate as the 9th destination type with forward-reference support; reads both legacy `/Catalog/Dests` and modern `/Catalog/Names/Dests`, writes modern only with automatic migration. Works alongside encryption + AcroForm + annotations",
+    "salient_tokens": [
+      "OutlineItemCollection",
+      "Action",
+      "Document.NamedDestinations()",
+      "/Catalog/Dests",
+      "/Catalog/Names/Dests",
+      "PDF",
+      "NET",
+      "XYZ",
+      "FitH",
+      "FitV",
+      "FitR",
+      "FitB",
+      "FitBH",
+      "FitBV",
+      "ISO",
+      "NamedDestinations",
+      "AcroForm",
+      "12.3.2.2"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: OutlineItemCollection, Action, PDF, NET, XYZ, FitH.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: OutlineItemCollection, Action, PDF, NET, XYZ, FitH)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: OutlineItemCollection, Action, PDF, NET, XYZ, FitH."
+  },
+  {
+    "unit_id": "u0018",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Flow layout (document generator)** — `Document.NewFlow(...)` lays content out top-to-bottom and **paginates automatically**: chainable `AddParagraph`/`AddHeading`/`AddImage`/`AddTable`/`AddList`/`AddSpacer`/`AddMarkdown`, plus **floating boxes** (absolute, in-flow, or floated with **text flow-around**), **multi-column layout** with `AddColumnBreak`, then `Render()`. An additive layer over the Rectangle API; set `FlowOptions.Tagged` and every element is auto-tagged for a one-call PDF/UA-conformant report. Mirrors Aspose.PDF for .NET's generator / `Page.Paragraphs` flow model",
+    "salient_tokens": [
+      "Document.NewFlow(...)",
+      "AddParagraph",
+      "AddHeading",
+      "AddImage",
+      "AddTable",
+      "AddList",
+      "AddSpacer",
+      "AddMarkdown",
+      "AddColumnBreak",
+      "Render()",
+      "FlowOptions.Tagged",
+      "Page.Paragraphs",
+      "NewFlow",
+      "API",
+      "FlowOptions",
+      "PDF",
+      "UA",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: AddParagraph, AddHeading, AddImage, AddTable, AddList, AddMarkdown.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: AddParagraph, AddHeading, AddImage, AddTable, AddList, AddMarkdown)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: AddParagraph, AddHeading, AddImage, AddTable, AddList, AddMarkdown."
+  },
+  {
+    "unit_id": "u0019",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Tables** — `pdf.NewTable()` builds a Table/Row/Cell tree with Aspose.PDF for .NET-parity naming (`BorderInfo`, `MarginInfo`, `ColumnWidths`). `(*Page).AddTable(t, rect)` renders inside a Rectangle (same paradigm as `AddText`/`AddImage`). Per-cell borders (bitmask sides), padding, text style, alignment, background fill. Auto-fit row heights or `Row.SetHeight` explicit. Cell text reuses the full `AddText` machinery (word-wrap, alignment, font embedding, Unicode). **Multi-page overflow with automatic page append**; **repeating header rows** via `Table.SetRepeatingRowsCount`; **cell merging** via `Cell.SetColSpan` / `SetRowSpan`. Image cells via `Cell.SetImage`; row-level styling via `Row.SetBackground / SetTextStyle / SetBorder / SetMargin`; batch `Table.AddRows`; border edge de-duplication for cleaner identical-style adjacent borders",
+    "salient_tokens": [
+      "pdf.NewTable()",
+      "BorderInfo",
+      "MarginInfo",
+      "ColumnWidths",
+      "(*Page).AddTable(t, rect)",
+      "AddText",
+      "AddImage",
+      "Row.SetHeight",
+      "Table.SetRepeatingRowsCount",
+      "Cell.SetColSpan",
+      "SetRowSpan",
+      "Cell.SetImage",
+      "Row.SetBackground / SetTextStyle / SetBorder / SetMargin",
+      "Table.AddRows",
+      "NewTable",
+      "PDF",
+      "NET",
+      "AddTable",
+      "SetHeight",
+      "SetRepeatingRowsCount",
+      "SetColSpan",
+      "SetImage",
+      "SetBackground",
+      "SetTextStyle",
+      "SetBorder",
+      "SetMargin",
+      "AddRows"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Most of this bullet (NewTable/AddRow/BorderInfo/MarginInfo/per-cell borders/AddText machinery) survives in the candidate's API Reference Tables subsection, but two real, distinct mechanism facts -- repeating header rows on multi-page overflow (Table.SetRepeatingRowsCount) and cell merging (Cell.SetColSpan/SetRowSpan) -- are entirely absent from the candidate. MT031 mixed-unit rule: reclassify the whole unit to its real category and merge only the missing facts.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "table.go",
+      "evidence_note": "table.go confirms real, exported methods: SetColSpan (line 216), SetRowSpan (line 231), and SetRepeatingRowsCount (line 245) on *Table/*Cell -- multi-page repeating headers and cell merging are real, tested mechanisms, not aspirational."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0020",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Vector graphics** — `(*Page).DrawLine / DrawRectangle / DrawRoundedRectangle / DrawCircle / DrawEllipse / DrawPolyline / DrawPolygon / DrawPath` for first-class vector content on PDF pages. `Path` fluent builder with `MoveTo / LineTo / CurveTo / QuadTo / Arc / Close`. `LineStyle` + `ShapeStyle` (color, width, dash pattern, line caps, line joins, alpha). **Gradient fills** — `LinearGradient` / `RadialGradient` (`ShapeStyle.FillGradient`) rendered as PDF axial/radial shading patterns, multi-stop, with off-centre radial focal points. Mirrors Aspose.PDF for .NET's `Graph`/`Shape` model but exposed directly on Page (no container) and Go-idiomatic",
+    "salient_tokens": [
+      "(*Page).DrawLine / DrawRectangle / DrawRoundedRectangle / DrawCircle / DrawEllipse / DrawPolyline / DrawPolygon / DrawPath",
+      "Path",
+      "MoveTo / LineTo / CurveTo / QuadTo / Arc / Close",
+      "LineStyle",
+      "ShapeStyle",
+      "LinearGradient",
+      "RadialGradient",
+      "ShapeStyle.FillGradient",
+      "Graph",
+      "Shape",
+      "DrawLine",
+      "DrawRectangle",
+      "DrawRoundedRectangle",
+      "DrawCircle",
+      "DrawEllipse",
+      "DrawPolyline",
+      "DrawPolygon",
+      "DrawPath",
+      "PDF",
+      "MoveTo",
+      "LineTo",
+      "CurveTo",
+      "QuadTo",
+      "FillGradient",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Path, LineStyle, ShapeStyle, LinearGradient, RadialGradient, Graph.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: Path, LineStyle, ShapeStyle, LinearGradient, RadialGradient, Graph)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Path, LineStyle, ShapeStyle, LinearGradient, RadialGradient, Graph."
+  },
+  {
+    "unit_id": "u0021",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Validate** — check structural integrity of a PDF file",
+    "salient_tokens": [
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: PDF.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "__preamble__",
+      "evidence_note": "Confirmed present in the candidate's __preamble__ section (matched real identifiers/phrasing: PDF)."
+    },
+    "disposition": "excluded",
+    "target_section": "__preamble__",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: PDF."
+  },
+  {
+    "unit_id": "u0022",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Tagged PDF / PDF/UA** — author accessible PDFs: `Document.TaggedContent()` builds a logical structure tree as you draw — `Page.TagContent(parent, type, draw)` brackets a drawing block in marked content and adds a structure element, `StructElement.AddChild` nests grouping elements (Table→TR→TD, lists), and `SetAlt` adds alternate text. `Document.ValidatePDFUA()` reports PDF/UA-1 violations (not tagged, no structure tree/`/ParentTree`/`/Lang`/displayed title, figures without alt text, accessibility blocked by encryption). Mirrors Aspose.PDF for .NET's `Document.TaggedContent` / `Document.Validate(PdfFormat.PDF_UA_1)`",
+    "salient_tokens": [
+      "Document.TaggedContent()",
+      "Page.TagContent(parent, type, draw)",
+      "StructElement.AddChild",
+      "SetAlt",
+      "Document.ValidatePDFUA()",
+      "/ParentTree",
+      "/Lang",
+      "Document.TaggedContent",
+      "Document.Validate(PdfFormat.PDF_UA_1)",
+      "PDF",
+      "UA",
+      "PDFs",
+      "TaggedContent",
+      "TagContent",
+      "StructElement",
+      "AddChild",
+      "TR",
+      "TD",
+      "ValidatePDFUA",
+      "ParentTree",
+      "NET",
+      "PdfFormat"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: Document.TaggedContent(), Document.TaggedContent, PDF, UA, TaggedContent, TR.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: Document.TaggedContent(), Document.TaggedContent, PDF, UA, TaggedContent, TR)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: Document.TaggedContent(), Document.TaggedContent, PDF, UA, TaggedContent, TR."
+  },
+  {
+    "unit_id": "u0023",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **PDF/A validate + convert** — `Document.ValidatePDFA(PDFA1B/2B/3B/1A/2A/3A)` reports archival-conformance violations (XMP `pdfaid`, font embedding, encryption, JavaScript, OutputIntent vs. device colour, transparency, annotation flags, …) for the basic levels, and `Document.ConvertToPDFA(...)` adjusts the document toward conformance (strip encryption/JavaScript, add an sRGB ICC OutputIntent, write the `pdfaid` XMP packet) returning a report of what remains; mirrors Aspose.PDF for .NET's `Document.Validate`/`Document.Convert(PdfFormat)`",
+    "salient_tokens": [
+      "Document.ValidatePDFA(PDFA1B/2B/3B/1A/2A/3A)",
+      "pdfaid",
+      "Document.ConvertToPDFA(...)",
+      "Document.Validate",
+      "Document.Convert(PdfFormat)",
+      "PDF",
+      "ValidatePDFA",
+      "PDFA1B",
+      "XMP",
+      "JavaScript",
+      "OutputIntent",
+      "ConvertToPDFA",
+      "sRGB",
+      "ICC",
+      "NET",
+      "PdfFormat"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: PDF, ValidatePDFA, XMP, JavaScript, ConvertToPDFA, NET.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: PDF, ValidatePDFA, XMP, JavaScript, ConvertToPDFA, NET)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: PDF, ValidatePDFA, XMP, JavaScript, ConvertToPDFA, NET."
+  },
+  {
+    "unit_id": "u0024",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Text extraction** — extract text from pages in visual reading order (or raw content-stream order via `TextExtractOptions{Mode: TextExtractRaw}`) with full layout info (coordinates, font, bold/italic, color, sub/superscript)",
+    "salient_tokens": [
+      "TextExtractOptions{Mode: TextExtractRaw}",
+      "TextExtractOptions",
+      "TextExtractRaw"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: TextExtractOptions.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: TextExtractOptions)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: TextExtractOptions."
+  },
+  {
+    "unit_id": "u0025",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Structural extraction** — `(*Page/*Document).Paragraphs()` groups text into columns (`MarkupSection`) and paragraphs (`MarkupParagraph{Text, Rectangle, Lines}`) via column + paragraph detection; mirrors Aspose.PDF for .NET's `ParagraphAbsorber`",
+    "salient_tokens": [
+      "(*Page/*Document).Paragraphs()",
+      "MarkupSection",
+      "MarkupParagraph{Text, Rectangle, Lines}",
+      "ParagraphAbsorber",
+      "MarkupParagraph",
+      "PDF",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: MarkupSection, MarkupParagraph, PDF, NET.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: MarkupSection, MarkupParagraph, PDF, NET)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: MarkupSection, MarkupParagraph, PDF, NET."
+  },
+  {
+    "unit_id": "u0026",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Image extraction** — extract images as JPEG (passthrough) or PNG with position, dimensions, and color space metadata; supports DeviceRGB, DeviceGray, DeviceCMYK, Indexed, ICCBased color spaces, soft masks (alpha), inline images, and Form XObjects",
+    "salient_tokens": [
+      "JPEG",
+      "PNG",
+      "DeviceRGB",
+      "DeviceGray",
+      "DeviceCMYK",
+      "ICCBased",
+      "XObjects"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: JPEG, PNG, XObjects.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: JPEG, PNG, XObjects)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: JPEG, PNG, XObjects."
+  },
+  {
+    "unit_id": "u0027",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Add images** — place JPEG or PNG images onto existing pages with precise positioning via PDF rectangles",
+    "salient_tokens": [
+      "JPEG",
+      "PNG",
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's At a Glance section -- matched: JPEG, PNG, PDF.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "At a Glance",
+      "evidence_note": "Confirmed present in the candidate's At a Glance section (matched real identifiers/phrasing: JPEG, PNG, PDF)."
+    },
+    "disposition": "excluded",
+    "target_section": "At a Glance",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's At a Glance section -- matched: JPEG, PNG, PDF."
+  },
+  {
+    "unit_id": "u0028",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Image to PDF** — convert standalone images to single-page PDFs with DPI-aware sizing, configurable page dimensions and margins",
+    "salient_tokens": [
+      "PDF",
+      "PDFs",
+      "DPI"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Quick Start section -- matched: PDF, PDFs.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Quick Start",
+      "evidence_note": "Confirmed present in the candidate's Quick Start section (matched real identifiers/phrasing: PDF, PDFs)."
+    },
+    "disposition": "excluded",
+    "target_section": "Quick Start",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Quick Start section -- matched: PDF, PDFs."
+  },
+  {
+    "unit_id": "u0029",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Replace images** — swap image data on existing pages while preserving position and size",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: replace, pages, image, position, images, while.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: replace, pages, image, position, images, while)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: replace, pages, image, position, images, while."
+  },
+  {
+    "unit_id": "u0030",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Remove images** — delete images from pages, cleaning up resources and content stream operators",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: delete, resources, pages, stream, images, remove.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: delete, resources, pages, stream, images, remove)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: delete, resources, pages, stream, images, remove."
+  },
+  {
+    "unit_id": "u0031",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Remove unused objects** — clean up orphaned objects after modifications to reduce file size",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: reduce, unused, objects, remove.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: reduce, unused, objects, remove)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: reduce, unused, objects, remove."
+  },
+  {
+    "unit_id": "u0032",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Optimize images** — reduce file size by downscaling images above a target DPI and converting opaque PNGs to JPEG",
+    "salient_tokens": [
+      "DPI",
+      "PNGs",
+      "JPEG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: DPI, JPEG.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: DPI, JPEG)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: DPI, JPEG."
+  },
+  {
+    "unit_id": "u0033",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Optimize (unified)** — `Document.Optimize(OptimizationOptions)` runs a size-reduction pass in one call: remove unused objects, subset fonts, **Flate-compress uncompressed streams**, **dedupe byte-identical streams**, and optionally recompress images; returns an `OptimizationResult` of per-op counts. `DefaultOptimizationOptions()` is the safe lossless preset. Mirrors Aspose.PDF for .NET's `Document.OptimizeResources`",
+    "salient_tokens": [
+      "Document.Optimize(OptimizationOptions)",
+      "OptimizationResult",
+      "DefaultOptimizationOptions()",
+      "Document.OptimizeResources",
+      "OptimizationOptions",
+      "DefaultOptimizationOptions",
+      "PDF",
+      "NET",
+      "OptimizeResources"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Candidate's Key Capabilities only says 'Reduce file size (Document.Optimize, OptimizeImages, RemoveUnusedObjects)' -- the old README's specific unified-optimizer mechanism (Flate-compresses uncompressed streams, dedupes byte-identical streams, and the DefaultOptimizationOptions() safe-lossless-preset) is dropped entirely.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "optimize.go",
+      "evidence_note": "optimize.go confirms DefaultOptimizationOptions() returns 'the safe, lossless preset' (line 41-45) and that the optimizer both Flate-compresses uncompressed streams (compressUncompressedStreams, line 92) and dedupes identical streams (line 137 area) as part of one Document.Optimize call."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0034",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **PDF to HTML** — `Document.SaveHTML`/`WriteHTML` export the document as a single self-contained HTML file in four modes: **faithful** (pages rendered by the built-in rasterizer, pixel-identical to the PDF, under a transparent selectable text layer), **visible-text** (`HTMLModeText` — glyph-less background raster with real styled HTML text on top: crisp at any zoom, accessible, roughly half the file size) **native** (`HTMLModeNative` — no raster background at all: page graphics become one inline SVG layer per page with true-curve paths, native strokes, clips and blend modes, images pass through as SVG `<image>` with their original JPEG/PNG bytes, and only content SVG cannot express — shadings, patterns, soft masks, transparency groups — degrades locally to positioned raster patches) and **flow** (`HTMLModeFlow` — reflowable: paragraphs, columns and inferred headings re-assembled in reading order into a responsive article that rewraps on mobile; the counterpart of Aspose's `FixedLayout=false`). In text/native modes the document's embedded TrueType/OpenType fonts are re-wrapped as **WOFF `@font-face`** data URLs (pure Go — synthesized browser cmap from `/ToUnicode`), so the text renders in the document's real faces; fonts that can't embed fall back to metric substitutes width-fitted to the layout. Link annotations become clickable `<a>` overlays, page subsets export via `Pages`, backgrounds lazy-load, and `InteractiveForms` turns AcroForm fields into **real fillable HTML controls** (Aspose renders them as static pictures) — no external assets, no JavaScript. Mirrors Aspose.PDF for .NET's `SaveFormat.Html`",
+    "salient_tokens": [
+      "Document.SaveHTML",
+      "WriteHTML",
+      "HTMLModeText",
+      "HTMLModeNative",
+      "<image>",
+      "HTMLModeFlow",
+      "FixedLayout=false",
+      "@font-face",
+      "/ToUnicode",
+      "<a>",
+      "Pages",
+      "InteractiveForms",
+      "SaveFormat.Html",
+      "PDF",
+      "HTML",
+      "SaveHTML",
+      "SVG",
+      "JPEG",
+      "PNG",
+      "FixedLayout",
+      "TrueType",
+      "OpenType",
+      "WOFF",
+      "URLs",
+      "ToUnicode",
+      "AcroForm",
+      "JavaScript",
+      "NET",
+      "SaveFormat"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Candidate compresses the entire PDF-to-HTML feature (four distinct export modes: faithful/visible-text/native/flow, plus WOFF font re-wrapping with synthesized cmap) down to one clause: 'export documents to HTML (with fillable forms)'. The four-mode architecture and the WOFF font mechanism that makes text-mode legible are real, checkable, and completely absent from the candidate.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "html_export_fonts.go",
+      "evidence_note": "html_export_fonts.go confirms real WOFF1 font embedding for the HTML exporter with a synthesized cmap (format 4) for browser glyph resolution (lines 14-23), and html_export.go/html_export_flow.go/html_export_svg.go confirm the faithful/native(SVG)/flow export code paths described."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0035",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Grayscale conversion** — `Document.ConvertToGrayscale()` maps every colour (text, vector, images, shadings, patterns, annotations) to its luminance grey in place; mirrors Aspose.PDF for .NET's `RgbToDeviceGrayConversionStrategy`",
+    "salient_tokens": [
+      "Document.ConvertToGrayscale()",
+      "RgbToDeviceGrayConversionStrategy",
+      "ConvertToGrayscale",
+      "PDF",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: ConvertToGrayscale, PDF, NET.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: ConvertToGrayscale, PDF, NET)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: ConvertToGrayscale, PDF, NET."
+  },
+  {
+    "unit_id": "u0036",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Markdown to PDF** — `MarkdownToDocument`/`FromStream` render CommonMark + GFM (tables, strikethrough, task lists, autolinks) as clean paginated PDFs with one typographic theme: styled headings, real bold/italic/code/link runs (links become clickable annotations), nested lists with drawn task checkboxes, quoted blocks, indented code cards, aligned tables with repeating headers. The parser passes the **official CommonMark 0.31.2 test suite 652/652**. Also `Flow.AddMarkdown` (mix Markdown into a flow) and `Page.AddMarkdown(md, rect)`; `Tagged` produces PDF/UA-conformant output. Mirrors Aspose.PDF for .NET's `MdLoadOptions`",
+    "salient_tokens": [
+      "MarkdownToDocument",
+      "FromStream",
+      "Flow.AddMarkdown",
+      "Page.AddMarkdown(md, rect)",
+      "Tagged",
+      "MdLoadOptions",
+      "PDF",
+      "CommonMark",
+      "GFM",
+      "PDFs",
+      "AddMarkdown",
+      "UA",
+      "NET",
+      "0.31.2"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: Tagged, PDF, CommonMark, GFM, AddMarkdown, UA.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: Tagged, PDF, CommonMark, GFM, AddMarkdown, UA)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: Tagged, PDF, CommonMark, GFM, AddMarkdown, UA."
+  },
+  {
+    "unit_id": "u0037",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **PDF to SVG** — `Page.SaveSVG`/`WriteSVG` and `Document.SaveSVG` export pages as standalone true-vector SVG files: real Bézier paths and native strokes, text as exact outline paths (no font dependencies), images with their original JPEG/PNG bytes, clips/opacity/blend modes; only shadings/patterns/soft masks degrade to local raster patches. Self-contained by default (`data:` URLs) or externalized via `ResourceWriter`. Mirrors `SaveFormat.Svg`",
+    "salient_tokens": [
+      "Page.SaveSVG",
+      "WriteSVG",
+      "Document.SaveSVG",
+      "data:",
+      "ResourceWriter",
+      "SaveFormat.Svg",
+      "PDF",
+      "SVG",
+      "SaveSVG",
+      "JPEG",
+      "PNG",
+      "URLs",
+      "SaveFormat"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: WriteSVG, data:, PDF, SVG, SaveSVG, JPEG.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: WriteSVG, data:, PDF, SVG, SaveSVG, JPEG)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: WriteSVG, data:, PDF, SVG, SaveSVG, JPEG."
+  },
+  {
+    "unit_id": "u0038",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **PDF to Markdown** — `Document.SaveMarkdown`/`WriteMarkdown` re-assemble the document as GFM Markdown: inferred `#`–`###` headings, real `**bold**`/`*italic*`/`` `code` `` runs, `[links](…)` recovered from link annotations, bullet/numbered lists with nesting, fenced code blocks with preserved indentation, images as deduped files / `ImageWriter` callback / `data:` URLs. The Markdown twin of the reflowable HTML mode — and the natural PDF front-end for RAG pipelines (tables flow as text; no table reader yet)",
+    "salient_tokens": [
+      "Document.SaveMarkdown",
+      "WriteMarkdown",
+      "#",
+      "###",
+      "**bold**",
+      "*italic*",
+      "runs,",
+      "recovered from link annotations, bullet/numbered lists with nesting, fenced code blocks with preserved indentation, images as deduped files /",
+      "callback /",
+      "PDF",
+      "SaveMarkdown",
+      "GFM",
+      "ImageWriter",
+      "URLs",
+      "HTML",
+      "RAG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: WriteMarkdown, #, ###, PDF, SaveMarkdown, HTML.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: WriteMarkdown, #, ###, PDF, SaveMarkdown, HTML)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: WriteMarkdown, #, ###, PDF, SaveMarkdown, HTML."
+  },
+  {
+    "unit_id": "u0039",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **AI copilots (`ai` subpackage)** — document **summarization** (`ai.NewSummaryCopilot` — plain text or rendered as a new PDF), **OCR of scanned pages** (`ai.NewOcrCopilot` with a vision-LLM engine or any custom `OCREngine`), **document Q&A** (`ai.NewChatCopilot` — grounded answers with conversation memory), and **image description / auto alt-text** (`ai.NewImageDescriptionCopilot` — `FillAltTexts` fills missing `/Alt` on a tagged PDF's figures for accessibility) over any OpenAI-compatible endpoint (OpenAI, LiteLLM, Ollama, …), stdlib-only; mirrors Aspose.PDF for .NET's `Aspose.Pdf.AI`. Beyond Aspose: `MakeSearchable` writes the recognized text back as an **invisible text layer**, turning a scan into a selectable, Ctrl+F-searchable PDF in place",
+    "salient_tokens": [
+      "ai",
+      "ai.NewSummaryCopilot",
+      "ai.NewOcrCopilot",
+      "OCREngine",
+      "ai.NewChatCopilot",
+      "ai.NewImageDescriptionCopilot",
+      "FillAltTexts",
+      "/Alt",
+      "Aspose.Pdf.AI",
+      "MakeSearchable",
+      "NewSummaryCopilot",
+      "PDF",
+      "OCR",
+      "NewOcrCopilot",
+      "LLM",
+      "NewChatCopilot",
+      "NewImageDescriptionCopilot",
+      "OpenAI",
+      "LiteLLM",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: ai, OCREngine, FillAltTexts, MakeSearchable, PDF, OCR.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: ai, OCREngine, FillAltTexts, MakeSearchable, PDF, OCR)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: ai, OCREngine, FillAltTexts, MakeSearchable, PDF, OCR."
+  },
+  {
+    "unit_id": "u0040",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Create blank documents** — create single-page blank PDFs with custom dimensions or predefined page formats (A4, Letter, Legal, A3)",
+    "salient_tokens": [
+      "PDFs"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Quick Start section -- matched: PDFs.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Quick Start",
+      "evidence_note": "Confirmed present in the candidate's Quick Start section (matched real identifiers/phrasing: PDFs)."
+    },
+    "disposition": "excluded",
+    "target_section": "Quick Start",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Quick Start section -- matched: PDFs."
+  },
+  {
+    "unit_id": "u0041",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Add blank pages** — append or insert blank pages into existing documents at any position",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: insert, pages, position, append.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: insert, pages, position, append)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: insert, pages, position, append."
+  },
+  {
+    "unit_id": "u0042",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Add text** — draw text on pages with font selection, alignment, word wrap, color, background, underline, strikethrough, rotation, and behind-content mode. **Right-to-left / bidirectional** text (Hebrew and Arabic) is laid out via a pure-Go Unicode Bidi Algorithm (UAX #9): set `TextStyle.RTL` or just include RTL characters, and each line is reordered into visual order with embedded numbers/Latin kept left-to-right; RTL paragraphs right-align by default. **Arabic contextual shaping** (connected letterforms + lam-alef ligatures via Presentation Forms-B) renders proper Arabic with any font that covers the block (e.g. the bundled DejaVu Sans)",
+    "salient_tokens": [
+      "TextStyle.RTL",
+      "UAX",
+      "TextStyle",
+      "RTL",
+      "DejaVu"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Right-to-left / bidirectional text support (Hebrew and Arabic, pure-Go UAX #9 Bidi algorithm, Arabic contextual shaping with lam-alef ligatures) is a real, substantial, entirely checkable capability that does not appear anywhere in the candidate -- 'Add text' is not even listed as a distinct Key Capabilities bullet, so this is a genuine, complete drop rather than a compression.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "bidi.go",
+      "evidence_note": "bidi.go and arabic_shape.go are real, tested source files (with bidi_test.go/arabic_shape_test.go and a dedicated rtl_render_test.go) implementing the Unicode Bidi Algorithm and Arabic contextual shaping described -- confirms this is a real, shipped capability, not aspirational."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0043",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Text watermarks** — apply text watermarks to all or selected pages with full styling control",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: apply, pages, watermarks.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: apply, pages, watermarks)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: apply, pages, watermarks."
+  },
+  {
+    "unit_id": "u0044",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Stamps** — `TextStamp`, `ImageStamp`, `PageNumberStamp`, and `PdfPageStamp` (stamp a page from another PDF) overlay (or underlay) content via `(*Page/*Document).AddStamp`, with opacity, centre-pivot rotation, alignment, and behind-content mode; page-number stamps format `{0}`/`{1}` for headers/footers. Mirrors Aspose.PDF for .NET's `Aspose.Pdf.Stamp` family",
+    "salient_tokens": [
+      "TextStamp",
+      "ImageStamp",
+      "PageNumberStamp",
+      "PdfPageStamp",
+      "(*Page/*Document).AddStamp",
+      "{0}",
+      "{1}",
+      "Aspose.Pdf.Stamp",
+      "PDF",
+      "AddStamp",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: TextStamp, ImageStamp, PageNumberStamp, PdfPageStamp, PDF, AddStamp.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: TextStamp, ImageStamp, PageNumberStamp, PdfPageStamp, PDF, AddStamp)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: TextStamp, ImageStamp, PageNumberStamp, PdfPageStamp, PDF, AddStamp."
+  },
+  {
+    "unit_id": "u0045",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Table of contents** — `Document.GenerateTOC` builds a clickable TOC from the outline tree (inserted at the front, with dotted leaders, page numbers, and GoTo links); `Page.AddTOC` renders a supplied entry list into a region with overflow auto-pagination",
+    "salient_tokens": [
+      "Document.GenerateTOC",
+      "Page.AddTOC",
+      "GenerateTOC",
+      "TOC",
+      "GoTo",
+      "AddTOC"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: GenerateTOC, TOC, GoTo, AddTOC.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: GenerateTOC, TOC, GoTo, AddTOC)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: GenerateTOC, TOC, GoTo, AddTOC."
+  },
+  {
+    "unit_id": "u0046",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Text search & replace** — `SearchText` (literal / case-insensitive / RE2 regex, optional `Rectangle` region, optional `SearchInAnnotations`) returns per-match bounding boxes; `ReplaceText` finds and replaces occurrences, redrawing the replacement in a metric-compatible Standard-14 face",
+    "salient_tokens": [
+      "SearchText",
+      "Rectangle",
+      "SearchInAnnotations",
+      "ReplaceText",
+      "RE2"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: SearchText, Rectangle, ReplaceText.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: SearchText, Rectangle, ReplaceText)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: SearchText, Rectangle, ReplaceText."
+  },
+  {
+    "unit_id": "u0047",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Page-label authoring** — `Document.SetPageLabels` writes the `/PageLabels` number tree (roman/decimal/alphabetic styles, prefix, start value) so viewers show logical labels; round-trips with the `Page.Label()` read path",
+    "salient_tokens": [
+      "Document.SetPageLabels",
+      "/PageLabels",
+      "Page.Label()",
+      "SetPageLabels",
+      "PageLabels"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "The candidate's API Reference lists PageLabelRange/PageLabelStyle types and the read-side Page.Label() accessor, but the write-side method itself -- Document.SetPageLabels, which actually writes the /PageLabels number tree -- is never mentioned anywhere in the candidate.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "page_labels.go",
+      "evidence_note": "page_labels.go confirms a real, exported func (d *Document) SetPageLabels(ranges []PageLabelRange) error (line 45) that writes the /PageLabels number tree per PDF spec section 12.4.2 -- the write path is real and entirely absent from the candidate's API Reference."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0048",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Document JavaScript & open action** — `Document.JavaScript()` is the document-level named-script collection (`/Catalog/Names/JavaScript`); `Document.SetOpenAction` sets the action run when the document opens (GoTo, JavaScript, …)",
+    "salient_tokens": [
+      "Document.JavaScript()",
+      "/Catalog/Names/JavaScript",
+      "Document.SetOpenAction",
+      "JavaScript",
+      "SetOpenAction",
+      "GoTo"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: /Catalog/Names/JavaScript, JavaScript, SetOpenAction, GoTo.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: /Catalog/Names/JavaScript, JavaScript, SetOpenAction, GoTo)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: /Catalog/Names/JavaScript, JavaScript, SetOpenAction, GoTo."
+  },
+  {
+    "unit_id": "u0049",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Stream I/O** — open PDFs from any `io.Reader` via `OpenStream`/`OpenStreamWithPassword`; serialize to any `io.Writer` via `Document.WriteTo` (implements `io.WriterTo`)",
+    "salient_tokens": [
+      "io.Reader",
+      "OpenStream",
+      "OpenStreamWithPassword",
+      "io.Writer",
+      "Document.WriteTo",
+      "io.WriterTo",
+      "PDFs",
+      "WriteTo",
+      "WriterTo"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: OpenStream, WriteTo.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Confirmed present in the candidate's Additional Examples section (matched real identifiers/phrasing: OpenStream, WriteTo)."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: OpenStream, WriteTo."
+  },
+  {
+    "unit_id": "u0050",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Forms (AcroForm)** — read, fill, and build from scratch all standard field types (text, checkbox, radio, combo box, list box, push button); programmatic field creation with `AddTextField`/`AddCheckbox`/`AddRadioGroup`/`AddComboBox`/`AddListBox`/`AddPushButton`, plus the typed text variants `AddPasswordField`/`AddFileSelectField`/`AddRichTextField`/`AddNumberField`/`AddDateField` (each round-trips its type through Save+Open via its `/Ff` flag or format JavaScript); `RemoveField`; non-ASCII values encoded as UTF-16BE. Widget `/AP` appearance streams are pre-generated on creation and re-generated on every value change (matching Acrobat's layout byte-for-byte), so fields render identically in Acrobat, Foxit, browser viewers, MuPDF, and Poppler — no reliance on `/NeedAppearances`. `Field.SetStyle(FieldStyle)` / `Style()` control border colour, background, text colour, font, size, alignment, and border style/width/dash (persisted as `/MK`, `/BS`, `/DA`, `/Q`). Push buttons additionally support `(*ButtonField).SetAppearance(ButtonAppearance)` for distinct rollover/down captions and an icon image, baked into `/AP/N` / `/AP/R` / `/AP/D` so the button reacts to hover and press. Field values round-trip as **typed JSON, FDF, and XFDF** (`Form.Export/Import{JSON,FDF,XFDF}`) for template-fill and Acrobat-interoperable form-data interchange",
+    "salient_tokens": [
+      "AddTextField",
+      "AddCheckbox",
+      "AddRadioGroup",
+      "AddComboBox",
+      "AddListBox",
+      "AddPushButton",
+      "AddPasswordField",
+      "AddFileSelectField",
+      "AddRichTextField",
+      "AddNumberField",
+      "AddDateField",
+      "/Ff",
+      "RemoveField",
+      "/AP",
+      "/NeedAppearances",
+      "Field.SetStyle(FieldStyle)",
+      "Style()",
+      "/MK",
+      "/BS",
+      "/DA",
+      "/Q",
+      "(*ButtonField).SetAppearance(ButtonAppearance)",
+      "/AP/N",
+      "/AP/R",
+      "/AP/D",
+      "Form.Export/Import{JSON,FDF,XFDF}",
+      "AcroForm",
+      "JavaScript",
+      "ASCII",
+      "UTF",
+      "AP",
+      "MuPDF",
+      "NeedAppearances",
+      "SetStyle",
+      "FieldStyle",
+      "MK",
+      "BS",
+      "DA",
+      "ButtonField",
+      "SetAppearance",
+      "ButtonAppearance",
+      "JSON",
+      "FDF",
+      "XFDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: AddTextField, AddCheckbox, AddRadioGroup, AddComboBox, AddListBox, AddPushButton.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: AddTextField, AddCheckbox, AddRadioGroup, AddComboBox, AddListBox, AddPushButton)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: AddTextField, AddCheckbox, AddRadioGroup, AddComboBox, AddListBox, AddPushButton."
+  },
+  {
+    "unit_id": "u0051",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Font embedding & subsetting** — embed TrueType (`.ttf`) and OpenType-CFF (`.otf`) fonts with `Document.LoadFont` (full Unicode, Identity-H): TTF as `CIDFontType2`/`FontFile2`, OTF as `CIDFontType0`/`FontFile3`. Or resolve a font **by family name** with `Document.LoadFontByName(\"Calibri\", bold, italic)` — searches registered folders/files (`AddFontFolder`/`AddFontFile`) then the OS fonts, and embeds the match (a `.ttc` collection face is re-wrapped as a standalone sfnt); mirrors Aspose.PDF for .NET's `FontRepository.FindFont`. `Document.SubsetFonts()` rebuilds each embedded TrueType font to keep only the glyphs actually drawn (composite-glyph aware, regenerates `glyf`/`loca`/`hmtx`/`CIDToGIDMap`), typically shrinking a font from hundreds of KB to a few KB (OTF keeps its full program)",
+    "salient_tokens": [
+      ".ttf",
+      ".otf",
+      "Document.LoadFont",
+      "CIDFontType2",
+      "FontFile2",
+      "CIDFontType0",
+      "FontFile3",
+      "Document.LoadFontByName(\"Calibri\", bold, italic)",
+      "AddFontFolder",
+      "AddFontFile",
+      ".ttc",
+      "FontRepository.FindFont",
+      "Document.SubsetFonts()",
+      "glyf",
+      "loca",
+      "hmtx",
+      "CIDToGIDMap",
+      "TrueType",
+      "OpenType",
+      "CFF",
+      "LoadFont",
+      "TTF",
+      "OTF",
+      "LoadFontByName",
+      "OS",
+      "PDF",
+      "NET",
+      "FontRepository",
+      "FindFont",
+      "SubsetFonts",
+      "KB",
+      "Calibri"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Document.LoadFont, loca, LoadFont, TTF, OTF, LoadFontByName.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: Document.LoadFont, loca, LoadFont, TTF, OTF, LoadFontByName)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Document.LoadFont, loca, LoadFont, TTF, OTF, LoadFontByName."
+  },
+  {
+    "unit_id": "u0052",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Linearization (fast web view)** — `Document.SaveLinearized(path)` / `WriteToLinearized(w)` write a linearized PDF (ISO 32000-1 Annex F) with the first page's objects and a hint table at the front of the file, so a viewer can render page 1 before the whole file downloads (Acrobat shows \"Fast Web View: Yes\"). The output is an ordinary PDF any reader opens normally; hint tables validated against qpdf's strict `check_linearization` across a 1000+ document corpus. Mirrors the intent of Aspose.PDF for .NET's linearized save",
+    "salient_tokens": [
+      "Document.SaveLinearized(path)",
+      "WriteToLinearized(w)",
+      "check_linearization",
+      "SaveLinearized",
+      "WriteToLinearized",
+      "PDF",
+      "ISO",
+      "NET",
+      "Fast Web View: Yes"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: SaveLinearized, PDF, ISO, NET.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: SaveLinearized, PDF, ISO, NET)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: SaveLinearized, PDF, ISO, NET."
+  },
+  {
+    "unit_id": "u0053",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Tiling patterns** — `Document.CreateTilingPattern(w, h)` returns a pattern whose `Canvas()` you draw a cell into, then fill any shape with the repeating motif by setting `ShapeStyle.FillTiling` (with `SetStep` for gaps/overlap). Complements gradient fills for hatching, textures and repeated motifs; mirrors Aspose.PDF for .NET's colored tiling patterns",
+    "salient_tokens": [
+      "Document.CreateTilingPattern(w, h)",
+      "Canvas()",
+      "ShapeStyle.FillTiling",
+      "SetStep",
+      "CreateTilingPattern",
+      "ShapeStyle",
+      "FillTiling",
+      "PDF",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: ShapeStyle, PDF, NET.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: ShapeStyle, PDF, NET)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: ShapeStyle, PDF, NET."
+  },
+  {
+    "unit_id": "u0054",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Reusable Form XObjects** — `Document.CreateForm(w, h)` returns an `XForm` you draw into once (via `Canvas()`, the full page drawing API), then place on any number of pages and positions with `Page.AddForm(form, rect)` — a single shared content stream behind many `Do` invocations. List a page's existing forms with `Page.Forms()` (re-place them anywhere), and copy a form with its whole resource graph into another document with `Document.ImportForm`. Ideal for page templates, shared headers/footers and watermarks; mirrors Aspose.PDF for .NET's `XForm`",
+    "salient_tokens": [
+      "Document.CreateForm(w, h)",
+      "XForm",
+      "Canvas()",
+      "Page.AddForm(form, rect)",
+      "Do",
+      "Page.Forms()",
+      "Document.ImportForm",
+      "XObjects",
+      "CreateForm",
+      "API",
+      "AddForm",
+      "ImportForm",
+      "PDF",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: XForm, Do, CreateForm, API, AddForm, ImportForm.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: XForm, Do, CreateForm, API, AddForm, ImportForm)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: XForm, Do, CreateForm, API, AddForm, ImportForm."
+  },
+  {
+    "unit_id": "u0055",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Layers (optional content)** — author OCG layers with `Document.AddLayer(name)`, bracket page content with `Page.BeginLayer`/`EndLayer`, and toggle default visibility via `Layer.SetVisible`. The built-in renderer drops hidden layers, viewers expose them in the Layers panel, and names + visibility round-trip; mirrors Aspose.PDF for .NET's `Document.Layers`",
+    "salient_tokens": [
+      "Document.AddLayer(name)",
+      "Page.BeginLayer",
+      "EndLayer",
+      "Layer.SetVisible",
+      "Document.Layers",
+      "OCG",
+      "AddLayer",
+      "BeginLayer",
+      "SetVisible",
+      "PDF",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: Page.BeginLayer, EndLayer, AddLayer, BeginLayer, PDF, NET.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: Page.BeginLayer, EndLayer, AddLayer, BeginLayer, PDF, NET)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: Page.BeginLayer, EndLayer, AddLayer, BeginLayer, PDF, NET."
+  },
+  {
+    "unit_id": "u0056",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Embedded files** — attach arbitrary companion files (source, datasets, the original of a scan) at the document level with `Document.EmbeddedFiles()` (`Add`/`AddFromStream`/`Get`/`Remove`/`Names`/`All`), and read them back (`Data`/`Save`/`MIMEType`/`Description`/`Size`). Stored in the `/Names/EmbeddedFiles` tree alongside named destinations and JavaScript; mirrors Aspose.PDF for .NET's `Document.EmbeddedFiles`. (Page-pinned attachments are also available via `FileAttachmentAnnotation`.)",
+    "salient_tokens": [
+      "Document.EmbeddedFiles()",
+      "Add",
+      "AddFromStream",
+      "Get",
+      "Remove",
+      "Names",
+      "All",
+      "Data",
+      "Save",
+      "MIMEType",
+      "Description",
+      "Size",
+      "/Names/EmbeddedFiles",
+      "Document.EmbeddedFiles",
+      "FileAttachmentAnnotation",
+      "EmbeddedFiles",
+      "JavaScript",
+      "PDF",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Add, Get, Remove, Names, All, Data.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: Add, Get, Remove, Names, All, Data)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Add, Get, Remove, Names, All, Data."
+  },
+  {
+    "unit_id": "u0057",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Annotations** — Link (with /A actions: GoToURI, GoTo, Named, SubmitForm, ResetForm, JavaScript), Highlight, Underline, StrikeOut, Squiggly. Page-scoped collection API (`Page.Annotations()` with `Add`/`At`/`Delete`/`DeleteAt`); existing form widgets surface as read-only `WidgetAnnotation`. Drawing primitives (Square/Circle/Line/Ink/Polygon/Polyline/Caret) with full ISO 32000-1 border styles (Solid/Dashed/Beveled/Inset/Underline) and 10 line-ending styles. Text-bearing types (Text sticky note, FreeText with callout/typewriter/cloudy-border modes, Stamp with 14 predefined visuals + custom image override). FileAttachment with file embedding (path/stream + MIME detection); Redact with mark/apply modes (irreversible content removal of text glyphs, images, and paths via `Document.ApplyRedactions()`); `NewJavaScriptAction` public constructor with security warning. `/AP` appearance streams generated automatically — annotations render natively in any spec-conforming viewer",
+    "salient_tokens": [
+      "Page.Annotations()",
+      "Add",
+      "At",
+      "Delete",
+      "DeleteAt",
+      "WidgetAnnotation",
+      "Document.ApplyRedactions()",
+      "NewJavaScriptAction",
+      "/AP",
+      "GoToURI",
+      "GoTo",
+      "SubmitForm",
+      "ResetForm",
+      "JavaScript",
+      "StrikeOut",
+      "API",
+      "ISO",
+      "FreeText",
+      "FileAttachment",
+      "MIME",
+      "ApplyRedactions",
+      "AP"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Add, At, Delete, DeleteAt, WidgetAnnotation, /AP.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: Add, At, Delete, DeleteAt, WidgetAnnotation, /AP)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Add, At, Delete, DeleteAt, WidgetAnnotation, /AP."
+  },
+  {
+    "unit_id": "u0058",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Render to image** — rasterize pages to PNG/JPEG/GIF/BMP and single- or multi-page TIFF with a dependency-free, pure-Go anti-aliased renderer (`Page.RenderImage`/`RenderPNG`/`RenderTIFF`/…, `Document.RenderTIFF` for a whole document, plus Aspose-style `PngDevice`/`TiffDevice`/`Resolution`). Draws vector graphics, images (incl. stencil image masks, **CCITTFaxDecode** Group 3/4 fax, **JBIG2** bilevel scans, and **JPEG2000** (`/JPXDecode`) colour scans incl. MRC stencil-masked layers), text (embedded TrueType, CFF Type1C/CID `/FontFile3`, and Type3; Standard-14 and non-embedded fonts via bundled metric-compatible substitutes, with a `FontRepository`/`AddFontFolder`/`AddSystemFonts` for exact and installed fonts including `.ttc` collections and `.otf`/CFF; non-embedded Type0 substitution; **non-embedded CJK** (Type0 with predefined Adobe CMaps — GBK/Shift-JIS/Big5/EUC-KR and the Uni\\* families — rendered from installed system CJK fonts), axial/radial shadings, tiling patterns, clipping, constant alpha, soft masks, blend modes, Optional-Content visibility, and annotation appearances (AcroForm widgets, stamps, highlights, …); honours text rendering modes and inline images. Default 150 DPI, renders the CropBox",
+    "salient_tokens": [
+      "Page.RenderImage",
+      "RenderPNG",
+      "RenderTIFF",
+      "Document.RenderTIFF",
+      "PngDevice",
+      "TiffDevice",
+      "Resolution",
+      "/JPXDecode",
+      "/FontFile3",
+      "FontRepository",
+      "AddFontFolder",
+      "AddSystemFonts",
+      ".ttc",
+      ".otf",
+      "PNG",
+      "JPEG",
+      "GIF",
+      "BMP",
+      "TIFF",
+      "RenderImage",
+      "CCITTFaxDecode",
+      "JBIG2",
+      "JPEG2000",
+      "JPXDecode",
+      "MRC",
+      "TrueType",
+      "CFF",
+      "CID",
+      "FontFile3",
+      "CJK",
+      "CMaps",
+      "GBK",
+      "JIS",
+      "EUC",
+      "KR",
+      "AcroForm",
+      "DPI",
+      "CropBox"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: RenderPNG, RenderTIFF, PngDevice, TiffDevice, Resolution, PNG.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: RenderPNG, RenderTIFF, PngDevice, TiffDevice, Resolution, PNG)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: RenderPNG, RenderTIFF, PngDevice, TiffDevice, Resolution, PNG."
+  },
+  {
+    "unit_id": "u0059",
+    "source": "clone_cache/README.md",
+    "excerpt": "- **Flatten** — bake interactive content into static page content: `Document.Flatten()` / `Form.Flatten()` (all fields + drop `/AcroForm`), `Field.Flatten()` (one field, leaving the rest of the form interactive), `Annotation.Flatten()` and `AnnotationCollection.Flatten()` (annotations). Appearances are drawn into the page at their rectangle per ISO 32000-1 §12.5.5, then the interactive objects are removed — the result renders identically but is no longer editable",
+    "salient_tokens": [
+      "Document.Flatten()",
+      "Form.Flatten()",
+      "/AcroForm",
+      "Field.Flatten()",
+      "Annotation.Flatten()",
+      "AnnotationCollection.Flatten()",
+      "AcroForm",
+      "AnnotationCollection",
+      "ISO",
+      "12.5.5"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: AcroForm, AnnotationCollection, ISO.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: AcroForm, AnnotationCollection, ISO)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: AcroForm, AnnotationCollection, ISO."
+  },
+  {
+    "unit_id": "u0060",
+    "source": "clone_cache/README.md",
+    "excerpt": "`*Document` methods mutate the receiver in place. `Split` and `Extract` return fresh, fully-independent documents; all other operations (rotation, reorder, metadata, passwords, etc.) modify the document they are called on.",
+    "salient_tokens": [
+      "*Document",
+      "Split",
+      "Extract"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: *Document, Split, Extract.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: *Document, Split, Extract)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: *Document, Split, Extract."
+  },
+  {
+    "unit_id": "u0061",
+    "source": "clone_cache/README.md",
+    "excerpt": "`NUp` arranges pages in a `Rows`×`Cols` grid, scaling each to fit its cell\n(aspect preserved, centered) and filling sheet after sheet. `Booklet` imposes\npages two-up in saddle-stitch order. Both return a **new** `*Document` (the\nreceiver is untouched) built from Form XObjects, so the output is an ordinary\nPDF. This is a production helper (not a PDF-spec feature) mirroring the intent\nof Aspose.PDF for .NET's `PdfFileEditor.MakeNUp` / `MakeBooklet`, adapted to the\n`Document`-method API.",
+    "salient_tokens": [
+      "NUp",
+      "Rows",
+      "Cols",
+      "Booklet",
+      "*Document",
+      "PdfFileEditor.MakeNUp",
+      "MakeBooklet",
+      "Document",
+      "XObjects",
+      "PDF",
+      "NET",
+      "PdfFileEditor",
+      "MakeNUp",
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: NUp, Rows, Booklet, *Document, Document, PDF.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: NUp, Rows, Booklet, *Document, Document, PDF)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: NUp, Rows, Booklet, *Document, Document, PDF."
+  },
+  {
+    "unit_id": "u0062",
+    "source": "clone_cache/README.md",
+    "excerpt": "A document must keep at least one page — a call that would remove every page returns an error and changes nothing.",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: document, every, returns, remove, error.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: document, every, returns, remove, error)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: document, every, returns, remove, error."
+  },
+  {
+    "unit_id": "u0063",
+    "source": "clone_cache/README.md",
+    "excerpt": "Set the `/PageLabels` number tree so viewers show logical labels (front matter as i, ii, then the body restarting at 1). Mirrors Aspose.PDF for .NET's `Document.PageLabels` / `PageLabel`.",
+    "salient_tokens": [
+      "/PageLabels",
+      "Document.PageLabels",
+      "PageLabel",
+      "PageLabels",
+      "PDF",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: PageLabel, PageLabels, PDF, NET.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: PageLabel, PageLabels, PDF, NET)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: PageLabel, PageLabels, PDF, NET."
+  },
+  {
+    "unit_id": "u0064",
+    "source": "clone_cache/README.md",
+    "excerpt": "`Permissions` fields map to ISO 32000-1 §7.6.3.2 Table 22 bits 3, 4, 5, 6, 9, 10, 11, 12. The library encodes them with the Adobe convention (reserved bits 7-8 and 13-32 set high). Permissions are enforced by PDF viewers — the library itself is not a DRM mechanism.",
+    "salient_tokens": [
+      "Permissions",
+      "ISO",
+      "PDF",
+      "DRM",
+      "7.6.3.2"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "A real, distinct caveat -- that Permissions are enforced by the consuming viewer, not the library itself, which is not a DRM mechanism -- is nowhere in the candidate's Scope and Limitations or Security API Reference text, even though the encryption feature itself is well covered.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "encrypt.go",
+      "evidence_note": "encrypt.go line 33 states in a source comment that 'the library itself is not a DRM enforcer' -- confirms the caveat is a real, deliberate design statement from the maintainers, not old-README marketing."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0065",
+    "source": "clone_cache/README.md",
+    "excerpt": "In `EncryptionOptions`, `Permissions` is a pointer so that `nil` (omitted) means \"grant all\", distinguishing the default from an explicit `&Permissions{}` which denies everything.",
+    "salient_tokens": [
+      "EncryptionOptions",
+      "Permissions",
+      "nil",
+      "&Permissions{}",
+      "grant all"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: EncryptionOptions, Permissions, nil.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Confirmed present in the candidate's Additional Examples section (matched real identifiers/phrasing: EncryptionOptions, Permissions, nil)."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: EncryptionOptions, Permissions, nil."
+  },
+  {
+    "unit_id": "u0066",
+    "source": "clone_cache/README.md",
+    "excerpt": "`Document.Sign` adds one **PKCS#7-detached** signature (SHA-256; RSA or ECDSA),\ncovering the whole file, configured like encryption and applied on `Save`/`WriteTo`.\nIt is invisible by default, or **visible** (`Visible` + `Rect` + `Page`) — drawing a\n\"Digitally signed by …\" block whose text/style you can tune via `SignatureAppearance`.\n`PAdES` switches the subfilter to ETSI.CAdES.detached (with the ESS signing-certificate\nattribute); `Certify` makes it a certification (DocMDP) signature recording which later\nchanges stay allowed; `TimestampURL` embeds an RFC 3161 trusted timestamp from a TSA.\nRe-signing an already-signed document (open it, `Sign` again, save) appends an\n**incremental update** — the original bytes are preserved verbatim, so the earlier\nsignature stays valid and the file ends up with multiple signatures. **Encrypted**\ndocuments are signed the same way (the appended signature objects are encrypted with\nthe document's own RC4/AES scheme; the signature value stays plaintext per the spec).\n`Document.VerifySignatures` returns a `SignatureVerification` per signature field —\n`Valid` (cryptographically valid **and** the document is unchanged), `IntegrityOK`,\n`CoversWholeDocument`, and the signer `Certificate`. **Trust-chain validation is the\ncaller's responsibility**: the certificate is returned so you can check it against your\nown trust store (a self-signed test certificate is valid but untrusted). The PKCS#7/CMS\ncontainer is built and parsed entirely with the standard library; signed output validates\nin OpenSSL and pyHanko. A signed document is treated as final — sign once and save once,\non an unencrypted document. (Out of scope for now: PAdES/timestamps/LTV, visible signature\nappearances, certification, and multiple/incremental signatures.)",
+    "salient_tokens": [
+      "Document.Sign",
+      "Save",
+      "WriteTo",
+      "Visible",
+      "Rect",
+      "Page",
+      "SignatureAppearance",
+      "PAdES",
+      "Certify",
+      "TimestampURL",
+      "Sign",
+      "Document.VerifySignatures",
+      "SignatureVerification",
+      "Valid",
+      "IntegrityOK",
+      "CoversWholeDocument",
+      "Certificate",
+      "PKCS",
+      "SHA",
+      "RSA",
+      "ECDSA",
+      "ETSI",
+      "CAdES",
+      "ESS",
+      "DocMDP",
+      "RFC",
+      "TSA",
+      "RC4",
+      "AES",
+      "VerifySignatures",
+      "CMS",
+      "OpenSSL",
+      "pyHanko",
+      "LTV",
+      "Digitally signed by …"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Save, WriteTo, Visible, Rect, Page, SignatureAppearance.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: Save, WriteTo, Visible, Rect, Page, SignatureAppearance)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Save, WriteTo, Visible, Rect, Page, SignatureAppearance."
+  },
+  {
+    "unit_id": "u0067",
+    "source": "clone_cache/README.md",
+    "excerpt": "Field values containing non-ASCII characters (e.g. Cyrillic) are encoded as UTF-16BE with a BOM so any spec-conforming viewer reads them back correctly.",
+    "salient_tokens": [
+      "ASCII",
+      "UTF",
+      "BOM"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "A real, distinct, checkable form-field encoding mechanism (non-ASCII field values are encoded as UTF-16BE with a BOM) is not mentioned anywhere in the candidate's Forms (AcroForm) API Reference text.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "form.go",
+      "evidence_note": "form.go lines 187 and 210 describe non-ASCII field-value strings being encoded as UTF-16BE with the 0xFE 0xFF BOM, and detecting that encoding on read -- confirms the mechanism is real and shipped."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0068",
+    "source": "clone_cache/README.md",
+    "excerpt": "Forms can also be exported as **fillable HTML** — `doc.SaveHTML(path, pdf.HTMLSaveOptions{Mode: pdf.HTMLModeText, InteractiveForms: true})` turns every field into a real browser control (see *Exporting to HTML*).",
+    "salient_tokens": [
+      "doc.SaveHTML(path, pdf.HTMLSaveOptions{Mode: pdf.HTMLModeText, InteractiveForms: true})",
+      "HTML",
+      "SaveHTML",
+      "HTMLSaveOptions",
+      "HTMLModeText",
+      "InteractiveForms"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: HTML, SaveHTML, HTMLSaveOptions.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: HTML, SaveHTML, HTMLSaveOptions)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: HTML, SaveHTML, HTMLSaveOptions."
+  },
+  {
+    "unit_id": "u0069",
+    "source": "clone_cache/README.md",
+    "excerpt": "Export every field value to a typed JSON document, and import it back into the same (or a template) PDF — separating the data from the document for storage, transmission, or bulk template-fill:",
+    "salient_tokens": [
+      "JSON",
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: JSON, PDF.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: JSON, PDF)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: JSON, PDF."
+  },
+  {
+    "unit_id": "u0070",
+    "source": "clone_cache/README.md",
+    "excerpt": "The value's JSON kind follows the field type (text/radio/combo → string, checkbox → bool, list box → array). Import dispatches on the target field's type and regenerates each widget's appearance, so imported values render in any viewer. Unknown field names are skipped.",
+    "salient_tokens": [
+      "JSON"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: JSON.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: JSON)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: JSON."
+  },
+  {
+    "unit_id": "u0071",
+    "source": "clone_cache/README.md",
+    "excerpt": "The same data round-trips through the Acrobat-interoperable **FDF** and **XFDF** formats:",
+    "salient_tokens": [
+      "FDF",
+      "XFDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: FDF, XFDF.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: FDF, XFDF)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: FDF, XFDF."
+  },
+  {
+    "unit_id": "u0072",
+    "source": "clone_cache/README.md",
+    "excerpt": "Every field is given a pre-generated `/AP` appearance stream on creation and whenever its value or style changes, so the form renders identically across Acrobat, Foxit, browser PDF viewers, MuPDF, and Poppler without depending on `/AcroForm/NeedAppearances` (which the library leaves off by default; `Form.SetNeedAppearances(true)` is available for callers who want viewer-side regeneration).",
+    "salient_tokens": [
+      "/AP",
+      "/AcroForm/NeedAppearances",
+      "Form.SetNeedAppearances(true)",
+      "AP",
+      "PDF",
+      "MuPDF",
+      "AcroForm",
+      "NeedAppearances",
+      "SetNeedAppearances"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: /AP, AP, PDF, AcroForm.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: /AP, AP, PDF, AcroForm)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: /AP, AP, PDF, AcroForm."
+  },
+  {
+    "unit_id": "u0073",
+    "source": "clone_cache/README.md",
+    "excerpt": "Out of scope for this release: form flattening, and the richer push-button appearance surface (rollover/down captions, icon images).",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: button, appearance, captions, images, release, surface.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: button, appearance, captions, images, release, surface)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: button, appearance, captions, images, release, surface."
+  },
+  {
+    "unit_id": "u0074",
+    "source": "clone_cache/README.md",
+    "excerpt": "API mirrors Aspose.PDF for .NET's `OutlineItemCollection` 1:1 — `Document.Outlines()` is the root collection, `NewOutlineItemCollection(doc)` constructs an unattached entry, and the same `IList<T>`-equivalent surface (`Add`/`Insert`/`Remove`/`RemoveAt`/`At`/`Count`/`All`) lives on every entry for managing children. All 8 PDF destination types are supported (XYZ, Fit, FitH, FitV, FitR, FitB, FitBH, FitBV); the `XYZ`, `FitH`, `FitV`, `FitBH`, `FitBV` flavors also have `NewDestinationXxxUnchanged` variants for leaving specific coordinates as \"current viewer state\". `Action` and `Destination` may both be set per ISO 32000-1 §12.3.3 — viewers honor `/Dest` first.",
+    "salient_tokens": [
+      "OutlineItemCollection",
+      "Document.Outlines()",
+      "NewOutlineItemCollection(doc)",
+      "IList<T>",
+      "Add",
+      "Insert",
+      "Remove",
+      "RemoveAt",
+      "At",
+      "Count",
+      "All",
+      "XYZ",
+      "FitH",
+      "FitV",
+      "FitBH",
+      "FitBV",
+      "NewDestinationXxxUnchanged",
+      "Action",
+      "Destination",
+      "/Dest",
+      "API",
+      "PDF",
+      "NET",
+      "NewOutlineItemCollection",
+      "IList",
+      "FitR",
+      "FitB",
+      "ISO",
+      "12.3.3",
+      "current viewer state"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: OutlineItemCollection, Add, Insert, Remove, At, Count.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: OutlineItemCollection, Add, Insert, Remove, At, Count)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: OutlineItemCollection, Add, Insert, Remove, At, Count."
+  },
+  {
+    "unit_id": "u0075",
+    "source": "clone_cache/README.md",
+    "excerpt": "API mirrors Aspose.PDF for .NET's `NamedDestinations` collection and `NamedDestination` class 1:1. Reads both `/Catalog/Dests` (legacy PDF 1.1) and `/Catalog/Names/Dests` (modern PDF 1.2+) — legacy auto-migrates to modern on save.",
+    "salient_tokens": [
+      "NamedDestinations",
+      "NamedDestination",
+      "/Catalog/Dests",
+      "/Catalog/Names/Dests",
+      "API",
+      "PDF",
+      "NET",
+      "1.1",
+      "1.2"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: NamedDestinations, NamedDestination, API, PDF, NET.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: NamedDestinations, NamedDestination, API, PDF, NET)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: NamedDestinations, NamedDestination, API, PDF, NET."
+  },
+  {
+    "unit_id": "u0076",
+    "source": "clone_cache/README.md",
+    "excerpt": "`GenerateTOC` sources entries from the document outline (nesting becomes the indent\nlevel) and inserts the TOC as new page(s) at the front; `AddTOC` renders a caller-supplied\nlist into a rectangle and auto-appends continuation pages on overflow. Each entry with a\ntarget page gets a right-aligned page number, a dotted leader, and a clickable GoTo link.\n`TOCOptions` controls the heading, styles, per-level indent, and line spacing; the zero\nvalue yields page numbers + leaders + links (turn them off with `NoPageNumbers` /\n`NoLeader` / `NoLinks`). Loosely mirrors Aspose.PDF for .NET's `TocInfo`. A runnable\nexample lives in [`_examples/toc`](_examples/toc).",
+    "salient_tokens": [
+      "GenerateTOC",
+      "AddTOC",
+      "TOCOptions",
+      "NoPageNumbers",
+      "NoLeader",
+      "NoLinks",
+      "TocInfo",
+      "_examples/toc",
+      "TOC",
+      "GoTo",
+      "PDF",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: GenerateTOC, AddTOC, TOCOptions, TOC, GoTo, PDF.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: GenerateTOC, AddTOC, TOCOptions, TOC, GoTo, PDF)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: GenerateTOC, AddTOC, TOCOptions, TOC, GoTo, PDF."
+  },
+  {
+    "unit_id": "u0077",
+    "source": "clone_cache/README.md",
+    "excerpt": "For long tables, mark a header row to repeat on every continuation page and use `Cell.SetColSpan` for summary rows:",
+    "salient_tokens": [
+      "Cell.SetColSpan",
+      "SetColSpan"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "This is the Additional-Examples caption introducing the same repeating-header-row / Cell.SetColSpan mechanism recovered via u0019's merge into API Reference's Tables subsection.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Covered by u0019's merge into the API Reference Tables and Vector Graphics subsection, which now states Table.SetRepeatingRowsCount and Cell.SetColSpan/SetRowSpan directly."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Covered by u0019's merge into API Reference (same SetColSpan/repeating-header mechanism)."
+  },
+  {
+    "unit_id": "u0078",
+    "source": "clone_cache/README.md",
+    "excerpt": "Image cells and row-level styling (alternating row backgrounds, header logo):",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: image, styling, level, cells, header.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: image, styling, level, cells, header)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: image, styling, level, cells, header."
+  },
+  {
+    "unit_id": "u0079",
+    "source": "clone_cache/README.md",
+    "excerpt": "API mirrors Aspose.PDF for .NET's `Table` / `Row` / `Cell` / `BorderInfo` / `MarginInfo` 1:1 in type names. Cells inherit `DefaultCellBorder` / `DefaultCellMargin` / `DefaultCellStyle` from the table unless overridden per-cell. Tables are positioned by `Rectangle` (consistent with `AddText` and `AddImage`) instead of paragraph flow-layout.",
+    "salient_tokens": [
+      "Table",
+      "Row",
+      "Cell",
+      "BorderInfo",
+      "MarginInfo",
+      "DefaultCellBorder",
+      "DefaultCellMargin",
+      "DefaultCellStyle",
+      "Rectangle",
+      "AddText",
+      "AddImage",
+      "API",
+      "PDF",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Table, Row, Cell, BorderInfo, MarginInfo, Rectangle.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: Table, Row, Cell, BorderInfo, MarginInfo, Rectangle)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Table, Row, Cell, BorderInfo, MarginInfo, Rectangle."
+  },
+  {
+    "unit_id": "u0080",
+    "source": "clone_cache/README.md",
+    "excerpt": "Supports: basic shapes, full SVG 1.1 path syntax (with elliptical-arc decomposition),\ntransforms (`translate`/`rotate`/`scale`/`matrix`/`skewX`/`skewY`), viewBox +\npreserveAspectRatio (all 10 modes), 147 CSS named colors, hex/rgb/rgba, absolute length\nunits (px/pt/pc/mm/cm/in), group inheritance cascade, gradient fills (linear + radial via\nPDF shading patterns; `gradientUnits` + `gradientTransform`), `<text>` and `<tspan>`\nwith mixed content, cursor positioning, `dx`/`dy`/absolute `x`/`y`, `text-anchor`\n(start/middle/end), font styling (family/size/weight/style), Standard 14 heuristic font\nmapping and pluggable TTF resolver, `<image>` (data: URI — PNG and JPEG base64 inline),\n`<defs>`/`<use>`/`<symbol>` (reusable elements with forward-ref and cycle detection),\n`<clipPath>` (clipping paths mapped to PDF `W`/`W*` operators; `clip-path=\"url(#id)\"`\non any shape/text/image), `<mask>` (soft masks via PDF Form XObject transparency group +\nExtGState `/SMask`; `maskUnits` and `maskContentUnits` both supported), CSS `<style>`\nblocks (`.class`/`#id`/element selectors with correct specificity cascade), `<filter>`\nwith `feDropShadow` emulated as offset+alpha bbox duplicate, `<marker>` (`marker-start`/\n`marker-mid`/`marker-end`) with `orient=auto` rotation along path tangent and `refX`/`refY`\nanchor. Unsupported (skipped silently): `<textPath>`, vertical writing modes, external\n`href` in `<image>`, real Gaussian blur, em/ex/% length units.",
+    "salient_tokens": [
+      "translate",
+      "rotate",
+      "scale",
+      "matrix",
+      "skewX",
+      "skewY",
+      "gradientUnits",
+      "gradientTransform",
+      "<text>",
+      "<tspan>",
+      "dx",
+      "dy",
+      "x",
+      "y",
+      "text-anchor",
+      "<image>",
+      "<defs>",
+      "<use>",
+      "<symbol>",
+      "<clipPath>",
+      "W",
+      "W*",
+      "clip-path=\"url(#id)\"",
+      "<mask>",
+      "/SMask",
+      "maskUnits",
+      "maskContentUnits",
+      "<style>",
+      ".class",
+      "#id",
+      "<filter>",
+      "feDropShadow",
+      "<marker>",
+      "marker-start",
+      "marker-mid",
+      "marker-end",
+      "orient=auto",
+      "refX",
+      "refY",
+      "<textPath>",
+      "href",
+      "SVG",
+      "viewBox",
+      "preserveAspectRatio",
+      "CSS",
+      "PDF",
+      "TTF",
+      "URI",
+      "PNG",
+      "JPEG",
+      "clipPath",
+      "XObject",
+      "ExtGState",
+      "SMask",
+      "textPath",
+      "1.1",
+      "url(#id)"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "The candidate mentions SVG placement/export only in passing (types SVG/SVGFontResolver/SVGSaveOptions, AddSVG method names) with zero information on what the SVG *import* feature actually supports or skips. The old README's supported/unsupported feature list (path syntax, transforms, clipPath/mask, markers vs. unsupported textPath/vertical-writing/remote-href/Gaussian-blur) is real, checkable scope information missing entirely.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "svg_parse.go",
+      "evidence_note": "svg_parse.go confirms real handling of viewBox, marker/marker-start/marker-mid parsing and other cases named in the old excerpt; sibling files svg_parse_clip.go, svg_parse_mask.go, svg_parse_marker.go, svg_parse_gradient.go confirm the supported-feature breakdown is real and source-grounded, not aspirational."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Scope and Limitations",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0081",
+    "source": "clone_cache/README.md",
+    "excerpt": "For SVG files containing Cyrillic or other non-Latin text, register a font resolver that\nreturns your embedded TTF:",
+    "salient_tokens": [
+      "SVG",
+      "TTF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: SVG, TTF.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: SVG, TTF)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: SVG, TTF."
+  },
+  {
+    "unit_id": "u0082",
+    "source": "clone_cache/README.md",
+    "excerpt": "Bake interactive form fields and annotations into static page content — the document renders identically but is no longer fillable or editable.",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Flatten() mechanism (bake interactive fields/annotations into static content) is present in API Reference's Annotations and Actions subsection (Annotation.Flatten(), AnnotationCollection.Flatten()) and the Forms (AcroForm) subsection's Form.Flatten()-style methods.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "API Reference lists Annotation.Flatten()/AnnotationCollection.Flatten() under Annotations and Actions, and InteractiveForms/field methods under Forms (AcroForm) -- the flatten-to-static-content mechanism this caption introduces is present, just not narrated as a caption sentence."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Flatten() mechanism already present in API Reference (Annotations and Actions / Forms subsections), just not narrated as a caption sentence."
+  },
+  {
+    "unit_id": "u0083",
+    "source": "clone_cache/README.md",
+    "excerpt": "Each field/annotation's appearance (`/AP/N`, honoring the active `/AS` state) is drawn into the page content at its rectangle per ISO 32000-1 §12.5.5, then the interactive object is removed.",
+    "salient_tokens": [
+      "/AP/N",
+      "/AS",
+      "AP",
+      "AS",
+      "ISO",
+      "12.5.5"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: /AP/N, AP, AS, ISO.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: /AP/N, AP, AS, ISO)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: /AP/N, AP, AS, ISO."
+  },
+  {
+    "unit_id": "u0084",
+    "source": "clone_cache/README.md",
+    "excerpt": "Supported subtypes: `Link`, `Highlight`, `Underline`, `StrikeOut`, `Squiggly`, `Square`, `Circle`, `Line`, `Ink`, `Text`, `FreeText`, `Stamp`, `FileAttachment`, `Redact`. Existing form widgets surface as `WidgetAnnotation` for read-only inspection — to mutate form fields use the `Form` API.",
+    "salient_tokens": [
+      "Link",
+      "Highlight",
+      "Underline",
+      "StrikeOut",
+      "Squiggly",
+      "Square",
+      "Circle",
+      "Line",
+      "Ink",
+      "Text",
+      "FreeText",
+      "Stamp",
+      "FileAttachment",
+      "Redact",
+      "WidgetAnnotation",
+      "Form",
+      "API"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Link, Highlight, Underline, StrikeOut, Squiggly, Square.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: Link, Highlight, Underline, StrikeOut, Squiggly, Square)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Link, Highlight, Underline, StrikeOut, Squiggly, Square."
+  },
+  {
+    "unit_id": "u0085",
+    "source": "clone_cache/README.md",
+    "excerpt": "Border styles available: `BorderSolid`, `BorderDashed`, `BorderBeveled`, `BorderInset`,\n`BorderUnderline` (per ISO 32000-1 Table 168). Line endings: `LineEndingNone`,\n`Square`, `Circle`, `Diamond`, `OpenArrow`, `ClosedArrow`, `Butt`, `ROpenArrow`,\n`RClosedArrow`, `Slash` (Table 176). Each property setter (`SetBorderStyle`,\n`SetColor`, `SetStrokes`, etc.) immediately regenerates the annotation's\nappearance stream so `/AP/N` is always in sync; no `/NeedAppearances=true`\nrequired, drawing annotations render in any spec-conforming viewer.",
+    "salient_tokens": [
+      "BorderSolid",
+      "BorderDashed",
+      "BorderBeveled",
+      "BorderInset",
+      "BorderUnderline",
+      "LineEndingNone",
+      "Square",
+      "Circle",
+      "Diamond",
+      "OpenArrow",
+      "ClosedArrow",
+      "Butt",
+      "ROpenArrow",
+      "RClosedArrow",
+      "Slash",
+      "SetBorderStyle",
+      "SetColor",
+      "SetStrokes",
+      "/AP/N",
+      "/NeedAppearances=true",
+      "ISO",
+      "AP",
+      "NeedAppearances"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Square, Circle, Butt, SetColor, /AP/N, ISO.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: Square, Circle, Butt, SetColor, /AP/N, ISO)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Square, Circle, Butt, SetColor, /AP/N, ISO."
+  },
+  {
+    "unit_id": "u0086",
+    "source": "clone_cache/README.md",
+    "excerpt": "`PolygonAnnotation` (closed) and `PolylineAnnotation` (open) take a `[]pdf.Point`\nof vertices and share the same border/interior-colour surface; the polyline\nalso accepts start/end line endings. `CaretAnnotation` marks an insertion point\nas an upward chevron filling its rectangle, with an optional `/Sy` paragraph\nsymbol (`SetSymbol(pdf.CaretSymbolParagraph)`).",
+    "salient_tokens": [
+      "PolygonAnnotation",
+      "PolylineAnnotation",
+      "[]pdf.Point",
+      "CaretAnnotation",
+      "/Sy",
+      "SetSymbol(pdf.CaretSymbolParagraph)",
+      "SetSymbol",
+      "CaretSymbolParagraph"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: PolygonAnnotation, PolylineAnnotation, CaretAnnotation, /Sy.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: PolygonAnnotation, PolylineAnnotation, CaretAnnotation, /Sy)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: PolygonAnnotation, PolylineAnnotation, CaretAnnotation, /Sy."
+  },
+  {
+    "unit_id": "u0087",
+    "source": "clone_cache/README.md",
+    "excerpt": "`TextAnnotation` icon names: `TextIconNote` (default), `Comment`, `Key`, `Help`, `NewParagraph`,\n`Paragraph`, `Insert`. `FreeTextAnnotation` supports three intents — `FreeTextIntentFreeText`\n(default), `Callout` (with arrow), `Typewriter` (no border/background). Border effects: `BorderEffectNone`\n(default) and `BorderEffectCloudy` (wavy border per ISO 32000-1 §12.5.4 /BE). All 14 stamp names\nfrom ISO 32000-1 Table 184 (`StampNameApproved` through `StampNameTopSecret`) ship with\nlibrary-default colored visuals — green for positive (Approved/Final/ForPublicRelease), red for\nwarning (Confidential/Expired/etc.), orange for informational (Draft/AsIs/etc.), gray for neutral\n(Departmental). Custom images (JPEG / PNG) override the default visual.",
+    "salient_tokens": [
+      "TextAnnotation",
+      "TextIconNote",
+      "Comment",
+      "Key",
+      "Help",
+      "NewParagraph",
+      "Paragraph",
+      "Insert",
+      "FreeTextAnnotation",
+      "FreeTextIntentFreeText",
+      "Callout",
+      "Typewriter",
+      "BorderEffectNone",
+      "BorderEffectCloudy",
+      "StampNameApproved",
+      "StampNameTopSecret",
+      "ISO",
+      "BE",
+      "ForPublicRelease",
+      "AsIs",
+      "JPEG",
+      "PNG",
+      "12.5.4"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: TextAnnotation, Paragraph, Insert, FreeTextAnnotation, ISO, BE.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: TextAnnotation, Paragraph, Insert, FreeTextAnnotation, ISO, BE)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: TextAnnotation, Paragraph, Insert, FreeTextAnnotation, ISO, BE."
+  },
+  {
+    "unit_id": "u0088",
+    "source": "clone_cache/README.md",
+    "excerpt": "`FileAttachmentAnnotation` icons: `Paperclip` (default), `Graph`, `PushPin`, `Tag`.\nMIME type auto-detected from file extension. After save, viewers display the icon\nand let users save/open the embedded file. `RedactAnnotation` operates in two modes:\nmark mode (annotation alone, decorative — content still extractable) and apply mode\n(after `Document.ApplyRedactions()`, page content is rewritten to remove text glyphs,\nimage XObjects, and paths inside `/QuadPoints` regions; the redact annotation is then\ndeleted). Use `ValidateRedactions()` first as a pre-flight parseability check.\n**`NewJavaScriptAction`** carries a documented security warning — embedded JavaScript\nexecutes in the recipient's viewer.",
+    "salient_tokens": [
+      "FileAttachmentAnnotation",
+      "Paperclip",
+      "Graph",
+      "PushPin",
+      "Tag",
+      "RedactAnnotation",
+      "Document.ApplyRedactions()",
+      "/QuadPoints",
+      "ValidateRedactions()",
+      "NewJavaScriptAction",
+      "MIME",
+      "ApplyRedactions",
+      "XObjects",
+      "QuadPoints",
+      "ValidateRedactions",
+      "JavaScript"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: FileAttachmentAnnotation, Graph, Tag, RedactAnnotation, /QuadPoints, QuadPoints.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: FileAttachmentAnnotation, Graph, Tag, RedactAnnotation, /QuadPoints, QuadPoints)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: FileAttachmentAnnotation, Graph, Tag, RedactAnnotation, /QuadPoints, QuadPoints."
+  },
+  {
+    "unit_id": "u0089",
+    "source": "clone_cache/README.md",
+    "excerpt": "`Document.JavaScript()` is a named-script collection (`Add`/`Get`/`Has`/`Remove`/`Names`/`Count`/`Clear`)\nbacked by the `/Catalog/Names/JavaScript` name tree — distinct from the action-level\n`JavaScriptAction` that fires on an annotation click. `Document.SetOpenAction` /\n`OpenAction` / `RemoveOpenAction` manage the `/Catalog/OpenAction` run on open (GoTo,\nJavaScript, Named, …); a GoTo open-action resolves its destination to a 1-based page\nnumber on read. Both round-trip through Save and coexist with named destinations.\nDocument-level JavaScript executes in the recipient's viewer when the file is opened —\nembed only scripts you authored or audited.",
+    "salient_tokens": [
+      "Document.JavaScript()",
+      "Add",
+      "Get",
+      "Has",
+      "Remove",
+      "Names",
+      "Count",
+      "Clear",
+      "/Catalog/Names/JavaScript",
+      "JavaScriptAction",
+      "Document.SetOpenAction",
+      "OpenAction",
+      "RemoveOpenAction",
+      "/Catalog/OpenAction",
+      "JavaScript",
+      "SetOpenAction",
+      "GoTo"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Add, Get, Has, Remove, Names, Count.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: Add, Get, Has, Remove, Names, Count)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Add, Get, Has, Remove, Names, Count."
+  },
+  {
+    "unit_id": "u0090",
+    "source": "clone_cache/README.md",
+    "excerpt": "Issue codes: `INVALID_HEADER`, `XREF_ERROR`, `OBJECT_ERROR`, `PAGE_TREE_ERROR`, `STREAM_ERROR`, `ENCRYPTED`.",
+    "salient_tokens": [
+      "INVALID_HEADER",
+      "XREF_ERROR",
+      "OBJECT_ERROR",
+      "PAGE_TREE_ERROR",
+      "STREAM_ERROR",
+      "ENCRYPTED"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: ENCRYPTED.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Confirmed present in the candidate's Additional Examples section (matched real identifiers/phrasing: ENCRYPTED)."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: ENCRYPTED."
+  },
+  {
+    "unit_id": "u0091",
+    "source": "clone_cache/README.md",
+    "excerpt": "`Validate` is a **structural-integrity** check (is the file parseable and internally consistent). For archival **PDF/A** conformance, use `ValidatePDFA` (below).",
+    "salient_tokens": [
+      "Validate",
+      "ValidatePDFA",
+      "PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: Validate, ValidatePDFA, PDF.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: Validate, ValidatePDFA, PDF)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: Validate, ValidatePDFA, PDF."
+  },
+  {
+    "unit_id": "u0092",
+    "source": "clone_cache/README.md",
+    "excerpt": "`ValidatePDFA` is a read-only diagnostic for all six PDF/A levels (ISO 19005-1/2/3): `PDFA1B/2B/3B` (basic) and `PDFA1A/2A/3A` (accessible). It checks the XMP `pdfaid` identifier, font embedding, encryption, JavaScript/Launch actions, ICC OutputIntent vs. device colour, transparency (PDF/A-1), annotation flags/appearances, an uncompressed `/Metadata` stream, and LZW/embedded-file restrictions; the \"a\" levels additionally require a Tagged PDF (structure tree + `/Lang`) — author one with `Document.TaggedContent` (see \"Authoring a Tagged PDF\" below). Mirrors the intent of Aspose.PDF for .NET's `Document.Validate(PdfFormat)`.",
+    "salient_tokens": [
+      "ValidatePDFA",
+      "PDFA1B/2B/3B",
+      "PDFA1A/2A/3A",
+      "pdfaid",
+      "/Metadata",
+      "/Lang",
+      "Document.TaggedContent",
+      "Document.Validate(PdfFormat)",
+      "PDF",
+      "ISO",
+      "PDFA1B",
+      "PDFA1A",
+      "XMP",
+      "JavaScript",
+      "ICC",
+      "OutputIntent",
+      "LZW",
+      "TaggedContent",
+      "NET",
+      "PdfFormat",
+      "Authoring a Tagged PDF"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: ValidatePDFA, PDF, ISO, XMP, JavaScript, TaggedContent.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: ValidatePDFA, PDF, ISO, XMP, JavaScript, TaggedContent)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: ValidatePDFA, PDF, ISO, XMP, JavaScript, TaggedContent."
+  },
+  {
+    "unit_id": "u0093",
+    "source": "clone_cache/README.md",
+    "excerpt": "To make a document conformant, use `ConvertToPDFA`:",
+    "salient_tokens": [
+      "ConvertToPDFA"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: ConvertToPDFA.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: ConvertToPDFA)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: ConvertToPDFA."
+  },
+  {
+    "unit_id": "u0094",
+    "source": "clone_cache/README.md",
+    "excerpt": "`ConvertToPDFA` removes encryption, JavaScript/Launch actions and (for PDF/A-1) attachments, sets annotation print flags, **auto-embeds non-embedded simple fonts** (Standard-14 and other single-byte Type1/TrueType, using the bundled metric-compatible clones — text is preserved), adds an sRGB ICC OutputIntent (generated in pure Go), and writes a `pdfaid` XMP packet — then returns a report of whatever still fails. A document built with `AddText` converts to fully conformant in one call. `Symbol`/`ZapfDingbats`, composite fonts and PDF/A-1 transparency are not auto-fixed (surfaced in the report). Confirm full conformance with a dedicated validator such as veraPDF. Mirrors Aspose.PDF for .NET's `Document.Convert(PdfFormat)`.",
+    "salient_tokens": [
+      "ConvertToPDFA",
+      "pdfaid",
+      "AddText",
+      "Symbol",
+      "ZapfDingbats",
+      "Document.Convert(PdfFormat)",
+      "JavaScript",
+      "PDF",
+      "TrueType",
+      "sRGB",
+      "ICC",
+      "OutputIntent",
+      "XMP",
+      "veraPDF",
+      "NET",
+      "PdfFormat"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: ConvertToPDFA, AddText, Symbol, JavaScript, PDF, XMP.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: ConvertToPDFA, AddText, Symbol, JavaScript, PDF, XMP)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: ConvertToPDFA, AddText, Symbol, JavaScript, PDF, XMP."
+  },
+  {
+    "unit_id": "u0095",
+    "source": "clone_cache/README.md",
+    "excerpt": "`ValidatePDFUA` is a read-only check of the PDF/UA-1 (ISO 14289-1) accessibility prerequisites: the document is a Tagged PDF with a logical structure tree (`/StructTreeRoot` + `/ParentTree`), declares a default language (`/Lang`) and a displayed title (`/ViewerPreferences/DisplayDocTitle`), gives every figure/formula alternate text, and does not block accessibility through encryption. Use PAC or veraPDF-UA for final sign-off. Mirrors Aspose.PDF for .NET's `Document.Validate(PdfFormat.PDF_UA_1)`.",
+    "salient_tokens": [
+      "ValidatePDFUA",
+      "/StructTreeRoot",
+      "/ParentTree",
+      "/Lang",
+      "/ViewerPreferences/DisplayDocTitle",
+      "Document.Validate(PdfFormat.PDF_UA_1)",
+      "PDF",
+      "UA",
+      "ISO",
+      "StructTreeRoot",
+      "ParentTree",
+      "ViewerPreferences",
+      "DisplayDocTitle",
+      "PAC",
+      "veraPDF",
+      "NET",
+      "PdfFormat"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: ValidatePDFUA, PDF, UA, ISO, PAC, NET.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: ValidatePDFUA, PDF, UA, ISO, PAC, NET)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: ValidatePDFUA, PDF, UA, ISO, PAC, NET."
+  },
+  {
+    "unit_id": "u0096",
+    "source": "clone_cache/README.md",
+    "excerpt": "Tables tag themselves — `AddTaggedTable` renders a `Table` and builds its `/Table → /TR → /TH/TD` structure in one call (repeating header rows become `/TH`; backgrounds and borders are marked as artifacts):",
+    "salient_tokens": [
+      "AddTaggedTable",
+      "Table",
+      "/Table → /TR → /TH/TD",
+      "/TH",
+      "TR",
+      "TH",
+      "TD"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's At a Glance section -- matched: Table, TR, TH, TD.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "At a Glance",
+      "evidence_note": "Confirmed present in the candidate's At a Glance section (matched real identifiers/phrasing: Table, TR, TH, TD)."
+    },
+    "disposition": "excluded",
+    "target_section": "At a Glance",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's At a Glance section -- matched: Table, TR, TH, TD."
+  },
+  {
+    "unit_id": "u0097",
+    "source": "clone_cache/README.md",
+    "excerpt": "Lists tag themselves too, and decoration (headers/footers, page numbers) is marked as an artifact so it stays out of the structure tree:",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Real, distinct, checkable accessibility-authoring mechanism -- that purely decorative content (list/table decoration, headers/footers, page numbers) can be marked as a /Artifact so it is excluded from the logical structure tree -- was entirely absent from the candidate's Accessibility and PDF/A API Reference subsection.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "tagged_table.go",
+      "evidence_note": "tagged_table.go lines 19 and 65-69 confirm a real (*Page).artifact() helper that brackets decorative drawing in an /Artifact marked-content sequence so it is excluded from the logical structure tree -- matches this unit exactly."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "API Reference",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0098",
+    "source": "clone_cache/README.md",
+    "excerpt": "Rasterize a page to an image with a dependency-free, pure-Go renderer (own anti-aliased rasterizer — no `golang.org/x/image`, no cgo).",
+    "salient_tokens": [
+      "golang.org/x/image"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Duplicate framing of the same dependency-free/anti-aliased rasterizer fact merged via u0099 (the richer 'Status:' block covering the same renderer, plus the specific format support u0098 lacks). Folding both into one Key Capabilities edit avoids a duplicate merge.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Covered by u0099's merge into the Key Capabilities Render bullet, which now states the renderer is pure-Go/anti-aliased with no golang.org/x/image or cgo dependency, plus the fax/JBIG2/JPEG2000/CJK format support."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Covered by u0099's merge into the Key Capabilities Render bullet (same dependency-free/anti-aliased rasterizer fact, u0099 is the fuller source)."
+  },
+  {
+    "unit_id": "u0099",
+    "source": "clone_cache/README.md",
+    "excerpt": "> **Status:** the renderer draws **vector graphics** (paths, fills, strokes, Gray/RGB/CMYK plus Separation/DeviceN colour, axial/radial **shadings**, tiling patterns, **clipping**, constant alpha, **soft masks**, **blend modes**, Optional-Content visibility), **images** (Image XObjects with soft-mask alpha, stencil **image masks**, **CCITTFaxDecode** Group 3/4 fax, **JBIG2** bilevel scans — symbol-dictionary/text-region + generic/refinement regions on the arithmetic path — **JPEG2000** (`/JPXDecode`) colour scans incl. MRC high-res stencil-masked foreground layers, and inline images), and **text** (embedded **TrueType** and **CFF** — Type1C simple and CID-keyed `/FontFile3` — plus **Type3** fonts; non-embedded fonts via bundled metric-compatible substitutes and a `FontRepository` for exact/installed fonts including `.ttc` collections and `.otf`/CFF; non-embedded Type0 substitution, **non-embedded CJK** via predefined Adobe CMaps (GB1/CNS1/Japan1/Korea1) rendered from installed system fonts, and synthesized ZapfDingbats checkbox/radio marks), and **annotation appearances** (AcroForm field widgets, stamps, highlights, free text, …). Unsupported elements (mesh shadings, isolated/knockout transparency groups, non-embedded Symbol, mixed Group 3 2-D fax) are skipped, so a page always renders. Output: **PNG / JPEG / GIF / BMP / TIFF** (single- and multi-page); DPI defaults to 150; the rendered region is the CropBox.",
+    "salient_tokens": [
+      "/JPXDecode",
+      "/FontFile3",
+      "FontRepository",
+      ".ttc",
+      ".otf",
+      "RGB",
+      "CMYK",
+      "DeviceN",
+      "XObjects",
+      "CCITTFaxDecode",
+      "JBIG2",
+      "JPEG2000",
+      "JPXDecode",
+      "MRC",
+      "TrueType",
+      "CFF",
+      "CID",
+      "FontFile3",
+      "CJK",
+      "CMaps",
+      "GB1",
+      "CNS1",
+      "ZapfDingbats",
+      "AcroForm",
+      "PNG",
+      "JPEG",
+      "GIF",
+      "BMP",
+      "TIFF",
+      "DPI",
+      "CropBox"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Candidate's Key Capabilities Render bullet says only 'built-in, dependency-free rasterizer' -- it drops the specific, real, checkable format support behind that rasterizer: CCITTFaxDecode Group 3/4 fax, JBIG2 bilevel scans, JPEG2000 (/JPXDecode) colour scans, and non-embedded CJK text rendering from installed system fonts via predefined Adobe CMaps. These are substantial, distinct, verifiable capabilities, not narrative.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "jbig2.go",
+      "evidence_note": "jbig2.go (plus jbig2_generic.go/jbig2_mmr.go/jbig2_huffman.go/etc.), ccitt.go, jpx.go (plus jpx_dwt.go/jpx_tier1.go/jpx_tier2.go), and cmap_cid.go/cmap_cid_data.go are all real, substantial, tested source files -- confirms the fax/JBIG2/JPEG2000/CJK rendering support this unit describes is real and shipped, not aspirational."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0100",
+    "source": "clone_cache/README.md",
+    "excerpt": "Export the document as one self-contained HTML file — no external assets, no JavaScript.",
+    "salient_tokens": [
+      "HTML",
+      "JavaScript"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: HTML, JavaScript.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: HTML, JavaScript)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: HTML, JavaScript."
+  },
+  {
+    "unit_id": "u0101",
+    "source": "clone_cache/README.md",
+    "excerpt": "In both modes the text is selectable, copyable and Ctrl+F-searchable, link annotations become clickable `<a>` overlays (external URLs and in-document `#pageN` jumps), and page backgrounds carry `loading=\"lazy\"` so large documents open fast.",
+    "salient_tokens": [
+      "<a>",
+      "#pageN",
+      "loading=\"lazy\"",
+      "URLs",
+      "pageN",
+      "lazy"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Duplicate of the HTML-export mechanism recovered via u0034's merge (Ctrl+F-searchable text and clickable link overlays are part of the same four-mode HTML export description).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Covered by u0034's merge into the Key Capabilities HTML bullet, which now describes the visible-text/native export modes this unit's Ctrl+F-searchability and clickable-overlay detail belongs to."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Covered by u0034's merge into the Key Capabilities HTML bullet (same PDF-to-HTML export mechanism)."
+  },
+  {
+    "unit_id": "u0102",
+    "source": "clone_cache/README.md",
+    "excerpt": "Export pages as standalone true-vector SVG files: real Bézier paths with native strokes, clips, opacity and blend modes; images keep their original JPEG/PNG bytes; text is rendered as exact glyph outline paths, so the file has no font dependencies. Only shadings/patterns/soft masks degrade to small embedded raster patches.",
+    "salient_tokens": [
+      "SVG",
+      "JPEG",
+      "PNG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's At a Glance section -- matched: SVG, JPEG, PNG.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "At a Glance",
+      "evidence_note": "Confirmed present in the candidate's At a Glance section (matched real identifiers/phrasing: SVG, JPEG, PNG)."
+    },
+    "disposition": "excluded",
+    "target_section": "At a Glance",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's At a Glance section -- matched: SVG, JPEG, PNG."
+  },
+  {
+    "unit_id": "u0103",
+    "source": "clone_cache/README.md",
+    "excerpt": "`SVGSaveOptions.DPI` (default 150) sets the coordinate scale and the resolution of raster patches — the vector content itself is resolution-independent. Mirrors Aspose.PDF for .NET's `Document.Save(SaveFormat.Svg)`.",
+    "salient_tokens": [
+      "SVGSaveOptions.DPI",
+      "Document.Save(SaveFormat.Svg)",
+      "SVGSaveOptions",
+      "DPI",
+      "PDF",
+      "NET",
+      "SaveFormat"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: SVGSaveOptions, DPI, PDF, NET.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: SVGSaveOptions, DPI, PDF, NET)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: SVGSaveOptions, DPI, PDF, NET."
+  },
+  {
+    "unit_id": "u0104",
+    "source": "clone_cache/README.md",
+    "excerpt": "Render CommonMark + GFM Markdown (tables, strikethrough, task lists, autolinks) as a paginated PDF. The parser passes the official CommonMark 0.31.2 test suite **652/652**.",
+    "salient_tokens": [
+      "CommonMark",
+      "GFM",
+      "PDF",
+      "0.31.2"
+    ],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "The candidate's Key Capabilities Markdown bullet says 'Convert Markdown <-> PDF (CommonMark + GFM)' with no mention of the specific, real, checkable quality claim that the parser passes all 652/652 cases of the official CommonMark 0.31.2 test suite -- a concrete, verifiable fact, not narrative.",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "markdown_spec_test.go",
+      "evidence_note": "markdown_spec_test.go's TestCommonMarkSpec (line 236) runs the official CommonMark 0.31.2 test set with 'const floor = 652' (line 269) and a comment stating 'the official CommonMark 0.31.2 suite passes. Any regression below 652 is a bug' -- confirms the 652/652 claim is a real, enforced-by-test fact."
+    },
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "excluded_reason": null
+  },
+  {
+    "unit_id": "u0105",
+    "source": "clone_cache/README.md",
+    "excerpt": "Headings scale from `BaseSize`; bold/italic/strikethrough/code spans render as real styled runs, links become clickable annotations, task items draw vector checkboxes, block quotes get a left rule, code blocks keep their indentation on a gray card, GFM tables map onto the table engine (repeating bold header, `:---:` alignment). Images: local paths and `data:` URLs (remote URLs render their alt text — the library does no network I/O). For non-Latin text set `MarkdownOptions.FontFamily`/`CodeFontFamily` (e.g. `\"Arial\"`/`\"Consolas\"` — resolved from registered or OS fonts and embedded), or pass `LoadFont` faces explicitly. Raw HTML is skipped (`<br>` honored); no syntax highlighting yet.",
+    "salient_tokens": [
+      "BaseSize",
+      ":---:",
+      "data:",
+      "MarkdownOptions.FontFamily",
+      "CodeFontFamily",
+      "\"Arial\"",
+      "\"Consolas\"",
+      "LoadFont",
+      "<br>",
+      "GFM",
+      "URLs",
+      "MarkdownOptions",
+      "FontFamily",
+      "OS",
+      "HTML",
+      "Arial",
+      "Consolas"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: data:, LoadFont, MarkdownOptions, OS, HTML.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: data:, LoadFont, MarkdownOptions, OS, HTML)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: data:, LoadFont, MarkdownOptions, OS, HTML."
+  },
+  {
+    "unit_id": "u0106",
+    "source": "clone_cache/README.md",
+    "excerpt": "Bonus: `ai.SummaryOptions.Markdown` makes `SummaryCopilot` ask the model for Markdown and renders the summary PDF through this pipeline — formatted AI summaries out of the box.",
+    "salient_tokens": [
+      "ai.SummaryOptions.Markdown",
+      "SummaryCopilot",
+      "SummaryOptions",
+      "PDF",
+      "AI"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: SummaryCopilot, SummaryOptions, PDF, AI.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: SummaryCopilot, SummaryOptions, PDF, AI)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: SummaryCopilot, SummaryOptions, PDF, AI."
+  },
+  {
+    "unit_id": "u0107",
+    "source": "clone_cache/README.md",
+    "excerpt": "The reverse of the Markdown renderer: re-assemble a PDF as GFM Markdown — ideal as the PDF front-end of a RAG pipeline.",
+    "salient_tokens": [
+      "PDF",
+      "GFM",
+      "RAG"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: PDF, GFM, RAG.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: PDF, GFM, RAG)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: PDF, GFM, RAG."
+  },
+  {
+    "unit_id": "u0108",
+    "source": "clone_cache/README.md",
+    "excerpt": "Headings are inferred from font sizes, bold/italic/monospace fragments become `**`/`*`/`` ` `` runs, link annotations come back as `[text](url)`, bullet and numbered lists keep their nesting, and monospace paragraphs become fenced code blocks with their indentation. Tables are not reconstructed yet (cell text flows as paragraphs).",
+    "salient_tokens": [
+      "**",
+      "*",
+      "runs, link annotations come back as"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: **, *.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "__preamble__",
+      "evidence_note": "Confirmed present in the candidate's __preamble__ section (matched real identifiers/phrasing: **, *)."
+    },
+    "disposition": "excluded",
+    "target_section": "__preamble__",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: **, *."
+  },
+  {
+    "unit_id": "u0109",
+    "source": "clone_cache/README.md",
+    "excerpt": "The `ai` subpackage adds AI copilots mirroring Aspose.PDF for .NET's `Aspose.Pdf.AI` — summarization, OCR of scanned pages, a searchable-PDF pipeline, document Q&A, and image description with automatic alt-text — over any **OpenAI-compatible** endpoint (OpenAI, LiteLLM, Ollama, OpenRouter, …). Pure Go, standard library only; the root package stays free of AI and network code.",
+    "salient_tokens": [
+      "ai",
+      "Aspose.Pdf.AI",
+      "PDF",
+      "NET",
+      "OCR",
+      "OpenAI",
+      "LiteLLM",
+      "OpenRouter"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: ai, PDF, NET, OCR, OpenAI.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: ai, PDF, NET, OCR, OpenAI)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: ai, PDF, NET, OCR, OpenAI."
+  },
+  {
+    "unit_id": "u0110",
+    "source": "clone_cache/README.md",
+    "excerpt": "> These features send document content (extracted text and/or rendered page images) to the configured AI endpoint. For sensitive documents point the client at a local endpoint (e.g. Ollama) — the same client works unchanged.",
+    "salient_tokens": [
+      "AI"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: AI.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "__preamble__",
+      "evidence_note": "Confirmed present in the candidate's __preamble__ section (matched real identifiers/phrasing: AI)."
+    },
+    "disposition": "excluded",
+    "target_section": "__preamble__",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: AI."
+  },
+  {
+    "unit_id": "u0111",
+    "source": "clone_cache/README.md",
+    "excerpt": "Scanned pages are auto-detected (no extractable text + a dominant full-page image); pass `OcrOptions.Pages`/`All` to override. The bundled `LLMOCREngine` returns line-level text without coordinates, so `MakeSearchable` lays the hidden lines on an even grid over the scan (search and copy work; selection alignment is approximate). Implement the one-method `ai.OCREngine` interface over Tesseract or a cloud OCR service that reports word boxes and the hidden text will sit exactly under the printed words. For non-Latin text pass a Unicode font via `OcrOptions.Font` (see `Document.LoadFont`).",
+    "salient_tokens": [
+      "OcrOptions.Pages",
+      "All",
+      "LLMOCREngine",
+      "MakeSearchable",
+      "ai.OCREngine",
+      "OcrOptions.Font",
+      "Document.LoadFont",
+      "OcrOptions",
+      "OCREngine",
+      "OCR",
+      "LoadFont"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: All, LLMOCREngine, MakeSearchable, Document.LoadFont, OcrOptions, OCREngine.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: All, LLMOCREngine, MakeSearchable, Document.LoadFont, OcrOptions, OCREngine)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: All, LLMOCREngine, MakeSearchable, Document.LoadFont, OcrOptions, OCREngine."
+  },
+  {
+    "unit_id": "u0112",
+    "source": "clone_cache/README.md",
+    "excerpt": "Each match's `Rect` is built from the per-glyph positions recorded during extraction, so the box hugs the matched text rather than being interpolated. Matches are located within a single text line (a query that straddles a line break is not found).",
+    "salient_tokens": [
+      "Rect"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's At a Glance section -- matched: Rect.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "At a Glance",
+      "evidence_note": "Confirmed present in the candidate's At a Glance section (matched real identifiers/phrasing: Rect)."
+    },
+    "disposition": "excluded",
+    "target_section": "At a Glance",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's At a Glance section -- matched: Rect."
+  },
+  {
+    "unit_id": "u0113",
+    "source": "clone_cache/README.md",
+    "excerpt": "The matched glyphs are removed and the replacement is drawn at the same baseline, size, and colour in a metric-compatible Standard-14 face chosen from the original's family and style — so any replacement text renders, even when the original used an embedded subset font that lacks the new glyphs (the face may shift for non-Standard-14 originals). The line is not re-flowed: a much longer replacement can overrun following content. Matches are located within a single line, like `SearchText`.",
+    "salient_tokens": [
+      "SearchText"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: SearchText.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Additional Examples",
+      "evidence_note": "Confirmed present in the candidate's Additional Examples section (matched real identifiers/phrasing: SearchText)."
+    },
+    "disposition": "excluded",
+    "target_section": "Additional Examples",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Additional Examples section -- matched: SearchText."
+  },
+  {
+    "unit_id": "u0114",
+    "source": "clone_cache/README.md",
+    "excerpt": "Images are output as JPEG (passthrough for DCTDecode streams) or PNG (everything else). Supported color spaces: DeviceRGB, DeviceGray, DeviceCMYK (converted to RGB), Indexed (palette expansion), and ICCBased. Soft masks are applied as PNG alpha channels.",
+    "salient_tokens": [
+      "JPEG",
+      "DCTDecode",
+      "PNG",
+      "DeviceRGB",
+      "DeviceGray",
+      "DeviceCMYK",
+      "RGB",
+      "ICCBased"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: JPEG, PNG, RGB.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: JPEG, PNG, RGB)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: JPEG, PNG, RGB."
+  },
+  {
+    "unit_id": "u0115",
+    "source": "clone_cache/README.md",
+    "excerpt": "> Inline images (`AddInlineImage`) suit tiny pictures like icons or rules; for anything larger, `AddImage` (an Image XObject) is the recommended default.",
+    "salient_tokens": [
+      "AddInlineImage",
+      "AddImage",
+      "XObject"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: AddImage, XObject.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: AddImage, XObject)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: AddImage, XObject."
+  },
+  {
+    "unit_id": "u0116",
+    "source": "clone_cache/README.md",
+    "excerpt": "Or run everything in one pass with the unified optimizer:",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "classification_basis": "Duplicate framing of the unified-optimizer fact recovered via u0033's merge (this is just the Additional Examples code caption for the same Document.Optimize one-call behavior).",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Covered by u0033's merge into the Key Capabilities Optimize bullet, which now explicitly describes Document.Optimize's 'unified, single-call optimizer' -- the same one-pass mechanism this caption introduces."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Covered by u0033's merge into the Key Capabilities Optimize bullet (same Document.Optimize unified one-call mechanism)."
+  },
+  {
+    "unit_id": "u0117",
+    "source": "clone_cache/README.md",
+    "excerpt": "`ConvertToGrayscale` maps every colour to its luminance grey in place — content-stream device colours, raster images (re-encoded as DeviceGray), axial/radial shadings and patterns, and annotation colours/appearances, recursing through Form XObjects. Geometry, text and layout are unchanged. Separation/DeviceN, Indexed and PostScript/sampled shading functions are best-effort. Mirrors Aspose.PDF for .NET's `RgbToDeviceGrayConversionStrategy`.",
+    "salient_tokens": [
+      "ConvertToGrayscale",
+      "RgbToDeviceGrayConversionStrategy",
+      "DeviceGray",
+      "XObjects",
+      "DeviceN",
+      "PostScript",
+      "PDF",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: ConvertToGrayscale, XObjects, PDF, NET.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: ConvertToGrayscale, XObjects, PDF, NET)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: ConvertToGrayscale, XObjects, PDF, NET."
+  },
+  {
+    "unit_id": "u0118",
+    "source": "clone_cache/README.md",
+    "excerpt": "> The output is an ordinary PDF that any reader opens normally (Acrobat shows \"Fast Web View: Yes\"). Encryption and signing cannot be combined with linearization. Mirrors the intent of Aspose.PDF for .NET's linearized save.",
+    "salient_tokens": [
+      "PDF",
+      "NET",
+      "Fast Web View: Yes"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: PDF, NET.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: PDF, NET)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: PDF, NET."
+  },
+  {
+    "unit_id": "u0119",
+    "source": "clone_cache/README.md",
+    "excerpt": "Instead of positioning every element by `Rectangle`, build a document that **flows** top-to-bottom and paginates itself:",
+    "salient_tokens": [
+      "Rectangle"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: Rectangle.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Key Capabilities",
+      "evidence_note": "Confirmed present in the candidate's Key Capabilities section (matched real identifiers/phrasing: Rectangle)."
+    },
+    "disposition": "excluded",
+    "target_section": "Key Capabilities",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's Key Capabilities section -- matched: Rectangle."
+  },
+  {
+    "unit_id": "u0120",
+    "source": "clone_cache/README.md",
+    "excerpt": "The flow is an additive layer over the Rectangle drawing API (it computes the rectangles for you). Set `FlowOptions.Tagged` to a `TaggedContent` and every element is **auto-tagged** — one call produces a PDF/UA-conformant accessible document:",
+    "salient_tokens": [
+      "FlowOptions.Tagged",
+      "TaggedContent",
+      "API",
+      "FlowOptions",
+      "PDF",
+      "UA"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: TaggedContent, API, FlowOptions, PDF, UA.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: TaggedContent, API, FlowOptions, PDF, UA)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: TaggedContent, API, FlowOptions, PDF, UA."
+  },
+  {
+    "unit_id": "u0121",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Floating boxes** are positioned containers (border/background/padding + their own content). Place one absolutely on a page, or insert it into a flow where it takes its measured height:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: insert, height, their, floating, content, place.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: insert, height, their, floating, content, place)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: insert, height, their, floating, content, place."
+  },
+  {
+    "unit_id": "u0122",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Multi-column** layout is one option away — content fills each column top-to-bottom, then the next column, then the next page:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: fills, column, multi, option, bottom, layout.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: fills, column, multi, option, bottom, layout)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: fills, column, multi, option, bottom, layout."
+  },
+  {
+    "unit_id": "u0123",
+    "source": "clone_cache/README.md",
+    "excerpt": "**Text flow-around** floats a box against a column edge and wraps the following paragraphs around it:",
+    "salient_tokens": [],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: wraps, floats, around, column, paragraphs.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: wraps, floats, around, column, paragraphs)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: wraps, floats, around, column, paragraphs."
+  },
+  {
+    "unit_id": "u0124",
+    "source": "clone_cache/README.md",
+    "excerpt": "Mirrors the intent of Aspose.PDF for .NET's generator / `Page.Paragraphs` / `FloatingBox` / columns / floats.",
+    "salient_tokens": [
+      "Page.Paragraphs",
+      "FloatingBox",
+      "PDF",
+      "NET"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: FloatingBox, PDF, NET.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: FloatingBox, PDF, NET)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: FloatingBox, PDF, NET."
+  },
+  {
+    "unit_id": "u0125",
+    "source": "clone_cache/README.md",
+    "excerpt": "Stamps overlay (or underlay) content on pages. Mirrors Aspose.PDF for .NET's\n`Stamp` family (`TextStamp`, `ImageStamp`, `PageNumberStamp`); apply with\n`Page.AddStamp` or `Document.AddStamp`. Shared fields — `Rect` (zero = whole\npage), `HAlign`/`VAlign`, `Opacity`, `RotateAngle` (centred), `Background`\n(behind content).",
+    "salient_tokens": [
+      "Stamp",
+      "TextStamp",
+      "ImageStamp",
+      "PageNumberStamp",
+      "Page.AddStamp",
+      "Document.AddStamp",
+      "Rect",
+      "HAlign",
+      "VAlign",
+      "Opacity",
+      "RotateAngle",
+      "Background",
+      "PDF",
+      "NET",
+      "AddStamp"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Stamp, TextStamp, ImageStamp, PageNumberStamp, Rect, HAlign.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "API Reference",
+      "evidence_note": "Confirmed present in the candidate's API Reference section (matched real identifiers/phrasing: Stamp, TextStamp, ImageStamp, PageNumberStamp, Rect, HAlign)."
+    },
+    "disposition": "excluded",
+    "target_section": "API Reference",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's API Reference section -- matched: Stamp, TextStamp, ImageStamp, PageNumberStamp, Rect, HAlign."
+  },
+  {
+    "unit_id": "u0126",
+    "source": "clone_cache/README.md",
+    "excerpt": "MIT License. See [LICENSE](LICENSE) for details.",
+    "salient_tokens": [
+      "MIT",
+      "LICENSE"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: MIT, LICENSE.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "__preamble__",
+      "evidence_note": "Confirmed present in the candidate's __preamble__ section (matched real identifiers/phrasing: MIT, LICENSE)."
+    },
+    "disposition": "excluded",
+    "target_section": "__preamble__",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: MIT, LICENSE."
+  },
+  {
+    "unit_id": "u0127",
+    "source": "clone_cache/README.md",
+    "excerpt": "The library bundles Latin-subset copies of four metric-compatible fonts —\nArimo, Tinos, Cousine, and Carlito — used to render the PDF Standard-14 fonts\n(and Calibri) when no embedded or system font is available. These are licensed\nunder the SIL Open\nFont License 1.1, which permits bundling with software under any license; see\n[fonts/LICENSE.txt](fonts/LICENSE.txt). The MIT license above covers the\nlibrary's own code (SPDX: `MIT AND OFL-1.1` for the distribution as a whole).",
+    "salient_tokens": [
+      "MIT AND OFL-1.1",
+      "PDF",
+      "SIL",
+      "LICENSE",
+      "MIT",
+      "SPDX",
+      "AND",
+      "OFL",
+      "1.1"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's License section -- matched: MIT AND OFL-1.1, PDF, SIL, LICENSE, MIT, SPDX.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "License",
+      "evidence_note": "Confirmed present in the candidate's License section (matched real identifiers/phrasing: MIT AND OFL-1.1, PDF, SIL, LICENSE, MIT, SPDX)."
+    },
+    "disposition": "excluded",
+    "target_section": "License",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's License section -- matched: MIT AND OFL-1.1, PDF, SIL, LICENSE, MIT, SPDX."
+  },
+  {
+    "unit_id": "u0128",
+    "source": "clone_cache/README.md",
+    "excerpt": "[Aspose.PDF FOSS for Go](https://products.aspose.com/pdf/) — part of the Aspose family of document processing libraries.",
+    "salient_tokens": [
+      "PDF",
+      "FOSS"
+    ],
+    "classification": "redundant_with_existing",
+    "classification_basis": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: PDF, FOSS.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "__preamble__",
+      "evidence_note": "Confirmed present in the candidate's __preamble__ section (matched real identifiers/phrasing: PDF, FOSS)."
+    },
+    "disposition": "excluded",
+    "target_section": "__preamble__",
+    "excluded_reason": "Checkable substance of this unit is already present (verbatim or reworded) in the candidate's __preamble__ section -- matched: PDF, FOSS."
+  }
+]

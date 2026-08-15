@@ -1,0 +1,492 @@
+[
+  {
+    "unit_id": "u0001",
+    "excerpt": "Aspose.Cells FOSS is an open-source .NET library for creating, loading, editing, and saving Excel `.xlsx` workbooks without requiring Microsoft Excel.",
+    "salient_tokens": [".xlsx", "FOSS", "NET"],
+    "classification": "3_branding_positioning",
+    "disposition": "merged_reframed",
+    "target_section": "Intro",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/Workbook.cs"
+    }
+  },
+  {
+    "unit_id": "u0002",
+    "excerpt": "- Aspose.Cells-compatible API surface for common XLSX scenarios",
+    "salient_tokens": ["API", "XLSX"],
+    "classification": "3_branding_positioning",
+    "disposition": "merged_reframed",
+    "target_section": "Intro",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/Aspose.Cells_FOSS.csproj"
+    }
+  },
+  {
+    "unit_id": "u0003",
+    "excerpt": "- `.xlsx` load/save from file paths and streams",
+    "salient_tokens": [".xlsx"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/Workbook.cs"
+    }
+  },
+  {
+    "unit_id": "u0004",
+    "excerpt": "- Cell values, formulas, styles, merges, and number formats",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/Cells.cs"
+    }
+  },
+  {
+    "unit_id": "u0005",
+    "excerpt": "- Conditional formatting, data validation, hyperlinks, names, tables, charts, shapes, comments, pictures",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/Worksheet.cs"
+    }
+  },
+  {
+    "unit_id": "u0006",
+    "excerpt": "- Recovery-oriented loading with diagnostics and warning callbacks",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/LoadDiagnostics.cs"
+    }
+  },
+  {
+    "unit_id": "u0007",
+    "excerpt": "- Multi-targeted library: `netstandard2.0` and `net8.0`",
+    "salient_tokens": ["netstandard2.0", "net8.0"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Installation",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/Aspose.Cells_FOSS.csproj"
+    }
+  },
+  {
+    "unit_id": "u0008",
+    "excerpt": "- Workbook and worksheet management",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/Workbook.cs"
+    }
+  },
+  {
+    "unit_id": "u0009",
+    "excerpt": "- Cells and formulas",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/Cell.cs"
+    }
+  },
+  {
+    "unit_id": "u0010",
+    "excerpt": "- Style model (font, fill, borders, alignment, number formats)",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/Style.cs"
+    }
+  },
+  {
+    "unit_id": "u0011",
+    "excerpt": "- Worksheet settings (visibility, zoom, RTL, gridlines, protection)",
+    "salient_tokens": ["RTL"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/Worksheet.cs"
+    }
+  },
+  {
+    "unit_id": "u0012",
+    "excerpt": "- Hyperlinks and defined names",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/DefinedNameCollection.cs"
+    }
+  },
+  {
+    "unit_id": "u0013",
+    "excerpt": "- Data validation and conditional formatting",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/ValidationCollection.cs"
+    }
+  },
+  {
+    "unit_id": "u0014",
+    "excerpt": "- Page setup and print-related settings",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/PageSetup.cs"
+    }
+  },
+  {
+    "unit_id": "u0015",
+    "excerpt": "- Tables (`ListObjects`)",
+    "salient_tokens": ["ListObjects"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/ListObject.cs"
+    }
+  },
+  {
+    "unit_id": "u0016",
+    "excerpt": "- Pictures, shapes, and charts",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/Picture.cs"
+    }
+  },
+  {
+    "unit_id": "u0017",
+    "excerpt": "- Document properties",
+    "salient_tokens": [],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Key Capabilities",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/CoreDocumentProperties.cs"
+    }
+  },
+  {
+    "unit_id": "u0018",
+    "excerpt": "For runnable examples, see [`samples/`](samples/):",
+    "salient_tokens": ["samples/"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/README.md"
+    }
+  },
+  {
+    "unit_id": "u0019",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Basic`",
+    "salient_tokens": ["Aspose.Cells_FOSS.Samples.Basic"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/Aspose.Cells_FOSS.Samples.Basic/Aspose.Cells_FOSS.Samples.Basic.csproj"
+    }
+  },
+  {
+    "unit_id": "u0020",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Loading`",
+    "salient_tokens": ["Aspose.Cells_FOSS.Samples.Loading"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/Aspose.Cells_FOSS.Samples.Loading/Aspose.Cells_FOSS.Samples.Loading.csproj"
+    }
+  },
+  {
+    "unit_id": "u0021",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Styles`",
+    "salient_tokens": ["Aspose.Cells_FOSS.Samples.Styles"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/Aspose.Cells_FOSS.Samples.Styles/Aspose.Cells_FOSS.Samples.Styles.csproj"
+    }
+  },
+  {
+    "unit_id": "u0022",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.WorksheetSettings`",
+    "salient_tokens": ["Aspose.Cells_FOSS.Samples.WorksheetSettings", "WorksheetSettings"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/Aspose.Cells_FOSS.Samples.WorksheetSettings/Aspose.Cells_FOSS.Samples.WorksheetSettings.csproj"
+    }
+  },
+  {
+    "unit_id": "u0023",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Validations`",
+    "salient_tokens": ["Aspose.Cells_FOSS.Samples.Validations"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/Aspose.Cells_FOSS.Samples.Validations/Aspose.Cells_FOSS.Samples.Validations.csproj"
+    }
+  },
+  {
+    "unit_id": "u0024",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.ConditionalFormatting`",
+    "salient_tokens": ["Aspose.Cells_FOSS.Samples.ConditionalFormatting", "ConditionalFormatting"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/Aspose.Cells_FOSS.Samples.ConditionalFormatting/Aspose.Cells_FOSS.Samples.ConditionalFormatting.csproj"
+    }
+  },
+  {
+    "unit_id": "u0025",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.HyperlinksAndNames`",
+    "salient_tokens": ["Aspose.Cells_FOSS.Samples.HyperlinksAndNames", "HyperlinksAndNames"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/Aspose.Cells_FOSS.Samples.HyperlinksAndNames/Aspose.Cells_FOSS.Samples.HyperlinksAndNames.csproj"
+    }
+  },
+  {
+    "unit_id": "u0026",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.PageSetup`",
+    "salient_tokens": ["Aspose.Cells_FOSS.Samples.PageSetup", "PageSetup"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/Aspose.Cells_FOSS.Samples.PageSetup/Aspose.Cells_FOSS.Samples.PageSetup.csproj"
+    }
+  },
+  {
+    "unit_id": "u0027",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Shapes`",
+    "salient_tokens": ["Aspose.Cells_FOSS.Samples.Shapes"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/Aspose.Cells_FOSS.Samples.Shapes/Aspose.Cells_FOSS.Samples.Shapes.csproj"
+    }
+  },
+  {
+    "unit_id": "u0028",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Charts`",
+    "salient_tokens": ["Aspose.Cells_FOSS.Samples.Charts"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/Aspose.Cells_FOSS.Samples.Charts/Aspose.Cells_FOSS.Samples.Charts.csproj"
+    }
+  },
+  {
+    "unit_id": "u0029",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Comments`",
+    "salient_tokens": ["Aspose.Cells_FOSS.Samples.Comments"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/Aspose.Cells_FOSS.Samples.Comments/Aspose.Cells_FOSS.Samples.Comments.csproj"
+    }
+  },
+  {
+    "unit_id": "u0030",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.DocumentProperties`",
+    "salient_tokens": ["Aspose.Cells_FOSS.Samples.DocumentProperties", "DocumentProperties"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/Aspose.Cells_FOSS.Samples.DocumentProperties/Aspose.Cells_FOSS.Samples.DocumentProperties.csproj"
+    }
+  },
+  {
+    "unit_id": "u0031",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.ListObjects`",
+    "salient_tokens": ["Aspose.Cells_FOSS.Samples.ListObjects", "ListObjects"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/Aspose.Cells_FOSS.Samples.ListObjects/Aspose.Cells_FOSS.Samples.ListObjects.csproj"
+    }
+  },
+  {
+    "unit_id": "u0032",
+    "excerpt": "- `Aspose.Cells_FOSS.Samples.Pictures`",
+    "salient_tokens": ["Aspose.Cells_FOSS.Samples.Pictures"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Development and Testing",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "samples/Aspose.Cells_FOSS.Samples.Pictures/Aspose.Cells_FOSS.Samples.Pictures.csproj"
+    }
+  },
+  {
+    "unit_id": "u0033",
+    "excerpt": "Run commands from the repository root:",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "disposition": "excluded",
+    "excluded_reason": "Purely a transitional instruction sentence introducing a command block; carries no independent, checkable fact beyond the real build commands captured separately in Development and Testing.",
+    "verification": {
+      "status": "not_applicable_category_1"
+    }
+  },
+  {
+    "unit_id": "u0034",
+    "excerpt": "Primary targets:",
+    "salient_tokens": [],
+    "classification": "1_narrative_cta",
+    "disposition": "excluded",
+    "excluded_reason": "Purely a transitional label introducing the target-framework bullets that follow; carries no independent fact beyond the framework list captured separately.",
+    "verification": {
+      "status": "not_applicable_category_1"
+    }
+  },
+  {
+    "unit_id": "u0035",
+    "excerpt": "- `netstandard2.0`",
+    "salient_tokens": ["netstandard2.0"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "excluded",
+    "excluded_reason": "Restates the netstandard2.0 target already covered by u0007's merge into Installation, which additionally names net8.0 and the downstream compatibility consequence; a standalone repeat would be redundant.",
+    "verification": {
+      "status": "verified_redundant",
+      "evidence_type": "candidate_section_reference",
+      "evidence_ref": "Installation"
+    }
+  },
+  {
+    "unit_id": "u0036",
+    "excerpt": "Because the package targets `netstandard2.0`, it can also be consumed by many compatible runtimes (for example .NET Framework 4.6.1+ and modern .NET).",
+    "salient_tokens": ["netstandard2.0", "NET", "4.6.1"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Installation",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "src/Aspose.Cells_FOSS/Aspose.Cells_FOSS.csproj"
+    }
+  },
+  {
+    "unit_id": "u0037",
+    "excerpt": "MIT. See [License/LICENSE.txt](https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-.NET/blob/master/License/LICENSE.txt).",
+    "salient_tokens": ["MIT", "LICENSE", "FOSS", "NET"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "License",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": "License/LICENSE.txt"
+    }
+  },
+  {
+    "unit_id": "u0038",
+    "excerpt": "- Issues: <https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-.NET/issues>",
+    "salient_tokens": ["FOSS", "NET"],
+    "classification": "2_mechanism_explanation",
+    "disposition": "merged_reframed",
+    "target_section": "Documentation & Resources",
+    "verification": {
+      "status": "verified_against_source",
+      "evidence_type": "clone_cache_path",
+      "evidence_ref": ".git/config"
+    }
+  }
+]

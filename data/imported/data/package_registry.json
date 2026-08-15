@@ -1,0 +1,654 @@
+{
+  "_comment": "Unified single source of truth for FOSS package-manager identity. See Mission MT015-2026-07-30-PACKAGE-REGISTRY (plans/master-plan.md) + data/schemas/package-registry-schema.json + scripts/pipeline/lib/package_registry_data.py. Machine-written only: `candidate`/`scouted_at` populated by scout-time extraction (package_manifest.py) or, when that extraction is structurally impossible (e.g. .NET's .csproj has no mandatory PackageId/Version, unlike Cargo.toml), by the naming_convention_candidate() fallback (scout_source: 'naming-convention-fallback', explicitly a guess, not a source-extracted value). `verification`/`owner_match` are populated by a live registry check (scripts/pipeline/lib/package_registries/, TC-MT015-04) or a human-reviewed publish event. Never hand-edit `verification.published`/`verification.verified_owner` without independent live evidence. STATUS (2026-08-01): TC-MT015-01/02/14 complete -- this file is the sole rendering source for maven-coord/maven-gav/cargo-crate (data/foss_packages.json + data/cargo_packages.json deleted, byte-parity proven 0-diff across all affected pages) and for publish_watcher.py/knowledge/index.py. owner_match is null throughout because no consumer has yet independently verified a live registry's publisher against candidate_owner -- tracked honestly as unresolved, not fabricated.",
+  "cells": {
+    "java": {
+      "registry_type": "maven",
+      "candidate": {
+        "group_id": "org.aspose",
+        "artifact_id": "aspose-cells-foss",
+        "version": "26.5.0",
+        "repo_sha": "9274b621ebd30f2aca692851bea29ff343a019d8"
+      },
+      "candidate_owner": "org.aspose",
+      "scouted_at": "2026-06-27T19:25:19.996146+00:00",
+      "scout_source": "migrated-from-foss_packages.json",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-07-24T00:00:00+00:00",
+        "verified_owner": null,
+        "evidence_url": "https://repo1.maven.org/maven2/org/aspose/aspose-cells-foss/",
+        "evidence_note": "live curl repo1.maven.org/maven2/org/aspose/aspose-cells-foss/maven-metadata.xml, HTTP 200, lastUpdated 20260618154149 (migrated from foss_packages.json confirmed_evidence)",
+        "method": "migrated-from-foss_packages.json",
+        "consecutive_checks_agreeing": 2
+      },
+      "owner_match": null
+    },
+    "rust": {
+      "registry_type": "cargo",
+      "candidate": {
+        "name": "aspose-cells-foss-rust",
+        "version": "26.7.0",
+        "repo_sha": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e"
+      },
+      "candidate_owner": "aspose-cells-foss",
+      "scouted_at": "2026-07-25T04:10:25+00:00",
+      "scout_source": "migrated-from-cargo_packages.json",
+      "verification": {
+        "published": false,
+        "verified_at": null,
+        "verified_owner": null,
+        "evidence_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+        "evidence_note": "not yet published; git_url fallback per cargo_packages.json (RUST-CRATESIO-001, absorbed by this mission -- TC-MT015-04/09 build the crates.io publish-watch this row needs)",
+        "method": null,
+        "consecutive_checks_agreeing": 0
+      },
+      "owner_match": null
+    },
+    "cpp": {
+      "registry_type": "nuget",
+      "candidate": {
+        "name": "Aspose.Cells.Cpp.FOSS"
+      },
+      "candidate_owner": "Aspose.Cells",
+      "scouted_at": "2026-08-01",
+      "scout_source": "naming-convention-fallback",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-08-01",
+        "verified_owner": "Aspose.Cells",
+        "evidence_url": "https://api.nuget.org/v3-flatcontainer/aspose.cells.cpp.foss/index.json",
+        "evidence_note": "Live-verified 2026-08-01 via nuget-flatcontainer-api.",
+        "method": "nuget-flatcontainer-api",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": "foss-convention-match"
+      },
+      "owner_match": null
+    },
+    "go": {
+      "registry_type": "go_modules",
+      "candidate": {
+        "module_path": "github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Go/v26"
+      },
+      "candidate_owner": "asposefoss",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:go",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-08-01",
+        "verified_owner": null,
+        "evidence_url": "https://proxy.golang.org/github.com/aspose-cells-foss/!aspose.!cells-!f!o!s!s-for-!go/v26/@v/list",
+        "evidence_note": "Live-verified 2026-08-01 via go-proxy-api.",
+        "method": "go-proxy-api",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": "manifest-extracted"
+      },
+      "owner_match": null
+    },
+    "net": {
+      "registry_type": "nuget",
+      "candidate": {
+        "name": "Aspose.Cells.FOSS"
+      },
+      "candidate_owner": "Aspose.Cells",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:net",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-08-01",
+        "verified_owner": "Aspose.Cells",
+        "evidence_url": "https://api.nuget.org/v3-flatcontainer/aspose.cells.foss/index.json",
+        "evidence_note": "Live-verified 2026-08-01 via nuget-flatcontainer-api.",
+        "method": "nuget-flatcontainer-api",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": "manifest-extracted"
+      },
+      "owner_match": null
+    },
+    "python": {
+      "registry_type": "pypi",
+      "candidate": {
+        "name": "aspose-cells-foss"
+      },
+      "candidate_owner": "Aspose",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:python",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-08-01",
+        "verified_owner": "Aspose",
+        "evidence_url": "https://pypi.org/pypi/aspose-cells-foss/json",
+        "evidence_note": "Live-verified 2026-08-01 via pypi-json-api.",
+        "method": "pypi-json-api",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": "manifest-extracted"
+      },
+      "owner_match": null
+    },
+    "typescript": {
+      "registry_type": "npm",
+      "candidate": {
+        "name": "excel-cells"
+      },
+      "candidate_owner": "asposefoss",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:typescript",
+      "verification": {
+        "published": false,
+        "verified_at": "2026-08-01",
+        "verified_owner": null,
+        "evidence_url": null,
+        "evidence_note": "Backfilled 2026-08-01: no live match found for any tried candidate (excel-cells, @asposefoss/cells); recorded as not-yet-published with the best available candidate name.",
+        "method": "npm-backfill-scan",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": null
+      },
+      "owner_match": null
+    }
+  },
+  "3d": {
+    "java": {
+      "registry_type": "maven",
+      "candidate": {
+        "group_id": "org.aspose",
+        "artifact_id": "aspose-3d-foss",
+        "version": "26.5.0",
+        "repo_sha": "605f67d1192fee1881078dfd53d37b8cb29623ba"
+      },
+      "candidate_owner": "org.aspose",
+      "scouted_at": "2026-07-24T16:09:42.789375+00:00",
+      "scout_source": "migrated-from-foss_packages.json",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-07-24T00:00:00+00:00",
+        "verified_owner": null,
+        "evidence_url": "https://repo1.maven.org/maven2/org/aspose/aspose-3d-foss/",
+        "evidence_note": "live curl repo1.maven.org/maven2/org/aspose/aspose-3d-foss/maven-metadata.xml, HTTP 200, lastUpdated 20260716130735 (migrated from foss_packages.json confirmed_evidence)",
+        "method": "migrated-from-foss_packages.json",
+        "consecutive_checks_agreeing": 2
+      },
+      "owner_match": null
+    },
+    "net": {
+      "registry_type": "nuget",
+      "candidate": {
+        "name": "Aspose.3D.FOSS"
+      },
+      "candidate_owner": "Aspose",
+      "scouted_at": "2026-08-01",
+      "scout_source": "naming-convention-fallback",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-08-01",
+        "verified_owner": "Aspose",
+        "evidence_url": "https://api.nuget.org/v3-flatcontainer/aspose.3d.foss/index.json",
+        "evidence_note": "Live-verified 2026-08-01 via nuget-flatcontainer-api.",
+        "method": "nuget-flatcontainer-api",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": "foss-convention-match"
+      },
+      "owner_match": null
+    },
+    "python": {
+      "registry_type": "pypi",
+      "candidate": {
+        "name": "aspose-3d-foss"
+      },
+      "candidate_owner": "asposefoss",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:python",
+      "verification": {
+        "published": false,
+        "verified_at": "2026-08-01",
+        "verified_owner": null,
+        "evidence_url": null,
+        "evidence_note": "Backfilled 2026-08-01: no live match found for any tried candidate (aspose-3d-foss); recorded as not-yet-published with the best available candidate name.",
+        "method": "pypi-backfill-scan",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": null
+      },
+      "owner_match": null
+    },
+    "typescript": {
+      "registry_type": "npm",
+      "candidate": {
+        "name": "@aspose/3d"
+      },
+      "candidate_owner": "asposefoss",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:typescript",
+      "verification": {
+        "published": false,
+        "verified_at": "2026-08-01",
+        "verified_owner": null,
+        "evidence_url": null,
+        "evidence_note": "Backfilled 2026-08-01: no live match found for any tried candidate (@aspose/3d, @asposefoss/3d); recorded as not-yet-published with the best available candidate name.",
+        "method": "npm-backfill-scan",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": null
+      },
+      "owner_match": null
+    }
+  },
+  "pdf": {
+    "java": {
+      "registry_type": "maven",
+      "candidate": {
+        "group_id": "org.aspose",
+        "artifact_id": "aspose-pdf-foss",
+        "version": "26.6.0",
+        "repo_sha": "1ed0a411171e49758b462321ed24bff568bb4444"
+      },
+      "candidate_owner": "org.aspose",
+      "scouted_at": "2026-07-24T16:10:13.101956+00:00",
+      "scout_source": "migrated-from-foss_packages.json",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-07-24T00:00:00+00:00",
+        "verified_owner": null,
+        "evidence_url": "https://repo1.maven.org/maven2/org/aspose/aspose-pdf-foss/",
+        "evidence_note": "live curl repo1.maven.org/maven2/org/aspose/aspose-pdf-foss/maven-metadata.xml, HTTP 200, lastUpdated 20260716135116 (migrated from foss_packages.json confirmed_evidence)",
+        "method": "migrated-from-foss_packages.json",
+        "consecutive_checks_agreeing": 2
+      },
+      "owner_match": null
+    },
+    "cpp": {
+      "registry_type": "nuget",
+      "candidate": {
+        "name": "Aspose_PDF_FOSS"
+      },
+      "candidate_owner": "asposefoss",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:cpp",
+      "verification": {
+        "published": false,
+        "verified_at": "2026-08-01",
+        "verified_owner": null,
+        "evidence_url": null,
+        "evidence_note": "Backfilled 2026-08-01: no live match found for any tried candidate (Aspose_PDF_FOSS, Aspose.PDF.Cpp.FOSS); recorded as not-yet-published with the best available candidate name.",
+        "method": "nuget-backfill-scan",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": null
+      },
+      "owner_match": null
+    },
+    "go": {
+      "registry_type": "go_modules",
+      "candidate": {
+        "module_path": "github.com/aspose-pdf-foss/aspose-pdf-foss-for-go"
+      },
+      "candidate_owner": "asposefoss",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:go",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-08-01",
+        "verified_owner": null,
+        "evidence_url": "https://proxy.golang.org/github.com/aspose-pdf-foss/aspose-pdf-foss-for-go/@v/list",
+        "evidence_note": "Live-verified 2026-08-01 via go-proxy-api.",
+        "method": "go-proxy-api",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": "manifest-extracted"
+      },
+      "owner_match": null
+    },
+    "net": {
+      "registry_type": "nuget",
+      "candidate": {
+        "name": "Aspose.PDF.FOSS"
+      },
+      "candidate_owner": "Aspose",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:net",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-08-01",
+        "verified_owner": "Aspose",
+        "evidence_url": "https://api.nuget.org/v3-flatcontainer/aspose.pdf.foss/index.json",
+        "evidence_note": "Live-verified 2026-08-01 via nuget-flatcontainer-api.",
+        "method": "nuget-flatcontainer-api",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": "manifest-extracted"
+      },
+      "owner_match": null
+    },
+    "python": {
+      "registry_type": "pypi",
+      "candidate": {
+        "name": "aspose-pdf-foss-for-python"
+      },
+      "candidate_owner": "asposefoss",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:python",
+      "verification": {
+        "published": false,
+        "verified_at": "2026-08-01",
+        "verified_owner": null,
+        "evidence_url": null,
+        "evidence_note": "Backfilled 2026-08-01: no live match found for any tried candidate (aspose-pdf-foss-for-python, aspose-pdf-foss); recorded as not-yet-published with the best available candidate name.",
+        "method": "pypi-backfill-scan",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": null
+      },
+      "owner_match": null
+    }
+  },
+  "slides": {
+    "java": {
+      "registry_type": "maven",
+      "candidate": {
+        "group_id": "org.aspose",
+        "artifact_id": "aspose-slides-foss",
+        "version": "26.7.0",
+        "repo_sha": "44597f1a09feb16ed1b6f29a1c6b939df4415863"
+      },
+      "candidate_owner": "org.aspose",
+      "scouted_at": "2026-06-17T17:57:56.111700+00:00",
+      "scout_source": "migrated-from-foss_packages.json",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-07-27T00:00:00+00:00",
+        "verified_owner": null,
+        "evidence_url": "https://repo1.maven.org/maven2/org/aspose/aspose-slides-foss/",
+        "evidence_note": "TC-MT008-09: org.aspose:aspose-slides-foss:26.7.0 published to Maven Central via S-110 foss-java-publish; repo1.maven.org HTTP 200 for jar/pom/sources, mvn dependency:get BUILD SUCCESS, GitHub Release v26.7.0, Sonatype Central Portal deploymentId 62c6d976-b2c3-430d-ad25-09f725030cd1 validated (migrated from foss_packages.json confirmed_evidence)",
+        "method": "migrated-from-foss_packages.json",
+        "consecutive_checks_agreeing": 2
+      },
+      "owner_match": null
+    },
+    "net": {
+      "registry_type": "nuget",
+      "candidate": {
+        "name": "Aspose.Slides.Foss"
+      },
+      "candidate_owner": "aspose-slides-foss",
+      "scouted_at": "2026-08-01T08:00:00Z",
+      "scout_source": "naming-convention-fallback",
+      "verification": {
+        "published": false,
+        "verified_at": "2026-08-01T08:00:00Z",
+        "verified_owner": null,
+        "evidence_url": "https://api.nuget.org/v3-flatcontainer/aspose.slides.foss/index.json",
+        "evidence_note": "CONFIRMED NOT PUBLISHED, 4-point evidence (2026-08-01): (1) live nuget.org v3-flatcontainer lookup for 4 name variants (Aspose.Slides.Foss, aspose-slides-foss, aspose.slidesfoss, aspose.slides) -- all HTTP 404 except the unrelated commercial 'aspose.slides' package (HTTP 200, sanity-checking the adapter isn't itself broken -- newtonsoft.json also returns 200 as a further control); (2) nuget.org search API broad query for 'aspose slides' -- only commercial Aspose products and unrelated third-party tools returned, no FOSS variant; (3) real cloned FOSS source (runs/.clone_cache/aspose_slides_net) .csproj declares no PackageId/Version/Authors at all; (4) that repo's only GitHub Actions workflow (ci.yml) has zero mentions of nuget/publish/pack. Despite this, slides/net content across the repo (products/docs/blog/kb.aspose.org, ~1559 files) confidently instructs `dotnet add package Aspose.Slides.Foss` as if live -- a real, large-scale defect, see backlog (TC-MT015-06 scope note). This entry is the naming-convention candidate guess (TC-MT015-07 pattern), not a source-extracted identity.",
+        "method": "nuget-api-v3-live-check",
+        "consecutive_checks_agreeing": 1
+      },
+      "owner_match": null
+    },
+    "cpp": {
+      "registry_type": "nuget",
+      "candidate": {
+        "name": "aspose_slides_foss"
+      },
+      "candidate_owner": "asposefoss",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:cpp",
+      "verification": {
+        "published": false,
+        "verified_at": "2026-08-01",
+        "verified_owner": null,
+        "evidence_url": null,
+        "evidence_note": "Backfilled 2026-08-01: no live match found for any tried candidate (aspose_slides_foss, Aspose.Slides.Cpp.FOSS); recorded as not-yet-published with the best available candidate name.",
+        "method": "nuget-backfill-scan",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": null
+      },
+      "owner_match": null
+    },
+    "python": {
+      "registry_type": "pypi",
+      "candidate": {
+        "name": "aspose-slides-foss"
+      },
+      "candidate_owner": "Aspose",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:python",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-08-01",
+        "verified_owner": "Aspose",
+        "evidence_url": "https://pypi.org/pypi/aspose-slides-foss/json",
+        "evidence_note": "Live-verified 2026-08-01 via pypi-json-api.",
+        "method": "pypi-json-api",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": "manifest-extracted"
+      },
+      "owner_match": null
+    }
+  },
+  "words": {
+    "net": {
+      "registry_type": "nuget",
+      "candidate": {
+        "name": "Aspose.Words.FOSS"
+      },
+      "candidate_owner": "asposefoss",
+      "scouted_at": "2026-08-01T06:02:00Z",
+      "scout_source": "naming-convention-fallback",
+      "verification": {
+        "published": false,
+        "verified_at": null,
+        "verified_owner": null,
+        "evidence_url": null,
+        "evidence_note": "words/net's real .csproj (runs/.clone_cache/aspose_words_net) declares no PackageId/Version -- package_manifest.py's deterministic extraction correctly returns empty; this is a naming-convention guess (TC-MT015-07), not a live-verified identity. Matches the current, independently-confirmed content state across products/docs/blog/kb.aspose.org: 'A NuGet package has not been published yet, build from source.'",
+        "method": null,
+        "consecutive_checks_agreeing": 0
+      },
+      "owner_match": null
+    },
+    "python": {
+      "registry_type": "pypi",
+      "candidate": {
+        "name": "aspose-words-foss"
+      },
+      "candidate_owner": "Aspose",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:python",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-08-01",
+        "verified_owner": "Aspose",
+        "evidence_url": "https://pypi.org/pypi/aspose-words-foss/json",
+        "evidence_note": "Live-verified 2026-08-01 via pypi-json-api.",
+        "method": "pypi-json-api",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": "manifest-extracted"
+      },
+      "owner_match": null
+    }
+  },
+  "barcode": {
+    "python": {
+      "registry_type": "pypi",
+      "candidate": {
+        "name": "aspose-barcode-foss"
+      },
+      "candidate_owner": "asposefoss",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:python",
+      "verification": {
+        "published": false,
+        "verified_at": "2026-08-01",
+        "verified_owner": null,
+        "evidence_url": null,
+        "evidence_note": "Backfilled 2026-08-01: no live match found for any tried candidate (aspose-barcode-foss); recorded as not-yet-published with the best available candidate name.",
+        "method": "pypi-backfill-scan",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": null
+      },
+      "owner_match": null
+    }
+  },
+  "email": {
+    "cpp": {
+      "registry_type": "nuget",
+      "candidate": {
+        "name": "AsposeEmailFoss"
+      },
+      "candidate_owner": "asposefoss",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:cpp",
+      "verification": {
+        "published": false,
+        "verified_at": "2026-08-01",
+        "verified_owner": null,
+        "evidence_url": null,
+        "evidence_note": "Backfilled 2026-08-01: no live match found for any tried candidate (AsposeEmailFoss, Aspose.Email.Cpp.FOSS); recorded as not-yet-published with the best available candidate name.",
+        "method": "nuget-backfill-scan",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": null
+      },
+      "owner_match": null
+    },
+    "net": {
+      "registry_type": "nuget",
+      "candidate": {
+        "name": "Aspose.Email.FOSS"
+      },
+      "candidate_owner": "Aspose.Email FOSS Contributors",
+      "scouted_at": "2026-08-01",
+      "scout_source": "naming-convention-fallback",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-08-01",
+        "verified_owner": "Aspose.Email FOSS Contributors",
+        "evidence_url": "https://api.nuget.org/v3-flatcontainer/aspose.email.foss/index.json",
+        "evidence_note": "Live-verified 2026-08-01 via nuget-flatcontainer-api.",
+        "method": "nuget-flatcontainer-api",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": "foss-convention-match"
+      },
+      "owner_match": null
+    },
+    "python": {
+      "registry_type": "pypi",
+      "candidate": {
+        "name": "aspose-email-foss"
+      },
+      "candidate_owner": "Aspose.Email FOSS Contributors",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:python",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-08-01",
+        "verified_owner": "Aspose.Email FOSS Contributors",
+        "evidence_url": "https://pypi.org/pypi/aspose-email-foss/json",
+        "evidence_note": "Live-verified 2026-08-01 via pypi-json-api.",
+        "method": "pypi-json-api",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": "manifest-extracted"
+      },
+      "owner_match": null
+    }
+  },
+  "font": {
+    "python": {
+      "registry_type": "pypi",
+      "candidate": {
+        "name": "aspose-font"
+      },
+      "candidate_owner": "asposefoss",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:python",
+      "verification": {
+        "published": false,
+        "verified_at": "2026-08-01",
+        "verified_owner": null,
+        "evidence_url": null,
+        "evidence_note": "Backfilled 2026-08-01: no live match found for any tried candidate (aspose-font, aspose-font-foss); recorded as not-yet-published with the best available candidate name.",
+        "method": "pypi-backfill-scan",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": null
+      },
+      "owner_match": null
+    }
+  },
+  "html": {
+    "python": {
+      "registry_type": "pypi",
+      "candidate": {
+        "name": "aspose-html-foss"
+      },
+      "candidate_owner": "asposefoss",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:python",
+      "verification": {
+        "published": false,
+        "verified_at": "2026-08-01",
+        "verified_owner": null,
+        "evidence_url": null,
+        "evidence_note": "Backfilled 2026-08-01: no live match found for any tried candidate (aspose-html-foss); recorded as not-yet-published with the best available candidate name.",
+        "method": "pypi-backfill-scan",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": null
+      },
+      "owner_match": null
+    }
+  },
+  "note": {
+    "python": {
+      "registry_type": "pypi",
+      "candidate": {
+        "name": "aspose-note"
+      },
+      "candidate_owner": "Aspose",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:python",
+      "verification": {
+        "published": true,
+        "verified_at": "2026-08-01",
+        "verified_owner": "Aspose",
+        "evidence_url": "https://pypi.org/pypi/aspose-note/json",
+        "evidence_note": "Live-verified 2026-08-01 via pypi-json-api; identity corroborated via project_url https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python.",
+        "method": "pypi-json-api",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": "corroborated-non-convention-match"
+      },
+      "owner_match": null
+    }
+  },
+  "page": {
+    "python": {
+      "registry_type": "pypi",
+      "candidate": {
+        "name": "aspose-page-foss"
+      },
+      "candidate_owner": "asposefoss",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:python",
+      "verification": {
+        "published": false,
+        "verified_at": "2026-08-01",
+        "verified_owner": null,
+        "evidence_url": null,
+        "evidence_note": "Backfilled 2026-08-01: no live match found for any tried candidate (aspose-page-foss); recorded as not-yet-published with the best available candidate name.",
+        "method": "pypi-backfill-scan",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": null
+      },
+      "owner_match": null
+    }
+  },
+  "tex": {
+    "python": {
+      "registry_type": "pypi",
+      "candidate": {
+        "name": "aspose-tex"
+      },
+      "candidate_owner": "asposefoss",
+      "scouted_at": "2026-08-01",
+      "scout_source": "package_manifest.py:python",
+      "verification": {
+        "published": false,
+        "verified_at": "2026-08-01",
+        "verified_owner": null,
+        "evidence_url": null,
+        "evidence_note": "Backfilled 2026-08-01: no live match found for any tried candidate (aspose-tex, aspose-tex-foss); recorded as not-yet-published with the best available candidate name.",
+        "method": "pypi-backfill-scan",
+        "consecutive_checks_agreeing": 1,
+        "identity_basis": null
+      },
+      "owner_match": null
+    }
+  }
+}
