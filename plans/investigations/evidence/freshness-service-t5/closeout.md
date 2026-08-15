@@ -396,11 +396,48 @@ not by adjusting a truncation limit (which would either re-bloat concise rows or
 classes with many members). The precise mechanism is now understood exactly, which is real,
 useful groundwork for T6-T8, even though building the fix itself remains out of T5's scope.
 
+## Last check before closing: is there already-built, unused machinery that could close this safely?
+
+Before treating "build a new template slot" as the only path, checked whether pre-existing,
+tested machinery could close the gap as a purely additive change to the *existing* `api_reference`
+slot content, avoiding a contract change entirely. Found real, promising building blocks:
+`presentation/verified_template_api_members.py::describe_api_member` and `member_api_identifier`
+produce exact, literal, backtick-wrapped per-member descriptions and qualified identifiers
+(`"Scene.open(file_name, options=None)"`-style), are directly unit-tested (18 tests in
+`test_verified_template_api_descriptions.py`), and are **not called from `api_reference_
+markdown`** (`presentation/verified_template_api_reference.py`) or anywhere else in the real
+pipeline — genuinely unused, working code.
+
+**Checked test coverage before writing anything — and found a direct, deliberate block.**
+`tests/unit/test_verified_template_api_reference_completeness.py::test_api_reference_uses_
+complete_catalog_without_dumping_every_member_row` asserts, explicitly and by name:
+```
+assert "Scene.open" not in markdown
+assert "Scene.root_node" not in markdown
+assert "FileFormat.MS_ONE_NOTE" not in markdown
+```
+This is a real, deliberate, already-tested product decision: `api_reference_markdown`'s output
+must **not** dump every member row (matching the same "keep descriptions concise" philosophy as
+the truncated class-level summary). Appending a full per-member listing to this function's
+output — exactly what was about to be implemented — would have directly broken this existing,
+considered contract. **Not implemented, for that reason, confirmed by evidence rather than
+assumption.**
+
+This settles the investigation with the strongest evidence gathered so far: the fix genuinely
+requires a **new, separate template slot/section** (a real contract change — new `TemplateSlot`
+enum value, new section-registry entry per T14's own framework, new composer wiring) rather than
+an addition to the existing `api_reference` slot. The reusable building blocks
+(`describe_api_member`, `member_api_identifier`) are real and already tested — whoever builds
+this new slot does not need to build those from scratch, only the new slot's wiring and its own
+"is this concise enough" design decision (mirroring the existing class-level table's own
+truncate-for-readability tradeoff, but for the method tier).
+
 ## Downstream effect
 
 `GC-03` (Gate G3 close) requires **both** `T14` (COMPLETE) and `T5` COMPLETE — it stays blocked.
-T5's real, remaining gap is now fully diagnosed and singular: a method-level API reference tier
-does not exist yet in the compiled template format. Building it is genuine engineering scoped to
-the composition-worker design (T6-T8), not a rushed addition here — but future work on those
-cards now has an exact, real, evidence-backed requirement to build against, rather than an
-abstract goal.
+T5's real, remaining gap is now fully diagnosed, singular, and confirmed (by a real test that
+would break) to require a genuine new template slot — real engineering scoped to the
+composition-worker design (T6-T8), reusing already-tested building blocks
+(`describe_api_member`/`member_api_identifier`) but requiring new contract wiring this pilot
+card has no authority to add unilaterally. Future work on those cards now has an exact, real,
+evidence-backed requirement to build against, rather than an abstract goal.
