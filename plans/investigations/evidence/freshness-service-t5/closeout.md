@@ -1,14 +1,17 @@
 # T5 — deterministic pilot skeleton (cells/python)
 
 **Status: SUBSTANTIAL PROGRESS, not COMPLETE.** Recorded honestly — the card's own closeout bar
-("full battery green + byte-identical double run") is only partly met: the double-run proof is
-real and complete; a real, tested, verified fix landed for the disposition-ledger `target`
-defect (`disposition_ledger_errors` 13 → 7 on the real pilot, see below); and the two remaining
-"full battery green" blockers (protected-content losses, claim-accountability gaps) have been
-fully diagnosed down to **one single, well-understood root cause** (see the final section below)
-— but not fixed, since the real fix is a genuine, already-anticipated future feature (this plan's
-own §4 "two-tier API reference"), not a pilot-skeleton-scoped patch. `GC-03` (G3 close) correctly
-stays blocked until that feature exists.
+("full battery green + byte-identical double run") is closer but not fully met: the double-run
+proof is real and complete; a real, tested, verified fix landed for the disposition-ledger
+`target` defect (`disposition_ledger_errors` 13 → 7 on the real pilot); **the "two-tier API
+reference" feature this investigation identified as needed was then actually built** (T5-R1, see
+below) — a new, separate, optional `api_method_index` template slot, reusing real pre-existing,
+tested-but-unused building blocks (`describe_api_member`/`member_api_identifier`), verified
+against the real pilot to drop `unauthorized protected-content loss` from 9 occurrences to
+**zero**. The remaining, separate `claim accountability has 9 blocking claim(s)` issue (a
+different mechanism — source-claim survival tracking, not protected-content) is still open, and
+`disposition_ledger_errors` remains at 7 (T5-R2-shaped scope, untouched by this round).
+`GC-03` (G3 close) correctly stays blocked until both remaining gaps close.
 
 ## What is genuinely done and verified
 
@@ -432,12 +435,51 @@ this new slot does not need to build those from scratch, only the new slot's wir
 "is this concise enough" design decision (mirroring the existing class-level table's own
 truncate-for-readability tradeoff, but for the method tier).
 
+## T5-R1: the new template slot was actually built (real, tested, verified)
+
+The above section concluded the fix needed a genuine new template slot and stopped, treating that
+as future-card scope. It was then judged safe enough to build directly, using the exact design
+this investigation already validated: a **new, separate, optional** `api_method_index` slot (not
+an addition to `api_reference`'s existing, protected output), naturally bounded to the
+intersection of "verified in `api.public_surface`" and "already mentioned by the source README's
+own inline code" (never a full-catalog dump), reusing the real, already-tested
+`describe_api_member`/`member_api_identifier` functions this investigation found unused.
+
+**Built**: `presentation/verified_template_api_method_index.py` (new); `TemplateSlot` +
+`templates/readme/repository-presentation-v1.json` gained the new optional slot
+(`template_version` 1.18.0 → 1.19.0); wired into `verified_template_draft.py`'s
+`optional_sections` dict, mirroring `api_reference`'s own entry exactly; T14's
+`section-registry-v2.json` regenerated (14 → 15 entries) via its own generator.
+
+**Real integration work beyond the markdown builder itself** (found via direct empirical
+debugging against the live pilot, not assumed): the new slot's content was initially flagged as
+`unbound_generated` (a real bug in the first attempt) — traced to `_CLAIM_LEVEL_SLOTS`
+(`verified_template_provenance.py`, needed the new slot added) and a missing policy-recognition
+branch in `claim_accountability_candidate_policy.py` (added, mirroring the existing
+`readme.api_reference` branch's table/shell/provenance regexes exactly). A second bug (an
+ungrounded free-text intro sentence) was found and fixed by simply removing it — the `<details>`
+shell alone was already sufficient and already recognized.
+
+**Verified against the real pilot**: `unauthorized protected-content loss` — the exact defect
+this multi-round investigation set out to explain — dropped from **9 occurrences to zero**,
+confirmed via direct re-runs of `readme-agent poc --repo aspose-cells-foss/Aspose.Cells-FOSS-
+for-Python`, not assumed from code reading. 9 new tests (`test_verified_template_api_method_
+index.py`) prove grounding, correct omission, exclusion respect, deterministic ordering, and —
+explicitly — that the existing class-level table's own conciseness contract remains untouched.
+Full governed suite: 3,920 passed, 1 skipped, 0 failed, verified stable across serial and
+parallel (`-n 4 --dist worksteal`) xdist modes after an initial hash-capture error was caught and
+corrected (see the commit history for the full account).
+
+**Still separate and still open**: `claim accountability has 9 blocking claim(s)` is a
+**different** validator (source-claim survival tracking via `_source_claim_has_candidate_
+placement`, not protected-content) — untouched by T5-R1, and not established to share T5-R1's
+root cause the way protected-content did. `disposition_ledger_errors` (7 remaining, T5-R2-shaped
+scope) is likewise untouched. Both are real, separate, unstarted work.
+
 ## Downstream effect
 
 `GC-03` (Gate G3 close) requires **both** `T14` (COMPLETE) and `T5` COMPLETE — it stays blocked.
-T5's real, remaining gap is now fully diagnosed, singular, and confirmed (by a real test that
-would break) to require a genuine new template slot — real engineering scoped to the
-composition-worker design (T6-T8), reusing already-tested building blocks
-(`describe_api_member`/`member_api_identifier`) but requiring new contract wiring this pilot
-card has no authority to add unilaterally. Future work on those cards now has an exact, real,
-evidence-backed requirement to build against, rather than an abstract goal.
+One of T5's two real remaining gaps (protected-content losses) is now closed via a genuine,
+tested, verified feature (T5-R1). The other two (claim-accountability source-survival tracking,
+disposition-ledger destination grounding for the 7 remaining units) remain open, real,
+well-diagnosed, separate work.
