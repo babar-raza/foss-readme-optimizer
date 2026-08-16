@@ -1,204 +1,214 @@
 {
-  "entries": [
-    {
-      "composer_binding": "deterministic_existing",
-      "heading": "Navigation",
-      "id": "navigation",
-      "invalidation_scope": "section",
-      "ledger_obligations": [],
-      "order": 0,
-      "required": false,
-      "section_checks": []
-    },
-    {
-      "composer_binding": "deterministic_existing",
-      "heading": "At a Glance",
-      "id": "at_a_glance",
-      "invalidation_scope": "section",
-      "ledger_obligations": [],
-      "order": 1,
-      "required": true,
-      "section_checks": [
-        "check_diagram_column_balance",
-        "check_diagram_container_duplicates_capability",
-        "check_diagram_container_format_purity",
-        "check_diagram_format_completeness_hint",
-        "check_diagram_hybrid_reverification",
-        "check_diagram_known_subgraph_ids",
-        "check_diagram_label_token_length",
-        "check_diagram_matches_capability_dependencies",
-        "check_diagram_no_mechanism_duplicate_output",
-        "check_diagram_shape",
-        "check_diagram_starting_points_presence",
-        "check_diagram_verified_format_claims"
-      ]
-    },
-    {
-      "composer_binding": "deterministic_existing",
-      "heading": "Key Capabilities",
-      "id": "key_capabilities",
-      "invalidation_scope": "section",
-      "ledger_obligations": [],
-      "order": 2,
-      "required": true,
-      "section_checks": [
-        "check_capability_scope_contradiction",
-        "check_key_capabilities_formatting",
-        "check_key_capabilities_quality",
-        "check_key_capabilities_structural_variety"
-      ]
-    },
-    {
-      "composer_binding": "deterministic_existing",
-      "heading": "Installation",
-      "id": "installation",
-      "invalidation_scope": "section",
-      "ledger_obligations": [],
-      "order": 3,
-      "required": true,
-      "section_checks": []
-    },
-    {
-      "composer_binding": "deterministic_existing",
-      "heading": "Quick Start",
-      "id": "quick_start",
-      "invalidation_scope": "section",
-      "ledger_obligations": [],
-      "order": 4,
-      "required": true,
-      "section_checks": []
-    },
-    {
-      "composer_binding": "deterministic_existing",
-      "heading": "Additional Examples",
-      "id": "additional_examples",
-      "invalidation_scope": "section",
-      "ledger_obligations": [],
-      "order": 5,
-      "required": false,
-      "section_checks": [
-        "check_examples_table_collapsed"
-      ]
-    },
-    {
-      "composer_binding": "deterministic_existing",
-      "heading": "API Reference",
-      "id": "api_reference",
-      "invalidation_scope": "section",
-      "ledger_obligations": [],
-      "order": 6,
-      "required": false,
-      "section_checks": [
-        "check_api_reference_class_internal_only",
-        "check_api_reference_classes_exist_in_reference_site",
-        "check_api_reference_detail_collapsed",
-        "check_api_reference_table_completeness",
-        "check_api_reference_table_no_duplicate_rows"
-      ]
-    },
-    {
-      "composer_binding": "deterministic_existing",
-      "heading": "Documentation and Resources",
-      "id": "documentation_resources",
-      "invalidation_scope": "section",
-      "ledger_obligations": [],
-      "order": 7,
-      "required": false,
-      "section_checks": []
-    },
-    {
-      "composer_binding": "deterministic_existing",
-      "heading": "Scope and Limitations",
-      "id": "scope_and_limitations",
-      "invalidation_scope": "section",
-      "ledger_obligations": [],
-      "order": 8,
-      "required": true,
-      "section_checks": [
-        "check_enterprise_edition_anchor_matches_relationship",
-        "check_enterprise_edition_link_resolves",
-        "check_enterprise_edition_naming",
-        "check_scope_limitations_format"
-      ]
-    },
-    {
-      "composer_binding": "deterministic_existing",
-      "heading": "Development and Testing",
-      "id": "development_and_testing",
-      "invalidation_scope": "section",
-      "ledger_obligations": [],
-      "order": 9,
-      "required": false,
-      "section_checks": [
-        "check_dev_test_artifacts_linked",
-        "check_development_testing_collapse"
-      ]
-    },
-    {
-      "composer_binding": "deterministic_existing",
-      "heading": "Contributing",
-      "id": "contributing",
-      "invalidation_scope": "section",
-      "ledger_obligations": [],
-      "order": 10,
-      "required": false,
-      "section_checks": []
-    },
-    {
-      "composer_binding": "deterministic_existing",
-      "heading": "Security",
-      "id": "security",
-      "invalidation_scope": "section",
-      "ledger_obligations": [],
-      "order": 11,
-      "required": false,
-      "section_checks": []
-    },
-    {
-      "composer_binding": "deterministic_existing",
-      "heading": "Third-Party Notices",
-      "id": "third_party_notices",
-      "invalidation_scope": "section",
-      "ledger_obligations": [],
-      "order": 12,
-      "required": false,
-      "section_checks": []
-    },
-    {
-      "composer_binding": "deterministic_existing",
-      "heading": "License",
-      "id": "license",
-      "invalidation_scope": "section",
-      "ledger_obligations": [],
-      "order": 13,
-      "required": true,
-      "section_checks": [
-        "check_license_link_target",
-        "check_license_section_matches_template"
-      ]
-    }
-  ],
-  "schema_version": 1,
-  "unmapped_section_checks": [
-    "check_badge_available_fact_not_shown",
-    "check_badge_disposition_coverage",
-    "check_badge_preserved_or_credited_in_candidate",
-    "check_badge_probable_duplicate_disposition",
-    "check_badge_row_meets_verified_floor",
-    "check_badge_static_claims_dynamic_fact",
-    "check_banner_links_to_homepage",
-    "check_banner_present",
-    "check_dependencies_intro_contradiction",
-    "check_dependencies_scope_limitations_contradiction",
-    "check_dependency_dev_only_presented_as_runtime",
-    "check_dependency_direct_transitive_confusion",
-    "check_dependency_disposition_reconciliation",
-    "check_dependency_native_system_scope_limitations_placement",
-    "check_dependency_optional_presented_as_required",
-    "check_dependency_scope_claim_matches_evidence",
-    "check_dependency_section_manifest_corroboration",
-    "check_dependency_snapshot_completeness",
-    "check_dependency_version_pin_freshness",
-    "check_project_structure_canonical_tree_format"
-  ]
+ "schema_version": 1,
+ "entries": [
+  {
+   "id": "navigation",
+   "heading": "Navigation",
+   "order": 0,
+   "required": false,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  },
+  {
+   "id": "at_a_glance",
+   "heading": "At a Glance",
+   "order": 1,
+   "required": true,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [
+    "check_diagram_column_balance",
+    "check_diagram_container_duplicates_capability",
+    "check_diagram_container_format_purity",
+    "check_diagram_format_completeness_hint",
+    "check_diagram_hybrid_reverification",
+    "check_diagram_known_subgraph_ids",
+    "check_diagram_label_token_length",
+    "check_diagram_matches_capability_dependencies",
+    "check_diagram_no_mechanism_duplicate_output",
+    "check_diagram_shape",
+    "check_diagram_starting_points_presence",
+    "check_diagram_verified_format_claims"
+   ],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  },
+  {
+   "id": "key_capabilities",
+   "heading": "Key Capabilities",
+   "order": 2,
+   "required": true,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [
+    "check_capability_scope_contradiction",
+    "check_key_capabilities_formatting",
+    "check_key_capabilities_quality",
+    "check_key_capabilities_structural_variety"
+   ],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  },
+  {
+   "id": "installation",
+   "heading": "Installation",
+   "order": 3,
+   "required": true,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  },
+  {
+   "id": "quick_start",
+   "heading": "Quick Start",
+   "order": 4,
+   "required": true,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  },
+  {
+   "id": "additional_examples",
+   "heading": "Additional Examples",
+   "order": 5,
+   "required": false,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [
+    "check_examples_table_collapsed"
+   ],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  },
+  {
+   "id": "api_reference",
+   "heading": "API Reference",
+   "order": 6,
+   "required": false,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [
+    "check_api_reference_class_internal_only",
+    "check_api_reference_classes_exist_in_reference_site",
+    "check_api_reference_detail_collapsed",
+    "check_api_reference_table_completeness",
+    "check_api_reference_table_no_duplicate_rows"
+   ],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  },
+  {
+   "id": "api_method_index",
+   "heading": "API Method Index",
+   "order": 7,
+   "required": false,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  },
+  {
+   "id": "documentation_resources",
+   "heading": "Documentation and Resources",
+   "order": 8,
+   "required": false,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  },
+  {
+   "id": "scope_and_limitations",
+   "heading": "Scope and Limitations",
+   "order": 9,
+   "required": true,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [
+    "check_enterprise_edition_anchor_matches_relationship",
+    "check_enterprise_edition_link_resolves",
+    "check_enterprise_edition_naming",
+    "check_scope_limitations_format"
+   ],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  },
+  {
+   "id": "development_and_testing",
+   "heading": "Development and Testing",
+   "order": 10,
+   "required": false,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [
+    "check_dev_test_artifacts_linked",
+    "check_development_testing_collapse"
+   ],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  },
+  {
+   "id": "contributing",
+   "heading": "Contributing",
+   "order": 11,
+   "required": false,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  },
+  {
+   "id": "security",
+   "heading": "Security",
+   "order": 12,
+   "required": false,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  },
+  {
+   "id": "third_party_notices",
+   "heading": "Third-Party Notices",
+   "order": 13,
+   "required": false,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  },
+  {
+   "id": "license",
+   "heading": "License",
+   "order": 14,
+   "required": true,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [
+    "check_license_link_target",
+    "check_license_section_matches_template"
+   ],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  }
+ ],
+ "unmapped_section_checks": [
+  "check_badge_available_fact_not_shown",
+  "check_badge_disposition_coverage",
+  "check_badge_preserved_or_credited_in_candidate",
+  "check_badge_probable_duplicate_disposition",
+  "check_badge_row_meets_verified_floor",
+  "check_badge_static_claims_dynamic_fact",
+  "check_banner_links_to_homepage",
+  "check_banner_present",
+  "check_dependencies_intro_contradiction",
+  "check_dependencies_scope_limitations_contradiction",
+  "check_dependency_dev_only_presented_as_runtime",
+  "check_dependency_direct_transitive_confusion",
+  "check_dependency_disposition_reconciliation",
+  "check_dependency_native_system_scope_limitations_placement",
+  "check_dependency_optional_presented_as_required",
+  "check_dependency_scope_claim_matches_evidence",
+  "check_dependency_section_manifest_corroboration",
+  "check_dependency_snapshot_completeness",
+  "check_dependency_version_pin_freshness",
+  "check_project_structure_canonical_tree_format"
+ ]
 }

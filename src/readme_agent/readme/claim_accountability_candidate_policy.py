@@ -49,6 +49,17 @@ _API_REFERENCE_SHELL = re.compile(
 _API_REFERENCE_PROVENANCE = re.compile(
     r"^template\.section\.api_reference\.claim:\d+:(?P<digest>[0-9a-f]{16})$"
 )
+_API_METHOD_INDEX_TABLE = re.compile(
+    r"\A\| Type \| Member \| Description \|\r?\n"
+    r"\| --- \| --- \| --- \|\r?\n"
+    r"(?:\| `[^`]+` \| `[^`]+` \| [^\r\n|]*(?:\\\|[^\r\n|]*)* \|\r?\n?)+\Z"
+)
+_API_METHOD_INDEX_SHELL = re.compile(
+    r"\A(?:<details>\r?\n<summary>View documented public methods</summary>|</details>)\r?\n?\Z"
+)
+_API_METHOD_INDEX_PROVENANCE = re.compile(
+    r"^template\.section\.api_method_index\.claim:\d+:(?P<digest>[0-9a-f]{16})$"
+)
 
 
 def accepted_candidate_policy_fact_ids(
@@ -113,6 +124,26 @@ def accepted_candidate_policy_fact_ids(
             binding
             for binding in bindings
             if (match := _API_REFERENCE_PROVENANCE.fullmatch(binding.provenance_id)) is not None
+            and match.group("digest") == digest
+        ]
+        for fact_id in {fact_id for binding in canonical_bindings for fact_id in binding.fact_ids}:
+            fact = facts.fact_by_id(fact_id)
+            if (
+                fact.field == "api.public_surface"
+                and facts.selected_fact_ids.get(fact.field) == fact_id
+                and fact.verification_state in {"verified", "policy_approved"}
+                and not fact.has_unresolved_conflict
+            ):
+                fact_ids.add(fact_id)
+    if "readme.api_method_index" in standard_ids and (
+        _API_METHOD_INDEX_TABLE.fullmatch(claim_text.strip())
+        or _API_METHOD_INDEX_SHELL.fullmatch(claim_text)
+    ):
+        digest = hashlib.sha256(claim_text.encode("utf-8")).hexdigest()[:16]
+        canonical_bindings = [
+            binding
+            for binding in bindings
+            if (match := _API_METHOD_INDEX_PROVENANCE.fullmatch(binding.provenance_id)) is not None
             and match.group("digest") == digest
         ]
         for fact_id in {fact_id for binding in canonical_bindings for fact_id in binding.fact_ids}:

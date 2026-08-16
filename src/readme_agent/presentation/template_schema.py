@@ -19,6 +19,7 @@ TemplateSlot = Literal[
     "quick_start",
     "additional_examples",
     "api_reference",
+    "api_method_index",
     "documentation_resources",
     "scope_and_limitations",
     "development_and_testing",

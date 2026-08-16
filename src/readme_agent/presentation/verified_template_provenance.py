@@ -54,6 +54,7 @@ from readme_agent.readme.source_claim_risk import classify_source_claim_risk
 _CLAIM_LEVEL_SLOTS = {
     "additional_examples",
     "api_reference",
+    "api_method_index",
     "contributing",
     "development_and_testing",
     "installation",

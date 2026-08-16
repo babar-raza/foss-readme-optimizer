@@ -14,6 +14,9 @@ from readme_agent.presentation.template_schema import (
     RepositoryPresentationTemplateV1,
     load_repository_presentation_template,
 )
+from readme_agent.presentation.verified_template_api_method_index import (
+    api_method_index_markdown,
+)
 from readme_agent.presentation.verified_template_api_reference import api_reference_markdown
 from readme_agent.presentation.verified_template_capabilities import (
     CapabilityPresentationPlanV1,
@@ -562,6 +565,11 @@ def build_verified_template_draft(
             api_reference_markdown(facts),
             ("api.public_surface", *_accepted_fields(facts, "documentation.links")),
             ("readme.api_reference",),
+        ),
+        "api_method_index": (
+            api_method_index_markdown(facts, source_text),
+            _accepted_fields(facts, "api.public_surface"),
+            ("readme.api_method_index",),
         ),
         "documentation_resources": (
             documentation_resources_markdown(facts, link_limit=documentation_link_limit),

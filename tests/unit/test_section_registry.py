@@ -79,7 +79,7 @@ def test_agility_a_committed_registry_file_matches_a_fresh_derivation():
 def test_committed_registry_file_is_the_real_generated_artifact():
     assert SECTION_REGISTRY_PATH.is_file()
     registry = load_section_registry()
-    assert len(registry.entries) == 14
+    assert len(registry.entries) == 15
     assert registry.entry_by_id("license").heading == "License"
 
 

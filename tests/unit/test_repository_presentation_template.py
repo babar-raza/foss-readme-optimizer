@@ -2110,6 +2110,7 @@ def test_product_facts_adapter_uses_the_same_structural_contract() -> None:
             ),
             "additional_examples": omit("No additional verified examples."),
             "api_reference": omit("No complete API inventory is verified."),
+            "api_method_index": omit("No verified method-level obligation is bound."),
             "documentation_resources": omit("No accepted documentation catalog links."),
             "scope_and_limitations": include(
                 "This package does not perform OCR.",

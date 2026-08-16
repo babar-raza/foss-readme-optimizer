@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "template_id": "repository-presentation",
-  "template_version": "1.18.0",
+  "template_version": "1.19.0",
   "accepted_reference_sha256": "cf0145713dcb862b9818a4823b377fb97920c5df7170f02d132391ab8d52f287",
   "reference_status": "requires_requalification",
   "section_order": [
@@ -12,6 +12,7 @@
     "quick_start",
     "additional_examples",
     "api_reference",
+    "api_method_index",
     "documentation_resources",
     "scope_and_limitations",
     "development_and_testing",
@@ -28,6 +29,7 @@
     "quick_start": "Quick Start",
     "additional_examples": "Additional Examples",
     "api_reference": "API Reference",
+    "api_method_index": "API Method Index",
     "documentation_resources": "Documentation and Resources",
     "scope_and_limitations": "Scope and Limitations",
     "development_and_testing": "Development and Testing",
@@ -53,14 +55,16 @@
       "maximum_source_lines": 420,
       "collapse_slots": [
         "additional_examples",
-        "api_reference"
+        "api_reference",
+        "api_method_index"
       ]
     },
     "extended": {
       "maximum_source_lines": null,
       "collapse_slots": [
         "additional_examples",
-        "api_reference"
+        "api_reference",
+        "api_method_index"
       ]
     }
   },
