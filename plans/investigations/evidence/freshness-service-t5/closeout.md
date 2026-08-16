@@ -508,6 +508,31 @@ what determines `fact_authorized_claim_ids` membership, and can these 9 claims b
 legitimately (with real, verified authority) or does closing this gap require a different
 mechanism entirely.
 
+## T5-R2, traced to its root: `fact_authorized_claim_ids` is an exhaustive, upstream classification
+
+Traced `fact_authorized_claim_ids`'s actual origin (`verified_preservation_sections.py:69-104`,
+`verified_template_runtime.py:140-144`): it is not computed heuristically inside the
+preservation/placement code at all — it is an **explicit input**, `source_assurance.preserve_
+ranges`, produced by an earlier, separate "source assurance" classification stage, together with
+a sibling `correction_candidate_ranges` (`source_assurance.correction_ranges`). A hard invariant
+(`verified_preservation_sections.py:60-66`) requires every `disposition == "preserve"` claim to
+belong to **exactly one** of these two sets — never both, never neither. Since these 9 claims are
+`disposition == "preserve"` but demonstrably not in `fact_authorized_claim_ids` (T5-R2's
+experiment proved this), the invariant means they **must** be classified as
+`correction_candidate` instead: the source-assurance stage has already judged their original
+text as not independently verifiable as-is, and expects a **correction/rewrite step** to produce
+new, fact-grounded replacement content for them — not verbatim survival.
+
+**This is the real, complete, root explanation.** It is not a missing wiring connection (like
+T5-R1's gap was) — it is a genuinely absent **content-correction capability**: nothing in this
+composition path currently generates verified replacement text for `correction_candidate`
+claims whose original phrasing can't be independently confirmed. That capability is real
+composition-design work, matching this plan's own already-planned cards for exactly this shape
+of problem (`T7D` "dispositions residue", `TP-11A`/`TP-11B` "preservation core"/"preservation
+enhancement"). The investigation chain (protected-content → claim-accountability →
+preservation-sections → source-assurance) is now traced completely, end to end, with each layer
+empirically confirmed rather than assumed.
+
 ## Downstream effect
 
 `GC-03` (Gate G3 close) requires **both** `T14` (COMPLETE) and `T5` COMPLETE — it stays blocked.
