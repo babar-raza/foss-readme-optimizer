@@ -4501,6 +4501,12 @@
       "destination": "active_graph",
       "destination_task_sha256": "79e72cadd4d69ba4551a1878ce8a04b942c3d7cd0e2fdc57c960ecb324b78a04",
       "reason": "bounded activation boundary for the next deferred execution horizon"
+    },
+    {
+      "id": "L8-FRESH-00-FRESHNESS-SERVICE",
+      "destination": "active_graph",
+      "destination_task_sha256": "2fb728bd543d12c5517521c0e3b36dd22702dd2297cb00d958ef453263aed2f3",
+      "reason": "registers the autonomous README freshness-service objective, gated behind Python production admission per decisions #95/#98"
     }
   ]
 }

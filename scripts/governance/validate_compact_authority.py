@@ -1,4 +1,21 @@
-"""Validate compact authority budgets and lossless stable-ID migration."""
+"""Validate compact authority budgets and lossless stable-ID migration.
+
+Known gap (found 2026-08-16, retiring the first 10 durably-CLOSED active
+tasks): the per-task `tasks[]`/`new_tasks[]` provenance rows in
+migration-matrix.json model exactly one transition -- the original 2026-08-02
+migration's active_graph-vs-deferred placement -- and are never updated when a
+task is later retired from the active graph to the deferred catalog (whether
+it was an original `tasks[]` row or a post-migration `new_tasks[]` addition).
+A retirement therefore always trips `migration destination mismatch` /
+`destination semantic hash mismatch` / `new task migration set mismatch`
+here, even when the retirement itself is correct and the graph loads and
+validates cleanly via `mission_graph.py`. This script is not part of
+`run_official_checks.py`'s gate and predates this gap (it already had an
+unrelated, pre-existing `L8-VPY-00-PRESENTATION-CONTRACT-RESET` semantic-hash
+drift from a prior commit that changed task content without updating its
+matrix row). Properly fixing this needs the matrix schema to model a
+retirement transition explicitly, not another hand patch here.
+"""
 
 from __future__ import annotations
 

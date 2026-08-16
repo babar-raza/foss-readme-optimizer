@@ -363,16 +363,18 @@ def _derive_goal_selection(
     """Derive primary/concurrent goals from task truth, never narrative selection."""
 
     goals = sorted(graph.mission_authority.stage_goal_catalog, key=lambda goal: goal.order)
+    # Deferred (out-of-active-scope, per Decision #93 compact authority) tasks
+    # never drive near-term primary-goal selection -- only the active graph
+    # represents current claimable work. A goal whose active representation is
+    # fully terminal is not "primary" just because unpromoted backlog sits at
+    # the same stage; evaluate_mission's delivery_complete/unresolved_task_ids
+    # separately -- and correctly -- still require that backlog to close.
     task_statuses_by_goal: dict[StageGoalId, list[MissionTaskStatus]] = {
         goal.goal_id: [] for goal in goals
     }
     for task in graph.taskcards:
         task_statuses_by_goal[task.stage_goal_id].append(
             state.task_statuses.get(task.task_id, task.status)
-        )
-    for deferred_task in graph.deferred_task_index:
-        task_statuses_by_goal[deferred_task.stage_goal_id].append(
-            state.task_statuses.get(deferred_task.task_id, deferred_task.status)
         )
 
     def status_for(task: TaskCardV1) -> MissionTaskStatus:

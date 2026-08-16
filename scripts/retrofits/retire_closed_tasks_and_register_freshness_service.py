@@ -225,7 +225,13 @@ def main() -> None:
         DEFERRED_CATALOG_PATH.read_bytes()
     ).hexdigest()
 
-    GRAPH_PATH.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
+    # Match compact_active_authority.py's exact dump parameters (the script
+    # that originally generated this file) so re-serialization only touches
+    # the real data change, not the whole file's line-wrapping.
+    GRAPH_PATH.write_text(
+        yaml.safe_dump(raw, sort_keys=False, allow_unicode=True, width=100),
+        encoding="utf-8",
+    )
 
     print(f"retired {len(_RETIRED_CLOSED_TASK_IDS)} closed tasks into the deferred catalog")
     print("registered L8-FRESH-00-FRESHNESS-SERVICE")

@@ -82,6 +82,8 @@ def task_stage_goal(task_id: str) -> tuple[str, str]:
         return "GOAL-V0B-POST-PYTHON-SLICES", "repository_local_write_isolated"
     if task_id == "L8-VNET-02-PRODUCTION-TRANSPORT":
         return "GOAL-V0B-POST-PYTHON-SLICES", "primary_only"
+    if task_id == "L8-FRESH-00-FRESHNESS-SERVICE":
+        return "GOAL-V0B-POST-PYTHON-SLICES", "repository_local_write_isolated"
     if task_id.startswith("L8-VPY-"):
         return "GOAL-V0-VERIFIED-PYTHON-POC", "primary_only"
     if task_id == "L8-ACCEL-00-PYTHON-READINESS":
@@ -186,6 +188,7 @@ def task_campaign(task_id: str, stage_goal_id: str) -> str | None:
         "L8-VPY-04-PRODUCTION-TRANSPORT",
         "L8-VPY-05-PRODUCTION-ADMISSION",
         "L8-VNET-02-PRODUCTION-TRANSPORT",
+        "L8-FRESH-00-FRESHNESS-SERVICE",
     }:
         return "CAMP-GATE-B-AND-LATER"
     if task_id == "L8-VPY-01-NOTE-VERIFIED-CANARY":

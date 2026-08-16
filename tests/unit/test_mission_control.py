@@ -169,6 +169,51 @@ def _all_closed_statuses(graph) -> dict[str, str]:
     }
 
 
+def _graph_with_tasks_reactivated(tmp_path, *task_ids):
+    """Restore specific now-retired (deferred) tasks to the active graph, in a
+    throwaway test-local copy, for tests whose lifecycle-mechanics scenario was
+    built against their original shape (entry point, dependents, infrastructure
+    admission spec) and is unrelated to whether those tasks are, in current
+    production reality, durably closed and retired."""
+
+    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    deferred_catalog_path = REPO_ROOT / raw["deferred_task_catalog"]["path"]
+    catalog_lines = [
+        line for line in deferred_catalog_path.read_text(encoding="utf-8").splitlines() if line
+    ]
+
+    wanted = set(task_ids)
+    kept_lines = []
+    kept_index = []
+    reactivated_tasks = []
+    for line, index_entry in zip(catalog_lines, raw["deferred_task_index"], strict=True):
+        if index_entry["task_id"] in wanted:
+            task = dict(json.loads(line)["task"])
+            task["status"] = "TODO"
+            reactivated_tasks.append(task)
+        else:
+            kept_lines.append(line)
+            kept_index.append(index_entry)
+
+    missing = wanted - {task["task_id"] for task in reactivated_tasks}
+    assert not missing, f"tasks not found in deferred catalog: {missing}"
+
+    raw["taskcards"].extend(reactivated_tasks)
+    raw["deferred_task_index"] = kept_index
+
+    catalog_path = tmp_path / "reactivated-deferred-catalog.jsonl"
+    catalog_path.write_text("\n".join(kept_lines) + ("\n" if kept_lines else ""), encoding="utf-8")
+    raw["deferred_task_catalog"] = {
+        "path": catalog_path.name,
+        "sha256": hashlib.sha256(catalog_path.read_bytes()).hexdigest(),
+        "record_count": len(kept_lines),
+    }
+
+    graph_path = tmp_path / "reactivated-graph.yaml"
+    graph_path.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
+    return load_mission_graph(graph_path)
+
+
 def test_real_level8_graph_is_schema_valid_and_acyclic():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
 
@@ -179,54 +224,60 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert len(graph_hash) == 64
     tasks = {task.task_id: task for task in graph.taskcards}
     assert set(tasks) == {
-        "L8-AGILE-AUTHORITY-RESET",
-        "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
-        "L8-VPY-01-NOTE-VERIFIED-CANARY",
-        "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
-        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
-        "L8-VPY-03C-PAGE-CURRENT-REFRESH",
-        "L8-VPY-03D-NOTE-CURRENT-REFRESH",
-        "L8-VPY-03E-3D-CURRENT-REFRESH",
-        "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
         "L8-VNET-01-ACCELERATED-LOCAL-NO-OP",
         "L8-VPY-04-PRODUCTION-TRANSPORT",
         "L8-VPY-05-PRODUCTION-ADMISSION",
         "L8-VNET-02-PRODUCTION-TRANSPORT",
-        "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
         "L8-HORIZON-01-ACTIVATE-GATE-A",
+        "L8-FRESH-00-FRESHNESS-SERVICE",
     }
-    assert tasks["L8-AGILE-AUTHORITY-RESET"].dependencies == []
-    assert tasks["L8-VPY-01-NOTE-VERIFIED-CANARY"].dependencies == ["L8-AGILE-AUTHORITY-RESET"]
-    assert tasks["L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"].dependencies == [
+    # These tasks are durably CLOSED in production and retired to the deferred
+    # catalog (see l8-horizon-01-deferral-2026-08-13/findings.md, Finding 3);
+    # their original TaskCardV1 content -- including dependencies and
+    # execution_focus -- is preserved verbatim there, not in the active graph.
+    deferred_catalog_path = REPO_ROOT / graph.deferred_task_catalog.path
+    deferred_tasks = {
+        record["task"]["task_id"]: record["task"]
+        for record in (
+            json.loads(line)
+            for line in deferred_catalog_path.read_text(encoding="utf-8").splitlines()
+            if line
+        )
+    }
+    assert deferred_tasks["L8-AGILE-AUTHORITY-RESET"]["dependencies"] == []
+    assert deferred_tasks["L8-VPY-01-NOTE-VERIFIED-CANARY"]["dependencies"] == [
+        "L8-AGILE-AUTHORITY-RESET"
+    ]
+    assert deferred_tasks["L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"]["dependencies"] == [
         "L8-VPY-01-NOTE-VERIFIED-CANARY"
     ]
-    assert tasks["L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
+    assert deferred_tasks["L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"]["dependencies"] == [
         "L8-VPY-00-PRESENTATION-CONTRACT-RESET"
     ]
-    assert tasks["L8-VPY-00-PRESENTATION-CONTRACT-RESET"].dependencies == [
+    assert deferred_tasks["L8-VPY-00-PRESENTATION-CONTRACT-RESET"]["dependencies"] == [
         "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
     ]
     assert tasks["L8-VNET-01-ACCELERATED-LOCAL-NO-OP"].dependencies == [
         "L8-VPY-05-PRODUCTION-ADMISSION"
     ]
-    assert tasks["L8-VPY-03C-PAGE-CURRENT-REFRESH"].dependencies == [
+    assert deferred_tasks["L8-VPY-03C-PAGE-CURRENT-REFRESH"]["dependencies"] == [
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
     ]
-    assert tasks["L8-VPY-03D-NOTE-CURRENT-REFRESH"].dependencies == [
+    assert deferred_tasks["L8-VPY-03D-NOTE-CURRENT-REFRESH"]["dependencies"] == [
         "L8-VPY-03C-PAGE-CURRENT-REFRESH"
     ]
-    assert tasks["L8-VPY-03E-3D-CURRENT-REFRESH"].dependencies == [
+    assert deferred_tasks["L8-VPY-03E-3D-CURRENT-REFRESH"]["dependencies"] == [
         "L8-VPY-03D-NOTE-CURRENT-REFRESH"
     ]
-    assert tasks["L8-VPY-03-ALL-PYTHON-VERIFIED-POC"].dependencies == [
+    assert deferred_tasks["L8-VPY-03-ALL-PYTHON-VERIFIED-POC"]["dependencies"] == [
         "L8-VPY-03E-3D-CURRENT-REFRESH",
     ]
-    assert tasks["L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"].execution_focus is not None
+    assert deferred_tasks["L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"]["execution_focus"] is not None
     assert (
-        tasks["L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"].execution_focus.goal_id
+        deferred_tasks["L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"]["execution_focus"]["goal_id"]
         == "DELIVERY-PY-PDF-CURRENT"
     )
-    assert tasks["L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"].dependencies == [
+    assert deferred_tasks["L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"]["dependencies"] == [
         "L8-VNET-02-PRODUCTION-TRANSPORT"
     ]
     assert tasks["L8-HORIZON-01-ACTIVATE-GATE-A"].dependencies == [
@@ -276,8 +327,16 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     }
 
 
-def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
-    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+def test_stage_goals_derive_advance_and_reactivate_without_manual_selection(tmp_path):
+    graph, graph_hash = _graph_with_tasks_reactivated(
+        tmp_path,
+        "L8-AGILE-AUTHORITY-RESET",
+        "L8-VPY-01-NOTE-VERIFIED-CANARY",
+        "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
+        "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
+    )
     statuses = _all_closed_statuses(graph)
     statuses["L8-AGILE-AUTHORITY-RESET"] = "TODO"
     state = MissionExecutionStateV1(
@@ -362,8 +421,10 @@ def test_stage_goals_derive_advance_and_reactivate_without_manual_selection():
     assert reopened.next_task.task_id == "L8-AGILE-AUTHORITY-RESET"
 
 
-def test_dotnet_remains_ineligible_until_python_production_admission():
-    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+def test_dotnet_remains_ineligible_until_python_production_admission(tmp_path):
+    graph, graph_hash = _graph_with_tasks_reactivated(
+        tmp_path, "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+    )
     statuses = _all_closed_statuses(graph)
     statuses.update(
         {
@@ -403,8 +464,10 @@ def test_dotnet_remains_ineligible_until_python_production_admission():
     ]
 
 
-def test_concurrent_lane_cannot_replace_an_admission_blocked_primary_claim():
-    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+def test_concurrent_lane_cannot_replace_an_admission_blocked_primary_claim(tmp_path):
+    graph, graph_hash = _graph_with_tasks_reactivated(
+        tmp_path, "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
+    )
     statuses = _all_closed_statuses(graph)
     primary_id = "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES"
     concurrent_id = "L8-VNET-01-ACCELERATED-LOCAL-NO-OP"
@@ -557,8 +620,10 @@ def test_preserved_trusted_goals_cannot_regain_execution_authority():
     assert "TRP-04-CANARY-QUALIFICATION" not in evaluation.unresolved_task_ids
 
 
-def test_first_verified_readme_goal_precedes_the_python_platform_goal():
-    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+def test_first_verified_readme_goal_precedes_the_python_platform_goal(tmp_path):
+    graph, graph_hash = _graph_with_tasks_reactivated(
+        tmp_path, "L8-AGILE-AUTHORITY-RESET", "L8-VPY-01-NOTE-VERIFIED-CANARY"
+    )
     statuses = _all_closed_statuses(graph)
     statuses.update(
         {
@@ -1086,23 +1151,31 @@ def test_evaluate_initializes_then_claims_the_reset_task():
     state = second.mission_execution
     assert state is not None
     assert state.active_task_id is None
-    assert state.task_statuses["L8-AGILE-AUTHORITY-RESET"] == "TODO"
+    assert state.task_statuses["L8-HORIZON-01-ACTIVATE-GATE-A"] == "TODO"
     evaluation = evaluate_mission(graph, state)
     assert evaluation.mission_complete is False
     assert state.lifecycle_scoreboard is not None
     assert state.lifecycle_scoreboard.denominator == len(load_products())
     assert state.next_task is not None
-    assert state.next_task.task_id == "L8-AGILE-AUTHORITY-RESET"
+    assert state.next_task.task_id == "L8-HORIZON-01-ACTIVATE-GATE-A"
     assert evaluation.core_goal_active is True
 
     claimed = claim_next_task(backend, graph, graph_hash, claimed_by="test-worker")
     assert claimed.mission_execution is not None
-    assert claimed.mission_execution.active_task_id == "L8-AGILE-AUTHORITY-RESET"
-    assert claimed.mission_execution.task_statuses["L8-AGILE-AUTHORITY-RESET"] == "IN_PROGRESS"
+    assert claimed.mission_execution.active_task_id == "L8-HORIZON-01-ACTIVATE-GATE-A"
+    assert claimed.mission_execution.task_statuses["L8-HORIZON-01-ACTIVATE-GATE-A"] == "IN_PROGRESS"
 
 
-def test_evaluate_reopens_a_stale_closed_repository_before_its_dependent(monkeypatch):
-    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+def test_evaluate_reopens_a_stale_closed_repository_before_its_dependent(monkeypatch, tmp_path):
+    graph, graph_hash = _graph_with_tasks_reactivated(
+        tmp_path,
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "L8-VPY-03C-PAGE-CURRENT-REFRESH",
+        "L8-VPY-03D-NOTE-CURRENT-REFRESH",
+        "L8-VPY-03E-3D-CURRENT-REFRESH",
+        "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+        "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
+    )
     backend = _MemoryStateBackend()
     statuses = _all_closed_statuses(graph)
     statuses.update(
@@ -1210,7 +1283,7 @@ def test_read_only_evaluation_accepts_a_new_graph_task_before_state_reconciliati
         **{task.task_id: task.status for task in graph.taskcards},
         **{task.task_id: task.status for task in graph.deferred_task_index},
     }
-    statuses.pop("L8-AGILE-AUTHORITY-RESET")
+    statuses.pop("L8-HORIZON-01-ACTIVATE-GATE-A")
     state = MissionExecutionStateV1(
         mission_id=graph.mission_authority.mission_id,
         graph_sha256=graph_hash,
@@ -1219,9 +1292,9 @@ def test_read_only_evaluation_accepts_a_new_graph_task_before_state_reconciliati
 
     evaluation = evaluate_mission(graph, state)
 
-    assert "L8-AGILE-AUTHORITY-RESET" in evaluation.unresolved_task_ids
+    assert "L8-HORIZON-01-ACTIVATE-GATE-A" in evaluation.unresolved_task_ids
     assert evaluation.next_task is not None
-    assert evaluation.next_task.task_id == "L8-AGILE-AUTHORITY-RESET"
+    assert evaluation.next_task.task_id == "L8-HORIZON-01-ACTIVATE-GATE-A"
     assert evaluation.mission_complete is False
 
 
@@ -1280,7 +1353,9 @@ def test_claim_rejects_expected_task_that_differs_from_live_claim():
 
 
 def test_closeout_ladder_then_claims_exactly_one_dependency_ready_task(tmp_path):
-    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    graph, graph_hash = _graph_with_tasks_reactivated(
+        tmp_path, "L8-AGILE-AUTHORITY-RESET", "L8-VPY-01-NOTE-VERIFIED-CANARY"
+    )
     backend = _MemoryStateBackend()
     persist_evaluation(backend, graph, graph_hash)
     claimed = claim_next_task(backend, graph, graph_hash, claimed_by="test-worker")
@@ -1376,7 +1451,7 @@ def test_expired_claim_is_recovered_before_the_next_claim():
     claimed = claim_next_task(backend, graph, graph_hash, claimed_by="recovery-worker")
 
     assert claimed.mission_execution is not None
-    assert claimed.mission_execution.active_task_id == "L8-AGILE-AUTHORITY-RESET"
+    assert claimed.mission_execution.active_task_id == "L8-HORIZON-01-ACTIVATE-GATE-A"
     assert claimed.mission_execution.claimed_by == "recovery-worker"
     assert any(
         transition.to_status == "REGRESSED"
@@ -1493,7 +1568,7 @@ def test_expired_claim_recovery_persists_even_when_expected_task_stays_unclaimab
         update={"mission_execution": expired}
     )
 
-    with pytest.raises(ConfigError, match="is not dependency-ready"):
+    with pytest.raises(ConfigError, match="is not eligible"):
         claim_next_task(
             backend,
             graph,
@@ -1519,14 +1594,14 @@ def test_direct_close_and_closure_without_evidence_fail_closed():
     persist_evaluation(backend, graph, graph_hash)
     claimed = claim_next_task(backend, graph, graph_hash, claimed_by="test")
     assert claimed.mission_execution is not None
-    assert claimed.mission_execution.active_task_id == "L8-AGILE-AUTHORITY-RESET"
+    assert claimed.mission_execution.active_task_id == "L8-HORIZON-01-ACTIVATE-GATE-A"
 
     with pytest.raises(ConfigError, match="invalid mission transition"):
         transition_task(
             backend,
             graph,
             graph_hash,
-            task_id="L8-AGILE-AUTHORITY-RESET",
+            task_id="L8-HORIZON-01-ACTIVATE-GATE-A",
             to_status="CLOSED",
             observed_by="test",
             reason="skip every verification stage",
@@ -1538,7 +1613,7 @@ def test_direct_close_and_closure_without_evidence_fail_closed():
             backend,
             graph,
             graph_hash,
-            task_id="L8-AGILE-AUTHORITY-RESET",
+            task_id="L8-HORIZON-01-ACTIVATE-GATE-A",
             to_status="IMPLEMENTED",
             observed_by="test",
             reason="no evidence",
@@ -1550,7 +1625,7 @@ def test_direct_close_and_closure_without_evidence_fail_closed():
             backend,
             graph,
             graph_hash,
-            task_id="L8-AGILE-AUTHORITY-RESET",
+            task_id="L8-HORIZON-01-ACTIVATE-GATE-A",
             to_status=status,
             observed_by="test",
             reason=f"reach {status} for closure guard",
@@ -1561,7 +1636,7 @@ def test_direct_close_and_closure_without_evidence_fail_closed():
             backend,
             graph,
             graph_hash,
-            task_id="L8-AGILE-AUTHORITY-RESET",
+            task_id="L8-HORIZON-01-ACTIVATE-GATE-A",
             to_status="CLOSED",
             observed_by="test",
             reason="ordinary report cannot close the task",
@@ -1579,7 +1654,7 @@ def test_observation_running_is_reserved_for_background_certification():
             backend,
             graph,
             graph_hash,
-            task_id="L8-AGILE-AUTHORITY-RESET",
+            task_id="L8-HORIZON-01-ACTIVATE-GATE-A",
             to_status="OBSERVATION_RUNNING",
             observed_by="test",
             reason="delivery work cannot become an elapsed-time observation",

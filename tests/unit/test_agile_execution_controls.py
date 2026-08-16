@@ -3,12 +3,14 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from copy import deepcopy
 from datetime import UTC, datetime
 from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
+import yaml
 from pydantic import ValidationError
 
 from readme_agent.errors import ConfigError
@@ -98,8 +100,72 @@ class _MemoryStateBackend:
 
 
 def _graph_task():
-    graph, _ = load_mission_graph(REAL_GRAPH)
-    return graph.taskcards[0]
+    """A representative infrastructure-kind (`first_boundary_removal`) taskcard.
+
+    L8-AGILE-AUTHORITY-RESET is durably CLOSED in production and retired to
+    the deferred catalog, but its full TaskCardV1 content -- including its
+    infrastructure-kind core_contribution these tests specifically need -- is
+    preserved verbatim there. Read it directly rather than assuming
+    `graph.taskcards[0]` happens to be infrastructure-kind, which is no
+    longer true of the live active graph and was always a fragile assumption.
+    """
+
+    from readme_agent.supervisor.mission_schema import DeferredTaskRecordV1
+
+    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    deferred_catalog_path = REPO_ROOT / raw["deferred_task_catalog"]["path"]
+    for line in deferred_catalog_path.read_text(encoding="utf-8").splitlines():
+        if not line:
+            continue
+        record = DeferredTaskRecordV1.model_validate_json(line)
+        if record.task.task_id == "L8-AGILE-AUTHORITY-RESET":
+            return record.task
+    raise AssertionError("L8-AGILE-AUTHORITY-RESET not found in the deferred catalog")
+
+
+def _graph_with_tasks_reactivated(tmp_path, *task_ids):
+    """Restore specific now-retired (deferred) tasks to the active graph, in a
+    throwaway test-local copy, for tests whose scenario was built against
+    their original active shape (dependents, stage-goal membership) and is
+    unrelated to whether those tasks are, in current production reality,
+    durably closed and retired."""
+
+    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    deferred_catalog_path = REPO_ROOT / raw["deferred_task_catalog"]["path"]
+    catalog_lines = [
+        line for line in deferred_catalog_path.read_text(encoding="utf-8").splitlines() if line
+    ]
+
+    wanted = set(task_ids)
+    kept_lines = []
+    kept_index = []
+    reactivated_tasks = []
+    for line, index_entry in zip(catalog_lines, raw["deferred_task_index"], strict=True):
+        if index_entry["task_id"] in wanted:
+            task = dict(json.loads(line)["task"])
+            task["status"] = "TODO"
+            reactivated_tasks.append(task)
+        else:
+            kept_lines.append(line)
+            kept_index.append(index_entry)
+
+    missing = wanted - {task["task_id"] for task in reactivated_tasks}
+    assert not missing, f"tasks not found in deferred catalog: {missing}"
+
+    raw["taskcards"].extend(reactivated_tasks)
+    raw["deferred_task_index"] = kept_index
+
+    catalog_path = tmp_path / "reactivated-deferred-catalog.jsonl"
+    catalog_path.write_text("\n".join(kept_lines) + ("\n" if kept_lines else ""), encoding="utf-8")
+    raw["deferred_task_catalog"] = {
+        "path": catalog_path.name,
+        "sha256": hashlib.sha256(catalog_path.read_bytes()).hexdigest(),
+        "record_count": len(kept_lines),
+    }
+
+    graph_path = tmp_path / "reactivated-graph.yaml"
+    graph_path.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
+    return load_mission_graph(graph_path)
 
 
 def _all_closed_statuses(graph) -> dict[str, str]:
@@ -206,8 +272,10 @@ def test_explicit_infrastructure_task_schema_requires_an_admission_specification
         )
 
 
-def test_ready_selector_enforces_the_infrastructure_delivery_budget():
-    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+def test_ready_selector_enforces_the_infrastructure_delivery_budget(tmp_path):
+    graph, graph_hash = _graph_with_tasks_reactivated(
+        tmp_path, "L8-AGILE-AUTHORITY-RESET", "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
+    )
     statuses = _all_closed_statuses(graph)
     statuses["L8-AGILE-AUTHORITY-RESET"] = "TODO"
     statuses["L8-VPY-03-ALL-PYTHON-VERIFIED-POC"] = "TODO"
@@ -357,8 +425,17 @@ def test_parallelism_starts_serial_earns_lane_three_and_scales_down():
     assert decide_parallelism(bad_three).max_repository_lanes == 2
 
 
-def test_goal_capacity_consumes_measured_parallelism_policy():
-    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+def test_goal_capacity_consumes_measured_parallelism_policy(tmp_path):
+    graph, graph_hash = _graph_with_tasks_reactivated(
+        tmp_path,
+        "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
+        "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
+        "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
+        "L8-VPY-03C-PAGE-CURRENT-REFRESH",
+        "L8-VPY-03D-NOTE-CURRENT-REFRESH",
+        "L8-VPY-03E-3D-CURRENT-REFRESH",
+        "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+    )
     statuses = _all_closed_statuses(graph)
     python_tasks = [
         task for task in graph.taskcards if task.stage_goal_id == "GOAL-V0-VERIFIED-PYTHON-POC"
