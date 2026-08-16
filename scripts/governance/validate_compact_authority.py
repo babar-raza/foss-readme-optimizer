@@ -1,20 +1,16 @@
 """Validate compact authority budgets and lossless stable-ID migration.
 
-Known gap (found 2026-08-16, retiring the first 10 durably-CLOSED active
-tasks): the per-task `tasks[]`/`new_tasks[]` provenance rows in
-migration-matrix.json model exactly one transition -- the original 2026-08-02
-migration's active_graph-vs-deferred placement -- and are never updated when a
-task is later retired from the active graph to the deferred catalog (whether
-it was an original `tasks[]` row or a post-migration `new_tasks[]` addition).
-A retirement therefore always trips `migration destination mismatch` /
-`destination semantic hash mismatch` / `new task migration set mismatch`
-here, even when the retirement itself is correct and the graph loads and
-validates cleanly via `mission_graph.py`. This script is not part of
-`run_official_checks.py`'s gate and predates this gap (it already had an
-unrelated, pre-existing `L8-VPY-00-PRESENTATION-CONTRACT-RESET` semantic-hash
-drift from a prior commit that changed task content without updating its
-matrix row). Properly fixing this needs the matrix schema to model a
-retirement transition explicitly, not another hand patch here.
+`tasks[]`/`new_tasks[]` rows in migration-matrix.json track every task's
+provenance through however many transitions it has actually had -- originally
+just the 2026-08-02 migration's active_graph-vs-deferred placement, extended
+2026-08-16 to also cover a later retirement from the active graph back to the
+deferred catalog (a `tasks[]` row's `destination`/`destination_task_sha256`/
+`transformation`/`changed_fields` are recomputed against wherever the task
+currently lives; a `new_tasks[]` row stays tracked -- a post-migration
+addition never stops being "not part of the original migration" -- with its
+current location as destination). Update both when retiring a task:
+scripts/retrofits/record_task_retirements_in_migration_matrix.py does this
+mechanically. Not part of `run_official_checks.py`'s gate.
 """
 
 from __future__ import annotations
@@ -337,13 +333,17 @@ def main() -> int:
             if row.get("changed_fields") != changes:
                 errors.append(f"task {task_id} changed-field record mismatch")
     new_tasks = {record["id"]: record for record in matrix.get("new_tasks", [])}
-    expected_new_ids = set(active_tasks) - set(source_tasks)
+    # A "new" (post-migration) task can itself later be retired to the deferred
+    # catalog -- it never stops being "not part of the original migration," so
+    # it stays tracked here (matching the lossless-preservation check above,
+    # which unions active_ids | deferred_ids), just with its current location
+    # as destination instead of assuming it is still active.
+    expected_new_ids = (set(active_tasks) | set(deferred_tasks)) - set(source_tasks)
     if set(new_tasks) != expected_new_ids:
         errors.append("new task migration set mismatch")
     for task_id in expected_new_ids:
-        if new_tasks[task_id].get("destination_task_sha256") != _semantic_sha256(
-            active_tasks[task_id]
-        ):
+        destination_task = active_tasks.get(task_id) or deferred_tasks[task_id]
+        if new_tasks[task_id].get("destination_task_sha256") != _semantic_sha256(destination_task):
             errors.append(f"new task {task_id} semantic hash mismatch")
     errors.extend(_source_catalog_errors(requirements, decisions, source_commit))
 

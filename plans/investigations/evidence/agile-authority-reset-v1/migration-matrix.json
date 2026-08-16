@@ -2889,9 +2889,9 @@
     },
     {
       "id": "L8-AGILE-AUTHORITY-RESET",
-      "destination": "active_graph",
+      "destination": "plans/investigations/control/level8-deferred-task-catalog.jsonl",
       "source_task_sha256": "d99edf9cfc75489ffcf32cd16f1b680fa18bc2bc19f4714797eaf878e286e80f",
-      "destination_task_sha256": "71666432f1147ac7d7e9949b353a60d68bc0a2abda25ebbdcf48de99f34f1116",
+      "destination_task_sha256": "02e15f2423384beb3351e1d2be4bcc002707904ee168c0f63813be4e33ebeb10",
       "transformation": "resequenced_active_horizon",
       "changed_fields": [
         {
@@ -2951,11 +2951,16 @@
           "field": "infrastructure_admission",
           "before": null,
           "after": {
-            "trigger": "current_repository_blocker",
             "evidence_refs": [
               "The oversized control surface repeatedly invalidated visible README work and obscured the next executable boundary."
-            ]
+            ],
+            "trigger": "current_repository_blocker"
           }
+        },
+        {
+          "field": "status",
+          "before": "TODO",
+          "after": "CLOSED"
         },
         {
           "field": "verification_change_classes",
@@ -2972,9 +2977,9 @@
     },
     {
       "id": "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
-      "destination": "active_graph",
+      "destination": "plans/investigations/control/level8-deferred-task-catalog.jsonl",
       "source_task_sha256": "ffbb5ad23d75ddd69264295604b40db804e1c1ee4dd44f54c21ad92d5bca4bee",
-      "destination_task_sha256": "65f7cef4cfdd769690ae1efc8a126c32f0ee2ff4b8be2ef183f7610f158c02ed",
+      "destination_task_sha256": "0c6ec01941bbc588fd3b8af3b9829316a546ec5bcd98cd5a1bf8cfa8e742d447",
       "transformation": "resequenced_active_horizon",
       "changed_fields": [
         {
@@ -2995,32 +3000,37 @@
           "field": "execution_focus",
           "before": null,
           "after": {
-            "goal_id": "DELIVERY-PY-3D-FIRST-CURRENT",
-            "immediate_outcome": "Show the current independently approved Aspose.3D Python README before portfolio fan-out.",
-            "repository_scope": [
-              "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
-            ],
             "allowed_change_classes": [
               "repository_runtime",
               "factuality",
               "presentation",
               "safety"
             ],
-            "next_goal_on_success": "Requalify the next dependency-ready Python repository under the same frozen contract."
+            "goal_id": "DELIVERY-PY-3D-FIRST-CURRENT",
+            "immediate_outcome": "Show the current independently approved Aspose.3D Python README before portfolio fan-out.",
+            "next_goal_on_success": "Requalify the next dependency-ready Python repository under the same frozen contract.",
+            "repository_scope": [
+              "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+            ]
           }
         },
         {
           "field": "stage_goal_id",
           "before": "GOAL-V0A-FIRST-VERIFIED-README",
           "after": "GOAL-V0-VERIFIED-PYTHON-POC"
+        },
+        {
+          "field": "status",
+          "before": "TODO",
+          "after": "CLOSED"
         }
       ]
     },
     {
       "id": "L8-VPY-01-NOTE-VERIFIED-CANARY",
-      "destination": "active_graph",
+      "destination": "plans/investigations/control/level8-deferred-task-catalog.jsonl",
       "source_task_sha256": "e7ae8d559b0d1e162394a329705fb637de2884d1202fd073fc9dc7398e290263",
-      "destination_task_sha256": "917dee475ba9fa7573903f058a32b9c5f057ca4f63ad906700844a2e0f97b1a2",
+      "destination_task_sha256": "9d1c21a03409e0a83463c2e79f5d54e27d69fef49e67e41d41bde7955df38bf3",
       "transformation": "resequenced_active_horizon",
       "changed_fields": [
         {
@@ -3083,18 +3093,18 @@
           "field": "execution_focus",
           "before": null,
           "after": {
-            "goal_id": "DELIVERY-PY-CONTRACT-CURRENT",
-            "immediate_outcome": "Show the corrected-contract, repository-native, independently approved Note Python README with no sibling runtime dependency.",
-            "repository_scope": [
-              "aspose-note-foss/Aspose.Note-FOSS-for-Python"
-            ],
             "allowed_change_classes": [
               "repository_runtime",
               "factuality",
               "presentation",
               "safety"
             ],
-            "next_goal_on_success": "Apply the frozen contract to each remaining Python repository through the canonical lifecycle without reopening accepted Note facts."
+            "goal_id": "DELIVERY-PY-CONTRACT-CURRENT",
+            "immediate_outcome": "Show the corrected-contract, repository-native, independently approved Note Python README with no sibling runtime dependency.",
+            "next_goal_on_success": "Apply the frozen contract to each remaining Python repository through the canonical lifecycle without reopening accepted Note facts.",
+            "repository_scope": [
+              "aspose-note-foss/Aspose.Note-FOSS-for-Python"
+            ]
           }
         },
         {
@@ -3145,6 +3155,11 @@
           "after": "GOAL-V0A-FIRST-VERIFIED-README"
         },
         {
+          "field": "status",
+          "before": "TODO",
+          "after": "CLOSED"
+        },
+        {
           "field": "title",
           "before": "Prove the accepted Note design through repository-verified evidence",
           "after": "Convert the same-revision Note comparison into a native verified contract"
@@ -3176,9 +3191,9 @@
     },
     {
       "id": "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
-      "destination": "active_graph",
+      "destination": "plans/investigations/control/level8-deferred-task-catalog.jsonl",
       "source_task_sha256": "13b636a5c7d8b8d6357617056fda071d9b120c2c82da6b615eecf9db6f34280f",
-      "destination_task_sha256": "a8d22a8c8b84417ee871816552eee89ce49f7d13ead3782e8a32d0add43c1891",
+      "destination_task_sha256": "83e604bbfdb301f7aacc05f9c34781464a4d97c7bac7530cd140f52668b70cbf",
       "transformation": "resequenced_active_horizon",
       "changed_fields": [
         {
@@ -3229,18 +3244,18 @@
           "field": "execution_focus",
           "before": null,
           "after": {
-            "goal_id": "DELIVERY-JAVA-FIRST-CURRENT",
-            "immediate_outcome": "Show one current independently approved Java README before Java cohort expansion.",
-            "repository_scope": [
-              "platform:Java"
-            ],
             "allowed_change_classes": [
               "repository_runtime",
               "factuality",
               "presentation",
               "safety"
             ],
-            "next_goal_on_success": "Activate the next bounded verified Gate-A portfolio horizon."
+            "goal_id": "DELIVERY-JAVA-FIRST-CURRENT",
+            "immediate_outcome": "Show one current independently approved Java README before Java cohort expansion.",
+            "next_goal_on_success": "Activate the next bounded verified Gate-A portfolio horizon.",
+            "repository_scope": [
+              "platform:Java"
+            ]
           }
         },
         {
@@ -3272,6 +3287,11 @@
           "after": "Java remains the next platform after Python and .NET production transport; its representative must expose cross-platform defects before Java cohort expansion."
         },
         {
+          "field": "status",
+          "before": "TODO",
+          "after": "CLOSED"
+        },
+        {
           "field": "title",
           "before": "Prove post-Python .NET and Java verified vertical slices",
           "after": "Prove the first current Java verified vertical slice"
@@ -3285,9 +3305,9 @@
     },
     {
       "id": "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
-      "destination": "active_graph",
+      "destination": "plans/investigations/control/level8-deferred-task-catalog.jsonl",
       "source_task_sha256": "3fa93ba7a020b4f26d1e46a43fe96874d0baf966cdd867721a8486f9637c0b4c",
-      "destination_task_sha256": "bb5f3baa87605ab0ff14a2f95cc0e2cd7258443fbcbd9870b38e376fb6b2d31a",
+      "destination_task_sha256": "cc85d55527de8f918f82e3de861f2205d432fe259737825bc0ef4042f0377c7d",
       "transformation": "resequenced_active_horizon",
       "changed_fields": [
         {
@@ -3339,18 +3359,18 @@
           "field": "execution_focus",
           "before": null,
           "after": {
-            "goal_id": "DELIVERY-PY-PDF-CURRENT",
-            "immediate_outcome": "Show the current independently approved PDF Python README and its no-op proof.",
-            "repository_scope": [
-              "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
-            ],
             "allowed_change_classes": [
               "repository_runtime",
               "factuality",
               "presentation",
               "safety"
             ],
-            "next_goal_on_success": "Reconcile the already-generated Page Python artifact against the same current contract."
+            "goal_id": "DELIVERY-PY-PDF-CURRENT",
+            "immediate_outcome": "Show the current independently approved PDF Python README and its no-op proof.",
+            "next_goal_on_success": "Reconcile the already-generated Page Python artifact against the same current contract.",
+            "repository_scope": [
+              "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
+            ]
           }
         },
         {
@@ -3375,6 +3395,11 @@
           "field": "source_audit_finding",
           "before": "The compatibility ID L8-VPY-02 now exclusively owns .NET and Java slices; Page and PDF require their own unambiguous Python boundary before cohort fan-out.",
           "after": "Page already has a current accepted candidate, while PDF remains the first unfinished boundary. Keeping both in one active task allowed PDF defects to expand into open-ended shared hardening."
+        },
+        {
+          "field": "status",
+          "before": "TODO",
+          "after": "CLOSED"
         },
         {
           "field": "title",
@@ -3405,9 +3430,9 @@
     },
     {
       "id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
-      "destination": "active_graph",
+      "destination": "plans/investigations/control/level8-deferred-task-catalog.jsonl",
       "source_task_sha256": "c8dd4631c8391402dd0a024ac8df0df900e4f748c012346aedf65cee55eb457d",
-      "destination_task_sha256": "1b6b99d465d493c894e02f4631bc0b365f9d9be0550e9375bf1082945a71884c",
+      "destination_task_sha256": "28144fd75b8b73b11d6a48f31b83fa7cebf781b4a15a7033414d24755f952b5c",
       "transformation": "resequenced_active_horizon",
       "changed_fields": [
         {
@@ -3420,11 +3445,23 @@
             "Every committed README artifact is byte-identical to its independently approved, no-op-proven candidate and is linked from the cohort index"
           ],
           "after": [
-            "Verified AGENT_APPROVED and NO_OP_PROVEN counts equal the runtime-loaded Python denominator",
+            "Verified AGENT_APPROVED and NO_OP_PROVEN counts equal the runtime-loaded Python denominator minus repositories carrying an accepted typed external-blocker disposition (governance decision 102); every such repository is separately evidenced with owner, defect, and resume predicate",
             "Agent-fixable Python failures equal zero",
             "Every cache reuse is justified by complete source, facts, template, prompt, policy, validator, reviewer, and protected-content fingerprints",
             "One supervisor owns state; after the comparative Note lifecycle, sibling-isolation, recovery, cache, promotion, and aggregation proof it may use two to four Python repository lanes with serialized aggregate mutation",
             "Every committed README artifact is byte-identical to its independently approved, no-op-proven candidate and is linked from the cohort index"
+          ]
+        },
+        {
+          "field": "closeout_rules",
+          "before": [
+            "Every current Python repository is repository-verified, independently approved, and no-op-proven",
+            "The indexed Python POC is reproducible without any product-remote write"
+          ],
+          "after": [
+            "Every current Python repository is repository-verified and reaches NO_OP_PROVEN or an accepted typed external-blocker disposition per governance decisions 101 and 102, each recorded with owner, evidence, and resume predicate",
+            "No typed-disposition repository is counted as NO_OP_PROVEN, Gate A/B, or full-registry closure; each independently returns to the strict lane on its own resume predicate",
+            "The indexed Python POC is reproducible without any product-remote write"
           ]
         },
         {
@@ -3441,24 +3478,34 @@
           "field": "execution_focus",
           "before": null,
           "after": {
-            "goal_id": "DELIVERY-PY-REMAINING-COHORT",
-            "immediate_outcome": "Finalize each remaining Python repository one at a time and expose each accepted README immediately.",
-            "repository_scope": [
-              "platform:Python"
-            ],
             "allowed_change_classes": [
               "repository_runtime",
               "factuality",
               "presentation",
               "safety"
             ],
-            "next_goal_on_success": "Prove the first post-Python .NET vertical slice."
+            "goal_id": "DELIVERY-PY-REMAINING-COHORT",
+            "immediate_outcome": "Finalize each remaining Python repository one at a time and expose each accepted README immediately.",
+            "next_goal_on_success": "Prove the first post-Python .NET vertical slice.",
+            "repository_scope": [
+              "platform:Python"
+            ]
           }
+        },
+        {
+          "field": "failure_reroute",
+          "before": "A repeated agent-fixable failure must reopen its exact owner; a genuine narrow external block stays visible and does not count as POC completion.",
+          "after": "A repeated agent-fixable failure must reopen its exact owner; a genuine narrow external block stays visible and does not count as POC completion. This task's own CLOSED status, reached under governance decision 102, unlocks downstream platform sequencing only and does not assert POC completion."
         },
         {
           "field": "parent_task_id",
           "before": "L8-LOCAL-FULL-REGISTRY-GATE-A",
           "after": null
+        },
+        {
+          "field": "status",
+          "before": "TODO",
+          "after": "CLOSED"
         }
       ]
     },
@@ -4450,26 +4497,26 @@
   "new_tasks": [
     {
       "id": "L8-VPY-00-PRESENTATION-CONTRACT-RESET",
-      "destination": "active_graph",
-      "destination_task_sha256": "aa2637e05f9daa3bab9a9e477e7bc4c3ed7fbefa1515ea9bfbcaca25a9f850d7",
+      "destination": "plans/investigations/control/level8-deferred-task-catalog.jsonl",
+      "destination_task_sha256": "eee79cce6701c04a59df1a5a75e9a6c00fd38ac33efa92f0ee7e0939b9324232",
       "reason": "bounded activation boundary for the next deferred execution horizon"
     },
     {
       "id": "L8-VPY-03C-PAGE-CURRENT-REFRESH",
-      "destination": "active_graph",
-      "destination_task_sha256": "26ad58b8969dc0ef1aea7516bc67859dce7884f28fe0563cf853d59a72af1d22",
+      "destination": "plans/investigations/control/level8-deferred-task-catalog.jsonl",
+      "destination_task_sha256": "a0bf80a82f4817c71b993a60d9eb851b59f445f3f328985ff75b27715fd55a75",
       "reason": "bounded activation boundary for the next deferred execution horizon"
     },
     {
       "id": "L8-VPY-03D-NOTE-CURRENT-REFRESH",
-      "destination": "active_graph",
-      "destination_task_sha256": "47dfed27902ef76cda23adda584a6a3edd30f15e409da4f58e42c8667c93910b",
+      "destination": "plans/investigations/control/level8-deferred-task-catalog.jsonl",
+      "destination_task_sha256": "054acb0f3ad73b4b99e9be94da73e07a2d95f75b0fa464b74cafab9083456a81",
       "reason": "bounded activation boundary for the next deferred execution horizon"
     },
     {
       "id": "L8-VPY-03E-3D-CURRENT-REFRESH",
-      "destination": "active_graph",
-      "destination_task_sha256": "55f71e3e4b18fc75f4c9c4d734351064deb60c88709b7845510cda50ea29e740",
+      "destination": "plans/investigations/control/level8-deferred-task-catalog.jsonl",
+      "destination_task_sha256": "9d8f7afb0cb4d9c2d31a431e7b7b1b6d78e09e7ce67cfed72955931f4609c38e",
       "reason": "bounded activation boundary for the next deferred execution horizon"
     },
     {
