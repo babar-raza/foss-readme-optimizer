@@ -476,6 +476,38 @@ placement`, not protected-content) — untouched by T5-R1, and not established t
 root cause the way protected-content did. `disposition_ledger_errors` (7 remaining, T5-R2-shaped
 scope) is likewise untouched. Both are real, separate, unstarted work.
 
+## T5-R2 exploration: a promising lead tested and disproven (real negative evidence)
+
+Before treating claim-accountability as a separate, unscoped future card, checked whether the
+same "reuse existing tested machinery" pattern that worked for T5-R1 applied here.
+`_source_claim_has_candidate_placement` (`claim_accountability.py:145-167`) requires an exact
+`composition_ledger.source_placements` entry covering the claim's byte range with byte-identical
+source/candidate content — confirmed (via direct empirical check) that none of the real 5
+existing placements cover these 9 claims, so `survives_in_candidate` is `False` for all of them
+by construction, regardless of what T5-R1's new slot renders.
+
+A second, real, existing mechanism was found and tested: `resolve_preserve_claim_placements`
+(`verified_source_placements.py:66-226`) automatically creates a `relocated_exact_equivalence`
+placement when `candidate_bytes.count(block) == 1 and claim.claim_id in fact_authorized_claim_ids`
+— i.e. the claim's literal source bytes appear exactly once in the candidate, unprompted. This
+looked like a second potential path to reuse without new plumbing.
+
+**Empirically tested, not assumed**: patched `api_method_index_markdown` to also echo each
+source-mentioned inline-code term verbatim, re-ran the real pilot, and checked
+`survives_in_candidate` directly — **still `False` for all 9 claims**, disproving the hypothesis
+that literal-text presence alone is sufficient. Checked the material claims' actual `disposition`
+field directly (not assumed): **all 9 are genuinely `'preserve'`** — ruling out the simpler
+explanation (a disposition-based skip in `resolve_preserve_claim_placements`'s filter). The real
+remaining blocker is `claim.claim_id in fact_authorized_claim_ids` — a separate, pre-computed set
+from `preservation_selection.fact_authorized_claim_ids`, not yet traced. The experimental code
+was reverted (confirmed via `git diff`, no residue) rather than left half-built.
+
+This is real, valuable negative evidence, not idle speculation: it rules out two plausible-looking
+shortcuts and narrows the next investigator's starting point to exactly one remaining question —
+what determines `fact_authorized_claim_ids` membership, and can these 9 claims be added to it
+legitimately (with real, verified authority) or does closing this gap require a different
+mechanism entirely.
+
 ## Downstream effect
 
 `GC-03` (Gate G3 close) requires **both** `T14` (COMPLETE) and `T5` COMPLETE — it stays blocked.
