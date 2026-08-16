@@ -321,10 +321,16 @@ def _dependency_ready_tasks(
     graph: MissionTaskGraphV1, state: MissionExecutionStateV1
 ) -> list[TaskCardV1]:
     by_id = {task.task_id: task for task in graph.taskcards}
+    deferred_status_by_id = {task.task_id: task.status for task in graph.deferred_task_index}
 
     def status_for(task_id: str) -> MissionTaskStatus:
-        task = by_id[task_id]
-        return state.task_statuses.get(task_id, task.status)
+        task = by_id.get(task_id)
+        if task is not None:
+            return state.task_statuses.get(task_id, task.status)
+        # A dependency may point at a retired-but-satisfied task that now lives
+        # only in the deferred catalog (see l8-horizon-01-deferral-2026-08-13
+        # Finding 3): resolve its status there instead of treating it as unknown.
+        return state.task_statuses.get(task_id, deferred_status_by_id[task_id])
 
     ready: list[TaskCardV1] = []
     python_task = by_id.get("L8-VPY-03-ALL-PYTHON-VERIFIED-POC")

@@ -1660,6 +1660,67 @@ def test_deferred_index_metadata_is_bound_to_its_exact_catalog_record(tmp_path):
         load_mission_graph(invalid)
 
 
+def _redirect_first_taskcard_dependency_to_a_deferred_task(tmp_path, deferred_task_id: str):
+    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    raw["taskcards"][0]["dependencies"] = [deferred_task_id]
+    retargeted = tmp_path / "retargeted-deferred-dependency.yaml"
+    retargeted.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
+    return retargeted
+
+
+def test_active_task_may_depend_on_a_closed_deferred_task(tmp_path):
+    """Retiring a durably-CLOSED active task into the deferred catalog must not
+    strand its dependants (l8-horizon-01-deferral-2026-08-13 Finding 3)."""
+
+    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    deferred_task_id = raw["deferred_task_index"][0]["task_id"]
+    retargeted = _redirect_first_taskcard_dependency_to_a_deferred_task(tmp_path, deferred_task_id)
+
+    graph, graph_hash = load_mission_graph(retargeted)
+    dependant = graph.taskcards[0]
+    assert dependant.dependencies == [deferred_task_id]
+
+    statuses = _all_closed_statuses(graph)
+    statuses[dependant.task_id] = "TODO"
+    statuses[deferred_task_id] = "CLOSED"
+    state = MissionExecutionStateV1(
+        mission_id=graph.mission_authority.mission_id,
+        graph_sha256=graph_hash,
+        task_statuses=statuses,
+    )
+
+    evaluation = evaluate_mission(graph, state)
+
+    assert evaluation.next_task is not None
+    assert evaluation.next_task.task_id == dependant.task_id
+
+
+def test_active_task_depending_on_a_non_closed_deferred_task_stays_blocked(tmp_path):
+    """Negative control: a deferred dependency that is not CLOSED must still
+    leave its dependant un-ready, not merely resolvable-by-existence."""
+
+    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    deferred_task_id = raw["deferred_task_index"][0]["task_id"]
+    retargeted = _redirect_first_taskcard_dependency_to_a_deferred_task(tmp_path, deferred_task_id)
+
+    graph, graph_hash = load_mission_graph(retargeted)
+    dependant = graph.taskcards[0]
+
+    statuses = _all_closed_statuses(graph)
+    statuses[dependant.task_id] = "TODO"
+    statuses[deferred_task_id] = "DEFERRED_WITH_REASON"
+    state = MissionExecutionStateV1(
+        mission_id=graph.mission_authority.mission_id,
+        graph_sha256=graph_hash,
+        task_statuses=statuses,
+    )
+
+    evaluation = evaluate_mission(graph, state)
+
+    assert dependant.task_id in evaluation.unresolved_task_ids
+    assert evaluation.next_task is None or evaluation.next_task.task_id != dependant.task_id
+
+
 def test_requirement_catalog_is_typed_even_when_a_tampered_hash_matches(tmp_path):
     raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
     source = REPO_ROOT / raw["requirement_catalog"]["path"]

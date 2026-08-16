@@ -83,6 +83,8 @@ jobs:
         with:
           client-id: ${{ vars.GH_APP_CLIENT_ID }}
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          owner: aspose-cells-foss
+          repositories: Aspose.Cells-FOSS-for-Java
           permission-contents: read
       - name: Reconcile sources and settle durable intake
         env:

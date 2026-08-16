@@ -268,10 +268,18 @@ def _validate_graph(graph: MissionTaskGraphV1, *, graph_path: Path) -> None:
         by_id[task.task_id] = task
 
     for task in graph.taskcards:
-        missing = [dependency for dependency in task.dependencies if dependency not in by_id]
+        missing = [
+            dependency
+            for dependency in task.dependencies
+            if dependency not in by_id and dependency not in deferred_by_id
+        ]
         if missing:
             raise ConfigError(f"task {task.task_id!r} has unknown dependencies {missing}")
-        if task.parent_task_id is not None and task.parent_task_id not in by_id:
+        if (
+            task.parent_task_id is not None
+            and task.parent_task_id not in by_id
+            and task.parent_task_id not in deferred_by_id
+        ):
             raise ConfigError(
                 f"task {task.task_id!r} has unknown parent_task_id {task.parent_task_id!r}"
             )
@@ -301,6 +309,10 @@ def _validate_graph(graph: MissionTaskGraphV1, *, graph_path: Path) -> None:
     visited: set[str] = set()
 
     def visit(task_id: str) -> None:
+        if task_id not in by_id:
+            # A deferred (retired) task cannot depend on an active one, so it
+            # can never be part of an active-graph cycle; treat it as a leaf.
+            return
         if task_id in visiting:
             raise ConfigError(f"cycle detected in mission task graph at {task_id!r}")
         if task_id in visited:

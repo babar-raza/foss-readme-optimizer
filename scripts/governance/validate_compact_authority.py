@@ -246,10 +246,20 @@ def main() -> int:
 
     ready = []
     task_by_id = {task["task_id"]: task for task in graph["taskcards"]}
+    deferred_status_by_id = {
+        index["task_id"]: index["status"] for index in graph["deferred_task_index"]
+    }
     for task in graph["taskcards"]:
         if task["status"] not in {"TODO", "READY", "REOPENED", "REGRESSED"}:
             continue
-        if all(task_by_id[dep]["status"] == "CLOSED" for dep in task["dependencies"]):
+
+        def _dependency_closed(dep: str) -> bool:
+            active_dep = task_by_id.get(dep)
+            if active_dep is not None:
+                return active_dep["status"] == "CLOSED"
+            return deferred_status_by_id.get(dep) == "CLOSED"
+
+        if all(_dependency_closed(dep) for dep in task["dependencies"]):
             ready.append(task["task_id"])
     if len(ready) > 5:
         errors.append(f"static active horizon exposes {len(ready)} ready tasks, over budget 5")
