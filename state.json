@@ -1034,6 +1034,23 @@
       "task_id": "5a4412960b1f4f1ea8b1896df8fec9bb",
       "trigger_dedup_key": "operator:20260801-072120-9e1a:aspose-email-foss/Aspose.Email-FOSS-for-Python"
     },
+    "5f893fde6fbc9901abf6814ed9080945b4f305dd1aba93d109491aca42635c62": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "5f893fde6fbc9901abf6814ed9080945b4f305dd1aba93d109491aca42635c62",
+      "completed_at": "2026-08-17T14:04:24.843751+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+      "run_id": "20260817-140415-604f",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-08-17T14:04:24.843742+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260811-182047-c881:aspose-email-foss/Aspose.Email-FOSS-for-Python"
+    },
     "65875f56beb9c281f62e25086bea98322facbdf327c0494c17ded41c19edccf4": {
       "action": null,
       "attempt": 1,
@@ -18593,7 +18610,7 @@
     "updated_at": "2026-08-17T06:48:23.484257+00:00"
   },
   "schema_version": 2,
-  "state_version": 528,
+  "state_version": 529,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e97319003e7a5196f04b73723fe07bea1b704e7a5157f301801e4a6dd796cbcb",
@@ -19030,11 +19047,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "recovery_sweep_stale_or_expired",
-      "last_checkpoint_id": "ed84a74214b9dc5e7d14a754b50157830c0bf239b811dd149960b06af4f319a9",
+      "last_checkpoint_id": "5f893fde6fbc9901abf6814ed9080945b4f305dd1aba93d109491aca42635c62",
       "lease_expires_at": null,
       "recovery_count": 4,
       "status": "retryable",
-      "updated_at": "2026-08-17T14:04:04.593569+00:00"
+      "updated_at": "2026-08-17T14:04:24.843751+00:00"
     },
     "operator:20260811-183306-b3d4:aspose-email-foss/Aspose.Email-FOSS-for-Python": {
       "accepted_at": "2026-08-11T18:33:11.242810+00:00",
