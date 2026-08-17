@@ -2342,7 +2342,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "9bdd331242e69af5c3954316e6f717d8b3fb432b45220483bbe1bc223705ff0b",
       "accepted_status": "NO_CHANGE",
-      "consecutive_failure_count": 2,
+      "consecutive_failure_count": 3,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -3516,14 +3516,14 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 2,
+          "attempt": 3,
           "domain": "readme_presentation",
           "error_type": "blocked",
-          "facts_hash": "9673bc59e7c3d50562184009859f34c4f504508853e3b917cca37bc8d087fdd1",
+          "facts_hash": "dd108f1c5d1a9746c18e643ef72eeaaa670b049d53d77db08923e264f6f96cd0",
           "failure_reason": "presentation_plan",
           "fresh_fingerprint": "cbbf0c13d8cfb0ac7b9d4da891934b4dd1dd3bab28097bf7f6bb9c1dd3d2c427",
           "message": "['claim accountability has 4 blocking claim(s): source:claim:2544:3523960e3ec2b571, source:claim:3096:1fd567b607a0b92d, source:claim:5988:7ff54c1da64deecb, source:claim:6367:f76ee53ac612c3f9']",
-          "occurred_at": "2026-08-17T10:06:20.871732+00:00",
+          "occurred_at": "2026-08-17T17:02:15.269275+00:00",
           "schema_version": 1,
           "source_revision": "7971880964143c86ffd4baa7c8ea1dd959fea04e",
           "stage": "document_validation"
@@ -23691,7 +23691,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-17T10:06:20.872634+00:00",
+      "last_run_timestamp": "2026-08-17T17:02:15.270267+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "800ea256fec1eec387cba1fc599530cd402ef515"
@@ -25162,7 +25162,7 @@
     "updated_at": "2026-08-17T16:58:48.360730+00:00"
   },
   "schema_version": 2,
-  "state_version": 483,
+  "state_version": 484,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9459e9c2a72afdd28502823f296fead14e22e97d31dbc49e573ad181775c9fd7",
