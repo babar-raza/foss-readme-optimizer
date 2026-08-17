@@ -2292,6 +2292,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260811-182047-c881:aspose-email-foss/Aspose.Email-FOSS-for-Python"
     },
+    "e428bf1a6df26b7a18b20563d36f2d947687e51b6852b0716d368357e0fb5176": {
+      "action": "independent_verification",
+      "attempt": 1,
+      "checkpoint_id": "e428bf1a6df26b7a18b20563d36f2d947687e51b6852b0716d368357e0fb5176",
+      "completed_at": "2026-08-17T16:56:05.632347+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "95e95e5c8a9e9793660a1da86224d1a9740ad7ea7798a233bf5162d0e45ec014",
+      "repository": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+      "run_id": "20260817-165106-4c27",
+      "schema_version": 1,
+      "stage": "verifier_result",
+      "started_at": "2026-08-17T16:56:05.632339+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260811-182047-c881:aspose-email-foss/Aspose.Email-FOSS-for-Python"
+    },
     "e4ce5112673bed4ed092dc4d5dc1bd289a306a082a324f6a841b7ddbe3ae47a0": {
       "action": null,
       "attempt": 1,
@@ -18739,7 +18756,7 @@
     "updated_at": "2026-08-17T16:52:28.122163+00:00"
   },
   "schema_version": 2,
-  "state_version": 551,
+  "state_version": 552,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e97319003e7a5196f04b73723fe07bea1b704e7a5157f301801e4a6dd796cbcb",
@@ -19187,11 +19204,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "17b1cef0e4c9c2b7de6d71cadc4ea0e11bec3c244f4081aba9a5b94a7ec9ffb7",
+      "last_checkpoint_id": "e428bf1a6df26b7a18b20563d36f2d947687e51b6852b0716d368357e0fb5176",
       "lease_expires_at": "2026-08-17T17:06:20.083186+00:00",
       "recovery_count": 5,
       "status": "processing",
-      "updated_at": "2026-08-17T16:52:36.172576+00:00"
+      "updated_at": "2026-08-17T16:56:05.632347+00:00"
     },
     "operator:20260811-183306-b3d4:aspose-email-foss/Aspose.Email-FOSS-for-Python": {
       "accepted_at": "2026-08-11T18:33:11.242810+00:00",
