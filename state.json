@@ -1224,7 +1224,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "920f5597c993b2e7a836d6f47b1ceba0a23b2a33e265cf3b3f0514cfb8205e86",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -2376,13 +2376,13 @@
           "attempt": 1,
           "domain": "readme_presentation",
           "error_type": "blocked",
-          "facts_hash": "7986edae1b919feb820847b62f4b03f6294249f90579a2cd577ddc326e47be36",
+          "facts_hash": "f9b1fd04137ac6487e824ded30166559ae0230f093a81b00f5b8ade0a8f5a8b1",
           "failure_reason": "presentation_plan",
-          "fresh_fingerprint": "0cac9164ecc47aca40861676c20c1755886f3c886f9580220ace4b3d5c2dccc6",
-          "message": "['verified_equivalences_have_exact_candidate_claims failed']",
-          "occurred_at": "2026-08-12T10:49:06.483544+00:00",
+          "fresh_fingerprint": "51c540412674072a611675177ec871e6cc3a2ca2aa5c5c0b17cd7e824a91ea05",
+          "message": "['claim accountability has 2 blocking claim(s): source:claim:4360:aa5f8ec1532030a3, source:claim:6395:073b84660b19570b']",
+          "occurred_at": "2026-08-17T17:51:26.091770+00:00",
           "schema_version": 1,
-          "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+          "source_revision": "2d2efee2787cb9e56d071d17f8d7b740dce8b784",
           "stage": "document_validation"
         },
         "llm_called": true,
@@ -17636,9 +17636,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-17T07:49:12.661354+00:00",
+      "last_run_timestamp": "2026-08-17T17:51:26.092748+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "4473f8cbeef1a65961adc7de304d982ada53a1dd"
@@ -18598,7 +18598,7 @@
     "updated_at": "2026-08-17T17:48:39.046232+00:00"
   },
   "schema_version": 2,
-  "state_version": 261,
+  "state_version": 262,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28b6eb6ac83e14c637db7804b6dbc47dcf4b35ef760e130b8644bc92031ca608",
