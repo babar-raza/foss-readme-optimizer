@@ -11975,7 +11975,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "65604399d1567143ace3f1edf4d57f45ef34d0ed7ce07ea7915153136344955c",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -13046,15 +13046,13 @@
         "last_failure_envelope": {
           "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "blocked",
-          "facts_hash": "623ffdabd6141eacb008d592277a414bfd1f4b10a45a42766e21d85c3fb41331",
-          "failure_reason": "presentation_plan",
-          "fresh_fingerprint": "586d0374691e68805b5c40a346424f0a9bed16cc77e410bb4d952abacf132cb4",
-          "message": "['mandatory_claim_replacements_have_exact_provenance failed', 'claim accountability has 1 blocking claim(s): source:claim:371:f768443ddc691ad9']",
-          "occurred_at": "2026-08-08T00:02:10.914550+00:00",
+          "error_type": "LLMError",
+          "failure_reason": "independent_review_exception",
+          "message": " forced tool call returned an invalid structured response after 1 attempts: forced tool call arguments were not valid JSON: Unterminated string starting at: line 84 column 30 (char 7128); finish_reason='length'; completion_tokens=4000",
+          "occurred_at": "2026-08-17T16:38:20.930900+00:00",
           "schema_version": 1,
-          "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
-          "stage": "document_validation"
+          "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+          "stage": null
         },
         "llm_called": false,
         "llm_calls": [],
@@ -111756,9 +111754,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "independent_review_exception",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-17T06:29:30.085625+00:00",
+      "last_run_timestamp": "2026-08-17T16:38:20.930900+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ee05c1ba9153ef5916b7a108406c794f2e464d01"
@@ -118912,7 +118910,7 @@
     "updated_at": "2026-08-17T16:38:12.726489+00:00"
   },
   "schema_version": 2,
-  "state_version": 2460,
+  "state_version": 2461,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
