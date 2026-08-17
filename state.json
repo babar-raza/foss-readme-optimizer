@@ -361,6 +361,27 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "68d56fdaf7fcd2d95935a0c180b6e69e99a9b4b8"
     },
+    "package_release_audit": {
+      "accepted_facts_hash": "d836ec78552b6bf3740ebb26120c8647019bbed794e84af01e32a90c415264e9",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "evidence": "NuGet: Aspose.words.FOSS found",
+        "handoff_findings": [],
+        "install_path_resolved": true,
+        "latest_release_name": "Aspose.Words FOSS 26.2.0",
+        "latest_release_tag": "v26.2.0",
+        "releases_count": 1
+      },
+      "domain": "package_release_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-08-17T08:30:13.832388+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "68d56fdaf7fcd2d95935a0c180b6e69e99a9b4b8"
+    },
     "readme_reconciliation": {
       "accepted_facts_hash": "013cd7ccd77e3204060686a0453fc35e6a9e34f950443d1aa1c442b7373bf735",
       "accepted_status": "FIRST_OBSERVATION",
@@ -775,7 +796,7 @@
     "updated_at": "2026-08-17T08:29:16.874570+00:00"
   },
   "schema_version": 2,
-  "state_version": 62,
+  "state_version": 63,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
