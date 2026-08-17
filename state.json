@@ -2156,7 +2156,7 @@
     },
     "package_release_audit": {
       "accepted_facts_hash": "d2b1b5eeb2884fa31884b28e8024840101575e5d4097565c1da0e55b4e6b40d8",
-      "accepted_status": "CHANGED",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -2164,7 +2164,7 @@
         "handoff_findings": [
           {
             "anomaly": "install path did not resolve against the live package registry",
-            "detected_at": "2026-08-17T06:56:14.400178+00:00",
+            "detected_at": "2026-08-17T10:04:10.743138+00:00",
             "evidence": {
               "detail": "PyPI: aspose-font-foss NOT FOUND (404)"
             },
@@ -2179,7 +2179,7 @@
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-17T06:56:14.400730+00:00",
+      "last_run_timestamp": "2026-08-17T10:04:10.743444+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "7971880964143c86ffd4baa7c8ea1dd959fea04e"
@@ -24982,7 +24982,7 @@
     "updated_at": "2026-08-17T06:55:06.059576+00:00"
   },
   "schema_version": 2,
-  "state_version": 450,
+  "state_version": 451,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9459e9c2a72afdd28502823f296fead14e22e97d31dbc49e573ad181775c9fd7",
