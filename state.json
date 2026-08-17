@@ -8741,6 +8741,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260803-063226-e484:aspose-page-foss/Aspose.Page-FOSS-for-Python"
     },
+    "e81aa88bf4d867582dbfc3dddfb6333c0a7f50d465d530bcef820e065ad24825": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "e81aa88bf4d867582dbfc3dddfb6333c0a7f50d465d530bcef820e065ad24825",
+      "completed_at": "2026-08-17T14:09:31.445732+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "979191d8b3ed25480c955487d9e40c5806699460bd6ed9a5f771bfb59abebd3f",
+      "output_hash": null,
+      "repository": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+      "run_id": "20260817-140905-5426",
+      "schema_version": 1,
+      "stage": "run_started",
+      "started_at": "2026-08-17T14:09:31.445713+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260731-030730-f8af:aspose-page-foss/Aspose.Page-FOSS-for-Python"
+    },
     "e86cab68e9e48e97046e8a4ee3d7a09bffab5ecc61a3fee7ce9fb081f09e7edf": {
       "action": null,
       "attempt": 1,
@@ -34686,7 +34703,7 @@
     "updated_at": "2026-08-17T07:13:28.522665+00:00"
   },
   "schema_version": 2,
-  "state_version": 2347,
+  "state_version": 2348,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "02f1464939957d528b7f6931a0ad36cb389e712ac509ae9e9a34ff326799347d",
@@ -34881,11 +34898,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "b732c1698101307b1ae266eb182f1fb6449c491e7820c2b40b6964f8f0eb4907",
+      "last_checkpoint_id": "e81aa88bf4d867582dbfc3dddfb6333c0a7f50d465d530bcef820e065ad24825",
       "lease_expires_at": "2026-08-17T14:24:22.784915+00:00",
       "recovery_count": 9,
       "status": "processing",
-      "updated_at": "2026-08-17T14:09:22.784915+00:00"
+      "updated_at": "2026-08-17T14:09:31.445732+00:00"
     },
     "operator:20260731-032726-32e0:aspose-page-foss/Aspose.Page-FOSS-for-Python": {
       "accepted_at": "2026-07-31T03:27:29.863870+00:00",
