@@ -10030,7 +10030,7 @@
     "updated_at": "2026-08-09T12:34:59.303815+00:00"
   },
   "schema_version": 2,
-  "state_version": 760,
+  "state_version": 761,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ee1df0df84ad92ca8a551957746712f28a5c77c49e3c5e827afdb99589901853",
@@ -10098,6 +10098,28 @@
       "recovery_count": 0,
       "status": "completed",
       "updated_at": "2026-08-01T14:34:37.009415+00:00"
+    },
+    "delivery:registry:1178837520:bb6aac1d701ed80322a10a25e0b97f0b360ee27409443c2fba38000ffa4133fb": {
+      "accepted_at": "2026-08-17T05:28:52.764072+00:00",
+      "envelope": {
+        "dedup_key": "delivery:registry:1178837520:bb6aac1d701ed80322a10a25e0b97f0b360ee27409443c2fba38000ffa4133fb",
+        "delivery_id": "registry:1178837520:bb6aac1d701ed80322a10a25e0b97f0b360ee27409443c2fba38000ffa4133fb",
+        "event_type": "repository_dispatch",
+        "occurred_at": "2026-08-17T04:09:15.074388+00:00",
+        "provider_event_id": "registry:1178837520:bb6aac1d701ed80322a10a25e0b97f0b360ee27409443c2fba38000ffa4133fb",
+        "repository_scope": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": "bb6aac1d701ed80322a10a25e0b97f0b360ee27409443c2fba38000ffa4133fb",
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-17T05:28:52.764081+00:00"
     },
     "delivery:registry:1178837520:e763681729fb061096bc790664869d7e81949438e26698652a1933a8c9e5b986": {
       "accepted_at": "2026-08-04T09:24:41.470764+00:00",
