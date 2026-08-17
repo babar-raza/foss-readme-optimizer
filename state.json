@@ -835,7 +835,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "8694cb552ec3f91887ece9c8a18b540f2a6eff3be06843a808359d354f36f49b",
       "accepted_status": "FIRST_OBSERVATION",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -1902,6 +1902,19 @@
             }
           ],
           "review_call_count": 1
+        },
+        "last_failure_envelope": {
+          "attempt": 1,
+          "domain": "readme_presentation",
+          "error_type": "blocked",
+          "facts_hash": "58403ae03025066d3e305eede5adeb622f167fd1348a3ba983b6e9134361a7b0",
+          "failure_reason": "presentation_plan",
+          "fresh_fingerprint": "dfb55592322204d2c6cf8c28b6ae3ea4dd48aa4a846cf3ff2129ab36075e2b6b",
+          "message": "['claim accountability has 60 blocking claim(s): source:claim:13620:8af0a643fcb3b13e, source:claim:14953:1e40eb2ec00590a9, source:claim:15034:036b5f300fede136, source:claim:2118:6c857c944411d2b6, source:claim:2184:0755521bf3f5cf84, source:claim:2265:72b31a06e2653f58, source:claim:2353:1dfbedbe18059db0, source:claim:2420:16591511b994f819, source:claim:2537:242d4397039300b5, source:claim:2626:39a359ab49eff5e2', 'presentation.capability_description_repeats_title.c38a8a4b325d: Key-capability explanations must add visitor-facing detail.']",
+          "occurred_at": "2026-08-17T08:14:46.211188+00:00",
+          "schema_version": 1,
+          "source_revision": "8a3131b9a6f7e97c20214896c615dbee86272459",
+          "stage": "document_validation"
         },
         "llm_called": true,
         "llm_calls": [
@@ -10533,9 +10546,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-04T11:29:19.024093+00:00",
+      "last_run_timestamp": "2026-08-17T08:14:46.212138+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "8a3131b9a6f7e97c20214896c615dbee86272459"
@@ -11065,7 +11078,7 @@
     "updated_at": "2026-08-17T08:10:45.162539+00:00"
   },
   "schema_version": 2,
-  "state_version": 115,
+  "state_version": 116,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "2f77dcbedf563ce1e2cc54b0471f5664fa99c8ee9f127006c2f110641581f7b3",
