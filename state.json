@@ -3998,6 +3998,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260803-070725-1506:aspose-page-foss/Aspose.Page-FOSS-for-Python"
     },
+    "6b3f7c41b3a29baa5b4ea9baa69de454c917157b91beee4565e369937ae98197": {
+      "action": "independent_verification",
+      "attempt": 1,
+      "checkpoint_id": "6b3f7c41b3a29baa5b4ea9baa69de454c917157b91beee4565e369937ae98197",
+      "completed_at": "2026-08-17T17:20:39.514153+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "541646208f6fbfd71282faa2e9d114a1a221935ba565319684a351807d7a34ca",
+      "repository": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+      "run_id": "20260817-171335-82f7",
+      "schema_version": 1,
+      "stage": "verifier_result",
+      "started_at": "2026-08-17T17:20:39.514141+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260731-030730-f8af:aspose-page-foss/Aspose.Page-FOSS-for-Python"
+    },
     "6b731bc0c6e07e59e9960c4bee3d1e5a3ff5bd57eebd7d9485aac168c42d1f14": {
       "action": "independent_verification",
       "attempt": 1,
@@ -34815,7 +34832,7 @@
     "updated_at": "2026-08-17T17:16:14.117824+00:00"
   },
   "schema_version": 2,
-  "state_version": 2368,
+  "state_version": 2369,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "02f1464939957d528b7f6931a0ad36cb389e712ac509ae9e9a34ff326799347d",
@@ -35021,11 +35038,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "79e5fb44de2e58f7ebaa294408c2bbb324aac83d6e6b005789e14ebb3ecad824",
+      "last_checkpoint_id": "6b3f7c41b3a29baa5b4ea9baa69de454c917157b91beee4565e369937ae98197",
       "lease_expires_at": "2026-08-17T17:28:49.755740+00:00",
       "recovery_count": 10,
       "status": "processing",
-      "updated_at": "2026-08-17T17:16:22.323548+00:00"
+      "updated_at": "2026-08-17T17:20:39.514153+00:00"
     },
     "operator:20260731-032726-32e0:aspose-page-foss/Aspose.Page-FOSS-for-Python": {
       "accepted_at": "2026-07-31T03:27:29.863870+00:00",
