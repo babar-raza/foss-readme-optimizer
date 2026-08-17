@@ -79,24 +79,26 @@ def test_agility_a_committed_registry_file_matches_a_fresh_derivation():
 def test_committed_registry_file_is_the_real_generated_artifact():
     assert SECTION_REGISTRY_PATH.is_file()
     registry = load_section_registry()
-    assert len(registry.entries) == 15
+    assert len(registry.entries) == 16
     assert registry.entry_by_id("license").heading == "License"
 
 
 def test_derive_discloses_real_unmapped_section_checks_not_silently_dropped():
     """Real, disclosed discrepancy: T3's vendored check registry has
-    section-scoped checks for headings ("Dependencies", "Project
-    Structure", the badge/banner "header" group) that do not correspond
-    to any slot in the live 14-slot contract. These must be surfaced, not
-    silently dropped from the registry."""
+    section-scoped checks for headings ("Project Structure", the
+    badge/banner "header" group) that do not correspond to any slot in
+    the live contract. These must be surfaced, not silently dropped from
+    the registry. ("Dependencies" checks mapped cleanly once the
+    "dependencies" slot was added -- see test_agility_a_committed_registry_
+    file_matches_a_fresh_derivation.)"""
 
     registry = derive_section_registry_from_live_contract()
 
     assert len(registry.unmapped_section_checks) > 0
-    assert any(
+    assert any("badge" in name or "banner" in name for name in registry.unmapped_section_checks)
+    assert not any(
         "dependency" in name or "dependencies" in name for name in registry.unmapped_section_checks
     )
-    assert any("badge" in name or "banner" in name for name in registry.unmapped_section_checks)
 
 
 # --- (b) adding a synthetic section: zero edits elsewhere -------------------

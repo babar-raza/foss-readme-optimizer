@@ -16,6 +16,7 @@ TemplateSlot = Literal[
     "at_a_glance",
     "key_capabilities",
     "installation",
+    "dependencies",
     "quick_start",
     "additional_examples",
     "api_reference",

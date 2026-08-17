@@ -18,7 +18,9 @@ from readme_agent.presentation.verified_template_capabilities import (
 from readme_agent.presentation.verified_template_provenance import build_template_provenance
 from readme_agent.presentation.verified_template_sections import (
     additional_examples_markdown,
+    dependency_markdown,
     development_markdown,
+    scenario_dependency_markdown,
 )
 from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.composition_lineage import build_composition_ledger
@@ -479,6 +481,107 @@ def test_canonical_compiler_h2_and_fact_renderer_h3_have_exact_lineage() -> None
         segment.authority == "unbound"
         and (segment.content_text.lstrip().startswith("#") or not segment.content_text.strip())
         for segment in ledger.segments
+    )
+
+
+def test_dependencies_section_receives_exact_h3_lineage_no_orphan_content() -> None:
+    facts = _facts()
+    dependency_source = facts.selected_fact("product.identity").source
+    additions = [
+        FactRecordV2(
+            fact_id=f"{field}:structural-lineage-test",
+            field=field,
+            value=value,
+            source=dependency_source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme.dependencies"],
+        )
+        for field, value in {
+            "python.distribution": {
+                "manifest_path": "pyproject.toml",
+                "runtime_dependencies": ["numpy>=1.24"],
+            },
+            "installation.capability_dependencies": {
+                "entries": [
+                    {
+                        "distribution": "pillow",
+                        "purpose": "raster export",
+                        "install_command": "python -m pip install pillow",
+                    }
+                ]
+            },
+        }.items()
+    ]
+    facts = facts.model_copy(
+        update={
+            "facts": [*facts.facts, *additions],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                **{fact.field: fact.fact_id for fact in additions},
+            },
+        }
+    )
+    required = dependency_markdown(facts)
+    optional = scenario_dependency_markdown(facts)
+    assert required and optional
+    dependencies_markdown = (
+        "### Required Package Dependencies\n\n"
+        + required
+        + "\n\n### Optional Dependencies\n\n"
+        + optional
+    )
+    base_sections = _template_input(facts).sections
+    ordered_sections = {}
+    for slot, content in base_sections.items():
+        ordered_sections[slot] = content
+        if slot == "installation":
+            ordered_sections["dependencies"] = _bound(
+                facts,
+                dependencies_markdown,
+                "python.distribution",
+                "installation.capability_dependencies",
+                standards=("readme.dependencies",),
+            )
+    template_input = _template_input(facts).model_copy(update={"sections": ordered_sections})
+    candidate = compile_repository_presentation(template_input)
+    provenance = build_template_provenance(candidate, template_input, facts)
+
+    expected = {
+        (heading.level, heading.title)
+        for heading in parse_headings(candidate)
+        if heading.level in {2, 3}
+    }
+    assert _covered_heading_titles(candidate, provenance) == expected
+    assert any(
+        item.provenance_id.startswith("template.structure.h3.dependencies") for item in provenance
+    )
+    dependencies_heading = next(
+        heading for heading in parse_headings(candidate) if heading.title == "Dependencies"
+    )
+    dependencies_start = len(candidate[: dependencies_heading.start].encode("utf-8"))
+    dependencies_end = len(candidate[: dependencies_heading.section_end].encode("utf-8"))
+    dependency_fact_ids = {
+        facts.selected_fact_ids["python.distribution"],
+        facts.selected_fact_ids["installation.capability_dependencies"],
+    }
+    dependency_claims = [
+        claim
+        for claim in assess_material_claims(candidate)
+        if dependencies_start <= claim.source_byte_start
+        and claim.source_byte_end <= dependencies_end
+    ]
+    assert dependency_claims
+    assert all(
+        any(
+            binding.candidate_byte_start <= claim.source_byte_start < binding.candidate_byte_end
+            and (
+                dependency_fact_ids & set(binding.fact_ids) or bool(binding.configured_standard_ids)
+            )
+            for binding in provenance
+        )
+        for claim in dependency_claims
     )
 
 

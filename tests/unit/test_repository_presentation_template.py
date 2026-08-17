@@ -1447,6 +1447,66 @@ def test_repository_enrichment_sections_render_only_selected_accepted_facts() ->
     assert "cryptography>=42" not in (dependency_markdown(blocked_facts) or "")
 
 
+def test_dependencies_section_renders_separately_from_installation() -> None:
+    source, facts, revision, plan = _verified_3d_inputs()
+    fact_source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://pyproject.toml",
+        source_revision=revision,
+    )
+    additions = [
+        FactRecordV2(
+            fact_id=f"{field}:test",
+            field=field,
+            value=value,
+            source=fact_source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+        for field, value in {
+            "python.distribution": {
+                "manifest_path": "pyproject.toml",
+                "runtime_dependencies": ["cryptography>=42", "asn1crypto>=1.5"],
+                "development_status": "Alpha",
+                "typed_classifier": True,
+                "typed_marker": {"path": "src/acme/py.typed", "sha256": HASH},
+            },
+            "installation.capability_dependencies": {
+                "entries": [
+                    {
+                        "distribution": "fastmcp",
+                        "purpose": "MCP server hosting",
+                        "install_command": "python -m pip install fastmcp",
+                    }
+                ]
+            },
+        }.items()
+    ]
+    facts = facts.model_copy(
+        update={
+            "facts": [*facts.facts, *additions],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                **{fact.field: fact.fact_id for fact in additions},
+            },
+        }
+    )
+
+    draft = build_verified_template_draft(facts, source, revision, plan)
+
+    dependencies = draft.sections["dependencies"].markdown
+    assert "### Required Package Dependencies" in dependencies
+    assert "cryptography>=42" in dependencies
+    assert "### Optional Dependencies" in dependencies
+    assert "python -m pip install fastmcp" in dependencies
+
+    installation = draft.sections["installation"].markdown
+    assert "cryptography>=42" not in installation
+    assert "python -m pip install fastmcp" not in installation
+
+
 def test_curated_repository_claims_receive_exact_fact_or_structural_provenance() -> None:
     facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
     source = FactSourceV2(
@@ -2104,6 +2164,7 @@ def test_product_facts_adapter_uses_the_same_structural_contract() -> None:
                 "Install the verified package described by repository evidence.",
                 "installation.verified_acquisition",
             ),
+            "dependencies": omit("No separately verified dependency facts."),
             "quick_start": include(
                 "Use the verified minimal example from the repository.",
                 "example.minimal",

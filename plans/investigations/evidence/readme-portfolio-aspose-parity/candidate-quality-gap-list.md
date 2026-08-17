@@ -24,23 +24,62 @@ Theirs: `D:\onedrive\...\aspose.org\reports\repo-presenter-regen-full\pdf\python
    it needs mechanical backing, so composition is probably trending toward the shortest claim that
    still passes rather than the most informative one. Worth confirming by checking whether a
    richer capability sentence was drafted and then trimmed, or never attempted.
-2. **No dedicated `## Dependencies` section.** Ours folds dependency info into prose inside
-   `## Installation` (a flat "Required runtime dependencies declared in pyproject.toml: ..."
-   sentence, plus an "Optional capability" bullet list with no explanation of what each extra
-   *does*). Theirs has a full dedicated section with `### Required Package Dependencies` /
-   `### Optional Dependencies` subheadings, each dependency getting its own bullet with a
-   one-clause explanation of what it enables (e.g. "`uharfbuzz` >=0.37 — enables the `text-layout`
-   extra (HarfBuzz-driven complex-text shaping)."). This is a structural, template-contract gap —
-   every real aspose.org candidate researched today has this section as its own H2.
-3. **API Method Index is nearly empty (3 methods) vs. aspose.org's comprehensive Detailed Member
-   Reference (grouped into ~7 functional areas).** Ours: `Document.load_from`, `Document.
+2. **FIXED 2026-08-17.** ~~No dedicated `## Dependencies` section.~~ Ours used to fold dependency
+   info into prose inside `## Installation` (a flat "Required runtime dependencies declared in
+   pyproject.toml: ..." sentence, plus an "Optional capability" bullet list with no explanation of
+   what each extra *does*). Theirs has a full dedicated section with `### Required Package
+   Dependencies` / `### Optional Dependencies` subheadings, each dependency getting its own bullet
+   with a one-clause explanation of what it enables (e.g. "`uharfbuzz` >=0.37 — enables the
+   `text-layout` extra (HarfBuzz-driven complex-text shaping)."). This was a structural,
+   template-contract gap — every real aspose.org candidate researched today has this section as
+   its own H2. **Fix**: added `"dependencies"` to `TemplateSlot` and `templates/readme/
+   repository-presentation-v1.json` (`section_order`/`headings`, `template_version` 1.19.0 →
+   1.20.0); `verified_template_draft.py` now composes `dependencies_section` from the
+   already-existing `dependency_markdown()` (required, from `python.distribution.
+   runtime_dependencies`) and `scenario_dependency_markdown()` (optional, from `installation.
+   capability_dependencies`/`installation.optional_extras`) into `### Required Package
+   Dependencies` / `### Optional Dependencies` subheadings under a dedicated `## Dependencies`
+   slot, instead of merging that text into `## Installation`; `verified_template_provenance.py`'s
+   independent verifier updated to match. No new fact extraction was needed — `python.distribution`
+   already carried the required-dependency list. Covered by a new regression test,
+   `test_dependencies_section_renders_separately_from_installation`, asserting the content now
+   lands in `draft.sections["dependencies"]` and no longer appears in `draft.sections
+   ["installation"]`. **Follow-on hardening found and fixed the same pass, mirroring the T5-R1
+   `api_method_index` precedent (commit `669a227a5`) exactly**: a new template slot isn't just a
+   renderer change — `verified_template_provenance.py`'s `_CLAIM_LEVEL_SLOTS` didn't include
+   `"dependencies"`, so its content would have silently skipped claim-accountability analysis
+   entirely (a real accountability regression vs. when the same text lived inside `installation`,
+   which is claim-level); added `"dependencies"` to `_CLAIM_LEVEL_SLOTS`, a canonical-reconstruction
+   branch in `_canonical_structural_section`, and the matching canonical-match fact-id fallback
+   (mirroring `additional_examples`'s). Separately, the committed `templates/readme/
+   section-registry-v2.json` (T14) hand-drifted from the live contract once the new slot existed;
+   regenerated via a new `scripts/retrofits/regenerate_section_registry_for_dependencies_slot.py`
+   (16 entries now; the 12 previously-`unmapped_section_checks` T3 dependency-heading checks —
+   `check_dependency_disposition_reconciliation` etc. — now map cleanly onto the new slot). New
+   regression test `test_dependencies_section_receives_exact_h3_lineage_no_orphan_content`
+   (mirroring the existing `test_canonical_compiler_h2_and_fact_renderer_h3_have_exact_lineage`)
+   proves the independent provenance verifier grounds every claim in the new section against real
+   accepted facts, not just that the composer renders the right text. Full unit suite (~3,890
+   tests) confirmed no new failures beyond the pre-existing, unrelated baseline (isolated via a
+   `git stash` before/after comparison, since one flaky order-dependent test made a naive full-run
+   diff misleading). **Attempted but blocked**: real end-to-end re-verification via
+   `--bounded-verified-canary` against `aspose-pdf-foss/Aspose-PDF-FOSS-for-Python` (AGENTS.md rule
+   15) — hit the pre-existing, already-documented `local_poc` origin-backed state-backend bug in a
+   new, concrete way (see the addendum in `local-poc-state-backend-uses-origin-not-local.md`,
+   "New concrete manifestation, 2026-08-18"); not worked around. Portfolio-wide coverage impact
+   also not yet measured, for the same reason.
+3. **API Method Index content is nearly empty (3 methods) vs. aspose.org's comprehensive Detailed
+   Member Reference (grouped into ~7 functional areas).** Ours: `Document.load_from`, `Document.
    open_streaming`, `PdfLoadLimits.unlimited` — three methods, no grouping. Theirs: a full
    per-area breakdown (Document Lifecycle, Pages And Content, Text Extraction And Editing, Forms
    And Annotations, Security And Signatures, Low-Code Plugins, Fonts) with real method signatures
    throughout. Given `detect_api_public_surface` (today's fix) already resolves real per-method
    data (`ApiSurfaceClassV1.methods`/`.properties`, confirmed populated in `composer_factpack.py`),
    this looks like a rendering/selection gap downstream of the fact, not a missing-data gap — the
-   presentation layer isn't yet drawing on the richer method data the fact now carries.
+   presentation layer isn't yet drawing on the richer method data the fact now carries. **Note**:
+   this is about content *richness* only — the section's *placement* as its own top-level H2 (as
+   opposed to nesting inside the collapsed API Reference block) is deliberate, tested design (see
+   correction under 3D-Python/Slides-Python below), not a gap.
 4. **Documentation and Resources is thin (2 bullets: API reference + issue link).** Real
    aspose.org candidates typically also link a getting-started guide and a how-to/FAQ page
    (`docs.aspose.org/pdf/python/`, `kb.aspose.org/pdf/python/`). Possibly correct-and-intentional
@@ -81,14 +120,19 @@ Theirs: `D:\onedrive\...\aspose.org\reports\repo-presenter-regen-full\pdf\python
 Ours: `runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153.../candidate/README.md`
 (current, generated 2026-08-17 during today's post-fix portfolio run, 98KB).
 
-Quick structural check against the same gap categories found in PDF-Python — **all three
-confirmed systemic, not a one-off**:
+Quick structural check against the same gap categories found in PDF-Python — **two of three
+confirmed systemic, one corrected as a false alarm**:
 
-- **No dedicated `## Dependencies` section** — section list jumps `## Installation` → `## Quick
-  Start` directly, same as PDF-Python. Not product-specific.
-- **`## API Method Index` exists as its own top-level section**, same structural pattern as
-  PDF-Python (aspose.org nests member-reference detail *inside* the collapsed API Reference block
-  instead of a separate top-level section).
+- **FIXED 2026-08-17 (was: no dedicated `## Dependencies` section)** — section list used to jump
+  `## Installation` → `## Quick Start` directly, same as PDF-Python. Not product-specific; see the
+  fix writeup under PDF-Python item 2 above.
+- **CORRECTED, not a gap: `## API Method Index` as its own top-level section.**
+  `verified_template_api_method_index.py`'s own docstring and the test
+  `test_api_reference_uses_complete_catalog_without_dumping_every_member_row` confirm the narrow,
+  maintainer-mentioned-methods-only scope and the separate top-level placement are both deliberate,
+  tested design — not an accidental deviation from aspose.org's nested-inside-API-Reference layout.
+  Struck from the gap list; the only real remaining API Method Index concern is content richness
+  (see PDF-Python item 3 above).
 - **Key Capabilities bullets are thin** — three consecutive one-line bold-lead bullets (e.g.
   "**Create 3D primitives including Box, Cylinder, Sphere...** - Build reusable scene geometry
   from the listed primitive types."), matching PDF-Python's pattern exactly.
@@ -109,12 +153,12 @@ its bar when there's no existing rich source text to anchor to.
 Quick structural check only (`runs/readme-poc/aspose-slides-foss__Aspose.Slides-FOSS-for-Python/
 ffaf6355.../candidate/README.md`, the last approved candidate before today's fresh upstream commit
 moved this repo to a new, currently-blocked revision — see the main final report). Same section
-list shape as the other two: `## Installation` → `## Quick Start` directly (**no `## Dependencies`
-section**), and **`## API Method Index` as its own top-level section**. Three for three — these two
-are confirmed pipeline-wide structural gaps, not product-specific noise, and the highest-confidence
-items on this list to fix first: both are template/rendering-layer issues (a missing section
-generator, and a section that should nest inside the existing API Reference collapsible instead of
-standing alone), not fact-availability or claim-accountability questions.
+list shape as the other two: `## Installation` → `## Quick Start` directly (**Dependencies gap,
+now FIXED 2026-08-17** — see PDF-Python item 2), and `## API Method Index` as its own top-level
+section (**corrected as intentional design, not a gap** — see 3D-Python above). Three for three on
+the Dependencies gap confirms it was pipeline-wide, not product-specific noise, and it was the
+highest-confidence, most tractable item on this list — a missing section generator, not a
+fact-availability or claim-accountability question.
 
 ## Next candidates to review (not yet done)
 

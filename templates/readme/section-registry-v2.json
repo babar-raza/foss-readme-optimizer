@@ -60,9 +60,31 @@
    "invalidation_scope": "section"
   },
   {
+   "id": "dependencies",
+   "heading": "Dependencies",
+   "order": 4,
+   "required": false,
+   "composer_binding": "deterministic_existing",
+   "section_checks": [
+    "check_dependencies_intro_contradiction",
+    "check_dependencies_scope_limitations_contradiction",
+    "check_dependency_dev_only_presented_as_runtime",
+    "check_dependency_direct_transitive_confusion",
+    "check_dependency_disposition_reconciliation",
+    "check_dependency_native_system_scope_limitations_placement",
+    "check_dependency_optional_presented_as_required",
+    "check_dependency_scope_claim_matches_evidence",
+    "check_dependency_section_manifest_corroboration",
+    "check_dependency_snapshot_completeness",
+    "check_dependency_version_pin_freshness"
+   ],
+   "ledger_obligations": [],
+   "invalidation_scope": "section"
+  },
+  {
    "id": "quick_start",
    "heading": "Quick Start",
-   "order": 4,
+   "order": 5,
    "required": true,
    "composer_binding": "deterministic_existing",
    "section_checks": [],
@@ -72,7 +94,7 @@
   {
    "id": "additional_examples",
    "heading": "Additional Examples",
-   "order": 5,
+   "order": 6,
    "required": false,
    "composer_binding": "deterministic_existing",
    "section_checks": [
@@ -84,7 +106,7 @@
   {
    "id": "api_reference",
    "heading": "API Reference",
-   "order": 6,
+   "order": 7,
    "required": false,
    "composer_binding": "deterministic_existing",
    "section_checks": [
@@ -100,7 +122,7 @@
   {
    "id": "api_method_index",
    "heading": "API Method Index",
-   "order": 7,
+   "order": 8,
    "required": false,
    "composer_binding": "deterministic_existing",
    "section_checks": [],
@@ -110,7 +132,7 @@
   {
    "id": "documentation_resources",
    "heading": "Documentation and Resources",
-   "order": 8,
+   "order": 9,
    "required": false,
    "composer_binding": "deterministic_existing",
    "section_checks": [],
@@ -120,7 +142,7 @@
   {
    "id": "scope_and_limitations",
    "heading": "Scope and Limitations",
-   "order": 9,
+   "order": 10,
    "required": true,
    "composer_binding": "deterministic_existing",
    "section_checks": [
@@ -135,7 +157,7 @@
   {
    "id": "development_and_testing",
    "heading": "Development and Testing",
-   "order": 10,
+   "order": 11,
    "required": false,
    "composer_binding": "deterministic_existing",
    "section_checks": [
@@ -148,7 +170,7 @@
   {
    "id": "contributing",
    "heading": "Contributing",
-   "order": 11,
+   "order": 12,
    "required": false,
    "composer_binding": "deterministic_existing",
    "section_checks": [],
@@ -158,7 +180,7 @@
   {
    "id": "security",
    "heading": "Security",
-   "order": 12,
+   "order": 13,
    "required": false,
    "composer_binding": "deterministic_existing",
    "section_checks": [],
@@ -168,7 +190,7 @@
   {
    "id": "third_party_notices",
    "heading": "Third-Party Notices",
-   "order": 13,
+   "order": 14,
    "required": false,
    "composer_binding": "deterministic_existing",
    "section_checks": [],
@@ -178,7 +200,7 @@
   {
    "id": "license",
    "heading": "License",
-   "order": 14,
+   "order": 15,
    "required": true,
    "composer_binding": "deterministic_existing",
    "section_checks": [
@@ -198,17 +220,6 @@
   "check_badge_static_claims_dynamic_fact",
   "check_banner_links_to_homepage",
   "check_banner_present",
-  "check_dependencies_intro_contradiction",
-  "check_dependencies_scope_limitations_contradiction",
-  "check_dependency_dev_only_presented_as_runtime",
-  "check_dependency_direct_transitive_confusion",
-  "check_dependency_disposition_reconciliation",
-  "check_dependency_native_system_scope_limitations_placement",
-  "check_dependency_optional_presented_as_required",
-  "check_dependency_scope_claim_matches_evidence",
-  "check_dependency_section_manifest_corroboration",
-  "check_dependency_snapshot_completeness",
-  "check_dependency_version_pin_freshness",
   "check_project_structure_canonical_tree_format"
  ]
 }

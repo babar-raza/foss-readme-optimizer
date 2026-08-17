@@ -477,11 +477,13 @@ def build_verified_template_draft(
         # install path out of the README (it lands in the upstream defect log).
         installation = source_tree_installation_text(facts)
     scenario_dependencies = scenario_dependency_markdown(facts, source_text=source_text)
-    if installation is not None and scenario_dependencies:
-        installation += "\n\n" + scenario_dependencies
-    dependencies = dependency_markdown(facts)
-    if installation is not None and dependencies:
-        installation += "\n\n" + dependencies
+    required_dependencies = dependency_markdown(facts)
+    dependencies_parts = []
+    if required_dependencies:
+        dependencies_parts.append("### Required Package Dependencies\n\n" + required_dependencies)
+    if scenario_dependencies:
+        dependencies_parts.append("### Optional Dependencies\n\n" + scenario_dependencies)
+    dependencies_section = "\n\n".join(dependencies_parts) or None
     example = example_text(facts, source_revision)
     example_standards = ["readme.primary_example"]
     example_fields = ["example.minimal"]
@@ -548,6 +550,16 @@ def build_verified_template_draft(
     contributing = contributing_markdown(facts)
     security = security_markdown(facts)
     optional_sections = {
+        "dependencies": (
+            dependencies_section,
+            _accepted_fields(
+                facts,
+                "python.distribution",
+                "installation.capability_dependencies",
+                "installation.optional_extras",
+            ),
+            ("readme.dependencies",),
+        ),
         "additional_examples": (
             (
                 examples_markdown := additional_examples_markdown(
@@ -651,19 +663,6 @@ def build_verified_template_draft(
                     or ("product.identity", *_accepted_fields(facts, "api.public_surface"))
                 ),
                 *_accepted_fields(facts, "product.compatibility"),
-                *(
-                    _accepted_fields(
-                        facts,
-                        "installation.optional_extras",
-                        "installation.capability_dependencies",
-                    )
-                    if scenario_dependencies
-                    else []
-                ),
-                *_accepted_fields(
-                    facts,
-                    *(("python.distribution",) if dependencies else ()),
-                ),
                 standards=("readme.verified_acquisition",),
             ),
             "quick_start": (

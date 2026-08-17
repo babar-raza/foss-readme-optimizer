@@ -82,3 +82,45 @@ in `commands_supervision.py` to construct `default_local_poc_state_backend()` wh
 a regression test proving no `git push`/`fetch` against this repository's real `origin` occurs
 during a `local_poc` run (e.g. by monkeypatching the git-command runner and asserting the remote
 argument is always the local bare-repo path, never `origin`).
+
+## New concrete manifestation, 2026-08-18: blocks bounded-verified-canary re-verification itself
+
+Hit directly while trying to follow AGENTS.md rule 15 to verify the Dependencies-section template
+fix (new `"dependencies"` slot, `template_version` 1.19.0 -> 1.20.0) against a real repo via
+`readme-agent supervise --repo aspose-pdf-foss/Aspose-PDF-FOSS-for-Python --bounded-verified-canary
+--execution-profile local_poc --mission-task-id L8-PORT-01-...`. Three consecutive canary attempts,
+each preceded by an explicit `--mission-task-graph ... --mission-action claim --mission-observer
+readme-agent-supervisor` (confirmed `exit 0`, clean status output, no error), still failed the very
+next canary invocation with `error: task '...' is claimed by 'dependencies-section-fix-canary', not
+observer 'readme-agent-supervisor'` — a claim owner from hours earlier in the same session that a
+demonstrably-successful local reclaim never displaced.
+
+Root cause, confirmed by direct code read: `commands_supervision.py::_force_durable_state_backend()`
+(the function `--repo ... --bounded-verified-canary` actually calls) constructs
+`default_state_backend()` — `git_backend.py`'s real-`origin`-backed backend — exactly the same
+function this whole document is about. `--mission-task-graph ... --mission-action claim` is a
+*different* code path (`mission_command.py`) that never touches this backend at all; it mutates the
+task-graph's own local state independently. The two claim concepts are stored in unrelated places:
+one purely local and always fresh, the other read through `origin` and only as fresh as this
+session's last successful `git push`/`fetch` to its own state refs — which, since this session never
+pushes (a standing, correctly-enforced safety rule), can silently keep serving whatever was fetched
+hours ago no matter how many times the local-only claim path reports success.
+
+**Consequence**: a single-repo canary re-verification of a real code fix — precisely the mechanism
+AGENTS.md rule 15 exists to route agents *through*, instead of ad-hoc scripts — can be silently
+blocked by this bug in a way indistinguishable, from the CLI's own output, from "someone else has
+this task claimed." An agent following rule 15 correctly can still fail to get real end-to-end
+proof, through no fault of the code fix being verified. This session did not attempt a workaround
+(e.g. forcing the claim via a different mechanism, or bypassing the canary) — that would repeat
+exactly the anti-pattern rule 15 exists to prevent. Instead it fell back to the next-most-rigorous
+available verification: the real, non-mocked production functions (`build_verified_template_draft`,
+`build_template_provenance`) exercised directly by the unit-test suite, including a new full-assembly
+regression test and a new claim-accountability/structural-lineage regression test — genuine coverage
+of the actual changed code paths, just not proof that the full governed CLI pipeline currently
+produces the same result end-to-end for a live repo.
+
+This raises the priority of the fix described above: until `commands_supervision.py` stops depending
+on `origin` for `local_poc` state, **no session can reliably re-verify a fix via
+`--bounded-verified-canary` after its mission claim has been touched by any earlier
+`--mission-task-graph`-only action in the same session** — a real, now twice-independently-confirmed
+gap between the two claim mechanisms, not a one-off flake.

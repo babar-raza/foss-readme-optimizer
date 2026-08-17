@@ -56,6 +56,7 @@ _CLAIM_LEVEL_SLOTS = {
     "api_reference",
     "api_method_index",
     "contributing",
+    "dependencies",
     "development_and_testing",
     "installation",
     "key_capabilities",
@@ -98,6 +99,15 @@ def _canonical_structural_section(
         markdown = api_reference_markdown(facts)
     elif slot == "development_and_testing":
         markdown = development_markdown(facts)
+    elif slot == "dependencies":
+        parts = []
+        required = dependency_markdown(facts)
+        if required:
+            parts.append("### Required Package Dependencies\n\n" + required)
+        optional = scenario_dependency_markdown(facts, source_text=source_text)
+        if optional:
+            parts.append("### Optional Dependencies\n\n" + optional)
+        markdown = "\n\n".join(parts) or None
     else:
         return None
     return (
@@ -304,12 +314,6 @@ def build_template_provenance(
                     template_input.source_revision,
                 ) or source_tree_installation_text(facts)
                 if canonical_installation is not None:
-                    scenario = scenario_dependency_markdown(facts, source_text=source_text)
-                    if scenario:
-                        canonical_installation += "\n\n" + scenario
-                    runtime_dependencies = dependency_markdown(facts)
-                    if runtime_dependencies:
-                        canonical_installation += "\n\n" + runtime_dependencies
                     installation_slot_canonical = canonical_installation.strip() == text.strip()
                 verified_installation = installation_text(
                     facts,
@@ -386,7 +390,7 @@ def build_template_provenance(
                 if installation_claim:
                     fact_ids = sorted({*fact_ids, *verified_installation_fact_ids})
                 if slot == "installation" and not fact_ids and installation_slot_canonical:
-                    # Scenario-merged dependency rows are rendered verbatim by the
+                    # The remaining installation prose is rendered verbatim by the
                     # deterministic installation builder from these accepted facts.
                     fact_ids = list(content.fact_ids)
                 if (
@@ -394,6 +398,8 @@ def build_template_provenance(
                     and not fact_ids
                     and canonical_structural_section_matches
                 ):
+                    fact_ids = list(content.fact_ids)
+                if slot == "dependencies" and not fact_ids and canonical_structural_section_matches:
                     fact_ids = list(content.fact_ids)
                 if slot == "scope_and_limitations" and not fact_ids:
                     limitations_fact_id = facts.selected_fact_ids.get("product.limitations")
