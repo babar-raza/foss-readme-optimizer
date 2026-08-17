@@ -2773,7 +2773,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "e40ae48813e76ae9bedaf9a7d69b3697dd84bd62b16204fcca226fed86992bee",
       "accepted_status": "NO_CHANGE",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -3902,6 +3902,19 @@
             }
           ],
           "review_call_count": 1
+        },
+        "last_failure_envelope": {
+          "attempt": 1,
+          "domain": "readme_presentation",
+          "error_type": "blocked",
+          "facts_hash": "962df6a04d61f5f4a0af184ab57b594f60e67c85a238c370731cb0fc38cbcebe",
+          "failure_reason": "presentation_plan",
+          "fresh_fingerprint": "9dafc0d027ec31b6e6d7d1d5dd55aed16f7fac365ad83a5165cd869c91084a56",
+          "message": "['mandatory_claim_replacements_have_exact_provenance failed']",
+          "occurred_at": "2026-08-17T06:44:49.601259+00:00",
+          "schema_version": 1,
+          "source_revision": "26c3bd1633e84b91c0f6fad1fd353662fd61fb54",
+          "stage": "document_validation"
         },
         "llm_called": false,
         "llm_calls": [],
@@ -19720,9 +19733,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-12T14:13:38.422155+00:00",
+      "last_run_timestamp": "2026-08-17T06:44:49.602336+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "1139a9a90280783cd91a7d3747adfdaa97a9cb47"
@@ -21591,7 +21604,7 @@
     "updated_at": "2026-08-17T06:42:05.247063+00:00"
   },
   "schema_version": 2,
-  "state_version": 551,
+  "state_version": 552,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "cc7b2aa6160fd37441a22512ed4d8e9909ea0782919a099f68204c88b4c58049",
