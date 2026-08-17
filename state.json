@@ -16824,7 +16824,7 @@
   "readme_poc_lifecycle": {
     "assessment_hash": "c7d0980df4e86d88231651215669a822a9aa01cfb5262611040d13258ea4a5ea",
     "assurance_history": [],
-    "candidate_hash": null,
+    "candidate_hash": "240f7ae5ede5f380ea8d16667ba25a1345286cd76bf69ecdc357f53861fc1f6d",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -17519,6 +17519,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\841e85fa55251d1ba98c\\r\\c30d68f488692d90\\s\\4473f8cbeef1\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-words-foss__Aspose.Words-FOSS-for-Python\\4473f8cbeef1a65961adc7de304d982ada53a1dd\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-17T07:47:30.446115+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "human_acceptance_history": [],
@@ -17575,11 +17587,11 @@
     "reviewer_standard_hash": "0ccb5304729e9ec918dea73ec13787912187782dd50b8296d0d9cb9f40a6da38",
     "schema_version": 2,
     "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
-    "status": "PLAN_READY",
-    "updated_at": "2026-08-17T07:47:24.445416+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-08-17T07:47:30.446115+00:00"
   },
   "schema_version": 2,
-  "state_version": 209,
+  "state_version": 210,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28b6eb6ac83e14c637db7804b6dbc47dcf4b35ef760e130b8644bc92031ca608",
