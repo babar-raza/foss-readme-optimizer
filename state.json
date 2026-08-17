@@ -555,16 +555,24 @@
         "schema_version": 1,
         "source_revision": "cabbb9d8ba2067854f7cb3dcdc4acfeec849747b",
         "source_revision_resolved": true
+      },
+      {
+        "attempt": 1,
+        "dedup_key": "99ade14b8c6a43bba22caa87933ff2e875b0801423f52f5930269bfdc6a21e5d",
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-TypeScript\\fc186507e5b7124f4664aa6035f25cfd3112367d\\intake\\receipts\\99ade14b8c6a43bb-a1.json"
+        ],
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-17T05:38:12.865997+00:00",
+        "outcome": "READY_FAST_PATH",
+        "reason": "the existing README is structurally substantial; preserve-first proof may attempt a byte-identical candidate, but facts and independent approval remain mandatory",
+        "result_hash": "bb7999bcc998fdbc85105a5d5b507d5b5edb2afde24ec937d6648620a53c4c20",
+        "schema_version": 1,
+        "source_revision": "fc186507e5b7124f4664aa6035f25cfd3112367d",
+        "source_revision_resolved": true
       }
     ],
-    "intake_preflight_pending": {
-      "attempt": 1,
-      "dedup_key": "99ade14b8c6a43bba22caa87933ff2e875b0801423f52f5930269bfdc6a21e5d",
-      "schema_version": 1,
-      "source_revision": "fc186507e5b7124f4664aa6035f25cfd3112367d",
-      "source_revision_resolved": true,
-      "started_at": "2026-08-17T05:37:58.488970+00:00"
-    },
+    "intake_preflight_pending": null,
     "presentation_plan_hash": null,
     "presentation_validity": {
       "available_component_manifest_hash": null,
@@ -601,10 +609,10 @@
     "schema_version": 2,
     "source_revision": "cabbb9d8ba2067854f7cb3dcdc4acfeec849747b",
     "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-08-17T05:37:58.488983+00:00"
+    "updated_at": "2026-08-17T05:38:12.866009+00:00"
   },
   "schema_version": 2,
-  "state_version": 48,
+  "state_version": 49,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "38e8e913956341f4407c728a26eeaf5638141b622cca1a73ebcd2e254e611afc",
