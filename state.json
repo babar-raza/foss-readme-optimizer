@@ -1635,6 +1635,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260726-043651-1d79:aspose-3d-foss/Aspose.3D-FOSS-for-.NET"
     },
+    "54145071a0b1853f5499c3bfaf7462f0286baab0e77e9e0dc790b43dd1a4aafb": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "54145071a0b1853f5499c3bfaf7462f0286baab0e77e9e0dc790b43dd1a4aafb",
+      "completed_at": "2026-08-17T10:30:30.796128+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "265ee77fd618139d2234ee178e673383326d2327eebcf160b719e27200b342bc",
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "run_id": "20260817-102935-0f92",
+      "schema_version": 1,
+      "stage": "snapshot_captured",
+      "started_at": "2026-08-17T10:30:30.796120+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260802-200914-7978:aspose-3d-foss/Aspose.3D-FOSS-for-.NET"
+    },
     "5418aa3496491dfb066da8971d7e13ecbe41a6ef34307649453129898342e1fe": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -19076,7 +19093,7 @@
     "updated_at": "2026-08-17T07:53:14.808785+00:00"
   },
   "schema_version": 2,
-  "state_version": 927,
+  "state_version": 928,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "cd37318953dd004c480891b5a347023a04f0b243f6c6e1e3f4cb32ca20fa2465",
@@ -19733,11 +19750,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "eb293789b26565081f75fe40b67564fe6bafb6ee544f885daeecfeef8b17dcef",
+      "last_checkpoint_id": "54145071a0b1853f5499c3bfaf7462f0286baab0e77e9e0dc790b43dd1a4aafb",
       "lease_expires_at": "2026-08-17T10:44:50.098295+00:00",
       "recovery_count": 3,
       "status": "processing",
-      "updated_at": "2026-08-17T10:29:56.427470+00:00"
+      "updated_at": "2026-08-17T10:30:30.796128+00:00"
     },
     "operator:20260802-202743-89ea:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T20:27:47.695774+00:00",
