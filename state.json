@@ -118932,7 +118932,7 @@
     "updated_at": "2026-08-17T16:38:12.726489+00:00"
   },
   "schema_version": 2,
-  "state_version": 2466,
+  "state_version": 2467,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
@@ -119939,13 +119939,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:LLMError: forced tool call returned an invalid structured response after 1 attempts: forced tool call arguments were not valid JSON: Unterminated string starting at: line 84 column 30 (char 7128); finish_reason='length'; completion_tokens=4000",
       "last_checkpoint_id": "76d4493297d4b7f2f0075e6d5c146823b28d4a290b2b85a6cfcc869b58af1bc7",
-      "lease_expires_at": "2026-08-17T16:45:03.703539+00:00",
+      "lease_expires_at": null,
       "recovery_count": 3,
-      "status": "processing",
-      "updated_at": "2026-08-17T16:39:39.153075+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-17T16:40:06.741049+00:00"
     },
     "operator:20260805-190652-35e1:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-08-05T19:07:02.528330+00:00",
