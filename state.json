@@ -218,6 +218,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260804-113214-6ef3:aspose-slides-foss/Aspose.Slides-FOSS-for-.NET"
     },
+    "da7720ac88fa7d745e92a32c586ecb1aea168573ee223f009ea1983e698f8e0a": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "da7720ac88fa7d745e92a32c586ecb1aea168573ee223f009ea1983e698f8e0a",
+      "completed_at": "2026-08-17T10:53:08.047961+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "cd27ffd2eee26a2f6462c1ecdb60055dee265041e266ec483e4b2806d0050443",
+      "repository": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
+      "run_id": "20260817-105219-cbb5",
+      "schema_version": 1,
+      "stage": "snapshot_captured",
+      "started_at": "2026-08-17T10:53:08.047953+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260804-113214-6ef3:aspose-slides-foss/Aspose.Slides-FOSS-for-.NET"
+    },
     "e1d196cfa999c46177d910c0543ff3b166fb95a2ed6ad87ea396244e97a15cb8": {
       "action": null,
       "attempt": 1,
@@ -1074,7 +1091,7 @@
     "updated_at": "2026-08-17T08:18:41.604566+00:00"
   },
   "schema_version": 2,
-  "state_version": 95,
+  "state_version": 96,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7d3c65b4cae3a1974a0ee0a54c5bfe933a462906f3a9a905239e9bb4fd15200b",
@@ -1181,11 +1198,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "ffc0be55adcc0bba96f47dcda1c0b34572a8129f80d7ec359e1f35a0244c041e",
+      "last_checkpoint_id": "da7720ac88fa7d745e92a32c586ecb1aea168573ee223f009ea1983e698f8e0a",
       "lease_expires_at": "2026-08-17T11:07:32.884270+00:00",
       "recovery_count": 2,
       "status": "processing",
-      "updated_at": "2026-08-17T10:52:38.053074+00:00"
+      "updated_at": "2026-08-17T10:53:08.047961+00:00"
     },
     "operator:20260804-163232-8344:aspose-slides-foss/Aspose.Slides-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T16:32:38.759428+00:00",
