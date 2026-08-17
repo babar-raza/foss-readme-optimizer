@@ -2450,81 +2450,22 @@
     },
     "presentation_benchmarking": {
       "accepted_facts_hash": "bee888f251cd38ff41a5a67e138c982e866886fad8eaf57098ed224736df91d7",
-      "accepted_status": "CHANGED",
+      "accepted_status": "NO_CHANGE",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "criteria_results": [
-          {
-            "dimension": "product_clarity",
-            "note": "The opening paragraph clearly states what the product does using a concrete verb ('create, load, modify, and save') and specifies the platform (Java) and file format (Excel .xlsx).",
-            "satisfied": true
-          },
-          {
-            "dimension": "audience_fit",
-            "note": "The opening paragraph explicitly names the target audience (Java developers), platform (Java), format (Excel .xlsx), and common tasks (create, load, modify, save), satisfying audience fit.",
-            "satisfied": true
-          },
-          {
-            "dimension": "trust_signals",
-            "note": "The README includes a visible, GitHub-recognized MIT license badge, Maven Central badge, platform badge, and contributor badge \u2014 all aligning with top trust signals.",
-            "satisfied": true
-          },
-          {
-            "dimension": "installation_path",
-            "note": "The install section provides real Maven Central coordinates (`org.aspose:aspose-cells-foss`) and explicitly confirms verification against Maven Central, satisfying the requirement for a working, external registry path.",
-            "satisfied": true
-          },
-          {
-            "dimension": "verified_examples",
-            "note": "Beyond the install snippet, the 'Quick start' section includes a complete, runnable Java example with no comments or docstrings, and the code is syntactically valid and self-contained.",
-            "satisfied": true
-          },
-          {
-            "dimension": "navigation",
-            "note": "The README uses consistent `##` headers, includes a clear table of contents, and sequences product understanding (description, capabilities, scope) before reference/legal content (license), matching the sequencing intent of leading FOSS.",
-            "satisfied": true
-          },
-          {
-            "dimension": "visual_usefulness",
-            "note": "The Mermaid flowchart illustrates the actual input \u2192 transformation \u2192 output workflow (XLSX in \u2192 processing \u2192 XLSX out), directly supporting understanding of the product\u2019s function \u2014 not decorative.",
-            "satisfied": true
-          },
-          {
-            "dimension": "contribution_readiness",
-            "note": "The README includes a LICENSE file reference and badge, and GitHub's community-files quick-link row would show LICENSE (and README) \u2014 satisfying the highest-priority gate of license recognition.",
-            "satisfied": true
-          },
-          {
-            "dimension": "maintenance_signals",
-            "note": "The README does not claim maintenance status, and the presence of a specific version (26.7.0) and active GitHub repo implies current maintenance \u2014 consistent with structural signals rather than prose claims.",
-            "satisfied": true
-          },
-          {
-            "dimension": "natural_commercial_context",
-            "note": "The commercial mention appears exactly once, in factual language under 'Scope and limitations', clarifying separation from the Enterprise Edition without promotional language, pricing, or repeated calls-to-action.",
-            "satisfied": true
-          }
-        ],
-        "input_sha256": "d52a36cb7471dfe046f92076a541d894cec3160bdbf4476e827ca74c86b7c7bf",
-        "input_source": "candidate_text",
-        "overall_summary": "The README fully satisfies all ten dimensions of the presentation standard: it leads with clear product description and audience fit, includes all key trust and installation signals, provides verified examples, uses appropriate navigation and visuals, and presents the commercial context restraintfully and accurately.",
-        "structural_consistency": {
-          "contradictions": [],
-          "valid": true
-        },
-        "structural_observations": {
-          "ci_badge_count": 0,
-          "has_mermaid": true
-        }
+        "status": "DEFERRED_UPSTREAM_FAILURE",
+        "upstream_domain": "readme_presentation",
+        "upstream_failure_reason": "presentation_plan",
+        "upstream_status": "CHANGED"
       },
       "domain": "presentation_benchmarking",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-03T03:30:21.306024+00:00",
+      "last_run_timestamp": "2026-08-17T08:51:10.981407+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
+      "upstream_revision_at_accept": "779c9640ee38ed9e80c53e8db1e850f6be24372f"
     },
     "readme_presentation": {
       "accepted_facts_hash": "0f92d19afe39a61c881b6c2def168dbe0e7c0eb51eb19b97937cb9c96d938c8b",
@@ -19678,7 +19619,7 @@
     "updated_at": "2026-08-17T08:46:53.092070+00:00"
   },
   "schema_version": 2,
-  "state_version": 570,
+  "state_version": 571,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9cd0549ecaa6236177de592870474ee588b61f852b68127d58288134b841f720",
