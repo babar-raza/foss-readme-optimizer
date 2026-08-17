@@ -190,6 +190,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260807-233134-563c:aspose-page-foss/Aspose.Page-FOSS-for-Python"
     },
+    "04fe9156f62551b8ca5f53fda47b32583e7b2901c6f3c161e701baf31cb75629": {
+      "action": "independent_verification",
+      "attempt": 1,
+      "checkpoint_id": "04fe9156f62551b8ca5f53fda47b32583e7b2901c6f3c161e701baf31cb75629",
+      "completed_at": "2026-08-17T07:17:37.597863+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "e52ae3810968ee2ebba0eef4f1acc7ede6cdf24be6b238a4c084b651220cfe59",
+      "repository": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+      "run_id": "20260817-071041-85aa",
+      "schema_version": 1,
+      "stage": "verifier_result",
+      "started_at": "2026-08-17T07:17:37.597854+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260731-030730-f8af:aspose-page-foss/Aspose.Page-FOSS-for-Python"
+    },
     "05ae57be7ebf86b9d3e2a6cce412ca93ede0a55bf8b843c5c198f9b6ef20963a": {
       "action": null,
       "attempt": 1,
@@ -34537,7 +34554,7 @@
     "updated_at": "2026-08-17T07:13:28.522665+00:00"
   },
   "schema_version": 2,
-  "state_version": 2316,
+  "state_version": 2317,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "02f1464939957d528b7f6931a0ad36cb389e712ac509ae9e9a34ff326799347d",
@@ -34741,11 +34758,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "70fc97eda201321735fb15cf82573124427de6d78e00fd9a049ce923ae84e9cb",
+      "last_checkpoint_id": "04fe9156f62551b8ca5f53fda47b32583e7b2901c6f3c161e701baf31cb75629",
       "lease_expires_at": "2026-08-17T07:25:55.862675+00:00",
       "recovery_count": 6,
       "status": "processing",
-      "updated_at": "2026-08-17T07:13:36.881932+00:00"
+      "updated_at": "2026-08-17T07:17:37.597863+00:00"
     },
     "operator:20260731-032726-32e0:aspose-page-foss/Aspose.Page-FOSS-for-Python": {
       "accepted_at": "2026-07-31T03:27:29.863870+00:00",
