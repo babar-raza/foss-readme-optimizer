@@ -1685,16 +1685,24 @@
         "schema_version": 1,
         "source_revision": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
         "source_revision_resolved": true
+      },
+      {
+        "attempt": 1,
+        "dedup_key": "6308084a545bacaf756c4f7da1c011b550cc8bc5ff9a9a58b1f96928d04fbc84",
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-html-foss__Aspose.HTML-FOSS-for-Python\\912f0ae078b5418226a51de08539bc591547682e\\intake\\receipts\\6308084a545bacaf-a1.json"
+        ],
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-17T05:43:11.261338+00:00",
+        "outcome": "READY_FAST_PATH",
+        "reason": "the existing README is structurally substantial; preserve-first proof may attempt a byte-identical candidate, but facts and independent approval remain mandatory",
+        "result_hash": "bac47c92c2185c31e280d7185a6509d40f870d58d33ce0186487b00c3b67f90d",
+        "schema_version": 1,
+        "source_revision": "912f0ae078b5418226a51de08539bc591547682e",
+        "source_revision_resolved": true
       }
     ],
-    "intake_preflight_pending": {
-      "attempt": 1,
-      "dedup_key": "6308084a545bacaf756c4f7da1c011b550cc8bc5ff9a9a58b1f96928d04fbc84",
-      "schema_version": 1,
-      "source_revision": "912f0ae078b5418226a51de08539bc591547682e",
-      "source_revision_resolved": true,
-      "started_at": "2026-08-17T05:42:56.622358+00:00"
-    },
+    "intake_preflight_pending": null,
     "presentation_plan_hash": null,
     "presentation_validity": {
       "available_component_manifest_hash": null,
@@ -1731,10 +1739,10 @@
     "schema_version": 2,
     "source_revision": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
     "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-08-17T05:42:56.622370+00:00"
+    "updated_at": "2026-08-17T05:43:11.261349+00:00"
   },
   "schema_version": 2,
-  "state_version": 146,
+  "state_version": 147,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1276603134:29d1e8f3e3b0b5f99ada37c79c4faea680c543cb006b5e3015e552bc84a97346": {
