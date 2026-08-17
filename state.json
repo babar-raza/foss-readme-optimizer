@@ -14,6 +14,23 @@
     }
   ],
   "checkpoints": {
+    "3dc674a5de5c1a46ebe7eddea667b229ad6591d24ada51c0e3bf580e7f22f11c": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "3dc674a5de5c1a46ebe7eddea667b229ad6591d24ada51c0e3bf580e7f22f11c",
+      "completed_at": "2026-08-17T11:23:53.722599+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "3f6d3dc145e99aaf0f317deaf629c5c8ce7f58f54e7ac9697997f3924d9304f5",
+      "repository": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+      "run_id": "20260817-112302-124c",
+      "schema_version": 1,
+      "stage": "snapshot_captured",
+      "started_at": "2026-08-17T11:23:53.722591+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260817-085841-8d81:aspose-email-foss/Aspose.Email-FOSS-for-Cpp"
+    },
     "4eab7dfe16166adea10a7cc97730eed587f178fe1818670a5f56b58c27d65c2f": {
       "action": null,
       "attempt": 1,
@@ -757,7 +774,7 @@
     "updated_at": "2026-08-17T09:00:05.424561+00:00"
   },
   "schema_version": 2,
-  "state_version": 58,
+  "state_version": 59,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a8841a5dcef7c6ebac09690e95e658cace15e994f8fdf8579387b0e377ee17a7",
@@ -911,11 +928,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "581341a9c33a34597ed2ad3487050a32853444c866c979474ac1116c92aec759",
+      "last_checkpoint_id": "3dc674a5de5c1a46ebe7eddea667b229ad6591d24ada51c0e3bf580e7f22f11c",
       "lease_expires_at": "2026-08-17T11:38:16.385647+00:00",
       "recovery_count": 1,
       "status": "processing",
-      "updated_at": "2026-08-17T11:23:22.025634+00:00"
+      "updated_at": "2026-08-17T11:23:53.722599+00:00"
     }
   },
   "trigger_records": {},
