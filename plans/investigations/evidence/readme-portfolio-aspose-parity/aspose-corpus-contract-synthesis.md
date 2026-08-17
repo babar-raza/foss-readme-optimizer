@@ -123,11 +123,40 @@ Concretely, this means:
   PDF-Python, Slides-Python, Words-Python — all Python) never had this obligation fail, precisely
   because Python is the one platform with a real detector.
 
-**This is the primary, honest reason the local portfolio currently produces 4-5/33 candidates instead
-of parity with aspose.org's full-coverage corpus.** Closing it requires building per-language
-API-surface extraction (5-6 new detectors: .NET/Java/C++/Go/Rust/TypeScript), which is a substantial,
-multi-detector engineering effort — correctly out of scope for a single hardening pass, and flagged
-here as the concrete next-step work item rather than attempted as a quick patch.
+**Update, same day:** this turned out not to need 5-6 new per-language detectors after all. The
+real, per-language ground truth (`scripts/pipeline/extraction/scout.py`'s output,
+`knowledge/{family}/{platform}/merged/api_surface.json`) was already imported into this repo's own
+`data/imported/knowledge/` tree by an earlier session (T1A/T1B, commit `3e3fd55fb6`) for all 31
+needed family/platform pairs — it had simply never been wired to a fact detector. Added
+`detect_api_public_surface` (`aspose_detectors.py`) to read it directly, wired into
+`composer_factpack.py`'s `aspose_fact_records` under the canonical `api.public_surface` field (the
+same field Python's own separate AST extractor already populates).
+
+Getting this to actually take effect in a **real, governed** run (not just a standalone capability
+call) surfaced three further, real, independent bugs, each fixed and regression-tested the same
+day:
+1. **Preflight (`preflight/runner.py`)**: `GET /user`'s identity check was a hard, unconditional
+   gate even though it proves nothing about real repo/LLM access (`check_repo` does that,
+   independently, per repo). A real GitHub-wide outage that specifically degraded `/user` was
+   blocking every local, no-push run all day even though real repo and LLM access stayed healthy
+   throughout. Fixed: `ok` no longer requires `identity.ok`.
+2. **Repository-scope tokens (mission task graph)**: `L8-PORT-01`'s own `execution_focus.
+   repository_scope` used an invented `platform:cross-platform` wildcard token that
+   `mission_execution_guard.py` has no concept of — it matched nothing, ever. Fixed to list the
+   registry's real, literal platform values.
+3. **Fact-recollection tracking (`acceptance_contract.py`)**: `aspose_detectors.py`/
+   `composer_factpack.py` appeared in no `_COMPONENT_FILES` category, so a cached facts snapshot
+   from before the `api.public_surface` fix never got invalidated by it — a governed canary run
+   still hit the exact crash the fix was supposed to close, using stale cached facts. Fixed by
+   adding both files to the existing `root_role_selection` component (the same category Python's
+   sibling detector already lives in).
+
+With all three fixed, the same real governed canary
+(`aspose-cells-foss/Aspose.Cells-FOSS-for-.NET`) confirmed the crash is gone: it now progresses
+past `api_public_surface` entirely and lands on the claim-accountability gate (§ see the sibling
+`claim-accountability-blocking-analysis.md`) — the same legitimate safety category other repos
+already hit, not a bug. A full-portfolio run to measure the real coverage-count impact follows this
+update.
 
 ## 5. Cross-reference: the plan's own account (`aspose-plan-synthesis.md`)
 
