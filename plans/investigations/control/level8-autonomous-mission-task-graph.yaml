@@ -892,7 +892,13 @@ taskcards:
     immediate_outcome: Reconcile the isolated freshness-service branch into governed state and resume
       its proven work through the current supervisor.
     repository_scope:
-    - platform:cross-platform
+    - platform:net
+    - platform:python
+    - platform:java
+    - platform:cpp
+    - platform:go
+    - platform:rust
+    - platform:typescript
     allowed_change_classes:
     - shared_code
     - repository_runtime
@@ -999,7 +1005,13 @@ taskcards:
     immediate_outcome: Raise the local_poc portfolio from 4/33 to every achievable candidate, matching
       the proven Aspose.org presentation and provenance contract.
     repository_scope:
-    - platform:cross-platform
+    - platform:net
+    - platform:python
+    - platform:java
+    - platform:cpp
+    - platform:go
+    - platform:rust
+    - platform:typescript
     allowed_change_classes:
     - shared_code
     - repository_runtime
