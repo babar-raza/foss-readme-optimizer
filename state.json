@@ -18889,7 +18889,7 @@
     "updated_at": "2026-08-17T05:28:33.649841+00:00"
   },
   "schema_version": 2,
-  "state_version": 899,
+  "state_version": 900,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "33faeca66c2f4cdc25d32109d98da0c885e8f13171098eaef0d4b13f89d32e79",
@@ -19545,12 +19545,12 @@
         "workflow_run_id": null
       },
       "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:ValidationError:1 validation error for ProductFactsV2   Value error, fact 'product.problems_solved:agent-drafted-grounded' cites missing supporting fact 'product.capabilities:dotnet-public-api' [type=value_error, input_value={'org_repo': 'aspose-3d-f...IsTestProject=true'])])}, input_type=dict]     For further information visit https://errors.pydantic.dev/2.13/v/value_error",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "68b762a85d96d7b04e30d9cf149ce222b12e1a10ad05be6766f1c429c01ea30b",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-04T11:11:22.489857+00:00"
+      "updated_at": "2026-08-17T07:51:01.066308+00:00"
     },
     "operator:20260802-202743-89ea:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T20:27:47.695774+00:00",
@@ -19614,9 +19614,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "d0ec94980e94362e6c51f1665051a46d529d9e6bb2476ffe0612e5fb7e02be07",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-04T11:09:11.325656+00:00"
+      "updated_at": "2026-08-17T07:51:01.066308+00:00"
     },
     "operator:20260802-204646-ba03:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T20:46:51.513695+00:00",
@@ -19636,9 +19636,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "1b4408bb194590b2d4b9d4d7b49c8b3bf79b62221f5d147200d7d87dddc03561",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-04T11:09:11.325656+00:00"
+      "updated_at": "2026-08-17T07:51:01.066308+00:00"
     },
     "operator:20260802-205445-6dbc:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T20:54:49.874761+00:00",
@@ -19658,9 +19658,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "310e9b2b5b4b95e01cd3fd7486db27b6d34e6a03d90fc8e94373ad94062ae247",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-04T11:09:11.325656+00:00"
+      "updated_at": "2026-08-17T07:51:01.066308+00:00"
     },
     "operator:20260802-210101-5b6f:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T21:01:05.661409+00:00",
@@ -19724,9 +19724,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "406345ceaefbb737af47e975d6c17e89e203bf723073a9ca2e4ee195be68db47",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-04T11:09:11.325656+00:00"
+      "updated_at": "2026-08-17T07:51:01.066308+00:00"
     },
     "operator:20260802-212649-6815:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T21:26:54.896477+00:00",
@@ -19834,9 +19834,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "c49d134f0d49670e44587e7071b00d4f55fa06071f5bd6a496c9158555007cdd",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-04T11:09:11.325656+00:00"
+      "updated_at": "2026-08-17T07:51:01.066308+00:00"
     },
     "operator:20260804-135220-c884:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T13:52:31.416940+00:00",
@@ -19853,12 +19853,12 @@
         "workflow_run_id": null
       },
       "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:IsolatedExecutionError:container registry acquisition remained unavailable after bounded retry",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "d6d05ad66ff2ce41f67aef81f8f01e4934dd562116d88829fefb0eb7f3a0e5cb",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-04T13:53:42.468100+00:00"
+      "updated_at": "2026-08-17T07:51:01.066308+00:00"
     },
     "operator:20260804-135541-cf63:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T13:55:48.507161+00:00",
@@ -19875,12 +19875,12 @@
         "workflow_run_id": null
       },
       "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:ValidationError:1 validation error for ProductFactsV2   Value error, fact 'product.problems_solved:capability-derived' cites missing supporting fact 'product.capabilities:dotnet-public-api' [type=value_error, input_value={'org_repo': 'aspose-3d-f...IsTestProject=true'])])}, input_type=dict]     For further information visit https://errors.pydantic.dev/2.13/v/value_error",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "9b95ba87111e1bc98643060df2ca10d2c207c511bdbdfc5992b797ca58a787a1",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-04T13:57:30.191103+00:00"
+      "updated_at": "2026-08-17T07:51:01.066308+00:00"
     },
     "operator:20260804-140147-b1c2:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T14:01:54.707976+00:00",
@@ -19896,13 +19896,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "product_truth_not_ready:BLOCKED_MISSING_EVIDENCE",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "3fa23c2afa60a75a1900d86c4524b233b731a3b3996394a21efd828950aeed6d",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-04T14:03:57.749730+00:00"
+      "updated_at": "2026-08-17T07:51:01.066308+00:00"
     },
     "operator:20260804-140959-4859:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T14:10:06.997398+00:00",
@@ -19918,13 +19918,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "product_truth_not_ready:BLOCKED_MISSING_EVIDENCE",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "efbb1304af1c4ae47135fcb252fa2a240521f8557989a99f2cb5d52f148661a9",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-04T14:12:19.430737+00:00"
+      "updated_at": "2026-08-17T07:51:01.066308+00:00"
     },
     "operator:20260804-141428-e221:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T14:14:35.132162+00:00",
@@ -19940,13 +19940,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "product_truth_not_ready:BLOCKED_MISSING_EVIDENCE",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "0cdad3948375744e518076e4500729495746bcfc28a9676156ed653de72172ea",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-04T14:16:34.559922+00:00"
+      "updated_at": "2026-08-17T07:51:01.066308+00:00"
     },
     "operator:20260804-141806-3112:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T14:18:13.421394+00:00",
@@ -19962,13 +19962,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountability has 6 blocking claim(s): source:claim:1746:3d58a15c846dc727, source:claim:1809:3e9b404a56b4c47d, source:claim:1884:a0c618855c52a150, source:claim:1910:68a0834021a9efcb, source:claim:1937:c2b28a3b00ba7d2a, source:claim:1981:32ac39c0609eabea']",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "afae29614a4e0a105731eb26229177ca578c6ab3a3444fb686ed990ad6df65e1",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-04T14:24:41.322107+00:00"
+      "updated_at": "2026-08-17T07:51:01.066308+00:00"
     },
     "operator:20260804-142505-bcb6:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T14:25:18.294195+00:00",
