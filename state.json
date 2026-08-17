@@ -2744,7 +2744,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "4bf0b4307d5021e2b46966d222ac3466a47fe73a7af5d44908bd6f577a0b1acb",
       "accepted_status": "NO_CHANGE",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -3937,6 +3937,19 @@
             }
           ],
           "review_call_count": 1
+        },
+        "last_failure_envelope": {
+          "attempt": 1,
+          "domain": "readme_presentation",
+          "error_type": "blocked",
+          "facts_hash": "d1d4b4a4e90a4262b34c1c0e0e0a3b001449e595e3813ce338efdc4c88e8c064",
+          "failure_reason": "presentation_plan",
+          "fresh_fingerprint": "f636e725797ded7055de36de3a1d5314c65d5d35c009216ae0ddccfa1ff1b893",
+          "message": "['claim accountability has 2 blocking claim(s): source:claim:4998:7ff54c1da64deecb, source:claim:5167:487872b120b8b7f7']",
+          "occurred_at": "2026-08-17T06:51:04.754700+00:00",
+          "schema_version": 1,
+          "source_revision": "10a906b48c0c11005c4d93b524e4431901c9717c",
+          "stage": "document_validation"
         },
         "llm_called": false,
         "llm_calls": [],
@@ -16868,9 +16881,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-12T14:40:08.828175+00:00",
+      "last_run_timestamp": "2026-08-17T06:51:04.755591+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
@@ -18390,7 +18403,7 @@
     "updated_at": "2026-08-17T06:48:23.484257+00:00"
   },
   "schema_version": 2,
-  "state_version": 480,
+  "state_version": 481,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e97319003e7a5196f04b73723fe07bea1b704e7a5157f301801e4a6dd796cbcb",
