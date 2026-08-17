@@ -11393,6 +11393,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260731-102512-6efc:aspose-note-foss/Aspose.Note-FOSS-for-Python"
     },
+    "bad015333eeb31a8a7466f6493f7bdf0e78b81b9df24408ba1f7cdbd15eeda11": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "bad015333eeb31a8a7466f6493f7bdf0e78b81b9df24408ba1f7cdbd15eeda11",
+      "completed_at": "2026-08-17T17:08:34.196257+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "cb81a0cf27b7b6e74aaa62f29936b422f81c53dad2da3655455bba558715c0e0",
+      "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "run_id": "20260817-170657-dd91",
+      "schema_version": 1,
+      "stage": "snapshot_captured",
+      "started_at": "2026-08-17T17:08:34.196248+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260730-150943-01cc:aspose-note-foss/Aspose.Note-FOSS-for-Python"
+    },
     "bb1b1bef8ac7d595d197ec5419aedc8283da7d08b1292034460d7e1aa532a716": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -64594,7 +64611,7 @@
     "updated_at": "2026-08-17T17:08:25.502446+00:00"
   },
   "schema_version": 2,
-  "state_version": 3995,
+  "state_version": 3996,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a7fb6ee707c69ec327948f74ca27700a56ae32a13e2446fae9c66894b573d478",
@@ -64789,11 +64806,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "26572f61da1a981b6be0f20cc0fb3f667ec4c3d62b0582bf1a268132064704ac",
+      "last_checkpoint_id": "bad015333eeb31a8a7466f6493f7bdf0e78b81b9df24408ba1f7cdbd15eeda11",
       "lease_expires_at": "2026-08-17T17:22:13.886041+00:00",
       "recovery_count": 9,
       "status": "processing",
-      "updated_at": "2026-08-17T17:07:54.998274+00:00"
+      "updated_at": "2026-08-17T17:08:34.196257+00:00"
     },
     "operator:20260730-151813-d5ee:aspose-note-foss/Aspose.Note-FOSS-for-Python": {
       "accepted_at": "2026-07-30T15:18:17.458846+00:00",
