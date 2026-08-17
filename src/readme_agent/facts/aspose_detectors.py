@@ -393,7 +393,7 @@ def detect_dev_test_artifacts(clone_cache: Path) -> tuple[DevTestArtifactV1, ...
 
 def detect_capability_dependencies(
     family: str, platform: str, *, data_root: Path
-) -> tuple[str, ...] | None:
+) -> tuple[list[str], ...] | None:
     """Adapted from `_detect_capability_dependencies` (readme_refresh_run.py).
     `None` means "never traced" -- distinct from an empty tuple ("confirmed
     independent, no pipeline edges"), preserved as the vendored logic's own

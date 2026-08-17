@@ -88,3 +88,13 @@
   unsupported license rather than inventing one. The upstream repository contains only a two-line
   README and no license or implementation evidence, so its visible candidate remains
   `VALIDATION_FAILED` on one preserved source claim until authoritative product content arrives.
+- 2026-08-09: poc runner failed for aspose-psd-foss/Aspose.PSD-FOSS-for-Python: baseline clone of aspose-psd-foss/Aspose.PSD-FOSS-for-Python failed: Cloning into 'D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\runs\baseline\aspose-psd-foss__Aspose.PSD-FOSS-for-Python'...
+fatal: Cannot prompt because user interactivity has been disabled.
+fatal: could not read Username for 'https://github.com': terminal prompts disabled
+
+- 2026-08-09: poc runner failed for aspose-words-foss/Aspose.Words-FOSS-for-Python: RuntimeError: durable product-facts evidence hash does not match lifecycle state for aspose-words-foss/Aspose.Words-FOSS-for-Python@4473f8cbeef1a65961adc7de304d982ada53a1dd
+- 2026-08-09: poc runner failed for aspose-words-foss/Aspose.Words-FOSS-for-Python: container registry acquisition remained unavailable after bounded retry
+- 2026-08-09: poc runner failed for aspose-words-foss/Aspose.Words-FOSS-for-Python: container registry acquisition remained unavailable after bounded retry
+- 2026-08-09: poc runner failed for aspose-words-foss/Aspose.Words-FOSS-for-Python: ValueError: valuable source detail has no canonical presentation destination: claim:3345:3058101d753ee667:unclassified
+- 2026-08-09: poc runner failed for aspose-words-foss/Aspose.Words-FOSS-for-Python: ValueError: preserve disposition lost a source claim without exact fact-bound replacement candidate content: claim:3345:3058101d753ee667
+- 2026-08-09: poc runner failed for aspose-html-foss/Aspose.HTML-FOSS-for-Python: ValueError: invalid contextual README links: candidate repeats an Aspose target

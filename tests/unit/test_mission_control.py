@@ -230,6 +230,7 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         "L8-VNET-02-PRODUCTION-TRANSPORT",
         "L8-HORIZON-01-ACTIVATE-GATE-A",
         "L8-FRESH-00-FRESHNESS-SERVICE",
+        "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY",
     }
     # These tasks are durably CLOSED in production and retired to the deferred
     # catalog (see l8-horizon-01-deferral-2026-08-13/findings.md, Finding 3);

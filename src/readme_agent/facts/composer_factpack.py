@@ -75,7 +75,7 @@ class AsposeDetectionBundleV1(BaseModel):
     license_file: LicenseFileDetectionV1 | None
     enterprise_link: EnterpriseLinkDetectionV1
     dev_test_artifacts: tuple[DevTestArtifactV1, ...]
-    capability_dependencies: tuple[str, ...] | None
+    capability_dependencies: tuple[list[str], ...] | None
     homepage_link: HomepageLinkDetectionV1
     dependency_claims: DependencyClaimsDetectionV1
 

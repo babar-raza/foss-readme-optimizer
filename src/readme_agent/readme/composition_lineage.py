@@ -83,7 +83,7 @@ def _validated_placements(
     structural_owners: set[str] = set()
     for placement in ordered:
         if placement.placement_id in ids:
-            raise ValueError("source placements contain duplicate IDs")
+            raise ValueError(f"source placements contain duplicate IDs: {placement.placement_id}")
         ids.add(placement.placement_id)
         if placement.placement_basis in {
             "structural_exact_equivalence",
