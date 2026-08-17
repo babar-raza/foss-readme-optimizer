@@ -4056,16 +4056,24 @@
         "schema_version": 1,
         "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
         "source_revision_resolved": true
+      },
+      {
+        "attempt": 1,
+        "dedup_key": "fcbe6054b6f8339a536f60d0afadf317165330de5e6390a9ae91a061950ff11e",
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Rust\\1a6004af47b1ef15385f9d36d381a8172428cc7e\\intake\\receipts\\fcbe6054b6f8339a-a1.json"
+        ],
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-17T05:37:22.581974+00:00",
+        "outcome": "READY_FAST_PATH",
+        "reason": "the existing README is structurally substantial; preserve-first proof may attempt a byte-identical candidate, but facts and independent approval remain mandatory",
+        "result_hash": "33c39143a6ebb2d1e3ce87bf7f9dd5070531a0d50b84d57afd132732f1c958ba",
+        "schema_version": 1,
+        "source_revision": "1a6004af47b1ef15385f9d36d381a8172428cc7e",
+        "source_revision_resolved": true
       }
     ],
-    "intake_preflight_pending": {
-      "attempt": 1,
-      "dedup_key": "fcbe6054b6f8339a536f60d0afadf317165330de5e6390a9ae91a061950ff11e",
-      "schema_version": 1,
-      "source_revision": "1a6004af47b1ef15385f9d36d381a8172428cc7e",
-      "source_revision_resolved": true,
-      "started_at": "2026-08-17T05:37:08.048312+00:00"
-    },
+    "intake_preflight_pending": null,
     "presentation_plan_hash": null,
     "presentation_validity": {
       "available_component_manifest_hash": null,
@@ -4102,10 +4110,10 @@
     "schema_version": 2,
     "source_revision": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
     "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-08-17T05:37:08.048325+00:00"
+    "updated_at": "2026-08-17T05:37:22.581987+00:00"
   },
   "schema_version": 2,
-  "state_version": 86,
+  "state_version": 87,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
