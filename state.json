@@ -307,19 +307,8 @@
     "candidate_hash": null,
     "content_assurance": "repository_verified",
     "details": {},
-    "fact_acceptance_component_hashes": {
-      "acquisition_truth": "f3f13fd88fed7f4cc07a87fd23a718c07b27c4f39cef8e114d0a222571b3aef5",
-      "classification_semantics": "6ccc8d8b227aeb7b841d42b682187117c92323026a78afb896057f5fc7d06222",
-      "conflict_semantics": "05b375c3f32016c2040d002bf104de2f1b05110521e38c5d720d073f61b04fc6",
-      "documentation_catalog": "426a76936c19f5b8bc1ed822c60a907c32b65bf4ceb3c35932140ae0b779525e",
-      "drafting_and_example_selection": "d2f01b77a6f6d3e65e6a802c09f151db9f4e072ad67d7fa5f43dbe816007f4c2",
-      "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
-      "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
-      "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
-      "root_role_selection": "0835347ae5b6f5a53b37dc1d21240a4f108cbafbb75e059d5c39f85936e5e91c",
-      "visitor_render_eligibility": "9582aad195691d975c8e1a38cc9c44b0694070a1a102e297332bfa6936b4b262"
-    },
-    "fact_acceptance_contract_hash": "0010431654f6498c006ee5c68be7678bb9de88297e971761a1ca8c80ece84568",
+    "fact_acceptance_component_hashes": {},
+    "fact_acceptance_contract_hash": null,
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -407,13 +396,13 @@
         "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe"
       }
     ],
-    "facts_hash": "a813e465b3ab0f1fa25fffe5dec2f9f1a89aba5395441f16b607bee44b3dce97",
+    "facts_hash": null,
     "factual_validity": {
       "acceptance_contract_hash": null,
       "evidence_identity": null,
       "facts_hash": null,
-      "observed_by": "supervisor_product_truth",
-      "occurred_at": "2026-08-09T13:36:44.453600+00:00",
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-17T08:24:14.190167+00:00",
       "reason": "source or fact inputs changed",
       "schema_version": 1,
       "source_revision": null,
@@ -550,6 +539,17 @@
         "reason": "provenance-complete ProductFactsV2 persisted",
         "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
         "to_status": "FACTS_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-words-foss__Aspose.Words-FOSS-for-.NET\\68d56fdaf7fcd2d95935a0c180b6e69e99a9b4b8\\source\\revision.json"
+        ],
+        "from_status": "FACTS_READY",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-08-17T08:24:14.190167+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "68d56fdaf7fcd2d95935a0c180b6e69e99a9b4b8",
+        "to_status": "SNAPSHOTTED"
       }
     ],
     "human_acceptance_history": [],
@@ -592,8 +592,8 @@
       "candidate_hash": null,
       "component_manifest_hash": null,
       "evidence_identity": null,
-      "observed_by": "supervisor_product_truth",
-      "occurred_at": "2026-08-09T13:36:44.453600+00:00",
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-17T08:24:14.190167+00:00",
       "presentation_version": null,
       "reason": "source or fact inputs changed",
       "schema_version": 1,
@@ -606,8 +606,8 @@
     "publication_eligibility": {
       "admitted_repositories": [],
       "evidence_identity": null,
-      "observed_by": "supervisor_product_truth",
-      "occurred_at": "2026-08-09T13:36:44.453600+00:00",
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-17T08:24:14.190167+00:00",
       "registry_revision": null,
       "rejection_reasons": [
         "source or fact inputs changed"
@@ -620,12 +620,12 @@
     "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
-    "status": "FACTS_READY",
-    "updated_at": "2026-08-17T05:56:55.351905+00:00"
+    "source_revision": "68d56fdaf7fcd2d95935a0c180b6e69e99a9b4b8",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-08-17T08:24:14.190167+00:00"
   },
   "schema_version": 2,
-  "state_version": 53,
+  "state_version": 54,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1159931799:2c94658f74865fb5dd2906ff8abd8615c4e87bee4c6a0818dd8ae60ed73ed033": {
