@@ -6309,7 +6309,7 @@
     "updated_at": "2026-08-17T17:45:41.588767+00:00"
   },
   "schema_version": 2,
-  "state_version": 157,
+  "state_version": 158,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e00621c9a87ed36e403b1fc8c9215f0a35558faf1450cd22b6dce1ed6198a688",
@@ -6478,13 +6478,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "product_truth_not_ready:BLOCKED_MISSING_EVIDENCE",
       "last_checkpoint_id": "54ca7891acc54bee3084123e5b7fa77ae5f481f3c640af38f45c29a8eaa69874",
-      "lease_expires_at": "2026-08-17T17:59:30.660161+00:00",
+      "lease_expires_at": null,
       "recovery_count": 6,
-      "status": "processing",
-      "updated_at": "2026-08-17T17:45:49.949295+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-17T17:46:01.362516+00:00"
     },
     "operator:20260801-103847-24d3:aspose-tex-foss/Aspose.TeX-FOSS-for-Python": {
       "accepted_at": "2026-08-01T10:38:54.602909+00:00",
