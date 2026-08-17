@@ -1,0 +1,84 @@
+# `local_poc` silently depends on live GitHub push/fetch for state, contrary to its own design intent
+
+Found 2026-08-17 while investigating a transient `lock_held` block and a `durable domain-state
+write-back failed` warning during a real portfolio run, both occurring even after today's preflight
+fix restored real repo/LLM access. Not yet fixed — documented for a dedicated, isolated pass; too
+large and load-bearing a change to make mid-run against an active verification pass.
+
+## What's supposed to happen
+
+`src/readme_agent/state/local_poc_backend.py` exists specifically to give the `local_poc`
+execution profile a durable state backend that never touches the real GitHub remote:
+
+> `default_local_poc_state_backend()`: "Build a durable backend that never defaults local POC
+> state writes to `origin`."
+
+It builds (or reuses) a purely local bare git repository at `runs/local-poc-state/state.git` as
+the backend's "remote" — genuinely zero network dependency, matching `local_poc`'s own documented
+profile contract (`execution_profile.py`: "the canonical, unattended full-registry local proof...
+allowing only local effects").
+
+## What actually happens
+
+`commands_supervision.py` — the real, only call site that matters, the one every `supervise`
+invocation actually runs through — never calls `default_local_poc_state_backend()`. Confirmed via
+`grep -n "default_local_poc_state_backend\|default_state_backend()" commands_supervision.py`: the
+only backend constructor called is `default_state_backend()` (line 988), which per
+`git_backend.py:749` defaults to `remote="origin"` (this repository's own real GitHub remote)
+unless the `README_AGENT_STATE_REMOTE` environment variable overrides it. `default_local_poc_
+state_backend` appears to be dead code — a real, working, correctly-designed backend that nothing
+in the real command path ever constructs.
+
+## Consequence, confirmed live
+
+Every `local_poc` run today — including every portfolio pass in this session, run before and after
+today's preflight fix — has been silently depending on live `git push`/`git fetch` access to this
+repository's real GitHub origin for domain-state and lock coordination, even though the profile's
+own contract says it shouldn't need any network access beyond `read_only_network` for the *target*
+repos, and explicitly never needs to write anywhere remote.
+
+Two concrete symptoms traced to this, both non-fatal (the write-back failure is caught and
+downgraded to a warning, so a run keeps going) but real:
+
+- Today's earlier `StateBackendError: fetch of refs/readme-agent-state/{org}__{repo} failed: fatal:
+  Cannot prompt because user interactivity has been disabled` mass-failures during the GitHub
+  outage (runs 6/7, well before the preflight fix) — these were never about the target repos at
+  all; they were `local_poc`'s own state coordination failing to reach *this* repo's GitHub remote.
+- A transient `BLOCKED (lock_held; category=infra_external)` on `aspose-pdf-foss/Aspose-PDF-FOSS-
+  for-Python` (previously a successful repo) during today's post-fix portfolio run, and a live
+  `durable domain-state write-back failed... push of refs/readme-agent-state/locks/{org}__{repo}
+  failed: fatal: Cannot prompt...` warning on `aspose-words-foss/Aspose.Words-FOSS-for-Python` in
+  the same run — both are exactly what unreliable git-protocol access to `origin` (a separate
+  concern from the REST-API preflight checks, which use `requests` against `api.github.com`
+  directly, not `git push`/`fetch`) would produce.
+
+## Why this wasn't caught by today's preflight fix
+
+The preflight fix (commit `85cc71222`) only changed what `check_identity`/`check_repo` (plain
+`requests.get` calls against `api.github.com`) are allowed to report as non-blocking. It has
+nothing to do with `git push`/`git fetch` over the git smart-HTTP protocol, which is what
+`git_backend.py`'s lock/state operations actually use. GitHub's REST API and its git-over-HTTPS
+transport can degrade independently — today's `/user` outage recovering (or being correctly
+bypassed) says nothing about whether `git push origin refs/readme-agent-state/...` is exercising a
+healthy path.
+
+## Why not fixed this session
+
+Wiring `commands_supervision.py` to use `default_local_poc_state_backend()` for the `local_poc`
+profile (and presumably `local_dry_run`/`local_inspect` too, though they don't currently persist
+durable state at all per `execution_profile.py`) is exactly the kind of change today's own new
+verification-workflow rule (AGENTS.md rule 15) exists to slow down: it touches how every `local_poc`
+run persists lock/domain state, a load-bearing mechanism the entire portfolio pipeline depends on,
+and doing it correctly needs its own isolated verification, not a patch applied while a real,
+in-flight portfolio run (today's post-preflight-fix coverage measurement) is depending on the
+current, unmodified behavior to finish cleanly.
+
+## Recommended next step
+
+Once the in-flight portfolio run is done: wire `_cmd_supervise_registry`/the portfolio-member loop
+in `commands_supervision.py` to construct `default_local_poc_state_backend()` when `profile.name ==
+"local_poc"` (mirroring `execution_profile.py`'s own `allowed_permission_classes` contract — no
+`remote_write`, `read_only_network` only for the *target* repo, never this repo's own state), with
+a regression test proving no `git push`/`fetch` against this repository's real `origin` occurs
+during a `local_poc` run (e.g. by monkeypatching the git-command runner and asserting the remote
+argument is always the local bare-repo path, never `origin`).
