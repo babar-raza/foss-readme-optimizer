@@ -479,6 +479,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260802-205445-6dbc:aspose-3d-foss/Aspose.3D-FOSS-for-.NET"
     },
+    "14d6d0d75f037667f3e19a1b81b7f9ea5f0354dc4d233cb40a5ce83192cb09d3": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "14d6d0d75f037667f3e19a1b81b7f9ea5f0354dc4d233cb40a5ce83192cb09d3",
+      "completed_at": "2026-08-17T14:16:38.622785+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "run_id": "20260817-141628-5a3d",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-08-17T14:16:38.622776+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260802-200914-7978:aspose-3d-foss/Aspose.3D-FOSS-for-.NET"
+    },
     "14e246ee81c2f01d1356f5e76388ebc77adcdbb4136f8edebbd1aa7ef8c9b7f8": {
       "action": null,
       "attempt": 1,
@@ -19161,7 +19178,7 @@
     "updated_at": "2026-08-17T07:53:14.808785+00:00"
   },
   "schema_version": 2,
-  "state_version": 949,
+  "state_version": 950,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "cd37318953dd004c480891b5a347023a04f0b243f6c6e1e3f4cb32ca20fa2465",
@@ -19818,11 +19835,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "recovery_sweep_stale_or_expired",
-      "last_checkpoint_id": "e2db96c8619b5da567f641320befd9f8cbb47d0184279dc50ef489aa6a91fb73",
+      "last_checkpoint_id": "14d6d0d75f037667f3e19a1b81b7f9ea5f0354dc4d233cb40a5ce83192cb09d3",
       "lease_expires_at": null,
       "recovery_count": 5,
       "status": "retryable",
-      "updated_at": "2026-08-17T14:16:15.608160+00:00"
+      "updated_at": "2026-08-17T14:16:38.622785+00:00"
     },
     "operator:20260802-202743-89ea:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T20:27:47.695774+00:00",
