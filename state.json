@@ -21468,7 +21468,7 @@
     "updated_at": "2026-08-17T06:11:08.922555+00:00"
   },
   "schema_version": 2,
-  "state_version": 536,
+  "state_version": 537,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "cc7b2aa6160fd37441a22512ed4d8e9909ea0782919a099f68204c88b4c58049",
@@ -21814,12 +21814,12 @@
         "workflow_run_id": null
       },
       "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:IsolatedExecutionError:container registry acquisition remained unavailable after bounded retry",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "e6108cab60b528bfa2fb709e8cf3aa7c657c35356625fa8f1664727e6103f107",
       "lease_expires_at": null,
-      "recovery_count": 3,
+      "recovery_count": 4,
       "status": "retryable",
-      "updated_at": "2026-08-17T06:11:35.838333+00:00"
+      "updated_at": "2026-08-17T06:40:17.830593+00:00"
     },
     "operator:20260804-151351-5e79:aspose-cells-foss/Aspose.Cells-FOSS-for-Python": {
       "accepted_at": "2026-08-04T15:13:57.821878+00:00",
@@ -21883,9 +21883,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "93c1ec28c7c12ad1e9ec2c2e46e3fd7dd52a38e7e4410e0327cb78a851a757d2",
       "lease_expires_at": null,
-      "recovery_count": 2,
+      "recovery_count": 3,
       "status": "retryable",
-      "updated_at": "2026-08-17T06:10:05.152626+00:00"
+      "updated_at": "2026-08-17T06:40:17.830593+00:00"
     },
     "operator:20260804-155800-3e0f:aspose-cells-foss/Aspose.Cells-FOSS-for-Python": {
       "accepted_at": "2026-08-04T15:58:06.765863+00:00",
@@ -21905,9 +21905,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "ce691aa53cd9a3ce1333e8fc5d66444a2ee0b8dc73b00302e44e518443e07e66",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-17T06:10:05.152626+00:00"
+      "updated_at": "2026-08-17T06:40:17.830593+00:00"
     },
     "operator:20260804-162340-086e:aspose-cells-foss/Aspose.Cells-FOSS-for-Python": {
       "accepted_at": "2026-08-04T16:23:46.039892+00:00",
@@ -21971,9 +21971,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "afb7cec75f08749e6100a6ac262fa1da4081e37aa1b16ac89ccae71d450154c8",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-17T06:10:05.152626+00:00"
+      "updated_at": "2026-08-17T06:40:17.830593+00:00"
     },
     "operator:20260811-145322-99f5:aspose-cells-foss/Aspose.Cells-FOSS-for-Python": {
       "accepted_at": "2026-08-11T14:53:27.582713+00:00",
@@ -21993,9 +21993,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "70e8ac3b051884b1f2343af5cfed6723b8d243e252cefc36935e730329d50988",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-17T06:10:05.152626+00:00"
+      "updated_at": "2026-08-17T06:40:17.830593+00:00"
     },
     "operator:20260811-145801-2397:aspose-cells-foss/Aspose.Cells-FOSS-for-Python": {
       "accepted_at": "2026-08-11T14:58:06.354784+00:00",
@@ -22015,9 +22015,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "5d9e5213f5ed269ab9370c153f7ee0e64f50304295c4f385ed1f49ddc57676df",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-17T06:10:05.152626+00:00"
+      "updated_at": "2026-08-17T06:40:17.830593+00:00"
     },
     "operator:20260811-151308-4dfe:aspose-cells-foss/Aspose.Cells-FOSS-for-Python": {
       "accepted_at": "2026-08-11T15:13:13.156952+00:00",
@@ -22081,9 +22081,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "548607f686514b9bbda024005d3f17f8ed83fe17aef9a223e92a6db6ce1c02b9",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-17T06:10:05.152626+00:00"
+      "updated_at": "2026-08-17T06:40:17.830593+00:00"
     },
     "operator:20260812-024418-881d:aspose-cells-foss/Aspose.Cells-FOSS-for-Python": {
       "accepted_at": "2026-08-12T02:44:23.677307+00:00",
