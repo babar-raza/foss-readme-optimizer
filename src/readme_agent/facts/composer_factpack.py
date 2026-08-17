@@ -31,6 +31,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict
 
 from readme_agent.facts.aspose_detectors import (
+    ApiPublicSurfaceDetectionV1,
     ArchetypeDetectionV1,
     DependencyClaimsDetectionV1,
     DevTestArtifactV1,
@@ -39,6 +40,7 @@ from readme_agent.facts.aspose_detectors import (
     InstallInfoDetectionV1,
     LicenseFileDetectionV1,
     SeoKeywordsDetectionV1,
+    detect_api_public_surface,
     detect_archetype,
     detect_capability_dependencies,
     detect_dependency_claims,
@@ -64,7 +66,7 @@ STALE_WARN_DAYS = 14.0
 
 
 class AsposeDetectionBundleV1(BaseModel):
-    """All 9 currently-adapted aspose.org detector outputs for one
+    """All 10 currently-adapted aspose.org detector outputs for one
     family/platform pair."""
 
     model_config = ConfigDict(extra="forbid", frozen=True)
@@ -78,12 +80,13 @@ class AsposeDetectionBundleV1(BaseModel):
     capability_dependencies: tuple[list[str], ...] | None
     homepage_link: HomepageLinkDetectionV1
     dependency_claims: DependencyClaimsDetectionV1
+    api_public_surface: ApiPublicSurfaceDetectionV1 | None
 
 
 def build_aspose_detection_bundle(
     family: str, platform: str, *, data_root: Path, clone_cache: Path
 ) -> AsposeDetectionBundleV1:
-    """Run all 9 adapted detectors for one product and aggregate their
+    """Run all 10 adapted detectors for one product and aggregate their
     outputs. Each detector already degrades gracefully on missing/absent
     source data (see their individual docstrings); this function adds no
     further fallback logic of its own."""
@@ -100,6 +103,7 @@ def build_aspose_detection_bundle(
         ),
         homepage_link=detect_homepage_link(family, platform, data_root=data_root),
         dependency_claims=detect_dependency_claims(family, platform, data_root=data_root),
+        api_public_surface=detect_api_public_surface(family, platform, data_root=data_root),
     )
 
 
@@ -261,6 +265,42 @@ def aspose_fact_records(
     # docstring documents it always returns verified=False in this repo (the
     # website-content tree was never imported), so it never has anything
     # genuine to contribute.
+
+    surface = bundle.api_public_surface
+    if surface is not None and surface.modules:
+        # The canonical field itself, not an "aspose.*" alias -- this is the
+        # same field Python's own AST-based detector (curated_python_public_
+        # surface.py) populates; for every other platform it was previously
+        # never resolvable at all (see detect_api_public_surface's own
+        # docstring). Shaped to satisfy verified_source_detail_routing.py's
+        # `_api_reference_available()` contract (`modules: [{"module":
+        # str, "exports": [str, ...]}]`) while carrying the full per-class
+        # description/method/property detail for actual rendering.
+        add(
+            "api.public_surface",
+            {
+                "modules": [
+                    {
+                        "module": module.module,
+                        "exports": [item.name for item in module.classes],
+                    }
+                    for module in surface.modules
+                ],
+                "classes": {
+                    item.name: {
+                        "description": item.description,
+                        "kind": item.kind,
+                        "methods": [dict(member) for member in item.methods],
+                        "properties": [dict(member) for member in item.properties],
+                    }
+                    for module in surface.modules
+                    for item in module.classes
+                },
+                "model_sha": surface.model_sha,
+            },
+            verified=surface.model_sha is not None,
+            surfaces=["readme.api_reference"],
+        )
 
     return records
 

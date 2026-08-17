@@ -25,6 +25,16 @@ version-template table and per-ecosystem branching; `_detect_archetype_
 entry_raw` -- a near-duplicate of the already-adapted `detect_archetype`
 returning the full raw row instead of a filtered view) were not extracted
 this session.
+
+A 12th piece, `detect_api_public_surface`, was added in a later session:
+not one of `readme_refresh_run.py`'s `_detect_*` functions, but the ground
+truth behind them -- `knowledge/{family}/{platform}/merged/api_surface.json`,
+the real, per-language, source-level static-analysis output of aspose.org's
+own `scripts/pipeline/extraction/scout.py`. This data was already imported
+into `data/imported/knowledge/` by an earlier T1B import but never wired to
+a fact detector; `api.public_surface` was populated for Python only until
+now (this repo's own separate AST extractor). See its own docstring for the
+full trace.
 """
 
 from __future__ import annotations
@@ -471,7 +481,148 @@ def detect_dependency_claims(
     return DependencyClaimsDetectionV1(claims=tuple(claims), repo_sha=repo_sha)
 
 
+class ApiSurfaceMemberV1(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    name: str
+    doc: str
+    signature: str
+
+
+class ApiSurfaceClassV1(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    name: str
+    description: str
+    kind: str
+    methods: tuple[ApiSurfaceMemberV1, ...]
+    properties: tuple[ApiSurfaceMemberV1, ...]
+
+
+class ApiSurfaceModuleV1(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    module: str
+    classes: tuple[ApiSurfaceClassV1, ...]
+
+
+class ApiPublicSurfaceDetectionV1(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    modules: tuple[ApiSurfaceModuleV1, ...]
+    model_sha: str | None
+
+
+_KIND_TO_MODULE = {
+    "class_declaration": "Core API",
+    "struct_declaration": "Core API",
+    "interface_declaration": "Interfaces",
+    "enum_declaration": "Enumerations",
+}
+
+
+def _member_signature(entry: dict) -> str:
+    params = entry.get("params") or []
+    param_text = ", ".join(
+        f"{param.get('name', '')}: {param['type']}" if param.get("type") else param.get("name", "")
+        for param in params
+    )
+    return_type = entry.get("return_type") or ""
+    suffix = f" -> {return_type}" if return_type else ""
+    return f"{entry.get('name', '')}({param_text}){suffix}"
+
+
+def detect_api_public_surface(
+    family: str, platform: str, *, data_root: Path
+) -> ApiPublicSurfaceDetectionV1 | None:
+    """Adapted from `knowledge/{family}/{platform}/merged/api_surface.json` -- not one of
+    readme_refresh_run.py's original 11 `_detect_*` functions this module's docstring tracks, but
+    the ground-truth output of aspose.org's own `scripts/pipeline/extraction/scout.py`: a real,
+    per-language, source-level static-analysis extractor (confirmed live: entries cite the exact
+    `.cs`/`.java`/etc. source file and line number for every class, method, and property). This
+    is a 12th piece of reused Aspose.org logic, and the most direct one -- `api_surface.json` was
+    already imported into this repo's own `data/imported/knowledge/` tree by an earlier T1B
+    import (commit 3e3fd55fb6) but never wired to a fact detector; `api.public_surface` was
+    populated for Python only until now, via this repo's own separate AST-based extractor
+    (`curated_python_public_surface.py`). No new data import was needed to close this gap for the
+    other 6 platforms -- the real, verified per-class data was already committed here, unused.
+
+    Deliberately reads `merged/api_surface.json`, not the `scout/` stage sibling some products
+    also carry -- `merged/` is the post-reconciliation output the rest of aspose.org's own
+    pipeline treats as authoritative (`readme_refresh_run.py`'s own `_detect_dependency_claims`
+    reads the same `merged/` directory for the same reason).
+
+    `None` when no `api_surface.json` exists for this family/platform, it fails to parse, or it
+    contains zero public+reachable entries."""
+
+    surface_path = data_root / "knowledge" / family / platform / "merged" / "api_surface.json"
+    if not surface_path.is_file():
+        return None
+    try:
+        entries = json.loads(surface_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+    if not isinstance(entries, list):
+        return None
+    by_module: dict[str, list[ApiSurfaceClassV1]] = {}
+    model_sha: str | None = None
+    for entry in entries:
+        if (
+            not isinstance(entry, dict)
+            or entry.get("visibility") != "public"
+            or not entry.get("reachable")
+            or not entry.get("name")
+        ):
+            continue
+        module = _KIND_TO_MODULE.get(entry.get("kind", ""), "Core API")
+        methods = tuple(
+            ApiSurfaceMemberV1(
+                name=method.get("name", ""),
+                doc=method.get("doc", ""),
+                signature=_member_signature(method),
+            )
+            for method in entry.get("methods") or []
+            if method.get("name")
+        )
+        properties = tuple(
+            ApiSurfaceMemberV1(
+                name=prop.get("name", ""),
+                doc=prop.get("doc", ""),
+                signature=f"{prop.get('name', '')}: {prop.get('type', '')}",
+            )
+            for prop in entry.get("properties") or []
+            if prop.get("name")
+        )
+        by_module.setdefault(module, []).append(
+            ApiSurfaceClassV1(
+                name=entry["name"],
+                description=entry.get("doc", ""),
+                kind=entry.get("kind", ""),
+                methods=methods,
+                properties=properties,
+            )
+        )
+        file_sha_source = entry.get("model_sha") or entry.get("repo_sha")
+        if file_sha_source:
+            model_sha = file_sha_source
+    if not by_module:
+        return None
+    if model_sha is None:
+        model_path = data_root / "knowledge" / family / platform / "merged" / "model.yaml"
+        if model_path.is_file():
+            match = _MODEL_YAML_REPO_SHA_RE.search(model_path.read_text(encoding="utf-8"))
+            model_sha = match.group(1) if match else None
+    modules = tuple(
+        ApiSurfaceModuleV1(module=module_name, classes=tuple(classes))
+        for module_name, classes in by_module.items()
+    )
+    return ApiPublicSurfaceDetectionV1(modules=modules, model_sha=model_sha)
+
+
 __all__ = [
+    "ApiPublicSurfaceDetectionV1",
+    "ApiSurfaceClassV1",
+    "ApiSurfaceModuleV1",
     "ArchetypeDetectionV1",
     "DependencyClaimsDetectionV1",
     "DevTestArtifactV1",
@@ -480,6 +631,7 @@ __all__ = [
     "InstallInfoDetectionV1",
     "LicenseFileDetectionV1",
     "SeoKeywordsDetectionV1",
+    "detect_api_public_surface",
     "detect_archetype",
     "detect_capability_dependencies",
     "detect_dependency_claims",

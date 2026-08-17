@@ -562,6 +562,22 @@ current, binding guidance for new capability work, not a future contingency:
     addendum, `EFF-001`'s registration-time gate). This is a live, active gate today — both real
     mutating capabilities (`commit_readme_write`, `open_presentation_pr`) satisfy it, and it fails
     closed at import time for any future one that doesn't.
+15. **This discipline binds an agent's own verification workflow, not only new capability code.**
+    Checking whether a fix actually works against a real repository — even a quick debugging
+    check, even "just this once" — is never done by importing and calling capability/pipeline
+    internals (`readme_agent.capabilities.*`, `readme_agent.readme.candidate_pipeline`, etc.)
+    directly in a standalone script. That bypasses the state, evidence, authorization, and
+    independent-verification systems rules 3/9/10 above already require, exactly as much as a
+    real capability doing it would. Use `readme-agent supervise --repo <org/repo>
+    --bounded-verified-canary --execution-profile local_poc` for a single-repo check (see
+    "Full-registry POC scope and gate ordering" below); use the full `--registry ...
+    --execution-profile local_poc` path for portfolio-wide checks. Never invoke
+    `force_regenerate=True` (or any real-generation entry point) against a path that also serves
+    as a pinned test fixture (`runs/baseline/`) without first confirming it's exempt from
+    accidental overwrite — a real, self-caused incident this rule exists because of (`logs/
+    2026-08-17.md`). This is the same rule as the scratch-script rule under "Repo layout" below,
+    applied to verification instead of authoring: a throwaway script that touches this repo's real
+    runtime is still real work, and still goes through the sole production runtime, not around it.
 
 ## Repo layout — what goes where
 
