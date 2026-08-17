@@ -496,6 +496,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260804-075002-7985:aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET"
     },
+    "a1f1d6f199825439a1695b83232dd8d07fb502aa033df1b8450deb79d210c9ba": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "a1f1d6f199825439a1695b83232dd8d07fb502aa033df1b8450deb79d210c9ba",
+      "completed_at": "2026-08-17T18:03:31.388584+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "a53b2b1c5c7397924182e7d38358d826ca421d8c5e21f409d830a43dc47e9fc3",
+      "output_hash": null,
+      "repository": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
+      "run_id": "20260817-180310-0623",
+      "schema_version": 1,
+      "stage": "run_started",
+      "started_at": "2026-08-17T18:03:31.388575+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260817-080840-b2b8:aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET"
+    },
     "ac27c0f406b66aff92cbac428e3f8d97d6bed534fb0ec330e9ed4dc6863d2ac9": {
       "action": null,
       "attempt": 1,
@@ -11253,7 +11270,7 @@
     "updated_at": "2026-08-17T08:10:45.162539+00:00"
   },
   "schema_version": 2,
-  "state_version": 152,
+  "state_version": 153,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "976f6b7c939eaea897364054b2aac3df84e5bd8d0c0efa788446f4eb1a2cc924",
@@ -11448,11 +11465,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "ac27c0f406b66aff92cbac428e3f8d97d6bed534fb0ec330e9ed4dc6863d2ac9",
+      "last_checkpoint_id": "a1f1d6f199825439a1695b83232dd8d07fb502aa033df1b8450deb79d210c9ba",
       "lease_expires_at": "2026-08-17T18:18:25.452553+00:00",
       "recovery_count": 4,
       "status": "processing",
-      "updated_at": "2026-08-17T18:03:25.452553+00:00"
+      "updated_at": "2026-08-17T18:03:31.388584+00:00"
     }
   },
   "trigger_records": {},
