@@ -1349,7 +1349,7 @@
     "updated_at": "2026-08-17T16:24:25.440517+00:00"
   },
   "schema_version": 2,
-  "state_version": 191,
+  "state_version": 192,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4e8fd254c6428203b90ff0510ce91e269153413642f216105825dab70f37db91",
@@ -1454,13 +1454,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "recovery_sweep_stale_or_expired",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "f30490b87c81586d74599b78047d94113b7ba97f423d31e67357d917bca360ec",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-08-17T18:09:26.476036+00:00",
       "recovery_count": 5,
-      "status": "retryable",
-      "updated_at": "2026-08-17T17:54:20.308111+00:00"
+      "status": "processing",
+      "updated_at": "2026-08-17T17:54:26.476036+00:00"
     },
     "operator:20260817-160948-6629:aspose-cells-foss/Aspose.Cells-FOSS-for-.NET": {
       "accepted_at": "2026-08-17T16:09:53.223050+00:00",
