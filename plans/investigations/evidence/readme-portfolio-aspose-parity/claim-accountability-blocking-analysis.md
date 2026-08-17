@@ -89,6 +89,36 @@ substring coverage beforehand.
    still changes what counts as an acceptable delivered candidate, so it belongs as a reviewed
    decision, not a silent behavior change.
 
+## Addendum: the *other* blocker category (`BLOCKED_MISSING_EVIDENCE`, 15/33 repos) is different
+
+Investigated the same session, same GitHub-independent method. Traced `classify_product_truth`
+(`facts/acceptance_contract.py:314-355`) directly against a real blocked repo
+(`aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp`, local clone cache): six of the sixteen
+`REQUIRED_PRODUCT_FIELDS` come back `verification_state=missing` — `product.audience`,
+`product.problems_solved`, `product.capabilities`, `product.formats`, `example.minimal`,
+`product.limitations`. These are the fields that need product-level interpretation, not manifest
+parsing (install coordinates, license, platforms all resolve fine for the same repo).
+
+**This is not a structural per-language gap like `api.public_surface` was.** A real, existing,
+already-registered capability already exists to produce exactly these fields for any ecosystem:
+`capabilities/draft_product_truth.py` (`RPOC-033`) — an LLM-assisted drafting-plus-gating loop,
+explicitly designed to be ecosystem-general (`facts/local_verification.py`'s "real per-ecosystem
+verifier" for `example.minimal`, not a Python-only path). `missing` (not `blocked` or
+`unverified`) is the state a field has *before this capability has ever run for it*, not after it
+tried and failed.
+
+The most likely explanation for why 15 non-Python repos show `missing` here while the 4 Python
+repos that reached `AGENT_APPROVED` don't: those Python repos already have a persisted,
+previously-drafted `product_truth` from earlier work in this project's history (Python was worked
+first, per the plan-synthesis's own account of this project's history), while the non-Python repos
+simply haven't been advanced through this drafting stage yet. Confirming this precisely would
+require actually running the capability against one of them — which, like the `--bounded-verified-
+canary` path itself, goes through the supervisor and fails closed on the same GitHub preflight
+check currently blocked by today's outage. Not attempted as a workaround (would violate the
+verification-workflow rule added today, AGENTS.md rule 15) — flagged as the first thing to try
+once GitHub recovers, ahead of any new code: a clean, full-time-budget portfolio run may close a
+meaningful fraction of this category on its own, with zero new engineering.
+
 ## Scope of impact
 
 Sampled blocking-claim text across the run logs: claim counts per repo range from 1
