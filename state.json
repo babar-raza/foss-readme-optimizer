@@ -22375,7 +22375,7 @@
     "updated_at": "2026-08-17T06:09:32.564777+00:00"
   },
   "schema_version": 2,
-  "state_version": 652,
+  "state_version": 653,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "917c6ca52d7534a8bcd21e1d2d36eb8e1c2038985579913071905b3dd4b0a22d",
@@ -22874,13 +22874,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:ValidationError:4 validation errors for AsposeDetectionBundleV1 capability_dependencies.0   Input should be a valid string [type=string_type, input_value=['c1', 'c5'], input_type=list]     For further information visit https://errors.pydantic.dev/2.13/v/string_type capability_dependencies.1   Input should be a valid string [type=string_type, input_value=['c2', 'c5'], input_type=list]     For further information visit https://errors.pydantic.dev/2.13/v/string_type capability_dependencies.2   Input should be a valid string [type=string_type, input_value=['c3', 'c5'], input_type=list]     For further information visit https://errors.pydantic.dev/2.13/v/string_type capability_dependencies.3   Input should be a valid string [type=string_type, input_value=['c4', 'c5'], input_type=list]     For further information visit https://errors.pydantic.dev/2.13/v/string_type",
       "last_checkpoint_id": "7d38e719a5cb02d4127af86c8656b11071c0450cc6ff179f9f0350e6289822e7",
-      "lease_expires_at": "2026-08-17T06:23:54.122511+00:00",
+      "lease_expires_at": null,
       "recovery_count": 1,
-      "status": "processing",
-      "updated_at": "2026-08-17T06:09:42.636574+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-17T06:09:51.196648+00:00"
     },
     "operator:20260811-113843-66da:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": {
       "accepted_at": "2026-08-11T11:38:48.689086+00:00",
