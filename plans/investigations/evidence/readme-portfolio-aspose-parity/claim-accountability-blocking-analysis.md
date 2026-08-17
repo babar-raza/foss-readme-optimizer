@@ -48,6 +48,41 @@ extracted, because the gap isn't missing data — it's a category mismatch betwe
 extraction produces (names, types, signatures) and what descriptive README prose says (behavioral
 explanation in the author's own words).
 
+## A second, distinct example: an entirely missing fact *type*, not missing phrases
+
+Investigated `aspose-page-foss/Aspose.Page-FOSS-for-Python`'s single blocking claim (the smallest
+blocking-claim count in the portfolio, a good candidate to check whether it's cheaply closeable):
+*"No required third-party package dependencies."* Traced the same way — this claim asserts an
+**absence** (zero required deps), but every dependency-related fact this repo's pipeline produces
+(`curated_python_dependencies.py::python_capability_dependencies`, and the T4 `aspose.
+capability_dependencies` field) only ever lists *optional* distributions actually found via import
+scanning; nothing anywhere computes and asserts "the manifest's required-dependencies list was
+checked and is empty." `visitor_fact_render_view` returns `None` for both dependency-related
+fields on this repo — no phrase-rendering view is registered for either at all, so even if the
+absence fact existed, wiring would still be needed.
+
+This is a third, distinct kind of gap from the other two documented here: not "verified data
+exists but isn't wired" (`api.public_surface`'s fix), not "the claim's own descriptive prose can
+never be mechanically reconstructed" (the `generate()` example above) — this is a genuinely
+**missing fact type**: nothing in this codebase currently represents "we checked the manifest and
+confirmed zero required runtime dependencies" as a fact at all.
+
+Checked how common this exact sentence is across the portfolio before treating it as a one-off:
+`grep -rl "No required third-party package dependencies" runs/readme-poc/*/*/source/README.md`
+finds it verbatim in **6 repos' cached source READMEs** (`email/net`, `email/cpp`, `email/python`,
+`font/python`, `note/python`, `page/python`) — a real, recurring pattern, not specific to one
+product. A bounded new detector (parse `pyproject.toml`'s `dependencies`/`[tool.poetry.
+dependencies]` or the equivalent per-ecosystem manifest field, assert emptiness, wire a phrase
+view) would plausibly help multiple repos at once.
+
+**Deliberately not implemented this session.** It's a real, well-scoped, safely-testable addition
+(new detector + fact field + phrase view + unit tests, all exercisable without GitHub, the same
+pattern as today's `detect_api_public_surface` fix) — but it's still new fact-schema surface, and
+shipping it without a chance to verify it against the full real pipeline before this session likely
+ends (GitHub's outage blocks that) risks exactly the kind of half-verified change this project's
+own conventions and today's `--bounded-verified-canary` rule exist to prevent. Recorded here as a
+concretely scoped next task, not attempted blind.
+
 ## This is not the same class of problem as the API-surface gap
 
 The `api.public_surface` fix (this session, `detect_api_public_surface`) closed a real hole where
