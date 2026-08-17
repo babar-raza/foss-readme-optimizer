@@ -105,6 +105,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260804-080352-2b15:aspose-email-foss/Aspose.Email-FOSS-for-.Net"
     },
+    "42c62d217bc0e74659129de2c863441efb406ef6e2af8da8787a0e41f545df4a": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "42c62d217bc0e74659129de2c863441efb406ef6e2af8da8787a0e41f545df4a",
+      "completed_at": "2026-08-17T10:42:06.632960+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "1cb615347a8ac6418c9b1cf5cb9016caccdebe0b40bf2223ac37aa44bcd0a825",
+      "output_hash": null,
+      "repository": "aspose-email-foss/Aspose.Email-FOSS-for-.Net",
+      "run_id": "20260817-104154-14f1",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-08-17T10:42:06.632950+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260817-104154-14f1:aspose-email-foss/Aspose.Email-FOSS-for-.Net"
+    },
     "5264d1247f9d25114f72c306dfdf005833621ca2f144451db2fe7d8795194f65": {
       "action": null,
       "attempt": 1,
@@ -1119,7 +1136,7 @@
     "updated_at": "2026-08-17T08:08:01.484810+00:00"
   },
   "schema_version": 2,
-  "state_version": 84,
+  "state_version": 85,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "aef13340985c9deae647b3a97b691a85f6fe5de14e78ce9afcf89f6b832d338c",
@@ -1423,11 +1440,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": null,
+      "last_checkpoint_id": "42c62d217bc0e74659129de2c863441efb406ef6e2af8da8787a0e41f545df4a",
       "lease_expires_at": null,
       "recovery_count": 0,
       "status": "accepted",
-      "updated_at": "2026-08-17T10:41:59.821664+00:00"
+      "updated_at": "2026-08-17T10:42:06.632960+00:00"
     }
   },
   "trigger_records": {},
