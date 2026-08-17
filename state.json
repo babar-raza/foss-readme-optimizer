@@ -579,7 +579,7 @@
     "updated_at": "2026-08-09T13:28:02.169903+00:00"
   },
   "schema_version": 2,
-  "state_version": 39,
+  "state_version": 40,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "c9495c289c3c5f2c360d210082279616728fb5c3943654e9eeaa82c0c7f8776b",
@@ -674,6 +674,28 @@
     }
   },
   "trigger_lifecycles": {
+    "delivery:registry:1185448261:295f13ab8a0b843e8687b161093e501edeb625be7a337a8e5581224d8f2554fe": {
+      "accepted_at": "2026-08-17T05:54:08.011940+00:00",
+      "envelope": {
+        "dedup_key": "delivery:registry:1185448261:295f13ab8a0b843e8687b161093e501edeb625be7a337a8e5581224d8f2554fe",
+        "delivery_id": "registry:1185448261:295f13ab8a0b843e8687b161093e501edeb625be7a337a8e5581224d8f2554fe",
+        "event_type": "repository_dispatch",
+        "occurred_at": "2026-08-17T04:09:15.074388+00:00",
+        "provider_event_id": "registry:1185448261:295f13ab8a0b843e8687b161093e501edeb625be7a337a8e5581224d8f2554fe",
+        "repository_scope": "aspose-slides-foss/Aspose.Slides-FOSS-for-Java",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": "295f13ab8a0b843e8687b161093e501edeb625be7a337a8e5581224d8f2554fe",
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-17T05:54:08.011949+00:00"
+    },
     "delivery:registry:1185448261:da28496f4cba2ea74ee64f2c58a5b396ae4575418e802677924bc724c9ef26ee": {
       "accepted_at": "2026-08-01T14:53:20.190330+00:00",
       "envelope": {
