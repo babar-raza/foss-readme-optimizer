@@ -4098,7 +4098,7 @@
     "updated_at": "2026-08-09T13:34:09.083783+00:00"
   },
   "schema_version": 2,
-  "state_version": 83,
+  "state_version": 84,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
@@ -4116,6 +4116,28 @@
     "task_graph_snapshot": null
   },
   "trigger_lifecycles": {
+    "delivery:registry:1301317734:109871a00f9007e77ec47ba8de03925c9743b3ffc9188da0b71f1db3bf49b4f6": {
+      "accepted_at": "2026-08-17T05:36:49.338116+00:00",
+      "envelope": {
+        "dedup_key": "delivery:registry:1301317734:109871a00f9007e77ec47ba8de03925c9743b3ffc9188da0b71f1db3bf49b4f6",
+        "delivery_id": "registry:1301317734:109871a00f9007e77ec47ba8de03925c9743b3ffc9188da0b71f1db3bf49b4f6",
+        "event_type": "repository_dispatch",
+        "occurred_at": "2026-08-17T04:09:15.074388+00:00",
+        "provider_event_id": "registry:1301317734:109871a00f9007e77ec47ba8de03925c9743b3ffc9188da0b71f1db3bf49b4f6",
+        "repository_scope": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": "109871a00f9007e77ec47ba8de03925c9743b3ffc9188da0b71f1db3bf49b4f6",
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-17T05:36:49.338125+00:00"
+    },
     "delivery:registry:1301317734:71334b562663e23adaccfcc19dd57ccf04a63f8d937ad0ab858b245163ad6938": {
       "accepted_at": "2026-08-01T14:40:54.172672+00:00",
       "envelope": {
