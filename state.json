@@ -1897,8 +1897,8 @@
       "upstream_revision_at_accept": "7971880964143c86ffd4baa7c8ea1dd959fea04e"
     },
     "independent_verification": {
-      "accepted_facts_hash": "94efe31c2870dbe9541734b1b5c3dc22d5ae4ed51c1489272d50c62b7c0eca4d",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "d486de516fe027c09fe33bdafe5b44dad2de966ce10cd0cd5bad734a871d5200",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -1908,8 +1908,18 @@
           "requirement_mapping",
           "adversarial_cross_domain"
         ],
-        "completeness": {},
-        "failure_escalations": {},
+        "completeness": {
+          "presentation_benchmarking": [
+            "criteria_results",
+            "overall_summary"
+          ]
+        },
+        "failure_escalations": {
+          "readme_presentation": {
+            "consecutive_failure_count": 1,
+            "last_failure_reason": "presentation_plan"
+          }
+        },
         "requirement_map": {
           "CAP-006": {
             "capability_id": "classify_upstream_change",
@@ -2031,10 +2041,10 @@
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-12T14:27:45.050149+00:00",
+      "last_run_timestamp": "2026-08-17T06:59:39.837232+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "800ea256fec1eec387cba1fc599530cd402ef515"
+      "upstream_revision_at_accept": "7971880964143c86ffd4baa7c8ea1dd959fea04e"
     },
     "metadata_presentation": {
       "accepted_facts_hash": "a5937cffa3c28a409fe4719aa4de88e1ca07d6e41645f16095bc4a5b9064dd2c",
@@ -24904,7 +24914,7 @@
     "updated_at": "2026-08-17T06:55:06.059576+00:00"
   },
   "schema_version": 2,
-  "state_version": 438,
+  "state_version": 439,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9459e9c2a72afdd28502823f296fead14e22e97d31dbc49e573ad181775c9fd7",
