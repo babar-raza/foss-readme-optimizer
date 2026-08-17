@@ -2248,8 +2248,8 @@
       "upstream_revision_at_accept": "779c9640ee38ed9e80c53e8db1e850f6be24372f"
     },
     "independent_verification": {
-      "accepted_facts_hash": "94efe31c2870dbe9541734b1b5c3dc22d5ae4ed51c1489272d50c62b7c0eca4d",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "d486de516fe027c09fe33bdafe5b44dad2de966ce10cd0cd5bad734a871d5200",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -2259,8 +2259,18 @@
           "requirement_mapping",
           "adversarial_cross_domain"
         ],
-        "completeness": {},
-        "failure_escalations": {},
+        "completeness": {
+          "presentation_benchmarking": [
+            "criteria_results",
+            "overall_summary"
+          ]
+        },
+        "failure_escalations": {
+          "readme_presentation": {
+            "consecutive_failure_count": 1,
+            "last_failure_reason": "presentation_plan"
+          }
+        },
         "requirement_map": {
           "CAP-006": {
             "capability_id": "classify_upstream_change",
@@ -2382,10 +2392,10 @@
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-03T03:30:34.326669+00:00",
+      "last_run_timestamp": "2026-08-17T08:51:24.388310+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "2be25d979d1f3bf2875a1798aed62a16efab6619"
+      "upstream_revision_at_accept": "779c9640ee38ed9e80c53e8db1e850f6be24372f"
     },
     "metadata_presentation": {
       "accepted_facts_hash": "01094a6f466a12d8f042c6ee21ff10baf8659d280ce0a873461dac53529b30ea",
@@ -19619,7 +19629,7 @@
     "updated_at": "2026-08-17T08:46:53.092070+00:00"
   },
   "schema_version": 2,
-  "state_version": 571,
+  "state_version": 572,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9cd0549ecaa6236177de592870474ee588b61f852b68127d58288134b841f720",
