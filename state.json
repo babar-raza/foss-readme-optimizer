@@ -4072,6 +4072,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "1a6004af47b1ef15385f9d36d381a8172428cc7e",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Rust\\1a6004af47b1ef15385f9d36d381a8172428cc7e\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-08-17T09:09:44.962752+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "1a6004af47b1ef15385f9d36d381a8172428cc7e",
+        "to_status": "PROFILED"
       }
     ],
     "human_acceptance_history": [],
@@ -4143,11 +4154,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "1a6004af47b1ef15385f9d36d381a8172428cc7e",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-08-17T09:09:36.442072+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-17T09:09:44.962752+00:00"
   },
   "schema_version": 2,
-  "state_version": 93,
+  "state_version": 94,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
