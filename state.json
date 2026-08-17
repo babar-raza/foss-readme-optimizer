@@ -580,7 +580,7 @@
     "updated_at": "2026-08-09T13:25:19.530298+00:00"
   },
   "schema_version": 2,
-  "state_version": 39,
+  "state_version": 40,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b45b57f5b8b20edaccdd705a785a68d7023d9dade78afc593e68bbb02692cda5",
@@ -672,6 +672,28 @@
     }
   },
   "trigger_lifecycles": {
+    "delivery:registry:1186397596:11e5bfe91216bf8547f459ca4160d61639dd82f6d8cefb579649028f762cd608": {
+      "accepted_at": "2026-08-17T05:53:38.650556+00:00",
+      "envelope": {
+        "dedup_key": "delivery:registry:1186397596:11e5bfe91216bf8547f459ca4160d61639dd82f6d8cefb579649028f762cd608",
+        "delivery_id": "registry:1186397596:11e5bfe91216bf8547f459ca4160d61639dd82f6d8cefb579649028f762cd608",
+        "event_type": "repository_dispatch",
+        "occurred_at": "2026-08-17T04:09:15.074388+00:00",
+        "provider_event_id": "registry:1186397596:11e5bfe91216bf8547f459ca4160d61639dd82f6d8cefb579649028f762cd608",
+        "repository_scope": "aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": "11e5bfe91216bf8547f459ca4160d61639dd82f6d8cefb579649028f762cd608",
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-17T05:53:38.650565+00:00"
+    },
     "delivery:registry:1186397596:59ee62d47a06deb59f1bad691a43b7e1abceff415db3a26c6e6a7dede175ea4c": {
       "accepted_at": "2026-08-01T14:52:28.656664+00:00",
       "envelope": {
