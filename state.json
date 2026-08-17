@@ -5409,6 +5409,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260808-035514-9bc2:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
     },
+    "76d4493297d4b7f2f0075e6d5c146823b28d4a290b2b85a6cfcc869b58af1bc7": {
+      "action": "independent_verification",
+      "attempt": 1,
+      "checkpoint_id": "76d4493297d4b7f2f0075e6d5c146823b28d4a290b2b85a6cfcc869b58af1bc7",
+      "completed_at": "2026-08-17T16:39:39.153075+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "c817ad87e43f3a786c410767db56407e5e08799138c81ea103254e734dc89eff",
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "run_id": "20260817-162945-5492",
+      "schema_version": 1,
+      "stage": "verifier_result",
+      "started_at": "2026-08-17T16:39:39.153066+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260805-185443-d53f:aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+    },
     "76da88357ec77031ece85cfe093607c95f0ee189b0764be8fb05aa3450f2e894": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -118915,7 +118932,7 @@
     "updated_at": "2026-08-17T16:38:12.726489+00:00"
   },
   "schema_version": 2,
-  "state_version": 2464,
+  "state_version": 2465,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
@@ -119933,11 +119950,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "3b3a3ff173f5945ff30ea488003ef78ed7f1e9cd0b5cee3a1fdc41a756a8d3b8",
+      "last_checkpoint_id": "76d4493297d4b7f2f0075e6d5c146823b28d4a290b2b85a6cfcc869b58af1bc7",
       "lease_expires_at": "2026-08-17T16:45:03.703539+00:00",
       "recovery_count": 3,
       "status": "processing",
-      "updated_at": "2026-08-17T16:31:43.262528+00:00"
+      "updated_at": "2026-08-17T16:39:39.153075+00:00"
     },
     "operator:20260805-190652-35e1:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-08-05T19:07:02.528330+00:00",
