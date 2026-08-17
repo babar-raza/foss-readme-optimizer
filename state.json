@@ -16759,19 +16759,8 @@
     "candidate_hash": null,
     "content_assurance": "repository_verified",
     "details": {},
-    "fact_acceptance_component_hashes": {
-      "acquisition_truth": "f3f13fd88fed7f4cc07a87fd23a718c07b27c4f39cef8e114d0a222571b3aef5",
-      "classification_semantics": "6ccc8d8b227aeb7b841d42b682187117c92323026a78afb896057f5fc7d06222",
-      "conflict_semantics": "05b375c3f32016c2040d002bf104de2f1b05110521e38c5d720d073f61b04fc6",
-      "documentation_catalog": "426a76936c19f5b8bc1ed822c60a907c32b65bf4ceb3c35932140ae0b779525e",
-      "drafting_and_example_selection": "0fc06e552dc30fafa5a4129c86ade51c8502d7ac107648542db5a4f930af3dc1",
-      "evidence_polarity": "020f4dbbe4a6710592ad28e2f5f3f1a4fbf352331b3b5fa56ca3ea6d33c22ed3",
-      "fact_eligibility": "c780ca8bf6eae963bfb0223dac3e426a96ada7525c1e01b498f16a1a7141e6ac",
-      "fact_schema": "e511994e8404434087a96e23abaa0b58f622f89532c84cb622ab6267706abb13",
-      "root_role_selection": "0835347ae5b6f5a53b37dc1d21240a4f108cbafbb75e059d5c39f85936e5e91c",
-      "visitor_render_eligibility": "9582aad195691d975c8e1a38cc9c44b0694070a1a102e297332bfa6936b4b262"
-    },
-    "fact_acceptance_contract_hash": "8a964a888613b48d9889231223b03f6accddc463f4eebde3dc3ba2c1feade2a4",
+    "fact_acceptance_component_hashes": {},
+    "fact_acceptance_contract_hash": null,
     "fact_acceptance_history": [
       {
         "component_hashes": {
@@ -17125,13 +17114,13 @@
         "source_revision": "92ff427b71e532de19a5568ea5c4ce12c3ba8ae7"
       }
     ],
-    "facts_hash": "d0ac94a20f9fcbeda2ff6758ec7496a420842569d99347a9ecb77fbc86bf1cdd",
+    "facts_hash": null,
     "factual_validity": {
       "acceptance_contract_hash": null,
       "evidence_identity": null,
       "facts_hash": null,
-      "observed_by": "supervisor_product_truth",
-      "occurred_at": "2026-08-09T12:25:53.844090+00:00",
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-17T07:52:13.073752+00:00",
       "reason": "source or fact inputs changed",
       "schema_version": 1,
       "source_revision": null,
@@ -18833,6 +18822,17 @@
         "reason": "provenance-complete ProductFactsV2 persisted",
         "source_revision": "92ff427b71e532de19a5568ea5c4ce12c3ba8ae7",
         "to_status": "FACTS_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-.NET\\70933ab13eb0e313d9b160c55845011d366b1599\\source\\revision.json"
+        ],
+        "from_status": "FACTS_READY",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-08-17T07:52:13.073752+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "70933ab13eb0e313d9b160c55845011d366b1599",
+        "to_status": "SNAPSHOTTED"
       }
     ],
     "human_acceptance_history": [],
@@ -18890,8 +18890,8 @@
       "candidate_hash": null,
       "component_manifest_hash": null,
       "evidence_identity": null,
-      "observed_by": "supervisor_product_truth",
-      "occurred_at": "2026-08-09T12:25:53.844090+00:00",
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-17T07:52:13.073752+00:00",
       "presentation_version": null,
       "reason": "source or fact inputs changed",
       "schema_version": 1,
@@ -18904,8 +18904,8 @@
     "publication_eligibility": {
       "admitted_repositories": [],
       "evidence_identity": null,
-      "observed_by": "supervisor_product_truth",
-      "occurred_at": "2026-08-09T12:25:53.844090+00:00",
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-17T07:52:13.073752+00:00",
       "registry_revision": null,
       "rejection_reasons": [
         "source or fact inputs changed"
@@ -18918,12 +18918,12 @@
     "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": "92ff427b71e532de19a5568ea5c4ce12c3ba8ae7",
-    "status": "FACTS_READY",
-    "updated_at": "2026-08-17T05:28:33.649841+00:00"
+    "source_revision": "70933ab13eb0e313d9b160c55845011d366b1599",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-08-17T07:52:13.073752+00:00"
   },
   "schema_version": 2,
-  "state_version": 903,
+  "state_version": 904,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "33faeca66c2f4cdc25d32109d98da0c885e8f13171098eaef0d4b13f89d32e79",
