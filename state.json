@@ -1373,6 +1373,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260802-215033-59f4:aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
     },
+    "84880c8eb741c292168e936c39ca7e8eae941fe312fa06bb89959ef019d02e7c": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "84880c8eb741c292168e936c39ca7e8eae941fe312fa06bb89959ef019d02e7c",
+      "completed_at": "2026-08-17T14:25:40.852331+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "run_id": "20260817-142531-8cde",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-08-17T14:25:40.852317+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260802-215256-d387:aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    },
     "849d43ebc03e34912c66cf0a85ca4448952bdee61ba8e104e8b40110c9b9b8ad": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -19765,7 +19782,7 @@
     "updated_at": "2026-08-17T08:46:53.092070+00:00"
   },
   "schema_version": 2,
-  "state_version": 601,
+  "state_version": 602,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "23b63bdbb538acab483689e1bb6a6a4ae1a145a3d1a6af171cd6057a4282289c",
@@ -19982,11 +19999,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "recovery_sweep_stale_or_expired",
-      "last_checkpoint_id": "26b464f9ba60e737a907a422db30a018d365631107a5ced1195f770e9bd066b8",
+      "last_checkpoint_id": "84880c8eb741c292168e936c39ca7e8eae941fe312fa06bb89959ef019d02e7c",
       "lease_expires_at": null,
       "recovery_count": 5,
       "status": "retryable",
-      "updated_at": "2026-08-17T14:25:13.468260+00:00"
+      "updated_at": "2026-08-17T14:25:40.852331+00:00"
     },
     "operator:20260802-220631-bf53:aspose-cells-foss/Aspose.Cells-FOSS-for-Java": {
       "accepted_at": "2026-08-02T22:06:36.759084+00:00",
