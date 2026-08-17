@@ -54,6 +54,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260804-111138-0cc8:aspose-cells-foss/Aspose.Cells-FOSS-for-.NET"
     },
+    "3bc6d0638a394bd7b6c5a7fa1544cb6981704eead6874994ed2e8f8e63e82980": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "3bc6d0638a394bd7b6c5a7fa1544cb6981704eead6874994ed2e8f8e63e82980",
+      "completed_at": "2026-08-17T07:58:51.606561+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "08865626d337fbe88ca6de69f06a2eda3eb1fbd31277dd4761a497a742131d68",
+      "output_hash": null,
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+      "run_id": "20260817-075832-ca40",
+      "schema_version": 1,
+      "stage": "run_started",
+      "started_at": "2026-08-17T07:58:51.606553+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260804-111138-0cc8:aspose-cells-foss/Aspose.Cells-FOSS-for-.NET"
+    },
     "440f45072aa8fbfc89b6d16a91bcfc9f223b064f45445f1784465718f3a82e05": {
       "action": null,
       "attempt": 1,
@@ -829,7 +846,7 @@
     "updated_at": "2026-08-17T05:33:03.532954+00:00"
   },
   "schema_version": 2,
-  "state_version": 93,
+  "state_version": 94,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f005cc34be4378218ea42abff6086a69d4128f56632c2f96829d290a2e928a7e",
@@ -936,11 +953,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "440f45072aa8fbfc89b6d16a91bcfc9f223b064f45445f1784465718f3a82e05",
+      "last_checkpoint_id": "3bc6d0638a394bd7b6c5a7fa1544cb6981704eead6874994ed2e8f8e63e82980",
       "lease_expires_at": "2026-08-17T08:13:46.332822+00:00",
       "recovery_count": 1,
       "status": "processing",
-      "updated_at": "2026-08-17T07:58:46.332822+00:00"
+      "updated_at": "2026-08-17T07:58:51.606561+00:00"
     }
   },
   "trigger_records": {},
