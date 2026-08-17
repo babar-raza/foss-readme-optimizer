@@ -1201,7 +1201,7 @@
     "updated_at": "2026-08-17T08:00:11.096518+00:00"
   },
   "schema_version": 2,
-  "state_version": 166,
+  "state_version": 167,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4e8fd254c6428203b90ff0510ce91e269153413642f216105825dab70f37db91",
@@ -1328,13 +1328,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:execution_error:ValueError: valuable source detail has no canonical presentation destination: claim:18970:2e8df0c4f0a248d9:api_public_surface",
       "last_checkpoint_id": "463972fa499a6abc3c866ab3dde4c2b645d8d6ea4df0a12101b099a2156d1341",
-      "lease_expires_at": "2026-08-17T16:25:16.462528+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-17T16:16:28.625486+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-17T16:16:50.712738+00:00"
     }
   },
   "trigger_records": {},
