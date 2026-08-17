@@ -2141,7 +2141,7 @@
     "claimed_by": "readme-agent-supervisor",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
-    "goal_activation_graph_sha256": "0da6ce33b589de0a46bca6f2e01ac1aea0882e8cf5563a6c158b425efada96e4",
+    "goal_activation_graph_sha256": "c3e2fca5e60d23654ffce5b1ab64748976e7b7f48ea3c55f96b806e6cf813160",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -2351,37 +2351,57 @@
         "to_primary_goal_id": "GOAL-V0B-POST-PYTHON-SLICES"
       }
     ],
-    "graph_sha256": "0da6ce33b589de0a46bca6f2e01ac1aea0882e8cf5563a6c158b425efada96e4",
+    "graph_sha256": "c3e2fca5e60d23654ffce5b1ab64748976e7b7f48ea3c55f96b806e6cf813160",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-17T16:09:20.870297+00:00",
+    "last_evaluated_at": "2026-08-17T17:51:08.918937+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 4,
-      "candidate_generated": 4,
+      "agent_approved": 1,
+      "candidate_generated": 1,
       "denominator": 33,
-      "derived_at": "2026-08-17T14:22:36.416231+00:00",
-      "deterministic_validated": 4,
-      "facts_ready": 17,
+      "derived_at": "2026-08-17T17:48:39.046232+00:00",
+      "deterministic_validated": 1,
+      "facts_ready": 10,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
+        "AGENT_APPROVED": 1,
         "BLOCKED_MISSING_EVIDENCE": 15,
-        "FACTS_READY": 13,
-        "NO_OP_PROVEN": 4,
-        "PROFILED": 1
+        "FACTS_READY": 15,
+        "PROFILED": 1,
+        "SYSTEM_FAILURE": 1
       },
       "missing_lifecycle_repositories": [],
-      "no_op_proven": 4,
-      "raw_agent_approved": 4,
-      "raw_candidate_generated": 4,
-      "raw_deterministic_validated": 4,
-      "raw_facts_ready": 17,
+      "no_op_proven": 0,
+      "raw_agent_approved": 1,
+      "raw_candidate_generated": 1,
+      "raw_deterministic_validated": 1,
+      "raw_facts_ready": 16,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 4,
+      "raw_no_op_proven": 0,
       "registry_path": "data/products.json",
       "registry_sha256": "2e71e7f2c9ccbe7662ed37a5545a5f1af07363de0d6da8579e109fe4db20c1e7",
       "schema_version": 1,
       "stale_acceptance_repositories": {},
-      "stale_fact_contract_repositories": {},
+      "stale_fact_contract_repositories": {
+        "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
+          "fact_acceptance_recollection_component_changed"
+        ],
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
+          "fact_acceptance_recollection_component_changed"
+        ],
+        "aspose-cells-foss/Aspose.Cells-FOSS-for-Java": [
+          "fact_acceptance_recollection_component_changed"
+        ],
+        "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET": [
+          "fact_acceptance_recollection_component_changed"
+        ],
+        "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET": [
+          "fact_acceptance_recollection_component_changed"
+        ],
+        "aspose-words-foss/Aspose.Words-FOSS-for-.NET": [
+          "fact_acceptance_recollection_component_changed"
+        ]
+      },
       "trusted_candidate_generated": 0,
       "trusted_facts_extracted": 0,
       "trusted_no_op_proven": 0,
@@ -12038,7 +12058,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1208,
+  "state_version": 1209,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
