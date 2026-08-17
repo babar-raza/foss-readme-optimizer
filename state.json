@@ -4406,6 +4406,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260728-010935-f1ca:aspose-3d-foss/Aspose.3D-FOSS-for-.NET"
     },
+    "e2db96c8619b5da567f641320befd9f8cbb47d0184279dc50ef489aa6a91fb73": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "e2db96c8619b5da567f641320befd9f8cbb47d0184279dc50ef489aa6a91fb73",
+      "completed_at": "2026-08-17T13:36:15.144595+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "bad60267d860ff19ce2a8240e51684c58225c54864087532cc9fa4aa1c2d75f0",
+      "output_hash": null,
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+      "run_id": "20260817-133553-f12f",
+      "schema_version": 1,
+      "stage": "run_started",
+      "started_at": "2026-08-17T13:36:15.144586+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260802-200914-7978:aspose-3d-foss/Aspose.3D-FOSS-for-.NET"
+    },
     "e45a175f1f9c1cbcc5c226ca4d5992adac640495007132bc367f7c0faa10bd9c": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -19144,7 +19161,7 @@
     "updated_at": "2026-08-17T07:53:14.808785+00:00"
   },
   "schema_version": 2,
-  "state_version": 946,
+  "state_version": 947,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "cd37318953dd004c480891b5a347023a04f0b243f6c6e1e3f4cb32ca20fa2465",
@@ -19801,11 +19818,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "d79ad52ce597b0b86f2f04d60850565d7e8cccf717c76aa276ad1e3ea95862bf",
+      "last_checkpoint_id": "e2db96c8619b5da567f641320befd9f8cbb47d0184279dc50ef489aa6a91fb73",
       "lease_expires_at": "2026-08-17T13:51:08.667268+00:00",
       "recovery_count": 4,
       "status": "processing",
-      "updated_at": "2026-08-17T13:36:08.667268+00:00"
+      "updated_at": "2026-08-17T13:36:15.144595+00:00"
     },
     "operator:20260802-202743-89ea:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T20:27:47.695774+00:00",
