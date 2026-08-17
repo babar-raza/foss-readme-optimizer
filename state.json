@@ -7772,6 +7772,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260810-223031-7511:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
     },
+    "e9a587f5e13aaef897cb7efa2accbb0e49c3c984540c5ad03460be1ce1ba275c": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "e9a587f5e13aaef897cb7efa2accbb0e49c3c984540c5ad03460be1ce1ba275c",
+      "completed_at": "2026-08-17T17:21:54.716777+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "8799b2d7888fa513baf2cd54cc1b477255c9814794084ebe4f7fc7e693c4945f",
+      "output_hash": null,
+      "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+      "run_id": "20260817-172131-e625",
+      "schema_version": 1,
+      "stage": "run_started",
+      "started_at": "2026-08-17T17:21:54.716763+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260801-032032-c438:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
+    },
     "eaa76a4dc13ffdc205537b4b53be2973efd0ad8319682904db95ade1ccc521e3": {
       "action": null,
       "attempt": 1,
@@ -40637,7 +40654,7 @@
     "updated_at": "2026-08-17T10:22:16.389513+00:00"
   },
   "schema_version": 2,
-  "state_version": 2097,
+  "state_version": 2098,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
@@ -40852,11 +40869,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "ebc99c47a96a22445294c74fb937bf5aec35ea5b3626f4962b8afe45f90f7cda",
+      "last_checkpoint_id": "e9a587f5e13aaef897cb7efa2accbb0e49c3c984540c5ad03460be1ce1ba275c",
       "lease_expires_at": "2026-08-17T17:36:47.548826+00:00",
       "recovery_count": 6,
       "status": "processing",
-      "updated_at": "2026-08-17T17:21:47.548826+00:00"
+      "updated_at": "2026-08-17T17:21:54.716777+00:00"
     },
     "operator:20260801-033009-c9de:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": {
       "accepted_at": "2026-08-01T03:30:15.214252+00:00",
