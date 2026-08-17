@@ -1048,7 +1048,7 @@
     "updated_at": "2026-08-17T08:00:11.096518+00:00"
   },
   "schema_version": 2,
-  "state_version": 136,
+  "state_version": 137,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4e8fd254c6428203b90ff0510ce91e269153413642f216105825dab70f37db91",
@@ -1153,13 +1153,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "specialist_failed:readme_presentation:ERROR:execution_error:ValueError: valuable source detail has no canonical presentation destination: claim:18970:2e8df0c4f0a248d9:api_public_surface",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "f877b94817ba1687cec604538e06d6710480d519999155d58b4325583a728db9",
       "lease_expires_at": null,
-      "recovery_count": 2,
+      "recovery_count": 3,
       "status": "retryable",
-      "updated_at": "2026-08-17T10:41:39.886556+00:00"
+      "updated_at": "2026-08-17T13:36:44.502488+00:00"
     }
   },
   "trigger_records": {},
