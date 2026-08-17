@@ -755,16 +755,24 @@
         "schema_version": 1,
         "source_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
         "source_revision_resolved": true
+      },
+      {
+        "attempt": 1,
+        "dedup_key": "c4dd077352512e56ea4cb31e04205448741b8ab3204479ee8c2d23e533351c33",
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-.NET\\6ee32c08a6090a778fab03e66afac731859f93a9\\intake\\receipts\\c4dd077352512e56-a1.json"
+        ],
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-17T05:33:03.532941+00:00",
+        "outcome": "READY_FAST_PATH",
+        "reason": "the existing README is structurally substantial; preserve-first proof may attempt a byte-identical candidate, but facts and independent approval remain mandatory",
+        "result_hash": "36b0bfacf667a546831f50f6fb55b2679ab438acb19eea42a0b1d7eb1c88ba93",
+        "schema_version": 1,
+        "source_revision": "6ee32c08a6090a778fab03e66afac731859f93a9",
+        "source_revision_resolved": true
       }
     ],
-    "intake_preflight_pending": {
-      "attempt": 1,
-      "dedup_key": "c4dd077352512e56ea4cb31e04205448741b8ab3204479ee8c2d23e533351c33",
-      "schema_version": 1,
-      "source_revision": "6ee32c08a6090a778fab03e66afac731859f93a9",
-      "source_revision_resolved": true,
-      "started_at": "2026-08-17T05:32:47.905509+00:00"
-    },
+    "intake_preflight_pending": null,
     "presentation_plan_hash": null,
     "presentation_validity": {
       "available_component_manifest_hash": null,
@@ -801,10 +809,10 @@
     "schema_version": 2,
     "source_revision": "c0176f510f1370dd51472b6d147daaaf1a2e0787",
     "status": "FACTS_READY",
-    "updated_at": "2026-08-17T05:32:47.905522+00:00"
+    "updated_at": "2026-08-17T05:33:03.532954+00:00"
   },
   "schema_version": 2,
-  "state_version": 88,
+  "state_version": 89,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f005cc34be4378218ea42abff6086a69d4128f56632c2f96829d290a2e928a7e",
