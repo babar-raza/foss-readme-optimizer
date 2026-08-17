@@ -361,6 +361,63 @@
       "skipped_this_run": false,
       "upstream_revision_at_accept": "68d56fdaf7fcd2d95935a0c180b6e69e99a9b4b8"
     },
+    "metadata_presentation": {
+      "accepted_facts_hash": "a0dfab55fcd4f6bbf7372f3549a64f56043c0fb1dd87268226e93bf7edf7658d",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "blocked_findings": [],
+        "current_description": "Open-source .NET library for Word documents, built from the genuine Aspose.Words codebase. Create, read, and edit DOCX and convert to Markdown and plain text. No Microsoft Word required.",
+        "current_homepage": "https://products.aspose.org/words/net/",
+        "current_topics": [
+          "document-automation",
+          "document-conversion",
+          "document-processing",
+          "docx",
+          "markdown",
+          "openxml",
+          "word",
+          "wordprocessingml"
+        ],
+        "fact_citations": {
+          "metadata.description": [
+            "product.identity:manifest-and-registry",
+            "product.audience:dotnet-product-root",
+            "product.problems_solved:agent-drafted-grounded"
+          ],
+          "metadata.homepage": [
+            "documentation.links:governed-aspose-org-catalog"
+          ],
+          "metadata.topics": [
+            "product.capabilities:dotnet-public-api",
+            "product.formats:dotnet-functional-formats",
+            "product.platforms:manifest"
+          ]
+        },
+        "has_proposal": true,
+        "proposed_description": null,
+        "proposed_homepage": null,
+        "proposed_topics": [
+          "document-automation",
+          "document-conversion",
+          "document-processing",
+          "docx",
+          "markdown",
+          "net",
+          "openxml",
+          "word",
+          "wordprocessingml"
+        ]
+      },
+      "domain": "metadata_presentation",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-08-17T08:32:35.563839+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "68d56fdaf7fcd2d95935a0c180b6e69e99a9b4b8"
+    },
     "package_release_audit": {
       "accepted_facts_hash": "d836ec78552b6bf3740ebb26120c8647019bbed794e84af01e32a90c415264e9",
       "accepted_status": "FIRST_OBSERVATION",
@@ -796,7 +853,7 @@
     "updated_at": "2026-08-17T08:29:16.874570+00:00"
   },
   "schema_version": 2,
-  "state_version": 63,
+  "state_version": 64,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
