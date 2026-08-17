@@ -10198,7 +10198,7 @@
     "updated_at": "2026-08-17T08:40:05.196336+00:00"
   },
   "schema_version": 2,
-  "state_version": 788,
+  "state_version": 789,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a2bbc5211f02dbe3a9f06cdc05e63840d5b171856e6c3cc780556b0715409bb5",
@@ -10897,13 +10897,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['verified_equivalences_have_exact_candidate_claims failed', 'claim accountability has 68 blocking claim(s): source:claim:15564:bb072a12143c2786, source:claim:16212:e756fbaca73e56ff, source:claim:17221:f5bb339b2352c5ce, source:claim:17231:837ecb3c12564a13, source:claim:17296:5e859e8e328cd633, source:claim:17324:54f45ea60b098201, source:claim:17386:63d9ae246cd11ea6, source:claim:17412:d6d8649b7288722b, source:claim:17443:d105b3510e29a85e, source:claim:17504:c243ec1f63156041', 'presentation.capability_description_repeats_title.61f4924797a7: Key-capability explanations must add visitor-facing detail.']",
       "last_checkpoint_id": "87d8fc1125b0f1de775fe742d991d3ac9be6cf7b4b6b3e7499108355c5df3d25",
-      "lease_expires_at": "2026-08-17T08:53:50.247864+00:00",
+      "lease_expires_at": null,
       "recovery_count": 1,
-      "status": "processing",
-      "updated_at": "2026-08-17T08:44:23.484198+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-17T08:44:51.516012+00:00"
     }
   },
   "trigger_records": {},
