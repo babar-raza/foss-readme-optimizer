@@ -200,6 +200,23 @@
       "started_at": "2026-08-04T16:32:54.496803+00:00",
       "task_id": null,
       "trigger_dedup_key": "operator:20260804-163232-8344:aspose-slides-foss/Aspose.Slides-FOSS-for-.NET"
+    },
+    "e90cf1f852803700e115ff220bd5b52db2a41fccf452f3ca1a114f97444683f7": {
+      "action": "repository_snapshot_v1",
+      "attempt": 1,
+      "checkpoint_id": "e90cf1f852803700e115ff220bd5b52db2a41fccf452f3ca1a114f97444683f7",
+      "completed_at": "2026-08-17T08:18:07.956010+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "e4863d2c159b1dbc78ca8e427aa229d01f1e8646abcdc77fd98d64c3f604c357",
+      "repository": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
+      "run_id": "20260817-081720-f994",
+      "schema_version": 1,
+      "stage": "profile_completed",
+      "started_at": "2026-08-17T08:18:07.956003+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260804-113214-6ef3:aspose-slides-foss/Aspose.Slides-FOSS-for-.NET"
     }
   },
   "domain_states": {
@@ -873,7 +890,7 @@
     "updated_at": "2026-08-09T13:30:28.952420+00:00"
   },
   "schema_version": 2,
-  "state_version": 73,
+  "state_version": 74,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ad84bcb337de4c7a1e2251e9b40b2da811a12c0aa26386985cd96c1fdb317a4e",
@@ -1035,11 +1052,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "89ccca9eac5690fc004f22621a6f93e2ba07808c11213c52352f2cf16088afb8",
+      "last_checkpoint_id": "e90cf1f852803700e115ff220bd5b52db2a41fccf452f3ca1a114f97444683f7",
       "lease_expires_at": "2026-08-17T08:32:33.765871+00:00",
       "recovery_count": 1,
       "status": "processing",
-      "updated_at": "2026-08-17T08:17:39.365032+00:00"
+      "updated_at": "2026-08-17T08:18:07.956010+00:00"
     },
     "operator:20260804-163232-8344:aspose-slides-foss/Aspose.Slides-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T16:32:38.759428+00:00",
