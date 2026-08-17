@@ -1,8 +1,20 @@
 """Preflight orchestration: GitHub read-check (all enabled repos) + LLM /models check.
 
-Both checks are fail-closed and run before any clone/generation work. Called
-automatically as the first step of `run`/`run-registry`, and standalone via
+Both checks run before any clone/generation work, fail-closed on what they actually protect
+against. Called automatically as the first step of `run`/`run-registry`, and standalone via
 `readme-agent preflight`.
+
+`GET /user` (`check_identity`) is diagnostic-only, not an access gate: it never proves or
+disproves whether any of the repos this run actually needs are reachable -- `check_repo`
+independently confirms that, per repo, against the same token. Confirmed live 2026-08-17: a
+GitHub-wide outage degraded `/user` specifically (`githubstatus.com`: API/Issues/PRs/Actions all
+affected) while every real per-repo `GET /repos/{org}/{repo}` call in the same run kept returning
+200 -- `identity.ok=False` carried no information about whether the run's actual repo/LLM access
+worked, and blocking on it anyway stopped every local, no-push `local_poc` run for the outage's
+duration even though every check that matters to that profile was passing. `ok` therefore no
+longer requires `identity.ok`; identity failure is still surfaced prominently in `format_summary`
+(a human reading the log should still see a degraded token), it just never gates local, read-only
+work the repo-level checks already independently cleared.
 """
 
 from dataclasses import dataclass
@@ -40,7 +52,10 @@ def _run_preflight_against(org_repos: list[str]) -> PreflightResult:
     repos = [check_repo(org_repo, token) for org_repo in org_repos]
     llm = check_models(env.llm_base_url(), env.llm_api_key())
 
-    ok = identity.ok and all(r.ok for r in repos) and llm.ok
+    # identity.ok is deliberately not part of this gate -- see module docstring. What actually
+    # matters (can this run reach the repos it needs, can it reach the LLM) is checked directly,
+    # per repo, by check_repo, never inferred from GET /user.
+    ok = all(r.ok for r in repos) and llm.ok
     return PreflightResult(ok=ok, identity=identity, repos=repos, llm=llm)
 
 
@@ -64,7 +79,10 @@ def format_summary(result: PreflightResult) -> str:
         scopes = ", ".join(result.identity.scopes) or "none"
         lines.append(f"  GitHub identity: {result.identity.login} (scopes: {scopes})")
     else:
-        lines.append(f"  GitHub identity: BLOCKED_AUTH ({result.identity.error})")
+        lines.append(
+            f"  GitHub identity: {result.identity.error} (this check alone never blocks "
+            "Overall -- see per-repo checks below for actual access)"
+        )
     for r in result.repos:
         if r.ok:
             lines.append(
