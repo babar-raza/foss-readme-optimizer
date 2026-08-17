@@ -1040,7 +1040,7 @@
     "updated_at": "2026-08-17T08:18:41.604566+00:00"
   },
   "schema_version": 2,
-  "state_version": 90,
+  "state_version": 91,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7d3c65b4cae3a1974a0ee0a54c5bfe933a462906f3a9a905239e9bb4fd15200b",
@@ -1145,13 +1145,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountability has 21 blocking claim(s): source:claim:1038:8c3bf9278e06a37d, source:claim:1118:4f835661fc947a66, source:claim:1315:7ce9fd4dec0c79bb, source:claim:1480:ed52c706b1ddb99e, source:claim:170:0d67068b78dff029, source:claim:1796:44658a656dfbf00d, source:claim:2347:0877ab1182aeaada, source:claim:2687:82527d8d57289644, source:claim:3280:46c49019e8b220db, source:claim:3681:b43dd0d120dc31a6', 'presentation.capability_description_repeats_title.bac5e40990fa: Key-capability explanations must add visitor-facing detail.', 'presentation.code_fence_spacing.3f6f939ce0df: Code fences must not contain trailing whitespace or repeated blank lines.']",
       "last_checkpoint_id": "e4ecca553c042900ae2e23a935f3c5f4b37fc2c2ada0ba42616de16616a8c7d5",
-      "lease_expires_at": "2026-08-17T08:32:33.765871+00:00",
+      "lease_expires_at": null,
       "recovery_count": 1,
-      "status": "processing",
-      "updated_at": "2026-08-17T08:22:48.299238+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-17T08:23:11.855423+00:00"
     },
     "operator:20260804-163232-8344:aspose-slides-foss/Aspose.Slides-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T16:32:38.759428+00:00",
