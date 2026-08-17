@@ -1561,6 +1561,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260804-150616-2233:aspose-cells-foss/Aspose.Cells-FOSS-for-Python"
     },
+    "ac26375982dbb7f5bc7feb5697082ee53a5ea3157f6d378dd3c6893807809f8a": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "ac26375982dbb7f5bc7feb5697082ee53a5ea3157f6d378dd3c6893807809f8a",
+      "completed_at": "2026-08-17T16:45:51.741500+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+      "run_id": "20260817-164543-2172",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-08-17T16:45:51.741492+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260804-150616-2233:aspose-cells-foss/Aspose.Cells-FOSS-for-Python"
+    },
     "ac4eaabb4422266d43cca9820ca7ae44bb385c81bb87ae347b4df67d7c95c635": {
       "action": null,
       "attempt": 1,
@@ -21830,7 +21847,7 @@
     "updated_at": "2026-08-17T06:42:05.247063+00:00"
   },
   "schema_version": 2,
-  "state_version": 604,
+  "state_version": 605,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "cc7b2aa6160fd37441a22512ed4d8e9909ea0782919a099f68204c88b4c58049",
@@ -22179,11 +22196,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "recovery_sweep_stale_or_expired",
-      "last_checkpoint_id": "ac4eaabb4422266d43cca9820ca7ae44bb385c81bb87ae347b4df67d7c95c635",
+      "last_checkpoint_id": "ac26375982dbb7f5bc7feb5697082ee53a5ea3157f6d378dd3c6893807809f8a",
       "lease_expires_at": null,
       "recovery_count": 8,
       "status": "retryable",
-      "updated_at": "2026-08-17T16:45:33.123106+00:00"
+      "updated_at": "2026-08-17T16:45:51.741500+00:00"
     },
     "operator:20260804-151351-5e79:aspose-cells-foss/Aspose.Cells-FOSS-for-Python": {
       "accepted_at": "2026-08-04T15:13:57.821878+00:00",
