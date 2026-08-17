@@ -18593,7 +18593,7 @@
     "updated_at": "2026-08-17T06:48:23.484257+00:00"
   },
   "schema_version": 2,
-  "state_version": 526,
+  "state_version": 527,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e97319003e7a5196f04b73723fe07bea1b704e7a5157f301801e4a6dd796cbcb",
@@ -19028,13 +19028,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountability has 2 blocking claim(s): source:claim:4998:7ff54c1da64deecb, source:claim:5167:487872b120b8b7f7']",
       "last_checkpoint_id": "ed84a74214b9dc5e7d14a754b50157830c0bf239b811dd149960b06af4f319a9",
-      "lease_expires_at": "2026-08-17T13:39:53.623970+00:00",
+      "lease_expires_at": null,
       "recovery_count": 3,
-      "status": "processing",
-      "updated_at": "2026-08-17T13:29:16.390274+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-17T13:29:41.132856+00:00"
     },
     "operator:20260811-183306-b3d4:aspose-email-foss/Aspose.Email-FOSS-for-Python": {
       "accepted_at": "2026-08-11T18:33:11.242810+00:00",
