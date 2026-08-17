@@ -112,6 +112,8 @@ def test_contract_hash_covers_every_named_acceptance_component():
         "curated_python_pdf_guidance.py",
         "curated_python_public_surface.py",
         "curated_repository_assets.py",
+        "aspose_detectors.py",
+        "composer_factpack.py",
     }.issubset(_COMPONENT_FILES["root_role_selection"])
 
 
@@ -232,6 +234,27 @@ def test_curated_fact_owner_change_invalidates_root_role_component(tmp_path):
         path.write_text(f"owner = {relative_path!r}\n", encoding="utf-8")
     baseline = _component_hash(tmp_path, component_files)
     owner = tmp_path / "curated_python_evidence.py"
+    owner.write_text(owner.read_text(encoding="utf-8") + "contract = 2\n", encoding="utf-8")
+
+    assert _component_hash(tmp_path, component_files) != baseline
+
+
+def test_aspose_detector_change_invalidates_root_role_component(tmp_path):
+    """Regression for the 2026-08-17 incident: `aspose_detectors.py`/`composer_factpack.py`
+    (the T4 aspose.org fact detectors, including `detect_api_public_surface`) were entirely
+    untracked by any component here, so a real fix to them never invalidated an already-cached
+    facts snapshot -- confirmed live: a governed `--bounded-verified-canary` run against
+    `aspose-cells-foss/Aspose.Cells-FOSS-for-.NET` still hit the exact crash `detect_api_public_
+    surface` was written to fix, because the cached snapshot from before the fix was never
+    recollected."""
+
+    component_files = _COMPONENT_FILES["root_role_selection"]
+    for relative_path in component_files:
+        path = tmp_path / relative_path
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(f"owner = {relative_path!r}\n", encoding="utf-8")
+    baseline = _component_hash(tmp_path, component_files)
+    owner = tmp_path / "aspose_detectors.py"
     owner.write_text(owner.read_text(encoding="utf-8") + "contract = 2\n", encoding="utf-8")
 
     assert _component_hash(tmp_path, component_files) != baseline

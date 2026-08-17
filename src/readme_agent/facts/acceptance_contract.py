@@ -123,6 +123,8 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
         "manifest_facts.py",
         "migration.py",
         "provider.py",
+        "aspose_detectors.py",
+        "composer_factpack.py",
         "repository_ingestion.py",
         "curated_readme_evidence.py",
         "curated_repository_guidance.py",
