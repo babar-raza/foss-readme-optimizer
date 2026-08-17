@@ -2121,7 +2121,7 @@
     "claimed_by": null,
     "concurrent_goal_ids": [],
     "delivery_complete": false,
-    "goal_activation_graph_sha256": "9d6f45bc4b62b7a5b3165be2e466f029d0f381cad580cc2d148fafd024053e31",
+    "goal_activation_graph_sha256": "0d3fbb6c3c830295e6639a569b52d27e17e663f82db56b491c3b985976fcc852",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -2331,9 +2331,9 @@
         "to_primary_goal_id": "GOAL-V0B-POST-PYTHON-SLICES"
       }
     ],
-    "graph_sha256": "9d6f45bc4b62b7a5b3165be2e466f029d0f381cad580cc2d148fafd024053e31",
+    "graph_sha256": "0d3fbb6c3c830295e6639a569b52d27e17e663f82db56b491c3b985976fcc852",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-17T09:31:21.662481+00:00",
+    "last_evaluated_at": "2026-08-17T09:36:44.892013+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 4,
       "candidate_generated": 4,
@@ -2446,6 +2446,7 @@
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-MISSION-GOAL-GUARD": "CLOSED",
       "L8-PLAN-RECONCILIATION-ACCELERATION": "CLOSED",
+      "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY": "TODO",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
       "L8-PREPRODUCTION-TRUTHFUL-BASELINE": "CLOSED",
       "L8-QUAL-00-CAMPAIGN-SCHEMA": "TODO",
@@ -11985,7 +11986,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1202,
+  "state_version": 1203,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
