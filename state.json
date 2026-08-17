@@ -204,14 +204,14 @@
       "upstream_revision_at_accept": "6ee32c08a6090a778fab03e66afac731859f93a9"
     },
     "cross_surface_validation": {
-      "accepted_facts_hash": "3cccb9928d5ab6e6331b0657151e31046f8211b605c55dccd5a8801e29db674b",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "aee5ab33e37e794d99cf2f1e917ab65bad67f1e379eed5f86fb546003222c628",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
         "compared": {
           "community_files_presentation_detected_license": "MIT",
-          "readme_reconciliation_license_claim": null
+          "readme_reconciliation_license_claim": "MIT"
         },
         "inconsistencies": [],
         "stale_sibling_data": {}
@@ -219,10 +219,10 @@
       "domain": "cross_surface_validation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-04T11:15:25.396777+00:00",
+      "last_run_timestamp": "2026-08-17T08:02:13.321355+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "c0176f510f1370dd51472b6d147daaaf1a2e0787"
+      "upstream_revision_at_accept": "6ee32c08a6090a778fab03e66afac731859f93a9"
     },
     "github_generated_surface_audit": {
       "accepted_facts_hash": "900570a84cf66db8d50ed11250b2ed31cd415e05013180b74027c230eecaa0b4",
@@ -946,7 +946,7 @@
     "updated_at": "2026-08-17T08:00:11.096518+00:00"
   },
   "schema_version": 2,
-  "state_version": 106,
+  "state_version": 107,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f005cc34be4378218ea42abff6086a69d4128f56632c2f96829d290a2e928a7e",
