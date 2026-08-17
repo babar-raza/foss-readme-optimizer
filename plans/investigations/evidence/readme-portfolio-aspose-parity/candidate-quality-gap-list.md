@@ -104,9 +104,24 @@ capability bullets (ones with no original-README claim to bind to and preserve),
 the claim-accountability coverage mechanism trending toward the shortest claim that still clears
 its bar when there's no existing rich source text to anchor to.
 
+## Slides-Python — third confirmation, same two structural gaps
+
+Quick structural check only (`runs/readme-poc/aspose-slides-foss__Aspose.Slides-FOSS-for-Python/
+ffaf6355.../candidate/README.md`, the last approved candidate before today's fresh upstream commit
+moved this repo to a new, currently-blocked revision — see the main final report). Same section
+list shape as the other two: `## Installation` → `## Quick Start` directly (**no `## Dependencies`
+section**), and **`## API Method Index` as its own top-level section**. Three for three — these two
+are confirmed pipeline-wide structural gaps, not product-specific noise, and the highest-confidence
+items on this list to fix first: both are template/rendering-layer issues (a missing section
+generator, and a section that should nest inside the existing API Reference collapsible instead of
+standing alone), not fact-availability or claim-accountability questions.
+
 ## Next candidates to review (not yet done)
 
-- `aspose-slides-foss/Aspose.Slides-FOSS-for-Python` vs `slides/python/readme.md`
+- Once any non-Python candidate reaches `AGENT_APPROVED` for the first time (none has yet — see
+  the main final report), compare it against its aspose.org sibling too. Everything above is
+  Python-only so far; whether these same two structural gaps (and the thin-bullet pattern) also
+  hold for other platforms is still an open question.
 - `aspose-words-foss/Aspose.Words-FOSS-for-Python` vs `words/python/readme.md`
 - Once any non-Python candidate reaches `AGENT_APPROVED` for the first time, compare it against its
   aspose.org sibling too — this file has no cross-platform comparison yet.
