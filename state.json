@@ -2223,7 +2223,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "9bdd331242e69af5c3954316e6f717d8b3fb432b45220483bbe1bc223705ff0b",
       "accepted_status": "NO_CHANGE",
-      "consecutive_failure_count": 1,
+      "consecutive_failure_count": 2,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -3397,14 +3397,14 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 1,
+          "attempt": 2,
           "domain": "readme_presentation",
           "error_type": "blocked",
           "facts_hash": "9673bc59e7c3d50562184009859f34c4f504508853e3b917cca37bc8d087fdd1",
           "failure_reason": "presentation_plan",
           "fresh_fingerprint": "cbbf0c13d8cfb0ac7b9d4da891934b4dd1dd3bab28097bf7f6bb9c1dd3d2c427",
           "message": "['claim accountability has 4 blocking claim(s): source:claim:2544:3523960e3ec2b571, source:claim:3096:1fd567b607a0b92d, source:claim:5988:7ff54c1da64deecb, source:claim:6367:f76ee53ac612c3f9']",
-          "occurred_at": "2026-08-17T06:58:33.683631+00:00",
+          "occurred_at": "2026-08-17T10:06:20.871732+00:00",
           "schema_version": 1,
           "source_revision": "7971880964143c86ffd4baa7c8ea1dd959fea04e",
           "stage": "document_validation"
@@ -23572,7 +23572,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-17T06:58:33.685021+00:00",
+      "last_run_timestamp": "2026-08-17T10:06:20.872634+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "800ea256fec1eec387cba1fc599530cd402ef515"
@@ -24999,7 +24999,7 @@
     "updated_at": "2026-08-17T06:55:06.059576+00:00"
   },
   "schema_version": 2,
-  "state_version": 455,
+  "state_version": 456,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9459e9c2a72afdd28502823f296fead14e22e97d31dbc49e573ad181775c9fd7",
