@@ -19229,7 +19229,7 @@
     "updated_at": "2026-08-17T07:53:14.808785+00:00"
   },
   "schema_version": 2,
-  "state_version": 957,
+  "state_version": 958,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "cd37318953dd004c480891b5a347023a04f0b243f6c6e1e3f4cb32ca20fa2465",
@@ -19884,13 +19884,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "portfolio_member_failure:StateBackendError:push of refs/readme-agent-state/locks/aspose-3d-foss__Aspose.3D-FOSS-for-.NET failed: fatal: Cannot prompt because user interactivity has been disabled.\nfatal: could not read Username for 'https://github.com': terminal prompts disabled\n",
       "last_checkpoint_id": "57405f92cb968f0bf933b3926fa5b8d8c6e20d3a5b89f628a3de83960829122c",
-      "lease_expires_at": "2026-08-17T18:08:24.406669+00:00",
+      "lease_expires_at": null,
       "recovery_count": 6,
-      "status": "processing",
-      "updated_at": "2026-08-17T17:53:31.264178+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-17T17:53:45.409576+00:00"
     },
     "operator:20260802-202743-89ea:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T20:27:47.695774+00:00",
