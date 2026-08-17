@@ -325,6 +325,23 @@
       "started_at": "2026-08-04T08:05:57.256790+00:00",
       "task_id": null,
       "trigger_dedup_key": "operator:20260804-080352-2b15:aspose-email-foss/Aspose.Email-FOSS-for-.Net"
+    },
+    "fa378808db976b42ae9f5081b4b0381deb21f83bdee81db8c3db9681df4ac9a6": {
+      "action": "repository_snapshot_v1",
+      "attempt": 1,
+      "checkpoint_id": "fa378808db976b42ae9f5081b4b0381deb21f83bdee81db8c3db9681df4ac9a6",
+      "completed_at": "2026-08-17T08:06:53.553049+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "aa724a9be3853ccc82efeb748fd4cc0dfad0aab57f677121ba3448ca8d7fe4b8",
+      "repository": "aspose-email-foss/Aspose.Email-FOSS-for-.Net",
+      "run_id": "20260817-080552-54f6",
+      "schema_version": 1,
+      "stage": "profile_completed",
+      "started_at": "2026-08-17T08:06:53.553039+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260804-084509-fdd9:aspose-email-foss/Aspose.Email-FOSS-for-.Net"
     }
   },
   "domain_states": {
@@ -1013,7 +1030,7 @@
     "updated_at": "2026-08-17T08:06:43.753450+00:00"
   },
   "schema_version": 2,
-  "state_version": 77,
+  "state_version": 78,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "aef13340985c9deae647b3a97b691a85f6fe5de14e78ce9afcf89f6b832d338c",
@@ -1273,11 +1290,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "1bf382236499e0084d0ddd8f95c09aee6ac06bbb08677b0ff45bb9f40b53f757",
+      "last_checkpoint_id": "fa378808db976b42ae9f5081b4b0381deb21f83bdee81db8c3db9681df4ac9a6",
       "lease_expires_at": "2026-08-17T08:21:07.086023+00:00",
       "recovery_count": 2,
       "status": "processing",
-      "updated_at": "2026-08-17T08:06:12.925060+00:00"
+      "updated_at": "2026-08-17T08:06:53.553049+00:00"
     },
     "operator:20260804-085044-7e3a:aspose-email-foss/Aspose.Email-FOSS-for-.Net": {
       "accepted_at": "2026-08-04T08:50:49.901266+00:00",
