@@ -5966,7 +5966,7 @@
     "updated_at": "2026-08-12T11:02:50.068595+00:00"
   },
   "schema_version": 2,
-  "state_version": 124,
+  "state_version": 125,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e00621c9a87ed36e403b1fc8c9215f0a35558faf1450cd22b6dce1ed6198a688",
@@ -6139,9 +6139,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "06f5693aca203d6326e5001949f0890dec552a0169d49c015b43b088b52b3145",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-04T11:00:17.668278+00:00"
+      "updated_at": "2026-08-17T07:40:33.866499+00:00"
     },
     "operator:20260801-103847-24d3:aspose-tex-foss/Aspose.TeX-FOSS-for-Python": {
       "accepted_at": "2026-08-01T10:38:54.602909+00:00",
@@ -6161,9 +6161,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "0b04412ad8032ad17582ddbc4deabe31e961f823390093c432247c41a64600b0",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-04T11:00:17.668278+00:00"
+      "updated_at": "2026-08-17T07:40:33.866499+00:00"
     },
     "operator:20260801-171553-ee7e:aspose-tex-foss/Aspose.TeX-FOSS-for-Python": {
       "accepted_at": "2026-08-01T17:15:58.668184+00:00",
@@ -6183,9 +6183,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "19fb7fa33347776af192ab91aa6293832146b8962c108816deba38667bbfaae8",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-04T11:00:17.668278+00:00"
+      "updated_at": "2026-08-17T07:40:33.866499+00:00"
     },
     "operator:20260812-110109-5e40:aspose-tex-foss/Aspose.TeX-FOSS-for-Python": {
       "accepted_at": "2026-08-12T11:01:16.005642+00:00",
@@ -6201,13 +6201,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "product_truth_not_ready:BLOCKED_MISSING_EVIDENCE",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "43e8de1c4a57604593afe5239ea10e7e4dc45177b09f028d3d1fbea31f7fa67c",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-12T11:03:11.405086+00:00"
+      "updated_at": "2026-08-17T07:40:33.866499+00:00"
     }
   },
   "trigger_records": {},
