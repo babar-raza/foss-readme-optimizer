@@ -18219,6 +18219,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "10a906b48c0c11005c4d93b524e4431901c9717c",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-email-foss__Aspose.Email-FOSS-for-Python\\10a906b48c0c11005c4d93b524e4431901c9717c\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-08-17T06:47:30.307828+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "10a906b48c0c11005c4d93b524e4431901c9717c",
+        "to_status": "PROFILED"
       }
     ],
     "human_acceptance_history": [],
@@ -18290,11 +18301,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "10a906b48c0c11005c4d93b524e4431901c9717c",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-08-17T06:47:22.397037+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-17T06:47:30.307828+00:00"
   },
   "schema_version": 2,
-  "state_version": 468,
+  "state_version": 469,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e97319003e7a5196f04b73723fe07bea1b704e7a5157f301801e4a6dd796cbcb",
