@@ -117219,7 +117219,7 @@
     "updated_at": "2026-08-17T06:07:26.093988+00:00"
   },
   "schema_version": 2,
-  "state_version": 2403,
+  "state_version": 2404,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
@@ -118158,13 +118158,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:IsolatedExecutionError:container registry acquisition remained unavailable after bounded retry",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "b142b5e7d2da2d99a98680549a07507975e078d014589f9cadbd6ef050a1f3e7",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-08-17T06:36:00.519672+00:00",
       "recovery_count": 1,
-      "status": "retryable",
-      "updated_at": "2026-08-17T06:20:53.096749+00:00"
+      "status": "processing",
+      "updated_at": "2026-08-17T06:21:00.519672+00:00"
     },
     "operator:20260805-002052-db67:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-08-05T00:20:59.860381+00:00",
