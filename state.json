@@ -591,6 +591,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260802-232821-591f:aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
     },
+    "372e62b4c4fa0459e05454e6d95a341fa4b38bdc440f6a127bed2bbda4dbc316": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "372e62b4c4fa0459e05454e6d95a341fa4b38bdc440f6a127bed2bbda4dbc316",
+      "completed_at": "2026-08-17T11:12:54.129472+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "run_id": "20260817-111244-8409",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-08-17T11:12:54.129458+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260802-215256-d387:aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    },
     "38d6d14cc8bfdb1a5be62db958ce0d2c9bebc6ddd37790d40648da49a36255a5": {
       "action": null,
       "attempt": 1,
@@ -19646,7 +19663,7 @@
     "updated_at": "2026-08-17T08:46:53.092070+00:00"
   },
   "schema_version": 2,
-  "state_version": 576,
+  "state_version": 577,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "23b63bdbb538acab483689e1bb6a6a4ae1a145a3d1a6af171cd6057a4282289c",
@@ -19863,11 +19880,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "recovery_sweep_stale_or_expired",
-      "last_checkpoint_id": "62847a4912013331159766c337c3068fcc00e089fd07fb456660835777bd65d2",
+      "last_checkpoint_id": "372e62b4c4fa0459e05454e6d95a341fa4b38bdc440f6a127bed2bbda4dbc316",
       "lease_expires_at": null,
       "recovery_count": 3,
       "status": "retryable",
-      "updated_at": "2026-08-17T11:12:33.128736+00:00"
+      "updated_at": "2026-08-17T11:12:54.129472+00:00"
     },
     "operator:20260802-220631-bf53:aspose-cells-foss/Aspose.Cells-FOSS-for-Java": {
       "accepted_at": "2026-08-02T22:06:36.759084+00:00",
