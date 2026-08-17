@@ -14409,7 +14409,7 @@
     "updated_at": "2026-08-09T13:07:20.407461+00:00"
   },
   "schema_version": 2,
-  "state_version": 160,
+  "state_version": 161,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28146b4c88e67540deac6c7c81a769d3b4df457af18442aad4485458c04c5a1f",
@@ -14553,6 +14553,28 @@
       "recovery_count": 0,
       "status": "completed",
       "updated_at": "2026-08-01T14:47:54.442767+00:00"
+    },
+    "delivery:registry:1245479016:ec55d0975f280376a90a26fc16bbd3f1aaee7511769f28317868d22a963ab97b": {
+      "accepted_at": "2026-08-17T05:48:39.169052+00:00",
+      "envelope": {
+        "dedup_key": "delivery:registry:1245479016:ec55d0975f280376a90a26fc16bbd3f1aaee7511769f28317868d22a963ab97b",
+        "delivery_id": "registry:1245479016:ec55d0975f280376a90a26fc16bbd3f1aaee7511769f28317868d22a963ab97b",
+        "event_type": "repository_dispatch",
+        "occurred_at": "2026-08-17T04:09:15.074388+00:00",
+        "provider_event_id": "registry:1245479016:ec55d0975f280376a90a26fc16bbd3f1aaee7511769f28317868d22a963ab97b",
+        "repository_scope": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": "ec55d0975f280376a90a26fc16bbd3f1aaee7511769f28317868d22a963ab97b",
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-17T05:48:39.169061+00:00"
     },
     "operator:20260728-012834-1292:aspose-pdf-foss/Aspose-PDF-FOSS-for-Go": {
       "accepted_at": "2026-07-28T01:28:39.428607+00:00",
