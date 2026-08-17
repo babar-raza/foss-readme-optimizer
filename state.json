@@ -737,7 +737,14 @@
         "source_revision_resolved": true
       }
     ],
-    "intake_preflight_pending": null,
+    "intake_preflight_pending": {
+      "attempt": 1,
+      "dedup_key": "a14358b42359758dee7348d652dd63f23db4a14ea598a0930487bf20472753a7",
+      "schema_version": 1,
+      "source_revision": "5d76f44cdd52a2510b66bbc20c663759cda60432",
+      "source_revision_resolved": true,
+      "started_at": "2026-08-17T13:47:55.547647+00:00"
+    },
     "presentation_plan_hash": null,
     "presentation_validity": {
       "available_component_manifest_hash": null,
@@ -774,10 +781,10 @@
     "schema_version": 2,
     "source_revision": "9968c5b42525919f50bca3cdbcedd3ae1dc382c4",
     "status": "BLOCKED_MISSING_EVIDENCE",
-    "updated_at": "2026-08-17T08:55:52.162543+00:00"
+    "updated_at": "2026-08-17T13:47:55.547668+00:00"
   },
   "schema_version": 2,
-  "state_version": 61,
+  "state_version": 62,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "c9495c289c3c5f2c360d210082279616728fb5c3943654e9eeaa82c0c7f8776b",
