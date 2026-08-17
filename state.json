@@ -555,11 +555,24 @@
     "readme_presentation": {
       "accepted_facts_hash": "0009b1bbf07ed4ac94fe1913af63b962789f5bf2931a3185fc3c757a53ebd8eb",
       "accepted_status": "FIRST_OBSERVATION",
-      "consecutive_failure_count": 0,
+      "consecutive_failure_count": 1,
       "consecutive_skip_count": 0,
       "details": {
         "committed": false,
         "fresh_fingerprint": "d503994e6065ae9d89a55cca290cb58d3508278d7fc9ce5f40d14873007cb303",
+        "last_failure_envelope": {
+          "attempt": 1,
+          "domain": "readme_presentation",
+          "error_type": "blocked",
+          "facts_hash": "7d553da8eced61dec1249dd81137450baf447ac88a9d809207c077a5d6046d66",
+          "failure_reason": "presentation_plan",
+          "fresh_fingerprint": "d503994e6065ae9d89a55cca290cb58d3508278d7fc9ce5f40d14873007cb303",
+          "message": "['claim accountability has 21 blocking claim(s): source:claim:1038:8c3bf9278e06a37d, source:claim:1118:4f835661fc947a66, source:claim:1315:7ce9fd4dec0c79bb, source:claim:1480:ed52c706b1ddb99e, source:claim:170:0d67068b78dff029, source:claim:1796:44658a656dfbf00d, source:claim:2347:0877ab1182aeaada, source:claim:2687:82527d8d57289644, source:claim:3280:46c49019e8b220db, source:claim:3681:b43dd0d120dc31a6', 'presentation.capability_description_repeats_title.bac5e40990fa: Key-capability explanations must add visitor-facing detail.', 'presentation.code_fence_spacing.3f6f939ce0df: Code fences must not contain trailing whitespace or repeated blank lines.']",
+          "occurred_at": "2026-08-17T08:21:35.242176+00:00",
+          "schema_version": 1,
+          "source_revision": "bd19e16057b628310b4a04330585d366cb40e9b7",
+          "stage": "document_validation"
+        },
         "llm_called": true,
         "llm_calls": [
           "relationship_explained"
@@ -591,9 +604,9 @@
         "written": true
       },
       "domain": "readme_presentation",
-      "last_failure_reason": null,
+      "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-07-22T15:01:38.660068+00:00",
+      "last_run_timestamp": "2026-08-17T08:21:35.243005+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "bd19e16057b628310b4a04330585d366cb40e9b7"
@@ -969,7 +982,7 @@
     "updated_at": "2026-08-17T08:18:41.604566+00:00"
   },
   "schema_version": 2,
-  "state_version": 84,
+  "state_version": 85,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ad84bcb337de4c7a1e2251e9b40b2da811a12c0aa26386985cd96c1fdb317a4e",
