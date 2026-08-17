@@ -3,12 +3,14 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
+from pathlib import Path
 
 from readme_agent import paths
 from readme_agent.errors import NotAllowlistedError
 from readme_agent.facts import dotnet_example_verifier
 from readme_agent.facts.acquisition_facts import collect_acquisition_fact
 from readme_agent.facts.catalog_documentation import catalog_documentation_fact
+from readme_agent.facts.composer_factpack import aspose_fact_records, build_aspose_detection_bundle
 from readme_agent.facts.context import current_product_facts
 from readme_agent.facts.local_verification import verify_local_product_example
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES, migrate_product_facts_v1
@@ -352,6 +354,14 @@ def collect_product_facts(
         package_root_roles,
     )
     candidates.extend(local_candidates)
+    aspose_data_root = Path.cwd() / "data" / "imported"
+    if aspose_data_root.is_dir():
+        aspose_bundle = build_aspose_detection_bundle(
+            entry.family, entry.platform, data_root=aspose_data_root, clone_cache=root
+        )
+        candidates.extend(
+            aspose_fact_records(aspose_bundle, family=entry.family, platform=entry.platform)
+        )
     resolved = resolve_product_facts(
         org_repo,
         candidates,

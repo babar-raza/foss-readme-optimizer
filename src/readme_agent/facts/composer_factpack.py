@@ -24,6 +24,7 @@ and is never itself a regeneration trigger.
 from __future__ import annotations
 
 import time
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Literal
 
@@ -48,7 +49,12 @@ from readme_agent.facts.aspose_detectors import (
     detect_license_file,
     detect_seo_keywords,
 )
-from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.facts.schema_v2 import (
+    FactRecordV2,
+    FactSourceV2,
+    ProductFactsV2,
+    descriptive_fact_id,
+)
 
 # Shared with backlink_targets.STALE_WARN_DAYS (the one existing staleness
 # threshold in this codebase, content-provenance-based rather than file-
@@ -130,6 +136,133 @@ def build_composer_factpack(
             family, platform, data_root=data_root, clone_cache=clone_cache
         ),
     )
+
+
+def aspose_fact_records(
+    bundle: AsposeDetectionBundleV1, *, family: str, platform: str
+) -> list[FactRecordV2]:
+    """Project an AsposeDetectionBundleV1 into additional, non-mandatory
+    ProductFactsV2 fields (the "aspose.*" namespace), using the extension
+    seam `resolution.py::resolve_product_facts()` already documents:
+    non-mandatory field families are preserved and selected without
+    requiring a schema rewrite. Never overrides a REQUIRED_PRODUCT_FIELDS
+    field -- these are supplementary evidence this repo's own fact
+    pipeline does not otherwise produce.
+
+    Each detector already degrades gracefully on missing/absent source
+    data (see aspose_detectors.py); a field with nothing genuine to say
+    (no real data found) is simply omitted here rather than recorded with
+    a hollow or default value.
+    """
+
+    source = FactSourceV2(
+        source_type="approved_documentation",
+        location=f"data/imported:{family}/{platform}",
+        retrieved_at=datetime.now(UTC).isoformat(),
+    )
+    records: list[FactRecordV2] = []
+
+    def add(field: str, value, *, verified: bool, surfaces: list[str]) -> None:
+        records.append(
+            FactRecordV2(
+                fact_id=descriptive_fact_id(field, "aspose-detection"),
+                field=field,
+                value=value,
+                source=source,
+                verification_state="verified" if verified else "unverified",
+                authoritative_owner="aspose.org",
+                confidence=1.0 if verified else 0.4,
+                affected_surfaces=surfaces,
+            )
+        )
+
+    archetype = bundle.archetype
+    add(
+        "aspose.archetype",
+        archetype.archetype,
+        verified=not archetype.archetype_basis.startswith("default"),
+        surfaces=["readme.header"],
+    )
+
+    if bundle.seo_keywords.entry_found and bundle.seo_keywords.keywords:
+        add(
+            "aspose.seo_keywords",
+            list(bundle.seo_keywords.keywords),
+            verified=True,
+            surfaces=["metadata.topics", "readme.opening"],
+        )
+
+    # These three store the detection model's FULL model_dump() (not a
+    # hand-picked subset) -- src/readme_agent/validation/aspose_checks_bridge.py
+    # (T3) reads these exact fact values back out to feed the vendored check
+    # battery, whose functions were extracted directly against this same
+    # shape (e.g. install_info["fallback_text_required"],
+    # license_file["relative_path"], enterprise_link["relationship"]); a
+    # narrower value here would silently starve those checks of real fields.
+    install_info = bundle.install_info
+    if install_info.source != "package_registry_missing":
+        add(
+            "aspose.install_info",
+            install_info.model_dump(mode="json"),
+            verified=install_info.published,
+            surfaces=["readme.installation"],
+        )
+
+    if bundle.license_file is not None:
+        add(
+            "aspose.license_file",
+            bundle.license_file.model_dump(mode="json"),
+            verified=True,
+            surfaces=["readme.license"],
+        )
+
+    link = bundle.enterprise_link
+    if link.url is not None:
+        add(
+            "aspose.enterprise_link",
+            link.model_dump(mode="json"),
+            verified=not bool(link.target_map_stale),
+            surfaces=["readme.limitations"],
+        )
+
+    if bundle.dev_test_artifacts:
+        add(
+            "aspose.dev_test_artifacts",
+            [
+                {
+                    "relative_path": artifact.relative_path,
+                    "kind": artifact.kind,
+                    "section": artifact.section,
+                }
+                for artifact in bundle.dev_test_artifacts
+            ],
+            verified=True,
+            surfaces=["readme.development"],
+        )
+
+    if bundle.capability_dependencies:
+        add(
+            "aspose.capability_dependencies",
+            list(bundle.capability_dependencies),
+            verified=True,
+            surfaces=["readme.api_reference", "readme.capabilities"],
+        )
+
+    claims = bundle.dependency_claims
+    if claims.claims:
+        add(
+            "aspose.dependency_claims",
+            [dict(claim) for claim in claims.claims],
+            verified=claims.repo_sha is not None,
+            surfaces=["readme.capabilities"],
+        )
+
+    # homepage_link is intentionally never injected: aspose_detectors.py's own
+    # docstring documents it always returns verified=False in this repo (the
+    # website-content tree was never imported), so it never has anything
+    # genuine to contribute.
+
+    return records
 
 
 class SourceStalenessFindingV1(BaseModel):

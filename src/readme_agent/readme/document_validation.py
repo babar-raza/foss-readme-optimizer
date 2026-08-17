@@ -50,6 +50,7 @@ from readme_agent.readme.limitation_validation import verified_limitations_are_r
 from readme_agent.readme.markers import find_presentation_span
 from readme_agent.readme.presentation_lint import lint_readme_presentation
 from readme_agent.readme.presentation_lint_models import PresentationLintFindingV1
+from readme_agent.validation.aspose_checks_bridge import AsposeCheckFindingV1, run_aspose_checks
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
 _HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
@@ -64,6 +65,7 @@ class DocumentCandidateValidationV1(BaseModel):
     authorized_protected_corrections: list[str] = Field(default_factory=list)
     deferred_source_claim_ids: list[str] = Field(default_factory=list)
     presentation_findings: list[PresentationLintFindingV1] = Field(default_factory=list)
+    aspose_check_findings: list[AsposeCheckFindingV1] = Field(default_factory=list)
 
 
 def _sha256(data: bytes | str) -> str:
@@ -547,11 +549,27 @@ def validate_readme_document_candidate(
         f"{finding.finding_id}: {finding.message}" for finding in presentation_lint.findings
     )
 
+    # Deliberately visible, non-blocking for this rollout: run_aspose_checks
+    # covers 32-43 of 89 vendored checks depending on what real data a given
+    # candidate has (the rest need real data this repo doesn't produce yet --
+    # dependency_snapshot, content_units -- and are honestly skipped, not
+    # faked), and has so far only been validated end-to-end against one real
+    # repo. It already surfaces genuine, correct structural gaps (e.g. this
+    # repo's own template omitting a "Dependencies" section aspose.org
+    # requires) that reflect a template-level decision, not a defect in any
+    # one candidate -- blocking every candidate on that today would be wrong.
+    # checks["aspose_checks"] and aspose_check_findings still surface every
+    # result for a caller/reviewer to see; promote specific checks to
+    # blocking (errors.append) once proven reliable at portfolio scale.
+    aspose_checks = run_aspose_checks(candidate_inner, facts)
+    checks["aspose_checks"] = aspose_checks.valid
+
     return DocumentCandidateValidationV1(
         valid=not errors,
         checks=checks,
         errors=errors,
         authorized_protected_corrections=sorted(authorized_fragment_ids),
+        aspose_check_findings=list(aspose_checks.findings),
         deferred_source_claim_ids=sorted(
             resolution.claim_id
             for resolution in plan.source_claim_resolutions

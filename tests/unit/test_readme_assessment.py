@@ -160,7 +160,7 @@ def _assert_compatibility_claim_block(
     assert all(
         passed
         for name, passed in validation.checks.items()
-        if name not in {"claim_accountability_complete", "composition_lineage"}
+        if name not in {"claim_accountability_complete", "composition_lineage", "aspose_checks"}
     )
     assert plan.composition_ledger is not None
     unbound_errors = [

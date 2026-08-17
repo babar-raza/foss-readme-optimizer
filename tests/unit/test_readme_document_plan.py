@@ -56,7 +56,19 @@ def _assert_compatibility_claim_block(
     assert all(
         passed
         for name, passed in decision.checks.items()
-        if name not in {"claim_accountability_complete", "composition_lineage", "header_visuals"}
+        if name
+        not in {
+            "claim_accountability_complete",
+            "composition_lineage",
+            "header_visuals",
+            # aspose_checks (T3, 2026-08-17): a real, non-blocking check
+            # battery run against real repos and their real ProductFactsV2
+            # -- these tests use deliberately narrow, minimal fixtures never
+            # meant to satisfy the full aspose.org document contract (e.g.
+            # a required "Dependencies" section), so it is expected to
+            # report findings here just like the other excluded checks.
+            "aspose_checks",
+        }
     )
     assert plan.claim_accountability is not None
     blockers = sorted(
