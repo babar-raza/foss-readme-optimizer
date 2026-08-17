@@ -643,6 +643,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260729-060630-7d9e:aspose-cells-foss/Aspose.Cells-FOSS-for-Python"
     },
+    "61fbb315568f5b353b9391543ed76d53fdbba1b3f9948547a980af988b6fe4e3": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "61fbb315568f5b353b9391543ed76d53fdbba1b3f9948547a980af988b6fe4e3",
+      "completed_at": "2026-08-17T09:51:50.306878+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "c72bb7b4493aa3cbc553ffbe51c0b5397bcacf2da5f1284a3c5b6d5cb17972f8",
+      "output_hash": null,
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+      "run_id": "20260817-095130-9eeb",
+      "schema_version": 1,
+      "stage": "run_started",
+      "started_at": "2026-08-17T09:51:50.306868+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260804-150616-2233:aspose-cells-foss/Aspose.Cells-FOSS-for-Python"
+    },
     "622e0b10417228967874589d6348876cac0b343879db5051d78a925023f1473c": {
       "action": null,
       "attempt": 1,
@@ -21643,7 +21660,7 @@
     "updated_at": "2026-08-17T06:42:05.247063+00:00"
   },
   "schema_version": 2,
-  "state_version": 561,
+  "state_version": 562,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "cc7b2aa6160fd37441a22512ed4d8e9909ea0782919a099f68204c88b4c58049",
@@ -21992,11 +22009,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "7e7d3257bdb4266ac7af2f62585ac855c2fb1dcf809097d11f51f472577ff40a",
+      "last_checkpoint_id": "61fbb315568f5b353b9391543ed76d53fdbba1b3f9948547a980af988b6fe4e3",
       "lease_expires_at": "2026-08-17T10:06:44.617453+00:00",
       "recovery_count": 5,
       "status": "processing",
-      "updated_at": "2026-08-17T09:51:44.617453+00:00"
+      "updated_at": "2026-08-17T09:51:50.306878+00:00"
     },
     "operator:20260804-151351-5e79:aspose-cells-foss/Aspose.Cells-FOSS-for-Python": {
       "accepted_at": "2026-08-04T15:13:57.821878+00:00",
