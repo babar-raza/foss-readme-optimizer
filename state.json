@@ -207,6 +207,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260731-084257-47d5:aspose-html-foss/Aspose.HTML-FOSS-for-Python"
     },
+    "2280842012dd9892352c781f899475bebb8e204c6f21f8f9acb6cc94fd3c2796": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "2280842012dd9892352c781f899475bebb8e204c6f21f8f9acb6cc94fd3c2796",
+      "completed_at": "2026-08-17T10:08:39.236703+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+      "run_id": "20260817-100830-03f9",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-08-17T10:08:39.236694+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260802-055303-036d:aspose-html-foss/Aspose.HTML-FOSS-for-Python"
+    },
     "22cc73f37746790cff0e0709638712283d75f561effd5e520bbb33e647aa3a85": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -1876,7 +1893,7 @@
     "updated_at": "2026-08-17T07:03:19.907830+00:00"
   },
   "schema_version": 2,
-  "state_version": 160,
+  "state_version": 161,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1276603134:29d1e8f3e3b0b5f99ada37c79c4faea680c543cb006b5e3015e552bc84a97346": {
@@ -2071,11 +2088,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "recovery_sweep_stale_or_expired",
-      "last_checkpoint_id": "0433a82244d563e915915cfe22a9bb6f3372cc27764140b49a704568f42bda23",
+      "last_checkpoint_id": "2280842012dd9892352c781f899475bebb8e204c6f21f8f9acb6cc94fd3c2796",
       "lease_expires_at": null,
       "recovery_count": 4,
       "status": "retryable",
-      "updated_at": "2026-08-17T10:08:20.257013+00:00"
+      "updated_at": "2026-08-17T10:08:39.236703+00:00"
     },
     "operator:20260802-060439-4026:aspose-html-foss/Aspose.HTML-FOSS-for-Python": {
       "accepted_at": "2026-08-02T06:04:44.600186+00:00",
