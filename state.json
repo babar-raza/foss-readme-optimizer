@@ -64378,7 +64378,7 @@
     "updated_at": "2026-08-17T07:05:53.792358+00:00"
   },
   "schema_version": 2,
-  "state_version": 3961,
+  "state_version": 3962,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a7fb6ee707c69ec327948f74ca27700a56ae32a13e2446fae9c66894b573d478",
@@ -64571,13 +64571,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:execution_error:ValueError: source placements contain duplicate IDs",
       "last_checkpoint_id": "6bdbe69f8128ab190b43343e94dfad6c4c26e13564394d3f67e9686ad318c5c5",
-      "lease_expires_at": "2026-08-17T07:19:19.298770+00:00",
+      "lease_expires_at": null,
       "recovery_count": 6,
-      "status": "processing",
-      "updated_at": "2026-08-17T07:09:49.851501+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-17T07:10:16.058163+00:00"
     },
     "operator:20260730-151813-d5ee:aspose-note-foss/Aspose.Note-FOSS-for-Python": {
       "accepted_at": "2026-07-30T15:18:17.458846+00:00",
