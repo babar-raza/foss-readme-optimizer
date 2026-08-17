@@ -184,6 +184,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260804-163232-8344:aspose-slides-foss/Aspose.Slides-FOSS-for-.NET"
     },
+    "acb3649c0a4bdc44c44ef12976d75e97f3d7043bad8d5eb622077ab9e10b0d34": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "acb3649c0a4bdc44c44ef12976d75e97f3d7043bad8d5eb622077ab9e10b0d34",
+      "completed_at": "2026-08-17T10:52:27.429637+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "72d330fee90ff0332b671f5955887cced39adcd7eee69b9c33315ea74ea4fb37",
+      "output_hash": null,
+      "repository": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
+      "run_id": "20260817-105219-cbb5",
+      "schema_version": 1,
+      "stage": "trigger_accepted",
+      "started_at": "2026-08-17T10:52:27.429629+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260804-113214-6ef3:aspose-slides-foss/Aspose.Slides-FOSS-for-.NET"
+    },
     "bd087ed91603d8d9c66cf07ddbd68a02aa2d7786d25f8807e8ab66d42c5cd566": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -1040,7 +1057,7 @@
     "updated_at": "2026-08-17T08:18:41.604566+00:00"
   },
   "schema_version": 2,
-  "state_version": 92,
+  "state_version": 93,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7d3c65b4cae3a1974a0ee0a54c5bfe933a462906f3a9a905239e9bb4fd15200b",
@@ -1147,11 +1164,11 @@
       },
       "failure_classification": "transient",
       "failure_detail": "recovery_sweep_stale_or_expired",
-      "last_checkpoint_id": "e4ecca553c042900ae2e23a935f3c5f4b37fc2c2ada0ba42616de16616a8c7d5",
+      "last_checkpoint_id": "acb3649c0a4bdc44c44ef12976d75e97f3d7043bad8d5eb622077ab9e10b0d34",
       "lease_expires_at": null,
       "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-17T10:52:09.840157+00:00"
+      "updated_at": "2026-08-17T10:52:27.429637+00:00"
     },
     "operator:20260804-163232-8344:aspose-slides-foss/Aspose.Slides-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T16:32:38.759428+00:00",
