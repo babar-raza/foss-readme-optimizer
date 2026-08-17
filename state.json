@@ -812,6 +812,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260726-015927-ed96:aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
     },
+    "4f81180676fc89eb98a11a5c9e89f6448f8bcaae6aae75887a709f65af11b1f8": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "4f81180676fc89eb98a11a5c9e89f6448f8bcaae6aae75887a709f65af11b1f8",
+      "completed_at": "2026-08-17T11:13:52.638908+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "d25360a5f4118742a696ebfa8530ce4ccfcb1c2a5ea690a92302a91403926454",
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "run_id": "20260817-111244-8409",
+      "schema_version": 1,
+      "stage": "snapshot_captured",
+      "started_at": "2026-08-17T11:13:52.638901+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260802-215256-d387:aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    },
     "52fb6c3f8be0f0d89d216fe9ce7659d6406fb798c3886acf9ab4921e50d3abef": {
       "action": "repository_snapshot_v1",
       "attempt": 1,
@@ -19680,7 +19697,7 @@
     "updated_at": "2026-08-17T08:46:53.092070+00:00"
   },
   "schema_version": 2,
-  "state_version": 579,
+  "state_version": 580,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "23b63bdbb538acab483689e1bb6a6a4ae1a145a3d1a6af171cd6057a4282289c",
@@ -19897,11 +19914,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "ca750a7ee3834670a0736c009861cdc65e2a8ec97dc54a501d40e9b3cde198f9",
+      "last_checkpoint_id": "4f81180676fc89eb98a11a5c9e89f6448f8bcaae6aae75887a709f65af11b1f8",
       "lease_expires_at": "2026-08-17T11:28:00.604093+00:00",
       "recovery_count": 3,
       "status": "processing",
-      "updated_at": "2026-08-17T11:13:06.755570+00:00"
+      "updated_at": "2026-08-17T11:13:52.638908+00:00"
     },
     "operator:20260802-220631-bf53:aspose-cells-foss/Aspose.Cells-FOSS-for-Java": {
       "accepted_at": "2026-08-02T22:06:36.759084+00:00",
