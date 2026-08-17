@@ -1219,11 +1219,21 @@
           "task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY"
         },
         {
+          "evidence_refs": [
+            "claim lease expired"
+          ],
+          "fingerprint": "e565cf08073bca8204f70e54f470781306b396107ad4766963ff4ad1b3a6dd8c",
+          "last_material_narrowing_at": null,
+          "outcome": "ineffective",
+          "started_at": "2026-08-17T16:09:20.870297+00:00",
+          "task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY"
+        },
+        {
           "evidence_refs": [],
           "fingerprint": "e565cf08073bca8204f70e54f470781306b396107ad4766963ff4ad1b3a6dd8c",
           "last_material_narrowing_at": null,
           "outcome": "in_progress",
-          "started_at": "2026-08-17T16:09:20.870297+00:00",
+          "started_at": "2026-08-17T18:50:06.810667+00:00",
           "task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY"
         }
       ],
@@ -2135,10 +2145,10 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-17T16:39:20.870297+00:00",
-    "claim_id": "7b77c08199994dbeb5955e51c003ea20",
-    "claimed_at": "2026-08-17T16:09:20.870297+00:00",
-    "claimed_by": "readme-agent-supervisor",
+    "claim_expires_at": "2026-08-17T19:20:06.810667+00:00",
+    "claim_id": "c67c95f222b64d268468e4b37205b9b5",
+    "claimed_at": "2026-08-17T18:50:06.810667+00:00",
+    "claimed_by": "dependencies-section-fix-canary",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "c3e2fca5e60d23654ffce5b1ab64748976e7b7f48ea3c55f96b806e6cf813160",
@@ -2353,14 +2363,14 @@
     ],
     "graph_sha256": "c3e2fca5e60d23654ffce5b1ab64748976e7b7f48ea3c55f96b806e6cf813160",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-17T17:51:08.918937+00:00",
+    "last_evaluated_at": "2026-08-17T18:50:06.810667+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 1,
+      "agent_approved": 0,
       "candidate_generated": 1,
       "denominator": 33,
-      "derived_at": "2026-08-17T17:48:39.046232+00:00",
+      "derived_at": "2026-08-17T18:05:22.671713+00:00",
       "deterministic_validated": 1,
-      "facts_ready": 10,
+      "facts_ready": 11,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -2381,7 +2391,16 @@
       "registry_path": "data/products.json",
       "registry_sha256": "2e71e7f2c9ccbe7662ed37a5545a5f1af07363de0d6da8579e109fe4db20c1e7",
       "schema_version": 1,
-      "stale_acceptance_repositories": {},
+      "stale_acceptance_repositories": {
+        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
+          "final_verdict_acceptance_binding_mismatch",
+          "independent_review_acceptance_binding_mismatch",
+          "presentation_component_fact_slot_changed",
+          "presentation_component_protected_content_changed",
+          "presentation_component_structural_changed",
+          "reviewer_standard_hash_changed"
+        ]
+      },
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed"
@@ -2390,9 +2409,6 @@
           "fact_acceptance_recollection_component_changed"
         ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java": [
-          "fact_acceptance_recollection_component_changed"
-        ],
-        "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed"
         ],
         "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET": [
@@ -12049,6 +12065,24 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-17T18:50:06.810686+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "dependencies-section-fix-canary",
+        "occurred_at": "2026-08-17T18:50:06.811125+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -12058,7 +12092,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1209,
+  "state_version": 1210,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
