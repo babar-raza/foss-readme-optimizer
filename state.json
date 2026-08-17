@@ -117125,7 +117125,7 @@
     "updated_at": "2026-08-12T13:20:32.932841+00:00"
   },
   "schema_version": 2,
-  "state_version": 2389,
+  "state_version": 2390,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
@@ -117213,6 +117213,28 @@
       "recovery_count": 0,
       "status": "completed",
       "updated_at": "2026-08-01T14:35:10.320854+00:00"
+    },
+    "delivery:registry:1138357893:ff32c1f8d71541ba6502fd26cf3287daad2361038ee90dada1de2bd3d78f803b": {
+      "accepted_at": "2026-08-17T05:29:47.045449+00:00",
+      "envelope": {
+        "dedup_key": "delivery:registry:1138357893:ff32c1f8d71541ba6502fd26cf3287daad2361038ee90dada1de2bd3d78f803b",
+        "delivery_id": "registry:1138357893:ff32c1f8d71541ba6502fd26cf3287daad2361038ee90dada1de2bd3d78f803b",
+        "event_type": "repository_dispatch",
+        "occurred_at": "2026-08-17T04:09:15.074388+00:00",
+        "provider_event_id": "registry:1138357893:ff32c1f8d71541ba6502fd26cf3287daad2361038ee90dada1de2bd3d78f803b",
+        "repository_scope": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": "ff32c1f8d71541ba6502fd26cf3287daad2361038ee90dada1de2bd3d78f803b",
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-17T05:29:47.045459+00:00"
     },
     "operator:20260726-012453-89d4:aspose-3d-foss/Aspose.3D-FOSS-for-Python": {
       "accepted_at": "2026-07-26T01:24:57.693827+00:00",
