@@ -18337,16 +18337,24 @@
         "schema_version": 1,
         "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
         "source_revision_resolved": true
+      },
+      {
+        "attempt": 1,
+        "dedup_key": "1484433b89404018107836a983098574c223c3cad3a4f95584c19546b200d1e5",
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-words-foss__Aspose.Words-FOSS-for-Python\\2d2efee2787cb9e56d071d17f8d7b740dce8b784\\intake\\receipts\\1484433b89404018-a1.json"
+        ],
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-17T13:13:44.919110+00:00",
+        "outcome": "READY_FAST_PATH",
+        "reason": "the existing README is structurally substantial; preserve-first proof may attempt a byte-identical candidate, but facts and independent approval remain mandatory",
+        "result_hash": "6febbcc6428f736920c21a1316f01e7303c42286bde575fd3dd7ed709c9cd6cc",
+        "schema_version": 1,
+        "source_revision": "2d2efee2787cb9e56d071d17f8d7b740dce8b784",
+        "source_revision_resolved": true
       }
     ],
-    "intake_preflight_pending": {
-      "attempt": 1,
-      "dedup_key": "1484433b89404018107836a983098574c223c3cad3a4f95584c19546b200d1e5",
-      "schema_version": 1,
-      "source_revision": "2d2efee2787cb9e56d071d17f8d7b740dce8b784",
-      "source_revision_resolved": true,
-      "started_at": "2026-08-17T13:13:29.540847+00:00"
-    },
+    "intake_preflight_pending": null,
     "presentation_plan_hash": "ed0080f5559b6970c2af424ce361eba8e1ea57f6b831843782d05e71e43a85bd",
     "presentation_validity": {
       "available_component_manifest_hash": null,
@@ -18383,10 +18391,10 @@
     "schema_version": 2,
     "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
     "status": "NO_OP_PROVEN",
-    "updated_at": "2026-08-17T13:13:29.540869+00:00"
+    "updated_at": "2026-08-17T13:13:44.919130+00:00"
   },
   "schema_version": 2,
-  "state_version": 233,
+  "state_version": 234,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28b6eb6ac83e14c637db7804b6dbc47dcf4b35ef760e130b8644bc92031ca608",
