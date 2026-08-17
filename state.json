@@ -1417,7 +1417,7 @@
     "updated_at": "2026-08-17T16:24:25.440517+00:00"
   },
   "schema_version": 2,
-  "state_version": 208,
+  "state_version": 209,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4e8fd254c6428203b90ff0510ce91e269153413642f216105825dab70f37db91",
@@ -1522,13 +1522,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['mandatory_claim_replacements_have_exact_provenance failed', 'claim accountability has 38 blocking claim(s): source:claim:22823:0f695f683a335bbe, source:claim:23042:53007a9090635786, source:claim:23268:89e0cb403df0f360, source:claim:23653:e69b7c40079a3b97, source:claim:23803:9ba16144f0a62331, source:claim:23948:a0028034377aebe4, source:claim:24554:fdfcebfa1c901ccb, source:claim:24753:5d2f1d8a4bded4ab, source:claim:24823:ed9cd042aa22f6a7, source:claim:25013:5a6ae3b5a1a6a779', 'presentation.capability_description_repeats_title.1980b17e4f90: Key-capability explanations must add visitor-facing detail.']",
       "last_checkpoint_id": "bdee4f7c31668d548f8a6b28897073ffffd78a506837ae9ef4b5675f73e208af",
-      "lease_expires_at": "2026-08-17T18:09:26.476036+00:00",
+      "lease_expires_at": null,
       "recovery_count": 5,
-      "status": "processing",
-      "updated_at": "2026-08-17T17:59:41.212410+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-17T18:00:05.973824+00:00"
     },
     "operator:20260817-160948-6629:aspose-cells-foss/Aspose.Cells-FOSS-for-.NET": {
       "accepted_at": "2026-08-17T16:09:53.223050+00:00",
