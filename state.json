@@ -514,20 +514,20 @@
       "upstream_revision_at_accept": null
     },
     "readme_reconciliation": {
-      "accepted_facts_hash": "c6d75e19ed4a647f4d833b96dd366657ef15170f96e933b5b24cd696e8549658",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "6dca1ea2e2b4d3a31991dff2a7aaa52cac5fcf982c5a854483b146f2893086c3",
+      "accepted_status": "UPSTREAM_CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
-        "license_claim": null
+        "license_claim": "MIT"
       },
       "domain": "readme_reconciliation",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-04T11:13:51.922242+00:00",
+      "last_run_timestamp": "2026-08-17T08:00:44.509318+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "c0176f510f1370dd51472b6d147daaaf1a2e0787"
+      "upstream_revision_at_accept": "6ee32c08a6090a778fab03e66afac731859f93a9"
     },
     "visual_preparation": {
       "accepted_facts_hash": "258881a280b4bc970abc94bfc27d482626aa17019cb320dcecdd31398011179a",
@@ -946,7 +946,7 @@
     "updated_at": "2026-08-17T08:00:11.096518+00:00"
   },
   "schema_version": 2,
-  "state_version": 101,
+  "state_version": 102,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "f005cc34be4378218ea42abff6086a69d4128f56632c2f96829d290a2e928a7e",
