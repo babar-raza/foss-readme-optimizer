@@ -576,7 +576,7 @@
     "updated_at": "2026-08-09T13:36:44.453600+00:00"
   },
   "schema_version": 2,
-  "state_version": 41,
+  "state_version": 42,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1159931799:4fa30ee7350677cd47fa73d23a7f2100e4ae39518e642a55bf8f7ad34dcfbf98": {
@@ -600,6 +600,28 @@
       "recovery_count": 0,
       "status": "completed",
       "updated_at": "2026-08-01T15:13:16.269862+00:00"
+    },
+    "delivery:registry:1159931799:b255b1bf26205e41f9dc8569e27d952153922528530447f9bc018703fd54722a": {
+      "accepted_at": "2026-08-17T05:55:46.216027+00:00",
+      "envelope": {
+        "dedup_key": "delivery:registry:1159931799:b255b1bf26205e41f9dc8569e27d952153922528530447f9bc018703fd54722a",
+        "delivery_id": "registry:1159931799:b255b1bf26205e41f9dc8569e27d952153922528530447f9bc018703fd54722a",
+        "event_type": "repository_dispatch",
+        "occurred_at": "2026-08-17T04:09:15.074388+00:00",
+        "provider_event_id": "registry:1159931799:b255b1bf26205e41f9dc8569e27d952153922528530447f9bc018703fd54722a",
+        "repository_scope": "aspose-words-foss/Aspose.Words-FOSS-for-.NET",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": "b255b1bf26205e41f9dc8569e27d952153922528530447f9bc018703fd54722a",
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-17T05:55:46.216035+00:00"
     },
     "operator:20260804-074440-0f1d:aspose-words-foss/Aspose.Words-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T07:44:46.380895+00:00",
