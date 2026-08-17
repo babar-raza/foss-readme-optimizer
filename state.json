@@ -508,7 +508,7 @@
     "updated_at": "2026-08-17T07:30:14.897811+00:00"
   },
   "schema_version": 2,
-  "state_version": 43,
+  "state_version": 44,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1323959290:55ebfe0c9327846d50a3acd79897d72020acc749dab90448dc40df44ded4afd4": {
@@ -547,13 +547,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "recovery_sweep_stale_or_expired",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "be6a7e66713beff42ebfdbea1325471a5a76246deb1b5801acefe0c4434b11cb",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-08-17T17:48:18.966229+00:00",
       "recovery_count": 5,
-      "status": "retryable",
-      "updated_at": "2026-08-17T17:33:13.440434+00:00"
+      "status": "processing",
+      "updated_at": "2026-08-17T17:33:18.966229+00:00"
     }
   },
   "trigger_records": {},
