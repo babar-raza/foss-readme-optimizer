@@ -328,6 +328,39 @@
     }
   },
   "domain_states": {
+    "github_generated_surface_audit": {
+      "accepted_facts_hash": "419bfd7e29373cfad94d32357f1e8d9038a8ac3652b869a92ecf0ad362831f82",
+      "accepted_status": "FIRST_OBSERVATION",
+      "consecutive_failure_count": 0,
+      "consecutive_skip_count": 0,
+      "details": {
+        "contributors_count": 2,
+        "forks_count": 0,
+        "languages": {
+          "C#": 33061886,
+          "C++": 4876,
+          "CMake": 4147,
+          "CSS": 75185,
+          "HTML": 126487,
+          "PowerShell": 2847,
+          "Python": 480,
+          "Rich Text Format": 61800,
+          "Ruby": 8076,
+          "XSLT": 3236844
+        },
+        "open_issues_count": 0,
+        "primary_language": "C#",
+        "stargazers_count": 6,
+        "watchers_count": 6
+      },
+      "domain": "github_generated_surface_audit",
+      "last_failure_reason": null,
+      "last_run_id": null,
+      "last_run_timestamp": "2026-08-17T08:29:58.047111+00:00",
+      "owned_span_present_at_accept": false,
+      "skipped_this_run": false,
+      "upstream_revision_at_accept": "68d56fdaf7fcd2d95935a0c180b6e69e99a9b4b8"
+    },
     "readme_reconciliation": {
       "accepted_facts_hash": "013cd7ccd77e3204060686a0453fc35e6a9e34f950443d1aa1c442b7373bf735",
       "accepted_status": "FIRST_OBSERVATION",
@@ -742,7 +775,7 @@
     "updated_at": "2026-08-17T08:29:16.874570+00:00"
   },
   "schema_version": 2,
-  "state_version": 61,
+  "state_version": 62,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": null,
