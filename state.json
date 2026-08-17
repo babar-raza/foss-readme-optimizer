@@ -588,7 +588,7 @@
     "updated_at": "2026-08-17T05:39:51.997247+00:00"
   },
   "schema_version": 2,
-  "state_version": 43,
+  "state_version": 44,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "a8841a5dcef7c6ebac09690e95e658cace15e994f8fdf8579387b0e377ee17a7",
@@ -725,6 +725,28 @@
       "recovery_count": 0,
       "status": "completed",
       "updated_at": "2026-08-17T05:39:59.753735+00:00"
+    },
+    "operator:20260817-085841-8d81:aspose-email-foss/Aspose.Email-FOSS-for-Cpp": {
+      "accepted_at": "2026-08-17T08:58:46.692032+00:00",
+      "envelope": {
+        "dedup_key": "operator:20260817-085841-8d81:aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "delivery_id": null,
+        "event_type": "cli_manual",
+        "occurred_at": "2026-08-17T08:58:41.458307+00:00",
+        "provider_event_id": "20260817-085841-8d81",
+        "repository_scope": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": null,
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-17T08:58:46.692044+00:00"
     }
   },
   "trigger_records": {},
