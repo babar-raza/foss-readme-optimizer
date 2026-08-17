@@ -10709,7 +10709,7 @@
     "updated_at": "2026-08-09T12:32:13.576220+00:00"
   },
   "schema_version": 2,
-  "state_version": 398,
+  "state_version": 399,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9e63ff6e9f22fa71b2e4dc0f398db4a51f35047cca6453241e1567ed5ff36c6d",
@@ -10801,6 +10801,28 @@
       "recovery_count": 0,
       "status": "completed",
       "updated_at": "2026-08-04T09:30:23.123409+00:00"
+    },
+    "delivery:registry:1168969375:d3064edade012361f87f54c7aa0adada309c835a566e4ac186a1b362cdd7ccf6": {
+      "accepted_at": "2026-08-17T05:30:47.375914+00:00",
+      "envelope": {
+        "dedup_key": "delivery:registry:1168969375:d3064edade012361f87f54c7aa0adada309c835a566e4ac186a1b362cdd7ccf6",
+        "delivery_id": "registry:1168969375:d3064edade012361f87f54c7aa0adada309c835a566e4ac186a1b362cdd7ccf6",
+        "event_type": "repository_dispatch",
+        "occurred_at": "2026-08-17T04:09:15.074388+00:00",
+        "provider_event_id": "registry:1168969375:d3064edade012361f87f54c7aa0adada309c835a566e4ac186a1b362cdd7ccf6",
+        "repository_scope": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": "d3064edade012361f87f54c7aa0adada309c835a566e4ac186a1b362cdd7ccf6",
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-17T05:30:47.375924+00:00"
     },
     "operator:20260726-013007-b0fc:aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript": {
       "accepted_at": "2026-07-26T01:30:12.317207+00:00",
