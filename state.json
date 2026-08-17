@@ -39556,6 +39556,17 @@
         "reason": "unchanged approved bundle reused before author or reviewer dispatch",
         "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
         "to_status": "NO_OP_PROVEN"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-pdf-foss__Aspose-PDF-FOSS-for-Python\\537b8273b185e4f7440b201cacad56567e55b2f0"
+        ],
+        "from_status": "NO_OP_PROVEN",
+        "observed_by": "local-poc-cache",
+        "occurred_at": "2026-08-17T07:19:08.314800+00:00",
+        "reason": "completed bundle cache invalidated at FACTS_COLLECTING: fact_acceptance_component_hashes_changed, fact_acceptance_contract_hash_changed, fact_acceptance_recollection_component_changed, final_verdict_acceptance_binding_mismatch, independent_review_acceptance_binding_mismatch, local_verification_contract_hash_changed, manifest_local_verification_contract_hash_mismatch, no_op_acceptance_binding_mismatch, presentation_component_fact_slot_changed, presentation_component_prose_policy_changed, presentation_component_protected_content_changed, presentation_component_severe_acceptance_changed, presentation_component_structural_changed, reviewer_standard_hash_changed",
+        "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "human_acceptance_history": [],
@@ -39657,11 +39668,11 @@
     "reviewer_standard_hash": "831bac00046be9bc3017075f514138ac6e44822c163ec7789603c543bdce5dca",
     "schema_version": 2,
     "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
-    "status": "NO_OP_PROVEN",
-    "updated_at": "2026-08-12T11:57:56.029846+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-08-17T07:19:08.314800+00:00"
   },
   "schema_version": 2,
-  "state_version": 2060,
+  "state_version": 2061,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7bc50de78b110bcecc48893883201ef0cb3fbf47469d0d66472c8b899ff254cf",
