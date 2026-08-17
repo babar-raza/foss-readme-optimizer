@@ -938,6 +938,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260811-213138-3cd1:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python"
     },
+    "4fbc1efed781794c6d90831b40ce700347b0617e867403ecc66398a66b009ca1": {
+      "action": "independent_verification",
+      "attempt": 1,
+      "checkpoint_id": "4fbc1efed781794c6d90831b40ce700347b0617e867403ecc66398a66b009ca1",
+      "completed_at": "2026-08-17T06:39:40.234520+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "e52ae3810968ee2ebba0eef4f1acc7ede6cdf24be6b238a4c084b651220cfe59",
+      "repository": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "run_id": "20260817-063449-67fc",
+      "schema_version": 1,
+      "stage": "verifier_result",
+      "started_at": "2026-08-17T06:39:40.234511+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260811-111758-42bd:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python"
+    },
     "50630c43f53316525d6487d7146ad88765ce57645b1a2776ad2622ca77de9264": {
       "action": null,
       "attempt": 1,
@@ -22503,7 +22520,7 @@
     "updated_at": "2026-08-17T06:36:18.037609+00:00"
   },
   "schema_version": 2,
-  "state_version": 672,
+  "state_version": 673,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "917c6ca52d7534a8bcd21e1d2d36eb8e1c2038985579913071905b3dd4b0a22d",
@@ -23015,11 +23032,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "bb4b5d10979b28877bc10ff188b69a0ccd563152a2080161022121a28a539491",
+      "last_checkpoint_id": "4fbc1efed781794c6d90831b40ce700347b0617e867403ecc66398a66b009ca1",
       "lease_expires_at": "2026-08-17T06:50:03.969748+00:00",
       "recovery_count": 2,
       "status": "processing",
-      "updated_at": "2026-08-17T06:36:26.070778+00:00"
+      "updated_at": "2026-08-17T06:39:40.234520+00:00"
     },
     "operator:20260811-113843-66da:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": {
       "accepted_at": "2026-08-11T11:38:48.689086+00:00",
