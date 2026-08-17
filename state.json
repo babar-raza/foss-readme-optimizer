@@ -19127,7 +19127,7 @@
     "updated_at": "2026-08-17T07:53:14.808785+00:00"
   },
   "schema_version": 2,
-  "state_version": 942,
+  "state_version": 943,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "cd37318953dd004c480891b5a347023a04f0b243f6c6e1e3f4cb32ca20fa2465",
@@ -19782,13 +19782,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountability has 42 blocking claim(s): source:claim:2276:4293f2cca3472089, source:claim:2417:915fc734725cb81f, source:claim:2583:7088a9565e76c99f, source:claim:2869:b2bfe3633dfce89a, source:claim:3477:b90b9b8ef5562551, source:claim:3519:af1a4c7e371892f5, source:claim:3632:380f2d11012d5f25, source:claim:3684:3389d16fbe8783a4, source:claim:3900:32ca5b5fda8fb6c9, source:claim:4016:3b8b6667ad12b540', 'presentation.capability_description_repeats_title.22fc46e54b1a: Key-capability explanations must add visitor-facing detail.']",
       "last_checkpoint_id": "8439fef4ed50a0b87d312b0eeb0d601fd0a865aa661f0204061f6ff3219459c5",
-      "lease_expires_at": "2026-08-17T10:44:50.098295+00:00",
+      "lease_expires_at": null,
       "recovery_count": 3,
-      "status": "processing",
-      "updated_at": "2026-08-17T10:34:45.092298+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-17T10:35:10.830485+00:00"
     },
     "operator:20260802-202743-89ea:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T20:27:47.695774+00:00",
