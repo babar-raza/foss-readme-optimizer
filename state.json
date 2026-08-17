@@ -24931,7 +24931,7 @@
     "updated_at": "2026-08-17T06:55:06.059576+00:00"
   },
   "schema_version": 2,
-  "state_version": 441,
+  "state_version": 442,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9459e9c2a72afdd28502823f296fead14e22e97d31dbc49e573ad181775c9fd7",
@@ -25212,13 +25212,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountability has 4 blocking claim(s): source:claim:2544:3523960e3ec2b571, source:claim:3096:1fd567b607a0b92d, source:claim:5988:7ff54c1da64deecb, source:claim:6367:f76ee53ac612c3f9']",
       "last_checkpoint_id": "0b0909c21e3f329873c95e32562ae5a4f0005f2c8b36c6e72362e3868ba2ddcf",
-      "lease_expires_at": "2026-08-17T07:08:08.624550+00:00",
+      "lease_expires_at": null,
       "recovery_count": 4,
-      "status": "processing",
-      "updated_at": "2026-08-17T06:59:51.234834+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-17T07:00:18.062844+00:00"
     },
     "operator:20260801-090145-97e8:aspose-font-foss/Aspose.Font-FOSS-for-Python": {
       "accepted_at": "2026-08-01T09:01:51.772514+00:00",
