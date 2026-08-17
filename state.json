@@ -24909,13 +24909,24 @@
     "updated_at": "2026-08-17T06:55:06.059576+00:00"
   },
   "schema_version": 2,
-  "state_version": 428,
+  "state_version": 429,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9459e9c2a72afdd28502823f296fead14e22e97d31dbc49e573ad181775c9fd7",
     "domain_coverage_complete": true,
-    "in_flight_domains": [],
-    "in_flight_run_id": null,
+    "in_flight_domains": [
+      "readme_reconciliation",
+      "github_generated_surface_audit",
+      "package_release_audit",
+      "metadata_presentation",
+      "community_files_presentation",
+      "cross_surface_validation",
+      "readme_presentation",
+      "visual_preparation",
+      "presentation_benchmarking",
+      "independent_verification"
+    ],
+    "in_flight_run_id": "20260817-065535-7b42",
     "last_observed_upstream_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
     "last_run_id": null,
     "last_run_timestamp": "2026-08-12T14:32:08.951276+00:00",
