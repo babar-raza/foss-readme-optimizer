@@ -489,6 +489,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260802-220631-bf53:aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
     },
+    "2c86a14f38819a2d0f3fba10e2daa57592eb0b6794af0a261b71317496ff1821": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "2c86a14f38819a2d0f3fba10e2daa57592eb0b6794af0a261b71317496ff1821",
+      "completed_at": "2026-08-17T08:47:00.966893+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "6713494102e632934110feaebae55b86ab33d32acbf8804d2be8453e72326719",
+      "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+      "run_id": "20260817-084516-f3bf",
+      "schema_version": 1,
+      "stage": "snapshot_captured",
+      "started_at": "2026-08-17T08:47:00.966885+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260802-215256-d387:aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    },
     "2d6e2283613e0b6745183a21dd6417e74d8f9cb723d51bc6888e85077815a7f2": {
       "action": null,
       "attempt": 1,
@@ -19659,7 +19676,7 @@
     "updated_at": "2026-08-17T08:46:53.092070+00:00"
   },
   "schema_version": 2,
-  "state_version": 560,
+  "state_version": 561,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9cd0549ecaa6236177de592870474ee588b61f852b68127d58288134b841f720",
@@ -19874,11 +19891,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "52fb6c3f8be0f0d89d216fe9ce7659d6406fb798c3886acf9ab4921e50d3abef",
+      "last_checkpoint_id": "2c86a14f38819a2d0f3fba10e2daa57592eb0b6794af0a261b71317496ff1821",
       "lease_expires_at": "2026-08-17T09:00:31.729297+00:00",
       "recovery_count": 2,
       "status": "processing",
-      "updated_at": "2026-08-17T08:46:21.117118+00:00"
+      "updated_at": "2026-08-17T08:47:00.966893+00:00"
     },
     "operator:20260802-220631-bf53:aspose-cells-foss/Aspose.Cells-FOSS-for-Java": {
       "accepted_at": "2026-08-02T22:06:36.759084+00:00",
