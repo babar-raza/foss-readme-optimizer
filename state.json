@@ -2517,8 +2517,8 @@
       "upstream_revision_at_accept": "10a906b48c0c11005c4d93b524e4431901c9717c"
     },
     "independent_verification": {
-      "accepted_facts_hash": "94efe31c2870dbe9541734b1b5c3dc22d5ae4ed51c1489272d50c62b7c0eca4d",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "d486de516fe027c09fe33bdafe5b44dad2de966ce10cd0cd5bad734a871d5200",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -2528,8 +2528,18 @@
           "requirement_mapping",
           "adversarial_cross_domain"
         ],
-        "completeness": {},
-        "failure_escalations": {},
+        "completeness": {
+          "presentation_benchmarking": [
+            "criteria_results",
+            "overall_summary"
+          ]
+        },
+        "failure_escalations": {
+          "readme_presentation": {
+            "consecutive_failure_count": 1,
+            "last_failure_reason": "presentation_plan"
+          }
+        },
         "requirement_map": {
           "CAP-006": {
             "capability_id": "classify_upstream_change",
@@ -2651,10 +2661,10 @@
       "domain": "independent_verification",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-12T14:40:49.499148+00:00",
+      "last_run_timestamp": "2026-08-17T06:51:56.411514+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
+      "upstream_revision_at_accept": "10a906b48c0c11005c4d93b524e4431901c9717c"
     },
     "metadata_presentation": {
       "accepted_facts_hash": "87a0046a4a20db751be231b9ea22ee841fd95be6133e6e5e4549b8a0616bff3d",
@@ -18396,7 +18406,7 @@
     "updated_at": "2026-08-17T06:48:23.484257+00:00"
   },
   "schema_version": 2,
-  "state_version": 483,
+  "state_version": 484,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e97319003e7a5196f04b73723fe07bea1b704e7a5157f301801e4a6dd796cbcb",
