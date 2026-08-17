@@ -71,6 +71,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260804-074440-0f1d:aspose-words-foss/Aspose.Words-FOSS-for-.NET"
     },
+    "3997e1a9a6818ce288c82f681f2786e2ab53e5541c07a4debcaa824fda062bb6": {
+      "action": "repository_snapshot_v1",
+      "attempt": 1,
+      "checkpoint_id": "3997e1a9a6818ce288c82f681f2786e2ab53e5541c07a4debcaa824fda062bb6",
+      "completed_at": "2026-08-17T08:24:31.786983+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "5488d8d6890f157242503e5f4ad5196b89c5be5369c3bbeeabd4dd0a06204123",
+      "repository": "aspose-words-foss/Aspose.Words-FOSS-for-.NET",
+      "run_id": "20260817-082326-253b",
+      "schema_version": 1,
+      "stage": "profile_completed",
+      "started_at": "2026-08-17T08:24:31.786975+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260817-082326-253b:aspose-words-foss/Aspose.Words-FOSS-for-.NET"
+    },
     "6b3c6747a6682708bf001ed62cb5acfe18771a61af41bc710eec2b6af76fb2da": {
       "action": null,
       "attempt": 1,
@@ -636,7 +653,7 @@
     "updated_at": "2026-08-17T08:24:21.306265+00:00"
   },
   "schema_version": 2,
-  "state_version": 55,
+  "state_version": 56,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1159931799:2c94658f74865fb5dd2906ff8abd8615c4e87bee4c6a0818dd8ae60ed73ed033": {
@@ -787,11 +804,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "f0b75763d377c8351cf0635b1ce37a0c955ec06f9243f81e28a30d4367517d5e",
+      "last_checkpoint_id": "3997e1a9a6818ce288c82f681f2786e2ab53e5541c07a4debcaa824fda062bb6",
       "lease_expires_at": "2026-08-17T08:38:43.681662+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-08-17T08:23:49.012837+00:00"
+      "updated_at": "2026-08-17T08:24:31.786983+00:00"
     }
   },
   "trigger_records": {},
