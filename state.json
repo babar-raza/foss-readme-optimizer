@@ -887,6 +887,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260731-084257-47d5:aspose-html-foss/Aspose.HTML-FOSS-for-Python"
     },
+    "cbcdb3bbe087f5ed8545b21bab20fc2ee62497a51caacc41917aed200f33481b": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "cbcdb3bbe087f5ed8545b21bab20fc2ee62497a51caacc41917aed200f33481b",
+      "completed_at": "2026-08-17T10:08:50.842556+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "e7ebd10f1615d6829a75aafe7675ba6fe01acd80b21465988895dbb3eea27b3d",
+      "output_hash": null,
+      "repository": "aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+      "run_id": "20260817-100830-03f9",
+      "schema_version": 1,
+      "stage": "run_started",
+      "started_at": "2026-08-17T10:08:50.842548+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260802-055303-036d:aspose-html-foss/Aspose.HTML-FOSS-for-Python"
+    },
     "d191e11383b7047066e9bc14676c1bd5cbc6fa0a77acf8daf7873cc11954381b": {
       "action": null,
       "attempt": 1,
@@ -1893,7 +1910,7 @@
     "updated_at": "2026-08-17T07:03:19.907830+00:00"
   },
   "schema_version": 2,
-  "state_version": 162,
+  "state_version": 163,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1276603134:29d1e8f3e3b0b5f99ada37c79c4faea680c543cb006b5e3015e552bc84a97346": {
@@ -2088,11 +2105,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "2280842012dd9892352c781f899475bebb8e204c6f21f8f9acb6cc94fd3c2796",
+      "last_checkpoint_id": "cbcdb3bbe087f5ed8545b21bab20fc2ee62497a51caacc41917aed200f33481b",
       "lease_expires_at": "2026-08-17T10:23:45.206258+00:00",
       "recovery_count": 4,
       "status": "processing",
-      "updated_at": "2026-08-17T10:08:45.206258+00:00"
+      "updated_at": "2026-08-17T10:08:50.842556+00:00"
     },
     "operator:20260802-060439-4026:aspose-html-foss/Aspose.HTML-FOSS-for-Python": {
       "accepted_at": "2026-08-02T06:04:44.600186+00:00",
