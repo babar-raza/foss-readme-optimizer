@@ -3752,7 +3752,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "5aa791343985b30b7858e7cc6977b0904614f730c532c7a71b5ae62163279351",
       "accepted_status": "NO_CHANGE",
-      "consecutive_failure_count": 3,
+      "consecutive_failure_count": 4,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -4895,14 +4895,14 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 3,
+          "attempt": 4,
           "domain": "readme_presentation",
           "error_type": "blocked",
-          "facts_hash": "f773a64b996a4ea90fa0fa96bf7a66a9125f2f8995e03a40ecc153dbe0d92b4c",
+          "facts_hash": "6127d2803e511f44d54f817422f27ce513d2e996d0602282d5d3567d914c61de",
           "failure_reason": "presentation_plan",
           "fresh_fingerprint": "cfab01517520d929d4554c2430d22013fc81e5ab77131e297f226e027fa88848",
           "message": "['claim accountability has 2 blocking claim(s): source:claim:2626:54e67ed0a47ae8af, source:claim:3930:c5ac180c4dd86b4f']",
-          "occurred_at": "2026-08-17T13:17:38.823525+00:00",
+          "occurred_at": "2026-08-17T16:44:04.234965+00:00",
           "schema_version": 1,
           "source_revision": "06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
           "stage": "document_validation"
@@ -20497,7 +20497,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-17T13:17:38.825445+00:00",
+      "last_run_timestamp": "2026-08-17T16:44:04.235864+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "53f2c3350b8171f2c8275e7b1a178f218695ac45"
@@ -22836,7 +22836,7 @@
     "updated_at": "2026-08-17T16:41:46.563291+00:00"
   },
   "schema_version": 2,
-  "state_version": 735,
+  "state_version": 736,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "917c6ca52d7534a8bcd21e1d2d36eb8e1c2038985579913071905b3dd4b0a22d",
