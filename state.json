@@ -1151,16 +1151,24 @@
         "schema_version": 1,
         "source_revision": "bd19e16057b628310b4a04330585d366cb40e9b7",
         "source_revision_resolved": true
+      },
+      {
+        "attempt": 1,
+        "dedup_key": "6f370dfaf6eaf8c6f9876a6fcd1b926637fc6ee00328be90bc5506614f3f5816",
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-slides-foss__Aspose.Slides-FOSS-for-.NET\\6c650e96d07958c496f9c757a384b76b5fa7bbb9\\intake\\receipts\\6f370dfaf6eaf8c6-a1.json"
+        ],
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-17T14:22:36.416219+00:00",
+        "outcome": "READY_FAST_PATH",
+        "reason": "the existing README is structurally substantial; preserve-first proof may attempt a byte-identical candidate, but facts and independent approval remain mandatory",
+        "result_hash": "4a5a68299ec61bddf615103768ff1f27d7c5b56bcbbf7f26ffd769e9f3ea3ea4",
+        "schema_version": 1,
+        "source_revision": "6c650e96d07958c496f9c757a384b76b5fa7bbb9",
+        "source_revision_resolved": true
       }
     ],
-    "intake_preflight_pending": {
-      "attempt": 1,
-      "dedup_key": "6f370dfaf6eaf8c6f9876a6fcd1b926637fc6ee00328be90bc5506614f3f5816",
-      "schema_version": 1,
-      "source_revision": "6c650e96d07958c496f9c757a384b76b5fa7bbb9",
-      "source_revision_resolved": true,
-      "started_at": "2026-08-17T14:22:21.331726+00:00"
-    },
+    "intake_preflight_pending": null,
     "presentation_plan_hash": null,
     "presentation_validity": {
       "available_component_manifest_hash": null,
@@ -1197,10 +1205,10 @@
     "schema_version": 2,
     "source_revision": "bd19e16057b628310b4a04330585d366cb40e9b7",
     "status": "FACTS_READY",
-    "updated_at": "2026-08-17T14:22:21.331739+00:00"
+    "updated_at": "2026-08-17T14:22:36.416231+00:00"
   },
   "schema_version": 2,
-  "state_version": 121,
+  "state_version": 122,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "7d3c65b4cae3a1974a0ee0a54c5bfe933a462906f3a9a905239e9bb4fd15200b",
