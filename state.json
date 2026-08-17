@@ -2077,8 +2077,8 @@
       "upstream_revision_at_accept": "800ea256fec1eec387cba1fc599530cd402ef515"
     },
     "package_release_audit": {
-      "accepted_facts_hash": "6b2cc6e4be09fbe3d0772d5d3666e4f14c3255c87d7f789ccddbe36e051ebd25",
-      "accepted_status": "NO_CHANGE",
+      "accepted_facts_hash": "d2b1b5eeb2884fa31884b28e8024840101575e5d4097565c1da0e55b4e6b40d8",
+      "accepted_status": "CHANGED",
       "consecutive_failure_count": 0,
       "consecutive_skip_count": 0,
       "details": {
@@ -2086,7 +2086,7 @@
         "handoff_findings": [
           {
             "anomaly": "install path did not resolve against the live package registry",
-            "detected_at": "2026-08-12T14:21:13.002551+00:00",
+            "detected_at": "2026-08-17T06:56:14.400178+00:00",
             "evidence": {
               "detail": "PyPI: aspose-font-foss NOT FOUND (404)"
             },
@@ -2094,17 +2094,17 @@
           }
         ],
         "install_path_resolved": false,
-        "latest_release_name": "Aspose.Font FOSS for Python 26.8.1",
-        "latest_release_tag": "26.8.1",
-        "releases_count": 19
+        "latest_release_name": "Aspose.Font FOSS for Python 26.8.2",
+        "latest_release_tag": "26.8.2",
+        "releases_count": 20
       },
       "domain": "package_release_audit",
       "last_failure_reason": null,
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-12T14:21:13.003203+00:00",
+      "last_run_timestamp": "2026-08-17T06:56:14.400730+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
-      "upstream_revision_at_accept": "800ea256fec1eec387cba1fc599530cd402ef515"
+      "upstream_revision_at_accept": "7971880964143c86ffd4baa7c8ea1dd959fea04e"
     },
     "presentation_benchmarking": {
       "accepted_facts_hash": "c8a11bc3ed0eb2e5dc42b115327ff7e699d9dbc2eb36667492daefd0e6ff23ad",
@@ -24909,7 +24909,7 @@
     "updated_at": "2026-08-17T06:55:06.059576+00:00"
   },
   "schema_version": 2,
-  "state_version": 431,
+  "state_version": 432,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9459e9c2a72afdd28502823f296fead14e22e97d31dbc49e573ad181775c9fd7",
