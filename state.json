@@ -142,6 +142,15 @@
         "reason": "read-only intake classified NOT_APPLICABLE",
         "source_revision": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903",
         "to_status": "INTAKE_READY"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "INTAKE_READY",
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-17T10:51:09.607820+00:00",
+        "reason": "claimed source-bound read-only intake preflight",
+        "source_revision": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903",
+        "to_status": "INTAKE_PREFLIGHTING"
       }
     ],
     "human_acceptance_history": [],
@@ -177,7 +186,14 @@
         "source_revision_resolved": true
       }
     ],
-    "intake_preflight_pending": null,
+    "intake_preflight_pending": {
+      "attempt": 1,
+      "dedup_key": "8e8bc716f451bafda19a9a979d5d8b2c8b684fed0a34215c886c0246ebe20961",
+      "schema_version": 1,
+      "source_revision": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903",
+      "source_revision_resolved": true,
+      "started_at": "2026-08-17T10:51:09.607806+00:00"
+    },
     "presentation_plan_hash": null,
     "presentation_validity": {
       "available_component_manifest_hash": null,
@@ -213,11 +229,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": null,
-    "status": "INTAKE_READY",
-    "updated_at": "2026-08-17T06:00:39.647003+00:00"
+    "status": "INTAKE_PREFLIGHTING",
+    "updated_at": "2026-08-17T10:51:09.607820+00:00"
   },
   "schema_version": 2,
-  "state_version": 16,
+  "state_version": 17,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1332915817:9a2f08b4f5e73a3b27fed882ca09cd6416b64601d274f44e43119a9975dfaac9": {
