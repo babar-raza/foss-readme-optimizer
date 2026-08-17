@@ -18834,7 +18834,14 @@
         "source_revision_resolved": true
       }
     ],
-    "intake_preflight_pending": null,
+    "intake_preflight_pending": {
+      "attempt": 1,
+      "dedup_key": "9845f2250208a374177d5f6f99816e6a8ead8fa853a97c608c6c2acdca76ecfb",
+      "schema_version": 1,
+      "source_revision": "70933ab13eb0e313d9b160c55845011d366b1599",
+      "source_revision_resolved": true,
+      "started_at": "2026-08-17T05:28:18.389773+00:00"
+    },
     "presentation_plan_hash": null,
     "presentation_validity": {
       "available_component_manifest_hash": null,
@@ -18871,10 +18878,10 @@
     "schema_version": 2,
     "source_revision": "92ff427b71e532de19a5568ea5c4ce12c3ba8ae7",
     "status": "FACTS_READY",
-    "updated_at": "2026-08-09T12:25:53.844090+00:00"
+    "updated_at": "2026-08-17T05:28:18.389786+00:00"
   },
   "schema_version": 2,
-  "state_version": 896,
+  "state_version": 897,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "33faeca66c2f4cdc25d32109d98da0c885e8f13171098eaef0d4b13f89d32e79",
