@@ -796,6 +796,23 @@
       "task_id": "06ed8ea4a52348d78117458e3d78ffbf",
       "trigger_dedup_key": "operator:20260801-075818-e2c8:aspose-email-foss/Aspose.Email-FOSS-for-Python"
     },
+    "50813c6e536bf566851d213c7d741dd30528fddd3256d3b0d01e7075694bec34": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "50813c6e536bf566851d213c7d741dd30528fddd3256d3b0d01e7075694bec34",
+      "completed_at": "2026-08-17T09:57:50.223651+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "dc0731072fca796bcbe8e83aef5cdab96c272ce85bdc966e375a7a7e776d7e12",
+      "repository": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+      "run_id": "20260817-095650-a84c",
+      "schema_version": 1,
+      "stage": "snapshot_captured",
+      "started_at": "2026-08-17T09:57:50.223643+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260811-182047-c881:aspose-email-foss/Aspose.Email-FOSS-for-Python"
+    },
     "50e7c7199fb4a4efc4fa04e8e1e97b17d990ccf49199737a872497325e41bdb0": {
       "action": null,
       "attempt": 1,
@@ -18457,7 +18474,7 @@
     "updated_at": "2026-08-17T06:48:23.484257+00:00"
   },
   "schema_version": 2,
-  "state_version": 491,
+  "state_version": 492,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "e97319003e7a5196f04b73723fe07bea1b704e7a5157f301801e4a6dd796cbcb",
@@ -18894,11 +18911,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "986356a05352f69222bb2b2334fb554f4be1f0703d381b2db5baa8bf017a6767",
+      "last_checkpoint_id": "50813c6e536bf566851d213c7d741dd30528fddd3256d3b0d01e7075694bec34",
       "lease_expires_at": "2026-08-17T10:12:07.330921+00:00",
       "recovery_count": 2,
       "status": "processing",
-      "updated_at": "2026-08-17T09:57:13.452700+00:00"
+      "updated_at": "2026-08-17T09:57:50.223651+00:00"
     },
     "operator:20260811-183306-b3d4:aspose-email-foss/Aspose.Email-FOSS-for-Python": {
       "accepted_at": "2026-08-11T18:33:11.242810+00:00",
