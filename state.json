@@ -19,6 +19,23 @@
       "started_at": "2026-08-17T09:18:51.264775+00:00",
       "task_id": null,
       "trigger_dedup_key": "operator:20260817-091837-3798:aspose-psd-foss/Aspose.PSD-FOSS-for-.NET"
+    },
+    "5e519ad4b14daef24c958d63afd147023210784669f75fc36eb7bf103bae77a0": {
+      "action": null,
+      "attempt": 1,
+      "checkpoint_id": "5e519ad4b14daef24c958d63afd147023210784669f75fc36eb7bf103bae77a0",
+      "completed_at": "2026-08-17T09:19:03.506685+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": "185e8003db6847e36e4e4a0440e7c63815629dd52faa8839fdae7fed38b7830c",
+      "output_hash": null,
+      "repository": "aspose-psd-foss/Aspose.PSD-FOSS-for-.NET",
+      "run_id": "20260817-091837-3798",
+      "schema_version": 1,
+      "stage": "run_started",
+      "started_at": "2026-08-17T09:19:03.506677+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260817-091837-3798:aspose-psd-foss/Aspose.PSD-FOSS-for-.NET"
     }
   },
   "domain_states": {},
@@ -166,7 +183,7 @@
     "updated_at": "2026-08-17T06:00:39.647003+00:00"
   },
   "schema_version": 2,
-  "state_version": 10,
+  "state_version": 11,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1332915817:9a2f08b4f5e73a3b27fed882ca09cd6416b64601d274f44e43119a9975dfaac9": {
@@ -207,11 +224,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "36d2164c107b607006c392b2fa1e07f08c7f14771f3025703730aaf0eac78b96",
+      "last_checkpoint_id": "5e519ad4b14daef24c958d63afd147023210784669f75fc36eb7bf103bae77a0",
       "lease_expires_at": "2026-08-17T09:33:57.002604+00:00",
       "recovery_count": 0,
       "status": "processing",
-      "updated_at": "2026-08-17T09:18:57.002604+00:00"
+      "updated_at": "2026-08-17T09:19:03.506685+00:00"
     }
   },
   "trigger_records": {},
