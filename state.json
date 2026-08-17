@@ -25067,7 +25067,7 @@
     "updated_at": "2026-08-17T06:55:06.059576+00:00"
   },
   "schema_version": 2,
-  "state_version": 470,
+  "state_version": 471,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9459e9c2a72afdd28502823f296fead14e22e97d31dbc49e573ad181775c9fd7",
@@ -25348,13 +25348,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "transient",
-      "failure_detail": "recovery_sweep_stale_or_expired",
+      "failure_classification": null,
+      "failure_detail": null,
       "last_checkpoint_id": "d7db228706a424c3befd4ad64fc2b07693ea06e68ee45dd4045e5c7a66de8eec",
-      "lease_expires_at": null,
+      "lease_expires_at": "2026-08-17T17:12:07.709093+00:00",
       "recovery_count": 8,
-      "status": "retryable",
-      "updated_at": "2026-08-17T16:57:01.943517+00:00"
+      "status": "processing",
+      "updated_at": "2026-08-17T16:57:07.709093+00:00"
     },
     "operator:20260801-090145-97e8:aspose-font-foss/Aspose.Font-FOSS-for-Python": {
       "accepted_at": "2026-08-01T09:01:51.772514+00:00",
