@@ -22571,13 +22571,24 @@
     "updated_at": "2026-08-17T06:36:18.037609+00:00"
   },
   "schema_version": 2,
-  "state_version": 680,
+  "state_version": 681,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "917c6ca52d7534a8bcd21e1d2d36eb8e1c2038985579913071905b3dd4b0a22d",
     "domain_coverage_complete": false,
-    "in_flight_domains": [],
-    "in_flight_run_id": null,
+    "in_flight_domains": [
+      "readme_reconciliation",
+      "github_generated_surface_audit",
+      "package_release_audit",
+      "metadata_presentation",
+      "community_files_presentation",
+      "cross_surface_validation",
+      "readme_presentation",
+      "visual_preparation",
+      "presentation_benchmarking",
+      "independent_verification"
+    ],
+    "in_flight_run_id": "20260817-094749-bf29",
     "last_observed_upstream_revision": "06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
     "last_run_id": "20260817-063949-80aa",
     "last_run_timestamp": "2026-08-17T06:39:49.373167+00:00",
