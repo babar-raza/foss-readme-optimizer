@@ -17445,7 +17445,7 @@
     "updated_at": "2026-08-12T13:52:53.528068+00:00"
   },
   "schema_version": 2,
-  "state_version": 192,
+  "state_version": 193,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "28b6eb6ac83e14c637db7804b6dbc47dcf4b35ef760e130b8644bc92031ca608",
@@ -17549,12 +17549,12 @@
         "workflow_run_id": null
       },
       "failure_classification": "transient",
-      "failure_detail": "unhandled_runtime_failure:StateBackendError:push of refs/readme-agent-state/aspose-words-foss__Aspose.Words-FOSS-for-Python failed: fatal: unable to access 'https://github.com/babar-raza/foss-readme-optimizer.git/': Empty reply from server ",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "0319c1c99618e72d98631a6106be81f1267e419592112ec2576e59bc7b8079dd",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-04T11:08:57.022842+00:00"
+      "updated_at": "2026-08-17T07:42:35.261868+00:00"
     },
     "operator:20260801-104901-9fd8:aspose-words-foss/Aspose.Words-FOSS-for-Python": {
       "accepted_at": "2026-08-01T10:49:07.644267+00:00",
@@ -17574,9 +17574,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "9129efb546e0b461569744384198a7f3f00703a6e8931494c95abfd62c9ee497",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-04T11:02:26.567451+00:00"
+      "updated_at": "2026-08-17T07:42:35.261868+00:00"
     },
     "operator:20260801-110801-8a87:aspose-words-foss/Aspose.Words-FOSS-for-Python": {
       "accepted_at": "2026-08-01T11:08:07.485275+00:00",
@@ -17636,13 +17636,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['verified_equivalences_have_exact_candidate_claims failed']",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "a3bd76906d9d7c9a4e3d158f1955d0ea9db362aba3792a8559f1ba718617f9f1",
       "lease_expires_at": null,
-      "recovery_count": 0,
+      "recovery_count": 1,
       "status": "retryable",
-      "updated_at": "2026-08-12T10:50:59.729208+00:00"
+      "updated_at": "2026-08-17T07:42:35.261868+00:00"
     },
     "operator:20260812-134303-593b:aspose-words-foss/Aspose.Words-FOSS-for-Python": {
       "accepted_at": "2026-08-12T13:43:08.495393+00:00",
