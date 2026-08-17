@@ -1727,9 +1727,31 @@
     "updated_at": "2026-08-12T10:56:50.346565+00:00"
   },
   "schema_version": 2,
-  "state_version": 143,
+  "state_version": 144,
   "supervisor_state": null,
   "trigger_lifecycles": {
+    "delivery:registry:1276603134:29d1e8f3e3b0b5f99ada37c79c4faea680c543cb006b5e3015e552bc84a97346": {
+      "accepted_at": "2026-08-17T05:42:37.933116+00:00",
+      "envelope": {
+        "dedup_key": "delivery:registry:1276603134:29d1e8f3e3b0b5f99ada37c79c4faea680c543cb006b5e3015e552bc84a97346",
+        "delivery_id": "registry:1276603134:29d1e8f3e3b0b5f99ada37c79c4faea680c543cb006b5e3015e552bc84a97346",
+        "event_type": "repository_dispatch",
+        "occurred_at": "2026-08-17T04:09:15.074388+00:00",
+        "provider_event_id": "registry:1276603134:29d1e8f3e3b0b5f99ada37c79c4faea680c543cb006b5e3015e552bc84a97346",
+        "repository_scope": "aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+        "schedule_window": null,
+        "schema_version": 2,
+        "source_revision": "29d1e8f3e3b0b5f99ada37c79c4faea680c543cb006b5e3015e552bc84a97346",
+        "workflow_run_id": null
+      },
+      "failure_classification": null,
+      "failure_detail": null,
+      "last_checkpoint_id": null,
+      "lease_expires_at": null,
+      "recovery_count": 0,
+      "status": "accepted",
+      "updated_at": "2026-08-17T05:42:37.933125+00:00"
+    },
     "delivery:registry:1276603134:cd51d99ee6d72d899a29b5a494445443c3509cf059483dbeb19d2d97da7d942f": {
       "accepted_at": "2026-08-01T14:45:32.716802+00:00",
       "envelope": {
