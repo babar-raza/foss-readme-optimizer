@@ -19501,6 +19501,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "779c9640ee38ed9e80c53e8db1e850f6be24372f",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-cells-foss__Aspose.Cells-FOSS-for-Java\\779c9640ee38ed9e80c53e8db1e850f6be24372f\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-08-17T08:46:10.636000+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "779c9640ee38ed9e80c53e8db1e850f6be24372f",
+        "to_status": "PROFILED"
       }
     ],
     "human_acceptance_history": [],
@@ -19572,11 +19583,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "779c9640ee38ed9e80c53e8db1e850f6be24372f",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-08-17T08:46:02.405727+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-17T08:46:10.636000+00:00"
   },
   "schema_version": 2,
-  "state_version": 556,
+  "state_version": 557,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9cd0549ecaa6236177de592870474ee588b61f852b68127d58288134b841f720",
