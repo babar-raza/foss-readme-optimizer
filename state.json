@@ -94,9 +94,9 @@
       "acceptance_contract_hash": null,
       "evidence_identity": null,
       "facts_hash": null,
-      "observed_by": "migration",
-      "occurred_at": "2026-08-17T05:52:09.655295+00:00",
-      "reason": "not evaluated",
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-17T10:51:41.512959+00:00",
+      "reason": "source or fact inputs changed",
       "schema_version": 1,
       "source_revision": null,
       "status": "UNKNOWN"
@@ -162,6 +162,17 @@
         "reason": "read-only intake classified READY_FULL_PIPELINE",
         "source_revision": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903",
         "to_status": "INTAKE_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-psd-foss__Aspose.PSD-FOSS-for-.NET\\1fe2c6dc8014f26de3b79acbee25b15a8d26e903\\source\\revision.json"
+        ],
+        "from_status": "INTAKE_READY",
+        "observed_by": "supervisor_snapshot",
+        "occurred_at": "2026-08-17T10:51:41.512959+00:00",
+        "reason": "captured immutable repository snapshot",
+        "source_revision": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903",
+        "to_status": "SNAPSHOTTED"
       }
     ],
     "human_acceptance_history": [],
@@ -219,10 +230,10 @@
       "candidate_hash": null,
       "component_manifest_hash": null,
       "evidence_identity": null,
-      "observed_by": "migration",
-      "occurred_at": "2026-08-17T05:52:09.655304+00:00",
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-17T10:51:41.512959+00:00",
       "presentation_version": null,
-      "reason": "not evaluated",
+      "reason": "source or fact inputs changed",
       "schema_version": 1,
       "source_revision": null,
       "status": "UNKNOWN"
@@ -233,11 +244,11 @@
     "publication_eligibility": {
       "admitted_repositories": [],
       "evidence_identity": null,
-      "observed_by": "migration",
-      "occurred_at": "2026-08-17T05:52:09.655312+00:00",
+      "observed_by": "supervisor_snapshot",
+      "occurred_at": "2026-08-17T10:51:41.512959+00:00",
       "registry_revision": null,
       "rejection_reasons": [
-        "not evaluated"
+        "source or fact inputs changed"
       ],
       "schema_version": 1,
       "status": "INELIGIBLE"
@@ -247,12 +258,12 @@
     "repair_budget_origin_hash": null,
     "reviewer_standard_hash": null,
     "schema_version": 2,
-    "source_revision": null,
-    "status": "INTAKE_READY",
-    "updated_at": "2026-08-17T10:51:22.335708+00:00"
+    "source_revision": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903",
+    "status": "SNAPSHOTTED",
+    "updated_at": "2026-08-17T10:51:41.512959+00:00"
   },
   "schema_version": 2,
-  "state_version": 18,
+  "state_version": 19,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1332915817:9a2f08b4f5e73a3b27fed882ca09cd6416b64601d274f44e43119a9975dfaac9": {
