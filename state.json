@@ -728,16 +728,16 @@
     "readme_presentation": {
       "accepted_facts_hash": null,
       "accepted_status": null,
-      "consecutive_failure_count": 5,
+      "consecutive_failure_count": 6,
       "consecutive_skip_count": 0,
       "details": {
         "last_failure_envelope": {
-          "attempt": 5,
+          "attempt": 6,
           "domain": "readme_presentation",
           "error_type": "ValueError",
           "failure_reason": "execution_error",
           "message": " valuable source detail has no canonical presentation destination: claim:18970:2e8df0c4f0a248d9:api_public_surface",
-          "occurred_at": "2026-08-17T16:14:13.067655+00:00",
+          "occurred_at": "2026-08-17T16:16:18.064083+00:00",
           "schema_version": 1,
           "source_revision": "6ee32c08a6090a778fab03e66afac731859f93a9",
           "stage": null
@@ -746,7 +746,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": "execution_error",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-17T16:14:13.067655+00:00",
+      "last_run_timestamp": "2026-08-17T16:16:18.064083+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": null
@@ -1184,7 +1184,7 @@
     "updated_at": "2026-08-17T08:00:11.096518+00:00"
   },
   "schema_version": 2,
-  "state_version": 163,
+  "state_version": 164,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "4e8fd254c6428203b90ff0510ce91e269153413642f216105825dab70f37db91",
