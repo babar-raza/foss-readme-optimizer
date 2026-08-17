@@ -4270,7 +4270,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "26c84d7d2d88799b75c861d0410231b75d59171c4f0e43f86767fc586e324dd8",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 1,
+      "consecutive_failure_count": 2,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -4496,15 +4496,17 @@
           "outcome_kind": "unchanged_no_op"
         },
         "last_failure_envelope": {
-          "attempt": 1,
+          "attempt": 2,
           "domain": "readme_presentation",
           "error_type": "blocked",
+          "facts_hash": "7ccbc8f3abf34cdefccd6784e1e7ee7bb78e7b600f17303aa10a1785e51ea1e6",
           "failure_reason": "presentation_plan",
-          "message": "['fact-backed audience/problem overview is absent']",
-          "occurred_at": "2026-08-04T11:42:49.258982+00:00",
+          "fresh_fingerprint": "6d96a8184589ed31e6bbef2120caca4dd429f97aa17fa9ef0f6a442dfbc10358",
+          "message": "['verified_equivalences_have_exact_candidate_claims failed', 'claim accountability has 68 blocking claim(s): source:claim:15564:bb072a12143c2786, source:claim:16212:e756fbaca73e56ff, source:claim:17221:f5bb339b2352c5ce, source:claim:17231:837ecb3c12564a13, source:claim:17296:5e859e8e328cd633, source:claim:17324:54f45ea60b098201, source:claim:17386:63d9ae246cd11ea6, source:claim:17412:d6d8649b7288722b, source:claim:17443:d105b3510e29a85e, source:claim:17504:c243ec1f63156041', 'presentation.capability_description_repeats_title.61f4924797a7: Key-capability explanations must add visitor-facing detail.']",
+          "occurred_at": "2026-08-17T08:43:12.305186+00:00",
           "schema_version": 1,
-          "source_revision": "ba69b546f0f27e98716638fe06bd0fae9b6b1382",
-          "stage": null
+          "source_revision": "e308de58888635956cd66e5b0e2994dd42cd4356",
+          "stage": "document_validation"
         },
         "llm_called": false,
         "llm_calls": [],
@@ -8513,7 +8515,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": "presentation_plan",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-04T11:42:49.258982+00:00",
+      "last_run_timestamp": "2026-08-17T08:43:12.306042+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "71c9cc8a581786bfd0af7b4aa553407eba3ddea3"
@@ -10179,7 +10181,7 @@
     "updated_at": "2026-08-17T08:40:05.196336+00:00"
   },
   "schema_version": 2,
-  "state_version": 782,
+  "state_version": 783,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "ee1df0df84ad92ca8a551957746712f28a5c77c49e3c5e827afdb99589901853",
