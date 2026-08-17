@@ -744,7 +744,7 @@
     "updated_at": "2026-08-17T09:03:42.415957+00:00"
   },
   "schema_version": 2,
-  "state_version": 56,
+  "state_version": 57,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "b45b57f5b8b20edaccdd705a785a68d7023d9dade78afc593e68bbb02692cda5",
@@ -894,13 +894,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "product_truth_not_ready:BLOCKED_MISSING_EVIDENCE",
       "last_checkpoint_id": "adfea726ee6daa4cf1d2ccb592873c931772c23a6d55f20de4edb500af24b294",
-      "lease_expires_at": "2026-08-17T11:41:04.290445+00:00",
+      "lease_expires_at": null,
       "recovery_count": 1,
-      "status": "processing",
-      "updated_at": "2026-08-17T11:26:42.096208+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-17T11:26:53.300824+00:00"
     }
   },
   "trigger_records": {},
