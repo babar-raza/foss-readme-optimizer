@@ -467,7 +467,7 @@ taskcards:
     goal_id: DELIVERY-DOTNET-LOCAL-NO-OP
     immediate_outcome: Qualify and expose all .NET READMEs using the production-proven Python contract.
     repository_scope:
-    - platform:.NET
+    - platform:net
     allowed_change_classes:
     - repository_runtime
     - factuality
@@ -558,7 +558,7 @@ taskcards:
     immediate_outcome: Make the accepted Python platform safely operable through the production workflow
       and App path.
     repository_scope:
-    - platform:Python
+    - platform:python
     allowed_change_classes:
     - workflow
     - effect
@@ -651,7 +651,7 @@ taskcards:
     immediate_outcome: Prove authorized, recoverable Python-only production operation before enabling
       .NET.
     repository_scope:
-    - platform:Python
+    - platform:python
     allowed_change_classes:
     - workflow
     - effect
@@ -729,7 +729,7 @@ taskcards:
     goal_id: DELIVERY-DOTNET-PRODUCTION-TRANSPORT
     immediate_outcome: Make the complete accepted .NET cohort safely operable through the production workflow.
     repository_scope:
-    - platform:.NET
+    - platform:net
     allowed_change_classes:
     - workflow
     - effect
