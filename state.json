@@ -19042,7 +19042,7 @@
     "updated_at": "2026-08-17T07:53:14.808785+00:00"
   },
   "schema_version": 2,
-  "state_version": 923,
+  "state_version": 924,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "cd37318953dd004c480891b5a347023a04f0b243f6c6e1e3f4cb32ca20fa2465",
@@ -19697,13 +19697,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": "validation_failed",
-      "failure_detail": "specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountability has 42 blocking claim(s): source:claim:2276:4293f2cca3472089, source:claim:2417:915fc734725cb81f, source:claim:2583:7088a9565e76c99f, source:claim:2869:b2bfe3633dfce89a, source:claim:3477:b90b9b8ef5562551, source:claim:3519:af1a4c7e371892f5, source:claim:3632:380f2d11012d5f25, source:claim:3684:3389d16fbe8783a4, source:claim:3900:32ca5b5fda8fb6c9, source:claim:4016:3b8b6667ad12b540', 'presentation.capability_description_repeats_title.22fc46e54b1a: Key-capability explanations must add visitor-facing detail.']",
+      "failure_classification": "transient",
+      "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "f0ea5ecfcf5d05f800cf026f23094d0dac0e6e8a55d8ff97f5a396d370fdf180",
       "lease_expires_at": null,
-      "recovery_count": 2,
+      "recovery_count": 3,
       "status": "retryable",
-      "updated_at": "2026-08-17T07:58:10.654107+00:00"
+      "updated_at": "2026-08-17T10:29:23.593377+00:00"
     },
     "operator:20260802-202743-89ea:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T20:27:47.695774+00:00",
@@ -19767,9 +19767,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "d0ec94980e94362e6c51f1665051a46d529d9e6bb2476ffe0612e5fb7e02be07",
       "lease_expires_at": null,
-      "recovery_count": 2,
+      "recovery_count": 3,
       "status": "retryable",
-      "updated_at": "2026-08-17T07:51:01.066308+00:00"
+      "updated_at": "2026-08-17T10:29:23.593377+00:00"
     },
     "operator:20260802-204646-ba03:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T20:46:51.513695+00:00",
@@ -19789,9 +19789,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "1b4408bb194590b2d4b9d4d7b49c8b3bf79b62221f5d147200d7d87dddc03561",
       "lease_expires_at": null,
-      "recovery_count": 2,
+      "recovery_count": 3,
       "status": "retryable",
-      "updated_at": "2026-08-17T07:51:01.066308+00:00"
+      "updated_at": "2026-08-17T10:29:23.593377+00:00"
     },
     "operator:20260802-205445-6dbc:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T20:54:49.874761+00:00",
@@ -19811,9 +19811,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "310e9b2b5b4b95e01cd3fd7486db27b6d34e6a03d90fc8e94373ad94062ae247",
       "lease_expires_at": null,
-      "recovery_count": 2,
+      "recovery_count": 3,
       "status": "retryable",
-      "updated_at": "2026-08-17T07:51:01.066308+00:00"
+      "updated_at": "2026-08-17T10:29:23.593377+00:00"
     },
     "operator:20260802-210101-5b6f:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T21:01:05.661409+00:00",
@@ -19877,9 +19877,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "406345ceaefbb737af47e975d6c17e89e203bf723073a9ca2e4ee195be68db47",
       "lease_expires_at": null,
-      "recovery_count": 2,
+      "recovery_count": 3,
       "status": "retryable",
-      "updated_at": "2026-08-17T07:51:01.066308+00:00"
+      "updated_at": "2026-08-17T10:29:23.593377+00:00"
     },
     "operator:20260802-212649-6815:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-02T21:26:54.896477+00:00",
@@ -19987,9 +19987,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "c49d134f0d49670e44587e7071b00d4f55fa06071f5bd6a496c9158555007cdd",
       "lease_expires_at": null,
-      "recovery_count": 2,
+      "recovery_count": 3,
       "status": "retryable",
-      "updated_at": "2026-08-17T07:51:01.066308+00:00"
+      "updated_at": "2026-08-17T10:29:23.593377+00:00"
     },
     "operator:20260804-135220-c884:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T13:52:31.416940+00:00",
@@ -20009,9 +20009,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "d6d05ad66ff2ce41f67aef81f8f01e4934dd562116d88829fefb0eb7f3a0e5cb",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-17T07:51:01.066308+00:00"
+      "updated_at": "2026-08-17T10:29:23.593377+00:00"
     },
     "operator:20260804-135541-cf63:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T13:55:48.507161+00:00",
@@ -20031,9 +20031,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "9b95ba87111e1bc98643060df2ca10d2c207c511bdbdfc5992b797ca58a787a1",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-17T07:51:01.066308+00:00"
+      "updated_at": "2026-08-17T10:29:23.593377+00:00"
     },
     "operator:20260804-140147-b1c2:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T14:01:54.707976+00:00",
@@ -20053,9 +20053,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "3fa23c2afa60a75a1900d86c4524b233b731a3b3996394a21efd828950aeed6d",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-17T07:51:01.066308+00:00"
+      "updated_at": "2026-08-17T10:29:23.593377+00:00"
     },
     "operator:20260804-140959-4859:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T14:10:06.997398+00:00",
@@ -20075,9 +20075,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "efbb1304af1c4ae47135fcb252fa2a240521f8557989a99f2cb5d52f148661a9",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-17T07:51:01.066308+00:00"
+      "updated_at": "2026-08-17T10:29:23.593377+00:00"
     },
     "operator:20260804-141428-e221:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T14:14:35.132162+00:00",
@@ -20097,9 +20097,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "0cdad3948375744e518076e4500729495746bcfc28a9676156ed653de72172ea",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-17T07:51:01.066308+00:00"
+      "updated_at": "2026-08-17T10:29:23.593377+00:00"
     },
     "operator:20260804-141806-3112:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T14:18:13.421394+00:00",
@@ -20119,9 +20119,9 @@
       "failure_detail": "recovery_sweep_stale_or_expired",
       "last_checkpoint_id": "afae29614a4e0a105731eb26229177ca578c6ab3a3444fb686ed990ad6df65e1",
       "lease_expires_at": null,
-      "recovery_count": 1,
+      "recovery_count": 2,
       "status": "retryable",
-      "updated_at": "2026-08-17T07:51:01.066308+00:00"
+      "updated_at": "2026-08-17T10:29:23.593377+00:00"
     },
     "operator:20260804-142505-bcb6:aspose-3d-foss/Aspose.3D-FOSS-for-.NET": {
       "accepted_at": "2026-08-04T14:25:18.294195+00:00",
