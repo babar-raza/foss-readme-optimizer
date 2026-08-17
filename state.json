@@ -21468,7 +21468,7 @@
     "updated_at": "2026-08-17T06:11:08.922555+00:00"
   },
   "schema_version": 2,
-  "state_version": 535,
+  "state_version": 536,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "cc7b2aa6160fd37441a22512ed4d8e9909ea0782919a099f68204c88b4c58049",
@@ -21813,13 +21813,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:IsolatedExecutionError:container registry acquisition remained unavailable after bounded retry",
       "last_checkpoint_id": "e6108cab60b528bfa2fb709e8cf3aa7c657c35356625fa8f1664727e6103f107",
-      "lease_expires_at": "2026-08-17T06:25:30.351753+00:00",
+      "lease_expires_at": null,
       "recovery_count": 3,
-      "status": "processing",
-      "updated_at": "2026-08-17T06:11:18.670453+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-17T06:11:35.838333+00:00"
     },
     "operator:20260804-151351-5e79:aspose-cells-foss/Aspose.Cells-FOSS-for-Python": {
       "accepted_at": "2026-08-04T15:13:57.821878+00:00",
