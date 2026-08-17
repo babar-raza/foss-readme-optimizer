@@ -173,6 +173,17 @@
         "reason": "captured immutable repository snapshot",
         "source_revision": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903",
         "to_status": "SNAPSHOTTED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-psd-foss__Aspose.PSD-FOSS-for-.NET\\1fe2c6dc8014f26de3b79acbee25b15a8d26e903\\source\\repository-profile.json"
+        ],
+        "from_status": "SNAPSHOTTED",
+        "observed_by": "supervisor_profile",
+        "occurred_at": "2026-08-17T10:51:48.598661+00:00",
+        "reason": "profiled immutable repository snapshot",
+        "source_revision": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903",
+        "to_status": "PROFILED"
       }
     ],
     "human_acceptance_history": [],
@@ -259,11 +270,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903",
-    "status": "SNAPSHOTTED",
-    "updated_at": "2026-08-17T10:51:41.512959+00:00"
+    "status": "PROFILED",
+    "updated_at": "2026-08-17T10:51:48.598661+00:00"
   },
   "schema_version": 2,
-  "state_version": 19,
+  "state_version": 20,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1332915817:9a2f08b4f5e73a3b27fed882ca09cd6416b64601d274f44e43119a9975dfaac9": {
