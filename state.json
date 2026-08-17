@@ -54,6 +54,23 @@
       "task_id": null,
       "trigger_dedup_key": "operator:20260801-083747-cbcc:aspose-font-foss/Aspose.Font-FOSS-for-Python"
     },
+    "0b0909c21e3f329873c95e32562ae5a4f0005f2c8b36c6e72362e3868ba2ddcf": {
+      "action": "independent_verification",
+      "attempt": 1,
+      "checkpoint_id": "0b0909c21e3f329873c95e32562ae5a4f0005f2c8b36c6e72362e3868ba2ddcf",
+      "completed_at": "2026-08-17T06:59:51.234834+00:00",
+      "detail": null,
+      "failure_classification": null,
+      "input_hash": null,
+      "output_hash": "e52ae3810968ee2ebba0eef4f1acc7ede6cdf24be6b238a4c084b651220cfe59",
+      "repository": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
+      "run_id": "20260817-065253-ea3c",
+      "schema_version": 1,
+      "stage": "verifier_result",
+      "started_at": "2026-08-17T06:59:51.234825+00:00",
+      "task_id": null,
+      "trigger_dedup_key": "operator:20260801-084623-870b:aspose-font-foss/Aspose.Font-FOSS-for-Python"
+    },
     "0ba4ec8dde0aa66a713ffd0d7e75851917ca5057afc86419b2e766e24b6bf993": {
       "action": null,
       "attempt": 1,
@@ -24914,7 +24931,7 @@
     "updated_at": "2026-08-17T06:55:06.059576+00:00"
   },
   "schema_version": 2,
-  "state_version": 439,
+  "state_version": 440,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "9459e9c2a72afdd28502823f296fead14e22e97d31dbc49e573ad181775c9fd7",
@@ -25206,11 +25223,11 @@
       },
       "failure_classification": null,
       "failure_detail": null,
-      "last_checkpoint_id": "b624814baa118fb3e2bea77ae18c75eb03920f1d122ca4182f62a8e090afe4c3",
+      "last_checkpoint_id": "0b0909c21e3f329873c95e32562ae5a4f0005f2c8b36c6e72362e3868ba2ddcf",
       "lease_expires_at": "2026-08-17T07:08:08.624550+00:00",
       "recovery_count": 4,
       "status": "processing",
-      "updated_at": "2026-08-17T06:55:14.104808+00:00"
+      "updated_at": "2026-08-17T06:59:51.234834+00:00"
     },
     "operator:20260801-090145-97e8:aspose-font-foss/Aspose.Font-FOSS-for-Python": {
       "accepted_at": "2026-08-01T09:01:51.772514+00:00",
