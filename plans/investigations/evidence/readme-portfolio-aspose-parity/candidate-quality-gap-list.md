@@ -160,12 +160,38 @@ the Dependencies gap confirms it was pipeline-wide, not product-specific noise, 
 highest-confidence, most tractable item on this list — a missing section generator, not a
 fact-availability or claim-accountability question.
 
-## Next candidates to review (not yet done)
+## Review tracker (Decision #104 — required per repository, first promotion + every content change)
 
-- Once any non-Python candidate reaches `AGENT_APPROVED` for the first time (none has yet — see
-  the main final report), compare it against its aspose.org sibling too. Everything above is
-  Python-only so far; whether these same two structural gaps (and the thin-bullet pattern) also
-  hold for other platforms is still an open question.
-- `aspose-words-foss/Aspose.Words-FOSS-for-Python` vs `words/python/readme.md`
-- Once any non-Python candidate reaches `AGENT_APPROVED` for the first time, compare it against its
-  aspose.org sibling too — this file has no cross-platform comparison yet.
+Status as of 2026-08-18. `reviewed` = compared against the real aspose.org candidate at least once
+and this file's findings reflect the current candidate content (unchanged since, per the loop's own
+`local_poc_approved_noop_reuse`/`CONVERGED_NO_TRACKED_CHANGE` cache-reuse signal). `pending` = not
+yet reached `AGENT_APPROVED` in this registry. `stale` = was reviewed, but the approved candidate's
+content has since changed (a fresh review is owed before this row can go back to `reviewed`).
+
+Python (current active platform, decision #98):
+
+| Repo | Status | Last reviewed |
+| --- | --- | --- |
+| aspose-3d-foss-python | reviewed | 2026-08-17 (§3D-Python above) |
+| aspose-pdf-foss-python | reviewed | 2026-08-17 (§PDF-Python above) |
+| aspose-slides-foss-python | reviewed (stale candidate) | 2026-08-17 (§Slides-Python above) — the reviewed candidate was superseded by a fresh upstream commit that same day and is currently BLOCKED again; re-review once it next reaches `AGENT_APPROVED` |
+| aspose-barcode-foss-python | pending | blocked on claim accountability |
+| aspose-cells-foss-python | pending | blocked on `mandatory_claim_replacements_have_exact_provenance` |
+| aspose-email-foss-python | pending | blocked on claim accountability |
+| aspose-font-foss-python | pending | blocked (was an LLMError truncation crash, fixed 2026-08-18; re-run pending) |
+| aspose-html-foss-python | pending | blocked on `BLOCKED_MISSING_EVIDENCE` |
+| aspose-note-foss-python | pending | blocked (was a duplicate-placement-ID crash, fixed 2026-08-18; re-run pending) |
+| aspose-page-foss-python | pending | blocked on claim accountability |
+| aspose-psd-foss-python | pending | blocked on `BLOCKED_MISSING_EVIDENCE` |
+| aspose-tex-foss-python | pending | not yet reached in this pass |
+| aspose-words-foss-python | pending | not yet reached in this pass |
+
+.NET, Java, C++, TypeScript, Rust, Go: all `pending` — decision #98 keeps every non-Python task
+ineligible until the complete Python cohort closes, so none of these 20 repositories has reached
+`AGENT_APPROVED` yet.
+
+**Process**: whenever this evidence-gathering session (or a future one) observes a repository's
+`local_poc` status transition to `AGENT_APPROVED` for the first time, or observes its approved
+candidate's `content_sha256`/`candidate_sha256` change from what this table last recorded, add or
+refresh that repository's dated review section above and update its row in this table — do not
+leave a row `pending`/`stale` past the session in which the transition was observed.

@@ -37,7 +37,7 @@ never override the mission graph or durable state.
 
 ## Decision Ledger
 
-The complete typed ledger contains 103 stable decisions in
+The complete typed ledger contains 104 stable decisions in
 `plans/decisions/catalog.jsonl`. This section is the human-readable current decision index; the
 catalog preserves the complete text and hashes of every prior decision.
 
@@ -113,6 +113,11 @@ Binding current decisions:
 - **#103 — Continuous progress.** No agent idles while a dependency is in flight and safe eligible
   work remains; idling is recorded with its blocker and resume condition only when genuinely none
   does.
+- **#104 — Aspose.org corpus parity review.** Every repository's first promoted candidate (and any
+  later content change) gets a qualitative comparison against aspose.org's real corpus, logged to
+  `candidate-quality-gap-list.md`; systemic gaps become deterministic template/fact/composition
+  fixes, never one-off prose edits or silent drops. Diagnostic and improvement-driving, not an
+  additional promotion gate — Gate A's own AGENT_APPROVED/NO_OP_PROVEN definition is unchanged.
 
 Aspose.org remains a development-only comparative corpus, never a deployed dependency or factual
 authority. Repository order may change only through the durable dependency graph; changing a

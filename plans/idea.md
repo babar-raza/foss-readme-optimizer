@@ -154,7 +154,11 @@ Execution is delivery-first but its mutable cursor never lives in this product d
 2. mission `status` selects one typed immediate goal, repository scope, and next action from the
    earliest dependency-ready or regressed boundary;
 3. that repository completes facts, composition, deterministic validation, independent review,
-   targeted repair, unchanged no-op, promotion, and manifest reconstruction before its task closes;
+   targeted repair, unchanged no-op, promotion, aspose.org corpus parity review, and manifest
+   reconstruction before its task closes; the parity review is diagnostic (Decision #104) — it
+   compares the promoted candidate against aspose.org's real candidate for the same product and
+   feeds confirmed systemic gaps back as deterministic fixes, but does not itself gate promotion or
+   change Gate A's AGENT_APPROVED/NO_OP_PROVEN completion definition;
 4. feedback creates a component delta and reruns only dependent stages; historical closure cannot
    satisfy a changed factual, safety, protected-content, or severe acceptance contract;
 5. the same loop completes the dynamic Python denominator, then .NET, Java, C++, TypeScript, Rust,
