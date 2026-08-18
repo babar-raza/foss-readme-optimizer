@@ -63,6 +63,8 @@ jobs:
   registry:
     name: Reconcile authorized repository sources
     runs-on: ubuntu-latest
+    # Bounded (2026-08-18 runner audit): never inherit the 6-hour default.
+    timeout-minutes: 20
     permissions:
       contents: write
     steps:
@@ -104,6 +106,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
+          retention-days: 30
           name: registry-revision-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             data/products.json
@@ -113,6 +116,8 @@ jobs:
     name: Recover unfinished durable work
     needs: registry
     runs-on: ubuntu-latest
+    # Bounded (2026-08-18 runner audit): never inherit the 6-hour default.
+    timeout-minutes: 30
     permissions:
       # This token is scoped to this control repository and writes only the
       # refs/readme-agent-state namespace through GitStateBackend.
@@ -292,6 +297,7 @@ jobs:
           fi
       - uses: actions/upload-artifact@v4
         with:
+          retention-days: 30
           name: lifecycle-recovery-${{ github.run_id }}-${{ github.run_attempt }}
           path: runs/workflow/recovery-candidates.json
 
@@ -300,6 +306,8 @@ jobs:
     needs: recover
     if: ${{ needs.recover.outputs.has_recovery == 'true' && needs.recover.outputs.is_staging_effect != 'true' }}
     runs-on: ubuntu-latest
+    # Bounded (2026-08-18 runner audit): never inherit the 6-hour default.
+    timeout-minutes: 120
     permissions:
       contents: write
     strategy:
@@ -373,6 +381,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
+          retention-days: 30
           name: recovery-evidence-${{ matrix.owner }}__${{ matrix.name }}-${{ github.run_id }}
           path: runs/evidence/${{ github.run_id }}/${{ matrix.owner }}__${{ matrix.name }}/
 
@@ -380,6 +389,8 @@ jobs:
     name: Build authoritative repository matrix
     needs: [registry, recover]
     runs-on: ubuntu-latest
+    # Bounded (2026-08-18 runner audit): never inherit the 6-hour default.
+    timeout-minutes: 30
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
       schedule_window: ${{ steps.identity.outputs.schedule_window }}
@@ -511,6 +522,8 @@ jobs:
     needs: plan
     if: ${{ needs.plan.outputs.is_staging_effect != 'true' }}
     runs-on: ubuntu-latest
+    # Bounded (2026-08-18 runner audit): never inherit the 6-hour default.
+    timeout-minutes: 120
     permissions:
       # Central-repository state refs only. Target-repository access uses
       # the separately minted read-only App installation token below.
@@ -595,6 +608,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
+          retention-days: 30
           name: run-evidence-${{ matrix.owner }}__${{ matrix.name }}-${{ github.run_id }}
           path: runs/evidence/${{ github.run_id }}/${{ matrix.owner }}__${{ matrix.name }}/
 
@@ -603,6 +617,13 @@ jobs:
     needs: plan
     if: ${{ needs.plan.outputs.is_staging_effect == 'true' }}
     runs-on: ubuntu-latest
+    # Bounded (2026-08-18 runner audit): never inherit the 6-hour default.
+    timeout-minutes: 45
+    concurrency:
+      # 2026-08-18 runner audit: the only writing job must never run twice
+      # concurrently (same string family as resume/analyze groups).
+      group: readme-agent-stage-proposal
+      cancel-in-progress: false
     permissions:
       # The workflow token writes only control-repository effect-ledger refs.
       # The target-repository token is minted separately below.
@@ -690,6 +711,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
+          retention-days: 30
           name: staging-effect-${{ matrix.owner }}__${{ matrix.name }}-${{ github.run_id }}
           path: runs/staging/workflow-results/
 
@@ -698,6 +720,8 @@ jobs:
     needs: [plan, analyze, resume]
     if: ${{ always() && needs.plan.result != 'skipped' }}
     runs-on: ubuntu-latest
+    # Bounded (2026-08-18 runner audit): never inherit the 6-hour default.
+    timeout-minutes: 20
     permissions:
       contents: read
       issues: write
@@ -763,8 +787,21 @@ jobs:
           fi
       - id: health-state
         run: echo "healthy=$(jq -r .healthy runs/workflow/health-report.json)" >> "$GITHUB_OUTPUT"
+      - name: Publish health digest to the run summary
+        # 2026-08-18 runner audit: diagnosis previously required downloading an
+        # artifact; the digest belongs on the run page itself.
+        if: always()
+        run: |
+          {
+            echo "## Portfolio health"
+            echo ""
+            echo '```json'
+            jq '{healthy, missed_schedule_windows, repeated_failures: (.repeated_failures // [] | .[0:10]), stale_leases: (.stale_leases // [] | .[0:10]), evidence_failures: (.evidence_failures // [] | .[0:10]), state_failures: (.state_failures // [] | .[0:10]), workflow_failures: (.workflow_failures // [] | .[0:10])}' runs/workflow/health-report.json
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         with:
+          retention-days: 30
           name: portfolio-health-${{ github.run_id }}
           path: runs/workflow/health-report.json
       - name: Create or update visible health issue
