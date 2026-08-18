@@ -143,6 +143,8 @@ def test_public_composition_call_signatures_are_characterized() -> None:
         "agentic_composition_plan",
         "link_catalogs",
         "link_allocation_policy",
+        "llm_disposition_client",
+        "repository_root",
     )
     assert signatures["plan"].parameters["client"].kind is inspect.Parameter.KEYWORD_ONLY
     assert signatures["render"].parameters["base_revision"].kind is inspect.Parameter.KEYWORD_ONLY

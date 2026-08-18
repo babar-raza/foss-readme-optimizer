@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import re
+from pathlib import Path
 
 from readme_agent.errors import ValidationFailure
 from readme_agent.facts.gating import TechnicalClaimV1, validate_claim_citations
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1
+from readme_agent.llm.verifier_client import ForcedToolClient
 from readme_agent.presentation.git_patch import (
     BoundedSourcePatchV1,
     SourceSpanEditV1,
@@ -96,8 +98,15 @@ def build_document_repository_presentation_plan(
     agentic_composition_plan: dict | None = None,
     link_catalogs: AsposeLinkCatalogSetV1 | None = None,
     link_allocation_policy: LinkAllocationPolicyV1 | None = None,
+    llm_disposition_client: ForcedToolClient | None = None,
+    repository_root: Path | None = None,
 ) -> tuple[RepositoryPresentationPlanV1, dict, bool, dict]:
-    """Rebuild the document plan independently and prove the resulting Git patch."""
+    """Rebuild the document plan independently and prove the resulting Git patch.
+
+    `llm_disposition_client`/`repository_root` reach `build_readme_document_
+    candidate()`'s own claim-accountability build only -- see that
+    function's docstring. Omitting either (the default) reproduces today's
+    exact existing behavior."""
 
     patch_source_text = (
         source_text if facts.content_assurance == "repository_verified" else current_work_text
@@ -111,6 +120,8 @@ def build_document_repository_presentation_plan(
         agentic_composition_plan=agentic_composition_plan,
         link_catalogs=link_catalogs,
         link_allocation_policy=link_allocation_policy,
+        llm_disposition_client=llm_disposition_client,
+        repository_root=repository_root,
     )
     if expected_candidate != candidate_text:
         raise ValidationFailure("README candidate differs from the independently rebuilt plan")

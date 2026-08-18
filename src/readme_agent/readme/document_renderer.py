@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import replace
+from pathlib import Path
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.links.allocation import code_sha256
@@ -14,6 +15,7 @@ from readme_agent.links.terminology import (
     EnterpriseTerminologyCorrectionV1,
     find_enterprise_terminology_findings,
 )
+from readme_agent.llm.verifier_client import ForcedToolClient
 from readme_agent.presentation.runtime_repairs import build_density_collapse_operations
 from readme_agent.presentation.verified_template_document import (
     build_verified_template_document_candidate,
@@ -97,8 +99,16 @@ def build_readme_document_candidate(
     agentic_composition_plan: dict | None = None,
     link_catalogs: AsposeLinkCatalogSetV1 | None = None,
     link_allocation_policy: LinkAllocationPolicyV1 | None = None,
+    llm_disposition_client: ForcedToolClient | None = None,
+    repository_root: Path | None = None,
 ) -> tuple[str, ReadmeDocumentPlanV1]:
-    """Return one reproducible candidate and its fine-grained source operations."""
+    """Return one reproducible candidate and its fine-grained source operations.
+
+    `llm_disposition_client`/`repository_root` reach the verified-template
+    path's claim-accountability build only -- see
+    `verified_template_document.py::build_verified_template_document_
+    candidate`'s own docstring. Omitting either (the default) reproduces
+    today's exact existing behavior on every path."""
 
     existing = find_presentation_span(source_text)
     inner_text = existing.content if existing is not None else source_text
@@ -143,6 +153,8 @@ def build_readme_document_candidate(
             validated_agentic_plan,
             link_catalogs=link_catalogs,
             link_allocation_policy=link_allocation_policy,
+            llm_disposition_client=llm_disposition_client,
+            repository_root=repository_root,
         )
     header_visuals = render_readme_header_visual(facts, validated_agentic_plan)
     withheld = build_unresolved_section_operations(context, assessment)

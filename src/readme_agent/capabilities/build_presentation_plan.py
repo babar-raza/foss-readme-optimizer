@@ -9,10 +9,14 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.gitsafety.clone import clone_baseline
 from readme_agent.inspection.file_inventory import scan
 from readme_agent.links.runtime_context import load_runtime_link_inputs
+from readme_agent.llm.verifier_client import ForcedToolClient
 from readme_agent.presentation.document_planner import (
     build_document_repository_presentation_plan,
 )
 from readme_agent.presentation.planner import build_repository_presentation_plan
+from readme_agent.readme.claim_accountability_llm_disposition import (
+    default_claim_disposition_client,
+)
 from readme_agent.readme.markers import find_presentation_span
 from readme_agent.registry.loader import load_policy, require_listed
 from readme_agent.registry.surface_ownership import SurfaceOwnershipMapV1
@@ -23,9 +27,13 @@ MANIFEST = CapabilityManifest(
     capability_id=CAPABILITY_ID,
     version="1",
     name="Build repository presentation plan",
-    purpose="Read-only: re-derives ProductFactsV2 and surface ownership, assesses all ten "
-    "presentation dimensions, and emits a source-span-bounded, Git-checked plan. Candidate "
-    "text is wiring-only and never accepted from an LLM tool call.",
+    purpose="Re-derives ProductFactsV2 and surface ownership, assesses all ten presentation "
+    "dimensions, and emits a source-span-bounded, Git-checked plan. Candidate text is "
+    "wiring-only and never accepted from an LLM tool call. When the mechanical claim-"
+    "accountability check cannot bind a source claim, attempts one bounded, deterministically "
+    "corroborated LLM classification per claim as an additive fallback "
+    "(claim_accountability_llm_disposition.py) -- never trusted without corroboration, never a "
+    "replacement for the mechanical check.",
     category="readme_presentation",
     owner="readme_agent.presentation.planner",
     execution_type="deterministic_tool",
@@ -41,8 +49,8 @@ MANIFEST = CapabilityManifest(
         "executable": "boolean",
     },
     preconditions=["org_repo must be listed in data/products.json"],
-    required_permissions=["read_only_local"],
-    side_effect_class="read_only_local",
+    required_permissions=["read_only_local", "read_only_network"],
+    side_effect_class="read_only_network",
     allowed_domains=[README_PRESENTATION],
     input_model=OrgRepoOnlyInputV1,
     tools_used=[
@@ -70,7 +78,14 @@ def execute(
     source_text: str | None = None,
     product_facts_v2: dict | None = None,
     agentic_composition_plan: dict | None = None,
+    llm_disposition_client: ForcedToolClient | None = None,
 ) -> dict:
+    """`llm_disposition_client` is accepted but deliberately NOT declared in
+    the manifest's `required_inputs` -- never offered in the tool schema,
+    exists only for deterministic test/wiring callers, exactly as `render_
+    readme_candidate.py`'s own `llm_mode`/`fixture_response_path` convention
+    already establishes. `None` (the default) constructs the real client."""
+
     if product_facts_v2 is None:
         facts_result = collect_product_facts(org_repo)
         facts = ProductFactsV2.model_validate(facts_result["product_facts_v2"])
@@ -92,16 +107,21 @@ def execute(
     base_revision = source_revision or observed_revision
     link_catalogs, link_allocation_policy = load_runtime_link_inputs(org_repo)
 
+    # Resolved unconditionally (not just when original_text needs cloning):
+    # the claim-disposition fallback below needs a real repository clone
+    # path to cite real source files against, regardless of whether the
+    # caller already supplied original_text.
+    entry = require_listed(org_repo)
+    repository_root = paths.baseline_dir(entry.org, entry.repo_name)
     if original_text is None:
-        entry = require_listed(org_repo)
-        baseline = paths.baseline_dir(entry.org, entry.repo_name)
-        clone_baseline(entry, baseline)
-        inventory = scan(baseline)
+        clone_baseline(entry, repository_root)
+        inventory = scan(repository_root)
         original_text = (
             inventory.readme_path.read_text(encoding="utf-8") if inventory.readme_path else ""
         )
     if candidate_text is None:
         candidate_text = original_text
+    resolved_disposition_client = llm_disposition_client or default_claim_disposition_client()
 
     proposal_source_text = original_text
     if facts.content_assurance == "repository_verified" and source_text is not None:
@@ -127,6 +147,8 @@ def execute(
                 agentic_composition_plan=agentic_composition_plan,
                 link_catalogs=link_catalogs,
                 link_allocation_policy=link_allocation_policy,
+                llm_disposition_client=resolved_disposition_client,
+                repository_root=repository_root,
             )
         )
         return {

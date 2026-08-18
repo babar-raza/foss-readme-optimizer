@@ -351,6 +351,12 @@ class TestRegistry:
             "plan_readme_composition",
             "compose_trusted_readme",
             "review_trusted_readme",
+            # 2026-08-18: the verified-template claim-accountability build now
+            # attempts one bounded, deterministically corroborated LLM
+            # classification per unbound claim as an additive fallback
+            # (claim_accountability_llm_disposition.py) before this capability
+            # returns its plan.
+            "build_presentation_plan",
         }
 
     def test_filter_by_side_effect_class_local_write(self):

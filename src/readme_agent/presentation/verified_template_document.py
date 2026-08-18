@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.links.allocation import code_sha256
 from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1
 from readme_agent.links.contextual_models import ContextualLinkPlanV1
 from readme_agent.links.contextual_selection import select_contextual_links
 from readme_agent.links.contextual_validation import validate_contextual_link_candidate
+from readme_agent.llm.verifier_client import ForcedToolClient
 from readme_agent.presentation.verified_preservation_sections import effective_correction_ranges
 from readme_agent.presentation.verified_source_assurance_projection import (
     project_source_assurance_for_candidate,
@@ -45,8 +48,15 @@ def build_verified_template_document_candidate(
     *,
     link_catalogs: AsposeLinkCatalogSetV1 | None = None,
     link_allocation_policy: LinkAllocationPolicyV1 | None = None,
+    llm_disposition_client: ForcedToolClient | None = None,
+    repository_root: Path | None = None,
 ) -> tuple[str, ReadmeDocumentPlanV1]:
-    """Wrap the compiled fact-slot candidate in the plan/accountability contract."""
+    """Wrap the compiled fact-slot candidate in the plan/accountability contract.
+
+    `llm_disposition_client`/`repository_root` are forwarded, unchanged, to
+    `build_readme_claim_accountability_map()` -- see that function's own
+    docstring. Omitting either (the default) reproduces today's exact
+    existing behavior."""
 
     if (link_catalogs is None) != (link_allocation_policy is None):
         raise ValueError("README link catalogs and allocation policy must be supplied together")
@@ -197,6 +207,8 @@ def build_verified_template_document_candidate(
         generated_claim_map=claim_map,
         candidate_content_provenance=complete_provenance,
         source_claim_resolutions=plan.source_claim_resolutions,
+        llm_disposition_client=llm_disposition_client,
+        repository_root=repository_root,
         composition_ledger=composition_ledger,
     )
     return candidate, plan.model_copy(update={"claim_accountability": accountability})
