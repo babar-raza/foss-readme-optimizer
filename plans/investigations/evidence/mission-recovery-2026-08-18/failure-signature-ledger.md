@@ -145,3 +145,12 @@ identically on .NET: `aspose-3d-foss__Aspose.3D-FOSS-for-.NET` has 5 accepted ve
 processing (a genuinely long isolated .NET build/verify, confirmed alive via rising CPU, not
 stalled) is running well past the claim-accountability stage the earlier-blocked 3D-.NET member
 stopped at. No family-specific code path was needed; the mechanism generalized for free.
+
+## E3 fix live-confirmed (iteration 3): aspose-email-foss/.Net
+
+`aspose-email-foss/Aspose.Email-FOSS-for-.Net: BLOCKED (product_truth_not_ready:
+BLOCKED_MISSING_EVIDENCE; category=infra_external)` — a genuinely fresh derivation (zero
+provider calls, `executed` not `deduplicated` intake) correctly classified `infra_external`.
+Confirms `17f8cc595` works exactly as designed once findings are freshly computed; the
+html/psd/tex `agent_fixable` staleness documented in `e3-residual-empty-findings-bug.md` is
+specifically a cache/empty-findings issue, not a defect in the classification logic itself.
