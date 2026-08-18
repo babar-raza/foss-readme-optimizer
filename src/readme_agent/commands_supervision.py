@@ -272,7 +272,7 @@ def _cmd_supervise_impl(args: argparse.Namespace) -> int:
     state_backend = getattr(args, "_state_backend_override", None) or (
         _durable_state_backend(args)
         if getattr(args, "durable_state", False)
-        else (_force_durable_state_backend() if needs_durable_state else None)
+        else (_state_backend_for_profile(profile) if needs_durable_state else None)
     )
 
     if bounded_verified_canary and readme_poc_stage_limit != "INTAKE_READY":
@@ -638,6 +638,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         bind_registry_revision,
         reset_registry_revision,
     )
+    from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
     from readme_agent.state.recovery import recovery_sweep
     from readme_agent.supervisor.convergence import compute_control_plane_fingerprint
     from readme_agent.supervisor.intake_cache import completed_intake_binding
@@ -683,7 +684,12 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         }
 
     registry_path = Path(args.registry)
-    state_backend = _force_durable_state_backend()
+    from readme_agent.state.local_poc_backend import default_local_poc_state_backend
+
+    # This function requires --execution-profile local_poc (checked above);
+    # never route the portfolio's own lock/domain-state coordination through
+    # this repository's real `origin`.
+    state_backend = default_local_poc_state_backend()
     from readme_agent.supervisor.registry_revision_preflight import prepare_registry_revision
 
     revision_preflight = prepare_registry_revision(
@@ -741,7 +747,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         try:
             persisted = state_backend.load(entry.org_repo)
             lifecycle = persisted.readme_poc_lifecycle if persisted is not None else None
-            if lifecycle is not None and lifecycle.source_revision:
+            if isinstance(lifecycle, ReadmePocLifecycleStateV2) and lifecycle.source_revision:
                 org, repo = entry.org_repo.split("/", maxsplit=1)
                 bundle_dir = paths.readme_poc_repository_dir(
                     org,
@@ -881,7 +887,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                     org_repo=entry.org_repo,
                     content_assurance=(
                         lifecycle.content_assurance
-                        if lifecycle is not None
+                        if isinstance(lifecycle, ReadmePocLifecycleStateV2)
                         else "repository_verified"
                     ),
                     status=(
@@ -986,6 +992,25 @@ def _force_durable_state_backend():
     from readme_agent.state.git_backend import default_state_backend
 
     return default_state_backend()
+
+
+def _state_backend_for_profile(profile):
+    """Route `local_poc` to its own isolated, always-local state remote --
+    never this repository's real `origin` -- matching the profile's own
+    documented contract (`execution_profile.py`: no `remote_write`,
+    `read_only_network` only for the *target* repo). Every other profile
+    (`github_*`, `act_*`) keeps the prior, real-`origin`-backed durable
+    behavior unchanged; those genuinely need this repository's own remote
+    for cross-run coordination. Found live 2026-08-18: without this split,
+    a `local_poc` run's own lock/domain-state coordination silently depended
+    on `git push`/`fetch` against `origin`, causing spurious `lock_held`
+    blocks and mission-claim staleness whenever that push/fetch degraded or
+    was simply never attempted (this session never pushes)."""
+    if profile is not None and profile.name == "local_poc":
+        from readme_agent.state.local_poc_backend import default_local_poc_state_backend
+
+        return default_local_poc_state_backend()
+    return _force_durable_state_backend()
 
 
 def _cmd_supervise_single_domain(repo: str, domain: str, state_backend) -> int:

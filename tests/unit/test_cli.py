@@ -596,6 +596,78 @@ class TestEnableDynamicPlanningFlag:
         assert captured["specialist_selection_client"] is not captured["repair_planner_client"]
 
 
+class TestStateBackendForProfile:
+    """2026-08-18: `local_poc` must never route its own lock/domain-state
+    coordination through this repository's real `origin` (`plans/
+    investigations/evidence/readme-portfolio-aspose-parity/local-poc-state-
+    backend-uses-origin-not-local.md`) -- confirmed live-blocking a real
+    `--bounded-verified-canary` re-verification the same day. Every other
+    profile keeps depending on the real, `origin`-backed durable backend
+    unchanged; those genuinely need this repository's own remote."""
+
+    def test_local_poc_profile_never_touches_the_real_origin_backend(self, monkeypatch):
+        import readme_agent.commands_supervision as supervision_module
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
+        from readme_agent.supervisor.execution_profile import get_profile
+
+        sentinel = object()
+        monkeypatch.setattr(
+            git_backend_module,
+            "default_state_backend",
+            lambda: (_ for _ in ()).throw(
+                AssertionError("local_poc must never construct the real origin-backed backend")
+            ),
+        )
+        monkeypatch.setattr(
+            local_poc_backend_module, "default_local_poc_state_backend", lambda: sentinel
+        )
+
+        result = supervision_module._state_backend_for_profile(get_profile("local_poc"))
+
+        assert result is sentinel
+
+    @pytest.mark.parametrize("profile_name", ["github_observe", "github_proposal", "act_poc"])
+    def test_every_other_profile_keeps_the_real_origin_backend(self, monkeypatch, profile_name):
+        import readme_agent.commands_supervision as supervision_module
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
+        from readme_agent.supervisor.execution_profile import get_profile
+
+        sentinel = object()
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: sentinel)
+        monkeypatch.setattr(
+            local_poc_backend_module,
+            "default_local_poc_state_backend",
+            lambda: (_ for _ in ()).throw(
+                AssertionError(f"{profile_name} must not touch the local_poc-only backend")
+            ),
+        )
+
+        result = supervision_module._state_backend_for_profile(get_profile(profile_name))
+
+        assert result is sentinel
+
+    def test_no_profile_also_keeps_the_real_origin_backend(self, monkeypatch):
+        import readme_agent.commands_supervision as supervision_module
+        import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
+
+        sentinel = object()
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: sentinel)
+        monkeypatch.setattr(
+            local_poc_backend_module,
+            "default_local_poc_state_backend",
+            lambda: (_ for _ in ()).throw(
+                AssertionError("a None profile must not touch the local_poc-only backend")
+            ),
+        )
+
+        result = supervision_module._state_backend_for_profile(None)
+
+        assert result is sentinel
+
+
 class TestExecutionProfileFlag:
     """Wave 9.4 (execution profiles): `--execution-profile` is the explicit, typed replacement
     for "which flags happened to be passed." A `github_*` profile must reject `--domain` before
@@ -768,6 +840,7 @@ class TestExecutionProfileFlag:
         import readme_agent.env as env
         import readme_agent.paths as paths
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
         import readme_agent.supervisor.loop as loop_module
         import readme_agent.supervisor.mission_execution_guard as mission_guard_module
 
@@ -775,6 +848,9 @@ class TestExecutionProfileFlag:
         backend = _LifecycleFakeBackend()
         captured: dict[str, object] = {}
         monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(
+            local_poc_backend_module, "default_local_poc_state_backend", lambda: backend
+        )
         monkeypatch.setattr(env, "github_run_id", lambda: None)
         monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
         monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
@@ -828,12 +904,16 @@ class TestExecutionProfileFlag:
         import readme_agent.env as env
         import readme_agent.paths as paths
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
         import readme_agent.supervisor.loop as loop_module
 
         _stub_preflight_ok(monkeypatch)
         backend = _LifecycleFakeBackend()
         captured: dict[str, object] = {}
         monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(
+            local_poc_backend_module, "default_local_poc_state_backend", lambda: backend
+        )
         monkeypatch.setattr(env, "github_run_id", lambda: None)
         monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
         monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
@@ -876,12 +956,16 @@ class TestExecutionProfileFlag:
         import readme_agent.paths as paths
         import readme_agent.preflight.runner as preflight_module
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
         import readme_agent.supervisor.intake as intake_module
         import readme_agent.supervisor.loop as loop_module
         from readme_agent.state.lifecycle_schema import IntakePreflightBindingV1
 
         backend = _LifecycleFakeBackend()
         monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(
+            local_poc_backend_module, "default_local_poc_state_backend", lambda: backend
+        )
         monkeypatch.setattr(env, "github_run_id", lambda: None)
         monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
         monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
@@ -940,10 +1024,14 @@ class TestExecutionProfileFlag:
         import readme_agent.paths as paths
         import readme_agent.preflight.runner as preflight_module
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
         import readme_agent.supervisor.loop as loop_module
 
         backend = _LifecycleFakeBackend()
         monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(
+            local_poc_backend_module, "default_local_poc_state_backend", lambda: backend
+        )
         monkeypatch.setattr(env, "github_run_id", lambda: None)
         monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
         monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
@@ -986,6 +1074,7 @@ class TestExecutionProfileFlag:
         import readme_agent.paths as paths
         import readme_agent.preflight.runner as preflight_module
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
         import readme_agent.supervisor.intake as intake_module
         import readme_agent.supervisor.loop as loop_module
         from readme_agent.state.lifecycle_schema import IntakePreflightBindingV1
@@ -1001,6 +1090,9 @@ class TestExecutionProfileFlag:
             observed_by="test",
         )
         monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(
+            local_poc_backend_module, "default_local_poc_state_backend", lambda: backend
+        )
         monkeypatch.setattr(env, "github_run_id", lambda: None)
         monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
         monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
@@ -1047,6 +1139,7 @@ class TestExecutionProfileFlag:
         import readme_agent.paths as paths
         import readme_agent.preflight.runner as preflight_module
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
         import readme_agent.supervisor.intake as intake_module
         from readme_agent.state.lifecycle_schema import IntakePreflightBindingV1
 
@@ -1062,6 +1155,9 @@ class TestExecutionProfileFlag:
             observed_by="test",
         )
         monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(
+            local_poc_backend_module, "default_local_poc_state_backend", lambda: backend
+        )
         monkeypatch.setattr(env, "github_run_id", lambda: None)
         monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
         monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
@@ -1127,6 +1223,7 @@ class TestLocalPocPortfolioCommand:
         import readme_agent.paths as paths
         import readme_agent.registry.loader as loader_module
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
 
         monkeypatch.setattr(
             loader_module,
@@ -1139,6 +1236,11 @@ class TestLocalPocPortfolioCommand:
         monkeypatch.setattr(
             git_backend_module,
             "default_state_backend",
+            lambda: _LifecycleFakeBackend(),
+        )
+        monkeypatch.setattr(
+            local_poc_backend_module,
+            "default_local_poc_state_backend",
             lambda: _LifecycleFakeBackend(),
         )
         monkeypatch.setattr(
@@ -1188,6 +1290,7 @@ class TestLocalPocPortfolioCommand:
         import readme_agent.paths as paths
         import readme_agent.registry.loader as loader_module
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
         import readme_agent.supervisor.loop as loop_module
 
         _stub_preflight_ok(monkeypatch)
@@ -1200,6 +1303,9 @@ class TestLocalPocPortfolioCommand:
         seen: list[tuple[str, dict]] = []
         monkeypatch.setattr(loader_module, "load_products", lambda path: tuple(entries))
         monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(
+            local_poc_backend_module, "default_local_poc_state_backend", lambda: backend
+        )
         monkeypatch.setattr(env, "github_run_id", lambda: None)
         monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
         monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / "evidence" / run_id)
@@ -1241,6 +1347,7 @@ class TestLocalPocPortfolioCommand:
         import readme_agent.paths as paths
         import readme_agent.registry.loader as loader_module
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
 
         entries = [
             argparse.Namespace(org_repo="org/one"),
@@ -1249,6 +1356,11 @@ class TestLocalPocPortfolioCommand:
         monkeypatch.setattr(loader_module, "load_products", lambda path: tuple(entries))
         monkeypatch.setattr(
             git_backend_module, "default_state_backend", lambda: _LifecycleFakeBackend()
+        )
+        monkeypatch.setattr(
+            local_poc_backend_module,
+            "default_local_poc_state_backend",
+            lambda: _LifecycleFakeBackend(),
         )
         monkeypatch.setattr(
             paths, "readme_poc_portfolio_summary_path", lambda: tmp_path / "summary.json"
@@ -1287,6 +1399,7 @@ class TestLocalPocPortfolioCommand:
         import readme_agent.paths as paths
         import readme_agent.registry.loader as loader_module
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
         import readme_agent.supervisor.portfolio as portfolio_module
 
         monkeypatch.setattr(
@@ -1297,6 +1410,11 @@ class TestLocalPocPortfolioCommand:
         monkeypatch.setattr(
             git_backend_module,
             "default_state_backend",
+            lambda: _LifecycleFakeBackend(),
+        )
+        monkeypatch.setattr(
+            local_poc_backend_module,
+            "default_local_poc_state_backend",
             lambda: _LifecycleFakeBackend(),
         )
         monkeypatch.setattr(
@@ -1332,6 +1450,7 @@ class TestLocalPocPortfolioCommand:
         import readme_agent.paths as paths
         import readme_agent.registry.loader as loader_module
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
         from readme_agent.state.lifecycle import accept_trigger, transition_trigger
         from readme_agent.state.trigger_v2 import normalize_trigger_envelope
 
@@ -1348,6 +1467,9 @@ class TestLocalPocPortfolioCommand:
             lambda path: (argparse.Namespace(org_repo="org/repo"),),
         )
         monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(
+            local_poc_backend_module, "default_local_poc_state_backend", lambda: backend
+        )
         monkeypatch.setattr(
             paths, "readme_poc_portfolio_summary_path", lambda: tmp_path / "summary.json"
         )
@@ -1375,6 +1497,7 @@ class TestLocalPocPortfolioCommand:
         import readme_agent.paths as paths
         import readme_agent.registry.loader as loader_module
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
         from readme_agent.state.lifecycle import accept_trigger, transition_trigger
         from readme_agent.state.trigger_v2 import normalize_trigger_envelope
 
@@ -1390,6 +1513,9 @@ class TestLocalPocPortfolioCommand:
             lambda path: (argparse.Namespace(org_repo="org/repo"),),
         )
         monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(
+            local_poc_backend_module, "default_local_poc_state_backend", lambda: backend
+        )
         monkeypatch.setattr(
             paths, "readme_poc_portfolio_summary_path", lambda: tmp_path / "summary.json"
         )
@@ -1416,6 +1542,7 @@ class TestLocalPocPortfolioCommand:
         import readme_agent.paths as paths
         import readme_agent.registry.loader as loader_module
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
 
         entries = [
             argparse.Namespace(org_repo="org/one"),
@@ -1425,6 +1552,11 @@ class TestLocalPocPortfolioCommand:
         monkeypatch.setattr(
             git_backend_module,
             "default_state_backend",
+            lambda: _LifecycleFakeBackend(),
+        )
+        monkeypatch.setattr(
+            local_poc_backend_module,
+            "default_local_poc_state_backend",
             lambda: _LifecycleFakeBackend(),
         )
         monkeypatch.setattr(
@@ -1463,6 +1595,7 @@ class TestLocalPocPortfolioCommand:
         import readme_agent.paths as paths
         import readme_agent.registry.loader as loader_module
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
         import readme_agent.supervisor.portfolio_stage_cache as stage_cache_module
         from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
         from readme_agent.state.schema import RunStateV2
@@ -1495,6 +1628,9 @@ class TestLocalPocPortfolioCommand:
         )
         monkeypatch.setattr(clone_module, "remote_head_sha", lambda clone_url: "a" * 40)
         monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(
+            local_poc_backend_module, "default_local_poc_state_backend", lambda: backend
+        )
         monkeypatch.setattr(
             paths,
             "readme_poc_portfolio_summary_path",
@@ -1543,6 +1679,7 @@ class TestLocalPocPortfolioCommand:
         import readme_agent.paths as paths
         import readme_agent.registry.loader as loader_module
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
         import readme_agent.supervisor.local_poc_cache as cache_module
         from readme_agent.llm.call_ledger import canonical_call_hash, load_llm_call_records
         from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
@@ -1569,6 +1706,9 @@ class TestLocalPocPortfolioCommand:
         )
         monkeypatch.setattr(loader_module, "load_products", lambda path: (entry,))
         monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(
+            local_poc_backend_module, "default_local_poc_state_backend", lambda: backend
+        )
         monkeypatch.setattr(clone_module, "remote_head_sha", lambda clone_url: source_revision)
         monkeypatch.setattr(
             paths,
@@ -1626,6 +1766,7 @@ class TestLocalPocPortfolioCommand:
         import readme_agent.paths as paths
         import readme_agent.registry.loader as loader_module
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
         import readme_agent.supervisor.portfolio as portfolio_module
 
         monkeypatch.setattr(
@@ -1639,6 +1780,11 @@ class TestLocalPocPortfolioCommand:
         monkeypatch.setattr(
             git_backend_module,
             "default_state_backend",
+            lambda: _LifecycleFakeBackend(),
+        )
+        monkeypatch.setattr(
+            local_poc_backend_module,
+            "default_local_poc_state_backend",
             lambda: _LifecycleFakeBackend(),
         )
         monkeypatch.setattr(
@@ -2056,6 +2202,7 @@ class TestLocalPocPortfolioCommand:
     def test_local_poc_member_resumes_a_retryable_cli_trigger(self, monkeypatch, tmp_path):
         import readme_agent.paths as paths
         import readme_agent.state.git_backend as git_backend_module
+        import readme_agent.state.local_poc_backend as local_poc_backend_module
         import readme_agent.supervisor.loop as loop_module
         from readme_agent.state.lifecycle import accept_trigger, transition_trigger
         from readme_agent.state.trigger_v2 import normalize_trigger_envelope
@@ -2069,6 +2216,9 @@ class TestLocalPocPortfolioCommand:
         transition_trigger(backend, "org/repo", envelope.dedup_key, "processing")
         transition_trigger(backend, "org/repo", envelope.dedup_key, "retryable")
         monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(
+            local_poc_backend_module, "default_local_poc_state_backend", lambda: backend
+        )
         monkeypatch.setattr(paths, "evidence_dir", lambda run_id: tmp_path / run_id)
         calls: list[str] = []
 

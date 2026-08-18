@@ -188,7 +188,7 @@ def test_public_supervisor_admits_unseen_repository_and_runs_exactly_one_intake(
     monkeypatch.setattr(env, "gh_token", lambda: "fixture-read-token")
     monkeypatch.setattr(discovery, "scan_org", _scan_org)
     monkeypatch.setattr(prompt_hygiene, "require_prompt_hygiene", lambda: None)
-    monkeypatch.setattr(supervision_module, "_force_durable_state_backend", lambda: backend)
+    monkeypatch.setattr(supervision_module, "_state_backend_for_profile", lambda profile: backend)
 
     args = _build_parser().parse_args(
         [
