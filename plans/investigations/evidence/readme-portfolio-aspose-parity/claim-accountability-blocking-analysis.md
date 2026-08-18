@@ -4,6 +4,12 @@ Investigated 2026-08-17 while GitHub's API outage blocked live portfolio verific
 GitHub-independent investigation: uses only local clone caches under `runs/baseline/` and
 `runs/readme-poc/` already on disk).
 
+**Update 2026-08-18: option 2 below (the bounded LLM-verification alternative acceptance path) is
+now implemented, tested, and hygiene-clean — explicitly authorized by the operator ("at aspose.org
+nothing is blocked... I am assuming you would solve all problems as well").** See "Implementation
+status, 2026-08-18" near the end of this document for exactly what exists, what's proven, and what
+remains before it closes a single real portfolio repo's blocking claims.
+
 ## The mechanism, traced to source
 
 `document_validation.py`'s `claim_accountability_complete` check fails whenever
@@ -162,3 +168,72 @@ Sampled blocking-claim text across the run logs: claim counts per repo range fro
 near-term candidates for option 1 above; the larger counts likely reflect either genuinely dense,
 highly-narrative original READMEs, or a systemic phrase-coverage gap worth its own focused
 investigation before assuming option 2 is required everywhere.
+
+## Implementation status, 2026-08-18
+
+Built after direct study of the real aspose.org mechanism this document's own "What aspose.org
+actually does differently" section pointed at:
+`D:\onedrive\...\aspose.org\reports\repo-presenter\barcode\python\content-dispositions.json` — the
+real, live disposition ledger for the exact repo/blocking-claim example above. Reading it directly
+corrected the earlier assumption that aspose.org's LLM independently judges each old-README unit
+against raw facts; it actually reconciles each unit against the **already-composed candidate text**
+(and, for genuinely new details, real repository source) — `unit_id: u0009` there is the literal
+counterpart of this repo's blocking `generate()` claim, classified `redundant_with_existing`
+because the candidate's own Key Capabilities prose already said the same thing in different words.
+
+**What exists now (option 2, complete and unit-tested):**
+- `prompts/verification/claim_disposition_check.yaml` — new governed prompt, forced tool call
+  (`report_claim_disposition`), four-way classification (`redundant_with_candidate` /
+  `verified_against_source` / `narrative_filler` / `unverifiable`).
+- `src/readme_agent/llm/claim_disposition_prompts.py` — tool schema + message builder.
+- `src/readme_agent/verification/claim_disposition.py` — the corroboration layer, mirroring
+  `verification/prose_quality.py`'s exact "additive, never trusted at face value" shape: a
+  `redundant_with_candidate` verdict is only accepted if its quoted evidence is found verbatim in
+  the real candidate text; a `verified_against_source` verdict only if the cited file genuinely
+  exists inside the repository clone (path-escape-checked) and the quoted evidence is found
+  verbatim in that file's real content; anything uncorroborated is downgraded to `unverifiable`
+  before it can affect anything.
+- `src/readme_agent/readme/claim_accountability_llm_disposition.py` — the real entry point/owner,
+  constructs the live client the same way `capabilities/verify_prose_quality.py` does.
+- `readme/claim_accountability_models.py` — new `"llm_verified_disposition"`
+  `ExpectedClaimDisposition` value and `ClaimDispositionRecordV1` (mirrors
+  `content-dispositions.json`'s own shape: classification, evidence_type, evidence_ref,
+  evidence_quote, reasoning, corroborated).
+- `readme/claim_accountability_helpers.py::expected_disposition()` — one new, low-priority
+  fallback branch (`llm_disposition_corroborated: bool = False`), tried only after every existing
+  mechanical path (fact-variant coverage, structured coordinates, candidate-policy shells,
+  configured standards) has already failed — never loosens or bypasses any of them.
+- `readme/claim_accountability.py::build_readme_claim_accountability_map()` — two new optional
+  parameters, `llm_disposition_client`/`repository_root`. Omitting either (the default) reproduces
+  today's exact existing behavior byte-for-byte; every existing caller in the codebase does not
+  pass them, so **this is currently 100% inert in the live pipeline** (see "Not yet done" below).
+
+**Proven, not assumed:** `tests/unit/test_claim_accountability_llm_disposition.py` builds a claim
+structurally identical in kind to the real barcode-python `generate()` example (a "canonical or
+alias... generic entry point" sentence no mechanical binder can cover) through the real
+`build_readme_claim_accountability_map()` and shows all three required properties hold: (1) without
+a client, the claim stays blocking (`currently_accountable=False`) — unchanged from today; (2) with
+a client returning a corroborated verdict, the same claim becomes accountable
+(`expected_disposition == "llm_verified_disposition"`); (3) with a client returning an
+**uncorroborated** verdict (a hallucinated quote that never appears in the candidate), the claim
+stays blocking regardless — the safety property that makes this an additive fallback, not a
+loosening. `tests/unit/test_verification_claim_disposition.py` covers the corroboration layer
+directly (redundant/verified/filler/unverifiable, plus a path-traversal-escape rejection test).
+Full unit suite confirmed identical to the pre-existing baseline afterward — zero regressions.
+
+**Not yet done (deliberately, explicit next step, not attempted blind):**
+1. No caller in the live candidate-rendering pipeline (`document_renderer.py`,
+   `presentation/verified_template_document.py`, `readme/document_plan_finalizer.py`,
+   `supervisor/loop.py`) constructs and passes a real `llm_disposition_client`/`repository_root`
+   yet. Doing so is a real behavior/cost change (every future candidate build could attempt one
+   more LLM call per still-unaccounted claim) that deserves its own deliberate activation, not a
+   silent default flipped mid-implementation.
+2. No `review/claim-dispositions.json` evidence artifact is written yet (the disposition ledger,
+   mirroring aspose.org's `content-dispositions.json` file-per-repo convention) — needed once this
+   is live, both for audit and so `claim_accountability_validation.py`'s independent validator can
+   re-corroborate (not re-judge) each accepted verdict against the *current* candidate/source
+   before trusting it, the same "who verifies the verifier" pattern this module itself already
+   applies once, at construction time.
+3. Not yet run against a real portfolio repo end-to-end (would require step 1). The barcode-python
+   `generate()`/pytest-dependency claims documented above are the natural first live proof once
+   step 1 lands — they're the exact motivating example, already traced start to finish here.

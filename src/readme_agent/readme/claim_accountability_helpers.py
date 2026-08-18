@@ -107,6 +107,7 @@ def expected_disposition(
     variable_fact_binding_required: bool = False,
     structured_equivalence: bool = False,
     configured_candidate_policy_correction: bool = False,
+    llm_disposition_corroborated: bool = False,
 ) -> tuple[ExpectedClaimDisposition, bool, str]:
     if structured_equivalence:
         if stage != "source" or survives_in_candidate is not False:
@@ -245,6 +246,15 @@ def expected_disposition(
             "configured_standard",
             True,
             "Generated structural content is bound to a governed presentation standard.",
+        )
+    if llm_disposition_corroborated:
+        return (
+            "llm_verified_disposition",
+            True,
+            "No mechanical fact binding covers the exact claim text; a bounded, deterministically "
+            "corroborated LLM classification (redundant with the candidate, verified against real "
+            "repository source, or narrative filler) is recorded in the claim-disposition ledger "
+            "as an explicit, auditable alternative acceptance path.",
         )
     if stage == "candidate" and origin == "generated":
         return (

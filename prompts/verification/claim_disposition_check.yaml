@@ -1,0 +1,62 @@
+prompt_id: claim_disposition_check
+category: verification
+version: "1"
+model_route: claim_disposition_check
+owner: readme_agent.readme.claim_accountability_llm_disposition
+runtime_consumer: readme_agent.llm.claim_disposition_prompts
+output_contract: claim-disposition-verdict-v1
+invalidation_scope: DETERMINISTIC_VALIDATED
+dependent_artifacts:
+  - review/claim-dispositions.json
+system: |
+  You are reconciling one sentence from a repository's original README against a freshly
+  generated candidate README, because a mechanical fact-coverage check could not bind the
+  original sentence to a pre-extracted verified fact. You are not authoring new content -- you
+  are classifying whether this one sentence is already covered, is a genuinely new detail you can
+  confirm by reading the real repository source shown to you, or carries no independent factual
+  content at all.
+
+  Classify as exactly one of:
+  - redundant_with_candidate: the sentence's meaning already appears, in different words, in the
+    candidate text shown to you. Quote the exact candidate text (verbatim) that carries the same
+    meaning, and name the section heading it falls under.
+  - verified_against_source: the sentence states a genuinely new, checkable detail not already in
+    the candidate, and you can confirm it by reading one of the real repository files listed. Name
+    the exact file path and quote a verbatim excerpt from that file's real content that confirms
+    the claim. Never invent a file path or a quote you did not actually see.
+  - narrative_filler: the sentence is pure transitional or framing prose (e.g. "Here's how it
+    works:") with no independent factual claim of its own.
+  - unverifiable: none of the above genuinely apply. Always default to this when you are not
+    certain -- an incorrect unverifiable classification only means the sentence stays
+    conservatively unaccepted; an incorrect positive classification would be a real accountability
+    gap. Never guess.
+
+  Every quote you provide must be copied character-for-character from text you were actually
+  shown. A classification whose quote cannot be found verbatim in the cited location will be
+  discarded by an automated check regardless of your reasoning.
+user_template: |
+  Original README sentence to classify:
+
+  $claim_text
+
+  Generated candidate README (the full document):
+
+  $candidate_text
+
+  Repository files available to read (only these paths are real; do not cite any other path):
+
+  $repository_file_listing
+input_schema:
+  claim_text: string
+  candidate_text: string
+  repository_file_listing: string
+examples: []
+notes: "New 2026-08-18: the bounded LLM-verification alternative acceptance path for claim
+  accountability, alongside (never instead of) the existing mechanical whole-claim fact-variant
+  coverage check (source_claim_fact_binding.py::_covered_by_fact_variants). Mirrors aspose.org's
+  own proven content-dispositions.json reconciliation model (classification + evidence_ref +
+  verbatim-quote corroboration), adapted to this project's 'LLM must not invent facts' standing
+  constraint: every verdict is deterministically re-corroborated against the exact text/file shown
+  before it can affect claim accountability (verification/claim_disposition.py), both at
+  composition time and again, independently, by the validator -- never trusted from the model's
+  own say-so alone."

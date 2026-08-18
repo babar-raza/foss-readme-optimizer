@@ -25,6 +25,18 @@ ExpectedClaimDisposition = Literal[
     "required_correction",
     "unjustified_loss",
     "unbound_generated",
+    "llm_verified_disposition",
+]
+ClaimDispositionClassification = Literal[
+    "redundant_with_candidate",
+    "verified_against_source",
+    "narrative_filler",
+    "unverifiable",
+]
+ClaimDispositionEvidenceType = Literal[
+    "candidate_section_reference",
+    "clone_cache_path",
+    "none",
 ]
 
 
@@ -52,6 +64,24 @@ class EquivalentCandidateClaimV1(_StrictModel):
     candidate_byte_end: int = Field(ge=0)
     content_sha256: str
     fact_coordinates: list[StructuredFactCoordinateV1] = Field(min_length=1)
+
+
+class ClaimDispositionRecordV1(_StrictModel):
+    """One claim's LLM-judged, deterministically corroborated disposition --
+    the fallback acceptance path alongside (never instead of) mechanical
+    fact-variant coverage, mirroring aspose.org's own `content-dispositions.
+    json` ledger (`classification`/`verification.evidence_ref`/
+    `disposition`). Written to `review/claim-dispositions.json` and re-
+    corroborated (never re-judged) by the independent validator."""
+
+    claim_id: str
+    content_sha256: str
+    classification: ClaimDispositionClassification
+    evidence_type: ClaimDispositionEvidenceType
+    evidence_ref: str
+    evidence_quote: str
+    reasoning: str = Field(min_length=1)
+    corroborated: bool
 
 
 class ReadmeClaimAccountabilityV1(_StrictModel):

@@ -43,6 +43,12 @@ JOB_MODEL_ROUTING: dict[str, str] = {
     # choice as the two entries above.
     "prose_quality_check": "qwen3-next",
     "repair_capability_selection": "qwen3-next",
+    # 2026-08-18: the claim-accountability LLM-verification fallback -- a
+    # single narrow forced-tool-call classification (redundant/verified/
+    # filler/unverifiable) per claim, same reliability profile as
+    # prose_quality_check above; its verdict is never trusted without
+    # deterministic corroboration (verification/claim_disposition.py).
+    "claim_disposition_check": "qwen3-next",
     # Wave 8.6 (comparison capability): a freeform structured-JSON analysis
     # call -- qwen3-next's 5/5 structured-output reliability (L3) is the
     # routing evidence here, same as relationship_explained's own choice.

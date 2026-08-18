@@ -176,6 +176,7 @@ class TestRealRegistry:
     def test_all_real_prompts_are_registered(self):
         assert set(prompt_registry.all_manifests()) == {
             "blind_readme_quality_review",
+            "claim_disposition_check",
             "draft_product_truth",
             "factual_readme_plan_review",
             "independent_readme_review",

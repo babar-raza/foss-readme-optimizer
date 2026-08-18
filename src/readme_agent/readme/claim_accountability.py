@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import hashlib
 from collections import Counter
+from pathlib import Path
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.llm.verifier_client import ForcedToolClient
 from readme_agent.readme.assessment_claims import (
     ReadmeMaterialClaimAssessmentV1,
     assess_material_claims,
@@ -22,6 +24,9 @@ from readme_agent.readme.claim_accountability_helpers import (
     claim_text,
     expected_disposition,
     overlapping_candidate_fact_ids,
+)
+from readme_agent.readme.claim_accountability_llm_disposition import (
+    llm_verified_claim_disposition,
 )
 from readme_agent.readme.claim_accountability_models import (
     ClaimOrigin,
@@ -285,8 +290,18 @@ def build_readme_claim_accountability_map(
     candidate_content_provenance: list[CandidateContentProvenanceV1] | None = None,
     source_claim_resolutions: list[SourceClaimResolutionV1] | None = None,
     composition_ledger: ReadmeCompositionLedgerV1 | None = None,
+    llm_disposition_client: ForcedToolClient | None = None,
+    repository_root: Path | None = None,
 ) -> ReadmeClaimAccountabilityMapV1:
-    """Return one explicit expected disposition for every material claim."""
+    """Return one explicit expected disposition for every material claim.
+
+    `llm_disposition_client`/`repository_root` are an opt-in fallback: when
+    both are supplied, a claim the mechanical fact-variant check cannot bind
+    gets one more attempt via `claim_accountability_llm_disposition.py`'s
+    bounded, deterministically corroborated LLM classification before it is
+    finalized as unaccountable. Omitting either argument (the default)
+    reproduces today's exact behavior -- no new LLM calls, no change to any
+    existing candidate's accountability outcome."""
 
     source_claims = assess_material_claims(source_text)
     candidate_claims = assess_material_claims(candidate_text)
@@ -405,6 +420,23 @@ def build_readme_claim_accountability_map(
             standard_id for binding in bindings for standard_id in binding.configured_standard_ids
         }
         origin = candidate_origins[claim.claim_id]
+        llm_disposition_corroborated = False
+        if (
+            not fact_ids
+            and not candidate_standard_ids
+            and llm_disposition_client is not None
+            and repository_root is not None
+        ):
+            llm_disposition_corroborated = (
+                llm_verified_claim_disposition(
+                    claim.claim_id,
+                    text,
+                    candidate_text,
+                    repository_root,
+                    llm_disposition_client,
+                )
+                is not None
+            )
         expected, accountable, rationale = expected_disposition(
             stage="candidate",
             origin=origin,
@@ -418,6 +450,7 @@ def build_readme_claim_accountability_map(
                 candidate_standard_ids,
                 fact_ids,
             ),
+            llm_disposition_corroborated=llm_disposition_corroborated,
         )
         candidate_records.append(
             accountability_record(
@@ -532,6 +565,26 @@ def build_readme_claim_accountability_map(
                     else frozenset()
                 ),
             }
+        llm_disposition_corroborated = False
+        if (
+            not disposition_fact_ids
+            and not source_standard_ids
+            and survives is not False
+            and resolution is None
+            and claim.disposition != "investigate"
+            and llm_disposition_client is not None
+            and repository_root is not None
+        ):
+            llm_disposition_corroborated = (
+                llm_verified_claim_disposition(
+                    claim.claim_id,
+                    text,
+                    candidate_text,
+                    repository_root,
+                    llm_disposition_client,
+                )
+                is not None
+            )
         expected, accountable, rationale = expected_disposition(
             stage="source",
             origin="inherited",
@@ -540,6 +593,7 @@ def build_readme_claim_accountability_map(
             configured_standard_ids=source_standard_ids,
             survives_in_candidate=survives,
             source_resolution=resolution,
+            llm_disposition_corroborated=llm_disposition_corroborated,
         )
         source_records.append(
             accountability_record(

@@ -51,7 +51,7 @@ found in — checked at build time, fails loud on mismatch.
 
 ## Current state
 
-Thirteen active manifests are registered. This table is part of the blocking inventory and must match
+Fourteen active manifests are registered. This table is part of the blocking inventory and must match
 the manifest metadata exactly.
 
 | Prompt ID | Category | Model route | Owner | Runtime consumer | Output contract | Invalidation scope |
@@ -71,6 +71,7 @@ the manifest metadata exactly.
 | `merged_readme_review` | `verification` | `merged_readme_review` | `readme_agent.specialists.merged_readme_review_contracts` | `readme_agent.llm.merged_readme_review` | `MergedReadmeReviewResultV1` | `AGENT_REVIEWING` |
 | `prose_quality_check` | `verification` | `prose_quality_check` | `readme_agent.capabilities.verify_prose_quality` | `readme_agent.llm.verification_prompts` | `prose-quality-finding-v1` | `DETERMINISTIC_VALIDATED` |
 | `visual_asset_accuracy` | `verification` | `visual_asset_accuracy` | `readme_agent.capabilities.review_visual_asset_accuracy` | `readme_agent.llm.analysis_prompts` | `visual-asset-accuracy-v1` | `AGENT_REVIEWING` |
+| `claim_disposition_check` | `verification` | `claim_disposition_check` | `readme_agent.readme.claim_accountability_llm_disposition` | `readme_agent.llm.claim_disposition_prompts` | `claim-disposition-verdict-v1` | `DETERMINISTIC_VALIDATED` |
 
 `src/readme_agent/llm/prompt_hygiene.py` reconciles these rows with the files, schema, route table,
 runtime content/hash/call references, and source-level inline-prompt exclusions. The same check is
