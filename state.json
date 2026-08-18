@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
-    "active_task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY",
+    "active_task_id": null,
     "approach_control": {
       "attempts": [
         {
@@ -1229,10 +1229,12 @@
           "task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "claim lease expired"
+          ],
           "fingerprint": "e565cf08073bca8204f70e54f470781306b396107ad4766963ff4ad1b3a6dd8c",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-17T18:50:06.810667+00:00",
           "task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY"
         }
@@ -2145,10 +2147,10 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-17T19:20:06.810667+00:00",
-    "claim_id": "c67c95f222b64d268468e4b37205b9b5",
-    "claimed_at": "2026-08-17T18:50:06.810667+00:00",
-    "claimed_by": "dependencies-section-fix-canary",
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "c3e2fca5e60d23654ffce5b1ab64748976e7b7f48ea3c55f96b806e6cf813160",
@@ -2363,7 +2365,7 @@
     ],
     "graph_sha256": "c3e2fca5e60d23654ffce5b1ab64748976e7b7f48ea3c55f96b806e6cf813160",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-18T07:15:46.414944+00:00",
+    "last_evaluated_at": "2026-08-18T07:16:34.178330+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 1,
@@ -2429,26 +2431,20 @@
     "next_task": {
       "campaign_id": "CAMP-GATE-B-AND-LATER",
       "core_contribution": {
-        "kind": "visible_deliverable",
-        "summary": "Deliver the complete local README candidate portfolio the product owner can review, at the same proven quality bar as Aspose.org's own corpus."
+        "kind": "acceptance_proof",
+        "summary": "Prove Python through the actual autonomous workflow and GitHub App transport without an unauthorized effect."
       },
       "goal_ids": [
-        "GOAL-README",
+        "GOAL-AUTONOMY",
         "GOAL-DELIVERY"
       ],
-      "immediate_goal_id": "DELIVERY-README-PORTFOLIO-PARITY",
-      "immediate_outcome": "Raise the local_poc portfolio from 4/33 to every achievable candidate, matching the proven Aspose.org presentation and provenance contract.",
+      "immediate_goal_id": "DELIVERY-PYTHON-PRODUCTION-TRANSPORT",
+      "immediate_outcome": "Make the accepted Python platform safely operable through the production workflow and App path.",
       "repository_scope": [
-        "platform:net",
-        "platform:python",
-        "platform:java",
-        "platform:cpp",
-        "platform:go",
-        "platform:rust",
-        "platform:typescript"
+        "platform:python"
       ],
       "stage_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
-      "task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY"
+      "task_id": "L8-VPY-04-PRODUCTION-TRANSPORT"
     },
     "parallelism_control": {
       "calibration_active": false,
@@ -2507,7 +2503,7 @@
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-MISSION-GOAL-GUARD": "CLOSED",
       "L8-PLAN-RECONCILIATION-ACCELERATION": "CLOSED",
-      "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY": "IN_PROGRESS",
+      "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY": "REGRESSED",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
       "L8-PREPRODUCTION-TRUTHFUL-BASELINE": "CLOSED",
       "L8-QUAL-00-CAMPAIGN-SCHEMA": "TODO",
@@ -12083,6 +12079,15 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-18T07:16:34.178354+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -12092,7 +12097,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1211,
+  "state_version": 1212,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
