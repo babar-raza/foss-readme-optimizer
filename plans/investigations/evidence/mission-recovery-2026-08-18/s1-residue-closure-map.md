@@ -50,3 +50,17 @@ selects the shortest passing claims (Q1); selecting these makes them survive:
 Lane A (one renderer change) → Lane B (composition selection) → Lane C mops up. Canaries per
 lane: page (A), font (B), note (C). Each lane's success is measurable as specific claim ids
 disappearing from blocked-decision records with zero disposition provider calls.
+
+## Lane A CONFIRMED LIVE: page-python fully unblocked (2026-08-18, post-merge canary)
+
+Re-ran the page-python canary against merged main: `source:claim:4538:7ff54c1da64deecb` (the
+empty-Dependencies boilerplate sentence) no longer blocks at all. page-python advanced straight
+through to **`CONVERGED_PROPOSAL_READY` / `AGENT_APPROVED`** — the independently-reviewed local
+README boundary — with only 2 provider calls total (no `claim_disposition_check` needed; the
+claim now survives mechanically via the rendered Dependencies section). This is the clearest
+positive proof point of the whole recovery: a repository that was blocked at session start is
+now fully approved, closed by a purely deterministic rendering fix with zero LLM involvement in
+closing that specific claim.
+
+Portfolio effect: page-python should register a fourth `AGENT_APPROVED`/candidate-ready
+repository on the next portfolio pass (pending its own NO_OP_PROVEN re-verification).
