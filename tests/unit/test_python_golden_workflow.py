@@ -11,9 +11,7 @@ from readme_agent.facts.python_golden_workflow import (
 )
 
 _REPOSITORY_ROOT = Path(__file__).parents[2]
-_NOTE_ROOT = (
-    _REPOSITORY_ROOT / "runs" / "baseline" / "aspose-note-foss__Aspose.Note-FOSS-for-Python"
-)
+_NOTE_ROOT = _REPOSITORY_ROOT / "tests" / "fixtures" / "note_golden_workflow"
 _NOTE_REVISION = "6d97a522a9ed24708687911f1aabb76e2dea2da7"
 
 

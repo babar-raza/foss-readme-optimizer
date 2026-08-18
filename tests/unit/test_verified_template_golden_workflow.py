@@ -9,7 +9,7 @@ from readme_agent.presentation.verified_template_golden_workflow import (
 )
 
 _ROOT = Path(__file__).parents[2]
-_NOTE = _ROOT / "runs" / "baseline" / "aspose-note-foss__Aspose.Note-FOSS-for-Python"
+_NOTE = _ROOT / "tests" / "fixtures" / "note_golden_workflow"
 _REVISION = "6d97a522a9ed24708687911f1aabb76e2dea2da7"
 
 

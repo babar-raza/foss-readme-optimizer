@@ -4,6 +4,8 @@ import os
 
 import pytest
 
+from readme_agent.llm.call_ledger import reset_llm_call_accounting
+
 _LIVE_CREDENTIAL_NAMES = (
     "GH_TOKEN",
     "GITHUB_TOKEN",
@@ -37,3 +39,13 @@ def isolate_live_credentials_from_offline_tests(request, monkeypatch):
         # The brand-banner existence probe is a live HTTP check; offline tests
         # must compose without it. Banner-specific tests inject their own probe.
         monkeypatch.setenv("README_AGENT_BRAND_BANNER", "off")
+
+
+@pytest.fixture(autouse=True)
+def isolate_llm_call_accounting_between_tests():
+    """The accounting ContextVar is module-global; never let one test's binding
+    leak into the next test's no-op/provider-call assertions."""
+
+    reset_llm_call_accounting()
+    yield
+    reset_llm_call_accounting()

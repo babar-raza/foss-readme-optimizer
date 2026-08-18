@@ -116,6 +116,12 @@ Python/pytest/Git-credential descendants. All four gates must pass before a chan
 - Safety properties are *proven* by tests (e.g.
   `tests/unit/test_gitsafety.py::TestHookActuallyBlocksARealPush` does a real push against a
   local bare repo and asserts it fails). If you touch `gitsafety/`, these tests are the contract.
+- `scripts/governance/run_full_pytest.py` is the only supported full-suite entry point on
+  Windows: it sets a short `basetemp` (`%TEMP%/ra-p`) to stay under `MAX_PATH`. A plain
+  `pytest tests/` run adds ~60 chars of temp-path prefix and can spuriously fail long-path tests
+  (e.g. `test_trusted_transform_review.py`) with `FileNotFoundError` when `LongPathsEnabled` is
+  off — that failure is environment-dependent, not a code defect. For a targeted run, shorten the
+  basetemp yourself, e.g. `pytest <path> --basetemp="$(cygpath -m "$(mktemp -d)")"`.
 
 ## Code style
 

@@ -56,6 +56,12 @@ def start_llm_call_accounting(
     )
 
 
+def reset_llm_call_accounting() -> None:
+    """Clear the accounting context so it cannot leak into an unrelated run."""
+
+    _CONTEXT.set(None)
+
+
 def bind_llm_repository_revision(source_revision: str, *, stage: str = "SUPERVISING") -> None:
     """Bind subsequent calls to the immutable revision discovered by supervision."""
 

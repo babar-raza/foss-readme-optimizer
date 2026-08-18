@@ -187,6 +187,7 @@ def test_trigger_selection_resumes_retryable_but_never_steals_active_work():
 
 
 def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path, monkeypatch):
+    import json as json_module
     from types import SimpleNamespace
 
     import readme_agent.supervisor.local_poc_cache as cache_module
@@ -199,6 +200,11 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path, mo
     from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
     from readme_agent.state.schema import RunStateV2, SupervisorStateV1
     from readme_agent.supervisor.convergence import compute_control_plane_fingerprint
+    from readme_agent.supervisor.local_poc_acceptance_binding import (
+        bind_deterministic_validation,
+        build_review_acceptance_binding,
+    )
+    from readme_agent.supervisor.portfolio_scheduler.contracts import canonical_sha256
     from readme_agent.supervisor.stage_dependencies import (
         current_candidate_stage_dependency_manifest,
     )
@@ -283,12 +289,36 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path, mo
         bundle_dir / "planning" / "agentic-composition-plan.json",
         {"prompt_sha256": prompt_registry.prompt_hash("plan_readme_composition")},
     )
+
+    deterministic_validation, deterministic_binding = bind_deterministic_validation(
+        {"verdict": "accept"},
+        candidate_hash=candidate_hash,
+        candidate_stage_dependency_key=candidate_dependency_key,
+    )
+    write_redacted_json(
+        bundle_dir / "review" / "deterministic-validation.json", deterministic_validation
+    )
+    review_binding = build_review_acceptance_binding(
+        deterministic_validation,
+        deterministic_binding,
+        reviewer_standard_hash=reviewer_standard,
+    )
+    acceptance_binding_payload = review_binding.model_dump(mode="json")
+
+    write_redacted_json(
+        bundle_dir / "review" / "independent-agent-review.json",
+        {
+            "verdict": "AGENT_APPROVED",
+            "acceptance_binding": acceptance_binding_payload,
+        },
+    )
     write_redacted_json(
         bundle_dir / "review" / "final-verdict.json",
         {
             "verdict": "AGENT_APPROVED",
             "agent_approved": True,
             "deterministic_validation_passed": True,
+            "acceptance_binding": acceptance_binding_payload,
         },
     )
     write_redacted_json(
@@ -301,8 +331,13 @@ def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path, mo
             "agentic_review_reused": True,
             "llm_accounting_status": "EXACT",
             "new_provider_call_count": 0,
+            "acceptance_binding": acceptance_binding_payload,
         },
     )
+    manifest_path = bundle_dir / "manifest.json"
+    manifest_payload = json_module.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest_payload["deterministic_validation_hash"] = canonical_sha256(deterministic_validation)
+    write_redacted_json(manifest_path, manifest_payload)
     refresh_sha256sums(bundle_dir)
 
     assert (

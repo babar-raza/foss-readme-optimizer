@@ -72,6 +72,10 @@ packages = ["src/readme_agent"]
 [tool.pytest.ini_options]
 pythonpath = ["src", "scripts"]
 testpaths = ["tests"]
+# The Note golden-workflow fixture's own test_*.py is read via AST by our
+# collector (readme_agent.facts.python_golden_workflow), not executed here --
+# it imports from its own package's "tests" module and cannot run in ours.
+norecursedirs = ["tests/fixtures/note_golden_workflow"]
 markers = [
     "live: requires real network access / live secrets, excluded from default CI run",
 ]
@@ -84,9 +88,12 @@ target-version = "py311"
 # vendored_asposeorg + data/imported (T1B): vendored third-party implementation and
 # knowledge-tree content (including .py example snippets under knowledge/**/snippets/),
 # kept close to source form -- not restyled to this project's own conventions.
+# tests/fixtures/note_golden_workflow (TB-05): immutable third-party golden-workflow
+# fixture bytes, likewise never restyled.
 extend-exclude = [
     "src/readme_agent/vendored_asposeorg",
     "data/imported",
+    "tests/fixtures/note_golden_workflow",
 ]
 
 [tool.ruff.format]

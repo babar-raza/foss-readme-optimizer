@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aspose-note"
+version = "26.3.2"
+description = "Aspose.Note-compatible Python API for reading OneNote (.one) files"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "LicenseRef-Aspose-Split"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
+authors = [{name = "Aspose"}]
+
+keywords = ["onenote", "one", "aspose", "parser", "pdf"]
+
+classifiers = [
+	"Programming Language :: Python :: 3",
+	"Programming Language :: Python :: 3 :: Only",
+	"Programming Language :: Python :: 3.10",
+	"Programming Language :: Python :: 3.11",
+	"Programming Language :: Python :: 3.12",
+	"Operating System :: OS Independent",
+	"Topic :: File Formats",
+]
+
+dependencies = []
+
+[project.optional-dependencies]
+pdf = ["reportlab>=3.6"]
+test-pdf = ["pypdf>=5.3", "Pillow>=10.0", "PyMuPDF>=1.25"]
+dev = ["build>=1.2", "twine>=5.0"]
+
+[project.urls]
+Homepage = "https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python"
+Repository = "https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python"
+Issues = "https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/issues"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+# If you later add non-.py resources, declare them here.
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["aspose*", "onenote*", "onestore*", "ms_one*"]

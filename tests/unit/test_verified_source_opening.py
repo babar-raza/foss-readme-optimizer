@@ -1,5 +1,6 @@
 """Tests for selecting a verified maintainer-authored README opening."""
 
+import json
 from pathlib import Path
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
@@ -19,16 +20,32 @@ from readme_agent.readme.verified_preservation_composition import (
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-PDF_EVIDENCE = (
-    PROJECT_ROOT
-    / "plans"
-    / "investigations"
-    / "evidence"
-    / "finalized-repository-readmes-v1"
-    / "repositories"
-    / "python"
-    / "pdf--537b8273b185--bd8699b68869"
-)
+
+
+def _resolve_promoted_evidence_dir(repository: str) -> Path:
+    """Resolve a promoted repository's evidence dir from the cohort manifest.
+
+    The evidence-dir suffix is `candidate_sha256[:12]`, which changes every
+    time the repository is re-promoted -- a literal path breaks on the next
+    promotion, so this always reads the manifest instead of hardcoding it.
+    """
+
+    manifest_path = (
+        PROJECT_ROOT
+        / "plans"
+        / "investigations"
+        / "evidence"
+        / "finalized-repository-readmes-v1"
+        / "cohort-manifest.json"
+    )
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    for entry in manifest["repositories"]:
+        if entry["repository"] == repository:
+            return PROJECT_ROOT / Path(entry["committed_readme"]).parent
+    raise LookupError(f"{repository} not found in {manifest_path}")
+
+
+PDF_EVIDENCE = _resolve_promoted_evidence_dir("aspose-pdf-foss/Aspose-PDF-FOSS-for-Python")
 
 
 def test_verified_pdf_source_opening_replaces_a_redundant_generated_summary() -> None:
