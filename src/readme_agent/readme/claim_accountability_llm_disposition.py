@@ -32,16 +32,30 @@ from readme_agent.verification.claim_disposition import check_claim_disposition
 
 JOB_ID = "claim_disposition_check"
 
+# `LiveForcedToolClient`'s own DEFAULT_MAX_TOKENS=300 fits a short verdict
+# like `prose_quality_check`'s, but this job's `evidence_quote` field must
+# hold a verbatim excerpt from a real README sentence or source file --
+# routinely longer than 300 tokens once `reasoning`/`evidence_ref` are also
+# counted. Confirmed live (2026-08-18, aspose-font-foss): the 300-token
+# default truncated mid-JSON (`finish_reason='length'`), raising an
+# uncaught LLMError. 1600 matches the exact calibration already documented
+# for this failure class on a same-shape "single-verdict" response
+# (facts/agentic_drafting.py's own DEFAULT_MAX_TOKENS journey, corrected
+# 900 -> 1600 for the identical truncated-mid-JSON confound).
+_MAX_TOKENS = 1600
+
 
 def default_claim_disposition_client() -> ForcedToolClient:
     """The real, live client construction this job routes through --
     mirrors `capabilities/verify_prose_quality.py::execute()`'s own
-    `LiveForcedToolClient(..., job=..., prompt_id=...)` pattern exactly."""
+    `LiveForcedToolClient(..., job=..., prompt_id=...)` pattern, sized for
+    this job's longer verbatim-quote response shape (see `_MAX_TOKENS`)."""
 
     return LiveForcedToolClient(
         llm_base_url(),
         llm_api_key(),
         llm_model_for_job(JOB_ID),
+        max_tokens=_MAX_TOKENS,
         job=JOB_ID,
         prompt_id=JOB_ID,
     )
