@@ -246,3 +246,19 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
   deliberately not attempted in this pass to avoid rushing evidence citations under the
   session's own "no invented facts" constraint; scoped precisely here instead so a dedicated pass
   can execute it directly rather than re-deriving the root cause.
+- 2026-08-18 (GOV-014): **tex-python superseding root cause — upstream sources are syntactically
+  invalid at the pinned revision.** The `product_truth:` block scoped in the entry above was
+  authored and landed (commit `9879f02ff`, evidence verified verbatim against the source tree),
+  which exposed and fixed a real cached-facts invalidation gap (`load_prepared_product_truth()`
+  never compared policy `product_truth` content; facts manifests now record
+  `product_truth_policy_hash`). The recollected supervised canary then failed honestly in
+  isolated source-build verification: at upstream revision `2f4bfab3863e66ef32868f5464685eb4c2d3
+  6911` ("Release 26.5"; history squashed to 2 commits), **35/45 files under `src/aspose_tex/`
+  fail `ast.parse`** — all indentation collapsed to one space, verified against the *committed*
+  bytes (`git show HEAD:src/aspose_tex/_input/catcode.py`). The package cannot import at all, so
+  no acquisition/example claim is verifiable from our side: genuine `infra_external` upstream
+  defect (the loop's `agent_fixable` tag is the known blanket-category gap, same as
+  html-python's). Full proof:
+  `plans/investigations/evidence/mission-recovery-2026-08-18/tex-python-upstream-source-defect.md`.
+  Clearing condition: upstream publishes a revision with parseable sources (the blocked-decision
+  record auto-retries on a new `source_revision`).
