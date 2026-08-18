@@ -216,6 +216,65 @@ def _persist_blocked_plan_diagnostics(
         )
 
 
+def _persist_blocked_factuality_diagnostics(
+    org_repo: str,
+    factuality: object,
+    render_result: dict | None,
+) -> None:
+    """Sibling of `_persist_blocked_plan_diagnostics` for the later,
+    separate `factuality_rejected` boundary (claim conflicts / protected-
+    content losses surfaced by `evaluate_candidate_factuality` after the
+    presentation plan itself was already accepted).
+
+    Found live 2026-08-19: a claim-accountability fix can legitimately
+    un-block a member into this later boundary instead of full success --
+    the exact durable-state field this failure populates
+    (`domain_states.readme_presentation.details.factuality`) rotates out
+    with the next trigger-lifecycle transition, so without this the only
+    way to see WHICH claim/term was lost was forensic state-git archaeology
+    against a durable ref that may no longer hold it. Same contract as the
+    presentation-plan diagnostics: bound-snapshot only, never read back by
+    any runtime path, and a persistence failure never affects the member's
+    real result.
+    """
+
+    import json as json_module
+    from datetime import UTC, datetime
+
+    from readme_agent import paths as paths_module
+    from readme_agent.repository_snapshot import current_repository_snapshot
+
+    try:
+        if current_repository_snapshot(org_repo) is None:
+            return
+        org, repo = org_repo.split("/", maxsplit=1)
+        diagnostics_dir = paths_module.readme_poc_root() / f"{org}__{repo}" / "diagnostics"
+        diagnostics_dir.mkdir(parents=True, exist_ok=True)
+        factuality_payload = (
+            factuality.model_dump(mode="json") if hasattr(factuality, "model_dump") else factuality
+        )
+        payload = {
+            "recorded_at": datetime.now(UTC).isoformat(timespec="seconds"),
+            "org_repo": org_repo,
+            "factuality": factuality_payload,
+        }
+        (diagnostics_dir / "blocked-factuality.json").write_text(
+            json_module.dumps(payload, indent=1, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        final_text = (render_result or {}).get("final_text")
+        if isinstance(final_text, str) and final_text:
+            (diagnostics_dir / "blocked-candidate.md").write_text(
+                final_text, encoding="utf-8", newline="\n"
+            )
+    except Exception as exc:  # noqa: BLE001 -- diagnostics must never fail the member
+        print(
+            f"{org_repo}: blocked-factuality diagnostics persistence failed (non-fatal): "
+            f"{type(exc).__name__}: {exc}",
+            file=sys.stderr,
+        )
+
+
 def _failed_transaction_details(
     baseline: DomainStateV1,
     *,
@@ -653,6 +712,7 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 f"claim_conflicts={len(factuality.claim_conflicts)},"
                 f"protected_losses={len(factuality.protected_content_losses)}"
             )
+            _persist_blocked_factuality_diagnostics(org_repo, factuality, current_render_result)
             return {
                 "accepted_status": f"ERROR:factuality_rejected:{reason}",
                 "details": merge_details(

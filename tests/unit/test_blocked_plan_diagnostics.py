@@ -76,3 +76,65 @@ def test_blocked_plan_diagnostics_failure_is_non_fatal(monkeypatch, capsys):
     _persist_blocked_plan_diagnostics("org/repo", {}, None)  # must not raise
 
     assert "non-fatal" in capsys.readouterr().err
+
+
+def test_blocked_factuality_diagnostics_write_the_full_payload(monkeypatch, tmp_path):
+    import readme_agent.paths as paths
+    import readme_agent.repository_snapshot as repository_snapshot
+    from readme_agent.specialists.readme_presentation import (
+        _persist_blocked_factuality_diagnostics,
+    )
+
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    monkeypatch.setattr(
+        repository_snapshot, "current_repository_snapshot", lambda org_repo: object()
+    )
+
+    class _FakeFactuality:
+        def model_dump(self, mode="json"):
+            return {"valid": False, "claim_conflicts": [], "protected_content_losses": ["x"]}
+
+    _persist_blocked_factuality_diagnostics(
+        "org/repo", _FakeFactuality(), {"final_text": "# Candidate\n\nbody\n"}
+    )
+
+    diagnostics = tmp_path / "runs" / "readme-poc" / "org__repo" / "diagnostics"
+    payload = json.loads((diagnostics / "blocked-factuality.json").read_text(encoding="utf-8"))
+    assert payload["factuality"]["protected_content_losses"] == ["x"]
+    assert (
+        (diagnostics / "blocked-candidate.md").read_text(encoding="utf-8").startswith("# Candidate")
+    )
+
+
+def test_blocked_factuality_diagnostics_no_snapshot_writes_nothing(monkeypatch, tmp_path):
+    import readme_agent.paths as paths
+    import readme_agent.repository_snapshot as repository_snapshot
+    from readme_agent.specialists.readme_presentation import (
+        _persist_blocked_factuality_diagnostics,
+    )
+
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    monkeypatch.setattr(repository_snapshot, "current_repository_snapshot", lambda org_repo: None)
+
+    _persist_blocked_factuality_diagnostics("org/repo", {"valid": False}, None)
+
+    assert not (tmp_path / "runs").exists()
+
+
+def test_blocked_factuality_diagnostics_failure_is_non_fatal(monkeypatch, capsys):
+    import readme_agent.repository_snapshot as repository_snapshot
+    from readme_agent.specialists.readme_presentation import (
+        _persist_blocked_factuality_diagnostics,
+    )
+
+    monkeypatch.setattr(
+        repository_snapshot, "current_repository_snapshot", lambda org_repo: object()
+    )
+    monkeypatch.setattr(
+        "readme_agent.paths.readme_poc_root",
+        lambda: (_ for _ in ()).throw(OSError("disk unavailable")),
+    )
+
+    _persist_blocked_factuality_diagnostics("org/repo", {"valid": False}, None)  # must not raise
+
+    assert "non-fatal" in capsys.readouterr().err
