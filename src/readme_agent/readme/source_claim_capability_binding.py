@@ -114,6 +114,20 @@ def _api_class_mentions(text: str, value: dict, *, exact_spelling: bool) -> froz
     return frozenset(mentions)
 
 
+def _api_function_mentions(text: str, value: dict) -> frozenset[str]:
+    """Return public-surface function names referenced as inline code, never bare prose."""
+
+    index = api_coordinate_index(value)
+    if not index.functions_by_name:
+        return frozenset()
+    mentions: set[str] = set()
+    for reference, _tail in coded_references(text):
+        name = reference.strip().split("(", 1)[0].split(":", 1)[0].strip()
+        if name in index.functions_by_name:
+            mentions.add(name)
+    return frozenset(mentions)
+
+
 def _matching_capabilities(text: str, value: object, api_value: dict | None) -> list[str]:
     if not isinstance(value, list):
         return []
@@ -288,6 +302,11 @@ def feature_detail_fact_ids(
     if len(plain_api_mentions) >= 2:
         distinctive_api_mentions.update(plain_api_mentions)
     if distinctive_api_mentions and api is not None:
+        result.add(api.fact_id)
+    function_mentions = (
+        _api_function_mentions(combined, api_value) if api_value is not None else frozenset()
+    )
+    if function_mentions and api is not None:
         result.add(api.fact_id)
     if api is not None and public_api_feature_is_entailed(text, facts):
         result.add(api.fact_id)

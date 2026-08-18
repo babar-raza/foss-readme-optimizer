@@ -52,6 +52,29 @@ def _slides_api_facts():
     )
 
 
+def _generate_function_api_facts():
+    facts = _facts(["Verified presentation processing"])
+    api = facts.selected_fact("api.public_surface")
+    value = {
+        "classes": [],
+        "functions": [
+            {
+                "module": "acme",
+                "name": "generate",
+                "return_class": None,
+                "source_path": "src/acme/api.py",
+                "source_sha256": "a" * 64,
+            }
+        ],
+    }
+    replacement = api.model_copy(update={"value": value})
+    return facts.model_copy(
+        update={
+            "facts": [replacement if fact.fact_id == api.fact_id else fact for fact in facts.facts]
+        }
+    )
+
+
 def _ids(source: str, capability: str) -> set[str]:
     facts = _facts([capability])
     claim = assess_material_claims(source)[0]
@@ -108,3 +131,40 @@ def test_feature_detail_rejects_any_unsupported_api_member_or_qualifier() -> Non
         claim = assess_material_claims(source)[0]
         text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
         assert structured_source_claim_fact_ids(source, claim, text, facts) == set()
+
+
+def test_feature_detail_binds_coded_public_surface_function_mention() -> None:
+    facts = _generate_function_api_facts()
+    api_id = facts.selected_fact("api.public_surface").fact_id
+    source = (
+        "# Product\n\n## Key Capabilities\n\n"
+        "- Select any symbology by name through the generic `generate()` entry point.\n"
+    )
+    claim = assess_material_claims(source)[0]
+    text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+
+    assert structured_source_claim_fact_ids(source, claim, text, facts) == {api_id}
+
+
+def test_feature_detail_rejects_bare_function_name_without_code_span() -> None:
+    facts = _generate_function_api_facts()
+    source = (
+        "# Product\n\n## Key Capabilities\n\n"
+        "- Select any symbology by name through the generic generate entry point.\n"
+    )
+    claim = assess_material_claims(source)[0]
+    text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+
+    assert structured_source_claim_fact_ids(source, claim, text, facts) == set()
+
+
+def test_feature_detail_rejects_unknown_coded_function_name() -> None:
+    facts = _generate_function_api_facts()
+    source = (
+        "# Product\n\n## Key Capabilities\n\n"
+        "- Select any symbology by name through the generic `synthesize()` entry point.\n"
+    )
+    claim = assess_material_claims(source)[0]
+    text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+
+    assert structured_source_claim_fact_ids(source, claim, text, facts) == set()

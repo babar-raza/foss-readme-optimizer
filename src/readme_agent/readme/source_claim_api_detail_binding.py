@@ -52,6 +52,17 @@ def _reference_class_name(reference: str, value: dict) -> str | None:
     return None
 
 
+def _reference_function_name(reference: str, value: dict) -> str | None:
+    index = api_coordinate_index(value)
+    raw = reference.strip()
+    if raw in index.functions_by_name:
+        return raw
+    first = raw.split("(", 1)[0].split(":", 1)[0].split(" -> ", 1)[0].strip()
+    if first in index.functions_by_name:
+        return first
+    return None
+
+
 def _context_class_names(ancestors: tuple[str, ...], value: dict) -> list[str]:
     index = api_coordinate_index(value)
     names: list[str] = []
@@ -107,6 +118,16 @@ def _api_reference_known(reference: str, context_names: list[str], value: dict) 
         return True
     class_name = _reference_class_name(normalized, value)
     if class_name is not None:
+        unknown_types = {
+            token
+            for token in _IDENTIFIER.findall(normalized)[1:]
+            if token[:1].isupper()
+            and token not in index.classes_by_name
+            and token not in {"Any", "BinaryIO", "None", "Path", "Type"}
+        }
+        return not unknown_types
+    function_name = _reference_function_name(normalized, value)
+    if function_name is not None:
         unknown_types = {
             token
             for token in _IDENTIFIER.findall(normalized)[1:]
