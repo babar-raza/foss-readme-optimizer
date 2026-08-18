@@ -273,3 +273,10 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
   model exists to avoid. Candidate fix: split the reuse-gate/classification helpers out of the
   fingerprinted seam file, or fingerprint the seam per concern (value-producing code vs
   meta/classification code). Non-blocking; costs are one-time per such edit.
+- 2026-08-18 (GOV-014): **All 7 active Level-8 taskcards carry `requirement_ids: []`.**
+  Confirmed via `scripts/governance/query_requirement_catalog.py --task-id
+  L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY` (0 bound requirements) and a direct grep of
+  every active taskcard in `level8-autonomous-mission-task-graph.yaml` (7/7 empty). Pre-existing
+  and systemic, not introduced by this session's work; genuine requirement-to-task mapping
+  needs deliberate analysis per task, out of scope for a mid-flight recovery pass. Flagging so
+  it isn't silently worked around by a future session assuming the field is populated.
