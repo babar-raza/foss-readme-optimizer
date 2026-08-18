@@ -292,6 +292,7 @@ def build_readme_claim_accountability_map(
     composition_ledger: ReadmeCompositionLedgerV1 | None = None,
     llm_disposition_client: ForcedToolClient | None = None,
     repository_root: Path | None = None,
+    disposition_ratchet_path: Path | None = None,
 ) -> ReadmeClaimAccountabilityMapV1:
     """Return one explicit expected disposition for every material claim.
 
@@ -434,6 +435,7 @@ def build_readme_claim_accountability_map(
                     candidate_text,
                     repository_root,
                     llm_disposition_client,
+                    ratchet_path=disposition_ratchet_path,
                 )
                 is not None
             )
@@ -581,6 +583,7 @@ def build_readme_claim_accountability_map(
                     candidate_text,
                     repository_root,
                     llm_disposition_client,
+                    ratchet_path=disposition_ratchet_path,
                 )
                 is not None
             )

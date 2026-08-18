@@ -100,6 +100,7 @@ def build_document_repository_presentation_plan(
     link_allocation_policy: LinkAllocationPolicyV1 | None = None,
     llm_disposition_client: ForcedToolClient | None = None,
     repository_root: Path | None = None,
+    disposition_ratchet_path: Path | None = None,
 ) -> tuple[RepositoryPresentationPlanV1, dict, bool, dict]:
     """Rebuild the document plan independently and prove the resulting Git patch.
 
@@ -122,6 +123,7 @@ def build_document_repository_presentation_plan(
         link_allocation_policy=link_allocation_policy,
         llm_disposition_client=llm_disposition_client,
         repository_root=repository_root,
+        disposition_ratchet_path=disposition_ratchet_path,
     )
     if expected_candidate != candidate_text:
         raise ValidationFailure("README candidate differs from the independently rebuilt plan")

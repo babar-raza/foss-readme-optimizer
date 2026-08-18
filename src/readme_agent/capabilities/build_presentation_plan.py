@@ -15,6 +15,7 @@ from readme_agent.presentation.document_planner import (
 )
 from readme_agent.presentation.planner import build_repository_presentation_plan
 from readme_agent.readme.claim_accountability_llm_disposition import (
+    claim_disposition_ratchet_path,
     default_claim_disposition_client,
 )
 from readme_agent.readme.markers import find_presentation_span
@@ -149,6 +150,7 @@ def execute(
                 link_allocation_policy=link_allocation_policy,
                 llm_disposition_client=resolved_disposition_client,
                 repository_root=repository_root,
+                disposition_ratchet_path=claim_disposition_ratchet_path(org_repo),
             )
         )
         return {

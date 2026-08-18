@@ -101,6 +101,7 @@ def build_readme_document_candidate(
     link_allocation_policy: LinkAllocationPolicyV1 | None = None,
     llm_disposition_client: ForcedToolClient | None = None,
     repository_root: Path | None = None,
+    disposition_ratchet_path: Path | None = None,
 ) -> tuple[str, ReadmeDocumentPlanV1]:
     """Return one reproducible candidate and its fine-grained source operations.
 
@@ -155,6 +156,7 @@ def build_readme_document_candidate(
             link_allocation_policy=link_allocation_policy,
             llm_disposition_client=llm_disposition_client,
             repository_root=repository_root,
+            disposition_ratchet_path=disposition_ratchet_path,
         )
     header_visuals = render_readme_header_visual(facts, validated_agentic_plan)
     withheld = build_unresolved_section_operations(context, assessment)

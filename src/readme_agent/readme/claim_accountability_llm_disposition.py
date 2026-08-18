@@ -23,14 +23,73 @@ pass that introduced the mechanism itself."""
 from __future__ import annotations
 
 import hashlib
+import json
 from pathlib import Path
 
+from readme_agent import paths
 from readme_agent.env import llm_api_key, llm_base_url, llm_model_for_job
 from readme_agent.llm.verifier_client import ForcedToolClient, LiveForcedToolClient
 from readme_agent.readme.claim_accountability_models import ClaimDispositionRecordV1
-from readme_agent.verification.claim_disposition import check_claim_disposition
+from readme_agent.verification.claim_disposition import (
+    check_claim_disposition,
+    corroborate_claim_disposition,
+)
 
 JOB_ID = "claim_disposition_check"
+
+# Ratchet (2026-08-18 Gate A recovery): an LLM verdict that was accepted once
+# -- i.e. deterministically corroborated against the real candidate/source --
+# is persisted per claim-content hash and replayed on later runs through the
+# SAME deterministic corroboration (quote must still be found verbatim in the
+# current candidate or cited file) with zero provider calls. Only claims with
+# no replayable accepted verdict reach the model. This converts the observed
+# per-run corroboration nondeterminism ("claim counts fluctuated between
+# passes with unchanged inputs") into monotone convergence: an accepted claim
+# can only regress if the candidate/source genuinely stops containing its
+# evidence, never because a re-rolled model call answered differently.
+# Rejected/uncorroborated verdicts are deliberately NOT persisted -- a negative
+# is retried live only when the repository is re-executed at all (which the
+# blocked-decision cache already restricts to genuine dependency changes).
+RATCHET_SCHEMA_VERSION = 1
+
+
+def claim_disposition_ratchet_path(org_repo: str) -> Path:
+    """Repo-level accepted-verdict store, sibling of blocked-decision.json."""
+
+    org, repo = org_repo.split("/", maxsplit=1)
+    return paths.readme_poc_root() / f"{org}__{repo}" / "claim-disposition-ratchet.json"
+
+
+def _load_ratchet(path: Path) -> dict[str, dict]:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        return {}
+    if (
+        not isinstance(payload, dict)
+        or payload.get("schema_version") != RATCHET_SCHEMA_VERSION
+        or not isinstance(payload.get("accepted"), dict)
+    ):
+        return {}
+    return {key: value for key, value in payload["accepted"].items() if isinstance(value, dict)}
+
+
+def _persist_ratchet_entry(path: Path, content_sha256: str, verdict: dict) -> None:
+    accepted = _load_ratchet(path)
+    accepted[content_sha256] = verdict
+    path.parent.mkdir(parents=True, exist_ok=True)
+    staging = path.with_suffix(".json.tmp")
+    staging.write_text(
+        json.dumps(
+            {"schema_version": RATCHET_SCHEMA_VERSION, "accepted": accepted},
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    staging.replace(path)
+
 
 # `LiveForcedToolClient`'s own DEFAULT_MAX_TOKENS=300 fits a short verdict
 # like `prose_quality_check`'s, but this job's `evidence_quote` field must
@@ -67,18 +126,62 @@ def llm_verified_claim_disposition(
     candidate_text: str,
     repository_root: Path,
     client: ForcedToolClient | None,
+    *,
+    ratchet_path: Path | None = None,
 ) -> ClaimDispositionRecordV1 | None:
     """Attempt the fallback for one claim the mechanical check could not
     bind. Returns a corroborated, accepted disposition record, or `None`
     when the claim remains unverifiable (stays blocking, unchanged from
     today's behavior) -- callers only ever gain acceptance, never lose it,
     since this only ever runs after the mechanical path has already
-    failed."""
+    failed.
+
+    With `ratchet_path` (opt-in, live wiring only), a previously accepted
+    verdict for the same claim content is replayed through the same
+    deterministic corroboration first -- an entry that still corroborates
+    against the CURRENT candidate/source is accepted with zero provider
+    calls; the model is consulted only when no replayable verdict holds,
+    and a freshly accepted verdict is persisted for the next run."""
 
     content_sha256 = hashlib.sha256(claim_text.encode("utf-8")).hexdigest()
+    if ratchet_path is not None:
+        stored_verdict = _load_ratchet(ratchet_path).get(content_sha256)
+        if stored_verdict is not None:
+            replayed = corroborate_claim_disposition(
+                claim_id, content_sha256, candidate_text, repository_root, stored_verdict
+            )
+            if replayed.corroborated and replayed.classification != "unverifiable":
+                from readme_agent.llm.call_ledger import record_non_provider_call
+
+                record_non_provider_call(
+                    job=JOB_ID,
+                    prompt_id=JOB_ID,
+                    prompt_sha256=None,
+                    model="cache",
+                    disposition="cache_reuse",
+                    request={
+                        "claim_id": claim_id,
+                        "content_sha256": content_sha256,
+                        "classification": replayed.classification,
+                        "replayed_from": str(ratchet_path),
+                    },
+                )
+                return replayed
     record = check_claim_disposition(
         claim_id, content_sha256, claim_text, candidate_text, repository_root, client
     )
     if record.corroborated and record.classification != "unverifiable":
+        if ratchet_path is not None:
+            _persist_ratchet_entry(
+                ratchet_path,
+                content_sha256,
+                {
+                    "classification": record.classification,
+                    "evidence_type": record.evidence_type,
+                    "evidence_ref": record.evidence_ref,
+                    "evidence_quote": record.evidence_quote,
+                    "reasoning": record.reasoning,
+                },
+            )
         return record
     return None

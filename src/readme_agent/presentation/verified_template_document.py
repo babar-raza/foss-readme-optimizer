@@ -50,6 +50,7 @@ def build_verified_template_document_candidate(
     link_allocation_policy: LinkAllocationPolicyV1 | None = None,
     llm_disposition_client: ForcedToolClient | None = None,
     repository_root: Path | None = None,
+    disposition_ratchet_path: Path | None = None,
 ) -> tuple[str, ReadmeDocumentPlanV1]:
     """Wrap the compiled fact-slot candidate in the plan/accountability contract.
 
@@ -209,6 +210,7 @@ def build_verified_template_document_candidate(
         source_claim_resolutions=plan.source_claim_resolutions,
         llm_disposition_client=llm_disposition_client,
         repository_root=repository_root,
+        disposition_ratchet_path=disposition_ratchet_path,
         composition_ledger=composition_ledger,
     )
     return candidate, plan.model_copy(update={"claim_accountability": accountability})
