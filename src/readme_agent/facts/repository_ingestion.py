@@ -98,6 +98,7 @@ def ingest_repository_product_facts(
             source_revision,
             observed_at,
             ecosystem=entry.ecosystem,
+            snapshot=snapshot,
         )
     )
     if (

@@ -37,6 +37,7 @@ from readme_agent.readme.source_claim_fact_binding import (
     CompleteSourceClaimFactBindingV1,
     accepted_source_claim_fact_ids,
     complete_source_claim_fact_binding,
+    verified_repository_example_code,
 )
 
 
@@ -642,6 +643,80 @@ def _with_repository_example(facts: ProductFactsV2, code: str) -> ProductFactsV2
             },
         }
     )
+
+
+def _repository_example_fact(facts: ProductFactsV2, item: dict) -> ProductFactsV2:
+    identity = facts.selected_fact("product.identity")
+    examples = FactRecordV2(
+        fact_id="repository.examples:runtime-verified-test",
+        field="repository.examples",
+        verification_state="verified",
+        value={"inline_examples": [item]},
+        source=identity.source,
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    return facts.model_copy(
+        update={
+            "facts": [*facts.facts, examples],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                "repository.examples": examples.fact_id,
+            },
+        }
+    )
+
+
+def test_runtime_verified_only_example_is_returned_for_its_exact_claim_text() -> None:
+    code = "doc = Document('SimpleTable.one')\nprint(doc.DisplayName)\n"
+    facts = _repository_example_fact(
+        _facts(),
+        {
+            "title": "Quick Start",
+            "code": code,
+            "static_api_verified": False,
+            "runtime_verified": True,
+        },
+    )
+
+    result = verified_repository_example_code(f"```python\n{code}```", facts)
+
+    assert result is not None
+    assert result == (facts.selected_fact_ids["repository.examples"], code)
+
+
+def test_neither_static_nor_runtime_verified_example_is_not_returned() -> None:
+    code = "doc = Document('SimpleTable.one')\nprint(doc.DisplayName)\n"
+    facts = _repository_example_fact(
+        _facts(),
+        {
+            "title": "Quick Start",
+            "code": code,
+            "static_api_verified": False,
+            "runtime_verified": False,
+        },
+    )
+
+    assert verified_repository_example_code(f"```python\n{code}```", facts) is None
+
+
+def test_static_verified_example_matching_is_unaffected_by_runtime_field() -> None:
+    code = "widget = Widget()\nwidget.save('out.bin')\n"
+    facts = _repository_example_fact(
+        _facts(),
+        {
+            "title": "Quick Start",
+            "code": code,
+            "static_api_verified": True,
+            "runtime_verified": False,
+        },
+    )
+
+    result = verified_repository_example_code(f"```python\n{code}```", facts)
+
+    assert result is not None
+    assert result == (facts.selected_fact_ids["repository.examples"], code)
 
 
 def test_exact_structured_api_claim_is_preservation_eligible() -> None:

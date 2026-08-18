@@ -25,6 +25,20 @@ def _is_example_section(title: str) -> bool:
     return normalized in _CANONICAL_EXAMPLE_SECTIONS or normalized.endswith(" examples")
 
 
+def is_quick_start_example_title(title: str) -> bool:
+    """Recognize the single canonical Quick Start heading, independent of decoration.
+
+    Deliberately narrower than `_is_example_section`: "Usage" and "Additional examples"
+    both count as example sections for static verification, but only "Quick Start" is
+    the bounded, single-per-repository target real isolated-execution verification
+    (`curated_python_evidence._runtime_verify_quick_start_examples`) is willing to attempt
+    without turning into "verify every README code block."
+    """
+
+    normalized = " ".join(strip_emoji_decorations(title).casefold().split())
+    return normalized == "quick start"
+
+
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -89,6 +103,7 @@ def verified_python_examples(
                         "language": "python",
                         "static_api_verified": True,
                         "execution_verified": False,
+                        "runtime_verified": False,
                         "evidence_modules": list(modules),
                         "validation_context_imports": list(context_imports),
                     }

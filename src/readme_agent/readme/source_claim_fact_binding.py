@@ -164,7 +164,7 @@ def verified_repository_example_code(
         item
         for item in inline
         if isinstance(item, dict)
-        and item.get("static_api_verified") is True
+        and (item.get("static_api_verified") is True or item.get("runtime_verified") is True)
         and isinstance(item.get("code"), str)
         and item["code"].rstrip() + "\n" == code
     ]

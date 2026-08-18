@@ -88,6 +88,7 @@ def _compact_repository_examples(value: dict[str, Any]) -> dict[str, Any]:
                 "code",
                 "static_api_verified",
                 "execution_verified",
+                "runtime_verified",
                 "evidence_modules",
             )
             if key in item

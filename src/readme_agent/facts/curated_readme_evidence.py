@@ -36,6 +36,7 @@ from readme_agent.facts.curated_repository_guidance import (
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
 from readme_agent.facts.python_golden_workflow import python_golden_workflow_fact
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, descriptive_fact_id
+from readme_agent.repository_snapshot import RepositorySnapshotV1
 
 _CollectorResult = tuple[object, list[str]]
 
@@ -83,6 +84,7 @@ def curated_repository_fact_candidates(
     observed_at: str | None,
     *,
     ecosystem: str | None = None,
+    snapshot: RepositorySnapshotV1 | None = None,
 ) -> list[FactRecordV2]:
     """Return conservative, mechanically evidenced detail facts from one snapshot."""
 
@@ -116,7 +118,9 @@ def curated_repository_fact_candidates(
             "repository.examples",
             "repository-inventory",
             "mechanical_repository",
-            lambda candidate_root: example_inventory(candidate_root, source_revision),
+            lambda candidate_root: example_inventory(
+                candidate_root, source_revision, snapshot=snapshot
+            ),
         ),
         (
             "repository.format_directions",

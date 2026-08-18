@@ -5,13 +5,114 @@ from __future__ import annotations
 import ast
 import hashlib
 import tomllib
+from collections.abc import Callable
 from pathlib import Path
 
 from readme_agent.facts.curated_python_fixture_inventory import snapshot_fixture_inventory
 from readme_agent.facts.curated_python_public_surface import python_public_surface
-from readme_agent.facts.curated_python_readme import verified_readme_examples
+from readme_agent.facts.curated_python_readme import (
+    is_quick_start_example_title,
+    verified_readme_examples,
+)
+from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
+from readme_agent.facts.local_verification import verify_local_product_example
+from readme_agent.registry.models import MinimalExamplePolicy
+from readme_agent.repository_snapshot import RepositorySnapshotV1, local_fact_verification_allowed
 
 _IGNORED_DIRECTORIES = {".git", ".venv", "__pycache__", "node_modules"}
+_MAX_RUNTIME_VERIFICATION_ATTEMPTS = 3
+VerifyLocalExampleFn = Callable[
+    [RepositorySnapshotV1, MinimalExamplePolicy], LocalProductVerificationV1
+]
+
+
+def _real_isolated_execution_proves(
+    code: str,
+    snapshot: RepositorySnapshotV1,
+    verify_fn: VerifyLocalExampleFn,
+) -> bool:
+    example = MinimalExamplePolicy(
+        language="python",
+        class_name="readme_example",
+        code=code.rstrip() + "\n",
+        evidence_paths=["README.md"],
+    )
+    result = verify_fn(snapshot, example)
+    return result.truth_eligible and result.outcome in {
+        "SOURCE_BUILD_VERIFIED",
+        "SOURCE_TREE_VERIFIED",
+    }
+
+
+def _runtime_verify_quick_start_examples(
+    inline_examples: list[dict[str, object]],
+    withheld_inline_examples: list[dict[str, object]],
+    snapshot: RepositorySnapshotV1,
+    *,
+    verify_fn: VerifyLocalExampleFn = verify_local_product_example,
+) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
+    """Prove the canonical Quick Start example(s) through real isolated execution.
+
+    Bounded to the "Quick Start" heading only, and to `_MAX_RUNTIME_VERIFICATION_ATTEMPTS`
+    attempts total -- each attempt spins up a real OS-isolated Python interpreter
+    (`python_example_verifier.verify` / `prove_python_consumer`), so this deliberately does
+    not attempt every example the way `select_verified_repository_example`'s ranked
+    selection does for `example.minimal`.
+
+    Two independent groups benefit, for two different reasons:
+
+    - A `withheld_inline_examples` entry failed `curated_python_readme`'s conservative
+      AST-only public-surface check (`static_api_verified is False`) -- e.g. note-python's
+      real Quick Start block iterates `for page in doc:` and reads `page.Title...`, which the
+      static validator cannot resolve through the loop variable and misattributes to
+      `Document`. Real execution is strictly stronger than that static check and can prove
+      such a block correct despite the static rejection; a successful proof PROMOTES it into
+      `inline_examples` (leaving `static_api_verified` honestly `False`, since that check
+      still never ran successfully, but setting `runtime_verified` True).
+    - An `inline_examples` entry that already has `static_api_verified is True` may still lack
+      any execution evidence; a successful proof only adds `runtime_verified` True, changing
+      nothing else.
+
+    Only a successful real proof changes anything -- failed attempts and untried entries are
+    left exactly as `verified_python_examples` produced them.
+    """
+
+    updated_inline = list(inline_examples)
+    remaining_withheld: list[dict[str, object]] = []
+    attempts = 0
+    for item in withheld_inline_examples:
+        code = item.get("code") if isinstance(item, dict) else None
+        promoted = False
+        if (
+            attempts < _MAX_RUNTIME_VERIFICATION_ATTEMPTS
+            and isinstance(item, dict)
+            and is_quick_start_example_title(str(item.get("title") or ""))
+            and isinstance(code, str)
+            and code.strip()
+        ):
+            attempts += 1
+            if _real_isolated_execution_proves(code, snapshot, verify_fn):
+                updated_inline.append({**item, "runtime_verified": True})
+                promoted = True
+        if not promoted:
+            remaining_withheld.append(item)
+    for index, item in enumerate(updated_inline):
+        if attempts >= _MAX_RUNTIME_VERIFICATION_ATTEMPTS:
+            break
+        code = item.get("code") if isinstance(item, dict) else None
+        if (
+            not isinstance(item, dict)
+            or item.get("static_api_verified") is not True
+            or item.get("runtime_verified") is True
+            or not is_quick_start_example_title(str(item.get("title") or ""))
+            or not isinstance(code, str)
+            or not code.strip()
+        ):
+            continue
+        attempts += 1
+        if _real_isolated_execution_proves(code, snapshot, verify_fn):
+            updated_inline[index] = {**item, "runtime_verified": True}
+    return updated_inline, remaining_withheld
 
 
 def _sha256(path: Path) -> str:
@@ -161,6 +262,8 @@ def python_optional_extras(root: Path) -> tuple[object, list[str]] | None:
 def example_inventory(
     root: Path,
     source_revision: str | None = None,
+    *,
+    snapshot: RepositorySnapshotV1 | None = None,
 ) -> tuple[object, list[str]] | None:
     base = root / "examples"
     files = sorted(
@@ -197,6 +300,20 @@ def example_inventory(
     if curated is not None:
         value.update(curated[0])
         locations.extend(curated[1])
+        inline_examples = value.get("inline_examples")
+        withheld_examples = value.get("withheld_inline_examples")
+        if (
+            snapshot is not None
+            and local_fact_verification_allowed()
+            and isinstance(inline_examples, list)
+            and isinstance(withheld_examples, list)
+            and (inline_examples or withheld_examples)
+        ):
+            updated_inline, updated_withheld = _runtime_verify_quick_start_examples(
+                inline_examples, withheld_examples, snapshot
+            )
+            value["inline_examples"] = updated_inline
+            value["withheld_inline_examples"] = updated_withheld
     if not entries and curated is None:
         return None
     fixture_inventory = snapshot_fixture_inventory(root, source_revision)

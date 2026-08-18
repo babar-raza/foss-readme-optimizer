@@ -2,9 +2,15 @@
 
 import hashlib
 import json
+import os
 import subprocess
 from pathlib import Path
+from types import SimpleNamespace
 
+from readme_agent.facts.curated_python_evidence import (
+    _MAX_RUNTIME_VERIFICATION_ATTEMPTS,
+    _runtime_verify_quick_start_examples,
+)
 from readme_agent.facts.curated_python_example_validation import (
     validate_python_example,
 )
@@ -15,6 +21,7 @@ from readme_agent.facts.curated_python_readme import (
 )
 from readme_agent.facts.curated_readme_evidence import curated_repository_fact_candidates
 from readme_agent.facts.curated_repository_guidance import repository_contribution_guidance
+from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
 
 
 def _write(root: Path, relative: str, text: str) -> None:
@@ -1790,3 +1797,145 @@ class PdfLoadLimits:
         "open_streaming",
     ]
     assert security["operational_guidance"]["limits_are_not_a_complete_dos_sandbox"] is True
+
+
+def _fake_snapshot() -> RepositorySnapshotV1:
+    return RepositorySnapshotV1(
+        org_repo="acme/widget",
+        source_revision="a" * 40,
+        snapshot_root="C:/fake" if os.name == "nt" else "/fake",
+        inventory_sha256="a" * 64,
+        captured_at="2026-08-19T00:00:00+00:00",
+        provenance=SnapshotProvenanceV1(
+            clone_url="https://example.test/acme/widget.git",
+            git_tree_sha256="a" * 64,
+        ),
+    )
+
+
+def _fake_verification(*, truth_eligible: bool, outcome: str) -> SimpleNamespace:
+    """A minimal duck-typed stand-in for `LocalProductVerificationV1` -- only the two
+    attributes `_real_isolated_execution_proves` reads. Constructing the real,
+    deeply-nested pydantic model (real isolated-container provenance, cleanup proof,
+    image digests, ...) is not needed to unit test the promotion/upgrade decision
+    logic itself; the real model is exercised by the live canary against note-python
+    and by `test_local_verification.py`'s own live-marked tests."""
+
+    return SimpleNamespace(truth_eligible=truth_eligible, outcome=outcome)
+
+
+def _quick_start_withheld(code: str) -> dict:
+    return {
+        "title": "Quick Start",
+        "code": code,
+        "language": "python",
+        "static_api_verified": False,
+        "execution_verified": False,
+        "validation_reason": "unknown_product_member:Document.Title",
+        "evidence_modules": [],
+    }
+
+
+def _quick_start_inline(code: str, *, runtime_verified: bool = False) -> dict:
+    return {
+        "title": "Quick Start",
+        "code": code,
+        "language": "python",
+        "static_api_verified": True,
+        "execution_verified": False,
+        "runtime_verified": runtime_verified,
+        "evidence_modules": [],
+        "validation_context_imports": [],
+    }
+
+
+def test_withheld_quick_start_example_is_promoted_by_real_runtime_execution() -> None:
+    withheld = [_quick_start_withheld("doc = Document('SimpleTable.one')\n")]
+    calls: list[str] = []
+
+    def verify_fn(snapshot, example):
+        calls.append(example.code)
+        return _fake_verification(truth_eligible=True, outcome="SOURCE_BUILD_VERIFIED")
+
+    inline, remaining_withheld = _runtime_verify_quick_start_examples(
+        [], withheld, _fake_snapshot(), verify_fn=verify_fn
+    )
+
+    assert len(calls) == 1
+    assert remaining_withheld == []
+    assert len(inline) == 1
+    assert inline[0]["runtime_verified"] is True
+    assert inline[0]["static_api_verified"] is False
+    assert inline[0]["validation_reason"] == "unknown_product_member:Document.Title"
+
+
+def test_withheld_quick_start_example_stays_withheld_when_execution_fails() -> None:
+    withheld = [_quick_start_withheld("doc = Document('SimpleTable.one')\n")]
+
+    def verify_fn(snapshot, example):
+        return _fake_verification(truth_eligible=False, outcome="BUILD_FAILED")
+
+    inline, remaining_withheld = _runtime_verify_quick_start_examples(
+        [], withheld, _fake_snapshot(), verify_fn=verify_fn
+    )
+
+    assert inline == []
+    assert remaining_withheld == withheld
+
+
+def test_non_quick_start_withheld_example_is_never_attempted() -> None:
+    withheld = [
+        {
+            "title": "Save Embedded Images to Disk",
+            "code": "out_dir.mkdir()\n",
+            "language": "python",
+            "static_api_verified": False,
+            "execution_verified": False,
+            "validation_reason": "unsafe_stdlib_member:path.mkdir",
+            "evidence_modules": [],
+        }
+    ]
+    calls: list[str] = []
+
+    def verify_fn(snapshot, example):
+        calls.append(example.code)
+        return _fake_verification(truth_eligible=True, outcome="SOURCE_BUILD_VERIFIED")
+
+    inline, remaining_withheld = _runtime_verify_quick_start_examples(
+        [], withheld, _fake_snapshot(), verify_fn=verify_fn
+    )
+
+    assert calls == []
+    assert inline == []
+    assert remaining_withheld == withheld
+
+
+def test_already_static_verified_quick_start_example_gains_runtime_proof() -> None:
+    inline = [_quick_start_inline("doc = Document('input.bin')\n")]
+
+    def verify_fn(snapshot, example):
+        return _fake_verification(truth_eligible=True, outcome="SOURCE_TREE_VERIFIED")
+
+    updated_inline, remaining_withheld = _runtime_verify_quick_start_examples(
+        inline, [], _fake_snapshot(), verify_fn=verify_fn
+    )
+
+    assert remaining_withheld == []
+    assert updated_inline[0]["static_api_verified"] is True
+    assert updated_inline[0]["runtime_verified"] is True
+
+
+def test_runtime_verification_attempts_are_bounded() -> None:
+    withheld = [
+        _quick_start_withheld(f"doc = Document('input-{index}.bin')\n")
+        for index in range(_MAX_RUNTIME_VERIFICATION_ATTEMPTS + 2)
+    ]
+    calls: list[str] = []
+
+    def verify_fn(snapshot, example):
+        calls.append(example.code)
+        return _fake_verification(truth_eligible=False, outcome="BUILD_FAILED")
+
+    _runtime_verify_quick_start_examples([], withheld, _fake_snapshot(), verify_fn=verify_fn)
+
+    assert len(calls) == _MAX_RUNTIME_VERIFICATION_ATTEMPTS
