@@ -111,6 +111,40 @@ class PortfolioPocSummaryV1(BaseModel):
             return None
         return sum(result.llm_cache_reuse_count or 0 for result in self.results)
 
+    @computed_field  # type: ignore[prop-decorator]
+    @property
+    def processed_llm_accounting_status(self) -> Literal["EXACT", "UNKNOWN_LEGACY"]:
+        """Accounting quality of the PROCESSED slice alone.
+
+        The whole-registry `llm_accounting_status` stays honestly
+        UNKNOWN_LEGACY on a partial slice (unprocessed members' costs are
+        genuinely unknown), but that must never hide the exact per-member
+        counts the slice DID record -- the 2026-08-18 sessions repeatedly
+        reported `provider_calls=None` while every processed line carried
+        exact numbers.
+        """
+
+        return (
+            "EXACT"
+            if self.results
+            and all(result.llm_accounting_status == "EXACT" for result in self.results)
+            else "UNKNOWN_LEGACY"
+        )
+
+    @computed_field  # type: ignore[prop-decorator]
+    @property
+    def processed_llm_provider_call_count(self) -> int | None:
+        if self.processed_llm_accounting_status != "EXACT":
+            return None
+        return sum(result.llm_call_count or 0 for result in self.results)
+
+    @computed_field  # type: ignore[prop-decorator]
+    @property
+    def processed_llm_cache_reuse_count(self) -> int | None:
+        if self.processed_llm_accounting_status != "EXACT":
+            return None
+        return sum(result.llm_cache_reuse_count or 0 for result in self.results)
+
     @property
     def complete_agent_approved_count(self) -> int:
         # `AGENT_APPROVED` alone is not a complete local bundle: the
@@ -239,7 +273,10 @@ class PortfolioPocSummaryV1(BaseModel):
             f"system_failed={self.system_failure_count} processed={len(self.results)} "
             f"slice_complete={self.execution_slice_complete} "
             f"llm_accounting={self.llm_accounting_status} "
-            f"provider_calls={self.llm_provider_call_count}"
+            f"provider_calls={self.llm_provider_call_count} "
+            f"processed_llm_accounting={self.processed_llm_accounting_status} "
+            f"processed_provider_calls={self.processed_llm_provider_call_count} "
+            f"processed_cache_reuse={self.processed_llm_cache_reuse_count}"
         )
 
 

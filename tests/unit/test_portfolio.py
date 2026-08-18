@@ -382,3 +382,56 @@ def test_failed_member_returns_its_processing_trigger_to_retryable():
     lifecycle = state.trigger_lifecycles[envelope.dedup_key]
     assert lifecycle.status == "retryable"
     assert lifecycle.failure_detail == "portfolio_member_failure:RuntimeError"
+
+
+def test_partial_slice_reports_exact_processed_accounting():
+    """2026-08-18: a partial slice (results < registry_count) must keep the
+    whole-registry status honestly UNKNOWN_LEGACY while still exposing the
+    exact totals of what it DID process -- the live sessions repeatedly
+    printed provider_calls=None beside per-member EXACT counts."""
+
+    from readme_agent.supervisor.portfolio import (
+        PortfolioPocSummaryV1,
+        PortfolioRepositoryResultV1,
+    )
+
+    summary = PortfolioPocSummaryV1(
+        registry_path="data/products.json",
+        registry_count=33,
+        execution_slice_complete=False,
+        results=[
+            PortfolioRepositoryResultV1(
+                org_repo="org/a",
+                status="NO_OP_PROVEN",
+                exit_code=0,
+                llm_accounting_status="EXACT",
+                llm_call_count=2,
+                llm_call_ids=["c1", "c2"],
+                llm_calls_by_job={"plan_readme_composition": 2},
+                llm_fixture_call_count=0,
+                llm_cache_reuse_count=1,
+            ),
+            PortfolioRepositoryResultV1(
+                org_repo="org/b",
+                status="FACTS_READY",
+                exit_code=1,
+                blocked_reason="claim accountability has 1 blocking claim(s): x",
+                blocked_category="agent_fixable",
+                llm_accounting_status="EXACT",
+                llm_call_count=4,
+                llm_call_ids=["c3", "c4", "c5", "c6"],
+                llm_calls_by_job={"claim_disposition_check": 4},
+                llm_fixture_call_count=0,
+                llm_cache_reuse_count=2,
+            ),
+        ],
+    )
+
+    assert summary.llm_accounting_status == "UNKNOWN_LEGACY"
+    assert summary.llm_provider_call_count is None
+    assert summary.processed_llm_accounting_status == "EXACT"
+    assert summary.processed_llm_provider_call_count == 6
+    assert summary.processed_llm_cache_reuse_count == 3
+    line = summary.summary_line()
+    assert "processed_provider_calls=6" in line
+    assert "processed_cache_reuse=3" in line
