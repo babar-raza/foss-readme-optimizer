@@ -59,3 +59,23 @@ shared ratchet) is real, tested, and safely inert-until-chosen. It has NOT yet c
 residual blocking claim in live practice. The S1 residue map's Lane C item stays open;
 Lane A and Lane B (confirmed closing barcode/font/slides' Development-H3 and property-slot
 claims respectively) remain the higher-confidence closure path for the bulk of the residue.
+
+## Correction to the correction: E5 DID work live for a different claim (barcode-python)
+
+Not universally dead — the picture is claim-shape-dependent, and the honest complete picture
+matters more than either overclaiming or underclaiming. Post-merge barcode-python canary: the
+`pytest`/`ruff` dev-tooling claim (`source:claim:3930:c5ac180c4dd86b4f`) is **gone from the
+blocking list**. Its ratchet entry shows the live model DID choose `excluded_with_reason` with
+`evidence_ref: "unverifiable_fixture_dependency:pytest"`, and deterministic corroboration
+accepted it (verbatim "pytest" in claim text; "pytest" is not a file under the repo's
+installable package sources — true, since it's a PyPI dependency name, not a local fixture
+path). Barcode's blocking count: 2 -> 1 (only the Key-Capabilities `generate()` bullet,
+Lane B's enrichment class, remains).
+
+**Net honest picture**: E5 slice 1 closes real claims when the claim shape (a dev-only tool
+name, cleanly checkable as "not a local file") matches a predicate the model naturally reaches
+for — proven on barcode. It does NOT reliably close claims requiring the model to recognize a
+subtler "this is a test-data fixture the isolated verifier can't assume exists" distinction
+(note's `SimpleTable.one` case) — the model instead reaches for `verified_against_source` with
+an inexact citation there, correctly refused. Both are real, both are documented, neither should
+be generalized to "always works" or "never works."
