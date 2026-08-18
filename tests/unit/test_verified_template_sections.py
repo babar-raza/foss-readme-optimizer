@@ -9,7 +9,10 @@ from readme_agent.facts.schema_v2 import (
     ProductFactsV2,
     descriptive_fact_id,
 )
-from readme_agent.presentation.verified_template_sections import dependency_markdown
+from readme_agent.presentation.verified_template_sections import (
+    dependency_markdown,
+    development_dependency_markdown,
+)
 
 _SOURCE = FactSourceV2(
     source_type="mechanical_repository",
@@ -94,3 +97,60 @@ def test_verified_non_empty_runtime_dependencies_is_unchanged():
         "Required runtime dependencies declared in `pyproject.toml`: "
         "`cryptography>=42`, `asn1crypto>=1.5`."
     )
+
+
+def test_verified_non_empty_development_dependencies_renders_the_list():
+    facts = _facts(
+        {
+            "manifest_path": "pyproject.toml",
+            "runtime_dependencies": ["Pillow>=10.1.0"],
+            "development_dependencies": ["pytest>=8.0", "ruff>=0.15.7"],
+        }
+    )
+
+    assert development_dependency_markdown(facts) == (
+        "Development dependencies declared in `pyproject.toml`: `pytest>=8.0`, `ruff>=0.15.7`."
+    )
+
+
+def test_verified_empty_development_dependencies_renders_the_standard_sentence():
+    facts = _facts(
+        {
+            "manifest_path": "pyproject.toml",
+            "runtime_dependencies": [],
+            "development_dependencies": [],
+        }
+    )
+
+    assert development_dependency_markdown(facts) == (
+        "No development dependencies declared in `pyproject.toml`."
+    )
+
+
+def test_absent_development_dependencies_key_returns_none():
+    # No dev/test/lint/ci group declared at all in either PEP 621
+    # optional-dependencies or PEP 735 dependency-groups tables -- absence is
+    # NOT evidence of zero development dependencies (unlike required runtime
+    # deps), so this stays unrendered rather than claiming verified-empty.
+    facts = _facts({"manifest_path": "pyproject.toml", "runtime_dependencies": []})
+
+    assert development_dependency_markdown(facts) is None
+
+
+def test_development_dependencies_absent_distribution_fact_returns_none():
+    facts = _facts(None)
+
+    assert development_dependency_markdown(facts) is None
+
+
+def test_development_dependencies_unverified_distribution_fact_returns_none():
+    facts = _facts(
+        {
+            "manifest_path": "pyproject.toml",
+            "runtime_dependencies": [],
+            "development_dependencies": ["pytest>=8.0"],
+        },
+        verification_state="unverified",
+    )
+
+    assert development_dependency_markdown(facts) is None

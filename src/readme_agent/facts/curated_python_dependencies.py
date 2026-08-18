@@ -13,9 +13,51 @@ _REQUIRES_DISTRIBUTION = re.compile(
     flags=re.IGNORECASE,
 )
 
+_DEV_GROUP_NAMES = frozenset({"dev", "test", "tests", "lint", "ci"})
+
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _development_dependencies(data: dict[str, object]) -> list[str] | None:
+    """Flatten conventionally-named dev/test/lint/ci dependency groups.
+
+    Two PEP mechanisms declare this: PEP 621 ``[project.optional-dependencies]``
+    (nested under ``project``, historically also used to smuggle dev tooling into
+    an installable extra) and PEP 735 ``[dependency-groups]`` (a top-level table
+    purpose-built for non-distributed dependency groups -- the modern convention,
+    and the one real aspose.org Python manifests, e.g. barcode-python's, actually
+    use). A group is matched only when found in at least one of these tables, so
+    absence of BOTH is treated as "no such group declared" (returns ``None``,
+    kept out of the returned fact value entirely) rather than "verified zero" --
+    unlike required runtime dependencies, an absent dev/test group here does not
+    mean the repository has no development dependencies; they may simply be
+    tracked outside either PEP-standard convention (a requirements-dev.txt,
+    tox.ini, or similar), so no absence claim is safe to render.
+    """
+
+    tables: list[object] = []
+    project = data.get("project")
+    if isinstance(project, dict):
+        tables.append(project.get("optional-dependencies"))
+    tables.append(data.get("dependency-groups"))
+    matched_groups: list[tuple[str, list[object]]] = []
+    for table in tables:
+        if not isinstance(table, dict):
+            continue
+        for name, requirements in table.items():
+            if isinstance(name, str) and name.casefold() in _DEV_GROUP_NAMES:
+                group = requirements if isinstance(requirements, list) else []
+                matched_groups.append((name, group))
+    if not matched_groups:
+        return None
+    flattened: list[str] = []
+    for _name, requirements in sorted(matched_groups, key=lambda item: item[0].casefold()):
+        for item in requirements:
+            if isinstance(item, str) and item not in flattened:
+                flattened.append(item)
+    return flattened
 
 
 def python_distribution_evidence(root: Path) -> tuple[object, list[str]] | None:
@@ -53,6 +95,9 @@ def python_distribution_evidence(root: Path) -> tuple[object, list[str]] | None:
         "development_status": status,
         "typed_classifier": typed_classifier,
     }
+    development_dependencies = _development_dependencies(data)
+    if development_dependencies is not None:
+        value["development_dependencies"] = development_dependencies
     locations = ["pyproject.toml"]
     if typed_marker is not None:
         relative = typed_marker.relative_to(root).as_posix()

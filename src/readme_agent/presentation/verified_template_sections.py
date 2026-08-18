@@ -85,6 +85,40 @@ def dependency_markdown(facts: ProductFactsV2) -> str | None:
     return "\n\n".join(sections) or None
 
 
+def development_dependency_markdown(facts: ProductFactsV2) -> str | None:
+    """Render manifest-declared dev/test/lint/ci dependency-group coordinates.
+
+    Mirrors ``dependency_markdown()``'s verified-empty-vs-unverified discipline,
+    but with one deliberate asymmetry: absence of the ``development_dependencies``
+    key (no conventionally-named group declared in either
+    ``[project.optional-dependencies]`` or ``[dependency-groups]``) is treated as
+    the unverified/absent case, not verified-empty. Unlike required runtime
+    dependencies -- where an absent manifest key is a well-defined "zero
+    dependencies" under PEP 621 -- an absent dev/test group here is NOT proof
+    the repository has no development dependencies; they may be tracked outside
+    either PEP-standard convention. Only a group that was actually declared
+    (even declared empty) is safe to render as verified.
+    """
+
+    distribution = _accepted(facts, "python.distribution")
+    if distribution is None or not isinstance(distribution.value, dict):
+        return None
+    if "development_dependencies" not in distribution.value:
+        return None
+    dependencies = distribution.value["development_dependencies"]
+    if not isinstance(dependencies, list):
+        return None
+    if dependencies:
+        return (
+            "Development dependencies declared in `pyproject.toml`: "
+            + ", ".join(f"`{item}`" for item in dependencies if isinstance(item, str))
+            + "."
+        )
+    # Verified empty: a dev/test/lint/ci group was declared and confirmed to
+    # have zero entries.
+    return "No development dependencies declared in `pyproject.toml`."
+
+
 _EXTRA_PURPOSES = {
     "test": "Running the test suite",
     "tests": "Running the test suite",

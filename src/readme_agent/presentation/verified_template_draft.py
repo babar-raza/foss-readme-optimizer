@@ -29,6 +29,7 @@ from readme_agent.presentation.verified_template_sections import (
     additional_examples_markdown,
     contributing_markdown,
     dependency_markdown,
+    development_dependency_markdown,
     development_markdown,
     package_status_markdown,
     repository_documents_markdown,
@@ -478,11 +479,14 @@ def build_verified_template_draft(
         installation = source_tree_installation_text(facts)
     scenario_dependencies = scenario_dependency_markdown(facts, source_text=source_text)
     required_dependencies = dependency_markdown(facts)
+    development_dependencies = development_dependency_markdown(facts)
     dependencies_parts = []
     if required_dependencies:
         dependencies_parts.append("### Required Package Dependencies\n\n" + required_dependencies)
     if scenario_dependencies:
         dependencies_parts.append("### Optional Dependencies\n\n" + scenario_dependencies)
+    if development_dependencies:
+        dependencies_parts.append("### Development Dependencies\n\n" + development_dependencies)
     dependencies_section = "\n\n".join(dependencies_parts) or None
     example = example_text(facts, source_revision)
     example_standards = ["readme.primary_example"]
