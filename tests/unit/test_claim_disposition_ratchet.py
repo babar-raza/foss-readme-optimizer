@@ -14,15 +14,25 @@ import json
 
 import pytest
 
+from readme_agent import paths
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verifier_client import FixtureForcedToolClient, ForcedToolResult
 from readme_agent.readme.claim_accountability_llm_disposition import (
     claim_disposition_ratchet_path,
     llm_verified_claim_disposition,
+    shared_claim_disposition_ratchet_path,
 )
 
 CLAIM = "Select any symbology by name -- canonical or alias -- through the generic entry point."
 CANDIDATE = f"# Widget\n\n## Key Capabilities\n\n{CLAIM}\n"
+
+
+@pytest.fixture(autouse=True)
+def _isolated_shared_ratchet_store(monkeypatch, tmp_path):
+    """The portfolio-shared store resolves through paths.runs_dir(); unit
+    tests must never read from or write to a real runs/ directory."""
+
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
 
 
 def _redundant_verdict(quote: str) -> ForcedToolResult:
@@ -214,6 +224,101 @@ class TestRatchetReplay:
         )
         assert replayed is not None and replayed.corroborated
         assert replayed.claim_id == "source:claim:5121:bbbb"
+
+
+class TestSharedPortfolioRatchet:
+    """E5 design principle 5: identical claim text recurs verbatim across
+    repos, so accepted verdicts are shared portfolio-wide through a
+    read-through store -- safe by construction because every replay still
+    passes the full deterministic corroboration in the replaying repo."""
+
+    def test_acceptance_in_repo_a_replays_in_repo_b_without_the_model(self, tmp_path):
+        repo_a = tmp_path / "org__repo-a" / "claim-disposition-ratchet.json"
+        repo_b = tmp_path / "org__repo-b" / "claim-disposition-ratchet.json"
+
+        first = llm_verified_claim_disposition(
+            "claim-a",
+            CLAIM,
+            CANDIDATE,
+            tmp_path,
+            FixtureForcedToolClient([_redundant_verdict(CLAIM)]),
+            ratchet_path=repo_a,
+        )
+        assert first is not None and first.corroborated
+        # A fresh acceptance persists to BOTH stores.
+        content_sha256 = hashlib.sha256(CLAIM.encode("utf-8")).hexdigest()
+        assert content_sha256 in json.loads(repo_a.read_text(encoding="utf-8"))["accepted"]
+        shared = shared_claim_disposition_ratchet_path()
+        assert content_sha256 in json.loads(shared.read_text(encoding="utf-8"))["accepted"]
+
+        replayed = llm_verified_claim_disposition(
+            "claim-b",
+            CLAIM,
+            CANDIDATE,
+            tmp_path,
+            _ExplodingClient(),
+            ratchet_path=repo_b,
+        )
+        assert replayed is not None
+        assert replayed.corroborated is True
+        assert replayed.classification == "redundant_with_candidate"
+
+    def test_shared_replay_still_gates_on_current_repo_corroboration(self, tmp_path):
+        """A shared verdict whose evidence the replaying repo's candidate
+        does not contain must fall through to a live call -- never be
+        accepted portfolio-wide on repo A's corroboration alone."""
+
+        repo_a = tmp_path / "org__repo-a" / "claim-disposition-ratchet.json"
+        repo_b = tmp_path / "org__repo-b" / "claim-disposition-ratchet.json"
+        llm_verified_claim_disposition(
+            "claim-a",
+            CLAIM,
+            CANDIDATE,
+            tmp_path,
+            FixtureForcedToolClient([_redundant_verdict(CLAIM)]),
+            ratchet_path=repo_a,
+        )
+
+        repo_b_candidate = "# Widget\n\n## Key Capabilities\n\nSomething else entirely.\n"
+        fresh_verdict = ForcedToolResult(
+            arguments={
+                "classification": "narrative_filler",
+                "evidence_type": "none",
+                "evidence_ref": "",
+                "evidence_quote": "",
+                "reasoning": "transitional prose, no factual claim",
+            },
+            meta=LLMResponseMeta(),
+        )
+        result = llm_verified_claim_disposition(
+            "claim-b",
+            CLAIM,
+            repo_b_candidate,
+            tmp_path,
+            FixtureForcedToolClient([fresh_verdict]),
+            ratchet_path=repo_b,
+        )
+        assert result is not None
+        assert result.classification == "narrative_filler"
+
+    def test_a_malformed_shared_store_degrades_to_empty(self, tmp_path):
+        shared = shared_claim_disposition_ratchet_path()
+        shared.parent.mkdir(parents=True, exist_ok=True)
+        shared.write_text("{corrupt", encoding="utf-8")
+        ratchet = tmp_path / "org__repo-a" / "claim-disposition-ratchet.json"
+        result = llm_verified_claim_disposition(
+            "claim-1",
+            CLAIM,
+            CANDIDATE,
+            tmp_path,
+            FixtureForcedToolClient([_redundant_verdict(CLAIM)]),
+            ratchet_path=ratchet,
+        )
+        assert result is not None and result.corroborated
+        # The accepted verdict repaired the shared store too.
+        payload = json.loads(shared.read_text(encoding="utf-8"))
+        content_sha256 = hashlib.sha256(CLAIM.encode("utf-8")).hexdigest()
+        assert content_sha256 in payload["accepted"]
 
 
 def test_ratchet_path_is_repo_scoped(monkeypatch, tmp_path):

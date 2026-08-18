@@ -59,6 +59,18 @@ def claim_disposition_ratchet_path(org_repo: str) -> Path:
     return paths.readme_poc_root() / f"{org}__{repo}" / "claim-disposition-ratchet.json"
 
 
+def shared_claim_disposition_ratchet_path() -> Path:
+    """Portfolio-level read-through store (E5 design principle 5): identical
+    claim text recurs verbatim across repos (page/note share content hash
+    7ff54c1da64deecb), so accepted verdicts are also shared portfolio-wide,
+    keyed purely by claim-content hash. Sharing is safe by construction: a
+    verdict replayed from this store must still pass the full deterministic
+    corroboration against the CURRENT repo's candidate/clone before it is
+    accepted -- the store only saves provider calls, never re-verification."""
+
+    return paths.readme_poc_root() / "shared-claim-disposition-ratchet.json"
+
+
 def _load_ratchet(path: Path) -> dict[str, dict]:
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
@@ -137,15 +149,24 @@ def llm_verified_claim_disposition(
 
     With `ratchet_path` (opt-in, live wiring only), a previously accepted
     verdict for the same claim content is replayed through the same
-    deterministic corroboration first -- an entry that still corroborates
-    against the CURRENT candidate/source is accepted with zero provider
-    calls; the model is consulted only when no replayable verdict holds,
-    and a freshly accepted verdict is persisted for the next run."""
+    deterministic corroboration first -- the per-repo store is consulted,
+    then the portfolio-shared read-through store
+    (`shared_claim_disposition_ratchet_path()`); an entry from either that
+    still corroborates against the CURRENT candidate/source is accepted
+    with zero provider calls. The model is consulted only when no
+    replayable verdict holds, and a freshly accepted verdict is persisted
+    to BOTH stores for the next run (of any repo, for the shared store)."""
 
     content_sha256 = hashlib.sha256(claim_text.encode("utf-8")).hexdigest()
     if ratchet_path is not None:
-        stored_verdict = _load_ratchet(ratchet_path).get(content_sha256)
-        if stored_verdict is not None:
+        # Read-through: the per-repo store first, then the portfolio-shared
+        # store. A verdict from EITHER is accepted only after passing the
+        # same deterministic corroboration against the CURRENT candidate and
+        # repository clone -- sharing never weakens per-repo verification.
+        for store_path in (ratchet_path, shared_claim_disposition_ratchet_path()):
+            stored_verdict = _load_ratchet(store_path).get(content_sha256)
+            if stored_verdict is None:
+                continue
             replayed = corroborate_claim_disposition(
                 claim_id,
                 content_sha256,
@@ -167,7 +188,7 @@ def llm_verified_claim_disposition(
                         "claim_id": claim_id,
                         "content_sha256": content_sha256,
                         "classification": replayed.classification,
-                        "replayed_from": str(ratchet_path),
+                        "replayed_from": str(store_path),
                     },
                 )
                 return replayed
@@ -176,16 +197,16 @@ def llm_verified_claim_disposition(
     )
     if record.corroborated and record.classification != "unverifiable":
         if ratchet_path is not None:
+            accepted_verdict = {
+                "classification": record.classification,
+                "evidence_type": record.evidence_type,
+                "evidence_ref": record.evidence_ref,
+                "evidence_quote": record.evidence_quote,
+                "reasoning": record.reasoning,
+            }
+            _persist_ratchet_entry(ratchet_path, content_sha256, accepted_verdict)
             _persist_ratchet_entry(
-                ratchet_path,
-                content_sha256,
-                {
-                    "classification": record.classification,
-                    "evidence_type": record.evidence_type,
-                    "evidence_ref": record.evidence_ref,
-                    "evidence_quote": record.evidence_quote,
-                    "reasoning": record.reasoning,
-                },
+                shared_claim_disposition_ratchet_path(), content_sha256, accepted_verdict
             )
         return record
     return None
