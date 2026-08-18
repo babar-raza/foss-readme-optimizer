@@ -213,3 +213,36 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
   claim-accountability blocking claims. Not triaged — the protected-content-loss category is
   distinct from the claim-accountability path this session's fixes touched; needs its own
   dedicated look at what `technical_terminology` protection means and why it's newly tripping.
+- 2026-08-18 (GOV-014): **Root-caused** (not fixed) aspose-tex-foss's `BLOCKED_MISSING_EVIDENCE`
+  from the entry above. `installation.verified_acquisition` is `verification_state="blocked"`
+  with a fully live, reproducible reason (`collect_product_facts('aspose-tex-foss/Aspose.TeX-FOSS-
+  for-Python')` then inspect `facts.selected_fact('installation.verified_acquisition').value`):
+  PyPI genuinely returns 404 for `aspose-tex-foss` (matches its real "Pre-Alpha" status — not yet
+  published), so the pipeline correctly falls back to local source-build verification (`facts/
+  provider.py::_local_verification_facts`) -- but that fallback requires a `product_truth.
+  minimal_example` in the repo's own `config/policies/aspose-tex-foss-python.yml`, which has no
+  `product_truth:` block at all. Six downstream facts (`product.audience`, `product.problems_
+  solved`, `product.capabilities`, `product.formats`, `example.minimal`, plus the acquisition fact
+  itself) all stay unverified as a direct consequence.
+  **The actual fix, precisely scoped for whoever picks this up**: add a complete `product_truth:`
+  block to `config/policies/aspose-tex-foss-python.yml`, matching `registry/models.py::
+  ProductTruthPolicy`'s schema exactly (mirrors `config/policies/aspose-cells-foss.yml`'s Java
+  block as the shape template) -- `audience`/`problems_solved` (free text, min 1 each),
+  `capabilities`/`formats` (each `EvidenceBackedProductFact`: real `evidence_paths` + `required_
+  symbols` from the actual source), `limitations` (optional), and `minimal_example`
+  (`language: python`, real `code`, `evidence_paths`, `required_symbols`). All fields are required
+  together once `product_truth:` exists at all -- this is not a one-line addition.
+  A real, working `minimal_example` candidate already exists verbatim in the repository's own
+  README ("In-memory PDF", the shortest self-contained snippet, no file I/O side effect):
+  ```python
+  from aspose_tex import TeXJob, TeXOptions, PdfDevice, create_input_source
+  source = create_input_source("Hello World\n\\bye")
+  device = PdfDevice()
+  job = TeXJob(source, device, options=TeXOptions(load_format=False))
+  pdf_bytes = job.run()
+  ```
+  Its `evidence_paths`/`required_symbols` (and the whole `capabilities`/`formats` arrays) still
+  need grounding against the real source (`src/aspose_tex/` has 45 real `.py` files) --
+  deliberately not attempted in this pass to avoid rushing evidence citations under the
+  session's own "no invented facts" constraint; scoped precisely here instead so a dedicated pass
+  can execute it directly rather than re-deriving the root cause.
