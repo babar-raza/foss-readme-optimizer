@@ -182,6 +182,17 @@ def load_prepared_product_truth(
         entry.ecosystem
     ):
         return None
+    from readme_agent.facts.policy_evidence import product_truth_policy_hash
+
+    if manifest.get("product_truth_policy_hash") != product_truth_policy_hash(
+        getattr(entry, "policy_profile", None)
+    ):
+        # The policy's product_truth block changed since these facts were
+        # collected (or one now exists where none did): the local-verification
+        # fallback's inputs are different, so the cached outcome is stale.
+        # Legacy manifests without the field load as None and stay reusable
+        # for exactly the repositories whose policy has no product_truth block.
+        return None
     if not facts_path.is_file():
         raise RuntimeError(
             "durable product-facts evidence is missing for "

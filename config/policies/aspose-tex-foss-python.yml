@@ -48,3 +48,69 @@ block:
   - kb.aspose.org
   - blog.aspose.org
   - forum.aspose.com
+# 2026-08-18 mission recovery: aspose-tex-foss is genuinely unpublished on
+# PyPI (404, matches its real "Development Status :: 2 - Pre-Alpha"
+# classifier), so acquisition verification correctly falls back to local
+# source-build verification -- which requires this product_truth block
+# (root-caused in plans/backlog-post-poc.md, commit 46ed34630). Every
+# evidence path and required symbol below was verified verbatim against the
+# real source tree before authoring; the minimal example is the repository
+# README's own "In-memory PDF" snippet, unchanged.
+product_truth:
+  audience:
+  - Python developers who need to typeset TeX documents programmatically.
+  problems_solved:
+  - Convert TeX source into PDF, SVG, or DVI output from Python without a separate TeX
+    distribution installed.
+  capabilities:
+  - value: Run a TeX typesetting job in memory through the public TeXJob API and read the
+      produced output bytes.
+    evidence_paths:
+    - src/aspose_tex/presentation/__init__.py
+    - src/aspose_tex/__init__.py
+    - run_hello.py
+    required_symbols:
+    - class TeXJob
+    - def run
+    - def create_input_source
+  - value: Configure typesetting through TeXOptions, including running plain TeX input
+      without a precompiled format file.
+    evidence_paths:
+    - src/aspose_tex/presentation/__init__.py
+    required_symbols:
+    - class TeXOptions
+    - load_format
+  formats:
+  - value: Produce PDF output through PdfDevice.
+    evidence_paths:
+    - src/aspose_tex/presentation/__init__.py
+    - src/aspose_tex/_output/pdf_writer.py
+    required_symbols:
+    - class PdfDevice
+  - value: Produce DVI and SVG output through DviDevice and SvgDevice.
+    evidence_paths:
+    - src/aspose_tex/presentation/__init__.py
+    - src/aspose_tex/_output/dvi_writer.py
+    - src/aspose_tex/_output/svg_writer.py
+    required_symbols:
+    - class DviDevice
+    - class SvgDevice
+  minimal_example:
+    language: python
+    class_name: ReadmeExample
+    code: |
+      from aspose_tex import TeXJob, TeXOptions, PdfDevice, create_input_source
+
+      source = create_input_source("Hello World\n\\bye")
+      device = PdfDevice()
+      job = TeXJob(source, device, options=TeXOptions(load_format=False))
+      pdf_bytes = job.run()
+    evidence_paths:
+    - README.md
+    - src/aspose_tex/__init__.py
+    - src/aspose_tex/presentation/__init__.py
+    required_symbols:
+    - class TeXJob
+    - class TeXOptions
+    - class PdfDevice
+    - def create_input_source

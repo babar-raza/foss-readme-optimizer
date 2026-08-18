@@ -37,6 +37,26 @@ from readme_agent.supervisor.stage_dependencies import (
 )
 
 
+def _current_product_truth_policy_hash(org_repo: str) -> str | None:
+    """The product_truth policy content these facts were collected under.
+
+    Bound into the facts manifest so `cached_verified_product_truth()` can
+    refuse a bundle collected under a different (or absent) `product_truth:`
+    block -- see `facts/policy_evidence.py::product_truth_policy_hash`.
+    Unlisted repositories degrade to None rather than failing the write.
+    """
+
+    from readme_agent.errors import NotAllowlistedError
+    from readme_agent.facts.policy_evidence import product_truth_policy_hash
+    from readme_agent.registry.loader import require_listed
+
+    try:
+        entry = require_listed(org_repo)
+    except NotAllowlistedError:
+        return None
+    return product_truth_policy_hash(getattr(entry, "policy_profile", None))
+
+
 def write_local_poc_product_facts(
     snapshot: RepositorySnapshotV1,
     facts: ProductFactsV2,
@@ -126,6 +146,7 @@ def write_local_poc_product_facts(
             "resolution_source": resolution_source,
             "prompt_hash": prompt_hash,
             "local_verification_contract_hash": local_verification_contract_hash,
+            "product_truth_policy_hash": _current_product_truth_policy_hash(snapshot.org_repo),
             "fact_acceptance_contract_hash": fact_acceptance_contract_hash,
             "fact_acceptance_component_hashes": fact_acceptance_component_hashes,
             "complete": False,

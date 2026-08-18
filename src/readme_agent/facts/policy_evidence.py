@@ -21,6 +21,44 @@ from readme_agent.registry.models import EvidenceBackedProductFact
 _IDENTIFIER = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
 
+def product_truth_policy_hash(policy_profile: str | None) -> str | None:
+    """Canonical hash of the policy's `product_truth` block, or None without one.
+
+    A cached fact bundle collected before a `product_truth:` block existed (or
+    under a different one) is stale evidence for the local-verification fallback
+    -- found live 2026-08-18: authoring tex-python's first `product_truth` block
+    changed nothing on the next supervised run because the cached
+    BLOCKED_MISSING_EVIDENCE bundle was reused on unchanged verifier-code and
+    fact-contract hashes alone. `None` for no profile, an unresolvable profile,
+    or a profile without `product_truth` -- so every legacy manifest (which
+    lacks the field, loading as None) stays reusable for exactly the
+    repositories whose policy has no `product_truth` block, and only a real
+    block change (add/edit/remove) forces recollection.
+    """
+
+    import hashlib
+    import json
+
+    if not policy_profile:
+        return None
+    from readme_agent.errors import ConfigError
+    from readme_agent.registry.loader import load_policy
+
+    try:
+        policy = load_policy(policy_profile)
+    except ConfigError:
+        return None
+    if policy.product_truth is None:
+        return None
+    payload = json.dumps(
+        policy.product_truth.model_dump(mode="json"),
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+    )
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
 def safe_evidence_paths(root: Path, paths: list[str]) -> tuple[list[Path], list[str]]:
     """Resolve only existing files contained by the immutable snapshot root."""
 

@@ -1332,3 +1332,87 @@ def test_changed_fact_graph_contract_recollects_before_reaccepting(
         "FACTS_READY",
     ]
     assert lifecycle.fact_acceptance_contract_hash == changed_contract.canonical_hash()
+
+
+def test_product_truth_policy_hash_contract(monkeypatch):
+    """None without a profile / without a product_truth block; a stable hash
+    that changes exactly when the block's content changes (2026-08-18: the
+    dependency the cached-facts gate was missing)."""
+
+    import readme_agent.registry.loader as loader_module
+    from readme_agent.facts.policy_evidence import product_truth_policy_hash
+    from readme_agent.registry.models import (
+        EvidenceBackedProductFact,
+        MinimalExamplePolicy,
+        ProductTruthPolicy,
+    )
+
+    assert product_truth_policy_hash(None) is None
+
+    def _policy(truth):
+        return SimpleNamespace(product_truth=truth)
+
+    def _truth(value):
+        fact = EvidenceBackedProductFact(value=value, evidence_paths=["src/x.py"])
+        return ProductTruthPolicy(
+            audience=["a"],
+            problems_solved=["p"],
+            capabilities=[fact],
+            formats=[fact],
+            minimal_example=MinimalExamplePolicy(
+                language="python",
+                class_name="ReadmeExample",
+                code="import x\n",
+                evidence_paths=["src/x.py"],
+            ),
+        )
+
+    monkeypatch.setattr(loader_module, "load_policy", lambda profile: _policy(None))
+    assert product_truth_policy_hash("some-profile") is None
+
+    monkeypatch.setattr(loader_module, "load_policy", lambda profile: _policy(_truth("one")))
+    first = product_truth_policy_hash("some-profile")
+    again = product_truth_policy_hash("some-profile")
+    monkeypatch.setattr(loader_module, "load_policy", lambda profile: _policy(_truth("two")))
+    changed = product_truth_policy_hash("some-profile")
+    assert first is not None and first == again
+    assert changed is not None and changed != first
+
+
+def test_a_new_product_truth_block_invalidates_cached_facts(tmp_path, monkeypatch):
+    """The live tex-python gap: facts cached under no product_truth block were
+    reused after the block was authored, so the policy change had no effect.
+    The gate must refuse the bundle once the current policy-truth hash
+    differs from the one the manifest recorded."""
+
+    import readme_agent.facts.policy_evidence as policy_evidence_module
+
+    snapshot = _snapshot(tmp_path)
+    backend = _ready_backend(snapshot)
+    facts = _facts()
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: {"product_facts_v2": facts},
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "require_listed",
+        lambda org_repo: SimpleNamespace(ecosystem="java"),
+    )
+
+    prepared = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+    manifest = json.loads((Path(prepared.bundle_dir) / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["product_truth_policy_hash"] is None  # collected without a block
+
+    # Same policy state: the durable bundle is still reusable.
+    assert product_truth.load_prepared_product_truth(ORG_REPO, backend, REVISION) is not None
+
+    # A product_truth block now exists: the cached bundle must be refused.
+    monkeypatch.setattr(
+        policy_evidence_module,
+        "product_truth_policy_hash",
+        lambda policy_profile: "b" * 64,
+    )
+    assert product_truth.load_prepared_product_truth(ORG_REPO, backend, REVISION) is None
