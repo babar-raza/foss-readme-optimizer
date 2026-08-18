@@ -8,6 +8,9 @@ from pathlib import Path
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.llm.verifier_client import ForcedToolClient
+from readme_agent.presentation.verified_template_api_method_index import (
+    known_public_surface_bare_names,
+)
 from readme_agent.readme.assessment_claims import (
     ReadmeMaterialClaimAssessmentV1,
     assess_material_claims,
@@ -304,6 +307,14 @@ def build_readme_claim_accountability_map(
     reproduces today's exact behavior -- no new LLM calls, no change to any
     existing candidate's accountability outcome."""
 
+    # 2026-08-19 (second aspose.org lesson): the real public-API bare-name
+    # set, derived once from `facts` via the same complete-catalog/exclusion
+    # access `verified_template_api_method_index.py` already uses to ground
+    # its own method-index table -- threaded through both
+    # `llm_verified_claim_disposition()` call sites below so their
+    # `api_surface_member` evidence path has something to check membership
+    # against, without needing a new top-level parameter on this function.
+    known_api_member_names = known_public_surface_bare_names(facts)
     source_claims = assess_material_claims(source_text)
     candidate_claims = assess_material_claims(candidate_text)
     source_claims_by_id = {claim.claim_id: claim for claim in source_claims}
@@ -436,6 +447,7 @@ def build_readme_claim_accountability_map(
                     repository_root,
                     llm_disposition_client,
                     ratchet_path=disposition_ratchet_path,
+                    known_api_member_names=known_api_member_names,
                 )
                 is not None
             )
@@ -584,6 +596,7 @@ def build_readme_claim_accountability_map(
                     repository_root,
                     llm_disposition_client,
                     ratchet_path=disposition_ratchet_path,
+                    known_api_member_names=known_api_member_names,
                 )
                 is not None
             )

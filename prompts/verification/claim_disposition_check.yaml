@@ -1,6 +1,6 @@
 prompt_id: claim_disposition_check
 category: verification
-version: "3"
+version: "4"
 model_route: claim_disposition_check
 owner: readme_agent.readme.claim_accountability_llm_disposition
 runtime_consumer: readme_agent.llm.claim_disposition_prompts
@@ -31,6 +31,15 @@ system: |
     path in evidence_ref and leave evidence_quote EMPTY -- do not invent a fake quote and do not
     fall back to citing a different, unrelated file just to have something to quote. The listing
     only ever shows paths that genuinely exist, so citing a listed path this way is always honest.
+    Special case -- editorial paraphrase of a real API member's behavior: if the sentence
+    describes, in its own words, what a specific API member does (for example "the generic
+    `generate()` entry point" describing a real function's role) rather than stating a fact you
+    can quote verbatim from a file, use evidence_type api_surface_member instead of
+    clone_cache_path. Name the exact bare member name (e.g. "generate") in evidence_ref, copied
+    verbatim from the inline code already present in the sentence -- never a name the sentence
+    does not already mention, and never guess at a plausible-sounding member that is not written
+    there. Leave evidence_quote EMPTY -- this confirms that a real, publicly-confirmed member
+    exists and the sentence is about it, not that any particular wording is quoted from anywhere.
   - narrative_filler: the sentence is pure transitional or framing prose (e.g. "Here's how it
     works:") with no independent factual claim of its own.
   - excluded_with_reason: the sentence is deliberately excluded from the candidate for exactly
@@ -96,4 +105,27 @@ notes: "New 2026-08-18: the bounded LLM-verification alternative acceptance path
   the real reason the model never cited them and instead reached for plausible-but-inexact
   substitute citations. repository_file_listing() now lists every real file (minus VCS/cache/
   build noise) and the verified_against_source path documents the existence-only case
-  explicitly."
+  explicitly.
+  Version 4 (2026-08-19): a direct second lesson from the same aspose.org investigation,
+  continued straight from version 3 (mission-recovery-2026-08-18/aspose-org-lesson-2-api-
+  surface-evidence.md). Investigating the exact claim still blocking barcode-python
+  (source:claim:2626:54e67ed0a47ae8af -- the Key-Capabilities bullet describing the generic
+  `generate()` entry point) found aspose.org's content-dispositions.json unit_id u0017 classifies
+  it verified_against_source with evidence_type clone_cache_path, evidence_ref
+  'src/aspose_barcode_foss/api.py', and an evidence_note (no evidence_quote field at all)
+  confirming the real, public `generate(symbology, data, *, encode=None, render=None)` signature.
+  This is a third, distinct verification shape: not a literal-text quote, not a named-fixture's
+  existence, but a claim that is EDITORIAL PARAPHRASE of a real API member's real, extracted
+  behavior. This project already extracts exactly the structured fact aspose.org's evidence_note
+  encodes (`facts/aspose_detectors.py::ApiSurfaceMemberV1`'s `name`/`signature` fields per public
+  member) -- the gap was that claim_disposition_check's corroboration path had no way to consult
+  it. Adds evidence_type api_surface_member for verified_against_source: evidence_ref names the
+  bare member name copied verbatim from inline code already in the claim text (the model cannot
+  invent a name, only confirm one the claim already names -- reusing the same bare-name
+  extraction verified_template_api_method_index.py already proves against source READMEs), that
+  name must match a real public member of the currently-extracted API surface, and
+  evidence_quote must be empty (a shape confirmation, never a text quote, same discipline as
+  version 3's existence-only fixture case). Deliberately NOT free-form 'does this paraphrase
+  accurately describe the signature' -- that would trust the model's semantic judgment, the
+  exact failure mode this investigation has been fighting throughout; the safe, minimal claim
+  stays narrower: 'this claim is about a real, publicly-confirmed member.'"

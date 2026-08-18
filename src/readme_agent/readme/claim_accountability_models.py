@@ -38,6 +38,7 @@ ClaimDispositionEvidenceType = Literal[
     "candidate_section_reference",
     "clone_cache_path",
     "checkable_predicate",
+    "api_surface_member",
     "none",
 ]
 

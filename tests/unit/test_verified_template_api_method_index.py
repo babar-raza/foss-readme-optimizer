@@ -10,6 +10,7 @@ from pathlib import Path
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.presentation.verified_template_api_method_index import (
     api_method_index_markdown,
+    known_public_surface_bare_names,
 )
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -267,3 +268,94 @@ def test_does_not_alter_the_class_level_api_reference_output():
     assert reference_markdown is not None
     assert "Scene.open" not in reference_markdown
     assert "Scene.close" not in reference_markdown
+
+
+class TestKnownPublicSurfaceBareNames:
+    """2026-08-19: `known_public_surface_bare_names` reduces the same
+    complete-catalog/exclusion access this module's own
+    `api_method_index_markdown` uses down to a bare-name set --
+    `claim_accountability.py` reuses it to give `verification/
+    claim_disposition.py`'s `api_surface_member` evidence path a minimal
+    membership set without threading the full `ProductFactsV2` object."""
+
+    def test_returns_every_verified_method_and_property_bare_name_casefolded(self):
+        facts = _facts_with_api(_MEMBERS)
+
+        names = known_public_surface_bare_names(facts)
+
+        assert names == frozenset({"open", "close", "root_node"})
+
+    def test_excluded_classes_are_omitted(self):
+        facts = _facts_with_api(
+            _MEMBERS,
+            exclusions=[
+                {
+                    "import_module": "aspose.threed",
+                    "name": "Scene",
+                    "reason": "package_module_alias_is_represented_by_its_namespace_table",
+                }
+            ],
+        )
+
+        names = known_public_surface_bare_names(facts)
+
+        assert names == frozenset()
+
+    def test_no_api_surface_fact_returns_empty(self):
+        base = ProductFactsV2.model_validate_json(
+            (
+                ROOT
+                / "tests/fixtures/readmes/verified_source_assurance"
+                / "aspose-3d-python-facts-ab1a2267.json"
+            ).read_text(encoding="utf-8")
+        )
+
+        names = known_public_surface_bare_names(base)
+
+        assert names == frozenset()
+
+    def test_includes_top_level_module_functions_not_just_class_members(self):
+        """2026-08-19: confirmed live against barcode-python's real extracted
+        facts -- `generate` is a top-level module function
+        (`src/aspose_barcode_foss/api.py`), never a class method, so a
+        class-members-only reduction would silently never recognize it as
+        real. Mirrors `verified_template_api_reference.py::_function_keys`'s
+        own access to the same top-level `functions` list."""
+
+        base = ProductFactsV2.model_validate_json(
+            (
+                ROOT
+                / "tests/fixtures/readmes/verified_source_assurance"
+                / "aspose-3d-python-facts-ab1a2267.json"
+            ).read_text(encoding="utf-8")
+        )
+        source = base.selected_fact("product.identity").source
+        api = FactRecordV2(
+            fact_id="api.public_surface:function-test",
+            field="api.public_surface",
+            value={
+                "modules": [{"module": "aspose_barcode_foss", "exports": []}],
+                "classes": [],
+                "functions": [{"module": "aspose_barcode_foss", "name": "generate"}],
+                "coordinate_catalog": {
+                    "classes": [],
+                    "functions": [{"module": "aspose_barcode_foss", "name": "generate"}],
+                    "presentation_exclusions": [],
+                },
+            },
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-source",
+            confidence=1.0,
+            affected_surfaces=["readme.api_method_index"],
+        )
+        facts = base.model_copy(
+            update={
+                "facts": [*base.facts, api],
+                "selected_fact_ids": {**base.selected_fact_ids, api.field: api.fact_id},
+            }
+        )
+
+        names = known_public_surface_bare_names(facts)
+
+        assert names == frozenset({"generate"})

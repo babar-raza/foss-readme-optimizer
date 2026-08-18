@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import hashlib
 
-from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.golden_set.review_fixtures import REVIEW_ARCHETYPES, build_review_facts
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verifier_client import FixtureForcedToolClient, ForcedToolResult
@@ -26,6 +26,54 @@ SOURCE = f"# Widget\n\n## Key Capabilities\n\n{UNBINDABLE_CLAIM}"
 
 def _facts() -> ProductFactsV2:
     return ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+
+
+def _facts_with_generate_member() -> ProductFactsV2:
+    """2026-08-19: adds a real `generate` public method to the base review
+    facts, shaped exactly like `test_verified_template_api_method_index.py::
+    _facts_with_api` -- the same complete-catalog access `known_public_
+    surface_bare_names()` reads to give the `api_surface_member` evidence
+    path something real to confirm membership against."""
+
+    base = _facts()
+    source = base.selected_fact("product.identity").source
+    api = FactRecordV2(
+        fact_id="api.public_surface:disposition-test",
+        field="api.public_surface",
+        value={
+            "modules": [{"module": "aspose.barcode", "exports": ["Generator"]}],
+            "classes": [{"module": "aspose.barcode", "name": "Generator", "members": []}],
+            "coordinate_catalog": {
+                "classes": [
+                    {
+                        "module": "aspose.barcode",
+                        "name": "Generator",
+                        "members": [
+                            {
+                                "name": "generate",
+                                "kind": "method",
+                                "surface": "generate(symbology, data)",
+                                "declared_by": "Generator",
+                                "inherited": False,
+                            }
+                        ],
+                    }
+                ],
+                "presentation_exclusions": [],
+            },
+        },
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme.api_method_index"],
+    )
+    return base.model_copy(
+        update={
+            "facts": [*base.facts, api],
+            "selected_fact_ids": {**base.selected_fact_ids, api.field: api.fact_id},
+        }
+    )
 
 
 def _claim_map(facts: ProductFactsV2, candidate: str) -> ReadmeClaimMapV1:
@@ -224,6 +272,98 @@ def test_an_uncorroborated_verdict_leaves_the_claim_blocking(tmp_path) -> None:
     )
 
     record = _find_record(accountability, SOURCE)
+
+    assert record.currently_accountable is False
+    assert record.expected_disposition != "llm_verified_disposition"
+
+
+API_MEMBER_CLAIM = (
+    "Select any symbology by name -- canonical or alias -- through the generic `generate()` "
+    "entry point.\n"
+)
+API_MEMBER_SOURCE = f"# Widget\n\n## Key Capabilities\n\n{API_MEMBER_CLAIM}"
+
+
+def _find_api_member_record(accountability, source_text: str):
+    source_bytes = source_text.encode("utf-8")
+    for record in accountability.claims:
+        if record.stage != "source":
+            continue
+        text = source_bytes[record.source_byte_start : record.source_byte_end].decode("utf-8")
+        if "canonical or alias" in text:
+            return record
+    raise AssertionError("api-surface-member claim not found in accountability map")
+
+
+def test_api_surface_member_evidence_unblocks_the_real_barcode_python_claim(tmp_path) -> None:
+    """2026-08-19, second aspose.org lesson: the exact claim shape that stays
+    blocked on barcode-python (aspose.org's own content-dispositions.json
+    unit_id u0017) -- a claim that is EDITORIAL PARAPHRASE of a real API
+    member's behavior rather than a literal-text quote -- becomes accountable
+    once `build_readme_claim_accountability_map` derives the real public
+    member bare-name set from `facts` and threads it through to
+    `corroborate_claim_disposition()`'s new `api_surface_member` branch."""
+
+    facts = _facts_with_generate_member()
+    verdict = ForcedToolResult(
+        arguments={
+            "classification": "verified_against_source",
+            "evidence_type": "api_surface_member",
+            "evidence_ref": "generate",
+            "evidence_quote": "",
+            "reasoning": "generate() is a real, public entry point",
+        },
+        meta=LLMResponseMeta(),
+    )
+    client = FixtureForcedToolClient([verdict, verdict])
+
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=API_MEMBER_SOURCE,
+        candidate_text=API_MEMBER_SOURCE,
+        facts=facts,
+        generated_claim_map=_claim_map(facts, API_MEMBER_SOURCE),
+        llm_disposition_client=client,
+        repository_root=tmp_path,
+    )
+
+    record = _find_api_member_record(accountability, API_MEMBER_SOURCE)
+
+    assert record.currently_accountable is True
+    assert record.expected_disposition == "llm_verified_disposition"
+
+
+def test_api_surface_member_evidence_is_refused_when_the_member_is_not_real(tmp_path) -> None:
+    """Without a real `generate` member in `facts` (the plain review-fixture
+    facts, no api.public_surface fact at all), `known_public_surface_bare_
+    names()` derives an empty set and the identical verdict is refused --
+    the claim stays blocking exactly as it did before this evidence path
+    existed."""
+
+    facts = _facts()
+    verdict = ForcedToolResult(
+        arguments={
+            "classification": "verified_against_source",
+            "evidence_type": "api_surface_member",
+            "evidence_ref": "generate",
+            "evidence_quote": "",
+            "reasoning": "generate() is a real, public entry point",
+        },
+        meta=LLMResponseMeta(),
+    )
+    client = FixtureForcedToolClient([verdict, verdict])
+
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=API_MEMBER_SOURCE,
+        candidate_text=API_MEMBER_SOURCE,
+        facts=facts,
+        generated_claim_map=_claim_map(facts, API_MEMBER_SOURCE),
+        llm_disposition_client=client,
+        repository_root=tmp_path,
+    )
+
+    record = _find_api_member_record(accountability, API_MEMBER_SOURCE)
 
     assert record.currently_accountable is False
     assert record.expected_disposition != "llm_verified_disposition"

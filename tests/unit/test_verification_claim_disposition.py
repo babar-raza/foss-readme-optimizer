@@ -291,6 +291,122 @@ class TestCorroborateClaimDisposition:
         assert result.corroborated is False
 
 
+class TestApiSurfaceMemberEvidence:
+    """2026-08-19: the second aspose.org lesson -- a claim that is EDITORIAL
+    PARAPHRASE of a real API member's behavior (barcode-python's `generate()`
+    Key-Capabilities bullet, aspose.org's own content-dispositions.json
+    unit_id u0017) is corroborated by confirming the named member is real,
+    never by trusting a text quote. Safe by construction: the bare member
+    name must already appear as inline code in the claim text (the model
+    cannot invent a name, only confirm one the claim already names) AND
+    match a real member of the supplied API-surface data, AND evidence_quote
+    must stay empty -- a shape confirmation, never a text quote."""
+
+    CLAIM_TEXT = (
+        "Select any symbology by name -- canonical or alias -- through the generic "
+        "`generate()` entry point."
+    )
+
+    def _verdict(self, evidence_ref: str, evidence_quote: str = "") -> dict:
+        return {
+            "classification": "verified_against_source",
+            "evidence_type": "api_surface_member",
+            "evidence_ref": evidence_ref,
+            "evidence_quote": evidence_quote,
+            "reasoning": "generate() is a real, public entry point",
+        }
+
+    def test_a_real_member_named_inline_in_the_claim_is_corroborated(self):
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "candidate text",
+            Path("/nonexistent"),
+            self._verdict("generate"),
+            claim_text=self.CLAIM_TEXT,
+            known_api_member_names=frozenset({"generate", "encode"}),
+        )
+        assert result.classification == "verified_against_source"
+        assert result.corroborated is True
+        assert result.evidence_type == "api_surface_member"
+        assert result.evidence_ref == "generate"
+        assert result.evidence_quote == ""
+
+    def test_a_member_name_not_present_in_the_claim_text_is_refused(self):
+        """The model cannot cite a name the claim never actually mentions,
+        even if that name is genuinely real -- it can only confirm one the
+        claim already names verbatim as inline code."""
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "candidate text",
+            Path("/nonexistent"),
+            self._verdict("encode"),
+            claim_text=self.CLAIM_TEXT,
+            known_api_member_names=frozenset({"generate", "encode"}),
+        )
+        assert result.classification == "unverifiable"
+        assert result.corroborated is False
+
+    def test_a_name_not_a_real_surface_member_is_refused(self):
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "candidate text",
+            Path("/nonexistent"),
+            self._verdict("generate"),
+            claim_text=self.CLAIM_TEXT,
+            known_api_member_names=frozenset({"encode", "render"}),
+        )
+        assert result.classification == "unverifiable"
+        assert result.corroborated is False
+
+    def test_a_nonempty_evidence_quote_is_refused_shape_only_no_quotes(self):
+        """Same discipline as the fixture-existence fix: this is a shape
+        confirmation, never a text-quote match -- a quote alongside it is
+        refused rather than silently accepted."""
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "candidate text",
+            Path("/nonexistent"),
+            self._verdict("generate", "the generic generate() entry point"),
+            claim_text=self.CLAIM_TEXT,
+            known_api_member_names=frozenset({"generate"}),
+        )
+        assert result.classification == "unverifiable"
+        assert result.corroborated is False
+
+    def test_no_surface_data_supplied_is_refused_fail_closed(self):
+        """`known_api_member_names=None` (every existing caller that
+        predates this parameter) means this branch never corroborates --
+        fail-closed, matching every other missing-input case in this
+        function."""
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "candidate text",
+            Path("/nonexistent"),
+            self._verdict("generate"),
+            claim_text=self.CLAIM_TEXT,
+        )
+        assert result.classification == "unverifiable"
+        assert result.corroborated is False
+
+    def test_empty_surface_data_supplied_is_also_refused(self):
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "candidate text",
+            Path("/nonexistent"),
+            self._verdict("generate"),
+            claim_text=self.CLAIM_TEXT,
+            known_api_member_names=frozenset(),
+        )
+        assert result.classification == "unverifiable"
+        assert result.corroborated is False
+
+
 class TestExcludedWithReasonPredicates:
     """E5 slice 1: the excluded_with_reason classification is accepted only
     when its cited machine-checkable predicate re-verifies in deterministic

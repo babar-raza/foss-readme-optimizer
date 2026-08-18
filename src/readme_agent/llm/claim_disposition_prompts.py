@@ -51,12 +51,16 @@ CLAIM_DISPOSITION_TOOL_SCHEMA = {
                         "candidate_section_reference",
                         "clone_cache_path",
                         "checkable_predicate",
+                        "api_surface_member",
                         "none",
                     ],
                     "description": (
                         "candidate_section_reference for redundant_with_candidate, "
-                        "clone_cache_path for verified_against_source, "
-                        "checkable_predicate for excluded_with_reason, none otherwise."
+                        "clone_cache_path for verified_against_source citing real source "
+                        "text or a named fixture's existence, api_surface_member for "
+                        "verified_against_source citing a real API member's confirmed "
+                        "existence (see evidence_ref), checkable_predicate for "
+                        "excluded_with_reason, none otherwise."
                     ),
                 },
                 "evidence_ref": {
@@ -64,7 +68,10 @@ CLAIM_DISPOSITION_TOOL_SCHEMA = {
                     "description": (
                         "For candidate_section_reference: the candidate H2/H3 heading the "
                         "matching text lives under. For clone_cache_path: the exact "
-                        "repository-relative file path read. For checkable_predicate, "
+                        "repository-relative file path read. For api_surface_member: the "
+                        "bare member name (e.g. 'generate'), copied verbatim from the "
+                        "inline code already in the claim text -- never a name the claim "
+                        "does not already mention. For checkable_predicate, "
                         "exactly one of: 'unverifiable_fixture_dependency:<path>' (the "
                         "claim references a repository fixture path, copied verbatim from "
                         "the claim text, that an isolated verifier cannot assume), "
@@ -87,8 +94,13 @@ CLAIM_DISPOSITION_TOOL_SCHEMA = {
                         "the claim already names verbatim (e.g. a binary test document like "
                         "'testfiles/SimpleTable.one') where no readable quote inside the "
                         "file is possible: leave this EMPTY -- existence of the named file "
-                        "is verified separately. Empty for narrative_filler, unverifiable, "
-                        "and the other excluded_with_reason predicates."
+                        "is verified separately. For verified_against_source with "
+                        "evidence_type api_surface_member -- the claim paraphrases a real "
+                        "API member's behavior rather than quoting text -- also leave this "
+                        "EMPTY: name a real member already inline-coded in the claim via "
+                        "evidence_ref instead, confirmed to exist rather than quoted. Empty "
+                        "for narrative_filler, unverifiable, and the other "
+                        "excluded_with_reason predicates."
                     ),
                 },
                 "reasoning": {"type": "string"},

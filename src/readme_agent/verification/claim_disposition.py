@@ -23,6 +23,9 @@ from readme_agent.llm.claim_disposition_prompts import (
     build_claim_disposition_messages,
 )
 from readme_agent.llm.verifier_client import ForcedToolClient
+from readme_agent.presentation.verified_template_api_method_index import (
+    _source_mentioned_bare_names,
+)
 from readme_agent.readme.claim_accountability_models import ClaimDispositionRecordV1
 
 _MAX_LISTED_FILES = 400
@@ -191,11 +194,22 @@ def corroborate_claim_disposition(
     llm_result: dict,
     *,
     claim_text: str = "",
+    known_api_member_names: frozenset[str] | None = None,
 ) -> ClaimDispositionRecordV1:
     """Pure except for one bounded, read-only file read of an already-
     listed, path-escape-checked repository file. Never trusts the model's
     classification or quote without independently finding that exact quote
-    in the exact location the model cited."""
+    in the exact location the model cited.
+
+    `known_api_member_names` (2026-08-19, second aspose.org lesson): the
+    casefolded bare-name set of the real, currently-extracted public API
+    surface (`presentation/verified_template_api_method_index.py::
+    known_public_surface_bare_names`) -- deliberately just the bare-name
+    set, not the full `ProductFactsV2` object, since that's all the
+    `api_surface_member` branch below needs to check. `None`/empty (every
+    existing caller that predates this parameter) means that branch never
+    corroborates -- fail-closed, matching every other missing-input case in
+    this function."""
 
     classification = str(llm_result.get("classification") or "unverifiable")
     evidence_type = str(llm_result.get("evidence_type") or "none")
@@ -236,6 +250,28 @@ def corroborate_claim_disposition(
             # confirm one the original claim already asserts), and the file
             # must genuinely exist under the repository root.
             corroborated = bool(resolved.name) and resolved.name in claim_text
+    elif classification == "verified_against_source" and evidence_type == "api_surface_member":
+        # Third verification shape (2026-08-19, second aspose.org lesson --
+        # aspose.org's own content-dispositions.json unit_id u0017 confirms
+        # barcode-python's `generate()` Key-Capabilities bullet this exact
+        # way, with an evidence_note and no quote): the claim is EDITORIAL
+        # PARAPHRASE of a real API member's behavior, not a literal-text
+        # quote or a named-fixture's existence. Safe by construction: the
+        # bare member name must already appear as inline code in the claim
+        # text itself (the model cannot invent a name, only confirm one the
+        # claim already names -- reuses the same bare-name extraction
+        # `verified_template_api_method_index.py` already proves against
+        # source READMEs), AND that name must match a real public member of
+        # the currently-extracted API surface, AND evidence_quote must be
+        # empty -- this is a shape confirmation ("this claim is about a
+        # real, publicly-confirmed member"), never a text quote.
+        bare_name = evidence_ref.strip()
+        corroborated = (
+            bool(bare_name)
+            and not evidence_quote
+            and bare_name.casefold() in _source_mentioned_bare_names(claim_text)
+            and bare_name.casefold() in (known_api_member_names or frozenset())
+        )
     elif classification == "excluded_with_reason" and evidence_type == "checkable_predicate":
         corroborated = _corroborate_exclusion_predicate(
             evidence_ref, evidence_quote, claim_text, candidate_text, repository_root
@@ -272,6 +308,8 @@ def check_claim_disposition(
     candidate_text: str,
     repository_root: Path,
     client: ForcedToolClient | None,
+    *,
+    known_api_member_names: frozenset[str] | None = None,
 ) -> ClaimDispositionRecordV1:
     """`client=None` (no verifier configured) degrades honestly: the claim
     stays unverified/blocking, never crashes, never silently accepted --
@@ -304,4 +342,5 @@ def check_claim_disposition(
         repository_root,
         result.arguments,
         claim_text=claim_text,
+        known_api_member_names=known_api_member_names,
     )

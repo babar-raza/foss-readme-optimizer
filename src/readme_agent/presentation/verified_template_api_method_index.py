@@ -86,6 +86,64 @@ def _verified_method_rows(
     return rows_by_owner
 
 
+def known_public_surface_bare_names(facts: ProductFactsV2) -> frozenset[str]:
+    """The casefolded bare names of every real, verified public class
+    method/property AND top-level module function in the current
+    API-surface facts -- the same complete-catalog/exclusion access
+    `api_method_index_markdown` below uses to confirm a source-mentioned
+    name is real (for class members), minus the `mentioned` filter, plus
+    `verified_template_api_reference.py::_function_keys`'s own top-level
+    `functions` list (module-level entry points like barcode-python's real
+    `generate(symbology, data)`, confirmed live in the extracted facts --
+    not a class member at all, so the class-only reduction alone would
+    miss it).
+
+    2026-08-19 (second aspose.org lesson): reused by `claim_accountability.py`
+    to give `verification/claim_disposition.py`'s `api_surface_member`
+    evidence path a minimal, deterministic membership set -- callers pass
+    just this bare-name set into `corroborate_claim_disposition()`, not the
+    full `ProductFactsV2` object, mirroring how this module already reduces
+    facts to a bare-name set (`_source_mentioned_bare_names`) rather than
+    threading the whole document around."""
+
+    value = _accepted_api_value(facts)
+    if value is None:
+        return frozenset()
+    complete = _complete_catalog(value)
+    excluded = _excluded_exports(value)
+    names: set[str] = set()
+    classes = complete.get("classes")
+    if isinstance(classes, list):
+        for item in classes:
+            if not isinstance(item, dict):
+                continue
+            owner = str(item.get("name") or "").strip()
+            module = str(item.get("module") or "").strip()
+            if not owner or (module, owner) in excluded:
+                continue
+            members = item.get("members")
+            if not isinstance(members, list):
+                continue
+            for member in members:
+                if not isinstance(member, dict):
+                    continue
+                if str(member.get("kind") or "") not in {"method", "property"}:
+                    continue
+                name = str(member.get("name") or "").strip()
+                if name:
+                    names.add(name.casefold())
+    functions = complete.get("functions")
+    if isinstance(functions, list):
+        for item in functions:
+            if not isinstance(item, dict):
+                continue
+            name = str(item.get("name") or "").strip()
+            module = str(item.get("module") or "").strip()
+            if name and (module, name) not in excluded:
+                names.add(name.casefold())
+    return frozenset(names)
+
+
 def api_method_index_markdown(facts: ProductFactsV2, source_text: str) -> str | None:
     """Render every verified public method or property the source README
     already named in inline code, as one Type/Member/Description table --

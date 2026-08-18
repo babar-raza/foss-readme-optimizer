@@ -139,6 +139,7 @@ def llm_verified_claim_disposition(
     client: ForcedToolClient | None,
     *,
     ratchet_path: Path | None = None,
+    known_api_member_names: frozenset[str] | None = None,
 ) -> ClaimDispositionRecordV1 | None:
     """Attempt the fallback for one claim the mechanical check could not
     bind. Returns a corroborated, accepted disposition record, or `None`
@@ -146,6 +147,12 @@ def llm_verified_claim_disposition(
     today's behavior) -- callers only ever gain acceptance, never lose it,
     since this only ever runs after the mechanical path has already
     failed.
+
+    `known_api_member_names` (2026-08-19, second aspose.org lesson): the
+    real public-API bare-name set threaded through to
+    `corroborate_claim_disposition()`'s `api_surface_member` evidence path,
+    both for a fresh model call and for ratchet replay below -- omitted
+    (`None`), every existing caller keeps today's exact behavior.
 
     With `ratchet_path` (opt-in, live wiring only), a previously accepted
     verdict for the same claim content is replayed through the same
@@ -174,6 +181,7 @@ def llm_verified_claim_disposition(
                 repository_root,
                 stored_verdict,
                 claim_text=claim_text,
+                known_api_member_names=known_api_member_names,
             )
             if replayed.corroborated and replayed.classification != "unverifiable":
                 from readme_agent.llm.call_ledger import record_non_provider_call
@@ -193,7 +201,13 @@ def llm_verified_claim_disposition(
                 )
                 return replayed
     record = check_claim_disposition(
-        claim_id, content_sha256, claim_text, candidate_text, repository_root, client
+        claim_id,
+        content_sha256,
+        claim_text,
+        candidate_text,
+        repository_root,
+        client,
+        known_api_member_names=known_api_member_names,
     )
     if record.corroborated and record.classification != "unverifiable":
         if ratchet_path is not None:
