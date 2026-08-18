@@ -35,3 +35,17 @@ FOSS-for-Python/diagnostics/`):
 
 Also fix at the same time: slides' remaining 4 blocking claims are the same S1/E5 class as
 note/font/email.
+
+## 2026-08-18 diagnosis CONFIRMED (from the first live blocked-plan diagnostics)
+
+Slides' fresh diagnostics snapshot proves hypothesis 1 exactly: the candidate DOES render an
+`## API Method Index` section (methods like `BehaviorCollection.remove_at`), but
+`presentation/verified_template_api_method_index.py::_verified_method_rows` filters
+`if str(member.get("kind") or "") != "method": continue` — so the source-mentioned,
+surface-verified PROPERTY `master_theme` can never enter the slot, and the terminology loss
+blocks. Queued post-pass fix (runtime source, so after the current portfolio pass + worktree
+merges): admit `kind in {"method", "property"}`, extend `describe_api_member` wording for
+properties if needed, adjust the `<summary>` label to "documented public members", regression
+test = a property mentioned in source inline-code lands in the slot and the
+protected-terminology validator accepts. Expected effect: clears slides' S5 block and the same
+class anywhere else a property is the lost term.
