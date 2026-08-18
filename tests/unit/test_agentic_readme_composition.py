@@ -67,7 +67,10 @@ CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
     "0b04df12d3ffcbde3e72fe68168ba51c5dbdd511b7a408ff16ac0a534c2ceb15"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    "8ad8241d087f507ed2154917fdb80d5fb1858a214de57087bf5456fce6cce3ba"
+    # 2026-08-18: template_version 1.20.0 -> 1.21.0 (Documentation & Resources
+    # heading fix) shifts the document plan hash; source/facts/assessment/
+    # agentic-plan hashes above are unaffected (verified unchanged).
+    "6b3138d461ae848fd4ad5fcc31f4fcf851a7d1d69d1fca4d736c8237b749c02c"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
     "48acd4b33fedaf91ac1e8e7c69e3adb2bf09db542abcc92cde9db75ed7432636"

@@ -24,7 +24,9 @@ def test_production_workflow_has_all_trigger_and_recovery_surfaces():
     assert "has_recovery" in text
     assert "readme-agent runtime-matrix" in text
     assert "readme-agent health-report" in text
-    assert text.count("cancel-in-progress: false") == 2
+    # 2026-08-18 runner audit: stage-proposal (the workflow's only writing job)
+    # gained its own concurrency group -- previously only resume/analyze had one.
+    assert text.count("cancel-in-progress: false") == 3
     assert "queue: max" not in text
     assert "fail-fast: false" in text
 
