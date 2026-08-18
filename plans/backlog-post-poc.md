@@ -128,3 +128,30 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
     passes in isolation and in every small batch tried, but failed inside the full
     ~3900-test run — order/state-dependent flakiness (likely shared cache or global
     registry state leaking across test modules), not reproduced standalone.
+- 2026-08-18 (GOV-014): aspose-cells-foss/Aspose.Cells-FOSS-for-Python blocked on
+  `mandatory_claim_replacements_have_exact_provenance failed` (claim_accountability_
+  validation.py's `obligation_replacement_exact`, wired to `claim_replacement_validation.py::
+  replacement_provenance_is_exact` / `replacement_candidate_claims_are_exact`) on every Gate A
+  pass (evidence: runs/evidence/20260818-103301-7601). Diagnostic trail, not root-caused —
+  picking this up next should instrument the two check functions directly rather than continue
+  manual JSON archaeology:
+  - The source README has 4+ separate `major_capabilities`-obligation source claims (byte
+    ranges 3559, 3920, 4127, 4207, all `content_sha256`-distinct) that all resolve against the
+    exact same 7-claim generated Key Capabilities section (identical `replacement_provenance_
+    ids` list on every one). Neither check function forbids this sharing, but it is the one
+    structurally unusual thing about this repo's resolution set relative to a normal one-claim-
+    per-slot binding.
+  - Manually verified (by reconstructing the exact boolean conditions of `obligation_replacement_
+    exact` against the evidence JSON) that at least 2 of these resolutions individually satisfy
+    every condition: `source_by_id[claim_id].survives_in_candidate is False`, `expected_
+    disposition == "verified_obligation_replacement"`, `contradiction_fact_ids` empty, and
+    `set(resolution.fact_ids) == set(source accepted_fact_ids)` (checked for both the single-
+    fact `major_capabilities` claim at 3559 and the 5-fact `compatibility` claim at 702). Did
+    NOT verify `replacement_provenance_is_exact`'s `obligation_required_fact_fields`/`obligation_
+    any_fact_fields`/`obligation_provenance_prefixes` matching, nor any of the other ~2 dozen
+    resolutions in this repo's map (only 2 of many were checked before the manual-archaeology
+    approach stopped converging).
+  - Likely NOT the same root cause as the 2026-08-09 Cells entry above (9 blocking preserve-
+    disposition claims with no structural home) — that describes a routing gap for claims that
+    never got a placement at all; this is a `verified_obligation_replacement` resolution that
+    has a placement but fails its own exactness re-check.
