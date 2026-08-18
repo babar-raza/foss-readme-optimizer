@@ -94,3 +94,28 @@ preservation machinery outperforming aspose.org's own reframing; the capability-
   shared ratchet keyed by claim-content hash (safe by construction — replay still
   re-corroborates against each repo's own candidate/source before acceptance).
 - 6 blocked-decision records banked in iteration 1; iteration 2 is the E1 skip demonstration.
+
+## 2026-08-18 fleet-parity addendum (7-repo table; parity-*.json)
+
+| repo | terms kept (ours) | terms kept (aspose) | capability bullets (ours/aspose) |
+|---|---|---|---|
+| pdf | 22/24 | 15/24 | 14/12 |
+| 3d | 174/234 | 72/234 | 4/8 |
+| note | 76/238 | 234/238 | 8/7 |
+| font | 108/258 | 258/258 | 3/9 |
+| barcode | 32/81 | 81/81 | 6/7 |
+| email | 27/192 | 192/192 | 5/7 |
+| cells | 31/159 | 159/159 | 7/12 |
+
+**Headline systemic finding:** kept_aspose ≈ 100% for note/font/barcode/email/cells means those
+repos' "original" upstream READMEs already ARE aspose.org's previously published refreshes (the
+aspose.org action ledger records e.g. note-python PR #5). For the majority of the Python
+cohort, our pipeline recomposes already-at-bar content and drops 60–85% of its terminology —
+the single largest quality divergence, and it reframes most S1 claim-accountability blocks as
+"we dropped aspose.org's own generated claims". Consequence: the E5 spec's
+preserve/minimal-delta lane for aspose-refreshed sources (design §6) is the MAIN lane for the
+Python cohort, not an edge case — implement its detection (profile identity / near-identity
+with the reference candidate) early. Secondary: our blocked candidates for barcode/email/
+font/note render no `## Dependencies` section while aspose.org's do — check why the 1.20 slot
+stays empty there; and the universal `Documentation & Resources` ampersand divergence repeats
+in all 7.
