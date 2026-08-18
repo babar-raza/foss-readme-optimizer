@@ -49,3 +49,12 @@ properties if needed, adjust the `<summary>` label to "documented public members
 test = a property mentioned in source inline-code lands in the slot and the
 protected-terminology validator accepts. Expected effect: clears slides' S5 block and the same
 class anywhere else a property is the lost term.
+
+## 2026-08-18 FIX CONFIRMED LIVE (post-merge canary)
+
+Re-ran the slides-python canary against merged main (commit `5c13102c3`+): the
+`unauthorized protected-content loss: technical_terminology:01e835667d2c7cfc` finding is
+**completely gone**. Before: 5 blocking claims + 1 protected-content loss. After: exactly 4
+blocking claims (`2680`, `3166`, `4265`, `4855` — the S1 residue map's Lane B Key-Capabilities
+bullets, unrelated to this fix), zero protected-content losses. `prs.master_theme` now renders
+in the API Method Index slot as designed. S5 is closed.
