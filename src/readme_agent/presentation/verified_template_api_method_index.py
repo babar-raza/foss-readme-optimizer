@@ -1,14 +1,14 @@
-"""Deterministic method-tier API presentation.
+"""Deterministic method/property-tier API presentation.
 
 Separate from `verified_template_api_reference.py`'s class-level table
 (deliberately concise, proven by `test_api_reference_uses_complete_catalog_
 without_dumping_every_member_row`) -- this module renders ONLY the verified
-public methods the maintainer's own original README already named in inline
-code. That intersection (mentioned-by-the-source AND verified-in-the-current-
-API-surface) is what `document_validation.py`'s protected-content check
-requires to survive somewhere; grounding it here, in its own optional slot,
-closes that requirement without touching the class-level table's own
-concise-by-design contract.
+public methods and properties the maintainer's own original README already
+named in inline code. That intersection (mentioned-by-the-source AND
+verified-in-the-current-API-surface) is what `document_validation.py`'s
+protected-content check requires to survive somewhere; grounding it here, in
+its own optional slot, closes that requirement without touching the
+class-level table's own concise-by-design contract.
 """
 
 from __future__ import annotations
@@ -75,7 +75,7 @@ def _verified_method_rows(
         for member in members:
             if not isinstance(member, dict):
                 continue
-            if str(member.get("kind") or "") != "method":
+            if str(member.get("kind") or "") not in {"method", "property"}:
                 continue
             name = str(member.get("name") or "").strip()
             if not name or name.casefold() not in mentioned:
@@ -87,13 +87,14 @@ def _verified_method_rows(
 
 
 def api_method_index_markdown(facts: ProductFactsV2, source_text: str) -> str | None:
-    """Render every verified public method the source README already named
-    in inline code, as one Type/Member/Description table -- deliberately
-    mirroring `verified_template_api_reference.py::api_reference_markdown`'s
-    shape (one combined table inside one collapsible block) rather than a
-    per-class table, so its policy recognition can mirror that proven,
-    already-governed shape. Returns None when no verified method-level
-    obligation exists -- the slot is then simply omitted."""
+    """Render every verified public method or property the source README
+    already named in inline code, as one Type/Member/Description table --
+    deliberately mirroring `verified_template_api_reference.py::
+    api_reference_markdown`'s shape (one combined table inside one
+    collapsible block) rather than a per-class table, so its policy
+    recognition can mirror that proven, already-governed shape. Returns None
+    when no verified method/property-level obligation exists -- the slot is
+    then simply omitted."""
 
     value = _accepted_api_value(facts)
     if value is None:
@@ -124,7 +125,7 @@ def api_method_index_markdown(facts: ProductFactsV2, source_text: str) -> str | 
     return "\n".join(
         [
             "<details>",
-            "<summary>View documented public methods</summary>",
+            "<summary>View documented public members</summary>",
             "",
             *body,
             "",

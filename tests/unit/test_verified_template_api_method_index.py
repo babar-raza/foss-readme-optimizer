@@ -1,6 +1,7 @@
-"""T5-R1: the method-tier API presentation grounds verified public methods
-the source README already named in inline code, without touching the
-class-level API Reference table's own deliberate conciseness contract."""
+"""T5-R1: the method/property-tier API presentation grounds verified public
+methods and properties the source README already named in inline code,
+without touching the class-level API Reference table's own deliberate
+conciseness contract."""
 
 from __future__ import annotations
 
@@ -89,7 +90,7 @@ def test_grounds_a_method_the_source_already_named_bare():
     assert markdown is not None
     assert "| `Scene.open(file_name, options=None) -> None` |" in markdown
     assert "<details>" in markdown
-    assert "<summary>View documented public methods</summary>" in markdown
+    assert "<summary>View documented public members</summary>" in markdown
 
 
 def test_grounds_a_method_the_source_named_qualified():
@@ -129,13 +130,79 @@ def test_never_includes_an_unverified_or_unmentioned_member():
     assert "root_node" not in markdown
 
 
-def test_never_includes_a_non_method_member_even_if_mentioned():
+def test_admits_a_mentioned_property_with_property_appropriate_phrasing():
     facts = _facts_with_api(_MEMBERS)
     source_text = "The `root_node` property exposes the scene graph root.\n"
 
     markdown = api_method_index_markdown(facts, source_text)
 
-    assert markdown is None
+    assert markdown is not None
+    assert "| `Scene.root_node: Node` |" in markdown
+    assert "Gets the `root_node` property on `Scene`." in markdown
+    # No parens on a property identifier, unlike a method's callable form.
+    assert "root_node(" not in markdown
+
+
+def _facts_with_presentation_master_theme() -> ProductFactsV2:
+    base = ProductFactsV2.model_validate_json(
+        (
+            ROOT
+            / "tests/fixtures/readmes/verified_source_assurance"
+            / "aspose-3d-python-facts-ab1a2267.json"
+        ).read_text(encoding="utf-8")
+    )
+    source = base.selected_fact("product.identity").source
+    api = FactRecordV2(
+        fact_id="api.public_surface:method-index-property-test",
+        field="api.public_surface",
+        value={
+            "modules": [{"module": "aspose.slides", "exports": ["Presentation"]}],
+            "classes": [{"module": "aspose.slides", "name": "Presentation", "members": []}],
+            "coordinate_catalog": {
+                "classes": [
+                    {
+                        "module": "aspose.slides",
+                        "name": "Presentation",
+                        "members": [
+                            {
+                                "name": "master_theme",
+                                "kind": "property",
+                                "surface": "master_theme: Theme",
+                                "declared_by": "Presentation",
+                                "inherited": False,
+                            }
+                        ],
+                    }
+                ],
+                "presentation_exclusions": [],
+            },
+        },
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme.api_method_index"],
+    )
+    return base.model_copy(
+        update={
+            "facts": [*base.facts, api],
+            "selected_fact_ids": {**base.selected_fact_ids, api.field: api.fact_id},
+        }
+    )
+
+
+def test_admits_master_theme_property_mentioned_via_a_bare_attribute_access():
+    """Regression for slides' protected-terminology loss: `prs.master_theme`'s
+    bare inline-code name is a real property, so it must land in the slot."""
+
+    facts = _facts_with_presentation_master_theme()
+    source_text = "Access the master theme through `prs.master_theme`.\n"
+
+    markdown = api_method_index_markdown(facts, source_text)
+
+    assert markdown is not None
+    assert "| `Presentation.master_theme: Theme` |" in markdown
+    assert "Gets the `master_theme` property on `Presentation`." in markdown
 
 
 def test_excluded_classes_never_surface_their_members():
