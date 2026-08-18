@@ -263,15 +263,21 @@ def compose_verified_source_preservation(
             source_placements = rebase_source_placements(source_placements, detail_edit)
             composed = apply_edit(composed, detail_edit)
             composed_provenance = rebase_provenance(composed_provenance, detail_edit, composed)
+            # `target_title` alone is not a unique group key: several distinct
+            # obligations route to the same heading with different `summary`
+            # text (e.g. "compatibility" and "dependency_requirements" both
+            # target "Installation"), so two routed groups sharing a heading
+            # previously produced identical placement/provenance IDs and
+            # tripped the composition ledger's duplicate-ID guard.
+            identity = f"{heading_identity(target_title)}.{heading_identity(summary)}"
             source_placements.extend(
                 replacement_placements(
                     blocks,
                     detail_edit,
-                    f"source.canonical-detail.{heading_identity(target_title)}",
+                    f"source.canonical-detail.{identity}",
                     leading=leading,
                 )
             )
-            identity = heading_identity(target_title)
             if leading:
                 composed_provenance.append(
                     CandidateContentProvenanceV1(

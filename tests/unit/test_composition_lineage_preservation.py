@@ -119,6 +119,50 @@ def test_exact_preserved_h2_at_eof_gets_generated_separator_and_is_idempotent() 
     )
 
 
+def test_two_missing_blocks_routed_to_one_shared_heading_get_distinct_placement_ids() -> None:
+    """Regression: `dependency_requirements` and `compatibility` obligations both target
+    "Installation" with different summaries. Routing previously keyed the generated
+    placement/provenance IDs on the heading alone, so two routed groups sharing that
+    heading collided on the exact same ID and tripped the composition ledger's
+    duplicate-ID guard (observed live: aspose-note-foss, ValueError: source placements
+    contain duplicate IDs: source.canonical-detail.installation.0000)."""
+
+    facts = _review_facts()
+    source = (
+        "# Widget FOSS for Python\n\n"
+        "## Requirements\n\n"
+        "- Requires numpy for array operations.\n\n"
+        "## Compatibility\n\n"
+        "Requires Python 3.8 or later.\n"
+    )
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision="a" * 40,
+    )
+    candidate = (
+        "# Widget FOSS for Python\n\n"
+        "[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)\n\n"
+        "## Navigation\n\n- [License](#license)\n\n"
+        "## License\n\nPermit use under the [license](LICENSE).\n"
+    )
+
+    composed = compose_verified_source_preservation(
+        candidate,
+        source,
+        facts,
+        assessment,
+        set(),
+        [],
+    )
+
+    placement_ids = [item.placement_id for item in composed.source_placements]
+    assert len(placement_ids) == len(set(placement_ids))
+    provenance_ids = [item.provenance_id for item in composed.provenance]
+    assert len(provenance_ids) == len(set(provenance_ids))
+
+
 def test_composer_fails_closed_on_unplaced_generated_duplicate_of_preserve_claim() -> None:
     facts = _review_facts()
     exact_claim = "Exact repository-owned detail."
