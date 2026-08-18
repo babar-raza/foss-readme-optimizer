@@ -222,6 +222,27 @@ carry a `blocked_category` field for exactly this; **an unclassified block defau
 `agent_fixable`**, never silently "understandable" by omission. See `GOV-028`
 (`plans/GOVERNANCE.md` rule 13, `plans/master.md` decision #77, `AGT-009`/`AGT-010`).
 
+## Continuous progress — no idle waiting while safe eligible work remains
+
+While a command, subagent, model/gateway request, network operation, validation job, or other
+dependency is running, don't sit idle — continue the next safe, eligible task exposed by durable
+mission state, the Build Checklist, or an already-open investigation: critical-path work, an
+independently leased repository/path lane (see "Coordinator-led execution" above), review or
+reconciliation of already-completed evidence, or preparation for the next transition. Triage a
+newly discovered defect in a completed artifact immediately (previous section); log a non-blocking
+issue found outside the current task per "Handling issues found outside the current task" above,
+never fix it as unrequested scope creep and never silently drop it. Keep task state and evidence
+synchronized with actual progress as it happens, not reconstructed afterward.
+
+This is not license to duplicate work already in flight, cross a repository/path lease, bypass a
+mission-graph dependency, or cross an approval/publication gate merely to appear busy — and it is
+not license to manufacture low-value paperwork or speculative work with no eligible consumer.
+Idling is permitted only when no safe, eligible, non-duplicate work remains; in that case, record
+the exact blocker, the condition that clears it, the affected scope, and the automatically
+resumable next action, and poll the dependency at a reasonable interval while continuing whatever
+other eligible work exists, rather than stopping outright. See `plans/GOVERNANCE.md` rule 24
+(`plans/master.md` decision #103).
+
 ## Prefer battle-tested tools over hand-rolling
 
 Before building any new functionality, actively research, evaluate, and select an existing

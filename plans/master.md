@@ -37,7 +37,7 @@ never override the mission graph or durable state.
 
 ## Decision Ledger
 
-The complete typed ledger contains 102 stable decisions in
+The complete typed ledger contains 103 stable decisions in
 `plans/decisions/catalog.jsonl`. This section is the human-readable current decision index; the
 catalog preserves the complete text and hashes of every prior decision.
 
@@ -110,6 +110,9 @@ Binding current decisions:
   own resume predicate. Applying this to a specific gate task requires updating that task's own
   `closeout_rules`/`acceptance_checks` text in place so its closure evidence asserts something
   true.
+- **#103 — Continuous progress.** No agent idles while a dependency is in flight and safe eligible
+  work remains; idling is recorded with its blocker and resume condition only when genuinely none
+  does.
 
 Aspose.org remains a development-only comparative corpus, never a deployed dependency or factual
 authority. Repository order may change only through the durable dependency graph; changing a

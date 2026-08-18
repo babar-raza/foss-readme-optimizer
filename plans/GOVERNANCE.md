@@ -293,6 +293,26 @@ state. This file also defines machinery-artifact naming and organization.
     is promoted once per repository or campaign boundary instead of per micro-fix. Infrastructure is
     implemented just in time at the first vertical slice that exercises it, never as an unrelated
     prerequisite and never after the dependent slice needs it.
+24. **Continuous progress: no agent sits idle while a dependency is in flight and safe eligible
+    work remains.** While a command, subagent, model/gateway request, network operation, validation
+    job, or other dependency is running, the agent continues the next safe, eligible task exposed by
+    durable mission state, the Build Checklist, or an already-open investigation — critical-path
+    work, an independently leased repository/path lane under rule 19, review or reconciliation of
+    already-completed evidence, or preparation for the next transition — rather than waiting with
+    nothing in progress. A newly discovered defect in a completed artifact is triaged immediately
+    per rule 13 (`agent_fixable`, never silently accepted); a non-blocking issue found outside the
+    current task is logged per `GOV-014`, never fixed as unrequested scope creep and never silently
+    dropped. Task state and evidence stay synchronized with actual progress as it happens, not
+    reconstructed afterward.
+
+    This is not license to duplicate work already in flight, cross a repository/path lease (rule
+    19), bypass a mission-graph dependency, or cross an approval/publication gate (rule 10's push
+    confirmation; Gate A/B/C) merely to appear busy — and it is not license to manufacture
+    low-value paperwork or speculative work with no eligible consumer. Idling is permitted only
+    when no safe, eligible, non-duplicate work remains; the agent then records the exact blocker,
+    the condition that clears it, the affected scope, and the automatically resumable next action,
+    and polls the dependency at a reasonable interval while continuing whatever other eligible work
+    exists, rather than stopping outright. (Added 2026-08-18, user directive — see Decision #103.)
 
 ## Applying a new requirement (the actual procedure)
 
