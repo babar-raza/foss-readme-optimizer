@@ -51,7 +51,7 @@ found in — checked at build time, fails loud on mismatch.
 
 ## Current state
 
-Fourteen active manifests are registered. This table is part of the blocking inventory and must match
+Sixteen active manifests are registered. This table is part of the blocking inventory and must match
 the manifest metadata exactly.
 
 | Prompt ID | Category | Model route | Owner | Runtime consumer | Output contract | Invalidation scope |
