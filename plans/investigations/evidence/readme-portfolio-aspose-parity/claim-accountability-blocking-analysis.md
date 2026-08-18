@@ -273,3 +273,54 @@ sound "planner"/"candidate" names are safe by inference. Flagged here as the con
 3 needs its own careful, dedicated pass rather than continued plumbing under time pressure — a
 mistake here would be a real regression of `VER-001`'s independence guarantee, worse than leaving
 claims blocked.
+
+## Phase 3 live, and two dead-code bugs found and fixed the same day (2026-08-18)
+
+Re-traced the direct-caller graph precisely (`grep -rln "build_readme_claim_accountability_map("`)
+rather than the five-site estimate above, which conflated the wrapper function
+`build_readme_document_candidate`'s callers with the real function's own callers: there are exactly
+**two** — `presentation/verified_template_document.py` and `readme/document_plan_finalizer.py`. The
+composition-time-only chain was confirmed as `capabilities/build_presentation_plan.py::execute()` →
+`presentation/document_planner.py::build_document_repository_presentation_plan()` →
+`readme/document_renderer.py::build_readme_document_candidate()` →
+`verified_template_document.py::build_verified_template_document_candidate()` →
+`claim_accountability.py`. `llm_disposition_client`/`repository_root` were threaded through exactly
+that chain, and only that chain — `verification/checks.py`/`verification/readme_proposal_bundle.py`
+remain untouched, so the safety subtlety above stays correctly unresolved-by-avoidance (they simply
+never receive a client). `build_presentation_plan`'s `CapabilityManifest` was updated to
+`side_effect_class="read_only_network"` to match. Landed as commit `543943038`.
+
+**The mechanism was live-wired but functionally inert on first landing** — confirmed by watching the
+concurrently-running Gate A portfolio loop reprocess the same known-blocked repos
+(aspose-barcode-foss et al.) after the wiring landed: `provider_calls` stayed at `1` (the
+`readme_presentation` planning call alone), identical to before Phase 3, meaning the fallback was
+never actually invoked. Root-caused to two compounding bugs, both in the exact scenario Phase 3 was
+built for — a source claim genuinely dropped from the candidate (`survives_in_candidate is False`,
+the real barcode/email/font/page/note claims, rationale `"Preserved source knowledge disappeared
+without an exact correction, equivalence, or omission authority."`):
+
+1. `claim_accountability_helpers.py::expected_disposition()`'s `stage == "source" and
+   survives_in_candidate is False` branch returned `"unjustified_loss"` **unconditionally**,
+   before the priority-ordered tree ever reached the `llm_disposition_corroborated` branch further
+   down — dead code by construction for every lost source claim.
+2. `claim_accountability.py`'s source-claim loop only *attempted* the corroboration call when
+   `survives is not False` — the exact inverse of what the lost-claim scenario needed, so
+   `llm_disposition_corroborated` was always `False` going into bug (1) regardless.
+
+Both existing unit tests (`test_unbindable_claim_becomes_accountable_with_a_corroborated_verdict`
+etc.) used `source_text == candidate_text`, so `survives_in_candidate` was always `True` there —
+neither broken branch was ever exercised, which is why green tests coexisted with a dead-in-
+production feature. Fixed: (1) added an `llm_disposition_corroborated` check inside the
+`survives_in_candidate is False` branch itself; (2) removed the `survives is not False` guard at the
+call site. New tests (`test_dropped_claim_stays_unjustified_loss_without_a_client`,
+`test_dropped_claim_becomes_accountable_with_a_corroborated_verdict`) use a genuinely different
+`candidate_text` so `survives_in_candidate` really is `False`; both fail on the pre-fix code
+(verified via `git stash`, reproducing the exact live rationale string) and pass after. Landed as
+commit `928421b65`.
+
+**Confirmed live post-fix**: aspose-barcode-foss's `provider_calls` went from `1` to `4` on the next
+Gate A pass (2 blocking claims × 2 calls each, classify + corroborate) — the mechanism now
+genuinely runs. It still left both claims blocked that pass, because independent corroboration did
+not agree for that specific content — the intended fail-closed behavior, not a bug. Whether any
+real portfolio claim actually gets unblocked by this path depends on case-by-case corroboration
+outcomes; the goal of this fix was reachability, not a guaranteed unblock.
