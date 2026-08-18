@@ -7,6 +7,19 @@
   acquisition/example proofs stay blocked. Upstream one-line fix: use
   `build-backend = "setuptools.build_meta"` (as every other portfolio repo does), then re-run
   `readme-agent poc --repo aspose-html-foss/Aspose.HTML-FOSS-for-Python`.
+  **Re-confirmed still unresolved 2026-08-18**: the Gate A local_poc loop still reports
+  `product_truth_not_ready:BLOCKED_MISSING_EVIDENCE` for this repo every pass; `runs/baseline/
+  aspose-html-foss__Aspose.HTML-FOSS-for-Python/pyproject.toml` still declares the identical
+  broken `build-backend`. This is a genuine `infra_external` block (a real defect in the target
+  repository we cannot fix without push access, explicitly out of local_poc scope), not an
+  `agent_fixable` one — the loop's own log line tags it `category=agent_fixable`, which may be a
+  generic default applied to every `BLOCKED_MISSING_EVIDENCE` outcome rather than a cause-specific
+  classification; worth checking whether `classify_product_truth`'s callers should distinguish
+  "genuinely missing upstream evidence due to a build failure" from other missing-evidence causes,
+  per GOVERNANCE.md rule 13's own "classified explicitly at the site that produces it" standard.
+  A repository in this exact state is also the natural candidate for Decision #101's working-
+  condition-presentation exception lane, but applying that lane requires per-repository
+  product-owner review and is not this session's call to make unilaterally.
 - 2026-08-09: poc runner failed for aspose-pdf-foss/Aspose-PDF-FOSS-for-Python: ValueError: invalid README header visual: capability_columns_short failed
 - 2026-08-09: poc runner failed for aspose-slides-foss/Aspose.Slides-FOSS-for-Python: verified diagram has 0 input node(s); requires 1
 - 2026-08-09: poc runner failed for aspose-tex-foss/Aspose.TeX-FOSS-for-Python: verified diagram has 0 input node(s); requires 1
