@@ -55,3 +55,22 @@ every read job was already grouped), and a `$GITHUB_STEP_SUMMARY` health digest.
    `restore-qualified-cohort` step rebuilds `runs/readme-poc/**` from committed checksummed
    inputs, so no gitignored state is needed; expect `healthy: true`, zero LLM calls, zero
    effects.
+
+## Finding #1 CLOSED (2026-08-18): hash-pinned lockfile landed
+
+`requirements-lock.txt` is now generated via `pip-compile --extra=dev --generate-hashes`
+against `pyproject.toml`'s real dependency declarations (was a plain, unpinned `pip freeze`).
+Conflict-free resolution; every entry carries sha256 hashes; verified twice via independent
+fresh-venv installs (`pip install --require-hashes -r requirements-lock.txt` → `pip install -e .
+--no-deps` → `import readme_agent` → collect-only), including once by this coordinator
+independently of the implementing agent. 20 packages moved forward (time-driven `>=`
+resolution), `marko`/`mistune` correctly dropped as genuinely unused (grep-verified) leftover
+freeze artifacts, package count 75→73. No workflow YAML change needed — neither CI nor
+production passes `--require-hashes` today, and a hash-pinned file installs cleanly without it;
+adding the flag to enforce hashes in CI is a reasonable, deliberately separate follow-up.
+
+**Deliberate non-action**: this session's own active `.venv` (used throughout for every gate)
+was NOT rebuilt against the new lock — it remains on its already-verified package set. Rebasing
+the dev environment onto newer tool versions (ruff/mypy bumps) this late risks introducing
+unrelated lint/type noise with no mission benefit; the lockfile's job is fresh/CI installs,
+which is now correct and independently verified.
