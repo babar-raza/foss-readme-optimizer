@@ -19,6 +19,7 @@ _NON_PROMPT_LEDGER_IDS = frozenset(
     {
         "embeddings",
         "local_poc_approved_bundle",
+        "local_poc_blocked_decision",
         "local_poc_complete_bundle",
     }
 )

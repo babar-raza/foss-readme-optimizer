@@ -206,6 +206,40 @@ def _current_dependencies(
     }
 
 
+def current_blocked_decision_dependencies(
+    *,
+    org_repo: str,
+    source_revision: str | None,
+    control_plane_fingerprint: str,
+    content_assurance: ContentAssuranceV1 = "repository_verified",
+    ecosystem: str | None = None,
+    family: str | None = None,
+) -> dict[str, Any]:
+    """The dependency fingerprints a persisted BLOCKED outcome is bound to.
+
+    Same acceptance-dependency sources as `_current_dependencies` (so the
+    blocked-decision cache and the completed-bundle cache can never drift
+    apart on what counts as a semantic change), minus the two members that
+    only exist for a complete bundle: `artifact_inventory_sha256` (no
+    accepted artifact inventory exists for a blocked repository) and the
+    full `candidate_stage_dependency_manifest` payload (its `stage_key`
+    already commits to the same content hash).
+    """
+
+    dependencies = _current_dependencies(
+        source_revision=source_revision,
+        control_plane_fingerprint=control_plane_fingerprint,
+        inventory_sha256=None,
+        content_assurance=content_assurance,
+        org_repo=org_repo,
+        ecosystem=ecosystem,
+        family=family,
+    )
+    dependencies.pop("artifact_inventory_sha256", None)
+    dependencies.pop("candidate_stage_dependency_manifest", None)
+    return dependencies
+
+
 def evaluate_completed_local_poc_cache(
     state: RunStateV2 | None,
     bundle_dir: Path,

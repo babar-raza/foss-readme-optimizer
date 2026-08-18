@@ -856,6 +856,88 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                         )
                     )
                     continue
+                if not getattr(args, "retry_blocked", False):
+                    from readme_agent.supervisor.blocked_decision_cache import (
+                        evaluate_blocked_decision_cache,
+                    )
+                    from readme_agent.supervisor.local_poc_cache import (
+                        current_blocked_decision_dependencies,
+                    )
+
+                    blocked_decision = evaluate_blocked_decision_cache(
+                        paths.readme_poc_blocked_decision_path(org, repo),
+                        org_repo=entry.org_repo,
+                        current_dependencies=current_blocked_decision_dependencies(
+                            org_repo=entry.org_repo,
+                            source_revision=current_source_revision,
+                            control_plane_fingerprint=compute_control_plane_fingerprint(
+                                entry.policy_profile
+                            ),
+                            ecosystem=entry.ecosystem,
+                            family=getattr(entry, "family", None),
+                        ),
+                    )
+                    if blocked_decision.reusable and blocked_decision.record is not None:
+                        from readme_agent.evidence.writer import generate_run_id
+                        from readme_agent.llm.call_ledger import (
+                            bind_llm_repository_revision,
+                            record_non_provider_call,
+                            start_llm_call_accounting,
+                        )
+
+                        blocked_record = blocked_decision.record
+                        blocked_run_id = generate_run_id()
+                        start_llm_call_accounting(
+                            entry.org_repo,
+                            blocked_run_id,
+                            campaign_id=blocked_run_id,
+                            stage="BLOCKED_DECISION_REUSE",
+                        )
+                        bind_llm_repository_revision(
+                            lifecycle.source_revision,
+                            stage="BLOCKED_DECISION_REUSE",
+                        )
+                        record_non_provider_call(
+                            job="local_poc_blocked_decision",
+                            prompt_id="local_poc_blocked_decision",
+                            prompt_sha256=None,
+                            model="cache",
+                            disposition="cache_reuse",
+                            request={
+                                "org_repo": entry.org_repo,
+                                "source_revision": lifecycle.source_revision,
+                                "status": blocked_record.status,
+                                "blocked_reason": blocked_record.blocked_reason,
+                                "consecutive_live_count": blocked_record.consecutive_count,
+                            },
+                        )
+                        print(
+                            f"{entry.org_repo}: BLOCKED (cached, not re-executed: "
+                            f"{blocked_record.blocked_reason}; "
+                            f"category={blocked_record.blocked_category}; "
+                            f"live_reproductions={blocked_record.consecutive_count}) "
+                            "[blocked_decision_reuse; unchanged dependencies; "
+                            "pass --retry-blocked to force a live re-run]",
+                            flush=True,
+                        )
+                        results.append(
+                            PortfolioRepositoryResultV1(
+                                org_repo=entry.org_repo,
+                                content_assurance=(
+                                    lifecycle.content_assurance
+                                    if lifecycle is not None
+                                    else "repository_verified"
+                                ),
+                                status=blocked_record.status,
+                                exit_code=blocked_record.exit_code,
+                                blocked_reason=blocked_record.blocked_reason,
+                                blocked_category=blocked_record.blocked_category,
+                                **_current_llm_accounting(
+                                    argparse.Namespace(_llm_accounting_run_id=blocked_run_id)
+                                ),
+                            )
+                        )
+                        continue
             # Recover only expired work. An explicitly retryable trigger can
             # resume immediately; an unexpired accepted/processing trigger
             # belongs to the sole operator's current or interrupted invocation.
@@ -882,35 +964,80 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
             terminal_result = getattr(repository_args, "_terminal_supervise_result", None)
             persisted = state_backend.load(entry.org_repo)
             lifecycle = persisted.readme_poc_lifecycle if persisted is not None else None
-            results.append(
-                PortfolioRepositoryResultV1(
-                    org_repo=entry.org_repo,
-                    content_assurance=(
-                        lifecycle.content_assurance
-                        if isinstance(lifecycle, ReadmePocLifecycleStateV2)
-                        else "repository_verified"
-                    ),
-                    status=(
-                        terminal_result.readme_lifecycle_status
-                        if readme_poc_stage_limit is not None
-                        and terminal_result is not None
-                        and terminal_result.readme_lifecycle_status is not None
-                        else (
-                            lifecycle.status
-                            if lifecycle is not None
-                            else ("NO_POC_LIFECYCLE" if exit_code == 0 else "NON_SUCCESS_TERMINAL")
-                        )
-                    ),
-                    exit_code=exit_code,
-                    blocked_reason=(
-                        terminal_result.blocked_reason if terminal_result is not None else None
-                    ),
-                    blocked_category=(
-                        terminal_result.blocked_category if terminal_result is not None else None
-                    ),
-                    **_current_llm_accounting(repository_args),
-                )
+            member_result = PortfolioRepositoryResultV1(
+                org_repo=entry.org_repo,
+                content_assurance=(
+                    lifecycle.content_assurance
+                    if isinstance(lifecycle, ReadmePocLifecycleStateV2)
+                    else "repository_verified"
+                ),
+                status=(
+                    terminal_result.readme_lifecycle_status
+                    if readme_poc_stage_limit is not None
+                    and terminal_result is not None
+                    and terminal_result.readme_lifecycle_status is not None
+                    else (
+                        lifecycle.status
+                        if lifecycle is not None
+                        else ("NO_POC_LIFECYCLE" if exit_code == 0 else "NON_SUCCESS_TERMINAL")
+                    )
+                ),
+                exit_code=exit_code,
+                blocked_reason=(
+                    terminal_result.blocked_reason if terminal_result is not None else None
+                ),
+                blocked_category=(
+                    terminal_result.blocked_category if terminal_result is not None else None
+                ),
+                **_current_llm_accounting(repository_args),
             )
+            results.append(member_result)
+            # Blocked-decision bookkeeping is best-effort: a failure here may
+            # cost one needless future re-run, never the member's real result.
+            try:
+                from readme_agent.supervisor.blocked_decision_cache import (
+                    clear_blocked_decision,
+                    record_blocked_outcome,
+                )
+                from readme_agent.supervisor.local_poc_cache import (
+                    current_blocked_decision_dependencies,
+                )
+
+                member_org, member_repo = entry.org_repo.split("/", maxsplit=1)
+                decision_path = paths.readme_poc_blocked_decision_path(member_org, member_repo)
+                pinned_revision = (
+                    lifecycle.source_revision
+                    if isinstance(lifecycle, ReadmePocLifecycleStateV2)
+                    and lifecycle.source_revision
+                    else getattr(repository_args, "_portfolio_source_revision", None)
+                )
+                if member_result.blocked_reason is not None and pinned_revision:
+                    record_blocked_outcome(
+                        decision_path,
+                        org_repo=entry.org_repo,
+                        status=member_result.status,
+                        exit_code=exit_code,
+                        blocked_reason=member_result.blocked_reason,
+                        blocked_category=member_result.blocked_category,
+                        dependencies=current_blocked_decision_dependencies(
+                            org_repo=entry.org_repo,
+                            source_revision=pinned_revision,
+                            control_plane_fingerprint=compute_control_plane_fingerprint(
+                                entry.policy_profile
+                            ),
+                            ecosystem=entry.ecosystem,
+                            family=getattr(entry, "family", None),
+                        ),
+                        run_id=getattr(repository_args, "_llm_accounting_run_id", None),
+                    )
+                else:
+                    clear_blocked_decision(decision_path)
+            except Exception as bookkeeping_exc:  # noqa: BLE001 -- never fail the member
+                print(
+                    f"{entry.org_repo}: blocked-decision bookkeeping failed "
+                    f"(non-fatal): {type(bookkeeping_exc).__name__}: {bookkeeping_exc}",
+                    file=sys.stderr,
+                )
         except Exception as exc:  # noqa: BLE001 -- portfolio failure isolation is contractual
             print(f"{entry.org_repo}: SYSTEM_FAILURE: {type(exc).__name__}: {exc}", file=sys.stderr)
             failure_detail = f"portfolio_member_failure:{type(exc).__name__}:{exc}"

@@ -207,6 +207,16 @@ def _build_parser() -> argparse.ArgumentParser:
         ),
     )
     p_supervise.add_argument(
+        "--retry-blocked",
+        action="store_true",
+        help=(
+            "Portfolio only: re-execute members whose last canonical outcome was BLOCKED even "
+            "though none of their bound dependency fingerprints (source revision, prompts, "
+            "template, contracts, control plane) changed. Without this flag such members reuse "
+            "their persisted blocked decision with zero provider calls."
+        ),
+    )
+    p_supervise.add_argument(
         "--qualified-cohort-manifest",
         help=(
             "Checksum-valid QualifiedTrustedCohortV1 manifest required by act_poc and accepted "

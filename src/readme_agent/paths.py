@@ -117,6 +117,16 @@ def readme_poc_portfolio_summary_path() -> Path:
     return readme_poc_root() / "portfolio-summary.json"
 
 
+def readme_poc_blocked_decision_path(org: str, repo: str) -> Path:
+    """The one live blocked-decision record for a repository.
+
+    Deliberately NOT revision-addressed: it describes the latest triaged
+    BLOCKED outcome and the exact dependency fingerprints it was bound to;
+    a newer live run (blocked or not) supersedes it in place.
+    """
+    return readme_poc_root() / f"{org}__{repo}" / "blocked-decision.json"
+
+
 def registry_heal_marker_path() -> Path:
     """TTL marker for the supervise-time registry self-heal (CORE-034): a
     sequential multi-repo pass reads this to scan GitHub once per interval,
