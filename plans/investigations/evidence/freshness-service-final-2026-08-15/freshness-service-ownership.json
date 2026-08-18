@@ -1,0 +1,80 @@
+{
+  "schema": "freshness-service-ownership-v1",
+  "note": "Local-only artifact (this plan's own tracking). NOT registered into the Level-8 mission graph -- that graph has a live, unrelated active task (L8-VPY-04-PRODUCTION-TRANSPORT) occupying overlapping file territory; registering a competing controller there would violate GOVERNANCE.md rule 14 (sole active machine-readable task/dependency graph). Decision confirmed with the user 2026-08-15.",
+  "lanes": {
+    "L-baseline": {
+      "owned_paths": [
+        "AGENTS.md",
+        "src/readme_agent/llm/call_ledger.py",
+        "tests/conftest.py",
+        "tests/unit/test_agentic_readme_composition.py",
+        "tests/unit/test_readme_composition_characterization.py",
+        "tests/unit/test_portfolio.py",
+        "tests/unit/test_verified_source_opening.py",
+        "tests/unit/test_golden_workflow_coordinates.py",
+        "tests/unit/test_verified_template_golden_workflow.py",
+        "tests/unit/test_python_golden_workflow.py",
+        "tests/fixtures/note_golden_workflow/**",
+        "plans/investigations/evidence/freshness-service-tb-*/**",
+        "pyproject.toml"
+      ]
+    },
+    "coordinator": {
+      "owned_paths": [
+        "plans/investigations/control/freshness-service-*.json",
+        "plans/investigations/evidence/freshness-service-*/**",
+        "plans/investigations/evidence/golden-sample-harvest-v1/**",
+        "plans/investigations/evidence/imported-corpus-v1/**",
+        "src/readme_agent/links/anchor_destination_consistency.py",
+        "tests/unit/test_anchor_destination_consistency.py",
+        "src/readme_agent/authorization/portfolio_write_gate.py",
+        "tests/unit/test_portfolio_write_gate.py",
+        "src/readme_agent/supervisor/portfolio_review_state.py",
+        "tests/unit/test_portfolio_review_state.py",
+        "tests/unit/test_golden_sample_not_an_authority.py",
+        ".github/workflows/readme-agent-production.yml",
+        "src/readme_agent/presentation/template_compiler.py",
+        "src/readme_agent/presentation/verified_template_runtime.py",
+        "src/readme_agent/readme/document_plan.py",
+        "src/readme_agent/presentation/verified_template_document.py",
+        "src/readme_agent/commands_poc.py",
+        "tests/unit/test_template_compiler_slot_blocks.py",
+        "all integration commits on freshness-service/integration"
+      ]
+    },
+    "L-import": {
+      "owned_paths": [
+        "src/readme_agent/vendored_asposeorg/**",
+        "data/imported/**"
+      ]
+    },
+    "L-contract": {
+      "owned_paths": [
+        "docs/readme-process.md",
+        "src/readme_agent/validation/aspose_checks/**",
+        "tests/unit/test_aspose_checks_registry.py",
+        "tests/unit/test_aspose_checks_fixture_coverage.py",
+        "tests/unit/test_readme_process_drift.py",
+        "templates/readme/section-registry-v2.json",
+        "src/readme_agent/presentation/sections/**",
+        "tests/unit/test_section_registry.py"
+      ]
+    },
+    "L-compose": {
+      "owned_paths": [
+        "src/readme_agent/facts/aspose_detectors.py",
+        "src/readme_agent/facts/composer_factpack.py",
+        "src/readme_agent/facts/render_views.py",
+        "tests/unit/test_aspose_detectors.py",
+        "tests/unit/test_composer_factpack.py"
+      ]
+    }
+  },
+  "overlap_check": {
+    "run_2026-08-15": "no cross-lane declared-path overlaps (verified by scripted check during round-5 plan repair; re-verified against the actual changed-file set for TB-01..06 -- see git diff --stat on freshness-service/integration)",
+    "run_2026-08-15_t2_t10_tw01_tw03": "T2/T10/TW-01/TW-03 all landed as NEW files under coordinator-owned paths (anchor_destination_consistency.py, portfolio_write_gate.py, portfolio_review_state.py + their tests) -- zero overlap with L-baseline's declared set or with any pre-existing module (verified: each new module composes with existing machinery via import, never edits it)",
+    "run_2026-08-16_t4_composer_factpack": "L-compose's T4 files (facts/composer_factpack.py new, facts/render_views.py -- new EvidenceGroundedRenderViewV2 view appended, existing VisitorFactRenderViewV1 code untouched -- and tests/unit/test_composer_factpack.py new) verified via git diff --stat on freshness-service/integration: zero overlap with L-baseline, coordinator, L-import, or L-contract's declared paths above; render_views.py itself was previously untouched by any other lane this session (git log -p confirms no prior commit on this branch modified it)",
+    "run_2026-08-16_t14_section_registry": "L-contract's T14 files (presentation/sections/__init__.py new package, templates/readme/section-registry-v2.json new, tests/unit/test_section_registry.py new) verified via git log --oneline 8cb9afabe..HEAD -- <path> for each: zero prior touches by any other lane; template_schema.py and document_templates.py (pre-existing shared machinery T14 reads from but does not modify) confirmed untouched by this round's diff",
+    "run_2026-08-16_t5_disposition_ledger_fix": "T5's real fix touches shared, pre-existing composition machinery (template_compiler.py, verified_template_runtime.py, document_plan.py, verified_template_document.py, commands_poc.py) with no lane claim -- recorded as coordinator-owned above (consistent with the lane model: shared-contract files are coordinator territory by default). Disclosed, not silent: this fix also updated tests/unit/test_agentic_readme_composition.py and tests/unit/test_readme_composition_characterization.py, both declared L-baseline-owned above -- L-baseline's cards (TB-01-06) are already COMPLETE and that lane is dormant (no temporal overlap per the lane model's own note on L-baseline), so updating 4 stale plan-hash constants there (a legitimate downstream re-invalidation from the new additive fields, not a new defect) is a coordinator edit to a finished lane's territory, not a concurrent-edit conflict"
+  }
+}

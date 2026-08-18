@@ -1,0 +1,9 @@
+GOV-014 BACKLOG row (apply manually to plans/backlog-post-poc.md; the file has
+pre-existing uncommitted user edits, so this plan never stages/patches it directly):
+
+- test_portfolio.py::test_completed_local_poc_status_advances_only_with_valid_bundle went stale
+  against the acceptance-artifact-chain contract added by e695713a1 (2026-08-10). Fixed during
+  freshness-service TB-03 (2026-08-15): fixture now binds deterministic-validation /
+  independent-agent-review / final-verdict / no-op-proof through
+  bind_deterministic_validation + build_review_acceptance_binding instead of hand-rolled JSON.
+  No further action needed; row is a closed-loop record per GOV-014.

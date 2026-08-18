@@ -1,0 +1,506 @@
+bringing up nodes...
+bringing up nodes...
+
+........................................................................ [  1%]
+........................................................................ [  3%]
+........................................................................ [  5%]
+..........................................F............................. [  7%]
+........................................................................ [  9%]
+........................................................................ [ 11%]
+........................................................................ [ 13%]
+........................................................................ [ 15%]
+........................................................................ [ 17%]
+........................................................................ [ 19%]
+........................................................................ [ 21%]
+........................................................................ [ 23%]
+........................................................................ [ 25%]
+..........................................................F............. [ 27%]
+........................................................................ [ 29%]
+........................................................................ [ 31%]
+........................................................................ [ 32%]
+........................................................................ [ 34%]
+........................................................................ [ 36%]
+........................................................................ [ 38%]
+........................................................................ [ 40%]
+........................................................................ [ 42%]
+........................................................................ [ 44%]
+........................................................................ [ 46%]
+..........................F............................................. [ 48%]
+........................................................................ [ 50%]
+...............................FF.F..................................... [ 52%]
+........................................................................ [ 54%]
+........................................................................ [ 56%]
+........................................................................ [ 58%]
+........................................................................ [ 60%]
+........................................................................ [ 62%]
+........................................................................ [ 63%]
+........................................................................ [ 65%]
+........................................................................ [ 67%]
+........................................................................ [ 69%]
+........................................................................ [ 71%]
+........................................................................ [ 73%]
+........................................................................ [ 75%]
+........................................................................ [ 77%]
+........................................................................ [ 79%]
+........................................................................ [ 81%]
+........................................................................ [ 83%]
+........................................................................ [ 85%]
+........................................................................ [ 87%]
+........................................................................ [ 89%]
+.....................FFF................................................ [ 91%]
+........................................................................ [ 93%]
+........................................................................ [ 94%]
+........................................................................ [ 96%]
+........................................................................ [ 98%]
+..........................................                               [100%]
+================================== FAILURES ===================================
+_______ test_completed_local_poc_status_advances_only_with_valid_bundle _______
+[gw2] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+tmp_path = WindowsPath('C:/Users/prora/AppData/Local/Temp/ra-p/popen-gw2/test_completed_local_poc_statu0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000023A2A246050>
+
+    def test_completed_local_poc_status_advances_only_with_valid_bundle(tmp_path, monkeypatch):
+        from types import SimpleNamespace
+    
+        import readme_agent.supervisor.local_poc_cache as cache_module
+        from readme_agent.evidence.writer import refresh_sha256sums, write_redacted_json
+        from readme_agent.facts.acceptance_contract import current_fact_acceptance_contract
+        from readme_agent.facts.local_verification import local_verification_contract_hash
+        from readme_agent.llm import prompt_registry
+        from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
+        from readme_agent.readme.document_templates import document_template_hash
+        from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+        from readme_agent.state.schema import RunStateV2, SupervisorStateV1
+        from readme_agent.supervisor.convergence import compute_control_plane_fingerprint
+        from readme_agent.supervisor.stage_dependencies import (
+            current_candidate_stage_dependency_manifest,
+        )
+    
+        source_revision = "a" * 40
+        ecosystem = "python"
+        family = "note"
+        product_facts = _ready_product_facts(source_revision)
+        facts_hash = product_facts.canonical_hash()
+        assessment_hash = "c" * 64
+        presentation_plan_hash = "d" * 64
+        candidate_hash = "e" * 64
+        prompt_hash = None
+        monkeypatch.setattr(
+            cache_module,
+            "require_listed",
+            lambda org_repo: SimpleNamespace(family=family),
+        )
+        fact_contract = current_fact_acceptance_contract(ecosystem, family)
+        candidate_dependency_manifest = current_candidate_stage_dependency_manifest(
+            repository="org/repo",
+            source_revision=source_revision,
+            ecosystem=ecosystem,
+        )
+        candidate_dependency_key = candidate_dependency_manifest.stage_key
+        reviewer_standard = separated_reviewer_standard_hash()
+        control_plane = compute_control_plane_fingerprint(None)
+        state = RunStateV2(
+            org_repo="org/repo",
+            readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+                org_repo="org/repo",
+                source_revision=source_revision,
+                status="NO_OP_PROVEN",
+                facts_hash=facts_hash,
+                assessment_hash=assessment_hash,
+                presentation_plan_hash=presentation_plan_hash,
+                candidate_hash=candidate_hash,
+                prompt_hash=prompt_hash,
+                fact_acceptance_contract_hash=fact_contract.canonical_hash(),
+                fact_acceptance_component_hashes=fact_contract.component_hashes,
+                reviewer_standard_hash=reviewer_standard,
+            ),
+            supervisor_state=SupervisorStateV1(control_plane_fingerprint=control_plane),
+        )
+        bundle_dir = tmp_path / source_revision
+        write_redacted_json(
+            bundle_dir / "manifest.json",
+            {
+                "org_repo": "org/repo",
+                "source_revision": source_revision,
+                "content_assurance": "repository_verified",
+                "resolution_source": "repository_and_policy",
+                "lifecycle_status": "NO_OP_PROVEN",
+                "complete": True,
+                "completed_stages": ["NO_OP_PROVEN"],
+                "facts_hash": facts_hash,
+                "assessment_hash": assessment_hash,
+                "presentation_plan_hash": presentation_plan_hash,
+                "candidate_hash": candidate_hash,
+                "prompt_hash": prompt_hash,
+                "fact_acceptance_contract_hash": fact_contract.canonical_hash(),
+                "fact_acceptance_component_hashes": fact_contract.component_hashes,
+                "local_verification_contract_hash": local_verification_contract_hash(ecosystem),
+                "prompt_registry_content_hash": prompt_registry.content_hash(),
+                "prompt_dependency_hashes": prompt_registry.dependency_hashes(),
+                "candidate_stage_dependency_key": candidate_dependency_key,
+                "candidate_stage_dependency_manifest": candidate_dependency_manifest.model_dump(
+                    mode="json"
+                ),
+                "reviewer_standard_hash": reviewer_standard,
+            },
+        )
+        write_redacted_json(
+            bundle_dir / "planning" / "readme-document-plan.json",
+            {"template_sha256": document_template_hash()},
+        )
+        write_redacted_json(
+            bundle_dir / "facts" / "product-facts.json",
+            product_facts.model_dump(mode="json"),
+        )
+        write_redacted_json(
+            bundle_dir / "planning" / "agentic-composition-plan.json",
+            {"prompt_sha256": prompt_registry.prompt_hash("plan_readme_composition")},
+        )
+        write_redacted_json(
+            bundle_dir / "review" / "final-verdict.json",
+            {
+                "verdict": "AGENT_APPROVED",
+                "agent_approved": True,
+                "deterministic_validation_passed": True,
+            },
+        )
+        write_redacted_json(
+            bundle_dir / "review" / "no-op-proof.json",
+            {
+                "verdict": "NO_OP_PROVEN",
+                "candidate_hash": candidate_hash,
+                "patch_created": False,
+                "duplicate_bundle_created": False,
+                "agentic_review_reused": True,
+                "llm_accounting_status": "EXACT",
+                "new_provider_call_count": 0,
+            },
+        )
+        refresh_sha256sums(bundle_dir)
+    
+>       assert (
+            completed_local_poc_status(
+                state,
+                bundle_dir,
+                current_source_revision=source_revision,
+                current_control_plane_fingerprint=control_plane,
+                ecosystem=ecosystem,
+            )
+            == "NO_OP_PROVEN"
+        )
+E       AssertionError: assert None == 'NO_OP_PROVEN'
+E        +  where None = completed_local_poc_status(RunStateV2(org_repo='org/repo', state_version=0, accepted_facts_hash=None, accepted_status=None, upstream_revision_at_...origin_hash=None, repair_attempts_for_revision=0, details={}), schema_version=2, trigger_lifecycles={}, checkpoints={}), WindowsPath('C:/Users/prora/AppData/Local/Temp/ra-p/popen-gw2/test_completed_local_poc_statu0/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'), current_source_revision='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', current_control_plane_fingerprint='cffc17e8a68ff122b95c21d038b48d6785789af9f3fdd146dbf69278044c9a19', ecosystem='python')
+
+tests\unit\test_portfolio.py:308: AssertionError
+____ test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate _____
+[gw0] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+    def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
+        facts, revision = _facts()
+        draft = _draft(facts)
+        source = f"# Aspose.Cells FOSS for Java\n\n{draft['opening_summary']['text']}\n"
+        assessment = assess_readme_document(
+            facts.org_repo,
+            source,
+            facts,
+            base_revision=revision,
+        )
+        client = _client(_cover_assessment(draft, assessment))
+    
+        plan = plan_readme_composition(
+            facts.org_repo,
+            source,
+            facts,
+            assessment,
+            client=client,
+        )
+        candidate, document_plan = build_readme_document_candidate(
+            facts.org_repo,
+            source,
+            facts,
+            base_revision=revision,
+            agentic_composition_plan=plan.model_dump(mode="json"),
+        )
+    
+        assert hashlib.sha256(source.encode("utf-8")).hexdigest() == CHARACTERIZATION_SOURCE_SHA256
+        assert facts.canonical_hash() == CHARACTERIZATION_FACTS_SHA256
+        assert assessment.canonical_hash() == CHARACTERIZATION_ASSESSMENT_SHA256
+        assert plan.canonical_hash() == CHARACTERIZATION_AGENTIC_PLAN_SHA256
+>       assert (
+            _canonical_hash(document_plan.model_dump(mode="json"))
+            == CHARACTERIZATION_DOCUMENT_PLAN_SHA256
+        )
+E       AssertionError: assert '95639f4ff7e0...47691019e43c7' == 'ab99db83fdce...8f83400cd26ec'
+E         
+E         [0m[91m- ab99db83fdce5cd32af177556fd8265753419b658762b16f2478f83400cd26ec[39;49;00m[90m[39;49;00m
+E         [92m+ 95639f4ff7e03c66f99c8edd832408c1436bcd33f003fc7717147691019e43c7[39;49;00m[90m[39;49;00m
+
+tests\unit\test_agentic_readme_composition.py:428: AssertionError
+__________ test_no_op_proof_reuses_the_exact_accepted_review_binding __________
+[gw1] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+tmp_path = WindowsPath('C:/Users/prora/AppData/Local/Temp/ra-p/popen-gw1/test_no_op_proof_reuses_the_ex0')
+
+    def test_no_op_proof_reuses_the_exact_accepted_review_binding(tmp_path):
+        bundle_dir = tmp_path / "bundle"
+        _seed_manifest(bundle_dir)
+        write_local_poc_review_evidence(
+            bundle_dir,
+            deterministic_validation={"verdict": "accept"},
+            independent_review={"verdict": "ACCEPT"},
+            repair_history=[],
+            lifecycle_status="AGENT_APPROVED",
+            deterministic_validation_passed=True,
+            reviewer_standard_hash=_REVIEWER_STANDARD,
+        )
+    
+>       write_local_poc_no_op_evidence(
+            bundle_dir,
+            candidate_hash=_CANDIDATE_HASH,
+            agentic_review_reused=True,
+        )
+
+tests\unit\test_local_poc_review_evidence.py:180: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+bundle_dir = WindowsPath('C:/Users/prora/AppData/Local/Temp/ra-p/popen-gw1/test_no_op_proof_reuses_the_ex0/bundle')
+candidate_hash = 'cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'
+agentic_review_reused = True
+
+    def write_local_poc_no_op_evidence(
+        bundle_dir: Path,
+        *,
+        candidate_hash: str,
+        agentic_review_reused: bool,
+    ) -> None:
+        """Complete Gate-A repository evidence after an unchanged rerun."""
+    
+        from readme_agent.llm.call_ledger import current_llm_accounting_summary
+    
+        llm_summary = current_llm_accounting_summary()
+        if llm_summary.status == "EXACT" and llm_summary.provider_call_count != 0:
+>           raise RuntimeError("unchanged README no-op made one or more new provider calls")
+E           RuntimeError: unchanged README no-op made one or more new provider calls
+
+src\readme_agent\supervisor\local_poc_review_evidence.py:162: RuntimeError
+_ test_document_composition_bytes_and_plan_are_characterized[aspose-cells-foss/Aspose.Cells-FOSS-for-Java-# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n-59718d243945486c8cbce5652214708b92c9866e00289da496cdae73f55d4fba-bc94878879866bdb19bbb94fb43cdbb7401f2dd149b0f18c16ef33fb7b5a9186-operation_ids0] _
+[gw2] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+org_repo = 'aspose-cells-foss/Aspose.Cells-FOSS-for-Java'
+source = '# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n'
+candidate_hash = '59718d243945486c8cbce5652214708b92c9866e00289da496cdae73f55d4fba'
+plan_hash = 'bc94878879866bdb19bbb94fb43cdbb7401f2dd149b0f18c16ef33fb7b5a9186'
+operation_ids = ['readme.journey.key-capabilities', 'readme.overview-navigation-and-acquisition', 'readme.installation.add-verified', 'readme.example.add-verified-minimal', 'readme.limitations.add-verified', 'readme.license.add-section', ...]
+
+    @pytest.mark.parametrize(
+        ("org_repo", "source", "candidate_hash", "plan_hash", "operation_ids"),
+        DOCUMENT_CASES,
+    )
+    def test_document_composition_bytes_and_plan_are_characterized(
+        org_repo: str,
+        source: str,
+        candidate_hash: str,
+        plan_hash: str,
+        operation_ids: list[str],
+    ) -> None:
+        facts, revision = _facts(org_repo)
+    
+        candidate, plan = build_readme_document_candidate(
+            org_repo,
+            source,
+            facts,
+            base_revision=revision,
+        )
+    
+>       assert hashlib.sha256(candidate.encode("utf-8")).hexdigest() == candidate_hash
+E       AssertionError: assert 'cbc79611b941...fafee59f19af1' == '59718d243945...dae73f55d4fba'
+E         
+E         [0m[91m- 59718d243945486c8cbce5652214708b92c9866e00289da496cdae73f55d4fba[39;49;00m[90m[39;49;00m
+E         [92m+ cbc79611b94171d705a5861ec405079390e503e65985ca86f05fafee59f19af1[39;49;00m[90m[39;49;00m
+
+tests\unit\test_readme_composition_characterization.py:171: AssertionError
+_ test_document_composition_bytes_and_plan_are_characterized[aspose-3d-foss/Aspose.3D-FOSS-for-Java-# Aspose.3D FOSS for Java\n\n> [FOSS](https://products.aspose.org/3d/) and [commercial](https://products.aspose.com/3d/)\n\n## Usage\n\n```java\nSystem.out.println("legacy");\n```\n-c5975c089a4ca961887b3656f66c23fce8f41383c464c8eb9c8d5b4e18163053-bbca86443a30df42ad621303cd4b42a58041836722f99168b88ba1205880b0d8-operation_ids1] _
+[gw2] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+org_repo = 'aspose-3d-foss/Aspose.3D-FOSS-for-Java'
+source = '# Aspose.3D FOSS for Java\n\n> [FOSS](https://products.aspose.org/3d/) and [commercial](https://products.aspose.com/3d/)\n\n## Usage\n\n```java\nSystem.out.println("legacy");\n```\n'
+candidate_hash = 'c5975c089a4ca961887b3656f66c23fce8f41383c464c8eb9c8d5b4e18163053'
+plan_hash = 'bbca86443a30df42ad621303cd4b42a58041836722f99168b88ba1205880b0d8'
+operation_ids = ['readme.journey.key-capabilities', 'readme.overview-navigation-and-acquisition', 'readme.installation.add-verified', 'readme.limitations.add-verified', 'readme.opening.remove-promotional-callout', 'readme.license.add-section', ...]
+
+    @pytest.mark.parametrize(
+        ("org_repo", "source", "candidate_hash", "plan_hash", "operation_ids"),
+        DOCUMENT_CASES,
+    )
+    def test_document_composition_bytes_and_plan_are_characterized(
+        org_repo: str,
+        source: str,
+        candidate_hash: str,
+        plan_hash: str,
+        operation_ids: list[str],
+    ) -> None:
+        facts, revision = _facts(org_repo)
+    
+        candidate, plan = build_readme_document_candidate(
+            org_repo,
+            source,
+            facts,
+            base_revision=revision,
+        )
+    
+>       assert hashlib.sha256(candidate.encode("utf-8")).hexdigest() == candidate_hash
+E       AssertionError: assert '676e0d9a81b8...265a3966b0d13' == 'c5975c089a4c...d5b4e18163053'
+E         
+E         [0m[91m- c5975c089a4ca961887b3656f66c23fce8f41383c464c8eb9c8d5b4e18163053[39;49;00m[90m[39;49;00m
+E         [92m+ 676e0d9a81b82427aa62ee9a12640032af24d079b68a63a3604265a3966b0d13[39;49;00m[90m[39;49;00m
+
+tests\unit\test_readme_composition_characterization.py:171: AssertionError
+_ test_document_composition_bytes_and_plan_are_characterized[aspose-pdf-foss/Aspose.PDF-FOSS-for-Java-# Aspose.PDF FOSS for Java\n\n**Version 0.0.1**\n\n## Installation\n\nExisting instructions.\n-6f8039efdde20e5b2cc8a004e127a5373783981d7fe588502365093e4f17142f-58c35525e63bfa618502e3332fc81275a0bd83ab0a1dccb5184655b46e9ae257-operation_ids2] _
+[gw2] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+org_repo = 'aspose-pdf-foss/Aspose.PDF-FOSS-for-Java'
+source = '# Aspose.PDF FOSS for Java\n\n**Version 0.0.1**\n\n## Installation\n\nExisting instructions.\n'
+candidate_hash = '6f8039efdde20e5b2cc8a004e127a5373783981d7fe588502365093e4f17142f'
+plan_hash = '58c35525e63bfa618502e3332fc81275a0bd83ab0a1dccb5184655b46e9ae257'
+operation_ids = ['readme.journey.key-capabilities', 'readme.overview-navigation-and-acquisition', 'readme.example.add-verified-minimal', 'readme.limitations.add-verified', 'readme.release.correct-manifest-version', 'readme.license.add-section', ...]
+
+    @pytest.mark.parametrize(
+        ("org_repo", "source", "candidate_hash", "plan_hash", "operation_ids"),
+        DOCUMENT_CASES,
+    )
+    def test_document_composition_bytes_and_plan_are_characterized(
+        org_repo: str,
+        source: str,
+        candidate_hash: str,
+        plan_hash: str,
+        operation_ids: list[str],
+    ) -> None:
+        facts, revision = _facts(org_repo)
+    
+        candidate, plan = build_readme_document_candidate(
+            org_repo,
+            source,
+            facts,
+            base_revision=revision,
+        )
+    
+>       assert hashlib.sha256(candidate.encode("utf-8")).hexdigest() == candidate_hash
+E       AssertionError: assert '617605150e13...36c3e2102a3b3' == '6f8039efdde2...5093e4f17142f'
+E         
+E         [0m[91m- 6f8039efdde20e5b2cc8a004e127a5373783981d7fe588502365093e4f17142f[39;49;00m[90m[39;49;00m
+E         [92m+ 617605150e13217cd25813d5238ac37da0f1182a080c26a144636c3e2102a3b3[39;49;00m[90m[39;49;00m
+
+tests\unit\test_readme_composition_characterization.py:171: AssertionError
+___ test_verified_pdf_source_opening_replaces_a_redundant_generated_summary ___
+[gw1] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+    def test_verified_pdf_source_opening_replaces_a_redundant_generated_summary() -> None:
+>       source = (PDF_EVIDENCE / "ORIGINAL-README.md").read_text(encoding="utf-8")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_verified_source_opening.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Python313\Lib\pathlib\_local.py:546: in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Python313\Lib\pathlib\_abc.py:632: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/pdf--537b8273b185--bd8699b68869/ORIGINAL-README.md')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\plans\\investigations\\evidence\\finalized-repository-readmes-v1\\repositories\\python\\pdf--537b8273b185--bd8699b68869\\ORIGINAL-README.md'
+
+C:\Python313\Lib\pathlib\_local.py:537: FileNotFoundError
+_ test_verified_pdf_source_opening_adds_the_accepted_audience_without_llm_prose _
+[gw1] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+    def test_verified_pdf_source_opening_adds_the_accepted_audience_without_llm_prose() -> None:
+        facts = ProductFactsV2.model_validate_json(
+>           (PDF_EVIDENCE / "product-facts.json").read_text(encoding="utf-8")
+        )
+
+tests\unit\test_verified_source_opening.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Python313\Lib\pathlib\_local.py:546: in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Python313\Lib\pathlib\_abc.py:632: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/pdf--537b8273b185--bd8699b68869/product-facts.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\plans\\investigations\\evidence\\finalized-repository-readmes-v1\\repositories\\python\\pdf--537b8273b185--bd8699b68869\\product-facts.json'
+
+C:\Python313\Lib\pathlib\_local.py:537: FileNotFoundError
+____ test_verified_pdf_opening_keeps_source_and_audience_provenance_exact _____
+[gw1] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+    def test_verified_pdf_opening_keeps_source_and_audience_provenance_exact() -> None:
+>       source = (PDF_EVIDENCE / "ORIGINAL-README.md").read_text(encoding="utf-8")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_verified_source_opening.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Python313\Lib\pathlib\_local.py:546: in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Python313\Lib\pathlib\_abc.py:632: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer/plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/pdf--537b8273b185--bd8699b68869/ORIGINAL-README.md')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\plans\\investigations\\evidence\\finalized-repository-readmes-v1\\repositories\\python\\pdf--537b8273b185--bd8699b68869\\ORIGINAL-README.md'
+
+C:\Python313\Lib\pathlib\_local.py:537: FileNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_portfolio.py::test_completed_local_poc_status_advances_only_with_valid_bundle
+FAILED tests/unit/test_agentic_readme_composition.py::test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate
+FAILED tests/unit/test_local_poc_review_evidence.py::test_no_op_proof_reuses_the_exact_accepted_review_binding
+FAILED tests/unit/test_readme_composition_characterization.py::test_document_composition_bytes_and_plan_are_characterized[aspose-cells-foss/Aspose.Cells-FOSS-for-Java-# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n-59718d243945486c8cbce5652214708b92c9866e00289da496cdae73f55d4fba-bc94878879866bdb19bbb94fb43cdbb7401f2dd149b0f18c16ef33fb7b5a9186-operation_ids0]
+FAILED tests/unit/test_readme_composition_characterization.py::test_document_composition_bytes_and_plan_are_characterized[aspose-3d-foss/Aspose.3D-FOSS-for-Java-# Aspose.3D FOSS for Java\n\n> [FOSS](https://products.aspose.org/3d/) and [commercial](https://products.aspose.com/3d/)\n\n## Usage\n\n```java\nSystem.out.println("legacy");\n```\n-c5975c089a4ca961887b3656f66c23fce8f41383c464c8eb9c8d5b4e18163053-bbca86443a30df42ad621303cd4b42a58041836722f99168b88ba1205880b0d8-operation_ids1]
+FAILED tests/unit/test_readme_composition_characterization.py::test_document_composition_bytes_and_plan_are_characterized[aspose-pdf-foss/Aspose.PDF-FOSS-for-Java-# Aspose.PDF FOSS for Java\n\n**Version 0.0.1**\n\n## Installation\n\nExisting instructions.\n-6f8039efdde20e5b2cc8a004e127a5373783981d7fe588502365093e4f17142f-58c35525e63bfa618502e3332fc81275a0bd83ab0a1dccb5184655b46e9ae257-operation_ids2]
+FAILED tests/unit/test_verified_source_opening.py::test_verified_pdf_source_opening_replaces_a_redundant_generated_summary
+FAILED tests/unit/test_verified_source_opening.py::test_verified_pdf_source_opening_adds_the_accepted_audience_without_llm_prose
+FAILED tests/unit/test_verified_source_opening.py::test_verified_pdf_opening_keeps_source_and_audience_provenance_exact
+9 failed, 3705 passed in 310.67s (0:05:10)
+{"branch": "main", "command": ["D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe", "-m", "pytest", "-q", "-n", "4", "--dist", "worksteal", "--max-worker-restart", "0", "--basetemp=C:\\Users\\prora\\AppData\\Local\\Temp\\ra-p"], "dependency_lock_sha256": "ec57f641d93902d6518574ceaa79887b6ab779a36e253c8e00c374319468791c", "dirty_tree": true, "distribution": "worksteal", "duration_seconds": 312.046, "exit_code": 1, "finished_at": "2026-08-15T17:56:13.883197+00:00", "head": "8cb9afabeb31b69e6948a33a7502d89952caf701", "index_tree_at_end": "5d6a7683cd71dca4516c65df4208031cc7808b96", "index_tree_at_start": "5d6a7683cd71dca4516c65df4208031cc7808b96", "leaked_process_ids": [], "max_worker_restart": 0, "outcome_counts": {"deselected": 0, "errors": 0, "failed": 9, "passed": 3705, "skipped": 0, "xfailed": 0, "xpassed": 0}, "python": "3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]", "schema_version": 2, "started_at": "2026-08-15T17:50:59.992114+00:00", "test_inventory_count": 3714, "test_inventory_sha256": "0d61b8d6244f34de1e3b47203a4edafe20bca69f080c3fca8431260020a184de", "tree_changed_during_run": false, "tree_fingerprint_at_end": "c312ee240c6dbe8b5fa112fdeada0ade432ab79b25a2e0fefa9c24ee905b9bc1", "tree_fingerprint_at_start": "c312ee240c6dbe8b5fa112fdeada0ade432ab79b25a2e0fefa9c24ee905b9bc1", "worker_count": 4}
