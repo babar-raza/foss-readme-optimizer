@@ -352,8 +352,15 @@ def _missing_repository_evidence_finding(
         ),
     }
     value = fact.value if isinstance(fact.value, dict) else {}
-    verification_outcome = value.get("verification_outcome")
-    verification_detail = value.get("verification_detail")
+    # Acquisition facts carry outcome/detail; example facts carry
+    # verification_outcome/verification_detail. Both describe the same
+    # immutable-product-source boundary -- found live 2026-08-18 on
+    # tex-python, where the example finding was correctly classified
+    # infra_external but the acquisition finding's different value shape
+    # kept the repository-level category at agent_fixable (the
+    # all-findings-external rule in product_truth_blocked_category).
+    verification_outcome = value.get("verification_outcome") or value.get("outcome")
+    verification_detail = value.get("verification_detail") or value.get("detail")
     if verification_outcome == "BUILD_FAILED" and isinstance(verification_detail, str):
         finding.update(
             {

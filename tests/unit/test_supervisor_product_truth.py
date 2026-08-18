@@ -11,6 +11,7 @@ import pytest
 from readme_agent import paths
 from readme_agent.evidence.writer import refresh_sha256sums, verify_sha256sums
 from readme_agent.facts.acceptance_contract import README_TRUTH_FIELDS
+from readme_agent.facts.migration import SURFACE_DEPENDENCIES
 from readme_agent.facts.schema_v2 import (
     README_DRAFTABLE_PRODUCT_FIELDS,
     REQUIRED_PRODUCT_FIELDS,
@@ -1416,3 +1417,35 @@ def test_a_new_product_truth_block_invalidates_cached_facts(tmp_path, monkeypatc
         lambda policy_profile: "b" * 64,
     )
     assert product_truth.load_prepared_product_truth(ORG_REPO, backend, REVISION) is None
+
+
+def test_acquisition_shaped_build_failure_is_classified_infra_external():
+    """Live tex-python gap (2026-08-18): the example fact's BUILD_FAILED
+    (verification_outcome/verification_detail) was already promoted to
+    infra_external, but the acquisition fact's identical boundary uses
+    outcome/detail -- the shape mismatch left the finding agent_fixable and,
+    via the all-findings-external rule, the whole repository category too."""
+
+    fact = FactRecordV2(
+        fact_id="installation.verified_acquisition:test",
+        field="installation.verified_acquisition",
+        value={
+            "outcome": "BUILD_FAILED",
+            "detail": "pinned package installation or exact public Python example failed",
+        },
+        source=FactSourceV2(
+            source_type="mechanical_test",
+            location="local-product-verification://acme/widget",
+            source_revision="a" * 40,
+        ),
+        verification_state="blocked",
+        authoritative_owner="repository-owner",
+        confidence=0.0,
+        affected_surfaces=SURFACE_DEPENDENCIES["installation.verified_acquisition"],
+    )
+
+    finding = product_truth._missing_repository_evidence_finding(ORG_REPO, fact)
+
+    assert finding["blocked_category"] == "infra_external"
+    assert finding["failure_boundary"] == "immutable_product_source_compile"
+    assert product_truth.product_truth_blocked_category([finding]) == "infra_external"
