@@ -55,3 +55,30 @@ Engineering queue (priority order, one variable per experiment):
   gateway; only persisted, deterministically re-corroborated acceptances converge (closes gap 7
   with a negative result that changes design assumptions — any cache key that assumes tool-call
   reproducibility at temp 0 is unsound).
+
+## 2026-08-18 parity-tool addendum (compare_candidate_parity.py; parity-*.json in this directory)
+
+First three-way numeric parity for the approved repos (original vs aspose.org candidate vs ours):
+
+| repo | original terms kept (ours) | kept (aspose.org) | capability bullets (ours/aspose) |
+|---|---|---|---|
+| pdf-python | **22/24** | 15/24 | **14/12** |
+| 3d-python | **174/234** | 72/234 | 4/8 |
+| cells-python | 31/159 | 159/159* | 7/12 |
+
+*cells' "original" IS aspose.org's previously-published refresh (identical profile: 2,558 words,
+159 spans) — so aspose.org's 159/159 is trivial, and OUR 31/159 means we heavily recompose a
+README that was already at the reference bar. **New systemic finding: when the upstream README
+is already the aspose.org-refreshed output, wholesale recomposition is the wrong lane —
+preservation/minimal-delta should dominate.** (This also reframes several claim-accountability
+blocks: the "source claims" being dropped are aspose.org's own generated claims.)
+
+Universal one-character contract divergence: all three of our candidates render
+`## Documentation and Resources`; aspose.org's required-section contract says
+`## Documentation & Resources`. Queue the template fix for AFTER the current portfolio pass
+(a template edit mid-pass would rotate fingerprints between iterations); it is a
+VALID_UPDATE_AVAILABLE-class improvement under Decision #90, not a forced recomposition.
+
+pdf-python is the working proof that the pipeline can meet/beat the reference bar; 3d shows the
+preservation machinery outperforming aspose.org's own reframing; the capability-bullet deficit
+(Q1) is now numerically tracked per repo.
