@@ -136,3 +136,12 @@ isolated verifier, not a hang; confirmed via live process check, not assumed.
 This is the first evidence that the S1/E5 claim-accountability closure work generalizes across
 families: 3D-.NET's 14 claims are a DIFFERENT set from the Python cohort's, so Lane A/B/C fixes
 will need per-family validation once Python closes, not a single global "done".
+
+## 2026-08-18 cross-family ratchet confirmation (iteration 3, mid-flight)
+
+E2's ratchet mechanism, previously proven only on the Python cohort, is now confirmed working
+identically on .NET: `aspose-3d-foss__Aspose.3D-FOSS-for-.NET` has 5 accepted verdicts,
+`aspose-cells-foss__Aspose.Cells-FOSS-for-.NET` has 20 — cells-.NET's real-time member
+processing (a genuinely long isolated .NET build/verify, confirmed alive via rising CPU, not
+stalled) is running well past the claim-accountability stage the earlier-blocked 3D-.NET member
+stopped at. No family-specific code path was needed; the mechanism generalized for free.
