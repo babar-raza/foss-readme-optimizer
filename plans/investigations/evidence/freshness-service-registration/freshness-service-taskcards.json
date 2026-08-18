@@ -1,0 +1,1523 @@
+{
+ "schema": "freshness-service-taskcards-v5",
+ "updated": "2026-08-15",
+ "status_enum": [
+  "BLOCKED",
+  "COMPLETE",
+  "FAILED",
+  "IN_PROGRESS",
+  "PLANNED",
+  "READY",
+  "ROLLED_BACK",
+  "VERIFYING"
+ ],
+ "defaults": {
+  "allowed_initial_state": "PLANNED (TP-00 is the single authorized READY bootstrap card)",
+  "entry": "prior gate closed + all prereqs COMPLETE + overlap validator green (declared patterns AND actual changed set) + lane worktree synced with freshness-service/integration",
+  "commit_authority": "coordinator only; lane agents edit, never commit; zero code-branch pushes to origin (governed refs/readme-agent-state/* writes only, where already authorized)",
+  "transitions": "evidence-backed compare-and-set in the append-only transition ledger: timestamp, actor/lane, prereq validation, retry count, terminal reason; PLANNED->READY auto on prereqs COMPLETE (a NON-MANDATORY prereq satisfies readiness when COMPLETE or BLOCKED-external - its state is then carried into the dependent card's verdict, never silenced); READY->IN_PROGRESS claim; IN_PROGRESS->VERIFYING evidence attached; VERIFYING->COMPLETE coordinator; VERIFYING->IN_PROGRESS repair (retries-1); ->FAILED retries exhausted/unrecoverable (blocks gate close; terminal reason); ->BLOCKED external dependency (resumable, unblock condition recorded); BLOCKED->READY on resolution; COMPLETE->ROLLED_BACK only after artifacts preserved; FAILED->READY only via a governed fix/exception card",
+  "recovery": "restart = replay the ledger; stale locks expire + recovery-sweep; interrupted card -> IN_PROGRESS with evidence intact or rolled back per card rollback",
+  "failure_class": "FAILED blocks its gate; quarantine = product-level (portfolio semantics per TG-07), card-level failure is FAILED; no waivers outside a dedicated governed exception card",
+  "rollback": "preserve commits/patches/manifests/logs/artifacts FIRST; then git revert the card's commits on its lane branch; caches invalidated by hash; card -> ROLLED_BACK then re-planned; a failed rollback becomes an explicit blocking taskcard with recovery evidence; NEVER reset/overwrite the user worktree",
+  "shared_paths": "coordinator-owned, or lane-prepared *.patch applied+committed by coordinator in coord",
+  "evidence_manifest": "sha256sums.txt at bundle root (CRLF-normalized, evidence/writer.py)",
+  "untracked_work": "no work outside taskcards; anything discovered spawns a card or a named coordinator operation",
+  "worktree_safety": "absolute paths resolved at TP-00; before ANY forced worktree removal: capture status, patch, untracked inventory, commit, reflog info to evidence and prove no unique uncommitted work is lost"
+ },
+ "cards": [
+  {
+   "id": "TP-00",
+   "title": "Mandatory preflight + bootstrap path resolution",
+   "status": "COMPLETE",
+   "lane": "coordinator",
+   "prereqs": [],
+   "gate": "G0",
+   "mandatory": true,
+   "owned_paths": [
+    "(read-only + worktree creation only; owns only its evidence dir)"
+   ],
+   "commands": [
+    "BOOTSTRAP PATHS (absolute, recorded in evidence): REPO=\"$(git rev-parse --show-toplevel)\"; WT_ROOT=\"$(cygpath -m \"$(dirname \"$REPO\")\")/.fro-worktrees\"; per-task temp via RA_BASETEMP=\"$(cygpath -m \"$(mktemp -d)\")\" (never %TEMP%, never repurposed HOME/system vars)",
+    "git status/identity vs section-0 baseline; verify the 3 protected dirty paths unchanged; snapshot user-worktree invariant (git rev-parse HEAD + git status --porcelain byte-recorded; re-checked after EVERY card and gate)",
+    "readme-agent supervise --mission-action status  # the ONLY read-only mission action",
+    "git ls-remote origin 'refs/readme-agent-state/*'; confirm durable mission-state version on origin (authority) vs local snapshots (v1188 handoff / v778 local-poc known divergent)",
+    "tool probes (missing tool => governed install/fallback sub-task or true blocker, never quarantine on a guessed command): gh, docker, act, python, node, actionlint, mmdc, pytest-xdist import, pre-commit hook presence; verify 'readme-agent recovery-sweep' top-level subcommand (cli.py:341); LLM endpoint probe (env.py default https://llm.professionalize.com/v1); verify config/authorization/ absent; verify only 2 mode:full products",
+    "gh read-only inspection (names/metadata only, never secret values): repo branch protection, required checks, Actions state, variables list, secret NAMES, dispatch capability",
+    ".venv/Scripts/python.exe scripts/governance/run_full_pytest.py  # fresh baseline; ANY failure not in the section-0 list of 10 = STOP",
+    ".venv/Scripts/python.exe scripts/governance/validate_plan_structure.py",
+    "re-measure lean import set vs 108.5MB/3277 files (tolerance 10pct)",
+    "git worktree add \"$WT_ROOT/coord\" -b freshness-service/integration <base-commit>"
+   ],
+   "closeout": [
+    "all checks recorded; zero unexplained deltas (else STOP: fail closed, return plan to repair); evidence bundle with sha256sums.txt"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tp-00/",
+   "retries_left": 1,
+   "stop_rule": "material delta vs baseline => fail closed"
+  },
+  {
+   "id": "TB-01",
+   "title": "Refresh composition characterization baselines (7 constants)",
+   "status": "COMPLETE",
+   "lane": "L-baseline",
+   "prereqs": [
+    "TP-00"
+   ],
+   "gate": "G0",
+   "mandatory": true,
+   "owned_paths": [
+    "tests/unit/test_readme_composition_characterization.py",
+    "tests/unit/test_agentic_readme_composition.py"
+   ],
+   "commands": [
+    "set verified constants (round2-investigation-record.md in the repair bundle): cells cand=cbc79611b94171d7... plan=641b04c447144b0e...; 3d cand=676e0d9a81b82427... plan=f551bbaf2ee5f144...; pdf cand=617605150e13217c... plan=f54241b5acdbe8eb...; agentic plan=95639f4ff7e03c66... (full 64-hex values there)",
+    "AGENT-EXECUTABLE diff acceptance: render before/after Mermaid via mmdc to PNG in light AND dark themes; agent inspects the images; compare semantics, node inventory, edge set, clipping, readability, unrelated-byte stability; emit evidence images + machine-readable comparison receipt; escalate ONLY if governance requires subjective approval (none found)",
+    "RA_BASETEMP=\"$(cygpath -m \"$(mktemp -d)\")\"; .venv/Scripts/python.exe -m pytest tests/unit/test_readme_composition_characterization.py tests/unit/test_agentic_readme_composition.py -q --basetemp \"$RA_BASETEMP\""
+   ],
+   "closeout": [
+    "both files green"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tb-01/",
+   "retries_left": 2
+  },
+  {
+   "id": "TB-02",
+   "title": "Retarget verified-source-opening evidence via cohort manifest",
+   "status": "COMPLETE",
+   "lane": "L-baseline",
+   "prereqs": [
+    "TP-00"
+   ],
+   "gate": "G0",
+   "mandatory": true,
+   "owned_paths": [
+    "tests/unit/test_verified_source_opening.py"
+   ],
+   "commands": [
+    "replace hardcoded pdf--537b8273b185--bd8699b68869 with resolution from finalized-repository-readmes-v1/cohort-manifest.json (suffix = candidate_sha256[:12] drifts on re-promotion: promotion_paths.py:12-25); current dir --189b3321da5e verified passing all 3 unchanged; grep repo for other literal --<12hex> promoted paths; NEVER run promote_finalized_verified_readmes.py for this",
+    "RA_BASETEMP=\"$(cygpath -m \"$(mktemp -d)\")\"; .venv/Scripts/python.exe -m pytest tests/unit/test_verified_source_opening.py -q --basetemp \"$RA_BASETEMP\""
+   ],
+   "closeout": [
+    "3 tests green via manifest resolution; grep findings recorded"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tb-02/",
+   "retries_left": 2
+  },
+  {
+   "id": "TB-03",
+   "title": "Complete portfolio acceptance-chain fixture",
+   "status": "COMPLETE",
+   "lane": "L-baseline",
+   "prereqs": [
+    "TP-00"
+   ],
+   "gate": "G0",
+   "mandatory": true,
+   "owned_paths": [
+    "tests/unit/test_portfolio.py"
+   ],
+   "commands": [
+    "extend fixture with full acceptance chain via bind_deterministic_validation/build_review_acceptance_binding + write_local_poc_review_evidence/write_local_poc_no_op_evidence (reuse, no hand-rolled JSON); contract tightened by e695713a1, fixture predates it",
+    "GOV-014 BACKLOG row: prepare the exact row as a *.patch in this card's evidence dir + a freely-appendable logs/ shard note for interim traceability; FORMAL GOV-014 compliance remains OPEN until the user applies the patch (tracked by TX-03; does NOT block unrelated safe work)",
+    "RA_BASETEMP=\"$(cygpath -m \"$(mktemp -d)\")\"; .venv/Scripts/python.exe -m pytest tests/unit/test_portfolio.py -q --basetemp \"$RA_BASETEMP\""
+   ],
+   "closeout": [
+    "test green; patch + log-note staged; TX-03 opened"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tb-03/",
+   "retries_left": 2
+  },
+  {
+   "id": "TB-04",
+   "title": "Reset LLM call-ledger accounting between tests",
+   "status": "COMPLETE",
+   "lane": "L-baseline",
+   "prereqs": [
+    "TP-00"
+   ],
+   "gate": "G0",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/llm/call_ledger.py",
+    "tests/conftest.py"
+   ],
+   "commands": [
+    "add reset_llm_call_accounting() (_CONTEXT.set(None)) + autouse teardown fixture (mirrors conftest.py:16-39); leaked ContextVar makes results order-dependent; ALSO the hosted-CI no-op RuntimeError",
+    "RA_BASETEMP=\"$(cygpath -m \"$(mktemp -d)\")\"; .venv/Scripts/python.exe -m pytest tests/unit/test_llm_call_ledger.py tests/unit/test_local_poc_review_evidence.py -q --basetemp \"$RA_BASETEMP\"  # deterministic repro order; must pass"
+   ],
+   "closeout": [
+    "ordered repro green; order-independent under -n 4 worksteal"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tb-04/",
+   "retries_left": 2
+  },
+  {
+   "id": "TB-05",
+   "title": "Self-contained Note golden-workflow fixture (unblocks hosted CI)",
+   "status": "COMPLETE",
+   "lane": "L-baseline",
+   "prereqs": [
+    "TP-00"
+   ],
+   "gate": "G0",
+   "mandatory": true,
+   "owned_paths": [
+    "tests/fixtures/note_golden_workflow/",
+    "tests/unit/test_golden_workflow_coordinates.py",
+    "tests/unit/test_verified_template_golden_workflow.py",
+    "tests/unit/test_python_golden_workflow.py"
+   ],
+   "commands": [
+    "commit minimal collector input set (129KB measured): README.md, pyproject.toml, tools/regenerate_pdf_goldens.py, tests/test_aspose_note_pdf_goldens.py, tests/_pdf_goldens.py, tests/goldens/pdf/* (13); keep sha256 pins (README 180a16f74735..., revision 6d97a522a9ed...); CAUTION: collector fails closed on len(candidates)!=1 - copy ONLY listed files; retarget the 3 test modules from runs/baseline/; zero new skip markers"
+   ],
+   "closeout": [
+    "6 formerly runner-broken tests pass without runs/baseline/"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tb-05/",
+   "retries_left": 2
+  },
+  {
+   "id": "TB-06",
+   "title": "MAX_PATH runner doctrine (document, not code around)",
+   "status": "COMPLETE",
+   "lane": "L-baseline",
+   "prereqs": [
+    "TP-00"
+   ],
+   "gate": "G0",
+   "mandatory": true,
+   "owned_paths": [
+    "AGENTS.md testing-note patch PROPOSED as *.patch in evidence (shared governance file: coordinator applies + commits)"
+   ],
+   "commands": [
+    "record: run_full_pytest.py (sets its own short basetemp) is the only supported full-suite entry point; targeted runs use the RA_BASETEMP mktemp/cygpath pattern; test_trusted_transform_review 260-char failure is ENV-DEPENDENT (passes with short basetemp; LongPathsEnabled=0) - documented, not excepted (it PASSES under the governed runner)"
+   ],
+   "closeout": [
+    "patch staged; coordinator applied + committed"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tb-06/",
+   "retries_left": 1
+  },
+  {
+   "id": "GC-00",
+   "title": "Gate G0 close (coordinator verification)",
+   "status": "COMPLETE",
+   "lane": "coordinator",
+   "prereqs": [
+    "TB-01",
+    "TB-02",
+    "TB-03",
+    "TB-04",
+    "TB-05",
+    "TB-06",
+    "TP-00"
+   ],
+   "gate": "G0",
+   "mandatory": true,
+   "owned_paths": [
+    "(verification-only; owns only its evidence dir)"
+   ],
+   "commands": [
+    "verify EVERY mandatory G0 card is COMPLETE with verified evidence; any FAILED/BLOCKED mandatory card prevents closure (no waiver without a dedicated governed exception card recording authority, scope, reason, expiry, evidence)",
+    "re-run the overlap validator over the gate's ACTUAL changed-file union; verify lane branches synchronized with freshness-service/integration; verify user-worktree invariance snapshot unchanged",
+    "record the gate-close event (CAS transition + timestamp + actor) in the transition ledger"
+   ],
+   "closeout": [
+    "G0 closed; G1 cards may only now leave PLANNED"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-gc-00/",
+   "retries_left": 1
+  },
+  {
+   "id": "TS-01",
+   "title": "Mission-graph retirement loader fix",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "GC-00"
+   ],
+   "gate": "G1",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/supervisor/mission_graph.py",
+    "src/readme_agent/supervisor/mission_control.py",
+    "tests/unit/test_mission_graph.py",
+    "tests/unit/test_mission_control.py"
+   ],
+   "commands": [
+    "extend _validate_graph (~line 270) so active-task dependencies may resolve to deferred_task_index entries with durable status CLOSED; counterpart in mission_control _DEPENDENCY_SATISFIED; exactly the fix l8-horizon-01-deferral-2026-08-13/findings.md Finding 3 prescribes; negative control: dependency-ineligible task fails activation",
+    ".venv/Scripts/python.exe scripts/governance/run_official_checks.py  # in coord worktree; clean tree required"
+   ],
+   "closeout": [
+    "tests + official checks green"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-ts-01/",
+   "retries_left": 1
+  },
+  {
+   "id": "TS-02",
+   "title": "Retire CLOSED actives; register umbrella L8-FRESH-00-FRESHNESS-SERVICE",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "GC-00",
+    "TS-01"
+   ],
+   "gate": "G1",
+   "mandatory": true,
+   "owned_paths": [
+    "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
+    "plans/investigations/control/level8-deferred-task-catalog.jsonl",
+    "plans/investigations/evidence/agile-authority-reset-v1/migration-matrix.json"
+   ],
+   "commands": [
+    "retire ONLY actives whose CLOSED status is confirmed in CURRENT origin durable state (stale-CLOSED provenance caution); DeferredTaskRecordV1 + index entries + sha256/record_count pins; add umbrella TaskCardV1 (staged draft in the repair bundle; campaign_id/stage_goal_id selected from the frozen enums at execution); append new_tasks[] semantic sha256 to migration-matrix.json; respect 15-active/5-ready/25-requirement budgets",
+    ".venv/Scripts/python.exe scripts/governance/build_level8_requirement_taskcard_coverage.py --check",
+    ".venv/Scripts/python.exe scripts/governance/validate_compact_authority.py  # EXPLICIT - not in official suite",
+    ".venv/Scripts/python.exe scripts/governance/run_official_checks.py"
+   ],
+   "closeout": [
+    "graph loads; all validators green; umbrella registered"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-ts-02/",
+   "retries_left": 1
+  },
+  {
+   "id": "TS-03",
+   "title": "Materialize control inventory, transition ledger, ownership manifest, annex archive",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "GC-00",
+    "TS-02"
+   ],
+   "gate": "G1",
+   "mandatory": true,
+   "owned_paths": [
+    "plans/investigations/control/freshness-service-taskcards.json",
+    "plans/investigations/control/freshness-service-ownership.json",
+    "plans/investigations/control/freshness-service-plan-annex-production-assessment-2026-08-15.md",
+    "src/readme_agent/supervisor/freshness_taskcard_inventory.py",
+    "scripts/governance/validate_freshness_lane_ownership.py",
+    "tests/unit/test_freshness_taskcard_inventory.py",
+    "tests/unit/test_freshness_lane_ownership.py"
+   ],
+   "commands": [
+    "land the staged bytes as the control inventory (STATIC definitions; typed pydantic schema + mirrored test; sha256-pinned from umbrella card); LIVE STATUS = append-only transition-ledger.jsonl (canonical event log): evidence-backed compare-and-set transitions with timestamp, actor/lane identity, prerequisite validation, retry count, terminal reason; restart reconstruction = replay the ledger; stale-lock + interrupted-card recovery per the section-14 rules; umbrella durable status remains the sole runtime authority",
+    "consistency test: ledger transitions legal per the section-14 model, INCLUDING the negative test that no G(n+1) card leaves PLANNED while gate G(n)'s close card is not COMPLETE",
+    "overlap validator script (runs on declared patterns AND actual changed-file sets)",
+    "archive frozen Annex A to the control path (frozen-checkpoint precedent)",
+    ".venv/Scripts/python.exe scripts/governance/run_official_checks.py"
+   ],
+   "closeout": [
+    "inventory + ledger + manifest + annex landed; validators green"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-ts-03/",
+   "retries_left": 1
+  },
+  {
+   "id": "GC-01",
+   "title": "Gate G1 close (coordinator verification)",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "TS-01",
+    "TS-02",
+    "TS-03"
+   ],
+   "gate": "G1",
+   "mandatory": true,
+   "owned_paths": [
+    "(verification-only; owns only its evidence dir)"
+   ],
+   "commands": [
+    "verify EVERY mandatory G1 card is COMPLETE with verified evidence; any FAILED/BLOCKED mandatory card prevents closure (no waiver without a dedicated governed exception card recording authority, scope, reason, expiry, evidence)",
+    "re-run the overlap validator over the gate's ACTUAL changed-file union; verify lane branches synchronized with freshness-service/integration; verify user-worktree invariance snapshot unchanged",
+    "record the gate-close event (CAS transition + timestamp + actor) in the transition ledger"
+   ],
+   "closeout": [
+    "G1 closed; G2 cards may only now leave PLANNED"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-gc-01/",
+   "retries_left": 1
+  },
+  {
+   "id": "TD-01",
+   "title": "Import storage re-measurement + confirmation",
+   "status": "COMPLETE",
+   "lane": "L-import",
+   "prereqs": [
+    "GC-01"
+   ],
+   "gate": "G2",
+   "mandatory": true,
+   "owned_paths": [
+    "import manifest (decision record) in plans/investigations/evidence/imported-corpus-v1/"
+   ],
+   "commands": [
+    "re-measure lean set at D:/onedrive/Documents/GitHub/aspose.org (exclusions: knowledge/_vectors/, knowledge/*/*/scout/, data/backlinks/workspace/, __pycache__/; EXACT dir reports/repo-presenter only - sibling regen trees are 3.05GB); confirm 108.5MB/3277 files within 10pct, zero >50MB; decision = plain git (evidence-resolved); material deviation => fail closed to re-decision"
+   ],
+   "closeout": [
+    "measured values + confirmation recorded"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-td-01/",
+   "retries_left": 1
+  },
+  {
+   "id": "TL-01",
+   "title": "Import licensing / authorization gate (SOLE licensing authority)",
+   "status": "BLOCKED",
+   "lane": "L-import",
+   "prereqs": [
+    "GC-01",
+    "TD-01"
+   ],
+   "gate": "G2",
+   "mandatory": true,
+   "owned_paths": [
+    "licensing-authorization record in plans/investigations/evidence/imported-corpus-v1/"
+   ],
+   "commands": [
+    "identify copyright owner + source licensing status (verified: NO LICENSE/COPYING/NOTICE upstream; origin github.com/aspose/aspose.org; default = all rights reserved); establish the permitted import/modification/redistribution TERMS from repository evidence or a legally sufficient explicit authorization (owner attestation naming scope) - NEVER inferred from first-party/corporate relatedness; NO license label of any kind is applied to the imported material by this plan - the imported code carries exactly the terms the authorization establishes",
+    "record decision, authority, affected paths, provenance, and resulting obligations in the evidence bundle; preserve any copyright/provenance notices found; inline 'Adapted from' headers only in comment-supporting formats (.py); manifest-level provenance for JSON/Markdown/corpus (headers would corrupt syntax or alter accepted candidate bytes); corpus byte-identical where calibration requires",
+    "authority unavailable => this card goes BLOCKED (external), T1B stays PLANNED/BLOCKED, and NO licensed or relabeled copies are created"
+   ],
+   "closeout": [
+    "terms + obligations recorded, or card BLOCKED external with the exact request"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tl-01/",
+   "retries_left": 1,
+   "blocker": "external-potential",
+   "unblock": "explicit owner authorization establishing import/modification/redistribution terms"
+  },
+  {
+   "id": "T1A",
+   "title": "Import enumeration + snapshot manifest + reconstruction proof",
+   "status": "PLANNED",
+   "lane": "L-import",
+   "prereqs": [
+    "GC-01",
+    "TD-01"
+   ],
+   "gate": "G2",
+   "mandatory": true,
+   "owned_paths": [
+    "plans/investigations/evidence/imported-corpus-v1/ (manifest artifacts)"
+   ],
+   "commands": [
+    "snapshot manifest: upstream remote, base commit 7f72da4e14 (APPROXIMATE anchor - worktree dirty 4811M/209D/72 untracked), dirty marker, tracked-modification patch, deleted-file list, untracked inventory (dependency_extract.py untracked; reports/repo-presenter/ exists ONLY in the worktree), per-file sha256",
+    "reconstruction verification: rebuild the set from manifest into \"$(mktemp -d)\"; byte-identical diff REQUIRED (T1B blocked without it)"
+   ],
+   "closeout": [
+    "manifest complete; reconstruction proof passed"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t1a/",
+   "retries_left": 2
+  },
+  {
+   "id": "T1B",
+   "title": "Staged import execution",
+   "status": "PLANNED",
+   "lane": "L-import",
+   "prereqs": [
+    "GC-01",
+    "T1A",
+    "TL-01"
+   ],
+   "gate": "G2",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/vendored_asposeorg/",
+    "data/imported/"
+   ],
+   "commands": [
+    "copy per manifest under the TL-01-established terms ONLY; scrub hardcoded C:/Users/prora/... docstring paths (3 foss modules); provenance per TL-01 (headers for .py; manifest-level for JSON/MD; notices preserved); content-level secret scan (filename-level clean)",
+    ".venv/Scripts/python.exe scripts/governance/run_official_checks.py"
+   ],
+   "closeout": [
+    "every consumer resolves in-repo; staged reviewable commits; provenance/secret-scan clean"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t1b/",
+   "retries_left": 2
+  },
+  {
+   "id": "T2",
+   "title": "Golden-authority retirement (harvest first)",
+   "status": "COMPLETE",
+   "lane": "L-contract",
+   "prereqs": [
+    "GC-01"
+   ],
+   "gate": "G2",
+   "mandatory": true,
+   "owned_paths": [
+    "golden-sample/**",
+    "code/doc references to golden-sample (grep-enumerated into evidence BEFORE edits; overlap validated on the ACTUAL changed set)",
+    "NOTE: src/readme_agent/golden_set/ (LLM route qualification) is UNRELATED and untouched"
+   ],
+   "commands": [
+    "harvest reusable golden assets into corpus/calibration inputs; stamp golden runner surfaces retired; drift test that golden files are no longer an authority"
+   ],
+   "closeout": [
+    "retirement + harvest evidence recorded"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t2/",
+   "retries_left": 2
+  },
+  {
+   "id": "T3",
+   "title": "Vendored check battery + section/global mapping",
+   "status": "PLANNED",
+   "lane": "L-contract",
+   "prereqs": [
+    "GC-01",
+    "T1B"
+   ],
+   "gate": "G2",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/validation/aspose_checks/** (new)",
+    "tests/unit/test_aspose_checks_battery.py (new)",
+    "docs/readme-process.md"
+   ],
+   "commands": [
+    "vendor the 81-check battery with path/config indirection + fail-closed fixtures per check; classify every check section-scoped vs document-global (validated by section-16 agility tests); derived check inventory (grep/tests), never prose counts; drift test vs docs"
+   ],
+   "closeout": [
+    "battery green on corpus fixtures; mapping complete"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t3/",
+   "retries_left": 2
+  },
+  {
+   "id": "T4",
+   "title": "Merged factpack + evidence views + trust surfaces",
+   "status": "PLANNED",
+   "lane": "L-compose",
+   "prereqs": [
+    "GC-01",
+    "T1B"
+   ],
+   "gate": "G2",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/facts/composer_factpack.py (new)",
+    "src/readme_agent/facts/render_views.py (new view only)",
+    "tests/unit/test_composer_factpack.py (new)"
+   ],
+   "commands": [
+    "adapter builds ComposerFactpack from ProductFactsV2 + 13 vendored detectors; EvidenceGroundedRenderViewV2 (closes RC1); per-source staleness/coverage finding surfaces (U7)"
+   ],
+   "closeout": [
+    "factpack schema tests green; views grounded"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t4/",
+   "retries_left": 2
+  },
+  {
+   "id": "T10",
+   "title": "Link-semantics validators + relationship model",
+   "status": "COMPLETE",
+   "lane": "L-contract",
+   "prereqs": [
+    "GC-01"
+   ],
+   "gate": "G2",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/validation/link_semantics.py (new)",
+    "tests/unit/test_link_semantics.py (new)"
+   ],
+   "commands": [
+    "destination-driven MT044 anchor contract; all aspose product/docs/kb/reference hosts both domains; anchor-platform vs destination comparison (the shipped-defect class); duplicate-destination detection; never-via"
+   ],
+   "closeout": [
+    "validators green over imported corpus (62/62 clean expected) + this repo's candidates"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t10/",
+   "retries_left": 2
+  },
+  {
+   "id": "TW-01",
+   "title": "Remote-write defense in depth (system-owned execution)",
+   "status": "COMPLETE",
+   "lane": "L-service",
+   "prereqs": [
+    "GC-01"
+   ],
+   "gate": "G2",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/delivery/remote_write_guard.py (new)",
+    "credential-scoping changes in target-clone/subprocess launch paths",
+    "tests/unit/test_remote_write_guard.py (new)"
+   ],
+   "commands": [
+    "HONEST SCOPE: governs SYSTEM-OWNED execution; cannot stop an independent human/process with separate credentials (stated, not defined away)",
+    "layer 1: pre-approval read-only credentials where available; write-capable GH_TOKEN/Git credentials removed/masked from target-repo subprocess env; target clones run with credential-helper inheritance disabled (git -c credential.helper= + scrubbed env)",
+    "layer 2: transport choke-point for every system-owned git push + GitHub API mutation; rejects target-remote matches across HTTPS/SSH/alternate URL forms; enable-condition = verified portfolio approval receipt (TW-05) ONLY; fail closed on missing/malformed/stale/ambiguous approval state; rejected attempts recorded",
+    "layer 3: AuthorizationRecordV1 + portfolio receipt as independent gates",
+    "TESTS: direct helper, subprocess, URL forms, draft PR (IS a remote write), issue creation, metadata change, resume/recovery paths - all rejected pre-approval + recorded; credential-scrub test proves target subprocess env carries no write-capable token"
+   ],
+   "closeout": [
+    "defense in depth proven BEFORE any delivery-capable lane runs"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tw-01/",
+   "retries_left": 1
+  },
+  {
+   "id": "TW-03",
+   "title": "Portfolio + product state machines + accountability matrix",
+   "status": "COMPLETE",
+   "lane": "L-service",
+   "prereqs": [
+    "GC-01"
+   ],
+   "gate": "G2",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/supervisor/portfolio_states.py (new)",
+    "tests/unit/test_portfolio_states.py (new)"
+   ],
+   "commands": [
+    "product states DISCOVERED->INPUTS_PINNED->GENERATED->LOCALLY_VALIDATED->LOCALLY_E2E_VERIFIED->READY_FOR_PORTFOLIO_REVIEW->HUMAN_APPROVED->REMOTE_ELIGIBLE; portfolio states PORTFOLIO_DISCOVERED->...->AWAITING_GLOBAL_HUMAN_REVIEW->GLOBALLY_APPROVED->REMOTE_WRITES_ENABLED",
+    "AWAITING_GLOBAL_HUMAN_REVIEW reachable ONLY when every active in-scope product has candidate + complete reconciliation + all gates passed + NO unresolved quarantine/blocked state; any such product => BLOCKED_PORTFOLIO; matrix rows: family, platform, target repo, active/excluded + authoritative exclusion reason, candidate path, source revision, README hash, candidate hash, validation, E2E, review status; silent omission forbidden; legitimate exclusion ONLY via a dedicated approval card (authority, scope, reason, expiry, evidence)",
+    "REGRESSION TESTS: one approved README cannot open the global gate; an unreviewed/failed/stale/blocked/quarantined product blocks remote writes AND review readiness"
+   ],
+   "closeout": [
+    "state machines + matrix live; tests green"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tw-03/",
+   "retries_left": 2
+  },
+  {
+   "id": "TA-01",
+   "title": "Production workflow discovery-token scope fix (local)",
+   "status": "COMPLETE",
+   "lane": "coordinator",
+   "prereqs": [
+    "GC-01"
+   ],
+   "gate": "G2",
+   "mandatory": true,
+   "owned_paths": [
+    ".github/workflows/readme-agent-production.yml"
+   ],
+   "commands": [
+    "add two lines to the discovery-token step: owner: aspose-cells-foss / repositories: Aspose.Cells-FOSS-for-Java (config bug d56ca3651: only 1 of 4 minting steps omits them => 404 on control-repo installation lookup, log-proven run 31867614801); preserves count assertions (4x client-id, 3x permission-contents: read)",
+    ".venv/Scripts/python.exe -m pytest tests/unit/test_production_workflow.py -q",
+    "actionlint"
+   ],
+   "closeout": [
+    "local checks green; hosted proof handled by TX-01"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-ta-01/",
+   "retries_left": 1
+  },
+  {
+   "id": "GC-02",
+   "title": "Gate G2 close (coordinator verification)",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "T10",
+    "T1A",
+    "T1B",
+    "T2",
+    "T3",
+    "T4",
+    "TA-01",
+    "TD-01",
+    "TL-01",
+    "TW-01",
+    "TW-03"
+   ],
+   "gate": "G2",
+   "mandatory": true,
+   "owned_paths": [
+    "(verification-only; owns only its evidence dir)"
+   ],
+   "commands": [
+    "verify EVERY mandatory G2 card is COMPLETE with verified evidence; any FAILED/BLOCKED mandatory card prevents closure (no waiver without a dedicated governed exception card recording authority, scope, reason, expiry, evidence)",
+    "re-run the overlap validator over the gate's ACTUAL changed-file union; verify lane branches synchronized with freshness-service/integration; verify user-worktree invariance snapshot unchanged",
+    "record the gate-close event (CAS transition + timestamp + actor) in the transition ledger"
+   ],
+   "closeout": [
+    "G2 closed; G3 cards may only now leave PLANNED"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-gc-02/",
+   "retries_left": 1
+  },
+  {
+   "id": "T14",
+   "title": "Section registry + plugin framework",
+   "status": "PLANNED",
+   "lane": "L-contract",
+   "prereqs": [
+    "GC-02",
+    "T3",
+    "T4"
+   ],
+   "gate": "G3",
+   "mandatory": true,
+   "owned_paths": [
+    "templates/readme/section-registry-v2.json (new)",
+    "src/readme_agent/presentation/sections/** (new plugin package)",
+    "tests/unit/test_section_registry.py (new)"
+   ],
+   "commands": [
+    "registry v1 reproduces current contract byte-compatibly; plugin add/remove/reorder with zero cross-cutting edits; registry hash joins freshness tuple; section-16 agility tests a-d"
+   ],
+   "closeout": [
+    "agility tests green"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t14/",
+   "retries_left": 2
+  },
+  {
+   "id": "T5",
+   "title": "Deterministic pilot skeleton (cells/python)",
+   "status": "PLANNED",
+   "lane": "L-compose",
+   "prereqs": [
+    "GC-02",
+    "T14"
+   ],
+   "gate": "G3",
+   "mandatory": true,
+   "owned_paths": [
+    "pilot wiring modules (exact file list enumerated into evidence BEFORE edits; overlap validated on actual changed set)",
+    "tests/unit/test_deterministic_pilot.py (new)"
+   ],
+   "commands": [
+    "full deterministic section set for cells/python; full check battery + Docker verification; byte-identical double run"
+   ],
+   "closeout": [
+    "G3 core: full battery green + byte-identical double run"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t5/",
+   "retries_left": 2
+  },
+  {
+   "id": "GC-03",
+   "title": "Gate G3 close (coordinator verification)",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "T14",
+    "T5"
+   ],
+   "gate": "G3",
+   "mandatory": true,
+   "owned_paths": [
+    "(verification-only; owns only its evidence dir)"
+   ],
+   "commands": [
+    "verify EVERY mandatory G3 card is COMPLETE with verified evidence; any FAILED/BLOCKED mandatory card prevents closure (no waiver without a dedicated governed exception card recording authority, scope, reason, expiry, evidence)",
+    "re-run the overlap validator over the gate's ACTUAL changed-file union; verify lane branches synchronized with freshness-service/integration; verify user-worktree invariance snapshot unchanged",
+    "record the gate-close event (CAS transition + timestamp + actor) in the transition ledger"
+   ],
+   "closeout": [
+    "G3 closed; G4 cards may only now leave PLANNED"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-gc-03/",
+   "retries_left": 1
+  },
+  {
+   "id": "T6",
+   "title": "Calibration harness",
+   "status": "PLANNED",
+   "lane": "L-compose",
+   "prereqs": [
+    "GC-03",
+    "T5"
+   ],
+   "gate": "G4",
+   "mandatory": true,
+   "owned_paths": [
+    "scripts/calibration/** (new)",
+    "tests/unit/test_calibration_harness.py (new)"
+   ],
+   "commands": [
+    "per-step reference fragments from imported corpus; deterministic scoring (gates/shape/lexical/embedding/groundedness/banned-vocab); scorecards keyed by prompt hash; regression gate on prompt bumps; zero-live-findings exemplar screen (U10), leave-one-out"
+   ],
+   "closeout": [
+    "harness runs on pilot fragments; scorecards emitted"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t6/",
+   "retries_left": 2
+  },
+  {
+   "id": "T7A",
+   "title": "Slot-step: opening summary",
+   "status": "PLANNED",
+   "lane": "L-compose",
+   "prereqs": [
+    "GC-03",
+    "T6"
+   ],
+   "gate": "G4",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/presentation/slot_steps/opening_summary.py (new)",
+    "prompts/generation/opening-summary manifest (new)",
+    "tests/unit/test_slot_step_opening_summary.py (new)"
+   ],
+   "commands": [
+    "forced tool-call schema; prohibition list; deterministic post-validation; <=2 repairs; ladder position recorded; deterministic fallback"
+   ],
+   "closeout": [
+    "calibration bar met or ladder-exhausted fallback recorded"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t7a/",
+   "retries_left": 2
+  },
+  {
+   "id": "T7B",
+   "title": "Slot-step: capability bullets",
+   "status": "PLANNED",
+   "lane": "L-compose",
+   "prereqs": [
+    "GC-03",
+    "T6"
+   ],
+   "gate": "G4",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/presentation/slot_steps/capability_bullets.py (new)",
+    "prompts/generation/capability-bullets manifest (new)",
+    "tests/unit/test_slot_step_capability_bullets.py (new)"
+   ],
+   "commands": [
+    "same mechanics as T7A; semantic-duplicate screen (embedding)"
+   ],
+   "closeout": [
+    "bar met or fallback recorded"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t7b/",
+   "retries_left": 2
+  },
+  {
+   "id": "TP-11A",
+   "title": "Preservation core, deterministic (pilot gate)",
+   "status": "PLANNED",
+   "lane": "L-contract",
+   "prereqs": [
+    "GC-03",
+    "T5"
+   ],
+   "gate": "G4",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/presentation/original_preservation.py (new)",
+    "tests/unit/test_original_preservation.py (new)"
+   ],
+   "commands": [
+    "unit extraction w/ excerpt hashes (U8 bijection every cycle); evidence re-resolution every cycle (U9); closed disposition enum (section 4b); deterministic dispositions only; EVERY original unit accounted - residuals explicitly blocked_unverified, never absent; reconciliation matrix artifact; coverage floor",
+    "NEGATIVE TESTS: silently-dropped verified detail MUST fail (one fixture per preservation-class category); shifted ledger MUST trip the bijection check"
+   ],
+   "closeout": [
+    "pilot cannot complete or be reviewable without full unit accounting; tests green"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tp-11a/",
+   "retries_left": 2
+  },
+  {
+   "id": "T8",
+   "title": "Repair routing + fragment pinning + no-op proof",
+   "status": "PLANNED",
+   "lane": "L-compose",
+   "prereqs": [
+    "GC-03",
+    "T7A",
+    "T7B",
+    "TP-11A"
+   ],
+   "gate": "G4",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/presentation/repair_router.py (new)",
+    "fragment pin store module (new)",
+    "tests/unit/test_repair_router.py (new)"
+   ],
+   "commands": [
+    "finding->step routing repairs only the owning step; first-accepted-wins pinning; NO-OP PROOF: unchanged inputs => byte-identical output, zero LLM + zero embedding calls (ledger-proven)"
+   ],
+   "closeout": [
+    "no-op proof green on pilot"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t8/",
+   "retries_left": 2
+  },
+  {
+   "id": "GC-04",
+   "title": "Gate G4 close (coordinator verification)",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "T6",
+    "T7A",
+    "T7B",
+    "T8",
+    "TP-11A"
+   ],
+   "gate": "G4",
+   "mandatory": true,
+   "owned_paths": [
+    "(verification-only; owns only its evidence dir)"
+   ],
+   "commands": [
+    "verify EVERY mandatory G4 card is COMPLETE with verified evidence; any FAILED/BLOCKED mandatory card prevents closure (no waiver without a dedicated governed exception card recording authority, scope, reason, expiry, evidence)",
+    "re-run the overlap validator over the gate's ACTUAL changed-file union; verify lane branches synchronized with freshness-service/integration; verify user-worktree invariance snapshot unchanged",
+    "record the gate-close event (CAS transition + timestamp + actor) in the transition ledger"
+   ],
+   "closeout": [
+    "G4 closed; G5 cards may only now leave PLANNED"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-gc-04/",
+   "retries_left": 1
+  },
+  {
+   "id": "T9",
+   "title": "Freshness engine + scheduler wiring",
+   "status": "PLANNED",
+   "lane": "L-service",
+   "prereqs": [
+    "GC-04",
+    "T5"
+   ],
+   "gate": "G5",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/state/freshness_* extensions",
+    "src/readme_agent/supervisor/mission_lifecycle_freshness.py extensions",
+    "tests/unit/test_freshness_engine.py (new)"
+   ],
+   "commands": [
+    "content-derived fingerprint tuple (section 11); EXTENDS the existing evaluator (_evaluate_local_poc_cache / validate_acceptance_artifact_chain) - never parallels it; documents supersession vs FRESH-001..006 (no-silent-duplicates); zero-call no-change fast path; scheduler wiring on existing workflow triggers"
+   ],
+   "closeout": [
+    "no-change fast path + resume + endpoint-failure drill + bounded repair proven locally"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t9/",
+   "retries_left": 2
+  },
+  {
+   "id": "TW-02",
+   "title": "Local delivery E2E simulation harness (22 steps, zero target contact)",
+   "status": "PLANNED",
+   "lane": "L-service",
+   "prereqs": [
+    "GC-04",
+    "T8",
+    "TW-01"
+   ],
+   "gate": "G5",
+   "mandatory": true,
+   "owned_paths": [
+    "scripts/e2e_simulation/** (new)",
+    "local bare-repo fixtures under tests/fixtures/e2e_local_remotes/ (new)",
+    "tests/unit/test_e2e_simulation.py (new)"
+   ],
+   "commands": [
+    "exercise ALL 22 amendment steps with REAL git operations against isolated local bare repos + disposable clones + mocked GitHub API; simulated push/PR NEVER pointed at a real target; print-what-it-would-do is NOT proof; includes interruption recovery, duplicate-run prevention, second-run idempotency",
+    "REGRESSION TEST: failed local E2E blocks approval (portfolio cannot reach AWAITING_GLOBAL_HUMAN_REVIEW)"
+   ],
+   "closeout": [
+    "all 22 steps pass; guard logs prove zero system-owned target-write attempts"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tw-02/",
+   "retries_left": 2
+  },
+  {
+   "id": "TX-01",
+   "title": "EXTERNAL: user push + workflow dispatch (hosted proof + App-installation evidence)",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "GC-04",
+    "TA-01"
+   ],
+   "gate": "G5",
+   "mandatory": false,
+   "owned_paths": [
+    "(request card; owns only its evidence dir)"
+   ],
+   "commands": [
+    "exact request to the user: git push origin main && gh workflow run readme-agent-production.yml --repo babar-raza/foss-readme-optimizer; then gh run watch",
+    "the dispatch outcome IS the App-installation proof (discovery mint vs aspose-cells-foss + per-matrix mint vs aspose-3d-foss succeed or 404 decisively); manual App-settings check ONLY if ambiguous; resumable: card stays BLOCKED external without expiring; unresolved at TG-08 => BLOCKED_PRODUCTION co-report"
+   ],
+   "closeout": [
+    "dispatch receipt recorded, or BLOCKED external carried to final report"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tx-01/",
+   "retries_left": 1,
+   "blocker": "external",
+   "unblock": "user push + dispatch"
+  },
+  {
+   "id": "TX-02",
+   "title": "EXTERNAL: hosted LLM secrets creation",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "GC-04"
+   ],
+   "gate": "G5",
+   "mandatory": false,
+   "owned_paths": [
+    "(request card; owns only its evidence dir)"
+   ],
+   "commands": [
+    "exact request: create repo secrets LLM_BASE_URL + LLM_API_KEY (declared required:true for workflow_call, absent from repo; agent has no secret-write grant); resumable BLOCKED external; unresolved at TG-08 => BLOCKED_PRODUCTION co-report"
+   ],
+   "closeout": [
+    "secrets confirmed present (names-only check), or BLOCKED external carried"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tx-02/",
+   "retries_left": 1,
+   "blocker": "external",
+   "unblock": "user creates the two repo secrets"
+  },
+  {
+   "id": "GC-05",
+   "title": "Gate G5 close (coordinator verification)",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "T9",
+    "TW-02"
+   ],
+   "gate": "G5",
+   "mandatory": true,
+   "owned_paths": [
+    "(verification-only; owns only its evidence dir)"
+   ],
+   "commands": [
+    "verify EVERY mandatory G5 card is COMPLETE with verified evidence; any FAILED/BLOCKED mandatory card prevents closure (no waiver without a dedicated governed exception card recording authority, scope, reason, expiry, evidence)",
+    "re-run the overlap validator over the gate's ACTUAL changed-file union; verify lane branches synchronized with freshness-service/integration; verify user-worktree invariance snapshot unchanged",
+    "record the gate-close event (CAS transition + timestamp + actor) in the transition ledger"
+   ],
+   "closeout": [
+    "G5 closed; G6 cards may only now leave PLANNED"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-gc-05/",
+   "retries_left": 1
+  },
+  {
+   "id": "TU-01",
+   "title": "U1-U20 register enforcement table test",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "GC-05",
+    "T3",
+    "T10"
+   ],
+   "gate": "G6",
+   "mandatory": true,
+   "owned_paths": [
+    "tests/unit/test_upstream_defect_register.py (new)"
+   ],
+   "commands": [
+    "table test asserting each U-id resolves to an existing test/module; register row without live control fails"
+   ],
+   "closeout": [
+    "test green"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tu-01/",
+   "retries_left": 1
+  },
+  {
+   "id": "TG-06A",
+   "title": "Cells-family PARTIAL DIAGNOSTIC pilot (core sections only)",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "GC-05",
+    "T9",
+    "TU-01"
+   ],
+   "gate": "G6",
+   "mandatory": true,
+   "owned_paths": [
+    "(verification-only; owns only its evidence dir)"
+   ],
+   "commands": [
+    "all 6 cells products through the CORE pipeline (deterministic sections + T7A/T7B slots + preservation core + checks + Docker verification); cells/java workflow-lane read-only proof; explicitly labeled DIAGNOSTIC - full-family acceptance is TG-06C (G7) after all slot-steps and preservation complete"
+   ],
+   "closeout": [
+    "diagnostic evidence per product; NOT a family certification"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tg-06a/",
+   "retries_left": 1
+  },
+  {
+   "id": "TG-06B",
+   "title": "Takeover-idempotency proof (>=2 published repos)",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "GC-05"
+   ],
+   "gate": "G6",
+   "mandatory": true,
+   "owned_paths": [
+    "(verification-only; owns only its evidence dir)"
+   ],
+   "commands": [
+    "first run vs aspose.org-delivered README treats live README as reconciliation source; converge-to-no-op or explained trivial diff (Regeneration Comparison Protocol)"
+   ],
+   "closeout": [
+    "proof on >=2 published repos"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tg-06b/",
+   "retries_left": 2
+  },
+  {
+   "id": "GC-06",
+   "title": "Gate G6 close (coordinator verification)",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "TG-06A",
+    "TG-06B",
+    "TU-01"
+   ],
+   "gate": "G6",
+   "mandatory": true,
+   "owned_paths": [
+    "(verification-only; owns only its evidence dir)"
+   ],
+   "commands": [
+    "verify EVERY mandatory G6 card is COMPLETE with verified evidence; any FAILED/BLOCKED mandatory card prevents closure (no waiver without a dedicated governed exception card recording authority, scope, reason, expiry, evidence)",
+    "re-run the overlap validator over the gate's ACTUAL changed-file union; verify lane branches synchronized with freshness-service/integration; verify user-worktree invariance snapshot unchanged",
+    "record the gate-close event (CAS transition + timestamp + actor) in the transition ledger"
+   ],
+   "closeout": [
+    "G6 closed; G7 cards may only now leave PLANNED"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-gc-06/",
+   "retries_left": 1
+  },
+  {
+   "id": "T7C",
+   "title": "Slot-step: limitations + summary",
+   "status": "PLANNED",
+   "lane": "L-compose",
+   "prereqs": [
+    "GC-06",
+    "T7B"
+   ],
+   "gate": "G7",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/presentation/slot_steps/limitations.py (new)",
+    "prompts/generation/limitations manifest (new)",
+    "tests/unit/test_slot_step_limitations.py (new)"
+   ],
+   "commands": [
+    "same mechanics as T7A"
+   ],
+   "closeout": [
+    "bar met or fallback recorded"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t7c/",
+   "retries_left": 2
+  },
+  {
+   "id": "T7D",
+   "title": "Slot-step: dispositions residue",
+   "status": "PLANNED",
+   "lane": "L-compose",
+   "prereqs": [
+    "GC-06",
+    "T7B"
+   ],
+   "gate": "G7",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/presentation/slot_steps/dispositions_residue.py (new)",
+    "prompts/generation/dispositions manifest (new)",
+    "tests/unit/test_slot_step_dispositions.py (new)"
+   ],
+   "commands": [
+    "deterministic pre-filter -> embedding shortlists -> per-unit classification from evidence-ID menus only; content_unit_* gates"
+   ],
+   "closeout": [
+    "bar met; gates green"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t7d/",
+   "retries_left": 2
+  },
+  {
+   "id": "T7E",
+   "title": "Slot-step: preserved-unit restyles",
+   "status": "PLANNED",
+   "lane": "L-compose",
+   "prereqs": [
+    "GC-06",
+    "T7D"
+   ],
+   "gate": "G7",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/presentation/slot_steps/preserved_restyle.py (new)",
+    "prompts/generation/restyle manifest (new)",
+    "tests/unit/test_slot_step_restyle.py (new)"
+   ],
+   "commands": [
+    "restyle preserves fact content exactly; preservation gate validates"
+   ],
+   "closeout": [
+    "bar met; preservation checks green"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t7e/",
+   "retries_left": 2
+  },
+  {
+   "id": "T7F",
+   "title": "Slot-steps: quickstart lead + examples brief",
+   "status": "PLANNED",
+   "lane": "L-compose",
+   "prereqs": [
+    "GC-06",
+    "T7A"
+   ],
+   "gate": "G7",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/presentation/slot_steps/quickstart_examples.py (new)",
+    "prompts/generation manifests (new)",
+    "tests/unit/test_slot_step_quickstart.py (new)"
+   ],
+   "commands": [
+    "same mechanics"
+   ],
+   "closeout": [
+    "bar met or fallback recorded"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t7f/",
+   "retries_left": 2
+  },
+  {
+   "id": "TP-11B",
+   "title": "Preservation enhancement: LLM residual dispositions",
+   "status": "PLANNED",
+   "lane": "L-contract",
+   "prereqs": [
+    "GC-06",
+    "TP-11A",
+    "T7D"
+   ],
+   "gate": "G7",
+   "mandatory": true,
+   "owned_paths": [
+    "residual-disposition integration in original_preservation.py",
+    "tests/unit/test_original_preservation.py additions"
+   ],
+   "commands": [
+    "route blocked_unverified residue through T7D classification (evidence-ID menus only); matrix updated in place; all TP-11A gates re-run"
+   ],
+   "closeout": [
+    "residuals resolved or carry explicit blocked_unverified rationale"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tp-11b/",
+   "retries_left": 2
+  },
+  {
+   "id": "TF-01",
+   "title": "Font/Python audit conversion + regeneration acceptance proof",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "GC-06",
+    "T7C",
+    "T7E",
+    "T7F",
+    "TP-11B"
+   ],
+   "gate": "G7",
+   "mandatory": true,
+   "owned_paths": [
+    "portfolio-wide machinery requirements derived from the audit (global modules/tests, NO Font-specific hardcoding)",
+    "Font/Python candidate + evidence"
+   ],
+   "commands": [
+    "read the COMPLETE Font/Python audit set at plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/font--800ea256fec1--636bf4e263cc/ (all 14 artifacts) + any newer audit artifacts from the TP-00 sweep; convert EVERY global finding into portfolio-wide machinery + regression tests",
+    "regenerate Font/Python locally AFTER the global fixes; preserve every verified detail via the section-4b contract; reconciliation matrix; PROOFS: silent-drop fails validation (negative fixture); byte-idempotency second run zero LLM+embedding calls; section-scoped idempotency (one section input change => only that section regenerates)"
+   ],
+   "closeout": [
+    "Font/Python candidate + audit closeout gate the portfolio rollout"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tf-01/",
+   "retries_left": 2
+  },
+  {
+   "id": "TG-06C",
+   "title": "Cells-family FULL acceptance",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "GC-06",
+    "T7C",
+    "T7D",
+    "T7E",
+    "T7F",
+    "TP-11B"
+   ],
+   "gate": "G7",
+   "mandatory": true,
+   "owned_paths": [
+    "(verification-only; owns only its evidence dir)"
+   ],
+   "commands": [
+    "re-run the complete cells family with ALL slot-steps + full preservation; prove README preservation, limitation coverage, disposition handling, restyling, verified examples, provenance, candidate integrity per product"
+   ],
+   "closeout": [
+    "full-family acceptance evidence; supersedes TG-06A's diagnostic"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tg-06c/",
+   "retries_left": 1
+  },
+  {
+   "id": "T11",
+   "title": "Metadata engine (candidate/handoff mode)",
+   "status": "PLANNED",
+   "lane": "L-service",
+   "prereqs": [
+    "GC-06"
+   ],
+   "gate": "G7",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/metadata_engine/** (new)",
+    "tests/unit/test_metadata_engine.py (new)"
+   ],
+   "commands": [
+    "description/topics/homepage/community/social-preview-handoff proposals from historical design; candidate artifacts only"
+   ],
+   "closeout": [
+    "family metadata candidates emitted"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t11/",
+   "retries_left": 2
+  },
+  {
+   "id": "T13",
+   "title": "Issue-filing lane (drafts only)",
+   "status": "PLANNED",
+   "lane": "L-service",
+   "prereqs": [
+    "GC-06"
+   ],
+   "gate": "G7",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/issue_lane/** (new)",
+    "tests/unit/test_issue_lane.py (new)"
+   ],
+   "commands": [
+    "U20 structured defect drafts + dedupe vs open issues (public API reads); draft-mode never writes (test-proven)"
+   ],
+   "closeout": [
+    "draft lane green; dedupe fixture test green"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t13/",
+   "retries_left": 2
+  },
+  {
+   "id": "TG-07",
+   "title": "Complete-portfolio local rollout",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "GC-06",
+    "TG-06C",
+    "TF-01",
+    "T11",
+    "T13"
+   ],
+   "gate": "G7",
+   "mandatory": true,
+   "owned_paths": [
+    "(verification-only; owns only its evidence dir)"
+   ],
+   "commands": [
+    "live registry enumeration (no hardcoded lists); EVERY active product accounted (matrix row); family order = local generation sequencing only; metadata + issue drafts in rollout DoD; zero target writes (guard active)",
+    "PORTFOLIO-WIDE IDEMPOTENCY: every product run twice from unchanged pinned inputs; second run zero LLM + zero embedding calls; bytes + matrices unchanged; no artifact rewritten unnecessarily; section-scoped + document-global + cross-product isolation proofs; per-product idempotency matrix",
+    "an unresolved in-scope quarantined/blocked product => portfolio verdict BLOCKED_PORTFOLIO (safe independent lanes may finish; portfolio acceptance and review readiness are blocked; NO waivers outside a dedicated governed exception card)"
+   ],
+   "closeout": [
+    "G7 evidence incl. idempotency matrix; review-eligible ONLY if every active product fully passed"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tg-07/",
+   "retries_left": 1
+  },
+  {
+   "id": "TX-03",
+   "title": "EXTERNAL: GOV-014 backlog patch application",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "GC-06"
+   ],
+   "gate": "G7",
+   "mandatory": false,
+   "owned_paths": [
+    "(request card; owns only its evidence dir)"
+   ],
+   "commands": [
+    "request: apply the TB-03 patch to plans/backlog-post-poc.md after reconciling your dirty edits (file is user-dirty-protected; the plan never stages it); formal GOV-014 compliance OPEN until applied; does not block unrelated safe work"
+   ],
+   "closeout": [
+    "patch applied by user, or BLOCKED external carried to final report"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tx-03/",
+   "retries_left": 1,
+   "blocker": "external",
+   "unblock": "user reconciles + applies the patch"
+  },
+  {
+   "id": "GC-07",
+   "title": "Gate G7 close (coordinator verification)",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "T11",
+    "T13",
+    "T7C",
+    "T7D",
+    "T7E",
+    "T7F",
+    "TF-01",
+    "TG-06C",
+    "TG-07",
+    "TP-11B"
+   ],
+   "gate": "G7",
+   "mandatory": true,
+   "owned_paths": [
+    "(verification-only; owns only its evidence dir)"
+   ],
+   "commands": [
+    "verify EVERY mandatory G7 card is COMPLETE with verified evidence; any FAILED/BLOCKED mandatory card prevents closure (no waiver without a dedicated governed exception card recording authority, scope, reason, expiry, evidence)",
+    "re-run the overlap validator over the gate's ACTUAL changed-file union; verify lane branches synchronized with freshness-service/integration; verify user-worktree invariance snapshot unchanged",
+    "record the gate-close event (CAS transition + timestamp + actor) in the transition ledger"
+   ],
+   "closeout": [
+    "G7 closed; G8 cards may only now leave PLANNED"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-gc-07/",
+   "retries_left": 1
+  },
+  {
+   "id": "T12",
+   "title": "Retirements (old composer surfaces, SEO gen, poc stamp)",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "GC-07"
+   ],
+   "gate": "G8",
+   "mandatory": true,
+   "owned_paths": [
+    "plan_readme_composition diagram/section surfaces (exact modules grep-enumerated into evidence before edits)",
+    "the SEO title generator module",
+    "commands_poc.py (diagnostic-only stamp)"
+   ],
+   "commands": [
+    "retire per resolution 11 after parity"
+   ],
+   "closeout": [
+    "retirement commits + drift tests"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-t12/",
+   "retries_left": 1
+  },
+  {
+   "id": "TW-04",
+   "title": "Portfolio human-review bundle builder",
+   "status": "PLANNED",
+   "lane": "L-service",
+   "prereqs": [
+    "GC-07",
+    "TW-03"
+   ],
+   "gate": "G8",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/review_bundle/** (new)",
+    "tests/unit/test_review_bundle.py (new)"
+   ],
+   "commands": [
+    "one complete local bundle: inventory, every candidate, diff vs live README, preservation report, factual/example/link+rendering/idempotency/E2E results, blocked checks (NO waiver category exists outside governed exception cards), hashes, source commits, per-repo changed-path list, readiness matrix; browsable single index (no internal run dirs)",
+    "quarantined/blocked products shown DIAGNOSTICALLY; bundle stamped NON-APPROVABLE whenever any exists (BLOCKED_PORTFOLIO)"
+   ],
+   "closeout": [
+    "bundle builds; approvable stamp only when every active product fully passed"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tw-04/",
+   "retries_left": 2
+  },
+  {
+   "id": "TW-05",
+   "title": "Approval receipt + invalidation machinery",
+   "status": "PLANNED",
+   "lane": "L-service",
+   "prereqs": [
+    "GC-07",
+    "TW-02",
+    "TW-03"
+   ],
+   "gate": "G8",
+   "mandatory": true,
+   "owned_paths": [
+    "src/readme_agent/approval_receipt/** (new)",
+    "tests/unit/test_approval_receipt.py (new)"
+   ],
+   "commands": [
+    "immutable receipt: inventory revision, per-candidate hash, per-target source commit, validation-result hashes, E2E hash, timestamp, note, identity per AuthorizationRecordV1 registry; remote ops re-verify candidate + target revision vs receipt",
+    "invalidation on: candidate byte change; target README change; relevant default-branch advance; inventory change; validator/contract change; E2E-implementation drift; regeneration; gate invalidation => remote writes stay disabled, revalidate, rebuild bundle, re-approve COMPLETE portfolio",
+    "TESTS: hash/revision/inventory drift invalidates; approved unchanged portfolio enables the governed path; second local run idempotent"
+   ],
+   "closeout": [
+    "receipt + invalidation proven; post-approval rules encoded for the future phase"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tw-05/",
+   "retries_left": 2
+  },
+  {
+   "id": "TG-08",
+   "title": "FINAL CLOSE: regression + reconciliation + evidence + verdict",
+   "status": "PLANNED",
+   "lane": "coordinator",
+   "prereqs": [
+    "T12",
+    "TW-04",
+    "TW-05",
+    "TX-01",
+    "TX-02",
+    "TX-03"
+   ],
+   "gate": "G8",
+   "mandatory": true,
+   "owned_paths": [
+    "(verification-only; owns only its evidence dir)"
+   ],
+   "commands": [
+    ".venv/Scripts/python.exe scripts/governance/run_full_pytest.py  # ZERO failures - GC-00 standard maintained; no NEW failures ever excepted",
+    ".venv/Scripts/python.exe scripts/governance/run_official_checks.py",
+    ".venv/Scripts/python.exe scripts/governance/validate_compact_authority.py",
+    "state reconciliation (ledger vs umbrella durable status); aggregate evidence: loose diffable files + sha256sums.txt in the repo evidence tree PLUS handoff ZIP outside tracked paths with its own SHA-256 (ZIP list+extract verified); both absolute paths + ZIP hash reported",
+    "VERDICT (exact semantics, section 12): BLOCKED_PORTFOLIO if any in-scope product/mandatory gate blocked or quarantined; BLOCKED_PRODUCTION if local completion succeeded but genuine production authority (TX-01/TX-02) missing (may co-report); AWAITING_GLOBAL_HUMAN_REVIEW only when the complete portfolio is locally verified with no unresolved in-scope quarantine; COMPLETE only after every required closeout condition incl. approvals is satisfied (unreachable within this plan)"
+   ],
+   "closeout": [
+    "bundle + ZIP exist for every outcome class; paths + hashes reported"
+   ],
+   "evidence": "plans/investigations/evidence/freshness-service-tg-08/",
+   "retries_left": 1
+  }
+ ],
+ "note": "LOCAL-ONLY control inventory (this plan tracks its own state; the live Level-8 mission graph is NOT touched -- see freshness-service-ownership.json for why). TS-01/TS-02 (mission-graph loader fix + umbrella registration into the LIVE graph) are SKIPPED by explicit user decision 2026-08-15 due to conflict with the active L8-VPY-04-PRODUCTION-TRANSPORT task; this file plus the transition ledger constitute this plan's entire task-state authority."
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "freshness-service-ownership-v1",
+  "note": "Local-only artifact (this plan's own tracking). NOT registered into the Level-8 mission graph -- that graph has a live, unrelated active task (L8-VPY-04-PRODUCTION-TRANSPORT) occupying overlapping file territory; registering a competing controller there would violate GOVERNANCE.md rule 14 (sole active machine-readable task/dependency graph). Decision confirmed with the user 2026-08-15.",
+  "lanes": {
+    "L-baseline": {
+      "owned_paths": [
+        "AGENTS.md",
+        "src/readme_agent/llm/call_ledger.py",
+        "tests/conftest.py",
+        "tests/unit/test_agentic_readme_composition.py",
+        "tests/unit/test_readme_composition_characterization.py",
+        "tests/unit/test_portfolio.py",
+        "tests/unit/test_verified_source_opening.py",
+        "tests/unit/test_golden_workflow_coordinates.py",
+        "tests/unit/test_verified_template_golden_workflow.py",
+        "tests/unit/test_python_golden_workflow.py",
+        "tests/fixtures/note_golden_workflow/**",
+        "plans/investigations/evidence/freshness-service-tb-*/**",
+        "pyproject.toml"
+      ]
+    },
+    "coordinator": {
+      "owned_paths": [
+        "plans/investigations/control/freshness-service-*.json",
+        "plans/investigations/evidence/freshness-service-*/**",
+        "plans/investigations/evidence/golden-sample-harvest-v1/**",
+        "plans/investigations/evidence/imported-corpus-v1/**",
+        "src/readme_agent/links/anchor_destination_consistency.py",
+        "tests/unit/test_anchor_destination_consistency.py",
+        "src/readme_agent/authorization/portfolio_write_gate.py",
+        "tests/unit/test_portfolio_write_gate.py",
+        "src/readme_agent/supervisor/portfolio_review_state.py",
+        "tests/unit/test_portfolio_review_state.py",
+        "tests/unit/test_golden_sample_not_an_authority.py",
+        ".github/workflows/readme-agent-production.yml",
+        "all integration commits on freshness-service/integration"
+      ]
+    }
+  },
+  "overlap_check": {
+    "run_2026-08-15": "no cross-lane declared-path overlaps (verified by scripted check during round-5 plan repair; re-verified against the actual changed-file set for TB-01..06 -- see git diff --stat on freshness-service/integration)",
+    "run_2026-08-15_t2_t10_tw01_tw03": "T2/T10/TW-01/TW-03 all landed as NEW files under coordinator-owned paths (anchor_destination_consistency.py, portfolio_write_gate.py, portfolio_review_state.py + their tests) -- zero overlap with L-baseline's declared set or with any pre-existing module (verified: each new module composes with existing machinery via import, never edits it)"
+  }
+}
