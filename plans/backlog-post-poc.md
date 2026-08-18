@@ -196,3 +196,20 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
     candidate defect the reviewer is correctly, if sloppily, flagging. Next session should pull
     the fresh evidence bundle for this exact failure and read the `blind_quality` reviewer's
     actual prompt/output before assuming either direction.
+- 2026-08-18 (GOV-014): aspose-tex-foss/Aspose.TeX-FOSS-for-Python regressed back to
+  `product_truth_not_ready:BLOCKED_MISSING_EVIDENCE` (zero provider calls, same signature as the
+  html-python/psd-python upstream-content-gap cases above) on today's Gate A pass, against a fresh
+  upstream commit `2f4bfab3863e66ef32868f5464685eb4c2d36911` — contradicting the 2026-08-09
+  "RESOLVED same day - TeX now DELIVERED clean (12/12)" entry above. NOT the html-python
+  build-backend defect (this repo's `pyproject.toml` correctly declares `setuptools.build_meta`,
+  requires-python `>=3.10`, real version `26.5`) and NOT the psd-python minimal-content case (this
+  README is 159 real lines with genuine installation/quick-start content). Not root-caused —
+  needs live reproduction (facts/acquisition stage, since the block happens before any specialist
+  or LLM call) to find what changed between the 08-09 clean delivery and today's fresh commit.
+- 2026-08-18 (GOV-014): aspose-slides-foss/Aspose.Slides-FOSS-for-Python's previously-`AGENT_
+  APPROVED` candidate (reviewed 2026-08-17, see the parity-review file) was superseded by a fresh
+  upstream commit and is now BLOCKED on a new combination not seen on other repos today:
+  `'unauthorized protected-content loss: technical_terminology:01e835667d2c7cfc'` plus 5 separate
+  claim-accountability blocking claims. Not triaged — the protected-content-loss category is
+  distinct from the claim-accountability path this session's fixes touched; needs its own
+  dedicated look at what `technical_terminology` protection means and why it's newly tripping.
