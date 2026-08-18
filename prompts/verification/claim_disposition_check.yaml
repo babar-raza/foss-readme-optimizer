@@ -1,6 +1,6 @@
 prompt_id: claim_disposition_check
 category: verification
-version: "2"
+version: "3"
 model_route: claim_disposition_check
 owner: readme_agent.readme.claim_accountability_llm_disposition
 runtime_consumer: readme_agent.llm.claim_disposition_prompts
@@ -24,6 +24,13 @@ system: |
     the candidate, and you can confirm it by reading one of the real repository files listed. Name
     the exact file path and quote a verbatim excerpt from that file's real content that confirms
     the claim. Never invent a file path or a quote you did not actually see.
+    Special case -- a named, real, non-text fixture: if the sentence names a specific file (for
+    example a sample document a code snippet opens, like "SimpleTable.one") and that exact
+    filename appears in the repository file listing, this also counts as verified_against_source
+    even though the file has no readable text to quote (a binary document). Name the exact listed
+    path in evidence_ref and leave evidence_quote EMPTY -- do not invent a fake quote and do not
+    fall back to citing a different, unrelated file just to have something to quote. The listing
+    only ever shows paths that genuinely exist, so citing a listed path this way is always honest.
   - narrative_filler: the sentence is pure transitional or framing prose (e.g. "Here's how it
     works:") with no independent factual claim of its own.
   - excluded_with_reason: the sentence is deliberately excluded from the candidate for exactly
@@ -78,4 +85,15 @@ notes: "New 2026-08-18: the bounded LLM-verification alternative acceptance path
   classification -- aspose.org's excluded + excluded_reason analogue -- accepted only when the
   cited evidence_ref names one of three machine-checkable predicates
   (unverifiable_fixture_dependency / superseded_by_verified_slot / stale_version_string) that
-  deterministic code re-verifies against the claim text, candidate, and repository clone."
+  deterministic code re-verifies against the claim text, candidate, and repository clone.
+  Version 3 (2026-08-19): direct investigation of aspose.org's live content-example-
+  dispositions.json for a repository this project was blocked on (note-python's
+  Document('SimpleTable.one') Quick Start claim) found aspose.org verifies such claims as
+  verified_against_source with evidence_type clone_cache_path and NO evidence_quote -- their
+  verification is existence-only for named binary fixtures, never a text-quote match, because a
+  quote inside a binary document is not a meaningful check. This project's file listing
+  previously hid such fixtures entirely (a source-extension allowlist excluded them), which is
+  the real reason the model never cited them and instead reached for plausible-but-inexact
+  substitute citations. repository_file_listing() now lists every real file (minus VCS/cache/
+  build noise) and the verified_against_source path documents the existence-only case
+  explicitly."

@@ -82,9 +82,13 @@ CLAIM_DISPOSITION_TOOL_SCHEMA = {
                         "evidence location (the candidate text or the named source file) "
                         "that supports the classification. For "
                         "superseded_by_verified_slot: at least 40 characters copied "
-                        "verbatim from the superseding candidate section. Empty for "
-                        "narrative_filler, unverifiable, and the other "
-                        "excluded_with_reason predicates."
+                        "verbatim from the superseding candidate section. For "
+                        "verified_against_source citing a real, non-text repository fixture "
+                        "the claim already names verbatim (e.g. a binary test document like "
+                        "'testfiles/SimpleTable.one') where no readable quote inside the "
+                        "file is possible: leave this EMPTY -- existence of the named file "
+                        "is verified separately. Empty for narrative_filler, unverifiable, "
+                        "and the other excluded_with_reason predicates."
                     ),
                 },
                 "reasoning": {"type": "string"},

@@ -82,6 +82,78 @@ class TestCorroborateClaimDisposition:
         assert result.corroborated is True
         assert result.evidence_ref == "resolver.py"
 
+    def test_a_named_binary_fixture_is_corroborated_by_existence_alone(self, tmp_path):
+        """2026-08-19: direct investigation of aspose.org's live behavior on
+        note-python's Document('SimpleTable.one') claim found their
+        equivalent verification (content-example-dispositions.json) cites
+        exactly this evidence_type/status pair with NO quote for a real,
+        existing binary test document -- a quote-inside-a-binary-file check
+        is not meaningful. Safe by construction: the claim text must
+        already name the exact filename (the model cannot invent a path)
+        and the file must genuinely exist under the repository root."""
+
+        (tmp_path / "testfiles").mkdir()
+        (tmp_path / "testfiles" / "SimpleTable.one").write_bytes(b"\x00\x01\x02")
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "candidate text",
+            tmp_path,
+            {
+                "classification": "verified_against_source",
+                "evidence_type": "clone_cache_path",
+                "evidence_ref": "testfiles/SimpleTable.one",
+                "evidence_quote": "",
+                "reasoning": "the claim opens this real fixture document",
+            },
+            claim_text='doc = Document("SimpleTable.one")',
+        )
+        assert result.classification == "verified_against_source"
+        assert result.corroborated is True
+        assert result.evidence_ref == "testfiles/SimpleTable.one"
+
+    def test_a_fixture_not_named_in_the_claim_text_is_refused(self, tmp_path):
+        """The existence-only path never trusts the model's evidence_ref
+        alone -- the exact filename must independently appear in the
+        original claim text, or the citation is refused."""
+
+        (tmp_path / "testfiles").mkdir()
+        (tmp_path / "testfiles" / "SimpleTable.one").write_bytes(b"\x00\x01\x02")
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "candidate text",
+            tmp_path,
+            {
+                "classification": "verified_against_source",
+                "evidence_type": "clone_cache_path",
+                "evidence_ref": "testfiles/SimpleTable.one",
+                "evidence_quote": "",
+                "reasoning": "plausible-sounding but the claim never names this file",
+            },
+            claim_text="This example loads a sample document.",
+        )
+        assert result.classification == "unverifiable"
+        assert result.corroborated is False
+
+    def test_an_empty_quote_citing_a_missing_file_is_refused(self, tmp_path):
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "candidate text",
+            tmp_path,
+            {
+                "classification": "verified_against_source",
+                "evidence_type": "clone_cache_path",
+                "evidence_ref": "testfiles/DoesNotExist.one",
+                "evidence_quote": "",
+                "reasoning": "hallucinated path",
+            },
+            claim_text='doc = Document("DoesNotExist.one")',
+        )
+        assert result.classification == "unverifiable"
+        assert result.corroborated is False
+
     def test_verified_against_source_with_a_hallucinated_quote_is_downgraded(self, tmp_path):
         (tmp_path / "resolver.py").write_text("def resolve():\n    pass\n", encoding="utf-8")
         result = corroborate_claim_disposition(
@@ -430,17 +502,29 @@ class TestRepositoryFileListing:
             "(no repository clone available)"
         )
 
-    def test_lists_only_text_like_files_relative_to_root(self, tmp_path):
+    def test_lists_every_real_file_except_noise_directories(self, tmp_path):
+        """2026-08-19: broadened from a source-extension allowlist to
+        list-everything-except-noise after direct investigation of
+        aspose.org's live behavior found their equivalent verification
+        cites real, non-text fixture files (e.g. a binary test document a
+        code example opens) that the old extension allowlist hid from the
+        model entirely -- it could never cite what it was never shown."""
+
         (tmp_path / "module.py").write_text("pass", encoding="utf-8")
         (tmp_path / "README.md").write_text("# Title", encoding="utf-8")
-        (tmp_path / "binary.so").write_bytes(b"\x00\x01")
+        (tmp_path / "testfiles").mkdir()
+        (tmp_path / "testfiles" / "SimpleTable.one").write_bytes(b"\x00\x01")
         git_dir = tmp_path / ".git"
         git_dir.mkdir()
         (git_dir / "config").write_text("", encoding="utf-8")
+        cache_dir = tmp_path / "__pycache__"
+        cache_dir.mkdir()
+        (cache_dir / "module.cpython-313.pyc").write_bytes(b"\x00\x01")
 
         listing = repository_file_listing(tmp_path)
 
         assert "module.py" in listing
         assert "README.md" in listing
-        assert "binary.so" not in listing
+        assert "testfiles/SimpleTable.one" in listing
         assert ".git" not in listing
+        assert "__pycache__" not in listing

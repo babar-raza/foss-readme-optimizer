@@ -27,20 +27,46 @@ from readme_agent.readme.claim_accountability_models import ClaimDispositionReco
 
 _MAX_LISTED_FILES = 400
 
+# Directories whose contents are never real evidence (VCS internals, caches,
+# build artifacts, dependency trees) -- excluded regardless of file type.
+_NOISE_DIR_NAMES = {
+    ".git",
+    "__pycache__",
+    ".venv",
+    "venv",
+    "node_modules",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    "dist",
+    "build",
+    ".tox",
+}
+
 
 def repository_file_listing(repository_root: Path) -> str:
-    """A bounded, real listing of text-like files the model may cite --
+    """A bounded, real listing of every citable file the model may cite --
     keeps citations checkable (a path outside this listing is never real
-    evidence) without shipping full file contents into the prompt."""
+    evidence) without shipping full file contents into the prompt.
+
+    2026-08-18/19 (learned from aspose.org's own code-example-dispositions.json
+    live behavior): a source-extension allowlist silently hid genuinely real,
+    verifiable non-text repository fixtures (e.g. `testfiles/SimpleTable.one`,
+    a real binary document the target repo's own examples load) from the
+    model entirely -- it could never cite what it was never shown, and fell
+    back to a plausible-but-inexact citation of an unrelated .py file
+    instead. Lists every real file except build/VCS/cache noise -- the same
+    scope a human browsing the clone would see -- and corroborate_claim_
+    disposition() below applies existence-only verification for such named
+    fixtures rather than forcing a text-quote match that is meaningless for
+    a binary file."""
 
     if not repository_root.is_dir():
         return "(no repository clone available)"
     paths = sorted(
         str(path.relative_to(repository_root)).replace("\\", "/")
         for path in repository_root.rglob("*")
-        if path.is_file()
-        and ".git" not in path.parts
-        and path.suffix.lower() in {".py", ".md", ".rst", ".toml", ".cfg", ".txt", ".json"}
+        if path.is_file() and not (_NOISE_DIR_NAMES & set(path.parts))
     )
     return "\n".join(paths[:_MAX_LISTED_FILES]) or "(no matching files found)"
 
@@ -195,6 +221,21 @@ def corroborate_claim_disposition(
             except OSError:
                 file_content = ""
             corroborated = evidence_quote in file_content
+        elif (
+            resolved is not None
+            and not evidence_quote
+            and not _cites_repository_readme(repository_root, evidence_ref, resolved)
+        ):
+            # Existence-only verification for a named, non-quotable fixture --
+            # aspose.org's own code-example-dispositions.json uses exactly
+            # this evidence_type/status pair with no quote for binary test
+            # documents (e.g. "testfiles/SimpleTable.one"), because "a quote
+            # found inside a binary fixture" is not a meaningful check. Safe
+            # by construction: the claim text itself must already name this
+            # exact filename (the model cannot invent a path -- it can only
+            # confirm one the original claim already asserts), and the file
+            # must genuinely exist under the repository root.
+            corroborated = bool(resolved.name) and resolved.name in claim_text
     elif classification == "excluded_with_reason" and evidence_type == "checkable_predicate":
         corroborated = _corroborate_exclusion_predicate(
             evidence_ref, evidence_quote, claim_text, candidate_text, repository_root
