@@ -112,4 +112,4 @@ def test_api_reference_uses_complete_catalog_without_dumping_every_member_row() 
     assert "Scene.open" not in markdown
     assert "Scene.root_node" not in markdown
     assert "FileFormat.MS_ONE_NOTE" not in markdown
-    assert "API reference under Documentation and Resources" in markdown
+    assert "API reference under Documentation & Resources" in markdown

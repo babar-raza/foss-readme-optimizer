@@ -196,7 +196,7 @@ def test_verified_draft_and_candidate_bind_exact_documentation_fact() -> None:
     bound = template_input.sections["documentation_resources"]
     assert bound.fact_ids == [FACT_ID, "product.identity:manifest-and-registry"]
     candidate = compile_repository_presentation(template_input)
-    assert "## Documentation and Resources" in candidate
+    assert "## Documentation & Resources" in candidate
     assert "blog.aspose.org" not in candidate
     provenance = build_template_provenance(candidate, template_input, facts)
     exact = next(

@@ -68,14 +68,21 @@ def test_hard_gate_checks_correctly_flag_a_deliberately_incomplete_minimal_fixtu
     badge row, no Mermaid diagram, no exact License template sentence) --
     proving several hard_gate checks correctly flag those real absences is
     stronger evidence the checks work than a fixture engineered to pass
-    everything would be."""
+    everything would be.
+
+    `check_required_sections` is deliberately not in this set: since the
+    2026-08-18 "Documentation & Resources" heading fix, `_MIN_README_TEXT`
+    genuinely satisfies every entry in `_REQUIRED_SECTIONS` (which already
+    used the ampersand spelling), so this fixture has nothing left for that
+    check to flag. Its real positive-flagging behavior stays covered by
+    `test_check_required_sections_real_invocation_finds_missing_sections`
+    in test_aspose_checks_registry.py."""
 
     expected_to_flag = {
         "check_banner_present",
         "check_diagram_shape",
         "check_diagram_starting_points_presence",
         "check_license_section_matches_template",
-        "check_required_sections",
         "check_scope_limitations_format",
     }
     for name in expected_to_flag:

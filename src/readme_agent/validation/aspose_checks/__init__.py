@@ -141,7 +141,7 @@ _MIN_README_TEXT = (
     "## Dependencies\n\nNone.\n\n"
     "## Quick Start\n\n```python\nprint('example')\n```\n\n"
     "## API Reference\n\nSee docs.\n\n"
-    "## Documentation and Resources\n\nSee docs.\n\n"
+    "## Documentation & Resources\n\nSee docs.\n\n"
     "## Scope and Limitations\n\nNone known.\n\n"
     "## Development and Testing\n\nSee CONTRIBUTING.\n\n"
     "## License\n\nMIT.\n"

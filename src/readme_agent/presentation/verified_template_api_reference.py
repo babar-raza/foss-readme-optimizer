@@ -300,7 +300,7 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
     return (
         f"The package documents {entry_count} public types across "
         f"{namespace_count} namespaces.{namespace_context} See the complete API reference under "
-        f"Documentation and Resources for members, signatures, and inherited APIs.\n\n{details}"
+        f"Documentation & Resources for members, signatures, and inherited APIs.\n\n{details}"
     )
 
 

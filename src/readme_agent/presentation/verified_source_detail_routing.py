@@ -45,7 +45,7 @@ _TARGETS = {
     "contribution_guidance": ("Contributing", "View Contribution Guidelines"),
     "security_guidance": ("Security", "View Security Implementation Details"),
     "documentation_resources": (
-        "Documentation and Resources",
+        "Documentation & Resources",
         "View Additional Documentation",
     ),
     "license": ("License", "View Additional License Details"),
@@ -55,7 +55,7 @@ _TARGETS = {
         "Scope and Limitations",
         "View Additional Scope Details",
     ),
-    "support_routes": ("Documentation and Resources", "View Additional Support Details"),
+    "support_routes": ("Documentation & Resources", "View Additional Support Details"),
     "third_party_notices": ("Third-Party Notices", "View Additional Notices"),
     "verified_installation": ("Installation", "View Additional Installation Details"),
 }
@@ -83,7 +83,11 @@ _FACT_FIELD_TARGETS = (
 
 _GUIDANCE_SECTION_TARGETS = {
     "at-a-glance": _TARGETS["at_a_glance"],
-    "documentation-and-resources": _TARGETS["documentation_resources"],
+    # heading_identity("Documentation & Resources") -- aspose.org's own source
+    # READMEs already use the ampersand form; this key was hand-typed against
+    # the "and" spelling and could never match. Keep it in sync with the
+    # heading text above rather than hardcoding a slug string independently.
+    "documentation-resources": _TARGETS["documentation_resources"],
     "installation": _TARGETS["verified_installation"],
     "key-capabilities": _TARGETS["major_capabilities"],
     "quick-start": _TARGETS["primary_example"],

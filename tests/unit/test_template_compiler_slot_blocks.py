@@ -79,7 +79,7 @@ def test_compiled_slot_blocks_omits_slots_the_input_never_included():
 
     blocks = compiled_slot_blocks(template_input)
 
-    assert "Documentation and Resources" not in blocks
+    assert "Documentation & Resources" not in blocks
     assert "API Reference" not in blocks
 
 
