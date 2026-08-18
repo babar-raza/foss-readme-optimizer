@@ -52,7 +52,12 @@ cd "$REPO_ROOT"
 
 MAX_ITERATIONS="${1:-40}"
 MISSION_TASK_ID="L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY"
-LOG_DIR="runs/gate-a-local-poc-portfolio-2026-08-18"
+# One unique directory per driver invocation (2026-08-18 incident: a resumed
+# driver reused the date-fixed directory and restarted its iteration counter
+# at 001, overwriting the first run's per-iteration logs -- that evidence is
+# gone). Override via $GATE_A_RUN_ID only to deliberately group related runs.
+RUN_ID="${GATE_A_RUN_ID:-$(date +%Y%m%d-%H%M%S)-$$}"
+LOG_DIR="runs/gate-a-local-poc-portfolio/${RUN_ID}"
 mkdir -p "$LOG_DIR"
 
 previous_complete=""
