@@ -45,6 +45,26 @@ def repository_file_listing(repository_root: Path) -> str:
     return "\n".join(paths[:_MAX_LISTED_FILES]) or "(no matching files found)"
 
 
+_REPOSITORY_README_BASENAMES = {"readme.md", "readme.rst", "readme"}
+
+
+def _cites_repository_readme(repository_root: Path, evidence_ref: str, resolved: Path) -> bool:
+    """The README-circularity soundness hole (ledger, closed 2026-08-18): the
+    source README contains every inherited claim by construction, so a quote
+    'found' there is circular, never corroborating evidence. Refuse the
+    repository's own root README (any casing) and, belt-and-braces, any
+    evidence path whose basename starts with "readme" case-insensitively --
+    every other repository file stays eligible."""
+
+    ref_basename = evidence_ref.replace("\\", "/").rstrip("/").rsplit("/", 1)[-1]
+    if ref_basename.lower().startswith("readme"):
+        return True
+    return (
+        resolved.parent == repository_root.resolve()
+        and resolved.name.lower() in _REPOSITORY_README_BASENAMES
+    )
+
+
 def _resolve_within_repository(repository_root: Path, evidence_ref: str) -> Path | None:
     """Refuse any path that would escape the repository clone."""
 
@@ -82,7 +102,11 @@ def corroborate_claim_disposition(
         corroborated = bool(evidence_quote) and evidence_quote in candidate_text
     elif classification == "verified_against_source" and evidence_type == "clone_cache_path":
         resolved = _resolve_within_repository(repository_root, evidence_ref)
-        if resolved is not None and evidence_quote:
+        if (
+            resolved is not None
+            and evidence_quote
+            and not _cites_repository_readme(repository_root, evidence_ref, resolved)
+        ):
             try:
                 file_content = resolved.read_text(encoding="utf-8", errors="replace")
             except OSError:

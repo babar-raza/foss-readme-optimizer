@@ -100,6 +100,74 @@ class TestCorroborateClaimDisposition:
         assert result.classification == "unverifiable"
         assert result.corroborated is False
 
+    def test_a_quote_from_the_repository_readme_itself_is_refused(self, tmp_path):
+        """The README-circularity soundness hole (closed 2026-08-18): the
+        source README contains every inherited claim by construction, so a
+        quote 'found' there is circular, never corroborating evidence."""
+        (tmp_path / "README.md").write_text(
+            "The generator honors unset fields via the symbology's own default.",
+            encoding="utf-8",
+        )
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "candidate text",
+            tmp_path,
+            {
+                "classification": "verified_against_source",
+                "evidence_type": "clone_cache_path",
+                "evidence_ref": "README.md",
+                "evidence_quote": "unset fields via the symbology's own default",
+                "reasoning": "confirmed in README.md",
+            },
+        )
+        assert result.classification == "unverifiable"
+        assert result.corroborated is False
+
+    def test_the_same_quote_in_a_real_source_file_still_corroborates(self, tmp_path):
+        """The circularity refusal is scoped to READMEs only: identical
+        evidence living in genuine repository source stays eligible."""
+        shared_quote = "unset fields fall back to the symbology's own default"
+        (tmp_path / "README.md").write_text(shared_quote, encoding="utf-8")
+        (tmp_path / "resolver.py").write_text(
+            f"def resolve():\n    # {shared_quote}\n    pass\n", encoding="utf-8"
+        )
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "candidate text",
+            tmp_path,
+            {
+                "classification": "verified_against_source",
+                "evidence_type": "clone_cache_path",
+                "evidence_ref": "resolver.py",
+                "evidence_quote": shared_quote,
+                "reasoning": "confirmed in resolver.py",
+            },
+        )
+        assert result.classification == "verified_against_source"
+        assert result.corroborated is True
+
+    def test_readme_named_evidence_is_refused_regardless_of_casing_or_location(self, tmp_path):
+        docs = tmp_path / "docs"
+        docs.mkdir()
+        (docs / "ReadMe.rst").write_text("a detail stated only here", encoding="utf-8")
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "candidate text",
+            tmp_path,
+            {
+                "classification": "verified_against_source",
+                "evidence_type": "clone_cache_path",
+                "evidence_ref": "docs/ReadMe.rst",
+                "evidence_quote": "a detail stated only here",
+                "reasoning": "confirmed in docs/ReadMe.rst",
+            },
+        )
+        assert result.classification == "unverifiable"
+        assert result.corroborated is False
+
     def test_verified_against_source_with_a_path_escape_attempt_is_rejected(self, tmp_path):
         (tmp_path / "real.py").write_text("secret content here", encoding="utf-8")
         outside = tmp_path.parent / "outside-secret.py"
