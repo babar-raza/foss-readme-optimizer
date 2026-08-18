@@ -155,6 +155,60 @@ def _without_transient_candidate_details(state: DomainStateV1) -> dict:
     }
 
 
+def _persist_blocked_plan_diagnostics(
+    org_repo: str,
+    presentation_plan_record: dict,
+    render_result: dict | None,
+) -> None:
+    """Best-effort offline-debuggable snapshot of a blocked presentation plan.
+
+    Found live 2026-08-18 (mission recovery): a `presentation_plan:blocked`
+    member leaves NO recoverable per-claim analysis anywhere -- the durable
+    state retains only the failure message string, so every claim-
+    accountability diagnosis had to re-run the whole pipeline live just to
+    look at the analysis it had already computed. This writes the plan's
+    claim-accountability map, validation errors, and the exact composed
+    candidate to `runs/readme-poc/<org>__<repo>/diagnostics/` (latest block
+    wins; sibling of blocked-decision.json). Diagnostics only: never read
+    back by any runtime path, and a failure here never affects the member's
+    real result.
+    """
+
+    import json as json_module
+    from datetime import UTC, datetime
+
+    from readme_agent import paths as paths_module
+
+    try:
+        org, repo = org_repo.split("/", maxsplit=1)
+        diagnostics_dir = paths_module.readme_poc_root() / f"{org}__{repo}" / "diagnostics"
+        diagnostics_dir.mkdir(parents=True, exist_ok=True)
+        plan_payload = presentation_plan_record.get("presentation_plan") or {}
+        payload = {
+            "recorded_at": datetime.now(UTC).isoformat(timespec="seconds"),
+            "org_repo": org_repo,
+            "document_validation": presentation_plan_record.get("document_validation"),
+            "claim_accountability": plan_payload.get("claim_accountability"),
+            "source_claim_resolutions": plan_payload.get("source_claim_resolutions"),
+            "candidate_sha256": plan_payload.get("candidate_sha256"),
+        }
+        (diagnostics_dir / "blocked-presentation-plan.json").write_text(
+            json_module.dumps(payload, indent=1, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        final_text = (render_result or {}).get("final_text")
+        if isinstance(final_text, str) and final_text:
+            (diagnostics_dir / "blocked-candidate.md").write_text(
+                final_text, encoding="utf-8", newline="\n"
+            )
+    except Exception as exc:  # noqa: BLE001 -- diagnostics must never fail the member
+        print(
+            f"{org_repo}: blocked-plan diagnostics persistence failed (non-fatal): "
+            f"{type(exc).__name__}: {exc}",
+            file=sys.stderr,
+        )
+
+
 def _failed_transaction_details(
     baseline: DomainStateV1,
     *,
@@ -505,6 +559,9 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         patch_text = presentation_plan["git_patch_proof"].get("patch", "")
         if not presentation_plan["executable"]:
             validation_errors = presentation_plan.get("document_validation", {}).get("errors", [])
+            _persist_blocked_plan_diagnostics(
+                org_repo, presentation_plan_record, current_render_result
+            )
             accepted_status = "ERROR:presentation_plan:blocked" + (
                 f":{validation_errors}" if validation_errors else ""
             )
