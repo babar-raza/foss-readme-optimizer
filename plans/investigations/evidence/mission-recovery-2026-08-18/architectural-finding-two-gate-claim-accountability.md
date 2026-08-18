@@ -83,3 +83,27 @@ rendered.
 of the existing gate-1 `blocked-presentation-plan.json` — this investigation was only possible
 because that diagnostic now exists; before it, the only trail was a durable-state field that
 rotates out with the next trigger-lifecycle transition.
+
+## Structural confirmation (2026-08-19, code-path analysis, stronger than a single canary)
+
+`claim_accountability.py`'s LLM-disposition attempt is gated at both call sites by
+`llm_disposition_client is not None and repository_root is not None`. Gate 2
+(`evaluate_candidate_factuality` in `specialists/readme_factuality.py`) calls
+`build_readme_document_candidate()` supplying neither — so the entire LLM-disposition branch,
+and everything it consumes (the fixture-existence path, the API-surface-member path, the
+excluded_with_reason predicates, the ratchet), is **provably unreachable at gate 2, in every
+case, not just the observed ones.** This settles lesson 3 definitively: no amount of prompt or
+disposition-logic improvement can ever close gate 2 on its own; only content that is literally
+present in the rendered candidate (Lane A/B's pattern) can.
+
+Attempted a live two-gate canary for barcode-python to complete the empirical record and found
+a separate, legitimate, disclosed effect of this session's own merges: the mission graph's
+`evaluate` action now reports `L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY` status
+`REGRESSED` (`active_task_id: None`, ineligible to claim) — a direct, correct consequence of
+`stale_acceptance_repositories` growing to four entries (3d/cells/page/pdf-python) as the
+merged template/prompt changes rotated their prior acceptance fingerprints, exactly matching
+`plans/master.md`'s own documented policy: "regresses the earliest stale closeout when no later
+reconciliation task already owns that repository." Not a bug — correct governance behavior
+responding to real, disclosed invalidation. `next_task` is now `L8-HORIZON-01-ACTIVATE-GATE-A`.
+Left as the natural resumption point (captured in the regenerated capsule) rather than forcing
+a task-id switch outside this session's claimed scope.
