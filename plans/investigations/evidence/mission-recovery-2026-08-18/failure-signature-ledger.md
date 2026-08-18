@@ -40,3 +40,18 @@ Engineering queue (priority order, one variable per experiment):
    (gaps 1/3/7 from the probe-coverage audit).
 8. **E8 — accounting + process fixes** (S7, S9).
 9. **E9 — quality parity work** (Q1–Q3) after unblocking, driven by Decision #104 reviews.
+
+## 2026-08-18 probe addendum (qwen-output-limits evidence, plans/investigations/evidence/llm-probe/)
+
+- **Forced-named-tool transport shape: PROVEN** — 5/5 trials returned exactly one
+  correctly-named call with schema-valid nested arguments (closes probe gap 1).
+- **Structured output size: exact through ~7,000 completion tokens** (200-item JSON array,
+  finish=stop); breaks only at the 8,000 max_tokens cap (400 items, finish=length). The
+  codebase's 8000-token jobs run near the proven edge (closes gap 3).
+- **Temperature-zero determinism: freeform prose IS byte-deterministic (5/5 identical);
+  forced-tool ARGUMENTS ARE NOT (5 distinct payloads in 5 trials).** This is the mechanism
+  behind every observed claim-count fluctuation (S1's model-variance) and the formal
+  justification for the ratchet (E2): re-asking an unchanged question is a dice roll on this
+  gateway; only persisted, deterministically re-corroborated acceptances converge (closes gap 7
+  with a negative result that changes design assumptions — any cache key that assumes tool-call
+  reproducibility at temp 0 is unsound).
