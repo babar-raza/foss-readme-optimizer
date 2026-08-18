@@ -82,3 +82,15 @@ VALID_UPDATE_AVAILABLE-class improvement under Decision #90, not a forced recomp
 pdf-python is the working proof that the pipeline can meet/beat the reference bar; 3d shows the
 preservation machinery outperforming aspose.org's own reframing; the capability-bullet deficit
 (Q1) is now numerically tracked per repo.
+
+## 2026-08-18 iteration-1 addendum (post-fix portfolio pass, runs/gate-a-local-poc-portfolio/)
+
+- **E2 portfolio-proven**: note's ratchet replayed both accepted verdicts live
+  (`cache_reuse=2`, provider_calls 4→2, blocking count rock-stable at 1 across canary and
+  portfolio passes — the historical 2→1→2 fluctuation is gone).
+- **Cross-repo boilerplate claims**: page's blocking claim has the SAME content hash
+  (`7ff54c1da64deecb`) as the claim note's ratchet already accepted — identical claim text
+  recurs across repos (dependency-boilerplate class). Enhancement queued: a portfolio-level
+  shared ratchet keyed by claim-content hash (safe by construction — replay still
+  re-corroborates against each repo's own candidate/source before acceptance).
+- 6 blocked-decision records banked in iteration 1; iteration 2 is the E1 skip demonstration.
