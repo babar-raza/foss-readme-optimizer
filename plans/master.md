@@ -118,6 +118,12 @@ Binding current decisions:
   `candidate-quality-gap-list.md`; systemic gaps become deterministic template/fact/composition
   fixes, never one-off prose edits or silent drops. Diagnostic and improvement-driving, not an
   additional promotion gate — Gate A's own AGENT_APPROVED/NO_OP_PROVEN definition is unchanged.
+- **#105 — Dependency-bound blocked decisions; ratcheting acceptances.** A BLOCKED canonical
+  outcome persists with the exact dependency fingerprints current at that moment and is not
+  re-executed until a bound fingerprint changes (or `--retry-blocked`); a deterministically
+  corroborated LLM acceptance persists per claim-content hash and replays through the same
+  corroboration — regression only when evidence stops holding, never from a re-rolled model call
+  (qwen3-next tool arguments are live-proven nondeterministic at temperature 0).
 
 Aspose.org remains a development-only comparative corpus, never a deployed dependency or factual
 authority. Repository order may change only through the durable dependency graph; changing a
