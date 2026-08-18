@@ -549,6 +549,47 @@ def test_first_collection_sealed_bundle_recovers_from_fact_boundary(
     assert [item.to_status for item in lifecycle.history[-len(expected_tail) :]] == expected_tail
 
 
+def test_interrupted_fact_recovery_bails_gracefully_past_the_facts_boundary(tmp_path, monkeypatch):
+    """2026-08-18: a bundle sealed beyond the facts boundary (e.g. a fully
+    DETERMINISTIC_VALIDATED bundle from a prior run whose durable-state
+    commit never landed, because durable state itself was reset
+    independently of the on-disk bundle) must not crash the whole
+    repository. Recovering that later progress is outside recover_
+    interrupted_product_truth_commit's narrow facts-only scope; it must
+    return None and let the pipeline reprocess normally instead of raising
+    -- live-diagnosed via a real SYSTEM_FAILURE during a Gate A portfolio
+    run on aspose-3d-foss/Aspose.3D-FOSS-for-Python."""
+
+    snapshot = _snapshot(tmp_path)
+    backend = _ready_backend(snapshot)
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    contract = product_truth.current_fact_acceptance_contract("java")
+    sealed_facts = _facts()
+    product_truth.write_local_poc_product_facts(
+        snapshot,
+        sealed_facts,
+        findings=[],
+        resolution_source="repository_and_policy",
+        lifecycle_status="DETERMINISTIC_VALIDATED",
+        local_verification_contract_hash=product_truth.local_verification_contract_hash("java"),
+        fact_acceptance_contract_hash=contract.canonical_hash(),
+        fact_acceptance_component_hashes=contract.component_hashes,
+    )
+    fresh_facts = _facts()
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: {"product_facts_v2": fresh_facts},
+    )
+
+    result = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend, client=object())
+
+    assert result.facts == fresh_facts
+    lifecycle = backend.load(ORG_REPO).readme_poc_lifecycle
+    assert lifecycle.status != "DETERMINISTIC_VALIDATED"
+    assert lifecycle.facts_hash == fresh_facts.canonical_hash()
+
+
 def test_interrupted_fact_recovery_rejects_corrupt_bundle_before_collection(tmp_path, monkeypatch):
     snapshot, backend, _new_facts, bundle_dir = _write_interrupted_fact_commit(
         tmp_path, monkeypatch

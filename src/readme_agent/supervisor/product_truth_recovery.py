@@ -246,6 +246,17 @@ def recover_interrupted_product_truth_commit(
     if proposed_product_truth is not None and manifest.get("resolution_source") == "agent_draft":
         return None
 
+    if manifest.get("lifecycle_status") not in _FACT_OUTCOMES:
+        # This bundle sealed further than the facts boundary (e.g. a fully
+        # DETERMINISTIC_VALIDATED or later bundle whose durable-state commit
+        # never landed -- durable state itself was reset independently of
+        # this on-disk bundle, a real recoverable scenario, not corruption).
+        # Recovering that later progress is outside this function's scope
+        # (only facts-boundary bundles); bail out gracefully so the normal
+        # pipeline reprocesses this repository from durable state's actual
+        # position instead of crashing the whole repository.
+        return None
+
     facts = ProductFactsV2.model_validate_json(facts_path.read_text(encoding="utf-8"))
     facts_hash = facts.canonical_hash()
     identity_revision = facts.selected_fact("product.identity").source.source_revision
@@ -254,7 +265,6 @@ def recover_interrupted_product_truth_commit(
         facts.org_repo != org_repo
         or (identity_revision is not None and identity_revision != source_revision)
         or manifest.get("facts_hash") != facts_hash
-        or manifest.get("lifecycle_status") not in _FACT_OUTCOMES
         or manifest.get("lifecycle_status") != outcome
     ):
         raise RuntimeError(
