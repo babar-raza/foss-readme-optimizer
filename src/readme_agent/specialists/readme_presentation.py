@@ -178,8 +178,15 @@ def _persist_blocked_plan_diagnostics(
     from datetime import UTC, datetime
 
     from readme_agent import paths as paths_module
+    from readme_agent.repository_snapshot import current_repository_snapshot
 
     try:
+        if current_repository_snapshot(org_repo) is None:
+            # No bound immutable snapshot means this is not a real local_poc
+            # candidate run (unit tests exercise the blocked branch against
+            # fixture repos with no snapshot scope) -- diagnostics belong to
+            # real runs only, and must never pollute runs/ from a test.
+            return
         org, repo = org_repo.split("/", maxsplit=1)
         diagnostics_dir = paths_module.readme_poc_root() / f"{org}__{repo}" / "diagnostics"
         diagnostics_dir.mkdir(parents=True, exist_ok=True)

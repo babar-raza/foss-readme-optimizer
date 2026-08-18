@@ -16,8 +16,12 @@ from readme_agent.specialists.readme_presentation import _persist_blocked_plan_d
 
 def test_blocked_plan_diagnostics_write_claims_and_candidate(monkeypatch, tmp_path):
     import readme_agent.paths as paths
+    import readme_agent.repository_snapshot as repository_snapshot
 
     monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    monkeypatch.setattr(
+        repository_snapshot, "current_repository_snapshot", lambda org_repo: object()
+    )
     record = {
         "presentation_plan": {
             "claim_accountability": {"claims": [{"claim_id": "source:claim:1:aa"}]},
@@ -40,9 +44,29 @@ def test_blocked_plan_diagnostics_write_claims_and_candidate(monkeypatch, tmp_pa
     )
 
 
+def test_no_bound_snapshot_writes_nothing(monkeypatch, tmp_path):
+    """The blocked branch runs in unit tests against fixture repos with no
+    snapshot scope; diagnostics must never pollute the real runs/ tree from
+    a test (found live: a fixture repo's diagnostics landed in runs/)."""
+
+    import readme_agent.paths as paths
+    import readme_agent.repository_snapshot as repository_snapshot
+
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    monkeypatch.setattr(repository_snapshot, "current_repository_snapshot", lambda org_repo: None)
+
+    _persist_blocked_plan_diagnostics("org/repo", {"presentation_plan": {}}, None)
+
+    assert not (tmp_path / "runs").exists()
+
+
 def test_blocked_plan_diagnostics_failure_is_non_fatal(monkeypatch, capsys):
     import readme_agent.paths as paths
+    import readme_agent.repository_snapshot as repository_snapshot
 
+    monkeypatch.setattr(
+        repository_snapshot, "current_repository_snapshot", lambda org_repo: object()
+    )
     monkeypatch.setattr(
         paths,
         "readme_poc_root",
