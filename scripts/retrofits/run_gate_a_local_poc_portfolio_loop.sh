@@ -29,6 +29,19 @@
 # members once, each failing near-instantly on an unrelated hygiene bug,
 # with real progress unchanged at 1/33.
 #
+# --portfolio-time-budget-seconds defaults to 1200s (override via
+# $PORTFOLIO_TIME_BUDGET_SECONDS), well above the CLI's own 300s default:
+# confirmed live (2026-08-18) that a BLOCKED repository is NOT cached
+# between passes (only NO_OP_PROVEN/AGENT_APPROVED short-circuit with zero
+# calls) -- every already-known-BLOCKED repository is retried in full on
+# every single invocation. With the 300s default this reliably consumed
+# the whole slice on the same ~4 already-known-blocked repositories before
+# ever reaching an unprocessed one; a real portfolio-wide throughput gap
+# (repeatedly re-litigating known failures instead of making forward
+# progress), not something this script alone can fix -- widening the
+# budget is a workaround, not a substitute for adding real backoff/skip
+# caching for repeatedly-BLOCKED repositories in the supervisor itself.
+#
 # Kept after use as the executable record/reusable driver for local Gate A
 # execution -- see plans/GOVERNANCE.md, "Repository layout", placement
 # rule 5 (mirrors the precedent of run_full_registry_supervise_pass.sh).
@@ -53,6 +66,7 @@ for ((i = 1; i <= MAX_ITERATIONS; i++)); do
     --execution-profile local_poc \
     --mission-task-id "$MISSION_TASK_ID" \
     --mission-observer readme-agent-supervisor \
+    --portfolio-time-budget-seconds "${PORTFOLIO_TIME_BUDGET_SECONDS:-1200}" \
     2>&1 | tee "$log_file"
   exit_code="${PIPESTATUS[0]}"
 
