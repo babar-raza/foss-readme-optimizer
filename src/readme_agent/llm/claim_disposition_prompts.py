@@ -29,6 +29,7 @@ CLAIM_DISPOSITION_TOOL_SCHEMA = {
                         "redundant_with_candidate",
                         "verified_against_source",
                         "narrative_filler",
+                        "excluded_with_reason",
                         "unverifiable",
                     ],
                     "description": (
@@ -38,15 +39,24 @@ CLAIM_DISPOSITION_TOOL_SCHEMA = {
                         "detail confirmed by reading real repository source. "
                         "narrative_filler: the claim carries no independent factual content "
                         "(pure transition/framing prose). "
+                        "excluded_with_reason: the claim is deliberately excluded from the "
+                        "candidate for exactly one machine-checkable predicate named in "
+                        "evidence_ref (see evidence_ref). "
                         "unverifiable: none of the above apply -- default to this when unsure."
                     ),
                 },
                 "evidence_type": {
                     "type": "string",
-                    "enum": ["candidate_section_reference", "clone_cache_path", "none"],
+                    "enum": [
+                        "candidate_section_reference",
+                        "clone_cache_path",
+                        "checkable_predicate",
+                        "none",
+                    ],
                     "description": (
                         "candidate_section_reference for redundant_with_candidate, "
-                        "clone_cache_path for verified_against_source, none otherwise."
+                        "clone_cache_path for verified_against_source, "
+                        "checkable_predicate for excluded_with_reason, none otherwise."
                     ),
                 },
                 "evidence_ref": {
@@ -54,7 +64,15 @@ CLAIM_DISPOSITION_TOOL_SCHEMA = {
                     "description": (
                         "For candidate_section_reference: the candidate H2/H3 heading the "
                         "matching text lives under. For clone_cache_path: the exact "
-                        "repository-relative file path read. Empty otherwise."
+                        "repository-relative file path read. For checkable_predicate, "
+                        "exactly one of: 'unverifiable_fixture_dependency:<path>' (the "
+                        "claim references a repository fixture path, copied verbatim from "
+                        "the claim text, that an isolated verifier cannot assume), "
+                        "'superseded_by_verified_slot:<slot_id>' (a verified candidate "
+                        "section supersedes the claim; quote that section), or "
+                        "'stale_version_string:<version>' (the claim pins a version, copied "
+                        "verbatim from the claim text, that the candidate no longer "
+                        "mentions anywhere). Empty otherwise."
                     ),
                 },
                 "evidence_quote": {
@@ -62,8 +80,11 @@ CLAIM_DISPOSITION_TOOL_SCHEMA = {
                     "description": (
                         "A verbatim substring copied character-for-character from the "
                         "evidence location (the candidate text or the named source file) "
-                        "that supports the classification. Empty for narrative_filler or "
-                        "unverifiable."
+                        "that supports the classification. For "
+                        "superseded_by_verified_slot: at least 40 characters copied "
+                        "verbatim from the superseding candidate section. Empty for "
+                        "narrative_filler, unverifiable, and the other "
+                        "excluded_with_reason predicates."
                     ),
                 },
                 "reasoning": {"type": "string"},

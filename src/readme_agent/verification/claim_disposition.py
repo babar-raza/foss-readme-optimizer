@@ -76,12 +76,95 @@ def _resolve_within_repository(repository_root: Path, evidence_ref: str) -> Path
     return candidate if candidate.is_file() else None
 
 
+# Slice-1 floor for the superseded_by_verified_slot predicate: a shorter
+# quote is too likely to appear in the candidate by coincidence to prove a
+# whole section supersedes the claim.
+_MIN_SLOT_SUPERSESSION_QUOTE_CHARS = 40
+
+
+def _installable_package_source_roots(repository_root: Path) -> list[Path]:
+    """Directories whose files ship with the installed package -- a fixture
+    living under one of these IS available to the isolated verifier, so
+    citing it as an unverifiable dependency is refused."""
+
+    roots: list[Path] = []
+    src_layout = repository_root / "src"
+    if src_layout.is_dir():
+        roots.append(src_layout)
+    try:
+        children = sorted(repository_root.iterdir())
+    except OSError:
+        return roots
+    for child in children:
+        if child.is_dir() and (child / "__init__.py").is_file():
+            roots.append(child)
+    return roots
+
+
+def _fixture_exists_in_package_sources(repository_root: Path, fixture_path: str) -> bool:
+    """True when the cited fixture is (or may be) shipped with the package.
+    Malformed/escaping paths also return True: fail closed, the exclusion is
+    then refused rather than accepted on an uncheckable citation."""
+
+    normalized = fixture_path.replace("\\", "/").strip("/")
+    parts = [part for part in normalized.split("/") if part]
+    if not parts or ".." in parts or any(":" in part for part in parts):
+        return True
+    basename = parts[-1]
+    for root in _installable_package_source_roots(repository_root):
+        if (root / normalized).is_file():
+            return True
+        if any(found.name == basename for found in root.rglob("*") if found.is_file()):
+            return True
+    return False
+
+
+def _corroborate_exclusion_predicate(
+    evidence_ref: str,
+    evidence_quote: str,
+    claim_text: str,
+    candidate_text: str,
+    repository_root: Path,
+) -> bool:
+    """Deterministically re-check the single machine-checkable predicate an
+    excluded_with_reason verdict cites in evidence_ref. Exactly three
+    predicate forms exist; anything unmatched or malformed corroborates
+    nothing (fail closed). The model's free-text reasoning is never
+    load-bearing here."""
+
+    predicate, separator, value = evidence_ref.partition(":")
+    value = value.strip()
+    if not separator or not value:
+        return False
+    if predicate == "unverifiable_fixture_dependency":
+        # The claim's own code/text must reference the fixture path, and the
+        # fixture must not ship with the installable package sources -- i.e.
+        # the isolated verifier genuinely cannot assume it.
+        return value in claim_text and not _fixture_exists_in_package_sources(
+            repository_root, value
+        )
+    if predicate == "superseded_by_verified_slot":
+        # Slice 1: corroborated by verbatim presence of a substantial quote
+        # from the superseding candidate section, not by the slot id alone.
+        return (
+            len(evidence_quote) >= _MIN_SLOT_SUPERSESSION_QUOTE_CHARS
+            and evidence_quote in candidate_text
+        )
+    if predicate == "stale_version_string":
+        # The stale version must actually be what the claim asserts, and the
+        # candidate must have genuinely moved past it.
+        return value in claim_text and value not in candidate_text
+    return False
+
+
 def corroborate_claim_disposition(
     claim_id: str,
     content_sha256: str,
     candidate_text: str,
     repository_root: Path,
     llm_result: dict,
+    *,
+    claim_text: str = "",
 ) -> ClaimDispositionRecordV1:
     """Pure except for one bounded, read-only file read of an already-
     listed, path-escape-checked repository file. Never trusts the model's
@@ -112,6 +195,10 @@ def corroborate_claim_disposition(
             except OSError:
                 file_content = ""
             corroborated = evidence_quote in file_content
+    elif classification == "excluded_with_reason" and evidence_type == "checkable_predicate":
+        corroborated = _corroborate_exclusion_predicate(
+            evidence_ref, evidence_quote, claim_text, candidate_text, repository_root
+        )
     elif classification == "narrative_filler":
         # No evidence to corroborate -- asserts absence of factual content,
         # not presence of a fact. Accepted only on the model's classification
@@ -170,5 +257,10 @@ def check_claim_disposition(
         messages, CLAIM_DISPOSITION_TOOL_SCHEMA
     )  # LLMError propagates, deliberately uncaught
     return corroborate_claim_disposition(
-        claim_id, content_sha256, candidate_text, repository_root, result.arguments
+        claim_id,
+        content_sha256,
+        candidate_text,
+        repository_root,
+        result.arguments,
+        claim_text=claim_text,
     )

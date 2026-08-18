@@ -234,10 +234,9 @@ def expected_disposition(
                 "llm_verified_disposition",
                 True,
                 "No mechanical fact binding covers the exact claim text; a bounded, "
-                "deterministically corroborated LLM classification (redundant with the "
-                "candidate, verified against real repository source, or narrative filler) is "
-                "recorded in the claim-disposition ledger as an explicit, auditable "
-                "alternative acceptance path.",
+                "deterministically corroborated LLM classification is recorded in the "
+                "claim-disposition ledger as an explicit, auditable alternative "
+                "acceptance path.",
             )
         return (
             "unjustified_loss",
@@ -262,9 +261,8 @@ def expected_disposition(
             "llm_verified_disposition",
             True,
             "No mechanical fact binding covers the exact claim text; a bounded, deterministically "
-            "corroborated LLM classification (redundant with the candidate, verified against real "
-            "repository source, or narrative filler) is recorded in the claim-disposition ledger "
-            "as an explicit, auditable alternative acceptance path.",
+            "corroborated LLM classification is recorded in the claim-disposition ledger as an "
+            "explicit, auditable alternative acceptance path.",
         )
     if stage == "candidate" and origin == "generated":
         return (

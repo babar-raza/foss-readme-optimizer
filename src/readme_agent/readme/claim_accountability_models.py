@@ -31,11 +31,13 @@ ClaimDispositionClassification = Literal[
     "redundant_with_candidate",
     "verified_against_source",
     "narrative_filler",
+    "excluded_with_reason",
     "unverifiable",
 ]
 ClaimDispositionEvidenceType = Literal[
     "candidate_section_reference",
     "clone_cache_path",
+    "checkable_predicate",
     "none",
 ]
 

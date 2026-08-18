@@ -106,6 +106,48 @@ class TestRatchetReplay:
         assert result is not None
         assert result.classification == "narrative_filler"
 
+    def test_an_accepted_excluded_with_reason_verdict_replays_like_the_others(self, tmp_path):
+        """E5 slice 1: the new classification persists and replays through
+        the exact same store and deterministic re-corroboration as the
+        pre-existing classifications."""
+
+        ratchet = tmp_path / "ratchet.json"
+        stale_claim = "Requires widget 1.2.3 exactly."
+        candidate = "# Widget\n\nRequires widget 2.0 or newer.\n"
+        verdict = ForcedToolResult(
+            arguments={
+                "classification": "excluded_with_reason",
+                "evidence_type": "checkable_predicate",
+                "evidence_ref": "stale_version_string:1.2.3",
+                "evidence_quote": "",
+                "reasoning": "the candidate no longer pins this version anywhere",
+            },
+            meta=LLMResponseMeta(),
+        )
+        first = llm_verified_claim_disposition(
+            "claim-1",
+            stale_claim,
+            candidate,
+            tmp_path,
+            FixtureForcedToolClient([verdict]),
+            ratchet_path=ratchet,
+        )
+        assert first is not None and first.corroborated
+        assert first.classification == "excluded_with_reason"
+
+        replayed = llm_verified_claim_disposition(
+            "claim-1",
+            stale_claim,
+            candidate,
+            tmp_path,
+            _ExplodingClient(),
+            ratchet_path=ratchet,
+        )
+        assert replayed is not None
+        assert replayed.corroborated is True
+        assert replayed.classification == "excluded_with_reason"
+        assert replayed.evidence_ref == "stale_version_string:1.2.3"
+
     def test_a_rejected_verdict_is_never_persisted(self, tmp_path):
         ratchet = tmp_path / "ratchet.json"
         hallucinated = _redundant_verdict("text that is not in the candidate")

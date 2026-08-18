@@ -219,6 +219,151 @@ class TestCorroborateClaimDisposition:
         assert result.corroborated is False
 
 
+class TestExcludedWithReasonPredicates:
+    """E5 slice 1: the excluded_with_reason classification is accepted only
+    when its cited machine-checkable predicate re-verifies in deterministic
+    code -- the model's free-text reasoning is never load-bearing."""
+
+    FIXTURE_CLAIM = 'doc = Document("SimpleTable.one")\nprint(doc.title)\n'
+
+    def _verdict(self, evidence_ref: str, evidence_quote: str = "") -> dict:
+        return {
+            "classification": "excluded_with_reason",
+            "evidence_type": "checkable_predicate",
+            "evidence_ref": evidence_ref,
+            "evidence_quote": evidence_quote,
+            "reasoning": "checkable exclusion",
+        }
+
+    def test_unverifiable_fixture_dependency_corroborates(self, tmp_path):
+        package = tmp_path / "src" / "widget"
+        package.mkdir(parents=True)
+        (package / "__init__.py").write_text("", encoding="utf-8")
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "candidate text",
+            tmp_path,
+            self._verdict("unverifiable_fixture_dependency:SimpleTable.one"),
+            claim_text=self.FIXTURE_CLAIM,
+        )
+        assert result.classification == "excluded_with_reason"
+        assert result.corroborated is True
+        assert result.evidence_type == "checkable_predicate"
+
+    def test_fixture_dependency_shipping_with_package_sources_is_refused(self, tmp_path):
+        package = tmp_path / "src" / "widget"
+        data = package / "data"
+        data.mkdir(parents=True)
+        (package / "__init__.py").write_text("", encoding="utf-8")
+        (data / "SimpleTable.one").write_bytes(b"\x00")
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "candidate text",
+            tmp_path,
+            self._verdict("unverifiable_fixture_dependency:SimpleTable.one"),
+            claim_text=self.FIXTURE_CLAIM,
+        )
+        assert result.classification == "unverifiable"
+        assert result.corroborated is False
+
+    def test_fixture_path_not_verbatim_in_the_claim_is_refused(self, tmp_path):
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "candidate text",
+            tmp_path,
+            self._verdict("unverifiable_fixture_dependency:OtherFile.one"),
+            claim_text=self.FIXTURE_CLAIM,
+        )
+        assert result.classification == "unverifiable"
+        assert result.corroborated is False
+
+    def test_superseded_by_verified_slot_corroborates_with_a_long_verbatim_quote(self):
+        quote = "Generate every supported symbology through the verified entry point."
+        candidate = f"# Widget\n\n## Key Capabilities\n\n{quote}\n"
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            candidate,
+            Path("/nonexistent"),
+            self._verdict("superseded_by_verified_slot:key-capabilities", quote),
+            claim_text="an inherited capability sentence",
+        )
+        assert result.classification == "excluded_with_reason"
+        assert result.corroborated is True
+
+    def test_superseded_by_verified_slot_refuses_a_short_quote(self):
+        quote = "short quote"
+        candidate = f"# Widget\n\n{quote}\n"
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            candidate,
+            Path("/nonexistent"),
+            self._verdict("superseded_by_verified_slot:key-capabilities", quote),
+            claim_text="an inherited capability sentence",
+        )
+        assert result.classification == "unverifiable"
+        assert result.corroborated is False
+
+    def test_superseded_by_verified_slot_refuses_a_quote_absent_from_the_candidate(self):
+        quote = "Generate every supported symbology through the verified entry point."
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "# Widget\n\nSomething else entirely.\n",
+            Path("/nonexistent"),
+            self._verdict("superseded_by_verified_slot:key-capabilities", quote),
+            claim_text="an inherited capability sentence",
+        )
+        assert result.classification == "unverifiable"
+        assert result.corroborated is False
+
+    def test_stale_version_string_corroborates(self):
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "# Widget\n\nRequires widget 2.0 or newer.\n",
+            Path("/nonexistent"),
+            self._verdict("stale_version_string:1.2.3"),
+            claim_text="Requires widget 1.2.3 exactly.",
+        )
+        assert result.classification == "excluded_with_reason"
+        assert result.corroborated is True
+
+    def test_stale_version_string_still_present_in_the_candidate_is_refused(self):
+        result = corroborate_claim_disposition(
+            CLAIM_ID,
+            CONTENT_SHA,
+            "# Widget\n\nRequires widget 1.2.3 exactly.\n",
+            Path("/nonexistent"),
+            self._verdict("stale_version_string:1.2.3"),
+            claim_text="Requires widget 1.2.3 exactly.",
+        )
+        assert result.classification == "unverifiable"
+        assert result.corroborated is False
+
+    def test_an_unmatched_or_malformed_predicate_fails_closed(self):
+        for evidence_ref in (
+            "because_i_said_so:whatever",
+            "stale_version_string:",
+            "unverifiable_fixture_dependency",
+            "",
+        ):
+            result = corroborate_claim_disposition(
+                CLAIM_ID,
+                CONTENT_SHA,
+                "candidate text",
+                Path("/nonexistent"),
+                self._verdict(evidence_ref, "x" * 50),
+                claim_text="Requires widget 1.2.3 exactly.",
+            )
+            assert result.classification == "unverifiable", evidence_ref
+            assert result.corroborated is False
+
+
 class TestCheckClaimDisposition:
     def test_no_client_configured_stays_unverifiable(self):
         result = check_claim_disposition(

@@ -156,6 +156,47 @@ def test_dropped_claim_becomes_accountable_with_a_corroborated_verdict(tmp_path)
     assert record.expected_disposition == "llm_verified_disposition"
 
 
+SUPERSEDING_QUOTE = (
+    "Generate every supported symbology through a single verified entry point wrapper."
+)
+CANDIDATE_WITH_SUPERSEDING_SLOT = f"# Widget\n\n## Key Capabilities\n\n{SUPERSEDING_QUOTE}\n"
+
+
+def test_an_excluded_with_reason_verdict_flows_through_llm_verified_disposition(tmp_path) -> None:
+    """E5 slice 1: an accepted excluded_with_reason record reaches
+    expected_disposition through the identical llm_disposition_corroborated
+    boolean as every other accepted classification -- no new consumer path."""
+
+    facts = _facts()
+    verdict = ForcedToolResult(
+        arguments={
+            "classification": "excluded_with_reason",
+            "evidence_type": "checkable_predicate",
+            "evidence_ref": "superseded_by_verified_slot:key-capabilities",
+            "evidence_quote": SUPERSEDING_QUOTE,
+            "reasoning": "the verified capabilities section supersedes this sentence",
+        },
+        meta=LLMResponseMeta(),
+    )
+    client = FixtureForcedToolClient([verdict, verdict])
+
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=SOURCE,
+        candidate_text=CANDIDATE_WITH_SUPERSEDING_SLOT,
+        facts=facts,
+        generated_claim_map=_claim_map(facts, CANDIDATE_WITH_SUPERSEDING_SLOT),
+        llm_disposition_client=client,
+        repository_root=tmp_path,
+    )
+
+    record = _find_record(accountability, SOURCE)
+
+    assert record.survives_in_candidate is False
+    assert record.currently_accountable is True
+    assert record.expected_disposition == "llm_verified_disposition"
+
+
 def test_an_uncorroborated_verdict_leaves_the_claim_blocking(tmp_path) -> None:
     """The safety property: a hallucinated/unverifiable verdict must never
     unblock a claim, even when a client is supplied."""

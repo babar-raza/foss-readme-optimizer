@@ -1,6 +1,6 @@
 prompt_id: claim_disposition_check
 category: verification
-version: "1"
+version: "2"
 model_route: claim_disposition_check
 owner: readme_agent.readme.claim_accountability_llm_disposition
 runtime_consumer: readme_agent.llm.claim_disposition_prompts
@@ -26,6 +26,21 @@ system: |
     the claim. Never invent a file path or a quote you did not actually see.
   - narrative_filler: the sentence is pure transitional or framing prose (e.g. "Here's how it
     works:") with no independent factual claim of its own.
+  - excluded_with_reason: the sentence is deliberately excluded from the candidate for exactly
+    one machine-checkable reason, which you must name in evidence_ref as exactly one of:
+    * unverifiable_fixture_dependency:<path> -- the sentence's code or text references a
+      repository fixture file (for example a sample document the code opens) that an isolated
+      verifier cannot assume exists. Copy <path> character-for-character from the sentence
+      itself; the automated check refuses a path that does not appear verbatim in the sentence
+      or that actually ships with the package sources.
+    * superseded_by_verified_slot:<slot_id> -- a verified candidate section fully supersedes the
+      sentence. Quote at least 40 characters, copied verbatim, from that superseding candidate
+      section in evidence_quote.
+    * stale_version_string:<version> -- the sentence pins a version string that the candidate no
+      longer mentions anywhere. Copy <version> character-for-character from the sentence itself.
+    A stated reason outside these three predicates is not checkable here -- use unverifiable
+    instead. Your reasoning text is recorded but never trusted on its own; only the predicate
+    re-check decides.
   - unverifiable: none of the above genuinely apply. Always default to this when you are not
     certain -- an incorrect unverifiable classification only means the sentence stays
     conservatively unaccepted; an incorrect positive classification would be a real accountability
@@ -59,4 +74,8 @@ notes: "New 2026-08-18: the bounded LLM-verification alternative acceptance path
   constraint: every verdict is deterministically re-corroborated against the exact text/file shown
   before it can affect claim accountability (verification/claim_disposition.py), both at
   composition time and again, independently, by the validator -- never trusted from the model's
-  own say-so alone."
+  own say-so alone. Version 2 (2026-08-18, E5 slice 1): adds the excluded_with_reason
+  classification -- aspose.org's excluded + excluded_reason analogue -- accepted only when the
+  cited evidence_ref names one of three machine-checkable predicates
+  (unverifiable_fixture_dependency / superseded_by_verified_slot / stale_version_string) that
+  deterministic code re-verifies against the claim text, candidate, and repository clone."

@@ -147,7 +147,12 @@ def llm_verified_claim_disposition(
         stored_verdict = _load_ratchet(ratchet_path).get(content_sha256)
         if stored_verdict is not None:
             replayed = corroborate_claim_disposition(
-                claim_id, content_sha256, candidate_text, repository_root, stored_verdict
+                claim_id,
+                content_sha256,
+                candidate_text,
+                repository_root,
+                stored_verdict,
+                claim_text=claim_text,
             )
             if replayed.corroborated and replayed.classification != "unverifiable":
                 from readme_agent.llm.call_ledger import record_non_provider_call
