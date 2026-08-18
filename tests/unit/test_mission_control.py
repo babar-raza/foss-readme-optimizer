@@ -1744,12 +1744,20 @@ def _redirect_first_taskcard_dependency_to_a_deferred_task(tmp_path, deferred_ta
     return retargeted
 
 
+def _first_deferred_task_id_with_status(status: str) -> str:
+    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    for entry in raw["deferred_task_index"]:
+        if entry["status"] == status:
+            return entry["task_id"]
+    raise AssertionError(f"real deferred index carries no {status!r} record")
+
+
 def test_active_task_may_depend_on_a_closed_deferred_task(tmp_path):
     """Retiring a durably-CLOSED active task into the deferred catalog must not
-    strand its dependants (l8-horizon-01-deferral-2026-08-13 Finding 3)."""
+    strand its dependants (l8-horizon-01-deferral-2026-08-13 Finding 3): the
+    graph must load, and the dependant must evaluate ready."""
 
-    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
-    deferred_task_id = raw["deferred_task_index"][0]["task_id"]
+    deferred_task_id = _first_deferred_task_id_with_status("CLOSED")
     retargeted = _redirect_first_taskcard_dependency_to_a_deferred_task(tmp_path, deferred_task_id)
 
     graph, graph_hash = load_mission_graph(retargeted)
@@ -1771,12 +1779,39 @@ def test_active_task_may_depend_on_a_closed_deferred_task(tmp_path):
     assert evaluation.next_task.task_id == dependant.task_id
 
 
-def test_active_task_depending_on_a_non_closed_deferred_task_stays_blocked(tmp_path):
-    """Negative control: a deferred dependency that is not CLOSED must still
-    leave its dependant un-ready, not merely resolvable-by-existence."""
+@pytest.mark.parametrize("deferred_status", ["TODO", "DEFERRED_WITH_REASON", "REROUTED"])
+def test_active_task_dependency_on_a_non_closed_deferred_task_fails_graph_load(
+    tmp_path, deferred_status
+):
+    """Static gate: a deferred catalog entry satisfies an active dependency only
+    as a retired, terminally completed (CLOSED) prerequisite. Membership alone
+    must not pass referential integrity for a not-yet-completed deferred task."""
 
-    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
-    deferred_task_id = raw["deferred_task_index"][0]["task_id"]
+    deferred_task_id = _first_deferred_task_id_with_status(deferred_status)
+    retargeted = _redirect_first_taskcard_dependency_to_a_deferred_task(tmp_path, deferred_task_id)
+
+    with pytest.raises(ConfigError, match="depends on deferred tasks that are not CLOSED"):
+        load_mission_graph(retargeted)
+
+
+def test_active_task_dependency_on_an_unknown_id_still_fails_graph_load(tmp_path):
+    """Resolving dependencies against the deferred catalog must not weaken the
+    loud failure for genuinely unknown IDs."""
+
+    retargeted = _redirect_first_taskcard_dependency_to_a_deferred_task(
+        tmp_path, "L8-NO-SUCH-TASK-ANYWHERE"
+    )
+
+    with pytest.raises(ConfigError, match="unknown dependencies"):
+        load_mission_graph(retargeted)
+
+
+def test_active_task_depending_on_a_durably_reopened_deferred_task_stays_blocked(tmp_path):
+    """Runtime negative control: even when the deferred catalog statically
+    records CLOSED (so the graph loads), a durable-state override to a
+    non-CLOSED status must still leave the dependant un-ready."""
+
+    deferred_task_id = _first_deferred_task_id_with_status("CLOSED")
     retargeted = _redirect_first_taskcard_dependency_to_a_deferred_task(tmp_path, deferred_task_id)
 
     graph, graph_hash = load_mission_graph(retargeted)
@@ -1784,7 +1819,7 @@ def test_active_task_depending_on_a_non_closed_deferred_task_stays_blocked(tmp_p
 
     statuses = _all_closed_statuses(graph)
     statuses[dependant.task_id] = "TODO"
-    statuses[deferred_task_id] = "DEFERRED_WITH_REASON"
+    statuses[deferred_task_id] = "REOPENED"
     state = MissionExecutionStateV1(
         mission_id=graph.mission_authority.mission_id,
         graph_sha256=graph_hash,

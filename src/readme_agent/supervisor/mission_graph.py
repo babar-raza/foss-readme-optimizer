@@ -67,6 +67,19 @@ _VAGUE_CONTRIBUTIONS = {
     "continue the plan",
     "tbd",
 }
+# An active task's dependency may resolve through the deferred catalog only as
+# a retired, terminally completed prerequisite. DeferredTaskIndexV1.status
+# carries a full MissionTaskStatus and _validate_graph verifies it mirrors its
+# hash-bound catalog record before this gate runs, so it is a usable static
+# status. "CLOSED" is the one terminal completed value in that vocabulary --
+# the same set mission_control treats as dependency-satisfying
+# (_DEPENDENCY_SATISFIED = _TERMINAL_SUCCESS = {"CLOSED"}; not imported here
+# because mission_control imports this module). Durable state may still
+# override a retired task's status at runtime (e.g. a reopen); that remains
+# mission_control's readiness concern -- this static gate only stops a
+# not-yet-completed deferred entry from satisfying referential integrity by
+# mere membership.
+_COMPLETED_DEFERRED_DEPENDENCY_STATUSES = {"CLOSED"}
 
 
 def load_mission_graph(path: Path) -> tuple[MissionTaskGraphV1, str]:
@@ -275,6 +288,17 @@ def _validate_graph(graph: MissionTaskGraphV1, *, graph_path: Path) -> None:
         ]
         if missing:
             raise ConfigError(f"task {task.task_id!r} has unknown dependencies {missing}")
+        unfinished_deferred = [
+            dependency
+            for dependency in task.dependencies
+            if dependency not in by_id
+            and deferred_by_id[dependency].status not in _COMPLETED_DEFERRED_DEPENDENCY_STATUSES
+        ]
+        if unfinished_deferred:
+            raise ConfigError(
+                f"task {task.task_id!r} depends on deferred tasks that are not CLOSED "
+                f"{unfinished_deferred}"
+            )
         if (
             task.parent_task_id is not None
             and task.parent_task_id not in by_id
