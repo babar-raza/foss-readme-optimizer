@@ -160,6 +160,71 @@ the Dependencies gap confirms it was pipeline-wide, not product-specific noise, 
 highest-confidence, most tractable item on this list — a missing section generator, not a
 fact-availability or claim-accountability question.
 
+## Cells-Python (`aspose-cells-foss/Aspose.Cells-FOSS-for-Python`) — fourth confirmation, plus two new gaps
+
+Ours: `runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Python/26c3bd1633e84.../candidate/
+README.md` (first-ever `AGENT_APPROVED` for this repo, 2026-08-18, immediately following today's
+`replacement_candidate_claims_are_exact` compiled-title-exemption fix — see the backlog row).
+Theirs: `D:\onedrive\...\aspose.org\reports\repo-presenter-regen-full\cells\python\readme.md`.
+
+### Real gaps, roughly ranked by impact
+
+1. **API Reference documents 56 public types; aspose.org's documents 130 — less than half.**
+   Both cover "1 namespace"/"one module." Scanning theirs' list, most of the extra ~74 entries are
+   XML loader/writer/handler internals (`AutoFilterXMLLoader`, `CFBReader`, `ChartXmlLoader`,
+   `DataValidationXmlSaver`, `HyperlinkRelationshipWriter`, etc.) plus some plain data classes ours
+   also omits (`Alignment`, `Border`, `Borders`, `CalculationProperties`, `CoreProperties`,
+   `HeaderFooter`, `Selection`, `SheetView`, `WorkbookView`, ...). **Not yet confirmed which
+   explanation is correct**: either (a) `detect_api_public_surface` genuinely under-extracts this
+   repo's real public surface (a real extraction-depth gap, same family as the BarCode/HTML/TeX
+   "private-module re-export" gap already on this backlog), or (b) aspose.org's own methodology is
+   intentionally more permissive about what counts as "public" (including internal
+   XML-serialization helpers most consumers would never import directly) and ours is the more
+   conservative, arguably more correct scope. Needs checking against the real
+   `aspose.cells_foss` package's actual `__all__`/export surface before assuming either direction.
+2. **Key Capabilities bullets are thin — fourth confirmation of the systemic pattern**, same shape
+   as PDF/3D/Slides-Python above. Ours: 7 one-line bullets each naming 1-3 classes generically
+   ("Available through the public `Workbook` and `WorkbookPr` APIs"). Theirs: 11 dense
+   multi-sentence bullets naming specific methods, parameter shapes, and real technical detail
+   (e.g. the charts bullet names all 16 real `ChartType` values by name; the password-protection
+   bullet names the exact encryption standard, `ECMA-376 Part 2 §4`, and both the encrypt and
+   decrypt call shapes). Confirms the claim-accountability-coverage hypothesis from the PDF-Python
+   entry a fourth time, now across 4 of 4 reviewed repos.
+3. **`FormulaEvaluator` (formula calculation) is entirely absent from ours — not thin, missing.**
+   Theirs documents it as both a Key Capability ("a basic `FormulaEvaluator` for cells without
+   cached values") and a named Scope and Limitations caveat ("this is not a full spreadsheet
+   calculation engine"). Ours' capability bullets never mention formula evaluation at all, and
+   Scope and Limitations doesn't carry the caveat either — a real capability the source apparently
+   has evidence for (theirs cites the actual class name) that never surfaced in ours' candidate at
+   all, not merely stated thinly.
+4. **Development and Testing has no test-run command, only install.** Ours: `pip install -e .`
+   with nothing after it. Theirs: `pip install -e ".[dev]"` then `pytest` — a complete, runnable
+   two-step workflow. This isn't a richness gap, it's a missing verifiable step; worth checking
+   whether the repository actually has a working `pytest` entry point that the extraction simply
+   didn't surface, or whether the dev-command fact genuinely has no accepted evidence here.
+5. **Badge set carries one likely-redundant badge.** Ours: PyPI, Python versions, "Requires:
+   Python >=3.7" (a third, separate badge restating what the Python-versions badge already shows),
+   License, Contributors (5). Theirs: PyPI, Python, License, Contributors (4, no separate
+   "Requires" badge). Same shape as the PDF-Python off-template badge finding, different specific
+   badge this time — worth checking whether the "Requires" badge generator should suppress itself
+   when a Python-versions badge already covers the same fact.
+6. **Documentation and Resources is missing a contributor-guide link.** Theirs adds `**[Contributor
+   guide](AGENTS.md)**` alongside the getting-started/how-to/API-reference/issue links ours already
+   has; ours has no fifth item. Worth confirming whether this repo has an `AGENTS.md` (or
+   equivalent) this system isn't currently citing, versus correctly omitting a link that doesn't
+   exist.
+
+### What's genuinely at parity or better
+
+- **Dependencies section is now present and structurally correct** (`### Required Package
+  Dependencies` / `### Optional Dependencies`), confirming the 2026-08-17 fix generalizes cleanly
+  to a fourth repository without further changes.
+- **Repository Example Files listing** (31 real example files linked under Additional Examples) is
+  a genuine plus theirs doesn't have — same pattern as PDF-Python's Security section being a
+  confirmed plus, not a gap.
+- Installation, Quick Start, and Scope and Limitations are structurally sound and roughly
+  comparable in section shape, even where content depth differs (item 3 above).
+
 ## Review tracker (Decision #104 — required per repository, first promotion + every content change)
 
 Status as of 2026-08-18. `reviewed` = compared against the real aspose.org candidate at least once
@@ -176,7 +241,7 @@ Python (current active platform, decision #98):
 | aspose-pdf-foss-python | reviewed | 2026-08-17 (§PDF-Python above) |
 | aspose-slides-foss-python | reviewed (stale candidate) | 2026-08-17 (§Slides-Python above) — the reviewed candidate was superseded by a fresh upstream commit that same day and is currently BLOCKED again; re-review once it next reaches `AGENT_APPROVED` |
 | aspose-barcode-foss-python | pending | blocked on claim accountability |
-| aspose-cells-foss-python | pending | blocked on `mandatory_claim_replacements_have_exact_provenance` |
+| aspose-cells-foss-python | reviewed | 2026-08-18 (§Cells-Python above) |
 | aspose-email-foss-python | pending | blocked on claim accountability |
 | aspose-font-foss-python | pending | blocked (was an LLMError truncation crash, fixed 2026-08-18; re-run pending) |
 | aspose-html-foss-python | pending | blocked on `BLOCKED_MISSING_EVIDENCE` |
