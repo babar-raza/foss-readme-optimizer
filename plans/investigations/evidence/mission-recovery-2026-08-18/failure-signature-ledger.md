@@ -171,3 +171,16 @@ under a genuine, deliberate runtime change — not a bug.
 Mission narrowing recorded (`--mission-action record-narrowing`, state_version 4) citing this
 ledger + the slides/S1-residue/E5-correction evidence, satisfying Decision #97's 15-minute
 material-narrowing requirement that fired during post-merge canary verification.
+
+## Final boundary full-suite result (2026-08-18, post all merges + characterization fixes)
+
+`4021 passed, 1 failed` (down from the session's starting 5-10 documented baseline failures).
+The one remaining failure is the pre-existing `test_current_note_feature_and_api_deferrals_have_
+accepted_fact_ids` stale-fixture data drift (gitignored `runs/baseline` Note README no longer
+matches its pinned hash — documented earlier this session, unrelated to any change here).
+`run_full_pytest.py`'s leaked-process detector flagged PIDs 13160/70256; verified these are the
+concurrently-launched page-verification canary's own live supervise process (started at the
+exact same timestamp), not leaked pytest workers — a false positive from running gates and
+canaries in parallel, not a real leak. `tree_changed_during_run: true` with identical start/end
+tree fingerprints is the same concurrent-canary artifact (gitignored `runs/` writes, no
+git-tracked source drift).
