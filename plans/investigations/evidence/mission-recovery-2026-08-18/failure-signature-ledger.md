@@ -119,3 +119,20 @@ with the reference candidate) early. Secondary: our blocked candidates for barco
 font/note render no `## Dependencies` section while aspose.org's do — check why the 1.20 slot
 stays empty there; and the universal `Documentation & Resources` ampersand divergence repeats
 in all 7.
+
+## S11 (new, iteration-3 discovery): non-Python family reached — first .NET evidence
+
+3D-.NET (member 14, first .NET-family member processed in any recorded slice this session)
+blocked on 14 claim-accountability claims (S1-class, distinct claim ids — no cross-family
+sharing with the Python cohort observed) PLUS a new deterministic presentation-lint finding:
+`presentation.capability_description_repeats_title` — a real, legitimate prose-quality gate
+(`readme/presentation_lint_public_contract.py:118-129`, `semantically_repeats(title,
+first_sentence, threshold=0.9)`) catching a Key-Capabilities row whose explanation just restates
+its own title. Not a defect: this is exactly the kind of deterministic quality gate the mission
+wants MORE of, not less. Cells-.NET (member 15) is mid-verification with a longer wall-clock
+than any Python member this session — consistent with a real dotnet build/restore in the
+isolated verifier, not a hang; confirmed via live process check, not assumed.
+
+This is the first evidence that the S1/E5 claim-accountability closure work generalizes across
+families: 3D-.NET's 14 claims are a DIFFERENT set from the Python cohort's, so Lane A/B/C fixes
+will need per-family validation once Python closes, not a single global "done".
