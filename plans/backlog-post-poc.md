@@ -262,3 +262,14 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
   `plans/investigations/evidence/mission-recovery-2026-08-18/tex-python-upstream-source-defect.md`.
   Clearing condition: upstream publishes a revision with parseable sources (the blocked-decision
   record auto-retries on a new `source_revision`).
+- 2026-08-18 (GOV-014): **Coarse verifier-seam fingerprint invalidates all cached facts on
+  classification-only edits.** `facts/verification_contract.py::_COMMON_FILES` includes
+  `../supervisor/product_truth.py`, so ANY edit there (this session: a cached-bundle reuse-gate
+  addition and a blocked-category label fix — neither changes a fact value) rotates
+  `local_verification_contract_hash` for every ecosystem and invalidates every repository's
+  cached facts, including the 3 accepted/no-op-proven bundles (observed live on the first
+  post-fix portfolio pass: member 1 re-collected instead of short-circuiting). Fail-closed and
+  correct, but exactly the "narrow change, broad invalidation" waste Decision #90's component
+  model exists to avoid. Candidate fix: split the reuse-gate/classification helpers out of the
+  fingerprinted seam file, or fingerprint the seam per concern (value-producing code vs
+  meta/classification code). Non-blocking; costs are one-time per such edit.

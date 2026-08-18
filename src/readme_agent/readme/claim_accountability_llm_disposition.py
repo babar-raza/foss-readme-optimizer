@@ -11,14 +11,13 @@ corroboration (`verification/claim_disposition.py`) -- exactly the "who
 verifies the verifier" resolution `verification/prose_quality.py` already
 established for its own additive LLM signal.
 
-Phase 1 (this module): the mechanism is complete, corroborated, and tested
-end-to-end via `build_readme_claim_accountability_map`'s new optional
-`llm_disposition_client`/`repository_root` parameters -- entirely inert
-(zero behavior change) unless a caller explicitly supplies a client. No
-caller in the live candidate-rendering pipeline (`document_renderer.py`,
-`supervisor/loop.py`) passes one yet; wiring a real client into that live
-chain is the deliberately deferred next step, not attempted in the same
-pass that introduced the mechanism itself."""
+Live since 2026-08-18 (`543943038` wired the client through
+`capabilities/build_presentation_plan.py` -> `document_planner.py`/
+`document_renderer.py` -> `verified_template_document.py`; `928421b65` made
+the dropped-claim case reachable). Still additive and opt-in at every
+signature: a caller that omits `llm_disposition_client`/`repository_root`
+(and now `ratchet_path`) gets the exact pre-existing mechanical-only
+behavior."""
 
 from __future__ import annotations
 
