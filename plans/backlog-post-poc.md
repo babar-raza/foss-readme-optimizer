@@ -155,3 +155,31 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
     disposition claims with no structural home) — that describes a routing gap for claims that
     never got a placement at all; this is a `verified_obligation_replacement` resolution that
     has a placement but fails its own exactness re-check.
+  - **RESOLVED 2026-08-18** (same day, later pass): replayed the real check functions against the
+    captured evidence bundle directly (`scripts/retrofits/diagnose_cells_obligation_replacement.py`,
+    kept as the reusable pattern for this class of question) instead of continuing manual JSON
+    archaeology — found the exact single failing resolution out of 28 in one run. Root cause:
+    `claim:7495:22ddeb846ad5e169` (`api_public_surface` obligation) cited `product.identity` as
+    one of its two facts, and the only provenance binding carrying that fact was `template.title`
+    (the compiled H1 line) — but `assess_material_claims` never produces a candidate record for
+    the title, so `replacement_candidate_claims_are_exact` could never find a covering "claim" for
+    that fact, regardless of how correctly the resolution was composed. Likely systemic beyond
+    this one repo: `product_overview`'s own obligation contract *requires* `product.identity` and
+    explicitly allows `template.title` as a provenance prefix, so any repository whose source
+    lands on that obligation would hit the identical gap. Fixed in
+    `claim_replacement_validation.py::replacement_candidate_claims_are_exact` — facts bound only
+    via `template.title`/`template.summary` (compiled, deterministically-rendered slots, not
+    freely composed prose) are now exempt from the candidate-claim requirement. Two regression
+    tests added (exemption + exact-prefix-boundary negative control), both verified failing
+    pre-fix / passing post-fix via `git stash`; full unit suite confirmed no new failures beyond
+    the pre-existing baseline documented above. Commit pending this session.
+  - **New finding, same day, after the fix above landed**: cells-python now clears claim
+    accountability entirely and advances to a later pipeline stage (independent review), where it
+    hits a different, not-yet-investigated failure: `independent_review_exception:
+    GroundedRoleFailure: blind_quality reviewer repeatedly returned ungrounded findings:
+    ['f1:heading-only quote cannot prove the claimed section content', 'f2:mechanical premise
+    cites unrelated check quick_start.max_nonblank_code_lines']`. Not triaged — could be a real
+    reviewer/grounding-check defect (the reviewer producing unverifiable findings) or a genuine
+    candidate defect the reviewer is correctly, if sloppily, flagging. Next session should pull
+    the fresh evidence bundle for this exact failure and read the `blind_quality` reviewer's
+    actual prompt/output before assuming either direction.

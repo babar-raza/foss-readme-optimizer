@@ -128,12 +128,29 @@ def replacement_provenance_is_exact(
     )
 
 
+_COMPILED_IDENTITY_PREFIXES = ("template.title", "template.summary")
+
+
 def replacement_candidate_claims_are_exact(
     resolution: SourceClaimResolutionV1,
     candidate_records: list[ReadmeClaimAccountabilityV1],
     provenance_by_id: dict[str, CandidateContentProvenanceV1],
 ) -> bool:
-    """Require every replaced source fact on an accountable candidate claim span."""
+    """Require every replaced source fact on an accountable candidate claim span.
+
+    `template.title`/`template.summary` are exempt from the candidate-claim
+    requirement: `assess_material_claims` never produces a candidate record
+    for the H1 title line or the compiled summary slot (they are
+    deterministically rendered from the exact selected fact, never freely
+    composed prose, so there is no accountability risk to guard against
+    there). Without this exemption, a fact reachable only through one of
+    these two slots -- exactly `product_overview`'s own contract,
+    `_OBLIGATION_PROVENANCE_PREFIXES["product_overview"]` -- could never
+    satisfy this check, regardless of how correctly the resolution was
+    composed (found live: aspose-cells-foss's product.identity fact,
+    bound only via `template.title`, on an `api_public_surface`
+    resolution).
+    """
 
     try:
         bindings = [
@@ -142,8 +159,17 @@ def replacement_candidate_claims_are_exact(
         ]
     except KeyError:
         return False
+    compiled_identity_bindings = [
+        binding
+        for binding in bindings
+        if any(
+            binding.provenance_id == prefix or binding.provenance_id.startswith(f"{prefix}.")
+            for prefix in _COMPILED_IDENTITY_PREFIXES
+        )
+    ]
     return all(
-        any(
+        any(fact_id in binding.fact_ids for binding in compiled_identity_bindings)
+        or any(
             record.currently_accountable
             and fact_id in record.accepted_fact_ids
             and any(

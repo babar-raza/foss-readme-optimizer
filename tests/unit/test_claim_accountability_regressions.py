@@ -673,6 +673,84 @@ def test_replacement_candidate_exactness_accepts_same_fact_and_span_binding() ->
     )
 
 
+def test_replacement_candidate_exactness_exempts_facts_bound_only_via_compiled_title() -> None:
+    """Regression: `template.title` (the H1 line) is never assessed as a
+    material claim, so a fact reachable only through it could never satisfy
+    the ordinary candidate-record requirement -- found live on aspose-
+    cells-foss, an `api_public_surface` resolution whose `product.identity`
+    fact bound only to `template.title`."""
+
+    resolution = SourceClaimResolutionV1(
+        claim_id="source-claim",
+        source_byte_start=0,
+        source_byte_end=1,
+        content_sha256=hashlib.sha256(b"x").hexdigest(),
+        resolution="verified_obligation_replacement",
+        obligation_id="api_public_surface",
+        fact_ids=["fact-1", "identity-fact"],
+        replacement_provenance_ids=["binding-a", "template.title"],
+        evidence=["negative-control"],
+        rationale="Exercise the compiled-title exemption.",
+    )
+    bindings = {
+        **_crossed_replacement_bindings(),
+        "template.title": CandidateContentProvenanceV1(
+            provenance_id="template.title",
+            candidate_byte_start=2,
+            candidate_byte_end=30,
+            fact_ids=["identity-fact"],
+            rationale="Compiled H1 title slot, never a material claim.",
+        ),
+    }
+
+    assert (
+        replacement_candidate_claims_are_exact(
+            resolution,
+            [_candidate_accountability(0, 5)],
+            bindings,
+        )
+        is True
+    )
+
+
+def test_replacement_candidate_exactness_does_not_exempt_a_lookalike_provenance_id() -> None:
+    """The exemption matches `template.title`/`template.summary` exactly
+    (or as a dotted prefix) -- a similarly-named but different provenance
+    id must not accidentally qualify."""
+
+    resolution = SourceClaimResolutionV1(
+        claim_id="source-claim",
+        source_byte_start=0,
+        source_byte_end=1,
+        content_sha256=hashlib.sha256(b"x").hexdigest(),
+        resolution="verified_obligation_replacement",
+        obligation_id="api_public_surface",
+        fact_ids=["fact-1", "identity-fact"],
+        replacement_provenance_ids=["binding-a", "template.titlecard"],
+        evidence=["negative-control"],
+        rationale="Exercise the compiled-title exemption's exact-prefix boundary.",
+    )
+    bindings = {
+        **_crossed_replacement_bindings(),
+        "template.titlecard": CandidateContentProvenanceV1(
+            provenance_id="template.titlecard",
+            candidate_byte_start=2,
+            candidate_byte_end=30,
+            fact_ids=["identity-fact"],
+            rationale="Not the compiled title slot, despite the similar name.",
+        ),
+    }
+
+    assert (
+        replacement_candidate_claims_are_exact(
+            resolution,
+            [_candidate_accountability(0, 5)],
+            bindings,
+        )
+        is False
+    )
+
+
 def test_non_overview_replacement_rejects_an_extra_bound_accepted_fact() -> None:
     facts = _facts()
     capability_id = facts.selected_fact_ids["product.capabilities"]
