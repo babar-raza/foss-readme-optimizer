@@ -28,9 +28,33 @@ from readme_agent.supervisor.mission_goal_guard import derive_lifecycle_scoreboa
 from readme_agent.supervisor.mission_graph import load_mission_graph
 
 
+def _mission_state_backend_for_args(args: argparse.Namespace):
+    """Route mission commands under `--execution-profile local_poc` to the same
+    isolated, always-local state remote every other local_poc path already uses.
+
+    Closes the residual half of the 2026-08-18 state-backend split
+    (`plans/investigations/evidence/readme-portfolio-aspose-parity/
+    local-poc-state-backend-uses-origin-not-local.md`): `supervise --registry`
+    and the bounded-verified-canary execution path were routed via
+    `_state_backend_for_profile()`, but `--mission-action evaluate/claim/...`
+    still wrote through the real-`origin` backend -- so a local claim could
+    never be visible to `mission_execution_guard.require_visible_execution_
+    binding()`, which reads through the profile-routed backend, and every
+    local canary died with "durable mission state is unavailable". Every
+    other profile (and the profile-less invocation) keeps the prior,
+    origin-backed durable behavior unchanged.
+    """
+
+    if getattr(args, "execution_profile", None) == "local_poc":
+        from readme_agent.state.local_poc_backend import default_local_poc_state_backend
+
+        return default_local_poc_state_backend()
+    return default_state_backend()
+
+
 def run_mission_command(args: argparse.Namespace) -> int:
     graph, graph_sha256 = load_mission_graph(Path(args.mission_task_graph))
-    backend = default_state_backend()
+    backend = _mission_state_backend_for_args(args)
     action = args.mission_action
 
     if action in {"status", "evaluate"}:
