@@ -497,14 +497,30 @@ def _richer_fact_bound_source_capability(
     capability_discriminator_set = capability_discriminators(capability)
     candidates: list[tuple[int, int, str, list[str], list[StructuredFactCoordinateV1]]] = []
     for source_claim, binding in source_bindings:
-        if "\n" in source_claim.strip():
+        stripped_claim = source_claim.strip()
+        if not stripped_claim:
             continue
-        public_claim = re.sub(r"^\s*[-*+]\s+", "", source_claim.strip())
+        # A blank line marks a genuine paragraph/block boundary (multiple bullets, or a
+        # fenced code block, glued together by the source parser) and is disqualifying --
+        # but aspose.org-style rich bullets routinely soft-wrap one sentence across several
+        # physical lines with single newlines, which is not a block boundary and must not be
+        # rejected merely for containing "\n". Collapse those to render as one candidate line.
+        if len(re.split(r"\n[ \t]*\n", stripped_claim)) != 1:
+            continue
+        normalized_claim = " ".join(stripped_claim.split())
+        public_claim = re.sub(r"^\s*[-*+]\s+", "", normalized_claim)
         public_claim = visitor_capability_phrase(public_claim)
         source_discriminator_set = capability_discriminators(public_claim)
         if (
             not public_claim
-            or len(public_claim) > 160
+            # 480 covers the richest verified aspose.org-style capability bullet observed in
+            # practice (a soft-wrapped multi-clause sentence, ~470 normalized characters) with
+            # headroom, while still rejecting a runaway multi-sentence blob. The other checks
+            # below (verb-led, discriminator/domain match, semantic overlap with the plain
+            # generated phrase) already gate genuine groundedness -- this cap only guards
+            # against unbounded length, not richness, which the candidate tiebreak already
+            # prefers among survivors.
+            or len(public_claim) > 480
             or capability_action_verb(public_claim) is None
             or (
                 capability_discriminator_set
