@@ -203,10 +203,16 @@ def prove_python_consumer(
                 dependency_bundle,
                 workspace / ".readme-agent-wheelhouse",
             )
+        known_constructor_names = frozenset(
+            symbol.name.split(".")[0]
+            for symbol in selected
+            if symbol.kind == "class" and symbol.name
+        )
         fixture_bindings = stage_repository_input_fixtures(
             snapshot,
             workspace,
             example.code,
+            known_constructor_names=known_constructor_names,
         )
         (workspace / ".readme-agent-consumer-driver.py").write_text(
             _DRIVER,

@@ -5,6 +5,7 @@ from __future__ import annotations
 import ast
 import hashlib
 import shutil
+from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -33,9 +34,14 @@ _PREFERRED_FIXTURE_STEMS = ("minimal", "sample", "example", "input", "simple")
 class _InputPathCandidate:
     target: Path
     allow_substitution: bool
+    exact_name_only: bool = False
 
 
-def _input_paths_from_example(code: str) -> list[_InputPathCandidate]:
+def _input_paths_from_example(
+    code: str,
+    *,
+    known_constructor_names: frozenset[str] = frozenset(),
+) -> list[_InputPathCandidate]:
     tree = ast.parse(code, filename=".readme-agent-consumer.py")
     imported_constructors = {
         alias.asname or alias.name
@@ -44,7 +50,7 @@ def _input_paths_from_example(code: str) -> list[_InputPathCandidate]:
         for alias in node.names
         if (alias.asname or alias.name)[:1].isupper()
     }
-    paths: dict[Path, bool] = {}
+    paths: dict[Path, tuple[bool, bool]] = {}
     for node in ast.walk(tree):
         if not isinstance(node, ast.Call) or not node.args:
             continue
@@ -55,8 +61,17 @@ def _input_paths_from_example(code: str) -> list[_InputPathCandidate]:
             if isinstance(node.func, ast.Name)
             else ""
         )
-        allow_substitution = call_name in _INPUT_CALL_NAMES
-        if not allow_substitution and call_name not in imported_constructors:
+        ordinary_input_call = call_name in _INPUT_CALL_NAMES
+        verified_constructor_call = (
+            not ordinary_input_call
+            and call_name in imported_constructors
+            and call_name in known_constructor_names
+        )
+        if (
+            not ordinary_input_call
+            and not verified_constructor_call
+            and (call_name not in imported_constructors)
+        ):
             continue
         first = node.args[0]
         if not isinstance(first, ast.Constant) or not isinstance(first.value, str):
@@ -70,10 +85,20 @@ def _input_paths_from_example(code: str) -> list[_InputPathCandidate]:
         path = Path(value)
         if not value or path.is_absolute() or ".." in path.parts or not path.suffix:
             continue
-        paths[path] = paths.get(path, False) or allow_substitution
+        prior_ordinary, prior_constructor = paths.get(path, (False, False))
+        paths[path] = (
+            prior_ordinary or ordinary_input_call,
+            prior_constructor or verified_constructor_call,
+        )
     return [
-        _InputPathCandidate(target=path, allow_substitution=paths[path])
-        for path in sorted(paths, key=lambda item: item.as_posix().casefold())
+        _InputPathCandidate(
+            target=path,
+            allow_substitution=ordinary or constructor,
+            exact_name_only=constructor and not ordinary,
+        )
+        for path, (ordinary, constructor) in sorted(
+            paths.items(), key=lambda item: item[0].as_posix().casefold()
+        )
     ]
 
 
@@ -95,15 +120,41 @@ def _fixture_rank(snapshot_root: Path, path: Path, target: Path) -> tuple:
     )
 
 
-def _select_repository_fixture(snapshot_root: Path, target: Path) -> Path | None:
-    candidates = [
+def _repository_fixture_candidates(
+    snapshot_root: Path, matches: Callable[[Path], bool]
+) -> list[Path]:
+    return [
         path
         for path in snapshot_root.rglob("*")
         if path.is_file()
-        and path.suffix.casefold() == target.suffix.casefold()
+        and matches(path)
         and 0 < path.stat().st_size <= _MAX_FIXTURE_BYTES
         and ".git" not in {part.casefold() for part in path.relative_to(snapshot_root).parts}
     ]
+
+
+def _select_repository_fixture(snapshot_root: Path, target: Path) -> Path | None:
+    candidates = _repository_fixture_candidates(
+        snapshot_root, lambda path: path.suffix.casefold() == target.suffix.casefold()
+    )
+    return min(
+        candidates,
+        key=lambda path: _fixture_rank(snapshot_root, path, target),
+        default=None,
+    )
+
+
+def _select_repository_fixture_by_name(snapshot_root: Path, target: Path) -> Path | None:
+    """Match only an identical filename anywhere in the tree, never a bare suffix.
+
+    Constructor calls admit arbitrary string arguments, not just file inputs, so
+    substitution must not guess from the extension alone the way ordinary
+    ``open``/``load``/``from_file``/``read`` calls do.
+    """
+
+    candidates = _repository_fixture_candidates(
+        snapshot_root, lambda path: path.name.casefold() == target.name.casefold()
+    )
     return min(
         candidates,
         key=lambda path: _fixture_rank(snapshot_root, path, target),
@@ -126,13 +177,17 @@ def stage_repository_input_fixtures(
     snapshot: RepositorySnapshotV1,
     workspace: Path,
     code: str,
+    *,
+    known_constructor_names: frozenset[str] = frozenset(),
 ) -> list[PythonFixtureBindingV1]:
     """Stage deterministic inputs without changing the visitor-facing example."""
 
     bindings: list[PythonFixtureBindingV1] = []
     workspace_root = workspace.resolve()
     snapshot_root = snapshot.root_path.resolve()
-    for candidate in _input_paths_from_example(code):
+    for candidate in _input_paths_from_example(
+        code, known_constructor_names=known_constructor_names
+    ):
         target = candidate.target
         destination = (workspace_root / target).resolve()
         try:
@@ -161,7 +216,11 @@ def stage_repository_input_fixtures(
             continue
         source = _exact_repository_fixture(snapshot_root, target)
         if source is None and candidate.allow_substitution:
-            source = _select_repository_fixture(snapshot_root, target)
+            source = (
+                _select_repository_fixture_by_name(snapshot_root, target)
+                if candidate.exact_name_only
+                else _select_repository_fixture(snapshot_root, target)
+            )
         if source is None:
             continue
         destination.parent.mkdir(parents=True, exist_ok=True)
