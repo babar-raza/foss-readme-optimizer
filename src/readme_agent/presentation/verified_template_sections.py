@@ -58,7 +58,14 @@ def optional_extras_markdown(facts: ProductFactsV2) -> str | None:
 
 
 def dependency_markdown(facts: ProductFactsV2) -> str | None:
-    """Render only manifest or source-bound Python dependency coordinates."""
+    """Render only manifest or source-bound Python dependency coordinates.
+
+    Python-only: the underlying fact this reads (``python.distribution``) is the
+    only ecosystem distribution fact this function understands. No equivalent
+    java/dotnet/etc. distribution fact is wired through this function today, so
+    this stays scoped to Python rather than guessing at other ecosystems' fact
+    shapes.
+    """
 
     sections: list[str] = []
     distribution = _accepted(facts, "python.distribution")
@@ -70,6 +77,11 @@ def dependency_markdown(facts: ProductFactsV2) -> str | None:
                 + ", ".join(f"`{item}`" for item in dependencies if isinstance(item, str))
                 + "."
             )
+        elif isinstance(dependencies, list):
+            # Verified empty: the manifest was present and parsed, and the
+            # dependency list is confirmed to have zero entries -- not the
+            # unverified/absent case, which keeps falling through to None.
+            sections.append("No required third-party package dependencies.")
     return "\n\n".join(sections) or None
 
 
