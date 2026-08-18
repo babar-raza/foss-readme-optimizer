@@ -154,3 +154,20 @@ provider calls, `executed` not `deduplicated` intake) correctly classified `infr
 Confirms `17f8cc595` works exactly as designed once findings are freshly computed; the
 html/psd/tex `agent_fixable` staleness documented in `e3-residual-empty-findings-bug.md` is
 specifically a cache/empty-findings issue, not a defect in the classification logic itself.
+
+## Expected post-merge invalidation (2026-08-18): 3 approved repos need re-verification
+
+Mission status after merging graph-loader/E5/lane-ab-fixes shows
+`stale_acceptance_repositories: aspose-3d-foss, aspose-cells-foss, aspose-pdf-foss` (the three
+NO_OP_PROVEN repos from the pre-merge pass). This is the exact, disclosed footprint the Lane A/B
+prepared-change specs predicted: `template_version` 1.20.0->1.21.0 (heading fix) and the
+Documentation/API-Method-Index rendering changes rotate `document_template_hash()` /
+`candidate_stage_dependency_key`, so Decision #90's component-versioned invalidation correctly
+marks their prior candidates stale. Facts are unaffected (`facts_ready` held/advanced). Cheap to
+clear: the next portfolio pass re-verifies these three with the new template, no re-collection
+of facts needed. Confirms the fingerprinting mechanism itself is working precisely as designed
+under a genuine, deliberate runtime change — not a bug.
+
+Mission narrowing recorded (`--mission-action record-narrowing`, state_version 4) citing this
+ledger + the slides/S1-residue/E5-correction evidence, satisfying Decision #97's 15-minute
+material-narrowing requirement that fired during post-merge canary verification.
