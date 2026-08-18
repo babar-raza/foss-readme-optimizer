@@ -229,6 +229,16 @@ def expected_disposition(
             "resolution proves that the correction occurred.",
         )
     if stage == "source" and survives_in_candidate is False:
+        if llm_disposition_corroborated:
+            return (
+                "llm_verified_disposition",
+                True,
+                "No mechanical fact binding covers the exact claim text; a bounded, "
+                "deterministically corroborated LLM classification (redundant with the "
+                "candidate, verified against real repository source, or narrative filler) is "
+                "recorded in the claim-disposition ledger as an explicit, auditable "
+                "alternative acceptance path.",
+            )
         return (
             "unjustified_loss",
             False,

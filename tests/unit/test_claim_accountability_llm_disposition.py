@@ -97,6 +97,65 @@ def test_unbindable_claim_becomes_accountable_with_a_corroborated_verdict(tmp_pa
     assert record.expected_disposition == "llm_verified_disposition"
 
 
+CANDIDATE_WITHOUT_CLAIM = "# Widget\n\n## Key Capabilities\n\nSomething else entirely.\n"
+
+
+def test_dropped_claim_stays_unjustified_loss_without_a_client() -> None:
+    """The exact live scenario this mechanism was built for: a source claim
+    genuinely absent from the candidate (`survives_in_candidate is False`),
+    not merely present-but-unbound. A prior wiring bug gated the LLM
+    corroboration attempt on `survives is not False`, which excluded this
+    exact case -- the caller never even tried the client, so the fallback
+    was dead code for every real lost-source-claim block observed live
+    (aspose-barcode-foss et al.)."""
+
+    facts = _facts()
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=SOURCE,
+        candidate_text=CANDIDATE_WITHOUT_CLAIM,
+        facts=facts,
+        generated_claim_map=_claim_map(facts, CANDIDATE_WITHOUT_CLAIM),
+    )
+
+    record = _find_record(accountability, SOURCE)
+
+    assert record.survives_in_candidate is False
+    assert record.currently_accountable is False
+    assert record.expected_disposition == "unjustified_loss"
+
+
+def test_dropped_claim_becomes_accountable_with_a_corroborated_verdict(tmp_path) -> None:
+    facts = _facts()
+    verdict = ForcedToolResult(
+        arguments={
+            "classification": "narrative_filler",
+            "evidence_type": "none",
+            "evidence_ref": "",
+            "evidence_quote": "",
+            "reasoning": "transitional prose introducing the mechanism, no new claim",
+        },
+        meta=LLMResponseMeta(),
+    )
+    client = FixtureForcedToolClient([verdict, verdict])
+
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=SOURCE,
+        candidate_text=CANDIDATE_WITHOUT_CLAIM,
+        facts=facts,
+        generated_claim_map=_claim_map(facts, CANDIDATE_WITHOUT_CLAIM),
+        llm_disposition_client=client,
+        repository_root=tmp_path,
+    )
+
+    record = _find_record(accountability, SOURCE)
+
+    assert record.survives_in_candidate is False
+    assert record.currently_accountable is True
+    assert record.expected_disposition == "llm_verified_disposition"
+
+
 def test_an_uncorroborated_verdict_leaves_the_claim_blocking(tmp_path) -> None:
     """The safety property: a hallucinated/unverifiable verdict must never
     unblock a claim, even when a client is supplied."""

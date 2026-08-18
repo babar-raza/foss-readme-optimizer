@@ -569,7 +569,6 @@ def build_readme_claim_accountability_map(
         if (
             not disposition_fact_ids
             and not source_standard_ids
-            and survives is not False
             and resolution is None
             and claim.disposition != "investigate"
             and llm_disposition_client is not None
