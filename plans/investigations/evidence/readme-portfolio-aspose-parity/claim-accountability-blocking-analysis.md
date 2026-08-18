@@ -237,3 +237,39 @@ Full unit suite confirmed identical to the pre-existing baseline afterward — z
 3. Not yet run against a real portfolio repo end-to-end (would require step 1). The barcode-python
    `generate()`/pytest-dependency claims documented above are the natural first live proof once
    step 1 lands — they're the exact motivating example, already traced start to finish here.
+
+### A real safety subtlety found while starting live-pipeline wiring (Phase 3), not yet resolved
+
+Traced `build_readme_claim_accountability_map()`'s real callers before threading
+`llm_disposition_client`/`repository_root` any further: it has **five independent call sites**
+(`presentation/document_planner.py`, `readme/idea_candidate.py`,
+`specialists/readme_factuality.py`, `verification/checks.py`,
+`verification/readme_proposal_bundle.py`), each reached through `document_renderer.py::
+build_readme_document_candidate()`. Critically, `verification/checks.py` is Wave 8's **independent
+verifier** — its own module docstring: `"Independent" means never trusting a caller's claimed
+status/needs_write/final_text at face value -- re-derive ground truth from a fresh read"`.
+
+If `llm_disposition_client` were threaded all the way down to that path too, the independent
+verifier would make its own **fresh, non-deterministic** LLM judgment calls to re-derive claim
+accountability, rather than mechanically re-corroborating the composer's own already-recorded
+disposition. That is a different, weaker guarantee than intended (and this project's own
+established "who verifies the verifier" pattern in `verification/prose_quality.py`): a second LLM
+call is not independent re-verification of the first one's *specific* verdict, it is a second,
+uncorrelated coin flip. It could disagree with the composer's own accepted verdict (flakiness in a
+gate that otherwise prides itself on deterministic reproducibility), or worse, silently approve a
+claim the composer's own attempt never even tried.
+
+**Confirms the design already sketched in "Not yet done" item 2 above is the right one, not
+optional**: the independent verifier must only ever be given the *persisted*
+`review/claim-dispositions.json` ledger (mechanical re-corroboration of an already-recorded
+verdict — re-checking that the cited evidence still appears verbatim in the current candidate/
+source file, exactly what `corroborate_claim_disposition()` already does, just against saved data
+instead of a fresh model response) — **never a live `llm_disposition_client`**. Only the genuine
+composition-time call sites (`document_planner.py`, `idea_candidate.py`) should ever receive one.
+
+Not resolved this session: doing this correctly means auditing all five call sites individually
+(which are composition-time vs. verification-time) before wiring anything, not assuming the two
+sound "planner"/"candidate" names are safe by inference. Flagged here as the concrete reason Phase
+3 needs its own careful, dedicated pass rather than continued plumbing under time pressure — a
+mistake here would be a real regression of `VER-001`'s independence guarantee, worse than leaving
+claims blocked.
