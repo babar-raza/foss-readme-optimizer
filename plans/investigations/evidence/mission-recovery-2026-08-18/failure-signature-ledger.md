@@ -230,3 +230,23 @@ exact run. Do not attempt a fix without a genuine, live-matching repro — this 
 "disposition IS the render" lesson and the earlier `_richer_fact_bound_source_capability` bug
 both turned out to have non-obvious root causes that static reading alone got wrong twice before
 empirical verification corrected them; the same discipline applies here.
+
+**Follow-up (same investigation, minutes later)**: caught the portfolio pass re-processing
+cells-python live (iteration 3; the log line lacked the `(cached, not re-executed...)` prefix
+other members carry, and `readme_presentation` was reported as having "failed 3 consecutive
+runs" — confirming this is a stable, structurally-reproducible block, not LLM-variance noise)
+and tried to capture its exact plan before anything could supersede it — found that a BLOCKED
+attempt never persists `planning/agentic-composition-plan.json` to disk at all (only an
+already-*promoted*/accepted bundle does, confirmed by directory structure: `planning/` exists
+only under the one `AGENT_APPROVED` revision's own subtree, never under a currently-blocked
+one). Only `diagnostics/blocked-candidate.md`/`blocked-presentation-plan.json` are written, and
+neither carries the raw plan. **This is itself a real, disclosed gap for next time**: there is
+currently no way to inspect a blocked attempt's exact composition ledger after the fact without
+either modifying the pipeline to persist it on block too, or live-monkeypatching during a
+canary run (the T5 investigation's own precedent technique). One suggestive data point from the
+offline (non-matching) repro: its equivalent segment slots 0032/0034/0036 were pure whitespace
+separators (`'\n'`/`'\n\n'`), not prose — raising a hypothesis, unconfirmed, that the live
+"unbound" segments may also be trivial inter-section whitespace rather than substantive dropped
+prose, which would point at `_is_governed_mechanical_structure(text)` having a gap for certain
+separator patterns rather than a real content-provenance loss. Not verified; flagged for
+whoever picks this up next to check first, before assuming richer prose is involved.
