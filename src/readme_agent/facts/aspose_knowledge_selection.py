@@ -8,8 +8,11 @@ truth, never trust a capability's output... as if it were reality"
 third-party imported knowledge specifically:
 
 * the full corpus (97k+ claims across 31 product bundles) is never handed to
-  a prompt or a fact graph wholesale -- only a small, per-section-relevant,
-  confidence-ranked slice is selected (`_MAX_SELECTED_PER_KIND`);
+  a prompt or a fact graph wholesale -- only a small, per-section-relevant
+  slice is selected (`_MAX_SELECTED_PER_KIND`), ranked by real signals, not
+  confidence alone: repository corroboration, whether the current README
+  already states it, and product-relevant search intent all inform order
+  before confidence and claim id break remaining ties (`_relevance_sort_key`);
 * every raw claims.json record gets exactly one outcome -- a valid,
   considered claim, or a typed load finding
   (`aspose_knowledge_claims.load_knowledge_claims_with_findings`) -- and
@@ -53,6 +56,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
 
+from readme_agent.facts.aspose_detectors import detect_relevant_seo_keywords
 from readme_agent.facts.aspose_knowledge_claims import (
     BundleFreshness,
     ImportedKnowledgeClaimV1,
@@ -128,6 +132,7 @@ class KnowledgeClaimDispositionV1(BaseModel):
     resulting_fact_field: str | None = None
     verification_state: Literal["verified", "unverified"] | None = None
     confidence: float | None = None
+    already_in_readme: bool = False
 
 
 class KnowledgeSelectionResultV1(BaseModel):
@@ -285,6 +290,63 @@ def _claim_eligibility(
     return False, "unverified", claim.confidence, reason
 
 
+def _normalize_for_relevance(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", text.casefold()).strip()
+
+
+def _readme_normalized_text(clone_cache: Path) -> str:
+    """The current repository's own README, normalized -- the real "does
+    this section already say this" signal (section need / duplication /
+    existing-README relevance). `clone_cache` already holds the live clone
+    every other corroboration check in this module reads from; no new
+    plumbing is required to reach it."""
+
+    readme_path = clone_cache / "README.md"
+    if not readme_path.is_file():
+        return ""
+    try:
+        raw = readme_path.read_text(encoding="utf-8", errors="ignore")
+    except OSError:
+        return ""
+    return _normalize_for_relevance(raw)
+
+
+_CORROBORATION_RANK: dict[ClaimCorroboration, int] = {
+    "corroborated": 2,
+    "uncorroborated": 1,
+    "conflict": 0,
+}
+
+
+def _relevance_sort_key(
+    claim: ImportedKnowledgeClaimV1,
+    *,
+    corroboration: ClaimCorroboration,
+    already_in_readme: bool,
+    search_intent_match: bool,
+) -> tuple[int, bool, bool, float, str, str]:
+    """Genuine multi-signal relevance ranking -- not confidence+kind+id
+    alone (the pseudo-relevance defect this function replaces). Real
+    repository corroboration outranks everything; among equally-corroborated
+    claims, information the current README does not already state outranks
+    information it does (the highest-value gap to fill, not a restatement a
+    visitor can already read); a claim naming one of this product's own
+    relevance-filtered SEO keywords
+    (`aspose_seo_keyword_facts.py`/`aspose_detectors.detect_relevant_seo_
+    keywords`'s already-proven grounding logic, reused here rather than
+    reinvented -- the "search intent" signal) outranks one that does not;
+    confidence and a stable id break remaining ties, never decide alone."""
+
+    return (
+        -_CORROBORATION_RANK[corroboration],
+        already_in_readme,
+        not search_intent_match,
+        -claim.confidence,
+        claim.kind,
+        claim.claim_id,
+    )
+
+
 def select_knowledge_claims(
     family: str,
     platform: str,
@@ -295,14 +357,18 @@ def select_knowledge_claims(
 ) -> KnowledgeSelectionResultV1:
     """Load, freshness-assess, corroborate, and bound-select imported
     knowledge claims for one product/platform. Deterministic: identical
-    corpus + identical `source_revision` always produce identical
-    dispositions and fact records (selection ranks by confidence then
-    `claim_id`, never by insertion order or randomness)."""
+    corpus + identical `source_revision` + identical current clone contents
+    always produce identical dispositions and fact records (selection ranks
+    by real corroboration/README-overlap/search-intent signals, breaking
+    remaining ties by confidence then `claim_id` -- never by insertion order
+    or randomness; see `_relevance_sort_key`)."""
 
     load_result = load_knowledge_claims_with_findings(family, platform, data_root=data_root)
     all_claims = load_result.claims
     provenance = load_bundle_provenance(family, platform, data_root=data_root)
     freshness = assess_bundle_freshness(provenance, current_repo_sha=source_revision)
+    readme_normalized = _readme_normalized_text(clone_cache)
+    seo_keywords = detect_relevant_seo_keywords(family, platform, data_root=data_root).keywords
 
     dispositions: list[KnowledgeClaimDispositionV1] = []
     fact_records: list[FactRecordV2] = []
@@ -346,10 +412,35 @@ def select_knowledge_claims(
         field_claims: list[ImportedKnowledgeClaimV1] = []
         for kind in field_kinds:
             field_claims.extend(claims_by_kind(all_claims, kind))  # type: ignore[arg-type]
-        ranked = sorted(field_claims, key=lambda c: (-c.confidence, c.kind, c.claim_id))
-        selected_for_field: list[tuple[ImportedKnowledgeClaimV1, float]] = []
-        for claim in ranked:
+
+        # Corroboration and relevance signals are computed once per claim,
+        # up front, so ranking itself can be genuinely multi-signal (Gate
+        # R3: repository corroboration, existing-README overlap, and search
+        # intent all inform ORDER, not just which claims later pass the
+        # confidence/cap gates).
+        signals: dict[str, tuple[ClaimCorroboration, bool, bool]] = {}
+        for claim in field_claims:
             corroboration = _claim_corroboration(claim, clone_cache)
+            claim_normalized = _normalize_for_relevance(claim.text)
+            already_in_readme = bool(claim_normalized) and claim_normalized in readme_normalized
+            search_intent_match = any(
+                keyword.casefold() in claim.text.casefold() for keyword in seo_keywords
+            )
+            signals[claim.global_claim_id] = (corroboration, already_in_readme, search_intent_match)
+
+        ranked = sorted(
+            field_claims,
+            key=lambda c: _relevance_sort_key(
+                c,
+                corroboration=signals[c.global_claim_id][0],
+                already_in_readme=signals[c.global_claim_id][1],
+                search_intent_match=signals[c.global_claim_id][2],
+            ),
+        )
+        selected_for_field: list[tuple[ImportedKnowledgeClaimV1, float]] = []
+        seen_normalized_texts: set[str] = set()
+        for claim in ranked:
+            corroboration, already_in_readme, _search_intent_match = signals[claim.global_claim_id]
             eligible, state, confidence, ineligibility_reason = _claim_eligibility(
                 claim, freshness=freshness, corroboration=corroboration
             )
@@ -369,6 +460,7 @@ def select_knowledge_claims(
                         resulting_fact_field=field,
                         verification_state=state,
                         confidence=confidence,
+                        already_in_readme=already_in_readme,
                     )
                 )
                 continue
@@ -388,6 +480,28 @@ def select_knowledge_claims(
                         resulting_fact_field=field,
                         verification_state=state,
                         confidence=confidence,
+                        already_in_readme=already_in_readme,
+                    )
+                )
+                continue
+            normalized_text = _normalize_for_relevance(claim.text)
+            if normalized_text and normalized_text in seen_normalized_texts:
+                dispositions.append(
+                    KnowledgeClaimDispositionV1(
+                        global_claim_id=claim.global_claim_id,
+                        family=family,
+                        platform=platform,
+                        kind=claim.kind,
+                        source_revision=source_revision,
+                        freshness=freshness,
+                        corroboration=corroboration,
+                        intended_section=section,
+                        accepted=False,
+                        rejection_reason="duplicate_of_higher_ranked_claim",
+                        resulting_fact_field=field,
+                        verification_state=state,
+                        confidence=confidence,
+                        already_in_readme=already_in_readme,
                     )
                 )
                 continue
@@ -407,9 +521,12 @@ def select_knowledge_claims(
                         resulting_fact_field=field,
                         verification_state=state,
                         confidence=confidence,
+                        already_in_readme=already_in_readme,
                     )
                 )
                 continue
+            if normalized_text:
+                seen_normalized_texts.add(normalized_text)
             selected_for_field.append((claim, confidence))
             dispositions.append(
                 KnowledgeClaimDispositionV1(
@@ -425,6 +542,7 @@ def select_knowledge_claims(
                     resulting_fact_field=field,
                     verification_state=state,
                     confidence=confidence,
+                    already_in_readme=already_in_readme,
                 )
             )
 

@@ -5,6 +5,7 @@ ledger. Tested against the REAL imported corpus, mirroring
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pytest
@@ -352,3 +353,180 @@ def test_select_knowledge_claims_platform_mismatched_keyword_never_leaks_into_an
         assert disposition.platform == "java"
     for fact in result.fact_records:
         assert fact.source.location == "data/imported:cells/java"
+
+
+def _write_synthetic_bundle(
+    data_root: Path, family: str, platform: str, repo_sha: str, claims: list[dict]
+) -> None:
+    (data_root / "data").mkdir(parents=True, exist_ok=True)
+    (data_root / "data" / "products.json").write_text(
+        json.dumps([{"family": family, "platform": platform}]), encoding="utf-8"
+    )
+    bundle = data_root / "knowledge" / family / platform / "merged"
+    bundle.mkdir(parents=True)
+    (bundle / "claims.json").write_text(json.dumps(claims), encoding="utf-8")
+    (bundle / "model.yaml").write_text(
+        f"family: {family}\nplatform: {platform}\nrepo_sha: {repo_sha}\n", encoding="utf-8"
+    )
+
+
+def test_select_knowledge_claims_readme_overlap_frees_cap_slot_for_new_information(tmp_path):
+    """Gate R3: the existing-README/duplication/section-need signal is not
+    merely a tiebreaker cosmetic reorder -- it can change WHICH claims
+    survive the selection cap. 8 high-confidence claims the README already
+    states compete against 1 lower-confidence claim the README does not --
+    the new-information claim must win a cap slot over one already-stated
+    claim, proving ranking is genuinely multi-signal, not confidence+kind+id
+    alone."""
+
+    data_root = tmp_path / "data-root"
+    clone_cache = tmp_path / "clone"
+    clone_cache.mkdir()
+    repo_sha = "f" * 40
+    already_stated = [
+        {
+            "claim_id": f"ALREADY-{i}",
+            "kind": "feature",
+            "text": f"Supports scenario number {i} for advanced processing",
+            "confidence": 0.9,
+        }
+        for i in range(8)
+    ]
+    new_information = {
+        "claim_id": "NEW-INFO",
+        "kind": "feature",
+        "text": "Supports an entirely undocumented capability the README omits",
+        "confidence": 0.55,
+    }
+    _write_synthetic_bundle(
+        data_root, "synthfam", "python", repo_sha, [*already_stated, new_information]
+    )
+    (clone_cache / "README.md").write_text(
+        "\n".join(c["text"] for c in already_stated), encoding="utf-8"
+    )
+
+    result = select_knowledge_claims(
+        "synthfam",
+        "python",
+        data_root=data_root,
+        clone_cache=clone_cache,
+        source_revision=repo_sha,
+    )
+
+    selected_ids = {d.global_claim_id.rsplit("/", 1)[-1] for d in result.dispositions if d.accepted}
+    assert "NEW-INFO" in selected_ids
+    assert len(selected_ids) == _MAX_SELECTED_PER_KIND
+    cap_rejected = [
+        d
+        for d in result.dispositions
+        if not d.accepted and d.rejection_reason == "exceeds_selection_cap"
+    ]
+    assert len(cap_rejected) == 1
+    assert cap_rejected[0].already_in_readme is True
+    new_info_disposition = next(
+        d for d in result.dispositions if d.global_claim_id.endswith("NEW-INFO")
+    )
+    assert new_info_disposition.already_in_readme is False
+    assert new_info_disposition.accepted is True
+
+
+def test_select_knowledge_claims_near_duplicate_claims_are_suppressed_not_double_selected(
+    tmp_path,
+):
+    """Gate R3 duplication signal: two claims with identical normalized text
+    (real corpus scout runs can emit near-duplicates across passes) never
+    both consume a fact's value list -- the lower-ranked one is rejected
+    with an explicit, inspectable reason, never silently kept as a
+    redundant twin."""
+
+    data_root = tmp_path / "data-root"
+    clone_cache = tmp_path / "clone"
+    clone_cache.mkdir()
+    repo_sha = "a" * 40
+    claims = [
+        {
+            "claim_id": "DUP-HIGH",
+            "kind": "limitation",
+            "text": "Does not support encrypted archives",
+            "confidence": 0.9,
+        },
+        {
+            "claim_id": "DUP-LOW",
+            "kind": "limitation",
+            "text": "does not support encrypted archives.",
+            "confidence": 0.6,
+        },
+    ]
+    _write_synthetic_bundle(data_root, "synthfam2", "python", repo_sha, claims)
+
+    result = select_knowledge_claims(
+        "synthfam2",
+        "python",
+        data_root=data_root,
+        clone_cache=clone_cache,
+        source_revision=repo_sha,
+    )
+
+    accepted = [d for d in result.dispositions if d.accepted]
+    assert len(accepted) == 1
+    assert accepted[0].global_claim_id.endswith("DUP-HIGH")
+    duplicate_rejection = next(
+        d for d in result.dispositions if d.global_claim_id.endswith("DUP-LOW")
+    )
+    assert duplicate_rejection.accepted is False
+    assert duplicate_rejection.rejection_reason == "duplicate_of_higher_ranked_claim"
+
+
+def test_select_knowledge_claims_search_intent_keyword_outranks_equal_confidence_claim(
+    tmp_path,
+):
+    """Gate R3 search-intent signal: among two equally-confident,
+    equally-uncorroborated, equally-not-in-README claims, the one naming a
+    real, relevance-filtered SEO keyword for this product
+    (`aspose_detectors.detect_relevant_seo_keywords`, reused rather than
+    reinvented) ranks first."""
+
+    data_root = tmp_path / "data-root"
+    clone_cache = tmp_path / "clone"
+    clone_cache.mkdir()
+    repo_sha = "b" * 40
+    claims = [
+        {
+            "claim_id": "NO-KEYWORD",
+            "kind": "feature",
+            "text": "Handles routine internal bookkeeping",
+            "confidence": 0.7,
+        },
+        {
+            "claim_id": "HAS-KEYWORD",
+            "kind": "feature",
+            "text": "synthfam3 python library provides a fast processing pipeline",
+            "confidence": 0.7,
+        },
+    ]
+    _write_synthetic_bundle(data_root, "synthfam3", "python", repo_sha, claims)
+    keywords_dir = data_root / "keywords"
+    keywords_dir.mkdir(parents=True)
+    (keywords_dir / "synthfam3.json").write_text(
+        json.dumps(
+            [
+                {
+                    "sourcePath": ("content/products.aspose.org/en/synthfam3/python/_index.md"),
+                    "keywords": ["synthfam3 python library"],
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    result = select_knowledge_claims(
+        "synthfam3",
+        "python",
+        data_root=data_root,
+        clone_cache=clone_cache,
+        source_revision=repo_sha,
+    )
+
+    fact = next(f for f in result.fact_records if f.field == "aspose.feature_claims")
+    ranked_claim_ids = [entry["claim_id"].rsplit("/", 1)[-1] for entry in fact.value]
+    assert ranked_claim_ids.index("HAS-KEYWORD") < ranked_claim_ids.index("NO-KEYWORD")
