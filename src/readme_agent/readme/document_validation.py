@@ -50,7 +50,11 @@ from readme_agent.readme.limitation_validation import verified_limitations_are_r
 from readme_agent.readme.markers import find_presentation_span
 from readme_agent.readme.presentation_lint import lint_readme_presentation
 from readme_agent.readme.presentation_lint_models import PresentationLintFindingV1
-from readme_agent.validation.aspose_checks_bridge import AsposeCheckFindingV1, run_aspose_checks
+from readme_agent.validation.aspose_checks_bridge import (
+    AsposeCheckFindingV1,
+    blocking_aspose_check_findings,
+    run_aspose_checks,
+)
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
 _HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
@@ -549,20 +553,24 @@ def validate_readme_document_candidate(
         f"{finding.finding_id}: {finding.message}" for finding in presentation_lint.findings
     )
 
-    # Deliberately visible, non-blocking for this rollout: run_aspose_checks
-    # covers 32-43 of 89 vendored checks depending on what real data a given
-    # candidate has (the rest need real data this repo doesn't produce yet --
-    # dependency_snapshot, content_units -- and are honestly skipped, not
-    # faked), and has so far only been validated end-to-end against one real
-    # repo. It already surfaces genuine, correct structural gaps (e.g. this
-    # repo's own template omitting a "Dependencies" section aspose.org
-    # requires) that reflect a template-level decision, not a defect in any
-    # one candidate -- blocking every candidate on that today would be wrong.
-    # checks["aspose_checks"] and aspose_check_findings still surface every
-    # result for a caller/reviewer to see; promote specific checks to
-    # blocking (errors.append) once proven reliable at portfolio scale.
+    # run_aspose_checks covers up to 38 of 89 vendored checks depending on
+    # what real data a given candidate has (the rest need production inputs
+    # this repo doesn't build yet -- dependency_snapshot, content_units --
+    # and are honestly skipped, not faked). Of the checks runnable today,
+    # only the subset classified `blocking: true` in
+    # `data/aspose_check_classification.json` reaches `errors` -- checks
+    # proven, by empirical validation against the currently accepted
+    # candidates, not to false-positive on this repo's own independently
+    # designed template (see `scripts/data-refresh/classify_aspose_checks.py`).
+    # Every finding, blocking or not, still surfaces via `aspose_check_findings`
+    # for a caller/reviewer to see -- `checks["aspose_checks"]` and this
+    # promotion are two independent signals, never conflated.
     aspose_checks = run_aspose_checks(candidate_inner, facts)
     checks["aspose_checks"] = aspose_checks.valid
+    errors.extend(
+        f"{finding.check_name}[{finding.section or 'document'}]: {finding.message}"
+        for finding in blocking_aspose_check_findings(aspose_checks)
+    )
 
     return DocumentCandidateValidationV1(
         valid=not errors,

@@ -17,12 +17,20 @@ candidate validation.
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
 from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.validation.aspose_checks import load_check_registry
+
+# data/aspose_check_classification.json (scripts/data-refresh/classify_aspose_checks.py)
+# -- the evidence-graded blocking decision per check. Never hand-edited.
+_CLASSIFICATION_PATH = (
+    Path(__file__).resolve().parents[3] / "data" / "aspose_check_classification.json"
+)
 
 # Every fact field provider.py's aspose_fact_records() may inject; used only
 # to recover the family/platform this candidate is for (see _real_kwargs).
@@ -167,3 +175,33 @@ def run_aspose_checks(candidate_text: str, facts: ProductFactsV2 | None) -> Aspo
         checks_errored=tuple(checks_errored),
         findings=tuple(findings),
     )
+
+
+def _load_blocking_check_names() -> frozenset[str]:
+    if not _CLASSIFICATION_PATH.is_file():
+        return frozenset()
+    try:
+        raw = json.loads(_CLASSIFICATION_PATH.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return frozenset()
+    return frozenset(
+        entry["check_name"]
+        for entry in raw.get("checks", [])
+        if isinstance(entry, dict) and entry.get("blocking")
+    )
+
+
+def blocking_aspose_check_findings(result: AsposeCheckResultV1) -> list[AsposeCheckFindingV1]:
+    """The subset of `result.findings` whose check is classified `blocking:
+    true` in `data/aspose_check_classification.json` -- checks proven, by
+    real empirical validation against currently accepted candidates, not to
+    false-positive on this repo's own (independently-designed) template. See
+    `scripts/data-refresh/classify_aspose_checks.py`'s module docstring for
+    the exact classification method. Every other aspose_checks finding
+    remains visible via `AsposeCheckResultV1.findings` but never blocks
+    acceptance -- an absent or unreadable classification file blocks
+    nothing (fail-open on the *classification*, never silently promoting an
+    unclassified check to a gate)."""
+
+    blocking_names = _load_blocking_check_names()
+    return [finding for finding in result.findings if finding.check_name in blocking_names]
