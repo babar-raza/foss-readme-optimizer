@@ -13,19 +13,23 @@ Method (mechanical + empirical, never hand-guessed):
    other parameter (`dependency_snapshot`, `content_units`, `available_badges`,
    ...) is not yet drivable with real data this repo produces.
 3. **Empirical false-positive check**: every runnable `hard_gate` check is run
-   against the candidate READMEs currently on disk for this portfolio's three
-   `AGENT_APPROVED`-or-beyond repositories (3D/barcode/cells-Python -- the
-   only repositories with real accepted output to validate against). A check
-   that fires on at least one of them is NOT auto-promoted: real inspection
-   during this session's own run found several vendored hard-gate checks
-   encode aspose.org's own specific template conventions (an exact license
-   sentence, exact Mermaid subgraph ID names, a title-case heuristic tuned to
-   aspose.org's own heading shapes) that this repo's independently-designed,
-   independently-reviewed template legitimately does not match -- promoting
-   those to blocking would regress accepted output on a false positive, not
-   catch a real defect. Those get `applicable_after_adaptation`, not
-   `applicable_reusable`, until a human confirms (or the check/template is
-   aligned) that the finding is genuine.
+   against a committed candidate/facts fixture for each of this portfolio's
+   three `AGENT_APPROVED`-or-beyond repositories (3D/barcode/cells-Python --
+   the only repositories with real accepted output to validate against;
+   fixtures live under `data/check_classification_fixtures/`, refreshed
+   deliberately via `refresh_check_classification_fixtures.py`, never read
+   live from local `runs/` state -- this classification must be
+   byte-reproducible from a clean checkout). A check that fires on at least
+   one of them is NOT auto-promoted: real inspection during this
+   classification's original authoring session found several vendored
+   hard-gate checks encode aspose.org's own specific template conventions
+   (an exact license sentence, exact Mermaid subgraph ID names, a
+   title-case heuristic tuned to aspose.org's own heading shapes) that this
+   repo's independently-designed, independently-reviewed template
+   legitimately does not match -- promoting those to blocking would regress
+   accepted output on a false positive, not catch a real defect. Those get
+   `applicable_after_adaptation`, not `applicable_reusable`, until a human
+   confirms (or the check/template is aligned) that the finding is genuine.
 
 Buckets:
 
@@ -56,7 +60,6 @@ Regenerate after any vendored-check-battery change:
 from __future__ import annotations
 
 import json
-from datetime import UTC, datetime
 from pathlib import Path
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
@@ -65,6 +68,10 @@ from readme_agent.validation.aspose_checks_bridge import run_aspose_checks
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_PATH = REPO_ROOT / "data" / "aspose_check_classification.json"
+# Committed, version-controlled candidate/facts snapshots -- never `runs/`
+# (gitignored, absent on a clean checkout). Refreshed deliberately via
+# `refresh_check_classification_fixtures.py`, not read live from local runs.
+FIXTURES_ROOT = REPO_ROOT / "data" / "check_classification_fixtures"
 
 # The exact parameter names `_real_kwargs()` can ever supply -- mirrored here
 # (not imported) so this script's "runnable now" judgment is provably the
@@ -84,11 +91,16 @@ _REAL_PARAM_NAMES = {
 
 # The three repositories currently AGENT_APPROVED-or-beyond in this
 # portfolio -- the only ones with a real accepted candidate to validate
-# non-regression against. Paths are the most-recently-modified local
-# `readme-poc` candidate directory for each (see this script's own
-# `_latest_candidate` helper) -- disposable `runs/` state, so this
-# empirical pass degrades gracefully (skips a repo) if that state is absent
-# (e.g. a fresh checkout that never ran a local POC).
+# non-regression against. Each repo's candidate + facts are a committed
+# snapshot under `FIXTURES_ROOT` (see `_latest_candidate`), not disposable
+# `runs/` state -- classification must be byte-reproducible from a clean
+# checkout, not silently degrade to "validated against nothing" whenever
+# `runs/` (gitignored) happens to be absent, which would flip any hard-gate
+# check that only avoided `blocking: true` because it fired against a real
+# candidate to blocking on the next regeneration, with no audit trail.
+# Refresh a fixture deliberately (`scripts/data-refresh/
+# refresh_check_classification_fixtures.py`) when a repository's own
+# accepted candidate changes; never point this back at `runs/`.
 # `load_check_registry()`'s severity classifier reads only `inspect.getdoc()`
 # (real docstrings) -- it cannot see a `#`-comment-only severity note.
 # `check_no_leaked_docstring_artifacts` has no docstring at all; its own
@@ -145,17 +157,22 @@ _BLOCKING_OVERRIDES: dict[str, str] = {
         "template does not currently produce -- confirmed via a full relevant-suite "
         "regression run, not merely the 3-repository empirical pass above"
     ),
-    "check_no_excluded_domain_links": (
-        "fired against a real captured-evidence NET fixture "
-        "(tests/unit/test_readme_existing_section_regressions.py) whose original README "
-        "carries a forum.aspose.com/products.aspose.app link this repo's own maintainer-"
-        "content-preservation pipeline currently retains without stripping it -- the finding "
-        "may well be a genuine gap in document_link_hygiene.py (this repo's own no-forum-link "
-        "rule), but promoting it to blocking now would fail an existing composition-fixture "
-        "test rather than fix the real gap; log as BACKLOG and revisit with the link-hygiene "
-        "module directly rather than only through this check"
-    ),
 }
+
+# `check_no_excluded_domain_links` was previously overridden to nonblocking
+# here: it fired against a real captured-evidence NET fixture
+# (tests/unit/test_readme_existing_section_regressions.py) whose original
+# README carries a forum.aspose.com/products.aspose.app link. Root-caused
+# 2026-08-19 (Gate R4): `document_link_hygiene.py`'s `_URL` pattern only
+# recognized `aspose.com`/`aspose.org`, never `aspose.app`, so a
+# `products.aspose.app` link survived every strip-then-restore pass
+# unrecognized (confirmed: `forum.aspose.com` was already being stripped
+# correctly, since `.com` was covered). Fixed by adding `aspose.app` to
+# `_URL`; the fixture test was updated to wire in the real link catalogs it
+# had been omitting (matching what every real `readme-agent poc` run always
+# supplies), and now produces zero findings for this check with both links
+# genuinely stripped. No override remains -- this check is now empirically
+# clean like every other `applicable_reusable` check.
 
 _VALIDATION_REPOS = {
     "aspose-3d-foss/Aspose.3D-FOSS-for-Python": "aspose-3d-foss__Aspose.3D-FOSS-for-Python",
@@ -169,19 +186,17 @@ _VALIDATION_REPOS = {
 
 
 def _latest_candidate(repo_dir_name: str) -> tuple[str, ProductFactsV2 | None] | None:
-    base = REPO_ROOT / "runs" / "readme-poc" / repo_dir_name
-    if not base.is_dir():
+    """The committed candidate/facts fixture for one validation repository.
+    `None` only when a repository genuinely has no fixture yet (never a
+    silent `runs/`-absence degradation) -- callers must be able to tell "not
+    validated against this repo yet" apart from "validated, found nothing.\""""
+
+    base = FIXTURES_ROOT / repo_dir_name
+    readme_path = base / "candidate" / "README.md"
+    if not readme_path.is_file():
         return None
-    candidates = sorted(
-        base.glob("*/candidate/README.md"),
-        key=lambda p: p.stat().st_mtime,
-        reverse=True,
-    )
-    if not candidates:
-        return None
-    readme_path = candidates[0]
     text = readme_path.read_text(encoding="utf-8")
-    facts_path = readme_path.parent.parent / "facts" / "product-facts.json"
+    facts_path = base / "facts" / "product-facts.json"
     facts: ProductFactsV2 | None = None
     if facts_path.is_file():
         try:
@@ -268,7 +283,6 @@ def build_classification() -> dict:
 
     return {
         "schema_version": 1,
-        "generated_at": datetime.now(UTC).isoformat(),
         "generator": "scripts/data-refresh/classify_aspose_checks.py",
         "check_count": len(entries),
         "blocking_count": sum(1 for e in entries if e["blocking"]),

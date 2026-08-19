@@ -40,6 +40,7 @@ RECOLLECT_ON_COMPONENT_CHANGE = (
     "root_role_selection",
     "documentation_catalog",
     "imported_knowledge",
+    "aspose_checks",
 )
 VISITOR_RENDER_FIELDS = (
     "product.audience",
@@ -57,6 +58,12 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
         "aspose_knowledge_claims.py",
         "aspose_knowledge_selection.py",
         "../../../data/imported/knowledge_manifest.json",
+    ),
+    "aspose_checks": (
+        "../validation/aspose_checks_bridge.py",
+        "../validation/aspose_checks/__init__.py",
+        "../vendored_asposeorg/scripts/pipeline/commands/foss/readme_refresh_checks.py",
+        "../../../data/aspose_check_classification.json",
     ),
     "acquisition_truth": (
         "acquisition.py",

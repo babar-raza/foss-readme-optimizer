@@ -17,7 +17,16 @@ from readme_agent.readme.document_render_context import DocumentRenderContext
 from readme_agent.registry.models import LinkAllocationPolicyV1
 
 AsposeLinkForm = Literal["image", "markdown", "html", "autolink", "raw"]
-_URL = r"https?://(?:[a-z0-9-]+\.)*aspose\.(?:com|org)(?:/[^\s<>)\"']*)?"
+# `.app` included alongside `.com`/`.org`: the vendored aspose.org check
+# battery's own `check_no_excluded_domain_links` hard-gates any
+# `*.aspose.app` link (aspose.org's own app-hosting domain), and this
+# module's strip-then-selectively-restore pass is the only place that can
+# make that gate pass -- `lookup_verified_target`'s catalog
+# (`data/aspose_org_links.json`/`data/aspose_com_links.json`) contains zero
+# `.app` entries, so a matched `.app` link is stripped exactly like a
+# forum.aspose.com link already is (also present in the catalog zero times)
+# and is never restored.
+_URL = r"https?://(?:[a-z0-9-]+\.)*aspose\.(?:com|org|app)(?:/[^\s<>)\"']*)?"
 _FENCED_CODE = re.compile(
     r"(?ms)^(?P<fence>`{3,}|~{3,})[^\r\n]*\r?\n.*?^(?P=fence)[ \t]*(?:\r?\n|$)"
 )

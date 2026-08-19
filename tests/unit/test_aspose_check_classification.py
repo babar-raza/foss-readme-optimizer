@@ -7,6 +7,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from readme_agent.validation.aspose_checks import load_check_registry
 from readme_agent.validation.aspose_checks_bridge import (
     AsposeCheckFindingV1,
@@ -124,3 +126,47 @@ def test_blocking_aspose_check_findings_empty_when_no_findings_are_classified_bl
     )
 
     assert blocking_aspose_check_findings(result) == []
+
+
+def test_missing_classification_file_fails_closed(monkeypatch, tmp_path):
+    """Gate R4 regression: a missing classification file must raise, never
+    silently gate nothing (the old fail-open behavior this replaces)."""
+
+    import readme_agent.validation.aspose_checks_bridge as bridge
+
+    monkeypatch.setattr(bridge, "_CLASSIFICATION_PATH", tmp_path / "does-not-exist.json")
+    result = _make_result(
+        AsposeCheckFindingV1(
+            check_name="check_no_leaked_docstring_artifacts",
+            severity="critical",
+            section=None,
+            message="x",
+        )
+    )
+
+    with pytest.raises(RuntimeError):
+        blocking_aspose_check_findings(result)
+
+
+def test_corrupt_classification_file_fails_closed(monkeypatch, tmp_path):
+    import readme_agent.validation.aspose_checks_bridge as bridge
+
+    corrupt = tmp_path / "aspose_check_classification.json"
+    corrupt.write_text("{not valid json", encoding="utf-8")
+    monkeypatch.setattr(bridge, "_CLASSIFICATION_PATH", corrupt)
+    result = _make_result()
+
+    with pytest.raises(RuntimeError):
+        blocking_aspose_check_findings(result)
+
+
+def test_classification_file_missing_checks_list_fails_closed(monkeypatch, tmp_path):
+    import readme_agent.validation.aspose_checks_bridge as bridge
+
+    wrong_shape = tmp_path / "aspose_check_classification.json"
+    wrong_shape.write_text(json.dumps({"schema_version": 1}), encoding="utf-8")
+    monkeypatch.setattr(bridge, "_CLASSIFICATION_PATH", wrong_shape)
+    result = _make_result()
+
+    with pytest.raises(RuntimeError):
+        blocking_aspose_check_findings(result)

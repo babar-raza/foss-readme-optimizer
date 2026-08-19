@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.links.catalog import load_aspose_link_catalogs
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import build_readme_document_candidate
@@ -12,6 +13,7 @@ from readme_agent.readme.document_validation import (
     DocumentCandidateValidationV1,
     validate_readme_document_candidate,
 )
+from readme_agent.registry.models import LinkAllocationPolicyV1
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 NET_EVIDENCE = (
@@ -78,18 +80,32 @@ def _assert_compatibility_claim_block(
 
 
 def test_real_net_partial_sections_preserve_maintainer_content_without_fact_duplication():
+    """Wires in the real link catalogs/allocation policy (not the default
+    `None`) so this test exercises the same link-hygiene pass a real
+    `readme-agent poc` run always does -- the original README this fixture
+    carries has both a `forum.aspose.com` and a `products.aspose.app` link;
+    without real catalog wiring neither gets stripped, which used to hide a
+    real gap in `document_link_hygiene.py`'s excluded-domain handling behind
+    an untested code path rather than a genuine pass."""
+
     facts = _net_facts()
     source = (NET_EVIDENCE / "original-readme.md").read_text(encoding="utf-8")
     limitation = facts.selected_fact("product.limitations")
     example = facts.selected_fact("example.minimal")
+    catalogs = load_aspose_link_catalogs()
+    policy = LinkAllocationPolicyV1()
 
     candidate, plan = build_readme_document_candidate(
         facts.org_repo,
         source,
         facts,
         base_revision=NET_REVISION,
+        link_catalogs=catalogs,
+        link_allocation_policy=policy,
     )
-    decision = validate_readme_document_candidate(source, candidate, plan, facts)
+    decision = validate_readme_document_candidate(
+        source, candidate, plan, facts, link_catalogs=catalogs
+    )
 
     _assert_compatibility_claim_block(decision, plan)
     assert candidate.count("## At a Glance") == 1

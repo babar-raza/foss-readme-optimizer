@@ -70,6 +70,7 @@ def test_contract_hash_covers_every_named_acceptance_component():
         "visitor_render_eligibility",
         "documentation_catalog",
         "imported_knowledge",
+        "aspose_checks",
     }
     assert contract.recollect_on_component_change == (
         "fact_schema",
@@ -80,6 +81,7 @@ def test_contract_hash_covers_every_named_acceptance_component():
         "root_role_selection",
         "documentation_catalog",
         "imported_knowledge",
+        "aspose_checks",
     )
     assert len(contract.canonical_hash()) == 64
     assert all(len(digest) == 64 for digest in contract.component_hashes.values())
@@ -118,6 +120,47 @@ def test_imported_knowledge_component_hash_changes_when_manifest_content_changes
     after = _component_hash(facts_dir, relative_paths)
     assert after != before  # a real corpus-content change flips the hash
     assert "deterministic_truth_salvage.py" in _COMPONENT_FILES["drafting_and_example_selection"]
+
+
+def test_aspose_checks_component_hash_changes_when_classification_content_changes(tmp_path):
+    """Gate R4: the check-classification/bridge/vendored-check files were
+    previously entirely absent from the acceptance-contract's dependency
+    hashing, so a fix to any of them (e.g. `check_no_excluded_domain_links`'s
+    root-cause repair or the fail-closed loader) would never invalidate a
+    previously-cached/persisted acceptance decision. This proves the new
+    `aspose_checks` component actually changes when its dependencies do."""
+
+    facts_dir = tmp_path / "src" / "readme_agent" / "facts"
+    validation_dir = tmp_path / "src" / "readme_agent" / "validation" / "aspose_checks"
+    vendored_dir = (
+        tmp_path
+        / "src"
+        / "readme_agent"
+        / "vendored_asposeorg"
+        / "scripts"
+        / "pipeline"
+        / "commands"
+        / "foss"
+    )
+    facts_dir.mkdir(parents=True)
+    validation_dir.mkdir(parents=True)
+    vendored_dir.mkdir(parents=True)
+    (tmp_path / "src" / "readme_agent" / "validation" / "aspose_checks_bridge.py").write_text(
+        "# bridge\n", encoding="utf-8"
+    )
+    (validation_dir / "__init__.py").write_text("# registry\n", encoding="utf-8")
+    (vendored_dir / "readme_refresh_checks.py").write_text("# checks\n", encoding="utf-8")
+    data_dir = tmp_path / "data"
+    data_dir.mkdir(parents=True)
+    classification_path = data_dir / "aspose_check_classification.json"
+    classification_path.write_text('{"blocking_count": 1}', encoding="utf-8")
+
+    relative_paths = _COMPONENT_FILES["aspose_checks"]
+    before = _component_hash(facts_dir, relative_paths)
+
+    classification_path.write_text('{"blocking_count": 2}', encoding="utf-8")
+    after = _component_hash(facts_dir, relative_paths)
+    assert after != before
     assert "interpretive_resolution.py" in _COMPONENT_FILES["drafting_and_example_selection"]
     assert (
         "../capabilities/draft_product_truth.py"

@@ -178,16 +178,37 @@ def run_aspose_checks(candidate_text: str, facts: ProductFactsV2 | None) -> Aspo
 
 
 def _load_blocking_check_names() -> frozenset[str]:
+    """Fail closed: a missing, unreadable, or malformed classification file
+    is a corpus-integrity defect, not a benign "nothing is blocking yet"
+    state -- silently returning an empty set here would make acceptance
+    gating pass every candidate regardless of real hard-gate findings,
+    exactly the kind of "unit test passes without governed production
+    proof" gap this repo's own completion standard rejects. Raise instead;
+    the committed `data/aspose_check_classification.json` must always be
+    present and well-formed on any checkout that reaches acceptance gating."""
+
     if not _CLASSIFICATION_PATH.is_file():
-        return frozenset()
+        raise RuntimeError(
+            f"aspose check classification file missing: {_CLASSIFICATION_PATH} -- "
+            "acceptance gating cannot determine which checks are blocking; regenerate via "
+            "scripts/data-refresh/classify_aspose_checks.py, never proceed without it"
+        )
     try:
         raw = json.loads(_CLASSIFICATION_PATH.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, OSError):
-        return frozenset()
+    except (json.JSONDecodeError, OSError) as exc:
+        raise RuntimeError(
+            f"aspose check classification file unreadable/corrupt: {_CLASSIFICATION_PATH} "
+            f"({type(exc).__name__}: {exc}) -- regenerate via "
+            "scripts/data-refresh/classify_aspose_checks.py, never proceed without it"
+        ) from exc
+    checks = raw.get("checks")
+    if not isinstance(checks, list):
+        raise RuntimeError(
+            f"aspose check classification file has no 'checks' list: {_CLASSIFICATION_PATH} -- "
+            "regenerate via scripts/data-refresh/classify_aspose_checks.py"
+        )
     return frozenset(
-        entry["check_name"]
-        for entry in raw.get("checks", [])
-        if isinstance(entry, dict) and entry.get("blocking")
+        entry["check_name"] for entry in checks if isinstance(entry, dict) and entry.get("blocking")
     )
 
 
@@ -199,9 +220,8 @@ def blocking_aspose_check_findings(result: AsposeCheckResultV1) -> list[AsposeCh
     `scripts/data-refresh/classify_aspose_checks.py`'s module docstring for
     the exact classification method. Every other aspose_checks finding
     remains visible via `AsposeCheckResultV1.findings` but never blocks
-    acceptance -- an absent or unreadable classification file blocks
-    nothing (fail-open on the *classification*, never silently promoting an
-    unclassified check to a gate)."""
+    acceptance. Fails closed (raises) when the classification file itself
+    is missing or malformed -- see `_load_blocking_check_names`."""
 
     blocking_names = _load_blocking_check_names()
     return [finding for finding in result.findings if finding.check_name in blocking_names]
