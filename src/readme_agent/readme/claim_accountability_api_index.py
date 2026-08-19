@@ -13,6 +13,7 @@ from threading import Lock
 class ApiCoordinateIndexV1:
     classes_by_name: dict[str, dict]
     functions_by_name: dict[str, dict]
+    classes_by_casefold_name: dict[str, str]
     all_member_names: frozenset[str]
     modules_by_export: dict[str, tuple[dict, ...]]
     modules_by_name: dict[str, dict]
@@ -26,7 +27,7 @@ _CACHE_LOCK = Lock()
 
 
 def _empty(*, coordinate_prefix: str = "") -> ApiCoordinateIndexV1:
-    return ApiCoordinateIndexV1({}, {}, frozenset(), {}, {}, frozenset(), coordinate_prefix)
+    return ApiCoordinateIndexV1({}, {}, {}, frozenset(), {}, {}, frozenset(), coordinate_prefix)
 
 
 def _catalog_value(value: dict) -> tuple[dict, str] | None:
@@ -78,6 +79,12 @@ def _build(value: dict) -> ApiCoordinateIndexV1:
         for item in functions
         if isinstance(item, dict) and isinstance(item.get("name"), str)
     }
+    casefold_groups: dict[str, list[str]] = {}
+    for name in classes_by_name:
+        casefold_groups.setdefault(name.casefold(), []).append(name)
+    classes_by_casefold_name = {
+        key: names[0] for key, names in casefold_groups.items() if len(names) == 1
+    }
     raw_modules = catalog.get("modules")
     modules = raw_modules if isinstance(raw_modules, list) else []
     by_export: dict[str, list[dict]] = {}
@@ -104,6 +111,7 @@ def _build(value: dict) -> ApiCoordinateIndexV1:
     return ApiCoordinateIndexV1(
         classes_by_name=classes_by_name,
         functions_by_name=functions_by_name,
+        classes_by_casefold_name=classes_by_casefold_name,
         all_member_names=all_member_names,
         modules_by_export={name: tuple(items) for name, items in by_export.items()},
         modules_by_name=modules_by_name,

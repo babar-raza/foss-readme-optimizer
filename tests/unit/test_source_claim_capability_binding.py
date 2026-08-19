@@ -75,6 +75,32 @@ def _generate_function_api_facts():
     )
 
 
+def _widget_instance_api_facts():
+    facts = _facts(["Verified presentation processing"])
+    api = facts.selected_fact("api.public_surface")
+    value = {
+        "classes": [
+            {
+                "name": "Widget",
+                "module": "acme",
+                "members": [{"name": "render", "surface": "render(target)"}],
+            },
+            {
+                "name": "Renderer",
+                "module": "acme",
+                "members": [{"name": "save", "surface": "save(target)"}],
+            },
+        ],
+        "functions": [],
+    }
+    replacement = api.model_copy(update={"value": value})
+    return facts.model_copy(
+        update={
+            "facts": [replacement if fact.fact_id == api.fact_id else fact for fact in facts.facts]
+        }
+    )
+
+
 def _ids(source: str, capability: str) -> set[str]:
     facts = _facts([capability])
     claim = assess_material_claims(source)[0]
@@ -163,6 +189,112 @@ def test_feature_detail_rejects_unknown_coded_function_name() -> None:
     source = (
         "# Product\n\n## Key Capabilities\n\n"
         "- Select any symbology by name through the generic `synthesize()` entry point.\n"
+    )
+    claim = assess_material_claims(source)[0]
+    text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+
+    assert structured_source_claim_fact_ids(source, claim, text, facts) == set()
+
+
+def test_feature_detail_binds_coded_instance_style_method_reference() -> None:
+    """A lowercase instance variable named after its class resolves via that class."""
+
+    facts = _widget_instance_api_facts()
+    api_id = facts.selected_fact("api.public_surface").fact_id
+    source = (
+        "# Product\n\n## Key Capabilities\n\n"
+        "- Render with the Widget and Renderer classes using the `widget.render(target)` "
+        "instance method.\n"
+    )
+    claim = assess_material_claims(source)[0]
+    text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+
+    assert structured_source_claim_fact_ids(source, claim, text, facts) == {api_id}
+
+
+def test_feature_detail_rejects_unknown_instance_owner_reference() -> None:
+    """An instance-style owner that matches no real class stays fail-closed."""
+
+    facts = _widget_instance_api_facts()
+    source = (
+        "# Product\n\n## Key Capabilities\n\n"
+        "- Render with the Widget and Renderer classes using the `sprocket.spin()` method.\n"
+    )
+    claim = assess_material_claims(source)[0]
+    text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+
+    assert structured_source_claim_fact_ids(source, claim, text, facts) == set()
+
+
+def test_feature_detail_rejects_instance_style_reference_to_unknown_member() -> None:
+    """A known class resolved by instance name still rejects an unproven member call."""
+
+    facts = _widget_instance_api_facts()
+    source = (
+        "# Product\n\n## Key Capabilities\n\n"
+        "- Render with the Widget and Renderer classes using the `widget.delete(target)` "
+        "instance method.\n"
+    )
+    claim = assess_material_claims(source)[0]
+    text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+
+    assert structured_source_claim_fact_ids(source, claim, text, facts) == set()
+
+
+def test_feature_detail_binds_coded_import_statement_reference() -> None:
+    facts = _widget_instance_api_facts()
+    api_id = facts.selected_fact("api.public_surface").fact_id
+    source = (
+        "# Product\n\n## Key Capabilities\n\n"
+        "- Render with the Widget and Renderer classes via `from acme import Widget`.\n"
+    )
+    claim = assess_material_claims(source)[0]
+    text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+
+    assert structured_source_claim_fact_ids(source, claim, text, facts) == {api_id}
+
+
+def test_feature_detail_rejects_import_statement_with_wrong_module() -> None:
+    facts = _widget_instance_api_facts()
+    source = (
+        "# Product\n\n## Key Capabilities\n\n"
+        "- Render with the Widget and Renderer classes via `from wrong_module import Widget`.\n"
+    )
+    claim = assess_material_claims(source)[0]
+    text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+
+    assert structured_source_claim_fact_ids(source, claim, text, facts) == set()
+
+
+def test_feature_detail_rejects_ambiguous_case_fold_instance_owner() -> None:
+    """Two real classes differing only by case must never be guessed between."""
+
+    facts = _facts(["Verified presentation processing"])
+    api = facts.selected_fact("api.public_surface")
+    value = {
+        "classes": [
+            {
+                "name": "Widget",
+                "module": "acme",
+                "members": [{"name": "render", "surface": "render(target)"}],
+            },
+            {
+                "name": "widget",
+                "module": "acme",
+                "members": [{"name": "render", "surface": "render(target)"}],
+            },
+        ],
+        "functions": [],
+    }
+    replacement = api.model_copy(update={"value": value})
+    facts = facts.model_copy(
+        update={
+            "facts": [replacement if fact.fact_id == api.fact_id else fact for fact in facts.facts]
+        }
+    )
+    source = (
+        "# Product\n\n## Key Capabilities\n\n"
+        "- Render with the Widget class using the `instance.render(target)` instance method.\n"
     )
     claim = assess_material_claims(source)[0]
     text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()

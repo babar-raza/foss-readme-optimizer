@@ -15,6 +15,9 @@ from readme_agent.readme.claim_accountability_api_shapes import (
 from readme_agent.readme.source_claim_context import heading_ancestry, list_ancestor_bodies
 
 _IDENTIFIER = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
+_IMPORT_STATEMENT = re.compile(
+    r"^from\s+(?P<module>[A-Za-z_][A-Za-z0-9_.]*)\s+import\s+(?P<name>[A-Za-z_][A-Za-z0-9_]*)$"
+)
 _API_DETAIL_WORDS = frozenset(
     """a abstract across base below best by change compatibility container contents default
     detail effort encryption entry everything field for formatted formatting has historical image
@@ -61,6 +64,36 @@ def _reference_function_name(reference: str, value: dict) -> str | None:
     if first in index.functions_by_name:
         return first
     return None
+
+
+def _import_reference_is_known(reference: str, value: dict) -> bool:
+    """Validate a `from <module> import <Name>` reference against the real public surface."""
+
+    match = _IMPORT_STATEMENT.fullmatch(reference)
+    if match is None:
+        return False
+    index = api_coordinate_index(value)
+    module, name = match.group("module"), match.group("name")
+    class_item = index.classes_by_name.get(name)
+    if class_item is not None:
+        return str(class_item.get("module")) == module
+    function_item = index.functions_by_name.get(name)
+    return function_item is not None and str(function_item.get("module")) == module
+
+
+def _instance_owner_class_name(owner: str, value: dict) -> str | None:
+    """Resolve a lowercase instance-style identifier to the exact class it names.
+
+    Only fires when `owner` is not itself an exact class name and does not look like an
+    (unknown) class reference -- i.e. it must start lowercase, matching the common
+    `<lowercase instance> = <ClassName>(...)` naming convention -- and its case-folded form
+    identifies exactly one real class (never a fuzzy or substring match).
+    """
+
+    index = api_coordinate_index(value)
+    if not owner or owner in index.classes_by_name or not owner[0].islower():
+        return None
+    return index.classes_by_casefold_name.get(owner.casefold())
 
 
 def _context_class_names(ancestors: tuple[str, ...], value: dict) -> list[str]:
@@ -116,6 +149,8 @@ def _api_reference_known(reference: str, context_names: list[str], value: dict) 
         )
     if normalized in index.modules_by_name:
         return True
+    if _IMPORT_STATEMENT.fullmatch(normalized):
+        return _import_reference_is_known(normalized, value)
     class_name = _reference_class_name(normalized, value)
     if class_name is not None:
         unknown_types = {
@@ -138,9 +173,12 @@ def _api_reference_known(reference: str, context_names: list[str], value: dict) 
         return not unknown_types
     if "." in normalized:
         owner, _, member_reference = normalized.partition(".")
-        if owner in index.classes_by_name:
+        owner_class = (
+            owner if owner in index.classes_by_name else _instance_owner_class_name(owner, value)
+        )
+        if owner_class is not None:
             nested = member_reference.split(".")
-            if not _context_member_matches(nested[0], index.classes_by_name[owner]):
+            if not _context_member_matches(nested[0], index.classes_by_name[owner_class]):
                 return False
             return all(
                 token in index.classes_by_name
