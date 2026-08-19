@@ -295,3 +295,25 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
   Root cause not investigated (out of scope for the redaction fix that surfaced it); likely
   shares a cause with the other 3 (all Java-family, all plan/document-hash pinned
   characterization tests) — worth one combined diagnostic pass rather than four separate ones.
+- 2026-08-19 (GOV-014): **The shared `.venv`'s mypy install silently self-corrupted mid-session,
+  blocking every commit's pre-commit hook.** `mypy --version`/`import mypy` started failing with
+  `ModuleNotFoundError: No module named '08ae81f72d5a2b5fa9e0__mypyc'` after several hours of
+  concurrent activity (this session's own repeated mypy invocations, a background agent's
+  isolated-worktree suite run, and the Gate A portfolio pass all running at once). Traced: every
+  individual `mypy/*.pyd` compiled extension in `.venv/Lib/site-packages/mypy/` references a
+  shared runtime module named `08ae81f72d5a2b5fa9e0__mypyc`, but the actual shared-runtime `.pyd`
+  physically present in site-packages is named `ada92cb5d92a588d1b93__mypyc...pyd` — a different
+  build hash. File timestamps on both sides were identical and dated to the original `Jul 17`
+  install, ruling out anything this session did directly (confirmed before touching anything,
+  not assumed) — including ruling out the worktree cleanup that immediately preceded discovery
+  (a `git worktree remove`/manual long-path `Remove-Item` for a *different*, already-merged
+  worktree). Root cause not fully confirmed but the leading hypothesis, given this repo lives
+  under a live-synced `OneDrive\Documents\GitHub\...` path: OneDrive cloud sync touching files
+  inside `.venv/` (not excluded from sync) and reconciling a conflict between two related
+  compiled-extension files non-atomically, landing them at mismatched builds. **Fixed** by
+  `pip install --force-reinstall --no-deps mypy==2.3.0` (re-extracts a consistent set from the
+  cached wheel); `mypy --version` confirmed working immediately after. **Recommendation for a
+  future pass**: exclude `.venv/` (and other build/cache directories) from OneDrive sync via
+  `attrib +P` / the OneDrive "always keep on this device" exclusion mechanism, or relocate the
+  venv outside the synced tree — a compiled Python extension is exactly the kind of file
+  atomic-write assumptions cloud sync can violate, and this is unlikely to be a one-time event.
