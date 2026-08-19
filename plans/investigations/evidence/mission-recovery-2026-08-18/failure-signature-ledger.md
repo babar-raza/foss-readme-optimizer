@@ -399,3 +399,31 @@ exact real source text and facts, closing the gap between "diagnosed" and "ready
 Both are genuinely "different, unscoped mechanisms" per the 2026-08-18 diagnosis, confirmed by
 this deeper trace rather than superseded by it — ready for a dedicated pass with this evidence in
 hand, not attempted here to avoid an unverified guess at the extraction-layer question.
+
+## Disposition-context wiring gap: found in 5 places total, 4 fixed, 1 left as a documented lead
+
+A full-codebase audit for every caller of `build_readme_document_candidate()` (prompted by gate 3
+turning out to be a live recurrence of the exact gate-2 bug) found **five** independent-rebuild
+call sites, not two:
+
+1. `presentation/document_planner.py` (gate 1) — already correctly wired, the reference shape.
+2. `specialists/readme_factuality.py` (gate 2) — fixed, `b32d4998c`.
+3. `verification/checks.py` (gate 3) — fixed, `5acf011b3`.
+4. `readme/idea_candidate.py` (`prepare_idea_fidelity_candidate`, `readme-agent poc`'s compose
+   step and `capabilities/render_readme_candidate.py`'s real-generation path) — fixed, `e33e631ed`.
+   Same easy shape as gate 3 (`entry` already resolved via `require_listed()` before the call);
+   not covered by a new dedicated test (no existing fixture cheap to extend — this function does
+   real git clone/push-neuter/hook work), verified by inspection against the 3x-proven pattern and
+   142 existing tests across its callers continuing to pass unchanged.
+5. `verification/readme_proposal_bundle.py::verify_readme_proposal_bundle()` — **not fixed**.
+   The "author != verifier" bundle-proof verifier for `L8-LOCAL-README-PROPOSAL-PROOF`/`VER-001`;
+   its docstring literally describes doing the identical independent-rebuild-and-compare gates 2/3
+   did. Harder shape than the other four: `org_repo` isn't a function parameter here (the function
+   takes only a `bundle_dir: Path` and reads `org_repo` from the bundle's own plan/manifest partway
+   through), so there is no already-resolved `entry`/`require_listed()` call to piggyback on --
+   fixing it means resolving the disposition context fresh at whatever point `org_repo` first
+   becomes known, the same shape gates 2's `readme_presentation.py`/`readme_review_repair.py` call
+   sites needed (defensive fallback on failure, not an unconditional resolve). Not yet observed
+   failing live in this session's evidence (unlike gates 2/3, which came from real production
+   failures) -- left as a precisely-scoped, ready-to-implement lead rather than an unverified guess
+   at a path with no direct failure evidence behind it.
