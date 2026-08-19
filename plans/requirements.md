@@ -7,17 +7,17 @@ human-readable entry point. Every catalog line is one complete `RequirementRecor
 never reused. Requirement status is not completion proof: current evidence and the mapped active task
 still govern acceptance.
 
-The catalog contains **475** requirements:
+The catalog contains **487** requirements:
 
-- `BACKLOG`: 28
+- `BACKLOG`: 34
 - `DEPRECATED`: 23
 - `GOVERNANCE`: 35
-- `IMPLEMENTED`: 160
-- `PARTIAL`: 100
+- `IMPLEMENTED`: 165
+- `PARTIAL`: 101
 - `PLANNED`: 123
 - `RESEARCH-GATED`: 6
 
-Families: `AGT` 10, `AUTH` 8, `BIZ` 8, `CAP` 9, `CORE` 34, `DEP` 6, `DOC` 10, `ECO` 5, `EFF` 6, `EVID` 5, `FACT` 17, `FRESH` 6, `GAP` 3, `GOV` 30, `INT` 10, `L8` 55, `LLM` 22, `MEM` 5, `MET` 8, `NFR` 14, `ONB` 4, `OPS` 13, `ORC` 9, `OWN` 15, `PIL` 16, `PKG` 6, `PRL` 9, `RDM` 26, `RUN` 10, `SAFE` 19, `SCL` 10, `SURF` 15, `TRP` 23, `VAL` 18, `VER` 11.
+Families: `AGT` 10, `AUTH` 8, `BIZ` 8, `CAP` 9, `CORE` 34, `DEP` 6, `DOC` 10, `ECO` 5, `EFF` 6, `EVID` 5, `FACT` 17, `FRESH` 6, `GAP` 3, `GOV` 30, `INT` 10, `KNOW` 12, `L8` 55, `LLM` 22, `MEM` 5, `MET` 8, `NFR` 14, `ONB` 4, `OPS` 13, `ORC` 9, `OWN` 15, `PIL` 16, `PKG` 6, `PRL` 9, `RDM` 26, `RUN` 10, `SAFE` 19, `SCL` 10, `SURF` 15, `TRP` 23, `VAL` 18, `VER` 11.
 
 ## Loading requirements
 

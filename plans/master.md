@@ -162,6 +162,16 @@ Binding current decisions:
   corroborated LLM acceptance persists per claim-content hash and replays through the same
   corroboration — regression only when evidence stops holding, never from a re-rolled model call
   (qwen3-next tool arguments are live-proven nondeterministic at temperature 0).
+- **#106 — Native knowledge-application layer.** `facts/aspose_knowledge_claims.py`/
+  `aspose_knowledge_selection.py` load, freshness-gate, and bound-select the full imported
+  aspose.org claim corpus (all 12 kinds, not only `dependency`) into `ProductFactsV2`; the corpus
+  is one checksum-bound unit (`data/imported/knowledge_manifest.json`) feeding a new
+  `imported_knowledge` fact-acceptance component; a per-run `knowledge-application.json`
+  (`facts/knowledge_application_evidence.py`) records considered/selected/rejected claims. The
+  vendored 89-check battery is classified into four buckets
+  (`data/aspose_check_classification.json`) and 10 empirically-validated checks are now blocking
+  acceptance gates. See `KNOW-001`..`KNOW-012`; `KNOW-007`/`008`/`009`/`010`/`011`/`012` remain
+  open (BACKLOG).
 
 Aspose.org remains a development-only comparative corpus, never a deployed dependency or factual
 authority. Repository order may change only through the durable dependency graph; changing a
