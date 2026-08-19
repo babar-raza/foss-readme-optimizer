@@ -39,6 +39,7 @@ RECOLLECT_ON_COMPONENT_CHANGE = (
     "evidence_polarity",
     "root_role_selection",
     "documentation_catalog",
+    "imported_knowledge",
 )
 VISITOR_RENDER_FIELDS = (
     "product.audience",
@@ -51,6 +52,11 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
     "documentation_catalog": (
         "catalog_documentation.py",
         "../../../data/aspose_org_links.json",
+    ),
+    "imported_knowledge": (
+        "aspose_knowledge_claims.py",
+        "aspose_knowledge_selection.py",
+        "../../../data/imported/knowledge_manifest.json",
     ),
     "acquisition_truth": (
         "acquisition.py",

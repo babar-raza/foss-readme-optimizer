@@ -9,6 +9,7 @@ from readme_agent import paths
 from readme_agent.errors import NotAllowlistedError
 from readme_agent.facts import dotnet_example_verifier
 from readme_agent.facts.acquisition_facts import collect_acquisition_fact
+from readme_agent.facts.aspose_knowledge_selection import knowledge_claim_fact_records
 from readme_agent.facts.catalog_documentation import catalog_documentation_fact
 from readme_agent.facts.composer_factpack import aspose_fact_records, build_aspose_detection_bundle
 from readme_agent.facts.context import current_product_facts
@@ -361,6 +362,15 @@ def collect_product_facts(
         )
         candidates.extend(
             aspose_fact_records(aspose_bundle, family=entry.family, platform=entry.platform)
+        )
+        candidates.extend(
+            knowledge_claim_fact_records(
+                entry.family,
+                entry.platform,
+                data_root=aspose_data_root,
+                clone_cache=root,
+                source_revision=source_revision,
+            )
         )
     resolved = resolve_product_facts(
         org_repo,

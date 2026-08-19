@@ -69,6 +69,7 @@ def test_contract_hash_covers_every_named_acceptance_component():
         "root_role_selection",
         "visitor_render_eligibility",
         "documentation_catalog",
+        "imported_knowledge",
     }
     assert contract.recollect_on_component_change == (
         "fact_schema",
@@ -78,6 +79,7 @@ def test_contract_hash_covers_every_named_acceptance_component():
         "evidence_polarity",
         "root_role_selection",
         "documentation_catalog",
+        "imported_knowledge",
     )
     assert len(contract.canonical_hash()) == 64
     assert all(len(digest) == 64 for digest in contract.component_hashes.values())
@@ -85,6 +87,36 @@ def test_contract_hash_covers_every_named_acceptance_component():
     assert "acquisition_pins.py" in _COMPONENT_FILES["acquisition_truth"]
     assert "python_repository_examples.py" in _COMPONENT_FILES["drafting_and_example_selection"]
     assert "verified_repository_examples.py" in _COMPONENT_FILES["drafting_and_example_selection"]
+    assert (
+        "../../../data/imported/knowledge_manifest.json" in _COMPONENT_FILES["imported_knowledge"]
+    )
+
+
+def test_imported_knowledge_component_hash_changes_when_manifest_content_changes(tmp_path):
+    """A real invalidation proof, not just a wiring check: the
+    `imported_knowledge` component hash actually changes when the corpus
+    manifest's bytes change, and does not change when they don't -- proving
+    a knowledge-content change invalidates dependent fact stages while an
+    unrelated rerun stays a cache hit."""
+
+    facts_dir = tmp_path / "src" / "readme_agent" / "facts"
+    facts_dir.mkdir(parents=True)
+    (facts_dir / "aspose_knowledge_claims.py").write_text("# claims loader\n", encoding="utf-8")
+    (facts_dir / "aspose_knowledge_selection.py").write_text("# selection\n", encoding="utf-8")
+    manifest_dir = tmp_path / "data" / "imported"
+    manifest_dir.mkdir(parents=True)
+    manifest_path = manifest_dir / "knowledge_manifest.json"
+    manifest_path.write_text('{"aggregate_sha256": "aaaa"}', encoding="utf-8")
+
+    relative_paths = _COMPONENT_FILES["imported_knowledge"]
+    before = _component_hash(facts_dir, relative_paths)
+
+    unchanged = _component_hash(facts_dir, relative_paths)
+    assert unchanged == before  # identical bytes -> identical hash, no spurious drift
+
+    manifest_path.write_text('{"aggregate_sha256": "bbbb"}', encoding="utf-8")
+    after = _component_hash(facts_dir, relative_paths)
+    assert after != before  # a real corpus-content change flips the hash
     assert "deterministic_truth_salvage.py" in _COMPONENT_FILES["drafting_and_example_selection"]
     assert "interpretive_resolution.py" in _COMPONENT_FILES["drafting_and_example_selection"]
     assert (

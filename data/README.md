@@ -251,6 +251,60 @@ all) does not qualify for this lane; its defect goes to
 `plans/investigations/evidence/working-condition-presentation-exceptions-v1/README.md` for the
 promoted evidence this registry currently gates.
 
+## `data/imported/` — imported aspose.org development-oracle corpus
+
+Third-party product knowledge imported from the sibling `aspose.org` repository at a pinned
+revision (`plans/investigations/evidence/imported-corpus-v1/IMPORTED-FROM.md` records the exact
+source commit, per-file provenance, and licensing basis). This is a **development oracle, not a
+production runtime dependency** — the running agent never reads or requires a live `aspose.org`
+checkout; everything it may use is this one committed, pinned snapshot.
+
+- `data/imported/knowledge/{family}/{platform}/merged/` — one bundle per product/platform (31
+  bundles today; PSD Python/.NET are not yet present in the corpus). Each bundle carries
+  `claims.json` (free-text claims tagged by `kind`: `feature`, `format_support`, `format`,
+  `install`, `license`, `api`, `api_class`, `api_method`, `api_field`, `dependency`,
+  `limitation`, `troubleshoot` — 97k+ claims corpus-wide), `api_surface.json` (structured
+  per-language static-analysis API surface), `formats.json`, `model.yaml` (the one universal
+  per-bundle provenance record: `repo_sha`, `repo_url`, `product_name`, `version`), and
+  supporting snippets/reports. Loaded and indexed by
+  [`src/readme_agent/facts/aspose_knowledge_claims.py`](../src/readme_agent/facts/aspose_knowledge_claims.py);
+  selected with bounded relevance, freshness gating, and a per-claim disposition ledger by
+  [`src/readme_agent/facts/aspose_knowledge_selection.py`](../src/readme_agent/facts/aspose_knowledge_selection.py).
+  A claim's bundle is trusted only when its recorded `repo_sha` matches the repository revision
+  the current run actually observed; a stale or unknown revision caps confidence and blocks
+  `verified` status absent independent corroboration (current repository evidence always wins).
+- `data/imported/knowledge_manifest.json` — the deterministic, checksum-complete corpus manifest:
+  every knowledge-tree file's path/sha256/bytes, plus a per-bundle and one aggregate corpus hash.
+  Regenerate with `scripts/data-refresh/build_imported_knowledge_manifest.py` after any corpus
+  refresh; `facts/acceptance_contract.py`'s `imported_knowledge` component hashes this one file
+  (not the raw 3,000+-file tree) so knowledge-content changes invalidate only dependent fact
+  stages, deterministically and cheaply.
+- `data/imported/keywords/{family}.json` — per-family/site SEO keyword lists (`facts/
+  aspose_detectors.py::detect_seo_keywords`).
+- `data/imported/data/` — misc registry/config JSON mirrored from aspose.org (`package_registry.json`,
+  `diagram_archetypes.json`, backlink targets, etc.), each consumed by one named detector in
+  `facts/aspose_detectors.py`.
+- `data/imported/reports/repo-presenter/` — aspose.org's own accepted README candidates and
+  content-disposition ledgers. **Development/reference evidence only** — never a runtime
+  acceptance input and never copied into rendered output; used to discover systemic behavior
+  (e.g. via `plans/investigations/`) that gets encoded into this repo's own native contracts and
+  regression tests.
+
+None of this corpus overrides current repository evidence on conflict, and none of it is silently
+promoted to verified truth — see `aspose_knowledge_selection.py`'s module docstring for the exact
+corroboration rule.
+
+## `data/aspose_check_classification.json` — vendored check-battery blocking classification
+
+Classifies every check in the vendored aspose.org check battery
+(`src/readme_agent/vendored_asposeorg/.../readme_refresh_checks.py`, loaded via
+`validation/aspose_checks/__init__.py::load_check_registry()`) into one of four buckets
+(`applicable_reusable`, `applicable_after_adaptation`, `diagnostic_heuristic`, `unrelated`) and
+records which ones are promoted to blocking acceptance gates. Regenerate with
+`scripts/data-refresh/classify_aspose_checks.py`; consumed by
+`src/readme_agent/validation/aspose_checks_bridge.py`. See that script's module docstring for the
+classification method and evidence basis.
+
 ## `data/template_clone_findings.json` — periodic embedding-similarity findings (Wave 8.6)
 
 Pairwise cosine-similarity findings across the enabled portfolio's real READMEs (owned spans
