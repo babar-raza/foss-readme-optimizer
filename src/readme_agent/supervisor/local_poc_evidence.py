@@ -20,6 +20,8 @@ from readme_agent.readme.agentic_composition import ReadmeAgenticCompositionPlan
 from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.readme.claim_map import ReadmeClaimMapV1
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
+from readme_agent.readme.markers import find_presentation_span
+from readme_agent.readme.readme_reconciliation import build_readme_reconciliation_report
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.readme_poc_lifecycle import candidate_generation_origin_hash
 from readme_agent.supervisor.local_poc_snapshot_evidence import (
@@ -320,6 +322,26 @@ def _canonical_hash(value: dict) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
+def _readme_reconciliation_report_or_error(
+    render_result: dict, document_plan: ReadmeDocumentPlanV1
+) -> dict:
+    """Best-effort `readme-reconciliation.json` evidence -- a real reconciliation
+    audit is far more valuable than none, but it must never be able to break
+    real candidate persistence (the primary deliverable) if it hits a gap in
+    the underlying lineage machinery it cannot yet explain. See
+    `readme/readme_reconciliation.py`'s own module docstring for the one
+    known-open gap this fail-closed check can still legitimately raise on."""
+
+    source_text = str(render_result.get("source_text") or "")
+    existing = find_presentation_span(source_text)
+    inner_text = existing.content if existing is not None else source_text
+    try:
+        report = build_readme_reconciliation_report(document_plan, source_text=inner_text)
+    except ValueError as exc:
+        return {"schema_version": 1, "error": str(exc)}
+    return report.model_dump(mode="json")
+
+
 def write_local_poc_readme_candidate(
     snapshot: RepositorySnapshotV1,
     render_result: dict,
@@ -437,6 +459,10 @@ def write_local_poc_readme_candidate(
     write_redacted_text(candidate_dir / "README.patch", patch_text)
     write_redacted_json(candidate_dir / "claim-map.json", claim_map.model_dump(mode="json"))
     write_redacted_text(candidate_dir / "candidate-hash.txt", candidate_hash + "\n")
+    write_redacted_json(
+        candidate_dir / "readme-reconciliation.json",
+        _readme_reconciliation_report_or_error(render_result, document_plan),
+    )
 
     assessment_hash = assessment.canonical_hash()
     presentation_plan_hash = _canonical_hash(presentation_plan.get("presentation_plan") or {})

@@ -605,6 +605,112 @@ def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
     assert [path.name for path in (bundle / "superseded").iterdir()] == [candidate_hash[:16]]
 
 
+def test_candidate_boundary_writes_a_real_readme_reconciliation_report(tmp_path, monkeypatch):
+    """Gate R6: `write_local_poc_readme_candidate` now also persists
+    `candidate/readme-reconciliation.json`, derived from the real document
+    plan's own composition ledger. When `render_result` carries the real
+    `source_text` (as every production call already does -- see
+    `readme/idea_candidate.py`'s return dict), the report is genuinely
+    populated, not the best-effort degraded error record."""
+
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    snapshot = _snapshot(tmp_path)
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://acme/product",
+        source_revision=snapshot.source_revision,
+    )
+    values = {
+        "product.identity": {"name": "Product", "family": "cells", "ecosystem": "java"},
+        "product.audience": ["Java developers"],
+        "product.problems_solved": ["Read product files"],
+        "product.capabilities": ["Read files"],
+        "product.formats": ["Product files"],
+        "product.compatibility": {"minimum_runtime": "Java 11"},
+        "product.limitations": ["Read-only fixture"],
+        "example.minimal": {
+            "language": "java",
+            "code": "public class Example {}",
+        },
+    }
+    records = [
+        FactRecordV2(
+            fact_id=descriptive_fact_id(field, "reconciliation-evidence-test"),
+            field=field,
+            value=values.get(field, {"field": field}),
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+        for field in REQUIRED_PRODUCT_FIELDS
+    ]
+    facts = ProductFactsV2(
+        org_repo=snapshot.org_repo,
+        facts=records,
+        selected_fact_ids={fact.field: fact.fact_id for fact in records},
+    )
+    write_local_poc_product_facts(
+        snapshot,
+        facts,
+        findings=[],
+        resolution_source="repository_and_policy",
+        local_verification_contract_hash="v" * 64,
+        fact_acceptance_contract_hash="a" * 64,
+        fact_acceptance_component_hashes={"evidence_polarity": "b" * 64},
+    )
+    source_text = (tmp_path / "README.md").read_text(encoding="utf-8")
+    candidate, document_plan = build_readme_document_candidate(
+        snapshot.org_repo,
+        source_text,
+        facts,
+        base_revision=snapshot.source_revision,
+    )
+    assessment = assess_readme_document(
+        snapshot.org_repo,
+        source_text,
+        facts,
+        base_revision=snapshot.source_revision,
+    )
+    claim_map = build_readme_claim_map(
+        document_plan,
+        facts,
+        source_text=source_text,
+        candidate_text=candidate,
+    )
+
+    bundle, *_ = write_local_poc_readme_candidate(
+        snapshot,
+        {
+            "source_revision": snapshot.source_revision,
+            "final_text": candidate,
+            "source_text": source_text,
+        },
+        {
+            "readme_assessment": assessment.model_dump(mode="json"),
+            "readme_document_plan": document_plan.model_dump(mode="json"),
+            "claim_map": claim_map.model_dump(mode="json"),
+            "presentation_plan": {"repository": snapshot.org_repo},
+            "git_patch_proof": {"patch": "fixture patch\n"},
+            "executable": True,
+        },
+    )
+
+    reconciliation = json.loads(
+        (bundle / "candidate" / "readme-reconciliation.json").read_text(encoding="utf-8")
+    )
+    assert "error" not in reconciliation
+    assert reconciliation["source_bytes"] == len(source_text.encode("utf-8"))
+    total = sum(
+        entry["source_byte_end"] - entry["source_byte_start"] for entry in reconciliation["entries"]
+    )
+    assert total == reconciliation["source_bytes"]
+    assert "candidate/readme-reconciliation.json" in (bundle / "sha256sums.txt").read_text(
+        encoding="utf-8"
+    )
+
+
 def test_unchanged_candidate_bytes_with_new_dependency_key_reopens_stale_acceptance(
     tmp_path, monkeypatch
 ):
