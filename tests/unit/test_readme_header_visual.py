@@ -887,6 +887,76 @@ def test_header_omits_build_badge_when_no_ci_fact_exists() -> None:
     assert all(badge.kind != "build" for badge in render_readme_badges(facts))
 
 
+def _with_pypi_acquisition_and_compatibility(
+    facts: ProductFactsV2,
+) -> ProductFactsV2:
+    source = facts.selected_fact("product.identity").source
+    acquisition = FactRecordV2(
+        fact_id="installation.verified_acquisition:pypi-badge-test",
+        field="installation.verified_acquisition",
+        value={
+            "method": "pypi",
+            "outcome": "REGISTRY_VERIFIED",
+            "coordinate": {"name": "aspose-cells-foss"},
+        },
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme.header"],
+    )
+    compatibility = FactRecordV2(
+        fact_id="product.compatibility:pypi-badge-test",
+        field="product.compatibility",
+        value=[{"minimum_runtime": ">=3.7", "runtime_label": "Python", "ecosystem": "python"}],
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme.header"],
+    )
+    return facts.model_copy(
+        update={
+            "facts": [*facts.facts, acquisition, compatibility],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                acquisition.field: acquisition.fact_id,
+                compatibility.field: compatibility.fact_id,
+            },
+        }
+    )
+
+
+def test_requires_badge_is_suppressed_when_pypi_python_versions_badge_is_present() -> None:
+    """Quality-gap review (2026-08-18, cells-python): a separate "Requires:
+    Python >=X" badge restated what the dynamic PyPI "Python versions"
+    badge already conveyed -- confirmed real aspose.org candidates never
+    carry both."""
+
+    facts, _revision = _facts()
+    facts = _with_pypi_acquisition_and_compatibility(facts)
+
+    badges = render_readme_badges(facts)
+
+    assert any(badge.alt_text == "Python versions" for badge in badges)
+    assert not any(badge.badge_id == "compatibility" for badge in badges)
+
+
+def test_requires_badge_survives_for_non_pypi_ecosystems() -> None:
+    """The Java fixture has no PyPI Python-versions badge to be redundant
+    with, so its own "Requires" badge (already asserted above by
+    test_header_prefers_verified_runtime_requirement_over_build_status)
+    must be unaffected -- covered directly here too, isolated from the CI
+    badge interaction that test also exercises."""
+
+    facts, _revision = _facts()
+
+    badges = render_readme_badges(facts)
+
+    assert not any(badge.alt_text == "Python versions" for badge in badges)
+    assert any(badge.badge_id == "compatibility" for badge in badges)
+
+
 def test_header_uses_visitor_facing_dotnet_platform_label() -> None:
     facts, _revision = _facts()
     identity = facts.selected_fact("product.identity")

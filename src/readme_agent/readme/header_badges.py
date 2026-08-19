@@ -268,8 +268,10 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
             )
     ecosystem = str(identity_value.get("ecosystem") or identity_value.get("platform") or "").strip()
     ecosystem_label = ecosystem_display_label(ecosystem)
+    pypi_python_versions_badge_added = False
     if identity is not None and ecosystem:
         if method == "pypi" and coordinate.get("name"):
+            pypi_python_versions_badge_added = True
             package = quote(str(coordinate["name"]), safe="")
             package_target = f"https://pypi.org/project/{package}/"
             badges.append(
@@ -303,8 +305,14 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
                 )
             )
 
+    # Quality-gap review (2026-08-18, cells-python): a separate "Requires:
+    # Python >=X" badge restates what the dynamic PyPI "Python versions"
+    # badge already shows (its version set implies the same floor) --
+    # confirmed real aspose.org candidates never carry both. Only the PyPI
+    # Python-versions case is skipped; every other ecosystem (Java, .NET,
+    # ...) has no other badge conveying a runtime floor and keeps this one.
     compatibility = verified_compatibility_badge_signal(facts)
-    if compatibility is not None:
+    if compatibility is not None and not pypi_python_versions_badge_added:
         compatibility_value, compatibility_fact_ids = compatibility
         badges.append(
             _badge(
