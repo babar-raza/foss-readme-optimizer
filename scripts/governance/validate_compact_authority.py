@@ -155,6 +155,10 @@ def _source_catalog_errors(
     source_requirements = _source_requirement_records(
         _source_text(source_commit, REQUIREMENTS_PATH)
     )
+    source_requirement_ids = {record["requirement_id"] for record in source_requirements}
+    current_requirement_ids = {record["requirement_id"] for record in requirements}
+    if not source_requirement_ids.issubset(current_requirement_ids):
+        errors.append("a source requirement stable ID was removed after migration")
     migrated_requirements = [
         {
             **{
@@ -179,6 +183,7 @@ def _source_catalog_errors(
             "traceability": record.get("legacy_traceability") or record["traceability"],
         }
         for record in requirements
+        if record["requirement_id"] in source_requirement_ids
     ]
     if migrated_requirements != source_requirements:
         errors.append("typed requirement catalog is not an exact source-record migration")
