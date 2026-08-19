@@ -53,8 +53,63 @@ def _short_subject(value: str) -> str:
     return re.sub(r"(?i)\s+(?:files|documents|content)$", "", shortened).strip()
 
 
-def seo_capability_title(capability: str, context: CapabilitySeoContextV1) -> str:
-    """Turn one verified capability into an action-led, fact-bounded search phrase."""
+_SEO_TITLE_STOPWORDS = frozenset(
+    {
+        "a",
+        "an",
+        "and",
+        "for",
+        "from",
+        "in",
+        "of",
+        "on",
+        "or",
+        "the",
+        "to",
+        "with",
+        "your",
+        "file",
+        "files",
+    }
+)
+
+
+def _significant_terms(text: str) -> frozenset[str]:
+    return frozenset(
+        word
+        for word in re.findall(r"[A-Za-z0-9]+", text.casefold())
+        if word not in _SEO_TITLE_STOPWORDS and len(word) > 2
+    )
+
+
+def _keyword_grounded_in_capability(seo_keyword: str, capability_title: str) -> bool:
+    """A keyword may only inform this row's title when it shares real vocabulary with
+    this row's own capability text -- never borrowed from another row's subject matter."""
+
+    keyword_terms = _significant_terms(seo_keyword)
+    return bool(keyword_terms) and bool(keyword_terms & _significant_terms(capability_title))
+
+
+def _sentence_case(phrase: str) -> str:
+    stripped = " ".join(phrase.split())
+    return stripped[:1].upper() + stripped[1:] if stripped else stripped
+
+
+def seo_capability_title(
+    capability: str,
+    context: CapabilitySeoContextV1,
+    *,
+    seo_keyword: str | None = None,
+) -> str:
+    """Turn one verified capability into an action-led, fact-bounded search phrase.
+
+    `seo_keyword`, when given, may replace only the two generic fallback phrasings
+    below (never a fact-bounded branch above them) -- and only when it shares real
+    vocabulary with `capability` itself (`_keyword_grounded_in_capability`) and
+    actually produces different wording than the fallback would. An ungrounded,
+    unrelated, or no-op keyword leaves the return value byte-identical to calling
+    this function without one.
+    """
 
     title = " ".join(capability.strip().rstrip(".").split())
     lowered = title.casefold()
@@ -172,9 +227,12 @@ def seo_capability_title(capability: str, context: CapabilitySeoContextV1) -> st
             return f"Import {subject}"
         if any(term in lowered for term in ("export", "convert", "save", "write")) and output:
             return f"Convert {short_subject} files to {output}"
-    if is_action_led_capability_title(title):
-        return title
-    return f"Work with {title}"
+    fallback = title if is_action_led_capability_title(title) else f"Work with {title}"
+    if seo_keyword and _keyword_grounded_in_capability(seo_keyword, title):
+        keyword_title = _sentence_case(seo_keyword)
+        if keyword_title.casefold() != fallback.casefold():
+            return keyword_title
+    return fallback
 
 
 __all__ = ["CapabilitySeoContextV1", "capability_seo_context", "seo_capability_title"]

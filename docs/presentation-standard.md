@@ -253,15 +253,20 @@ preferred over generic phrasing that reads identically to any competitor's:
   traceable back to `knowledge-application.json`'s `seo_keyword_dispositions` for that run — an
   unlineaged keyword influence is a defect, not a style choice.
 
-Today this is evidenced-but-not-yet-wired for content: `KNOW-006` filters the imported vocabulary
-for relevance and `knowledge_application_evidence.py` records its disposition, but no deterministic
-heading/title generator reads it to *shape* wording yet (`presentation/verified_template_capability_seo.py`
-remains a regex cascade grounded only in verified format/capability facts — `KNOW-007`). Since
-Gate R6a (commit `cbccb8623`), `verified_template_capabilities.py` cites the keyword fact into a
-capability row's evidence lineage when its already-generated title happens to name one — attribution
-only, never invented, reordered, or reworded wording — so `KNOW-013`'s "zero consumer" framing now
-holds only for content-shaping, not for evidence citation. This section states the acceptance bar
-for when keyword-driven wording lands, not a claim that a keyword already shapes rendered output.
+`KNOW-006` filters the imported vocabulary for relevance and `knowledge_application_evidence.py`
+records its disposition; `presentation/verified_template_capability_seo.py::seo_capability_title`
+remains a regex cascade grounded primarily in verified format/capability facts (`KNOW-007`), with
+one additive exception. Gate R6a (commit `cbccb8623`) first wired the keyword fact in as an
+attribution-only citation — never shaping wording, only cited into a row's `fact_ids` when an
+already-generated title coincidentally named a keyword. The R6a repair replaced that with the real
+consumer this section's acceptance bar describes for `aspose.relevant_seo_keywords`: a keyword may
+now replace one capability row's generic fallback wording (never a fact-bounded branch) when it
+shares real vocabulary with that row's own capability text and produces genuinely different bytes;
+it is still never cited in `fact_ids` either way, since it stays editorial vocabulary, not evidence
+for a factual claim. Lineage for a keyword that did shape wording is traceable via
+`knowledge-application.json`'s `seo_keyword_dispositions`, recorded independently of title
+consumption. This remains a single-field, single-seam consumer — the other five imported-knowledge
+fact fields `KNOW-013` names still have no renderer/composition consumer at all.
 
 ## Measurable review criteria for Phase 21
 

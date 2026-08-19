@@ -181,9 +181,13 @@ Binding current decisions:
   remains open but now covers 2 (not 3) unresolved false-positive checks —
   `check_no_excluded_domain_links` was fixed and promoted to blocking by Gate R4; `KNOW-012` is now
   `IMPLEMENTED`, resolved by that same fix; `KNOW-013` (new fact fields need a renderer/composition
-  consumer that affects rendered candidate bytes) remains open — Gate R6a gave
-  `aspose.relevant_seo_keywords` a narrow, attribution-only evidence-lineage consumer, but no field
-  yet shapes rendered wording.
+  consumer that affects rendered candidate bytes) is now `PARTIAL` — Gate R6a first gave
+  `aspose.relevant_seo_keywords` a narrow, attribution-only evidence-lineage consumer (no field
+  shaped rendered wording), then the same-day R6a repair replaced it with a real one:
+  `seo_capability_title()`'s `seo_keyword` parameter lets a relevance-filtered keyword replace a
+  capability row's generic fallback wording when grounded in that row's own capability text,
+  never cited as evidence either way. The other five imported-knowledge fact fields remain
+  unconsumed.
 - **#107 — Control-repo auto-push.** This repository's own landed commits are pushed to its own
   `origin` automatically and immediately, with no separate confirmation, mechanically enforced by a
   `post-commit` hook (`scripts/governance/post_commit_push.py`) that never force-pushes. The

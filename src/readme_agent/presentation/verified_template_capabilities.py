@@ -696,20 +696,22 @@ def _capability_rows(
     ):
         implementation_fact = None
     # `aspose.relevant_seo_keywords` is relevance-filtered, product-grounded
-    # search-intent vocabulary (aspose_seo_keyword_facts.py) -- deliberately
-    # never used to invent or reorder capability content (it stays
-    # `unverified`, third-party-sourced), only to attribute real lineage
-    # when a row's own already-verified SEO title happens to name one of
-    # these keywords, closing the "keywords are prompt-visible but never
-    # actually influence output" gap.
-    seo_keyword_fact_id: str | None = None
+    # search-intent vocabulary (aspose_seo_keyword_facts.py), already
+    # platform-mismatch- and stuffing-guarded upstream. It is editorial
+    # vocabulary for title wording, never evidence for a factual claim: it
+    # stays `unverified`/third-party-sourced and is never added to a row's
+    # `fact_ids` below. `seo_capability_title()` only lets a keyword replace
+    # a row's generic fallback wording, and only when it shares real
+    # vocabulary with that row's own capability text -- every fact-bounded
+    # branch of that function stays untouched by keyword input, and a run
+    # with no safe keyword renders byte-identical to one with the fact
+    # entirely absent.
     seo_keywords: tuple[str, ...] = ()
     try:
         seo_keyword_fact = facts.selected_fact("aspose.relevant_seo_keywords")
     except KeyError:
         seo_keyword_fact = None
     if seo_keyword_fact is not None and not seo_keyword_fact.has_unresolved_conflict:
-        seo_keyword_fact_id = seo_keyword_fact.fact_id
         if isinstance(seo_keyword_fact.value, list):
             seo_keywords = tuple(str(keyword) for keyword in seo_keyword_fact.value)
     rows: list[tuple[str, list[str], list[StructuredFactCoordinateV1]]] = []
@@ -722,6 +724,7 @@ def _capability_rows(
     retained_titles: list[str] = []
     retained_seo_titles: set[str] = set()
     retained_rows: list[str] = []
+    used_seo_keywords: set[str] = set()
     for phrase in normalize_capability_phrases(view.phrases):
         inherited_fact_ids: list[str] = []
         inherited_coordinates: list[StructuredFactCoordinateV1] = []
@@ -735,7 +738,17 @@ def _capability_rows(
             continue
         if any(_same_capability_presentation(title, retained) for retained in retained_titles):
             continue
-        seo_title = seo_capability_title(title, seo_context)
+        fallback_seo_title = seo_capability_title(title, seo_context)
+        seo_title = fallback_seo_title
+        keyword_used_here: str | None = None
+        for keyword in seo_keywords:
+            if keyword in used_seo_keywords:
+                continue
+            candidate_title = seo_capability_title(title, seo_context, seo_keyword=keyword)
+            if candidate_title != fallback_seo_title:
+                seo_title = candidate_title
+                keyword_used_here = keyword
+                break
         normalized_seo_title = seo_title.casefold()
         if normalized_seo_title in retained_seo_titles:
             continue
@@ -763,10 +776,6 @@ def _capability_rows(
             fact_ids.extend(formats_view.citation_fact_ids)
         if related_types and api_fact_id is not None:
             fact_ids.append(api_fact_id)
-        if seo_keyword_fact_id is not None and any(
-            keyword.casefold() in seo_title.casefold() for keyword in seo_keywords
-        ):
-            fact_ids.append(seo_keyword_fact_id)
         markdown = f"- **{seo_title}** - {_description(seo_title, phrase, related_types)}"
         if any(_same_capability_presentation(markdown, retained) for retained in retained_rows):
             continue
@@ -829,6 +838,8 @@ def _capability_rows(
         retained_titles.append(title)
         retained_seo_titles.add(normalized_seo_title)
         retained_rows.append(markdown)
+        if keyword_used_here is not None:
+            used_seo_keywords.add(keyword_used_here)
     return rows
 
 

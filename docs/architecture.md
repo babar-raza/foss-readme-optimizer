@@ -344,15 +344,21 @@ count.
 `aspose_seo_keyword_facts.py` applies the same corpus-relevance discipline to the imported
 per-family SEO keyword lists (`data/imported/keywords/`), filtering for repository/platform
 relevance before they become candidate evidence (`aspose.relevant_seo_keywords`, `KNOW-006`). As
-of this writing five of these six new fact fields (`aspose.feature_claims`, `format_support_claims`,
+of this writing five of six new fact fields (`aspose.feature_claims`, `format_support_claims`,
 `install_claims`, `limitation_claims`, `troubleshoot_claims`) still have no renderer/composition
 consumer — an explicit, tracked gap, not a silent one (`KNOW-013`). `aspose.relevant_seo_keywords`
-gained one narrow, attribution-only consumer (`presentation/verified_template_capabilities.py`,
-Gate R6a, commit `cbccb8623`): when a capability row's own already-generated SEO title happens to
-name a relevance-filtered keyword, the fact is cited into that row's `fact_ids` for evidence
-lineage — it never shapes, invents, or reorders the title itself. Rendered candidate bytes are
-still unaffected by any of these six fields; only that one field's evidence lineage changed
-(`KNOW-013`'s core bar — a consumer that affects rendered output — remains open for all six).
+first gained a narrow, attribution-only consumer (Gate R6a, commit `cbccb8623`) that only cited the
+fact into a row's `fact_ids` when an already-generated title coincidentally named a keyword —
+evidence lineage only, never shaping rendered bytes, and risking claim-map rejection since the fact
+stays unverified. The R6a repair (`presentation/verified_template_capability_seo.py::
+seo_capability_title`'s `seo_keyword` parameter, `presentation/verified_template_capabilities.py::
+_capability_rows`) replaced that with a real consumer: a relevance-filtered keyword may now replace
+one capability row's generic fallback title wording, but only when it shares real vocabulary with
+that row's own capability text and actually produces different bytes than the fallback — and it is
+never cited in `fact_ids`/`CandidateContentProvenanceV1` either way, since it stays editorial
+vocabulary, not evidence for a factual claim. `KNOW-013`'s core bar (a consumer that affects
+rendered output) is now met for `aspose.relevant_seo_keywords` alone; the other five fields remain
+unconsumed.
 
 ## One owned span, not two
 

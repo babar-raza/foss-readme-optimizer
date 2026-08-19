@@ -12,13 +12,19 @@ existed (`aspose.seo_keywords`, declared surfaces `metadata.topics`/
 (confirmed: `capabilities/propose_metadata_changes.py`'s topic proposal
 only ever derives desired topics from `{ecosystem, platform}`). Real
 capability-title generation (`presentation/verified_template_capability_
-seo.py`) is a separately-tuned deterministic regex cascade grounded in
-verified format/capability facts, not this keyword list; rewiring it to
-consume free-text SEO phrases is a larger, higher-risk change than this
-session covers -- an explicit, logged gap, not a silent one (see
-`aspose_knowledge_selection.py`'s module docstring neighbor,
-`knowledge_application_evidence.py`, for where the disposition this module
-produces is surfaced).
+seo.py`) remains a separately-tuned deterministic regex cascade grounded
+primarily in verified format/capability facts, not this keyword list --
+with one additive, narrowly-scoped exception: `seo_capability_title()`'s
+`seo_keyword` parameter may replace a row's generic fallback wording (never
+a fact-bounded branch) when the keyword shares real vocabulary with that
+row's own capability text and produces genuinely different bytes than the
+fallback. The keyword stays editorial vocabulary, never cited as evidence
+for a factual claim (see `aspose_knowledge_selection.py`'s module docstring
+neighbor, `knowledge_application_evidence.py`, for where the disposition
+this module produces is surfaced, independent of whether a title consumed
+it). The other five imported-knowledge fact fields `KNOW-013` names still
+have no renderer/composition consumer at all -- that remains a larger,
+higher-risk change, an explicit, logged gap, not a silent one.
 """
 
 from __future__ import annotations
