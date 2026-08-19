@@ -1,6 +1,6 @@
 # Mission resume capsule (derived — regenerate, never hand-edit)
 
-Regenerated: 2026-08-19T04:47:00+00:00
+Regenerated: 2026-08-19T05:15:12+00:00
 Rebuild: `.venv/Scripts/python scripts/governance/mission_resume_capsule.py`
 Staleness check (run at session start; exit 1 = stale): same command with `--check`.
 
@@ -29,14 +29,14 @@ factuality/preservation/grounding gates to raise pass counts.
 
 ## Repository
 
-- branch `main` @ `f5446bbed56b86a94e65b2e18e52a7d46b1aa5d7`
+- branch `main` @ `14ff932c026a0d3748ef51ebd8ae7e2d4b064c4a`
 - protected pre-existing dirt: `plans/requirements.md` (CRLF-only); untracked
   `plans/claude/moonlit-juggling-flurry.md` is `forbidden_paths` reference material.
 
 ## Durable mission state (local store)
 
 - `mission__LEVEL8-CENTRAL-REPOSITORY-PRESENTATION` — state: mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION v10 (2026-08-19T01:20:16+05:00)
-- newest state ref write: 2026-08-19T01:20:16+05:00
+- newest state ref write: 2026-08-19T10:14:37+05:00
 
 ## Portfolio (from `runs/readme-poc/portfolio-summary.json`)
 
@@ -64,8 +64,9 @@ factuality/preservation/grounding gates to raise pass counts.
   - aspose-3d-foss/Aspose.3D-FOSS-for-.NET: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=1)
   - aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=2)
   - aspose-cells-foss/Aspose.Cells-FOSS-for-.NET: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=1)
+  - aspose-cells-foss/Aspose.Cells-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['composition.segmen (live_reproductions=1)
   - aspose-email-foss/Aspose.Email-FOSS-for-.Net: product_truth_not_ready:BLOCKED_MISSING_EVIDENCE (live_reproductions=1)
-  - aspose-email-foss/Aspose.Email-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=2)
+  - aspose-email-foss/Aspose.Email-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=3)
   - aspose-font-foss/Aspose.Font-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=2)
   - aspose-html-foss/Aspose.HTML-FOSS-for-Python: product_truth_not_ready:BLOCKED_MISSING_EVIDENCE (live_reproductions=2)
   - aspose-note-foss/Aspose.Note-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=1)
