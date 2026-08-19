@@ -10,6 +10,7 @@ model's classification alone."""
 from __future__ import annotations
 
 import hashlib
+import json
 
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.golden_set.review_fixtures import REVIEW_ARCHETYPES, build_review_facts
@@ -402,3 +403,62 @@ def test_resolve_claim_disposition_context_fails_closed_for_an_unlisted_repo() -
         raise AssertionError("expected NotAllowlistedError")
     except NotAllowlistedError:
         pass
+
+
+def test_a_per_repo_replayed_verdict_backfills_the_shared_store(tmp_path, monkeypatch) -> None:
+    """2026-08-19: a verdict replayed from the per-repo ratchet alone never
+    reached the shared, portfolio-wide store -- only a FRESH model
+    acceptance wrote to both. Live-observed: note-python's own ratchet held
+    an accepted `redundant_with_candidate` verdict for the exact boilerplate
+    claim (content hash 7ff54c1da64deecb) page-python's real source also
+    carries verbatim, but the shared store never had it, so page-python
+    could not replay it and hit a fresh block instead of a free reuse."""
+
+    import readme_agent.paths as paths_module
+    from readme_agent.readme.claim_accountability_llm_disposition import (
+        claim_disposition_ratchet_path,
+        llm_verified_claim_disposition,
+        shared_claim_disposition_ratchet_path,
+    )
+
+    monkeypatch.setattr(paths_module, "runs_dir", lambda: tmp_path / "runs")
+
+    claim_text = "No required third-party package dependencies."
+    content_sha256 = hashlib.sha256(claim_text.encode("utf-8")).hexdigest()
+    candidate_text = "## Dependencies\n\nOnly optional dependencies are declared.\n"
+
+    per_repo_path = claim_disposition_ratchet_path("acme/widget")
+    per_repo_path.parent.mkdir(parents=True, exist_ok=True)
+    per_repo_path.write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "accepted": {
+                    content_sha256: {
+                        "classification": "redundant_with_candidate",
+                        "evidence_type": "candidate_section_reference",
+                        "evidence_ref": "Dependencies",
+                        "evidence_quote": "Only optional dependencies are declared.",
+                        "reasoning": "covered by the candidate's own Dependencies section",
+                    }
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    shared_path = shared_claim_disposition_ratchet_path()
+    assert not shared_path.exists()
+
+    record = llm_verified_claim_disposition(
+        "source:claim:1:aa",
+        claim_text,
+        candidate_text,
+        tmp_path,
+        None,  # no client needed -- the per-repo store must satisfy this alone
+        ratchet_path=per_repo_path,
+    )
+
+    assert record is not None
+    assert record.classification == "redundant_with_candidate"
+    shared_accepted = json.loads(shared_path.read_text(encoding="utf-8"))["accepted"]
+    assert shared_accepted[content_sha256]["classification"] == "redundant_with_candidate"

@@ -220,6 +220,29 @@ def llm_verified_claim_disposition(
                         "replayed_from": str(store_path),
                     },
                 )
+                # Backfill (2026-08-19): a verdict replayed from the per-repo
+                # store alone never reached the shared store, since only a
+                # FRESH model acceptance below writes to both -- a corroborated
+                # disposition accepted before this dual-write existed, or via
+                # any path that only ever checked the per-repo store, stayed
+                # permanently repo-local even though identical claim text
+                # (aspose.org boilerplate) recurs verbatim across repos by
+                # construction (live-observed: note-python's own ratchet held
+                # claim 7ff54c1da64deecb's accepted verdict; the shared store
+                # never had it, so page-python's byte-identical claim could not
+                # replay it and hit a fresh block instead). Idempotent when the
+                # entry already came from the shared store itself.
+                _persist_ratchet_entry(
+                    shared_claim_disposition_ratchet_path(),
+                    content_sha256,
+                    {
+                        "classification": replayed.classification,
+                        "evidence_type": replayed.evidence_type,
+                        "evidence_ref": replayed.evidence_ref,
+                        "evidence_quote": replayed.evidence_quote,
+                        "reasoning": replayed.reasoning,
+                    },
+                )
                 return replayed
     record = check_claim_disposition(
         claim_id,
