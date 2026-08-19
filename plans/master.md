@@ -18,12 +18,34 @@ Level 8, or full umbrella-mission closure.
 
 ## Status
 
-The post-Claude candidate lane produced reviewable candidates for all 32 active registry entries.
-Its same-process renderer reports are useful development evidence, but they are not canonical
-fresh-process transaction no-op. Durable supervisor state version 892 currently recognizes 13 raw
-`FACTS_READY` repositories but zero contract-current candidates, approvals, or no-op results; its
-first failing boundary is therefore `FACTS_READY`. The dirty Python repair tree is preserved pending
-focused reconciliation. This is complete candidate visibility, not verified Python closure or Gate A.
+A same-day root-cause fix (2026-08-19, two corrective passes) closed failure signature S12:
+template-mandated Dependencies content — three H3 sub-headings plus two fixed, non-fact-derived
+lead-in sentences the same headings are rendered with — was never registered as governed template
+structure in `readme/composition_lineage.py`, hard-failing composition-ledger validation for
+every candidate that rendered a Dependencies section. **Live-confirmed fully cleared** via a
+bounded `--retry-blocked` re-verification pass: cells-python and font-python now advance past
+presentation-plan validation entirely (no more `composition.segment` errors); barcode-python
+confirmed the same earlier. A companion diagnostics-persistence fix, also 2026-08-19, now captures
+a blocked attempt's full composition ledger on disk, which is what made root-causing and
+correcting the fix possible without repeated live canaries.
+
+Clearing S12 surfaced the next real signature: barcode-python and cells-python now both block at
+`factuality_rejected` (independent gate 2), traced to `architectural-finding-two-gate-claim-
+accountability.md`'s "two-gate" gap — `evaluate_candidate_factuality()` never received the
+disposition client/repository_root/ratchet path gate 1 already resolves, so an accepted `excluded_
+with_reason` claim could reappear as a fresh block at the later gate. Fixed (`readme_factuality.py`
++ both real call sites, a new shared `resolve_claim_disposition_context()` helper); unit-verified
+(wiring + fail-closed on an unlisted repo), **not yet live-verified** — next canary should confirm
+whether it closes barcode/cells or surfaces a further signature.
+
+Mission status (state_version 10, post-fix confirmation): `facts_ready` 12/33,
+`candidate_generated` **3/33** (up from 1 this session: 3D no-op-proven + barcode-python +
+cells-python), `deterministic_validated` 1/33, `human_accepted` 0/33. (The `agent_approved`/
+`no_op_proven` summary fields under-report — a pre-existing, documented, non-blocking aggregation
+gap, S7 in the failure-signature ledger; `raw_lifecycle_progress` carries the correct per-repo
+sum.) First failing boundary `FACTS_READY` reflects the 21/33 repositories not yet reached this
+pass, not a regression. Two real defects fixed and regression-tested this session; Python cohort
+closure and Gate A remain ahead.
 
 Durable mission state owns the live task, immediate goal, repository scope,
 claim, transition history, and current contract-valid numerator. This document deliberately does
