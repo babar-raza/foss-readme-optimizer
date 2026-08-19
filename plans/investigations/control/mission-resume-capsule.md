@@ -1,6 +1,6 @@
 # Mission resume capsule (derived — regenerate, never hand-edit)
 
-Regenerated: 2026-08-18T19:27:20+00:00
+Regenerated: 2026-08-19T04:47:00+00:00
 Rebuild: `.venv/Scripts/python scripts/governance/mission_resume_capsule.py`
 Staleness check (run at session start; exit 1 = stale): same command with `--check`.
 
@@ -29,14 +29,14 @@ factuality/preservation/grounding gates to raise pass counts.
 
 ## Repository
 
-- branch `main` @ `f4fd365bcdcaebfc4bb4b4d934af4ce2e02203fa`
+- branch `main` @ `f5446bbed56b86a94e65b2e18e52a7d46b1aa5d7`
 - protected pre-existing dirt: `plans/requirements.md` (CRLF-only); untracked
   `plans/claude/moonlit-juggling-flurry.md` is `forbidden_paths` reference material.
 
 ## Durable mission state (local store)
 
-- `mission__LEVEL8-CENTRAL-REPOSITORY-PRESENTATION` — state: mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION v4 (2026-08-19T00:10:02+05:00)
-- newest state ref write: 2026-08-19T00:18:03+05:00
+- `mission__LEVEL8-CENTRAL-REPOSITORY-PRESENTATION` — state: mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION v10 (2026-08-19T01:20:16+05:00)
+- newest state ref write: 2026-08-19T01:20:16+05:00
 
 ## Portfolio (from `runs/readme-poc/portfolio-summary.json`)
 
@@ -81,7 +81,7 @@ factuality/preservation/grounding gates to raise pass counts.
   - aspose-cells-foss__Aspose.Cells-FOSS-for-.NET: 25 accepted verdict(s)
   - aspose-email-foss__Aspose.Email-FOSS-for-Python: 1 accepted verdict(s)
   - aspose-font-foss__Aspose.Font-FOSS-for-Python: 1 accepted verdict(s)
-  - aspose-note-foss__Aspose.Note-FOSS-for-Python: 2 accepted verdict(s)
+  - aspose-note-foss__Aspose.Note-FOSS-for-Python: 3 accepted verdict(s)
   - aspose-pdf-foss__Aspose.PDF-FOSS-for-.NET: 6 accepted verdict(s)
   - aspose-slides-foss__Aspose.Slides-FOSS-for-Python: 1 accepted verdict(s)
 
