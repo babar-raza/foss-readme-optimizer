@@ -96,6 +96,16 @@ state. This file also defines machinery-artifact naming and organization.
     never substitutes for this; each push gets its own explicit what/why/where confirmation.
     Proving something "in production" is never itself that approval. (Added 2026-07-19, user
     directive — see Decision #33.)
+
+    **This control repository's own commits to its own `origin` are exempt from the per-instance
+    confirmation above.** Once a commit lands on this repository (via the standing commit authority
+    rule 19 already grants), it is pushed to this repository's own `origin` automatically and
+    immediately, with no separate what/why/where confirmation — mechanically enforced by a
+    `post-commit` hook (`scripts/governance/install_hooks.py`/`post_commit_push.py`), not merely a
+    practice. This exemption is narrowly scoped to this control repository's own remote; it grants
+    no authority whatsoever over any managed product repository, whose push-blocking, allow-list,
+    and authorization gates (`gitsafety/`, `AUTH-004`, `GOV-018`) remain entirely unchanged and are
+    not affected by this rule in any way. (Added 2026-08-19, user directive — see Decision #107.)
 11. **Each wave first reconciles the previous wave against the spec, before building on it.**
     Before a new wave's work begins, check the immediately preceding wave's actual delivered
     state — its code, tests, and evidence — against what `plans/master.md` (that wave's Decision
@@ -227,7 +237,11 @@ state. This file also defines machinery-artifact naming and organization.
     unavailable external authority, credentials, infrastructure, manual UI, or an explicitly gated
     external effect. Shell access never implies product-write authority, destructive history,
     secret disclosure, or deletion of non-disposable user data. (Added 2026-07-27, user directive;
-    see revised Decision #81 and `GOV-030`.)
+    see revised Decision #81 and `GOV-030`.) Standing authority explicitly extends to pushing this
+    repository's own landed commits to its own `origin` — mechanically enforced by a `post-commit`
+    hook, not just implied. This grants nothing beyond that: it never implies product-write or
+    product-push authority, per rule 10's control-repo carve-out above. (Amended 2026-08-19, user
+    directive — see Decision #107.)
 20. **Content assurance is explicit and cannot be promoted by implication.**
     `trusted_readme_transform` and `verified_repository_presentation` use the same canonical
     supervisor, registry, state, evidence, authorization, and effect systems, but their evidence

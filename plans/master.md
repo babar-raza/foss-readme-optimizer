@@ -75,7 +75,7 @@ never override the mission graph or durable state.
 
 ## Decision Ledger
 
-The complete typed ledger contains 106 stable decisions in
+The complete typed ledger contains 107 stable decisions in
 `plans/decisions/catalog.jsonl`. This section is the human-readable current decision index; the
 catalog preserves the complete text and hashes of every prior decision.
 
@@ -184,6 +184,11 @@ Binding current decisions:
   consumer that affects rendered candidate bytes) remains open — Gate R6a gave
   `aspose.relevant_seo_keywords` a narrow, attribution-only evidence-lineage consumer, but no field
   yet shapes rendered wording.
+- **#107 — Control-repo auto-push.** This repository's own landed commits are pushed to its own
+  `origin` automatically and immediately, with no separate confirmation, mechanically enforced by a
+  `post-commit` hook (`scripts/governance/post_commit_push.py`) that never force-pushes. The
+  product-repo write path (`open_presentation_pr`, `AUTH-004`, `GOV-018`, decision #69) is entirely
+  unchanged — this decision was scoped, on request, to this control repository's own remote only.
 
 Aspose.org remains a development-only comparative corpus, never a deployed dependency or factual
 authority. Repository order may change only through the durable dependency graph; changing a
