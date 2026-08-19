@@ -18,6 +18,7 @@ from readme_agent.readme.agentic_composition import (
 )
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.document_renderer import build_readme_document_candidate
+from readme_agent.readme.document_templates import document_template_hash
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PROOF_PATH = (
@@ -34,9 +35,9 @@ DOCUMENT_CASES = (
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
         "# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n",
         "cbc79611b94171d705a5861ec405079390e503e65985ca86f05fafee59f19af1",
-        # 2026-08-18: template_version 1.20.0 -> 1.21.0 (Documentation & Resources
-        # heading fix) shifts the plan hash; candidate bytes/operation_ids unchanged.
-        "4b3aeffabeba23ee5e28e0c9633a8693e773e3dd73a5bbca69c8d2e59fe7f2fd",
+        # 2026-08-19: hashed with `template_sha256` excluded -- see the
+        # module-level note above `test_document_composition_bytes_and_plan_are_characterized`.
+        "498bca9ff3f1fc51c7a73fd944ac84740943682f1ae272216ba5c3c661c59694",
         [
             "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
@@ -57,8 +58,8 @@ DOCUMENT_CASES = (
             '## Usage\n\n```java\nSystem.out.println("legacy");\n```\n'
         ),
         "676e0d9a81b82427aa62ee9a12640032af24d079b68a63a3604265a3966b0d13",
-        # 2026-08-18: same template_version bump; see cells-Java's note above.
-        "1f69e785ed531c09aea60bcdac7144347083778fb7a090d7107302791d9227cd",
+        # 2026-08-19: hashed with `template_sha256` excluded; see cells-Java's note above.
+        "9887dd65e861dc16d233106b4c04badfef946cfa5c06a922457c4dd4d35ebf1a",
         [
             "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
@@ -79,8 +80,8 @@ DOCUMENT_CASES = (
             "## Installation\n\nExisting instructions.\n"
         ),
         "617605150e13217cd25813d5238ac37da0f1182a080c26a144636c3e2102a3b3",
-        # 2026-08-18: same template_version bump; see cells-Java's note above.
-        "4d5f8c2eb67a1255520a042c5abf411de9c0ff3f00ef01b4b97bd3ec3dd8514f",
+        # 2026-08-19: hashed with `template_sha256` excluded; see cells-Java's note above.
+        "c487777018a0f511cb6b1fe0c1fcec234ade1decffe52e0366340f9a483df7aa",
         [
             "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
@@ -178,7 +179,8 @@ def test_document_composition_bytes_and_plan_are_characterized(
     )
 
     assert hashlib.sha256(candidate.encode("utf-8")).hexdigest() == candidate_hash
-    assert _canonical_hash(plan.model_dump(mode="json")) == plan_hash
+    assert plan.template_sha256 == document_template_hash()
+    assert _canonical_hash(plan.model_dump(mode="json", exclude={"template_sha256"})) == plan_hash
     assert [operation.operation_id for operation in plan.operations] == operation_ids
 
 

@@ -317,3 +317,29 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
   `attrib +P` / the OneDrive "always keep on this device" exclusion mechanism, or relocate the
   venv outside the synced tree — a compiled Python extension is exactly the kind of file
   atomic-write assumptions cloud sync can violate, and this is unlikely to be a one-time event.
+- 2026-08-19 (GOV-014): **Fixed** the 4 plan-hash characterization drifts recorded above (3
+  Java-repo drifts in `test_readme_composition_characterization.py::
+  test_document_composition_bytes_and_plan_are_characterized` plus the agentic-plan drift in
+  `test_agentic_readme_composition.py::test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate`).
+  Root-caused (not just re-pinned): all four pin a hash of the *entire* `ReadmeDocumentPlanV1`
+  dump, which includes `template_sha256` — a build-fingerprint over ~60 composition/presentation/
+  claim-accountability source files plus 4 globs (`document_templates.py::document_template_hash`)
+  — so the pinned hash drifts on nearly every nearby commit regardless of whether candidate/plan
+  content actually changed (14 such commits landed between the prior repin and this one alone).
+  Candidate bytes, operation IDs, facts/assessment/agentic-plan hashes were independently confirmed
+  unchanged throughout — no semantic drift. Repaired the test design, not just the four values:
+  `document_plan.model_dump(mode="json", exclude={"template_sha256"})` is now what gets hashed for
+  the golden comparison, with `document_plan.template_sha256 == document_template_hash()` checked
+  separately as a live self-consistency assertion — so this class of failure should not recur on
+  every unrelated commit going forward. Also fixed the note-python stale-fixture failure
+  (`test_source_claim_structured_matching_exact.py::
+  test_current_note_feature_and_api_deferrals_have_accepted_fact_ids`): confirmed the drift is real
+  (local `runs/baseline/aspose-note-foss__Aspose.Note-FOSS-for-Python/README.md` no longer hashes
+  to the pinned value), and the underlying `runs/` snapshot is 17MB/121 files — too large for a
+  committed sealed fixture — so extended the existing "skip if artifacts absent" guard to also
+  skip on hash mismatch, treating a stale local snapshot the same as a missing one; the same
+  `complete_source_claim_fact_binding` behavior this test exercises against real Note data is
+  independently covered by committed synthetic fixtures elsewhere in the same test file
+  (`test_exact_capability_class_list_binds_capability_and_api_coordinates` etc.), so hermetic
+  coverage of the underlying binding logic does not depend on this test's local-only path. Full
+  boundary baseline goes from 5 known pre-existing failures to 0.

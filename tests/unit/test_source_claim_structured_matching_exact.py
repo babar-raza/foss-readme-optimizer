@@ -203,6 +203,16 @@ def test_feature_prose_cannot_match_format_facts_through_ordinary_words() -> Non
 
 
 def test_current_note_feature_and_api_deferrals_have_accepted_fact_ids() -> None:
+    # This exercises `complete_source_claim_fact_binding` against a real Note README and its
+    # real product facts rather than the synthetic fixtures the rest of this file uses -- an
+    # extra real-world confidence check, not the sole coverage of the underlying behavior (the
+    # other tests in this file already cover `complete_source_claim_fact_binding` hermetically
+    # with committed data). Both artifacts live under gitignored `runs/`, populated by a local
+    # `readme-agent poc` run against the real, independently-evolving upstream repository -- too
+    # large (17MB/121 files) to freeze as a committed fixture, so this test is optional/local by
+    # design: skip whenever the artifacts are absent OR no longer match the pinned bytes this
+    # test's offsets/assertions were derived from, rather than failing on every operator whose
+    # local `runs/` happens to hold a different (e.g. newer) snapshot.
     root = Path(__file__).resolve().parents[2]
     repository = root / "runs/baseline/aspose-note-foss__Aspose.Note-FOSS-for-Python"
     facts_path = (
@@ -215,9 +225,13 @@ def test_current_note_feature_and_api_deferrals_have_accepted_fact_ids() -> None
         pytest.skip("current real-Note offline proof artifacts are not present")
 
     source = (repository / "README.md").read_text(encoding="utf-8")
-    assert hashlib.sha256(source.encode()).hexdigest() == (
+    if hashlib.sha256(source.encode()).hexdigest() != (
         "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4"
-    )
+    ):
+        pytest.skip(
+            "local runs/ Note README no longer matches the pinned snapshot "
+            "this test's offsets were derived from"
+        )
     base = ProductFactsV2.model_validate_json(facts_path.read_text(encoding="utf-8"))
     curated = curated_repository_fact_candidates(
         repository,

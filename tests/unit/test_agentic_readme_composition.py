@@ -43,6 +43,7 @@ from readme_agent.readme.diagram_role_semantics import (
     validate_diagram_role_fact_semantics,
 )
 from readme_agent.readme.document_renderer import build_readme_document_candidate
+from readme_agent.readme.document_templates import document_template_hash
 from readme_agent.readme.document_validation import validate_readme_document_candidate
 from readme_agent.readme.fact_grounding import literal_fact_ids
 from readme_agent.readme.verified_preservation_composition import (
@@ -67,10 +68,17 @@ CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
     "0b04df12d3ffcbde3e72fe68168ba51c5dbdd511b7a408ff16ac0a534c2ceb15"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
-    # 2026-08-18: template_version 1.20.0 -> 1.21.0 (Documentation & Resources
-    # heading fix) shifts the document plan hash; source/facts/assessment/
-    # agentic-plan hashes above are unaffected (verified unchanged).
-    "6b3138d461ae848fd4ad5fcc31f4fcf851a7d1d69d1fca4d736c8237b749c02c"
+    # 2026-08-19: hashed with `template_sha256` excluded (checked separately,
+    # below, as a live self-consistency assertion against
+    # `document_template_hash()` instead). That field is a build-fingerprint
+    # over ~60 composition/presentation/claim-accountability source files
+    # plus four globs (`document_templates.py::document_template_hash`), so it
+    # -- and therefore this hash, when it included that field -- changes on
+    # nearly every nearby commit regardless of whether candidate/plan content
+    # actually changed; 14 such commits landed between the prior two pins
+    # (`e5086aa4f`..`6d112bbf8`) alone. Excluding it here makes this golden
+    # value move only on genuine candidate/operation/provenance drift.
+    "9d40f48e638a7deddfe70af70f2a09e7ee315391dda445874f4bc634b9ee8205"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
     "48acd4b33fedaf91ac1e8e7c69e3adb2bf09db542abcc92cde9db75ed7432636"
@@ -428,8 +436,9 @@ def test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate():
     assert facts.canonical_hash() == CHARACTERIZATION_FACTS_SHA256
     assert assessment.canonical_hash() == CHARACTERIZATION_ASSESSMENT_SHA256
     assert plan.canonical_hash() == CHARACTERIZATION_AGENTIC_PLAN_SHA256
+    assert document_plan.template_sha256 == document_template_hash()
     assert (
-        _canonical_hash(document_plan.model_dump(mode="json"))
+        _canonical_hash(document_plan.model_dump(mode="json", exclude={"template_sha256"}))
         == CHARACTERIZATION_DOCUMENT_PLAN_SHA256
     )
     assert (
