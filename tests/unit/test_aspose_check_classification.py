@@ -5,6 +5,8 @@ into `validation/aspose_checks_bridge.py`."""
 from __future__ import annotations
 
 import json
+import sys
+from importlib import import_module
 from pathlib import Path
 
 import pytest
@@ -18,6 +20,20 @@ from readme_agent.validation.aspose_checks_bridge import (
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 _CLASSIFICATION_PATH = _REPO_ROOT / "data" / "aspose_check_classification.json"
+_SCRIPT_DIR = _REPO_ROOT / "scripts" / "data-refresh"
+
+
+@pytest.fixture
+def classify_module():
+    sys.path.insert(0, str(_SCRIPT_DIR))
+    try:
+        module = import_module("classify_aspose_checks")
+        yield module
+    finally:
+        sys.path.remove(str(_SCRIPT_DIR))
+        sys.modules.pop("classify_aspose_checks", None)
+
+
 _VALID_CLASSIFICATIONS = {
     "applicable_reusable",
     "applicable_after_adaptation",
@@ -170,3 +186,42 @@ def test_classification_file_missing_checks_list_fails_closed(monkeypatch, tmp_p
 
     with pytest.raises(RuntimeError):
         blocking_aspose_check_findings(result)
+
+
+def test_a_check_never_genuinely_run_against_any_fixture_never_auto_promotes(classify_module):
+    """Gate R7 regression: a real bug this classification's own honesty
+    depends on. `dependency_snapshot`-needing checks became `runnable_now`
+    (Gate R6c) before any committed fixture's ProductFactsV2 actually
+    carried the fact -- every one of the three real fixtures was built
+    before that field existed, so `run_aspose_checks()` skips these checks
+    entirely rather than running them with real data. The old logic
+    (`name not in fired_critical`) could not tell "skipped everywhere" apart
+    from "ran everywhere and found nothing", and would have promoted these
+    checks to `applicable_reusable`/`blocking: true` with a reason claiming
+    "zero false positives observed" for a check that was never actually
+    exercised -- a vacuous, false empirical-validation claim."""
+
+    registry = load_check_registry()
+    dependency_snapshot_checks = {
+        name
+        for name, descriptor in registry.items()
+        if "dependency_snapshot" in descriptor.parameters
+    }
+    assert dependency_snapshot_checks  # the real checks this bug affects genuinely exist
+
+    fired_critical, genuinely_run, validated_against = classify_module._observed_critical_findings()
+
+    assert validated_against  # the real fixtures loaded successfully
+    assert dependency_snapshot_checks.isdisjoint(genuinely_run), (
+        "committed fixtures predate the dependency_snapshot fact -- these checks must not "
+        "appear as genuinely run until the fixtures are deliberately refreshed"
+    )
+    assert dependency_snapshot_checks.isdisjoint(fired_critical)
+
+    classification = classify_module.build_classification()
+    entries_by_name = {e["check_name"]: e for e in classification["checks"]}
+    for name in dependency_snapshot_checks:
+        entry = entries_by_name[name]
+        if entry["runnable_now"] and entry["severity"] == "hard_gate":
+            assert entry["blocking"] is False
+            assert "never genuinely exercised" in entry["reason"]

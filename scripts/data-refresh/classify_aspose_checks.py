@@ -87,6 +87,7 @@ _REAL_PARAM_NAMES = {
     "family",
     "own_family",
     "platform",
+    "dependency_snapshot",
 }
 
 # The three repositories currently AGENT_APPROVED-or-beyond in this
@@ -207,8 +208,24 @@ def _latest_candidate(repo_dir_name: str) -> tuple[str, ProductFactsV2 | None] |
     return text, facts
 
 
-def _observed_critical_findings() -> tuple[set[str], list[str]]:
+def _observed_critical_findings() -> tuple[set[str], set[str], list[str]]:
+    """Returns (fired, genuinely_run, validated_against).
+
+    `genuinely_run` is the set of checks `run_aspose_checks()` actually
+    invoked against at least one real fixture -- distinct from merely
+    "not in `fired`", which a check that was *skipped* everywhere (every
+    fixture is missing one of its declared parameters) also satisfies
+    vacuously. A check no fixture's `ProductFactsV2` can currently supply
+    real data for must never read as "empirically validated clean" --
+    confirmed as a real defect found running this classification after
+    Gate R6c added `dependency_snapshot`: none of the three committed
+    fixtures predate that fact, so every `dependency_snapshot`-needing
+    check was skipped at every fixture, yet the old (name not in fired)
+    check alone would have promoted them to `applicable_reusable` with a
+    reason text falsely claiming "zero false positives observed"."""
+
     fired: set[str] = set()
+    genuinely_run: set[str] = set()
     validated_against: list[str] = []
     for org_repo, dir_name in _VALIDATION_REPOS.items():
         found = _latest_candidate(dir_name)
@@ -219,13 +236,14 @@ def _observed_critical_findings() -> tuple[set[str], list[str]]:
         fired |= {
             finding.check_name for finding in result.findings if finding.severity == "critical"
         }
+        genuinely_run |= set(result.checks_run)
         validated_against.append(org_repo)
-    return fired, validated_against
+    return fired, genuinely_run, validated_against
 
 
 def build_classification() -> dict:
     registry = load_check_registry()
-    fired_critical, validated_against = _observed_critical_findings()
+    fired_critical, genuinely_run, validated_against = _observed_critical_findings()
 
     entries = []
     for name, descriptor in sorted(registry.items()):
@@ -248,6 +266,18 @@ def build_classification() -> dict:
                 "hard gate; fired against a currently accepted candidate during this "
                 "classification's empirical validation pass -- needs template-alignment "
                 "review before blocking promotion is safe"
+            )
+        elif name not in genuinely_run:
+            classification = "applicable_after_adaptation"
+            blocking = False
+            reason = (
+                "hard gate; the parameter this check declares is theoretically suppliable "
+                "(runnable_now=true) but no committed fixture's ProductFactsV2 currently "
+                "carries real data for it, so the check was skipped at every fixture during "
+                "this classification's empirical pass -- never genuinely exercised, so never "
+                "auto-promoted on the strength of a vacuous absence from fired_critical; "
+                "refresh the fixtures (refresh_check_classification_fixtures.py) once a real "
+                "candidate carries this input before reconsidering"
             )
         elif name in _BLOCKING_OVERRIDES:
             classification = "applicable_after_adaptation"
