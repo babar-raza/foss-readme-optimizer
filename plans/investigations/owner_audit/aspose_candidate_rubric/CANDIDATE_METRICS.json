@@ -1,0 +1,4989 @@
+{
+  "schema_version": 1,
+  "scope": {
+    "source_bundle": "readme-refresh-complete-bundle-20260819-174412.zip",
+    "source_bundle_sha256": "2d8eb6ae810d920b98136f3fa587b46d36b2e0c6b5250df109fa98c73e470465",
+    "canonical_tree": "repo-presenter-regen-full",
+    "canonical_candidate_count": 31,
+    "registry_active_true_count": 31,
+    "eligible_active_count": 30,
+    "excluded_canonical_candidates": [
+      "cells/typescript"
+    ],
+    "portfolio_audit_artifact": "files/reports/_scratch/mt056_audit_portfolio_FINAL.json",
+    "portfolio_audit_clean": 8,
+    "portfolio_audit_dirty": 22,
+    "portfolio_audit_total": 30,
+    "optimizer_tip_context_only": "56a5f09c80f57581d977d77142ed8809ed1ede9d",
+    "as_of": "2026-08-19"
+  },
+  "eligible_portfolio_summary": {
+    "metric_distributions": {
+      "bytes": {
+        "min": 11403,
+        "p25": 22923.75,
+        "median": 32556.5,
+        "p75": 41308.75,
+        "max": 107860,
+        "mean": 37113.83
+      },
+      "lines": {
+        "min": 272,
+        "p25": 498.75,
+        "median": 624.0,
+        "p75": 764.25,
+        "max": 1725,
+        "mean": 679.3
+      },
+      "words": {
+        "min": 1244,
+        "p25": 2530.75,
+        "median": 3297.5,
+        "p75": 4518.5,
+        "max": 12427,
+        "mean": 4043.37
+      },
+      "h2_count": {
+        "min": 11,
+        "p25": 12.0,
+        "median": 12.0,
+        "p75": 12.0,
+        "max": 14,
+        "mean": 11.93
+      },
+      "fenced_code_blocks": {
+        "min": 8,
+        "p25": 10.0,
+        "median": 12.5,
+        "p75": 15.75,
+        "max": 29,
+        "mean": 13.2
+      },
+      "executable_or_command_code_blocks": {
+        "min": 7,
+        "p25": 9.0,
+        "median": 11.5,
+        "p75": 14.75,
+        "max": 28,
+        "mean": 12.2
+      },
+      "code_lines": {
+        "min": 55,
+        "p25": 97.0,
+        "median": 128.0,
+        "p75": 171.5,
+        "max": 272,
+        "mean": 136
+      },
+      "mermaid_blocks": {
+        "min": 1,
+        "p25": 1.0,
+        "median": 1.0,
+        "p75": 1.0,
+        "max": 1,
+        "mean": 1
+      },
+      "image_count": {
+        "min": 3,
+        "p25": 4.0,
+        "median": 5.0,
+        "p75": 5.0,
+        "max": 9,
+        "mean": 4.8
+      },
+      "preamble_badge_image_count": {
+        "min": 2,
+        "p25": 3.0,
+        "median": 3.5,
+        "p75": 4.0,
+        "max": 5,
+        "mean": 3.43
+      },
+      "markdown_link_count": {
+        "min": 19,
+        "p25": 25.0,
+        "median": 27.5,
+        "p75": 32.5,
+        "max": 39,
+        "mean": 28.73
+      },
+      "table_count_estimate": {
+        "min": 1,
+        "p25": 3.0,
+        "median": 3.0,
+        "p75": 8.5,
+        "max": 74,
+        "mean": 8.1
+      },
+      "table_row_lines": {
+        "min": 16,
+        "p25": 106.25,
+        "median": 196.0,
+        "p75": 271.25,
+        "max": 1086,
+        "mean": 240.03
+      },
+      "list_item_count": {
+        "min": 28,
+        "p25": 45.75,
+        "median": 75.0,
+        "p75": 86.25,
+        "max": 140,
+        "mean": 68.83
+      }
+    },
+    "section_frequency_out_of_30": {
+      "navigation": 30,
+      "at_a_glance": 30,
+      "key_capabilities": 30,
+      "dependencies": 21,
+      "installation": 30,
+      "quick_start": 30,
+      "additional_examples": 30,
+      "api_reference": 30,
+      "limitations": 30,
+      "development_and_testing": 30,
+      "license": 30,
+      "resources": 30
+    },
+    "ledger_presence_out_of_30": {
+      "content": 30,
+      "structure": 25,
+      "code-example": 18,
+      "badge": 20
+    },
+    "ledger_aggregate": {
+      "content": {
+        "present": 30,
+        "entries": 1462,
+        "dispositions": {
+          "merged_verbatim": 290,
+          "excluded": 433,
+          "merged_reframed": 734,
+          "corrected": 5
+        },
+        "verification_statuses": {
+          "not_applicable_category_1": 119,
+          "verified_against_source": 1063,
+          "verified_redundant": 271,
+          "verified_against_manifest": 5,
+          "verification_failed": 3,
+          "verified_by_corroboration": 1
+        },
+        "missing_target_for_kept": 0,
+        "missing_reason_for_exclusion": 0
+      },
+      "structure": {
+        "present": 25,
+        "entries": 145,
+        "dispositions": {
+          "merged_reframed": 67,
+          "merged_verbatim": 59,
+          "excluded": 19
+        },
+        "verification_statuses": {
+          "verified_against_source": 137,
+          "verified_redundant": 8
+        },
+        "missing_target_for_kept": 0,
+        "missing_reason_for_exclusion": 0
+      },
+      "code-example": {
+        "present": 18,
+        "entries": 463,
+        "dispositions": {
+          "merged_reframed": 139,
+          "merged_verbatim": 130,
+          "excluded": 192,
+          "corrected": 1,
+          "relocated": 1
+        },
+        "verification_statuses": {
+          "verified_against_source": 461,
+          "verified_redundant": 1,
+          "verification_failed": 1
+        },
+        "missing_target_for_kept": 0,
+        "missing_reason_for_exclusion": 0
+      },
+      "badge": {
+        "present": 20,
+        "entries": 40,
+        "dispositions": {
+          "preserved": 29,
+          "excluded": 2,
+          "superseded_by_duplicate": 9
+        },
+        "verification_statuses": {
+          "verified_redundant": 10,
+          "verified_against_source": 30
+        },
+        "missing_target_for_kept": 0,
+        "missing_reason_for_exclusion": 0
+      }
+    },
+    "hard_gate_finding_totals": {
+      "content_unit_disposition_coverage": 427,
+      "content_unit_excerpt_matches_extraction": 383,
+      "api_reference_table_completeness": 210,
+      "code_example_disposition_coverage": 138,
+      "content_unit_evidence_resolves": 106,
+      "structural_unit_disposition_coverage": 32,
+      "badge_disposition_coverage": 28,
+      "dev_test_artifacts_linked": 13,
+      "content_unit_merged_into_target_section": 13,
+      "required_sections": 11,
+      "diagram_starting_points_format_purity": 5,
+      "diagram_outputs_format_purity": 5,
+      "unqualified_dependency_claims": 4,
+      "diagram_label_geometry": 4,
+      "dropped_content": 3,
+      "dependency_development_claim_not_in_manifest": 3,
+      "format_name_casing": 2,
+      "api_reference_detail_collapsed": 2,
+      "scope_limitations_format": 2,
+      "diagram_verified_format_claims": 2,
+      "diagram_hybrid_reverification": 2,
+      "dependency_snapshot_completeness": 1,
+      "content_unit_no_exact_duplicate_merge": 1,
+      "no_upstream_issue_leaked": 1
+    },
+    "clean_candidates": 8,
+    "dirty_candidates": 22,
+    "candidate_byte_matches_pinned_published_snapshot": 4,
+    "candidate_pipeline_strip_matches_pinned_published_snapshot": 12,
+    "last_verified_marker_present": 30,
+    "last_verified_marker_matches_candidate": 18,
+    "marker_mismatch_products": [
+      "3d/java",
+      "3d/python",
+      "3d/typescript",
+      "barcode/python",
+      "pdf/cpp",
+      "pdf/go",
+      "pdf/net",
+      "pdf/python",
+      "slides/java",
+      "slides/net",
+      "slides/python",
+      "words/net"
+    ],
+    "audit_clean_products": [
+      "cells/rust",
+      "email/cpp",
+      "email/net",
+      "pdf/go",
+      "pdf/java",
+      "pdf/python",
+      "slides/java",
+      "words/net"
+    ],
+    "audit_dirty_products": [
+      "3d/java",
+      "3d/net",
+      "3d/python",
+      "3d/typescript",
+      "barcode/python",
+      "cells/cpp",
+      "cells/go",
+      "cells/java",
+      "cells/net",
+      "cells/python",
+      "email/python",
+      "font/python",
+      "html/python",
+      "note/python",
+      "page/python",
+      "pdf/cpp",
+      "pdf/net",
+      "slides/cpp",
+      "slides/net",
+      "slides/python",
+      "tex/python",
+      "words/python"
+    ]
+  },
+  "by_platform": {
+    "cpp": {
+      "count": 4,
+      "words": {
+        "min": 2513,
+        "p25": 3029.0,
+        "median": 3210.0,
+        "p75": 3704.5,
+        "max": 5161,
+        "mean": 3523.5
+      },
+      "fenced_code_blocks": {
+        "min": 9,
+        "p25": 12.0,
+        "median": 13.5,
+        "p75": 14.5,
+        "max": 16,
+        "mean": 13
+      },
+      "api_reference_present": 4,
+      "dependencies_present": 2,
+      "limitations_present": 4
+    },
+    "go": {
+      "count": 2,
+      "words": {
+        "min": 1973,
+        "p25": 3313.5,
+        "median": 4654.0,
+        "p75": 5994.5,
+        "max": 7335,
+        "mean": 4654
+      },
+      "fenced_code_blocks": {
+        "min": 9,
+        "p25": 10.75,
+        "median": 12.5,
+        "p75": 14.25,
+        "max": 16,
+        "mean": 12.5
+      },
+      "api_reference_present": 2,
+      "dependencies_present": 1,
+      "limitations_present": 2
+    },
+    "java": {
+      "count": 4,
+      "words": {
+        "min": 3052,
+        "p25": 3718.0,
+        "median": 4239.5,
+        "p75": 6511.0,
+        "max": 12427,
+        "mean": 5989.5
+      },
+      "fenced_code_blocks": {
+        "min": 9,
+        "p25": 11.25,
+        "median": 13.0,
+        "p75": 14.5,
+        "max": 16,
+        "mean": 12.75
+      },
+      "api_reference_present": 4,
+      "dependencies_present": 3,
+      "limitations_present": 4
+    },
+    "net": {
+      "count": 6,
+      "words": {
+        "min": 1866,
+        "p25": 2790.5,
+        "median": 3658.5,
+        "p75": 7229.5,
+        "max": 11240,
+        "mean": 5224
+      },
+      "fenced_code_blocks": {
+        "min": 9,
+        "p25": 10.25,
+        "median": 11.5,
+        "p75": 12.75,
+        "max": 17,
+        "mean": 12
+      },
+      "api_reference_present": 6,
+      "dependencies_present": 5,
+      "limitations_present": 6
+    },
+    "python": {
+      "count": 12,
+      "words": {
+        "min": 1244,
+        "p25": 2126.5,
+        "median": 2867.0,
+        "p75": 4381.25,
+        "max": 4644,
+        "mean": 3053.08
+      },
+      "fenced_code_blocks": {
+        "min": 9,
+        "p25": 10.75,
+        "median": 12.5,
+        "p75": 17.25,
+        "max": 29,
+        "mean": 14.58
+      },
+      "api_reference_present": 12,
+      "dependencies_present": 9,
+      "limitations_present": 12
+    },
+    "rust": {
+      "count": 1,
+      "words": {
+        "min": 3376,
+        "p25": 3376,
+        "median": 3376,
+        "p75": 3376,
+        "max": 3376,
+        "mean": 3376
+      },
+      "fenced_code_blocks": {
+        "min": 13,
+        "p25": 13,
+        "median": 13,
+        "p75": 13,
+        "max": 13,
+        "mean": 13
+      },
+      "api_reference_present": 1,
+      "dependencies_present": 1,
+      "limitations_present": 1
+    },
+    "typescript": {
+      "count": 1,
+      "words": {
+        "min": 2584,
+        "p25": 2584,
+        "median": 2584,
+        "p75": 2584,
+        "max": 2584,
+        "mean": 2584
+      },
+      "fenced_code_blocks": {
+        "min": 8,
+        "p25": 8,
+        "median": 8,
+        "p75": 8,
+        "max": 8,
+        "mean": 8
+      },
+      "api_reference_present": 1,
+      "dependencies_present": 0,
+      "limitations_present": 1
+    }
+  },
+  "by_family": {
+    "3d": {
+      "count": 4,
+      "words": {
+        "min": 2584,
+        "p25": 3585.25,
+        "median": 4229.0,
+        "p75": 4558.25,
+        "max": 4616,
+        "mean": 3914.5
+      },
+      "executable_or_command_code_blocks": {
+        "min": 7,
+        "p25": 9.25,
+        "median": 10.0,
+        "p75": 10.25,
+        "max": 11,
+        "mean": 9.5
+      },
+      "audit_clean": 0,
+      "audit_dirty": 4
+    },
+    "barcode": {
+      "count": 1,
+      "words": {
+        "min": 1244,
+        "p25": 1244,
+        "median": 1244,
+        "p75": 1244,
+        "max": 1244,
+        "mean": 1244
+      },
+      "executable_or_command_code_blocks": {
+        "min": 8,
+        "p25": 8,
+        "median": 8,
+        "p75": 8,
+        "max": 8,
+        "mean": 8
+      },
+      "audit_clean": 0,
+      "audit_dirty": 1
+    },
+    "cells": {
+      "count": 6,
+      "words": {
+        "min": 1973,
+        "p25": 2282.0,
+        "median": 2820.0,
+        "p75": 3177.25,
+        "max": 3376,
+        "mean": 2731.33
+      },
+      "executable_or_command_code_blocks": {
+        "min": 8,
+        "p25": 8.75,
+        "median": 11.5,
+        "p75": 12.75,
+        "max": 15,
+        "mean": 11.17
+      },
+      "audit_clean": 1,
+      "audit_dirty": 5
+    },
+    "email": {
+      "count": 3,
+      "words": {
+        "min": 1866,
+        "p25": 1916.0,
+        "median": 1966,
+        "p75": 2239.5,
+        "max": 2513,
+        "mean": 2115
+      },
+      "executable_or_command_code_blocks": {
+        "min": 8,
+        "p25": 8.0,
+        "median": 8,
+        "p75": 8.5,
+        "max": 9,
+        "mean": 8.33
+      },
+      "audit_clean": 2,
+      "audit_dirty": 1
+    },
+    "font": {
+      "count": 1,
+      "words": {
+        "min": 4644,
+        "p25": 4644,
+        "median": 4644,
+        "p75": 4644,
+        "max": 4644,
+        "mean": 4644
+      },
+      "executable_or_command_code_blocks": {
+        "min": 28,
+        "p25": 28,
+        "median": 28,
+        "p75": 28,
+        "max": 28,
+        "mean": 28
+      },
+      "audit_clean": 0,
+      "audit_dirty": 1
+    },
+    "html": {
+      "count": 1,
+      "words": {
+        "min": 3553,
+        "p25": 3553,
+        "median": 3553,
+        "p75": 3553,
+        "max": 3553,
+        "mean": 3553
+      },
+      "executable_or_command_code_blocks": {
+        "min": 11,
+        "p25": 11,
+        "median": 11,
+        "p75": 11,
+        "max": 11,
+        "mean": 11
+      },
+      "audit_clean": 0,
+      "audit_dirty": 1
+    },
+    "note": {
+      "count": 1,
+      "words": {
+        "min": 2356,
+        "p25": 2356,
+        "median": 2356,
+        "p75": 2356,
+        "max": 2356,
+        "mean": 2356
+      },
+      "executable_or_command_code_blocks": {
+        "min": 19,
+        "p25": 19,
+        "median": 19,
+        "p75": 19,
+        "max": 19,
+        "mean": 19
+      },
+      "audit_clean": 0,
+      "audit_dirty": 1
+    },
+    "page": {
+      "count": 1,
+      "words": {
+        "min": 2617,
+        "p25": 2617,
+        "median": 2617,
+        "p75": 2617,
+        "max": 2617,
+        "mean": 2617
+      },
+      "executable_or_command_code_blocks": {
+        "min": 12,
+        "p25": 12,
+        "median": 12,
+        "p75": 12,
+        "max": 12,
+        "mean": 12
+      },
+      "audit_clean": 0,
+      "audit_dirty": 1
+    },
+    "pdf": {
+      "count": 5,
+      "words": {
+        "min": 4457,
+        "p25": 5161.0,
+        "median": 7335,
+        "p75": 11240.0,
+        "max": 12427,
+        "mean": 8124
+      },
+      "executable_or_command_code_blocks": {
+        "min": 8,
+        "p25": 11.0,
+        "median": 13,
+        "p75": 15.0,
+        "max": 16,
+        "mean": 12.6
+      },
+      "audit_clean": 3,
+      "audit_dirty": 2
+    },
+    "slides": {
+      "count": 4,
+      "words": {
+        "min": 3201,
+        "p25": 3348.75,
+        "median": 3669.0,
+        "p75": 4044.0,
+        "max": 4356,
+        "mean": 3723.75
+      },
+      "executable_or_command_code_blocks": {
+        "min": 12,
+        "p25": 12.0,
+        "median": 13.5,
+        "p75": 15.25,
+        "max": 16,
+        "mean": 13.75
+      },
+      "audit_clean": 1,
+      "audit_dirty": 3
+    },
+    "tex": {
+      "count": 1,
+      "words": {
+        "min": 1531,
+        "p25": 1531,
+        "median": 1531,
+        "p75": 1531,
+        "max": 1531,
+        "mean": 1531
+      },
+      "executable_or_command_code_blocks": {
+        "min": 14,
+        "p25": 14,
+        "median": 14,
+        "p75": 14,
+        "max": 14,
+        "mean": 14
+      },
+      "audit_clean": 0,
+      "audit_dirty": 1
+    },
+    "words": {
+      "count": 2,
+      "words": {
+        "min": 3117,
+        "p25": 4421.0,
+        "median": 5725.0,
+        "p75": 7029.0,
+        "max": 8333,
+        "mean": 5725
+      },
+      "executable_or_command_code_blocks": {
+        "min": 9,
+        "p25": 11.0,
+        "median": 13.0,
+        "p75": 15.0,
+        "max": 17,
+        "mean": 13
+      },
+      "audit_clean": 1,
+      "audit_dirty": 1
+    }
+  },
+  "candidates": [
+    {
+      "family": "3d",
+      "platform": "java",
+      "repo_name": "Aspose.3D-FOSS-for-Java",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "621f4308404e81b1eca9bf96d4f8163f2ab5e2be966db7848c651e0b696257cf",
+        "bytes": 39770,
+        "lines": 633,
+        "words": 4539,
+        "heading_count": 31,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 12,
+        "executable_or_command_code_blocks": 11,
+        "fence_languages": {
+          "mermaid": 1,
+          "xml": 1,
+          "kotlin": 1,
+          "groovy": 1,
+          "java": 7,
+          "bash": 1
+        },
+        "code_lines": 98,
+        "mermaid_blocks": 1,
+        "image_count": 5,
+        "preamble_badge_image_count": 4,
+        "markdown_link_count": 36,
+        "http_url_count": 14,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 7,
+        "table_row_lines": 272,
+        "table_count_estimate": 3,
+        "list_item_count": 53,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "56251035aa3a363bb10467515c625ca7ad161aacfc1e8f51e88bf4c483276c54",
+        "bytes": 23387,
+        "words": 2387,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "e308de58888635956cd66e5b0e2994dd42cd4356",
+        "model_repo_sha": "e308de58888635956cd66e5b0e2994dd42cd4356",
+        "repo_sha_match": true
+      },
+      "last_verified": {
+        "readme_sha256": "df3142619957c3ea72b882a080230b12b1a735a4a7fddb6862f66c79a44004ab",
+        "verified_at": "2026-08-19T10:58:33.552075Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": false,
+        "age_hours_at_bundle_day_end": 13.02
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 88,
+          "dispositions": {
+            "merged_verbatim": 26,
+            "excluded": 17,
+            "merged_reframed": 43,
+            "corrected": 2
+          },
+          "verification_statuses": {
+            "not_applicable_category_1": 26,
+            "verified_against_source": 61,
+            "verified_redundant": 1
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 6,
+          "dispositions": {
+            "merged_reframed": 1,
+            "merged_verbatim": 2,
+            "excluded": 3
+          },
+          "verification_statuses": {
+            "verified_against_source": 6
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 14,
+          "dispositions": {
+            "merged_reframed": 6,
+            "merged_verbatim": 4,
+            "excluded": 4
+          },
+          "verification_statuses": {
+            "verified_against_source": 14
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 4,
+          "dispositions": {
+            "preserved": 4
+          },
+          "verification_statuses": {
+            "verified_redundant": 4
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": false,
+        "hard_gate_findings": {
+          "required_sections": 1,
+          "dev_test_artifacts_linked": 5,
+          "content_unit_disposition_coverage": 57,
+          "content_unit_excerpt_matches_extraction": 31,
+          "content_unit_evidence_resolves": 6,
+          "structural_unit_disposition_coverage": 6,
+          "code_example_disposition_coverage": 14,
+          "badge_disposition_coverage": 4,
+          "api_reference_table_completeness": 210
+        },
+        "hard_gate_finding_count": 334
+      }
+    },
+    {
+      "family": "3d",
+      "platform": "net",
+      "repo_name": "Aspose.3D-FOSS-for-.NET",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "24e632a7a63619003d96c88d5400eb5e8dc4c64a57dd46616b2f9dc8d58173a5",
+        "bytes": 34552,
+        "lines": 629,
+        "words": 3919,
+        "heading_count": 25,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 11,
+        "executable_or_command_code_blocks": 10,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 3,
+          "csharp": 7
+        },
+        "code_lines": 97,
+        "mermaid_blocks": 1,
+        "image_count": 4,
+        "preamble_badge_image_count": 3,
+        "markdown_link_count": 25,
+        "http_url_count": 13,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 5,
+        "table_row_lines": 300,
+        "table_count_estimate": 4,
+        "list_item_count": 36,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "61cbf2bb0f0c3f2a2952bb95bfe57d847cb240b13e7d8dd82b113989eb326ff4",
+        "bytes": 9773,
+        "words": 986,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "70933ab13eb0e313d9b160c55845011d366b1599",
+        "model_repo_sha": "70933ab13eb0e313d9b160c55845011d366b1599",
+        "repo_sha_match": true
+      },
+      "last_verified": {
+        "readme_sha256": "24e632a7a63619003d96c88d5400eb5e8dc4c64a57dd46616b2f9dc8d58173a5",
+        "verified_at": "2026-08-19T11:10:24.679681Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 12.83
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 56,
+          "dispositions": {
+            "merged_reframed": 29,
+            "merged_verbatim": 24,
+            "excluded": 2,
+            "corrected": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 30,
+            "not_applicable_category_1": 25,
+            "verified_redundant": 1
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 2,
+          "dispositions": {
+            "merged_reframed": 1,
+            "merged_verbatim": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 2
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 9,
+          "dispositions": {
+            "merged_reframed": 4,
+            "merged_verbatim": 5
+          },
+          "verification_statuses": {
+            "verified_against_source": 9
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 3,
+          "dispositions": {
+            "preserved": 3
+          },
+          "verification_statuses": {
+            "verified_redundant": 3
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": false,
+        "hard_gate_findings": {
+          "required_sections": 1,
+          "diagram_starting_points_format_purity": 3,
+          "diagram_outputs_format_purity": 3,
+          "format_name_casing": 1,
+          "api_reference_detail_collapsed": 1,
+          "scope_limitations_format": 1,
+          "dev_test_artifacts_linked": 2,
+          "dropped_content": 1,
+          "content_unit_disposition_coverage": 30,
+          "content_unit_excerpt_matches_extraction": 26,
+          "content_unit_evidence_resolves": 6,
+          "structural_unit_disposition_coverage": 2,
+          "code_example_disposition_coverage": 9,
+          "badge_disposition_coverage": 3
+        },
+        "hard_gate_finding_count": 89
+      }
+    },
+    {
+      "family": "3d",
+      "platform": "python",
+      "repo_name": "Aspose.3D-FOSS-for-Python",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "2fa5c43fef7c0bc78644b1ea9dea020d799cfa6c81f0c1c770faa8115a58af60",
+        "bytes": 41441,
+        "lines": 619,
+        "words": 4616,
+        "heading_count": 19,
+        "h2_count": 11,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 11,
+        "executable_or_command_code_blocks": 10,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 3,
+          "python": 7
+        },
+        "code_lines": 109,
+        "mermaid_blocks": 1,
+        "image_count": 4,
+        "preamble_badge_image_count": 3,
+        "markdown_link_count": 22,
+        "http_url_count": 13,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 6,
+        "table_row_lines": 307,
+        "table_count_estimate": 2,
+        "list_item_count": 32,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": false,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "f8a8cae9fef55f872921c576e65c074e21420164839a1ef1b19c49ee1ac4dc53",
+        "bytes": 18418,
+        "words": 1856,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "model_repo_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "repo_sha_match": true
+      },
+      "last_verified": {
+        "readme_sha256": "8d4a9f00029af81f97c48e63e6c92c6839cce59c2418899e81eeef04ce201694",
+        "verified_at": "2026-08-19T10:35:01.197178Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": false,
+        "age_hours_at_bundle_day_end": 13.42
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 71,
+          "dispositions": {
+            "excluded": 60,
+            "merged_reframed": 11
+          },
+          "verification_statuses": {
+            "not_applicable_category_1": 9,
+            "verified_redundant": 14,
+            "verified_against_source": 48
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": false,
+          "entries": 0
+        },
+        "code-example": {
+          "present": false,
+          "entries": 0
+        },
+        "badge": {
+          "present": false,
+          "entries": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": false,
+        "hard_gate_findings": {
+          "required_sections": 1,
+          "dev_test_artifacts_linked": 6,
+          "content_unit_disposition_coverage": 15,
+          "content_unit_excerpt_matches_extraction": 71,
+          "content_unit_evidence_resolves": 11,
+          "structural_unit_disposition_coverage": 4,
+          "code_example_disposition_coverage": 23,
+          "badge_disposition_coverage": 3,
+          "dependency_snapshot_completeness": 1
+        },
+        "hard_gate_finding_count": 135
+      }
+    },
+    {
+      "family": "3d",
+      "platform": "typescript",
+      "repo_name": "Aspose.3D-FOSS-for-TypeScript",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "b577f5e831b24a99c64975e2285a712424e607a532ebc05d3b20e449c5c4f772",
+        "bytes": 22540,
+        "lines": 408,
+        "words": 2584,
+        "heading_count": 30,
+        "h2_count": 11,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 8,
+        "executable_or_command_code_blocks": 7,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 3,
+          "typescript": 4
+        },
+        "code_lines": 81,
+        "mermaid_blocks": 1,
+        "image_count": 3,
+        "preamble_badge_image_count": 2,
+        "markdown_link_count": 19,
+        "http_url_count": 12,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 4,
+        "table_row_lines": 113,
+        "table_count_estimate": 16,
+        "list_item_count": 31,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": false,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "e52ce406b8fdc23c5a91f900d26f40650e271151cd5d55731832ec1c1afbfeeb",
+        "bytes": 22773,
+        "words": 2144,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "7b959706f2ad976db929f26ec079f43a07d578e1",
+        "model_repo_sha": "7b959706f2ad976db929f26ec079f43a07d578e1",
+        "repo_sha_match": true
+      },
+      "last_verified": {
+        "readme_sha256": "7e6340ad31ce4c3ee52b3311db09df1ae7cbeb292f0bf14c8660f0983ce7a563",
+        "verified_at": "2026-08-19T10:35:01.743070Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": false,
+        "age_hours_at_bundle_day_end": 13.42
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 81,
+          "dispositions": {
+            "merged_reframed": 17,
+            "excluded": 62,
+            "merged_verbatim": 2
+          },
+          "verification_statuses": {
+            "verified_against_source": 30,
+            "verified_redundant": 45,
+            "not_applicable_category_1": 6
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": false,
+          "entries": 0
+        },
+        "code-example": {
+          "present": false,
+          "entries": 0
+        },
+        "badge": {
+          "present": false,
+          "entries": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": false,
+        "hard_gate_findings": {
+          "required_sections": 1,
+          "diagram_verified_format_claims": 2,
+          "diagram_starting_points_format_purity": 2,
+          "diagram_outputs_format_purity": 2,
+          "api_reference_detail_collapsed": 1,
+          "scope_limitations_format": 1,
+          "dropped_content": 1,
+          "content_unit_disposition_coverage": 32,
+          "content_unit_excerpt_matches_extraction": 81,
+          "content_unit_evidence_resolves": 24,
+          "content_unit_merged_into_target_section": 3,
+          "structural_unit_disposition_coverage": 5,
+          "code_example_disposition_coverage": 21,
+          "badge_disposition_coverage": 1,
+          "unqualified_dependency_claims": 1
+        },
+        "hard_gate_finding_count": 178
+      }
+    },
+    {
+      "family": "barcode",
+      "platform": "python",
+      "repo_name": "Aspose.BarCode-FOSS-for-Python",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "6b87c37ddf2a37bd7494b3e51b425efcafffb5d73e6459d5c9e361f85d35c0de",
+        "bytes": 11403,
+        "lines": 272,
+        "words": 1244,
+        "heading_count": 23,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 9,
+        "executable_or_command_code_blocks": 8,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 2,
+          "python": 6
+        },
+        "code_lines": 55,
+        "mermaid_blocks": 1,
+        "image_count": 3,
+        "preamble_badge_image_count": 2,
+        "markdown_link_count": 22,
+        "http_url_count": 13,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 4,
+        "table_row_lines": 32,
+        "table_count_estimate": 3,
+        "list_item_count": 29,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "13ec719fdc7d755d857c64590ee3670ec8cf9f602ed9e109772011296347ce49",
+        "bytes": 11355,
+        "words": 1198,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
+        "model_repo_sha": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "4bf2e76d928b3673da965c1c5f4fa2b658786c5b002994dffc8e7e6781287288",
+        "verified_at": "2026-08-19T10:35:08.114571Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": false,
+        "age_hours_at_bundle_day_end": 13.41
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 51,
+          "dispositions": {
+            "merged_verbatim": 40,
+            "excluded": 11
+          },
+          "verification_statuses": {
+            "verified_against_source": 29,
+            "not_applicable_category_1": 22
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 1,
+          "dispositions": {
+            "merged_verbatim": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 1
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 9,
+          "dispositions": {
+            "merged_verbatim": 9
+          },
+          "verification_statuses": {
+            "verified_against_source": 9
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 2,
+          "dispositions": {
+            "preserved": 2
+          },
+          "verification_statuses": {
+            "verified_against_source": 2
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": false,
+        "hard_gate_findings": {
+          "content_unit_disposition_coverage": 27,
+          "content_unit_excerpt_matches_extraction": 24,
+          "structural_unit_disposition_coverage": 1,
+          "code_example_disposition_coverage": 9,
+          "badge_disposition_coverage": 2
+        },
+        "hard_gate_finding_count": 63
+      }
+    },
+    {
+      "family": "cells",
+      "platform": "cpp",
+      "repo_name": "Aspose.Cells-FOSS-for-Cpp",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "59903f493dbbfbf85b3274d3baa72d88fbf462e470bcc862df1e0ba270e56400",
+        "bytes": 33067,
+        "lines": 597,
+        "words": 3219,
+        "heading_count": 22,
+        "h2_count": 11,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 14,
+        "executable_or_command_code_blocks": 13,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 3,
+          "xml": 1,
+          "cmake": 2,
+          "cpp": 7
+        },
+        "code_lines": 130,
+        "mermaid_blocks": 1,
+        "image_count": 5,
+        "preamble_badge_image_count": 4,
+        "markdown_link_count": 28,
+        "http_url_count": 17,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 6,
+        "table_row_lines": 203,
+        "table_count_estimate": 3,
+        "list_item_count": 77,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": false,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "262ea6bdb4f1913b861df0e0e7d853c62c0cfac488682d547ea9c6b5d8f32c69",
+        "bytes": 33713,
+        "words": 3223,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "9f852d0ff1cfdad2d661556d6b87a8eff8c063a2",
+        "model_repo_sha": "9f852d0ff1cfdad2d661556d6b87a8eff8c063a2",
+        "repo_sha_match": true
+      },
+      "last_verified": {
+        "readme_sha256": "59903f493dbbfbf85b3274d3baa72d88fbf462e470bcc862df1e0ba270e56400",
+        "verified_at": "2026-08-19T10:35:11.440590Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.41
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 15,
+          "dispositions": {
+            "merged_reframed": 13,
+            "excluded": 2
+          },
+          "verification_statuses": {
+            "verified_against_source": 13,
+            "verified_redundant": 2
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": false,
+          "entries": 0
+        },
+        "code-example": {
+          "present": false,
+          "entries": 0
+        },
+        "badge": {
+          "present": false,
+          "entries": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": false,
+        "hard_gate_findings": {
+          "required_sections": 1,
+          "format_name_casing": 1,
+          "content_unit_disposition_coverage": 84,
+          "content_unit_excerpt_matches_extraction": 15,
+          "content_unit_evidence_resolves": 1,
+          "structural_unit_disposition_coverage": 5,
+          "code_example_disposition_coverage": 19,
+          "badge_disposition_coverage": 4,
+          "unqualified_dependency_claims": 3
+        },
+        "hard_gate_finding_count": 133
+      }
+    },
+    {
+      "family": "cells",
+      "platform": "go",
+      "repo_name": "Aspose.Cells-FOSS-for-Go",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "b940c7b7c251b5e661fc13e82227eb8dc4305aa716cdd9cee9906cee1a4298d3",
+        "bytes": 18122,
+        "lines": 507,
+        "words": 1973,
+        "heading_count": 21,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Quick Start",
+          "Additional Examples",
+          "Project Structure",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 16,
+        "executable_or_command_code_blocks": 15,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 4,
+          "go": 10,
+          "plain": 1
+        },
+        "code_lines": 272,
+        "mermaid_blocks": 1,
+        "image_count": 5,
+        "preamble_badge_image_count": 4,
+        "markdown_link_count": 25,
+        "http_url_count": 14,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 7,
+        "table_row_lines": 16,
+        "table_count_estimate": 1,
+        "list_item_count": 28,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": false,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "34b99978b6d63f755d4e23b09ed2e76f7951e141e4c8d1471cd8577717767ff7",
+        "bytes": 18629,
+        "words": 1973,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": true,
+        "pinned_repo_head": "9f0a4033b59e9127afec7662ec9079b500af8032",
+        "model_repo_sha": "9f0a4033b59e9127afec7662ec9079b500af8032",
+        "repo_sha_match": true
+      },
+      "last_verified": {
+        "readme_sha256": "b940c7b7c251b5e661fc13e82227eb8dc4305aa716cdd9cee9906cee1a4298d3",
+        "verified_at": "2026-08-19T10:35:11.822293Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.41
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 19,
+          "dispositions": {
+            "merged_reframed": 14,
+            "excluded": 4,
+            "merged_verbatim": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 18,
+            "verified_redundant": 1
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 7,
+          "dispositions": {
+            "merged_reframed": 7
+          },
+          "verification_statuses": {
+            "verified_against_source": 7
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": false,
+          "entries": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 3,
+          "dispositions": {
+            "preserved": 1,
+            "excluded": 1,
+            "superseded_by_duplicate": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 3
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": true,
+        "hard_gate_findings": {
+          "required_sections": 1
+        },
+        "hard_gate_finding_count": 1
+      }
+    },
+    {
+      "family": "cells",
+      "platform": "java",
+      "repo_name": "Aspose.Cells-FOSS-for-Java",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "026a18929812ffa64e151962e81952df0ebacc9e7178207310f813589ee11304",
+        "bytes": 29294,
+        "lines": 515,
+        "words": 3052,
+        "heading_count": 16,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Quick Start",
+          "Additional Examples",
+          "Project Structure",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 9,
+        "executable_or_command_code_blocks": 8,
+        "fence_languages": {
+          "mermaid": 1,
+          "xml": 1,
+          "groovy": 1,
+          "java": 3,
+          "plain": 1,
+          "bash": 2
+        },
+        "code_lines": 142,
+        "mermaid_blocks": 1,
+        "image_count": 5,
+        "preamble_badge_image_count": 4,
+        "markdown_link_count": 27,
+        "http_url_count": 14,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 7,
+        "table_row_lines": 189,
+        "table_count_estimate": 3,
+        "list_item_count": 33,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": false,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "b2178ea1c5303c97dd5a062e31edd3226785599e89c4b35f439424f8a8be28d4",
+        "bytes": 29809,
+        "words": 3052,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": true,
+        "pinned_repo_head": "779c9640ee38ed9e80c53e8db1e850f6be24372f",
+        "model_repo_sha": "779c9640ee38ed9e80c53e8db1e850f6be24372f",
+        "repo_sha_match": true
+      },
+      "last_verified": {
+        "readme_sha256": "026a18929812ffa64e151962e81952df0ebacc9e7178207310f813589ee11304",
+        "verified_at": "2026-08-19T10:35:14.836313Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.41
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 66,
+          "dispositions": {
+            "merged_reframed": 28,
+            "merged_verbatim": 6,
+            "excluded": 32
+          },
+          "verification_statuses": {
+            "verified_against_source": 41,
+            "verified_redundant": 25
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 1,
+          "dispositions": {
+            "merged_reframed": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 1
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": false,
+          "entries": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 0,
+          "dispositions": {},
+          "verification_statuses": {},
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": true,
+        "hard_gate_findings": {
+          "required_sections": 1
+        },
+        "hard_gate_finding_count": 1
+      }
+    },
+    {
+      "family": "cells",
+      "platform": "net",
+      "repo_name": "Aspose.Cells-FOSS-for-.NET",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "6dca1ea2e2b4d3a31991dff2a7aaa52cac5fcf982c5a854483b146f2893086c3",
+        "bytes": 26217,
+        "lines": 496,
+        "words": 2588,
+        "heading_count": 27,
+        "h2_count": 11,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 12,
+        "executable_or_command_code_blocks": 11,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 3,
+          "xml": 1,
+          "csharp": 7
+        },
+        "code_lines": 149,
+        "mermaid_blocks": 1,
+        "image_count": 5,
+        "preamble_badge_image_count": 4,
+        "markdown_link_count": 25,
+        "http_url_count": 17,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 6,
+        "table_row_lines": 104,
+        "table_count_estimate": 4,
+        "list_item_count": 95,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": false,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "80e2043f90dc853c41aa26db8774bb26f8a5aec5633c96c92af9e59708d219a9",
+        "bytes": 26713,
+        "words": 2588,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": true,
+        "pinned_repo_head": "6ee32c08a6090a778fab03e66afac731859f93a9",
+        "model_repo_sha": "6ee32c08a6090a778fab03e66afac731859f93a9",
+        "repo_sha_match": true
+      },
+      "last_verified": {
+        "readme_sha256": "6dca1ea2e2b4d3a31991dff2a7aaa52cac5fcf982c5a854483b146f2893086c3",
+        "verified_at": "2026-08-19T10:35:18.149568Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.41
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 40,
+          "dispositions": {
+            "merged_reframed": 35,
+            "excluded": 5
+          },
+          "verification_statuses": {
+            "verified_against_source": 35,
+            "verified_redundant": 3,
+            "not_applicable_category_1": 2
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 3,
+          "dispositions": {
+            "merged_verbatim": 1,
+            "merged_reframed": 2
+          },
+          "verification_statuses": {
+            "verified_against_source": 3
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": false,
+          "entries": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 0,
+          "dispositions": {},
+          "verification_statuses": {},
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": true,
+        "hard_gate_findings": {
+          "required_sections": 1
+        },
+        "hard_gate_finding_count": 1
+      }
+    },
+    {
+      "family": "cells",
+      "platform": "python",
+      "repo_name": "Aspose.Cells-FOSS-for-Python",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "ada2aadd0dedee7b9c74ea7eab64c3b8a11e71ffbf3d06d2a83eb09eca8ae692",
+        "bytes": 20005,
+        "lines": 397,
+        "words": 2180,
+        "heading_count": 17,
+        "h2_count": 11,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 9,
+        "executable_or_command_code_blocks": 8,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 2,
+          "python": 6
+        },
+        "code_lines": 97,
+        "mermaid_blocks": 1,
+        "image_count": 5,
+        "preamble_badge_image_count": 4,
+        "markdown_link_count": 24,
+        "http_url_count": 14,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 6,
+        "table_row_lines": 134,
+        "table_count_estimate": 2,
+        "list_item_count": 31,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": false,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "b0ad985441809e2c9ed042aa561803d253e04a6e6553b923112bd333c5a38d65",
+        "bytes": 20403,
+        "words": 2180,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "26c3bd1633e84b91c0f6fad1fd353662fd61fb54",
+        "model_repo_sha": "26c3bd1633e84b91c0f6fad1fd353662fd61fb54",
+        "repo_sha_match": true
+      },
+      "last_verified": {
+        "readme_sha256": "ada2aadd0dedee7b9c74ea7eab64c3b8a11e71ffbf3d06d2a83eb09eca8ae692",
+        "verified_at": "2026-08-19T10:35:52.722615Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.4
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 24,
+          "dispositions": {
+            "merged_reframed": 17,
+            "merged_verbatim": 4,
+            "excluded": 3
+          },
+          "verification_statuses": {
+            "verified_against_source": 21,
+            "not_applicable_category_1": 2,
+            "verified_redundant": 1
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 7,
+          "dispositions": {
+            "merged_verbatim": 1,
+            "merged_reframed": 6
+          },
+          "verification_statuses": {
+            "verified_redundant": 7
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": false,
+          "entries": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 3,
+          "dispositions": {
+            "superseded_by_duplicate": 3
+          },
+          "verification_statuses": {
+            "verified_redundant": 3
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": false,
+        "hard_gate_findings": {
+          "required_sections": 1,
+          "content_unit_disposition_coverage": 22,
+          "content_unit_excerpt_matches_extraction": 24,
+          "structural_unit_disposition_coverage": 4,
+          "code_example_disposition_coverage": 9,
+          "badge_disposition_coverage": 1
+        },
+        "hard_gate_finding_count": 61
+      }
+    },
+    {
+      "family": "cells",
+      "platform": "rust",
+      "repo_name": "Aspose.Cells-FOSS-for-Rust",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "71de1b2fe224df2ec332c6f4b2ee0c181afb659e5c6b01ad4703d9d3ecd8e436",
+        "bytes": 33905,
+        "lines": 717,
+        "words": 3376,
+        "heading_count": 33,
+        "h2_count": 13,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "Project Structure",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 13,
+        "executable_or_command_code_blocks": 12,
+        "fence_languages": {
+          "mermaid": 1,
+          "toml": 2,
+          "bash": 2,
+          "rust": 7,
+          "plain": 1
+        },
+        "code_lines": 175,
+        "mermaid_blocks": 1,
+        "image_count": 3,
+        "preamble_badge_image_count": 2,
+        "markdown_link_count": 33,
+        "http_url_count": 13,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 5,
+        "table_row_lines": 219,
+        "table_count_estimate": 3,
+        "list_item_count": 88,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "b0460fc66e5cbc03f71d48f9d913ee1a3dca7ff3dee1a3ff4ac0ac94458b5cca",
+        "bytes": 34622,
+        "words": 3376,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": true,
+        "pinned_repo_head": "1a6004af47b1ef15385f9d36d381a8172428cc7e",
+        "model_repo_sha": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "71de1b2fe224df2ec332c6f4b2ee0c181afb659e5c6b01ad4703d9d3ecd8e436",
+        "verified_at": "2026-08-19T10:35:54.748496Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.4
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 31,
+          "dispositions": {
+            "merged_reframed": 26,
+            "merged_verbatim": 3,
+            "excluded": 2
+          },
+          "verification_statuses": {
+            "verified_against_source": 28,
+            "verified_against_manifest": 1,
+            "verified_redundant": 2
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 1,
+          "dispositions": {
+            "merged_reframed": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 1
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": false,
+          "entries": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 0,
+          "dispositions": {},
+          "verification_statuses": {},
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": true,
+        "published": true,
+        "hard_gate_findings": {},
+        "hard_gate_finding_count": 0
+      }
+    },
+    {
+      "family": "cells",
+      "platform": "typescript",
+      "repo_name": "Aspose.Cells-FOSS-for-TypeScript",
+      "registry_active": true,
+      "excluded": true,
+      "eligible_active": false,
+      "exclusion_reason": "BLOCKED_REPO_NOT_LAUNCHABLE per INV-002/INV-004: upstream repo has no LICENSE file, a GitLab-boilerplate README (recruitize.ai origin text), and package.json name \"excel-cells\" (not an official Aspose identifier). update_product_registry.py's merge logic could otherwise silently reactivate this entry on a routine (non --force) scan, exactly as INV-004 documented once already.",
+      "candidate": {
+        "sha256": "a8af6b3ecf322969ebf22abba6073f2124b9702268c619028e8be752300b3534",
+        "bytes": 15241,
+        "lines": 343,
+        "words": 1623,
+        "heading_count": 18,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 6,
+        "executable_or_command_code_blocks": 5,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 2,
+          "typescript": 3
+        },
+        "code_lines": 71,
+        "mermaid_blocks": 1,
+        "image_count": 3,
+        "preamble_badge_image_count": 2,
+        "markdown_link_count": 22,
+        "http_url_count": 11,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 4,
+        "table_row_lines": 121,
+        "table_count_estimate": 2,
+        "list_item_count": 31,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "4b01eb5a90b8a9560a6765259a25b05d677323b6ecbec12adb16a1c10169ace0",
+        "bytes": 15250,
+        "words": 1625,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "fc186507e5b7124f4664aa6035f25cfd3112367d",
+        "model_repo_sha": "cabbb9d8ba2067854f7cb3dcdc4acfeec849747b",
+        "repo_sha_match": false
+      },
+      "last_verified": null,
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 31,
+          "dispositions": {
+            "merged_reframed": 27,
+            "excluded": 4
+          },
+          "verification_statuses": {
+            "verified_against_source": 28,
+            "verified_redundant": 1,
+            "verified_against_manifest": 2
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 2,
+          "dispositions": {
+            "merged_verbatim": 2
+          },
+          "verification_statuses": {
+            "verified_against_source": 2
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": false,
+          "entries": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 0,
+          "dispositions": {},
+          "verification_statuses": {},
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": null
+    },
+    {
+      "family": "email",
+      "platform": "cpp",
+      "repo_name": "Aspose.Email-FOSS-for-Cpp",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "a092d3c0a0bb75796a9064f9abb4194362b6562ca9e0acb2affe921c8adf4f05",
+        "bytes": 24148,
+        "lines": 476,
+        "words": 2513,
+        "heading_count": 27,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 9,
+        "executable_or_command_code_blocks": 8,
+        "fence_languages": {
+          "mermaid": 1,
+          "cmake": 1,
+          "powershell": 3,
+          "cpp": 4
+        },
+        "code_lines": 142,
+        "mermaid_blocks": 1,
+        "image_count": 3,
+        "preamble_badge_image_count": 2,
+        "markdown_link_count": 34,
+        "http_url_count": 9,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 5,
+        "table_row_lines": 32,
+        "table_count_estimate": 3,
+        "list_item_count": 80,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "24cadf31716b7d3471dbb83f0bd63f408a8432074e38059088ac0acf45a58329",
+        "bytes": 24624,
+        "words": 2513,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": true,
+        "pinned_repo_head": "fef9c934c3ad7a207c97cc24546176e678f577af",
+        "model_repo_sha": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "a092d3c0a0bb75796a9064f9abb4194362b6562ca9e0acb2affe921c8adf4f05",
+        "verified_at": "2026-08-19T10:35:55.376428Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.4
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 15,
+          "dispositions": {
+            "merged_reframed": 14,
+            "excluded": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 13,
+            "verified_redundant": 2
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 2,
+          "dispositions": {
+            "merged_verbatim": 2
+          },
+          "verification_statuses": {
+            "verified_against_source": 2
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": false,
+          "entries": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 0,
+          "dispositions": {},
+          "verification_statuses": {},
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": true,
+        "published": true,
+        "hard_gate_findings": {},
+        "hard_gate_finding_count": 0
+      }
+    },
+    {
+      "family": "email",
+      "platform": "net",
+      "repo_name": "Aspose.Email-FOSS-for-.Net",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "3e9bc7ea033ec50db9575949952894b9ca9f09005a64aa2ff26970f3ae987bac",
+        "bytes": 17354,
+        "lines": 320,
+        "words": 1866,
+        "heading_count": 25,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 9,
+        "executable_or_command_code_blocks": 8,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 3,
+          "xml": 1,
+          "csharp": 4
+        },
+        "code_lines": 63,
+        "mermaid_blocks": 1,
+        "image_count": 4,
+        "preamble_badge_image_count": 3,
+        "markdown_link_count": 27,
+        "http_url_count": 13,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 5,
+        "table_row_lines": 33,
+        "table_count_estimate": 2,
+        "list_item_count": 65,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "414cf3f87c29f867f28a9a0c5529ad06f800bbe6c2441fb8b99dbb710ff1f996",
+        "bytes": 17674,
+        "words": 1866,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": true,
+        "pinned_repo_head": "59125b4732df0eedbc4d4c2ab978698ed4348eb7",
+        "model_repo_sha": "a8999e259143a9ffc660086b34a7f39516da29f5",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "3e9bc7ea033ec50db9575949952894b9ca9f09005a64aa2ff26970f3ae987bac",
+        "verified_at": "2026-08-19T10:35:56.003873Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.4
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 21,
+          "dispositions": {
+            "merged_reframed": 18,
+            "excluded": 3
+          },
+          "verification_statuses": {
+            "verified_against_source": 18,
+            "verified_redundant": 3
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 2,
+          "dispositions": {
+            "merged_verbatim": 1,
+            "merged_reframed": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 2
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": false,
+          "entries": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 0,
+          "dispositions": {},
+          "verification_statuses": {},
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": true,
+        "published": true,
+        "hard_gate_findings": {},
+        "hard_gate_finding_count": 0
+      }
+    },
+    {
+      "family": "email",
+      "platform": "python",
+      "repo_name": "Aspose.Email-FOSS-for-Python",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "0310fb384658411069482bf7d377a05fe3fdb5a6ab2cd1406c8c1240dcb8bdcd",
+        "bytes": 20114,
+        "lines": 412,
+        "words": 1966,
+        "heading_count": 29,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 10,
+        "executable_or_command_code_blocks": 9,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 3,
+          "python": 6
+        },
+        "code_lines": 82,
+        "mermaid_blocks": 1,
+        "image_count": 6,
+        "preamble_badge_image_count": 5,
+        "markdown_link_count": 38,
+        "http_url_count": 18,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 9,
+        "table_row_lines": 38,
+        "table_count_estimate": 4,
+        "list_item_count": 87,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "652668380a37fd114a5d706ffc7fe2440c558657ba9d9cefd07e80cb1bf53490",
+        "bytes": 20376,
+        "words": 1951,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "10a906b48c0c11005c4d93b524e4431901c9717c",
+        "model_repo_sha": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "0310fb384658411069482bf7d377a05fe3fdb5a6ab2cd1406c8c1240dcb8bdcd",
+        "verified_at": "2026-08-19T10:35:58.360270Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.4
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 44,
+          "dispositions": {
+            "merged_reframed": 25,
+            "excluded": 16,
+            "merged_verbatim": 3
+          },
+          "verification_statuses": {
+            "verified_against_source": 28,
+            "verified_redundant": 16
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 4,
+          "dispositions": {
+            "merged_verbatim": 3,
+            "merged_reframed": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 4
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": false,
+          "entries": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 0,
+          "dispositions": {},
+          "verification_statuses": {},
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": false,
+        "hard_gate_findings": {
+          "diagram_label_geometry": 1,
+          "content_unit_disposition_coverage": 66,
+          "content_unit_excerpt_matches_extraction": 44,
+          "content_unit_merged_into_target_section": 2,
+          "structural_unit_disposition_coverage": 2,
+          "code_example_disposition_coverage": 10,
+          "badge_disposition_coverage": 5
+        },
+        "hard_gate_finding_count": 130
+      }
+    },
+    {
+      "family": "font",
+      "platform": "python",
+      "repo_name": "Aspose.Font-FOSS-for-Python",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "5677cc6783d8b50c281f67d9e9938960676692b81c7c39fe83d092079d955a46",
+        "bytes": 43942,
+        "lines": 839,
+        "words": 4644,
+        "heading_count": 39,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 29,
+        "executable_or_command_code_blocks": 28,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 11,
+          "python": 16,
+          "text": 1
+        },
+        "code_lines": 249,
+        "mermaid_blocks": 1,
+        "image_count": 9,
+        "preamble_badge_image_count": 3,
+        "markdown_link_count": 28,
+        "http_url_count": 14,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 6,
+        "table_row_lines": 150,
+        "table_count_estimate": 7,
+        "list_item_count": 78,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "51e4bddd9b02fed5283f789cae1d23b5836b7e7c91f0c9ea94a8221a0799601e",
+        "bytes": 44781,
+        "words": 4644,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": true,
+        "pinned_repo_head": "7971880964143c86ffd4baa7c8ea1dd959fea04e",
+        "model_repo_sha": "136b6e20c3916ac4c8efac0714948a4136b491a3",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "5677cc6783d8b50c281f67d9e9938960676692b81c7c39fe83d092079d955a46",
+        "verified_at": "2026-08-19T10:36:55.909758Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.38
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 50,
+          "dispositions": {
+            "excluded": 30,
+            "merged_reframed": 17,
+            "merged_verbatim": 3
+          },
+          "verification_statuses": {
+            "verified_against_source": 35,
+            "verified_redundant": 15
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 2,
+          "dispositions": {
+            "merged_reframed": 1,
+            "excluded": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 2
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 40,
+          "dispositions": {
+            "merged_reframed": 17,
+            "excluded": 23
+          },
+          "verification_statuses": {
+            "verified_against_source": 40
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 0,
+          "dispositions": {},
+          "verification_statuses": {},
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": true,
+        "hard_gate_findings": {
+          "diagram_label_geometry": 1
+        },
+        "hard_gate_finding_count": 1
+      }
+    },
+    {
+      "family": "html",
+      "platform": "python",
+      "repo_name": "Aspose.HTML-FOSS-for-Python",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "2130ce2e4a26c4f1328153427e309ca2c695fd3a755b0deeb55f91710a81ce08",
+        "bytes": 33330,
+        "lines": 610,
+        "words": 3553,
+        "heading_count": 41,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 12,
+        "executable_or_command_code_blocks": 11,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 4,
+          "python": 7
+        },
+        "code_lines": 93,
+        "mermaid_blocks": 1,
+        "image_count": 4,
+        "preamble_badge_image_count": 2,
+        "markdown_link_count": 27,
+        "http_url_count": 12,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 4,
+        "table_row_lines": 269,
+        "table_count_estimate": 13,
+        "list_item_count": 51,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "212725feb27b0169b3669b6cd5e020f4d172f01d6f6b76bb4e18c768ac2e197f",
+        "bytes": 33847,
+        "words": 3544,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "912f0ae078b5418226a51de08539bc591547682e",
+        "model_repo_sha": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "2130ce2e4a26c4f1328153427e309ca2c695fd3a755b0deeb55f91710a81ce08",
+        "verified_at": "2026-08-19T10:39:39.257449Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.34
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 38,
+          "dispositions": {
+            "merged_reframed": 12,
+            "excluded": 20,
+            "merged_verbatim": 6
+          },
+          "verification_statuses": {
+            "verified_against_source": 19,
+            "verified_redundant": 17,
+            "not_applicable_category_1": 2
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 5,
+          "dispositions": {
+            "merged_reframed": 3,
+            "excluded": 1,
+            "merged_verbatim": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 4,
+            "verified_redundant": 1
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 8,
+          "dispositions": {
+            "corrected": 1,
+            "merged_verbatim": 2,
+            "merged_reframed": 3,
+            "relocated": 1,
+            "excluded": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 7,
+            "verified_redundant": 1
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": false,
+          "entries": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": false,
+        "hard_gate_findings": {
+          "content_unit_disposition_coverage": 43,
+          "content_unit_excerpt_matches_extraction": 38,
+          "content_unit_merged_into_target_section": 4,
+          "structural_unit_disposition_coverage": 1,
+          "code_example_disposition_coverage": 12,
+          "badge_disposition_coverage": 2
+        },
+        "hard_gate_finding_count": 100
+      }
+    },
+    {
+      "family": "note",
+      "platform": "python",
+      "repo_name": "Aspose.Note-FOSS-for-Python",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "3ce54cb4f84a99c5a675d9a17bb8f2ec8fe150b9418aac0cc62045e1dd790bd4",
+        "bytes": 22461,
+        "lines": 520,
+        "words": 2356,
+        "heading_count": 38,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 20,
+        "executable_or_command_code_blocks": 19,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 7,
+          "python": 12
+        },
+        "code_lines": 135,
+        "mermaid_blocks": 1,
+        "image_count": 5,
+        "preamble_badge_image_count": 4,
+        "markdown_link_count": 30,
+        "http_url_count": 17,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 8,
+        "table_row_lines": 45,
+        "table_count_estimate": 3,
+        "list_item_count": 108,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "b7f3719c32981f97df25b961a91b24befe9a1d7954eda59d8fb159b11e47e4ec",
+        "bytes": 15181,
+        "words": 1479,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "model_repo_sha": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "repo_sha_match": true
+      },
+      "last_verified": {
+        "readme_sha256": "3ce54cb4f84a99c5a675d9a17bb8f2ec8fe150b9418aac0cc62045e1dd790bd4",
+        "verified_at": "2026-08-19T10:39:44.635054Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.34
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 148,
+          "dispositions": {
+            "excluded": 28,
+            "merged_reframed": 120
+          },
+          "verification_statuses": {
+            "not_applicable_category_1": 9,
+            "verified_redundant": 17,
+            "verified_against_source": 122
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 13,
+          "dispositions": {
+            "merged_reframed": 12,
+            "excluded": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 13
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 27,
+          "dispositions": {
+            "merged_reframed": 18,
+            "excluded": 7,
+            "merged_verbatim": 2
+          },
+          "verification_statuses": {
+            "verified_against_source": 27
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 4,
+          "dispositions": {
+            "superseded_by_duplicate": 1,
+            "preserved": 3
+          },
+          "verification_statuses": {
+            "verified_against_source": 4
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": false,
+        "hard_gate_findings": {
+          "content_unit_merged_into_target_section": 4
+        },
+        "hard_gate_finding_count": 4
+      }
+    },
+    {
+      "family": "page",
+      "platform": "python",
+      "repo_name": "Aspose.Page-FOSS-for-Python",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "11bf6d94bee6162b8a63474665a4dd01db802ee626a4bc7b2e03d555c13ffdce",
+        "bytes": 24075,
+        "lines": 573,
+        "words": 2617,
+        "heading_count": 36,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 13,
+        "executable_or_command_code_blocks": 12,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 4,
+          "python": 8
+        },
+        "code_lines": 103,
+        "mermaid_blocks": 1,
+        "image_count": 7,
+        "preamble_badge_image_count": 3,
+        "markdown_link_count": 24,
+        "http_url_count": 12,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 6,
+        "table_row_lines": 153,
+        "table_count_estimate": 7,
+        "list_item_count": 44,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "12195f454de45e6c7a552dc2f81666487e07ecc31c7febf8de01e5ff60c1831a",
+        "bytes": 24906,
+        "words": 2639,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "ca4fb3d76f9a3bdac34fc0f96801efd1cd31eb9e",
+        "model_repo_sha": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "11bf6d94bee6162b8a63474665a4dd01db802ee626a4bc7b2e03d555c13ffdce",
+        "verified_at": "2026-08-19T10:41:13.119687Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.31
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 29,
+          "dispositions": {
+            "merged_reframed": 13,
+            "excluded": 13,
+            "merged_verbatim": 3
+          },
+          "verification_statuses": {
+            "verified_against_source": 16,
+            "verified_redundant": 13
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 5,
+          "dispositions": {
+            "merged_reframed": 4,
+            "merged_verbatim": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 5
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 13,
+          "dispositions": {
+            "merged_verbatim": 7,
+            "merged_reframed": 4,
+            "excluded": 2
+          },
+          "verification_statuses": {
+            "verified_against_source": 13
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": false,
+          "entries": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": false,
+        "hard_gate_findings": {
+          "diagram_hybrid_reverification": 1,
+          "content_unit_disposition_coverage": 50,
+          "content_unit_excerpt_matches_extraction": 29,
+          "structural_unit_disposition_coverage": 1,
+          "badge_disposition_coverage": 3
+        },
+        "hard_gate_finding_count": 84
+      }
+    },
+    {
+      "family": "pdf",
+      "platform": "cpp",
+      "repo_name": "Aspose.PDF-FOSS-for-Cpp",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "8ab940f133ad7c04f432ef087692b3db64c3f26987154f8da5587dccff2ea571",
+        "bytes": 47427,
+        "lines": 905,
+        "words": 5161,
+        "heading_count": 47,
+        "h2_count": 14,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "Project Structure",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "Third-Party Notices",
+          "License"
+        ],
+        "fenced_code_blocks": 16,
+        "executable_or_command_code_blocks": 15,
+        "fence_languages": {
+          "mermaid": 1,
+          "cmake": 1,
+          "bash": 2,
+          "cpp": 11,
+          "plain": 1
+        },
+        "code_lines": 210,
+        "mermaid_blocks": 1,
+        "image_count": 5,
+        "preamble_badge_image_count": 4,
+        "markdown_link_count": 34,
+        "http_url_count": 16,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 10,
+        "table_row_lines": 275,
+        "table_count_estimate": 10,
+        "list_item_count": 76,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "7cf6b0cee4f5cab2c55d6303bcf0248abda7474a967f4dc9e9bcb154b81be756",
+        "bytes": 47299,
+        "words": 5147,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "888700a8e361d32df21d0810c2eb939345e0603e",
+        "model_repo_sha": "40858b60e9babbab4865180e00e2db39f2ba27f8",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "f99859f7e273427216e1b5e9d41aa04ee101f9081551c1d59139dc59ca681b22",
+        "verified_at": "2026-08-19T11:32:26.374022Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": false,
+        "age_hours_at_bundle_day_end": 12.46
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 113,
+          "dispositions": {
+            "merged_verbatim": 113
+          },
+          "verification_statuses": {
+            "verified_against_source": 113
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 4,
+          "dispositions": {
+            "merged_verbatim": 4
+          },
+          "verification_statuses": {
+            "verified_against_source": 4
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 26,
+          "dispositions": {
+            "merged_verbatim": 26
+          },
+          "verification_statuses": {
+            "verified_against_source": 26
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 4,
+          "dispositions": {
+            "preserved": 4
+          },
+          "verification_statuses": {
+            "verified_against_source": 4
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": false,
+        "hard_gate_findings": {
+          "diagram_hybrid_reverification": 1,
+          "content_unit_disposition_coverage": 1,
+          "content_unit_no_exact_duplicate_merge": 1
+        },
+        "hard_gate_finding_count": 3
+      }
+    },
+    {
+      "family": "pdf",
+      "platform": "go",
+      "repo_name": "Aspose-PDF-FOSS-for-Go",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "948f9306fcf3859917684518bc9f5ba66f6077b72d3768b2b49b334810bacdbc",
+        "bytes": 61844,
+        "lines": 913,
+        "words": 7335,
+        "heading_count": 39,
+        "h2_count": 14,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Feature Showcase",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "Third-Party Notices",
+          "License"
+        ],
+        "fenced_code_blocks": 9,
+        "executable_or_command_code_blocks": 8,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 2,
+          "go": 6
+        },
+        "code_lines": 161,
+        "mermaid_blocks": 1,
+        "image_count": 7,
+        "preamble_badge_image_count": 5,
+        "markdown_link_count": 37,
+        "http_url_count": 18,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 12,
+        "table_row_lines": 208,
+        "table_count_estimate": 1,
+        "list_item_count": 76,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "948f9306fcf3859917684518bc9f5ba66f6077b72d3768b2b49b334810bacdbc",
+        "bytes": 61844,
+        "words": 7335,
+        "same_bytes_as_candidate": true,
+        "pipeline_strip_equal_to_candidate": true,
+        "pinned_repo_head": "2306eeb06216be4d9cb663adcb85155594572c11",
+        "model_repo_sha": "4a8d9cd1df39dce3f05d6ede8fb06c4ce39f2096",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "2e0f7ac0de92c3cf6c4865f4df2613eafffb86645f4270e0c5dc6a1abc1639ae",
+        "verified_at": "2026-08-19T10:41:15.527064Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": false,
+        "age_hours_at_bundle_day_end": 13.31
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 132,
+          "dispositions": {
+            "merged_reframed": 93,
+            "excluded": 38,
+            "merged_verbatim": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 95,
+            "verified_redundant": 33,
+            "not_applicable_category_1": 4
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 17,
+          "dispositions": {
+            "merged_reframed": 1,
+            "merged_verbatim": 3,
+            "excluded": 13
+          },
+          "verification_statuses": {
+            "verified_against_source": 17
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 206,
+          "dispositions": {
+            "merged_reframed": 65,
+            "excluded": 140,
+            "merged_verbatim": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 206
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 6,
+          "dispositions": {
+            "preserved": 5,
+            "excluded": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 6
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": true,
+        "published": false,
+        "hard_gate_findings": {},
+        "hard_gate_finding_count": 0
+      }
+    },
+    {
+      "family": "pdf",
+      "platform": "java",
+      "repo_name": "Aspose.PDF-FOSS-for-Java",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "8f21552ab4b06b466b69164203177fa3f4ec5bfc6b17fb474963b679cf610fcc",
+        "bytes": 107860,
+        "lines": 1671,
+        "words": 12427,
+        "heading_count": 61,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 14,
+        "executable_or_command_code_blocks": 13,
+        "fence_languages": {
+          "mermaid": 1,
+          "xml": 1,
+          "groovy": 1,
+          "bash": 2,
+          "java": 9
+        },
+        "code_lines": 176,
+        "mermaid_blocks": 1,
+        "image_count": 5,
+        "preamble_badge_image_count": 4,
+        "markdown_link_count": 36,
+        "http_url_count": 15,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 9,
+        "table_row_lines": 1086,
+        "table_count_estimate": 30,
+        "list_item_count": 106,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "b4571059b0590bd047c8c4cde0807da5be9fd8de2306dbba93a5cbb83e34feb0",
+        "bytes": 109380,
+        "words": 12410,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "ea62b381993487c86afb9b35ac788b2cc2c15d03",
+        "model_repo_sha": "12ae9e183a093d40afd3b502a368963f19ed83a3",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "8f21552ab4b06b466b69164203177fa3f4ec5bfc6b17fb474963b679cf610fcc",
+        "verified_at": "2026-08-19T11:32:50.609752Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 12.45
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 36,
+          "dispositions": {
+            "merged_reframed": 7,
+            "excluded": 11,
+            "merged_verbatim": 18
+          },
+          "verification_statuses": {
+            "verified_against_source": 27,
+            "not_applicable_category_1": 5,
+            "verified_redundant": 4
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 4,
+          "dispositions": {
+            "merged_verbatim": 4
+          },
+          "verification_statuses": {
+            "verified_against_source": 4
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 8,
+          "dispositions": {
+            "merged_verbatim": 6,
+            "excluded": 2
+          },
+          "verification_statuses": {
+            "verified_against_source": 8
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 4,
+          "dispositions": {
+            "preserved": 4
+          },
+          "verification_statuses": {
+            "verified_against_source": 4
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": true,
+        "published": false,
+        "hard_gate_findings": {},
+        "hard_gate_finding_count": 0
+      }
+    },
+    {
+      "family": "pdf",
+      "platform": "net",
+      "repo_name": "Aspose.PDF-FOSS-for-.NET",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "267b9fb3ea132685cd505a42bdffdccefa5c82899fae05c3df7f9012d1c31f9c",
+        "bytes": 101559,
+        "lines": 1725,
+        "words": 11240,
+        "heading_count": 107,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 17,
+        "executable_or_command_code_blocks": 16,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 3,
+          "xml": 1,
+          "csharp": 12
+        },
+        "code_lines": 142,
+        "mermaid_blocks": 1,
+        "image_count": 4,
+        "preamble_badge_image_count": 3,
+        "markdown_link_count": 39,
+        "http_url_count": 14,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 6,
+        "table_row_lines": 1018,
+        "table_count_estimate": 74,
+        "list_item_count": 84,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "267b9fb3ea132685cd505a42bdffdccefa5c82899fae05c3df7f9012d1c31f9c",
+        "bytes": 101559,
+        "words": 11240,
+        "same_bytes_as_candidate": true,
+        "pipeline_strip_equal_to_candidate": true,
+        "pinned_repo_head": "c6db9ce3fe6d542599992553b0bbea511f5fbce0",
+        "model_repo_sha": "8a3131b9a6f7e97c20214896c615dbee86272459",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "eeb2f729a90030e03a14f4cc9e281c08bcff26a5b662c48cea7665d364213e5a",
+        "verified_at": "2026-08-19T10:41:39.631772Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": false,
+        "age_hours_at_bundle_day_end": 13.31
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 69,
+          "dispositions": {
+            "merged_reframed": 60,
+            "excluded": 8,
+            "merged_verbatim": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 66,
+            "verified_against_manifest": 1,
+            "verified_redundant": 2
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 9,
+          "dispositions": {
+            "merged_reframed": 9
+          },
+          "verification_statuses": {
+            "verified_against_source": 9
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 10,
+          "dispositions": {
+            "merged_reframed": 10
+          },
+          "verification_statuses": {
+            "verified_against_source": 10
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 0,
+          "dispositions": {},
+          "verification_statuses": {},
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": false,
+        "hard_gate_findings": {
+          "content_unit_evidence_resolves": 58
+        },
+        "hard_gate_finding_count": 58
+      }
+    },
+    {
+      "family": "pdf",
+      "platform": "python",
+      "repo_name": "Aspose-PDF-FOSS-for-Python",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "185bc2d06a3f4bc0b712f8fab767008333c38826be0f44d255e7f2376f916e11",
+        "bytes": 40912,
+        "lines": 780,
+        "words": 4457,
+        "heading_count": 40,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 12,
+        "executable_or_command_code_blocks": 11,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 3,
+          "python": 8
+        },
+        "code_lines": 118,
+        "mermaid_blocks": 1,
+        "image_count": 4,
+        "preamble_badge_image_count": 3,
+        "markdown_link_count": 30,
+        "http_url_count": 13,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 8,
+        "table_row_lines": 253,
+        "table_count_estimate": 9,
+        "list_item_count": 110,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "715290a6684812de316cf6fefbd2836f199695636d4ec21cbaa627cfa7bb18ac",
+        "bytes": 41576,
+        "words": 4445,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "3c0e7ad2c4d11636a0fb18a50a12969429fcc150",
+        "model_repo_sha": "537b8273b185e4f7440b201cacad56567e55b2f0",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "125e8a8759b8c0f05e0a84beb2a2b87a6efb074bde6558605c20057fb576538c",
+        "verified_at": "2026-08-19T10:44:11.191560Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": false,
+        "age_hours_at_bundle_day_end": 13.26
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 45,
+          "dispositions": {
+            "merged_reframed": 34,
+            "merged_verbatim": 3,
+            "excluded": 7,
+            "corrected": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 40,
+            "verified_redundant": 4,
+            "not_applicable_category_1": 1
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 3,
+          "dispositions": {
+            "merged_verbatim": 3
+          },
+          "verification_statuses": {
+            "verified_against_source": 3
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 16,
+          "dispositions": {
+            "excluded": 2,
+            "merged_verbatim": 13,
+            "merged_reframed": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 16
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 3,
+          "dispositions": {
+            "preserved": 3
+          },
+          "verification_statuses": {
+            "verified_against_source": 3
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": true,
+        "published": false,
+        "hard_gate_findings": {},
+        "hard_gate_finding_count": 0
+      }
+    },
+    {
+      "family": "slides",
+      "platform": "cpp",
+      "repo_name": "Aspose.Slides-FOSS-for-Cpp",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "4326587709e0835c87659b7a869a0d744cdd9dfe9ce3d922c1d20420751120f0",
+        "bytes": 30945,
+        "lines": 653,
+        "words": 3201,
+        "heading_count": 31,
+        "h2_count": 11,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 13,
+        "executable_or_command_code_blocks": 12,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 2,
+          "cmake": 1,
+          "cpp": 9
+        },
+        "code_lines": 179,
+        "mermaid_blocks": 1,
+        "image_count": 4,
+        "preamble_badge_image_count": 3,
+        "markdown_link_count": 25,
+        "http_url_count": 15,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 6,
+        "table_row_lines": 168,
+        "table_count_estimate": 3,
+        "list_item_count": 88,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": false,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "4326587709e0835c87659b7a869a0d744cdd9dfe9ce3d922c1d20420751120f0",
+        "bytes": 30945,
+        "words": 3201,
+        "same_bytes_as_candidate": true,
+        "pipeline_strip_equal_to_candidate": true,
+        "pinned_repo_head": "ecc2baf8cc3e3e4a6ee36cbfb992ec4fa6dd7765",
+        "model_repo_sha": "25adb25c8796f06d9b89cd5f8093e490091195ef",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "4326587709e0835c87659b7a869a0d744cdd9dfe9ce3d922c1d20420751120f0",
+        "verified_at": "2026-08-19T10:44:13.330686Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.26
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 25,
+          "dispositions": {
+            "merged_reframed": 17,
+            "merged_verbatim": 7,
+            "excluded": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 24,
+            "verified_redundant": 1
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 9,
+          "dispositions": {
+            "merged_reframed": 5,
+            "merged_verbatim": 4
+          },
+          "verification_statuses": {
+            "verified_against_source": 9
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 16,
+          "dispositions": {
+            "merged_reframed": 3,
+            "merged_verbatim": 12,
+            "excluded": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 16
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": false,
+          "entries": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": true,
+        "hard_gate_findings": {
+          "required_sections": 1
+        },
+        "hard_gate_finding_count": 1
+      }
+    },
+    {
+      "family": "slides",
+      "platform": "java",
+      "repo_name": "Aspose.Slides-FOSS-for-Java",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "009764bca1cba233538a536c0d51dfc4abd8d064ed3dfa1175a4af5f9739efac",
+        "bytes": 38269,
+        "lines": 679,
+        "words": 3940,
+        "heading_count": 30,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 16,
+        "executable_or_command_code_blocks": 15,
+        "fence_languages": {
+          "mermaid": 1,
+          "xml": 1,
+          "groovy": 1,
+          "java": 12,
+          "bash": 1
+        },
+        "code_lines": 189,
+        "mermaid_blocks": 1,
+        "image_count": 6,
+        "preamble_badge_image_count": 5,
+        "markdown_link_count": 31,
+        "http_url_count": 22,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 10,
+        "table_row_lines": 244,
+        "table_count_estimate": 3,
+        "list_item_count": 78,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "2fa6c196171ffcc4bd6c390b121b53bfdd1ef20735be6a30ab081fea754acfcf",
+        "bytes": 38732,
+        "words": 3904,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "5d76f44cdd52a2510b66bbc20c663759cda60432",
+        "model_repo_sha": "9968c5b42525919f50bca3cdbcedd3ae1dc382c4",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "1ff872627569adadecbe9eab3da13ef45d4535597fb2cbac40d0ca97d4595caf",
+        "verified_at": "2026-08-19T10:44:16.386028Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": false,
+        "age_hours_at_bundle_day_end": 13.26
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 23,
+          "dispositions": {
+            "merged_reframed": 14,
+            "merged_verbatim": 8,
+            "excluded": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 20,
+            "verified_redundant": 3
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 9,
+          "dispositions": {
+            "merged_reframed": 7,
+            "merged_verbatim": 2
+          },
+          "verification_statuses": {
+            "verified_against_source": 9
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 9,
+          "dispositions": {
+            "merged_reframed": 2,
+            "merged_verbatim": 2,
+            "excluded": 5
+          },
+          "verification_statuses": {
+            "verified_against_source": 9
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": false,
+          "entries": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": true,
+        "published": true,
+        "hard_gate_findings": {},
+        "hard_gate_finding_count": 0
+      }
+    },
+    {
+      "family": "slides",
+      "platform": "net",
+      "repo_name": "Aspose.Slides-FOSS-for-.NET",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "156dc275c95011c4a47323b281bf9a81e85c50daf96de281504184ceb8b32d25",
+        "bytes": 32046,
+        "lines": 635,
+        "words": 3398,
+        "heading_count": 33,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 13,
+        "executable_or_command_code_blocks": 12,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 2,
+          "xml": 1,
+          "csharp": 9
+        },
+        "code_lines": 125,
+        "mermaid_blocks": 1,
+        "image_count": 4,
+        "preamble_badge_image_count": 3,
+        "markdown_link_count": 25,
+        "http_url_count": 14,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 8,
+        "table_row_lines": 248,
+        "table_count_estimate": 3,
+        "list_item_count": 74,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "20d5c83cb6fbbef6261933a875cd556e27eb8809ba4c42c169296b862a356f13",
+        "bytes": 32569,
+        "words": 3389,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "6c650e96d07958c496f9c757a384b76b5fa7bbb9",
+        "model_repo_sha": "bd19e16057b628310b4a04330585d366cb40e9b7",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "52fcc5e21ec6c41054469274f4e45292c2fb68bf1dcbf912fa0da5a9d1141cee",
+        "verified_at": "2026-08-19T10:44:18.192349Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": false,
+        "age_hours_at_bundle_day_end": 13.26
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 23,
+          "dispositions": {
+            "merged_reframed": 16,
+            "merged_verbatim": 7
+          },
+          "verification_statuses": {
+            "verified_against_source": 23
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 9,
+          "dispositions": {
+            "merged_verbatim": 9
+          },
+          "verification_statuses": {
+            "verified_against_source": 9
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 9,
+          "dispositions": {
+            "merged_verbatim": 9
+          },
+          "verification_statuses": {
+            "verified_against_source": 9
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": false,
+          "entries": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": true,
+        "hard_gate_findings": {
+          "diagram_label_geometry": 1,
+          "no_upstream_issue_leaked": 1
+        },
+        "hard_gate_finding_count": 2
+      }
+    },
+    {
+      "family": "slides",
+      "platform": "python",
+      "repo_name": "Aspose.Slides-FOSS-for-Python",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "62eb8094bca317306d45f9706ce844ec5c0f94733c61c8587c2e65f36729d4c6",
+        "bytes": 42791,
+        "lines": 943,
+        "words": 4356,
+        "heading_count": 51,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 17,
+        "executable_or_command_code_blocks": 16,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 2,
+          "python": 14
+        },
+        "code_lines": 210,
+        "mermaid_blocks": 1,
+        "image_count": 5,
+        "preamble_badge_image_count": 4,
+        "markdown_link_count": 26,
+        "http_url_count": 15,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 6,
+        "table_row_lines": 278,
+        "table_count_estimate": 11,
+        "list_item_count": 140,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "2c76a4e8e75e31d2efe54936d53c26111a289d2afa61d32a6a56dec597da0e85",
+        "bytes": 43618,
+        "words": 4344,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "62f301190b016029b71d4c16aa095cbb647b8782",
+        "model_repo_sha": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "6f5f45bfcdf9fe4026a8be672b1508833cffc980059910ef8b7f83936197228c",
+        "verified_at": "2026-08-19T10:48:27.668963Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": false,
+        "age_hours_at_bundle_day_end": 13.19
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 38,
+          "dispositions": {
+            "excluded": 29,
+            "merged_reframed": 6,
+            "merged_verbatim": 3
+          },
+          "verification_statuses": {
+            "verified_redundant": 24,
+            "verified_against_source": 11,
+            "verification_failed": 3
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 13,
+          "dispositions": {
+            "merged_verbatim": 13
+          },
+          "verification_statuses": {
+            "verified_against_source": 13
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 27,
+          "dispositions": {
+            "merged_verbatim": 26,
+            "excluded": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 26,
+            "verification_failed": 1
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": false,
+          "entries": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": true,
+        "hard_gate_findings": {
+          "dependency_development_claim_not_in_manifest": 1
+        },
+        "hard_gate_finding_count": 1
+      }
+    },
+    {
+      "family": "tex",
+      "platform": "python",
+      "repo_name": "Aspose.TeX-FOSS-for-Python",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "c7104fb9ba5636b7237d552f86b1c45ece063a449672b84d33454e79cd1ff240",
+        "bytes": 13081,
+        "lines": 350,
+        "words": 1531,
+        "heading_count": 24,
+        "h2_count": 11,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 15,
+        "executable_or_command_code_blocks": 14,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 4,
+          "python": 10
+        },
+        "code_lines": 89,
+        "mermaid_blocks": 1,
+        "image_count": 4,
+        "preamble_badge_image_count": 3,
+        "markdown_link_count": 24,
+        "http_url_count": 11,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 8,
+        "table_row_lines": 17,
+        "table_count_estimate": 3,
+        "list_item_count": 51,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": false,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "90af4addc0232e37a5100e87a7db1fcc531d386315b80d5dde09c7ed06f3f3c4",
+        "bytes": 4579,
+        "words": 511,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": false,
+        "pinned_repo_head": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
+        "model_repo_sha": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
+        "repo_sha_match": true
+      },
+      "last_verified": {
+        "readme_sha256": "c7104fb9ba5636b7237d552f86b1c45ece063a449672b84d33454e79cd1ff240",
+        "verified_at": "2026-08-19T10:48:31.229998Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.19
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 13,
+          "dispositions": {
+            "merged_reframed": 9,
+            "excluded": 4
+          },
+          "verification_statuses": {
+            "verified_against_source": 9,
+            "verified_redundant": 4
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": false,
+          "entries": 0
+        },
+        "code-example": {
+          "present": false,
+          "entries": 0
+        },
+        "badge": {
+          "present": false,
+          "entries": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": false,
+        "hard_gate_findings": {
+          "required_sections": 1,
+          "diagram_label_geometry": 1,
+          "dropped_content": 1,
+          "structural_unit_disposition_coverage": 1,
+          "code_example_disposition_coverage": 12
+        },
+        "hard_gate_finding_count": 16
+      }
+    },
+    {
+      "family": "words",
+      "platform": "net",
+      "repo_name": "Aspose.Words-FOSS-for-.NET",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "0d2348a5b4d711182c5c6b678ea0e26e1091dc0b0ee738f80102e0b8829c3d4b",
+        "bytes": 71760,
+        "lines": 930,
+        "words": 8333,
+        "heading_count": 29,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 10,
+        "executable_or_command_code_blocks": 9,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 3,
+          "csharp": 6
+        },
+        "code_lines": 83,
+        "mermaid_blocks": 1,
+        "image_count": 5,
+        "preamble_badge_image_count": 4,
+        "markdown_link_count": 30,
+        "http_url_count": 16,
+        "aspose_com_url_count": 2,
+        "badge_like_count": 7,
+        "table_row_lines": 623,
+        "table_count_estimate": 3,
+        "list_item_count": 73,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "0d2348a5b4d711182c5c6b678ea0e26e1091dc0b0ee738f80102e0b8829c3d4b",
+        "bytes": 71760,
+        "words": 8333,
+        "same_bytes_as_candidate": true,
+        "pipeline_strip_equal_to_candidate": true,
+        "pinned_repo_head": "68d56fdaf7fcd2d95935a0c180b6e69e99a9b4b8",
+        "model_repo_sha": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "013cd7ccd77e3204060686a0453fc35e6a9e34f950443d1aa1c442b7373bf735",
+        "verified_at": "2026-08-19T10:48:55.004924Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": false,
+        "age_hours_at_bundle_day_end": 13.18
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 34,
+          "dispositions": {
+            "excluded": 23,
+            "merged_reframed": 11
+          },
+          "verification_statuses": {
+            "verified_redundant": 17,
+            "verified_against_source": 10,
+            "verified_by_corroboration": 1,
+            "not_applicable_category_1": 6
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": false,
+          "entries": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 3,
+          "dispositions": {
+            "merged_verbatim": 2,
+            "merged_reframed": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 3
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 1,
+          "dispositions": {
+            "superseded_by_duplicate": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 1
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": true,
+        "published": true,
+        "hard_gate_findings": {},
+        "hard_gate_finding_count": 0
+      }
+    },
+    {
+      "family": "words",
+      "platform": "python",
+      "repo_name": "Aspose.Words-FOSS-for-Python",
+      "registry_active": true,
+      "excluded": false,
+      "eligible_active": true,
+      "exclusion_reason": null,
+      "candidate": {
+        "sha256": "9ef65e92ae664d9bf8cac9c98aa002fec48938cd547af00708e4f5536aeef1c0",
+        "bytes": 29181,
+        "lines": 655,
+        "words": 3117,
+        "heading_count": 42,
+        "h2_count": 12,
+        "h2_headings": [
+          "Navigation",
+          "At a Glance",
+          "Key Capabilities",
+          "Installation",
+          "Dependencies",
+          "Quick Start",
+          "Additional Examples",
+          "API Reference",
+          "Documentation & Resources",
+          "Scope and Limitations",
+          "Development and Testing",
+          "License"
+        ],
+        "fenced_code_blocks": 18,
+        "executable_or_command_code_blocks": 17,
+        "fence_languages": {
+          "mermaid": 1,
+          "bash": 5,
+          "python": 12
+        },
+        "code_lines": 126,
+        "mermaid_blocks": 1,
+        "image_count": 6,
+        "preamble_badge_image_count": 4,
+        "markdown_link_count": 31,
+        "http_url_count": 17,
+        "aspose_com_url_count": 1,
+        "badge_like_count": 6,
+        "table_row_lines": 174,
+        "table_count_estimate": 10,
+        "list_item_count": 63,
+        "section_presence": {
+          "navigation": true,
+          "at_a_glance": true,
+          "key_capabilities": true,
+          "dependencies": true,
+          "installation": true,
+          "quick_start": true,
+          "additional_examples": true,
+          "api_reference": true,
+          "limitations": true,
+          "development_and_testing": true,
+          "license": true,
+          "resources": true
+        }
+      },
+      "published_snapshot": {
+        "sha256": "d494b6999859561a239e9e8ba8c16e79a7b675e3d44cfb263b75b8f8660e4ff4",
+        "bytes": 29836,
+        "words": 3117,
+        "same_bytes_as_candidate": false,
+        "pipeline_strip_equal_to_candidate": true,
+        "pinned_repo_head": "2d2efee2787cb9e56d071d17f8d7b740dce8b784",
+        "model_repo_sha": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+        "repo_sha_match": false
+      },
+      "last_verified": {
+        "readme_sha256": "9ef65e92ae664d9bf8cac9c98aa002fec48938cd547af00708e4f5536aeef1c0",
+        "verified_at": "2026-08-19T10:49:44.421013Z",
+        "verified_by_run_id": null,
+        "checks_module_version": 2,
+        "marker_matches_candidate": true,
+        "age_hours_at_bundle_day_end": 13.17
+      },
+      "disposition_ledgers": {
+        "content": {
+          "present": true,
+          "entries": 24,
+          "dispositions": {
+            "merged_reframed": 15,
+            "merged_verbatim": 8,
+            "corrected": 1
+          },
+          "verification_statuses": {
+            "verified_against_source": 20,
+            "verified_redundant": 1,
+            "verified_against_manifest": 3
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "structure": {
+          "present": true,
+          "entries": 7,
+          "dispositions": {
+            "merged_reframed": 4,
+            "merged_verbatim": 3
+          },
+          "verification_statuses": {
+            "verified_against_source": 7
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "code-example": {
+          "present": true,
+          "entries": 13,
+          "dispositions": {
+            "merged_verbatim": 4,
+            "excluded": 4,
+            "merged_reframed": 5
+          },
+          "verification_statuses": {
+            "verified_against_source": 13
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        },
+        "badge": {
+          "present": true,
+          "entries": 3,
+          "dispositions": {
+            "superseded_by_duplicate": 3
+          },
+          "verification_statuses": {
+            "verified_against_source": 3
+          },
+          "missing_target_for_kept": 0,
+          "missing_reason_for_exclusion": 0
+        }
+      },
+      "portfolio_audit": {
+        "clean": false,
+        "published": true,
+        "hard_gate_findings": {
+          "dependency_development_claim_not_in_manifest": 2
+        },
+        "hard_gate_finding_count": 2
+      }
+    }
+  ]
+}

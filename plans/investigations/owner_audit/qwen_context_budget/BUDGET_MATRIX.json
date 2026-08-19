@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "audit_commit": "d71f38b6a050b5282f0ada314f9ee4de35950426",
+  "latest_github_tip_observed": "91d9479b1e1fa12a9af41c1692b6f8f421db5f76",
+  "later_reviewer_path_diff": "empty",
+  "token_method": {
+    "estimate": "round(character_count / 4)",
+    "warning": "optimistic for these payloads; historical exact counts imply about 3.1-3.2 characters per provider token",
+    "exact_source": "committed provider usage in finalized-repository-readmes-v1 llm-call-ledger.jsonl"
+  },
+  "trio": [
+    {
+      "name": "3d-python",
+      "candidate_bytes": 76093,
+      "anchor_count": 80,
+      "anchor_catalog_bytes": 80399,
+      "fact_context_bytes": 55573,
+      "plan_context_bytes": 4351,
+      "merged_message_bytes": 146382,
+      "merged_request_bytes": 155647,
+      "estimated_request_tokens_chars_div_4": 38902,
+      "exact_historical_prompt_tokens": 47022,
+      "exact_historical_completion_tokens": 1485,
+      "exact_historical_latency_ms": 33740,
+      "selected_facts_total": 22,
+      "selected_facts_included": 16,
+      "candidate_claim_count": 112,
+      "claim_exception_count": 0,
+      "full_candidate_claim_records_chars": 611061,
+      "compact_claim_ledger_without_text_chars": 38719
+    },
+    {
+      "name": "note-python",
+      "candidate_bytes": 25689,
+      "anchor_count": 97,
+      "anchor_catalog_bytes": 30580,
+      "fact_context_bytes": 32769,
+      "plan_context_bytes": 3505,
+      "merged_message_bytes": 72939,
+      "merged_request_bytes": 82190,
+      "estimated_request_tokens_chars_div_4": 20535,
+      "exact_historical_prompt_tokens": 25401,
+      "exact_historical_completion_tokens": 1165,
+      "exact_historical_latency_ms": 24903,
+      "selected_facts_total": 28,
+      "selected_facts_included": 17,
+      "candidate_claim_count": 83,
+      "claim_exception_count": 0,
+      "full_candidate_claim_records_chars": 81849,
+      "compact_claim_ledger_without_text_chars": 29536
+    },
+    {
+      "name": "barcode-python",
+      "candidate_bytes": 17539,
+      "anchor_count": 70,
+      "anchor_catalog_bytes": 20992,
+      "fact_context_bytes": 17462,
+      "plan_context_bytes": 3605,
+      "merged_message_bytes": 48128,
+      "merged_request_bytes": 55761,
+      "estimated_request_tokens_chars_div_4": 13939,
+      "exact_historical_prompt_tokens": 17690,
+      "exact_historical_completion_tokens": 1743,
+      "exact_historical_latency_ms": 32696,
+      "selected_facts_total": 21,
+      "selected_facts_included": 15,
+      "candidate_claim_count": 80,
+      "claim_exception_count": 0,
+      "full_candidate_claim_records_chars": 85972,
+      "compact_claim_ledger_without_text_chars": 27703
+    }
+  ],
+  "historical_success_distribution": {
+    "repositories": 10,
+    "prompt_tokens": {"min": 14296, "median": 25353.5, "max": 47213},
+    "completion_tokens": {"min": 1128, "median": 1470, "max": 2247},
+    "latency_ms": {"min": 24903, "median": 30220.5, "max": 46649}
+  },
+  "real_failure": {
+    "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "error": "unterminated forced-tool arguments",
+    "finish_reason": "length",
+    "completion_tokens": 4000,
+    "merged_transport_attempts": 1,
+    "merged_response_attempts": 1,
+    "fallback_reached": false
+  },
+  "qwen_probe": {
+    "forced_named_tool_successes": "5/5",
+    "temperature_zero_forced_tool_distinct_outputs": "5/5",
+    "largest_exact_freeform_output_tokens": 6982,
+    "largest_exact_freeform_latency_s": 135.82,
+    "truncated_probe_tokens": 8000,
+    "truncated_probe_latency_s": 154.29
+  },
+  "proposed_budgets": {
+    "merged": {"request_bytes": 200000, "prompt_tokens": 60000, "completion_tokens": 4000, "timeout_seconds": 90, "transport_attempts": 1, "response_attempts": 1},
+    "blind_fallback": {"completion_tokens": 3000, "timeout_seconds": 90, "initial_calls": 1, "compact_grounding_corrections": 1},
+    "factual_fallback": {"completion_tokens": 6000, "timeout_seconds": 90, "initial_calls": 1, "compact_grounding_corrections": 1},
+    "reviewer_provider_calls_normal": 1,
+    "reviewer_provider_calls_absolute_max": 5,
+    "review_wall_seconds_absolute_max": 360,
+    "unchanged_accepted_rerun_provider_calls": 0
+  }
+}

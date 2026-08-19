@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-08-19",
+  "acceptance_audit_commit": "6d112bbf88bc54f7ef3367b16ef8e9b769bdfb51",
+  "main_tip_at_audit_close": "685246a7a4dc014adcdcd3da5be8ca49498ee2ed",
+  "formal_denominator": 33,
+  "current_contract_valid": {
+    "facts_ready": 0,
+    "candidate_generated": 0,
+    "deterministic_validated": 0,
+    "agent_approved": 0,
+    "no_op_proven": 0,
+    "human_accepted": 0
+  },
+  "canonical_aspose": {
+    "actual_check_functions": 103,
+    "canonical_candidate_count": 31,
+    "optimizer_vendored_checks": 89,
+    "exact_check_parity_percent": 86.4,
+    "optimizer_blocking_checks": 11,
+    "blocking_share_of_canonical_percent": 10.7,
+    "optimizer_runnable_checks": 45,
+    "optimizer_non_runnable_checks": 44,
+    "attached_run_manifests": 11,
+    "attached_run_states": {"PUSHED": 1, "PLANNED": 1, "ABANDONED": 9}
+  },
+  "stages": [
+    {
+      "stage": "knowledge_to_facts",
+      "status": "partial_blocking_gap",
+      "fail_mode": "mixed item trust can be promoted through a field-level verified fact",
+      "production_proof": "unproven",
+      "owners": [
+        "src/readme_agent/facts/aspose_knowledge_selection.py::knowledge_claim_fact_records",
+        "src/readme_agent/facts/provider.py",
+        "src/readme_agent/facts/composer_factpack.py::aspose_fact_records"
+      ]
+    },
+    {
+      "stage": "candidate_composition",
+      "status": "implemented_but_unproven",
+      "fail_mode": "narrow knowledge expression and refreshed-source contamination",
+      "production_proof": "0/33 current-contract candidates",
+      "owners": [
+        "src/readme_agent/specialists/readme_presentation.py",
+        "src/readme_agent/readme/agentic_composition_models.py",
+        "src/readme_agent/presentation/verified_template_draft.py"
+      ]
+    },
+    {
+      "stage": "source_reconciliation",
+      "status": "fail_open",
+      "fail_mode": "ValueError is converted to an error artifact and candidate persistence continues",
+      "production_proof": "diagnostic only",
+      "owners": [
+        "src/readme_agent/readme/readme_reconciliation.py::build_readme_reconciliation_report",
+        "src/readme_agent/supervisor/local_poc_evidence.py::_readme_reconciliation_report_or_error"
+      ]
+    },
+    {
+      "stage": "aspose_check_execution",
+      "status": "partial_fail_open",
+      "fail_mode": "skipped and errored hard gates do not make AsposeCheckResultV1.valid false",
+      "production_proof": "11 blockers, 45 runnable, 44 non-runnable",
+      "owners": [
+        "src/readme_agent/validation/aspose_checks_bridge.py::run_aspose_checks",
+        "src/readme_agent/readme/document_validation.py::validate_document_candidate"
+      ]
+    },
+    {
+      "stage": "check_coverage",
+      "status": "diagnostic_nonblocking",
+      "fail_mode": "unclassified becomes skip; generation errors become an error JSON record",
+      "production_proof": "no committed current-contract per-run coverage corpus",
+      "owners": [
+        "src/readme_agent/validation/aspose_check_coverage.py::build_check_coverage_report",
+        "src/readme_agent/supervisor/local_poc_evidence.py::_check_coverage_report_or_error"
+      ]
+    },
+    {
+      "stage": "independent_review",
+      "status": "blocking_but_unreliable",
+      "fail_mode": "canonical merged Qwen response truncated at fixed 4000-token cap with one attempt",
+      "production_proof": "committed SYSTEM_FAILURE for 3D/Python",
+      "owners": [
+        "src/readme_agent/specialists/separated_readme_review.py::run_separated_readme_review",
+        "src/readme_agent/llm/reviewer_client.py::LiveMergedReadmeReviewClient"
+      ]
+    },
+    {
+      "stage": "repair",
+      "status": "implemented_bounded",
+      "fail_mode": "depends on reviewer availability and composition completeness",
+      "production_proof": "two attempts; no current 33-repository closure",
+      "owners": [
+        "src/readme_agent/specialists/readme_review_repair_loop.py"
+      ]
+    },
+    {
+      "stage": "accepted_cache",
+      "status": "strong_local_partial",
+      "fail_mode": "new reconciliation/coverage success is not acceptance-bound; hosted bundle is not restored",
+      "production_proof": "zero current-contract no-ops",
+      "owners": [
+        "src/readme_agent/supervisor/local_poc_cache.py",
+        "src/readme_agent/supervisor/local_poc_acceptance_binding.py"
+      ]
+    },
+    {
+      "stage": "blocked_cache",
+      "status": "manual_retry_stall",
+      "fail_mode": "unchanged agent-fixable/transient blocks are reused unless --retry-blocked is passed",
+      "production_proof": "can freeze malformed-LLM outcome",
+      "owners": [
+        "src/readme_agent/commands_supervision.py::_cmd_supervise_registry",
+        "src/readme_agent/supervisor/blocked_decision_cache.py"
+      ]
+    },
+    {
+      "stage": "no_op",
+      "status": "implemented_rerun_only",
+      "fail_mode": "requires later entry into review node; scheduler does not immediately run second pass",
+      "production_proof": "0/33 current-contract no-op",
+      "owners": [
+        "src/readme_agent/specialists/readme_presentation_review.py",
+        "src/readme_agent/supervisor/local_poc_review_evidence.py::write_local_poc_no_op_evidence"
+      ]
+    },
+    {
+      "stage": "portfolio_scheduler",
+      "status": "partial",
+      "fail_mode": "300-second budget applies only between members; hosted matrix ignores platform priority",
+      "production_proof": "state graph drift true; no complete current campaign",
+      "owners": [
+        "src/readme_agent/commands_supervision.py::_cmd_supervise_registry",
+        "src/readme_agent/commands_lifecycle.py::cmd_runtime_matrix"
+      ]
+    },
+    {
+      "stage": "github_runner",
+      "status": "missing_verified_wiring",
+      "fail_mode": "hosted job uses github_observe without local fact verification or independent review",
+      "production_proof": "cannot satisfy verified Gate A by profile contract",
+      "owners": [
+        ".github/workflows/readme-agent-production.yml",
+        "src/readme_agent/supervisor/execution_profile.py"
+      ]
+    },
+    {
+      "stage": "readme_only_psd",
+      "status": "missing_unproven",
+      "fail_mode": "no imported PSD knowledge; PSD/Python currently BLOCKED_MISSING_EVIDENCE",
+      "production_proof": "attached Aspose bundle contains no PSD candidate/run/knowledge",
+      "owners": [
+        "src/readme_agent/presentation/verified_template_draft.py",
+        "data/products.json",
+        "plans/status.md"
+      ]
+    },
+    {
+      "stage": "control_repo_post_commit_push",
+      "status": "new_governance_scope_only",
+      "fail_mode": "origin identity is not exact-allowlisted and a post-commit failure is not durably queued",
+      "production_proof": "local bare-repository tests reported by commit 685246a7; no README runtime impact",
+      "owners": [
+        "scripts/governance/post_commit_push.py",
+        "scripts/governance/install_hooks.py"
+      ]
+    }
+  ],
+  "ecosystems": {
+    "python": {"registry": 13, "example_verifier": true, "dependency_snapshot": true, "classification_fixtures": 3},
+    "net": {"registry": 7, "example_verifier": true, "dependency_snapshot": false, "classification_fixtures": 0},
+    "java": {"registry": 4, "example_verifier": true, "dependency_snapshot": false, "classification_fixtures": 0},
+    "cpp": {"registry": 4, "example_verifier": true, "dependency_snapshot": false, "classification_fixtures": 0},
+    "typescript": {"registry": 2, "example_verifier": true, "dependency_snapshot": false, "classification_fixtures": 0},
+    "rust": {"registry": 1, "example_verifier": true, "dependency_snapshot": true, "classification_fixtures": 0},
+    "go": {"registry": 2, "example_verifier": true, "dependency_snapshot": false, "classification_fixtures": 0}
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-08-19",
+  "optimizer_audit_pin": "6d112bbf88bc54f7ef3367b16ef8e9b769bdfb51",
+  "latest_observed_main": "91d9479b1e1fa12a9af41c1692b6f8f421db5f76",
+  "findings": [
+    {
+      "id": "K-ITEM-TRUST",
+      "severity": "P0",
+      "observed": "Selected claim items are grouped under one field fact; aggregate verification uses verified_any and item values discard trust state.",
+      "current_incident": "No mixed field occurs in the current trio under the existing file-only corroborator, but recognizing ignored source_file evidence immediately creates a mixed 3D install field that launders two unverified items.",
+      "owner": [
+        "src/readme_agent/facts/aspose_knowledge_selection.py"
+      ],
+      "invalidates_from": "FACTS_COLLECTING",
+      "closure": "Per-item trust is retained and a mixed field cannot enter accepted composition as wholly verified.",
+      "evidence": [
+        "knowledge_to_candidate/report.md",
+        "knowledge_to_candidate/lineage-matrix.json"
+      ]
+    },
+    {
+      "id": "K-SEMANTIC-EVIDENCE",
+      "severity": "P0",
+      "observed": "Non-license corroboration checks that an evidence file exists, not that a symbol, line, implementation, or polarity supports the claim.",
+      "current_incident": "3D FBX and Barcode PDF positive/negative claims demonstrate conflicting selection; COLLADA demonstrates internal implementation is not public reachability. NurbsSurface.to_mesh is a separate API-rendering defect: an accepted public-signature fact is upgraded into capability prose although the body is a stub.",
+      "owner": [
+        "src/readme_agent/facts/aspose_knowledge_selection.py",
+        "src/readme_agent/facts/aspose_detectors.py"
+      ],
+      "invalidates_from": "FACTS_COLLECTING",
+      "closure": "Claim evidence resolves against the pinned source tree, positive/negative conflicts are explicit, and public reachability is distinct from internal symbol existence.",
+      "evidence": [
+        "source_knowledge_truth/report.md",
+        "source_knowledge_truth/truth_matrix.json"
+      ]
+    },
+    {
+      "id": "K-API-DEAD",
+      "severity": "P0",
+      "observed": "Trio API claims are rejected as covered while structured API detection produces no usable trio fact because schema and reachability variants are mishandled.",
+      "current_incident": "3,398 API claims are rejected across 3D, Note, and Barcode while imported public-surface output is empty.",
+      "owner": [
+        "src/readme_agent/facts/aspose_detectors.py",
+        "src/readme_agent/facts/render_views.py",
+        "src/readme_agent/facts/aspose_knowledge_selection.py"
+      ],
+      "invalidates_from": "FACTS_COLLECTING",
+      "closure": "Actual API schema variants normalize to non-empty canonical facts, and claims are suppressed only when equivalent structured coverage exists.",
+      "evidence": [
+        "knowledge_to_candidate/report.md",
+        "knowledge_to_candidate/lineage-matrix.json"
+      ]
+    },
+    {
+      "id": "K-VISIBLE-LINEAGE",
+      "severity": "P0",
+      "observed": "Knowledge-application evidence is written before rendering and scans document-plan operation fact IDs only; final candidate provenance is not joined.",
+      "current_incident": "Current production evidence necessarily has empty influenced sections and rendered spans; no post-feature trio artifact proves imported facts changed candidate bytes.",
+      "owner": [
+        "src/readme_agent/facts/knowledge_application_evidence.py",
+        "src/readme_agent/supervisor/product_truth.py",
+        "src/readme_agent/readme/idea_candidate.py"
+      ],
+      "invalidates_from": "CANDIDATE_GENERATED",
+      "closure": "A candidate-hash-bound final report joins plan operations and candidate-content provenance and accounts for every selected item.",
+      "evidence": [
+        "knowledge_to_candidate/report.md"
+      ]
+    },
+    {
+      "id": "V-RECONCILIATION-FAIL-OPEN",
+      "severity": "P0",
+      "observed": "Reconciliation errors are persisted as diagnostic error objects and do not block candidate promotion; relocation and omission ownership are incomplete.",
+      "current_incident": "The real relocation fixture is xfailed and verified-template full-source compilation can overlap fine-grained placements.",
+      "owner": [
+        "src/readme_agent/readme/readme_reconciliation.py",
+        "src/readme_agent/supervisor/local_poc_evidence.py",
+        "src/readme_agent/portfolio_scheduler/stages.py"
+      ],
+      "invalidates_from": "CANDIDATE_GENERATED",
+      "closure": "All source bytes and content units have causal dispositions, the real fixture passes, and any reconciliation error blocks promotion.",
+      "evidence": [
+        "acceptance_runner/REPORT.md",
+        "acceptance_runner/MATRIX.json"
+      ]
+    },
+    {
+      "id": "V-CHECK-PARITY",
+      "severity": "P0",
+      "observed": "Optimizer vendors 89 of 103 canonical Aspose checks; only 11 canonical functions currently block, and applicable hard check skips/errors fail open.",
+      "current_incident": "Fourteen canonical checks are missing; coverage artifacts can themselves contain an error without blocking acceptance.",
+      "owner": [
+        "src/readme_agent/validation/aspose_checks_bridge.py",
+        "src/readme_agent/validation/aspose_check_coverage.py",
+        "src/readme_agent/readme/document_validation.py",
+        "data/aspose_check_classification.json"
+      ],
+      "invalidates_from": "CANDIDATE_GENERATED",
+      "closure": "All 103 checks are inventoried/classified, every applicable hard check returns pass/fail, and skip/error blocks promotion.",
+      "evidence": [
+        "acceptance_runner/REPORT.md",
+        "acceptance_runner/MATRIX.json"
+      ]
+    },
+    {
+      "id": "R-QWEN-RECOVERY",
+      "severity": "P0",
+      "observed": "Merged Qwen review is capped at 4,000 completion tokens and malformed/truncated top-level output does not invoke the existing separated review clients.",
+      "current_incident": "Committed status contains an exact finish_reason=length truncated-JSON system failure.",
+      "owner": [
+        "src/readme_agent/llm/reviewer_client.py",
+        "src/readme_agent/specialists/separated_readme_review.py",
+        "src/readme_agent/specialists/readme_review_repair_loop.py"
+      ],
+      "invalidates_from": "AGENT_REVIEWING",
+      "closure": "Merged transport/parse/schema failure falls back to bounded separated blind and factual review; all material claim groups receive dispositions.",
+      "evidence": [
+        "acceptance_runner/REPORT.md"
+      ]
+    },
+    {
+      "id": "Q-SEALED-GENERATION",
+      "severity": "P0",
+      "observed": "Current no-op and candidate comparisons largely use already-refreshed READMEs; 3D imported knowledge is post-refresh and partly README-derived.",
+      "current_incident": "Historical July candidates were layout wrappers with broken placeholders and all three failed their own review; Note fabricated Maven/JDK instructions.",
+      "owner": [
+        "sealed replay campaign",
+        "calibration evidence contract"
+      ],
+      "invalidates_from": "ACQUIRING",
+      "closure": "3D, Note, and Barcode generate from pinned pre-refresh SHAs without refreshed README leakage, then pass factual, reconciliation, check, independent-review, and no-op gates.",
+      "evidence": [
+        "sealed_replay_quality/REPORT.md",
+        "sealed_replay_quality/REPLAY_FIXTURES.json"
+      ]
+    },
+    {
+      "id": "P-README-ONLY",
+      "severity": "P0",
+      "observed": "PSD/Python and PSD/.NET are in the 33-entry registry but absent from the 31 imported bundles and supplied Aspose candidate/run evidence.",
+      "current_incident": "Optimizer currently blocks PSD/Python for missing evidence; Aspose README-only handling is not proven by the supplied package.",
+      "owner": [
+        "repository-shape policy",
+        "facts acceptance contract",
+        "verified template and review contracts"
+      ],
+      "invalidates_from": "FACTS_COLLECTING",
+      "closure": "Pending PSD evidence is reconciled and a generic README-only profile produces useful prose with explicit not-applicable code surfaces and no fabricated implementation claims.",
+      "evidence": [
+        "acceptance_runner/REPORT.md",
+        "knowledge_to_candidate/report.md"
+      ]
+    },
+    {
+      "id": "D-PYTHON-NON-PYPROJECT",
+      "severity": "P1",
+      "observed": "declared_python_runtime_dependencies and declared_python_build_dependencies return a bare empty list for setup.py/setup.cfg-only repositories, with no not-applicable or parse state.",
+      "current_incident": "The result is coincidentally correct for current 3D because install_requires is empty, but the behavior is a systemic silent-zero risk for other legacy Python repositories.",
+      "owner": [
+        "src/readme_agent/facts/python_dependency_acquisition.py",
+        "src/readme_agent/facts/dependency_snapshot.py"
+      ],
+      "invalidates_from": "FACTS_COLLECTING",
+      "closure": "All Python manifest shapes either yield parsed runtime/build dependencies or an explicit typed non-applicability/error; a setup.py fixture with non-empty install_requires cannot return silent empty.",
+      "evidence": [
+        "https://github.com/babar-raza/foss-readme-optimizer/commit/91d9479b1e1fa12a9af41c1692b6f8f421db5f76"
+      ]
+    },
+    {
+      "id": "H-VERIFIED-RUNNER",
+      "severity": "P1",
+      "observed": "Hosted workflow uses an observation profile without local fact verification, independent review, or restored local evidence and targets a suspended legacy status.",
+      "current_incident": "A green hosted run cannot establish current Gate A or reconstruct a zero-call no-op across workflow runs.",
+      "owner": [
+        ".github/workflows/readme-agent-production.yml",
+        "src/readme_agent/supervisor/execution_profile.py",
+        "src/readme_agent/commands_lifecycle.py"
+      ],
+      "invalidates_from": "SCHEDULED",
+      "closure": "The existing hosted read-only path executes verified facts/review/evidence, restores content-addressed bundles, follows platform priority, and proves current NO_OP_PROVEN with zero target writes.",
+      "evidence": [
+        "acceptance_runner/REPORT.md",
+        "acceptance_runner/MATRIX.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,514 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-08-19",
+  "optimizer_main_at_start": "d71f38b6a050b5282f0ada314f9ee4de35950426",
+  "optimizer_main_latest_observed": "91d9479b1e1fa12a9af41c1692b6f8f421db5f76",
+  "canonical_check_source": "readme-refresh-complete-bundle-20260819-174412/files/scripts/pipeline/commands/foss/readme_refresh_checks.py",
+  "classification_legend": {
+    "hard_deterministic": "A deterministic failure must make the candidate ineligible for acceptance.",
+    "deterministic_diagnostic": "Deterministic evidence is recorded but is not acceptance-blocking.",
+    "heuristic_reviewer": "Probabilistic or heuristic review; useful only as a second line of defence.",
+    "absent": "No effective gate exists at the audited pin."
+  },
+  "defects": [
+    {
+      "defect_id": "D01-3D-NURBS-TO-MESH-FALSE-POSITIVE",
+      "evidence": [
+        "Imported claim 3d/python/CLM-3d-b3b916 names NurbsSurface.to_mesh().",
+        "The historical finalized 3D candidate says NurbsSurface supports converting content to mesh, while the method raises NotImplementedError.",
+        "Its final-verdict is AGENT_APPROVED and its later proof is NO_OP_PROVEN."
+      ],
+      "input_fact_ids": [
+        "3d/python/CLM-3d-b3b916",
+        "api.public_surface:python-exports"
+      ],
+      "selection_trust": "The imported api_method claim is rejected as kind_covered_by_api_surface_field, but the independently selected API public-surface fact treats exported method presence as usable positive capability; implementation polarity is absent.",
+      "plan_render_lineage": "The API table renderer describes any selected member with positive 'Supports ...' prose, so api.public_surface:python-exports authorizes a behavioral assertion that the fact does not prove.",
+      "deterministic_gates": [
+        {
+          "gate": "curated Python API eligibility/projection",
+          "type": "hard_deterministic",
+          "current_outcome": "pass",
+          "why": "It proves public symbol/member exposure, not successful behavior."
+        },
+        {
+          "gate": "check_named_member_accuracy",
+          "type": "heuristic_reviewer",
+          "current_outcome": "pass_or_not_blocking",
+          "why": "It checks named-member presence, not whether the body raises NotImplementedError."
+        }
+      ],
+      "factual_packet_reviewer_coverage": "The historical factual review sampled identity and installation, not every generated API-row claim. The packet filters facts to referenced IDs, and positive reviewer findings are not an exhaustive coverage proof.",
+      "acceptance_behavior": "AGENT_APPROVED and NO_OP_PROVEN can both succeed because hash consistency and deterministic replay do not establish behavioral truth.",
+      "cache_invalidation": "A fix in API eligibility/projection is covered by the fact/drafting contract and must force recollection and rerender; a reviewer-only fix also requires reviewer-standard invalidation.",
+      "smallest_red_green_fixture": "A temporary Python package exporting class NurbsSurface with public method to_mesh whose only behavior raises NotImplementedError. Before: rendered description contains 'Supports converting ... to mesh'. After: the symbol may remain inventoried but no positive capability prose is emitted, and a verified limitation is emitted or the member is withheld.",
+      "owner_modules": [
+        "src/readme_agent/facts/curated_python_api_eligibility.py",
+        "src/readme_agent/facts/curated_python_api_projection.py",
+        "src/readme_agent/presentation/verified_template_api_descriptions.py",
+        "tests/unit/test_curated_python_api_eligibility.py",
+        "tests/unit/test_verified_template_api_descriptions.py"
+      ]
+    },
+    {
+      "defect_id": "D02-3D-FBX-POLARITY-CONTRADICTION",
+      "evidence": [
+        "Positive claims include 3d/python/CLM-3d-2d3c40 and enriched claims ERC-3d-python-338c230c and ERC-3d-python-8e9815fe.",
+        "Negative claims 3d/python/CLM-3d-f966ea and 3d/python/CLM-3d-31f56e identify save and save_to_stream as NotImplementedError."
+      ],
+      "input_fact_ids": [
+        "3d/python/CLM-3d-2d3c40",
+        "3d/python/ERC-3d-python-338c230c",
+        "3d/python/ERC-3d-python-8e9815fe",
+        "3d/python/CLM-3d-f966ea",
+        "3d/python/CLM-3d-31f56e",
+        "aspose.format_support_claims:aspose-knowledge",
+        "aspose.limitation_claims:aspose-knowledge"
+      ],
+      "selection_trust": "For non-license claims, _file_evidence_corroboration returns corroborated if any cited file exists. It does not validate line, symbol, content, public route, or polarity. Selection groups positive and negative items into separate aggregate facts and never reconciles them; verified_any can mark a mixed aggregate verified.",
+      "plan_render_lineage": "Positive format/capability facts and negative limitation facts can both reach the plan. The renderer has no proposition key joining product, format, direction, API route, and polarity before prose is produced.",
+      "deterministic_gates": [
+        {
+          "gate": "check_capability_scope_contradiction",
+          "type": "heuristic_reviewer",
+          "current_outcome": "possible_finding_only",
+          "why": "Keyword overlap is heuristic and the check is classified nonblocking."
+        },
+        {
+          "gate": "ProductFactsV2 conflict semantics",
+          "type": "hard_deterministic",
+          "current_outcome": "pass",
+          "why": "The incompatible items are never represented as a shared unresolved conflict."
+        }
+      ],
+      "factual_packet_reviewer_coverage": "The reviewer sees only facts referenced by operations, source sections, candidate claims, or surface actions; the packet does not itself construct opposite-polarity pairs.",
+      "acceptance_behavior": "A candidate may pass while asserting FBX export and separately noting limitations, or while omitting the limitation, because only required README_TRUTH_FIELDS gate FACTS_READY and aspose.* fields are excluded.",
+      "cache_invalidation": "Changing aspose_knowledge_selection.py is included in imported_knowledge and should recollect. Any new polarity resolver must be added to the same component list explicitly.",
+      "smallest_red_green_fixture": "One fake repo with FbxExporter.py containing save and save_to_stream methods that raise NotImplementedError, plus one positive export claim and two limitation claims citing that file. Before: both positive and negative dispositions are selected/verified. After: the export proposition is blocked or resolved negative and only the scoped limitation can authorize prose; PNG/SVG-like supported control remains positive.",
+      "owner_modules": [
+        "src/readme_agent/facts/aspose_knowledge_selection.py",
+        "src/readme_agent/facts/curated_constraint_evidence.py",
+        "tests/unit/test_aspose_knowledge_selection.py",
+        "tests/unit/test_curated_constraint_evidence.py"
+      ]
+    },
+    {
+      "defect_id": "D03-3D-COLLADA-PUBLIC-VS-INTERNAL",
+      "evidence": [
+        "ColladaExporter.export is implemented and direct internal tests pass.",
+        "Public Scene.save is blocked by incompatible save options and dispatch reaching the earlier FBX exporter whose format check is not implemented.",
+        "curated_constraint_evidence._collada_dispatch_limitation already derives this scoped public-route limitation."
+      ],
+      "input_fact_ids": [
+        "3d/python/CLM-3d-cc8796",
+        "curated.constraint_evidence:python"
+      ],
+      "selection_trust": "File/symbol existence can corroborate the internal implementation but cannot promote it to a public Scene.save capability. The curated constraint detector is stronger because it proves the whole dispatch chain.",
+      "plan_render_lineage": "The two valid propositions must remain distinct: internal exporter implementation exists; public COLLADA export route is unavailable. A flat format-support claim loses that scope.",
+      "deterministic_gates": [
+        {
+          "gate": "_collada_dispatch_limitation",
+          "type": "hard_deterministic",
+          "current_outcome": "detects_limitation",
+          "why": "It requires every source link in the dispatch obstruction."
+        },
+        {
+          "gate": "generic imported-claim corroboration",
+          "type": "hard_deterministic",
+          "current_outcome": "overclaims",
+          "why": "Existing source file is treated as proof of the unscoped positive claim."
+        }
+      ],
+      "factual_packet_reviewer_coverage": "If both facts are referenced, a reviewer can distinguish them, but the contract does not require this route-scoped comparison.",
+      "acceptance_behavior": "Current acceptance can approve the flat positive claim despite the stronger limitation unless plan selection gives current repository negative evidence supremacy.",
+      "cache_invalidation": "curated_constraint_evidence.py is in fact-component hashing only if registered through its owning component; verify the exact component when implementing and add it if absent.",
+      "smallest_red_green_fixture": "Use the existing synthetic Scene/IOService/Exporter/FbxExporter/ColladaExporter graph. Assert both facts: internal ColladaExporter.export implemented=true and public Scene.save COLLADA availability=false. Before: unscoped export can remain positive. After: renderer may mention only internal implementation when explicitly labeled and must state the public limitation.",
+      "owner_modules": [
+        "src/readme_agent/facts/curated_constraint_evidence.py",
+        "src/readme_agent/facts/aspose_knowledge_selection.py",
+        "tests/unit/test_curated_constraint_evidence.py"
+      ]
+    },
+    {
+      "defect_id": "D04-PYTHON-IMPORT-ROOTS",
+      "evidence": [
+        "Imported 3D install prose says import aspose_3d_foss, while the source import root is aspose.threed.",
+        "Imported Note install prose says import aspose_note, while the source import root is aspose.note."
+      ],
+      "input_fact_ids": [
+        "installation.verified_acquisition:*",
+        "example.minimal:*"
+      ],
+      "selection_trust": "The wrong standalone install.md strings are currently supporting-only and not selected claims, so their non-use is accidental rather than a verified import-root contract. Package/distribution identity is not the Python module root.",
+      "plan_render_lineage": "Install and quick-start renderers need a separately verified import root from actual package layout or a successful isolated execution; they must not derive it from repository or distribution slug.",
+      "deterministic_gates": [
+        {
+          "gate": "check_installation_matches_package_registry",
+          "type": "heuristic_reviewer",
+          "current_outcome": "does_not_cover",
+          "why": "It validates registry package identity/published state, not Python imports."
+        },
+        {
+          "gate": "check_code_example_imports_match_source",
+          "type": "hard_deterministic",
+          "current_outcome": "does_not_cover_python",
+          "why": "The canonical implementation is Java-oriented and also needs clone_cache_root."
+        },
+        {
+          "gate": "Python example verification",
+          "type": "hard_deterministic",
+          "current_outcome": "partial",
+          "why": "A verified minimal example can protect the chosen example, but no explicit two-name regression binds distribution name to import root."
+        }
+      ],
+      "factual_packet_reviewer_coverage": "A reviewer may notice an obvious import mismatch but cannot substitute for an executable module-resolution gate.",
+      "acceptance_behavior": "A fabricated import can pass if it is outside the executed example or is supported by an overbroad acquisition fact.",
+      "cache_invalidation": "Put import-root derivation under acquisition_truth/drafting_and_example_selection so changes invalidate fact and candidate stages.",
+      "smallest_red_green_fixture": "Two Python fixtures with distribution/repo slug different from module root: aspose-3d-foss -> aspose.threed and aspose-note -> aspose.note. Before: guessed slug import can render. After: only the source-resolved import compiles/executes in the isolated verifier; wrong roots hard-fail.",
+      "owner_modules": [
+        "src/readme_agent/facts/python_dependency_acquisition.py",
+        "src/readme_agent/facts/python_example_verifier.py",
+        "src/readme_agent/presentation/template_adapters.py",
+        "tests/unit/test_agentic_readme_composition.py"
+      ]
+    },
+    {
+      "defect_id": "D05-BARCODE-PDF-POSITIVE-VS-NOTIMPLEMENTED",
+      "evidence": [
+        "Positive PDF claims: barcode/python/CLM-barcode-5c60a4 and barcode/python/CLM-barcode-04970e.",
+        "Negative claims: barcode/python/CLM-barcode-ca5609 and barcode/python/CLM-barcode-cb1a28; PdfRenderer.render and Barcode.to_pdf raise NotImplementedError.",
+        "PNG and SVG are supported controls."
+      ],
+      "input_fact_ids": [
+        "barcode/python/CLM-barcode-5c60a4",
+        "barcode/python/CLM-barcode-04970e",
+        "barcode/python/CLM-barcode-ca5609",
+        "barcode/python/CLM-barcode-cb1a28",
+        "aspose.format_support_claims:aspose-knowledge",
+        "aspose.limitation_claims:aspose-knowledge"
+      ],
+      "selection_trust": "The same existence-only corroboration and cross-field polarity gap as FBX lets PDF-positive and PDF-negative claims both appear verified.",
+      "plan_render_lineage": "Format capability rows can cite the positive aggregate while limitation rendering cites a separate negative aggregate, without a shared format/direction/route proposition.",
+      "deterministic_gates": [
+        {
+          "gate": "repository NotImplemented detector",
+          "type": "hard_deterministic",
+          "current_outcome": "finds_limitation_but_does_not_supersede_positive",
+          "why": "Detection and resolution are separate, and the resolution join is missing."
+        },
+        {
+          "gate": "capability-scope contradiction check",
+          "type": "heuristic_reviewer",
+          "current_outcome": "nonblocking",
+          "why": "Text keyword comparison is not an executable PDF-route proof."
+        }
+      ],
+      "factual_packet_reviewer_coverage": "No required proposition-level polarity table is supplied to the reviewer.",
+      "acceptance_behavior": "PDF support can be approved so long as the cited aggregate fact is selected and no blocking heuristic catches the wording.",
+      "cache_invalidation": "Same imported_knowledge and curated-constraint component requirements as D02.",
+      "smallest_red_green_fixture": "Barcode fixture with PDF renderer/to_pdf raising, plus PNG/SVG methods returning bytes. Before: all three formats can be supported. After: PDF is limitation-only; PNG/SVG stay positive, proving the fix is scoped rather than a blanket suppression.",
+      "owner_modules": [
+        "src/readme_agent/facts/aspose_knowledge_selection.py",
+        "src/readme_agent/facts/curated_constraint_evidence.py",
+        "tests/unit/test_aspose_knowledge_selection.py",
+        "tests/unit/test_curated_constraint_evidence.py"
+      ]
+    },
+    {
+      "defect_id": "D06-JULY-NOTE-FABRICATED-MAVEN-JDK",
+      "evidence": [
+        "The July Note/Python proposal inserted git checkout 6d97a522..., mvn clean install, and 'This path requires JDK unknown+ and Maven.'",
+        "Its own review marked verification false and semantic fields missing; it was not an AGENT_APPROVED final artifact."
+      ],
+      "input_fact_ids": [
+        "installation.verified_acquisition:*",
+        "example.minimal:*"
+      ],
+      "selection_trust": "The historical failure came from ecosystem/coordinate fallback without verified Python acquisition evidence. Current ecosystem detectors reduce the risk but need a pinned end-to-end regression.",
+      "plan_render_lineage": "Template fallback invented a Java build path for a Python repository when acquisition fields were absent.",
+      "deterministic_gates": [
+        {
+          "gate": "ecosystem detection and verified acquisition",
+          "type": "hard_deterministic",
+          "current_outcome": "likely_fixed_but_unproven_end_to_end",
+          "why": "Current code has Python-specific acquisition, but no sealed Note regression proves the forbidden Java fallback cannot return."
+        },
+        {
+          "gate": "claim accountability",
+          "type": "hard_deterministic",
+          "current_outcome": "would_reject_if_uncited",
+          "why": "Only if Maven/JDK prose is inventoried and not incorrectly bound to a broad install fact."
+        }
+      ],
+      "factual_packet_reviewer_coverage": "The historical review correctly reported unverified output, showing reviewer detection worked but generation was unsafe.",
+      "acceptance_behavior": "At the July stage the proposal could be emitted despite verification failure. Current production acceptance should reject, but the regression is missing.",
+      "cache_invalidation": "Template and acquisition changes must invalidate candidate and fact stages, respectively.",
+      "smallest_red_green_fixture": "Run the current full candidate pipeline on the pinned Note/Python repository snapshot with no trusted registry result. Assert candidate contains neither Maven nor JDK nor mvn, ecosystem remains Python, and unavailable acquisition is explicitly withheld/blocked rather than substituted.",
+      "owner_modules": [
+        "src/readme_agent/presentation/template_adapters.py",
+        "src/readme_agent/facts/python_dependency_acquisition.py",
+        "tests/unit/test_readme_composition_characterization.py",
+        "tests/unit/test_agentic_readme_composition.py"
+      ]
+    },
+    {
+      "defect_id": "D07-FALSE-AGENT-APPROVED-NO-OP",
+      "evidence": [
+        "Historical finalized 3D artifact path: plans/investigations/evidence/finalized-repository-readmes-v1/repositories/python/3d--62fb89f3ca76--5735c3f66e57/.",
+        "The 76,093-byte candidate contains roughly 380 API-table rows and the false Nurbs behavioral claim.",
+        "The review recorded only two quality and two factual findings, yet final-verdict is AGENT_APPROVED and no-op proof is NO_OP_PROVEN."
+      ],
+      "input_fact_ids": [
+        "api.public_surface:python-exports"
+      ],
+      "selection_trust": "The overbroad API fact passes selected-fact validation.",
+      "plan_render_lineage": "Hundreds of generated rows share a broad fact; semantic correctness is not checked per row.",
+      "deterministic_gates": [
+        {
+          "gate": "candidate claim accountability",
+          "type": "hard_deterministic",
+          "current_outcome": "structurally_complete_but_semantically_overbroad",
+          "why": "A claim can be bound to a selected fact whose value proves presence, not behavior."
+        },
+        {
+          "gate": "no-op proof",
+          "type": "hard_deterministic",
+          "current_outcome": "pass",
+          "why": "It proves replay stability, not quality or truth."
+        },
+        {
+          "gate": "independent factual review",
+          "type": "heuristic_reviewer",
+          "current_outcome": "pass",
+          "why": "There is no exhaustive one-disposition-per-material-claim coverage requirement."
+        }
+      ],
+      "factual_packet_reviewer_coverage": "fact_context includes only facts referenced by operations, source sections, candidate claims, or surface actions. The review result schema does not prove that every material candidate claim was assessed.",
+      "acceptance_behavior": "Hash-bound approval and a stable replay can bless a stable falsehood.",
+      "cache_invalidation": "The separated reviewer standard hashes prompts/schemas but not all execution/client behavior; add an explicit exhaustive-review contract/version to the acceptance key.",
+      "smallest_red_green_fixture": "A three-claim candidate where the mock factual reviewer returns findings for only two. Before: approval can proceed. After: receipt coverage reports the third claim missing and acceptance fails before AGENT_APPROVED; a complete three-disposition result passes.",
+      "owner_modules": [
+        "src/readme_agent/specialists/factual_review_packet.py",
+        "src/readme_agent/specialists/readme_presentation_review.py",
+        "src/readme_agent/readme/claim_accountability_validation.py",
+        "tests/unit/test_factual_review_packet.py",
+        "tests/unit/test_separated_readme_review.py"
+      ]
+    },
+    {
+      "defect_id": "D08-README-RECONCILIATION-GAPS",
+      "evidence": [
+        "The reconciliation builder raises on overlapping source ranges and unaccounted source loss.",
+        "local_poc_evidence converts those ValueErrors into an error JSON because reconciliation is best effort, so persistence/promotion is not blocked.",
+        "Relocation is inferred with gap_bytes in replacement_text; duplicate substrings are not one-to-one matched.",
+        "Any source operation covering a gap is labeled omitted, and omitted_count does not block. An existing real .NET move case is xfailed."
+      ],
+      "input_fact_ids": [],
+      "selection_trust": "Not a fact-selection problem; it is source-byte lineage and preservation accounting.",
+      "plan_render_lineage": "The ledger can be internally inconsistent or non-exhaustive while the candidate itself remains persistable.",
+      "deterministic_gates": [
+        {
+          "gate": "build_readme_reconciliation_report",
+          "type": "deterministic_diagnostic",
+          "current_outcome": "raises_but_is_caught",
+          "why": "The calculation is strict but its caller makes failure nonblocking."
+        },
+        {
+          "gate": "composition_lineage/protected_content validation",
+          "type": "hard_deterministic",
+          "current_outcome": "partial",
+          "why": "It protects known fragments but does not enforce five-bucket reconciliation success or verified omission reasons."
+        }
+      ],
+      "factual_packet_reviewer_coverage": "Reviewers see plan context, but exact byte partition, duplicate relocation identity, and unexplained omission are deterministic concerns and should not be delegated to them.",
+      "acceptance_behavior": "An error-valued readme-reconciliation.json can coexist with an accepted candidate; nonzero omitted_count is not an acceptance error.",
+      "cache_invalidation": "readme_reconciliation.py and aspose_check_coverage.py are not direct stage dependency inputs; local_poc_evidence.py is. Add the helpers explicitly so cached candidate evidence cannot survive semantic changes.",
+      "smallest_red_green_fixture": "Three tests: overlapping source operations must make document validation invalid; source text containing duplicate identical paragraphs with one move must not classify the other as relocated; omission without a typed verified reason must fail, while a policy-superseded removal passes. Convert the existing real .NET xfail to pass.",
+      "owner_modules": [
+        "src/readme_agent/readme/readme_reconciliation.py",
+        "src/readme_agent/supervisor/local_poc_evidence.py",
+        "src/readme_agent/readme/document_validation.py",
+        "src/readme_agent/supervisor/stage_dependencies.py",
+        "tests/unit/test_readme_reconciliation.py",
+        "tests/unit/test_local_poc_evidence.py"
+      ]
+    },
+    {
+      "defect_id": "D09-UNVERIFIED-SEO-PROVENANCE",
+      "evidence": [
+        "aspose.relevant_seo_keywords:aspose-knowledge is intentionally verification_state=unverified.",
+        "At the start pin d71f38b6, verified_template_capabilities appended that ID to authoritative capability-row fact_ids when a keyword matched.",
+        "Commit 05ef1e53 removed the unverified ID from fact_ids and added tests proving that a grounded keyword changes rendered title bytes while unrelated/no-op keywords do not."
+      ],
+      "input_fact_ids": [
+        "aspose.relevant_seo_keywords:aspose-knowledge"
+      ],
+      "selection_trust": "The fact remains correctly unverified. The unsafe upgrade into authoritative truth lineage was repaired after the start pin by 05ef1e53.",
+      "plan_render_lineage": "At 91d9479, a keyword may replace only a generic fallback title when it shares significant vocabulary and produces different bytes; it is not added to factual fact_ids. Residual: the actual keyword-to-output-span consumption is tested but not persisted in the capability plan/evidence artifact, so per-candidate attribution cannot be audited after the run.",
+      "deterministic_gates": [
+        {
+          "gate": "document operation fact verification",
+          "type": "hard_deterministic",
+          "current_outcome": "repaired_at_05ef1e53",
+          "why": "Unverified SEO IDs no longer enter authoritative row fact_ids."
+        },
+        {
+          "gate": "persisted SEO consumption lineage",
+          "type": "deterministic_diagnostic",
+          "current_outcome": "absent",
+          "why": "keyword_used_here is local control state; the emitted row tuple contains markdown, authoritative fact_ids and coordinates, but no supporting/editorial input or output-span record."
+        }
+      ],
+      "factual_packet_reviewer_coverage": "The reviewer no longer receives the keyword as factual proof through row fact_ids, which is correct. It also cannot audit which keyword actually shaped which title from persisted evidence.",
+      "acceptance_behavior": "The safety defect is closed at 05ef1e53: an unverified keyword does not authorize a factual claim. The evidence-completeness residual is nonblocking: acceptance does not require an output-span record for editorial keyword consumption.",
+      "cache_invalidation": "verified_template_capabilities.py belongs to drafting/render dependencies and must invalidate candidate artifacts.",
+      "smallest_red_green_fixture": "Safety regression now passes: matching grounded keyword changes markdown bytes and never appears in fact_ids. Residual red test: persist the resulting capability plan/evidence, locate the title byte span, and require a supporting editorial-input record naming the exact consumed keyword and its source fact without treating it as factual authorization.",
+      "current_result": "safety_closed_at_05ef1e53_evidence_residual_open",
+      "owner_modules": [
+        "src/readme_agent/presentation/verified_template_capabilities.py",
+        "src/readme_agent/presentation/verified_template_capability_seo.py",
+        "src/readme_agent/facts/aspose_seo_keyword_facts.py",
+        "tests/unit/test_verified_template_capabilities_seo_keyword_lineage.py"
+      ]
+    },
+    {
+      "defect_id": "D10-QWEN-MERGED-REVIEW-4000-TOKEN-TRUNCATION",
+      "evidence": [
+        "MERGED_REVIEW_MAX_TOKENS is 4000; transport_max_attempts and response_max_attempts are both 1.",
+        "A live Qwen response ended finish_reason=length with truncated JSON at 4000 tokens.",
+        "execute_merged_readme_review calls client.analyze before its only fallback try-block."
+      ],
+      "input_fact_ids": [],
+      "selection_trust": "The failure occurs after candidate/fact production, in independent review transport and parsing.",
+      "plan_render_lineage": "Large candidate, fact, and plan contexts make a fixed 4000-token merged response budget structurally unsafe.",
+      "deterministic_gates": [
+        {
+          "gate": "merged tool-response schema parsing",
+          "type": "hard_deterministic",
+          "current_outcome": "raises",
+          "why": "Truncated JSON cannot validate, and no bounded separated-review fallback catches the top-level LLMError."
+        },
+        {
+          "gate": "blind quality isolated fallback",
+          "type": "heuristic_reviewer",
+          "current_outcome": "not_reached",
+          "why": "It catches GroundedRoleFailure after a successful merged parse, not client length/parse failure."
+        }
+      ],
+      "factual_packet_reviewer_coverage": "No review completes on truncation; retrying the same merged shape with the same budget would not solve the structural failure.",
+      "acceptance_behavior": "The run stalls/fails rather than producing a review verdict. If prior review caches remain eligible, stale-review risk depends on cache keys.",
+      "cache_invalidation": "separated_reviewer_standard_hash binds prompts, schemas and some contracts, but not reviewer_client.py, merged execution code, token budget/attempt policy, model route, or fallback behavior. Add an execution-policy hash.",
+      "smallest_red_green_fixture": "Fake merged client raises LLMError carrying finish_reason=length on the first call; fake separated blind and factual clients return valid minimal tool results. Before: execute_merged_readme_review raises. After: exactly one bounded separated call per facet succeeds, receipt records truncation/fallback, and no identical merged retry occurs. A malformed non-length response must also take the bounded separated path or fail with an explicit classified reason.",
+      "owner_modules": [
+        "src/readme_agent/specialists/merged_readme_review.py",
+        "src/readme_agent/llm/reviewer_client.py",
+        "src/readme_agent/llm/verification_prompts.py",
+        "tests/unit/test_reviewer_client.py",
+        "tests/unit/test_separated_readme_review.py"
+      ]
+    },
+    {
+      "defect_id": "D11-BLOCKING-CHECK-SKIP-ERROR-FAILS-OPEN",
+      "evidence": [
+        "run_aspose_checks records missing parameters in checks_skipped and exceptions/non-list returns in checks_errored.",
+        "AsposeCheckResultV1.valid considers only critical findings.",
+        "document_validation appends only findings from the 11 classification rows marked blocking; it never converts an applicable blocking skip/error into an error."
+      ],
+      "input_fact_ids": [],
+      "selection_trust": "Not a selection issue; absent bridge inputs can nevertheless originate from missing fact evidence.",
+      "plan_render_lineage": "The rendered candidate reaches validation, but the validator reports unavailable checks as metadata rather than failed proof obligations.",
+      "deterministic_gates": [
+        {
+          "gate": "Aspose bridge blocking classification",
+          "type": "hard_deterministic",
+          "current_outcome": "fail_open",
+          "why": "Skip/error state is excluded from result.valid and document errors."
+        }
+      ],
+      "factual_packet_reviewer_coverage": "A reviewer cannot compensate for a deterministic check that did not run and is not told as a blocking obligation.",
+      "acceptance_behavior": "A candidate can be valid with a classified blocking check skipped or errored, provided no critical normalized finding exists.",
+      "cache_invalidation": "Bridge and classification are in aspose_checks component hashing. Also hash check-coverage semantics if they become acceptance inputs.",
+      "smallest_red_green_fixture": "Register one synthetic descriptor classified blocking=true. Case A omits one required kwarg; case B raises RuntimeError; case C returns a non-list. Before: result/document can remain valid. After: all three are invalid with typed blocking proof-obligation errors; an explicitly nonapplicable check remains a recorded nonblocking skip.",
+      "owner_modules": [
+        "src/readme_agent/validation/aspose_checks_bridge.py",
+        "src/readme_agent/readme/document_validation.py",
+        "src/readme_agent/validation/aspose_check_coverage.py",
+        "tests/unit/test_aspose_checks_registry.py",
+        "tests/unit/test_aspose_checks_fixture_coverage.py"
+      ]
+    },
+    {
+      "defect_id": "D12-MISSING-14-OF-CANONICAL-103-CHECKS",
+      "evidence": [
+        "Canonical attached Aspose source has 103 top-level check_* functions; optimizer d71 vendored source has 89.",
+        "Missing: check_additional_example_headings, check_code_example_excluded_reason_citation_too_narrow, check_content_unit_redundant_claim_verifiable, check_dependency_development_claim_not_in_manifest, check_dependency_section_subheadings_present, check_diagram_from_scratch_capability_labeled, check_diagram_label_geometry, check_frozen_blocks_unchanged, check_image_content_unit_excluded_reason_verified, check_issue_draft_rejection_list, check_no_internal_details_leaked_into_issue_draft, check_no_upstream_issue_leaked_into_install_or_quickstart, check_scope_compliance, check_seo_keyword_plan_usage.",
+        "The d71 classification file describes only the 89 vendored checks: 11 blocking applicable_reusable, 61 applicable_after_adaptation, 17 diagnostic_heuristic."
+      ],
+      "input_fact_ids": [],
+      "selection_trust": "Some missing checks require source-unit, SEO, image, dependency, or frozen-block evidence, so an exact port also requires explicit bridge inputs rather than synthetic defaults.",
+      "plan_render_lineage": "The missing scope/frozen/SEO/content-unit checks leave holes in preservation, omission, and provenance enforcement. Two missing issue-draft checks are not candidate gates for README-only execution but remain part of canonical inventory.",
+      "deterministic_gates": [
+        {
+          "gate": "vendored canonical inventory parity",
+          "type": "absent",
+          "current_outcome": "89_of_103",
+          "why": "Existing fixture-coverage tests validate the local registry, not equality with a pinned canonical 103-name manifest."
+        },
+        {
+          "gate": "classification completeness",
+          "type": "hard_deterministic",
+          "current_outcome": "complete_only_for_89",
+          "why": "It cannot detect functions absent from both vendored source and classification."
+        }
+      ],
+      "factual_packet_reviewer_coverage": "Review cannot recover omitted deterministic checks, especially frozen-content and source-unit reconciliation checks.",
+      "acceptance_behavior": "Acceptance claims Aspose-check coverage based on the local 89-check universe; it has no canonical denominator gate.",
+      "cache_invalidation": "Vendored source/classification are hashed. Add a canonical inventory manifest to the same aspose_checks component and make parity an import/test invariant.",
+      "smallest_red_green_fixture": "A committed canonical_check_inventory.json with the 103 exact names and source SHA. Test AST-extracts vendored check_* names and requires exact set equality, then requires one classification row and explicit bridge disposition for every name. Before: set difference is the 14 names. After: no difference; README-applicable checks have real inputs and issue-only checks are explicitly nonapplicable, not silently absent.",
+      "owner_modules": [
+        "src/readme_agent/vendored_asposeorg/scripts/pipeline/commands/foss/readme_refresh_checks.py",
+        "src/readme_agent/validation/aspose_checks/__init__.py",
+        "data/aspose_check_classification.json",
+        "tests/unit/test_aspose_checks_fixture_coverage.py",
+        "tests/unit/test_aspose_checks_registry.py"
+      ]
+    },
+    {
+      "defect_id": "D13-PYTHON-SETUPPY-DEPENDENCIES-SILENT-EMPTY",
+      "evidence": [
+        "Commit 91d9479 adds read-only Boundary A evidence KGAP-001.",
+        "declared_python_runtime_dependencies and declared_python_build_dependencies return bare [] whenever the manifest is not pyproject.toml.",
+        "For setup.py/setup.cfg repositories this is indistinguishable from a verified empty dependency list; the audited 3D setup.py happens to declare install_requires=[] so the current repository result is benign by coincidence."
+      ],
+      "input_fact_ids": [
+        "dependency.snapshot:*",
+        "installation.verified_acquisition:*"
+      ],
+      "selection_trust": "A silent empty list can be interpreted downstream as positive evidence of no dependencies rather than an explicit unsupported-manifest gap.",
+      "plan_render_lineage": "Install/build prose can omit real dependencies in setup.py-only repositories because absence and unparsed are collapsed.",
+      "deterministic_gates": [
+        {
+          "gate": "dependency_snapshot._python_snapshot",
+          "type": "hard_deterministic",
+          "current_outcome": "honest_not_applicable",
+          "why": "It records applicable=false and no pyproject.toml reason."
+        },
+        {
+          "gate": "python_dependency_acquisition declared dependency helpers",
+          "type": "absent",
+          "current_outcome": "silent_empty",
+          "why": "They return [] without an applicability/reason channel."
+        }
+      ],
+      "factual_packet_reviewer_coverage": "A reviewer cannot distinguish an actually empty dependency set from a parser that declined to inspect setup.py when both serialize as [].",
+      "acceptance_behavior": "The product can proceed without a visible truth gap; for the audited 3D revision this is currently correct only by coincidence.",
+      "cache_invalidation": "python_dependency_acquisition.py is in acquisition_truth and dependency_evidence component hashing, so a fix should recollect affected facts.",
+      "smallest_red_green_fixture": "A setup.py-only Python fixture whose install_requires contains one dependency. Before: both helpers return []. After: either the dependency is parsed statically or an explicit not-applicable/gap result blocks any empty-list claim; a separate setup.py with install_requires=[] proves a genuine empty result.",
+      "owner_modules": [
+        "src/readme_agent/facts/python_dependency_acquisition.py",
+        "src/readme_agent/facts/dependency_snapshot.py",
+        "tests/unit/test_python_dependency_acquisition.py"
+      ]
+    }
+  ]
+}

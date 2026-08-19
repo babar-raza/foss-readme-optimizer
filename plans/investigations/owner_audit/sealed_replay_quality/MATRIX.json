@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-08-19",
+  "method": {
+    "rule": "Pre-refresh README, implementation truth, imported knowledge, Aspose output, and optimizer output are distinct evidence classes.",
+    "no_post_refresh_input": true,
+    "syntactic_metrics_are_proxies": true,
+    "substantive_reconciliation_source": "Aspose content-dispositions.json plus source/upstream verification notes"
+  },
+  "products": {
+    "3d/python": {
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "sealed_pre_refresh_sha": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "published_tip_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+      "readme_metrics": {
+        "pre_refresh": {"lines": 189, "bytes": 6908, "h2": 12, "h3": 9, "code_examples": 2, "links": 16, "images": 0, "mermaid": 0, "table_rows": 0, "inline_code_spans": 16},
+        "aspose_published": {"lines": 435, "bytes": 17983, "h2": 11, "h3": 12, "code_examples": 11, "links": 22, "images": 3, "mermaid": 1, "table_rows": 0, "inline_code_spans": 304},
+        "aspose_post_publish_canonical_candidate": {"lines": 619, "bytes": 40822, "h2": 11, "h3": 6, "code_examples": 11, "links": 22, "images": 4, "mermaid": 1, "table_rows": 307, "inline_code_spans": 451},
+        "optimizer_2026_07_25": {"lines": 213, "bytes": 7416, "h2": 14, "h3": 9, "code_examples": 2, "links": 25, "images": 0, "mermaid": 0, "table_rows": 0, "inline_code_spans": 16}
+      },
+      "reconciliation": {"input_units": 71, "merged_reframed": 11, "excluded": 60, "source_verified_units": 48},
+      "section_matrix": [
+        {"content_unit": "opening/positioning", "pre_to_aspose": "corrected and reframed", "aspose_result": "pure-Python, exact scene model and supported formats; badges", "optimizer_result": "old opening preserved; placeholder At a glance added"},
+        {"content_unit": "installation", "pre_to_aspose": "corrected", "aspose_result": "states PyPI is not published; clone plus editable install; Python/no-runtime-dependency facts", "optimizer_result": "keeps unsupported pip-install package claim"},
+        {"content_unit": "quick start/examples", "pre_to_aspose": "preserved, corrected, and expanded", "aspose_result": "11 fenced examples including verified stream-save caveats, COLLADA import, PBR, primitive and 3MF flows", "optimizer_result": "same two old blocks; no source-derived expansion"},
+        {"content_unit": "formats/capabilities", "pre_to_aspose": "corrected and relocated", "aspose_result": "COLLADA import-only; FBX experimental/export absent; renderer/boolean/NURBS boundaries", "optimizer_result": "retains broad old support claims and inserts six None fields plus 'Runtime: Java unknown+'"},
+        {"content_unit": "API reference", "pre_to_aspose": "new from implementation truth", "aspose_result": "module-grouped public surface and import-path hazards", "optimizer_result": "no generated API reference beyond old architecture list"},
+        {"content_unit": "limitations", "pre_to_aspose": "new from source and runtime reasoning", "aspose_result": "rendering, mesh booleans, NURBS, FBX exporter, COLLADA dispatch defects disclosed", "optimizer_result": "none"},
+        {"content_unit": "presentation", "pre_to_aspose": "new", "aspose_result": "badge/banner surface, navigation, Mermaid, scannable folded details", "optimizer_result": "marker, placeholder list and TOC only; no visual or information redesign"}
+      ],
+      "source_reasoning_beyond_old_readme": [
+        "Scene.save/open dispatch behavior and plugin registration",
+        "top-level versus submodule option-class shadowing",
+        "missing collada/__init__.py import behavior",
+        "FbxExporter.save/save_to_stream immediate NotImplementedError",
+        "COLLADA exporter blocked by earlier FBX exporter dispatch",
+        "actual package publication state and dependency declaration",
+        "animation subsystem absent from the old README"
+      ],
+      "optimizer_historical_verdict": "verified=false: seven product fields missing, one fact blocked, cited facts unaccepted, validation invalid; the output is mostly the old README plus a broken presentation header."
+    },
+    "note/python": {
+      "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "sealed_pre_refresh_sha": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "published_tip_sha": "41de2e8ab478b5aeff3663f7f7cbf83b19fdf676",
+      "readme_metrics": {
+        "pre_refresh": {"lines": 478, "bytes": 14703, "h2": 9, "h3": 18, "code_examples": 22, "links": 9, "images": 4, "mermaid": 0, "table_rows": 0, "inline_code_spans": 200},
+        "aspose_published": {"lines": 528, "bytes": 23016, "h2": 12, "h3": 23, "code_examples": 20, "links": 30, "images": 5, "mermaid": 1, "table_rows": 45, "inline_code_spans": 382},
+        "aspose_post_publish_canonical_candidate": {"lines": 520, "bytes": 22461, "h2": 12, "h3": 23, "code_examples": 20, "links": 30, "images": 5, "mermaid": 1, "table_rows": 45, "inline_code_spans": 375},
+        "optimizer_2026_07_25": {"lines": 515, "bytes": 16000, "h2": 12, "h3": 18, "code_examples": 23, "links": 18, "images": 4, "mermaid": 0, "table_rows": 0, "inline_code_spans": 201}
+      },
+      "reconciliation": {"input_units": 148, "merged_reframed": 120, "excluded": 28, "source_verified_units": 122},
+      "section_matrix": [
+        {"content_unit": "opening/positioning", "pre_to_aspose": "corrected and condensed", "aspose_result": "verified library scope and exact inputs/outputs with standard header", "optimizer_result": "old opening preserved; placeholder At a glance added"},
+        {"content_unit": "installation/dependencies", "pre_to_aspose": "preserved and reconciled", "aspose_result": "PyPI/local install plus required, optional, native/system and development dependency buckets", "optimizer_result": "fabricates Maven/JDK source build before the correct Python install section"},
+        {"content_unit": "examples", "pre_to_aspose": "preserved, curated, relocated", "aspose_result": "20 blocks retained with duplication controlled and supporting examples folded", "optimizer_result": "preserves old blocks without verification-driven curation"},
+        {"content_unit": "API reference", "pre_to_aspose": "reorganized and source-verified", "aspose_result": "45 table rows/grouped API details, public/internal boundary and exact exception paths", "optimizer_result": "old long list preserved"},
+        {"content_unit": "limitations", "pre_to_aspose": "corrected and expanded", "aspose_result": "read-only ONE, password rejection, PDF-only save, licensing no-ops, DetectLayoutChanges stub", "optimizer_result": "old three-item list only"},
+        {"content_unit": "links/presentation", "pre_to_aspose": "corrected and expanded", "aspose_result": "real org links, docs/kb/reference/issues, badge/banner/navigation/Mermaid", "optimizer_result": "keeps stale aspose-note org links; no diagram/banner"}
+      ],
+      "source_reasoning_beyond_old_readme": [
+        "Document.FileFormat unconditional OneNote2010 behavior",
+        "License.SetLicense and Metered.SetMeteredKey no-op bodies",
+        "AsposeNoteError not re-exported from aspose.note",
+        "manifest separation of ReportLab/Pillow required, pypdf/PyMuPDF optional/dev dependencies",
+        "real CI commands and PDF-golden behavior",
+        "stale GitHub organization links"
+      ],
+      "optimizer_historical_verdict": "verified=false and materially unsafe: it emitted Java/Maven/JDK instructions for a Python project while all seven semantic product fields were missing."
+    },
+    "barcode/python": {
+      "repository": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "sealed_pre_refresh_sha": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+      "published_tip_sha": "06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
+      "readme_metrics": {
+        "pre_refresh": {"lines": 215, "bytes": 6602, "h2": 9, "h3": 4, "code_examples": 13, "links": 2, "images": 0, "mermaid": 0, "table_rows": 19, "inline_code_spans": 65},
+        "aspose_post_publish_canonical_candidate": {"lines": 272, "bytes": 11403, "h2": 12, "h3": 9, "code_examples": 9, "links": 22, "images": 3, "mermaid": 1, "table_rows": 32, "inline_code_spans": 114},
+        "optimizer_2026_07_25": {"lines": 238, "bytes": 7313, "h2": 11, "h3": 4, "code_examples": 13, "links": 11, "images": 0, "mermaid": 0, "table_rows": 19, "inline_code_spans": 65}
+      },
+      "published_readme_note": "GitHub connector verified published README blob 03445fbc7b846b51c500a4a5e3d956c14a57b149 at the tip. The later bundle candidate is separately identified and must not be mistaken for that exact blob.",
+      "reconciliation": {"input_units": 51, "merged_verbatim": 40, "excluded": 11, "source_verified_units": 29},
+      "section_matrix": [
+        {"content_unit": "opening/positioning", "pre_to_aspose": "preserved and reframed", "aspose_result": "brand-correct title, exact symbologies/outputs, badges/banner", "optimizer_result": "old title/body preserved; placeholder At a glance added"},
+        {"content_unit": "installation/dependencies", "pre_to_aspose": "preserved and separated", "aspose_result": "source install plus Pillow runtime, Python/native, pytest/ruff dev buckets", "optimizer_result": "old install/requirements unchanged"},
+        {"content_unit": "examples", "pre_to_aspose": "preserved and curated", "aspose_result": "primary path plus folded QR, Code39, render options and explicit renderer examples", "optimizer_result": "all old examples retained without hierarchy change"},
+        {"content_unit": "API reference", "pre_to_aspose": "new and source-derived", "aspose_result": "Barcode entry point, public/internal classes, enumerations and method contracts", "optimizer_result": "no API-reference reconstruction"},
+        {"content_unit": "limitations", "pre_to_aspose": "expanded from implementation truth", "aspose_result": "encode-only, PDF unimplemented, ECI and GS1 helper stubs", "optimizer_result": "only old PDF blockquote; no governed limitation section"},
+        {"content_unit": "links/presentation", "pre_to_aspose": "new", "aspose_result": "docs/kb/reference/issues plus standard navigation and Mermaid", "optimizer_result": "TOC only; no diagram/banner"}
+      ],
+      "source_reasoning_beyond_old_readme": [
+        "ECI normalize/validate and GS1 parse/validate unimplemented helper bodies",
+        "real Pillow runtime dependency versus pytest/ruff development-only dependencies",
+        "public Barcode/generate/helper and Renderer surfaces",
+        "encode-only boundary and exact PDF failure paths"
+      ],
+      "optimizer_historical_verdict": "verified=false: the byte change is almost entirely marker, placeholders and TOC; seven semantic product fields remain missing."
+    }
+  },
+  "cross_product_conclusion": {
+    "aspose_quality_mechanism": "source-backed reconciliation plus explicit content dispositions, runtime/source defect discovery, curated composition, and many semantic/presentation gates",
+    "optimizer_historical_mechanism": "deterministic wrapping of the old README despite missing semantic facts; reproducible but not a quality transformation",
+    "no_op_warning": "A run against the already-refreshed README can prove preservation only, never generation quality from the sealed predecessor."
+  }
+}

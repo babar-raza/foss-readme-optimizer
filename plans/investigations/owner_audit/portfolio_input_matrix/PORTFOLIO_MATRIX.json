@@ -1,0 +1,3159 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-08-19",
+  "source_pins": {
+    "optimizer_github_main_at_start": "d71f38b6a050b5282f0ada314f9ee4de35950426",
+    "older_local_audit_checkout": "56a5f09c80f57581d977d77142ed8809ed1ede9d",
+    "relationship": "56a5f09 is an ancestor of d71; d71 is authoritative",
+    "later_commits_observed": [
+      {
+        "sha": "05ef1e532ae34bea07fefe951543a43f41ca55c4",
+        "title": "fix(presentation): make SEO knowledge shape capability titles safely",
+        "assessment": "A later renderer change: relevant SEO keywords can shape a grounded generic capability title. It does not alter the 33 registry rows, live source tips/tree shapes, imported bundle repo_sha values, bundle presence, or dependency-parser coverage audited here. The other five imported claim fields remain unconsumed per the commit itself."
+      }
+    ]
+  },
+  "scope": {
+    "registry_rows": 33,
+    "identity_rule": "registry, live source, imported knowledge, published README, Aspose candidate, and optimizer evidence remain separate"
+  },
+  "summary": {
+    "registry_status": {
+      "full": 2,
+      "dry_run": 29,
+      "disabled": 2
+    },
+    "ecosystem_rows": {
+      "cpp": 4,
+      "go": 2,
+      "java": 4,
+      "net": 7,
+      "python": 13,
+      "rust": 1,
+      "typescript": 2
+    },
+    "live_repositories_accessible": 33,
+    "readme_only_repositories": 2,
+    "knowledge_present": 31,
+    "knowledge_current_vs_live_tip": 9,
+    "knowledge_stale_vs_live_tip": 22,
+    "knowledge_absent": 2,
+    "bundle_manifest_present": 18,
+    "dependency_snapshot_applicable": 12,
+    "aspose_candidates": 31,
+    "aspose_active_calibration": 30,
+    "optimizer_historical_candidates": 10
+  },
+  "products": [
+    {
+      "identity": {
+        "family": "3d",
+        "platform": "java",
+        "ecosystem": "java",
+        "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+        "repo_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Java"
+      },
+      "registry": {
+        "active": true,
+        "mode": "full",
+        "status": "enabled",
+        "execution_priority": 3,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-3d-foss"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "e308de58888635956cd66e5b0e2994dd42cd4356",
+        "tip_observed_at": "2026-08-11T04:45:36Z",
+        "default_branch": "main",
+        "readme_bytes": 22930,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "pom.xml"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "e308de58888635956cd66e5b0e2994dd42cd4356",
+        "repo_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Java.git",
+        "promoted_at": "2026-08-14T11:40:06.330285+00:00",
+        "freshness_vs_live_tip": "current",
+        "index_declares_stale": false,
+        "claim_count": 4147,
+        "class_count": 266,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/3d.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "post_refresh_tip_risk_not_independently_sealed"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 22930,
+        "at_tip_sha": "e308de58888635956cd66e5b0e2994dd42cd4356"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/3d/java/readme.md",
+        "bytes": 39770,
+        "last_verified": {
+          "readme_sha256": "df3142619957c3ea72b882a080230b12b1a735a4a7fddb6862f66c79a44004ab",
+          "verified_at": "2026-08-19T10:58:33.552075Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Establish a sealed pre-refresh replay/independent source verification so post-refresh knowledge cannot grade its own README output."
+    },
+    {
+      "identity": {
+        "family": "3d",
+        "platform": "net",
+        "ecosystem": "net",
+        "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+        "repo_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-.NET"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 2,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-3d-foss-net"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "042a1e5f731d8fbca65e2a47a15891b2ba32b352",
+        "tip_observed_at": "2026-08-19T13:56:06Z",
+        "default_branch": "main",
+        "readme_bytes": 34562,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "src/main/Aspose.ThreeD/Aspose.ThreeD.csproj",
+          "src/converter/Converter.csproj",
+          "src/test/Aspose.ThreeD.Tests/Aspose.ThreeD.Tests.csproj"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "70933ab13eb0e313d9b160c55845011d366b1599",
+        "repo_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-.NET.git",
+        "promoted_at": "2026-08-14T11:44:03.462614+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 3368,
+        "class_count": 292,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/3d.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 34562,
+        "at_tip_sha": "042a1e5f731d8fbca65e2a47a15891b2ba32b352"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/3d/net/readme.md",
+        "bytes": 34552,
+        "last_verified": {
+          "readme_sha256": "24e632a7a63619003d96c88d5400eb5e8dc4c64a57dd46616b2f9dc8d58173a5",
+          "verified_at": "2026-08-19T11:10:24.679681Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "3d",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "repo_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 1,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-3d-foss-python"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "tip_observed_at": "2026-08-14T09:56:03Z",
+        "default_branch": "master",
+        "readme_bytes": 17983,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "setup.py"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "known": true,
+        "note": "sealed audit fixture"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "repo_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git",
+        "promoted_at": "2026-08-14T11:52:56.169369+00:00",
+        "freshness_vs_live_tip": "current",
+        "index_declares_stale": false,
+        "claim_count": 3452,
+        "class_count": 327,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/3d.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "confirmed_post_refresh_readme_evidence"
+      },
+      "dependency_snapshot": {
+        "support": "parser_exists_but_supported_root_manifest_absent",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 17983,
+        "at_tip_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/3d/python/readme.md",
+        "bytes": 41441,
+        "last_verified": {
+          "readme_sha256": "8d4a9f00029af81f97c48e63e6c92c6839cce59c2418899e81eeef04ce201694",
+          "verified_at": "2026-08-19T10:35:01.197178Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": true,
+        "path": "plans/investigations/evidence/finalized-repository-readmes-v1",
+        "source_revision": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+        "candidate_sha256": "5735c3f66e57ea82a82220aeead1e4dfbe18d36f3b53ad06b3b02381706d4289",
+        "reported_verdict": "NO_OP_PROVEN",
+        "current_proof": false,
+        "caveat": "Historical pre-knowledge-layer evidence; denominator text says 10/32 and is stale against the 33-row registry. It must not be treated as current-contract acceptance."
+      },
+      "first_honest_blocker_or_gate": "Establish a sealed pre-refresh replay/independent source verification so post-refresh knowledge cannot grade its own README output."
+    },
+    {
+      "identity": {
+        "family": "3d",
+        "platform": "typescript",
+        "ecosystem": "typescript",
+        "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+        "repo_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 5,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-3d-foss-typescript"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "7b959706f2ad976db929f26ec079f43a07d578e1",
+        "tip_observed_at": "2026-08-11T08:01:01Z",
+        "default_branch": "master",
+        "readme_bytes": 22250,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "package.json",
+          "tsconfig.json"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "7b959706f2ad976db929f26ec079f43a07d578e1",
+        "repo_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript.git",
+        "promoted_at": "2026-08-14T11:46:17.512470+00:00",
+        "freshness_vs_live_tip": "current",
+        "index_declares_stale": false,
+        "claim_count": 2276,
+        "class_count": 140,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/3d.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "post_refresh_tip_risk_not_independently_sealed"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 22250,
+        "at_tip_sha": "7b959706f2ad976db929f26ec079f43a07d578e1"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/3d/typescript/readme.md",
+        "bytes": 22540,
+        "last_verified": {
+          "readme_sha256": "7e6340ad31ce4c3ee52b3311db09df1ae7cbeb292f0bf14c8660f0983ce7a563",
+          "verified_at": "2026-08-19T10:35:01.743070Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Establish a sealed pre-refresh replay/independent source verification so post-refresh knowledge cannot grade its own README output."
+    },
+    {
+      "identity": {
+        "family": "barcode",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+        "repo_url": "https://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 1,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-barcode-foss-python"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
+        "tip_observed_at": "2026-08-15T06:33:11Z",
+        "default_branch": "main",
+        "readme_bytes": 11093,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "pyproject.toml"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "known": true,
+        "note": "sealed audit fixture"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "repo_url": "https://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python.git",
+        "promoted_at": "2026-07-13T09:24:06.217823+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 375,
+        "class_count": 26,
+        "api_confidence": "medium",
+        "bundle_manifest_present": false,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/barcode.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "implemented_and_manifest_present",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": true
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 11093,
+        "at_tip_sha": "06eca5c01e13ed6d59a640f1cf330c1c5a57d151"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/barcode/python/readme.md",
+        "bytes": 11403,
+        "last_verified": {
+          "readme_sha256": "4bf2e76d928b3673da965c1c5f4fa2b658786c5b002994dffc8e7e6781287288",
+          "verified_at": "2026-08-19T10:35:08.114571Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": true,
+        "path": "plans/investigations/evidence/finalized-repository-readmes-v1",
+        "source_revision": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "candidate_sha256": "2cac2f2bfa460f7de8e28bbe7f021db57657d2e310dda840eaddbba6d4a092f4",
+        "reported_verdict": "NO_OP_PROVEN",
+        "current_proof": false,
+        "caveat": "Historical pre-knowledge-layer evidence; denominator text says 10/32 and is stale against the 33-row registry. It must not be treated as current-contract acceptance."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "cells",
+        "platform": "cpp",
+        "ecosystem": "cpp",
+        "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 4,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-cells-foss-cpp"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "9f852d0ff1cfdad2d661556d6b87a8eff8c063a2",
+        "tip_observed_at": "2026-08-13T09:25:30Z",
+        "default_branch": "main",
+        "readme_bytes": 33115,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "Aspose.Cells.Foss.Cpp/CMakeLists.txt",
+          "Aspose.Cells.Foss.Cpp.Tests/CMakeLists.txt"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "9f852d0ff1cfdad2d661556d6b87a8eff8c063a2",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp.git",
+        "promoted_at": "2026-08-14T11:46:58.383753+00:00",
+        "freshness_vs_live_tip": "current",
+        "index_declares_stale": false,
+        "claim_count": 2611,
+        "class_count": 199,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/cells.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "post_refresh_tip_risk_not_independently_sealed"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 33115,
+        "at_tip_sha": "9f852d0ff1cfdad2d661556d6b87a8eff8c063a2"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/cells/cpp/readme.md",
+        "bytes": 33067,
+        "last_verified": {
+          "readme_sha256": "59903f493dbbfbf85b3274d3baa72d88fbf462e470bcc862df1e0ba270e56400",
+          "verified_at": "2026-08-19T10:35:11.440590Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Establish a sealed pre-refresh replay/independent source verification so post-refresh knowledge cannot grade its own README output."
+    },
+    {
+      "identity": {
+        "family": "cells",
+        "platform": "go",
+        "ecosystem": "go",
+        "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Go"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 7,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-cells-foss-go"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "9f0a4033b59e9127afec7662ec9079b500af8032",
+        "tip_observed_at": "2026-08-13T14:31:37Z",
+        "default_branch": "main",
+        "readme_bytes": 18122,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "go.mod",
+          "go.sum"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "9f0a4033b59e9127afec7662ec9079b500af8032",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Go.git",
+        "promoted_at": "2026-08-14T09:34:30.986932+00:00",
+        "freshness_vs_live_tip": "current",
+        "index_declares_stale": false,
+        "claim_count": 113,
+        "class_count": 14,
+        "api_confidence": "medium",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/cells.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "post_refresh_tip_risk_not_independently_sealed"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 18122,
+        "at_tip_sha": "9f0a4033b59e9127afec7662ec9079b500af8032"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/cells/go/readme.md",
+        "bytes": 18122,
+        "last_verified": {
+          "readme_sha256": "b940c7b7c251b5e661fc13e82227eb8dc4305aa716cdd9cee9906cee1a4298d3",
+          "verified_at": "2026-08-19T10:35:11.822293Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Establish a sealed pre-refresh replay/independent source verification so post-refresh knowledge cannot grade its own README output."
+    },
+    {
+      "identity": {
+        "family": "cells",
+        "platform": "java",
+        "ecosystem": "java",
+        "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+      },
+      "registry": {
+        "active": true,
+        "mode": "full",
+        "status": "enabled",
+        "execution_priority": 3,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-cells-foss"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "779c9640ee38ed9e80c53e8db1e850f6be24372f",
+        "tip_observed_at": "2026-08-13T18:01:11Z",
+        "default_branch": "master",
+        "readme_bytes": 29294,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "pom.xml"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "779c9640ee38ed9e80c53e8db1e850f6be24372f",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java.git",
+        "promoted_at": "2026-08-14T11:48:32.160390+00:00",
+        "freshness_vs_live_tip": "current",
+        "index_declares_stale": false,
+        "claim_count": 4876,
+        "class_count": 182,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/cells.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "post_refresh_tip_risk_not_independently_sealed"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 29294,
+        "at_tip_sha": "779c9640ee38ed9e80c53e8db1e850f6be24372f"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/cells/java/readme.md",
+        "bytes": 29294,
+        "last_verified": {
+          "readme_sha256": "026a18929812ffa64e151962e81952df0ebacc9e7178207310f813589ee11304",
+          "verified_at": "2026-08-19T10:35:14.836313Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Establish a sealed pre-refresh replay/independent source verification so post-refresh knowledge cannot grade its own README output."
+    },
+    {
+      "identity": {
+        "family": "cells",
+        "platform": "net",
+        "ecosystem": "net",
+        "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-.NET"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 2,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-cells-foss-net"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "6ee32c08a6090a778fab03e66afac731859f93a9",
+        "tip_observed_at": "2026-08-14T08:29:39Z",
+        "default_branch": "master",
+        "readme_bytes": 26217,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "Aspose.Cells_FOSS.sln"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "6ee32c08a6090a778fab03e66afac731859f93a9",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-.NET.git",
+        "promoted_at": "2026-08-14T09:33:47.295871+00:00",
+        "freshness_vs_live_tip": "current",
+        "index_declares_stale": false,
+        "claim_count": 665,
+        "class_count": 96,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/cells.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "post_refresh_tip_risk_not_independently_sealed"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 26217,
+        "at_tip_sha": "6ee32c08a6090a778fab03e66afac731859f93a9"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/cells/net/readme.md",
+        "bytes": 26217,
+        "last_verified": {
+          "readme_sha256": "6dca1ea2e2b4d3a31991dff2a7aaa52cac5fcf982c5a854483b146f2893086c3",
+          "verified_at": "2026-08-19T10:35:18.149568Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Establish a sealed pre-refresh replay/independent source verification so post-refresh knowledge cannot grade its own README output."
+    },
+    {
+      "identity": {
+        "family": "cells",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Python"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 1,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-cells-foss-python"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "26c3bd1633e84b91c0f6fad1fd353662fd61fb54",
+        "tip_observed_at": "2026-08-14T10:03:10Z",
+        "default_branch": "main",
+        "readme_bytes": 20006,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "pyproject.toml",
+          "requirements.txt"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "26c3bd1633e84b91c0f6fad1fd353662fd61fb54",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Python.git",
+        "promoted_at": "2026-08-14T11:45:53.591144+00:00",
+        "freshness_vs_live_tip": "current",
+        "index_declares_stale": false,
+        "claim_count": 2381,
+        "class_count": 128,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/cells.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "post_refresh_tip_risk_not_independently_sealed"
+      },
+      "dependency_snapshot": {
+        "support": "implemented_and_manifest_present",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": true
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 20006,
+        "at_tip_sha": "26c3bd1633e84b91c0f6fad1fd353662fd61fb54"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/cells/python/readme.md",
+        "bytes": 20005,
+        "last_verified": {
+          "readme_sha256": "ada2aadd0dedee7b9c74ea7eab64c3b8a11e71ffbf3d06d2a83eb09eca8ae692",
+          "verified_at": "2026-08-19T10:35:52.722615Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": true,
+        "path": "plans/investigations/evidence/finalized-repository-readmes-v1",
+        "source_revision": "1139a9a90280783cd91a7d3747adfdaa97a9cb47",
+        "candidate_sha256": "a26af7c74cc3d061e60e6f114e5a7283fbe3c451c67935693af8e1b72f6d217c",
+        "reported_verdict": "NO_OP_PROVEN",
+        "current_proof": false,
+        "caveat": "Historical pre-knowledge-layer evidence; denominator text says 10/32 and is stale against the 33-row registry. It must not be treated as current-contract acceptance."
+      },
+      "first_honest_blocker_or_gate": "Establish a sealed pre-refresh replay/independent source verification so post-refresh knowledge cannot grade its own README output."
+    },
+    {
+      "identity": {
+        "family": "cells",
+        "platform": "rust",
+        "ecosystem": "rust",
+        "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 6,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-cells-foss-rust"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "1a6004af47b1ef15385f9d36d381a8172428cc7e",
+        "tip_observed_at": "2026-08-14T12:32:30Z",
+        "default_branch": "master",
+        "readme_bytes": 33905,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "Cargo.toml"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust.git",
+        "promoted_at": "2026-07-25T05:22:53.286822+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 1926,
+        "class_count": 213,
+        "api_confidence": "high",
+        "bundle_manifest_present": false,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/cells.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "implemented_and_manifest_present",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": true
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 33905,
+        "at_tip_sha": "1a6004af47b1ef15385f9d36d381a8172428cc7e"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/cells/rust/readme.md",
+        "bytes": 33905,
+        "last_verified": {
+          "readme_sha256": "71de1b2fe224df2ec332c6f4b2ee0c181afb659e5c6b01ad4703d9d3ecd8e436",
+          "verified_at": "2026-08-19T10:35:54.748496Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "cells",
+        "platform": "typescript",
+        "ecosystem": "typescript",
+        "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 5,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-cells-foss-typescript"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "fc186507e5b7124f4664aa6035f25cfd3112367d",
+        "tip_observed_at": "2026-08-14T14:57:33Z",
+        "default_branch": "master",
+        "readme_bytes": 14907,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "package.json",
+          "tsconfig.json"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "cabbb9d8ba2067854f7cb3dcdc4acfeec849747b",
+        "repo_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript.git",
+        "promoted_at": "2026-08-12T11:46:42.301299+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 740,
+        "class_count": 101,
+        "api_confidence": "high",
+        "bundle_manifest_present": false,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/cells.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 14907,
+        "at_tip_sha": "fc186507e5b7124f4664aa6035f25cfd3112367d"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/cells/typescript/readme.md",
+        "bytes": 15241,
+        "last_verified": null,
+        "calibration_membership": "excluded_extra_candidate"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "email",
+        "platform": "cpp",
+        "ecosystem": "cpp",
+        "repository": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "repo_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Cpp"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 4,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-email-foss-cpp"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "fef9c934c3ad7a207c97cc24546176e678f577af",
+        "tip_observed_at": "2026-08-15T07:27:23Z",
+        "default_branch": "master",
+        "readme_bytes": 24148,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "CMakeLists.txt",
+          "CMakePresets.json"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+        "repo_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Cpp.git",
+        "promoted_at": "2026-07-12T14:38:29.110909+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 237,
+        "class_count": 26,
+        "api_confidence": "high",
+        "bundle_manifest_present": false,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/email.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 24148,
+        "at_tip_sha": "fef9c934c3ad7a207c97cc24546176e678f577af"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/email/cpp/readme.md",
+        "bytes": 24148,
+        "last_verified": {
+          "readme_sha256": "a092d3c0a0bb75796a9064f9abb4194362b6562ca9e0acb2affe921c8adf4f05",
+          "verified_at": "2026-08-19T10:35:55.376428Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "email",
+        "platform": "net",
+        "ecosystem": "net",
+        "repository": "aspose-email-foss/Aspose.Email-FOSS-for-.Net",
+        "repo_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-.Net"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 2,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-email-foss-net"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "59125b4732df0eedbc4d4c2ab978698ed4348eb7",
+        "tip_observed_at": "2026-08-15T07:29:40Z",
+        "default_branch": "main",
+        "readme_bytes": 17354,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "Directory.Build.props",
+          "src/Aspose.Email.Foss/Aspose.Email.Foss.csproj"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "a8999e259143a9ffc660086b34a7f39516da29f5",
+        "repo_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-.Net.git",
+        "promoted_at": "2026-07-12T14:38:29.516378+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 221,
+        "class_count": 29,
+        "api_confidence": "high",
+        "bundle_manifest_present": false,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/email.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 17354,
+        "at_tip_sha": "59125b4732df0eedbc4d4c2ab978698ed4348eb7"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/email/net/readme.md",
+        "bytes": 17354,
+        "last_verified": {
+          "readme_sha256": "3e9bc7ea033ec50db9575949952894b9ca9f09005a64aa2ff26970f3ae987bac",
+          "verified_at": "2026-08-19T10:35:56.003873Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "email",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+        "repo_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 1,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-email-foss-python"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "10a906b48c0c11005c4d93b524e4431901c9717c",
+        "tip_observed_at": "2026-08-15T07:32:33Z",
+        "default_branch": "master",
+        "readme_bytes": 19965,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "pyproject.toml"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+        "repo_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python.git",
+        "promoted_at": "2026-07-12T14:38:29.873029+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 303,
+        "class_count": 30,
+        "api_confidence": "high",
+        "bundle_manifest_present": false,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/email.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "implemented_and_manifest_present",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": true
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 19965,
+        "at_tip_sha": "10a906b48c0c11005c4d93b524e4431901c9717c"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/email/python/readme.md",
+        "bytes": 20114,
+        "last_verified": {
+          "readme_sha256": "0310fb384658411069482bf7d377a05fe3fdb5a6ab2cd1406c8c1240dcb8bdcd",
+          "verified_at": "2026-08-19T10:35:58.360270Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": true,
+        "path": "plans/investigations/evidence/finalized-repository-readmes-v1",
+        "source_revision": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+        "candidate_sha256": "080d395ba7cc39d65bb17febf3dd9a1bd12f1e594d9ff9dcaa05e398686e1dd1",
+        "reported_verdict": "NO_OP_PROVEN",
+        "current_proof": false,
+        "caveat": "Historical pre-knowledge-layer evidence; denominator text says 10/32 and is stale against the 33-row registry. It must not be treated as current-contract acceptance."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "font",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
+        "repo_url": "https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 1,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-font-foss-python"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "7971880964143c86ffd4baa7c8ea1dd959fea04e",
+        "tip_observed_at": "2026-08-15T15:22:31Z",
+        "default_branch": "main",
+        "readme_bytes": 43942,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "pyproject.toml",
+          "setup.py",
+          "uv.lock"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "136b6e20c3916ac4c8efac0714948a4136b491a3",
+        "repo_url": "https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python.git",
+        "promoted_at": "2026-08-14T09:34:44.666889+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 4826,
+        "class_count": 267,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/font.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "implemented_and_manifest_present",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": true
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 43942,
+        "at_tip_sha": "7971880964143c86ffd4baa7c8ea1dd959fea04e"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/font/python/readme.md",
+        "bytes": 43942,
+        "last_verified": {
+          "readme_sha256": "5677cc6783d8b50c281f67d9e9938960676692b81c7c39fe83d092079d955a46",
+          "verified_at": "2026-08-19T10:36:55.909758Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": true,
+        "path": "plans/investigations/evidence/finalized-repository-readmes-v1",
+        "source_revision": "800ea256fec1eec387cba1fc599530cd402ef515",
+        "candidate_sha256": "636bf4e263cccf3a7394b7b903c4c6f12edf20388598bb4d86533c4d55934791",
+        "reported_verdict": "NO_OP_PROVEN",
+        "current_proof": false,
+        "caveat": "Historical pre-knowledge-layer evidence; denominator text says 10/32 and is stale against the 33-row registry. It must not be treated as current-contract acceptance."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "html",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+        "repo_url": "https://github.com/aspose-html-foss/Aspose.HTML-FOSS-for-Python"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 1,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-html-foss-python"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "912f0ae078b5418226a51de08539bc591547682e",
+        "tip_observed_at": "2026-08-16T13:12:43Z",
+        "default_branch": "main",
+        "readme_bytes": 33238,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "pyproject.toml"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
+        "repo_url": "https://github.com/aspose-html-foss/Aspose.HTML-FOSS-for-Python.git",
+        "promoted_at": "2026-07-25T15:50:47.602779+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 2144,
+        "class_count": 244,
+        "api_confidence": "high",
+        "bundle_manifest_present": false,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/html.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "implemented_and_manifest_present",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": true
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 33238,
+        "at_tip_sha": "912f0ae078b5418226a51de08539bc591547682e"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/html/python/readme.md",
+        "bytes": 33330,
+        "last_verified": {
+          "readme_sha256": "2130ce2e4a26c4f1328153427e309ca2c695fd3a755b0deeb55f91710a81ce08",
+          "verified_at": "2026-08-19T10:39:39.257449Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "note",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        "repo_url": "https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 1,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-note-foss-python"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "41de2e8ab478b5aeff3663f7f7cbf83b19fdf676",
+        "tip_observed_at": "2026-08-15T19:30:13Z",
+        "default_branch": "main",
+        "readme_bytes": 23016,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "pyproject.toml"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "known": true,
+        "note": "sealed audit fixture"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "repo_url": "https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python.git",
+        "promoted_at": "2026-07-12T14:38:31.127804+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 333,
+        "class_count": 39,
+        "api_confidence": "high",
+        "bundle_manifest_present": false,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/note.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "implemented_and_manifest_present",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": true
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 23016,
+        "at_tip_sha": "41de2e8ab478b5aeff3663f7f7cbf83b19fdf676"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/note/python/readme.md",
+        "bytes": 22461,
+        "last_verified": {
+          "readme_sha256": "3ce54cb4f84a99c5a675d9a17bb8f2ec8fe150b9418aac0cc62045e1dd790bd4",
+          "verified_at": "2026-08-19T10:39:44.635054Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": true,
+        "path": "plans/investigations/evidence/finalized-repository-readmes-v1",
+        "source_revision": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "candidate_sha256": "2333e0c2956532284141cf356b1a2ef34d237a3c2419a836ade7f13c91eb6a40",
+        "reported_verdict": "NO_OP_PROVEN",
+        "current_proof": false,
+        "caveat": "Historical pre-knowledge-layer evidence; denominator text says 10/32 and is stale against the 33-row registry. It must not be treated as current-contract acceptance."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "page",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+        "repo_url": "https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 1,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-page-foss-python"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "ca4fb3d76f9a3bdac34fc0f96801efd1cd31eb9e",
+        "tip_observed_at": "2026-08-16T15:25:24Z",
+        "default_branch": "main",
+        "readme_bytes": 24330,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "pyproject.toml",
+          "setup.py"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+        "repo_url": "https://github.com/aspose-page-foss/Aspose.Page-FOSS-for-Python.git",
+        "promoted_at": "2026-08-14T11:49:43.474723+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 1200,
+        "class_count": 139,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/page.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "implemented_and_manifest_present",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": true
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 24330,
+        "at_tip_sha": "ca4fb3d76f9a3bdac34fc0f96801efd1cd31eb9e"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/page/python/readme.md",
+        "bytes": 24075,
+        "last_verified": {
+          "readme_sha256": "11bf6d94bee6162b8a63474665a4dd01db802ee626a4bc7b2e03d555c13ffdce",
+          "verified_at": "2026-08-19T10:41:13.119687Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": true,
+        "path": "plans/investigations/evidence/finalized-repository-readmes-v1",
+        "source_revision": "dac5d70e0f91949a780f2e98dfbb12314a5fbc70",
+        "candidate_sha256": "e607c404e5afa57bc0aa000da991fe570f1bd7709ff021e636ad6218591a7832",
+        "reported_verdict": "NO_OP_PROVEN",
+        "current_proof": false,
+        "caveat": "Historical pre-knowledge-layer evidence; denominator text says 10/32 and is stale against the 33-row registry. It must not be treated as current-contract acceptance."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "pdf",
+        "platform": "cpp",
+        "ecosystem": "cpp",
+        "repository": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp",
+        "repo_url": "https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 4,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-pdf-foss-cpp"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "888700a8e361d32df21d0810c2eb939345e0603e",
+        "tip_observed_at": "2026-08-17T18:16:55Z",
+        "default_branch": "main",
+        "readme_bytes": 46400,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "CMakeLists.txt",
+          "CMakePresets.json"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "40858b60e9babbab4865180e00e2db39f2ba27f8",
+        "repo_url": "https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp.git",
+        "promoted_at": "2026-07-28T19:55:56.462024+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 3049,
+        "class_count": 316,
+        "api_confidence": "high",
+        "bundle_manifest_present": false,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/pdf.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 46400,
+        "at_tip_sha": "888700a8e361d32df21d0810c2eb939345e0603e"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/pdf/cpp/readme.md",
+        "bytes": 47427,
+        "last_verified": {
+          "readme_sha256": "f99859f7e273427216e1b5e9d41aa04ee101f9081551c1d59139dc59ca681b22",
+          "verified_at": "2026-08-19T11:32:26.374022Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "pdf",
+        "platform": "go",
+        "ecosystem": "go",
+        "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+        "repo_url": "https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Go"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 7,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-pdf-foss-go"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "2306eeb06216be4d9cb663adcb85155594572c11",
+        "tip_observed_at": "2026-08-18T18:34:39Z",
+        "default_branch": "main",
+        "readme_bytes": 60931,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "go.mod"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "4a8d9cd1df39dce3f05d6ede8fb06c4ce39f2096",
+        "repo_url": "https://github.com/aspose-pdf-foss/aspose-pdf-foss-for-go.git",
+        "promoted_at": "2026-08-14T11:53:51.848397+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 4356,
+        "class_count": 215,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/pdf.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 60931,
+        "at_tip_sha": "2306eeb06216be4d9cb663adcb85155594572c11"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/pdf/go/readme.md",
+        "bytes": 61844,
+        "last_verified": {
+          "readme_sha256": "2e0f7ac0de92c3cf6c4865f4df2613eafffb86645f4270e0c5dc6a1abc1639ae",
+          "verified_at": "2026-08-19T10:41:15.527064Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "pdf",
+        "platform": "java",
+        "ecosystem": "java",
+        "repository": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+        "repo_url": "https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Java"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 3,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-pdf-foss"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "ea62b381993487c86afb9b35ac788b2cc2c15d03",
+        "tip_observed_at": "2026-08-18T18:35:23Z",
+        "default_branch": "main",
+        "readme_bytes": 107714,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "pom.xml"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "12ae9e183a093d40afd3b502a368963f19ed83a3",
+        "repo_url": "https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-Java.git",
+        "promoted_at": "2026-08-14T11:49:51.067542+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 13895,
+        "class_count": 994,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/pdf.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 107714,
+        "at_tip_sha": "ea62b381993487c86afb9b35ac788b2cc2c15d03"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/pdf/java/readme.md",
+        "bytes": 107860,
+        "last_verified": {
+          "readme_sha256": "8f21552ab4b06b466b69164203177fa3f4ec5bfc6b17fb474963b679cf610fcc",
+          "verified_at": "2026-08-19T11:32:50.609752Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "pdf",
+        "platform": "net",
+        "ecosystem": "net",
+        "repository": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
+        "repo_url": "https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 2,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-pdf-foss-net"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "663783d18ec1c00efbd9b56a0a6ea20e4671d92b",
+        "tip_observed_at": "2026-08-18T20:25:09Z",
+        "default_branch": "main",
+        "readme_bytes": 101587,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "Aspose.Pdf.Foss.sln"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "8a3131b9a6f7e97c20214896c615dbee86272459",
+        "repo_url": "https://github.com/aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET.git",
+        "promoted_at": "2026-07-29T16:30:10.275035+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 8664,
+        "class_count": 836,
+        "api_confidence": "high",
+        "bundle_manifest_present": false,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/pdf.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 101587,
+        "at_tip_sha": "663783d18ec1c00efbd9b56a0a6ea20e4671d92b"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/pdf/net/readme.md",
+        "bytes": 101559,
+        "last_verified": {
+          "readme_sha256": "eeb2f729a90030e03a14f4cc9e281c08bcff26a5b662c48cea7665d364213e5a",
+          "verified_at": "2026-08-19T10:41:39.631772Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "pdf",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+        "repo_url": "https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 1,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-pdf-foss-python"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "3dfe9f86cc819c1eb829c951a6f5face3f6d8ad5",
+        "tip_observed_at": "2026-08-19T12:46:25Z",
+        "default_branch": "main",
+        "readme_bytes": 40800,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "pyproject.toml"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "537b8273b185e4f7440b201cacad56567e55b2f0",
+        "repo_url": "https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python.git",
+        "promoted_at": "2026-08-14T12:00:35.333954+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 2249,
+        "class_count": 227,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/pdf.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "implemented_and_manifest_present",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": true
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 40800,
+        "at_tip_sha": "3dfe9f86cc819c1eb829c951a6f5face3f6d8ad5"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/pdf/python/readme.md",
+        "bytes": 40912,
+        "last_verified": {
+          "readme_sha256": "125e8a8759b8c0f05e0a84beb2a2b87a6efb074bde6558605c20057fb576538c",
+          "verified_at": "2026-08-19T10:44:11.191560Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": true,
+        "path": "plans/investigations/evidence/finalized-repository-readmes-v1",
+        "source_revision": "537b8273b185e4f7440b201cacad56567e55b2f0",
+        "candidate_sha256": "189b3321da5e10ff2c14d6c84f49a53127cd52713189f532b732cfe70f2f550e",
+        "reported_verdict": "NO_OP_PROVEN",
+        "current_proof": false,
+        "caveat": "Historical pre-knowledge-layer evidence; denominator text says 10/32 and is stale against the 33-row registry. It must not be treated as current-contract acceptance."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "psd",
+        "platform": "net",
+        "ecosystem": "net",
+        "repository": "aspose-psd-foss/Aspose.PSD-FOSS-for-.NET",
+        "repo_url": "https://github.com/aspose-psd-foss/Aspose.PSD-FOSS-for-.NET"
+      },
+      "registry": {
+        "active": true,
+        "mode": "disabled",
+        "status": "disabled",
+        "execution_priority": 2,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-psd-foss-net"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903",
+        "tip_observed_at": "2026-08-13T09:04:13Z",
+        "default_branch": "main",
+        "readme_bytes": 63,
+        "tree_shape": "README_ONLY",
+        "relevant_manifest_files": []
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": false,
+        "bundle_repo_sha": null,
+        "repo_url": null,
+        "promoted_at": null,
+        "freshness_vs_live_tip": "absent",
+        "index_declares_stale": null,
+        "claim_count": 0,
+        "class_count": 0,
+        "api_confidence": null,
+        "bundle_manifest_present": false,
+        "direct_production_consumed_artifact_families": [],
+        "present_but_not_directly_rendered": [],
+        "circularity": "not_applicable_no_bundle"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 63,
+        "at_tip_sha": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903"
+      },
+      "aspose_candidate": {
+        "present": false,
+        "path": null,
+        "bytes": null,
+        "last_verified": null,
+        "calibration_membership": "none"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Enable only after a source-honest README_ONLY profile is proven for empty PSD repos; knowledge and Aspose candidate evidence are absent."
+    },
+    {
+      "identity": {
+        "family": "psd",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-psd-foss/Aspose.PSD-FOSS-for-Python",
+        "repo_url": "https://github.com/aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
+      },
+      "registry": {
+        "active": true,
+        "mode": "disabled",
+        "status": "disabled",
+        "execution_priority": 1,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-psd-foss-python"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3",
+        "tip_observed_at": "2026-08-05T11:15:58Z",
+        "default_branch": "main",
+        "readme_bytes": 67,
+        "tree_shape": "README_ONLY",
+        "relevant_manifest_files": []
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": false,
+        "bundle_repo_sha": null,
+        "repo_url": null,
+        "promoted_at": null,
+        "freshness_vs_live_tip": "absent",
+        "index_declares_stale": null,
+        "claim_count": 0,
+        "class_count": 0,
+        "api_confidence": null,
+        "bundle_manifest_present": false,
+        "direct_production_consumed_artifact_families": [],
+        "present_but_not_directly_rendered": [],
+        "circularity": "not_applicable_no_bundle"
+      },
+      "dependency_snapshot": {
+        "support": "parser_exists_but_supported_root_manifest_absent",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 67,
+        "at_tip_sha": "2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3"
+      },
+      "aspose_candidate": {
+        "present": false,
+        "path": null,
+        "bytes": null,
+        "last_verified": null,
+        "calibration_membership": "none"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Enable only after a source-honest README_ONLY profile is proven for empty PSD repos; knowledge and Aspose candidate evidence are absent."
+    },
+    {
+      "identity": {
+        "family": "slides",
+        "platform": "cpp",
+        "ecosystem": "cpp",
+        "repository": "aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp",
+        "repo_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 4,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-slides-foss-cpp"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "ecc2baf8cc3e3e4a6ee36cbfb992ec4fa6dd7765",
+        "tip_observed_at": "2026-08-17T13:10:32Z",
+        "default_branch": "main",
+        "readme_bytes": 30945,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "CMakeLists.txt"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "25adb25c8796f06d9b89cd5f8093e490091195ef",
+        "repo_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp.git",
+        "promoted_at": "2026-07-12T14:38:35.883515+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 3646,
+        "class_count": 234,
+        "api_confidence": "high",
+        "bundle_manifest_present": false,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/slides.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 30945,
+        "at_tip_sha": "ecc2baf8cc3e3e4a6ee36cbfb992ec4fa6dd7765"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/slides/cpp/readme.md",
+        "bytes": 30945,
+        "last_verified": {
+          "readme_sha256": "4326587709e0835c87659b7a869a0d744cdd9dfe9ce3d922c1d20420751120f0",
+          "verified_at": "2026-08-19T10:44:13.330686Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "slides",
+        "platform": "java",
+        "ecosystem": "java",
+        "repository": "aspose-slides-foss/Aspose.Slides-FOSS-for-Java",
+        "repo_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Java"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 3,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-slides-foss-java"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "5d76f44cdd52a2510b66bbc20c663759cda60432",
+        "tip_observed_at": "2026-08-17T13:21:11Z",
+        "default_branch": "main",
+        "readme_bytes": 38058,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "pom.xml"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "9968c5b42525919f50bca3cdbcedd3ae1dc382c4",
+        "repo_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Java.git",
+        "promoted_at": "2026-08-14T11:55:16.439597+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 6304,
+        "class_count": 238,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/slides.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 38058,
+        "at_tip_sha": "5d76f44cdd52a2510b66bbc20c663759cda60432"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/slides/java/readme.md",
+        "bytes": 38269,
+        "last_verified": {
+          "readme_sha256": "1ff872627569adadecbe9eab3da13ef45d4535597fb2cbac40d0ca97d4595caf",
+          "verified_at": "2026-08-19T10:44:16.386028Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "slides",
+        "platform": "net",
+        "ecosystem": "net",
+        "repository": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
+        "repo_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 2,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-slides-foss-net"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "6c650e96d07958c496f9c757a384b76b5fa7bbb9",
+        "tip_observed_at": "2026-08-17T13:54:36Z",
+        "default_branch": "main",
+        "readme_bytes": 31938,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "Aspose.Slides.Foss.sln",
+          "Directory.Build.props",
+          "Directory.Packages.props",
+          "nuget.config"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "bd19e16057b628310b4a04330585d366cb40e9b7",
+        "repo_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET.git",
+        "promoted_at": "2026-07-12T14:38:37.764768+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 4176,
+        "class_count": 264,
+        "api_confidence": "high",
+        "bundle_manifest_present": false,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/slides.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 31938,
+        "at_tip_sha": "6c650e96d07958c496f9c757a384b76b5fa7bbb9"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/slides/net/readme.md",
+        "bytes": 32046,
+        "last_verified": {
+          "readme_sha256": "52fcc5e21ec6c41054469274f4e45292c2fb68bf1dcbf912fa0da5a9d1141cee",
+          "verified_at": "2026-08-19T10:44:18.192349Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "slides",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+        "repo_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Python"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 1,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-slides-foss-python"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "90e523b90b91eab58e70e725fa88aa551f115731",
+        "tip_observed_at": "2026-08-17T14:45:40Z",
+        "default_branch": "main",
+        "readme_bytes": 42679,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "pyproject.toml"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+        "repo_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Python.git",
+        "promoted_at": "2026-08-14T12:07:30.265396+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 7081,
+        "class_count": 515,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/slides.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "implemented_and_manifest_present",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": true
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 42679,
+        "at_tip_sha": "90e523b90b91eab58e70e725fa88aa551f115731"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/slides/python/readme.md",
+        "bytes": 42791,
+        "last_verified": {
+          "readme_sha256": "6f5f45bfcdf9fe4026a8be672b1508833cffc980059910ef8b7f83936197228c",
+          "verified_at": "2026-08-19T10:48:27.668963Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": true,
+        "path": "plans/investigations/evidence/finalized-repository-readmes-v1",
+        "source_revision": "ffaf6355fdc7f0b7a66680d742051e809a9d8c5f",
+        "candidate_sha256": "f03d23dd9a5a10c2abc3c273ef22a16ca2ed732c2845151df3d9ba255e3949c7",
+        "reported_verdict": "NO_OP_PROVEN",
+        "current_proof": false,
+        "caveat": "Historical pre-knowledge-layer evidence; denominator text says 10/32 and is stale against the 33-row registry. It must not be treated as current-contract acceptance."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "tex",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-tex-foss/Aspose.TeX-FOSS-for-Python",
+        "repo_url": "https://github.com/aspose-tex-foss/Aspose.TeX-FOSS-for-Python"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 1,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-tex-foss-python"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
+        "tip_observed_at": "2026-06-02T18:53:02Z",
+        "default_branch": "main",
+        "readme_bytes": 4420,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "pyproject.toml"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
+        "repo_url": "https://github.com/aspose-tex-foss/Aspose.TeX-FOSS-for-Python.git",
+        "promoted_at": "2026-07-12T14:38:39.444903+00:00",
+        "freshness_vs_live_tip": "current",
+        "index_declares_stale": false,
+        "claim_count": 613,
+        "class_count": 83,
+        "api_confidence": "high",
+        "bundle_manifest_present": false,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/tex.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "implemented_and_manifest_present",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": true
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 4420,
+        "at_tip_sha": "2f4bfab3863e66ef32868f5464685eb4c2d36911"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/tex/python/readme.md",
+        "bytes": 13081,
+        "last_verified": {
+          "readme_sha256": "c7104fb9ba5636b7237d552f86b1c45ece063a449672b84d33454e79cd1ff240",
+          "verified_at": "2026-08-19T10:48:31.229998Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Produce a current-contract governed candidate and independent quality/no-op proof; historical evidence is not current acceptance proof."
+    },
+    {
+      "identity": {
+        "family": "words",
+        "platform": "net",
+        "ecosystem": "net",
+        "repository": "aspose-words-foss/Aspose.Words-FOSS-for-.NET",
+        "repo_url": "https://github.com/aspose-words-foss/Aspose.Words-FOSS-for-.NET"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 2,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-words-foss-net"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "68d56fdaf7fcd2d95935a0c180b6e69e99a9b4b8",
+        "tip_observed_at": "2026-08-17T05:11:33Z",
+        "default_branch": "master",
+        "readme_bytes": 70830,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "Aspose.Words.sln",
+          "Directory.Build.props",
+          "Directory.Build.targets"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "572fc748b45fe5efce5d93d0684c5ac78fc8affe",
+        "repo_url": "https://github.com/aspose-words-foss/Aspose.Words-FOSS-for-.NET.git",
+        "promoted_at": "2026-08-14T12:09:20.226802+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 5028,
+        "class_count": 617,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/words.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "ecosystem_parser_not_implemented",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": false
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 70830,
+        "at_tip_sha": "68d56fdaf7fcd2d95935a0c180b6e69e99a9b4b8"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/words/net/readme.md",
+        "bytes": 71760,
+        "last_verified": {
+          "readme_sha256": "013cd7ccd77e3204060686a0453fc35e6a9e34f950443d1aa1c442b7373bf735",
+          "verified_at": "2026-08-19T10:48:55.004924Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": false,
+        "path": null,
+        "source_revision": null,
+        "candidate_sha256": null,
+        "reported_verdict": null,
+        "current_proof": false,
+        "caveat": "No committed finalized optimizer candidate evidence found."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    },
+    {
+      "identity": {
+        "family": "words",
+        "platform": "python",
+        "ecosystem": "python",
+        "repository": "aspose-words-foss/Aspose.Words-FOSS-for-Python",
+        "repo_url": "https://github.com/aspose-words-foss/Aspose.Words-FOSS-for-Python"
+      },
+      "registry": {
+        "active": true,
+        "mode": "dry_run",
+        "status": "enabled",
+        "execution_priority": 1,
+        "priority_source": "data/platform_priorities.json; no per-row priority field exists",
+        "policy_profile": "aspose-words-foss-python"
+      },
+      "current_source": {
+        "accessible": true,
+        "tip_sha": "2d2efee2787cb9e56d071d17f8d7b740dce8b784",
+        "tip_observed_at": "2026-08-17T11:36:27Z",
+        "default_branch": "main",
+        "readme_bytes": 29181,
+        "tree_shape": "code_and_docs",
+        "relevant_manifest_files": [
+          "pyproject.toml"
+        ]
+      },
+      "pre_refresh_source": {
+        "sha": null,
+        "known": false,
+        "note": "not established by available evidence"
+      },
+      "imported_knowledge": {
+        "present": true,
+        "bundle_repo_sha": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+        "repo_url": "https://github.com/aspose-words-foss/Aspose.Words-FOSS-for-Python.git",
+        "promoted_at": "2026-08-14T11:59:57.279251+00:00",
+        "freshness_vs_live_tip": "stale",
+        "index_declares_stale": false,
+        "claim_count": 2048,
+        "class_count": 188,
+        "api_confidence": "high",
+        "bundle_manifest_present": true,
+        "direct_production_consumed_artifact_families": [
+          "merged/claims.json (selection and dependency-claim input)",
+          "merged/model.yaml (repo_sha freshness/provenance)",
+          "merged/api_surface.json (structured public-surface detector)",
+          "keywords/words.json (SEO relevance selection)",
+          "data/imported/knowledge_manifest.json (aggregate content-hash contract at d71)"
+        ],
+        "present_but_not_directly_rendered": [
+          "formats.md",
+          "limitations.md",
+          "install.md",
+          "class_graph.json",
+          "coverage_matrix.json"
+        ],
+        "circularity": "not_identified"
+      },
+      "dependency_snapshot": {
+        "support": "implemented_and_manifest_present",
+        "implemented_ecosystems_at_pin": [
+          "python",
+          "rust"
+        ],
+        "applicable": true
+      },
+      "current_published_readme": {
+        "present": true,
+        "bytes": 29181,
+        "at_tip_sha": "2d2efee2787cb9e56d071d17f8d7b740dce8b784"
+      },
+      "aspose_candidate": {
+        "present": true,
+        "path": "readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/words/python/readme.md",
+        "bytes": 29181,
+        "last_verified": {
+          "readme_sha256": "9ef65e92ae664d9bf8cac9c98aa002fec48938cd547af00708e4f5536aeef1c0",
+          "verified_at": "2026-08-19T10:49:44.421013Z",
+          "verified_by_run_id": null,
+          "checks_module_version": 2
+        },
+        "calibration_membership": "active_30"
+      },
+      "optimizer_historical_evidence": {
+        "present": true,
+        "path": "plans/investigations/evidence/finalized-repository-readmes-v1",
+        "source_revision": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+        "candidate_sha256": "3149de5127ef78390726563e497da3692a9ca91161932ae954a653889cb2e7bc",
+        "reported_verdict": "NO_OP_PROVEN",
+        "current_proof": false,
+        "caveat": "Historical pre-knowledge-layer evidence; denominator text says 10/32 and is stale against the 33-row registry. It must not be treated as current-contract acceptance."
+      },
+      "first_honest_blocker_or_gate": "Rebuild or semantically revalidate imported knowledge against the observed live tip before it can govern candidate claims."
+    }
+  ]
+}

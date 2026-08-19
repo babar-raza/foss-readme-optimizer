@@ -1,0 +1,449 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-08-19",
+  "mode": "read_only_forensic",
+  "optimizer": {
+    "audit_pin": "6d112bbf88bc54f7ef3367b16ef8e9b769bdfb51",
+    "latest_observed_main": "d71f38b6",
+    "post_pin_change_assessment": "eaf5eef6 repaired five baseline-test failures; 5e9/d71 are auto-push/auth robustness changes. None changes the audited knowledge-selection, author-context, renderer, provenance, or evidence conclusions.",
+    "imported_manifest_aggregate_sha256": "a61de2b9cdd30956c585b02d16e5f1b6bc0beccf4ee9b1fbb66312492b2cd821"
+  },
+  "definitions": {
+    "available": "present in the imported bundle on disk",
+    "loaded": "parsed by a non-vendored production loader/provider",
+    "accepted": "selected and output-authorizing after verification-state filtering",
+    "offered_to_qwen": "included in the exact compact author facts payload",
+    "plan_cited": "referenced by a surviving document-plan/surface-plan operation",
+    "visible": "bound to exact candidate bytes by final provenance/claim-map evidence",
+    "supporting_only": "recorded as provenance/context but forbidden from authorizing text",
+    "lost": "available but filtered or shape-incompatible before a usable equivalent fact reaches the consumer",
+    "dead": "available but no non-vendored production consumer found",
+    "unverified_provenance": "fact appears in authoritative candidate provenance despite an ineligible verification state"
+  },
+  "portfolio": {
+    "optimizer_registry_entries_current": 33,
+    "imported_bundles": 31,
+    "missing_imported_registry_entries": [
+      "psd/net",
+      "psd/python"
+    ],
+    "imported_files": 3276,
+    "imported_bytes": 110461796,
+    "raw_totals": {
+      "claims": 97303,
+      "api_surface_rows": 10196,
+      "formats_rows": 695,
+      "class_graph_rows": 4635,
+      "coverage_matrix_rows": 7708,
+      "snippet_index_rows": 2445
+    },
+    "claim_kinds": {
+      "api_method": 60345,
+      "api": 21526,
+      "api_class": 7855,
+      "feature": 2212,
+      "troubleshoot": 1548,
+      "api_field": 1220,
+      "format_support": 1126,
+      "limitation": 884,
+      "format": 440,
+      "install": 114,
+      "dependency": 21,
+      "license": 12
+    },
+    "historical_optimizer_cohort": {
+      "scope": "PARTIAL-VERIFIED-PORTFOLIO",
+      "registry_denominator_at_manifest_time": 32,
+      "promoted_verified_readmes": 10,
+      "python_denominator": 13,
+      "promoted_python_readmes": 10,
+      "product_effects": 0,
+      "evidence": "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json"
+    },
+    "aspose_bundle_portfolio": {
+      "canonical_regen_readmes": 31,
+      "final_audit_total": 30,
+      "final_audit_clean": 8,
+      "final_audit_dirty": 22,
+      "final_audit_published": 13,
+      "final_audit_clean_and_published": 5,
+      "omitted_from_final_audit": [
+        "cells/typescript"
+      ],
+      "proves_30_of_30_clean": false,
+      "evidence": "readme-refresh-complete-bundle-20260819-174412/files/reports/_scratch/mt056_audit_portfolio_FINAL.json"
+    }
+  },
+  "artifact_families": [
+    {
+      "family": "claims.json",
+      "available_bundles": 31,
+      "production_loader": "facts/aspose_knowledge_claims.py::load_knowledge_claims_with_findings",
+      "production_consumer": "facts/aspose_knowledge_selection.py::select_knowledge_claims",
+      "status": "loaded_and_bounded",
+      "downstream": [
+        "FactRecordV2",
+        "ProductFactsV2",
+        "accepted composition payload when field verified"
+      ],
+      "known_loss": "API kinds are rejected as structured-API-covered even when structured detector yields no fact"
+    },
+    {
+      "family": "model.yaml",
+      "available_bundles": 31,
+      "production_loader": "facts/aspose_knowledge_claims.py::load_bundle_provenance and legacy aspose detectors",
+      "status": "loaded",
+      "downstream": [
+        "bundle repo_sha/freshness",
+        "legacy detector facts"
+      ]
+    },
+    {
+      "family": "api_surface.json",
+      "available_bundles": 31,
+      "production_loader": "facts/aspose_detectors.py::detect_api_public_surface",
+      "status": "loaded_but_schema_incompatible_for_trio",
+      "trio_raw_rows": 527,
+      "trio_usable_imported_fact_records": 0,
+      "lost_trio_api_claims": 3398,
+      "cause": "requires visibility=public and reachable=true; trio schemas use public/exported/conventional and false/missing reachable; classes shape also mismatches downstream list expectation"
+    },
+    {
+      "family": "keywords",
+      "production_loader": "legacy detector plus aspose_seo_keyword_facts.py",
+      "status": "loaded",
+      "trio_relevant_fact_records": 0,
+      "known_latent_failure": "unverified relevant SEO fact can be inserted into authoritative template provenance without changing bytes"
+    },
+    {
+      "family": "package_registry/aspose_com_targets/backlinks/diagram_archetypes/diagram_dependencies",
+      "production_loader": "facts/aspose_detectors.py",
+      "status": "loaded_by_legacy_detectors"
+    },
+    {
+      "family": "formats.json|formats.md",
+      "available_bundles": 31,
+      "status": "dead_as_standalone_input",
+      "note": "format_support claims may carry equivalent data, but no direct non-vendored optimizer consumer of these standalone artifacts was found"
+    },
+    {
+      "family": "install.md|limitations.md",
+      "available_bundles": 31,
+      "status": "dead_as_standalone_input",
+      "note": "install/limitation claims may carry equivalent data"
+    },
+    {
+      "family": "class_graph.json|coverage_matrix.json|snippets",
+      "available_bundles": 31,
+      "status": "dead_as_direct_fact_input",
+      "note": "vendored aspose.org orchestration references related data, but that orchestration is not the optimizer production path"
+    },
+    {
+      "family": "ledgers|deltas|bundle_manifest|pipeline_run|index|merge_report",
+      "status": "dead_or_import_accounting_only",
+      "note": "no non-vendored candidate-content consumer found"
+    },
+    {
+      "family": "knowledge_manifest.json",
+      "status": "loaded_as_contract_hash_only",
+      "known_gap": "component hash covers manifest bytes, not independently verified corpus member bytes"
+    }
+  ],
+  "products": [
+    {
+      "id": "3d/python",
+      "target_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "current_target_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+      "historical_optimizer_source_sha": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "imported_bundle_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+      "freshness": "current",
+      "available": {
+        "claims": 3452,
+        "api_surface_rows": 327,
+        "formats_rows": 97,
+        "class_graph_rows": 154,
+        "coverage_rows": 327,
+        "snippet_index_rows": 100
+      },
+      "loaded_claims": 3452,
+      "selected_items": 35,
+      "rejected_items": 3417,
+      "selected_fields": 5,
+      "verified_selected_items": 16,
+      "unverified_selected_items": 19,
+      "accepted_new_claim_fields": 2,
+      "accepted_legacy_detector_fields": 4,
+      "total_imported_fields_offered_to_qwen": 6,
+      "plan_cited_imported_fields_proven": 0,
+      "visible_imported_spans_proven": 0,
+      "supporting_only_items": 19,
+      "rejection_reasons": {
+        "covered_by_api_surface": 2730,
+        "exceeds_selection_cap": 683,
+        "below_confidence": 4
+      },
+      "selected_by_kind": {
+        "feature": {"selected": 8, "verified": 0},
+        "format_support": {"selected": 8, "verified": 8},
+        "install": {"selected": 3, "verified": 0},
+        "limitation": {"selected": 8, "verified": 8},
+        "troubleshoot": {"selected": 8, "verified": 0}
+      },
+      "file_evidence_shapes": {
+        "records": 2873,
+        "file_line": 2241,
+        "source_file_snippet": 632,
+        "currently_selected_source_file_that_exists": 5
+      },
+      "source_file_repair_simulation": {
+        "selected_items": 35,
+        "selected_fields": 5,
+        "mixed_fields": 1,
+        "mixed_field": "aspose.install_claims",
+        "mixed_verified_items": 1,
+        "mixed_unverified_items": 2,
+        "would_be_laundered_by_verified_any": 2
+      },
+      "structured_api_usable_fact": false,
+      "exact_selected_claim_text_matches_historical_candidate": 0
+    },
+    {
+      "id": "note/python",
+      "target_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "current_target_sha": "41de2e8ab478b5aeff3663f7f7cbf83b19fdf676",
+      "historical_optimizer_source_sha": "6d97a522a9ed",
+      "imported_bundle_sha": "6d97a522a9ed",
+      "freshness": "stale_revision",
+      "available": {
+        "claims": 333,
+        "api_surface_rows": 54,
+        "formats_rows": 5,
+        "class_graph_rows": 26,
+        "coverage_rows": 50,
+        "snippet_index_rows": 97
+      },
+      "loaded_claims": 333,
+      "selected_items": 6,
+      "rejected_items": 327,
+      "selected_fields": 1,
+      "verified_selected_items": 6,
+      "unverified_selected_items": 0,
+      "accepted_new_claim_fields": 1,
+      "accepted_legacy_detector_fields": 5,
+      "total_imported_fields_offered_to_qwen": 6,
+      "plan_cited_imported_fields_proven": 0,
+      "visible_imported_spans_proven": 0,
+      "supporting_only_items": 0,
+      "rejection_reasons": {
+        "covered_by_api_surface": 324,
+        "stale_uncorroborated": 3
+      },
+      "selected_by_kind": {
+        "format_support": {"selected": 6, "verified": 6}
+      },
+      "file_evidence_shapes": {
+        "records": 330,
+        "file_line": 330,
+        "source_file_snippet": 0
+      },
+      "structured_api_usable_fact": false,
+      "exact_selected_claim_text_matches_historical_candidate": 0
+    },
+    {
+      "id": "barcode/python",
+      "target_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "current_target_sha": "06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
+      "historical_optimizer_source_sha": "53f2c3350b81",
+      "imported_bundle_sha": "53f2c3350b81",
+      "freshness": "stale_revision",
+      "available": {
+        "claims": 375,
+        "api_surface_rows": 146,
+        "formats_rows": 6,
+        "class_graph_rows": 55,
+        "coverage_rows": 79,
+        "snippet_index_rows": 100
+      },
+      "loaded_claims": 375,
+      "selected_items": 13,
+      "rejected_items": 362,
+      "selected_fields": 3,
+      "verified_selected_items": 13,
+      "unverified_selected_items": 0,
+      "accepted_new_claim_fields": 3,
+      "accepted_legacy_detector_fields": 7,
+      "total_imported_fields_offered_to_qwen": 10,
+      "plan_cited_imported_fields_proven": 0,
+      "visible_imported_spans_proven": 0,
+      "supporting_only_items": 0,
+      "rejection_reasons": {
+        "covered_by_api_surface": 344,
+        "stale_uncorroborated": 17,
+        "covered_by_dependency_detector": 1
+      },
+      "selected_by_kind": {
+        "format_support": {"selected": 6, "verified": 6},
+        "limitation": {"selected": 6, "verified": 6},
+        "license": {"selected": 1, "verified": 1}
+      },
+      "file_evidence_shapes": {
+        "records": 380,
+        "file_line": 309,
+        "source_file_snippet": 71
+      },
+      "source_file_repair_simulation": {
+        "selected_items": 21,
+        "additional_verified_feature_items": 5,
+        "additional_verified_troubleshoot_items": 3,
+        "mixed_fields": 0
+      },
+      "structured_api_usable_fact": false,
+      "exact_selected_claim_text_matches_historical_candidate": 0
+    }
+  ],
+  "stage_matrix": [
+    {
+      "stage": "import",
+      "input": "aspose.org knowledge bundle",
+      "output": "data/imported tree + manifest",
+      "accountability": "partial",
+      "failure": "31/33 registry coverage; independent manifest-to-tree validation absent from runtime reuse"
+    },
+    {
+      "stage": "load",
+      "input": "claims.json + model.yaml + legacy detector data",
+      "output": "typed claims, provenance, detector bundle",
+      "accountability": "claims loader complete",
+      "failure": "most other artifact families have no production consumer"
+    },
+    {
+      "stage": "select",
+      "input": "typed claims + current clone",
+      "output": "dispositions + field-level FactRecordV2",
+      "accountability": "all raw claims disposed",
+      "failure": "verified_any laundering; source_file ignored; API false-coverage rejection"
+    },
+    {
+      "stage": "resolve",
+      "input": "candidate facts",
+      "output": "ProductFactsV2",
+      "accountability": "selected IDs and conflicts recorded",
+      "failure": "item verification already erased inside aggregate value"
+    },
+    {
+      "stage": "truth_acceptance",
+      "input": "ProductFactsV2",
+      "output": "FACTS_READY or block",
+      "accountability": "canonical truth fields gated",
+      "failure": "no imported-knowledge field is required"
+    },
+    {
+      "stage": "qwen_author_context",
+      "input": "accepted selected facts + source README + assessment",
+      "output": "forced-tool composition plan",
+      "accountability": "exact accepted fact packet is deterministic",
+      "failure": "prompt visibility is not candidate influence; six new fields have no visitor renderer"
+    },
+    {
+      "stage": "render",
+      "input": "plan + canonical facts",
+      "output": "candidate + provenance",
+      "accountability": "canonical provenance can bind exact bytes",
+      "failure": "new claim fields normally do not drive deterministic sections"
+    },
+    {
+      "stage": "claim_map",
+      "input": "candidate provenance + selected facts",
+      "output": "byte-bound claim map",
+      "accountability": "rejects unverified/conflicted selected facts",
+      "failure": "cannot see unverified items hidden inside a verified aggregate"
+    },
+    {
+      "stage": "factual_review",
+      "input": "facts + plan + claim map",
+      "output": "Qwen factual verdict",
+      "accountability": "referenced facts included",
+      "failure": "unreferenced imported facts omitted when other facts are referenced"
+    },
+    {
+      "stage": "knowledge_application_evidence",
+      "input": "selection result; optionally document plan",
+      "output": "knowledge-application.json",
+      "accountability": "schema distinguishes considered/selected/influenced/spans",
+      "failure": "production writes pre-render only; ignores candidate_content_provenance"
+    },
+    {
+      "stage": "aspose_check_bridge",
+      "input": "candidate + facts",
+      "output": "run/skip/error/findings",
+      "accountability": "89 checks inventoried; 11 classified blocking",
+      "failure": "blocking skipped/errored checks do not block acceptance"
+    }
+  ],
+  "defects": [
+    {
+      "id": "K2C-P0-001",
+      "severity": "P0",
+      "title": "field-level verification laundering",
+      "cause": "facts/aspose_knowledge_selection.py:552-576",
+      "actual_trio_occurrences_before_key_fix": 0,
+      "reachable_trio_occurrences_after_source_file_normalization": 1,
+      "smallest_repair": "support file/source_file, persist item state, require verified_all or split aggregates",
+      "invalidate_from": "FACTS_COLLECTING"
+    },
+    {
+      "id": "K2C-P0-002",
+      "severity": "P0",
+      "title": "structured API false coverage and schema loss",
+      "cause": "facts/aspose_detectors.py:649-655 plus downstream classes-shape mismatch",
+      "actual_trio_lost_api_claims": 3398,
+      "smallest_repair": "normalize ecosystem schema, prove non-empty canonical API fact, then suppress duplicate API claims",
+      "invalidate_from": "FACTS_COLLECTING"
+    },
+    {
+      "id": "K2C-P0-003",
+      "severity": "P0",
+      "title": "no post-render knowledge influence evidence",
+      "cause": "supervisor/product_truth.py:469-481 is sole production write; evidence builder scans operations only",
+      "actual_current_visible_spans_in_production_reports": 0,
+      "smallest_repair": "rewrite after render, join operation and candidate-content provenance, bind candidate SHA",
+      "invalidate_from": "CANDIDATE_GENERATED"
+    },
+    {
+      "id": "K2C-P0-004",
+      "severity": "P0",
+      "title": "blocking Aspose checks fail open on skip/error",
+      "cause": "validation/aspose_checks_bridge.py valid ignores skipped/errored; document validation promotes findings only",
+      "smallest_repair": "for each classified blocking name require checks_run and no error; otherwise critical infrastructure finding",
+      "invalidate_from": "CANDIDATE_GENERATED"
+    },
+    {
+      "id": "K2C-P1-005",
+      "severity": "P1",
+      "title": "unverified SEO attribution enters authoritative provenance",
+      "cause": "presentation/verified_template_capabilities.py:698-769",
+      "actual_trio_occurrences": 0,
+      "smallest_repair": "separate supporting attribution from authoritative fact_ids or verify the fact",
+      "invalidate_from": "PLAN_READY"
+    },
+    {
+      "id": "K2C-P1-006",
+      "severity": "P1",
+      "title": "PSD registry members have neither corpus nor honest empty-repository profile",
+      "cause": "31-bundle imported scope vs 33-entry registry; outside-corpus treated non-agent-fixable",
+      "actual_products": 2,
+      "smallest_repair": "explicit README-only profile with prohibited implementation claim classes",
+      "invalidate_from": "FACTS_COLLECTING"
+    }
+  ],
+  "calibration_set": [
+    "3d/python@ee05c1ba9153ef5916b7a108406c794f2e464d01",
+    "note/python@41de2e8ab478b5aeff3663f7f7cbf83b19fdf676",
+    "barcode/python@06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
+    "psd/python README-only",
+    "psd/net README-only",
+    "synthetic mixed verified/unverified aggregate",
+    "synthetic matching unverified SEO keyword",
+    "three real structured-API schema variants"
+  ]
+}

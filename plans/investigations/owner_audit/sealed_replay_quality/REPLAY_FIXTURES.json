@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "purpose": "Uncontaminated generation-quality replay fixtures for the Python calibration trio",
+  "optimizer_main_observed": "d71f38b6",
+  "rules": [
+    "Checkout the complete target repository at sealed_pre_refresh_sha.",
+    "Use the README from that tree as the only pre-existing README input.",
+    "Do not expose current/published/canonical README text to discovery, fact extraction, composition, repair, or review.",
+    "Knowledge is admissible only when each selected claim is independently grounded in non-README evidence at the same sealed SHA, or explicitly marked as preservation-only old-README evidence.",
+    "Compare output to Aspose only after candidate sealing."
+  ],
+  "fixtures": [
+    {
+      "id": "sealed-3d-python-ab1a2267",
+      "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "sealed_pre_refresh_sha": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "commit_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/commit/ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "pre_readme": {
+        "path": "work/github-foss-readme-optimizer/plans/investigations/evidence/full-registry-github-survey/aspose-3d-foss__Aspose.3D-FOSS-for-Python--README.md",
+        "git_blob_sha": "c952868888c0bd91688ad4fa2ddad8ddf8a04563",
+        "sha256": "926a4c39f4894440d481fae5cadccbd160938cdb71c765f2fc754df4729dadac"
+      },
+      "implementation_truth": {
+        "identity": "entire Git tree at ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+        "critical_paths": ["setup.py", "aspose/threed/Scene.py", "aspose/threed/FileFormat.py", "aspose/threed/formats/__init__.py", "aspose/threed/formats/IOService.py", "aspose/threed/formats/fbx/FbxExporter.py", "aspose/threed/formats/collada/", "tests/"]
+      },
+      "imported_knowledge": {
+        "declared_repo_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "bundle_generated_at": "2026-08-14T11:52:56.017661+00:00",
+        "admissible_for_clean_replay": false,
+        "reason": "generated against the post-refresh tip, almost five weeks after the sealed input; 70 claims cite README.md and retained snippets from the old README despite the new declared SHA",
+        "model_sha256": "43afda7cb39382459f082692289971d06fef58ffa7ab23b2e7c2b9e15cf6d95e",
+        "claims_sha256": "f07fdc4286ee7567c37f910184cb4c6324c3dc90d0e4423bbf0dba075908bfba",
+        "claims_total": 3452,
+        "claims_with_readme_evidence": 70,
+        "known_conflict_ids": ["ERC-3d-python-338c230c", "ERC-3d-python-8e9815fe", "CLM-3d-f966ea", "CLM-3d-31f56e"],
+        "known_unsupported_inferences": ["ERC-3d-python-cb601cba", "ERC-3d-python-f14fb8f0"]
+      },
+      "aspose_reference": {
+        "published_tip_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "published_readme_git_blob_sha": "4e4a264298dcf5099919d314834672653d1fed4f",
+        "published_snapshot_path": "work/readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter/_scratch/mt040_3d_python/live_readme.md",
+        "published_snapshot_sha256": "66ceadf14240cd913756dacbd709d56ee06915f49f77f769e40e04e309a7cd01",
+        "canonical_candidate_path": "work/readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/3d/python/readme.md",
+        "canonical_candidate_sha256": "2fa5c43fef7c0bc78644b1ea9dea020d799cfa6c81f0c1c770faa8115a58af60",
+        "content_dispositions_sha256": "8a2198909baacba0d50b7309cf3ae0e46b1146275f44821cc52a0269377aa3b4",
+        "upstream_issues_sha256": "36f5ccbded086dca02e6d13130c0288ee4d7e9f0171814184b4fa9bad41930a7"
+      },
+      "optimizer_historical": {
+        "evidence_commit": "89acfd172fd7caf5f89224c9a55262cedccd7847",
+        "candidate_path": "work/github-foss-readme-optimizer/plans/investigations/evidence/level8-portfolio-readme-proposals-2026-07-25/aspose-3d-foss-for-python/candidate-readme.md",
+        "candidate_sha256": "cf420bb177f90ce4cdd3be668bffcbbca2d0704fae46ceebb5b8f5b1d08bdeba",
+        "facts_sha256": "deee7a2e18eab54e867a24deaff732223b20426404246745263ac7342a6bdc65",
+        "review_sha256": "164125e95b68e48d0dcfd6f6361424876613721ec7701f8efa88944e128a30d6",
+        "verified": false
+      }
+    },
+    {
+      "id": "sealed-note-python-6d97a522",
+      "repository": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "sealed_pre_refresh_sha": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "commit_url": "https://github.com/aspose-note-foss/Aspose.Note-FOSS-for-Python/commit/6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "pre_readme": {
+        "path": "work/github-foss-readme-optimizer/plans/investigations/evidence/full-registry-github-survey/aspose-note-foss__Aspose.Note-FOSS-for-Python--README.md",
+        "git_blob_sha": "629a9706aabf7f20919abebda16b4a975e687490",
+        "sha256": "180a16f74735201783dd7db5987cae2bed9cf619b51f28f8528b386b531177d4"
+      },
+      "implementation_truth": {
+        "identity": "entire Git tree at 6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "critical_paths": ["pyproject.toml", "src/aspose/note/model.py", "src/aspose/note/__init__.py", "src/aspose/note/exceptions.py", "src/aspose/note/enums.py", "src/aspose/note/saving/options.py", "src/aspose/note/saving/pdf_writer.py", ".github/workflows/ci.yml", "tests/"]
+      },
+      "imported_knowledge": {
+        "declared_repo_sha": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+        "admissible_for_clean_replay": "conditional",
+        "condition": "claim-level non-README evidence and polarity must validate; the bundle is SHA-aligned but scout-only",
+        "model_sha256": "9b9a894dccc3b4d5fffccaea7f70e199c380e077dc08263ba6f7669fb26c39d8",
+        "claims_sha256": "4f8440831172408d7731e60ff600456fbfe26fd7bb058fb40b373731c2708774",
+        "claims_total": 333,
+        "claims_with_readme_evidence": 0
+      },
+      "aspose_reference": {
+        "published_tip_sha": "41de2e8ab478b5aeff3663f7f7cbf83b19fdf676",
+        "published_readme_git_blob_sha": "ad1e4a5fb65f0394aa78ad9c703a346e032822fb",
+        "published_snapshot_path": "work/readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter/note/python/readme.md",
+        "published_snapshot_sha256": "fd47d03c4579d88d906bf927cbf6002e5e99e44af15708e64268dbd0482fdb71",
+        "canonical_candidate_path": "work/readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/note/python/readme.md",
+        "canonical_candidate_sha256": "3ce54cb4f84a99c5a675d9a17bb8f2ec8fe150b9418aac0cc62045e1dd790bd4",
+        "content_dispositions_sha256": "c0b8e55918dc391bb16d84599cd09c045c581a375919ebabdfafbc71231bedd1",
+        "upstream_issues_sha256": "e42c5588169b3c2c3773c7365e74dc39bb244381352fa25e2316cc983dbb2398",
+        "pushed_run_id": "rr-20260815T191258Z-2545f6e86187",
+        "pushed_run_check_counts": {"total": 93, "hard": 59, "hard_with_findings": 0}
+      },
+      "optimizer_historical": {
+        "evidence_commit": "89acfd172fd7caf5f89224c9a55262cedccd7847",
+        "candidate_path": "work/github-foss-readme-optimizer/plans/investigations/evidence/level8-portfolio-readme-proposals-2026-07-25/aspose-note-foss-for-python/candidate-readme.md",
+        "candidate_sha256": "81707b1f63962093b29c7bea9ad556a797c797adbac9b573d7c7fff1559fcb47",
+        "facts_sha256": "78c15371b345ff559ed0257faf98937c7c9d03b68ffb7a02093ddd8522bf65ca",
+        "review_sha256": "a552e81fd8d516800642a9f16776f7eeead9659ab2aadbafa3f030a5bf3f1590",
+        "verified": false
+      }
+    },
+    {
+      "id": "sealed-barcode-python-53f2c335",
+      "repository": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "sealed_pre_refresh_sha": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+      "commit_url": "https://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/commit/53f2c3350b8171f2c8275e7b1a178f218695ac45",
+      "pre_readme": {
+        "path": "work/github-foss-readme-optimizer/plans/investigations/evidence/full-registry-github-survey/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python--README.md",
+        "git_blob_sha": "069205725fdbd5b0fa8ae45087cb44d2908381d8",
+        "sha256": "5a77f3b5102281687a6ca2c369a8221e8bab1ace8296d5b124b9c40a3fbf2a68"
+      },
+      "implementation_truth": {
+        "identity": "entire Git tree at 53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "critical_paths": ["pyproject.toml", "src/aspose_barcode_foss/api.py", "src/aspose_barcode_foss/result.py", "src/aspose_barcode_foss/__init__.py", "src/aspose_barcode_foss/_internal/models/options.py", "src/aspose_barcode_foss/_internal/standards/eci.py", "src/aspose_barcode_foss/_internal/standards/gs1.py", "examples/", "tests/"]
+      },
+      "imported_knowledge": {
+        "declared_repo_sha": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+        "admissible_for_clean_replay": "conditional",
+        "condition": "README-backed claims may preserve old content but cannot establish new correctness; all selected claims require claim-level non-README corroboration",
+        "model_sha256": "e8c18750fda33c95eaeea3e70c4878b9636bb185de163330d03ff4e6e682004d",
+        "claims_sha256": "5d58a801a6073fdec62056968acc71d41cf9b06e1bc95cc019058498ba4c8813",
+        "claims_total": 375,
+        "claims_with_readme_evidence": 10
+      },
+      "aspose_reference": {
+        "published_tip_sha": "06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
+        "published_readme_git_blob_sha": "03445fbc7b846b51c500a4a5e3d956c14a57b149",
+        "published_snapshot_local": false,
+        "canonical_candidate_path": "work/readme-refresh-complete-bundle-20260819-174412/files/reports/repo-presenter-regen-full/barcode/python/readme.md",
+        "canonical_candidate_sha256": "6b87c37ddf2a37bd7494b3e51b425efcafffb5d73e6459d5c9e361f85d35c0de",
+        "content_dispositions_sha256": "6a7214f0ed2d4e851fc36dc4da0caf321b52ceeb6d248e80b542dc8b66f2ef42",
+        "upstream_issues_sha256": "66a57569f672aa1551c9a069f7cb4f92e50ae27f2b7b760a9114adfaec1015a6"
+      },
+      "optimizer_historical": {
+        "evidence_commit": "89acfd172fd7caf5f89224c9a55262cedccd7847",
+        "candidate_path": "work/github-foss-readme-optimizer/plans/investigations/evidence/level8-portfolio-readme-proposals-2026-07-25/aspose-barcode-foss-for-python/candidate-readme.md",
+        "candidate_sha256": "a6fcce6e4b448cbedc707455873a34665b64ceec1011436d6f15515a5e885db2",
+        "facts_sha256": "e63a097c18561008790929977f752ad86b5dfdd51db3e78b216526bad19b9774",
+        "review_sha256": "4ce0cc5e17ee1dc904caa23138d62cee60c3101c12a2adba23a3c34eed564975",
+        "verified": false
+      }
+    }
+  ],
+  "contamination_assertions": [
+    {"id": "no-reference-readme-in-prompt", "required": true},
+    {"id": "no-reference-readme-in-retrieval-index", "required": true},
+    {"id": "knowledge-declared-sha-equals-sealed-sha", "required": true},
+    {"id": "selected-claim-evidence-resolves-inside-sealed-tree", "required": true},
+    {"id": "readme-only-claim-cannot-create-new-content", "required": true},
+    {"id": "candidate-sealed-before-reference-comparison", "required": true}
+  ]
+}

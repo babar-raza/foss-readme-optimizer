@@ -343,3 +343,19 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
   (`test_exact_capability_class_list_binds_capability_and_api_coordinates` etc.), so hermetic
   coverage of the underlying binding logic does not depend on this test's local-only path. Full
   boundary baseline goes from 5 known pre-existing failures to 0.
+- 2026-08-19 (GOV-014): **Real, previously-silent content loss found in the real `net` fixture
+  while repairing the reconciliation module (Stage 3A), not fixed here -- out of scope for a
+  reconciliation-machinery repair.** `aspose-net-foss`'s real README has a non-canonical `##
+  Status` section (scene-graph/geometry-primitives prose and an "advanced features not available"
+  limitations list); its content is dropped entirely from the candidate by an earlier composition
+  stage with no operation, claim resolution, or placement explaining the loss at all. Confirmed
+  via `readme_reconciliation.py::build_readme_reconciliation_report`, which now (after the Stage
+  3A repair) correctly and specifically fails closed on source bytes `[1745, 2020)` in the inner
+  presentation text -- proof this is real, unaccounted loss, not a lineage-tracking artifact (the
+  Stage 3A fix independently resolved the move-relocation gap this same fixture used to fail on
+  for a different reason). Regression-guarded by
+  `tests/unit/test_readme_reconciliation.py::test_real_net_fixture_relocates_moves_and_fails_closed_on_real_loss`,
+  which asserts the fail-closed behavior directly instead of hiding it behind `xfail`. Root cause
+  not investigated (likely: the composer only carries forward canonical H2 sections and silently
+  drops non-canonical ones rather than preserving, correcting, or explicitly superseding them --
+  needs confirmation against `document_renderer.py`/`verified_template_sections.py`, not assumed).

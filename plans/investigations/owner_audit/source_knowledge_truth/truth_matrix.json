@@ -1,0 +1,363 @@
+{
+  "schema_version": 1,
+  "audit_as_of": "2026-08-19",
+  "optimizer_revision": {
+    "audited_start_pin": "6d112bbf88bc54f7ef3367b16ef8e9b769bdfb51",
+    "later_observed_tip": "d71f38b6",
+    "tip_note": "After the audit pin, eaf5eef6 fixed five baseline test failures by excluding template_sha256 from semantic plan hashes after output-equivalence verification and by skipping a mutable Note artifact on hash mismatch; the reported suite state became 4207 passed, 1 skipped, 1 xfailed, 0 failed. Subsequent tips were auto-push governance only. None changes the audited knowledge-selection or product-truth path."
+  },
+  "classification_vocabulary": {
+    "exact": "The imported field or artifact matches the pinned current repository fact in the audited scope.",
+    "supported": "The repository supports the statement, but it is not an exact or complete projection.",
+    "contradicted": "Current repository evidence directly disproves the imported statement or runtime disposition.",
+    "external-only": "The item is governed by an external catalog or registry and cannot be established from repository bytes alone.",
+    "stale": "The artifact or evidence is bound to a non-current source revision or superseded README.",
+    "partial": "Some fields are correct, but material omissions, mixed scopes, or count inconsistencies remain.",
+    "missing": "A required artifact or field is absent.",
+    "unprovable": "The available evidence does not support a decisive truth judgment."
+  },
+  "repositories": [
+    {
+      "id": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "default_branch": "master",
+      "current_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+      "knowledge_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+      "pre_refresh_sha": "ab1a2267a0ba6302311d0c7c4ad01494974c7d76",
+      "refresh_merge_sha": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+      "runtime_freshness": "current",
+      "runtime_selection": {
+        "considered": 3452,
+        "selected": 35,
+        "rejected": 3417,
+        "fact_fields": 5
+      },
+      "artifacts": [
+        {
+          "artifact": "products_registry_identity",
+          "classification": "exact",
+          "evidence": "data/imported/data/products.json identifies family=3d, platform=python and the correct GitHub repository."
+        },
+        {
+          "artifact": "source_and_bundle_revision",
+          "classification": "exact",
+          "evidence": "model.yaml, index.json, upstream_baselines.json, knowledge_state.json and current GitHub HEAD all record ee05c1ba9153ef5916b7a108406c794f2e464d01."
+        },
+        {
+          "artifact": "readme_lineage",
+          "classification": "partial",
+          "evidence": "The sealed pre-refresh replay SHA is ab1a2267... and its historical bytes are absent from the optimizer finalized artifacts; they must be fetched from that commit. Optimizer ORIGINAL-README.md matches the post-refresh merge state at 62fb89f3..., not the original input. The complete-bundle clone-cache README is byte-identical after newline normalization to current public README; optimizer's accepted candidate is a different 76,093-byte document and was not published."
+        },
+        {
+          "artifact": "license",
+          "classification": "missing",
+          "evidence": "Current LICENSE is MIT, but model.yaml license is empty and claims.json has no license claim."
+        },
+        {
+          "artifact": "manifest_package_and_import_root",
+          "classification": "partial",
+          "evidence": "setup.py name=aspose-3d-foss and version=26.1.0 match model.yaml; the package root/import is aspose.threed, not aspose_3d_foss."
+        },
+        {
+          "artifact": "install",
+          "classification": "contradicted",
+          "evidence": "install.md recommends pip install aspose-3d-foss>=26.1.0 and verifies import aspose_3d_foss. package_registry.json says the PyPI candidate was unpublished on 2026-08-01, and the current source README uses a source checkout plus pip install -e .; the verify import is invalid for this tree."
+        },
+        {
+          "artifact": "api_surface",
+          "classification": "partial",
+          "evidence": "All 327 imported (name,file,line,kind) tuples resolve exactly at current source, but the repository has 344 top-level class/function definitions and the artifact does not itself prove public reachability."
+        },
+        {
+          "artifact": "class_graph",
+          "classification": "partial",
+          "evidence": "154/154 imported edges match source; 2 real Generic[T] edges are omitted."
+        },
+        {
+          "artifact": "formats",
+          "classification": "contradicted",
+          "evidence": "formats.md says FBX import/export Yes, while FbxExporter.save and save_to_stream raise NotImplementedError. It also marks COLLADA export Yes, but the public Scene.save path is broken: formats.__init__ exposes a legacy ColladaSaveOptions that is not SaveOptions, and extension-based dispatch reaches FbxExporter.supports_format, inherited as NotImplementedError, before ColladaExporter. The internal ColladaExporter is implemented and directly tested, so internal implementation and public reachability must be separate facts. The table omits working 3MF import/export, promotes option-class existence to support for several unimplemented formats, and misclassifies degree, radian, points and absolute as formats."
+        },
+        {
+          "artifact": "claims_and_evidence",
+          "classification": "partial",
+          "evidence": "3452 claims: 2243 scout and 1209 enriched. 635 have no evidence; 538 evidence records name files absent from the repository; 491 claims contain at least one such bad reference. Of 71 README evidence excerpts, only 9 occur exactly in the current README."
+        },
+        {
+          "artifact": "runtime_selected_claims",
+          "classification": "contradicted",
+          "evidence": "The current selector accepts a claim that NurbsSurface.to_mesh works although line 27 raises NotImplementedError. Its selected COLLADA public-export limitation is supported after tracing and executing Scene.save, even though an internal ColladaExporter implementation exists; this demonstrates why symbol existence is insufficient in either direction. It also verifies declarative format constants such as BLENDER and MAYA_ASCII merely because their cited file exists."
+        },
+        {
+          "artifact": "limitations",
+          "classification": "exact",
+          "evidence": "limitations.md has 401 table rows and current package source has 401 concrete NotImplementedError methods."
+        },
+        {
+          "artifact": "conflict_ledger",
+          "classification": "missing",
+          "evidence": "No merge_conflicts.json exists; model.yaml/index.json say has_conflicts=false and truth_gaps=[], despite positive FBX/NURBS statements conflicting with source and despite the unreconciled distinction between an implemented internal ColladaExporter and broken public Scene.save reachability."
+        },
+        {
+          "artifact": "coverage_ledger",
+          "classification": "partial",
+          "evidence": "coverage_matrix.json has 327 unique rows, 53 has_tests=true and 184 has_doc=true. index.json reports forbidden_count=50 while model.yaml and merge_report report 401."
+        },
+        {
+          "artifact": "snippets",
+          "classification": "partial",
+          "evidence": "100/100 compile and all indexed source functions exist, but they are extracted test bodies requiring self, fixtures, imports and surrounding setup; they are evidence fragments, not standalone README examples."
+        },
+        {
+          "artifact": "seo_keywords",
+          "classification": "external-only",
+          "evidence": "For 26 Python-family pages, 327/375 keyword strings mention .NET/C#/related ecosystems. Runtime relevance filtering retains 0, so the imported registry is currently safe but operationally empty for this product."
+        },
+        {
+          "artifact": "links",
+          "classification": "external-only",
+          "evidence": "aspose_org_links.json contains product-specific FOSS pages; aspose_com_links.json contains Enterprise product/reference surfaces. Repository bytes cannot establish external availability or FOSS API equivalence."
+        }
+      ]
+    },
+    {
+      "id": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "default_branch": "main",
+      "current_sha": "41de2e8ab478b5aeff3663f7f7cbf83b19fdf676",
+      "knowledge_sha": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "pre_refresh_sha": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "runtime_freshness": "stale_revision",
+      "runtime_selection": {
+        "considered": 333,
+        "selected": 6,
+        "rejected": 327,
+        "fact_fields": 1
+      },
+      "artifacts": [
+        {
+          "artifact": "products_registry_identity",
+          "classification": "exact",
+          "evidence": "The imported and optimizer-owned registries identify the correct family/platform/repository."
+        },
+        {
+          "artifact": "source_and_bundle_revision",
+          "classification": "stale",
+          "evidence": "model.yaml, upstream_baselines.json and knowledge_state.json remain at 6d97a522... while current GitHub HEAD is 41de2e8.... The only source diff is README.md, but index.json still says stale=false."
+        },
+        {
+          "artifact": "readme_lineage",
+          "classification": "stale",
+          "evidence": "Optimizer ORIGINAL-README.md and complete-bundle clone cache equal the pre-refresh 6d97a522 README. Current public README is the 41de2e8 refresh. The optimizer candidate is different from both and was not published."
+        },
+        {
+          "artifact": "license",
+          "classification": "partial",
+          "evidence": "Root LICENSE is MIT and THIRD_PARTY_NOTICES.md exists; pyproject.toml and model.yaml use LicenseRef-Aspose-Split. A single unqualified label loses this split-license nuance."
+        },
+        {
+          "artifact": "manifest_package_and_import_root",
+          "classification": "exact",
+          "evidence": "pyproject.toml name=aspose-note, version=26.3.2, package-dir=src, and package root src/aspose are unchanged since the knowledge SHA."
+        },
+        {
+          "artifact": "install",
+          "classification": "partial",
+          "evidence": "pip install aspose-note>=26.3.2 is supported by the manifest and dated package-registry evidence, but install.md verifies import aspose_note instead of aspose.note."
+        },
+        {
+          "artifact": "api_surface",
+          "classification": "partial",
+          "evidence": "All 54 entries still point to valid source locations; 3 are nested implementation helpers (two local Flowable classes and read_value), not top-level public API. Coverage and index independently report 50 and 39 classes."
+        },
+        {
+          "artifact": "class_graph",
+          "classification": "partial",
+          "evidence": "24/26 edges are ordinary top-level source inheritance; 2 edges describe nested local Flowable helpers and should not be public API."
+        },
+        {
+          "artifact": "formats",
+          "classification": "partial",
+          "evidence": "PDF export is supported. OneNote2007/2010/Online are recorded only as detect directions, and formats.md renders them as neither import nor export even though the package's primary purpose and current README are reading .one files."
+        },
+        {
+          "artifact": "claims_and_evidence",
+          "classification": "supported",
+          "evidence": "333 scout-only claims; 330 evidence records resolve to current files/lines and the code tree did not change. Three claims have no evidence."
+        },
+        {
+          "artifact": "runtime_selected_claims",
+          "classification": "partial",
+          "evidence": "Staleness gating rejects uncorroborated install/license/API claims, but selects six format declarations as verified because evidence files exist; the output is limited to detect/PDF facts and still does not express .one import."
+        },
+        {
+          "artifact": "limitations",
+          "classification": "partial",
+          "evidence": "No package source method raises NotImplementedError, matching limitations.md, but absence of that exception pattern is not a complete functional-limitations model."
+        },
+        {
+          "artifact": "conflict_ledger",
+          "classification": "missing",
+          "evidence": "No merge_conflicts.json exists; has_conflicts=false and truth_gaps=[] do not explain the 54/50/39 class-count split, stale README evidence, or license split."
+        },
+        {
+          "artifact": "coverage_ledger",
+          "classification": "partial",
+          "evidence": "50 unique rows, 33 has_tests=true, zero has_doc=true; class counts disagree with api_surface.json (54) and index.json (39)."
+        },
+        {
+          "artifact": "snippets",
+          "classification": "stale",
+          "evidence": "97/97 compile. 84 test-function sources still exist; 13 were extracted from the pre-refresh README and none of those 13 bodies occurs exactly in the current README. All remain context-dependent fragments."
+        },
+        {
+          "artifact": "seo_keywords",
+          "classification": "external-only",
+          "evidence": "207/305 strings on 30 Note/Python pages mention .NET/C#/related ecosystems. Runtime relevance filtering retains 0."
+        },
+        {
+          "artifact": "links",
+          "classification": "external-only",
+          "evidence": "FOSS documentation links are catalog-derived. Enterprise .com links are a different product surface and cannot ground FOSS implementation claims."
+        }
+      ]
+    },
+    {
+      "id": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "default_branch": "main",
+      "current_sha": "06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
+      "knowledge_sha": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+      "pre_refresh_sha": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+      "runtime_freshness": "stale_revision",
+      "runtime_selection": {
+        "considered": 375,
+        "selected": 13,
+        "rejected": 362,
+        "fact_fields": 3
+      },
+      "artifacts": [
+        {
+          "artifact": "products_registry_identity",
+          "classification": "exact",
+          "evidence": "The repository identity is correct in both imported and optimizer-owned products registries."
+        },
+        {
+          "artifact": "source_and_bundle_revision",
+          "classification": "stale",
+          "evidence": "Knowledge remains at 53f2c335... while current GitHub HEAD is 06eca5c.... Only README.md changed, but imported index.json says stale=false."
+        },
+        {
+          "artifact": "readme_lineage",
+          "classification": "partial",
+          "evidence": "Optimizer ORIGINAL-README.md is exact pre-refresh 53f2c335. The complete-bundle clone cache is exact current public README, showing clone acquisition moved ahead of the promoted knowledge. Optimizer's accepted candidate differs from the published README."
+        },
+        {
+          "artifact": "license",
+          "classification": "exact",
+          "evidence": "pyproject.toml, model.yaml, license claim and current LICENSE agree on MIT."
+        },
+        {
+          "artifact": "manifest_package_and_import_root",
+          "classification": "exact",
+          "evidence": "pyproject.toml name=aspose-barcode-foss, version=0.1.0, package-dir=src; import root aspose_barcode_foss."
+        },
+        {
+          "artifact": "install",
+          "classification": "partial",
+          "evidence": "The verify import is correct. The direct PyPI command conflicts with package_registry.json's dated unpublished status and the current README's source installation path."
+        },
+        {
+          "artifact": "api_surface",
+          "classification": "partial",
+          "evidence": "All 146 imported tuples resolve exactly in current source, but api_surface.json includes internal definitions; coverage tracks 79 classes while index exposes 26."
+        },
+        {
+          "artifact": "class_graph",
+          "classification": "exact",
+          "evidence": "All 55 imported inheritance edges match current source."
+        },
+        {
+          "artifact": "formats",
+          "classification": "contradicted",
+          "evidence": "PNG and SVG export are supported. formats.md also says PDF export Yes although PdfRenderer.render and Barcode.to_pdf raise NotImplementedError; caveats exist in formats.json but are discarded by formats.md and runtime selection."
+        },
+        {
+          "artifact": "claims_and_evidence",
+          "classification": "partial",
+          "evidence": "375 claims: 313 scout and 62 enriched. Four lack evidence; 56 evidence records refer to absent pseudo-files, affecting 49 claims. Of 11 README evidence excerpts, only 2 occur exactly in current README."
+        },
+        {
+          "artifact": "runtime_selected_claims",
+          "classification": "contradicted",
+          "evidence": "The selector simultaneously verifies six positive export claims including PdfRenderer/to_pdf and six limitation claims proving the same PDF paths raise NotImplementedError."
+        },
+        {
+          "artifact": "limitations",
+          "classification": "exact",
+          "evidence": "limitations.md lists all 6 concrete NotImplementedError methods; the 4 additional source raises belong to abstract interface methods."
+        },
+        {
+          "artifact": "conflict_ledger",
+          "classification": "missing",
+          "evidence": "No merge_conflicts.json exists; has_conflicts=false and truth_gaps=[] contradict the unresolved PDF positive/negative pair."
+        },
+        {
+          "artifact": "coverage_ledger",
+          "classification": "partial",
+          "evidence": "79 rows, 26 has_tests=true and 79 has_doc=true; counts are not reconciled with 146 API entries and 26 index classes."
+        },
+        {
+          "artifact": "snippets",
+          "classification": "partial",
+          "evidence": "100/100 compile and all source test functions exist. Index extraction recognizes only one class across the bank, and bodies depend on test imports/fixtures, so they require agent adaptation and execution before README use."
+        },
+        {
+          "artifact": "seo_keywords",
+          "classification": "external-only",
+          "evidence": "185/203 strings on 20 Barcode/Python pages mention .NET/C#/related ecosystems. Runtime relevance filtering retains 0."
+        },
+        {
+          "artifact": "links",
+          "classification": "external-only",
+          "evidence": "The .com catalog primarily points to Enterprise Python-via-Java/.NET APIs, not this pure-Python FOSS package; those URLs require explicit enterprise labeling and cannot corroborate FOSS API claims."
+        }
+      ]
+    }
+  ],
+  "systemic_causes": [
+    {
+      "owner": "scripts/data-refresh/detect_aspose_upstream_drift.py::_compare_bundle",
+      "finding": "It scans only bundle_manifest.json. Note/Python and Barcode/Python have no bundle manifest, so their stale promoted knowledge is invisible to this detector.",
+      "smallest_repair": "Enumerate every merged/model.yaml, synthesize member hashes when bundle_manifest.json is absent, and compare each target repository's live default-branch SHA to model.repo_sha.",
+      "minimum_test": "A manifest-less bundle with a changed live SHA must appear as stale and block promotion."
+    },
+    {
+      "owner": "src/readme_agent/facts/aspose_knowledge_selection.py::_file_evidence_corroboration",
+      "finding": "A claim becomes corroborated when any evidence file merely exists. Line, excerpt, symbol, method body and polarity are ignored.",
+      "smallest_repair": "Require an evidence adapter by claim kind that validates path + line/symbol + content/polarity; existence alone can mean only 'located', never 'verified'.",
+      "minimum_test": "The existing PDF file containing raise NotImplementedError must reject positive PDF-export claims while retaining the limitation."
+    },
+    {
+      "owner": "src/readme_agent/facts/aspose_knowledge_selection.py::_claim_eligibility",
+      "finding": "Every uncorroborated claim is output-eligible when the bundle SHA is current. This admits stale carried-forward enriched evidence and unsupported prose at confidence 0.6.",
+      "smallest_repair": "Current SHA may waive revision staleness, not evidence. Positive capability/format/install claims still require semantic corroboration; unverifiable prose remains planning context only.",
+      "minimum_test": "At current 3D SHA, reject the NurbsSurface.to_mesh positive claim; accept the narrowly scoped 'COLLADA is not exportable through public Scene.save' claim while retaining a separate internal-exporter-implemented fact."
+    },
+    {
+      "owner": "src/readme_agent/facts/aspose_knowledge_selection.py::select_knowledge_claims",
+      "finding": "Claims are ranked and capped independently by output field without reconciling positive and negative polarity. Direct contradictions can both be selected as verified.",
+      "smallest_repair": "Add a deterministic entity/action/direction key and negative-wins conflict pass before ranking/capping; emit a conflict ledger and fail closed on unresolved pairs.",
+      "minimum_test": "Barcode PDF positive and limitation claims collapse to limitation-only; 3D FBX export collapses to unsupported/experimental."
+    },
+    {
+      "owner": "src/readme_agent/facts/aspose_detectors.py::detect_api_public_surface",
+      "finding": "The detector trusts upstream visibility/reachable flags, while imported Python API data includes internal and nested helpers and disagrees with index/coverage counts.",
+      "smallest_repair": "For Python, intersect imported entries with current package exports and exclude nested definitions; make one reconciled count feed API, graph, coverage and renderer.",
+      "minimum_test": "Note local Flowable classes/read_value and Barcode _internal-only types cannot appear in public API output."
+    },
+    {
+      "owner": "imported install/format/keyword adapters",
+      "finding": "Package-name presence is mistaken for publishability, class-name presence for format capability, and Python SEO pages are dominated by .NET/C# phrases.",
+      "smallest_repair": "Gate install by verified registry status or source-install fallback; gate formats by executable dispatcher/tests and negative evidence; keep the existing SEO rejection but record zero-usable-keyword as an acquisition-quality gap.",
+      "minimum_test": "The three audited repositories produce correct source/PyPI install paths, correct imports, 3MF/.one/PDF directions, and no wrong-platform keyword."
+    }
+  ]
+}
