@@ -43,6 +43,23 @@ _NON_FAST_FORWARD_MARKERS = (
     "rejected",
 )
 
+# Live-found, 2026-08-19 (this repo's own real push, not a simulated remote): even with both
+# `_GIT_SAFETY_ENV` flags set, this checkout's configured credential helper
+# (`git-credential-manager.exe`) did not fail fast -- it stalled well past 100s before giving up.
+# `GIT_TERMINAL_PROMPT=0`/`GCM_INTERACTIVE=never` are still worth setting (they are the documented,
+# correct fix for the raw-prompt/embedded-webview case `_git.py` proved live), but must not be
+# trusted alone to guarantee a fast failure -- a bounded timeout is the actual backstop. 150s
+# comfortably clears the slowest observed real stall while still failing well within a single
+# interactive session rather than hanging indefinitely.
+_PUSH_TIMEOUT_SECONDS = 150
+
+
+class _GitTimeout(subprocess.CompletedProcess):
+    """A synthetic failed result for a timed-out git call -- mirrors
+    `gitsafety/_git.py::run_git()`'s own returncode-124 convention, so a timeout is an ordinary
+    handled failure, never an uncaught `subprocess.TimeoutExpired` crashing this script (and, by
+    extension, silently swallowing every future commit's hook output)."""
+
 
 @dataclass
 class PushResult:
@@ -51,15 +68,25 @@ class PushResult:
     detail: str
 
 
-def _run_git(args: list[str], *, cwd: Path) -> subprocess.CompletedProcess:
-    return subprocess.run(
-        ["git", *args],
-        cwd=cwd,
-        capture_output=True,
-        text=True,
-        timeout=60,
-        env={**os.environ, **_GIT_SAFETY_ENV},
-    )
+def _run_git(args: list[str], *, cwd: Path, timeout: float = 60) -> subprocess.CompletedProcess:
+    try:
+        return subprocess.run(
+            ["git", *args],
+            cwd=cwd,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            env={**os.environ, **_GIT_SAFETY_ENV},
+        )
+    except subprocess.TimeoutExpired as exc:
+        return _GitTimeout(
+            args=["git", *args],
+            returncode=124,
+            stdout=(exc.stdout or b"").decode("utf-8", "replace")
+            if isinstance(exc.stdout, bytes)
+            else (exc.stdout or ""),
+            stderr=f"git {' '.join(args)} timed out after {timeout}s",
+        )
 
 
 def current_branch(repo_root: Path = REPO_ROOT) -> str | None:
@@ -89,7 +116,9 @@ def _toplevel_matches(repo_root: Path) -> bool:
     return Path(result.stdout.strip()).resolve() == repo_root.resolve()
 
 
-def push_current_branch(repo_root: Path = REPO_ROOT) -> PushResult:
+def push_current_branch(
+    repo_root: Path = REPO_ROOT, *, timeout: float = _PUSH_TIMEOUT_SECONDS
+) -> PushResult:
     branch = current_branch(repo_root)
     if branch is None:
         return PushResult(ok=True, branch=None, detail="detached HEAD -- nothing to push, skipped")
@@ -112,9 +141,21 @@ def push_current_branch(repo_root: Path = REPO_ROOT) -> PushResult:
             ),
         )
 
-    result = _run_git(["push", "origin", branch], cwd=repo_root)
+    result = _run_git(["push", "origin", branch], cwd=repo_root, timeout=timeout)
     if result.returncode == 0:
         return PushResult(ok=True, branch=branch, detail=f"pushed {branch} to origin")
+
+    if result.returncode == 124:
+        return PushResult(
+            ok=False,
+            branch=branch,
+            detail=(
+                f"push timed out after {timeout}s -- likely the credential helper stalling "
+                "rather than a rejected push; run 'git push' manually to authenticate "
+                "interactively once, then future automatic pushes should reuse the cached "
+                "credential and complete quickly"
+            ),
+        )
 
     stderr = result.stderr
     if any(marker in stderr for marker in _NON_FAST_FORWARD_MARKERS):

@@ -103,6 +103,27 @@ class TestPushCurrentBranch:
         show_ref = run_git(["show-ref", "--verify", "refs/heads/main"], cwd=bare_remote)
         assert show_ref.returncode != 0
 
+    def test_a_timed_out_push_returns_a_clean_result_not_a_crash(self, tmp_path):
+        """Live-found 2026-08-19: this repo's own real credential helper can stall well past a
+        naive subprocess timeout even with the interactivity-suppression env vars set. A timeout
+        must never surface as an uncaught `subprocess.TimeoutExpired` -- that would crash the
+        hook (and print nothing useful) on every future slow commit. An unreasonably small
+        `timeout` deterministically forces the same code path a real stall would hit."""
+
+        bare_remote = tmp_path / "remote.git"
+        run_git(["init", "--bare", "-b", "main", str(bare_remote)])
+
+        work = _init_repo(tmp_path / "work")
+        run_git(["remote", "add", "origin", str(bare_remote)], cwd=work)
+
+        result = post_commit_push.push_current_branch(work, timeout=0.0001)
+
+        assert not result.ok
+        assert "timed out" in result.detail
+
+        show_ref = run_git(["show-ref", "--verify", "refs/heads/main"], cwd=bare_remote)
+        assert show_ref.returncode != 0
+
     def test_non_fast_forward_is_reported_and_never_force_pushed(self, tmp_path):
         """The real concurrent-session case: a second clone already pushed a commit this clone
         doesn't have. The push must be rejected, with a rebase remedy, and the remote's real
