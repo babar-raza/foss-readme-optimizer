@@ -51,9 +51,18 @@ confirming staleness, not divergence/corruption)
 Not yet individually read/triaged (each needs its own read to classify whether it's applicable
 to this system's scope — several look tied to aspose.org's own `upstream_issue_workflow.py`,
 which we deliberately never vendored at all, e.g. `check_no_internal_details_leaked_into_issue_
-draft`/`check_issue_draft_rejection_list`; others look generically applicable, e.g.
-`check_frozen_blocks_unchanged`/`check_scope_compliance`/`check_image_content_unit_excluded_
-reason_verified`).
+draft`/`check_issue_draft_rejection_list`).
+
+**One checked directly, and it's not a quick port**: `check_frozen_blocks_unchanged` (MT056)
+looked like a generically valuable candidate on its name alone, but its real implementation
+depends on aspose.org's "acceptance-registry" state machine (`declare-scope`/`accept-blocks`/
+`converge-verify`, tracking per-block `CONVERGED`/`FROZEN_ACCEPTED` status across regeneration
+passes so a surgical re-run can prove it touched only the declared scope) — a whole stateful
+workflow concept this system has no equivalent for at all (our own accept/reject model is
+candidate-level with content-addressed caching, not per-block). Porting this check meaningfully
+means porting that supporting state machine first — `ADAPT_FOR_QWEN`-scale work, not a
+mechanical `PORT_FROM_ASPOSE` drop-in. The other 10 are unchecked; do not assume any of them are
+quick either without reading each one's real dependencies the same way.
 
 ## Disposition
 
