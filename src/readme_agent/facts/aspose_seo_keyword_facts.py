@@ -23,7 +23,8 @@ produces is surfaced).
 
 from __future__ import annotations
 
-from datetime import UTC, datetime
+import hashlib
+import json
 from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict
@@ -81,6 +82,17 @@ def relevant_seo_keyword_fact_record(
     )
     if not detection.keywords:
         return None
+    # Content-derived, never wall-clock: identical filtered keywords always
+    # produce the same source_revision, so ProductFactsV2.canonical_hash()
+    # stays stable across repeated runs against unchanged keyword data.
+    content_revision = (
+        "content-sha256:"
+        + hashlib.sha256(
+            json.dumps(list(detection.keywords), sort_keys=True, separators=(",", ":")).encode(
+                "utf-8"
+            )
+        ).hexdigest()
+    )
     return FactRecordV2(
         fact_id=descriptive_fact_id("aspose.relevant_seo_keywords", "aspose-knowledge"),
         field="aspose.relevant_seo_keywords",
@@ -88,7 +100,7 @@ def relevant_seo_keyword_fact_record(
         source=FactSourceV2(
             source_type="approved_documentation",
             location=f"data/imported:{family}/{platform}",
-            retrieved_at=datetime.now(UTC).isoformat(),
+            source_revision=content_revision,
         ),
         verification_state="unverified",
         authoritative_owner="aspose.org",

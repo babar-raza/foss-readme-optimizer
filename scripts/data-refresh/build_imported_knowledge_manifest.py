@@ -15,6 +15,15 @@ invalidation stays a single cheap file read) while still selecting only a
 small, bounded, relevant slice of claims per run
 (`facts/aspose_knowledge_selection.py`).
 
+Deliberately carries no wall-clock generation timestamp: the manifest is
+hashed byte-for-byte as a cache-invalidation component
+(`facts/acceptance_contract.py`), so two runs against unchanged corpus
+content must produce byte-identical output. When this needs to be
+regenerated on demand, `git log -1 --format=%cI -- data/imported/
+knowledge_manifest.json` already answers "when was this last (really)
+regenerated" without adding a field that would otherwise change on every
+run regardless of content.
+
 Run:
 
     .venv/Scripts/python scripts/data-refresh/build_imported_knowledge_manifest.py
@@ -24,7 +33,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-from datetime import UTC, datetime
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -123,7 +131,6 @@ def build_manifest() -> dict:
 
     return {
         "schema_version": 1,
-        "generated_at": datetime.now(UTC).isoformat(),
         "generator": "scripts/data-refresh/build_imported_knowledge_manifest.py",
         "knowledge_root": KNOWLEDGE_ROOT.relative_to(REPO_ROOT).as_posix(),
         "file_count": len(file_entries),

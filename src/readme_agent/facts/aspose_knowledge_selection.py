@@ -36,7 +36,6 @@ the same ground truth).
 
 from __future__ import annotations
 
-from datetime import UTC, datetime
 from pathlib import Path
 from typing import Literal
 
@@ -196,7 +195,12 @@ def select_knowledge_claims(
 
     dispositions: list[KnowledgeClaimDispositionV1] = []
     fact_records: list[FactRecordV2] = []
-    retrieved_at = datetime.now(UTC).isoformat()
+    # Stable, content-derived provenance timestamp -- never wall-clock. Using
+    # the bundle's own recorded promotion time (real, immutable imported
+    # data) instead of "now" means two runs against the identical corpus and
+    # repository revision always produce byte-identical FactRecordV2 values,
+    # which ProductFactsV2.canonical_hash() depends on for no-op proof.
+    stable_retrieved_at = (provenance.promoted_at if provenance else None) or "unknown"
 
     present_kinds = {claim.kind for claim in all_claims}
     for kind in sorted(present_kinds - set(_KIND_FIELD_MAP)):
@@ -314,7 +318,7 @@ def select_knowledge_claims(
                     source_type="approved_documentation",
                     location=f"data/imported:{family}/{platform}",
                     source_revision=provenance.repo_sha if provenance else None,
-                    retrieved_at=retrieved_at,
+                    retrieved_at=stable_retrieved_at,
                 ),
                 verification_state="verified" if verified_any else "unverified",
                 authoritative_owner="aspose.org",

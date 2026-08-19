@@ -23,8 +23,9 @@ and is never itself a regeneration trigger.
 
 from __future__ import annotations
 
+import hashlib
+import json
 import time
-from datetime import UTC, datetime
 from pathlib import Path
 from typing import Literal
 
@@ -157,12 +158,35 @@ def aspose_fact_records(
     data (see aspose_detectors.py); a field with nothing genuine to say
     (no real data found) is simply omitted here rather than recorded with
     a hollow or default value.
+
+    `source.source_revision` is a content hash of the bundle's own detected
+    data, not a wall-clock timestamp -- consistent with this module's own
+    stated freshness model (identity-based, never wall-clock; U11, module
+    docstring above). A `retrieved_at` timestamp here would make
+    `ProductFactsV2.canonical_hash()` non-deterministic across otherwise
+    identical runs, defeating no-op/cache-reuse proof for every candidate
+    that consumes any `aspose.*` field.
     """
 
+    # Exclude live wall-clock-relative fields (target_map_age_days/_stale --
+    # a "seconds since file mtime" computation, confirmed non-deterministic
+    # by a real two-call comparison) from what gets hashed into
+    # source_revision. Every other bundle field is derived purely from
+    # static file content, so this sanitized dump is genuinely stable run
+    # to run against unchanged source data.
+    _bundle_dump = bundle.model_dump(mode="json")
+    if isinstance(_bundle_dump.get("enterprise_link"), dict):
+        _bundle_dump["enterprise_link"].pop("target_map_age_days", None)
+        _bundle_dump["enterprise_link"].pop("target_map_stale", None)
     source = FactSourceV2(
         source_type="approved_documentation",
         location=f"data/imported:{family}/{platform}",
-        retrieved_at=datetime.now(UTC).isoformat(),
+        source_revision=(
+            "content-sha256:"
+            + hashlib.sha256(
+                json.dumps(_bundle_dump, sort_keys=True, separators=(",", ":")).encode("utf-8")
+            ).hexdigest()
+        ),
     )
     records: list[FactRecordV2] = []
 
@@ -222,9 +246,21 @@ def aspose_fact_records(
 
     link = bundle.enterprise_link
     if link.url is not None:
+        # target_map_age_days is a live "seconds since file mtime" float --
+        # confirmed by direct source read that no vendored check reads either
+        # volatile key programmatically (readme_refresh_checks.py explicitly
+        # documents "does not hard-fail on target_map_stale alone"; only
+        # "url" is read for check_enterprise_edition_link_resolves). Exclude
+        # both from the hashed fact VALUE so it stops changing every call
+        # regardless of real content; target_map_stale still gates
+        # `verified` here (a coarse, day-granularity business decision, not
+        # a sub-second leak).
+        link_value = link.model_dump(mode="json")
+        link_value.pop("target_map_age_days", None)
+        link_value.pop("target_map_stale", None)
         add(
             "aspose.enterprise_link",
-            link.model_dump(mode="json"),
+            link_value,
             verified=not bool(link.target_map_stale),
             surfaces=["readme.limitations"],
         )
