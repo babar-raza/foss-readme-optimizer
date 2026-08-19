@@ -204,16 +204,22 @@ def test_lineage_only_projection_must_exactly_equal_maximal_replay_runs() -> Non
 
 
 def test_dependencies_subsection_headings_are_governed_mechanical_structure() -> None:
-    """S12 (2026-08-19): a template-mandated Dependencies H3 with no fact/standard
-    binding must render as governed mechanical structure, not `unbound` -- the exact
-    live failure on cells-python/barcode-python after Lane A/F's dependency-subsection
-    rendering landed without a matching composition-lineage update."""
+    """S12 (2026-08-19): a template-mandated Dependencies H3 -- and the fixed,
+    non-fact-derived lead-in sentences `verified_template_sections.py` emits with
+    it (the verified-empty and scenario-list cases) -- must render as governed
+    mechanical structure, not `unbound`. The bare-heading-only version of this test
+    passed while the live segment (heading + lead-in sentence, one contiguous
+    unbound byte range) still failed on font-python/note-python -- this exact
+    shape, captured from real live evidence, is what must be covered."""
 
     source = "old"
     candidate = (
         "### Required Package Dependencies\n\n"
+        "No required third-party package dependencies.\n\n"
         "### Optional Dependencies\n\n"
+        "Install optional dependencies by scenario:\n\n"
         "### Development Dependencies\n\n"
+        "No development dependencies declared in `pyproject.toml`.\n\n"
     )
     operation = build_operation(
         operation_id="readme.real-operation",

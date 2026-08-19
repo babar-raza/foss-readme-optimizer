@@ -42,6 +42,12 @@ _GOVERNED_STRUCTURAL_LINES = {
     "### Optional Dependencies",
     "### Development Dependencies",
     "## License",
+    # Fixed lead-in sentences `verified_template_sections.py` emits with the
+    # three Dependencies H3 headings above -- no fact-derived content of their
+    # own, so they carry no provenance and must be governed the same way.
+    "No required third-party package dependencies.",
+    "Install optional dependencies by scenario:",
+    "No development dependencies declared in `pyproject.toml`.",
 }
 
 

@@ -321,3 +321,39 @@ blocked repo whose *only* remaining block was this exact composition-authority g
 clear. A fresh portfolio/canary pass is needed to confirm actual promotion to
 `DETERMINISTIC_VALIDATED`/beyond; S1 (claim accountability) remains a separate, still-open
 signature for repos that fail there independently of S12.
+
+**Follow-up lead, not yet confirmed (2026-08-19)**: a static sweep of every literal `"## "`/`"### "`
+heading string in `src/readme_agent/presentation/` and `src/readme_agent/readme/` for the same bug
+class (bare template-shell heading, no accompanying fact/standard provenance, not registered in
+`composition_lineage.py::_GOVERNED_STRUCTURAL_LINES`) found three more candidates:
+`### Golden Workflow` (`verified_template_golden_workflow.py`), `### Example results` and
+`### Repository example files` (both `verified_template_sections.py`). Unlike the Dependencies
+headings, none of these have appeared as an `unbound` segment in any live evidence captured so far
+(cells-python, barcode-python, page-python) — either no current Python repo's real facts trigger
+these code paths, or they already receive real provenance through a mechanism not yet traced.
+**Do not fix speculatively** — same discipline as S12 itself: needs a genuine live repro (a repo
+whose facts include golden-workflow/example-asset evidence) before touching anything. Worth a
+five-minute check the next time a repo's facts are known to include that evidence.
+
+**S12 fix was incomplete — corrected same day, live-caught by the second retry-blocked pass**:
+the first fix (three bare H3 heading strings) reduced cells-python's unbound segments 3->1
+(0032/0036 gone, 0034 remained) — proof it was real and directional, but not sufficient, caught
+immediately by rerunning rather than declaring victory on the first partial improvement. Fresh
+evidence from font-python and note-python made the remaining gap unambiguous: `### Optional
+Dependencies` and `### Required Package Dependencies` are each followed, in the same contiguous
+unbound byte range, by a fixed, non-fact-derived lead-in/verified-empty sentence
+(`verified_template_sections.py`): `"Install optional dependencies by scenario:"` (always,
+`scenario_dependency_markdown()`) and `"No required third-party package dependencies."`
+(verified-empty case, `dependency_markdown()`). Both registered in `_GOVERNED_STRUCTURAL_LINES`
+alongside the sibling verified-empty sentence for Development Dependencies (`"No development
+dependencies declared in \`pyproject.toml\`."`, `development_dependency_markdown()`) — the
+identical pattern in the identical function family, not yet observed live but essentially certain
+to recur the first time a Python repo declares zero dev dependencies, so fixed proactively rather
+than waited on. Regression test strengthened to the exact real segment shape (heading + lead-in
+sentence together, not heading alone) — confirmed it now fails on the heading-only version of the
+fix and passes on the complete one. Full composition-lineage + diagnostics suite: 27/27. ruff/mypy
+clean.
+
+**Lesson**: a partial live improvement (3->1) is evidence the mechanism is right, not evidence the
+fix is complete — the discipline that caught this was rerunning immediately against fresh live
+data rather than trusting the first green regression test in isolation.
