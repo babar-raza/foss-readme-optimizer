@@ -11,9 +11,12 @@ import json
 from pathlib import Path
 
 from readme_agent import paths
+from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.gitsafety._git import run_git
 from readme_agent.orchestrator import prepare_readme_candidate
+from readme_agent.verification import checks as verification_checks
 from readme_agent.verification.checks import (
+    _verify_presentation_candidate,
     compute_verification_token,
     independently_verify_readme_candidate,
 )
@@ -250,3 +253,95 @@ class TestIndependentlyVerifyReadmeCandidate:
         )
 
         assert verdict["verdict"] == "reject"
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+COMPLETE_FACTS_PROOF = (
+    PROJECT_ROOT
+    / "plans"
+    / "investigations"
+    / "evidence"
+    / "level8-local-immutable-snapshot-and-facts-corrected-acquisition-2026-07-24"
+    / "immutable-snapshot-and-product-facts-proof.json"
+)
+
+
+def _complete_snapshot_facts() -> ProductFactsV2:
+    proof = json.loads(COMPLETE_FACTS_PROOF.read_text(encoding="utf-8"))
+    pilot = next(
+        item
+        for item in proof["current_pilots"]
+        if item["org_repo"] == "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+    )
+    return ProductFactsV2.model_validate(pilot["product_facts_v2"])
+
+
+class TestVerifyPresentationCandidateDispositionWiring:
+    """Two-gate finding, extended (2026-08-19): this independent verifier
+    (gate 3) re-derives the document plan the same way gate 2 (readme_
+    factuality.py) does and had the identical gap -- no disposition context
+    passed through to build_readme_document_candidate(), so an accepted
+    `excluded_with_reason` claim (gate 1) could reappear as a fresh block
+    here too (live-observed on barcode-python after the gate-2 fix landed).
+    Proves the wiring directly on the private helper rather than through
+    independently_verify_readme_candidate()'s full fixture, which never
+    exercises the presentation-candidate branch."""
+
+    class _StopAfterCapture(Exception):
+        """Short-circuits before the rest of the function needs a real,
+        self-consistent facts/source/candidate triple -- only the exact
+        kwargs build_readme_document_candidate() receives are under test
+        here, not the full independent-rebuild-and-compare behavior (already
+        covered by the other tests in this file and by the module's own
+        composition-lineage/document-plan test suites)."""
+
+    def _mock_facts_and_spy(self, monkeypatch):
+        facts = _complete_snapshot_facts()
+        monkeypatch.setattr(
+            verification_checks,
+            "collect_product_facts",
+            lambda org_repo: {"product_facts_v2": facts.model_dump(mode="json")},
+        )
+        captured: dict = {}
+
+        def spy_build(*_args, **kwargs):
+            captured["llm_disposition_client"] = kwargs.get("llm_disposition_client")
+            captured["repository_root"] = kwargs.get("repository_root")
+            captured["disposition_ratchet_path"] = kwargs.get("disposition_ratchet_path")
+            raise self._StopAfterCapture
+
+        monkeypatch.setattr(verification_checks, "build_readme_document_candidate", spy_build)
+        return facts, captured
+
+    def test_disposition_context_reaches_the_independent_rebuild(self, monkeypatch):
+        facts, captured = self._mock_facts_and_spy(monkeypatch)
+
+        sentinel_client = object()
+        sentinel_root = Path("/sentinel/repository/root")
+        sentinel_ratchet = Path("/sentinel/ratchet.json")
+        try:
+            _verify_presentation_candidate(
+                facts.org_repo,
+                "# Anything\n",
+                llm_disposition_client=sentinel_client,
+                repository_root=sentinel_root,
+                disposition_ratchet_path=sentinel_ratchet,
+            )
+        except self._StopAfterCapture:
+            pass
+
+        assert captured["llm_disposition_client"] is sentinel_client
+        assert captured["repository_root"] == sentinel_root
+        assert captured["disposition_ratchet_path"] == sentinel_ratchet
+
+    def test_disposition_context_defaults_to_none(self, monkeypatch):
+        facts, captured = self._mock_facts_and_spy(monkeypatch)
+
+        try:
+            _verify_presentation_candidate(facts.org_repo, "# Anything\n")
+        except self._StopAfterCapture:
+            pass
+
+        assert captured["llm_disposition_client"] is None
+        assert captured["repository_root"] is None
+        assert captured["disposition_ratchet_path"] is None

@@ -22,6 +22,7 @@ already exist to catch (Wave 7e/7f), not this module's job to re-detect.
 """
 
 import hashlib
+from pathlib import Path
 
 from readme_agent import paths
 from readme_agent.errors import NotAllowlistedError
@@ -29,6 +30,11 @@ from readme_agent.facts.provider import collect_product_facts
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.inspection import file_inventory
 from readme_agent.links.runtime_context import load_runtime_link_inputs
+from readme_agent.llm.verifier_client import ForcedToolClient
+from readme_agent.readme.claim_accountability_llm_disposition import (
+    claim_disposition_ratchet_path,
+    default_claim_disposition_client,
+)
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
 from readme_agent.readme.gap_detector import detect as detect_gaps
@@ -87,6 +93,10 @@ def _verify_presentation_candidate(
     org_repo: str,
     final_text: str,
     agentic_composition_plan: dict | None = None,
+    *,
+    llm_disposition_client: ForcedToolClient | None = None,
+    repository_root: Path | None = None,
+    disposition_ratchet_path: Path | None = None,
 ) -> dict:
     facts_result = collect_product_facts(org_repo)
     facts = ProductFactsV2.model_validate(facts_result["product_facts_v2"])
@@ -119,6 +129,9 @@ def _verify_presentation_candidate(
         agentic_composition_plan=agentic_composition_plan,
         link_catalogs=link_catalogs,
         link_allocation_policy=link_allocation_policy,
+        llm_disposition_client=llm_disposition_client,
+        repository_root=repository_root,
+        disposition_ratchet_path=disposition_ratchet_path,
     )
     validation = validate_readme_document_candidate(
         source_text,
@@ -171,6 +184,16 @@ def independently_verify_readme_candidate(
     if entry.policy_profile is None:
         raise NotAllowlistedError(f"{org_repo} has no policy_profile configured yet")
     policy = load_policy(entry.policy_profile)
+    # Two-gate finding, extended: this independent verifier re-derives the
+    # document plan the same way gate 2 (readme_factuality.py) does, and had
+    # the identical gap -- no disposition context, so an accepted `excluded_
+    # with_reason` claim (gate 1) could reappear as a fresh block here too
+    # (live-observed on barcode-python after the gate-2 fix landed). `entry`
+    # is already resolved above, so this cannot raise NotAllowlistedError
+    # again; no defensive fallback needed, unlike the other two call sites.
+    disposition_client = default_claim_disposition_client()
+    disposition_repository_root = paths.baseline_dir(entry.org, entry.repo_name)
+    disposition_ratchet_path = claim_disposition_ratchet_path(org_repo)
 
     work_path = paths.work_dir(entry.org, entry.repo_name)
     inventory = file_inventory.scan(work_path)
@@ -209,6 +232,9 @@ def independently_verify_readme_candidate(
                 org_repo,
                 final_text,
                 agentic_composition_plan,
+                llm_disposition_client=disposition_client,
+                repository_root=disposition_repository_root,
+                disposition_ratchet_path=disposition_ratchet_path,
             )
             result["checks"]["needs_write_matches"] = True
             return result
@@ -231,6 +257,9 @@ def independently_verify_readme_candidate(
             org_repo,
             final_text,
             agentic_composition_plan,
+            llm_disposition_client=disposition_client,
+            repository_root=disposition_repository_root,
+            disposition_ratchet_path=disposition_ratchet_path,
         )
         result["checks"]["needs_write_matches"] = True
         return result
