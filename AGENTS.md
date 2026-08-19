@@ -9,11 +9,20 @@ Guidance for AI coding agents working in this repository. Humans welcome too.
 presentation surfaces are relevant, and keep them credible and repository-specific — with the
 Aspose FOSS portfolio as the first deployed profile, not the ceiling of what it addresses.
 
-**What's actually shipped today** is the first capability surface, not the whole target system: a
-deterministic engine that audits Aspose FOSS GitHub READMEs for four specific promotional elements
-(license mention, `products.*.org` link, `products.*.com` link, FOSS-vs-commercial relationship
-explanation) and renders a bounded fix for only what's missing — never rewriting existing
-content, never pushing to a real remote. Python 3.11+, `src/` layout, hatchling build.
+**What's shipped today has two active layers, not one.** The original capability surface is now a
+**legacy** deterministic engine (`generate`/`run`, `readme/candidate_pipeline.py`) that audits
+Aspose FOSS GitHub READMEs for four specific promotional elements (license mention,
+`products.*.org` link, `products.*.com` link, FOSS-vs-commercial relationship explanation) and
+renders a bounded fix for only what's missing — still exercised, still never rewriting existing
+content or pushing to a real remote, but no longer the ceiling of what this system does. The
+**current** production runtime (`supervise`, `verified_repository_presentation`) performs
+full verified-presentation candidate rewrites grounded in `ProductFactsV2` (`RDM-018`, `L8-020`,
+`L8-041`), including, per Decision 106, native application of the imported aspose.org knowledge
+corpus (`facts/aspose_knowledge_claims.py`/`aspose_knowledge_selection.py`, `KNOW-001`..`KNOW-013`
+in `plans/requirements/catalog.jsonl`) and blocking acceptance gates derived from the vendored
+aspose.org check battery (`data/aspose_check_classification.json`) — never editing content outside
+its own accountability map, never pushing to a real remote. Python 3.11+, `src/` layout, hatchling
+build.
 
 Read these before making non-trivial changes:
 
@@ -195,8 +204,15 @@ Related non-negotiables:
   gateway behavior per `plans/investigations/llm-gateway-characterization.md`, not one fixed job.
   The narrow-LLM-surface discipline still applies per job (reach for the LLM only where judgment
   cannot be expressed as a rule), it just no longer means "exactly one job in the whole system."
-- Rendered content stays inside the one owned marker span (`readme/markers.py`); the tool never
-  edits content outside it.
+- Rendered content is always bounded and accountable to its own fact/claim map, never edited
+  outside it. The **legacy** `generate`/`run` pipeline (`readme/candidate_pipeline.py`) enforces
+  this with the one owned marker span (`readme/markers.py`, `resources` span only since Phase 21).
+  The **current** production pipeline (`supervise`/`verified_repository_presentation`,
+  `readme/document_renderer.py`) instead stores ownership, fact hashes, and idempotency metadata
+  in the durable `ReadmeDocumentPlanV1` — a marker-free factual header/candidate contract
+  (`L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT`, `docs/readme-composition-seams.md`'s "Marker-free
+  factual header contract"). `markers.py::find_presentation_span()` remains only a legacy
+  migration parser recognizing old-style spans; the current pipeline never writes one.
 - **Every `data/products.json` entry has equal inclusion in the dynamic denominator and evidence
   obligations.** Dependency-ready execution follows `data/platform_priorities.json`; registry file
   order and `mode` are not priority signals. The allow-list's `mode` field
@@ -461,14 +477,10 @@ per campaign. Run the pending optimized complete non-live suite on current commi
 first slice, then at Python-platform and Gate-A closure, plus only a declared later repository-wide
 gate or typed P0 exception; do not revive micro-fix evidence churn.
 
-The completed historical small goals remain in durable state. The current executable sequence is
-`DELIVERY-PY-PDF-CURRENT` → `DELIVERY-PY-PAGE-CURRENT` →
-`DELIVERY-PY-NOTE-CURRENT` → `DELIVERY-PY-3D-CURRENT` →
-`DELIVERY-PY-REMAINING-COHORT`, with `DELIVERY-DOTNET-LOCAL-NO-OP` admitted concurrently after
-isolation, then `DELIVERY-PYTHON-PRODUCTION-TRANSPORT` →
-`DELIVERY-DOTNET-PRODUCTION-TRANSPORT` → `DELIVERY-JAVA-FIRST-CURRENT`. These are typed execution
-focuses on durable taskcards, not a second controller. Mission `status` prints the exact current
-focus and repository scope.
+The completed historical small goals remain in durable state. The current executable sequence lives
+in durable mission state as typed execution focuses on durable taskcards, not a second controller —
+it is not copied here, where it would drift the moment the graph advances. Mission `status` prints
+the exact current focus and repository scope; read it there.
 
 Every top-level bounded verified canary MUST pass the active `--mission-task-id` and
 `--mission-observer`. The runtime rejects a repository outside that task's focus, graph drift, a

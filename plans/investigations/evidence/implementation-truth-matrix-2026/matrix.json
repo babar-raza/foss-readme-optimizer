@@ -1,8 +1,112 @@
 {
   "generated_by": "plans/investigations/tools/traceability_matrix.py",
   "requirements_source": "plans/requirements/catalog.jsonl",
-  "total_implemented_rows_checked": 163,
-  "rows_with_high_confidence_findings": [],
+  "total_implemented_rows_checked": 166,
+  "rows_with_high_confidence_findings": [
+    {
+      "id": "KNOW-001",
+      "line": 476,
+      "catalog_line": 476,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "KNOW-002",
+      "line": 477,
+      "catalog_line": 477,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "KNOW-003",
+      "line": 478,
+      "catalog_line": 478,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "KNOW-005",
+      "line": 480,
+      "catalog_line": 480,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "KNOW-012",
+      "line": 487,
+      "catalog_line": 487,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
+    }
+  ],
   "rows_with_informational_findings_only": [
     {
       "id": "GOV-021",
@@ -2595,38 +2699,8 @@
       "evidence_artifacts": [
         {
           "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
-          "json_valid": true
-        }
-      ],
-      "has_live_evidence_language": false,
-      "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [],
-      "informational_findings": [
-        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
-      ]
-    },
-    {
-      "id": "L8-048",
-      "line": 723,
-      "catalog_line": 468,
-      "priority": "P0",
-      "cited_paths": [
-        "plans/investigations/evidence/agile-authority-reset-v1/verification.json"
-      ],
-      "cited_paths_existing": [
-        "plans/investigations/evidence/agile-authority-reset-v1/verification.json"
-      ],
-      "cited_paths_missing": [],
-      "cited_test_paths": [],
-      "concrete_test_nodes": [],
-      "invalid_test_nodes": [],
-      "evidence_artifacts": [
-        {
-          "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
+          "bytes": 3781,
+          "sha256": "404c018ae5b48f98f67234b4fcbe42c6dc8c72b5e6d85e1682ab6ea8b1662763",
           "json_valid": true
         }
       ],
@@ -2655,8 +2729,8 @@
       "evidence_artifacts": [
         {
           "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
+          "bytes": 3781,
+          "sha256": "404c018ae5b48f98f67234b4fcbe42c6dc8c72b5e6d85e1682ab6ea8b1662763",
           "json_valid": true
         }
       ],
@@ -2685,8 +2759,8 @@
       "evidence_artifacts": [
         {
           "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
+          "bytes": 3781,
+          "sha256": "404c018ae5b48f98f67234b4fcbe42c6dc8c72b5e6d85e1682ab6ea8b1662763",
           "json_valid": true
         }
       ],
@@ -2715,8 +2789,8 @@
       "evidence_artifacts": [
         {
           "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
+          "bytes": 3781,
+          "sha256": "404c018ae5b48f98f67234b4fcbe42c6dc8c72b5e6d85e1682ab6ea8b1662763",
           "json_valid": true
         }
       ],
@@ -2745,8 +2819,8 @@
       "evidence_artifacts": [
         {
           "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
+          "bytes": 3781,
+          "sha256": "404c018ae5b48f98f67234b4fcbe42c6dc8c72b5e6d85e1682ab6ea8b1662763",
           "json_valid": true
         }
       ],
@@ -2775,8 +2849,8 @@
       "evidence_artifacts": [
         {
           "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
+          "bytes": 3781,
+          "sha256": "404c018ae5b48f98f67234b4fcbe42c6dc8c72b5e6d85e1682ab6ea8b1662763",
           "json_valid": true
         }
       ],
@@ -2788,33 +2862,23 @@
       ]
     },
     {
-      "id": "L8-054",
-      "line": 729,
-      "catalog_line": 474,
-      "priority": "P0",
-      "cited_paths": [
-        "plans/investigations/evidence/agile-authority-reset-v1/verification.json"
-      ],
-      "cited_paths_existing": [
-        "plans/investigations/evidence/agile-authority-reset-v1/verification.json"
-      ],
+      "id": "KNOW-006",
+      "line": 481,
+      "catalog_line": 481,
+      "priority": "P2",
+      "cited_paths": [],
+      "cited_paths_existing": [],
       "cited_paths_missing": [],
       "cited_test_paths": [],
       "concrete_test_nodes": [],
       "invalid_test_nodes": [],
-      "evidence_artifacts": [
-        {
-          "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
-          "json_valid": true
-        }
-      ],
+      "evidence_artifacts": [],
       "has_live_evidence_language": false,
       "acceptance_evidence_contradicts_status": false,
       "high_confidence_findings": [],
       "informational_findings": [
-        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)",
+        "no backtick-quoted path and no live-proof language found at all"
       ]
     }
   ],
@@ -2856,7 +2920,6 @@
     "PKG-001",
     "PKG-002",
     "PKG-003",
-    "PKG-004",
     "PKG-005",
     "MEM-001",
     "MEM-003",
@@ -6097,33 +6160,6 @@
       "informational_findings": []
     },
     {
-      "id": "PKG-004",
-      "line": 516,
-      "catalog_line": 330,
-      "priority": "P2",
-      "cited_paths": [
-        "scripts/retrofits/prove_multi_registry_resolvers_live.py",
-        "tests/unit/test_ecosystem_resolver.py"
-      ],
-      "cited_paths_existing": [
-        "scripts/retrofits/prove_multi_registry_resolvers_live.py",
-        "tests/unit/test_ecosystem_resolver.py"
-      ],
-      "cited_paths_missing": [],
-      "cited_test_paths": [
-        "tests/unit/test_ecosystem_resolver.py"
-      ],
-      "concrete_test_nodes": [
-        "tests/unit/test_ecosystem_resolver.py::TestResolveConan"
-      ],
-      "invalid_test_nodes": [],
-      "evidence_artifacts": [],
-      "has_live_evidence_language": false,
-      "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [],
-      "informational_findings": []
-    },
-    {
       "id": "PKG-005",
       "line": 517,
       "catalog_line": 331,
@@ -7438,38 +7474,8 @@
       "evidence_artifacts": [
         {
           "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
-          "json_valid": true
-        }
-      ],
-      "has_live_evidence_language": false,
-      "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [],
-      "informational_findings": [
-        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
-      ]
-    },
-    {
-      "id": "L8-048",
-      "line": 723,
-      "catalog_line": 468,
-      "priority": "P0",
-      "cited_paths": [
-        "plans/investigations/evidence/agile-authority-reset-v1/verification.json"
-      ],
-      "cited_paths_existing": [
-        "plans/investigations/evidence/agile-authority-reset-v1/verification.json"
-      ],
-      "cited_paths_missing": [],
-      "cited_test_paths": [],
-      "concrete_test_nodes": [],
-      "invalid_test_nodes": [],
-      "evidence_artifacts": [
-        {
-          "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
+          "bytes": 3781,
+          "sha256": "404c018ae5b48f98f67234b4fcbe42c6dc8c72b5e6d85e1682ab6ea8b1662763",
           "json_valid": true
         }
       ],
@@ -7498,8 +7504,8 @@
       "evidence_artifacts": [
         {
           "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
+          "bytes": 3781,
+          "sha256": "404c018ae5b48f98f67234b4fcbe42c6dc8c72b5e6d85e1682ab6ea8b1662763",
           "json_valid": true
         }
       ],
@@ -7528,8 +7534,8 @@
       "evidence_artifacts": [
         {
           "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
+          "bytes": 3781,
+          "sha256": "404c018ae5b48f98f67234b4fcbe42c6dc8c72b5e6d85e1682ab6ea8b1662763",
           "json_valid": true
         }
       ],
@@ -7558,8 +7564,8 @@
       "evidence_artifacts": [
         {
           "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
+          "bytes": 3781,
+          "sha256": "404c018ae5b48f98f67234b4fcbe42c6dc8c72b5e6d85e1682ab6ea8b1662763",
           "json_valid": true
         }
       ],
@@ -7588,8 +7594,8 @@
       "evidence_artifacts": [
         {
           "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
+          "bytes": 3781,
+          "sha256": "404c018ae5b48f98f67234b4fcbe42c6dc8c72b5e6d85e1682ab6ea8b1662763",
           "json_valid": true
         }
       ],
@@ -7618,8 +7624,8 @@
       "evidence_artifacts": [
         {
           "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
+          "bytes": 3781,
+          "sha256": "404c018ae5b48f98f67234b4fcbe42c6dc8c72b5e6d85e1682ab6ea8b1662763",
           "json_valid": true
         }
       ],
@@ -7631,34 +7637,127 @@
       ]
     },
     {
-      "id": "L8-054",
-      "line": 729,
-      "catalog_line": 474,
-      "priority": "P0",
-      "cited_paths": [
-        "plans/investigations/evidence/agile-authority-reset-v1/verification.json"
-      ],
-      "cited_paths_existing": [
-        "plans/investigations/evidence/agile-authority-reset-v1/verification.json"
-      ],
+      "id": "KNOW-001",
+      "line": 476,
+      "catalog_line": 476,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
       "cited_paths_missing": [],
       "cited_test_paths": [],
       "concrete_test_nodes": [],
       "invalid_test_nodes": [],
-      "evidence_artifacts": [
-        {
-          "path": "plans/investigations/evidence/agile-authority-reset-v1/verification.json",
-          "bytes": 2948,
-          "sha256": "5a49e268f8712441f20f1d88169dc0d359e2cb882eb71b374f3c94d1526e26d7",
-          "json_valid": true
-        }
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
       ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "KNOW-002",
+      "line": 477,
+      "catalog_line": 477,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "KNOW-003",
+      "line": 478,
+      "catalog_line": 478,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "KNOW-005",
+      "line": 480,
+      "catalog_line": 480,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": [
+        "no backtick-quoted path and no live-proof language found at all"
+      ]
+    },
+    {
+      "id": "KNOW-006",
+      "line": 481,
+      "catalog_line": 481,
+      "priority": "P2",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
       "has_live_evidence_language": false,
       "acceptance_evidence_contradicts_status": false,
       "high_confidence_findings": [],
       "informational_findings": [
-        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)",
+        "no backtick-quoted path and no live-proof language found at all"
       ]
+    },
+    {
+      "id": "KNOW-012",
+      "line": 487,
+      "catalog_line": 487,
+      "priority": "P1",
+      "cited_paths": [],
+      "cited_paths_existing": [],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [],
+      "has_live_evidence_language": true,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ],
+      "informational_findings": []
     }
   ]
 }

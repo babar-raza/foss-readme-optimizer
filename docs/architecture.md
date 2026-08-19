@@ -292,7 +292,75 @@ ecosystem and check it against that ecosystem's authoritative registry (Maven �
 actually ship, not Conan/vcpkg), never the manifest's self-declared name and never a
 similarly-named commercial package.
 
+## Native knowledge-application layer
+
+Decision 106 (`plans/decisions/catalog.jsonl`; `KNOW-001`..`KNOW-013` in
+`plans/requirements/catalog.jsonl`) applies the two principles above to the imported aspose.org
+claim corpus (`data/imported/knowledge/`, documented in `data/README.md`) specifically. Three
+`facts/` modules:
+
+- `aspose_knowledge_claims.py` loads and indexes the complete corpus — all 12 documented claim
+  kinds across 31 product/platform bundles (97k+ claims), not only the `dependency` subset
+  production previously read — and assesses each bundle's freshness against the repository
+  revision the current run actually observed (`assess_bundle_freshness`). Every raw `claims.json`
+  record resolves to exactly one outcome: a valid, considered claim, or one of eight typed
+  `KnowledgeLoadFindingV1` reasons (missing corpus root, out-of-scope product, missing bundle/file,
+  parse error, wrong shape, invalid record, legitimately empty) distinguishing an `agent_fixable`
+  corpus-integrity gap from a product genuinely outside the corpus's own recorded scope. There is
+  no silent-drop path.
+- `aspose_knowledge_selection.py` bound-selects a small, per-section-relevant slice — never the
+  whole corpus, never first-N truncation — into `ProductFactsV2`, ranked by real signals in
+  priority order: repository corroboration outranks everything (`license` claims are compared
+  against the current LICENSE file through `license/auditor.py::classify_license_text`; every
+  other kind corroborates when its own cited evidence file still exists in the current clone, a
+  genuine mismatch rejects the claim outright — current repository evidence always wins); among
+  equally-corroborated claims, information the current README does not already state outranks a
+  restatement; a claim naming one of this product's own relevance-filtered SEO keywords outranks
+  one that does not; confidence and claim id break remaining ties, never decide alone. A stale- or
+  unknown-revision claim can never become output-eligible without independent corroboration —
+  confidence scaling alone is never sufficient. Every considered claim gets exactly one disposition
+  record (`KnowledgeClaimDispositionV1`: selected, or rejected with a reason).
+- `knowledge_application_evidence.py` builds the per-run `knowledge-application.json` artifact,
+  keeping four stages genuinely separate, never conflated: claims *considered*; claims *selected
+  for planning* (survived into a `FactRecordV2`); sections actually *influenced* (a surviving
+  `ReadmeDocumentPlanV1` operation cites the fact in its own `fact_ids` — correctly empty before a
+  document plan exists); and the exact *rendered output spans* that carried an influencing fact
+  (operation id, section, the operation's own `replacement_sha256`).
+
+`data/imported/knowledge_manifest.json` checksum-binds the whole corpus as one deterministic unit
+(`scripts/data-refresh/build_imported_knowledge_manifest.py`), feeding a new `imported_knowledge`
+component in `facts/acceptance_contract.py`'s versioned fact-acceptance contract (`L8-018`), so a
+knowledge-content change invalidates only dependent fact stages, not the whole cache.
+
+Separately, `validation/aspose_checks_bridge.py` classifies the vendored 89-check aspose.org
+battery into four buckets (`data/aspose_check_classification.json`: `applicable_reusable` /
+`applicable_after_adaptation` / `diagnostic_heuristic` / `unrelated`) and promotes checks proven
+safe by empirical non-regression against the currently accepted candidates to blocking acceptance
+gates inside `readme/document_validation.py::validate_readme_document_candidate` — additive to,
+and never conflated with, the native `validation/registry.py` rule set `VAL-001` already covers
+unconditionally. See `docs/readme-process.md` for the exact bucket semantics and current blocking
+count.
+
+`aspose_seo_keyword_facts.py` applies the same corpus-relevance discipline to the imported
+per-family SEO keyword lists (`data/imported/keywords/`), filtering for repository/platform
+relevance before they become candidate evidence (`aspose.relevant_seo_keywords`, `KNOW-006`). As
+of this writing five of these six new fact fields (`aspose.feature_claims`, `format_support_claims`,
+`install_claims`, `limitation_claims`, `troubleshoot_claims`) still have no renderer/composition
+consumer — an explicit, tracked gap, not a silent one (`KNOW-013`). `aspose.relevant_seo_keywords`
+gained one narrow, attribution-only consumer (`presentation/verified_template_capabilities.py`,
+Gate R6a, commit `cbccb8623`): when a capability row's own already-generated SEO title happens to
+name a relevance-filtered keyword, the fact is cited into that row's `fact_ids` for evidence
+lineage — it never shapes, invents, or reorders the title itself. Rendered candidate bytes are
+still unaffected by any of these six fields; only that one field's evidence lineage changed
+(`KNOW-013`'s core bar — a consumer that affects rendered output — remains open for all six).
+
 ## One owned span, not two
+
+**This section describes the legacy `generate`/`run` deterministic pipeline's span discipline
+(`readme/candidate_pipeline.py`).** The current production pipeline
+(`supervise`/`verified_repository_presentation`) uses the marker-free factual header contract
+described in "Native knowledge-application layer" above instead; `markers.py`'s span machinery is
+retained only for this legacy path and for recognizing old-style spans during migration.
 
 Through Phase 20 the renderer used two owned spans: `callout` (immediately after the H1, addressing
 *prominence*) and `resources` (appended at the end of the file, mirroring the one real repo that
@@ -348,6 +416,7 @@ accumulate as a historical audit trail.
 | `repository_snapshot.py` | `RepositorySnapshotV1` captures one immutable revision, absolute clone root, README and Git-tree inventory checksums, package roots, capture time, and provenance. The supervisor binds it through a context-local scope across every specialist and planner capability; nested clone/profile calls reuse that view without another remote probe, and stage boundaries fail closed on drift. |
 | `facts/product_identity.py` | Canonicalizes repository-bound `Aspose-{Family}` and `Aspose.{Family}` tokens once for both fact collection and visitor rendering, without reclassifying non-Aspose product identities. |
 | `facts/` | `schema.py` retains the narrow V1 compatibility contract. `schema_v2.py` defines the provenance-complete repository-verified inventory. The temporary lower-assurance lane is separate: `trusted_readme_schema.py` defines source-span-bound `README_INHERITED` material and `CONFIGURED_STANDARD` additions, while `trusted_readme_extraction.py` inventories the immutable README with complete non-whitespace accountability and treats prompt-like/hidden content only as risk-labelled data; it never calls repository, package, documentation, or external fact authorities. `acceptance_contract.py` versions verified required-field membership, eligibility, evidence-polarity, root-role selection, conflict, classification, and visitor-render semantics so stale cached truth cannot inherit a terminal label; `migration.py` explicitly converts V1 without inventing missing values; `provider.py` reconciles policy and repository facts for both the facts and metadata capabilities, while `context.py` binds the exact run-scoped graph so downstream stages cannot silently recollect a different view. `root_role_schema.py`, `root_role_evidence.py`, and `root_roles.py` preserve every detected package root as typed evidence and deterministically bind visitor facts to the sole distributed-product root; co-located companion manifests remain one logical product root, while genuinely ambiguous roots remain `unknown`. `manifest_facts.py` derives identity, coordinate, compatibility, and release facts only from that binding; `repository_ingestion.py` combines those facts with mechanically verified policy assertions and license evidence. `policy_evidence.py` validates policy-selected technical assertions against exact snapshot paths and anchors, and `evidence_polarity.py` binds each anchor to a fact ID, immutable revision, exact excerpt, and bounded context before distinguishing positive implementation proof from explicit, subject-bound constraint proof. Curated README content therefore remains high-value input but cannot become accepted product truth merely because its wording or API name occurs in the repository. `drafting_context.py` supplies bounded evidence context with repository-owned example sources ahead of broad implementation files, while `agentic_drafting.py` remains responsible for the structured proposal itself. `code_normalization.py` converts model-authored typographic quote delimiters to parser-safe ASCII before the exact normalized source is compiled; `python_example_normalization.py`, `typescript_example_normalization.py`, and `rust_example_normalization.py` reduce generated import inventories, stale package imports, or malformed consumers to one source-derived, constructible public consumer; `example_quality.py` rejects unsuitable generated examples; `repository_examples.py` extracts bounded repository-authored README examples as untrusted compiler candidates, with `python_repository_examples.py` using the standard-library AST plus the detected distributed-package layout to reduce maintained Python examples to one self-contained public operation; `problem_grounding.py` deterministically reuses exact verified capability text when an interpretive problem draft is ungrounded, avoiding unsupported paraphrases and redundant model repair calls; `interpretive_resolution.py` retains already-proved technical facts across bounded repair attempts and re-runs interpretive grounding against the exact final selections; and `render_views.py` converts selected structured facts to typed visitor-facing phrases without leaking internal keys or policy codes. Interpretive facts retain their selected grounding fact IDs, while structured/internal-token text has no prose-eligible view. `example_execution.py` remains a bounded, secret-filtered host diagnostic whose typed result is permanently truth-ineligible. `isolated_execution_schema.py`, `isolated_execution_inputs.py`, and `isolated_execution.py` define and enforce immutable-image, named-volume, non-root, no-network, read-only-root, cgroup-bounded Docker execution; `isolated_docker_control.py` requires immutable image identity plus converged wait/terminal-state evidence, and `isolated_cleanup.py` retries idempotent removal and accepts only explicit Docker not-found plus empty-listing responses as complete cleanup provenance. `compiled_consumer_schema.py` and `compiled_consumer.py` bind exact example bytes, selected public bindings, source paths, and source checksums to one isolated compiler result; `java_example_verifier.py`, `dotnet_example_verifier.py`, `cpp_example_verifier.py`, and `go_example_verifier.py` apply that contract with digest-pinned official toolchains and network-disabled builds. `python_consumer_fixtures.py` deterministically binds visitor-facing input placeholders to checksum-recorded repository fixtures; `python_consumer.py`/`python_example_verifier.py` then install the pinned Python source and require exact public imports plus successful isolated execution. `typescript_toolchain.py` hash-locks inert compiler archives, while `typescript_consumer.py`, `typescript_consumer_driver.js`, and `typescript_example_verifier.py` build a deterministic package artifact, resolve exports/declarations through TypeScript itself, exclude private/protected/hash members, and compile the exact consumer in immutable network-denied Node. Rust separates networked metadata/vendor acquisition (`rust_dependency_acquisition.py`, no repository-code execution, no credentials, immutable image, exact Cargo lock and checksums) from the truth-eligible `rust_consumer.py`/`rust_example_verifier.py` boundary, which compiles a separate external consumer with `cargo check --locked --offline` under the network-denied executor. `local_verification.py` fails closed unless an ecosystem supplies such a truth-eligible adapter, while its old host toolchain paths remain diagnostic only. `resolution.py` applies source precedence and records conflicts; `gating.py` maps facts to dependent surfaces, rejects non-selected citations, and validates technical claims; `protected_content.py` fingerprints commands, examples, terminology, limitations, and maintainer regions through `markdown-it-py`. |
+| `facts/aspose_knowledge_claims.py`; `facts/aspose_knowledge_selection.py`; `facts/knowledge_application_evidence.py`; `facts/aspose_seo_keyword_facts.py` | Decision 106's native knowledge-application layer — load/index, freshness-gate, bound-select, and evidence the imported aspose.org claim corpus and SEO keyword lists into `ProductFactsV2`; see "Native knowledge-application layer" above. |
 | `facts/python_dependency_schema.py`; `facts/python_dependency_acquisition.py` | Resolve literal PEP 621 runtime dependencies as binary-only wheels in a bounded credential-free acquisition container, then checksum and cache the exact wheelhouse. The Python consumer installs those wheels with `--no-index --no-deps` before installing the pinned repository source in the existing network-denied truth container. |
 | `facts/python_evidence_polarity.py`; `facts/python_toolchain.py` | Python-specific verified-truth adjuncts remain separate from generic evidence and execution contracts: the AST polarity helper recognizes a function whose complete executable body is an unsupported-operation raise without treating a declaration alone as limitation evidence; the toolchain selector chooses the lowest digest-pinned approved interpreter satisfying the manifest's PEP 440 runtime range and fails closed when no approved runtime matches. |
 | `ecosystems/registry_request.py`; `facts/acquisition*.py` | `registry_request.py` is the single coordinate-to-authoritative-request-URL seam used by both live resolvers and persisted-receipt validation. `acquisition_schema.py` defines checksum-complete authoritative-registry and isolated-source receipts and rejects a response URL that does not exactly match its coordinate. `acquisition_pins.py` projects Python package source, TypeScript compiler/archive/built-artifact, and Rust lock/vendor/config checksums into one workload-pin contract. `acquisition.py` gives a published registry coordinate precedence and permits source acquisition only after receipt-backed registry absence plus a successful pinned, network-denied isolated build; registry uncertainty, incomplete dependency inventories, and host-only builds remain blocked. The acceptance-contract hash includes this boundary so stale cached installation truth is recollected. |

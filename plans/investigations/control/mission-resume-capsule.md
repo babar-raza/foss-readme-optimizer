@@ -1,6 +1,6 @@
 # Mission resume capsule (derived — regenerate, never hand-edit)
 
-Regenerated: 2026-08-19T06:14:24+00:00
+Regenerated: 2026-08-19T16:01:56+00:00
 Rebuild: `.venv/Scripts/python scripts/governance/mission_resume_capsule.py`
 Staleness check (run at session start; exit 1 = stale): same command with `--check`.
 
@@ -29,56 +29,56 @@ factuality/preservation/grounding gates to raise pass counts.
 
 ## Repository
 
-- branch `main` @ `733253026f3d52ca0be3a96a223b1de4f6dbbb18`
+- branch `main` @ `91d66cb11abef92e430ba3d15a535fb104b81a3b`
 - protected pre-existing dirt: `plans/requirements.md` (CRLF-only); untracked
   `plans/claude/moonlit-juggling-flurry.md` is `forbidden_paths` reference material.
 
 ## Durable mission state (local store)
 
 - `mission__LEVEL8-CENTRAL-REPOSITORY-PRESENTATION` — state: mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION v10 (2026-08-19T01:20:16+05:00)
-- newest state ref write: 2026-08-19T11:14:21+05:00
+- newest state ref write: 2026-08-19T18:28:33+05:00
 
 ## Portfolio (from `runs/readme-poc/portfolio-summary.json`)
 
-- generated_at: 2026-08-19T06:12:54.269111+00:00  (registry_count=33, slice_complete=False)
-- statuses in last slice: AGENT_APPROVED=1, BLOCKED_MISSING_EVIDENCE=1, FACTS_READY=6
+- generated_at: 2026-08-19T11:07:29.707412+00:00  (registry_count=33, slice_complete=False)
+- statuses in last slice: BLOCKED_MISSING_EVIDENCE=2, FACTS_READY=6, NO_OP_PROVEN=3
 - blocked members (last slice):
-  - aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['composition.segment.0033: substantive 
-  - aspose-cells-foss/Aspose.Cells-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['composition.segment.0032: substantive 
   - aspose-email-foss/Aspose.Email-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountability has 1 blocking cl
-  - aspose-font-foss/Aspose.Font-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['composition.segment.0030: substantive 
+  - aspose-font-foss/Aspose.Font-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountability has 2 blocking cl
   - aspose-html-foss/Aspose.HTML-FOSS-for-Python: product_truth_not_ready:BLOCKED_MISSING_EVIDENCE
-  - aspose-note-foss/Aspose.Note-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['composition.segment.0039: substantive 
-  - aspose-page-foss/Aspose.Page-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['composition.segment.0035: substantive 
+  - aspose-note-foss/Aspose.Note-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountability has 2 blocking cl
+  - aspose-page-foss/Aspose.Page-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountability has 2 blocking cl
+  - aspose-pdf-foss/Aspose-PDF-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountability has 1 blocking cl
+  - aspose-psd-foss/Aspose.PSD-FOSS-for-Python: product_truth_not_ready:BLOCKED_MISSING_EVIDENCE
+  - aspose-slides-foss/Aspose.Slides-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountability has 1 blocking cl
 
 ## Cached decisions
 
 - blocked-decision records (skip-cached until a dependency changes):
   - aspose-3d-foss/Aspose.3D-FOSS-for-.NET: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=1)
-  - aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['composition.segmen (live_reproductions=2)
   - aspose-cells-foss/Aspose.Cells-FOSS-for-.NET: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=1)
-  - aspose-cells-foss/Aspose.Cells-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['composition.segmen (live_reproductions=2)
-  - aspose-email-foss/Aspose.Email-FOSS-for-.Net: product_truth_not_ready:BLOCKED_MISSING_EVIDENCE (live_reproductions=1)
-  - aspose-email-foss/Aspose.Email-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=4)
-  - aspose-font-foss/Aspose.Font-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['composition.segmen (live_reproductions=2)
-  - aspose-html-foss/Aspose.HTML-FOSS-for-Python: product_truth_not_ready:BLOCKED_MISSING_EVIDENCE (live_reproductions=3)
-  - aspose-note-foss/Aspose.Note-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['composition.segmen (live_reproductions=1)
-  - aspose-page-foss/Aspose.Page-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['composition.segmen (live_reproductions=1)
+  - aspose-email-foss/Aspose.Email-FOSS-for-.Net: product_truth_not_ready:BLOCKED_MISSING_EVIDENCE (live_reproductions=2)
+  - aspose-email-foss/Aspose.Email-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=10)
+  - aspose-font-foss/Aspose.Font-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=4)
+  - aspose-html-foss/Aspose.HTML-FOSS-for-Python: product_truth_not_ready:BLOCKED_MISSING_EVIDENCE (live_reproductions=7)
+  - aspose-note-foss/Aspose.Note-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=3)
+  - aspose-page-foss/Aspose.Page-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=2)
+  - aspose-pdf-foss/Aspose-PDF-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=2)
   - aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET: specialist_failed:readme_presentation:ERROR:presentation_plan:execution_error:LLMError: fo (live_reproductions=1)
-  - aspose-psd-foss/Aspose.PSD-FOSS-for-Python: product_truth_not_ready:BLOCKED_MISSING_EVIDENCE (live_reproductions=1)
-  - aspose-slides-foss/Aspose.Slides-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['unauthorized prote (live_reproductions=1)
-  - aspose-tex-foss/Aspose.TeX-FOSS-for-Python: product_truth_not_ready:BLOCKED_MISSING_EVIDENCE (live_reproductions=1)
-  - aspose-words-foss/Aspose.Words-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=1)
+  - aspose-psd-foss/Aspose.PSD-FOSS-for-Python: product_truth_not_ready:BLOCKED_MISSING_EVIDENCE (live_reproductions=3)
+  - aspose-slides-foss/Aspose.Slides-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=2)
+  - aspose-tex-foss/Aspose.TeX-FOSS-for-Python: product_truth_not_ready:BLOCKED_MISSING_EVIDENCE (live_reproductions=2)
+  - aspose-words-foss/Aspose.Words-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['composition.segmen (live_reproductions=1)
 - claim-disposition ratchets:
-  - aspose-3d-foss__Aspose.3D-FOSS-for-.NET: 5 accepted verdict(s)
+  - aspose-3d-foss__Aspose.3D-FOSS-for-.NET: 11 accepted verdict(s)
   - aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python: 1 accepted verdict(s)
-  - aspose-cells-foss__Aspose.Cells-FOSS-for-.NET: 25 accepted verdict(s)
+  - aspose-cells-foss__Aspose.Cells-FOSS-for-.NET: 26 accepted verdict(s)
   - aspose-email-foss__Aspose.Email-FOSS-for-Python: 1 accepted verdict(s)
   - aspose-font-foss__Aspose.Font-FOSS-for-Python: 2 accepted verdict(s)
   - aspose-note-foss__Aspose.Note-FOSS-for-Python: 3 accepted verdict(s)
   - aspose-page-foss__Aspose.Page-FOSS-for-Python: 1 accepted verdict(s)
   - aspose-pdf-foss__Aspose.PDF-FOSS-for-.NET: 6 accepted verdict(s)
-  - aspose-slides-foss__Aspose.Slides-FOSS-for-Python: 1 accepted verdict(s)
+  - aspose-slides-foss__Aspose.Slides-FOSS-for-Python: 3 accepted verdict(s)
 
 ## Resume commands
 

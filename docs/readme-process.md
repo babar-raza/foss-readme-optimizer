@@ -35,6 +35,40 @@ Each check carries two independently derived properties:
   document-global checks (disposition/duplicate/reconciliation checks, narration/casing
   rules) invalidate the whole document.
 
+## Blocking acceptance-gate classification (Decision 106 / `KNOW-005`)
+
+Beyond the severity/scope classification above, every check also gets a second, independent
+*applicability* classification (`scripts/data-refresh/classify_aspose_checks.py`,
+`data/aspose_check_classification.json`), deciding whether it may become a **blocking** acceptance
+gate inside `readme/document_validation.py::validate_readme_document_candidate` (wired through
+`validation/aspose_checks_bridge.py`):
+
+- `applicable_reusable` -- hard gate, runnable with real data today, and fired zero times against
+  committed candidate/facts fixtures for the currently `AGENT_APPROVED` repositories
+  (`data/check_classification_fixtures/`, refreshed deliberately, never read live from `runs/`).
+  Promoted to blocking.
+- `applicable_after_adaptation` -- hard gate but either needs a production input this repo does
+  not build yet (e.g. `dependency_snapshot`, `content_units`, `reference_index`), or fired against
+  a currently accepted candidate and needs template-alignment review first. Never blocking yet.
+- `diagnostic_heuristic` -- heuristic per the vendored module's own docstring convention; kept
+  visible, never blocking.
+- `unrelated` -- zero optimizer-workflow relevance (aspose.org issue-management/skill-workflow
+  checks only). None of the 89 checks currently classify here; the bucket is retained for a future
+  vendored-battery refresh that might add one.
+
+As of the current classification: 11 of 89 checks are promoted to blocking, 38 are runnable with
+data this repo currently produces, and 51 are skipped for missing production inputs. Every
+invocation of `aspose_checks_bridge.run_aspose_checks()` records real, per-check
+run/skipped/errored accounting (`AsposeCheckResultV1.checks_run` / `checks_skipped` /
+`checks_errored`): a check whose real-data requirements this repo cannot currently satisfy is
+skipped explicitly, never silently treated as passing, and a check that raises on real input is
+recorded errored, never allowed to crash validation or masquerade as a pass. Every finding —
+blocking or not — still surfaces via `checks["aspose_checks"]`/`aspose_check_findings` for a
+caller or reviewer to see; blocking promotion and finding visibility are two independent signals,
+never conflated. This classification is additive to, and never conflated with, `VAL-001`'s
+existing native `validation/registry.py` rule set, which runs unconditionally and is unaffected by
+it.
+
 ## Fail-closed fixture coverage
 
 Every one of the 89 checks is proven genuinely invocable, on a real (not mocked) call,
@@ -52,6 +86,10 @@ done).
   check's specific rule, not just that it runs) -- only a representative few checks have
   this today (see `test_aspose_checks_registry.py`'s 5 real end-to-end invocations, and
   `test_hard_gate_checks_correctly_flag_a_deliberately_incomplete_minimal_fixture`'s 6).
-- Wiring the registry into an actual composition/validation pipeline (T14, T5 onward).
+- Blocking-gate wiring is now live for the classified subset (`KNOW-005`, above) -- 11 of 89
+  checks block acceptance today. The remaining ~78 stay visible-but-non-blocking pending broader
+  production-input coverage or template-alignment review (`KNOW-011`); this is a materially
+  narrower gap than "not wired into the pipeline," and it is dated: the classification and its
+  fixtures are regenerated deliberately, not on every commit.
 - The remaining ~40% of the vendored `readme_refresh_run.py` orchestration's factpack
   detectors not yet adapted (T4's own closeout evidence lists exactly which).

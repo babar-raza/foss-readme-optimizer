@@ -78,6 +78,6 @@ community-profile API, display via GitHub only.
 ## 3. Invariants across classes
 
 1. **One final gate per surface** — no surface has two uncoordinated writers; the central agent is sole final gate for A, sole proposer for B, sole preparer for C, and has no role in D/E outputs.
-2. **Authority-class validation precedes any renderer/write selection** (VAL-008); a run that cannot classify a surface is `BLOCKED`, not guessed.
+2. **Authority-class validation precedes any renderer/write selection** (VAL-008); a run that cannot classify a surface is `BLOCKED`, not guessed — classified `agent_fixable` unless it is a genuine `infra_external` condition, per AGENTS.md's "Blocked means classify, then fix — not stop" (`GOV-028`; `SuperviseResult`/`ConvergenceOutcome`/`Task.blocked_category`, e.g. `capabilities/dispatcher.py`, `facts/deterministic_truth_salvage.py`).
 3. **Evidence is surface-aware** — every evaluated surface appears in `RunManifestV1` (incl. no-ops and audit-only); a run is not successful if any required surface was skipped or failed.
 4. **Never-push pilot** — no git push, no remote mutation, no manual step claimed done, in any class.

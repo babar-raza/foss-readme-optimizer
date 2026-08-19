@@ -232,6 +232,37 @@ prohibition on a generic full-document template:
 None of these are proposed as literal templates to fill in — they are evidenced *shapes*; the
 actual section names, order, and depth remain per-repository (`RDM-015`, `BIZ-006`).
 
+## Search-intent and natural SEO use (`KNOW-006`, `L8-041`)
+
+Relevance-filtered SEO keyword vocabulary (`aspose.relevant_seo_keywords`, `KNOW-006`) is
+corroborating phrasing evidence, never a content source of its own — every rule elsewhere in this
+standard (grounded facts, no unsupported breadth, no keyword stuffing) still governs. Where a
+search-intent surface exists, natural keyword use with an explicit output-lineage trail is
+preferred over generic phrasing that reads identically to any competitor's:
+
+- **Key Capabilities titles** are natural, action-led search phrases grounded in accepted product,
+  platform, input-format, and output-format facts (`plans/idea.md`). A relevance-filtered keyword
+  may inform title wording only when it also names a fact already selected for that capability —
+  never inserted merely because it is present in the imported vocabulary.
+- **Additional Examples headings** name the real workflow being demonstrated; a keyword may shape
+  that name only when the workflow genuinely performs what the keyword describes.
+- **No keyword stuffing**: a keyword appears at most once per heading/title it informs, is never
+  repeated across sibling headings to inflate density, and never substitutes for a concrete verb or
+  fact.
+- **Lineage is mandatory when used**: any keyword that measurably shaped rendered wording must be
+  traceable back to `knowledge-application.json`'s `seo_keyword_dispositions` for that run — an
+  unlineaged keyword influence is a defect, not a style choice.
+
+Today this is evidenced-but-not-yet-wired for content: `KNOW-006` filters the imported vocabulary
+for relevance and `knowledge_application_evidence.py` records its disposition, but no deterministic
+heading/title generator reads it to *shape* wording yet (`presentation/verified_template_capability_seo.py`
+remains a regex cascade grounded only in verified format/capability facts — `KNOW-007`). Since
+Gate R6a (commit `cbccb8623`), `verified_template_capabilities.py` cites the keyword fact into a
+capability row's evidence lineage when its already-generated title happens to name one — attribution
+only, never invented, reordered, or reworded wording — so `KNOW-013`'s "zero consumer" framing now
+holds only for content-shaping, not for evidence citation. This section states the acceptance bar
+for when keyword-driven wording lands, not a claim that a keyword already shapes rendered output.
+
 ## Measurable review criteria for Phase 21
 
 A `READMEPresentationReport` (`VAL-005`) should evaluate, per repository:

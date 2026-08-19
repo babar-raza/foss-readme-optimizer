@@ -75,7 +75,7 @@ never override the mission graph or durable state.
 
 ## Decision Ledger
 
-The complete typed ledger contains 104 stable decisions in
+The complete typed ledger contains 106 stable decisions in
 `plans/decisions/catalog.jsonl`. This section is the human-readable current decision index; the
 catalog preserves the complete text and hashes of every prior decision.
 
@@ -169,9 +169,21 @@ Binding current decisions:
   `imported_knowledge` fact-acceptance component; a per-run `knowledge-application.json`
   (`facts/knowledge_application_evidence.py`) records considered/selected/rejected claims. The
   vendored 89-check battery is classified into four buckets
-  (`data/aspose_check_classification.json`) and 10 empirically-validated checks are now blocking
-  acceptance gates. See `KNOW-001`..`KNOW-012`; `KNOW-007`/`008`/`009`/`010`/`011`/`012` remain
-  open (BACKLOG).
+  (`data/aspose_check_classification.json`) and 11 empirically-validated checks are now blocking
+  acceptance gates (raised from 10 by the 2026-08-19 post-landing course-correction commits
+  `2608f1257`..`cbccb8623`, "Gate R1"–"Gate R6a": wall-clock removal from hashed contracts,
+  fail-closed corpus accountability and real per-claim corroboration, genuine multi-signal
+  relevance selection, reproducible fixture-backed check classification plus a
+  `check_no_excluded_domain_links` root-cause link-hygiene fix, truthful
+  considered/selected/influenced/rendered evidence staging, and an attribution-only SEO-keyword
+  citation into Key Capabilities lineage — same decision, no separate ledger entry recorded for
+  these fixes yet). See `KNOW-001`..`KNOW-013`; `KNOW-007`–`010` remain open (BACKLOG); `KNOW-011`
+  remains open but now covers 2 (not 3) unresolved false-positive checks —
+  `check_no_excluded_domain_links` was fixed and promoted to blocking by Gate R4; `KNOW-012` is now
+  `IMPLEMENTED`, resolved by that same fix; `KNOW-013` (new fact fields need a renderer/composition
+  consumer that affects rendered candidate bytes) remains open — Gate R6a gave
+  `aspose.relevant_seo_keywords` a narrow, attribution-only evidence-lineage consumer, but no field
+  yet shapes rendered wording.
 
 Aspose.org remains a development-only comparative corpus, never a deployed dependency or factual
 authority. Repository order may change only through the durable dependency graph; changing a
