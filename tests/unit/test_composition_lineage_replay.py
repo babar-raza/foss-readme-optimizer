@@ -202,6 +202,44 @@ def test_lineage_only_projection_must_exactly_equal_maximal_replay_runs() -> Non
         for segment in ledger.segments
     )
 
+
+def test_dependencies_subsection_headings_are_governed_mechanical_structure() -> None:
+    """S12 (2026-08-19): a template-mandated Dependencies H3 with no fact/standard
+    binding must render as governed mechanical structure, not `unbound` -- the exact
+    live failure on cells-python/barcode-python after Lane A/F's dependency-subsection
+    rendering landed without a matching composition-lineage update."""
+
+    source = "old"
+    candidate = (
+        "### Required Package Dependencies\n\n"
+        "### Optional Dependencies\n\n"
+        "### Development Dependencies\n\n"
+    )
+    operation = build_operation(
+        operation_id="readme.real-operation",
+        operation="replace",
+        source=source.encode("utf-8"),
+        start=0,
+        end=len(source.encode("utf-8")),
+        replacement=candidate,
+        fact_ids=[],
+        treatment="presentation_policy_correction",
+        rationale="Exercise the Dependencies subsection headings alone, unbound.",
+    )
+    operations = [operation]
+    exact = legacy_operation_provenance(
+        replay_operation_origins(source.encode("utf-8"), operations)
+    )
+    ledger = build_composition_ledger(source, candidate, operations, exact)
+
+    assert composition_ledger_errors(ledger, source, candidate, operations, exact) == []
+    assert ledger.segments
+    assert all(segment.authority != "unbound" for segment in ledger.segments)
+    assert all(
+        segment.configured_standard_ids == ["readme.composition.mechanical-markdown-v1"]
+        for segment in ledger.segments
+    )
+
     partial = exact[0].model_copy(update={"candidate_byte_end": 13})
     wrong_span = exact[0].model_copy(update={"candidate_byte_start": 1})
     fake_owner = exact[0].model_copy(update={"lineage_operation_id": "readme.fake-operation"})

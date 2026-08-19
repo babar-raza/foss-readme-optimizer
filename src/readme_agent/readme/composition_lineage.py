@@ -38,6 +38,9 @@ _GOVERNED_STRUCTURAL_LINES = {
     "## Scope and Limitations",
     "## Development and Testing",
     "### Tests",
+    "### Required Package Dependencies",
+    "### Optional Dependencies",
+    "### Development Dependencies",
     "## License",
 }
 
