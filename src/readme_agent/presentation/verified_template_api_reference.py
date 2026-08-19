@@ -187,6 +187,22 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
     complete = _complete_catalog(value)
     modules = value.get("modules")
     modules = modules if isinstance(modules, list) else []
+    # Q2 (2026-08-19): the bounded planning projection's own export list can
+    # be a strict subset of the complete evidence catalog's for a namespace
+    # it already includes (cells-python: 48 vs. the real 63, dropping
+    # `Workbook`/`Worksheet` among others) -- prefer the complete catalog's
+    # exports for any namespace already selected, without adding namespaces
+    # the bounded projection never selected at all.
+    complete_modules = complete.get("modules")
+    complete_exports_by_module: dict[str, list[object]] = (
+        {
+            str(item.get("module") or "").strip(): item["exports"]
+            for item in complete_modules
+            if isinstance(item, dict) and isinstance(item.get("exports"), list)
+        }
+        if isinstance(complete_modules, list)
+        else {}
+    )
     exact_classes, classes_by_name = _class_indexes(complete)
     family = _product_family(facts)
     body: list[str] = []
@@ -201,6 +217,9 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
         exports = module.get("exports")
         if not name or not isinstance(exports, list):
             continue
+        complete_exports = complete_exports_by_module.get(name)
+        if isinstance(complete_exports, list) and len(complete_exports) > len(exports):
+            exports = complete_exports
         selected = namespace_exports.setdefault(name, [])
         for export in exports:
             if (name, str(export).strip()) not in excluded and export not in selected:
