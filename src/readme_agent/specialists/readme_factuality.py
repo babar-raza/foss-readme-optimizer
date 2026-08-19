@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -15,6 +16,7 @@ from readme_agent.facts.protected_content import (
 from readme_agent.facts.schema import ProductFactsV1
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.links.runtime_context import load_runtime_link_inputs
+from readme_agent.llm.verifier_client import ForcedToolClient
 from readme_agent.readme.claim_verification import find_claim_conflicts
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
@@ -40,8 +42,21 @@ def evaluate_candidate_factuality(
     source_text: str | None = None,
     product_facts_v2: dict | ProductFactsV2 | None = None,
     agentic_composition_plan: dict | None = None,
+    llm_disposition_client: ForcedToolClient | None = None,
+    repository_root: Path | None = None,
+    disposition_ratchet_path: Path | None = None,
 ) -> CandidateFactualityDecisionV1:
-    """Dispatch independent fact producers, then reject unsupported loss/claims."""
+    """Dispatch independent fact producers, then reject unsupported loss/claims.
+
+    `llm_disposition_client`/`repository_root`/`disposition_ratchet_path` reach
+    this gate's own independent `build_readme_document_candidate()` rebuild --
+    without them (the default), this gate cannot replay a claim disposition
+    gate 1 (presentation plan) already accepted, so an accepted `excluded_
+    with_reason` claim can reappear here as a fresh block (the "two-gate"
+    finding, architectural-finding-two-gate-claim-accountability.md). Pass
+    `readme.claim_accountability_llm_disposition.resolve_claim_disposition_
+    context(org_repo)`'s three return values to close that gap; omitting them
+    reproduces today's exact existing behavior."""
 
     if product_facts_v2 is not None:
         # The canonical local path already collected and durably bound ProductFactsV2 to
@@ -123,6 +138,9 @@ def evaluate_candidate_factuality(
             agentic_composition_plan=agentic_composition_plan,
             link_catalogs=link_catalogs,
             link_allocation_policy=link_allocation_policy,
+            llm_disposition_client=llm_disposition_client,
+            repository_root=repository_root,
+            disposition_ratchet_path=disposition_ratchet_path,
         )
         document_validation = validate_readme_document_candidate(
             immutable_source,

@@ -131,6 +131,27 @@ def default_claim_disposition_client() -> ForcedToolClient:
     )
 
 
+def resolve_claim_disposition_context(org_repo: str) -> tuple[ForcedToolClient, Path, Path]:
+    """Resolve the standard disposition client, repository root, and ratchet
+    path for org_repo -- the same three values `capabilities/build_
+    presentation_plan.py::execute()` resolves for gate 1 (presentation plan),
+    needed identically by any other gate that wants access to the same
+    ratcheted, deterministically-corroborated dispositions rather than
+    re-deriving them ad hoc. Not the default inside `evaluate_candidate_
+    factuality()` itself: `repository_root` requires `org_repo` to be
+    allow-listed, which would break that function's existing fake-org-id unit
+    tests if resolved unconditionally -- callers opt in explicitly."""
+
+    from readme_agent.registry.loader import require_listed
+
+    entry = require_listed(org_repo)
+    return (
+        default_claim_disposition_client(),
+        paths.baseline_dir(entry.org, entry.repo_name),
+        claim_disposition_ratchet_path(org_repo),
+    )
+
+
 def llm_verified_claim_disposition(
     claim_id: str,
     claim_text: str,

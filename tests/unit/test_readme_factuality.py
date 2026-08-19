@@ -152,6 +152,100 @@ def test_fact_dispatch_failure_rejects_before_verifier(monkeypatch):
     assert decision.error == "get_product_facts:failed:state unavailable"
 
 
+def test_disposition_context_reaches_the_independent_rebuild(monkeypatch):
+    """Two-gate finding (architectural-finding-two-gate-claim-accountability.md,
+    2026-08-19): gate 1 (presentation plan) resolves a real disposition client/
+    repository_root/ratchet path and can therefore replay an accepted `excluded_
+    with_reason` verdict; gate 2 (this module) previously never received them, so
+    it always rebuilt the document plan with disposition disabled -- a claim gate
+    1 accepted could reappear here as a fresh block, live-observed on
+    barcode-python (`source:claim:3930:c5ac180c4dd86b4f`). This proves the wiring
+    without re-proving the disposition mechanism itself (already covered by
+    test_claim_accountability_llm_disposition.py)."""
+
+    facts = _complete_snapshot_facts()
+    source = "# Widget\n"
+    link_catalogs, link_allocation_policy = load_runtime_link_inputs(facts.org_repo)
+    candidate, _ = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=facts.selected_fact("product.identity").source.source_revision or "",
+        link_catalogs=link_catalogs,
+        link_allocation_policy=link_allocation_policy,
+    )
+
+    captured: dict = {}
+    real_build = readme_factuality.build_readme_document_candidate
+
+    def spy_build(*args, **kwargs):
+        captured["llm_disposition_client"] = kwargs.get("llm_disposition_client")
+        captured["repository_root"] = kwargs.get("repository_root")
+        captured["disposition_ratchet_path"] = kwargs.get("disposition_ratchet_path")
+        return real_build(*args, **kwargs)
+
+    monkeypatch.setattr(readme_factuality, "build_readme_document_candidate", spy_build)
+
+    sentinel_client = object()
+    sentinel_root = Path("/sentinel/repository/root")
+    sentinel_ratchet = Path("/sentinel/ratchet.json")
+    readme_factuality.evaluate_candidate_factuality(
+        facts.org_repo,
+        source,
+        candidate,
+        {"read_only_local", "read_only_network"},
+        source_text=source,
+        product_facts_v2=facts,
+        llm_disposition_client=sentinel_client,
+        repository_root=sentinel_root,
+        disposition_ratchet_path=sentinel_ratchet,
+    )
+
+    assert captured["llm_disposition_client"] is sentinel_client
+    assert captured["repository_root"] == sentinel_root
+    assert captured["disposition_ratchet_path"] == sentinel_ratchet
+
+
+def test_disposition_context_defaults_to_none(monkeypatch):
+    """Omitting the three params reproduces the exact prior behavior."""
+
+    facts = _complete_snapshot_facts()
+    source = "# Widget\n"
+    link_catalogs, link_allocation_policy = load_runtime_link_inputs(facts.org_repo)
+    candidate, _ = build_readme_document_candidate(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=facts.selected_fact("product.identity").source.source_revision or "",
+        link_catalogs=link_catalogs,
+        link_allocation_policy=link_allocation_policy,
+    )
+
+    captured: dict = {}
+    real_build = readme_factuality.build_readme_document_candidate
+
+    def spy_build(*args, **kwargs):
+        captured["llm_disposition_client"] = kwargs.get("llm_disposition_client")
+        captured["repository_root"] = kwargs.get("repository_root")
+        captured["disposition_ratchet_path"] = kwargs.get("disposition_ratchet_path")
+        return real_build(*args, **kwargs)
+
+    monkeypatch.setattr(readme_factuality, "build_readme_document_candidate", spy_build)
+
+    readme_factuality.evaluate_candidate_factuality(
+        facts.org_repo,
+        source,
+        candidate,
+        {"read_only_local", "read_only_network"},
+        source_text=source,
+        product_facts_v2=facts,
+    )
+
+    assert captured["llm_disposition_client"] is None
+    assert captured["repository_root"] is None
+    assert captured["disposition_ratchet_path"] is None
+
+
 def test_snapshot_bound_v2_facts_do_not_reobserve_network(monkeypatch):
     facts = _complete_snapshot_facts()
     source = "# Widget\n"

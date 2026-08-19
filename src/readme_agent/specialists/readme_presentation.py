@@ -97,6 +97,9 @@ from readme_agent.evidence.writer import generate_run_id
 from readme_agent.orchestrator import record_accepted_readme_state
 from readme_agent.readme.agentic_composition import validate_readme_composition_plan
 from readme_agent.readme.assessment import assess_readme_document
+from readme_agent.readme.claim_accountability_llm_disposition import (
+    resolve_claim_disposition_context,
+)
 from readme_agent.readme.verified_preservation_composition import (
     build_verified_preservation_composition_plan,
 )
@@ -705,6 +708,16 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                     ),
                 }
 
+        try:
+            disposition_client, disposition_repository_root, disposition_ratchet_path = (
+                resolve_claim_disposition_context(org_repo)
+            )
+        except Exception:  # noqa: BLE001 -- optional wiring; None reproduces prior behavior
+            disposition_client, disposition_repository_root, disposition_ratchet_path = (
+                None,
+                None,
+                None,
+            )
         factuality = evaluate_candidate_factuality(
             org_repo,
             current_render_result["original_text"],
@@ -715,6 +728,9 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             ),
             product_facts_v2=current_render_result.get("product_facts_v2"),
             agentic_composition_plan=current_render_result.get("agentic_composition_plan"),
+            llm_disposition_client=disposition_client,
+            repository_root=disposition_repository_root,
+            disposition_ratchet_path=disposition_ratchet_path,
         )
         if not factuality.valid:
             reason = factuality.error or (

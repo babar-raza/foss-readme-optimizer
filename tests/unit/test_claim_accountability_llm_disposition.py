@@ -367,3 +367,38 @@ def test_api_surface_member_evidence_is_refused_when_the_member_is_not_real(tmp_
 
     assert record.currently_accountable is False
     assert record.expected_disposition != "llm_verified_disposition"
+
+
+def test_resolve_claim_disposition_context_returns_the_standard_three_values() -> None:
+    """The shared helper gate 2 (readme_factuality.py) now uses to close the
+    two-gate finding: same client/repository_root/ratchet-path shape gate 1
+    (build_presentation_plan.py::execute()) already resolves inline."""
+
+    from readme_agent import paths
+    from readme_agent.readme.claim_accountability_llm_disposition import (
+        claim_disposition_ratchet_path,
+        resolve_claim_disposition_context,
+    )
+    from readme_agent.registry.loader import require_listed
+
+    org_repo = "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python"
+    entry = require_listed(org_repo)
+
+    client, repository_root, ratchet_path = resolve_claim_disposition_context(org_repo)
+
+    assert client is not None
+    assert repository_root == paths.baseline_dir(entry.org, entry.repo_name)
+    assert ratchet_path == claim_disposition_ratchet_path(org_repo)
+
+
+def test_resolve_claim_disposition_context_fails_closed_for_an_unlisted_repo() -> None:
+    from readme_agent.errors import NotAllowlistedError
+    from readme_agent.readme.claim_accountability_llm_disposition import (
+        resolve_claim_disposition_context,
+    )
+
+    try:
+        resolve_claim_disposition_context("not-a-real-org/not-a-real-repo")
+        raise AssertionError("expected NotAllowlistedError")
+    except NotAllowlistedError:
+        pass

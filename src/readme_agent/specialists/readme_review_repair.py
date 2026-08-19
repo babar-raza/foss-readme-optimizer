@@ -11,6 +11,9 @@ from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.errors import StateBackendError
 from readme_agent.evidence.writer import generate_run_id
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
+from readme_agent.readme.claim_accountability_llm_disposition import (
+    resolve_claim_disposition_context,
+)
 from readme_agent.repository_snapshot import current_repository_snapshot
 from readme_agent.specialists.independent_readme_review import (
     IndependentReadmeReviewResultV1,
@@ -161,6 +164,16 @@ def build_repaired_review_context(
     plan_record = presentation_plan_record(presentation_plan)
     evidence_refs: list[str] = []
     local_bundle_dir: Path | None = None
+    try:
+        disposition_client, disposition_repository_root, disposition_ratchet_path = (
+            resolve_claim_disposition_context(org_repo)
+        )
+    except Exception:  # noqa: BLE001 -- optional wiring; None reproduces prior behavior
+        disposition_client, disposition_repository_root, disposition_ratchet_path = (
+            None,
+            None,
+            None,
+        )
     factuality = evaluate_candidate_factuality(
         org_repo,
         render_result["original_text"],
@@ -169,6 +182,9 @@ def build_repaired_review_context(
         source_text=render_result.get("source_text", render_result["original_text"]),
         product_facts_v2=product_facts_v2,
         agentic_composition_plan=render_result.get("agentic_composition_plan"),
+        llm_disposition_client=disposition_client,
+        repository_root=disposition_repository_root,
+        disposition_ratchet_path=disposition_ratchet_path,
     )
     verification_dispatch = dispatch_verify_readme_candidate(org_repo, render_result)
     if verification_dispatch.outcome != "executed" or verification_dispatch.result is None:
