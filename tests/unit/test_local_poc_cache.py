@@ -266,6 +266,156 @@ def test_complete_current_bundle_is_reusable_with_an_inspectable_cache_key(tmp_p
     assert first.cache_key == second.cache_key
 
 
+def test_reconciliation_error_denies_reuse_of_an_otherwise_valid_bundle(tmp_path):
+    """Stage 3A: `candidate/readme-reconciliation.json` recording an
+    `{"error": ...}` result must block reuse/promotion, not silently persist
+    alongside an otherwise-accepted bundle."""
+
+    state, bundle = _valid_cache(tmp_path)
+    write_redacted_json(
+        bundle / "candidate" / "readme-reconciliation.json",
+        {"schema_version": 1, "error": "unaccounted source loss: bytes [10, 20)"},
+    )
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert any(
+        reason.startswith("readme_reconciliation_error") for reason in decision.mismatch_reasons
+    )
+
+
+def test_missing_reconciliation_evidence_does_not_by_itself_deny_reuse(tmp_path):
+    """A bundle that never ran reconciliation at all (pre-Stage-3A, or one
+    that simply has no `candidate/readme-reconciliation.json`) is not itself
+    denied reuse -- only an explicit, persisted failure blocks."""
+
+    state, bundle = _valid_cache(tmp_path)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is True
+    assert not any(
+        reason.startswith("readme_reconciliation") for reason in decision.mismatch_reasons
+    )
+
+
+def test_blocking_check_error_in_coverage_evidence_denies_reuse(tmp_path):
+    """Stage 3B: a classified-blocking check recorded as *errored* (raised,
+    or returned an uninterpretable shape) in `candidate/check-coverage.json`
+    must deny reuse/promotion, not silently persist alongside an otherwise-
+    accepted bundle."""
+
+    state, bundle = _valid_cache(tmp_path)
+    write_redacted_json(
+        bundle / "candidate" / "check-coverage.json",
+        {
+            "schema_version": 1,
+            "check_count": 1,
+            "pass_count": 0,
+            "fail_count": 0,
+            "skip_count": 0,
+            "error_count": 1,
+            "not_applicable_count": 0,
+            "entries": [
+                {
+                    "check_name": "check_banner_present",
+                    "outcome": "error",
+                    "severity": "hard_gate",
+                    "classification": "applicable_reusable",
+                    "blocking": True,
+                    "reason": "raised TypeError",
+                }
+            ],
+        },
+    )
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert any(
+        reason.startswith("blocking_check_gap:check_banner_present:error")
+        for reason in decision.mismatch_reasons
+    )
+
+
+def test_blocking_check_skip_in_coverage_evidence_does_not_deny_reuse(tmp_path):
+    """A classified-blocking check recorded merely as *skipped* does not
+    deny reuse -- narrowed deliberately after `check_banner_present` (whose
+    family/platform is only ever derived from a real imported-knowledge
+    fact location) was found to skip in nearly every non-full-portfolio
+    run, including this repo's own synthetic-fixture and end-to-end
+    lifecycle tests. See GOV-014 (`plans/backlog-post-poc.md`) for the
+    deferred, correctly-scoped fix."""
+
+    state, bundle = _valid_cache(tmp_path)
+    write_redacted_json(
+        bundle / "candidate" / "check-coverage.json",
+        {
+            "schema_version": 1,
+            "check_count": 1,
+            "pass_count": 0,
+            "fail_count": 0,
+            "skip_count": 1,
+            "error_count": 0,
+            "not_applicable_count": 0,
+            "entries": [
+                {
+                    "check_name": "check_banner_present",
+                    "outcome": "skip",
+                    "severity": "hard_gate",
+                    "classification": "applicable_reusable",
+                    "blocking": True,
+                    "reason": "family/platform were not available this run",
+                }
+            ],
+        },
+    )
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is True
+    assert not any(reason.startswith("blocking_check_gap") for reason in decision.mismatch_reasons)
+
+
+def test_non_blocking_check_gap_in_coverage_evidence_does_not_deny_reuse(tmp_path):
+    """A skipped/errored check that is NOT classified blocking must not
+    affect acceptance -- only blocking-check gaps are gating."""
+
+    state, bundle = _valid_cache(tmp_path)
+    write_redacted_json(
+        bundle / "candidate" / "check-coverage.json",
+        {
+            "schema_version": 1,
+            "check_count": 1,
+            "pass_count": 0,
+            "fail_count": 0,
+            "skip_count": 0,
+            "error_count": 1,
+            "not_applicable_count": 0,
+            "entries": [
+                {
+                    "check_name": "check_dependency_snapshot_completeness",
+                    "outcome": "error",
+                    "severity": "hard_gate",
+                    "classification": "applicable_after_adaptation",
+                    "blocking": False,
+                    "reason": "no committed fixture carries real data for it",
+                }
+            ],
+        },
+    )
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is True
+    assert not any(reason.startswith("blocking_check_gap") for reason in decision.mismatch_reasons)
+
+
 def test_approved_current_bundle_is_reusable_only_for_first_no_op_promotion(tmp_path):
     state, bundle = _approved_cache(tmp_path)
 

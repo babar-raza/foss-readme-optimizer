@@ -14,7 +14,9 @@ from readme_agent.validation.aspose_checks import load_check_registry
 from readme_agent.validation.aspose_checks_bridge import (
     AsposeCheckFindingV1,
     AsposeCheckResultV1,
+    blocking_aspose_check_gaps,
     load_blocking_check_names,
+    run_aspose_checks,
 )
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -132,8 +134,6 @@ def test_real_end_to_end_report_against_the_real_registry_and_classification():
     """Runs the actual bridge (no mocking) against a minimal real candidate
     and confirms the resulting coverage report is internally consistent."""
 
-    from readme_agent.validation.aspose_checks_bridge import run_aspose_checks
-
     result = run_aspose_checks("# Widget\n\nA small tool.\n", None)
 
     report = build_check_coverage_report(result, _real_classification())
@@ -142,3 +142,98 @@ def test_real_end_to_end_report_against_the_real_registry_and_classification():
     assert report.pass_count + report.fail_count == len(result.checks_run)
     assert report.skip_count >= len(result.checks_skipped)
     assert report.error_count == len(result.checks_errored)
+
+
+def test_blocking_check_gaps_synthesizes_a_finding_for_a_skipped_blocking_check():
+    blocking_names = load_blocking_check_names()
+    some_blocking_check = next(iter(blocking_names))
+    result = AsposeCheckResultV1(
+        valid=True,
+        checks_run=(),
+        checks_skipped=(some_blocking_check,),
+        checks_errored=(),
+        findings=(),
+    )
+
+    gaps = blocking_aspose_check_gaps(result)
+
+    assert len(gaps) == 1
+    assert gaps[0].check_name == some_blocking_check
+    assert gaps[0].severity == "critical"
+    assert "skipped" in gaps[0].message
+
+
+def test_blocking_check_gaps_synthesizes_a_finding_for_an_errored_blocking_check():
+    blocking_names = load_blocking_check_names()
+    some_blocking_check = next(iter(blocking_names))
+    result = AsposeCheckResultV1(
+        valid=True,
+        checks_run=(),
+        checks_skipped=(),
+        checks_errored=(some_blocking_check,),
+        findings=(),
+    )
+
+    gaps = blocking_aspose_check_gaps(result)
+
+    assert len(gaps) == 1
+    assert gaps[0].check_name == some_blocking_check
+    assert "raised" in gaps[0].message or "unexpected" in gaps[0].message
+
+
+def test_blocking_check_gaps_ignores_non_blocking_skips_and_errors():
+    blocking_names = load_blocking_check_names()
+    non_blocking = next(name for name in load_check_registry() if name not in blocking_names)
+    result = AsposeCheckResultV1(
+        valid=True,
+        checks_run=(),
+        checks_skipped=(non_blocking,),
+        checks_errored=(),
+        findings=(),
+    )
+
+    assert blocking_aspose_check_gaps(result) == []
+
+
+def test_blocking_check_gaps_ignores_a_check_that_ran_cleanly():
+    blocking_names = load_blocking_check_names()
+    some_blocking_check = next(iter(blocking_names))
+    result = AsposeCheckResultV1(
+        valid=True,
+        checks_run=(some_blocking_check,),
+        checks_skipped=(),
+        checks_errored=(),
+        findings=(),
+    )
+
+    assert blocking_aspose_check_gaps(result) == []
+
+
+def test_dependency_snapshot_applicable_false_skips_instead_of_silently_passing():
+    """Stage 3B: extraction-unsupported (dependency_snapshot.applicable is
+    False -- e.g. a setup.py-only Python repo, no pyproject.toml) must never
+    reach a check body and come back as a silent pass; it is skipped
+    explicitly, with the check's real name recorded."""
+
+    registry = load_check_registry()
+    dependency_snapshot_checks = {
+        name
+        for name, descriptor in registry.items()
+        if "dependency_snapshot" in descriptor.parameters
+    }
+    assert dependency_snapshot_checks, "no dependency_snapshot-parameterized check found to test"
+
+    class _NotApplicableFacts:
+        selected_fact_ids = {"aspose.dependency_snapshot": "fact-1"}
+
+        class _Fact:
+            value = {"ecosystem": "python", "applicable": False, "not_applicable_reason": "x"}
+
+        def selected_fact(self, field):
+            return self._Fact()
+
+    result = run_aspose_checks("# Widget\n\nA small tool.\n", _NotApplicableFacts())
+
+    for name in dependency_snapshot_checks:
+        assert name in result.checks_skipped, f"{name} should skip on an inapplicable snapshot"
+        assert name not in result.checks_run

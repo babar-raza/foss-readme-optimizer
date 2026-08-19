@@ -115,6 +115,19 @@ def _real_kwargs(candidate_text: str, facts: ProductFactsV2 | None) -> dict[str,
     return kwargs
 
 
+def _dependency_snapshot_applicable(value: Any) -> bool:
+    """`DependencySnapshotV1.applicable` -- `False` means `dependency_
+    snapshot.py` already determined this repository/ecosystem has no
+    manifest its extraction supports (a real, honest gap, not zero
+    dependencies). Defaults to applicable when the shape is unrecognized so
+    a genuinely-applicable snapshot is never mistaken for an unsupported one
+    just because of a schema drift this function doesn't know about yet."""
+
+    if isinstance(value, dict):
+        return value.get("applicable", True) is not False
+    return getattr(value, "applicable", True) is not False
+
+
 def _message_from_finding(raw: Any) -> str:
     if isinstance(raw, dict):
         detail = raw.get("detail") or raw.get("reason") or raw.get("message")
@@ -139,6 +152,19 @@ def run_aspose_checks(candidate_text: str, facts: ProductFactsV2 | None) -> Aspo
 
     for name, descriptor in sorted(registry.items()):
         if not set(descriptor.parameters) <= set(available):
+            checks_skipped.append(name)
+            continue
+        if "dependency_snapshot" in descriptor.parameters and not _dependency_snapshot_applicable(
+            available["dependency_snapshot"]
+        ):
+            # This ecosystem/repository has no manifest this bridge's
+            # extraction supports at all (dependency_snapshot.py already
+            # recorded applicable=False with a real reason) -- invoking the
+            # check body anyway would silently return [] for most of these
+            # checks (nothing to complain about vs. an empty required-deps
+            # list), recorded as a clean "pass" indistinguishable from a
+            # real one. Extraction-unsupported must never appear as a
+            # passing dependency check: skip explicitly instead.
             checks_skipped.append(name)
             continue
         kwargs = {param: available[param] for param in descriptor.parameters}
@@ -228,3 +254,43 @@ def blocking_aspose_check_findings(result: AsposeCheckResultV1) -> list[AsposeCh
 
     blocking_names = load_blocking_check_names()
     return [finding for finding in result.findings if finding.check_name in blocking_names]
+
+
+def blocking_aspose_check_gaps(result: AsposeCheckResultV1) -> list[AsposeCheckFindingV1]:
+    """Stage 3B: a classified-blocking check that was *skipped* (its real-data
+    parameters weren't available) or *errored* (raised, or returned a shape
+    this bridge can't interpret) never produced a real finding at all --
+    `blocking_aspose_check_findings` above, which only ever inspects
+    `result.findings`, cannot see it, so it was previously silently
+    indistinguishable from "ran cleanly and passed". This synthesizes one
+    critical, clearly-labeled finding per such gap, carrying its actual
+    reason (skip vs. error), so acceptance gating sees the true state
+    instead of promoting a candidate no blocking check actually verified."""
+
+    blocking_names = load_blocking_check_names()
+    gaps: list[AsposeCheckFindingV1] = []
+    for name in sorted(blocking_names & set(result.checks_skipped)):
+        gaps.append(
+            AsposeCheckFindingV1(
+                check_name=name,
+                severity="critical",
+                section=None,
+                message=(
+                    f"blocking check {name} was skipped this run (its required real-data "
+                    "parameters were not available) -- cannot be treated as passing"
+                ),
+            )
+        )
+    for name in sorted(blocking_names & set(result.checks_errored)):
+        gaps.append(
+            AsposeCheckFindingV1(
+                check_name=name,
+                severity="critical",
+                section=None,
+                message=(
+                    f"blocking check {name} raised or returned an unexpected result this run "
+                    "-- cannot be treated as passing"
+                ),
+            )
+        )
+    return gaps

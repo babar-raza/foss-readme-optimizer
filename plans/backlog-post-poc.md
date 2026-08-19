@@ -359,6 +359,24 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
   not investigated (likely: the composer only carries forward canonical H2 sections and silently
   drops non-canonical ones rather than preserving, correcting, or explicitly superseding them --
   needs confirmation against `document_renderer.py`/`verified_template_sections.py`, not assumed).
+- 2026-08-19/20 (GOV-014): **`check_banner_present`'s blocking classification is structurally
+  incompatible with any run lacking real imported-knowledge data; the Stage 3B blocking-check-
+  skip gate had to be narrowed to exclude it, not fixed here.** While wiring "a classified-blocking
+  check that is skipped must block acceptance" (Stage 3B) into `local_poc_acceptance_binding.py`,
+  empirically confirmed `check_banner_present` (the only blocking check requiring `family`/
+  `platform`, `aspose_checks_bridge.py::_real_kwargs()`) skips in nearly every scenario that
+  doesn't carry a real `aspose.*` fact whose `source.location` starts with `"data/imported:"` --
+  i.e. real imported-knowledge corpus data, not just any `ProductFactsV2`. This is not a rare edge
+  case: gating on blocking-skip broke 36+ unrelated synthetic-fixture tests across the suite plus
+  a real end-to-end supervisor-loop test (`test_local_poc_records_snapshot_and_profile_before_
+  later_stages`) whose facts are entirely synthetic. Narrowed the new gate to only block on
+  `outcome == "error"` (unambiguous: the check genuinely crashed), leaving `"skip"` non-blocking
+  for now -- real, deferred gap, not silently dropped. The correctly-scoped fix needs its own
+  investigation: either derive `family`/`platform` from a broader real source (e.g. the run's own
+  `org_repo`/registry entry, not only an imported-knowledge fact's location string), or reclassify
+  `check_banner_present` off blocking until that derivation is broadened. `blocking_aspose_check_
+  gaps()` (`aspose_checks_bridge.py`) already exists, tested, and covers both skip and error --
+  ready to wire in fully once the derivation gap closes.
 - 2026-08-20 (GOV-014): **Real regression, found and fixed: my own Stage 2 commit (`05ef1e532`)
   broke the Level-8 mission graph's pinned requirement-catalog hash, and the full-suite run that
   should have caught it never actually exercised the changed file.** Editing `plans/requirements/

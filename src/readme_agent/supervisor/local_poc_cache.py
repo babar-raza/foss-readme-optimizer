@@ -309,6 +309,8 @@ def _evaluate_local_poc_cache(
     deterministic_validation = _load_json(bundle_dir / "review" / "deterministic-validation.json")
     independent_review = _load_json(bundle_dir / "review" / "independent-agent-review.json")
     no_op_proof = _load_json(bundle_dir / "review" / "no-op-proof.json")
+    readme_reconciliation = _load_json(bundle_dir / "candidate" / "readme-reconciliation.json")
+    check_coverage = _load_json(bundle_dir / "candidate" / "check-coverage.json")
     expected_inventory, inventory_sha256 = _load_inventory(bundle_dir)
     stored = _stored_dependencies(
         state,
@@ -406,6 +408,8 @@ def _evaluate_local_poc_cache(
                 ),
                 reviewer_standard_hash=current["reviewer_standard_hash"],
                 require_no_op=not approved_only,
+                readme_reconciliation=readme_reconciliation,
+                check_coverage=check_coverage,
             )
         )
     if not approved_only:

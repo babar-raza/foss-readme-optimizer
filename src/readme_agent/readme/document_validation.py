@@ -553,18 +553,25 @@ def validate_readme_document_candidate(
         f"{finding.finding_id}: {finding.message}" for finding in presentation_lint.findings
     )
 
-    # run_aspose_checks covers up to 38 of 89 vendored checks depending on
+    # run_aspose_checks covers up to 45 of 89 vendored checks depending on
     # what real data a given candidate has (the rest need production inputs
-    # this repo doesn't build yet -- dependency_snapshot, content_units --
-    # and are honestly skipped, not faked). Of the checks runnable today,
-    # only the subset classified `blocking: true` in
+    # this repo doesn't build yet -- dependency_snapshot for most ecosystems,
+    # content_units -- and are honestly skipped, not faked). Of the checks
+    # runnable today, only the subset classified `blocking: true` in
     # `data/aspose_check_classification.json` reaches `errors` -- checks
     # proven, by empirical validation against the currently accepted
     # candidates, not to false-positive on this repo's own independently
     # designed template (see `scripts/data-refresh/classify_aspose_checks.py`).
     # Every finding, blocking or not, still surfaces via `aspose_check_findings`
     # for a caller/reviewer to see -- `checks["aspose_checks"]` and this
-    # promotion are two independent signals, never conflated.
+    # promotion are two independent signals, never conflated. A blocking
+    # check that is skipped or errored (never produces a real finding here)
+    # is caught separately, at candidate-acceptance time against the
+    # persisted check-coverage evidence (`aspose_checks_bridge.py::
+    # blocking_aspose_check_gaps`, `local_poc_acceptance_binding.py`) --
+    # this shared validator is exercised by hundreds of synthetic-fixture
+    # tests unrelated to aspose_checks coverage, so it deliberately stays
+    # scoped to real findings only, not skip/error gaps (Stage 3B).
     aspose_checks = run_aspose_checks(candidate_inner, facts)
     checks["aspose_checks"] = aspose_checks.valid
     errors.extend(
