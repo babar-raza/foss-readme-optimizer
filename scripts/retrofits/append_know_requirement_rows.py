@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One-shot: append the KNOW-001..012 requirement rows (imported-knowledge
+"""One-shot: append the KNOW-001..013 requirement rows (imported-knowledge
 application layer, Decision 106) to `plans/requirements/catalog.jsonl`.
 
 Run once from the repo root:
@@ -251,6 +251,31 @@ ROWS: list[dict] = [
             "tests/unit/test_readme_existing_section_regressions.py::"
             "test_real_net_partial_sections_preserve_maintainer_content_without_fact_duplication "
             "for the reproducing evidence."
+        ),
+        "traceability": "Decision 106",
+    },
+    {
+        "requirement_id": "KNOW-013",
+        "section": "21. Imported knowledge application",
+        "status": "BACKLOG",
+        "priority": "P1",
+        "requirement": (
+            "The new aspose.feature_claims/format_support_claims/install_claims/"
+            "limitation_claims/troubleshoot_claims/relevant_seo_keywords fact fields MUST gain "
+            "at least one real renderer/composition consumer so imported knowledge affects "
+            "rendered candidate bytes, not only the fact graph and knowledge-application.json "
+            "evidence -- confirmed by direct grep this session that no readme/presentation "
+            "module reads any of these fields yet."
+        ),
+        "acceptance_evidence": (
+            "Not implemented this session. facts/aspose_knowledge_selection.py and "
+            "facts/aspose_seo_keyword_facts.py populate these fields into ProductFactsV2 (real, "
+            "tested, evidenced) and knowledge_application_evidence.py records their selection, "
+            "but grep across src/readme_agent for these field names outside the modules that "
+            "write them and their tests returns zero renderer/composition matches. This is the "
+            "precise, narrower half of KNOW-008's broader editorial-plan-expansion gap -- until "
+            "this closes, imported knowledge's effect on this run is limited to check-gating "
+            "(KNOW-005, real, blocking) and audit evidence, not visible README content."
         ),
         "traceability": "Decision 106",
     },
