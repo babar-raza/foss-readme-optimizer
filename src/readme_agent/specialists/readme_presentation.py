@@ -190,14 +190,23 @@ def _persist_blocked_plan_diagnostics(
         org, repo = org_repo.split("/", maxsplit=1)
         diagnostics_dir = paths_module.readme_poc_root() / f"{org}__{repo}" / "diagnostics"
         diagnostics_dir.mkdir(parents=True, exist_ok=True)
-        plan_payload = presentation_plan_record.get("presentation_plan") or {}
+        # `claim_accountability`/`source_claim_resolutions`/`composition_ledger` live
+        # on `readme_document_plan` (ReadmeDocumentPlanV1), not on the flat
+        # `presentation_plan` key (RepositoryPresentationPlanV1 has no such fields) --
+        # reading them from `presentation_plan` as before always persisted `null` for
+        # the first two. Sourcing `readme_document_plan` also carries the composition
+        # ledger's exact per-segment `content_text`/`authority`, closing the "no way to
+        # inspect a blocked attempt's composition ledger" gap (S12,
+        # failure-signature-ledger.md).
+        document_plan_payload = presentation_plan_record.get("readme_document_plan") or {}
         payload = {
             "recorded_at": datetime.now(UTC).isoformat(timespec="seconds"),
             "org_repo": org_repo,
             "document_validation": presentation_plan_record.get("document_validation"),
-            "claim_accountability": plan_payload.get("claim_accountability"),
-            "source_claim_resolutions": plan_payload.get("source_claim_resolutions"),
-            "candidate_sha256": plan_payload.get("candidate_sha256"),
+            "claim_accountability": document_plan_payload.get("claim_accountability"),
+            "source_claim_resolutions": document_plan_payload.get("source_claim_resolutions"),
+            "composition_ledger": document_plan_payload.get("composition_ledger"),
+            "candidate_sha256": document_plan_payload.get("candidate_sha256"),
         }
         (diagnostics_dir / "blocked-presentation-plan.json").write_text(
             json_module.dumps(payload, indent=1, sort_keys=True) + "\n",

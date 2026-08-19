@@ -22,11 +22,19 @@ def test_blocked_plan_diagnostics_write_claims_and_candidate(monkeypatch, tmp_pa
     monkeypatch.setattr(
         repository_snapshot, "current_repository_snapshot", lambda org_repo: object()
     )
+    # `claim_accountability`/`source_claim_resolutions`/`composition_ledger`/
+    # `candidate_sha256` live on `readme_document_plan` (ReadmeDocumentPlanV1) in the
+    # real capability output (build_presentation_plan.py), not on the flat
+    # `presentation_plan` key (RepositoryPresentationPlanV1 has no such fields).
     record = {
-        "presentation_plan": {
+        "presentation_plan": {"candidate_sha256": "wrong-nest-c" * 5},
+        "readme_document_plan": {
             "claim_accountability": {"claims": [{"claim_id": "source:claim:1:aa"}]},
             "source_claim_resolutions": [{"claim_id": "source:claim:1:aa"}],
             "candidate_sha256": "c" * 64,
+            "composition_ledger": {
+                "segments": [{"segment_id": "composition.segment.0032", "authority": "unbound"}]
+            },
         },
         "document_validation": {"errors": ["claim accountability has 1 blocking claim(s)"]},
     }
@@ -38,6 +46,11 @@ def test_blocked_plan_diagnostics_write_claims_and_candidate(monkeypatch, tmp_pa
         (diagnostics / "blocked-presentation-plan.json").read_text(encoding="utf-8")
     )
     assert payload["claim_accountability"]["claims"][0]["claim_id"] == "source:claim:1:aa"
+    assert payload["source_claim_resolutions"][0]["claim_id"] == "source:claim:1:aa"
+    assert payload["candidate_sha256"] == "c" * 64
+    assert payload["composition_ledger"]["segments"][0]["segment_id"] == (
+        "composition.segment.0032"
+    )
     assert payload["document_validation"]["errors"]
     assert (
         (diagnostics / "blocked-candidate.md").read_text(encoding="utf-8").startswith("# Candidate")

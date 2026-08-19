@@ -250,3 +250,33 @@ separators (`'\n'`/`'\n\n'`), not prose — raising a hypothesis, unconfirmed, t
 prose, which would point at `_is_governed_mechanical_structure(text)` having a gap for certain
 separator patterns rather than a real content-provenance loss. Not verified; flagged for
 whoever picks this up next to check first, before assuming richer prose is involved.
+
+**Persistence gap closed (2026-08-19)**: `_persist_blocked_plan_diagnostics`
+(`specialists/readme_presentation.py`) read `claim_accountability`/`source_claim_resolutions`/
+`candidate_sha256` from `presentation_plan_record["presentation_plan"]`
+(`RepositoryPresentationPlanV1.model_dump()`) — that model has no such fields (only
+`org_repo`/`immutable_base_revision`/`facts_hash`/`source_sha256`/`archetype`/`findings`/
+`actions`/`candidate_sha256`), so the first two always persisted `null`, a real pre-existing bug
+independent of S12. The correct source is the sibling top-level key
+`presentation_plan_record["readme_document_plan"]` (`ReadmeDocumentPlanV1.model_dump()`, built by
+`build_document_repository_presentation_plan()`/`capabilities/build_presentation_plan.py`), which
+carries all three correctly *and* the full `composition_ledger` (every segment's exact
+`content_text`/`authority`/byte range) — closing the "no way to inspect a blocked attempt's
+composition ledger" gap above without any new computation, model, or pipeline change: the ledger
+was already built and present in memory at this call site, just never read. Fixed by switching
+the extraction source and adding `composition_ledger` to the persisted payload; regression test
+`test_blocked_plan_diagnostics_write_claims_and_candidate` updated to assert against the real
+`readme_document_plan` nesting (previously asserted against the buggy `presentation_plan` shape,
+which is why the bug went unnoticed). Focused suite green (6/6), ruff/mypy clean.
+
+**Live verification attempted, structurally deferred**: a `--bounded-verified-canary` rerun for
+cells-python did not exercise the new code — the pipeline's own no-unnecessary-work convergence
+(VER-003) reused the prior terminal outcome unchanged (recorded ~06:18Z, ~90 min before the
+rerun; empty command output confirms no fresh work), since none of the tracked dependency
+fingerprints changed and a diagnostics-only edit isn't one of them (correctly — it doesn't affect
+candidate identity). `--retry-blocked` is portfolio-only, not available to a single-repo canary,
+so a bounded `--registry data/products.json --retry-blocked --portfolio-time-budget-seconds 1200`
+pass was started instead to force fresh re-verification of the whole currently-blocked cohort
+(S1/S5/S12 members alike) under real dependency-unchanged conditions — deliberately justified by
+a real code change, not a blind re-run. Whether segments 0032/0034/0036 are whitespace or
+substantive prose is still open pending that pass's fresh diagnostics.
