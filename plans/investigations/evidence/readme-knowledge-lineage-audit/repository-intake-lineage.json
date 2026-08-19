@@ -1,0 +1,85 @@
+{
+  "boundary": "A",
+  "boundary_name": "registry_and_acquisition_truth",
+  "boundary_path": "actual FOSS repository + registries -> pinned RepositorySnapshotV1",
+  "produced_at_source_head": "05ef1e532ae34bea07fefe951543a43f41ca55c4",
+  "producer": "knowledge_lineage_registry_acquisition (read-only Explore subagent), independently verified by the coordinating session",
+  "method": "gh api read-only calls against the real repository tree at the pinned SHA, plus static reads of this repo's own acquisition/registry code -- no local clone was made by the investigation, no mutation occurred",
+  "audited_repository": {
+    "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "family": "3d",
+    "platform": "python",
+    "pinned_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+    "pinned_branch": "master",
+    "pinned_sha_committed_at": "2026-08-14T09:56:03Z"
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "question": "Is data/products.json's row correct, complete, and consistent with the real repository?",
+      "finding": "exact match on every checkable field",
+      "citations": [
+        "data/products.json:40-58",
+        "gh api repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+      ],
+      "detail": "repository_id=1138357893, node_id=R_kgDOQ9n2hQ, org/repo casing, license=MIT, default_branch=master all match. A second, schema-v0 copy exists at data/imported/data/products.json but is confirmed inert (grep of registry/loader.py and discovery.py shows only data/products.json is read on any live path) -- a stale archival duplicate, not a live risk.",
+      "status": "no_defect"
+    },
+    {
+      "id": "Q2",
+      "question": "Does acquisition capture everything downstream fact-extraction needs?",
+      "finding": "yes for this repository's real structure, via a full working-tree clone rather than selective fetch",
+      "citations": [
+        "src/readme_agent/gitsafety/clone.py:318-329",
+        "src/readme_agent/repository_snapshot.py:34-48",
+        "src/readme_agent/repository_snapshot.py:99-134",
+        "src/readme_agent/inspection/file_inventory.py:227-252"
+      ],
+      "detail": "clone_baseline() performs a real git clone --depth 1 of the entire working tree, so every file is reachable by any stage reading snapshot.root_path directly. RepositorySnapshotV1 itself stores only readme_path/readme_sha256, inventory_sha256 (aggregate), and package_roots -- license_path/community_paths are computed by file_inventory.scan() but not stored as named snapshot fields, only indirectly covered by inventory_sha256.",
+      "status": "minor_gap_benign_here"
+    },
+    {
+      "id": "Q3",
+      "question": "Are README-only / monorepo / generated-source / LFS / submodule / missing-manifest conditions represented truthfully?",
+      "finding": "yes for this repository -- confirmed against real GitHub data, not inferred",
+      "citations": [
+        "src/readme_agent/facts/dependency_snapshot.py:99-106",
+        "gh api .../git/trees/ee05c1ba9153ef5916b7a108406c794f2e464d01?recursive=1"
+      ],
+      "detail": "Not README-only, not a monorepo, not generated-source, no LFS pointers, no submodules (confirmed via the real tree, 427 entries, not truncated). Manifest is legacy setup.py (no pyproject.toml); dependency_snapshot.py._python_snapshot() correctly returns applicable=False with an explicit not_applicable_reason rather than fabricating zero dependencies -- this module's own docstring cites a real prior incident (MT041) for exactly this failure mode.",
+      "status": "no_defect"
+    },
+    {
+      "id": "Q3_defect",
+      "question": "Does every consumer of Python dependency data represent a setup.py-only manifest as honestly as dependency_snapshot.py does?",
+      "finding": "no -- a second, parallel consumer silently returns [] with no gap flag for any non-pyproject.toml manifest",
+      "citations": [
+        "src/readme_agent/facts/python_dependency_acquisition.py:46-58",
+        "src/readme_agent/facts/python_dependency_acquisition.py:61-73"
+      ],
+      "detail": "declared_python_runtime_dependencies() and declared_python_build_dependencies() guard on `manifest.name != \"pyproject.toml\"` and return a bare [] -- no error, no gap flag, no not_applicable_reason -- for any setup.py/setup.cfg-only Python repository. Independently re-verified by the coordinating session via direct grep of the file (not merely accepted from the subagent's quote): confirmed the exact guard text at both call sites. For THIS repository the result happens to be correct by coincidence (real setup.py has install_requires=[], confirmed via gh api contents/setup.py), so nothing is visibly wrong today for aspose-3d-foss/Aspose.3D-FOSS-for-Python specifically. The risk is structural: any other setup.py-based Python FOSS repo in the portfolio with a non-empty install_requires would hit this exact silent-[] path.",
+      "status": "confirmed_defect",
+      "severity": "repository_specific_benign_today_systemic_risk_untested",
+      "scope": "ecosystem_python_setup_py_repos",
+      "causal_owner": "src/readme_agent/facts/python_dependency_acquisition.py::declared_python_runtime_dependencies, declared_python_build_dependencies",
+      "smallest_repair_hypothesis": "either delegate to dependency_snapshot.py's applicable/not_applicable_reason gate, or extend these two functions to read setup.py's install_requires (parsed, not executed) and only return [] with an explicit not_applicable_reason when truly no manifest is present -- not implemented in this read-only boundary",
+      "regression_test_hypothesis": "a setup.py-only fixture repo with a non-empty install_requires list, asserting the dependency-derived output is not silently []",
+      "verified_closed": false
+    },
+    {
+      "id": "Q4",
+      "question": "Is every snapshot input content-addressed, and is acquisition reproducible?",
+      "finding": "partially -- README is individually hashed, the rest of the tree only via one aggregate hash; the object is not byte-reproducible only because of an expected capture timestamp",
+      "citations": [
+        "src/readme_agent/repository_snapshot.py:89-96",
+        "src/readme_agent/repository_snapshot.py:115-119",
+        "src/readme_agent/repository_snapshot.py:47",
+        "src/readme_agent/repository_snapshot.py:129"
+      ],
+      "detail": "inventory_sha256 = sha256(git ls-tree -r --full-tree HEAD), a single aggregate hash that transitively content-addresses every tracked file (any byte change anywhere flips it) but exposes no per-file breakdown. readme_sha256 is the only individually content-addressed file. captured_at (datetime.now(UTC).isoformat()) is the only field that keeps the serialized snapshot object from being byte-reproducible across two acquisitions at the same SHA -- an intentional capture timestamp, not a content field, so this is expected non-determinism, not a defect.",
+      "status": "no_defect"
+    }
+  ],
+  "confirmed_defects": ["Q3_defect"],
+  "knowledge_gap_backlog_ids": ["KGAP-001"]
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "id": "KGAP-001",
+      "slug": "python-dependency-acquisition-silent-empty-for-non-pyproject-manifest",
+      "boundary": "A",
+      "affected_products": [
+        "any data/products.json entry with ecosystem=python and no pyproject.toml at the repository root (setup.py or setup.cfg only)"
+      ],
+      "affected_ecosystems": ["python"],
+      "severity": "repository_specific_benign_today_systemic_risk_untested",
+      "evidence_pointers": [
+        "plans/investigations/evidence/readme-knowledge-lineage-audit/repository-intake-lineage.json#questions[Q3_defect]"
+      ],
+      "causal_owner": "src/readme_agent/facts/python_dependency_acquisition.py::declared_python_runtime_dependencies, declared_python_build_dependencies",
+      "smallest_repair": "either delegate these two functions to dependency_snapshot.py's applicable/not_applicable_reason gate, or extend them to parse setup.py's install_requires (without executing it) and only return [] with an explicit not_applicable_reason when no manifest is present at all",
+      "regression_test": "a setup.py-only fixture Python repository whose setup.py declares a non-empty install_requires list, asserting the dependency-derived output is not silently []",
+      "invalidated_stage": "python dependency-evidence acquisition (facts/python_dependency_acquisition.py), and any downstream consumer of declared_python_runtime_dependencies/declared_python_build_dependencies (facts/python_consumer.py per the audit's citation)",
+      "status": "confirmed_unqueued"
+    }
+  ]
+}
