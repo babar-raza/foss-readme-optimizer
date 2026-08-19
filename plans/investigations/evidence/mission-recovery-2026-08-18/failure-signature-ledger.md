@@ -357,3 +357,45 @@ clean.
 **Lesson**: a partial live improvement (3->1) is evidence the mechanism is right, not evidence the
 fix is complete — the discipline that caught this was rerunning immediately against fresh live
 data rather than trusting the first green regression test in isolation.
+
+## Two-gate factuality wiring (2026-08-19): implemented, unit-verified, live-verification pending
+
+S12's fix cleared cells-python and font-python past presentation-plan validation, surfacing gate 2
+(`evaluate_candidate_factuality`, `readme_factuality.py`) as the next real blocker for barcode/
+cells-python — traced precisely to the pre-existing `architectural-finding-two-gate-claim-
+accountability.md` finding: gate 2 never received the `llm_disposition_client`/`repository_root`/
+`disposition_ratchet_path` gate 1 already resolves, so it could never replay an accepted
+`excluded_with_reason` disposition. Fixed (`fix(factuality)`, commit `b32d4998c`): a new shared
+`resolve_claim_disposition_context(org_repo)` helper, wired into both real callers. Unit-verified
+(wiring reaches the rebuild; defaults to None when omitted; fails closed for an unlisted repo);
+174 tests across all four changed modules pass. **Not yet live-verified** — a bounded
+`--retry-blocked` pass is running to confirm it actually closes barcode/cells-python's remaining
+block rather than surfacing a further signature.
+
+## font-python's two remaining S1 claims: precise evidence gathered, real fix needs new extraction
+
+Re-confirmed live (2026-08-19, same content-hashes as the 2026-08-18 diagnosis) and now traced to
+exact real source text and facts, closing the gap between "diagnosed" and "ready to implement":
+
+- **`source:claim:2544:3523960e3ec2b571`**: `"...magic-byte detection picks the format
+  automatically unless you pass \`font_type\` explicitly."` — `font_type` is a real parameter of
+  `FontLoader.open`/`FontLoader.load` (confirmed: `api.public_surface.classes[FontLoader].members`
+  gives `surface: "open(source, font_type=None, collection_index) -> Font"`), but no existing
+  matcher recognizes a bare backtick identifier as a valid reference merely because it names a
+  parameter of an already-cited method in the same claim — only whole callables/classes/imports
+  are matched today. **The real fix needs signature-string parsing** (extract parameter names from
+  the `surface` string, match a bare backtick token against them, gated to only fire when the
+  owning method is *also* cited and resolved in the same claim to avoid matching a coincidental
+  common word) — meaningfully more design than a registration-style fix, not attempted here.
+- **`source:claim:6367:f76ee53ac612c3f9`**: `"...vendored, pure-Python codec
+  (\`aspose_font._brotli\`), not an external C library..."` — confirmed `aspose_font._brotli` is a
+  **real** private submodule (`src/aspose_font/_brotli/` genuinely exists in the cloned source).
+  The existing import-statement matcher (Lane F) validates against `api.public_surface.modules`,
+  which — unconfirmed but likely, given Python convention — only lists *public* modules, so a
+  private (`_`-prefixed) submodule may not be checkable through that path at all. **Needs
+  confirming whether private modules are captured anywhere in the facts schema** before any fix is
+  designed; if not, this needs new extraction, not a new matcher.
+
+Both are genuinely "different, unscoped mechanisms" per the 2026-08-18 diagnosis, confirmed by
+this deeper trace rather than superseded by it — ready for a dedicated pass with this evidence in
+hand, not attempted here to avoid an unverified guess at the extraction-layer question.
