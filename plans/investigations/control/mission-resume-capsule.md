@@ -1,6 +1,6 @@
 # Mission resume capsule (derived — regenerate, never hand-edit)
 
-Regenerated: 2026-08-19T05:51:33+00:00
+Regenerated: 2026-08-19T05:59:38+00:00
 Rebuild: `.venv/Scripts/python scripts/governance/mission_resume_capsule.py`
 Staleness check (run at session start; exit 1 = stale): same command with `--check`.
 
@@ -29,14 +29,14 @@ factuality/preservation/grounding gates to raise pass counts.
 
 ## Repository
 
-- branch `main` @ `b492251d04728478f1419a220d5997c23a96465d`
+- branch `main` @ `41442b0bdc5c4d70c015d62abefa02ddacb5fd24`
 - protected pre-existing dirt: `plans/requirements.md` (CRLF-only); untracked
   `plans/claude/moonlit-juggling-flurry.md` is `forbidden_paths` reference material.
 
 ## Durable mission state (local store)
 
 - `mission__LEVEL8-CENTRAL-REPOSITORY-PRESENTATION` — state: mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION v10 (2026-08-19T01:20:16+05:00)
-- newest state ref write: 2026-08-19T10:50:36+05:00
+- newest state ref write: 2026-08-19T10:57:57+05:00
 
 ## Portfolio (from `runs/readme-poc/portfolio-summary.json`)
 
@@ -53,8 +53,7 @@ factuality/preservation/grounding gates to raise pass counts.
 
 - blocked-decision records (skip-cached until a dependency changes):
   - aspose-3d-foss/Aspose.3D-FOSS-for-.NET: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=1)
-  - aspose-3d-foss/Aspose.3D-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:factuality_rejected:claim_conflicts=0,protecte (live_reproductions=1)
-  - aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['composition.segmen (live_reproductions=1)
+  - aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['composition.segmen (live_reproductions=2)
   - aspose-cells-foss/Aspose.Cells-FOSS-for-.NET: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['claim accountabili (live_reproductions=1)
   - aspose-cells-foss/Aspose.Cells-FOSS-for-Python: specialist_failed:readme_presentation:ERROR:presentation_plan:blocked:['composition.segmen (live_reproductions=2)
   - aspose-email-foss/Aspose.Email-FOSS-for-.Net: product_truth_not_ready:BLOCKED_MISSING_EVIDENCE (live_reproductions=1)
