@@ -447,3 +447,37 @@ budget (still `CANDIDATE_GENERATED`, its last confirmed state before the retry c
 pass should confirm the same fix chain reaches it, since it shares barcode's exact signature
 history (S12 confirmed cleared, `factuality_rejected`/`verification_rejected` confirmed cleared for
 barcode specifically).
+
+## Terminal confirmation: 3/33 NO_OP_PROVEN (2026-08-19) -- 3D, barcode, cells-Python
+
+A follow-up pass confirmed cells-python advancing all the way to `NO_OP_PROVEN` (same as
+barcode-python already had). Official mission numerator: `candidate_generated=3,
+deterministic_validated=3, agent_approved=3, no_op_proven=3` -- an exact, clean set with no
+partial/stuck-in-between member. Up from 1/33 no-op-proven at session start.
+
+## Shared-ratchet backfill fix (`56a5f09c8`) confirmed working; surfaces a distinct, deeper gap
+
+The shared ratchet now genuinely contains the backfilled entry for claim-content
+`7ff54c1da64deecb...` (confirmed by direct inspection post-pass) -- the fix works exactly as
+designed. It did **not**, however, close note-python's or page-python's blocking claims for this
+content, which remained blocking both before and after. Traced precisely (page-python's fresh
+diagnostics): the block is not one claim but **two separate claim records sharing the same
+content hash**:
+
+- `source:claim:...:7ff54c1da64deecb` (`expected_disposition: unjustified_loss`, `stage: source`)
+  -- the original text disappearing from the candidate. This is what the disposition ratchet
+  resolves, and does resolve (confirmed accepted, `redundant_with_candidate`).
+- `candidate:claim:...:7ff54c1da64deecb` (`expected_disposition: unbound_generated`,
+  `stage: candidate`, `origin: generated`) -- the byte-identical replacement text the composer
+  rendered, tracked as a *separate* claim needing its own fact binding.
+
+Both claim records carry `equivalent_candidate_claims`/`equivalence_group_id` fields, currently
+empty/null on both -- these look like exactly the intended linkage mechanism ("a source claim
+resolved via disposition should transitively justify its byte-identical candidate claim"), present
+in the schema but not populated by anything in the current disposition-resolution path. **Not
+fixed here** -- this is a distinct, deeper design question (should disposition acceptance
+propagate through byte-identical content across the source/candidate claim split, and if so where
+does that linkage get established) that deserves its own scoped investigation rather than a guess
+grafted onto the ratchet fix that already did its own job correctly. Confirmed not a regression
+from the ratchet fix: this exact two-claim block pattern (`candidate:claim:4579`/`source:claim:4064`
+for note-python) pre-dates it.

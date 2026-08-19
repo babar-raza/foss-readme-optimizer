@@ -18,38 +18,50 @@ Level 8, or full umbrella-mission closure.
 
 ## Status
 
-**barcode-python reached `AGENT_APPROVED`, live-verified (2026-08-19)** — the second Python repo
-independently approved this session, via a chain of three same-day root-cause fixes:
+**3/33 Python repositories `NO_OP_PROVEN` (2026-08-19)** — 3D, barcode, and cells-Python, up from
+1/33 at session start, via a chain of four same-day root-cause fixes plus their live verification:
 
 1. **S12** (composition-authority): template-mandated Dependencies content — three H3
    sub-headings plus two fixed, non-fact-derived lead-in sentences the same headings render
    with — was never registered as governed template structure in `readme/composition_lineage.py`,
    hard-failing composition-ledger validation for every candidate with a Dependencies section.
-   Live-confirmed fully cleared on cells-python, font-python, barcode-python (two corrective
-   passes; the first fix was real but incomplete, caught by rerunning immediately rather than
-   trusting one green test). A companion diagnostics-persistence fix now captures a blocked
-   attempt's full composition ledger on disk — what made root-causing this possible at all.
+   Live-confirmed fully cleared on cells-python, font-python, barcode-python, page-python (two
+   corrective passes; the first fix was real but incomplete, caught by rerunning immediately
+   rather than trusting one green test). A companion diagnostics-persistence fix now captures a
+   blocked attempt's full composition ledger on disk — what made root-causing this possible.
 2. **Disposition-context wiring audit**: clearing S12 surfaced that `build_readme_document_
    candidate()`'s independent-rebuild callers mostly never received the disposition client/
    repository_root/ratchet path gate 1 (`document_planner.py`) already resolves, so an accepted
    `excluded_with_reason` claim could reappear as a fresh block at any later independent-rebuild
    gate. Audited all 5 call sites: gate 1 already correct; gates 2 (`readme_factuality.py`), 3
-   (`verification/checks.py`), and `idea_candidate.py` fixed; `readme_proposal_bundle.py` left as
-   a precisely-scoped lead (harder shape, no direct live failure evidence yet).
-3. **Live proof**: a clean `--retry-blocked` pass (after ruling out a transient GitHub
-   clone/rate-limit hiccup on the prior attempt — confirmed via direct `git ls-remote`, unrelated
-   to the code changes) shows barcode-python at `AGENT_APPROVED` and 3D-Python re-proving through
-   the same stages (its accepted candidate correctly re-verifies rather than regenerating, since
-   only the verification-contract layer changed, not its content).
+   (`verification/checks.py`), and `idea_candidate.py` fixed and live-confirmed (barcode/cells both
+   cleared through to `NO_OP_PROVEN`); `readme_proposal_bundle.py` left as a precisely-scoped lead
+   (harder shape, no direct live failure evidence).
+3. **Shared claim-disposition ratchet backfill**: an already-corroborated disposition replayed
+   from a repo's own ratchet never propagated to the portfolio-shared store (only a fresh model
+   acceptance did) — live-observed via note-python's own accepted verdict for a boilerplate claim
+   (content hash `7ff54c1da64deecb`) that page-python's source also carries verbatim. Fixed;
+   confirmed working (the shared store now genuinely holds the backfilled entry). It surfaced a
+   distinct, deeper, **not-yet-fixed** gap: this exact claim's source-stage and candidate-stage
+   records (byte-identical text, same content hash, different `expected_disposition`) are not
+   linked by the schema's own `equivalent_candidate_claims`/`equivalence_group_id` fields, so
+   resolving the source-stage claim alone doesn't close the candidate-stage one — recorded
+   precisely in the failure-signature ledger, not guessed at further.
+4. **Live proof**: multiple `--retry-blocked` passes (one transient GitHub clone/rate-limit
+   hiccup was hit and ruled out via direct `git ls-remote`, unrelated to any code change) confirm
+   the complete chain end to end for three repositories.
 
 Mission status (state_version 10, post-verification): `facts_ready` 12/33, `candidate_generated`
-3/33, `deterministic_validated` 2/33, `agent_approved` **2/33** (3D-Python + barcode-python),
-`human_accepted` 0/33. `no_op_proven` reads 0/33 mid-re-proof (3D's prior no-op status is being
-re-established through the same stages after the shared verification-contract change, not lost —
-Decision #90's component-versioned invalidation working as designed). First failing boundary
-`FACTS_READY` reflects repositories not yet reached this pass, not a regression. Six real defects
-fixed and regression-tested this session; cells-python (already past S12, awaiting a fresh pass to
-confirm the wiring fix reaches it too) and the remaining Python cohort are next.
+3/33, `deterministic_validated` 3/33, `agent_approved` 3/33, **`no_op_proven` 3/33**
+(3D-Python, barcode-python, cells-python), `human_accepted` 0/33 — an exact, clean set with no
+partial/stuck-in-between member. First failing boundary `FACTS_READY` reflects repositories not
+yet reached by a pass, not a regression. Seven real defects fixed and regression-tested this
+session. Remaining open Python blockers, precisely diagnosed: email/pdf/slides (one S1
+claim-accountability block each, not yet root-caused to a specific fixable mechanism);
+font (two claims needing new extraction/matching logic — a real parameter-name reference and a
+real private-submodule reference, neither covered by any existing matcher); note/page (the
+equivalence-linkage gap above); html/psd/tex (genuine upstream `infra_external` defects, not
+locally fixable).
 
 Durable mission state owns the live task, immediate goal, repository scope,
 claim, transition history, and current contract-valid numerator. This document deliberately does
