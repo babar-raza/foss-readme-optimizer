@@ -427,3 +427,23 @@ call sites, not two:
    failing live in this session's evidence (unlike gates 2/3, which came from real production
    failures) -- left as a precisely-scoped, ready-to-implement lead rather than an unverified guess
    at a path with no direct failure evidence behind it.
+
+## Two/three-gate fix LIVE-CONFIRMED: barcode-python reaches AGENT_APPROVED (2026-08-19)
+
+One intervening pass showed `baseline_clone_failed`/`readonly_intake:BLOCKED_ACCESS` for
+barcode/cells-python instead of a claim-accountability result -- verified transient before
+concluding anything: `git ls-remote` against barcode-python's real remote succeeded identically
+with and without the documented `GH_TOKEN` recipe, ruling out a credential regression; most likely
+GitHub-side rate limiting after five consecutive `--retry-blocked` passes in under an hour. Waited,
+reran once clean.
+
+**Result**: barcode-python — `AGENT_APPROVED`. Full chain confirmed live: S12 (composition
+authority) → gate 2 (factuality) → gate 3 (independent verification) → agent review, all cleared
+with the real, ratcheted `excluded_with_reason` disposition for `source:claim:3930:
+c5ac180c4dd86b4f` finally reaching every gate that needed it. 3D-Python is re-proving through the
+same lifecycle stages after the shared verification-contract change (expected, not a regression --
+Decision #90's component-versioned invalidation). cells-python was not reached in this pass's time
+budget (still `CANDIDATE_GENERATED`, its last confirmed state before the retry cycle) -- a future
+pass should confirm the same fix chain reaches it, since it shares barcode's exact signature
+history (S12 confirmed cleared, `factuality_rejected`/`verification_rejected` confirmed cleared for
+barcode specifically).
