@@ -695,6 +695,23 @@ def _capability_rows(
         or implementation_fact.has_unresolved_conflict
     ):
         implementation_fact = None
+    # `aspose.relevant_seo_keywords` is relevance-filtered, product-grounded
+    # search-intent vocabulary (aspose_seo_keyword_facts.py) -- deliberately
+    # never used to invent or reorder capability content (it stays
+    # `unverified`, third-party-sourced), only to attribute real lineage
+    # when a row's own already-verified SEO title happens to name one of
+    # these keywords, closing the "keywords are prompt-visible but never
+    # actually influence output" gap.
+    seo_keyword_fact_id: str | None = None
+    seo_keywords: tuple[str, ...] = ()
+    try:
+        seo_keyword_fact = facts.selected_fact("aspose.relevant_seo_keywords")
+    except KeyError:
+        seo_keyword_fact = None
+    if seo_keyword_fact is not None and not seo_keyword_fact.has_unresolved_conflict:
+        seo_keyword_fact_id = seo_keyword_fact.fact_id
+        if isinstance(seo_keyword_fact.value, list):
+            seo_keywords = tuple(str(keyword) for keyword in seo_keyword_fact.value)
     rows: list[tuple[str, list[str], list[StructuredFactCoordinateV1]]] = []
     source_bindings = (
         _source_capability_bindings(source_text, facts) if source_text is not None else []
@@ -746,6 +763,10 @@ def _capability_rows(
             fact_ids.extend(formats_view.citation_fact_ids)
         if related_types and api_fact_id is not None:
             fact_ids.append(api_fact_id)
+        if seo_keyword_fact_id is not None and any(
+            keyword.casefold() in seo_title.casefold() for keyword in seo_keywords
+        ):
+            fact_ids.append(seo_keyword_fact_id)
         markdown = f"- **{seo_title}** - {_description(seo_title, phrase, related_types)}"
         if any(_same_capability_presentation(markdown, retained) for retained in retained_rows):
             continue
