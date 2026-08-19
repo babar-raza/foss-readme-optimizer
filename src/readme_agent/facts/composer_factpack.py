@@ -246,22 +246,33 @@ def aspose_fact_records(
 
     link = bundle.enterprise_link
     if link.url is not None:
-        # target_map_age_days is a live "seconds since file mtime" float --
-        # confirmed by direct source read that no vendored check reads either
-        # volatile key programmatically (readme_refresh_checks.py explicitly
-        # documents "does not hard-fail on target_map_stale alone"; only
-        # "url" is read for check_enterprise_edition_link_resolves). Exclude
-        # both from the hashed fact VALUE so it stops changing every call
-        # regardless of real content; target_map_stale still gates
-        # `verified` here (a coarse, day-granularity business decision, not
-        # a sub-second leak).
+        # target_map_age_days/target_map_stale are a live "seconds since file
+        # mtime" computation -- confirmed by direct source read that no
+        # vendored check reads either volatile key programmatically
+        # (readme_refresh_checks.py explicitly documents "does not hard-fail
+        # on target_map_stale alone"; only "url" is read for
+        # check_enterprise_edition_link_resolves). Exclude both from the
+        # hashed fact VALUE, and -- Gate R1 repair -- from the `verified`
+        # determination too: gating `verified` on wall-clock staleness made
+        # ProductFactsV2.canonical_hash() flip merely because real time
+        # crossed STALE_WARN_DAYS, with byte-identical repository/corpus/
+        # target-map/config/code (confirmed live: two calls straddling the
+        # threshold produced different verification_state for an unchanged
+        # link). `relationship` is the detector's own deterministic
+        # correctness signal for this same URL (computed by
+        # `_classify_enterprise_relationship` from the resolved target-map
+        # content, never from wall-clock time): "unresolved" means the
+        # resolved URL's platform segment does not actually match the
+        # product being described (a real, content-derived defect), while
+        # "family"/"platform" both mean the link genuinely resolved to this
+        # product's own target-map entry.
         link_value = link.model_dump(mode="json")
         link_value.pop("target_map_age_days", None)
         link_value.pop("target_map_stale", None)
         add(
             "aspose.enterprise_link",
             link_value,
-            verified=not bool(link.target_map_stale),
+            verified=link.relationship in {"family", "platform"},
             surfaces=["readme.limitations"],
         )
 
