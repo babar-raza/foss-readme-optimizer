@@ -190,13 +190,43 @@ lack exact candidate authority`
 
 Observed live for cells-python (`presentation_plan:blocked:['composition.segment.0032: ...',
 'composition.segment.0034: ...', 'composition.segment.0036: ...', 'claim accountability has 1
-blocking claim(s): ...']`) in the fresh 2026-08-19 portfolio re-verification pass (post Lane
-A–E). Not present anywhere in S1–S11 or the earlier 2026-08-18 signature sweep — genuinely new
-or newly surfaced by today's rendering/template changes rotating which segments require
-authority proof. Not yet root-caused (observed only in passing while monitoring the portfolio
-pass for an unrelated task; three co-occurring segment IDs plus one S1-class claim suggests a
-shared cause, but that is a hypothesis, not a finding). Next diagnostic: reproduce via a
-bounded single-repo canary against cells-python, trace which composer emits
-`composition.segment.NNNN` identifiers and what "exact candidate authority" checks against, and
-determine whether the three flagged segments share a root cause with each other or with the S1
-claim before attempting any fix.
+blocking claim(s): ...']`) and page-python (segments `0030`/`0033`, then `0035`/`0039`/`0044` on
+a later iteration) in the fresh 2026-08-19 portfolio re-verification pass (post Lane A–E). Not
+present anywhere in S1–S11 or the 2026-08-18 sweep. **Notable**: cells-python had already
+reached `AGENT_APPROVED` once (2026-08-18, per `candidate-quality-gap-list.md`) — this pass
+shows it newly BLOCKED, raising a real possibility that Lane A–E's composer/template changes
+introduced this regression rather than merely re-surfacing a pre-existing gap; not confirmed
+either way.
+
+**Mechanism traced (not guessed)**: `readme/composition_lineage.py` (last modified `0cbf7b1f3`,
+2026-08-17 — predates today's Lane A–E work, so the *validator* itself is not what changed)
+classifies every non-source-preserved candidate segment's `authority`. When a segment has no
+`fact_ids`/`standard_ids` reachable from `candidate_provenance` bindings covering its byte range
+AND `_is_governed_mechanical_structure(text)` is false, `authority = "unbound"` —
+`composition_lineage_validation.py`'s `composition_ledger_errors()` then hard-fails any
+`"unbound"` segment. So S12 is not a validator bug: it is real, freshly-composed prose (or
+structural bytes) whose provenance never got threaded through to `candidate_provenance` at
+composition time. Multiple segment IDs firing together across two repos suggests a shared,
+newly-introduced (or newly-exposed) composed slot lacking provenance wiring — a hypothesis, not
+yet confirmed which slot.
+
+**Reproduction attempted, honestly incomplete**: tried to reconstruct the exact failing
+`ReadmeCompositionLedgerV1` offline via `build_readme_document_candidate()` against cells-
+python's real cached facts + a cached `agentic-composition-plan.json`
+(`runs/readme-poc/.../26c3bd1633e84b91.../superseded/6a81aad191328bbf/`) — the only persisted
+plan for this revision. `validate_readme_composition_plan()` initially rejected it
+(`facts_hash`/`assessment_hash`/`input_sha256` mismatch) until re-paired with its own sibling
+facts bundle under the same `superseded/` directory (mixing the top-level facts with the
+superseded plan is what caused the mismatch). Once paired consistently, it DID build — but
+segments `0032`/`0034`/`0036` came back `authority="presentation_policy_correction"` (whitespace
+content, `'\n'`/`'\n\n'`), not `"unbound"` — this superseded plan is from a different (earlier)
+LLM composition attempt than the one that actually produced today's live blocked result, so it
+does not reproduce the real failure; segment IDs are not stable across different agentic plans
+for the same repo. No live-matching plan was found cached anywhere accessible offline. Next
+diagnostic: either (a) let the current portfolio pass reach cells/page-python again fresh and
+immediately snapshot the resulting bundle before anything supersedes it, or (b) run a bounded
+single-repo canary deliberately (consumes real provider calls) and inspect the ledger from that
+exact run. Do not attempt a fix without a genuine, live-matching repro — this session's own
+"disposition IS the render" lesson and the earlier `_richer_fact_bound_source_capability` bug
+both turned out to have non-obvious root causes that static reading alone got wrong twice before
+empirical verification corrected them; the same discipline applies here.
