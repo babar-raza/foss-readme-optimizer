@@ -14,6 +14,10 @@ from readme_agent.gitsafety.verify import verify_push_blocked
 from readme_agent.links.runtime_context import load_runtime_link_inputs
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.candidate_workspace import ensure_work_clone
+from readme_agent.readme.claim_accountability_llm_disposition import (
+    claim_disposition_ratchet_path,
+    default_claim_disposition_client,
+)
 from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.facts import compute_tracked_content_hash
@@ -89,6 +93,11 @@ def prepare_idea_fidelity_candidate(
         original_text = source_text
         link_catalogs, link_allocation_policy = load_runtime_link_inputs(org_repo)
 
+        # Same wiring `readme_factuality.py`/`verification/checks.py` gates
+        # needed (the "two-gate"/"three-gate" finding): without a disposition
+        # client, an already-accepted `excluded_with_reason` claim can never
+        # be reflected in a candidate this path builds. `entry` is already
+        # resolved above, so this cannot raise NotAllowlistedError again.
         final_text, document_plan = build_readme_document_candidate(
             org_repo,
             source_text,
@@ -97,6 +106,9 @@ def prepare_idea_fidelity_candidate(
             agentic_composition_plan=agentic_composition_plan,
             link_catalogs=link_catalogs,
             link_allocation_policy=link_allocation_policy,
+            llm_disposition_client=default_claim_disposition_client(),
+            repository_root=paths.baseline_dir(entry.org, entry.repo_name),
+            disposition_ratchet_path=claim_disposition_ratchet_path(org_repo),
         )
         assessment = assess_readme_document(
             org_repo,
