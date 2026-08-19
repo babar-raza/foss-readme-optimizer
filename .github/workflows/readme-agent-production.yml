@@ -384,6 +384,18 @@ jobs:
           retention-days: 30
           name: recovery-evidence-${{ matrix.owner }}__${{ matrix.name }}-${{ github.run_id }}
           path: runs/evidence/${{ github.run_id }}/${{ matrix.owner }}__${{ matrix.name }}/
+      # Runner-readiness Finding #3 (2026-08-18): evidence alone never carried
+      # the candidate itself, so a human had no way to retrieve a
+      # runner-produced README. Many matrix repos won't have reached
+      # candidate generation (still BLOCKED earlier), so this intentionally
+      # relies on upload-artifact@v4's default if-no-files-found: warn
+      # rather than failing the job over an absent directory.
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          retention-days: 30
+          name: candidate-${{ matrix.owner }}__${{ matrix.name }}-${{ github.run_id }}
+          path: runs/readme-poc/${{ matrix.owner }}__${{ matrix.name }}/
 
   plan:
     name: Build authoritative repository matrix
@@ -611,6 +623,18 @@ jobs:
           retention-days: 30
           name: run-evidence-${{ matrix.owner }}__${{ matrix.name }}-${{ github.run_id }}
           path: runs/evidence/${{ github.run_id }}/${{ matrix.owner }}__${{ matrix.name }}/
+      # Runner-readiness Finding #3 (2026-08-18): evidence alone never carried
+      # the candidate itself, so a human had no way to retrieve a
+      # runner-produced README. Many matrix repos won't have reached
+      # candidate generation (still BLOCKED earlier), so this intentionally
+      # relies on upload-artifact@v4's default if-no-files-found: warn
+      # rather than failing the job over an absent directory.
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          retention-days: 30
+          name: candidate-${{ matrix.owner }}__${{ matrix.name }}-${{ github.run_id }}
+          path: runs/readme-poc/${{ matrix.owner }}__${{ matrix.name }}/
 
   stage-proposal:
     name: Stage trusted proposal for ${{ matrix.repo }}

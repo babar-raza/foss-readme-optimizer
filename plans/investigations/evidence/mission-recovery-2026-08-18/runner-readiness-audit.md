@@ -99,3 +99,19 @@ The finding bundled two distinct concerns; only one was mechanical, so only that
   problem. Leaving as an explicitly-open, evidence-gated question rather than a silent
   resolution — a future pass should revisit only if a real misconfiguration incident (silently
   routing to the wrong gateway) is ever observed.
+
+## Finding #3 CLOSED (2026-08-19): candidate upload wired into `resume` and `analyze`
+
+Both jobs that actually run `--execution-profile github_observe` (`resume`, for a recovered
+interrupted run; `analyze`/"Observe", the main per-matrix-repo path) already uploaded
+`runs/evidence/**` but never `runs/readme-poc/**` — the directory the real candidate
+`README.md` lands in. A human dispatching the workflow had no way to retrieve what it actually
+produced. Added a second `actions/upload-artifact@v4` step immediately after each existing
+evidence upload, same `retention-days: 30`/`if: always()` convention, uploading
+`runs/readme-poc/${{ matrix.owner }}__${{ matrix.name }}/` under a `candidate-<owner>__<name>-
+<run_id>` artifact name (mirrors the existing `run-evidence-…`/`recovery-evidence-…` naming).
+Deliberately relies on `upload-artifact@v4`'s default `if-no-files-found: warn` rather than
+`error`, since most matrix repos in any given run will still be `BLOCKED` before reaching
+candidate generation — a missing directory there is expected, not a job failure. Verified via
+`actionlint` (`runs/toolchains/actionlint-v1.7.7/actionlint.exe`, exit 0) — no local runner
+execution attempted (would require `act`, out of scope for a workflow-only YAML change).
