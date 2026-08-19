@@ -41,6 +41,7 @@ RECOLLECT_ON_COMPONENT_CHANGE = (
     "documentation_catalog",
     "imported_knowledge",
     "aspose_checks",
+    "dependency_evidence",
 )
 VISITOR_RENDER_FIELDS = (
     "product.audience",
@@ -64,6 +65,10 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
         "../validation/aspose_checks/__init__.py",
         "../vendored_asposeorg/scripts/pipeline/commands/foss/readme_refresh_checks.py",
         "../../../data/aspose_check_classification.json",
+    ),
+    "dependency_evidence": (
+        "dependency_snapshot.py",
+        "python_dependency_acquisition.py",
     ),
     "acquisition_truth": (
         "acquisition.py",

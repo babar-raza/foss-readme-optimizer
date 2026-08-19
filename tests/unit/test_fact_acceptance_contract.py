@@ -71,6 +71,7 @@ def test_contract_hash_covers_every_named_acceptance_component():
         "documentation_catalog",
         "imported_knowledge",
         "aspose_checks",
+        "dependency_evidence",
     }
     assert contract.recollect_on_component_change == (
         "fact_schema",
@@ -82,6 +83,7 @@ def test_contract_hash_covers_every_named_acceptance_component():
         "documentation_catalog",
         "imported_knowledge",
         "aspose_checks",
+        "dependency_evidence",
     )
     assert len(contract.canonical_hash()) == 64
     assert all(len(digest) == 64 for digest in contract.component_hashes.values())

@@ -14,6 +14,7 @@ from readme_agent.facts.aspose_seo_keyword_facts import relevant_seo_keyword_fac
 from readme_agent.facts.catalog_documentation import catalog_documentation_fact
 from readme_agent.facts.composer_factpack import aspose_fact_records, build_aspose_detection_bundle
 from readme_agent.facts.context import current_product_facts
+from readme_agent.facts.dependency_snapshot import dependency_snapshot_fact_record
 from readme_agent.facts.local_verification import verify_local_product_example
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES, migrate_product_facts_v1
 from readme_agent.facts.policy_evidence import evidence_failures
@@ -356,6 +357,7 @@ def collect_product_facts(
         package_root_roles,
     )
     candidates.extend(local_candidates)
+    candidates.append(dependency_snapshot_fact_record(root, entry.ecosystem or "unknown"))
     aspose_data_root = Path.cwd() / "data" / "imported"
     if aspose_data_root.is_dir():
         aspose_bundle = build_aspose_detection_bundle(

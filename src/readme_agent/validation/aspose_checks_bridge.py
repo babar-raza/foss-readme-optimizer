@@ -91,6 +91,7 @@ def _real_kwargs(candidate_text: str, facts: ProductFactsV2 | None) -> dict[str,
         ("aspose.install_info", "install_info"),
         ("aspose.license_file", "license_file"),
         ("aspose.enterprise_link", "enterprise_link"),
+        ("aspose.dependency_snapshot", "dependency_snapshot"),
     ):
         value = _fact_value(facts, field)
         if value is not None:
