@@ -74,3 +74,28 @@ was NOT rebuilt against the new lock — it remains on its already-verified pack
 the dev environment onto newer tool versions (ruff/mypy bumps) this late risks introducing
 unrelated lint/type noise with no mission benefit; the lockfile's job is fresh/CI installs,
 which is now correct and independently verified.
+
+## Finding #2 PARTIALLY CLOSED (2026-08-19): redaction half fixed; fail-closed question left open
+
+The finding bundled two distinct concerns; only one was mechanical, so only that one was fixed:
+
+- **Redaction (fixed)**: `env.secret_values()` now includes `LLM_BASE_URL`/`GPT_OSS_ENDPOINT`
+  when — and only when — explicitly set via the environment, mirroring every other entry in
+  that list (present only if the env var is live). An operator-supplied gateway override can
+  legitimately embed a credential (query-string API key, signed URL); it is now redacted from
+  evidence/logs the same way `LLM_API_KEY` is. `DEFAULT_LLM_BASE_URL` itself is a source
+  constant, never env-sourced, so it is never in `secret_values()` and never redacted — the
+  common case (no override; every run this session made) is unaffected. 3 new regression tests
+  in `tests/unit/test_env.py::TestSecretValues`; the existing opportunistic evidence-tree scan
+  (`tests/security/test_no_secrets_in_evidence.py`) picks these up for free since it already
+  iterates `env.secret_values()` generically. Focused suite + ruff + mypy clean.
+- **Fail-closed vs. documented-default (deliberately left open)**: NOT changed. Making
+  `llm_base_url()` raise instead of falling back to `DEFAULT_LLM_BASE_URL` would be a real
+  behavior change with broad blast radius — every invocation this entire mission has made
+  relies on the silent default (no session has ever set `LLM_BASE_URL`), and the default is the
+  live-confirmed, correct, documented gateway (mission resume capsule). Flipping it to fail-
+  closed this late has no evidenced mission benefit and real risk of breaking every existing
+  local/CI/production invocation path on a config question nothing has actually reported as a
+  problem. Leaving as an explicitly-open, evidence-gated question rather than a silent
+  resolution — a future pass should revisit only if a real misconfiguration incident (silently
+  routing to the wrong gateway) is ever observed.

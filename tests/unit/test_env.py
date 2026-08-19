@@ -113,3 +113,23 @@ class TestLlmModelForJob:
         # LLM-016: gpt-oss scored 1/10 on freeform-JSON validity for exactly
         # this job's shape -- the routing table must never regress to it.
         assert env.JOB_MODEL_ROUTING["relationship_explained"] != "gpt-oss"
+
+
+class TestSecretValues:
+    def test_default_llm_base_url_is_never_treated_as_a_secret(self, monkeypatch):
+        monkeypatch.delenv("LLM_BASE_URL", raising=False)
+        monkeypatch.delenv("GPT_OSS_ENDPOINT", raising=False)
+
+        assert env.llm_base_url() == env.DEFAULT_LLM_BASE_URL.rstrip("/")
+        assert env.DEFAULT_LLM_BASE_URL not in env.secret_values()
+
+    def test_overridden_llm_base_url_is_redacted(self, monkeypatch):
+        monkeypatch.setenv("LLM_BASE_URL", "https://gateway.example.com/v1?api_key=shh")
+
+        assert "https://gateway.example.com/v1?api_key=shh" in env.secret_values()
+
+    def test_overridden_gpt_oss_endpoint_is_redacted(self, monkeypatch):
+        monkeypatch.delenv("LLM_BASE_URL", raising=False)
+        monkeypatch.setenv("GPT_OSS_ENDPOINT", "https://legacy.example.com/v1?token=shh")
+
+        assert "https://legacy.example.com/v1?token=shh" in env.secret_values()

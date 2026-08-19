@@ -280,3 +280,18 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
   and systemic, not introduced by this session's work; genuine requirement-to-task mapping
   needs deliberate analysis per task, out of scope for a mid-flight recovery pass. Flagging so
   it isn't silently worked around by a future session assuming the field is populated.
+- 2026-08-19 (GOV-014): **A 4th pre-existing characterization-hash drift, same class as the
+  documented "3 Java-repo plan-hash drifts."** `tests/unit/test_agentic_readme_composition.py::
+  test_agentic_plan_is_source_and_fact_bound_and_changes_the_candidate` (Cells-Java, agentic
+  composition path) fails on unmodified `main` (`f64c24707`) with a
+  `document_plan` canonical-hash mismatch, isolated and reproduced in a scratch worktree at that
+  exact commit before this row was written to rule out any effect from this session's own
+  `env.secret_values()` change. Same shape as the 3 already-known `test_readme_composition_
+  characterization.py` Java drifts (cells/3d/pdf-Java) but on the separate agentic-plan path, so
+  not previously enumerated by name. Full boundary baseline is therefore **5 pre-existing
+  failures** (1 note-python stale-fixture + 4 plan-hash drifts), not the 1 recorded after
+  2026-08-18's session-end suite run — re-verify against the live baseline before treating any
+  future 5-failure result as "unchanged", and before treating a 6th distinct failure as new.
+  Root cause not investigated (out of scope for the redaction fix that surfaced it); likely
+  shares a cause with the other 3 (all Java-family, all plan/document-hash pinned
+  characterization tests) — worth one combined diagnostic pass rather than four separate ones.

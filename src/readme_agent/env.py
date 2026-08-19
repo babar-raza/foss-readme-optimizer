@@ -258,7 +258,15 @@ def llm_embedding_model() -> str:
 
 
 def secret_values() -> list[str]:
-    """All live secret-like values currently set, for redaction — read once."""
+    """All live secret-like values currently set, for redaction — read once.
+
+    `LLM_BASE_URL`/`GPT_OSS_ENDPOINT` are not secrets themselves, but an
+    operator-supplied endpoint override can embed a credential as a query
+    parameter or path segment (e.g. a signed gateway URL); only redact them
+    when explicitly overridden via the env, never the public documented
+    default (`DEFAULT_LLM_BASE_URL`), which is not env-sourced and so is
+    never in this list -- mirrors every other entry here (present only when
+    the env var is actually set)."""
     names = [
         "GH_TOKEN",
         "GITHUB_PAT",
@@ -266,5 +274,7 @@ def secret_values() -> list[str]:
         "LLM_API_KEY",
         "PROFESSIONALIZE_API_KEY",
         "GPT_OSS_API_KEY",
+        "LLM_BASE_URL",
+        "GPT_OSS_ENDPOINT",
     ]
     return [v for name in names if (v := os.environ.get(name))]
