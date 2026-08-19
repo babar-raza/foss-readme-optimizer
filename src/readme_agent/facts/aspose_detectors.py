@@ -147,6 +147,86 @@ def detect_seo_keywords(family: str, platform: str, *, data_root: Path) -> SeoKe
     )
 
 
+class RelevantSeoKeywordsDetectionV1(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    keywords: tuple[str, ...]
+    source_path: str | None
+    entry_found: bool
+    dropped_wrong_platform: tuple[str, ...]
+    dropped_ungrounded: tuple[str, ...]
+    dropped_cap_exceeded: tuple[str, ...]
+
+
+def detect_relevant_seo_keywords(
+    family: str,
+    platform: str,
+    *,
+    data_root: Path,
+    known_format_names: frozenset[str] | None = None,
+) -> RelevantSeoKeywordsDetectionV1:
+    """Filter `detect_seo_keywords()`'s raw list through the vendored,
+    incident-hardened relevance logic (TC-HARDEN-39, MT037,
+    `filter_relevant_seo_keywords`): drops any phrase naming a
+    platform/language other than this product's own, keeps only phrases
+    grounded in the family name, a known real format name, or an
+    established capability-verb/framing term, and caps the result at 6 --
+    "do not over-stuff, only use related keywords" as real code, not
+    composition-time restraint alone.
+
+    Every dropped keyword is recorded with its real reason -- never
+    silently discarded -- by replicating the vendored function's own
+    stop-early-at-6 iteration order instead of reverse-deriving reasons
+    from a before/after set difference, which would mislabel a genuinely
+    grounded, right-platform keyword that only missed the cap because
+    earlier keywords already filled it (the vendored function evaluates
+    keywords strictly in file order and stops calling either check the
+    moment 6 are kept; a set-difference reconstruction would wrongly call
+    such a keyword "ungrounded")."""
+
+    raw = detect_seo_keywords(family, platform, data_root=data_root)
+    if not raw.entry_found or not raw.keywords:
+        return RelevantSeoKeywordsDetectionV1(
+            keywords=(),
+            source_path=raw.source_path,
+            entry_found=raw.entry_found,
+            dropped_wrong_platform=(),
+            dropped_ungrounded=(),
+            dropped_cap_exceeded=(),
+        )
+    checks = _load_readme_refresh_checks_module()
+    known_formats = known_format_names or frozenset()
+    kept: list[str] = []
+    wrong_platform: list[str] = []
+    ungrounded: list[str] = []
+    cap_exceeded: list[str] = []
+    for keyword in raw.keywords:
+        if len(kept) >= 6:
+            cap_exceeded.append(keyword)
+            continue
+        if checks._seo_keyword_wrong_platform(keyword, platform):
+            wrong_platform.append(keyword)
+            continue
+        lowered = keyword.lower()
+        grounded = (
+            family.lower() in lowered
+            or any(term in lowered for term in checks._SEO_KEYWORD_RELEVANCE_TERMS)
+            or any(fmt.lower() in lowered for fmt in known_formats)
+        )
+        if grounded:
+            kept.append(keyword)
+        else:
+            ungrounded.append(keyword)
+    return RelevantSeoKeywordsDetectionV1(
+        keywords=tuple(kept),
+        source_path=raw.source_path,
+        entry_found=True,
+        dropped_wrong_platform=tuple(wrong_platform),
+        dropped_ungrounded=tuple(ungrounded),
+        dropped_cap_exceeded=tuple(cap_exceeded),
+    )
+
+
 class InstallInfoDetectionV1(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
@@ -630,6 +710,7 @@ __all__ = [
     "HomepageLinkDetectionV1",
     "InstallInfoDetectionV1",
     "LicenseFileDetectionV1",
+    "RelevantSeoKeywordsDetectionV1",
     "SeoKeywordsDetectionV1",
     "detect_api_public_surface",
     "detect_archetype",
@@ -640,5 +721,6 @@ __all__ = [
     "detect_homepage_link",
     "detect_install_info",
     "detect_license_file",
+    "detect_relevant_seo_keywords",
     "detect_seo_keywords",
 ]

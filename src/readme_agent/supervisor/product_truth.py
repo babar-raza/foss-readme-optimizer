@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 from typing import Literal, cast
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -17,6 +18,9 @@ from readme_agent.facts.acceptance_contract import (
 from readme_agent.facts.deterministic_truth_salvage import (
     load_salvage_candidate,
     salvage_product_truth_candidate,
+)
+from readme_agent.facts.knowledge_application_evidence import (
+    build_knowledge_application_report,
 )
 from readme_agent.facts.local_verification import local_verification_contract_hash
 from readme_agent.facts.provider import collect_product_facts
@@ -33,6 +37,7 @@ from readme_agent.state.readme_poc_lifecycle import (
 from readme_agent.supervisor.local_poc_evidence import (
     bind_local_poc_fact_acceptance,
     reclassify_local_poc_fact_acceptance,
+    write_local_poc_knowledge_application,
     write_local_poc_product_facts,
 )
 from readme_agent.supervisor.local_poc_superseded import has_active_downstream_artifacts
@@ -461,6 +466,19 @@ def prepare_local_product_truth(
         fact_acceptance_contract_hash=fact_acceptance_contract_hash,
         fact_acceptance_component_hashes=fact_acceptance_contract.component_hashes,
     )
+    knowledge_family = getattr(entry, "family", None)
+    knowledge_platform = getattr(entry, "platform", None)
+    knowledge_data_root = Path.cwd() / "data" / "imported"
+    if knowledge_family and knowledge_platform and knowledge_data_root.is_dir():
+        knowledge_report = build_knowledge_application_report(
+            org_repo,
+            knowledge_family,
+            knowledge_platform,
+            data_root=knowledge_data_root,
+            clone_cache=Path(snapshot.snapshot_root),
+            source_revision=snapshot.source_revision,
+        )
+        write_local_poc_knowledge_application(snapshot, knowledge_report)
     record_product_facts_outcome(
         state_backend,
         org_repo,

@@ -13,6 +13,7 @@ from readme_agent.evidence.writer import (
     write_redacted_json,
     write_redacted_text,
 )
+from readme_agent.facts.knowledge_application_evidence import KnowledgeApplicationV1
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
 from readme_agent.readme.agentic_composition import ReadmeAgenticCompositionPlanV1
@@ -153,6 +154,23 @@ def write_local_poc_product_facts(
             "completed_stages": ["SNAPSHOTTED", "PROFILED", lifecycle_status],
         },
     )
+    refresh_sha256sums(bundle_dir)
+    return bundle_dir
+
+
+def write_local_poc_knowledge_application(
+    snapshot: RepositorySnapshotV1,
+    report: KnowledgeApplicationV1,
+) -> Path:
+    """Persist `knowledge-application.json`: the auditable record of exactly
+    which imported aspose.org knowledge claims were considered, selected, or
+    rejected (and why) for this repository/revision, and which fact fields
+    and candidate sections they influenced. Governance-facing evidence, not
+    a runtime input -- see `facts/knowledge_application_evidence.py`."""
+
+    org, repo = snapshot.org_repo.split("/", maxsplit=1)
+    bundle_dir = paths.readme_poc_repository_dir(org, repo, snapshot.source_revision)
+    write_redacted_json(bundle_dir / "knowledge-application.json", report)
     refresh_sha256sums(bundle_dir)
     return bundle_dir
 

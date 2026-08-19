@@ -10,6 +10,7 @@ from readme_agent.errors import NotAllowlistedError
 from readme_agent.facts import dotnet_example_verifier
 from readme_agent.facts.acquisition_facts import collect_acquisition_fact
 from readme_agent.facts.aspose_knowledge_selection import knowledge_claim_fact_records
+from readme_agent.facts.aspose_seo_keyword_facts import relevant_seo_keyword_fact_record
 from readme_agent.facts.catalog_documentation import catalog_documentation_fact
 from readme_agent.facts.composer_factpack import aspose_fact_records, build_aspose_detection_bundle
 from readme_agent.facts.context import current_product_facts
@@ -372,6 +373,11 @@ def collect_product_facts(
                 source_revision=source_revision,
             )
         )
+        seo_fact = relevant_seo_keyword_fact_record(
+            entry.family, entry.platform, data_root=aspose_data_root
+        )
+        if seo_fact is not None:
+            candidates.append(seo_fact)
     resolved = resolve_product_facts(
         org_repo,
         candidates,
