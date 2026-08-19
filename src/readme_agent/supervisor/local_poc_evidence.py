@@ -38,6 +38,8 @@ from readme_agent.supervisor.local_poc_superseded import archive_and_prune_downs
 from readme_agent.supervisor.stage_dependencies import (
     current_candidate_stage_dependency_manifest,
 )
+from readme_agent.validation.aspose_check_coverage import build_check_coverage_report
+from readme_agent.validation.aspose_checks_bridge import run_aspose_checks
 
 
 def _current_product_truth_policy_hash(org_repo: str) -> str | None:
@@ -342,6 +344,36 @@ def _readme_reconciliation_report_or_error(
     return report.model_dump(mode="json")
 
 
+_CLASSIFICATION_PATH = (
+    Path(__file__).resolve().parents[3] / "data" / "aspose_check_classification.json"
+)
+
+
+def _check_coverage_report_or_error(candidate_text: str, bundle_dir: Path) -> dict:
+    """Best-effort `check-coverage.json` evidence: every one of the 89+
+    vendored checks' real run/pass/fail/skip/error outcome for this exact
+    candidate (Gate R7) -- degrades to an explicit error record rather than
+    ever blocking real candidate persistence. `facts/product-facts.json`
+    is read back from this same bundle (written earlier in this run by
+    `write_local_poc_product_facts`) rather than threaded as a new
+    parameter, since it is already the real, governed facts this candidate
+    was built from."""
+
+    try:
+        facts_path = bundle_dir / "facts" / "product-facts.json"
+        facts = (
+            ProductFactsV2.model_validate_json(facts_path.read_text(encoding="utf-8"))
+            if facts_path.is_file()
+            else None
+        )
+        classification = json.loads(_CLASSIFICATION_PATH.read_text(encoding="utf-8"))
+        result = run_aspose_checks(candidate_text, facts)
+        report = build_check_coverage_report(result, classification)
+    except (OSError, ValueError) as exc:
+        return {"schema_version": 1, "error": str(exc)}
+    return report.model_dump(mode="json")
+
+
 def write_local_poc_readme_candidate(
     snapshot: RepositorySnapshotV1,
     render_result: dict,
@@ -462,6 +494,10 @@ def write_local_poc_readme_candidate(
     write_redacted_json(
         candidate_dir / "readme-reconciliation.json",
         _readme_reconciliation_report_or_error(render_result, document_plan),
+    )
+    write_redacted_json(
+        candidate_dir / "check-coverage.json",
+        _check_coverage_report_or_error(candidate_text, bundle_dir),
     )
 
     assessment_hash = assessment.canonical_hash()

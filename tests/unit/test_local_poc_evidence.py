@@ -710,6 +710,24 @@ def test_candidate_boundary_writes_a_real_readme_reconciliation_report(tmp_path,
         encoding="utf-8"
     )
 
+    coverage = json.loads(
+        (bundle / "candidate" / "check-coverage.json").read_text(encoding="utf-8")
+    )
+    assert "error" not in coverage
+    assert coverage["check_count"] > 0
+    assert (
+        coverage["pass_count"]
+        + coverage["fail_count"]
+        + coverage["skip_count"]
+        + coverage["error_count"]
+        + coverage["not_applicable_count"]
+        == coverage["check_count"]
+    )
+    assert len(coverage["entries"]) == coverage["check_count"]
+    assert "candidate/check-coverage.json" in (bundle / "sha256sums.txt").read_text(
+        encoding="utf-8"
+    )
+
 
 def test_unchanged_candidate_bytes_with_new_dependency_key_reopens_stale_acceptance(
     tmp_path, monkeypatch

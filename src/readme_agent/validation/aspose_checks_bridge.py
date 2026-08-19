@@ -6,8 +6,10 @@ fixtures `validation/aspose_checks/__init__.py` uses only to prove
 invocability.
 
 A check whose real-data requirements this repo cannot currently satisfy
-(e.g. content_units, dependency_snapshot, reference_index -- machinery not
-yet built/wired for this pipeline) is skipped explicitly and recorded in
+(e.g. content_units, reference_index -- machinery not yet built/wired for
+this pipeline; dependency_snapshot is wired for python/rust as of Gate R6c
+but still absent for other registry ecosystems and for repositories whose
+manifest this bridge cannot parse) is skipped explicitly and recorded in
 `checks_skipped`, never silently treated as passing. A check that raises on
 real input (these functions were only ever proven invocable on synthetic
 minimal fixtures, never semantically validated against real repositories)
@@ -178,7 +180,7 @@ def run_aspose_checks(candidate_text: str, facts: ProductFactsV2 | None) -> Aspo
     )
 
 
-def _load_blocking_check_names() -> frozenset[str]:
+def load_blocking_check_names() -> frozenset[str]:
     """Fail closed: a missing, unreadable, or malformed classification file
     is a corpus-integrity defect, not a benign "nothing is blocking yet"
     state -- silently returning an empty set here would make acceptance
@@ -222,7 +224,7 @@ def blocking_aspose_check_findings(result: AsposeCheckResultV1) -> list[AsposeCh
     the exact classification method. Every other aspose_checks finding
     remains visible via `AsposeCheckResultV1.findings` but never blocks
     acceptance. Fails closed (raises) when the classification file itself
-    is missing or malformed -- see `_load_blocking_check_names`."""
+    is missing or malformed -- see `load_blocking_check_names`."""
 
-    blocking_names = _load_blocking_check_names()
+    blocking_names = load_blocking_check_names()
     return [finding for finding in result.findings if finding.check_name in blocking_names]
