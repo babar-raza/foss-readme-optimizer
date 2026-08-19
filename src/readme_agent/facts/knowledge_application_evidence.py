@@ -15,6 +15,7 @@ from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict
 
+from readme_agent.facts.aspose_knowledge_claims import KnowledgeLoadFindingV1
 from readme_agent.facts.aspose_knowledge_selection import (
     KnowledgeClaimDispositionV1,
     select_knowledge_claims,
@@ -45,6 +46,7 @@ class KnowledgeApplicationV1(BaseModel):
     rejected_count: int
     fact_fields_produced: tuple[str, ...]
     sections_influenced: tuple[str, ...]
+    load_findings: tuple[KnowledgeLoadFindingV1, ...]
     dispositions: tuple[KnowledgeClaimDispositionV1, ...]
     seo_keyword_dispositions: tuple[SeoKeywordDispositionV1, ...]
 
@@ -82,6 +84,7 @@ def build_knowledge_application_report(
         rejected_count=result.rejected_count,
         fact_fields_produced=fact_fields,
         sections_influenced=sections,
+        load_findings=result.load_findings,
         dispositions=result.dispositions,
         seo_keyword_dispositions=seo_dispositions,
     )

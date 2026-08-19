@@ -68,13 +68,15 @@ def test_select_knowledge_claims_unmatched_product_selects_nothing(clone_without
     assert result.freshness == "unknown_revision"
 
 
-def test_select_knowledge_claims_rejects_stale_revision_below_confidence_floor(
+def test_select_knowledge_claims_uncorroborated_stale_claims_are_never_output_eligible(
     clone_without_license,
 ):
-    """A bundle whose recorded repo_sha does not match the current
-    repository revision has its claim confidence scaled down; a claim that
-    drops below the selection floor is rejected with an explicit reason,
-    never silently dropped."""
+    """Gate R2 regression test for the exact defect the review flagged: a
+    stale/unknown-revision claim with no independent corroboration must
+    never become output-eligible, even at high confidence -- confidence
+    scaling alone must never be what makes it eligible. `format_support`
+    claims in the real 3d/python corpus are all confidence 1.0, so this
+    proves the rejection is not merely a confidence-floor side effect."""
 
     result = select_knowledge_claims(
         "3d",
@@ -88,18 +90,31 @@ def test_select_knowledge_claims_rejects_stale_revision_below_confidence_floor(
     stale_rejections = [
         d
         for d in result.dispositions
-        if not d.accepted and d.rejection_reason == "below_confidence_threshold"
+        if not d.accepted and d.rejection_reason == "stale_revision_uncorroborated"
     ]
     assert stale_rejections  # at least one claim was actually rejected for staleness
+    high_confidence_stale_rejections = [
+        d for d in stale_rejections if (d.confidence or 0.0) >= _MIN_CONFIDENCE
+    ]
+    assert high_confidence_stale_rejections  # high confidence alone never rescues it
+    # Never merely confidence-scaled into eligibility via the old threshold path.
+    assert not any(
+        not d.accepted and d.rejection_reason == "below_confidence_threshold"
+        for d in result.dispositions
+    )
+    rejected_ids = {d.global_claim_id for d in stale_rejections}
+    for fact in result.fact_records:
+        for entry in fact.value:
+            assert entry["claim_id"] not in rejected_ids
 
 
-def test_select_knowledge_claims_current_repo_evidence_wins_on_license_conflict(
+def test_select_knowledge_claims_no_current_license_file_stays_unverified(
     clone_without_license,
 ):
     """No LICENSE file present in the current clone -- the imported "Licensed
-    under MIT" claim is never corroborated and stays capped at unverified,
-    proving current repository evidence (its absence, here) is never
-    silently overridden by imported knowledge."""
+    under MIT" claim is never corroborated (nothing to compare against) and
+    stays capped at unverified, proving current repository evidence (its
+    absence, here) is never silently overridden by imported knowledge."""
 
     result = select_knowledge_claims(
         "barcode",
@@ -114,6 +129,69 @@ def test_select_knowledge_claims_current_repo_evidence_wins_on_license_conflict(
     )
     assert license_fact is not None
     assert license_fact.verification_state == "unverified"
+
+
+def test_select_knowledge_claims_current_repo_evidence_wins_on_real_license_conflict(
+    tmp_path,
+):
+    """A real, current Apache-2.0 LICENSE file directly contradicts the
+    imported "Licensed under MIT" claim -- a genuine SPDX mismatch, not mere
+    absence of evidence. Current repository evidence always wins: the claim
+    is rejected outright (never merely downgraded), and no license fact is
+    fabricated from the losing imported claim."""
+
+    (tmp_path / "LICENSE").write_text(
+        "Apache License\nVersion 2.0, January 2004\n\nTERMS AND CONDITIONS...\n",
+        encoding="utf-8",
+    )
+
+    result = select_knowledge_claims(
+        "barcode",
+        "python",
+        data_root=_DATA_ROOT,
+        clone_cache=tmp_path,
+        source_revision=_BARCODE_PYTHON_REPO_SHA,
+    )
+
+    license_fact = next(
+        (f for f in result.fact_records if f.field == "aspose.license_claims"), None
+    )
+    assert license_fact is None  # the losing imported claim never reaches output
+    conflict_dispositions = [
+        d
+        for d in result.dispositions
+        if d.kind == "license"
+        and d.rejection_reason == "conflicts_with_current_repository_evidence"
+    ]
+    assert conflict_dispositions
+    assert all(not d.accepted for d in conflict_dispositions)
+
+
+def test_select_knowledge_claims_file_evidence_corroborates_non_license_claims(tmp_path):
+    """A non-license claim (format_support) whose cited evidence file
+    genuinely exists in the current clone is corroborated and reaches
+    `verified` -- proving corroboration is real for claim families beyond
+    license, not license-only."""
+
+    evidence_file = tmp_path / "src" / "aspose_barcode_foss" / "_internal" / "renderers" / "pdf.py"
+    evidence_file.parent.mkdir(parents=True)
+    evidence_file.write_text("# real file the claim's evidence cites\n", encoding="utf-8")
+
+    result = select_knowledge_claims(
+        "barcode",
+        "python",
+        data_root=_DATA_ROOT,
+        clone_cache=tmp_path,
+        source_revision=_BARCODE_PYTHON_REPO_SHA,
+    )
+
+    corroborated = [
+        d
+        for d in result.dispositions
+        if d.kind == "format_support" and d.corroboration == "corroborated" and d.accepted
+    ]
+    assert corroborated
+    assert all(d.verification_state == "verified" for d in corroborated)
 
 
 def test_select_knowledge_claims_corroborated_license_reaches_verified(clone_with_mit_license):

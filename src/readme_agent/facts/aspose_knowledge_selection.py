@@ -10,17 +10,28 @@ third-party imported knowledge specifically:
 * the full corpus (97k+ claims across 31 product bundles) is never handed to
   a prompt or a fact graph wholesale -- only a small, per-section-relevant,
   confidence-ranked slice is selected (`_MAX_SELECTED_PER_KIND`);
-* every claim considered for one product/platform gets exactly one
-  disposition (`selected` or `rejected` with a reason) -- there is no
-  silent-drop path;
-* a claim's bundle staleness (`aspose_knowledge_claims.assess_bundle_
-  freshness`) caps its confidence and blocks `verified`/`policy_approved`
-  status unless independently corroborated by current, live repository
-  evidence (today: license-file detection) -- current repository evidence
-  always wins on conflict, and an uncorroborated stale claim is carried at
-  reduced, `unverified` confidence rather than discarded outright, since a
-  few days' staleness on an otherwise-accurate API/feature claim is common
-  and still useful supplementary evidence, not proof of falsehood.
+* every raw claims.json record gets exactly one outcome -- a valid,
+  considered claim, or a typed load finding
+  (`aspose_knowledge_claims.load_knowledge_claims_with_findings`) -- and
+  every considered claim then gets exactly one selection disposition
+  (`selected` or `rejected` with a reason); there is no silent-drop path
+  anywhere in this pipeline;
+* **a stale or unknown-revision claim can never become output-eligible
+  (selected into a fact record) without independent corroboration from
+  current, live repository evidence -- confidence scaling alone is never
+  sufficient.** Corroboration is real for every claim family that can
+  affect output, not only license: `license` claims are compared against
+  the current LICENSE file through this repo's own proven SPDX classifier
+  (`license/auditor.py::classify_license_text`) -- a genuine mismatch is a
+  **conflict** (current evidence wins, the claim is rejected outright, not
+  merely downgraded); every other kind is corroborated when its own
+  `evidence` cites a real source file that still exists in the current
+  clone (a real, mechanically-checkable "this code region likely still
+  exists" signal). An uncorroborated `current`-freshness claim is still
+  carried at reduced, `unverified` confidence (a few days' staleness on an
+  otherwise-accurate claim is common and still useful supplementary
+  evidence) -- but an uncorroborated `stale`/`unknown`-revision claim is
+  never selected, at any confidence.
 
 Two claim kinds are deliberately never selected here, with an explicit
 disposition reason rather than silent omission: `dependency` (already
@@ -36,22 +47,24 @@ the same ground truth).
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
 
-from readme_agent.facts.aspose_detectors import detect_license_file
 from readme_agent.facts.aspose_knowledge_claims import (
     BundleFreshness,
     ImportedKnowledgeClaimV1,
     KnowledgeClaimKind,
+    KnowledgeLoadFindingV1,
     assess_bundle_freshness,
     claims_by_kind,
     load_bundle_provenance,
-    load_knowledge_claims,
+    load_knowledge_claims_with_findings,
 )
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, descriptive_fact_id
+from readme_agent.license.auditor import classify_license_text
 
 # One selectable field + intended section per render-mapped claim kind.
 # `dependency`/`api*` are intentionally absent (see module docstring).
@@ -91,8 +104,6 @@ _NEVER_SELECTED_REASON: dict[KnowledgeClaimKind, str] = {
 
 _MAX_SELECTED_PER_KIND = 8
 _MIN_CONFIDENCE = 0.5
-_STALE_CONFIDENCE_MULTIPLIER = 0.5
-_MIN_CONFIDENCE_FLOOR = 0.1
 
 
 class KnowledgeClaimDispositionV1(BaseModel):
@@ -110,6 +121,7 @@ class KnowledgeClaimDispositionV1(BaseModel):
     kind: KnowledgeClaimKind
     source_revision: str | None
     freshness: BundleFreshness
+    corroboration: Literal["corroborated", "conflict", "uncorroborated"]
     intended_section: str | None
     accepted: bool
     rejection_reason: str | None = None
@@ -126,6 +138,7 @@ class KnowledgeSelectionResultV1(BaseModel):
     source_revision: str | None
     bundle_repo_sha: str | None
     freshness: BundleFreshness
+    load_findings: tuple[KnowledgeLoadFindingV1, ...]
     dispositions: tuple[KnowledgeClaimDispositionV1, ...]
     fact_records: tuple[FactRecordV2, ...]
 
@@ -138,39 +151,138 @@ class KnowledgeSelectionResultV1(BaseModel):
         return sum(1 for d in self.dispositions if not d.accepted)
 
 
-def _license_corroborated(claims: tuple[ImportedKnowledgeClaimV1, ...], clone_cache: Path) -> bool:
-    """The one cheap, real, independently-sourced corroboration this repo can
-    currently perform for imported `license` claims: does the current clone
-    actually contain MIT license text? (`detect_license_file` re-reads the
-    clone fresh every call -- current evidence, not cached imported data.)
-    Every imported `license` claim observed in this corpus reads "Licensed
-    under MIT" except one repository-specific exception (`note`, a split
-    license) -- an exact MIT-text match is a deliberately narrow, honest
-    corroboration signal, not a general license classifier."""
+def _find_license_text(clone_cache: Path) -> str | None:
+    """Real current-repository LICENSE file content, whatever license it
+    actually states -- the same glob convention as `aspose_detectors.py::
+    detect_license_file`, but returning full text for SPDX classification
+    rather than a narrow MIT-only boolean."""
 
-    if not claims:
-        return False
-    mit_claimed = any("mit" in claim.text.casefold() for claim in claims)
-    if not mit_claimed:
-        return False
-    return detect_license_file(clone_cache) is not None
+    if not clone_cache.is_dir():
+        return None
+    candidates = (
+        list(clone_cache.glob("LICENSE*"))
+        + list(clone_cache.glob("*/LICENSE*"))
+        + list(clone_cache.glob("license/LICENSE*"))
+    )
+    for candidate in candidates:
+        if candidate.is_file():
+            try:
+                return candidate.read_text(encoding="utf-8", errors="ignore")
+            except OSError:
+                continue
+    return None
 
 
-def _claim_verification(
+ClaimCorroboration = Literal["corroborated", "conflict", "uncorroborated"]
+
+# The imported corpus's license claims are terse summary labels
+# ("Licensed under MIT"), never full license document text -- confirmed by
+# direct inspection of every distinct license-claim string across all 31
+# bundles (exactly two: "Licensed under MIT" and "Licensed under
+# LicenseRef-Aspose-Split", the latter a non-SPDX proprietary reference that
+# correctly has no entry here and therefore never corroborates).
+# `license/auditor.py::classify_license_text` is built for full LICENSE file
+# prose (it looks for a heading-style phrase like "MIT License"), so it
+# applies correctly to the *current repository's* LICENSE file below, but
+# not to these short claim labels -- this mapping is the terse-label side of
+# the same real SPDX identifiers, not a reinvention of the classifier.
+_LICENSE_CLAIM_PREFIX_RE = re.compile(r"^licensed under\s+(.+)$", re.IGNORECASE)
+_CLAIM_LICENSE_TOKEN_TO_SPDX: dict[str, str] = {
+    "mit": "MIT",
+    "apache-2.0": "Apache-2.0",
+    "apache 2.0": "Apache-2.0",
+    "gpl-3.0": "GPL-3.0",
+    "gplv3": "GPL-3.0",
+    "bsd-3-clause": "BSD-3-Clause",
+    "bsd-2-clause": "BSD-2-Clause",
+    "isc": "ISC",
+    "mpl-2.0": "MPL-2.0",
+}
+
+
+def _claimed_license_spdx(claim_text: str) -> str | None:
+    match = _LICENSE_CLAIM_PREFIX_RE.match(claim_text.strip())
+    token = match.group(1).strip() if match else claim_text.strip()
+    return _CLAIM_LICENSE_TOKEN_TO_SPDX.get(token.casefold())
+
+
+def _license_claim_corroboration(
+    claim: ImportedKnowledgeClaimV1, clone_cache: Path
+) -> ClaimCorroboration:
+    """Real SPDX comparison: the claimed license (parsed from its terse
+    corpus label) and the current repository's actual LICENSE file
+    (classified through this repo's own proven full-text classifier,
+    `license/auditor.py::classify_license_text`) are resolved independently,
+    then compared. A genuine mismatch is a conflict -- current repository
+    evidence always wins -- not merely a downgrade."""
+
+    claimed_spdx = _claimed_license_spdx(claim.text)
+    if claimed_spdx is None:
+        return "uncorroborated"
+    current_text = _find_license_text(clone_cache)
+    if current_text is None:
+        return "uncorroborated"
+    current_spdx = classify_license_text(current_text)
+    if current_spdx is None:
+        return "uncorroborated"
+    return "corroborated" if current_spdx == claimed_spdx else "conflict"
+
+
+def _file_evidence_corroboration(
+    claim: ImportedKnowledgeClaimV1, clone_cache: Path
+) -> ClaimCorroboration:
+    """Every non-license claim family's real corroboration path: does this
+    claim's own cited evidence file still exist in the current clone? A
+    weak but genuine, mechanically-checkable signal -- not license-only."""
+
+    for item in claim.evidence:
+        file_ref = item.get("file")
+        if isinstance(file_ref, str) and file_ref:
+            try:
+                if (clone_cache / file_ref).is_file():
+                    return "corroborated"
+            except OSError:
+                continue
+    return "uncorroborated"
+
+
+def _claim_corroboration(claim: ImportedKnowledgeClaimV1, clone_cache: Path) -> ClaimCorroboration:
+    if claim.kind == "license":
+        return _license_claim_corroboration(claim, clone_cache)
+    return _file_evidence_corroboration(claim, clone_cache)
+
+
+def _claim_eligibility(
     claim: ImportedKnowledgeClaimV1,
     *,
     freshness: BundleFreshness,
-    corroborated: bool,
-) -> tuple[Literal["verified", "unverified"], float]:
-    if corroborated:
-        return "verified", min(1.0, claim.confidence)
+    corroboration: ClaimCorroboration,
+) -> tuple[bool, Literal["verified", "unverified"], float, str | None]:
+    """Returns (output_eligible, verification_state, confidence, ineligibility_reason).
+
+    Current repository evidence always wins on conflict: a corroboration
+    mismatch rejects the claim outright, regardless of freshness or
+    confidence. Absent a conflict, a claim is output-eligible only when it
+    is either independently corroborated, or the bundle itself is `current`
+    -- a stale/unknown-revision, uncorroborated claim is never
+    output-eligible at any confidence (confidence scaling alone is never
+    sufficient, per this module's own contract)."""
+
+    if corroboration == "conflict":
+        return False, "unverified", claim.confidence, "conflicts_with_current_repository_evidence"
+    if corroboration == "corroborated":
+        return True, "verified", min(1.0, claim.confidence), None
     if freshness == "current":
         # Still third-party-sourced, non-mechanical evidence -- capped below
         # what a mechanically-verified repository fact could reach, per the
         # "never silently promote imported claims to truth" requirement.
-        return "unverified", min(0.6, claim.confidence)
-    scaled = max(_MIN_CONFIDENCE_FLOOR, claim.confidence * _STALE_CONFIDENCE_MULTIPLIER)
-    return "unverified", scaled
+        return True, "unverified", min(0.6, claim.confidence), None
+    reason = (
+        "stale_revision_uncorroborated"
+        if freshness == "stale_revision"
+        else "unknown_revision_uncorroborated"
+    )
+    return False, "unverified", claim.confidence, reason
 
 
 def select_knowledge_claims(
@@ -187,11 +299,10 @@ def select_knowledge_claims(
     dispositions and fact records (selection ranks by confidence then
     `claim_id`, never by insertion order or randomness)."""
 
-    all_claims = load_knowledge_claims(family, platform, data_root=data_root)
+    load_result = load_knowledge_claims_with_findings(family, platform, data_root=data_root)
+    all_claims = load_result.claims
     provenance = load_bundle_provenance(family, platform, data_root=data_root)
     freshness = assess_bundle_freshness(provenance, current_repo_sha=source_revision)
-    license_claims = claims_by_kind(all_claims, "license")
-    corroborated_license = _license_corroborated(license_claims, clone_cache)
 
     dispositions: list[KnowledgeClaimDispositionV1] = []
     fact_records: list[FactRecordV2] = []
@@ -214,6 +325,7 @@ def select_knowledge_claims(
                     kind=claim.kind,
                     source_revision=source_revision,
                     freshness=freshness,
+                    corroboration="uncorroborated",
                     intended_section=None,
                     accepted=False,
                     rejection_reason=reason,
@@ -224,7 +336,7 @@ def select_knowledge_claims(
     # deliberately share one field (`aspose.format_support_claims`); emitting
     # a fact record per kind instead of per field would produce two records
     # with the same descriptive fact_id, which ProductFactsV2 rejects as a
-    # duplicate. The selection cap and corroboration rule apply per field.
+    # duplicate.
     fields_present = sorted(
         {mapping[0] for kind, mapping in _KIND_FIELD_MAP.items() if kind in present_kinds}
     )
@@ -234,14 +346,14 @@ def select_knowledge_claims(
         field_claims: list[ImportedKnowledgeClaimV1] = []
         for kind in field_kinds:
             field_claims.extend(claims_by_kind(all_claims, kind))  # type: ignore[arg-type]
-        corroborated_field = "license" in field_kinds and corroborated_license
         ranked = sorted(field_claims, key=lambda c: (-c.confidence, c.kind, c.claim_id))
         selected_for_field: list[tuple[ImportedKnowledgeClaimV1, float]] = []
         for claim in ranked:
-            state, confidence = _claim_verification(
-                claim, freshness=freshness, corroborated=corroborated_field
+            corroboration = _claim_corroboration(claim, clone_cache)
+            eligible, state, confidence, ineligibility_reason = _claim_eligibility(
+                claim, freshness=freshness, corroboration=corroboration
             )
-            if confidence < _MIN_CONFIDENCE and not corroborated_field:
+            if not eligible:
                 dispositions.append(
                     KnowledgeClaimDispositionV1(
                         global_claim_id=claim.global_claim_id,
@@ -250,6 +362,26 @@ def select_knowledge_claims(
                         kind=claim.kind,
                         source_revision=source_revision,
                         freshness=freshness,
+                        corroboration=corroboration,
+                        intended_section=section,
+                        accepted=False,
+                        rejection_reason=ineligibility_reason,
+                        resulting_fact_field=field,
+                        verification_state=state,
+                        confidence=confidence,
+                    )
+                )
+                continue
+            if confidence < _MIN_CONFIDENCE and corroboration != "corroborated":
+                dispositions.append(
+                    KnowledgeClaimDispositionV1(
+                        global_claim_id=claim.global_claim_id,
+                        family=family,
+                        platform=platform,
+                        kind=claim.kind,
+                        source_revision=source_revision,
+                        freshness=freshness,
+                        corroboration=corroboration,
                         intended_section=section,
                         accepted=False,
                         rejection_reason="below_confidence_threshold",
@@ -268,6 +400,7 @@ def select_knowledge_claims(
                         kind=claim.kind,
                         source_revision=source_revision,
                         freshness=freshness,
+                        corroboration=corroboration,
                         intended_section=section,
                         accepted=False,
                         rejection_reason="exceeds_selection_cap",
@@ -286,6 +419,7 @@ def select_knowledge_claims(
                     kind=claim.kind,
                     source_revision=source_revision,
                     freshness=freshness,
+                    corroboration=corroboration,
                     intended_section=section,
                     accepted=True,
                     resulting_fact_field=field,
@@ -296,10 +430,11 @@ def select_knowledge_claims(
 
         if not selected_for_field:
             continue
+        selected_ids = {claim.global_claim_id for claim, _ in selected_for_field}
         verified_any = any(
-            _claim_verification(claim, freshness=freshness, corroborated=corroborated_field)[0]
-            == "verified"
-            for claim, _ in selected_for_field
+            d.verification_state == "verified"
+            for d in dispositions
+            if d.global_claim_id in selected_ids and d.accepted
         )
         fact_records.append(
             FactRecordV2(
@@ -333,6 +468,7 @@ def select_knowledge_claims(
         source_revision=source_revision,
         bundle_repo_sha=provenance.repo_sha if provenance else None,
         freshness=freshness,
+        load_findings=load_result.findings,
         dispositions=tuple(dispositions),
         fact_records=tuple(fact_records),
     )
@@ -364,6 +500,7 @@ def knowledge_claim_fact_records(
 
 
 __all__ = [
+    "ClaimCorroboration",
     "KnowledgeClaimDispositionV1",
     "KnowledgeSelectionResultV1",
     "knowledge_claim_fact_records",
