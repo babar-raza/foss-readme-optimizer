@@ -359,3 +359,19 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
   not investigated (likely: the composer only carries forward canonical H2 sections and silently
   drops non-canonical ones rather than preserving, correcting, or explicitly superseding them --
   needs confirmation against `document_renderer.py`/`verified_template_sections.py`, not assumed).
+- 2026-08-20 (GOV-014): **Real regression, found and fixed: my own Stage 2 commit (`05ef1e532`)
+  broke the Level-8 mission graph's pinned requirement-catalog hash, and the full-suite run that
+  should have caught it never actually exercised the changed file.** Editing `plans/requirements/
+  catalog.jsonl` (the `KNOW-013` status update) changed its bytes without re-pinning
+  `plans/investigations/control/level8-autonomous-mission-task-graph.yaml`'s
+  `requirement_catalog.sha256` reference to it -- `mission_graph.py::load_mission_graph()` fails
+  closed on exactly this mismatch, so every test loading the real graph (`test_mission_control.py`,
+  54 tests) started failing the moment that commit landed. Root cause of why it wasn't caught at
+  the time: the official full-suite run for that commit was executed *before* the doc-sync edits
+  (including this one) were made, then the doc edits were folded into the same commit without a
+  second full-suite pass -- a process gap, not a tooling one. Fixed by re-pinning the hash to the
+  catalog's actual current content (`e0cd23df...`, record count unchanged at 488, confirmed via
+  `git log` that no other commit touched either file in between so this was the complete, sole
+  cause). Lesson: when a commit's final diff grows after the verifying full-suite run already
+  passed, re-run the full suite against the actual final tree before committing, not just before
+  the last code change.

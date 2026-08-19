@@ -4,6 +4,8 @@ candidate's own `ReadmeCompositionLedgerV1` and operations."""
 
 from __future__ import annotations
 
+import hashlib
+
 import pytest
 
 from readme_agent.readme.composition_lineage import build_composition_ledger
@@ -13,11 +15,24 @@ from readme_agent.readme.composition_operation_origins import (
 )
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_operations import build_operation
-from readme_agent.readme.document_plan import PresentationSpanAdoptionV1, ReadmeDocumentPlanV1
-from readme_agent.readme.readme_reconciliation import build_readme_reconciliation_report
+from readme_agent.readme.document_plan import (
+    PresentationSpanAdoptionV1,
+    ReadmeDocumentPlanV1,
+    SourceClaimResolutionV1,
+)
+from readme_agent.readme.readme_reconciliation import (
+    SourceReconciliationEntryV1,
+    _validate_no_destination_overlap,
+    build_readme_reconciliation_report,
+)
 
 
-def _plan(source: str, operations: list) -> ReadmeDocumentPlanV1:
+def _plan(
+    source: str,
+    operations: list,
+    *,
+    source_claim_resolutions: list[SourceClaimResolutionV1] | None = None,
+) -> ReadmeDocumentPlanV1:
     source_bytes = source.encode("utf-8")
     candidate_bytes = source_bytes
     for operation in operations:
@@ -45,6 +60,7 @@ def _plan(source: str, operations: list) -> ReadmeDocumentPlanV1:
             preservation_check="byte_identical",
         ),
         operations=operations,
+        source_claim_resolutions=source_claim_resolutions or [],
         candidate_sha256=sha256_hex(candidate),
         composition_ledger=ledger,
     )
@@ -188,16 +204,183 @@ def test_every_entry_partitions_source_bytes_with_no_gap_or_overlap():
     )
 
 
-def test_real_net_fixture_move_relocated_content_is_recovered(tmp_path):
-    """The move-relocation fallback this module needed on first real use:
-    document_section_order.py's canonical-section-order pass relocates whole
-    H2 blocks via one large candidate_utf8-space replace, which
-    replay_operation_origins cannot recognize as a reorder (it tracks
-    origin by exact replacement-equals-current byte equality, which a
-    reorder never satisfies) -- so ExactSourcePlacementV1 records alone
-    never cover that content. This proves the byte-containment fallback
-    against the move operation's own replacement_text correctly recovers
-    it as relocated rather than raising."""
+def test_relocated_h2_block_is_matched_by_heading_identity_with_destination_coordinates():
+    """Stage 3A repair: a genuine canonical-section-order move (whole H2
+    blocks swapped, content byte-identical, just repositioned) is now
+    recovered by matching the same heading title between source and final
+    candidate text -- never a raw cross-document substring scan -- and the
+    resulting entry carries real destination coordinates."""
+
+    source = "# Widget\n\n## Alpha\n\nAlpha content here.\n\n## Beta\n\nBeta content here.\n"
+    swapped = "## Beta\n\nBeta content here.\n\n## Alpha\n\nAlpha content here.\n"
+    move_start = source.index("## Alpha")
+    move = build_operation(
+        operation_id="readme.presentation.canonical-section-order",
+        operation="move_exact",
+        source=source.encode("utf-8"),
+        start=move_start,
+        end=len(source.encode("utf-8")),
+        replacement=swapped,
+        fact_ids=[],
+        treatment="preserve",
+        rationale="Move complete H2 blocks into the accepted portfolio journey.",
+        coordinate_space="candidate_utf8",
+    )
+    plan = _plan(source, [move])
+
+    report = build_readme_reconciliation_report(plan, source_text=source)
+
+    assert report.relocated_count == 2
+    relocated = {
+        source[e.source_byte_start : e.source_byte_end].split("\n")[0].strip("# "): e
+        for e in report.entries
+        if e.disposition == "relocated"
+    }
+    assert set(relocated) == {"Alpha", "Beta"}
+    for entry in relocated.values():
+        assert entry.operation_id == "readme.presentation.canonical-section-order"
+        assert entry.final_byte_start is not None
+        assert entry.final_byte_end is not None
+        # The destination span covers the section's core content; a trailing
+        # inter-section blank-line separator does not survive verbatim once a
+        # section becomes the last one (normalized away), so it may
+        # legitimately be a few bytes shorter than the full source span.
+        original_core = source[entry.source_byte_start : entry.source_byte_end].rstrip()
+        candidate = "# Widget\n\n" + swapped
+        relocated_text = candidate.encode("utf-8")[entry.final_byte_start : entry.final_byte_end]
+        assert relocated_text.decode("utf-8") == original_core
+    total = sum(e.source_byte_end - e.source_byte_start for e in report.entries)
+    assert total == report.source_bytes
+
+
+def test_verified_omission_claim_resolution_is_preferred_over_generic_operation_covering():
+    """Stage 3A repair: an evidence-backed `verified_omission` claim
+    resolution for a gap takes priority over the old "any covering
+    operation, any treatment" heuristic, and its real evidence/rationale is
+    carried onto the entry -- not a bare operation lookup."""
+
+    source = "# Widget\n\nAn unverifiable claim about magic.\n"
+    start = source.index("An unverifiable claim about magic.")
+    end = start + len("An unverifiable claim about magic.")
+    removal = build_operation(
+        operation_id="readme.example.remove-unverifiable-claim",
+        operation="replace",
+        source=source.encode("utf-8"),
+        start=start,
+        end=end,
+        replacement="",
+        fact_ids=[],
+        treatment="preserve",
+        rationale="Generic removal operation -- must not win over real claim evidence.",
+    )
+    resolution = SourceClaimResolutionV1(
+        claim_id="source-claim:magic",
+        source_byte_start=start,
+        source_byte_end=end,
+        content_sha256=hashlib.sha256(source.encode("utf-8")[start:end]).hexdigest(),
+        resolution="verified_omission",
+        evidence=["assessment:explicit-omission", "review:unverifiable-claim-rejected"],
+        rationale="Claim could not be verified against any accepted fact; omitted, not lost.",
+    )
+    plan = _plan(source, [removal], source_claim_resolutions=[resolution])
+
+    report = build_readme_reconciliation_report(plan, source_text=source)
+
+    omitted = next(e for e in report.entries if e.disposition == "omitted")
+    assert omitted.operation_id == "source-claim:magic"
+    assert omitted.rationale == resolution.rationale
+    assert omitted.evidence == tuple(resolution.evidence)
+    total = sum(e.source_byte_end - e.source_byte_start for e in report.entries)
+    assert total == report.source_bytes
+
+
+def test_verified_equivalence_claim_resolution_yields_relocated_with_its_own_destination():
+    """A `verified_equivalence` claim resolution already carries its own
+    exact candidate-span binding -- reconciliation must use it directly as
+    the relocated entry's destination, no matching needed."""
+
+    source = "# Widget\n\nThe magic phrase.\n"
+    start = source.index("The magic phrase.")
+    end = start + len("The magic phrase.")
+    removal = build_operation(
+        operation_id="readme.example.move-magic-phrase",
+        operation="replace",
+        source=source.encode("utf-8"),
+        start=start,
+        end=end,
+        replacement="",
+        fact_ids=[],
+        treatment="preserve",
+        rationale="Content moves elsewhere in the candidate via a verified-equivalence claim.",
+    )
+    resolution = SourceClaimResolutionV1(
+        claim_id="source-claim:magic-phrase",
+        source_byte_start=start,
+        source_byte_end=end,
+        content_sha256=hashlib.sha256(source.encode("utf-8")[start:end]).hexdigest(),
+        resolution="verified_equivalence",
+        fact_ids=["product.identity:verified"],
+        candidate_claim_id="candidate-claim:magic-phrase",
+        candidate_byte_start=42,
+        candidate_byte_end=60,
+        candidate_content_sha256=hashlib.sha256(b"The magic phrase.").hexdigest(),
+        evidence=["candidate-claim:magic-phrase"],
+        rationale="Preserved verbatim elsewhere in the candidate's Key Capabilities section.",
+    )
+    plan = _plan(source, [removal], source_claim_resolutions=[resolution])
+
+    report = build_readme_reconciliation_report(plan, source_text=source)
+
+    relocated = next(e for e in report.entries if e.disposition == "relocated")
+    assert relocated.operation_id == "source-claim:magic-phrase"
+    assert relocated.final_byte_start == 42
+    assert relocated.final_byte_end == 60
+
+
+def test_destination_overlap_across_reconciliation_entries_is_rejected():
+    """The check that makes double-counted relocation attribution
+    structurally impossible: two entries whose destination bytes overlap
+    must raise, never silently coexist."""
+
+    entries = [
+        SourceReconciliationEntryV1(
+            source_byte_start=0,
+            source_byte_end=5,
+            disposition="relocated",
+            final_byte_start=10,
+            final_byte_end=20,
+        ),
+        SourceReconciliationEntryV1(
+            source_byte_start=5,
+            source_byte_end=10,
+            disposition="relocated",
+            final_byte_start=15,
+            final_byte_end=25,
+        ),
+    ]
+
+    with pytest.raises(ValueError, match="reconciliation destination ranges overlap"):
+        _validate_no_destination_overlap(entries)
+
+
+def test_real_net_fixture_relocates_moves_and_fails_closed_on_real_loss():
+    """Stage 3A repair proof against the real net fixture: the
+    canonical-section-order move (whole H2 blocks swapped) that used to be
+    this module's only recoverable case now resolves cleanly via
+    heading-identity matching -- proven here by the raised error no longer
+    covering any move-touched span, and no longer covering the first ~360
+    bytes of the dropped `## Status` section either (an earlier sub-range
+    that failed before the heading-boundary gap-splitting fix landed). A
+    genuinely separate defect remains in this same real fixture: the
+    non-canonical `## Status` section's "advanced features not available"
+    limitations list (source bytes [1745, 2020)) is dropped from the
+    candidate by an earlier stage with no operation, claim resolution, or
+    placement explaining it at all -- real, previously-silent content loss,
+    not a reconciliation-lineage gap. `build_readme_reconciliation_report`
+    is documented to fail closed on exactly this (never silently report an
+    incomplete reconciliation), so this test asserts that fail-closed
+    behavior directly instead of hiding it behind `xfail` -- logged
+    separately (GOV-014, `plans/backlog-post-poc.md`)."""
 
     from readme_agent.readme.document_renderer import build_readme_document_candidate
     from readme_agent.readme.markers import find_presentation_span
@@ -218,16 +401,5 @@ def test_real_net_fixture_move_relocated_content_is_recovered(tmp_path):
     move_operations = [op for op in plan.operations if op.operation == "move_exact"]
     assert move_operations, "this fixture is only meaningful once section order is enforced"
 
-    try:
-        report = build_readme_reconciliation_report(plan, source_text=inner_text)
-    except ValueError as exc:
-        pytest.xfail(
-            "known open gap (2026-08-19): a source span independent of the move -- "
-            "the original ## Installation/## Quick Start headings around the unverified "
-            "example -- is not covered by any placement or explaining operation. The "
-            "move-relocation fallback itself is proven correct by the other cases in "
-            f"this file; this fixture also exercises a second, still-open gap: {exc}"
-        )
-    else:
-        relocated = [e for e in report.entries if e.disposition == "relocated"]
-        assert any(e.operation_id == move_operations[0].operation_id for e in relocated)
+    with pytest.raises(ValueError, match=r"unaccounted source loss: bytes \[1745, 2020\)"):
+        build_readme_reconciliation_report(plan, source_text=inner_text)
