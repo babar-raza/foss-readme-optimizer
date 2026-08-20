@@ -207,6 +207,16 @@ def _build_parser() -> argparse.ArgumentParser:
         ),
     )
     p_supervise.add_argument(
+        "--only",
+        help=(
+            "Portfolio only: comma-separated org/repo allow-list restricting --registry fan-out "
+            "to exactly these entries, applied right after platform-priority ordering. Every "
+            "other resume/cache/blocked-decision/time-budget/summary behavior is unchanged -- "
+            "used by the portfolio proof engine to run a registry-derived cohort (e.g. the "
+            "seven-ecosystem canaries) through the same scheduler as a full-registry pass."
+        ),
+    )
+    p_supervise.add_argument(
         "--retry-blocked",
         action="store_true",
         help=(
@@ -490,6 +500,63 @@ def _build_parser() -> argparse.ArgumentParser:
         ),
     )
 
+    p_portfolio_proof = sub.add_parser(
+        "portfolio-proof",
+        help=(
+            "Resumable portfolio proof engine: drive the registry through the existing "
+            "supervise/local_poc machinery in five modes (preflight, facts-only, canaries, "
+            "fleet, failed-only), writing hash-bound stage receipts and the 30-point "
+            "acceptance dashboard. Never a second execution pipeline -- see "
+            "supervisor/portfolio_proof_engine/."
+        ),
+    )
+    p_portfolio_proof.add_argument(
+        "--mode",
+        required=True,
+        choices=["preflight", "facts-only", "canaries", "fleet", "failed-only"],
+    )
+    p_portfolio_proof.add_argument("--registry", default="data/products.json")
+    p_portfolio_proof.add_argument(
+        "--only", help="Comma-separated org/repo allow-list (fleet/facts-only cohort filter)"
+    )
+    p_portfolio_proof.add_argument("--platform", help="Restrict to one registry platform")
+    p_portfolio_proof.add_argument("--family", help="Restrict to one registry family")
+    p_portfolio_proof.add_argument(
+        "--deadline-seconds", type=float, help="Global wall-clock budget for this pass"
+    )
+    p_portfolio_proof.add_argument(
+        "--per-stage-timeout-seconds", type=float, help="Per-stage timeout within the deadline"
+    )
+    p_portfolio_proof.add_argument(
+        "--max-deterministic-workers",
+        type=int,
+        default=1,
+        help="Bounded local thread-pool width for read-only classification work only",
+    )
+    p_portfolio_proof.add_argument(
+        "--max-provider-concurrency",
+        type=int,
+        default=2,
+        help="Enforced ceiling on concurrent provider calls (default 2)",
+    )
+    p_portfolio_proof.add_argument(
+        "--output-root",
+        help="Configurable receipt/dashboard output root (default runs/portfolio_proof)",
+    )
+    p_portfolio_proof.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Resolve and print the target cohort only -- no intake/facts/candidate/provider call",
+    )
+    p_portfolio_proof.add_argument(
+        "--resume",
+        action="store_true",
+        help=(
+            "No-op flag kept for interface symmetry: every mode is unconditionally resumable "
+            "via its own hash-bound stage receipts and the existing scheduler's own caches"
+        ),
+    )
+
     return parser
 
 
@@ -511,6 +578,15 @@ def main(argv: list[str] | None = None) -> int:
 
         try:
             return cmd_poc(args)
+        except ReadmeAgentError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return exc.exit_code
+
+    if args.command == "portfolio-proof":
+        from readme_agent.commands_portfolio_proof import cmd_portfolio_proof
+
+        try:
+            return cmd_portfolio_proof(args)
         except ReadmeAgentError as exc:
             print(f"error: {exc}", file=sys.stderr)
             return exc.exit_code

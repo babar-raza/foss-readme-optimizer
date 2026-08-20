@@ -708,6 +708,15 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         return 1
     revision_token = bind_registry_revision(revision)
     entries = order_entries_by_platform_priority(load_products(registry_path))
+    only_filter = getattr(args, "only", None)
+    if only_filter:
+        # Portfolio-scale cohort selection (e.g. the seven-canary/fleet-remaining/failed-only
+        # cohorts a caller like the portfolio proof engine resolves from the registry itself)
+        # without teaching this scheduler any new vocabulary -- every resume/cache/blocked-
+        # decision/time-budget/summary behavior below is unchanged and applies only to the
+        # filtered set.
+        wanted = {item.strip() for item in only_filter.split(",") if item.strip()}
+        entries = tuple(entry for entry in entries if entry.org_repo in wanted)
     readme_poc_stage_limit = getattr(args, "max_readme_poc_stage", None)
     print(
         "local_poc portfolio: START "
