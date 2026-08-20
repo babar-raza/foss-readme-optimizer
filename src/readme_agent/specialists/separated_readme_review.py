@@ -87,6 +87,7 @@ def run_separated_readme_review(
     factual_client: AnalysisClientLike | None = None,
     merged_client: AnalysisClientLike | None = None,
     blind_fallback_client: AnalysisClientLike | None = None,
+    factual_fallback_client: AnalysisClientLike | None = None,
     backend: StateBackend | None = None,
     repair_attempt: int = 0,
     author_identity: ReviewActorIdentityV1 | None = None,
@@ -98,13 +99,15 @@ def run_separated_readme_review(
     explicit_separated = blind_client is not None and factual_client is not None
     if explicit_separated and merged_client is not None:
         raise ValueError("merged and separated review clients are mutually exclusive")
-    if explicit_separated and blind_fallback_client is not None:
-        raise ValueError("a blind fallback is only valid with the merged reviewer")
+    if explicit_separated and (
+        blind_fallback_client is not None or factual_fallback_client is not None
+    ):
+        raise ValueError("a review fallback client is only valid with the merged reviewer")
     if not explicit_separated and merged_client is None:
         merged_client = build_live_merged_review_client(env.llm_base_url(), env.llm_api_key())
-        blind_fallback_client = build_live_role_review_clients(
+        blind_fallback_client, factual_fallback_client = build_live_role_review_clients(
             env.llm_base_url(), env.llm_api_key()
-        )[0]
+        )
 
     if product_facts_v2 is None:
         facts_dispatch = dispatch_tool_call(
@@ -226,6 +229,7 @@ def run_separated_readme_review(
             grounding_validation=factual_grounding,
         )
         merged_call_receipt = None
+        review_recovery_receipt = None
         grounding_history = [*blind_retry_history, *factual_retry_history]
     else:
         assert merged_client is not None
@@ -240,12 +244,14 @@ def run_separated_readme_review(
             factual_input=factual_input,
             client=merged_client,
             blind_fallback_client=blind_fallback_client,
+            factual_fallback_client=factual_fallback_client,
         )
         blind_result = execution.blind_result
         factual_result = execution.factual_result
         blind_record = execution.blind_record
         factual_record = execution.factual_record
         merged_call_receipt = execution.receipt
+        review_recovery_receipt = execution.recovery_receipt
         grounding_history = execution.grounding_history
     author = author_identity or _role_identity(
         "producer:readme-composition",
@@ -265,6 +271,7 @@ def run_separated_readme_review(
         factual_record,
         combined,
         grounding_history,
+        review_recovery_receipt,
     )
     if backend is not None:
         record_review_verdict(

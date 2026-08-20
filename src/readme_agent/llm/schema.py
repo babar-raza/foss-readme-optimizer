@@ -37,3 +37,5 @@ class LLMResponseMeta(BaseModel):
     created: int | None = None
     model: str | None = None
     usage: Usage | None = None
+    finish_reason: str | None = None
+    latency_ms: float | None = None

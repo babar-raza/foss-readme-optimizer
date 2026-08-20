@@ -4,6 +4,7 @@ import json
 from copy import deepcopy
 from string import Template
 
+from readme_agent.errors import MergedReviewRequestTooLargeError
 from readme_agent.llm import prompt_registry
 from readme_agent.llm.verification_prompts import (
     BLIND_QUALITY_REVIEW_TOOL_SCHEMA,
@@ -13,6 +14,22 @@ from readme_agent.specialists.factual_review_projection import compact_candidate
 from readme_agent.specialists.review_mechanical_observations import (
     render_candidate_mechanical_observations,
 )
+
+# REQUEST_OUTPUT_BUDGET.json::request_ceiling -- 200 KB / ~60k estimated input tokens
+# (chars/4 heuristic), calibrated from qwen-review-recovery-aa9981021's design, not a
+# vendored tokenizer measurement.
+MAX_MERGED_REVIEW_REQUEST_BYTES = 204_800
+
+
+def enforce_merged_review_request_ceiling(messages: list[dict]) -> None:
+    """Fail before spending the one normal merged call on a request already too large."""
+
+    size = sum(len(str(message.get("content", "")).encode("utf-8")) for message in messages)
+    if size > MAX_MERGED_REVIEW_REQUEST_BYTES:
+        raise MergedReviewRequestTooLargeError(
+            f"merged review request is {size} bytes, exceeds "
+            f"{MAX_MERGED_REVIEW_REQUEST_BYTES}-byte ceiling"
+        )
 
 
 def _compact_merged_facet(schema: dict) -> dict:

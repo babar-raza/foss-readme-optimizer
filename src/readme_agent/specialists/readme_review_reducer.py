@@ -8,6 +8,7 @@ from readme_agent.specialists.independent_readme_review import IndependentReadme
 from readme_agent.specialists.merged_readme_review_contracts import (
     CombinedReadmeReviewV1,
     MergedReviewCallReceiptV1,
+    QwenReviewRecoveryReceiptV1,
     role_record_hash,
 )
 from readme_agent.specialists.readme_review_roles import (
@@ -31,6 +32,7 @@ class SeparatedReadmeReviewResultV1(IndependentReadmeReviewResultV1):
     factual_plan_review: RoleReviewRecordV1
     combined_review: CombinedReadmeReviewV1
     grounding_retry_history: list[dict]
+    review_recovery_receipt: QwenReviewRecoveryReceiptV1 | None = None
     review_contract_version: str = Field(default="2", frozen=True)
 
 
@@ -45,7 +47,7 @@ def build_role_review_record(
     sections_affected: list[str],
     required_repair: str,
     findings: list[GroundedReviewFindingV1],
-    grounding_validation: FindingGroundingResultV1,
+    grounding_validation: FindingGroundingResultV1 | None,
 ) -> RoleReviewRecordV1:
     """Persist one role result with its deterministic grounding receipt."""
 
@@ -146,6 +148,7 @@ def build_compatibility_result(
     factual_record: RoleReviewRecordV1,
     combined: CombinedReadmeReviewV1,
     grounding_retry_history: list[dict],
+    review_recovery_receipt: QwenReviewRecoveryReceiptV1 | None = None,
 ) -> SeparatedReadmeReviewResultV1:
     """Project the separated result through the legacy independent-review seam."""
 
@@ -172,6 +175,7 @@ def build_compatibility_result(
         factual_plan_review=factual_record,
         combined_review=combined,
         grounding_retry_history=grounding_retry_history,
+        review_recovery_receipt=review_recovery_receipt,
     )
 
 

@@ -28,7 +28,7 @@ from typing import Any, Protocol
 import requests
 from pydantic import BaseModel
 
-from readme_agent.errors import LLMError, LLMInfrastructureError
+from readme_agent.errors import LLMError, LLMInfrastructureError, LLMTruncatedResponseError
 from readme_agent.llm.call_ledger import known_prompt_hash, record_non_provider_call
 from readme_agent.llm.call_transport import ProviderCallSession
 from readme_agent.llm.schema import LLMResponseMeta, Usage
@@ -126,8 +126,14 @@ class LiveForcedToolClient:
         for attempt in range(self.response_max_attempts):
             response: requests.Response | None = None
             try:
+                request_started = time.monotonic()
                 response = self._request(messages, tool_schema, session)
-                result = self._parse_response(response, expected_function_name=function_name)
+                latency_ms = (time.monotonic() - request_started) * 1000
+                result = self._parse_response(
+                    response,
+                    expected_function_name=function_name,
+                    latency_ms=latency_ms,
+                )
             except LLMError as exc:
                 if response is not None:
                     session.finalize(response, "response_invalid")
@@ -174,6 +180,7 @@ class LiveForcedToolClient:
         resp: requests.Response,
         *,
         expected_function_name: str,
+        latency_ms: float | None = None,
     ) -> ForcedToolResult:
         try:
             body = resp.json()
@@ -184,6 +191,7 @@ class LiveForcedToolClient:
         if not choices or not isinstance(choices[0], dict):
             raise LLMError("forced tool call response missing 'choices[0]'")
         message = choices[0].get("message", {})
+        finish_reason = choices[0].get("finish_reason")
 
         tool_calls = message.get("tool_calls") or []
         if not tool_calls:
@@ -199,8 +207,13 @@ class LiveForcedToolClient:
         try:
             arguments = json.loads(function.get("arguments") or "{}")
         except json.JSONDecodeError as exc:
-            finish_reason = choices[0].get("finish_reason")
             completion_tokens = (body.get("usage") or {}).get("completion_tokens")
+            if finish_reason == "length":
+                raise LLMTruncatedResponseError(
+                    f"forced tool call response was truncated: {exc}",
+                    finish_reason=finish_reason,
+                    completion_tokens=completion_tokens,
+                ) from exc
             raise LLMError(
                 "forced tool call arguments were not valid JSON: "
                 f"{exc}; finish_reason={finish_reason!r}; "
@@ -221,6 +234,8 @@ class LiveForcedToolClient:
             created=body.get("created"),
             model=body.get("model"),
             usage=usage,
+            finish_reason=finish_reason,
+            latency_ms=latency_ms,
         )
         return ForcedToolResult(arguments=arguments, meta=meta)
 

@@ -4,7 +4,7 @@ import json
 
 import pytest
 
-from readme_agent.errors import LLMError
+from readme_agent.errors import LLMError, LLMInfrastructureError, LLMTruncatedResponseError
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
@@ -78,6 +78,32 @@ class SequenceClient(CapturingClient):
             parsed=self.parsed_items[len(self.messages_seen) - 1],
             meta=LLMResponseMeta(),
         )
+
+
+class RaisingClient:
+    """Raises a fixed exception on every call; simulates the normal merged call
+    failing before any recovery client ever sees a message."""
+
+    def __init__(self, exc):
+        self._exc = exc
+        self.messages_seen = []
+
+    def analyze(self, messages):
+        self.messages_seen.append(messages)
+        raise self._exc
+
+
+class ExhaustingClient:
+    """Never returns a groundable result; used to drive recovery to exhaustion."""
+
+    def __init__(self, parsed_items):
+        self.parsed_items = parsed_items
+        self.messages_seen = []
+
+    def analyze(self, messages):
+        self.messages_seen.append(messages)
+        index = min(len(self.messages_seen) - 1, len(self.parsed_items) - 1)
+        return AnalysisResult(parsed=self.parsed_items[index], meta=LLMResponseMeta())
 
 
 def test_blind_grounding_rejects_findings_that_contradict_configured_presentation() -> None:
@@ -1386,6 +1412,7 @@ def test_default_merged_client_makes_one_call_and_binds_two_grounded_facets():
     assert result.verdict == "ACCEPT"
     assert len(merged.messages_seen) == 1
     assert result.combined_review.identity_separation_valid
+    assert result.review_recovery_receipt is None
     receipt = result.combined_review.merged_call_receipt
     assert receipt is not None
     assert receipt.actor_id == "llm-route:merged-readme-review"
@@ -1397,6 +1424,242 @@ def test_default_merged_client_makes_one_call_and_binds_two_grounded_facets():
     assert "Complete candidate README block catalog" in serialized
     assert "fact-1" in serialized
     assert ORIGINAL not in serialized
+
+
+def test_merged_malformed_arguments_recovers_both_facets_via_separated_clients():
+    merged = RaisingClient(LLMError("forced tool call arguments were not valid JSON: boom"))
+    blind_fallback = SequenceClient([_blind_accept("visitor-ready via recovery")])
+    factual_fallback = SequenceClient([_factual_accept("grounded via recovery")])
+
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        merged_client=merged,
+        blind_fallback_client=blind_fallback,
+        factual_fallback_client=factual_fallback,
+    )
+
+    assert result.verdict == "ACCEPT"
+    assert len(merged.messages_seen) == 1
+    assert len(blind_fallback.messages_seen) == 1
+    assert len(factual_fallback.messages_seen) == 1
+    receipt = result.review_recovery_receipt
+    assert receipt is not None
+    assert receipt.merged_call_outcome == "malformed_arguments"
+    assert receipt.blind_facet_recovery is not None
+    assert receipt.blind_facet_recovery.triggered is True
+    assert receipt.factual_facet_recovery is not None
+    assert receipt.factual_facet_recovery.triggered is True
+    assert receipt.total_physical_calls == 3
+    assert result.combined_review.merged_call_receipt is None
+
+
+def test_merged_truncated_response_recovers_both_facets_and_records_outcome():
+    merged = RaisingClient(
+        LLMTruncatedResponseError(
+            "forced tool call response was truncated: boom",
+            finish_reason="length",
+            completion_tokens=4000,
+        )
+    )
+    blind_fallback = SequenceClient([_blind_accept("visitor-ready via recovery")])
+    factual_fallback = SequenceClient([_factual_accept("grounded via recovery")])
+
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        merged_client=merged,
+        blind_fallback_client=blind_fallback,
+        factual_fallback_client=factual_fallback,
+    )
+
+    assert result.verdict == "ACCEPT"
+    assert len(merged.messages_seen) == 1
+    receipt = result.review_recovery_receipt
+    assert receipt is not None
+    assert receipt.merged_call_outcome == "truncated_response"
+    assert receipt.total_physical_calls == 3
+
+
+def test_merged_transport_failure_recovers_both_facets():
+    merged = RaisingClient(LLMInfrastructureError("forced tool call failed after retries: boom"))
+    blind_fallback = SequenceClient([_blind_accept("visitor-ready via recovery")])
+    factual_fallback = SequenceClient([_factual_accept("grounded via recovery")])
+
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        merged_client=merged,
+        blind_fallback_client=blind_fallback,
+        factual_fallback_client=factual_fallback,
+    )
+
+    assert result.verdict == "ACCEPT"
+    receipt = result.review_recovery_receipt
+    assert receipt is not None
+    assert receipt.merged_call_outcome == "transport_failure"
+    assert receipt.total_physical_calls == 3
+
+
+def test_merged_top_level_failure_without_both_fallback_clients_fails_closed_without_recovery():
+    merged = RaisingClient(LLMError("forced tool call arguments were not valid JSON: boom"))
+    blind_fallback = SequenceClient([_blind_accept("visitor-ready via recovery")])
+
+    with pytest.raises(LLMError, match="not valid JSON"):
+        run_separated_readme_review(
+            ORG_REPO,
+            ORIGINAL,
+            CANDIDATE,
+            PLAN,
+            FACTS,
+            merged_client=merged,
+            blind_fallback_client=blind_fallback,
+        )
+
+    assert len(merged.messages_seen) == 1
+    assert blind_fallback.messages_seen == []
+
+
+def test_merged_factual_grounding_failure_recovers_only_factual_facet():
+    false_missing = _factual_accept("The accepted identity is missing evidence.")
+    false_missing["verdict"] = "BLOCKED_MISSING_EVIDENCE"
+    false_missing["findings"][0].update(
+        {
+            "finding_id": "factual.false-missing",
+            "disposition": "blocks",
+            "fact_id": None,
+            "evidence_excerpt": None,
+            "evidence_location": None,
+            "expected_polarity": None,
+            "observed_polarity": None,
+            "polarity_result": "missing",
+        }
+    )
+    merged = SequenceClient([{"quality": _blind_accept("visitor-ready"), "factual": false_missing}])
+    factual_fallback = SequenceClient([_factual_accept("grounded via recovery")])
+
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        merged_client=merged,
+        factual_fallback_client=factual_fallback,
+    )
+
+    assert result.verdict == "ACCEPT"
+    assert len(merged.messages_seen) == 1
+    assert len(factual_fallback.messages_seen) == 1
+    receipt = result.review_recovery_receipt
+    assert receipt is not None
+    assert receipt.merged_call_outcome == "success"
+    assert receipt.blind_facet_recovery is None
+    assert receipt.factual_facet_recovery is not None
+    assert receipt.factual_facet_recovery.triggered is True
+    assert receipt.factual_facet_recovery.reason == "grounding_failure"
+    assert receipt.total_physical_calls == 2
+    assert result.blind_quality_review.identity.prompt_id == "merged_readme_review"
+    assert result.factual_plan_review.identity.prompt_id == "factual_readme_plan_review"
+    assert result.combined_review.merged_call_receipt is None
+
+
+def test_recovery_exhaustion_surfaces_system_failure_not_reject_repairable():
+    false_missing = _factual_accept("The accepted identity is missing evidence.")
+    false_missing["verdict"] = "BLOCKED_MISSING_EVIDENCE"
+    false_missing["findings"][0].update(
+        {
+            "finding_id": "factual.false-missing",
+            "disposition": "blocks",
+            "fact_id": None,
+            "evidence_excerpt": None,
+            "evidence_location": None,
+            "expected_polarity": None,
+            "observed_polarity": None,
+            "polarity_result": "missing",
+        }
+    )
+    merged = SequenceClient([{"quality": _blind_accept("visitor-ready"), "factual": false_missing}])
+    factual_fallback = ExhaustingClient([false_missing, false_missing])
+
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        merged_client=merged,
+        factual_fallback_client=factual_fallback,
+    )
+
+    assert result.verdict == "SYSTEM_FAILURE"
+    assert len(factual_fallback.messages_seen) == 2
+    receipt = result.review_recovery_receipt
+    assert receipt is not None
+    assert receipt.final_disposition == "system_failure"
+    assert receipt.factual_facet_recovery is not None
+    assert receipt.factual_facet_recovery.resolved is False
+    assert receipt.total_physical_calls == 3
+
+
+def test_oversized_merged_request_skips_normal_call_and_recovers_both_facets():
+    huge_candidate = CANDIDATE + "\n" + ("A" * 250_000)
+    merged = SequenceClient(
+        [{"quality": _blind_accept("unused"), "factual": _factual_accept("unused")}]
+    )
+    blind_fallback = SequenceClient([_blind_accept("visitor-ready via recovery")])
+    factual_fallback = SequenceClient([_factual_accept("grounded via recovery")])
+
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        huge_candidate,
+        PLAN,
+        FACTS,
+        merged_client=merged,
+        blind_fallback_client=blind_fallback,
+        factual_fallback_client=factual_fallback,
+    )
+
+    assert merged.messages_seen == []
+    assert len(blind_fallback.messages_seen) == 1
+    assert len(factual_fallback.messages_seen) == 1
+    receipt = result.review_recovery_receipt
+    assert receipt is not None
+    assert receipt.merged_call_outcome == "request_ceiling_exceeded"
+    assert receipt.total_physical_calls == 2
+
+
+def test_recovery_calls_receive_identical_candidate_and_facts_as_the_failed_merged_call():
+    merged = RaisingClient(LLMError("forced tool call arguments were not valid JSON: boom"))
+    blind_fallback = SequenceClient([_blind_accept("visitor-ready via recovery")])
+    factual_fallback = SequenceClient([_factual_accept("grounded via recovery")])
+
+    run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        merged_client=merged,
+        blind_fallback_client=blind_fallback,
+        factual_fallback_client=factual_fallback,
+    )
+
+    blind_context = "\n".join(message["content"] for message in blind_fallback.messages_seen[0])
+    factual_context = "\n".join(message["content"] for message in factual_fallback.messages_seen[0])
+    assert "Specific, useful candidate." in blind_context
+    assert "fact-1" in factual_context
+    assert "readme.overview" in factual_context
 
 
 def test_merged_cross_role_quality_leakage_uses_one_isolated_blind_fallback():
@@ -1431,6 +1694,14 @@ def test_merged_cross_role_quality_leakage_uses_one_isolated_blind_fallback():
     assert result.blind_quality_review.identity.prompt_id == "blind_readme_quality_review"
     assert result.factual_plan_review.identity.prompt_id == "merged_readme_review"
     assert result.combined_review.identity_separation_valid
+    receipt = result.review_recovery_receipt
+    assert receipt is not None
+    assert receipt.merged_call_outcome == "success"
+    assert receipt.blind_facet_recovery is not None
+    assert receipt.blind_facet_recovery.triggered is True
+    assert receipt.blind_facet_recovery.reason == "grounding_failure"
+    assert receipt.factual_facet_recovery is None
+    assert receipt.total_physical_calls == 2
     fallback_context = "\n".join(message["content"] for message in fallback.messages_seen[0])
     assert "fact-1" not in fallback_context
     assert "readme.overview" not in fallback_context
@@ -1468,6 +1739,63 @@ def test_merged_false_missing_premise_fails_closed_without_repeating_call():
         )
 
     assert len(merged.messages_seen) == 1
+
+
+def test_worst_case_five_calls_when_both_facets_need_a_compact_retry():
+    merged = RaisingClient(LLMError("forced tool call arguments were not valid JSON: boom"))
+    leaked_quality = _blind_accept("visitor-ready")
+    leaked_quality["findings"][0].update(
+        {
+            "fact_id": "fact-1",
+            "evidence_excerpt": "Example",
+            "evidence_location": "README.md",
+            "expected_polarity": "positive_implementation",
+            "observed_polarity": "positive_implementation",
+            "polarity_result": "supports",
+        }
+    )
+    blind_fallback = SequenceClient(
+        [leaked_quality, _blind_accept("visitor-ready via recovery retry")]
+    )
+    false_missing = _factual_accept("The accepted identity is missing evidence.")
+    false_missing["verdict"] = "BLOCKED_MISSING_EVIDENCE"
+    false_missing["findings"][0].update(
+        {
+            "finding_id": "factual.false-missing",
+            "disposition": "blocks",
+            "fact_id": None,
+            "evidence_excerpt": None,
+            "evidence_location": None,
+            "expected_polarity": None,
+            "observed_polarity": None,
+            "polarity_result": "missing",
+        }
+    )
+    factual_fallback = SequenceClient(
+        [false_missing, _factual_accept("grounded via recovery retry")]
+    )
+
+    result = run_separated_readme_review(
+        ORG_REPO,
+        ORIGINAL,
+        CANDIDATE,
+        PLAN,
+        FACTS,
+        merged_client=merged,
+        blind_fallback_client=blind_fallback,
+        factual_fallback_client=factual_fallback,
+    )
+
+    assert result.verdict == "ACCEPT"
+    assert len(blind_fallback.messages_seen) == 2
+    assert len(factual_fallback.messages_seen) == 2
+    receipt = result.review_recovery_receipt
+    assert receipt is not None
+    assert receipt.total_physical_calls == 5
+    assert receipt.blind_facet_recovery is not None
+    assert receipt.blind_facet_recovery.attempts == 2
+    assert receipt.factual_facet_recovery is not None
+    assert receipt.factual_facet_recovery.attempts == 2
 
 
 def test_merged_reviewer_cannot_self_approve_author_output():

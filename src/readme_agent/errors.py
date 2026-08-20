@@ -47,3 +47,20 @@ class LLMError(ReadmeAgentError):
 
 class LLMInfrastructureError(LLMError):
     """An external model-provider, network, or credential boundary failed."""
+
+
+class MergedReviewSchemaError(LLMError):
+    """The merged review response was missing/extra top-level facet keys."""
+
+
+class MergedReviewRequestTooLargeError(LLMError):
+    """The assembled merged-review request exceeds the pre-flight byte ceiling."""
+
+
+class LLMTruncatedResponseError(LLMError):
+    """A forced tool call response was cut off at finish_reason == 'length'."""
+
+    def __init__(self, message: str, *, finish_reason: str, completion_tokens: int | None) -> None:
+        super().__init__(message)
+        self.finish_reason = finish_reason
+        self.completion_tokens = completion_tokens

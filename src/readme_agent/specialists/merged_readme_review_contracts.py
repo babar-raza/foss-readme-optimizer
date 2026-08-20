@@ -2,9 +2,11 @@
 
 import hashlib
 import json
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from readme_agent.llm.schema import Usage
 from readme_agent.specialists.readme_review_roles import (
     BlindQualityReviewResultV1,
     CombinedReviewVerdict,
@@ -79,6 +81,46 @@ class CombinedReadmeReviewV1(BaseModel):
             ):
                 raise ValueError("merged-call receipt does not bind both reviewer facets")
         return self
+
+
+class FacetRecoveryV1(BaseModel):
+    """One facet's bounded recovery attempt through its isolated separated client."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    facet: Literal["blind_quality", "factual_plan"]
+    triggered: bool
+    reason: Literal[
+        "request_ceiling_exceeded",
+        "truncated_response",
+        "malformed_arguments",
+        "transport_failure",
+        "top_level_schema_failure",
+        "grounding_failure",
+    ]
+    attempts: int = Field(ge=1, le=2)
+    resolved: bool
+    token_usage: list[Usage] = Field(default_factory=list)
+    latency_ms: list[float] = Field(default_factory=list)
+
+
+class QwenReviewRecoveryReceiptV1(BaseModel):
+    """Bounded, sanitized record of what the merged-review recovery dispatcher did."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    merged_call_outcome: Literal[
+        "success",
+        "request_ceiling_exceeded",
+        "truncated_response",
+        "malformed_arguments",
+        "transport_failure",
+        "top_level_schema_failure",
+    ]
+    blind_facet_recovery: FacetRecoveryV1 | None = None
+    factual_facet_recovery: FacetRecoveryV1 | None = None
+    final_disposition: Literal["resolved", "resolved_partial", "system_failure", "fail_closed"]
+    total_physical_calls: int = Field(ge=1, le=5)
 
 
 def role_record_hash(record: RoleReviewRecordV1) -> str:

@@ -6,7 +6,7 @@ import json
 import pytest
 import requests
 
-from readme_agent.errors import LLMError, LLMInfrastructureError
+from readme_agent.errors import LLMError, LLMInfrastructureError, LLMTruncatedResponseError
 from readme_agent.llm import verifier_client
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verifier_client import (
@@ -70,6 +70,38 @@ class TestLiveForcedToolClientHappyPath:
             "type": "function",
             "function": {"name": "report_prose_quality_finding"},
         }
+
+    def test_successful_call_populates_finish_reason_and_latency(self, monkeypatch):
+        body = {
+            "id": "chatcmpl-2",
+            "choices": [
+                {
+                    "finish_reason": "tool_calls",
+                    "message": {
+                        "tool_calls": [
+                            {
+                                "function": {
+                                    "name": "report_prose_quality_finding",
+                                    "arguments": "{}",
+                                }
+                            }
+                        ]
+                    },
+                }
+            ],
+        }
+        monkeypatch.setattr(
+            verifier_client.requests,
+            "post",
+            lambda url, json, headers, timeout: FakeResponse(200, body),
+        )
+        client = LiveForcedToolClient("https://example/v1", "key", "qwen3-next")
+
+        result = client.call([], TOOL_SCHEMA)
+
+        assert result.meta.finish_reason == "tool_calls"
+        assert result.meta.latency_ms is not None
+        assert result.meta.latency_ms >= 0
 
     def test_no_tool_calls_in_response_raises(self, monkeypatch):
         body = {"choices": [{"message": {"content": "I decline to answer", "tool_calls": []}}]}
@@ -245,7 +277,7 @@ class TestLiveForcedToolClientRetry:
 
         assert calls["n"] == 2
 
-    def test_malformed_arguments_report_truncation_metadata(self, monkeypatch):
+    def test_finish_reason_length_raises_typed_truncation_error(self, monkeypatch):
         monkeypatch.setattr(
             verifier_client,
             "_MAX_RESPONSE_ATTEMPTS",
@@ -279,8 +311,52 @@ class TestLiveForcedToolClientRetry:
         )
         client = LiveForcedToolClient("https://example/v1", "key", "qwen3-next")
 
-        with pytest.raises(LLMError, match="finish_reason='length'.*completion_tokens=4000"):
+        with pytest.raises(LLMTruncatedResponseError) as excinfo:
             client.call([], TOOL_SCHEMA)
+
+        assert excinfo.value.finish_reason == "length"
+        assert excinfo.value.completion_tokens == 4000
+
+    def test_non_length_malformed_arguments_still_report_truncation_metadata_in_message(
+        self, monkeypatch
+    ):
+        monkeypatch.setattr(
+            verifier_client,
+            "_MAX_RESPONSE_ATTEMPTS",
+            1,
+        )
+        monkeypatch.setattr(
+            verifier_client.requests,
+            "post",
+            lambda url, json, headers, timeout: FakeResponse(
+                200,
+                {
+                    "choices": [
+                        {
+                            "finish_reason": "stop",
+                            "message": {
+                                "tool_calls": [
+                                    {
+                                        "id": "call1",
+                                        "function": {
+                                            "name": "report_prose_quality_finding",
+                                            "arguments": '{"flagged":',
+                                        },
+                                    }
+                                ]
+                            },
+                        }
+                    ],
+                    "usage": {"completion_tokens": 12},
+                },
+            ),
+        )
+        client = LiveForcedToolClient("https://example/v1", "key", "qwen3-next")
+
+        with pytest.raises(LLMError, match="finish_reason='stop'.*completion_tokens=12") as excinfo:
+            client.call([], TOOL_SCHEMA)
+
+        assert not isinstance(excinfo.value, LLMTruncatedResponseError)
 
     def test_retries_on_503_then_succeeds(self, monkeypatch):
         calls = {"n": 0}
@@ -315,6 +391,42 @@ class TestLiveForcedToolClientRetry:
         result = client.call([], TOOL_SCHEMA)
         assert calls["n"] == 2
         assert result.arguments == {}
+
+    def test_truncated_response_is_not_retried_at_the_response_semantic_layer(self, monkeypatch):
+        calls = {"n": 0}
+
+        def fake_post(url, json, headers, timeout):
+            calls["n"] += 1
+            return FakeResponse(
+                200,
+                {
+                    "choices": [
+                        {
+                            "finish_reason": "length",
+                            "message": {
+                                "tool_calls": [
+                                    {
+                                        "id": "call1",
+                                        "function": {
+                                            "name": "report_prose_quality_finding",
+                                            "arguments": '{"flagged":',
+                                        },
+                                    }
+                                ]
+                            },
+                        }
+                    ],
+                    "usage": {"completion_tokens": 4000},
+                },
+            )
+
+        monkeypatch.setattr(verifier_client.requests, "post", fake_post)
+        client = LiveForcedToolClient("https://example/v1", "key", "qwen3-next")
+
+        with pytest.raises(LLMTruncatedResponseError):
+            client.call([], TOOL_SCHEMA)
+
+        assert calls["n"] == 1
 
     def test_gives_up_after_max_retries(self, monkeypatch):
         def fake_post(url, json, headers, timeout):
