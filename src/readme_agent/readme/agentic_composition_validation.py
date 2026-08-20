@@ -26,6 +26,7 @@ from readme_agent.readme.agentic_composition_inputs import (
     composition_fact_payloads,
     composition_input_payload,
     composition_input_sha256,
+    do_not_claim_payloads,
     independent_repair_hints,
 )
 from readme_agent.readme.agentic_composition_models import (
@@ -247,6 +248,7 @@ def validate_readme_composition_plan(
                 assessment_payload=assessment_payload,
                 phrase_options=phrase_options,
                 authoring_hints=plan.authoring_hints,
+                do_not_claim=do_not_claim_payloads(facts),
             )
         ),
     }

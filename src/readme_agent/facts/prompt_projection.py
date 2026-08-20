@@ -12,11 +12,21 @@ _EXAMPLE_PROMPT_KEYS = (
     "verification_detail",
     "verified_public_symbols",
     "input_fixture_bindings",
+    "public_api_sha256",
     "python_package",
     "typescript_package",
     "rust_package",
     "rust_formats",
     "rust_source_dependency",
+    "acquisition_dependency_pins",
+    "python_execution_mode",
+    "python_source_install_failure",
+    # The one non-Python/TypeScript/Rust ecosystem-metadata carrier: proves
+    # a Java/.NET/C++/Go example compiles against real repository symbols
+    # under an isolated compiler (facts/compiled_consumer_schema.py). Was
+    # previously absent from this allow-list, so it never reached the
+    # author/reviewer prompt for any of those four ecosystems at all.
+    "compiled_consumer",
 )
 _ACQUISITION_PROMPT_KEYS = (
     "schema_version",

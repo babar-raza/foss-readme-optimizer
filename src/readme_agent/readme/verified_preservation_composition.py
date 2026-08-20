@@ -25,6 +25,7 @@ from readme_agent.readme.agentic_composition_inputs import (
     composition_fact_payloads,
     composition_input_payload,
     composition_input_sha256,
+    do_not_claim_payloads,
 )
 from readme_agent.readme.agentic_composition_models import (
     AgenticCompositionToolDraftV1,
@@ -378,6 +379,7 @@ def build_verified_preservation_composition_plan(
         assessment_payload=assessment_payload,
         phrase_options=phrase_options,
         authoring_hints=_AUTHORING_HINTS,
+        do_not_claim=do_not_claim_payloads(facts),
     )
     plan = ReadmeAgenticCompositionPlanV1(
         org_repo=org_repo,

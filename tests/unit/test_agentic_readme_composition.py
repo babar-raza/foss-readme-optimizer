@@ -65,7 +65,7 @@ CHARACTERIZATION_ASSESSMENT_SHA256 = (
     "9b3eee151d3e49cdbf3259d2646050d6c6af67d94f330a39fcd2453c98a75c4b"
 )
 CHARACTERIZATION_AGENTIC_PLAN_SHA256 = (
-    "0b04df12d3ffcbde3e72fe68168ba51c5dbdd511b7a408ff16ac0a534c2ceb15"
+    "a7fa01ddc2b4973b16c708febedcdf04099b3ce0168c3875b00a6442ffe1b151"
 )
 CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
     # 2026-08-19: hashed with `template_sha256` excluded (checked separately,
@@ -118,7 +118,14 @@ def _canonical_hash(value: object) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
-def test_authoring_packet_excludes_native_verifier_receipts_and_caps_equivalent_attempts():
+def test_authoring_packet_bounds_native_verifier_receipts_and_caps_equivalent_attempts():
+    """Cross-ecosystem course-correction: `compiled_consumer` (the .NET/
+    Java/C++/Go example-verification proof) must survive compaction as real
+    ecosystem metadata -- it is no longer dropped wholesale -- but its
+    native execution transcript is bounded generically by length, not
+    excluded by field name, so a huge stdout blob still cannot balloon the
+    authoring packet."""
+
     facts, _revision = _facts()
     example = facts.selected_fact("example.minimal")
     example_value = dict(example.value) if isinstance(example.value, dict) else {}
@@ -137,7 +144,8 @@ def test_authoring_packet_excludes_native_verifier_receipts_and_caps_equivalent_
     payloads = composition_fact_payloads(facts, accepted_composition_fact_ids(facts))
     projected_example = next(row for row in payloads if row["field"] == "example.minimal")
 
-    assert "compiled_consumer" not in projected_example["value"]
+    assert "compiled_consumer" in projected_example["value"]
+    assert len(projected_example["value"]["compiled_consumer"]["stdout"]) < 600
     assert len(json.dumps(payloads)) < 50_000
     assert MAX_AUTHORING_ATTEMPTS == 2
 

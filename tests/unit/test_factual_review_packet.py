@@ -112,7 +112,13 @@ def test_packet_retains_selected_grounding_and_excludes_large_producer_fields():
     assert len(serialized) < len(json.dumps(plan)) // 2
 
 
-def test_packet_excludes_native_execution_transcripts_but_keeps_full_fact_hash():
+def test_packet_bounds_native_execution_transcripts_but_keeps_full_fact_hash():
+    """Cross-ecosystem course-correction: `compiled_consumer` (the .NET/
+    Java/C++/Go example-verification proof) survives compaction as real
+    ecosystem metadata for the factual reviewer, but a native execution
+    transcript is bounded by length -- never the full multi-hundred-
+    thousand-character blob, regardless of its field name."""
+
     candidate, facts, plan = _inputs()
     facts["selected_fact_ids"]["example.minimal"] = "fact-example"
     facts["facts"].append(
@@ -138,8 +144,9 @@ def test_packet_excludes_native_execution_transcripts_but_keeps_full_fact_hash()
 
     assert packet.product_facts_sha256 == json_hash(facts)
     assert example.value["code"] == "Scene scene = new Scene();"
-    assert "compiled_consumer" not in example.value
-    assert "native-proof" not in serialized
+    assert "compiled_consumer" in example.value
+    assert len(example.value["compiled_consumer"]["stdout"]) < 600
+    assert "native-proof" * 100_000 not in serialized
     assert len(serialized) < 5_000
 
 

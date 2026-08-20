@@ -29,6 +29,7 @@ from readme_agent.readme.agentic_composition_inputs import (
     composition_fact_payloads,
     composition_input_payload,
     composition_input_sha256,
+    do_not_claim_payloads,
     independent_repair_hints,
 )
 from readme_agent.readme.agentic_composition_models import (
@@ -131,6 +132,7 @@ def plan_readme_composition(
         raise ValueError("max_attempts must be at least 1")
     accepted_ids = accepted_composition_fact_ids(facts)
     facts_payload = composition_fact_payloads(facts, accepted_ids)
+    do_not_claim = do_not_claim_payloads(facts)
     phrase_options = overview_phrase_options(facts)
     if not phrase_options:
         raise LLMError("README composition has no accepted fact phrase eligible for an overview")
@@ -172,6 +174,7 @@ def plan_readme_composition(
             assessment_payload=assessment_payload,
             phrase_options=phrase_options,
             authoring_hints=repair_hints_section,
+            do_not_claim=do_not_claim,
         )
         messages = build_readme_composition_messages(
             org_repo=org_repo,
