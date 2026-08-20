@@ -423,3 +423,28 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
   through `run_aspose_checks()`, defaulting to `False`, set `True` only by the real candidate-
   acceptance call sites) rather than any caller that happens to pass a `ProductFactsV2` with a real
   `org_repo` string. Not attempted here to avoid growing this operation's scope past ledger/K3.
+- 2026-08-20 (GOV-014): **`runs/share/poc/RESULTS.md` still carries pre-fix legacy duplicate rows,
+  including 8 org_repos whose current (last-appended) row reads the literal `DELIVERED` label.**
+  `commands_poc.py::_append_results_row()` was repaired this operation so any row it writes for a
+  given `org_repo` replaces every earlier row for that same repo, and `_poc_status()` now derives
+  every future status strictly from validation/ledger/no-op/review artifacts -- the current code
+  can never itself emit the literal string `DELIVERED` (its closest label is `REVIEW_CANDIDATE`).
+  Both are proven correct going forward by `tests/unit/test_poc_results_honesty.py`. What the fix
+  does *not* do is retroactively rewrite rows nothing has re-appended since before the fix existed:
+  `_append_results_row()` only replaces the row for the `org_repo` it is called with, so the 82
+  rows on disk for only 32 distinct repos are mostly untouched pre-Phase-A2 history, and 8 of those
+  32 repos' most-recent-on-disk row is a literal `DELIVERED` written by the *old* pre-A2 status
+  vocabulary, never re-validated against the current disposition-ledger/claim-accountability/K3
+  gates (`aspose-email-foss`, `aspose-font-foss`, `aspose-html-foss`, `aspose-page-foss`,
+  `aspose-slides-foss`, `aspose-tex-foss`, `aspose-words-foss` for Python, and `aspose-psd-foss` for
+  Python). This is not a proven-false claim -- these candidates may well still pass -- but it is
+  also not proven true under the current gates, and closing that gap requires regenerating each
+  candidate, which this operation's course-correction explicitly forbids ("do not start repeated
+  candidate generation"). **Next causal action:** once the seven-ecosystem canary train referenced
+  in that course-correction begins, either (a) let each of these 8 repos naturally self-heal the
+  next time its candidate is regenerated (no code change needed -- `_append_results_row()` already
+  does the right thing on that call), or (b) if a clean file is needed sooner without regenerating
+  anything, a one-time, no-status-changing dedup pass (keep only the last on-disk row per org_repo,
+  in file order -- exactly what repeated `_append_results_row()` calls would already converge to)
+  would remove the historical noise without inventing or re-deriving any status. Not attempted here
+  to respect this operation's explicit "do not expand ... work" boundary.
