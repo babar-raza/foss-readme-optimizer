@@ -175,6 +175,49 @@ def _source_claim_has_candidate_placement(
     )
 
 
+def _content_identity_fallback_matches(
+    source_claims: list[ReadmeMaterialClaimAssessmentV1],
+    candidate_claims: list[ReadmeMaterialClaimAssessmentV1],
+    *,
+    positionally_matched_source_ids: set[str],
+    positionally_matched_candidate_ids: set[str],
+) -> dict[str, ReadmeMaterialClaimAssessmentV1]:
+    """Last-resort content-identity fallback: candidate claim_id -> its
+    matched source claim, for a claim whose composition-ledger positional
+    placement mapping already failed to locate an origin at all (the real
+    Note/Python gap -- a verified-template compile commonly carries only a
+    single whole-document `lineage_only` provenance binding, never a
+    per-claim positional placement). Mirrors the same content_sha256-based
+    matching already used, unconditionally, when no composition ledger is
+    supplied at all (`build_readme_claim_accountability_map`'s
+    `composition_ledger is None` branch) -- this is that identical identity
+    signal, applied only where positional placement matching already failed,
+    never overriding a genuine positional match. A content hash shared by
+    more than one still-unmatched claim on either side is ambiguous and is
+    refused, not guessed."""
+
+    unmatched_sources = [
+        claim for claim in source_claims if claim.claim_id not in positionally_matched_source_ids
+    ]
+    unmatched_candidates = [
+        claim
+        for claim in candidate_claims
+        if claim.claim_id not in positionally_matched_candidate_ids
+    ]
+    sources_by_hash: dict[str, list[ReadmeMaterialClaimAssessmentV1]] = {}
+    for claim in unmatched_sources:
+        sources_by_hash.setdefault(claim.content_sha256, []).append(claim)
+    candidates_by_hash: dict[str, list[ReadmeMaterialClaimAssessmentV1]] = {}
+    for claim in unmatched_candidates:
+        candidates_by_hash.setdefault(claim.content_sha256, []).append(claim)
+    matches: dict[str, ReadmeMaterialClaimAssessmentV1] = {}
+    for content_hash, sources in sources_by_hash.items():
+        candidates = candidates_by_hash.get(content_hash)
+        if len(sources) == 1 and candidates is not None and len(candidates) == 1:
+            matches[candidates[0].claim_id] = sources[0]
+    return matches
+
+
 def _merged_fact_coordinates(
     *coordinate_groups: list[StructuredFactCoordinateV1] | tuple[StructuredFactCoordinateV1, ...],
 ) -> list[StructuredFactCoordinateV1]:
@@ -324,6 +367,8 @@ def build_readme_claim_accountability_map(
     candidate_origins: dict[str, ClaimOrigin]
     candidate_sources: dict[str, ReadmeMaterialClaimAssessmentV1 | None]
     policy_candidate_sources: dict[str, ReadmeMaterialClaimAssessmentV1 | None]
+    content_fallback_matches: dict[str, ReadmeMaterialClaimAssessmentV1]
+    content_fallback_source_ids: set[str]
     if composition_ledger is not None:
         candidate_sources = {
             claim.claim_id: _candidate_claim_source(
@@ -334,6 +379,24 @@ def build_readme_claim_accountability_map(
                 source_claims_by_id,
             )
             for claim in candidate_claims
+        }
+        content_fallback_matches = _content_identity_fallback_matches(
+            source_claims,
+            candidate_claims,
+            positionally_matched_source_ids={
+                claim.claim_id
+                for claim in source_claims
+                if _source_claim_has_candidate_placement(
+                    claim, source_bytes, candidate_bytes, composition_ledger.source_placements
+                )
+            },
+            positionally_matched_candidate_ids={
+                claim_id for claim_id, source_claim in candidate_sources.items() if source_claim
+            },
+        )
+        candidate_sources.update(content_fallback_matches)
+        content_fallback_source_ids = {
+            claim.claim_id for claim in content_fallback_matches.values()
         }
         candidate_origins = {
             claim_id: "inherited" if source_claim is not None else "generated"
@@ -353,6 +416,8 @@ def build_readme_claim_accountability_map(
     else:
         candidate_sources = {}
         policy_candidate_sources = {}
+        content_fallback_matches = {}
+        content_fallback_source_ids = set()
         raw_candidate_occurrences = Counter(
             {
                 claim.content_sha256: candidate_text.count(
@@ -465,6 +530,7 @@ def build_readme_claim_accountability_map(
                 fact_ids,
             ),
             llm_disposition_corroborated=llm_disposition_corroborated,
+            content_identity_equivalence=claim.claim_id in content_fallback_matches,
         )
         candidate_records.append(
             accountability_record(
@@ -554,11 +620,14 @@ def build_readme_claim_accountability_map(
             ]
         fact_ids.update(coordinate.fact_id for coordinate in fact_coordinates)
         if composition_ledger is not None:
-            survives = _source_claim_has_candidate_placement(
-                claim,
-                source_bytes,
-                candidate_bytes,
-                composition_ledger.source_placements,
+            survives = (
+                _source_claim_has_candidate_placement(
+                    claim,
+                    source_bytes,
+                    candidate_bytes,
+                    composition_ledger.source_placements,
+                )
+                or claim.claim_id in content_fallback_source_ids
             )
         else:
             assert raw_candidate_occurrences is not None
@@ -609,6 +678,9 @@ def build_readme_claim_accountability_map(
             survives_in_candidate=survives,
             source_resolution=resolution,
             llm_disposition_corroborated=llm_disposition_corroborated,
+            content_identity_equivalence=(
+                resolution is None and claim.claim_id in content_fallback_source_ids
+            ),
         )
         source_records.append(
             accountability_record(

@@ -78,7 +78,17 @@ CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
     # actually changed; 14 such commits landed between the prior two pins
     # (`e5086aa4f`..`6d112bbf8`) alone. Excluding it here makes this golden
     # value move only on genuine candidate/operation/provenance drift.
-    "9d40f48e638a7deddfe70af70f2a09e7ee315391dda445874f4bc634b9ee8205"
+    #
+    # 2026-08-20: moved again -- genuine drift. The content-identity fallback
+    # (`claim_accountability.py::_content_identity_fallback_matches`) now
+    # correctly attributes `candidate:claim:808:...`'s origin as `inherited`
+    # rather than `generated`: its content is byte-identical to source text
+    # (the opening summary is embedded verbatim in both `source` and the
+    # candidate here), which the composition ledger's positional placement
+    # mapping never covered. `expected_disposition`/`currently_accountable`
+    # for that claim are unchanged (`accepted_fact`/`True`, via its own real
+    # accepted facts) -- only the `origin` field corrected.
+    "b3339c5e83c7fc921282702e087abe4f9cffd464be80e45a1088e2562b2d7ff0"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
     "48acd4b33fedaf91ac1e8e7c69e3adb2bf09db542abcc92cde9db75ed7432636"

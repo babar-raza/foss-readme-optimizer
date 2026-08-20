@@ -116,10 +116,18 @@ def test_duplicate_text_cannot_spoof_candidate_origin_when_ledger_maps_second_co
 
 
 def test_partial_placement_does_not_claim_complete_candidate_or_source_claim() -> None:
+    """A placement covering only part of a claim's span must not be stretched
+    to cover the whole claim -- distinct from, and not rescued by, the
+    content-identity fallback: the candidate's full claim text genuinely
+    differs from the source's beyond the partially-placed prefix, so neither
+    positional placement nor content-hash matching can honestly claim full
+    coverage."""
+
     source = f"# Source\n\n{CLAIM}"
-    candidate = f"# Candidate\n\n{CLAIM}"
+    candidate_claim = "Repeated capability text, but rewritten differently.\n"
+    candidate = f"# Candidate\n\n{candidate_claim}"
     source_start = source.index(CLAIM)
-    candidate_start = candidate.index(CLAIM)
+    candidate_start = candidate.index(candidate_claim)
     partial_length = len(b"Repeated")
     placement = _placement(
         source,

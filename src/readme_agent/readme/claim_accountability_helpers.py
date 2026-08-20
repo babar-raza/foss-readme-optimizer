@@ -108,6 +108,7 @@ def expected_disposition(
     structured_equivalence: bool = False,
     configured_candidate_policy_correction: bool = False,
     llm_disposition_corroborated: bool = False,
+    content_identity_equivalence: bool = False,
 ) -> tuple[ExpectedClaimDisposition, bool, str]:
     if structured_equivalence:
         if stage != "source" or survives_in_candidate is not False:
@@ -263,6 +264,42 @@ def expected_disposition(
             "No mechanical fact binding covers the exact claim text; a bounded, deterministically "
             "corroborated LLM classification is recorded in the claim-disposition ledger as an "
             "explicit, auditable alternative acceptance path.",
+        )
+    if content_identity_equivalence:
+        # A true last resort, purely mechanical signal: every richer check
+        # above (an accepted fact, a configured standard, LLM corroboration)
+        # already failed to account for this claim, but its content hash
+        # uniquely matches an otherwise-equally-unaccountable claim on the
+        # other side (see `_content_identity_fallback_matches()` in
+        # `claim_accountability.py`) -- used only when the composition
+        # ledger's positional placement mapping does not cover this span at
+        # all. Checked last, never ahead of a genuine positional match, an
+        # explicit `source_resolution`, or any richer fact/standard binding,
+        # so a claim that already has a real reason to be accountable keeps
+        # that reason and rationale unchanged.
+        if stage == "source":
+            if survives_in_candidate is not True:
+                return (
+                    "unjustified_loss",
+                    False,
+                    "Content-identity equivalence requires the exact source claim to "
+                    "genuinely survive by content hash.",
+                )
+            return (
+                "verified_equivalence",
+                True,
+                "The exact source claim's content is byte-identical, by content hash, to "
+                "an otherwise-unaccountable exact candidate claim; the composition "
+                "ledger's positional placement mapping does not cover this span, but "
+                "content identity alone is sufficient, generic proof of preservation.",
+            )
+        return (
+            "verified_equivalence",
+            True,
+            "The exact candidate claim's content is byte-identical, by content hash, to "
+            "an exact source claim the composition ledger's positional placement mapping "
+            "does not cover; content identity alone is sufficient, generic proof this "
+            "material is inherited, not newly generated.",
         )
     if stage == "candidate" and origin == "generated":
         return (

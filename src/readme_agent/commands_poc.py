@@ -35,6 +35,7 @@ from readme_agent.readme.agentic_composition import (
 )
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.idea_candidate import prepare_idea_fidelity_candidate
+from readme_agent.readme.source_heading_identity import resolve_disposition_target
 from readme_agent.readme.verified_preservation_composition import (
     build_verified_preservation_composition_plan,
 )
@@ -132,11 +133,26 @@ def build_source_disposition_ledger(
                 "unit": f"H{depth}: {label!r}",
                 "blocks": [],
                 "heading_text": label,
+                # `fact.heading_path` is the unit's own full, un-prefixed
+                # ancestor chain (leaf last) -- the identity resolver walks
+                # this, never the raw "## "-prefixed `heading_text` above.
+                "heading_path": fact.heading_path,
+                "source_byte_start": span.byte_start,
+                "source_byte_end": span.byte_end,
             }
             continue
         if current is None:
-            current = {"unit": f"Opening: {label!r}", "blocks": [], "heading_text": ""}
+            current = {
+                "unit": f"Opening: {label!r}",
+                "blocks": [],
+                "heading_text": "",
+                "heading_path": (),
+                "source_byte_start": span.byte_start,
+                "source_byte_end": span.byte_end,
+            }
         current["blocks"].append((span.byte_start, span.byte_end, kind, label))
+        current["source_byte_start"] = min(current["source_byte_start"], span.byte_start)
+        current["source_byte_end"] = max(current["source_byte_end"], span.byte_end)
     if current is not None:
         units.append(current)
 
@@ -182,21 +198,36 @@ def build_source_disposition_ledger(
             "NON_CONTENT",
         )
         reason = next(reason for outcome, reason in block_outcomes if outcome == chosen)
+        # A unit with zero body blocks (a bare heading -- most commonly the
+        # H1 document title, or any heading immediately followed by another
+        # heading with no intervening prose) owns no body content a
+        # `compiled_slot_blocks` entry could ever hold; requiring a slot
+        # target for it would be requiring an answer to a question that does
+        # not apply, not a genuinely unaccounted unit -- distinct from an
+        # auto-generated, never-a-slot heading like "## Navigation" that
+        # *does* have real body blocks and must still resolve or be reported.
+        has_body = bool(unit["blocks"])
         target = ""
-        if chosen in {"VERIFIED_MERGED", "SUPERSEDED"}:
-            # heading_text carries the extracted source heading's literal
-            # markdown prefix (e.g. "## Installation"); compiled_blocks is
-            # keyed by the bare contract heading text (e.g. "Installation").
-            heading = unit.get("heading_text", "").lstrip("#").strip()
-            block_text = compiled_blocks.get(heading)
-            if block_text and block_text in raw_candidate_text:
-                target = heading
+        if chosen in {"VERIFIED_MERGED", "SUPERSEDED"} and has_body:
+            content_snippets = tuple(
+                label for _start, _end, _kind, label in unit["blocks"] if len(label) >= 24
+            )
+            target = resolve_disposition_target(
+                unit.get("heading_path", ()),
+                compiled_blocks,
+                raw_candidate_text,
+                content_snippets=content_snippets,
+            )
         ledger_units.append(
             {
                 "unit": unit["unit"],
                 "disposition": chosen,
                 "target": target,
                 "reason": reason[:200],
+                "requires_target": has_body,
+                "heading_path": list(unit.get("heading_path", ())),
+                "source_byte_start": unit.get("source_byte_start"),
+                "source_byte_end": unit.get("source_byte_end"),
             }
         )
 
@@ -284,6 +315,14 @@ def _disposition_acceptance(ledger: dict) -> tuple[bool, list[str]]:
     for item in ledger["units"]:
         if item["disposition"] not in _DISPOSITION_PRIORITY:
             errors.append(f"unit without valid disposition: {item['unit']}")
+        if item["disposition"] == "UNVERIFIABLE_DROPPED":
+            # UNVERIFIABLE_DROPPED means, by construction, "genuinely
+            # unaccounted for" -- an auto-generated placeholder reason (e.g.
+            # "no accountability record and no candidate placement") is not
+            # itself a verified justification, so this always blocks; a
+            # merely-empty reason string is reported as a distinct, more
+            # basic defect below.
+            errors.append(f"genuinely unaccounted-for unit: {item['unit']}")
         if (
             item["disposition"] in {"UNVERIFIABLE_DROPPED", "NON_CONTENT"}
             and not item["reason"].strip()
@@ -291,6 +330,7 @@ def _disposition_acceptance(ledger: dict) -> tuple[bool, list[str]]:
             errors.append(f"dropped unit without reason: {item['unit']}")
         if (
             item["disposition"] in {"VERIFIED_MERGED", "SUPERSEDED"}
+            and item.get("requires_target", True)
             and not str(item.get("target") or "").strip()
         ):
             errors.append(f"retained unit without candidate destination: {item['unit']}")
@@ -317,16 +357,74 @@ def _append_backlog(line: str) -> None:
         handle.write(f"- {stamp}: {line}\n")
 
 
+_RESULTS_HEADER_LINES = (
+    "# POC results",
+    "",
+    "| Repo | Status | File | Open issues |",
+    "| --- | --- | --- | --- |",
+)
+
+
+def _poc_status(verdict: dict, *, review_open: bool, ledger_valid: bool, noop: dict) -> str:
+    """Derive this run's candidate-bound status strictly from validation,
+    disposition-ledger, no-op, and independent-review artifacts -- never
+    hand-labeled. `REVIEW_CANDIDATE` (the closest this diagnostic runner ever
+    gets to "accepted") requires all four to agree; any one disagreeing
+    reports a specific, honest reason instead."""
+
+    accept = verdict.get("verdict") == "accept"
+    reproducible = noop.get("verdict") == "RENDER_REPRODUCIBLE"
+    if accept and not review_open and ledger_valid and reproducible:
+        return "REVIEW_CANDIDATE"
+    if review_open:
+        return "DIAGNOSTIC_REVIEW_OPEN"
+    if accept and not ledger_valid:
+        return "DIAGNOSTIC_DISPOSITION_LEDGER_INVALID"
+    if accept and not reproducible:
+        return "DIAGNOSTIC_NOOP_UNREPRODUCIBLE"
+    return f"DIAGNOSTIC_VALIDATION_{verdict.get('verdict', 'unknown')}"
+
+
+def _parse_results_rows(text: str) -> list[tuple[str, str, str, str]]:
+    """Existing rows matching the canonical 4-column table shape. Anything
+    else (a header, a separator, or non-conforming hand-inserted content)
+    is dropped, not carried forward -- this file is machine-generated
+    candidate-bound evidence, never a hand-editable summary, so a line that
+    cannot be trusted as genuine generated evidence must not survive a
+    rewrite."""
+
+    rows: list[tuple[str, str, str, str]] = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not (stripped.startswith("|") and stripped.endswith("|")):
+            continue
+        cells = [cell.strip() for cell in stripped.strip("|").split("|")]
+        if len(cells) != 4 or cells[0] in {"Repo", "---"}:
+            continue
+        rows.append((cells[0], cells[1], cells[2], cells[3]))
+    return rows
+
+
 def _append_results_row(org_repo: str, status: str, readme_path: str, issues: str) -> None:
+    """Write this run's row for `org_repo`, replacing any earlier row for the
+    same repository so the file can never carry a stale or contradicting
+    status forward across reruns -- the row's own `status` is always exactly
+    what `_poc_status()` derived from this run's candidate-bound validation,
+    disposition-ledger, no-op, and review artifacts."""
+
     results = _SHARE_ROOT / "RESULTS.md"
     results.parent.mkdir(parents=True, exist_ok=True)
-    if not results.exists():
-        results.write_text(
-            "# POC results\n\n| Repo | Status | File | Open issues |\n| --- | --- | --- | --- |\n",
-            encoding="utf-8",
-        )
-    with results.open("a", encoding="utf-8") as handle:
-        handle.write(f"| {org_repo} | {status} | {readme_path} | {issues} |\n")
+    existing_rows = (
+        _parse_results_rows(results.read_text(encoding="utf-8")) if results.exists() else []
+    )
+    rows = [row for row in existing_rows if row[0] != org_repo]
+    rows.append((org_repo, status, readme_path, issues))
+    lines = list(_RESULTS_HEADER_LINES)
+    lines.extend(
+        f"| {repo} | {row_status} | {file} | {open_issues} |"
+        for repo, row_status, file, open_issues in rows
+    )
+    results.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def _compose(org_repo: str, facts: ProductFactsV2, plan_payload: dict | None) -> dict:
@@ -545,15 +643,7 @@ def run_poc_for_repo(org_repo: str) -> int:
     )
     _write_json(share_dir / "noop.json", noop)
 
-    status = (
-        "REVIEW_CANDIDATE"
-        if verdict.get("verdict") == "accept" and not review_open
-        else (
-            "DIAGNOSTIC_REVIEW_OPEN"
-            if review_open
-            else f"DIAGNOSTIC_VALIDATION_{verdict.get('verdict', 'unknown')}"
-        )
-    )
+    status = _poc_status(verdict, review_open=review_open, ledger_valid=ledger_valid, noop=noop)
     readme_path = str(share_dir / "README.md")
     issue_parts = [
         *ledger_errors,
@@ -561,6 +651,11 @@ def run_poc_for_repo(org_repo: str) -> int:
         *(
             [str(verdict.get("reason", ""))[:160]]
             if verdict.get("verdict") != "accept" and verdict.get("reason")
+            else []
+        ),
+        *(
+            ["render not reproducible on immediate no-op replay"]
+            if status == "DIAGNOSTIC_NOOP_UNREPRODUCIBLE"
             else []
         ),
     ]
