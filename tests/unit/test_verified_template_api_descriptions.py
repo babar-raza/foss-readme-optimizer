@@ -376,3 +376,84 @@ def test_font_cryptography_and_preset_helpers_have_concrete_descriptions() -> No
 
     for name, expected in expectations.items():
         assert describe_api_export(None, module="aspose_font", name=name, family="Font") == expected
+
+
+def test_stub_method_is_discoverable_but_never_authorizes_capability_prose() -> None:
+    """K2 mandatory red/green: `NurbsSurface.to_mesh` remains discoverable
+    as a public signature, but its description must not use "supports,"
+    "converts," or equivalent capability language while the method's cited
+    body is a proven stub (`implemented is False`)."""
+
+    stub_member = {
+        "name": "to_mesh",
+        "kind": "method",
+        "surface": "to_mesh()",
+        "declared_by": "NurbsSurface",
+        "inherited": False,
+        "implemented": False,
+    }
+
+    assert member_api_identifier("NurbsSurface", stub_member) == "NurbsSurface.to_mesh()"
+    description = describe_api_member("NurbsSurface", stub_member)
+
+    assert description == (
+        "Declares the `to_mesh` operation on `NurbsSurface` (not yet implemented)."
+    )
+    lowered = description.casefold()
+    assert "supports" not in lowered
+    assert "converts" not in lowered
+    assert "renders" not in lowered
+
+
+def test_stub_method_never_contributes_a_supports_action_to_the_class_summary() -> None:
+    """The class-level overview (`describe_api_export`'s "Supports ..."
+    sentence) must skip a stub method entirely -- not merely soften its own
+    per-member wording."""
+
+    item = {
+        "bases": [],
+        "members": [
+            {
+                "name": "to_mesh",
+                "kind": "method",
+                "declared_by": "NurbsSurface",
+                "inherited": False,
+                "implemented": False,
+            }
+        ],
+    }
+
+    description = describe_api_export(
+        item, module="aspose.threed", name="NurbsSurface", family="3D"
+    )
+
+    assert "supports" not in description.casefold()
+    assert "mesh" not in description.casefold()
+
+
+def test_implemented_true_and_missing_preserve_existing_capability_phrasing() -> None:
+    """Backward compatibility: `implemented is True` (a real body) and a
+    missing/`None` `implemented` key (older cached facts, or a non-callable
+    member) both keep the original "Supports ..." phrasing -- only a proven
+    `False` suppresses it."""
+
+    real_member = {
+        "name": "to_mesh",
+        "kind": "method",
+        "declared_by": "NurbsSurface",
+        "inherited": False,
+        "implemented": True,
+    }
+    unknown_member = {
+        "name": "to_mesh",
+        "kind": "method",
+        "declared_by": "NurbsSurface",
+        "inherited": False,
+    }
+
+    assert describe_api_member("NurbsSurface", real_member) == (
+        "Supports converting content to mesh through `NurbsSurface`."
+    )
+    assert describe_api_member("NurbsSurface", unknown_member) == (
+        "Supports converting content to mesh through `NurbsSurface`."
+    )

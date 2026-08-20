@@ -6,6 +6,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from readme_agent.facts.aspose_detectors import (
+    detect_api_public_surface,
     detect_archetype,
     detect_capability_dependencies,
     detect_dependency_claims,
@@ -328,3 +329,121 @@ def test_detect_dependency_claims_malformed_claims_json_degrades_gracefully(tmp_
 
     assert result.claims == ()
     assert result.repo_sha is None
+
+
+def test_detect_api_public_surface_real_3d_normalizes_to_a_stable_non_empty_result():
+    """K2 mandatory red/green: the real 3D `api_surface.json` bundle has
+    `visibility` in {"public", "conventional"} and `reachable` uniformly
+    `False` for all 327 entries -- a non-discriminating field that must
+    never gate the whole bundle to empty. All 184 `visibility: "public"`
+    entries normalize to a real, non-empty result."""
+
+    result = detect_api_public_surface("3d", "python", data_root=_DATA_ROOT)
+
+    assert result is not None
+    assert result.model_sha == "ee05c1ba9153ef5916b7a108406c794f2e464d01"
+    total_classes = sum(len(module.classes) for module in result.modules)
+    assert total_classes == 184
+
+
+def test_detect_api_public_surface_real_note_normalizes_to_a_stable_non_empty_result():
+    """The real Note bundle uses `visibility: "exported"` (not "public")
+    plus a handful of entries with no visibility label at all -- both must
+    normalize into the same canonical public-surface result."""
+
+    result = detect_api_public_surface("note", "python", data_root=_DATA_ROOT)
+
+    assert result is not None
+    total_classes = sum(len(module.classes) for module in result.modules)
+    assert total_classes == 28
+
+
+def test_detect_api_public_surface_real_barcode_normalizes_to_a_stable_non_empty_result():
+    """The real Barcode bundle has no `reachable` field at all and roughly
+    half its entries have no `visibility` label either -- normalization
+    must still recover a real, non-empty, stable public surface."""
+
+    result = detect_api_public_surface("barcode", "python", data_root=_DATA_ROOT)
+
+    assert result is not None
+    total_classes = sum(len(module.classes) for module in result.modules)
+    assert total_classes == 146
+
+
+def test_detect_api_public_surface_public_internal_distinction_is_preserved(tmp_path):
+    """A `conventional`/internal-labeled entry is excluded; an explicitly
+    public one is included -- schema normalization must never blur that
+    distinction away."""
+
+    merged_dir = tmp_path / "knowledge" / "widget" / "python" / "merged"
+    merged_dir.mkdir(parents=True)
+    (merged_dir / "api_surface.json").write_text(
+        '[{"name": "PublicThing", "kind": "class_definition", "visibility": "public", '
+        '"reachable": false, "methods": [], "properties": []}, '
+        '{"name": "_InternalHelper", "kind": "class_definition", "visibility": "conventional", '
+        '"reachable": false, "methods": [], "properties": []}]',
+        encoding="utf-8",
+    )
+
+    result = detect_api_public_surface("widget", "python", data_root=tmp_path)
+
+    assert result is not None
+    names = {item.name for module in result.modules for item in module.classes}
+    assert "PublicThing" in names
+    assert "_InternalHelper" not in names
+
+
+def test_detect_api_public_surface_missing_visibility_falls_back_to_name_convention(tmp_path):
+    """No visibility label at all (real Note/Barcode gap): a public-looking
+    name is included, a leading-underscore name is excluded."""
+
+    merged_dir = tmp_path / "knowledge" / "widget" / "python" / "merged"
+    merged_dir.mkdir(parents=True)
+    (merged_dir / "api_surface.json").write_text(
+        '[{"name": "PublicThing", "kind": "function", "methods": [], "properties": [], '
+        '"params": [], "return_type": ""}, '
+        '{"name": "_private_thing", "kind": "function", "methods": [], "properties": [], '
+        '"params": [], "return_type": ""}]',
+        encoding="utf-8",
+    )
+
+    result = detect_api_public_surface("widget", "python", data_root=tmp_path)
+
+    assert result is not None
+    names = {item.name for module in result.modules for item in module.classes}
+    assert "PublicThing" in names
+    assert "_private_thing" not in names
+
+
+def test_detect_api_public_surface_bare_function_keeps_its_own_signature(tmp_path):
+    """A top-level `function`-kind entry carries its own params/return_type
+    directly, not nested under "methods" -- it must not silently project to
+    an empty, zero-member class row."""
+
+    merged_dir = tmp_path / "knowledge" / "widget" / "python" / "merged"
+    merged_dir.mkdir(parents=True)
+    (merged_dir / "api_surface.json").write_text(
+        '[{"name": "build_thing", "kind": "function", "doc": "Builds a thing.", '
+        '"methods": [], "properties": [], '
+        '"params": [{"name": "count", "type": "int"}], "return_type": "Thing"}]',
+        encoding="utf-8",
+    )
+
+    result = detect_api_public_surface("widget", "python", data_root=tmp_path)
+
+    assert result is not None
+    item = next(item for module in result.modules for item in module.classes)
+    assert item.name == "build_thing"
+    assert len(item.methods) == 1
+    assert item.methods[0].signature == "build_thing(count: int) -> Thing"
+
+
+def test_detect_api_public_surface_is_deterministic_across_calls():
+    """K2 mandatory red/green: identical corpus input yields identical
+    normalized API facts -- byte-identical, not merely equal in shape."""
+
+    first = detect_api_public_surface("barcode", "python", data_root=_DATA_ROOT)
+    second = detect_api_public_surface("barcode", "python", data_root=_DATA_ROOT)
+
+    assert first is not None
+    assert first.model_dump(mode="json") == second.model_dump(mode="json")

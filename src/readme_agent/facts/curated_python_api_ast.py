@@ -153,6 +153,40 @@ def member_return_annotation(root: Path, symbol: PublicSymbolV1) -> str | None:
     return ast.unparse(node.returns)
 
 
+def member_is_implemented(root: Path, symbol: PublicSymbolV1) -> bool | None:
+    """Whether a method/function member's body is a real implementation, not
+    a stub that only raises an unsupported-operation exception -- the same
+    `raise NotImplemented*/NotSupported*/Unsupported*` idiom this repo
+    already treats as authoritative negative implementation evidence
+    elsewhere (`facts/python_evidence_polarity.py::function_is_unimplemented`).
+    `None` when the member is not a callable (a property/typed field has no
+    "implemented" concept) or its source node cannot be resolved -- absence
+    of evidence is never itself a positive or negative signal; only a
+    resolved, unambiguous stub body returns `False`."""
+
+    node = _symbol_node(root, symbol)
+    if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+        return None
+    body = list(node.body)
+    if body and isinstance(body[0], ast.Expr) and isinstance(body[0].value, ast.Constant):
+        if isinstance(body[0].value.value, str):
+            body = body[1:]
+    if len(body) != 1 or not isinstance(body[0], ast.Raise) or body[0].exc is None:
+        return True
+    exception = body[0].exc
+    if isinstance(exception, ast.Call):
+        exception = exception.func
+    if isinstance(exception, ast.Name):
+        name = exception.id
+    elif isinstance(exception, ast.Attribute):
+        name = exception.attr
+    else:
+        return True
+    if name.startswith(("NotImplemented", "NotSupported", "Unsupported")):
+        return False
+    return True
+
+
 def class_source_semantics(root: Path, symbol: PublicSymbolV1) -> dict[str, object]:
     """Extract exact class bases and a directly declared constructor signature."""
 

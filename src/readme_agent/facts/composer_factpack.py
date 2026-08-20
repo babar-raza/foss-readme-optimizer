@@ -319,10 +319,21 @@ def aspose_fact_records(
         # same field Python's own AST-based detector (curated_python_public_
         # surface.py) populates; for every other platform it was previously
         # never resolvable at all (see detect_api_public_surface's own
-        # docstring). Shaped to satisfy verified_source_detail_routing.py's
-        # `_api_reference_available()` contract (`modules: [{"module":
-        # str, "exports": [str, ...]}]`) while carrying the full per-class
-        # description/method/property detail for actual rendering.
+        # docstring). For Python, curated_python_public_surface.py's
+        # `mechanical_repository` source always outranks this
+        # `approved_documentation` one (resolution.py's source precedence),
+        # so this record is a non-authorizing supporting fact there; for the
+        # other 6 platforms with no repository-AST extractor, this is the
+        # sole `api.public_surface` source. Shaped to satisfy
+        # verified_source_detail_routing.py's `_api_reference_available()`
+        # contract (`modules: [{"module": str, "exports": [str, ...]}]`)
+        # while carrying the full per-class description/method/property
+        # detail for actual rendering. `classes` is a LIST of class
+        # dictionaries (each carrying its own "name"), matching the
+        # canonical shape curated_python_public_surface.py's `classes`
+        # already uses -- not a `{name: {...}}` dict, which both the
+        # compact prompt projection and template consumers reading this
+        # field generically expect a list from.
         add(
             "api.public_surface",
             {
@@ -333,8 +344,9 @@ def aspose_fact_records(
                     }
                     for module in surface.modules
                 ],
-                "classes": {
-                    item.name: {
+                "classes": [
+                    {
+                        "name": item.name,
                         "description": item.description,
                         "kind": item.kind,
                         "methods": [dict(member) for member in item.methods],
@@ -342,7 +354,7 @@ def aspose_fact_records(
                     }
                     for module in surface.modules
                     for item in module.classes
-                },
+                ],
                 "model_sha": surface.model_sha,
             },
             verified=surface.model_sha is not None,

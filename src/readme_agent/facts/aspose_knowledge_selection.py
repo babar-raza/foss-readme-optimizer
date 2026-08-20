@@ -74,7 +74,10 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
 
-from readme_agent.facts.aspose_detectors import detect_relevant_seo_keywords
+from readme_agent.facts.aspose_detectors import (
+    detect_api_public_surface,
+    detect_relevant_seo_keywords,
+)
 from readme_agent.facts.aspose_knowledge_claims import (
     BundleFreshness,
     ImportedKnowledgeClaimV1,
@@ -125,6 +128,30 @@ _NEVER_SELECTED_REASON: dict[KnowledgeClaimKind, str] = {
     "api_method": "kind_covered_by_api_surface_field",
     "api_field": "kind_covered_by_api_surface_field",
 }
+
+_API_CLAIM_KINDS: tuple[KnowledgeClaimKind, ...] = ("api", "api_class", "api_method", "api_field")
+
+
+def _effective_kind_field_map(
+    family: str, platform: str, *, data_root: Path
+) -> dict[KnowledgeClaimKind, tuple[str, str, list[str]]]:
+    """`_KIND_FIELD_MAP` plus a conditional API-claim fallback.
+
+    API-claim kinds stay excluded as "covered by the structured API surface
+    field" only when this run's own imported `api_surface.json` actually
+    produced a usable, non-empty canonical surface for this family/platform
+    (`aspose_detectors.detect_api_public_surface` -- the same imported-
+    knowledge structured surface `covered_by_api_surface` refers to). An
+    empty or invalid structured surface must never silently suppress these
+    claims as "covered": they instead become normally selectable, ranked,
+    and corroborated fallback evidence like every other claim kind, landing
+    in `aspose.api_claims` / "API Reference" when they survive selection."""
+
+    if detect_api_public_surface(family, platform, data_root=data_root) is not None:
+        return _KIND_FIELD_MAP
+    fallback_entry = ("aspose.api_claims", "API Reference", ["readme.api_reference"])
+    return {**_KIND_FIELD_MAP, **{kind: fallback_entry for kind in _API_CLAIM_KINDS}}
+
 
 _MAX_SELECTED_PER_KIND = 8
 _MIN_CONFIDENCE = 0.5
@@ -429,6 +456,7 @@ def select_knowledge_claims(
     freshness = assess_bundle_freshness(provenance, current_repo_sha=source_revision)
     readme_normalized = _readme_normalized_text(clone_cache)
     seo_keywords = detect_relevant_seo_keywords(family, platform, data_root=data_root).keywords
+    kind_field_map = _effective_kind_field_map(family, platform, data_root=data_root)
 
     dispositions: list[KnowledgeClaimDispositionV1] = []
     fact_records: list[FactRecordV2] = []
@@ -440,7 +468,7 @@ def select_knowledge_claims(
     stable_retrieved_at = (provenance.promoted_at if provenance else None) or "unknown"
 
     present_kinds = {claim.kind for claim in all_claims}
-    for kind in sorted(present_kinds - set(_KIND_FIELD_MAP)):
+    for kind in sorted(present_kinds - set(kind_field_map)):
         reason = _NEVER_SELECTED_REASON.get(kind, "kind_not_render_mapped")  # type: ignore[arg-type]
         for claim in claims_by_kind(all_claims, kind):  # type: ignore[arg-type]
             dispositions.append(
@@ -464,11 +492,11 @@ def select_knowledge_claims(
     # with the same descriptive fact_id, which ProductFactsV2 rejects as a
     # duplicate.
     fields_present = sorted(
-        {mapping[0] for kind, mapping in _KIND_FIELD_MAP.items() if kind in present_kinds}
+        {mapping[0] for kind, mapping in kind_field_map.items() if kind in present_kinds}
     )
     for field in fields_present:
-        field_kinds = [k for k, m in _KIND_FIELD_MAP.items() if m[0] == field]
-        _, section, surfaces = _KIND_FIELD_MAP[field_kinds[0]]
+        field_kinds = [k for k, m in kind_field_map.items() if m[0] == field]
+        _, section, surfaces = kind_field_map[field_kinds[0]]
         field_claims: list[ImportedKnowledgeClaimV1] = []
         for kind in field_kinds:
             field_claims.extend(claims_by_kind(all_claims, kind))  # type: ignore[arg-type]

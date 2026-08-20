@@ -595,10 +595,41 @@ class ApiPublicSurfaceDetectionV1(BaseModel):
 
 _KIND_TO_MODULE = {
     "class_declaration": "Core API",
+    "class_definition": "Core API",
     "struct_declaration": "Core API",
     "interface_declaration": "Interfaces",
     "enum_declaration": "Enumerations",
+    "enum_definition": "Enumerations",
+    "function": "Core API",
 }
+
+# The corpus's own visibility vocabulary varies by extraction pass -- "public"/
+# "conventional" (3D), "exported"/"conventional" (Note), "public"-or-absent
+# (Barcode) -- confirmed by direct inspection of all three real bundles.
+_PUBLIC_VISIBILITY_LABELS = frozenset({"public", "exported"})
+_PRIVATE_VISIBILITY_LABELS = frozenset({"conventional", "internal", "private"})
+
+
+def _entry_is_publicly_reachable(entry: dict) -> bool:
+    """Resolve public reachability from the corpus's own visibility label,
+    never from the separate `reachable` field: direct inspection of the
+    real 3D, Note, and Barcode bundles shows `reachable` is either uniformly
+    `False` (3D, all 327 entries) or entirely absent (Note, Barcode) --
+    never a discriminating signal, so requiring it true unconditionally
+    rejects the entire bundle regardless of real visibility. A missing
+    visibility label falls back to the symbol's own name not being
+    conventionally private (leading underscore) -- a generic Python/most
+    C-family convention, not a per-family or per-repository special case."""
+
+    visibility = entry.get("visibility")
+    if isinstance(visibility, str):
+        normalized = visibility.strip().casefold()
+        if normalized in _PUBLIC_VISIBILITY_LABELS:
+            return True
+        if normalized in _PRIVATE_VISIBILITY_LABELS:
+            return False
+    name = entry.get("name")
+    return isinstance(name, str) and bool(name) and not name.startswith("_")
 
 
 def _member_signature(entry: dict) -> str:
@@ -633,7 +664,7 @@ def detect_api_public_surface(
     reads the same `merged/` directory for the same reason).
 
     `None` when no `api_surface.json` exists for this family/platform, it fails to parse, or it
-    contains zero public+reachable entries."""
+    contains zero publicly reachable entries."""
 
     surface_path = data_root / "knowledge" / family / platform / "merged" / "api_surface.json"
     if not surface_path.is_file():
@@ -647,21 +678,22 @@ def detect_api_public_surface(
     by_module: dict[str, list[ApiSurfaceClassV1]] = {}
     model_sha: str | None = None
     for entry in entries:
-        if (
-            not isinstance(entry, dict)
-            or entry.get("visibility") != "public"
-            or not entry.get("reachable")
-            or not entry.get("name")
-        ):
+        if not isinstance(entry, dict) or not entry.get("name"):
+            continue
+        if not _entry_is_publicly_reachable(entry):
             continue
         module = _KIND_TO_MODULE.get(entry.get("kind", ""), "Core API")
+        # A bare top-level function entry carries its own params/return_type
+        # directly (never nested under "methods"); without this, a function
+        # entry silently projects to an empty, useless zero-member class row.
+        methods_raw = entry.get("methods") or ([entry] if entry.get("kind") == "function" else [])
         methods = tuple(
             ApiSurfaceMemberV1(
                 name=method.get("name", ""),
                 doc=method.get("doc", ""),
                 signature=_member_signature(method),
             )
-            for method in entry.get("methods") or []
+            for method in methods_raw
             if method.get("name")
         )
         properties = tuple(

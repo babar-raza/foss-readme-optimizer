@@ -797,6 +797,7 @@ def test_generated_binding_nested_names_project_members_without_duplicating_clas
             "source_path": "acme/Camera.py",
             "source_sha256": hashlib.sha256((tmp_path / "acme/Camera.py").read_bytes()).hexdigest(),
             "line": 3,
+            "implemented": True,
         }
     ]
 

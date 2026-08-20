@@ -178,11 +178,17 @@ def _member_rows(item: dict[str, Any]) -> list[tuple[int, dict[str, Any]]]:
 
 
 def summarize_api_members(item: dict[str, Any], *, limit: int = 3) -> list[str]:
-    """Return a bounded class overview; full details remain in member table rows."""
+    """Return a bounded class overview; full details remain in member table rows.
+
+    A method whose body is a proven stub (`member["implemented"] is False`)
+    never contributes a "Supports ..." action phrase here -- symbol presence
+    is never itself a capability assertion."""
 
     actions: list[str] = []
     for _score, member in _member_rows(item):
         if str(member.get("kind") or "") != "method":
+            continue
+        if member.get("implemented") is False:
             continue
         phrase = method_phrase(str(member.get("name") or "").strip())
         if phrase and phrase not in actions:
@@ -214,7 +220,16 @@ def describe_api_member(
     *,
     case_variant_of: str | None = None,
 ) -> str:
-    """Describe one public class member without turning its name into fragmentary prose."""
+    """Describe one public class member without turning its name into fragmentary prose.
+
+    Public reachability (this member existing at all) and having a
+    signature are never conflated with actually being implemented: a
+    method whose cited body is a proven stub (`member["implemented"] is
+    False`) still appears -- discoverable with its exact signature -- but
+    is described with neutral presence language, never "Supports ..." or
+    equivalent capability wording. `implemented is None` (not a callable,
+    or unresolvable) preserves the prior capability phrasing, since no
+    negative evidence was ever established for it."""
 
     name = str(member.get("name") or "").strip()
     kind = str(member.get("kind") or "").strip()
@@ -226,6 +241,8 @@ def describe_api_member(
             f"Exposes the `{name}` entry point alongside `{case_variant_of}` on `{owner}`." + origin
         )
     if kind == "method":
+        if member.get("implemented") is False:
+            return f"Declares the `{name}` operation on `{owner}` (not yet implemented)." + origin
         phrase = method_phrase(name)
         description = (
             f"Calls the `{name}` operation on `{owner}`."

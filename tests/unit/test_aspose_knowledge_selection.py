@@ -981,3 +981,52 @@ def test_select_knowledge_claims_stale_snippet_cannot_corroborate(tmp_path):
         d for d in result.dispositions if d.global_claim_id == "synthstale/python/STALE-SNIPPET"
     )
     assert disposition.corroboration == "uncorroborated"
+
+
+def test_select_knowledge_claims_api_kind_falls_back_to_selection_when_surface_is_empty(
+    tmp_path,
+):
+    """K2 mandatory red/green: an empty/invalid structured API surface must
+    never silently suppress api*-kind imported claims as "covered" -- with
+    no usable `api_surface.json` for this product (no such file at all,
+    here), they become normally selectable, corroborated fallback evidence
+    like every other claim kind, instead of a blanket
+    `kind_covered_by_api_surface_field` rejection that is not actually
+    true."""
+
+    data_root = tmp_path / "data-root"
+    clone_cache = tmp_path / "clone"
+    repo_sha = "9a" * 20
+    real_dir = clone_cache / "pkg"
+    real_dir.mkdir(parents=True)
+    (real_dir / "widget.py").write_text(
+        "class Widget:\n    def export(self):\n        return b'ok'\n", encoding="utf-8"
+    )
+    claims = [
+        {
+            "claim_id": "API-FALLBACK",
+            "kind": "api_method",
+            "text": "Widget.export() -> bytes",
+            "confidence": 0.9,
+            "evidence": [{"file": "pkg/widget.py", "line": 2}],
+        }
+    ]
+    _write_synthetic_bundle(data_root, "synthapi", "python", repo_sha, claims)
+
+    result = select_knowledge_claims(
+        "synthapi",
+        "python",
+        data_root=data_root,
+        clone_cache=clone_cache,
+        source_revision=repo_sha,
+    )
+
+    disposition = next(
+        d for d in result.dispositions if d.global_claim_id == "synthapi/python/API-FALLBACK"
+    )
+    assert disposition.rejection_reason != "kind_covered_by_api_surface_field"
+    assert disposition.accepted is True
+    assert disposition.corroboration == "corroborated"
+    assert disposition.resulting_fact_field == "aspose.api_claims"
+    fact = next(f for f in result.fact_records if f.field == "aspose.api_claims")
+    assert any(entry["claim_id"] == "synthapi/python/API-FALLBACK" for entry in fact.value)

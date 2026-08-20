@@ -15,6 +15,7 @@ from readme_agent.ecosystems.python_api_schema import (
 from readme_agent.facts.curated_python_api_ast import (
     class_source_semantics,
     function_imports,
+    member_is_implemented,
     member_return_annotation,
     member_surface,
     module_from_source,
@@ -268,6 +269,13 @@ def _classes(
                         "source_path": member.source_path,
                         "source_sha256": source_sha256(root / member.source_path),
                         "line": member.source_line,
+                        # Public reachability (this row existing at all) is a
+                        # separate fact from whether the body is a real
+                        # implementation -- `None` when not a callable/not
+                        # resolvable, `False` only on a proven stub body.
+                        # Consumers must never turn presence alone into
+                        # capability prose (verified_template_api_members.py).
+                        "implemented": member_is_implemented(root, member),
                     }
                     for member, owner, is_inherited in selected
                 ],

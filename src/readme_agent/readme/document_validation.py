@@ -34,6 +34,10 @@ from readme_agent.links.terminology import find_enterprise_terminology_findings
 from readme_agent.readme.claim_accountability_validation import (
     validate_claim_accountability_map,
 )
+from readme_agent.readme.claim_map import build_readme_claim_map
+from readme_agent.readme.claim_map_capability_validation import (
+    api_capability_claims_without_implementation_evidence,
+)
 from readme_agent.readme.composition_lineage_validation import composition_ledger_errors
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import (
@@ -362,6 +366,29 @@ def validate_readme_document_candidate(
 
     checks["source_span_hashes"] = span_hashes_valid
     checks["fact_citations"] = citations_valid
+
+    # Defense-in-depth, independent of whichever renderer produced the
+    # candidate: an `api.public_surface` claim binding must never carry
+    # capability wording ("supports"/"converts"/"renders"/...) for a member
+    # this run's own facts prove is an unimplemented stub (K2: symbol
+    # presence in the catalog is never itself capability authorization).
+    # `build_readme_claim_map` raises on a plan/fact-citation state that is
+    # already invalid for reasons unrelated to capability wording -- those
+    # are already reported above (`fact_citations`/`source_span_hashes`);
+    # this check must never itself turn a should-be-graceful invalid
+    # candidate report into an uncaught exception.
+    try:
+        claim_map = build_readme_claim_map(
+            plan, facts, source_text=original_text, candidate_text=candidate_text
+        )
+    except ValueError:
+        checks["api_capability_wording_has_implementation_evidence"] = True
+    else:
+        capability_violations = api_capability_claims_without_implementation_evidence(
+            claim_map, facts, candidate_text
+        )
+        checks["api_capability_wording_has_implementation_evidence"] = not capability_violations
+        errors.extend(capability_violations)
 
     reconstructed = apply_document_operations(source, plan.operations)
     checks["document_reconstruction"] = reconstructed == candidate_inner_bytes

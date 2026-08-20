@@ -113,6 +113,7 @@ def test_imported_knowledge_component_hash_changes_when_manifest_content_changes
     (facts_dir / "python_evidence_polarity.py").write_text(
         "# python evidence polarity\n", encoding="utf-8"
     )
+    (facts_dir / "aspose_detectors.py").write_text("# detectors\n", encoding="utf-8")
     manifest_dir = tmp_path / "data" / "imported"
     manifest_dir.mkdir(parents=True)
     manifest_path = manifest_dir / "knowledge_manifest.json"
