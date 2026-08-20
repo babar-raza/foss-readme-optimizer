@@ -1,0 +1,71 @@
+{
+  "canary": "3D/TypeScript",
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+  "task_families_run": [
+    "opening_summary"
+  ],
+  "sections": [
+    {
+      "target_section_id": "opening-summary",
+      "reused_from_cache": false,
+      "units": [
+        {
+          "heading": "Aspose.3D for TypeScript",
+          "text": "Aspose.3D for TypeScript is a TypeScript-based library for working with 3D models. It is part of the Aspose.3D family of products and is published under the @aspose/3d package in the TypeScript ecosystem.",
+          "fact_ids": [
+            "product.identity:manifest-and-registry"
+          ]
+        },
+        {
+          "heading": "Supported Platform",
+          "text": "The library is designed specifically for the TypeScript platform.",
+          "fact_ids": [
+            "product.platforms:manifest"
+          ]
+        },
+        {
+          "heading": "Installation",
+          "text": "Install the package using the standard TypeScript package manager. The current version is 24.12.0 and it is published in the root of the project.",
+          "fact_ids": [
+            "installation.coordinates:manifest"
+          ]
+        },
+        {
+          "heading": "Release Status",
+          "text": "Version 24.12.0 is the current active release, available at the root path of the package.",
+          "fact_ids": [
+            "release.state:manifest-and-registry"
+          ]
+        }
+      ],
+      "omitted": [],
+      "acceptance_gates_passed": {
+        "schema_valid": true,
+        "no_unsupported_fact_id": true,
+        "every_accepted_fact_disposed": true,
+        "no_do_not_claim_citation": true,
+        "no_authored_code_or_command": true
+      },
+      "receipt": {
+        "actor_id": "llm-route:section-cluster-authoring",
+        "prompt_id": "section_cluster_authoring",
+        "prompt_sha256": "857c1a2fd9011126ba6dbe147b490f12bb98f6c9e0906db6e5e06c97ab5da500",
+        "packet_hash": "fd22424b2233a16722ce52d3820fd867cf96315a9312a72ec3a69d1ae0277438",
+        "raw_output_sha256": "1809e7a90f3f2fc5d0ed183c85d5b0f77a0a7f48b37ad62de22c12d8d9e2d472",
+        "provider_request_id": "chatcmpl-8028fd11719bc3d2",
+        "provider_model": "qwen3-next",
+        "semantic_retry_used": false,
+        "logical_call_count": 1,
+        "token_usage": [
+          {
+            "prompt_tokens": 1683,
+            "completion_tokens": 256
+          }
+        ],
+        "latency_ms": [
+          6308.887899998808
+        ]
+      }
+    }
+  ]
+}

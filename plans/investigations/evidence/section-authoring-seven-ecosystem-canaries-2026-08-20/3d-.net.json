@@ -1,0 +1,71 @@
+{
+  "canary": "3D/.NET",
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+  "task_families_run": [
+    "opening_summary"
+  ],
+  "sections": [
+    {
+      "target_section_id": "opening-summary",
+      "reused_from_cache": false,
+      "units": [
+        {
+          "heading": "Product Overview",
+          "text": "Aspose.3D.FOSS for .NET is a .NET library for working with 3D files, part of the Aspose.3D ecosystem. It enables developers to load, convert, and manipulate 3D scenes and models programmatically.",
+          "fact_ids": [
+            "product.identity:manifest-and-registry"
+          ]
+        },
+        {
+          "heading": "Supported Platforms",
+          "text": "The library targets the .NET platform exclusively, as confirmed by its project manifests.",
+          "fact_ids": [
+            "product.platforms:manifest"
+          ]
+        },
+        {
+          "heading": "Installation",
+          "text": "Install the package using the standard .NET tooling for the target runtime. The primary library is published under the name Aspose.3D.FOSS at version 26.1.0, with additional components such as Aspose.3D.Converter available at version 1.0.0.",
+          "fact_ids": [
+            "installation.coordinates:manifest"
+          ]
+        },
+        {
+          "heading": "Release Status",
+          "text": "All core modules—including the main library (Aspose.3D.FOSS), the converter component, and the test suite—are marked as active in the current release state.",
+          "fact_ids": [
+            "release.state:manifest-and-registry"
+          ]
+        }
+      ],
+      "omitted": [],
+      "acceptance_gates_passed": {
+        "schema_valid": true,
+        "no_unsupported_fact_id": true,
+        "every_accepted_fact_disposed": true,
+        "no_do_not_claim_citation": true,
+        "no_authored_code_or_command": true
+      },
+      "receipt": {
+        "actor_id": "llm-route:section-cluster-authoring",
+        "prompt_id": "section_cluster_authoring",
+        "prompt_sha256": "857c1a2fd9011126ba6dbe147b490f12bb98f6c9e0906db6e5e06c97ab5da500",
+        "packet_hash": "b4d48cff6a1c5b492e2d63e7e8f5e3c30db68a6ee529f271fd94b3cc5fc6e7ad",
+        "raw_output_sha256": "d40802bca388c7088f7cb62f4521905dce756f2738f2c36bb27feb8893150025",
+        "provider_request_id": "chatcmpl-913dacac3e462d81",
+        "provider_model": "qwen3-next",
+        "semantic_retry_used": false,
+        "logical_call_count": 1,
+        "token_usage": [
+          {
+            "prompt_tokens": 2139,
+            "completion_tokens": 301
+          }
+        ],
+        "latency_ms": [
+          6974.816699999792
+        ]
+      }
+    }
+  ]
+}

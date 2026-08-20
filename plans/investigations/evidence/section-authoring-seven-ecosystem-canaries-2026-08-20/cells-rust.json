@@ -1,0 +1,71 @@
+{
+  "canary": "Cells/Rust",
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+  "task_families_run": [
+    "opening_summary"
+  ],
+  "sections": [
+    {
+      "target_section_id": "opening-summary",
+      "reused_from_cache": false,
+      "units": [
+        {
+          "heading": "Aspose.Cells FOSS for Rust",
+          "text": "Aspose.Cells FOSS for Rust is a Rust-native library for working with spreadsheet formats. It is part of the Aspose.Cells family and is published under the repository aspose-cells-foss/Aspose.Cells-FOSS-for-Rust.",
+          "fact_ids": [
+            "product.identity:manifest-and-registry"
+          ]
+        },
+        {
+          "heading": "Supported Platforms",
+          "text": "The library is built for the Rust platform and targets Rust applications exclusively.",
+          "fact_ids": [
+            "product.platforms:manifest"
+          ]
+        },
+        {
+          "heading": "Installation",
+          "text": "Install the package by adding aspose-cells-foss-rust version 26.7.0 to your Cargo.toml file in the current directory.",
+          "fact_ids": [
+            "installation.coordinates:manifest"
+          ]
+        },
+        {
+          "heading": "Release Status",
+          "text": "Version 26.7.0 is the current active release, available for use in the current project directory.",
+          "fact_ids": [
+            "release.state:manifest-and-registry"
+          ]
+        }
+      ],
+      "omitted": [],
+      "acceptance_gates_passed": {
+        "schema_valid": true,
+        "no_unsupported_fact_id": true,
+        "every_accepted_fact_disposed": true,
+        "no_do_not_claim_citation": true,
+        "no_authored_code_or_command": true
+      },
+      "receipt": {
+        "actor_id": "llm-route:section-cluster-authoring",
+        "prompt_id": "section_cluster_authoring",
+        "prompt_sha256": "857c1a2fd9011126ba6dbe147b490f12bb98f6c9e0906db6e5e06c97ab5da500",
+        "packet_hash": "d520f435e80fdaba95851bc12eebdafd659ec87f5705a298406af6f7a706c89c",
+        "raw_output_sha256": "046b435dae79c368e8ec0d34bf77192fddad854f24bfb8163ffe9fa2a707cf9a",
+        "provider_request_id": "chatcmpl-86e44ad53a14d03f",
+        "provider_model": "qwen3-next",
+        "semantic_retry_used": false,
+        "logical_call_count": 1,
+        "token_usage": [
+          {
+            "prompt_tokens": 1666,
+            "completion_tokens": 258
+          }
+        ],
+        "latency_ms": [
+          6146.361399998568
+        ]
+      }
+    }
+  ]
+}

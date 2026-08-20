@@ -1,0 +1,71 @@
+{
+  "canary": "3D/Python",
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+  "task_families_run": [
+    "opening_summary"
+  ],
+  "sections": [
+    {
+      "target_section_id": "opening-summary",
+      "reused_from_cache": false,
+      "units": [
+        {
+          "heading": "Aspose.3D FOSS for Python",
+          "text": "Aspose.3D FOSS for Python is a Python-based library for working with 3D files. It is part of the aspose-3d-foss project hosted at aspose-3d-foss/Aspose.3D-FOSS-for-Python and supports the Python ecosystem.",
+          "fact_ids": [
+            "product.identity:manifest-and-registry"
+          ]
+        },
+        {
+          "heading": "Supported Platforms",
+          "text": "The library is designed for use with the Python platform, as confirmed by its manifest configuration.",
+          "fact_ids": [
+            "product.platforms:manifest"
+          ]
+        },
+        {
+          "heading": "Installation",
+          "text": "Install the package using the standard Python workflow: run the installer from the current directory (.) where setup.py resides. The package name is aspose-3d-foss and the current version is 26.1.0.",
+          "fact_ids": [
+            "installation.coordinates:manifest"
+          ]
+        },
+        {
+          "heading": "Release Status",
+          "text": "Version 26.1.0 is the current active release, as indicated by the manifest at the root path (.).",
+          "fact_ids": [
+            "release.state:manifest-and-registry"
+          ]
+        }
+      ],
+      "omitted": [],
+      "acceptance_gates_passed": {
+        "schema_valid": true,
+        "no_unsupported_fact_id": true,
+        "every_accepted_fact_disposed": true,
+        "no_do_not_claim_citation": true,
+        "no_authored_code_or_command": true
+      },
+      "receipt": {
+        "actor_id": "llm-route:section-cluster-authoring",
+        "prompt_id": "section_cluster_authoring",
+        "prompt_sha256": "857c1a2fd9011126ba6dbe147b490f12bb98f6c9e0906db6e5e06c97ab5da500",
+        "packet_hash": "82af9540a2b8de50029e25389d421a8935e2ba07f6e032f1a03a96f76f74e466",
+        "raw_output_sha256": "6066412df90ebe4d0d206750b659da1348716581c3ef732c606c1dd01082cc2f",
+        "provider_request_id": "chatcmpl-a561231582f412d7",
+        "provider_model": "qwen3-next",
+        "semantic_retry_used": false,
+        "logical_call_count": 1,
+        "token_usage": [
+          {
+            "prompt_tokens": 1679,
+            "completion_tokens": 294
+          }
+        ],
+        "latency_ms": [
+          7141.496000000188
+        ]
+      }
+    }
+  ]
+}

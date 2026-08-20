@@ -1,0 +1,108 @@
+{
+  "canary": "Cells/Java",
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+  "task_families_run": [
+    "opening_summary",
+    "capability_entry_cluster"
+  ],
+  "sections": [
+    {
+      "target_section_id": "opening-summary",
+      "reused_from_cache": false,
+      "units": [
+        {
+          "heading": "Aspose.Cells FOSS for Java",
+          "text": "Aspose.Cells FOSS for Java is a Java-based library for working with spreadsheet files. It is part of the Aspose.Cells family and targets the Java platform exclusively.",
+          "fact_ids": [
+            "product.identity:manifest-and-registry",
+            "product.platforms:manifest"
+          ]
+        },
+        {
+          "heading": "Installation",
+          "text": "The library is published under the group ID org.aspose and artifact ID aspose-cells-foss. The current release version is 26.7.0 and is actively maintained.",
+          "fact_ids": [
+            "installation.coordinates:manifest",
+            "release.state:manifest-and-registry"
+          ]
+        }
+      ],
+      "omitted": [],
+      "acceptance_gates_passed": {
+        "schema_valid": true,
+        "no_unsupported_fact_id": true,
+        "every_accepted_fact_disposed": true,
+        "no_do_not_claim_citation": true,
+        "no_authored_code_or_command": true
+      },
+      "receipt": {
+        "actor_id": "llm-route:section-cluster-authoring",
+        "prompt_id": "section_cluster_authoring",
+        "prompt_sha256": "857c1a2fd9011126ba6dbe147b490f12bb98f6c9e0906db6e5e06c97ab5da500",
+        "packet_hash": "415c9edcb4321fd817fa32ccec8be154bf4b693b56c053ad13461401e5973ee2",
+        "raw_output_sha256": "5aa49562b51d778c2c80cdf308abb8143d294cd829f23579d767d9bb78861659",
+        "provider_request_id": "chatcmpl-a8a78a625c5a7b27",
+        "provider_model": "qwen3-next",
+        "semantic_retry_used": false,
+        "logical_call_count": 1,
+        "token_usage": [
+          {
+            "prompt_tokens": 1690,
+            "completion_tokens": 167
+          }
+        ],
+        "latency_ms": [
+          4660.438700000668
+        ]
+      }
+    },
+    {
+      "target_section_id": "capability-overview",
+      "reused_from_cache": false,
+      "units": [
+        {
+          "heading": "Core Capabilities",
+          "text": "The library supports creating, loading, modifying, and saving workbooks and worksheets. It also enables reading and writing cell values and applying spreadsheet styles.",
+          "fact_ids": [
+            "product.capabilities:repository-evidence"
+          ]
+        },
+        {
+          "heading": "Supported Formats",
+          "text": "The verified load and save surface supports XLSX workbooks.",
+          "fact_ids": [
+            "product.formats:repository-evidence"
+          ]
+        }
+      ],
+      "omitted": [],
+      "acceptance_gates_passed": {
+        "schema_valid": true,
+        "no_unsupported_fact_id": true,
+        "every_accepted_fact_disposed": true,
+        "no_do_not_claim_citation": true,
+        "no_authored_code_or_command": true
+      },
+      "receipt": {
+        "actor_id": "llm-route:section-cluster-authoring",
+        "prompt_id": "section_cluster_authoring",
+        "prompt_sha256": "857c1a2fd9011126ba6dbe147b490f12bb98f6c9e0906db6e5e06c97ab5da500",
+        "packet_hash": "22274963e8666afd2428c53e3847c30c84d83602e32f2a607ca9b06498064048",
+        "raw_output_sha256": "385f7791b7db7bad52df0afa96ee0a56d125d1a9335d8aea385cc38be8debded",
+        "provider_request_id": "chatcmpl-8ba2aa3f9f806b35",
+        "provider_model": "qwen3-next",
+        "semantic_retry_used": false,
+        "logical_call_count": 1,
+        "token_usage": [
+          {
+            "prompt_tokens": 1582,
+            "completion_tokens": 121
+          }
+        ],
+        "latency_ms": [
+          4349.577600001794
+        ]
+      }
+    }
+  ]
+}

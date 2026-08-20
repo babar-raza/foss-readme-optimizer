@@ -1,0 +1,71 @@
+{
+  "canary": "PDF/Go",
+  "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+  "task_families_run": [
+    "opening_summary"
+  ],
+  "sections": [
+    {
+      "target_section_id": "opening-summary",
+      "reused_from_cache": false,
+      "units": [
+        {
+          "heading": "Aspose.PDF.FOSS for Go",
+          "text": "Aspose.PDF.FOSS for Go is a Go library for working with PDF documents. It is part of the Aspose.PDF family and targets the Go ecosystem. The library is distributed under the GitHub repository aspose-pdf-foss/Aspose-PDF-FOSS-for-Go.",
+          "fact_ids": [
+            "product.identity:manifest-and-registry"
+          ]
+        },
+        {
+          "heading": "Supported Platforms",
+          "text": "The library supports the Go platform exclusively, as confirmed by its go.mod manifest.",
+          "fact_ids": [
+            "product.platforms:manifest"
+          ]
+        },
+        {
+          "heading": "Installation",
+          "text": "Install the package using the Go module path github.com/aspose-pdf-foss/aspose-pdf-foss-for-go. The module is defined in the go.mod file at the repository root.",
+          "fact_ids": [
+            "installation.coordinates:manifest"
+          ]
+        },
+        {
+          "heading": "Release State",
+          "text": "The current release is active, with version information marked as unknown in the go.mod manifest.",
+          "fact_ids": [
+            "release.state:manifest-and-registry"
+          ]
+        }
+      ],
+      "omitted": [],
+      "acceptance_gates_passed": {
+        "schema_valid": true,
+        "no_unsupported_fact_id": true,
+        "every_accepted_fact_disposed": true,
+        "no_do_not_claim_citation": true,
+        "no_authored_code_or_command": true
+      },
+      "receipt": {
+        "actor_id": "llm-route:section-cluster-authoring",
+        "prompt_id": "section_cluster_authoring",
+        "prompt_sha256": "857c1a2fd9011126ba6dbe147b490f12bb98f6c9e0906db6e5e06c97ab5da500",
+        "packet_hash": "d3b8db84287564d4f3041f846a2ad8759d433528afd9e0c74ef15c53afe2bf15",
+        "raw_output_sha256": "24f20b0b55957a60f24e4aea92b38f1d7b6ab498e51f52adc0a635450502c914",
+        "provider_request_id": "chatcmpl-bd9b813b93929002",
+        "provider_model": "qwen3-next",
+        "semantic_retry_used": false,
+        "logical_call_count": 1,
+        "token_usage": [
+          {
+            "prompt_tokens": 1671,
+            "completion_tokens": 272
+          }
+        ],
+        "latency_ms": [
+          6532.778599997982
+        ]
+      }
+    }
+  ]
+}

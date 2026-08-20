@@ -1,0 +1,65 @@
+{
+  "canary": "Cells/Cpp",
+  "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+  "task_families_run": [
+    "opening_summary"
+  ],
+  "sections": [
+    {
+      "target_section_id": "opening-summary",
+      "reused_from_cache": false,
+      "units": [
+        {
+          "heading": "Product Overview",
+          "text": "Aspose.Cells-FOSS-for-Cpp is a C++ library for working with spreadsheet files, part of the Aspose.Cells family. It is distributed under the aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp repository and supports the C++ ecosystem.",
+          "fact_ids": [
+            "product.identity:manifest-and-registry",
+            "product.platforms:manifest"
+          ]
+        },
+        {
+          "heading": "Installation",
+          "text": "The package is installed via CMake using the manifest at Aspose.Cells.Foss.Cpp/CMakeLists.txt. The project includes separate CMake manifests for tests (Aspose.Cells.Foss.Cpp/tests/CMakeLists.txt), test executables (Aspose.Cells.Foss.Cpp.Tests/CMakeLists.txt), and sample code (samples/CMakeLists.txt).",
+          "fact_ids": [
+            "installation.coordinates:manifest"
+          ]
+        },
+        {
+          "heading": "Release State",
+          "text": "All project components—main library, tests, test executables, and samples—are active and currently at an unknown version, as indicated by their CMake manifest entries.",
+          "fact_ids": [
+            "release.state:manifest-and-registry"
+          ]
+        }
+      ],
+      "omitted": [],
+      "acceptance_gates_passed": {
+        "schema_valid": true,
+        "no_unsupported_fact_id": true,
+        "every_accepted_fact_disposed": true,
+        "no_do_not_claim_citation": true,
+        "no_authored_code_or_command": true
+      },
+      "receipt": {
+        "actor_id": "llm-route:section-cluster-authoring",
+        "prompt_id": "section_cluster_authoring",
+        "prompt_sha256": "857c1a2fd9011126ba6dbe147b490f12bb98f6c9e0906db6e5e06c97ab5da500",
+        "packet_hash": "7e0b8fe6900d3f4b85b7072018f4d7b8a585fa7313e5d4b60ff1d856ab469ebd",
+        "raw_output_sha256": "dbd3ef1fc46de9bb399dd9b431ece84d39e56fe2716e5255b43b101d8dba8abb",
+        "provider_request_id": "chatcmpl-babaae15e638faf2",
+        "provider_model": "qwen3-next",
+        "semantic_retry_used": false,
+        "logical_call_count": 1,
+        "token_usage": [
+          {
+            "prompt_tokens": 2169,
+            "completion_tokens": 276
+          }
+        ],
+        "latency_ms": [
+          13577.315700000327
+        ]
+      }
+    }
+  ]
+}
