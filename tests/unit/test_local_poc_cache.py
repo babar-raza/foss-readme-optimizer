@@ -341,6 +341,154 @@ def test_blocking_check_error_in_coverage_evidence_denies_reuse(tmp_path):
     )
 
 
+def _knowledge_application_payload(*, status="final", candidate_sha256="f" * 64, **overrides):
+    payload = {
+        "schema_version": 3,
+        "status": status,
+        "org_repo": "acme/product",
+        "family": "cells",
+        "platform": "java",
+        "source_revision": SOURCE_REVISION,
+        "facts_hash": None,
+        "document_plan_hash": None,
+        "candidate_sha256": candidate_sha256,
+        "reviewer_disposition": None,
+        "imported_bundle_repo_sha": None,
+        "freshness": "current",
+        "considered_count": 0,
+        "selected_count": 0,
+        "rejected_count": 0,
+        "fact_fields_produced": [],
+        "sections_considered": [],
+        "sections_selected_for_planning": [],
+        "sections_influenced": [],
+        "rendered_output_spans": [],
+        "final_dispositions": [],
+        "load_findings": [],
+        "dispositions": [],
+        "seo_keyword_dispositions": [],
+    }
+    payload.update(overrides)
+    return payload
+
+
+def test_knowledge_application_error_denies_reuse_of_an_otherwise_valid_bundle(tmp_path):
+    """K3-4: a top-level `{error: ...}` knowledge-application artifact must
+    block reuse/promotion, not silently persist alongside an otherwise-
+    accepted bundle."""
+
+    state, bundle = _valid_cache(tmp_path)
+    write_redacted_json(
+        bundle / "knowledge-application.json",
+        {"schema_version": 3, "error": "no post-render knowledge_application in render_result"},
+    )
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert any(
+        reason.startswith("knowledge_application_error") for reason in decision.mismatch_reasons
+    )
+
+
+def test_missing_knowledge_application_evidence_does_not_by_itself_deny_reuse(tmp_path):
+    """A bundle with no `knowledge-application.json` at all (pre-K3, or a
+    synthetic/unit-test bundle exercising unrelated acceptance-binding
+    logic) is not itself denied reuse -- only an explicit, persisted
+    failure blocks (same rationale as readme_reconciliation/check_coverage)."""
+
+    state, bundle = _valid_cache(tmp_path)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is True
+    assert not any(
+        reason.startswith("knowledge_application") for reason in decision.mismatch_reasons
+    )
+
+
+def test_valid_final_knowledge_application_does_not_deny_reuse(tmp_path):
+    state, bundle = _valid_cache(tmp_path)
+    write_redacted_json(
+        bundle / "knowledge-application.json",
+        _knowledge_application_payload(),
+    )
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is True
+    assert not any(
+        reason.startswith("knowledge_application") for reason in decision.mismatch_reasons
+    )
+
+
+def test_provisional_knowledge_application_at_acceptance_time_denies_reuse(tmp_path):
+    """A still-`status="provisional"` report lingering at acceptance time
+    means K3's real post-render call never landed for this candidate."""
+
+    state, bundle = _valid_cache(tmp_path)
+    write_redacted_json(
+        bundle / "knowledge-application.json",
+        _knowledge_application_payload(status="provisional"),
+    )
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert "knowledge_application_not_final" in decision.mismatch_reasons
+
+
+def test_stale_knowledge_application_candidate_sha256_denies_reuse(tmp_path):
+    """The report's own `candidate_sha256` must match this exact candidate
+    -- a mismatch means the report is bound to a different, superseded
+    candidate and must never authorize this one's promotion."""
+
+    state, bundle = _valid_cache(tmp_path)
+    write_redacted_json(
+        bundle / "knowledge-application.json",
+        _knowledge_application_payload(candidate_sha256="0" * 64),
+    )
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert "knowledge_application_stale" in decision.mismatch_reasons
+
+
+def test_internally_inconsistent_knowledge_application_denies_reuse(tmp_path):
+    """An "unaccounted rendered claim" (a fact_id in `rendered_output_spans`
+    with no matching `rendered_with_exact_spans` disposition) is exactly the
+    shape `KnowledgeApplicationV1`'s own model validator refuses to
+    construct -- re-parsing a tampered/stale file on disk must fail closed
+    here too, not just at original construction time."""
+
+    state, bundle = _valid_cache(tmp_path)
+    inconsistent = _knowledge_application_payload(
+        rendered_output_spans=[
+            {
+                "fact_id": "aspose.feature_claims:aspose-knowledge",
+                "section": "Key Capabilities",
+                "operation_id": "op.1",
+                "operation": "replace",
+                "replacement_sha256": "a" * 64,
+            }
+        ],
+    )
+    write_redacted_json(bundle / "knowledge-application.json", inconsistent)
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert any(
+        reason.startswith("knowledge_application_invalid") for reason in decision.mismatch_reasons
+    )
+
+
 def test_blocking_check_skip_in_coverage_evidence_does_not_deny_reuse(tmp_path):
     """A classified-blocking check recorded merely as *skipped* does not
     deny reuse -- narrowed deliberately after `check_banner_present` (whose

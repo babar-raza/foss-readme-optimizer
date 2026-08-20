@@ -42,9 +42,11 @@ carrying an `intended_section`, including claims this run went on to
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
+from typing import Literal
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, model_validator
 
 from readme_agent.facts.aspose_knowledge_claims import KnowledgeLoadFindingV1
 from readme_agent.facts.aspose_knowledge_selection import (
@@ -56,12 +58,31 @@ from readme_agent.facts.aspose_seo_keyword_facts import (
     seo_keyword_dispositions,
 )
 from readme_agent.facts.schema_v2 import descriptive_fact_id
+from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
+
+# The five bounded dispositions a final (post-render) report may assign to
+# one output-authorizing imported-knowledge item -- every such item gets
+# exactly one, enforced by `KnowledgeApplicationV1._final_dispositions_are_
+# internally_consistent` below.
+FinalKnowledgeDispositionV1 = Literal[
+    "rendered_with_exact_spans",
+    "intentionally_omitted_with_evidence",
+    "superseded_or_corrected_with_evidence",
+    "rejected_before_authorship",
+    "not_applicable_with_reason",
+]
 
 
 class RenderedOutputSpanV1(BaseModel):
-    """One surviving document-plan operation that actually carried a
-    selected knowledge fact into the rendered candidate."""
+    """One surviving document-plan operation or candidate-content provenance
+    binding that actually carried a selected knowledge fact into the
+    rendered candidate. `candidate_byte_start`/`candidate_byte_end` are only
+    ever populated for a provenance-sourced span (an operation's own
+    replacement lands at a candidate offset this report does not replay
+    reconstruction to recover, so `replacement_sha256` -- the operation's
+    own replacement-text hash, already verified elsewhere against the
+    rendered candidate -- remains that case's span-integrity anchor)."""
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
@@ -70,6 +91,21 @@ class RenderedOutputSpanV1(BaseModel):
     operation_id: str
     operation: str
     replacement_sha256: str
+    candidate_byte_start: int | None = None
+    candidate_byte_end: int | None = None
+
+
+class FinalKnowledgeItemDispositionV1(BaseModel):
+    """One output-authorizing imported-knowledge item's exactly-one final
+    disposition, bound to this exact candidate."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    global_claim_id: str
+    fact_field: str | None
+    disposition: FinalKnowledgeDispositionV1
+    reason: str
+    output_spans: tuple[RenderedOutputSpanV1, ...] = ()
 
 
 class KnowledgeApplicationV1(BaseModel):
@@ -80,11 +116,16 @@ class KnowledgeApplicationV1(BaseModel):
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
-    schema_version: int = 2
+    schema_version: int = 3
+    status: Literal["provisional", "final"] = "provisional"
     org_repo: str
     family: str
     platform: str
     source_revision: str | None
+    facts_hash: str | None = None
+    document_plan_hash: str | None = None
+    candidate_sha256: str | None = None
+    reviewer_disposition: str | None = None
     imported_bundle_repo_sha: str | None
     freshness: str
     considered_count: int
@@ -95,9 +136,152 @@ class KnowledgeApplicationV1(BaseModel):
     sections_selected_for_planning: tuple[str, ...]
     sections_influenced: tuple[str, ...]
     rendered_output_spans: tuple[RenderedOutputSpanV1, ...]
+    final_dispositions: tuple[FinalKnowledgeItemDispositionV1, ...] = ()
     load_findings: tuple[KnowledgeLoadFindingV1, ...]
     dispositions: tuple[KnowledgeClaimDispositionV1, ...]
     seo_keyword_dispositions: tuple[SeoKeywordDispositionV1, ...]
+
+    @model_validator(mode="after")
+    def _final_dispositions_are_internally_consistent(self) -> KnowledgeApplicationV1:
+        considered_claim_ids = {d.global_claim_id for d in self.dispositions}
+        seen: set[str] = set()
+        for entry in self.final_dispositions:
+            if entry.global_claim_id in seen:
+                raise ValueError(
+                    f"duplicate final disposition attribution: {entry.global_claim_id}"
+                )
+            seen.add(entry.global_claim_id)
+            if entry.global_claim_id not in considered_claim_ids:
+                raise ValueError(
+                    f"final disposition cites an unknown claim: {entry.global_claim_id}"
+                )
+            if entry.disposition == "rendered_with_exact_spans" and not entry.output_spans:
+                raise ValueError(
+                    f"claim {entry.global_claim_id} is rendered_with_exact_spans "
+                    "but carries no output_spans"
+                )
+            if entry.disposition != "rendered_with_exact_spans" and not entry.reason.strip():
+                raise ValueError(f"claim {entry.global_claim_id} has no omission/rejection reason")
+        if self.status == "final":
+            rendered_fact_ids = {span.fact_id for span in self.rendered_output_spans}
+            dispositioned_rendered_fact_ids = {
+                span.fact_id
+                for entry in self.final_dispositions
+                if entry.disposition == "rendered_with_exact_spans"
+                for span in entry.output_spans
+            }
+            unaccounted = rendered_fact_ids - dispositioned_rendered_fact_ids
+            if unaccounted:
+                raise ValueError(
+                    f"rendered output span(s) unaccounted for by any disposition: {unaccounted}"
+                )
+        return self
+
+
+def _output_authorizing(disposition: KnowledgeClaimDispositionV1) -> bool:
+    """An item may authorize output only when it is accepted AND its own
+    item-level polarity/qualification (`corroboration`) -- not
+    `verification_state` alone -- is genuinely corroborated. Re-checked here,
+    defensively, rather than trusting an upstream aggregate: this is the
+    exact false-positive shape `d11ac3800` closed (a claim's field-level
+    `verification_state` can read "verified" while the item's own evidence
+    was never actually re-corroborated at this call site)."""
+
+    return (
+        disposition.accepted
+        and disposition.verification_state == "verified"
+        and disposition.corroboration == "corroborated"
+    )
+
+
+def _final_dispositions(
+    dispositions: tuple[KnowledgeClaimDispositionV1, ...],
+    field_fact_ids: dict[str, str],
+    rendered_output_spans: tuple[RenderedOutputSpanV1, ...],
+    *,
+    status: Literal["provisional", "final"],
+) -> tuple[FinalKnowledgeItemDispositionV1, ...]:
+    spans_by_fact_id: dict[str, list[RenderedOutputSpanV1]] = {}
+    for span in rendered_output_spans:
+        spans_by_fact_id.setdefault(span.fact_id, []).append(span)
+
+    entries: list[FinalKnowledgeItemDispositionV1] = []
+    for disposition in dispositions:
+        field = disposition.resulting_fact_field
+        if not disposition.accepted:
+            entries.append(
+                FinalKnowledgeItemDispositionV1(
+                    global_claim_id=disposition.global_claim_id,
+                    fact_field=field,
+                    disposition="rejected_before_authorship",
+                    reason=disposition.rejection_reason or "rejected during knowledge selection",
+                )
+            )
+            continue
+        # Proof by actual usage always wins first, regardless of this item's
+        # own verification_state/corroboration: a real, surviving operation
+        # or candidate-content provenance binding citing this field's fact_id
+        # is definitive, first-hand evidence the pipeline treated it as
+        # output-authorizing -- the item-level re-check below governs
+        # categorization only for items that were NOT demonstrably rendered.
+        fact_id = field_fact_ids.get(field) if field else None
+        spans = spans_by_fact_id.get(fact_id, []) if fact_id else []
+        if spans:
+            entries.append(
+                FinalKnowledgeItemDispositionV1(
+                    global_claim_id=disposition.global_claim_id,
+                    fact_field=field,
+                    disposition="rendered_with_exact_spans",
+                    reason="cited by a surviving document operation or candidate-content "
+                    "provenance binding",
+                    output_spans=tuple(spans),
+                )
+            )
+            continue
+        if not _output_authorizing(disposition):
+            # Accepted but not output-authorizing (e.g. the split
+            # `aspose-knowledge-supporting` unverified sibling `d11ac3800`
+            # introduced) -- never reaches composition as an authorizing
+            # fact, so it is not applicable to this report's disposition
+            # vocabulary rather than falsely claimed rejected or omitted.
+            # This is exactly where a false-positive format/feature fact
+            # would be caught: `verification_state == "verified"` alone is
+            # never trusted -- `corroboration == "corroborated"` (the real,
+            # item-level polarity signal `d11ac3800` produced) is required too.
+            entries.append(
+                FinalKnowledgeItemDispositionV1(
+                    global_claim_id=disposition.global_claim_id,
+                    fact_field=field,
+                    disposition="not_applicable_with_reason",
+                    reason=(
+                        f"accepted but not output-authorizing: verification_state="
+                        f"{disposition.verification_state!r}, corroboration="
+                        f"{disposition.corroboration!r}"
+                    ),
+                )
+            )
+            continue
+        if status != "final":
+            entries.append(
+                FinalKnowledgeItemDispositionV1(
+                    global_claim_id=disposition.global_claim_id,
+                    fact_field=field,
+                    disposition="not_applicable_with_reason",
+                    reason="provisional report has no document plan yet; final disposition "
+                    "is decided only by the post-render report",
+                )
+            )
+            continue
+        entries.append(
+            FinalKnowledgeItemDispositionV1(
+                global_claim_id=disposition.global_claim_id,
+                fact_field=field,
+                disposition="intentionally_omitted_with_evidence",
+                reason="available to composition (accepted_composition_fact_ids) but not "
+                "cited by any surviving operation or candidate-content provenance binding",
+            )
+        )
+    return tuple(entries)
 
 
 def build_knowledge_application_report(
@@ -109,6 +293,9 @@ def build_knowledge_application_report(
     clone_cache: Path,
     source_revision: str | None,
     document_plan: ReadmeDocumentPlanV1 | None = None,
+    candidate_text: str | None = None,
+    status: Literal["provisional", "final"] = "provisional",
+    reviewer_disposition: str | None = None,
 ) -> KnowledgeApplicationV1:
     result = select_knowledge_claims(
         family,
@@ -132,6 +319,7 @@ def build_knowledge_application_report(
 
     rendered_output_spans: tuple[RenderedOutputSpanV1, ...] = ()
     sections_influenced: tuple[str, ...] = ()
+    candidate_bytes = candidate_text.encode("utf-8") if candidate_text is not None else None
     if document_plan is not None:
         spans: list[RenderedOutputSpanV1] = []
         influenced: set[str] = set()
@@ -158,15 +346,67 @@ def build_knowledge_application_report(
                 )
                 if section is not None:
                     influenced.add(section)
+        # Verified-template production commonly carries its real per-fact
+        # lineage only in `candidate_content_provenance` -- its own compile
+        # operation cites no `fact_ids` at all. Scanning operations alone
+        # would silently report zero influence for that whole route.
+        if candidate_bytes is not None:
+            for provenance in document_plan.candidate_content_provenance:
+                for fact_id in provenance.fact_ids:
+                    field = field_by_fact_id.get(fact_id)
+                    if field is None:
+                        continue
+                    section = section_by_field.get(field)
+                    span_bytes = candidate_bytes[
+                        provenance.candidate_byte_start : provenance.candidate_byte_end
+                    ]
+                    spans.append(
+                        RenderedOutputSpanV1(
+                            fact_id=fact_id,
+                            section=section,
+                            operation_id=provenance.provenance_id,
+                            operation="verified_template_provenance",
+                            replacement_sha256=sha256_hex(span_bytes),
+                            candidate_byte_start=provenance.candidate_byte_start,
+                            candidate_byte_end=provenance.candidate_byte_end,
+                        )
+                    )
+                    if section is not None:
+                        influenced.add(section)
         rendered_output_spans = tuple(spans)
         sections_influenced = tuple(sorted(influenced))
 
+    final_status: Literal["provisional", "final"] = (
+        status if document_plan is not None else ("provisional")
+    )
+    final_dispositions = _final_dispositions(
+        result.dispositions,
+        field_fact_ids,
+        rendered_output_spans,
+        status=final_status,
+    )
+
     seo_dispositions = seo_keyword_dispositions(family, platform, data_root=data_root)
     return KnowledgeApplicationV1(
+        status=final_status,
         org_repo=org_repo,
         family=family,
         platform=platform,
         source_revision=source_revision,
+        facts_hash=document_plan.facts_hash if document_plan is not None else None,
+        document_plan_hash=(
+            sha256_hex(
+                json.dumps(
+                    document_plan.model_dump(mode="json"),
+                    sort_keys=True,
+                    separators=(",", ":"),
+                )
+            )
+            if document_plan is not None
+            else None
+        ),
+        candidate_sha256=document_plan.candidate_sha256 if document_plan is not None else None,
+        reviewer_disposition=reviewer_disposition,
         imported_bundle_repo_sha=result.bundle_repo_sha,
         freshness=result.freshness,
         considered_count=len(result.dispositions),
@@ -177,10 +417,17 @@ def build_knowledge_application_report(
         sections_selected_for_planning=sections_selected_for_planning,
         sections_influenced=sections_influenced,
         rendered_output_spans=rendered_output_spans,
+        final_dispositions=final_dispositions,
         load_findings=result.load_findings,
         dispositions=result.dispositions,
         seo_keyword_dispositions=seo_dispositions,
     )
 
 
-__all__ = ["KnowledgeApplicationV1", "RenderedOutputSpanV1", "build_knowledge_application_report"]
+__all__ = [
+    "FinalKnowledgeItemDispositionV1",
+    "FinalKnowledgeDispositionV1",
+    "KnowledgeApplicationV1",
+    "RenderedOutputSpanV1",
+    "build_knowledge_application_report",
+]

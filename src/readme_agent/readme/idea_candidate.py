@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 from contextlib import nullcontext
+from pathlib import Path
 
 from readme_agent import paths
+from readme_agent.facts.knowledge_application_evidence import build_knowledge_application_report
 from readme_agent.facts.provider import collect_product_facts
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.gitsafety.clone import clone_baseline
@@ -122,6 +124,25 @@ def prepare_idea_fidelity_candidate(
             source_text=source_text,
             candidate_text=final_text,
         )
+        # K3: the authoritative post-render knowledge-accountability report.
+        # supervisor/product_truth.py's own call happens at fact-collection
+        # time, before any candidate exists, and is honestly `status=
+        # "provisional"` there; this is the candidate-composition boundary
+        # the module docstring in knowledge_application_evidence.py promises
+        # a second, superseding call from -- the only point with the real,
+        # final `document_plan` (operations + candidate_content_provenance)
+        # and rendered candidate bytes in scope together.
+        knowledge_application = build_knowledge_application_report(
+            org_repo,
+            entry.family,
+            entry.platform,
+            data_root=Path.cwd() / "data" / "imported",
+            clone_cache=snapshot.root_path,
+            source_revision=snapshot.source_revision,
+            document_plan=document_plan,
+            candidate_text=final_text,
+            status="final",
+        )
         needs_write = final_text != original_text
         return {
             "facts_hash": facts.canonical_hash(),
@@ -151,4 +172,5 @@ def prepare_idea_fidelity_candidate(
             "readme_assessment": assessment.model_dump(mode="json"),
             "readme_document_plan": document_plan.model_dump(mode="json"),
             "claim_map": claim_map.model_dump(mode="json"),
+            "knowledge_application": knowledge_application.model_dump(mode="json"),
         }

@@ -344,6 +344,31 @@ def _readme_reconciliation_report_or_error(
     return report.model_dump(mode="json")
 
 
+def _knowledge_application_report_or_error(render_result: dict) -> dict:
+    """Best-effort, final `knowledge-application.json` evidence for this
+    render: `idea_candidate.py::prepare_idea_fidelity_candidate` already
+    computed the real, post-render K3 report (real `document_plan` +
+    rendered candidate bytes in scope together); this degrades to an
+    explicit error record rather than ever blocking real candidate
+    persistence if that key is somehow absent or fails re-validation.
+    Written to the exact same path `product_truth.py`'s pre-render
+    `status="provisional"` write already used -- this later, `status="final"`
+    write supersedes it, matching `write_redacted_json`'s existing
+    overwrite semantics (last write wins)."""
+
+    raw = render_result.get("knowledge_application")
+    if not isinstance(raw, dict):
+        return {
+            "schema_version": 3,
+            "error": "no post-render knowledge_application in render_result",
+        }
+    try:
+        KnowledgeApplicationV1.model_validate(raw)
+    except ValueError as exc:
+        return {"schema_version": 3, "error": str(exc)}
+    return raw
+
+
 _CLASSIFICATION_PATH = (
     Path(__file__).resolve().parents[3] / "data" / "aspose_check_classification.json"
 )
@@ -498,6 +523,10 @@ def write_local_poc_readme_candidate(
     write_redacted_json(
         candidate_dir / "check-coverage.json",
         _check_coverage_report_or_error(candidate_text, bundle_dir),
+    )
+    write_redacted_json(
+        bundle_dir / "knowledge-application.json",
+        _knowledge_application_report_or_error(render_result),
     )
 
     assessment_hash = assessment.canonical_hash()

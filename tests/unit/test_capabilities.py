@@ -1047,7 +1047,7 @@ class TestRenderReadmeCandidateCapability:
             readme_path="README.md",
             source_revision=revision,
         )
-        entry = SimpleNamespace(org="acme", repo_name="widget")
+        entry = SimpleNamespace(org="acme", repo_name="widget", family="widget", platform="java")
         facts = migrate_product_facts_v1(
             ProductFactsV1(
                 org_repo="acme/widget",
@@ -1099,6 +1099,11 @@ class TestRenderReadmeCandidateCapability:
         monkeypatch.setattr(
             idea_candidate,
             "build_readme_claim_map",
+            lambda *args, **kwargs: SimpleNamespace(model_dump=lambda mode: {}),
+        )
+        monkeypatch.setattr(
+            idea_candidate,
+            "build_knowledge_application_report",
             lambda *args, **kwargs: SimpleNamespace(model_dump=lambda mode: {}),
         )
 

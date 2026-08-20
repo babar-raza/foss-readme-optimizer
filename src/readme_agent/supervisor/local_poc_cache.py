@@ -311,6 +311,7 @@ def _evaluate_local_poc_cache(
     no_op_proof = _load_json(bundle_dir / "review" / "no-op-proof.json")
     readme_reconciliation = _load_json(bundle_dir / "candidate" / "readme-reconciliation.json")
     check_coverage = _load_json(bundle_dir / "candidate" / "check-coverage.json")
+    knowledge_application = _load_json(bundle_dir / "knowledge-application.json")
     expected_inventory, inventory_sha256 = _load_inventory(bundle_dir)
     stored = _stored_dependencies(
         state,
@@ -410,6 +411,7 @@ def _evaluate_local_poc_cache(
                 require_no_op=not approved_only,
                 readme_reconciliation=readme_reconciliation,
                 check_coverage=check_coverage,
+                knowledge_application=knowledge_application,
             )
         )
     if not approved_only:

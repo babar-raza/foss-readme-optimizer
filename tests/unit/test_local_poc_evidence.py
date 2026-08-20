@@ -397,6 +397,203 @@ def test_product_facts_boundary_writes_provenance_conflicts_and_acquisition(tmp_
     assert (bundle / "manifest.json").read_text(encoding="utf-8") == manifest
 
 
+def test_write_local_poc_readme_candidate_writes_final_knowledge_application_second(
+    tmp_path, monkeypatch
+):
+    """K3-3: the post-render write must supersede a pre-existing provisional
+    `knowledge-application.json` at the same path -- `product_truth.py`'s
+    own pre-render write is honestly `status="provisional"`; this later,
+    post-render write is `status="final"` and must win (last write wins,
+    matching `write_redacted_json`'s existing overwrite semantics)."""
+
+    from readme_agent.facts.knowledge_application_evidence import KnowledgeApplicationV1
+
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    snapshot = _snapshot(tmp_path)
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://acme/product",
+        source_revision=snapshot.source_revision,
+    )
+    values = {
+        "product.identity": {"name": "Product", "family": "cells", "ecosystem": "java"},
+        "product.audience": ["Java developers"],
+        "product.problems_solved": ["Read product files"],
+        "product.capabilities": ["Read files"],
+        "product.formats": ["Product files"],
+        "product.compatibility": {"minimum_runtime": "Java 11"},
+        "product.limitations": ["Read-only fixture"],
+        "example.minimal": {"language": "java", "code": "public class Example {}"},
+    }
+    records = [
+        FactRecordV2(
+            fact_id=descriptive_fact_id(field, "candidate-evidence-test"),
+            field=field,
+            value=values.get(field, {"field": field}),
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+        for field in REQUIRED_PRODUCT_FIELDS
+    ]
+    facts = ProductFactsV2(
+        org_repo=snapshot.org_repo,
+        facts=records,
+        selected_fact_ids={fact.field: fact.fact_id for fact in records},
+    )
+    write_local_poc_product_facts(
+        snapshot,
+        facts,
+        findings=[],
+        resolution_source="repository_and_policy",
+        local_verification_contract_hash="v" * 64,
+        fact_acceptance_contract_hash="a" * 64,
+        fact_acceptance_component_hashes={"evidence_polarity": "b" * 64},
+    )
+    source_text = (tmp_path / "README.md").read_text(encoding="utf-8")
+    candidate, document_plan = build_readme_document_candidate(
+        snapshot.org_repo, source_text, facts, base_revision=snapshot.source_revision
+    )
+    assessment = assess_readme_document(
+        snapshot.org_repo, source_text, facts, base_revision=snapshot.source_revision
+    )
+    claim_map = build_readme_claim_map(
+        document_plan, facts, source_text=source_text, candidate_text=candidate
+    )
+
+    bundle_dir = paths.readme_poc_repository_dir("acme", "product", snapshot.source_revision)
+    provisional_report = KnowledgeApplicationV1(
+        status="provisional",
+        org_repo=snapshot.org_repo,
+        family="cells",
+        platform="java",
+        source_revision=snapshot.source_revision,
+        imported_bundle_repo_sha=None,
+        freshness="current",
+        considered_count=0,
+        selected_count=0,
+        rejected_count=0,
+        fact_fields_produced=(),
+        sections_considered=(),
+        sections_selected_for_planning=(),
+        sections_influenced=(),
+        rendered_output_spans=(),
+        load_findings=(),
+        dispositions=(),
+        seo_keyword_dispositions=(),
+    )
+    (bundle_dir / "knowledge-application.json").parent.mkdir(parents=True, exist_ok=True)
+    (bundle_dir / "knowledge-application.json").write_text(
+        provisional_report.model_dump_json(), encoding="utf-8"
+    )
+
+    final_report = provisional_report.model_copy(
+        update={"status": "final", "candidate_sha256": document_plan.candidate_sha256}
+    )
+
+    write_local_poc_readme_candidate(
+        snapshot,
+        {
+            "source_revision": snapshot.source_revision,
+            "final_text": candidate,
+            "knowledge_application": final_report.model_dump(mode="json"),
+        },
+        {
+            "readme_assessment": assessment.model_dump(mode="json"),
+            "readme_document_plan": document_plan.model_dump(mode="json"),
+            "claim_map": claim_map.model_dump(mode="json"),
+            "presentation_plan": {"repository": snapshot.org_repo},
+            "git_patch_proof": {"patch": "fixture patch\n"},
+            "executable": True,
+        },
+    )
+
+    on_disk = json.loads((bundle_dir / "knowledge-application.json").read_text(encoding="utf-8"))
+    assert on_disk["status"] == "final"
+    assert on_disk["candidate_sha256"] == document_plan.candidate_sha256
+
+
+def test_write_local_poc_readme_candidate_records_a_typed_error_when_knowledge_application_missing(
+    tmp_path, monkeypatch
+):
+    """A render that never reaches K3 (an older caller, or a genuine gap)
+    must persist an honest, typed error record -- never a silently absent
+    or stale file that could be mistaken for a real report by a later gate."""
+
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    snapshot = _snapshot(tmp_path)
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://acme/product",
+        source_revision=snapshot.source_revision,
+    )
+    values = {
+        "product.identity": {"name": "Product", "family": "cells", "ecosystem": "java"},
+        "product.audience": ["Java developers"],
+        "product.problems_solved": ["Read product files"],
+        "product.capabilities": ["Read files"],
+        "product.formats": ["Product files"],
+        "product.compatibility": {"minimum_runtime": "Java 11"},
+        "product.limitations": ["Read-only fixture"],
+        "example.minimal": {"language": "java", "code": "public class Example {}"},
+    }
+    records = [
+        FactRecordV2(
+            fact_id=descriptive_fact_id(field, "candidate-evidence-test"),
+            field=field,
+            value=values.get(field, {"field": field}),
+            source=source,
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+        for field in REQUIRED_PRODUCT_FIELDS
+    ]
+    facts = ProductFactsV2(
+        org_repo=snapshot.org_repo,
+        facts=records,
+        selected_fact_ids={fact.field: fact.fact_id for fact in records},
+    )
+    write_local_poc_product_facts(
+        snapshot,
+        facts,
+        findings=[],
+        resolution_source="repository_and_policy",
+        local_verification_contract_hash="v" * 64,
+        fact_acceptance_contract_hash="a" * 64,
+        fact_acceptance_component_hashes={"evidence_polarity": "b" * 64},
+    )
+    source_text = (tmp_path / "README.md").read_text(encoding="utf-8")
+    candidate, document_plan = build_readme_document_candidate(
+        snapshot.org_repo, source_text, facts, base_revision=snapshot.source_revision
+    )
+    assessment = assess_readme_document(
+        snapshot.org_repo, source_text, facts, base_revision=snapshot.source_revision
+    )
+    claim_map = build_readme_claim_map(
+        document_plan, facts, source_text=source_text, candidate_text=candidate
+    )
+
+    bundle, *_ = write_local_poc_readme_candidate(
+        snapshot,
+        {"source_revision": snapshot.source_revision, "final_text": candidate},
+        {
+            "readme_assessment": assessment.model_dump(mode="json"),
+            "readme_document_plan": document_plan.model_dump(mode="json"),
+            "claim_map": claim_map.model_dump(mode="json"),
+            "presentation_plan": {"repository": snapshot.org_repo},
+            "git_patch_proof": {"patch": "fixture patch\n"},
+            "executable": True,
+        },
+    )
+
+    on_disk = json.loads((bundle / "knowledge-application.json").read_text(encoding="utf-8"))
+    assert "error" in on_disk
+
+
 def test_candidate_boundary_writes_assessment_plan_patch_claim_map_and_hashes(
     tmp_path, monkeypatch
 ):

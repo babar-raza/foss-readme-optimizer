@@ -7,13 +7,21 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
+import pytest
+
 from readme_agent.facts.knowledge_application_evidence import (
+    FinalKnowledgeItemDispositionV1,
     KnowledgeApplicationV1,
+    RenderedOutputSpanV1,
     build_knowledge_application_report,
 )
 from readme_agent.facts.schema_v2 import descriptive_fact_id
 from readme_agent.readme.document_operations import build_operation
-from readme_agent.readme.document_plan import PresentationSpanAdoptionV1, ReadmeDocumentPlanV1
+from readme_agent.readme.document_plan import (
+    CandidateContentProvenanceV1,
+    PresentationSpanAdoptionV1,
+    ReadmeDocumentPlanV1,
+)
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 _DATA_ROOT = _REPO_ROOT / "data" / "imported"
@@ -175,4 +183,394 @@ def test_build_knowledge_application_report_influenced_sections_require_a_real_s
     assert all(
         span.fact_id != "some.other.fact:not-from-this-run"
         for span in report_with_plan.rendered_output_spans
+    )
+
+
+def test_candidate_content_provenance_produces_a_rendered_span_with_zero_operation_fact_ids(
+    tmp_path,
+):
+    """Verified-template production commonly carries its real per-fact
+    lineage only in `candidate_content_provenance` -- its own compile
+    operation cites no `fact_ids` at all. K3-2: the report must join both
+    channels, not operations alone."""
+
+    report_without_plan = build_knowledge_application_report(
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "3d",
+        "python",
+        data_root=_DATA_ROOT,
+        clone_cache=tmp_path,
+        source_revision=_3D_PYTHON_REPO_SHA,
+    )
+    selected_field = report_without_plan.fact_fields_produced[0]
+    real_fact_id = descriptive_fact_id(selected_field, "aspose-knowledge")
+    expected_section = next(
+        d.intended_section
+        for d in report_without_plan.dispositions
+        if d.accepted and d.resulting_fact_field == selected_field
+    )
+
+    source = b"# Aspose.3D FOSS for Python\n\nOriginal text.\n"
+    candidate_text = "# Aspose.3D FOSS for Python\n\nCompiled capability text.\n"
+    compile_operation = build_operation(
+        operation_id="readme.verified-template.compile",
+        operation="replace",
+        source=source,
+        start=0,
+        end=len(source),
+        replacement=candidate_text,
+        fact_ids=[],  # the real, observed shape: zero operation-level fact_ids
+        treatment="presentation_policy_correction",
+        rationale="compile the verified-template contract",
+    )
+    span_start = candidate_text.index("Compiled capability text.")
+    span_end = span_start + len(b"Compiled capability text.")
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.capabilities.claim:1",
+        candidate_byte_start=span_start,
+        candidate_byte_end=span_end,
+        fact_ids=[real_fact_id],
+        rationale="capability sentence bound to the selected accepted fact",
+    )
+    plan = _minimal_plan(source, [compile_operation])
+    plan = plan.model_copy(update={"candidate_content_provenance": [provenance]})
+
+    report = build_knowledge_application_report(
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "3d",
+        "python",
+        data_root=_DATA_ROOT,
+        clone_cache=tmp_path,
+        source_revision=_3D_PYTHON_REPO_SHA,
+        document_plan=plan,
+        candidate_text=candidate_text,
+        status="final",
+    )
+
+    assert expected_section in report.sections_influenced
+    provenance_spans = [
+        span
+        for span in report.rendered_output_spans
+        if span.operation_id == provenance.provenance_id
+    ]
+    assert len(provenance_spans) == 1
+    span = provenance_spans[0]
+    assert span.fact_id == real_fact_id
+    assert span.candidate_byte_start == span_start
+    assert span.candidate_byte_end == span_end
+    assert (
+        span.replacement_sha256
+        == hashlib.sha256(candidate_text.encode("utf-8")[span_start:span_end]).hexdigest()
+    )
+
+
+def test_final_report_binds_source_revision_facts_hash_plan_hash_and_candidate_sha256(tmp_path):
+    source = b"# Aspose.3D FOSS for Python\n\nOriginal text.\n"
+    plan = _minimal_plan(source, [])
+
+    report = build_knowledge_application_report(
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "3d",
+        "python",
+        data_root=_DATA_ROOT,
+        clone_cache=tmp_path,
+        source_revision=_3D_PYTHON_REPO_SHA,
+        document_plan=plan,
+        candidate_text="# Aspose.3D FOSS for Python\n\nOriginal text.\n",
+        status="final",
+    )
+
+    assert report.status == "final"
+    assert report.source_revision == _3D_PYTHON_REPO_SHA
+    assert report.facts_hash == plan.facts_hash
+    assert report.candidate_sha256 == plan.candidate_sha256
+    assert report.document_plan_hash is not None
+    assert len(report.document_plan_hash) == 64
+
+
+def _synthetic_selection_result(field: str = "aspose.feature_claims"):
+    """One output-authorizing (accepted, verified, corroborated) claim for
+    `field`, plus a matching minimal `FactRecordV2` -- real-corpus tests
+    above use `select_knowledge_claims()` unmocked, but corroboration there
+    always resolves `uncorroborated` without a real product-repo clone at
+    `clone_cache`, so any test asserting genuine output-authorizing state
+    needs this synthetic, fully-controlled fixture instead."""
+
+    from readme_agent.facts.aspose_knowledge_selection import (
+        KnowledgeClaimDispositionV1,
+        KnowledgeSelectionResultV1,
+    )
+    from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2
+
+    disposition = KnowledgeClaimDispositionV1(
+        global_claim_id="3d/python/CLM-synthetic-0001",
+        family="3d",
+        platform="python",
+        kind="feature",
+        source_revision=_3D_PYTHON_REPO_SHA,
+        freshness="current",
+        corroboration="corroborated",
+        intended_section="Key Capabilities",
+        accepted=True,
+        resulting_fact_field=field,
+        verification_state="verified",
+    )
+    fact_record = FactRecordV2(
+        fact_id=descriptive_fact_id(field, "aspose-knowledge"),
+        field=field,
+        value="Synthetic capability text.",
+        source=FactSourceV2(
+            source_type="approved_documentation",
+            location="synthetic-fixture",
+            source_revision=_3D_PYTHON_REPO_SHA,
+        ),
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["capabilities"],
+    )
+    return KnowledgeSelectionResultV1(
+        family="3d",
+        platform="python",
+        source_revision=_3D_PYTHON_REPO_SHA,
+        bundle_repo_sha=_3D_PYTHON_REPO_SHA,
+        freshness="current",
+        load_findings=(),
+        dispositions=(disposition,),
+        fact_records=(fact_record,),
+    )
+
+
+def test_provisional_report_without_a_document_plan_marks_every_authorizing_item_not_applicable(
+    tmp_path, monkeypatch
+):
+    import readme_agent.facts.knowledge_application_evidence as module
+
+    monkeypatch.setattr(
+        module, "select_knowledge_claims", lambda *a, **k: _synthetic_selection_result()
+    )
+
+    report = build_knowledge_application_report(
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "3d",
+        "python",
+        data_root=_DATA_ROOT,
+        clone_cache=tmp_path,
+        source_revision=_3D_PYTHON_REPO_SHA,
+    )
+
+    assert report.status == "provisional"
+    assert len(report.final_dispositions) == 1
+    entry = report.final_dispositions[0]
+    assert entry.disposition == "not_applicable_with_reason"
+    assert "provisional" in entry.reason
+
+
+def test_final_report_marks_uncited_authorizing_item_intentionally_omitted(tmp_path, monkeypatch):
+    import readme_agent.facts.knowledge_application_evidence as module
+
+    monkeypatch.setattr(
+        module, "select_knowledge_claims", lambda *a, **k: _synthetic_selection_result()
+    )
+    source = b"# Aspose.3D FOSS for Python\n\nOriginal text.\n"
+    plan = _minimal_plan(source, [])  # no operations cite anything
+
+    report = build_knowledge_application_report(
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "3d",
+        "python",
+        data_root=_DATA_ROOT,
+        clone_cache=tmp_path,
+        source_revision=_3D_PYTHON_REPO_SHA,
+        document_plan=plan,
+        candidate_text="# Aspose.3D FOSS for Python\n\nOriginal text.\n",
+        status="final",
+    )
+
+    assert len(report.final_dispositions) == 1
+    entry = report.final_dispositions[0]
+    assert entry.disposition == "intentionally_omitted_with_evidence"
+    assert entry.reason.strip()
+    assert entry.output_spans == ()
+
+
+def test_final_report_output_authorizing_item_rendered_via_a_real_span_never_omitted(
+    tmp_path, monkeypatch
+):
+    """The exact false-positive KGAP-002 shows the mirror image of: a claim
+    demonstrably cited by a real operation must be `rendered_with_exact_spans`
+    -- proof by actual usage always wins over the item-level re-check."""
+
+    import readme_agent.facts.knowledge_application_evidence as module
+
+    field = "aspose.feature_claims"
+    monkeypatch.setattr(
+        module, "select_knowledge_claims", lambda *a, **k: _synthetic_selection_result(field)
+    )
+    source = b"# Aspose.3D FOSS for Python\n\nOriginal text.\n"
+    real_fact_id = descriptive_fact_id(field, "aspose-knowledge")
+    citing_operation = build_operation(
+        operation_id="readme.test.cite-synthetic-fact",
+        operation="insert_after",
+        source=source,
+        start=len(source),
+        end=len(source),
+        replacement="Extra capability text.",
+        fact_ids=[real_fact_id],
+        treatment="preserve",
+        rationale="test citation",
+    )
+    plan = _minimal_plan(source, [citing_operation])
+
+    report = build_knowledge_application_report(
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "3d",
+        "python",
+        data_root=_DATA_ROOT,
+        clone_cache=tmp_path,
+        source_revision=_3D_PYTHON_REPO_SHA,
+        document_plan=plan,
+        candidate_text="# Aspose.3D FOSS for Python\n\nOriginal text.\n",
+        status="final",
+    )
+
+    assert len(report.final_dispositions) == 1
+    entry = report.final_dispositions[0]
+    assert entry.disposition == "rendered_with_exact_spans"
+    assert entry.output_spans
+
+
+def test_rejected_claim_gets_rejected_before_authorship():
+    report = build_knowledge_application_report(
+        "some-org/some-repo",
+        "nonexistent-family",
+        "nonexistent-platform",
+        data_root=Path("/nonexistent"),
+        clone_cache=Path("/nonexistent"),
+        source_revision=None,
+    )
+
+    assert report.final_dispositions == ()  # nothing considered at all
+
+
+def test_duplicate_final_disposition_attribution_is_rejected():
+    entry = FinalKnowledgeItemDispositionV1(
+        global_claim_id="claim:1",
+        fact_field="product.capabilities",
+        disposition="rejected_before_authorship",
+        reason="rejected",
+    )
+    disposition = _considered_disposition("claim:1")
+
+    with pytest.raises(ValueError, match="duplicate final disposition attribution"):
+        _report_with(dispositions=(disposition,), final_dispositions=(entry, entry))
+
+
+def test_final_disposition_citing_an_unknown_claim_is_rejected():
+    entry = FinalKnowledgeItemDispositionV1(
+        global_claim_id="claim:unknown",
+        fact_field=None,
+        disposition="rejected_before_authorship",
+        reason="rejected",
+    )
+
+    with pytest.raises(ValueError, match="cites an unknown claim"):
+        _report_with(dispositions=(), final_dispositions=(entry,))
+
+
+def test_rendered_with_exact_spans_requires_non_empty_output_spans():
+    entry = FinalKnowledgeItemDispositionV1(
+        global_claim_id="claim:1",
+        fact_field="product.capabilities",
+        disposition="rendered_with_exact_spans",
+        reason="",
+        output_spans=(),
+    )
+    disposition = _considered_disposition("claim:1")
+
+    with pytest.raises(ValueError, match="carries no output_spans"):
+        _report_with(dispositions=(disposition,), final_dispositions=(entry,))
+
+
+def test_non_rendered_disposition_requires_a_reason():
+    entry = FinalKnowledgeItemDispositionV1(
+        global_claim_id="claim:1",
+        fact_field="product.capabilities",
+        disposition="not_applicable_with_reason",
+        reason="   ",
+    )
+    disposition = _considered_disposition("claim:1")
+
+    with pytest.raises(ValueError, match="no omission/rejection reason"):
+        _report_with(dispositions=(disposition,), final_dispositions=(entry,))
+
+
+def test_unaccounted_rendered_output_span_blocks_a_final_report():
+    """A fact_id that reached `rendered_output_spans` but has no matching
+    `rendered_with_exact_spans` entry in `final_dispositions` is exactly the
+    ticket's "unaccounted rendered claim" -- must never construct."""
+
+    disposition = _considered_disposition("claim:1", resulting_fact_field="product.capabilities")
+    span = RenderedOutputSpanV1(
+        fact_id=descriptive_fact_id("product.capabilities", "aspose-knowledge"),
+        section="Key Capabilities",
+        operation_id="op.1",
+        operation="replace",
+        replacement_sha256="a" * 64,
+    )
+
+    with pytest.raises(ValueError, match="unaccounted for"):
+        _report_with(
+            dispositions=(disposition,),
+            final_dispositions=(),
+            rendered_output_spans=(span,),
+            status="final",
+        )
+
+
+def _considered_disposition(global_claim_id: str, *, resulting_fact_field: str | None = None):
+    from readme_agent.facts.aspose_knowledge_selection import KnowledgeClaimDispositionV1
+
+    return KnowledgeClaimDispositionV1(
+        global_claim_id=global_claim_id,
+        family="3d",
+        platform="python",
+        kind="feature",
+        source_revision=_3D_PYTHON_REPO_SHA,
+        freshness="current",
+        corroboration="corroborated",
+        intended_section="Key Capabilities",
+        accepted=True,
+        resulting_fact_field=resulting_fact_field,
+        verification_state="verified",
+    )
+
+
+def _report_with(
+    *,
+    dispositions,
+    final_dispositions,
+    rendered_output_spans=(),
+    status: str = "final",
+):
+    return KnowledgeApplicationV1(
+        status=status,
+        org_repo="example-org/Example",
+        family="3d",
+        platform="python",
+        source_revision=None,
+        imported_bundle_repo_sha=None,
+        freshness="current",
+        considered_count=len(dispositions),
+        selected_count=0,
+        rejected_count=0,
+        fact_fields_produced=(),
+        sections_considered=(),
+        sections_selected_for_planning=(),
+        sections_influenced=(),
+        rendered_output_spans=rendered_output_spans,
+        final_dispositions=final_dispositions,
+        load_findings=(),
+        dispositions=dispositions,
+        seo_keyword_dispositions=(),
     )

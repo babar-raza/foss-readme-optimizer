@@ -4,8 +4,9 @@ from __future__ import annotations
 
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
+from readme_agent.facts.knowledge_application_evidence import KnowledgeApplicationV1
 from readme_agent.supervisor.portfolio_scheduler.contracts import canonical_sha256
 from readme_agent.verification.mermaid_render import MERMAID_RENDER_CONTRACT_VERSION
 
@@ -84,6 +85,7 @@ def validate_acceptance_artifact_chain(
     require_no_op: bool,
     readme_reconciliation: dict[str, Any] | None = None,
     check_coverage: dict[str, Any] | None = None,
+    knowledge_application: dict[str, Any] | None = None,
 ) -> list[str]:
     """Reject stale or cross-transaction acceptance artifacts fail closed.
 
@@ -111,7 +113,17 @@ def validate_acceptance_artifact_chain(
     Neither artifact being present at all (pre-Stage-3
     bundle, or a synthetic/unit-test bundle exercising unrelated
     acceptance-binding logic) is itself a reason to deny reuse -- only an
-    explicit, persisted failure blocks.
+    explicit, persisted failure blocks. `knowledge_application` is
+    `candidate/knowledge-application.json`'s post-render K3 report
+    (`local_poc_evidence.py::_knowledge_application_report_or_error`) --
+    absence is not itself blocking (same rationale as
+    `readme_reconciliation`/`check_coverage` above), but a present,
+    malformed, stale, or still-provisional report is: re-parsing it through
+    `KnowledgeApplicationV1` already fail-closed enforces "empty influence
+    for a selected output-authorizing item", "unknown item", "duplicate
+    attribution", and "unaccounted rendered claim" at construction time
+    (`KnowledgeApplicationV1._final_dispositions_are_internally_consistent`)
+    -- a `ValidationError` here means one of those was violated.
     """
 
     if deterministic_validation is None:
@@ -186,6 +198,25 @@ def validate_acceptance_artifact_chain(
                     reasons.append(
                         f"blocking_check_gap:{entry.get('check_name')}:error: {entry.get('reason')}"
                     )
+    if knowledge_application is not None:
+        if "error" in knowledge_application:
+            reasons.append(f"knowledge_application_error: {knowledge_application['error']}")
+        else:
+            try:
+                parsed_knowledge_application = KnowledgeApplicationV1.model_validate(
+                    knowledge_application
+                )
+            except ValidationError as exc:
+                reasons.append(f"knowledge_application_invalid: {exc}")
+            else:
+                if parsed_knowledge_application.status != "final":
+                    reasons.append("knowledge_application_not_final")
+                if (
+                    candidate_hash is not None
+                    and parsed_knowledge_application.candidate_sha256 is not None
+                    and parsed_knowledge_application.candidate_sha256 != candidate_hash
+                ):
+                    reasons.append("knowledge_application_stale")
     return reasons
 
 
