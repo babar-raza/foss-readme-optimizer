@@ -104,6 +104,12 @@ JOB_MODEL_ROUTING: dict[str, str] = {
     # TRP-02: one forced-tool call per bounded README batch performs the
     # temporary trusted lane's inventory, planning, and section authoring.
     "trusted_readme_section_transform": "qwen3-next",
+    # OPT-QWEN-SECTION-ENGINE: section-cluster authoring (2-4 facts/call),
+    # live-probed reliable across 3 repeats and 4 platforms (Python/Java/
+    # .NET/TypeScript) with zero platform-specific prompt branching --
+    # runs/owner_audit_staging/qwen3-next-editorial-probe-aa9981021/
+    # RECOMMENDED_EDITORIAL_TASK_CONTRACT.json.
+    "section_cluster_authoring": "qwen3-next",
 }
 
 

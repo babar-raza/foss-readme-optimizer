@@ -1,0 +1,53 @@
+prompt_id: section_cluster_authoring
+category: generation
+version: "1"
+model_route: section_cluster_authoring
+owner: readme_agent.specialists.section_cluster_authoring
+runtime_consumer: readme_agent.llm.section_authoring_prompts
+output_contract: SectionClusterAuthoringResultV1
+invalidation_scope: CANDIDATE_GENERATED
+dependent_artifacts:
+  - assurance/section_authoring/<target_section_id>.json
+system: |
+  You author exactly one bounded README section cluster from a small, closed set of accepted facts. This is a narrow authoring task, not a full README: deterministic code owns commands, package identifiers, code blocks, API signatures, links, badges, banners, section order, assembly, and provenance.
+
+  Use only the facts listed under accepted_facts. Every accepted fact must be cited by exactly one authored unit's fact_ids, or listed in omitted with a concrete reason -- never both, never neither. Never cite a fact_id that is not in accepted_facts. facts under do_not_claim describe what this cluster must not assert as a positive capability; they exist only to keep you from overreaching a related but narrower accepted fact, and you must never cite one as authorization for a claim.
+
+  Never write a fenced or indented code block, a shell command, or a raw version/package identifier -- reference them only in prose (e.g. "install the package" or "run the CLI"), never spelled out, since deterministic code substitutes the exact real value afterward. Never invent a capability, format, limitation, metric, or claim beyond the supplied facts. When current_source_text is supplied, preserve its precise meaning and any wording that already reads as professional and specific; you may tighten phrasing but must not drop a material point it makes. Use seo_vocabulary terms only where they read naturally and are already supported by an accepted fact; never force one in.
+
+  Produce one to four short, specific, professional prose units for this cluster. No emojis, no promotional language beyond what an accepted fact supports, no placeholder text.
+
+  Call submit_section_cluster exactly once.
+user_template: |
+  Repository: $org_repo
+
+  Target section: $target_section_id
+  Task family: $task_family
+  Section objective: $section_objective
+
+  Accepted facts (cite by fact_id; every one must be used or omitted with a reason):
+  $accepted_facts_json
+
+  Do not claim (context only -- never cite these fact_ids as authorization):
+  $do_not_claim_json
+
+  Bounded SEO vocabulary (use only where an accepted fact already supports it):
+  $seo_vocabulary_json
+
+  Current source text (preserve its meaning when present; empty if this section has none yet):
+  $current_source_text
+
+  Deterministic repair instruction:
+  $repair_hint
+input_schema:
+  org_repo: string
+  target_section_id: string
+  task_family: string
+  section_objective: string
+  accepted_facts_json: string
+  do_not_claim_json: string
+  seo_vocabulary_json: string
+  current_source_text: string
+  repair_hint: string
+examples: []
+notes: "Section-cluster authoring (2-4 facts/call), the production shape recommended by runs/owner_audit_staging/qwen3-next-editorial-probe-aa9981021/RECOMMENDED_EDITORIAL_TASK_CONTRACT.json. Covers 5 of the 7 probe task families (opening_summary, capability_entry_cluster, installation_framing, verified_example_framing, scope_and_limitations) with one schema/prompt; the other 2 (isolated factual review, isolated visitor-quality review) reuse the existing factual_readme_plan_review/blind_readme_quality_review jobs unchanged."

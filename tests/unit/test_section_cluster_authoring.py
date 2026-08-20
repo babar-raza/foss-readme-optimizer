@@ -1,0 +1,413 @@
+"""Bounded section-cluster authoring: acceptance gates, one semantic retry, zero-call cache."""
+
+import json
+
+import pytest
+from section_authoring_test_support import build_fact, build_product_facts_v2
+
+from readme_agent.facts.protected_content import fingerprint_protected_content
+from readme_agent.llm import verifier_client
+from readme_agent.llm.analysis_client import AnalysisResult
+from readme_agent.llm.schema import LLMResponseMeta, Usage
+from readme_agent.llm.section_author_client import LiveSectionClusterAuthorClient
+from readme_agent.specialists.section_authoring_packet import build_section_authoring_packet
+from readme_agent.specialists.section_cluster_authoring import (
+    SectionAuthoringAcceptanceError,
+    execute_section_cluster_authoring,
+)
+
+PROTECTED = fingerprint_protected_content("# Example\n\nA focused library.\n")
+
+CAP_1 = "product.capabilities:fixture"
+CAP_2 = "product.capabilities:secondary"
+LIM_1 = "product.limitations:fixture"
+UNKNOWN_FACT_ID = "does.not.exist:fixture"
+
+
+def _product_facts(org_repo: str = "aspose-3d-foss/Aspose.3D-FOSS-for-Python"):
+    return build_product_facts_v2(
+        org_repo=org_repo,
+        field_values={
+            "product.capabilities": "Import and export OBJ files.",
+            "product.limitations": "COLLADA export is not implemented.",
+        },
+        extra_facts=[
+            build_fact(CAP_2, "product.capabilities", "Import and export GLTF files."),
+        ],
+    )
+
+
+def _packet(*, org_repo: str = "aspose-3d-foss/Aspose.3D-FOSS-for-Python", product_facts=None):
+    return build_section_authoring_packet(
+        org_repo=org_repo,
+        source_revision="a" * 40,
+        target_section_id="capability-overview",
+        task_family="capability_entry_cluster",
+        section_objective="Introduce the primary import/export capabilities.",
+        product_facts=product_facts or _product_facts(org_repo=org_repo),
+        accepted_fact_ids=[CAP_1, CAP_2],
+        do_not_claim_fact_ids=[LIM_1],
+        protected_content=PROTECTED,
+    )
+
+
+class FakeSectionAuthorClient:
+    def __init__(self, responses):
+        self._responses = list(responses)
+        self.calls: list[dict] = []
+
+    def analyze_section_cluster(self, messages, accepted_fact_ids):
+        index = len(self.calls)
+        self.calls.append({"messages": messages, "accepted_fact_ids": list(accepted_fact_ids)})
+        parsed = self._responses[index]
+        return AnalysisResult(
+            parsed=parsed,
+            meta=LLMResponseMeta(
+                request_id=f"req-{index}",
+                model="qwen3-next",
+                usage=Usage(prompt_tokens=100, completion_tokens=50),
+                latency_ms=1234.0,
+            ),
+        )
+
+
+def _valid_response() -> dict:
+    return {
+        "units": [
+            {
+                "heading": "Overview",
+                "text": "Import and export OBJ and GLTF 3D content with a focused Python API.",
+                "fact_ids": [CAP_1, CAP_2],
+            }
+        ],
+        "omitted": [],
+    }
+
+
+def test_accepts_a_valid_response_on_the_first_attempt():
+    packet = _packet()
+    client = FakeSectionAuthorClient([_valid_response()])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert len(client.calls) == 1
+    assert outcome.reused_from_cache is False
+    assert outcome.receipt.semantic_retry_used is False
+    assert outcome.receipt.logical_call_count == 1
+    assert {fact_id for unit in outcome.result.units for fact_id in unit.fact_ids} == {
+        CAP_1,
+        CAP_2,
+    }
+    assert outcome.receipt.token_usage[0].prompt_tokens == 100
+    assert outcome.receipt.latency_ms[0] == 1234.0
+
+
+def test_unsupported_fact_id_triggers_one_semantic_retry_then_succeeds():
+    packet = _packet()
+    client = FakeSectionAuthorClient(
+        [
+            {
+                "units": [
+                    {
+                        "heading": "Overview",
+                        "text": "Overreaching claim.",
+                        "fact_ids": [CAP_1],
+                    }
+                ],
+                "omitted": [{"fact_id": UNKNOWN_FACT_ID, "reason": "not relevant"}],
+            },
+            _valid_response(),
+        ]
+    )
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert len(client.calls) == 2
+    assert outcome.receipt.semantic_retry_used is True
+    assert outcome.receipt.logical_call_count == 2
+    # the retry turn adds a repair hint on top of the full original packet content -- never
+    # in place of it, or the model would be asked to fix facts it can no longer see
+    retry_messages = client.calls[1]["messages"]
+    assert retry_messages[0]["role"] == "system"
+    assert retry_messages[1]["role"] == "user"
+    retry_content = retry_messages[1]["content"]
+    assert "acceptance" in retry_content.casefold()
+    assert CAP_1 in retry_content
+    assert CAP_2 in retry_content
+    assert LIM_1 in retry_content  # do_not_claim context also survives the retry
+
+
+def test_do_not_claim_fact_id_cannot_authorize_positive_prose():
+    packet = _packet()
+    forbidden = {
+        "units": [
+            {
+                "heading": "Overview",
+                "text": "Also supports COLLADA export.",
+                "fact_ids": [CAP_1, LIM_1],
+            }
+        ],
+        "omitted": [{"fact_id": CAP_2, "reason": "not covered in this cluster"}],
+    }
+    client = FakeSectionAuthorClient([forbidden, forbidden])
+
+    with pytest.raises(SectionAuthoringAcceptanceError, match="do_not_claim"):
+        execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert len(client.calls) == 2  # one normal attempt + one exhausted semantic retry
+
+
+def test_undisposed_accepted_fact_is_rejected():
+    packet = _packet()
+    incomplete = {
+        "units": [{"heading": "Overview", "text": "Imports OBJ files.", "fact_ids": [CAP_1]}],
+        "omitted": [],  # CAP_2 neither cited nor omitted
+    }
+    client = FakeSectionAuthorClient([incomplete, incomplete])
+
+    with pytest.raises(SectionAuthoringAcceptanceError, match="neither used nor omitted"):
+        execute_section_cluster_authoring(packet=packet, client=client)
+
+
+def test_fact_both_cited_and_omitted_is_rejected():
+    packet = _packet()
+    contradictory = {
+        "units": [
+            {
+                "heading": "Overview",
+                "text": "Imports OBJ and GLTF files.",
+                "fact_ids": [CAP_1, CAP_2],
+            }
+        ],
+        "omitted": [{"fact_id": CAP_2, "reason": "also omitted, contradictorily"}],
+    }
+    client = FakeSectionAuthorClient([contradictory, contradictory])
+
+    with pytest.raises(SectionAuthoringAcceptanceError, match="both cited and omitted"):
+        execute_section_cluster_authoring(packet=packet, client=client)
+
+
+def test_authored_code_fence_is_rejected_because_deterministic_code_owns_examples():
+    packet = _packet()
+    with_code = {
+        "units": [
+            {
+                "heading": "Overview",
+                "text": "Install it:\n```bash\npip install aspose-3d\n```",
+                "fact_ids": [CAP_1, CAP_2],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([with_code, with_code])
+
+    with pytest.raises(SectionAuthoringAcceptanceError, match="code block or command"):
+        execute_section_cluster_authoring(packet=packet, client=client)
+
+
+def test_authored_command_line_is_rejected():
+    packet = _packet()
+    with_command = {
+        "units": [
+            {
+                "heading": "Installation",
+                "text": "pip install aspose-3d-foss to get started.",
+                "fact_ids": [CAP_1, CAP_2],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([with_command, with_command])
+
+    with pytest.raises(SectionAuthoringAcceptanceError, match="code block or command"):
+        execute_section_cluster_authoring(packet=packet, client=client)
+
+
+def test_exhausting_the_semantic_retry_raises_and_makes_exactly_two_calls():
+    packet = _packet()
+    always_bad = {
+        "units": [{"heading": "Overview", "text": "x", "fact_ids": [CAP_1]}],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([always_bad, always_bad])
+
+    with pytest.raises(SectionAuthoringAcceptanceError, match="failed acceptance"):
+        execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert len(client.calls) == 2
+
+
+def test_accepted_section_cache_hit_makes_zero_provider_calls(tmp_path):
+    packet = _packet()
+    client = FakeSectionAuthorClient([_valid_response()])
+
+    first = execute_section_cluster_authoring(packet=packet, client=client, cache_dir=tmp_path)
+    assert len(client.calls) == 1
+    assert first.reused_from_cache is False
+
+    exhausting_client = FakeSectionAuthorClient([])  # any call would IndexError
+    second = execute_section_cluster_authoring(
+        packet=packet, client=exhausting_client, cache_dir=tmp_path
+    )
+
+    assert exhausting_client.calls == []
+    assert second.reused_from_cache is True
+    assert second.result == first.result
+
+
+def test_a_failed_section_retries_only_that_section_never_writes_a_cache_entry(tmp_path):
+    packet = _packet()
+    always_bad = {
+        "units": [{"heading": "Overview", "text": "x", "fact_ids": [CAP_1]}],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([always_bad, always_bad])
+
+    with pytest.raises(SectionAuthoringAcceptanceError):
+        execute_section_cluster_authoring(packet=packet, client=client, cache_dir=tmp_path)
+
+    assert not (tmp_path / f"{packet.target_section_id}.json").exists()
+
+    # a fresh attempt against the same section, uncached, is what "retry only that section" means
+    retry_client = FakeSectionAuthorClient([_valid_response()])
+    outcome = execute_section_cluster_authoring(
+        packet=packet, client=retry_client, cache_dir=tmp_path
+    )
+    assert outcome.reused_from_cache is False
+    assert len(retry_client.calls) == 1
+
+
+def test_a_failed_cluster_never_erases_a_prior_successful_outcome_for_the_same_section(tmp_path):
+    """Once a section has an accepted cache entry, a later re-run that happens to fail must not
+    delete or overwrite that entry -- caching only ever writes on success (see
+    `execute_section_cluster_authoring`, which calls `write_section_authoring_cache` only after
+    `result is not None`), so the cache file physically cannot be touched by a failing attempt."""
+
+    packet = _packet()
+    client = FakeSectionAuthorClient([_valid_response()])
+    first = execute_section_cluster_authoring(packet=packet, client=client, cache_dir=tmp_path)
+    cache_path = tmp_path / f"{packet.target_section_id}.json"
+    assert cache_path.exists()
+    original_bytes = cache_path.read_bytes()
+
+    # A second packet for a *different* section must never touch this section's cache file --
+    # simulates "one section fails later in a document" without perturbing this fixture's own
+    # accepted packet/cache key.
+    always_bad = {
+        "units": [{"heading": "Overview", "text": "x", "fact_ids": [UNKNOWN_FACT_ID]}],
+        "omitted": [],
+    }
+    other_packet = build_section_authoring_packet(
+        org_repo=packet.org_repo,
+        source_revision=packet.source_revision,
+        target_section_id="installation",
+        task_family="installation_framing",
+        section_objective="Frame installation.",
+        product_facts=_product_facts(),
+        accepted_fact_ids=[CAP_1],
+        protected_content=PROTECTED,
+    )
+    failing_client = FakeSectionAuthorClient([always_bad, always_bad])
+    with pytest.raises(SectionAuthoringAcceptanceError):
+        execute_section_cluster_authoring(
+            packet=other_packet, client=failing_client, cache_dir=tmp_path
+        )
+
+    assert cache_path.read_bytes() == original_bytes
+    assert first.result.units[0].fact_ids == (CAP_1, CAP_2)
+
+
+@pytest.mark.parametrize(
+    "org_repo",
+    [
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+        "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+        "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+    ],
+)
+def test_identical_authoring_contract_across_platforms_no_branch(org_repo):
+    """Same schema, same prompt, same acceptance code path for every ecosystem -- only packet
+    content (org_repo/facts) varies, matching the probe's cross-platform finding."""
+
+    packet = _packet(org_repo=org_repo)
+    client = FakeSectionAuthorClient([_valid_response()])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is False
+    assert len(client.calls) == 1
+
+
+def _tool_call_response(status_code, *, arguments=None, finish_reason="tool_calls"):
+    if arguments is None:
+        return {"status_code": status_code, "text": "Cannot connect to host text-model.vllm-qwen"}
+    return {
+        "status_code": 200,
+        "json": {
+            "id": "chatcmpl-worst-case",
+            "choices": [
+                {
+                    "finish_reason": finish_reason,
+                    "message": {
+                        "tool_calls": [
+                            {
+                                "id": "call1",
+                                "function": {
+                                    "name": "submit_section_cluster",
+                                    "arguments": json.dumps(arguments),
+                                },
+                            }
+                        ]
+                    },
+                }
+            ],
+        },
+    }
+
+
+class _FakeHttpResponse:
+    def __init__(self, spec):
+        self.status_code = spec["status_code"]
+        self._json = spec.get("json")
+        self.text = spec.get("text", "")
+
+    def json(self):
+        return self._json
+
+
+def test_worst_case_composed_bound_is_exactly_four_physical_calls_for_one_cluster(monkeypatch):
+    """Proves the documented worst case end to end through the REAL client (not a fixture
+    double): logical attempt 1 needs its own transport retry (500 then success-but-invalid),
+    logical attempt 2 also needs its own transport retry (500 then success-and-valid) -- 2
+    logical attempts x 2 physical transport attempts each = 4 physical HTTP calls total, never
+    more, and the cluster still succeeds by the end of its bounded budget."""
+
+    packet = _packet()
+    invalid_schema_args = {
+        "units": [{"heading": "x", "text": "x", "fact_ids": [UNKNOWN_FACT_ID]}],
+        "omitted": [],
+    }
+    valid_args = _valid_response()
+    responses = [
+        _tool_call_response(500),  # logical attempt 1, physical attempt 1: transient failure
+        _tool_call_response(200, arguments=invalid_schema_args),  # physical attempt 2: invalid
+        _tool_call_response(500),  # logical attempt 2, physical attempt 1: transient failure
+        _tool_call_response(200, arguments=valid_args),  # physical attempt 2: valid, accepted
+    ]
+    physical_calls = {"n": 0}
+
+    def fake_post(url, json, headers, timeout):
+        response = _FakeHttpResponse(responses[physical_calls["n"]])
+        physical_calls["n"] += 1
+        return response
+
+    monkeypatch.setattr(verifier_client.requests, "post", fake_post)
+    monkeypatch.setattr(verifier_client.time, "sleep", lambda _: None)
+    client = LiveSectionClusterAuthorClient("https://example/v1", "key", "qwen3-next")
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert physical_calls["n"] == 4  # the documented worst-case ceiling, exactly reached
+    assert outcome.receipt.logical_call_count == 2
+    assert outcome.receipt.semantic_retry_used is True

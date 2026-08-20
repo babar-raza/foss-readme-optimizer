@@ -51,13 +51,14 @@ found in — checked at build time, fails loud on mismatch.
 
 ## Current state
 
-Sixteen active manifests are registered. This table is part of the blocking inventory and must match
+Seventeen active manifests are registered. This table is part of the blocking inventory and must match
 the manifest metadata exactly.
 
 | Prompt ID | Category | Model route | Owner | Runtime consumer | Output contract | Invalidation scope |
 |---|---|---|---|---|---|---|
 | `presentation_standard_compliance` | `analysis` | `presentation_standard_compliance` | `readme_agent.capabilities.compare_against_presentation_standard` | `readme_agent.llm.analysis_prompts` | `presentation-standard-comparison-v1` | `README_ASSESSED` |
 | `draft_product_truth` | `generation` | `draft_product_truth` | `readme_agent.capabilities.draft_product_truth` | `readme_agent.llm.generation_prompts` | `DraftProductTruthV1` | `FACTS_COLLECTING` |
+| `section_cluster_authoring` | `generation` | `section_cluster_authoring` | `readme_agent.specialists.section_cluster_authoring` | `readme_agent.llm.section_authoring_prompts` | `SectionClusterAuthoringResultV1` | `CANDIDATE_GENERATED` |
 | `plan_readme_composition` | `generation` | `plan_readme_composition` | `readme_agent.capabilities.plan_readme_composition` | `readme_agent.llm.generation_prompts` | `ReadmeAgenticCompositionPlanV1` | `PLAN_READY` |
 | `relationship_explained` | `generation` | `relationship_explained` | `readme_agent.readme.candidate_pipeline` | `readme_agent.llm.prompts` | `LLMBlockResponse` | `CANDIDATE_GENERATED` |
 | `trusted_readme_section_transform` | `generation` | `trusted_readme_section_transform` | `readme_agent.readme.trusted_composition` | `readme_agent.llm.generation_prompts` | `TrustedReadmeSectionDraftV1` | `TRUSTED_PLAN_READY` |

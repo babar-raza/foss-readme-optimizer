@@ -182,6 +182,7 @@ class TestRealRegistry:
             "independent_readme_review",
             "merged_readme_review",
             "plan_readme_composition",
+            "section_cluster_authoring",
             "trusted_readme_section_transform",
             "presentation_standard_compliance",
             "prose_quality_check",
