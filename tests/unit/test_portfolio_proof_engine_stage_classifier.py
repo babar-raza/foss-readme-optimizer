@@ -161,3 +161,42 @@ def test_unmapped_trusted_lane_status_fails_closed_never_guesses():
     )
     assert receipt.stage == "SYSTEM_FAILURE"
     assert receipt.status == "FAILED"
+
+
+# ---------------------------------------------------------------------------
+# RUNTIME-TRUTH CLOSURE item I: the section-authoring boundary is not implemented here, and the
+# engine must never report SECTION_PACKETS_READY/SECTIONS_AUTHORED/complete-candidate acceptance
+# while `section_authoring_adapter.py` returns None -- that adapter is owned by a different lane.
+# ---------------------------------------------------------------------------
+
+
+def test_section_authoring_adapter_is_still_the_deferred_stub():
+    """Guards the boundary itself: if this ever starts returning something other than `None`,
+    the two assertions below stop meaningfully proving what this test claims to prove, and this
+    test (not the candidate-integration lane's adapter) should be revisited first."""
+
+    from readme_agent.supervisor.portfolio_proof_engine.section_authoring_adapter import (
+        resolve_section_authoring_progress,
+    )
+
+    assert resolve_section_authoring_progress(ORG_REPO) is None
+
+
+def test_facts_ready_lifecycle_never_reports_section_packets_ready_or_sections_authored():
+    for status in ("FACTS_READY", "README_ASSESSED", "PLAN_READY"):
+        receipt = classify_repository_stage(ORG_REPO, _backend(status))
+        assert receipt.stage == "FACTS_READY"
+        assert receipt.stage not in {"SECTION_PACKETS_READY", "SECTIONS_AUTHORED"}
+
+
+def test_review_ready_lifecycle_without_a_rubric_result_never_reports_accepted():
+    for status in (
+        "AGENT_APPROVED",
+        "NO_OP_PROVEN",
+        "HUMAN_REVIEW_READY",
+        "HUMAN_ACCEPTED",
+        "PR_ELIGIBLE",
+        "PR_PROOF_COMPLETE",
+    ):
+        receipt = classify_repository_stage(ORG_REPO, _backend(status))
+        assert receipt.stage != "ACCEPTED"

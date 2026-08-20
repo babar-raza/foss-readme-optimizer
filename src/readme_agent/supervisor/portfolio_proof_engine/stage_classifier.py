@@ -81,7 +81,7 @@ def classify_repository_stage(
     predecessor: ProofStageReceiptV1 | None = None,
     ecosystem: str | None = None,
     elapsed_seconds: float = 0.0,
-    provider_call_count: int = 0,
+    provider_call_count: int | None = 0,
     rubric_result: RubricAcceptanceOutcome | None = None,
 ) -> ProofStageReceiptV1:
     """Classify one repository's current stage from its durable lifecycle state alone (plus a

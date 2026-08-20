@@ -114,6 +114,7 @@ def test_run_facts_only_skips_terminal_skipped_entries(tmp_path, monkeypatch):
                         status="FACTS_READY",
                         source_revision="a" * 40,
                         facts_hash="c" * 64,
+                        fact_acceptance_contract_hash="d" * 64,
                     ),
                 ),
                 None,
@@ -183,3 +184,237 @@ def test_run_facts_only_respects_an_already_expired_deadline(tmp_path, monkeypat
     )
     assert result.deadline_expired is True
     assert calls == []  # the underlying scheduler was never invoked once the deadline had passed
+
+
+# ---------------------------------------------------------------------------
+# Item C: --only/--platform/--family actually reach the real cohort.
+# ---------------------------------------------------------------------------
+
+
+def test_run_facts_only_only_filter_reaches_the_real_cohort(tmp_path, monkeypatch):
+    entries = _entries(3)
+    monkeypatch.setattr(registry_cohort, "load_products", lambda *a, **k: tuple(entries))
+    monkeypatch.setattr(
+        intake_classification,
+        "run_readonly_intake_preflight",
+        lambda entry, backend: _ready_binding(),
+    )
+    calls: list[str] = []
+
+    def _fake_supervise(namespace: argparse.Namespace) -> int:
+        calls.append(namespace.only)
+        return 0
+
+    selected = [entries[0].org_repo, entries[2].org_repo]
+    run_facts_only(
+        output_root=tmp_path / "proof",
+        state_backend=FakeStateBackend(),
+        supervise_call=_fake_supervise,
+        only=selected,
+    )
+    assert sorted(calls) == sorted(selected)
+    assert entries[1].org_repo not in calls
+
+
+def test_run_facts_only_platform_and_family_filters_reach_the_real_cohort(tmp_path, monkeypatch):
+    entries = [
+        make_entry(org_repo="acme/py-one", repository_id=1, family="widgets", platform="python"),
+        make_entry(org_repo="acme/go-one", repository_id=2, family="widgets", platform="go"),
+        make_entry(org_repo="acme/py-two", repository_id=3, family="gadgets", platform="python"),
+    ]
+    monkeypatch.setattr(registry_cohort, "load_products", lambda *a, **k: tuple(entries))
+    monkeypatch.setattr(
+        intake_classification,
+        "run_readonly_intake_preflight",
+        lambda entry, backend: _ready_binding(),
+    )
+    calls: list[str] = []
+
+    def _fake_supervise(namespace: argparse.Namespace) -> int:
+        calls.append(namespace.only)
+        return 0
+
+    run_facts_only(
+        output_root=tmp_path / "proof",
+        state_backend=FakeStateBackend(),
+        supervise_call=_fake_supervise,
+        platform="python",
+        family="widgets",
+    )
+    assert calls == ["acme/py-one"]
+
+
+# ---------------------------------------------------------------------------
+# Item D: a historical lifecycle from another source revision is never reported current.
+# ---------------------------------------------------------------------------
+
+
+def test_stale_lifecycle_from_another_revision_never_reports_current_facts_ready(
+    tmp_path, monkeypatch
+):
+    entries = _entries(1)
+    monkeypatch.setattr(registry_cohort, "load_products", lambda *a, **k: tuple(entries))
+    monkeypatch.setattr(
+        intake_classification,
+        "run_readonly_intake_preflight",
+        lambda entry, backend: _ready_binding(revision="a" * 40),
+    )
+    backend = FakeStateBackend()
+
+    def _fake_supervise_stale(namespace: argparse.Namespace) -> int:
+        # Simulates a durable lifecycle left over from a *previous* source revision -- the
+        # underlying scheduler didn't actually advance it for the revision this pass observed.
+        backend.save(
+            entries[0].org_repo,
+            RunStateV2(
+                org_repo=entries[0].org_repo,
+                readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+                    status="FACTS_READY",
+                    source_revision="b" * 40,  # stale -- intake observed "a" * 40 this pass
+                    facts_hash="c" * 64,
+                    fact_acceptance_contract_hash="d" * 64,
+                ),
+            ),
+            None,
+        )
+        return 0
+
+    result = run_facts_only(
+        output_root=tmp_path / "proof",
+        state_backend=backend,
+        supervise_call=_fake_supervise_stale,
+    )
+    assert not any(receipt.stage == "FACTS_READY" for receipt in result.receipts)
+    assert result.completed_count == 0
+    assert result.pending_count == 1
+    assert result.pending_org_repos == (entries[0].org_repo,)
+
+
+def test_missing_contract_hash_never_reports_current_facts_ready(tmp_path, monkeypatch):
+    entries = _entries(1)
+    monkeypatch.setattr(registry_cohort, "load_products", lambda *a, **k: tuple(entries))
+    monkeypatch.setattr(
+        intake_classification,
+        "run_readonly_intake_preflight",
+        lambda entry, backend: _ready_binding(revision="a" * 40),
+    )
+    backend = FakeStateBackend()
+
+    def _fake_supervise_no_contract(namespace: argparse.Namespace) -> int:
+        backend.save(
+            entries[0].org_repo,
+            RunStateV2(
+                org_repo=entries[0].org_repo,
+                readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+                    status="FACTS_READY",
+                    source_revision="a" * 40,
+                    facts_hash="c" * 64,
+                    # fact_acceptance_contract_hash intentionally omitted -- not yet bound.
+                ),
+            ),
+            None,
+        )
+        return 0
+
+    result = run_facts_only(
+        output_root=tmp_path / "proof",
+        state_backend=backend,
+        supervise_call=_fake_supervise_no_contract,
+    )
+    assert not any(receipt.stage == "FACTS_READY" for receipt in result.receipts)
+    assert result.pending_count == 1
+
+
+# ---------------------------------------------------------------------------
+# Item E: deadline-honest multi-repository continuation and partial reporting.
+# ---------------------------------------------------------------------------
+
+
+def test_run_facts_only_continues_across_multiple_repos_within_deadline(tmp_path, monkeypatch):
+    entries = _entries(3)
+    monkeypatch.setattr(registry_cohort, "load_products", lambda *a, **k: tuple(entries))
+    monkeypatch.setattr(
+        intake_classification,
+        "run_readonly_intake_preflight",
+        lambda entry, backend: _ready_binding(),
+    )
+    backend = FakeStateBackend()
+    calls: list[str] = []
+
+    def _fake_supervise(namespace: argparse.Namespace) -> int:
+        calls.append(namespace.only)
+        backend.save(
+            namespace.only,
+            RunStateV2(
+                org_repo=namespace.only,
+                readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+                    status="FACTS_READY",
+                    source_revision="a" * 40,
+                    facts_hash="c" * 64,
+                    fact_acceptance_contract_hash="d" * 64,
+                ),
+            ),
+            None,
+        )
+        return 0
+
+    result = run_facts_only(
+        output_root=tmp_path / "proof",
+        state_backend=backend,
+        supervise_call=_fake_supervise,
+        deadline=DeadlineBudget(total_seconds=60.0),
+    )
+    assert len(calls) == 3
+    assert result.targeted_count == 3
+    assert result.completed_count == 3
+    assert result.pending_count == 0
+    assert result.deadline_expired is False
+
+
+def test_run_facts_only_deadline_exhaustion_leaves_a_truthful_partial_result(tmp_path, monkeypatch):
+    entries = _entries(3)
+    monkeypatch.setattr(registry_cohort, "load_products", lambda *a, **k: tuple(entries))
+    monkeypatch.setattr(
+        intake_classification,
+        "run_readonly_intake_preflight",
+        lambda entry, backend: _ready_binding(),
+    )
+    backend = FakeStateBackend()
+    calls: list[str] = []
+    # A generous nominal budget, deterministically force-expired after the first repository --
+    # avoids any dependency on real sleep timing/system speed for a stable, non-flaky test.
+    deadline = DeadlineBudget(total_seconds=1000.0)
+
+    def _fake_supervise(namespace: argparse.Namespace) -> int:
+        calls.append(namespace.only)
+        backend.save(
+            namespace.only,
+            RunStateV2(
+                org_repo=namespace.only,
+                readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+                    status="FACTS_READY",
+                    source_revision="a" * 40,
+                    facts_hash="c" * 64,
+                    fact_acceptance_contract_hash="d" * 64,
+                ),
+            ),
+            None,
+        )
+        deadline._started -= 2000.0  # forces expiry before the next repository is attempted
+        return 0
+
+    result = run_facts_only(
+        output_root=tmp_path / "proof",
+        state_backend=backend,
+        supervise_call=_fake_supervise,
+        deadline=deadline,
+    )
+    assert 0 < len(calls) < 3  # the pass stopped partway through, never restarting a repo twice
+    assert result.deadline_expired is True
+    assert result.pending_count == 3 - len(calls)
+    assert result.completed_count == len(calls)
+    assert set(result.pending_org_repos) == {e.org_repo for e in entries} - set(calls)
+    # Never processed more than once, and never a fake receipt for the untouched remainder.
+    assert len(calls) == len(set(calls))
+    for org_repo in result.pending_org_repos:
+        assert not any(r.org_repo == org_repo and r.stage == "FACTS_READY" for r in result.receipts)

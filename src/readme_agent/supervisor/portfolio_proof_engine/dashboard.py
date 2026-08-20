@@ -111,24 +111,100 @@ class PortfolioDashboardV1(BaseModel):
     summary: PortfolioDashboardSummaryV1
 
 
-def _all_receipts_across_campaigns(
-    output_root: Path, org_repo: str
-) -> dict[ProofStageV1, ProofStageReceiptV1]:
-    """Merge receipts for one repository across all five fixed per-mode campaigns (a repo's
-    intake receipt may live under `preflight`, its full-pipeline receipts under `canaries`,
-    `fleet`, or `failed-only`) -- later `STAGE_ORDER` position wins on a genuine conflict."""
+def _all_receipts_flat(output_root: Path, org_repo: str) -> list[ProofStageReceiptV1]:
+    """Every receipt on file for this repository, across all five fixed per-mode campaigns and
+    every stage -- unfiltered, possibly incoherent (see `_coherent_receipts_for_repo`)."""
 
-    merged: dict[ProofStageV1, ProofStageReceiptV1] = {}
+    flat: list[ProofStageReceiptV1] = []
     for mode in get_args(ProofModeV1):
         campaign_id = campaign_id_for_mode(mode)
         for stage in STAGE_ORDER:
             receipt = read_receipt(output_root, campaign_id, org_repo, stage)
-            if receipt is None:
-                continue
-            existing = merged.get(stage)
-            if existing is None or receipt.generated_at >= existing.generated_at:
-                merged[stage] = receipt
-    return merged
+            if receipt is not None:
+                flat.append(receipt)
+    return flat
+
+
+def _coherent_receipts_for_repo(
+    output_root: Path, org_repo: str
+) -> dict[ProofStageV1, ProofStageReceiptV1]:
+    """Merge receipts across all five per-mode campaigns into one *coherent* chain -- never
+    combining evidence merely because each is the newest timestamp for its own stage.
+
+    A receipt survives only if it is compatible with the repository's current identity: the same
+    source revision as the most recently observed receipt; the same facts hash as the newest
+    facts-bearing receipt; the same candidate hash as the newest candidate-bound receipt; and (for
+    a receipt that records one) a `predecessor_receipt_hash` that actually resolves to another
+    surviving receipt. An incompatible receipt is dropped entirely rather than silently kept --
+    "missing compatible stages must produce CANDIDATE_INCOMPLETE, never acceptance."
+    """
+
+    flat = _all_receipts_flat(output_root, org_repo)
+    if not flat:
+        return {}
+
+    # 1. Current source revision: the revision of the most recently generated receipt that
+    #    carries one. Receipts bound to any other revision are stale and excluded outright.
+    revisioned = [r for r in flat if r.source_revision]
+    current_revision = (
+        max(revisioned, key=lambda r: r.generated_at).source_revision if revisioned else None
+    )
+    survivors = (
+        [r for r in flat if r.source_revision in (None, current_revision)]
+        if current_revision is not None
+        else list(flat)
+    )
+
+    # 2. Keep only the most recent surviving receipt per stage.
+    by_stage: dict[ProofStageV1, ProofStageReceiptV1] = {}
+    for receipt in survivors:
+        existing = by_stage.get(receipt.stage)
+        if existing is None or receipt.generated_at >= existing.generated_at:
+            by_stage[receipt.stage] = receipt
+
+    # 3. Facts-hash coherence: every facts-bearing receipt must agree with the newest one.
+    facts_bearing = [stage for stage, r in by_stage.items() if r.facts_hash]
+    if facts_bearing:
+        current_facts_hash = max(
+            (by_stage[stage] for stage in facts_bearing), key=lambda r: r.generated_at
+        ).facts_hash
+        for stage in facts_bearing:
+            if by_stage[stage].facts_hash != current_facts_hash:
+                del by_stage[stage]
+
+    # 4. Candidate-hash coherence: every candidate-bound-stage receipt must agree with the
+    #    newest one -- two candidates with different hashes can never both stand.
+    candidate_bearing = [
+        stage
+        for stage, r in by_stage.items()
+        if stage in _CANDIDATE_LEVEL_STAGES and r.candidate_hash
+    ]
+    if candidate_bearing:
+        current_candidate_hash = max(
+            (by_stage[stage] for stage in candidate_bearing), key=lambda r: r.generated_at
+        ).candidate_hash
+        for stage in candidate_bearing:
+            if by_stage[stage].candidate_hash != current_candidate_hash:
+                del by_stage[stage]
+
+    # 5. Predecessor continuity: a receipt that names a predecessor hash must find it among the
+    #    survivors, or its own lineage is unverifiable and it cannot stand either. Iterate to a
+    #    fixed point since dropping one receipt can break a later one's chain in turn; bounded by
+    #    the number of stages, so this always terminates.
+    for _ in range(len(STAGE_ORDER)):
+        retained_hashes = {r.canonical_hash() for r in by_stage.values()}
+        broken = [
+            stage
+            for stage, r in by_stage.items()
+            if r.predecessor_receipt_hash is not None
+            and r.predecessor_receipt_hash not in retained_hashes
+        ]
+        if not broken:
+            break
+        for stage in broken:
+            del by_stage[stage]
+
+    return by_stage
 
 
 def _latest_by_stage_order(
@@ -321,13 +397,15 @@ def _next_causal_action(state: DashboardStateV1, blocked_surface: str | None) ->
 
 
 def _build_row(entry: ProductEntry, output_root: Path) -> PortfolioDashboardRowV1:
-    receipts = _all_receipts_across_campaigns(output_root, entry.org_repo)
+    receipts = _coherent_receipts_for_repo(output_root, entry.org_repo)
     latest = _latest_by_stage_order(receipts)
 
     org, repo = entry.org_repo.split("/", maxsplit=1)
     blocked_decision = load_blocked_decision(paths.readme_poc_blocked_decision_path(org, repo))
     retry_count = blocked_decision.consecutive_count if blocked_decision is not None else 0
-    provider_calls = sum(r.provider_call_count for r in receipts.values())
+    # An unresolved (None) per-receipt count contributes nothing countable to the row total --
+    # it is never treated as a known 0 either; see contracts.py's provider_call_count docstring.
+    provider_calls = sum(r.provider_call_count or 0 for r in receipts.values())
     elapsed_seconds = sum(r.elapsed_seconds for r in receipts.values())
     source_revision = latest.source_revision if latest is not None else None
     candidate_hash = latest.candidate_hash if latest is not None else None

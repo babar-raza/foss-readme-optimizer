@@ -30,6 +30,7 @@ from readme_agent.supervisor.portfolio_proof_engine.mode_shared import (
     default_rubric_evaluator,
     default_state_backend,
     default_supervise_call,
+    real_provider_call_count,
 )
 from readme_agent.supervisor.portfolio_proof_engine.receipt_store import (
     default_output_root,
@@ -81,13 +82,16 @@ def _run_full_pipeline_cohort(
         )
         supervise_call(namespace)
         elapsed = time.monotonic() - started
+        # The real count of provider calls this supervise_call just made, read from the existing
+        # LLM call ledger -- never a fabricated 0 for a stage that can genuinely call Qwen.
+        call_count = real_provider_call_count()
 
         provisional = classify_repository_stage(
             entry.org_repo,
             state_backend,
             ecosystem=entry.ecosystem,
             elapsed_seconds=elapsed,
-            provider_call_count=0,
+            provider_call_count=call_count,
         )
         rubric_result: RubricAcceptanceOutcome | None = None
         if provisional.stage in _REVIEW_STAGES_ELIGIBLE_FOR_RUBRIC:
@@ -101,12 +105,26 @@ def _run_full_pipeline_cohort(
             predecessor=provisional,
             ecosystem=entry.ecosystem,
             elapsed_seconds=elapsed,
-            provider_call_count=0,
+            provider_call_count=call_count,
             rubric_result=rubric_result,
         )
         write_receipt(output_root, campaign_id, final_receipt)
         receipts.append(final_receipt)
     return receipts
+
+
+def _pipeline_counts(
+    cohort: list[ProductEntry], pipeline_receipts: list[ProofStageReceiptV1]
+) -> tuple[int, int, tuple[str, ...]]:
+    """`_run_full_pipeline_cohort` writes exactly one receipt per cohort member it actually
+    attempts (breaking early on deadline expiry) -- so an entry with no corresponding receipt
+    was never reached this pass and stays truthfully pending, not silently reported as done."""
+
+    attempted = {receipt.org_repo for receipt in pipeline_receipts}
+    completed = sum(1 for receipt in pipeline_receipts if receipt.status == "OK")
+    failed = sum(1 for receipt in pipeline_receipts if receipt.status == "FAILED")
+    pending = tuple(entry.org_repo for entry in cohort if entry.org_repo not in attempted)
+    return completed, failed, pending
 
 
 def run_canaries(
@@ -137,12 +155,18 @@ def run_canaries(
         registry_path=registry_path,
         deadline=deadline,
     )
+    completed, failed, pending = _pipeline_counts(cohort, receipts)
     return ModePassResultV1(
         mode="canaries",
         campaign_id=campaign_id,
         output_root=resolved_output_root,
         receipts=receipts,
         deadline_expired=bool(deadline and deadline.expired()),
+        targeted_count=len(cohort),
+        completed_count=completed,
+        pending_count=len(pending),
+        failed_count=failed,
+        pending_org_repos=pending,
     )
 
 
@@ -184,26 +208,31 @@ def run_fleet(
     for receipt in intake_receipts:
         write_receipt(resolved_output_root, campaign_id, receipt)
 
-    receipts = list(intake_receipts)
-    receipts.extend(
-        _run_full_pipeline_cohort(
-            "fleet",
-            processable,
-            output_root=resolved_output_root,
-            campaign_id=campaign_id,
-            state_backend=backend,
-            supervise_call=supervise_call or default_supervise_call(),
-            rubric_evaluator=rubric_evaluator or default_rubric_evaluator(),
-            registry_path=registry_path,
-            deadline=deadline,
-        )
+    pipeline_receipts = _run_full_pipeline_cohort(
+        "fleet",
+        processable,
+        output_root=resolved_output_root,
+        campaign_id=campaign_id,
+        state_backend=backend,
+        supervise_call=supervise_call or default_supervise_call(),
+        rubric_evaluator=rubric_evaluator or default_rubric_evaluator(),
+        registry_path=registry_path,
+        deadline=deadline,
     )
+    receipts = list(intake_receipts)
+    receipts.extend(pipeline_receipts)
+    completed, failed, pending = _pipeline_counts(processable, pipeline_receipts)
     return ModePassResultV1(
         mode="fleet",
         campaign_id=campaign_id,
         output_root=resolved_output_root,
         receipts=receipts,
         deadline_expired=bool(deadline and deadline.expired()),
+        targeted_count=len(processable),
+        completed_count=completed,
+        pending_count=len(pending),
+        failed_count=failed,
+        pending_org_repos=pending,
     )
 
 
@@ -228,6 +257,8 @@ def run_failed_only(
 
     failed_entries: list[ProductEntry] = []
     receipts: list[ProofStageReceiptV1] = []
+    reassessed = 0
+    refused = 0
     for entry in entries:
         latest = classify_repository_stage(entry.org_repo, backend, ecosystem=entry.ecosystem)
         if latest.status != "FAILED" or latest.stage == "TERMINAL_SKIPPED":
@@ -250,31 +281,39 @@ def run_failed_only(
             )
             write_receipt(resolved_output_root, campaign_id, receipt)
             receipts.append(receipt)
+            reassessed += 1
             continue
         if not decision.eligible:
             # No causal fingerprint change: refuse the retry, leave the prior receipt standing.
+            refused += 1
             continue
         failed_entries.append(entry)
 
+    pipeline_receipts: list[ProofStageReceiptV1] = []
     if failed_entries:
-        receipts.extend(
-            _run_full_pipeline_cohort(
-                "failed-only",
-                failed_entries,
-                output_root=resolved_output_root,
-                campaign_id=campaign_id,
-                state_backend=backend,
-                supervise_call=supervise_call or default_supervise_call(),
-                rubric_evaluator=rubric_evaluator or default_rubric_evaluator(),
-                registry_path=registry_path,
-                deadline=deadline,
-            )
+        pipeline_receipts = _run_full_pipeline_cohort(
+            "failed-only",
+            failed_entries,
+            output_root=resolved_output_root,
+            campaign_id=campaign_id,
+            state_backend=backend,
+            supervise_call=supervise_call or default_supervise_call(),
+            rubric_evaluator=rubric_evaluator or default_rubric_evaluator(),
+            registry_path=registry_path,
+            deadline=deadline,
         )
+        receipts.extend(pipeline_receipts)
 
+    completed, failed, pending = _pipeline_counts(failed_entries, pipeline_receipts)
     return ModePassResultV1(
         mode="failed-only",
         campaign_id=campaign_id,
         output_root=resolved_output_root,
         receipts=receipts,
         deadline_expired=bool(deadline and deadline.expired()),
+        targeted_count=len(failed_entries) + reassessed + refused,
+        completed_count=completed,
+        pending_count=len(pending),
+        failed_count=failed + reassessed + refused,
+        pending_org_repos=pending,
     )

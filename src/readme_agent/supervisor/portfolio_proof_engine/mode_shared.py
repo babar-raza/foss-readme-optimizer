@@ -33,6 +33,15 @@ class ModePassResultV1:
     output_root: Path
     receipts: list[ProofStageReceiptV1] = field(default_factory=list)
     deadline_expired: bool = False
+    # Truthful per-pass bookkeeping (RUNTIME-TRUTH CLOSURE item D): a repository the underlying
+    # scheduler never reached (deadline/slice exhaustion, or a stale lifecycle that didn't match
+    # this pass's own current source revision) is counted as pending, never silently reported as
+    # if it had been processed.
+    targeted_count: int = 0
+    completed_count: int = 0
+    pending_count: int = 0
+    failed_count: int = 0
+    pending_org_repos: tuple[str, ...] = ()
 
 
 def default_supervise_call() -> SuperviseCallable:
@@ -45,6 +54,20 @@ def default_state_backend() -> StateBackend:
     from readme_agent.state.local_poc_backend import default_local_poc_state_backend
 
     return default_local_poc_state_backend()
+
+
+def real_provider_call_count() -> int | None:
+    """The actual number of provider (Qwen) calls the just-completed `supervise_call` made,
+    read from the existing LLM call ledger -- `None` (unresolved) when no accounting context was
+    established, never a fabricated 0. Call this immediately after `supervise_call(namespace)`
+    returns, before anything else touches the ledger's context."""
+
+    from readme_agent.llm.call_ledger import current_llm_accounting_summary
+
+    summary = current_llm_accounting_summary()
+    if summary.status != "EXACT":
+        return None
+    return summary.provider_call_count
 
 
 def default_rubric_evaluator() -> RubricEvaluator:

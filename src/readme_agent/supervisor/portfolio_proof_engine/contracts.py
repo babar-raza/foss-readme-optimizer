@@ -99,7 +99,10 @@ class ProofStageReceiptV1(BaseModel):
     status: Literal["OK", "FAILED"] = "OK"
     failure_reason: str | None = Field(default=None, max_length=500)
     elapsed_seconds: float = Field(ge=0.0)
-    provider_call_count: int = Field(ge=0)
+    # None means "unresolved" (no call-ledger accounting context was available to derive a real
+    # count) -- never fabricated as 0. A stage that provably makes no provider call (INTAKE,
+    # FACTS_READY-and-earlier) still records an honest, known 0.
+    provider_call_count: int | None = Field(default=None, ge=0)
     generated_at: str = Field(default_factory=utc_now_iso)
 
     @field_validator("org_repo")

@@ -314,3 +314,61 @@ def test_run_failed_only_retries_when_the_fingerprint_changed(tmp_path, monkeypa
     assert len(calls) == 1
     assert calls[0].only == entry.org_repo
     assert any(receipt.stage == "ACCEPTED" for receipt in result.receipts)
+
+
+# ---------------------------------------------------------------------------
+# Item G: real provider-call accounting -- never a fabricated 0 for a stage that can call Qwen.
+# ---------------------------------------------------------------------------
+
+
+def test_real_provider_call_count_flows_into_the_written_receipt(tmp_path, monkeypatch):
+    """The wiring, not the ledger internals: `real_provider_call_count()` is what
+    `_run_full_pipeline_cohort` actually consults after each `supervise_call` -- proven by
+    monkeypatching it directly and checking the value lands unmodified on the final receipt."""
+
+    import readme_agent.supervisor.portfolio_proof_engine.full_pipeline_modes as fpm
+
+    monkeypatch.setenv("README_AGENT_RUNS_DIR", str(tmp_path / "runs"))
+    entries = _canary_entries()
+    monkeypatch.setattr(registry_cohort, "load_products", lambda *a, **k: tuple(entries))
+    backend = FakeStateBackend()
+    calls: list[argparse.Namespace] = []
+    monkeypatch.setattr(fpm, "real_provider_call_count", lambda: 4)
+
+    result = run_canaries(
+        output_root=tmp_path / "proof",
+        state_backend=backend,
+        supervise_call=_review_ready_supervise(backend, calls),
+        rubric_evaluator=lambda org_repo, _b: RubricAcceptanceOutcome(
+            org_repo=org_repo, accepted=True, score=30, hard_disqualifier_count=0
+        ),
+    )
+    assert result.receipts
+    assert all(receipt.provider_call_count == 4 for receipt in result.receipts)
+
+
+def test_unresolved_provider_call_count_is_never_fabricated_as_zero(tmp_path, monkeypatch):
+    """When the real call ledger has no accounting context for this invocation (the default in
+    every fake-backed test here, since no live LLM call ever actually happens),
+    `real_provider_call_count()` reports `None` -- and that `None` must survive onto the receipt
+    unchanged, never silently coerced to a claimed-known 0."""
+
+    import readme_agent.supervisor.portfolio_proof_engine.full_pipeline_modes as fpm
+
+    monkeypatch.setenv("README_AGENT_RUNS_DIR", str(tmp_path / "runs"))
+    entries = _canary_entries()
+    monkeypatch.setattr(registry_cohort, "load_products", lambda *a, **k: tuple(entries))
+    backend = FakeStateBackend()
+    calls: list[argparse.Namespace] = []
+    assert fpm.real_provider_call_count() is None  # sanity: no ledger context in this test
+
+    result = run_canaries(
+        output_root=tmp_path / "proof",
+        state_backend=backend,
+        supervise_call=_review_ready_supervise(backend, calls),
+        rubric_evaluator=lambda org_repo, _b: RubricAcceptanceOutcome(
+            org_repo=org_repo, accepted=True, score=30, hard_disqualifier_count=0
+        ),
+    )
+    assert result.receipts
+    assert all(receipt.provider_call_count is None for receipt in result.receipts)
