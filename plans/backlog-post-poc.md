@@ -396,3 +396,30 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
 - 2026-08-20: poc runner failed for aspose-note-foss/Aspose.Note-FOSS-for-Python: container registry acquisition remained unavailable after bounded retry
 - 2026-08-20: poc runner failed for aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python: container registry acquisition remained unavailable after bounded retry
 - 2026-08-20: poc runner failed for aspose-3d-foss/Aspose.3D-FOSS-for-Python: container registry acquisition remained unavailable after bounded retry
+- 2026-08-20 (GOV-014): **Attempted, then reverted, `check_banner_present`'s family/platform
+  registry fallback -- correct in isolation, but a wider blast radius than expected.** Following
+  up on the prior GOV-014 entry above ("derive `family`/`platform` from a broader real source, e.g.
+  the run's own `org_repo`/registry entry"), implemented exactly that in `aspose_checks_bridge.py::
+  _real_kwargs()`: when no `aspose.*` imported-knowledge fact resolves `family`/`platform`, fall
+  back to `registry.loader.find_entry(facts.org_repo)` (never overriding the imported-knowledge
+  path when it does resolve). This is generic -- no per-repository or per-family branch -- and its
+  own focused tests passed (5/5). The problem is downstream: `check_banner_present` moving from
+  `checks_skipped` to `checks_run` means it can now genuinely find something (no banner line in a
+  minimal test fixture) and, since it is classified `blocking: true`, that finding reaches
+  `document_validation.py`'s existing (unchanged) `blocking_aspose_check_findings()` call and
+  becomes a real error -- not a skip/error *gating* change at all, just the check actually running
+  for the first time against fixtures that were never written to satisfy it. Empirically broke 14
+  tests across `test_readme_document_plan.py`, `test_readme_assessment.py`, and
+  `test_agentic_readme_composition.py` -- all real-registry-org_repo fixtures (`cells`, `pdf`, ...)
+  asserting an exact, closed set of expected `document_validation` errors that don't include a
+  banner finding. Reverted the bridge change entirely rather than also touching 14 fixtures files
+  unrelated to banner presence, which would be exactly the "wide, premature fix" the original
+  GOV-014 entry already declined to force through. **Still open; next causal action is one of:**
+  (a) update the affected fixtures to include a real banner line (scope: 14 files, unrelated to
+  their own actual test subject), (b) reclassify `check_banner_present` off `blocking` in
+  `data/aspose_check_classification.json` until its false-positive rate against minimal fixtures is
+  independently re-evaluated, or (c) scope the registry fallback to only fire when a real snapshot/
+  clone is in scope (e.g. thread an explicit `allow_registry_family_platform_fallback: bool`
+  through `run_aspose_checks()`, defaulting to `False`, set `True` only by the real candidate-
+  acceptance call sites) rather than any caller that happens to pass a `ProductFactsV2` with a real
+  `org_repo` string. Not attempted here to avoid growing this operation's scope past ledger/K3.

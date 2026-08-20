@@ -57,6 +57,7 @@ from readme_agent.readme.presentation_lint_models import PresentationLintFinding
 from readme_agent.validation.aspose_checks_bridge import (
     AsposeCheckFindingV1,
     blocking_aspose_check_findings,
+    load_blocking_check_names,
     run_aspose_checks,
 )
 
@@ -591,19 +592,32 @@ def validate_readme_document_candidate(
     # designed template (see `scripts/data-refresh/classify_aspose_checks.py`).
     # Every finding, blocking or not, still surfaces via `aspose_check_findings`
     # for a caller/reviewer to see -- `checks["aspose_checks"]` and this
-    # promotion are two independent signals, never conflated. A blocking
-    # check that is skipped or errored (never produces a real finding here)
-    # is caught separately, at candidate-acceptance time against the
-    # persisted check-coverage evidence (`aspose_checks_bridge.py::
-    # blocking_aspose_check_gaps`, `local_poc_acceptance_binding.py`) --
-    # this shared validator is exercised by hundreds of synthetic-fixture
-    # tests unrelated to aspose_checks coverage, so it deliberately stays
-    # scoped to real findings only, not skip/error gaps (Stage 3B).
+    # promotion are two independent signals, never conflated.
     aspose_checks = run_aspose_checks(candidate_inner, facts)
     checks["aspose_checks"] = aspose_checks.valid
     errors.extend(
         f"{finding.check_name}[{finding.section or 'document'}]: {finding.message}"
         for finding in blocking_aspose_check_findings(aspose_checks)
+    )
+    # A blocking check that raised or returned an uninterpretable result
+    # (`checks_errored`) never produces a real finding, so the block above
+    # can't see it -- previously silently indistinguishable from "ran
+    # cleanly and passed" at every one of this function's 5 call sites
+    # except the one local-POC acceptance path that separately re-derived
+    # this from persisted check-coverage evidence. Reused here directly in
+    # the shared validator instead, so all 5 call sites fail closed the same
+    # way. Deliberately error-only, not skip: `checks_skipped` includes
+    # `check_banner_present` in nearly every non-full-portfolio run (its
+    # family/platform derivation is a known, separately tracked gap -- see
+    # `plans/backlog-post-poc.md`, GOV-014), so gating on skip here would
+    # fail this shared, widely-exercised validator for reasons unrelated to
+    # the candidate actually being invalid.
+    blocking_check_errors = load_blocking_check_names() & set(aspose_checks.checks_errored)
+    checks["aspose_checks_no_blocking_errors"] = not blocking_check_errors
+    errors.extend(
+        f"blocking check {name!r} raised or returned an unexpected result -- "
+        "cannot be treated as passing"
+        for name in sorted(blocking_check_errors)
     )
 
     return DocumentCandidateValidationV1(
