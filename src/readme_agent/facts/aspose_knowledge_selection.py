@@ -54,16 +54,23 @@ third-party imported knowledge specifically:
   homogeneously unverified still emits exactly one record, under the
   original `aspose-knowledge` qualifier, unchanged from before.
 
-Two claim kinds are deliberately never selected here, with an explicit
+One claim kind is deliberately never selected here, with an explicit
 disposition reason rather than silent omission: `dependency` (already
 produced by `aspose_detectors.detect_dependency_claims` /
 `composer_factpack.aspose_fact_records`'s existing `aspose.dependency_claims`
 field -- selecting it again here would create two divergent paths for the
-same evidence) and `api`/`api_class`/`api_method`/`api_field` (the
-structured, per-language `api_surface.json` already covers this need through
-`aspose.public_surface`/`api.public_surface` with real per-member signatures;
-the free-text `claims.json` API claims are a strictly weaker projection of
-the same ground truth).
+same evidence).
+
+`api`/`api_class`/`api_method`/`api_field` claims are handled per claim, not
+per kind: a claim is rejected as "covered by the structured API surface"
+only when its own named symbol genuinely appears in the canonical
+`api.public_surface` catalog (`aspose_detectors.detect_api_public_surface`)
+for this family/platform -- never merely because *some* non-empty surface
+exists for the product. A claim naming a symbol the canonical surface does
+not contain flows through the same selection/corroboration pipeline as
+every other kind, landing in `aspose.api_claims` / "API Reference" when it
+survives. An empty or invalid structured surface therefore never silently
+suppresses these claims as "covered".
 """
 
 from __future__ import annotations
@@ -75,6 +82,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict
 
 from readme_agent.facts.aspose_detectors import (
+    ApiPublicSurfaceDetectionV1,
     detect_api_public_surface,
     detect_relevant_seo_keywords,
 )
@@ -94,7 +102,9 @@ from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, descriptive
 from readme_agent.license.auditor import classify_license_text
 
 # One selectable field + intended section per render-mapped claim kind.
-# `dependency`/`api*` are intentionally absent (see module docstring).
+# `dependency` is intentionally absent (see module docstring); `api*` kinds
+# are added unconditionally by `_effective_kind_field_map()` below, not
+# listed statically here (see module docstring for their per-claim handling).
 _KIND_FIELD_MAP: dict[KnowledgeClaimKind, tuple[str, str, list[str]]] = {
     "feature": ("aspose.feature_claims", "Key Capabilities", ["readme.capabilities"]),
     "format_support": (
@@ -123,34 +133,65 @@ _KIND_FIELD_MAP: dict[KnowledgeClaimKind, tuple[str, str, list[str]]] = {
 
 _NEVER_SELECTED_REASON: dict[KnowledgeClaimKind, str] = {
     "dependency": "kind_covered_by_existing_dependency_claims_field",
-    "api": "kind_covered_by_api_surface_field",
-    "api_class": "kind_covered_by_api_surface_field",
-    "api_method": "kind_covered_by_api_surface_field",
-    "api_field": "kind_covered_by_api_surface_field",
 }
 
 _API_CLAIM_KINDS: tuple[KnowledgeClaimKind, ...] = ("api", "api_class", "api_method", "api_field")
+_API_CLAIM_FIELD: tuple[str, str, list[str]] = (
+    "aspose.api_claims",
+    "API Reference",
+    ["readme.api_reference"],
+)
 
 
-def _effective_kind_field_map(
-    family: str, platform: str, *, data_root: Path
-) -> dict[KnowledgeClaimKind, tuple[str, str, list[str]]]:
-    """`_KIND_FIELD_MAP` plus a conditional API-claim fallback.
+def _effective_kind_field_map() -> dict[KnowledgeClaimKind, tuple[str, str, list[str]]]:
+    """`_KIND_FIELD_MAP` plus API-claim kinds routed to `aspose.api_claims`
+    unconditionally. Whether a specific api*-kind claim is actually
+    "covered by the structured API surface" is now decided per claim, not
+    per product (`_claim_covered_by_canonical_surface`, checked inside the
+    selection loop below) -- an api*-kind claim always enters this field's
+    normal selection/corroboration pipeline; claims whose named symbol
+    genuinely appears in the canonical surface are then rejected there with
+    the same `kind_covered_by_api_surface_field` reason as before. This
+    means a product with SOME canonical coverage can no longer silently
+    suppress a claim about a symbol that surface does not actually name."""
 
-    API-claim kinds stay excluded as "covered by the structured API surface
-    field" only when this run's own imported `api_surface.json` actually
-    produced a usable, non-empty canonical surface for this family/platform
-    (`aspose_detectors.detect_api_public_surface` -- the same imported-
-    knowledge structured surface `covered_by_api_surface` refers to). An
-    empty or invalid structured surface must never silently suppress these
-    claims as "covered": they instead become normally selectable, ranked,
-    and corroborated fallback evidence like every other claim kind, landing
-    in `aspose.api_claims` / "API Reference" when they survive selection."""
+    return {**_KIND_FIELD_MAP, **dict.fromkeys(_API_CLAIM_KINDS, _API_CLAIM_FIELD)}
 
-    if detect_api_public_surface(family, platform, data_root=data_root) is not None:
-        return _KIND_FIELD_MAP
-    fallback_entry = ("aspose.api_claims", "API Reference", ["readme.api_reference"])
-    return {**_KIND_FIELD_MAP, **{kind: fallback_entry for kind in _API_CLAIM_KINDS}}
+
+def _canonical_api_symbol_names(surface: ApiPublicSurfaceDetectionV1 | None) -> frozenset[str]:
+    if surface is None:
+        return frozenset()
+    names: set[str] = set()
+    for module in surface.modules:
+        for item in module.classes:
+            if item.name:
+                names.add(item.name)
+            names.update(member.name for member in item.methods if member.name)
+            names.update(member.name for member in item.properties if member.name)
+    return frozenset(names)
+
+
+def _canonical_api_symbol_pattern(names: frozenset[str]) -> re.Pattern[str] | None:
+    """One compiled alternation over every canonical symbol name, longest
+    first so a longer name is never shadowed by a shorter substring match --
+    checked once per claim instead of once per (claim, name) pair."""
+
+    escaped = sorted((re.escape(name) for name in names if name), key=len, reverse=True)
+    if not escaped:
+        return None
+    return re.compile(
+        r"(?<![A-Za-z0-9_])(?:" + "|".join(escaped) + r")(?![A-Za-z0-9_])", re.IGNORECASE
+    )
+
+
+def _claim_covered_by_canonical_surface(
+    claim: ImportedKnowledgeClaimV1, pattern: re.Pattern[str] | None
+) -> bool:
+    """A free-text API claim is "covered by the structured API surface"
+    only when it names a symbol that canonical surface actually contains --
+    never merely because some non-empty surface exists for this product."""
+
+    return pattern is not None and bool(pattern.search(claim.text))
 
 
 _MAX_SELECTED_PER_KIND = 8
@@ -456,7 +497,9 @@ def select_knowledge_claims(
     freshness = assess_bundle_freshness(provenance, current_repo_sha=source_revision)
     readme_normalized = _readme_normalized_text(clone_cache)
     seo_keywords = detect_relevant_seo_keywords(family, platform, data_root=data_root).keywords
-    kind_field_map = _effective_kind_field_map(family, platform, data_root=data_root)
+    kind_field_map = _effective_kind_field_map()
+    api_surface = detect_api_public_surface(family, platform, data_root=data_root)
+    canonical_api_pattern = _canonical_api_symbol_pattern(_canonical_api_symbol_names(api_surface))
 
     dispositions: list[KnowledgeClaimDispositionV1] = []
     fact_records: list[FactRecordV2] = []
@@ -530,6 +573,25 @@ def select_knowledge_claims(
         ] = []
         seen_normalized_texts: set[str] = set()
         for claim in ranked:
+            if field == _API_CLAIM_FIELD[0] and _claim_covered_by_canonical_surface(
+                claim, canonical_api_pattern
+            ):
+                dispositions.append(
+                    KnowledgeClaimDispositionV1(
+                        global_claim_id=claim.global_claim_id,
+                        family=family,
+                        platform=platform,
+                        kind=claim.kind,
+                        source_revision=source_revision,
+                        freshness=freshness,
+                        corroboration="uncorroborated",
+                        intended_section=section,
+                        accepted=False,
+                        rejection_reason="kind_covered_by_api_surface_field",
+                        resulting_fact_field=field,
+                    )
+                )
+                continue
             corroboration, already_in_readme, _search_intent_match = signals[claim.global_claim_id]
             eligible, state, confidence, ineligibility_reason = _claim_eligibility(
                 claim, freshness=freshness, corroboration=corroboration

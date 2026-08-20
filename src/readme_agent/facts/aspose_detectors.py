@@ -42,8 +42,9 @@ from __future__ import annotations
 import json
 import re
 import sys
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict
 
@@ -569,6 +570,26 @@ class ApiSurfaceMemberV1(BaseModel):
     signature: str
 
 
+ApiVisibilityState = Literal["public", "internal", "unknown"]
+ApiReachabilityState = Literal["reachable", "not_reachable", "unknown"]
+ApiImplementationState = Literal["implemented", "stubbed", "unknown"]
+
+
+class ApiSymbolStateV1(BaseModel):
+    """The distinct, never-conflated states a corpus-sourced API entry can
+    hold: declared visibility, whether it is actually reachable through the
+    public package (a separate signal from visibility, when the corpus
+    supplies one), and implementation status. `unknown` is a first-class
+    value, never silently coerced to `False`/verified -- see
+    `_resolve_visibility`/`_resolve_reachability`/`_resolve_implementation`."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    visibility: ApiVisibilityState
+    reachable: ApiReachabilityState
+    implemented: ApiImplementationState
+
+
 class ApiSurfaceClassV1(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
@@ -577,6 +598,7 @@ class ApiSurfaceClassV1(BaseModel):
     kind: str
     methods: tuple[ApiSurfaceMemberV1, ...]
     properties: tuple[ApiSurfaceMemberV1, ...]
+    state: ApiSymbolStateV1
 
 
 class ApiSurfaceModuleV1(BaseModel):
@@ -605,31 +627,111 @@ _KIND_TO_MODULE = {
 
 # The corpus's own visibility vocabulary varies by extraction pass -- "public"/
 # "conventional" (3D), "exported"/"conventional" (Note), "public"-or-absent
-# (Barcode) -- confirmed by direct inspection of all three real bundles.
+# (Barcode) -- confirmed by direct inspection of all three real bundles. This
+# vocabulary itself is already ecosystem-agnostic (a normalized label the
+# corpus's own per-language extractor emits), so no per-platform branch is
+# needed here -- only the *fallback* below, used when the label is absent,
+# needs a platform lookup.
 _PUBLIC_VISIBILITY_LABELS = frozenset({"public", "exported"})
 _PRIVATE_VISIBILITY_LABELS = frozenset({"conventional", "internal", "private"})
 
+# A bare-name convention for inferring visibility only exists for ecosystems
+# where it is a real, load-bearing language rule -- Python's leading
+# underscore, Go's leading-case export rule. Every other registered platform
+# (.NET, Java, C++, Rust, TypeScript) marks visibility explicitly via a
+# keyword/attribute the corpus's own `visibility` label already carries when
+# present; guessing from spelling for those would fabricate a signal that
+# does not exist, so they are deliberately absent here and fall through to
+# "unknown" rather than a guessed convention. A data-driven table, not an
+# if/elif chain on product family or platform.
+_NAME_VISIBILITY_CONVENTION: dict[str, Callable[[str], bool | None]] = {
+    "python": lambda name: not name.startswith("_"),
+    "go": lambda name: name[:1].isupper() if name[:1].isalpha() else None,
+}
 
-def _entry_is_publicly_reachable(entry: dict) -> bool:
-    """Resolve public reachability from the corpus's own visibility label,
-    never from the separate `reachable` field: direct inspection of the
-    real 3D, Note, and Barcode bundles shows `reachable` is either uniformly
-    `False` (3D, all 327 entries) or entirely absent (Note, Barcode) --
-    never a discriminating signal, so requiring it true unconditionally
-    rejects the entire bundle regardless of real visibility. A missing
-    visibility label falls back to the symbol's own name not being
-    conventionally private (leading underscore) -- a generic Python/most
-    C-family convention, not a per-family or per-repository special case."""
+
+def _resolve_visibility(entry: dict, *, platform: str) -> ApiVisibilityState:
+    """Resolve declared visibility -- never conflated with reachability
+    (below) or implementation status. Prefers the corpus's own normalized
+    label; falls back to a platform's own real bare-name convention only
+    where one exists; otherwise `"unknown"`, never guessed either way."""
 
     visibility = entry.get("visibility")
     if isinstance(visibility, str):
         normalized = visibility.strip().casefold()
         if normalized in _PUBLIC_VISIBILITY_LABELS:
-            return True
+            return "public"
         if normalized in _PRIVATE_VISIBILITY_LABELS:
-            return False
+            return "internal"
+    convention = _NAME_VISIBILITY_CONVENTION.get(platform)
     name = entry.get("name")
-    return isinstance(name, str) and bool(name) and not name.startswith("_")
+    if convention is not None and isinstance(name, str) and name:
+        inferred = convention(name)
+        if inferred is True:
+            return "public"
+        if inferred is False:
+            return "internal"
+    return "unknown"
+
+
+def _reachable_field_is_discriminating(entries: list[dict]) -> bool:
+    """Whether this bundle's own `reachable` field ever actually varies.
+    Direct inspection of the real 3D (uniformly `False`, all 327 entries),
+    Note, and Barcode (both entirely absent) bundles confirms it carries no
+    real per-entry signal in any of them -- requiring it `True`
+    unconditionally rejected every entry regardless of real visibility. A
+    field that is constant or absent across a whole bundle is not evidence;
+    only a bundle where both `True` and `False` genuinely occur proves the
+    field is populated with real, per-entry information for that product."""
+
+    seen = {
+        entry["reachable"]
+        for entry in entries
+        if isinstance(entry, dict) and isinstance(entry.get("reachable"), bool)
+    }
+    return True in seen and False in seen
+
+
+def _resolve_reachability(entry: dict, *, discriminating: bool) -> ApiReachabilityState:
+    """Reachability through the public package is a distinct signal from
+    declared visibility -- a symbol can be marked public yet never actually
+    exported to a consumer. Only trusted when this bundle's `reachable`
+    field is proven to discriminate at all (see above); missing or
+    non-discriminating reachability is `"unknown"`, never silently coerced
+    to `False` (excluded) or `True` (verified)."""
+
+    if not discriminating:
+        return "unknown"
+    reachable = entry.get("reachable")
+    if reachable is True:
+        return "reachable"
+    if reachable is False:
+        return "not_reachable"
+    return "unknown"
+
+
+def _resolve_implementation(entry: dict) -> ApiImplementationState:
+    """The imported corpus's own per-entry projection carries no
+    implementation-status signal for any ecosystem (no field encodes
+    stub/`NotImplementedException`/`panic!`/etc. bodies) -- always
+    `"unknown"` here, never guessed. Python's own repository-AST pipeline
+    (`curated_python_api_ast.py::member_is_implemented`) is the one real
+    implementation-state source today, and is a separate, higher-precedence
+    fact producer for Python specifically (see composer_factpack.py's
+    source-precedence comment) -- this function does not duplicate it."""
+
+    del entry
+    return "unknown"
+
+
+def _resolve_symbol_state(
+    entry: dict, *, platform: str, reachable_discriminating: bool
+) -> ApiSymbolStateV1:
+    return ApiSymbolStateV1(
+        visibility=_resolve_visibility(entry, platform=platform),
+        reachable=_resolve_reachability(entry, discriminating=reachable_discriminating),
+        implemented=_resolve_implementation(entry),
+    )
 
 
 def _member_signature(entry: dict) -> str:
@@ -664,7 +766,9 @@ def detect_api_public_surface(
     reads the same `merged/` directory for the same reason).
 
     `None` when no `api_surface.json` exists for this family/platform, it fails to parse, or it
-    contains zero publicly reachable entries."""
+    contains zero non-internal entries. An entry whose visibility/reachability/implementation
+    state cannot be resolved is included as `"unknown"`, never silently dropped -- only a
+    confirmed-`"internal"` visibility excludes an entry."""
 
     surface_path = data_root / "knowledge" / family / platform / "merged" / "api_surface.json"
     if not surface_path.is_file():
@@ -675,12 +779,18 @@ def detect_api_public_surface(
         return None
     if not isinstance(entries, list):
         return None
+    reachable_discriminating = _reachable_field_is_discriminating(
+        [entry for entry in entries if isinstance(entry, dict)]
+    )
     by_module: dict[str, list[ApiSurfaceClassV1]] = {}
     model_sha: str | None = None
     for entry in entries:
         if not isinstance(entry, dict) or not entry.get("name"):
             continue
-        if not _entry_is_publicly_reachable(entry):
+        state = _resolve_symbol_state(
+            entry, platform=platform, reachable_discriminating=reachable_discriminating
+        )
+        if state.visibility == "internal":
             continue
         module = _KIND_TO_MODULE.get(entry.get("kind", ""), "Core API")
         # A bare top-level function entry carries its own params/return_type
@@ -712,6 +822,7 @@ def detect_api_public_surface(
                 kind=entry.get("kind", ""),
                 methods=methods,
                 properties=properties,
+                state=state,
             )
         )
         file_sha_source = entry.get("model_sha") or entry.get("repo_sha")
@@ -734,7 +845,9 @@ def detect_api_public_surface(
 __all__ = [
     "ApiPublicSurfaceDetectionV1",
     "ApiSurfaceClassV1",
+    "ApiSurfaceMemberV1",
     "ApiSurfaceModuleV1",
+    "ApiSymbolStateV1",
     "ArchetypeDetectionV1",
     "DependencyClaimsDetectionV1",
     "DevTestArtifactV1",

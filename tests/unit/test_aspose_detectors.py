@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from readme_agent.facts.aspose_detectors import (
@@ -447,3 +448,275 @@ def test_detect_api_public_surface_is_deterministic_across_calls():
 
     assert first is not None
     assert first.model_dump(mode="json") == second.model_dump(mode="json")
+
+
+def _write_api_surface_fixture(tmp_path: Path, family: str, platform: str, entries: list[dict]):
+    merged_dir = tmp_path / "knowledge" / family / platform / "merged"
+    merged_dir.mkdir(parents=True)
+    (merged_dir / "api_surface.json").write_text(json.dumps(entries), encoding="utf-8")
+
+
+def _class_by_name(result, name: str):
+    return next(item for module in result.modules for item in module.classes if item.name == name)
+
+
+# Mandatory cross-ecosystem coverage (course-correction Priority 1): one
+# fixture per platform, proving the corpus's own visibility vocabulary
+# normalizes correctly and missing reachability/visibility resolves to
+# "unknown" rather than a guessed True/False -- never a per-platform branch,
+# just the same generic resolver reading each platform's own real corpus
+# vocabulary (`_PUBLIC_VISIBILITY_LABELS`/`_PRIVATE_VISIBILITY_LABELS`) plus,
+# only for Python/Go, a real bare-name convention.
+
+
+def test_detect_api_public_surface_python_visibility_states(tmp_path):
+    _write_api_surface_fixture(
+        tmp_path,
+        "widget",
+        "python",
+        [
+            {"name": "Widget", "kind": "class_definition", "visibility": "public", "methods": []},
+            {
+                "name": "_Internal",
+                "kind": "class_definition",
+                "visibility": "conventional",
+                "methods": [],
+            },
+            {"name": "Unlabeled", "kind": "class_definition", "methods": []},
+            {"name": "_unlabeled_private", "kind": "class_definition", "methods": []},
+        ],
+    )
+
+    result = detect_api_public_surface("widget", "python", data_root=tmp_path)
+
+    assert result is not None
+    names = {item.name for module in result.modules for item in module.classes}
+    assert names == {"Widget", "Unlabeled"}
+    assert _class_by_name(result, "Widget").state.visibility == "public"
+    # No explicit label, but the real Python bare-name convention applies.
+    assert _class_by_name(result, "Unlabeled").state.visibility == "public"
+
+
+def test_detect_api_public_surface_dotnet_visibility_states(tmp_path):
+    _write_api_surface_fixture(
+        tmp_path,
+        "widget",
+        "net",
+        [
+            {"name": "Widget", "kind": "class_definition", "visibility": "public", "methods": []},
+            {
+                "name": "Internal",
+                "kind": "class_definition",
+                "visibility": "internal",
+                "methods": [],
+            },
+            {"name": "Unlabeled", "kind": "class_definition", "methods": []},
+        ],
+    )
+
+    result = detect_api_public_surface("widget", "net", data_root=tmp_path)
+
+    assert result is not None
+    names = {item.name for module in result.modules for item in module.classes}
+    # .NET has no reliable bare-name convention -- an unlabeled entry is
+    # included (never silently dropped) with unknown visibility, not
+    # guessed public or private from its spelling.
+    assert names == {"Widget", "Unlabeled"}
+    assert _class_by_name(result, "Widget").state.visibility == "public"
+    assert _class_by_name(result, "Unlabeled").state.visibility == "unknown"
+
+
+def test_detect_api_public_surface_java_visibility_states(tmp_path):
+    _write_api_surface_fixture(
+        tmp_path,
+        "widget",
+        "java",
+        [
+            {"name": "Widget", "kind": "class_definition", "visibility": "public", "methods": []},
+            {"name": "Helper", "kind": "class_definition", "visibility": "private", "methods": []},
+            {"name": "Unlabeled", "kind": "class_definition", "methods": []},
+        ],
+    )
+
+    result = detect_api_public_surface("widget", "java", data_root=tmp_path)
+
+    assert result is not None
+    names = {item.name for module in result.modules for item in module.classes}
+    assert names == {"Widget", "Unlabeled"}
+    assert _class_by_name(result, "Unlabeled").state.visibility == "unknown"
+
+
+def test_detect_api_public_surface_cpp_visibility_states(tmp_path):
+    _write_api_surface_fixture(
+        tmp_path,
+        "widget",
+        "cpp",
+        [
+            {"name": "Widget", "kind": "class_definition", "visibility": "exported", "methods": []},
+            {"name": "Detail", "kind": "class_definition", "visibility": "internal", "methods": []},
+            {"name": "Unlabeled", "kind": "class_definition", "methods": []},
+        ],
+    )
+
+    result = detect_api_public_surface("widget", "cpp", data_root=tmp_path)
+
+    assert result is not None
+    names = {item.name for module in result.modules for item in module.classes}
+    assert names == {"Widget", "Unlabeled"}
+    assert _class_by_name(result, "Widget").state.visibility == "public"
+    assert _class_by_name(result, "Unlabeled").state.visibility == "unknown"
+
+
+def test_detect_api_public_surface_go_visibility_states(tmp_path):
+    _write_api_surface_fixture(
+        tmp_path,
+        "widget",
+        "go",
+        [
+            {"name": "Widget", "kind": "class_definition", "visibility": "exported", "methods": []},
+            {"name": "helper", "kind": "class_definition", "visibility": "internal", "methods": []},
+            {"name": "Exported", "kind": "class_definition", "methods": []},
+            {"name": "unexported", "kind": "class_definition", "methods": []},
+        ],
+    )
+
+    result = detect_api_public_surface("widget", "go", data_root=tmp_path)
+
+    assert result is not None
+    names = {item.name for module in result.modules for item in module.classes}
+    # Go's real export rule (leading-case) applies as the bare-name fallback.
+    assert names == {"Widget", "Exported"}
+    assert _class_by_name(result, "Exported").state.visibility == "public"
+
+
+def test_detect_api_public_surface_rust_visibility_states(tmp_path):
+    _write_api_surface_fixture(
+        tmp_path,
+        "widget",
+        "rust",
+        [
+            {"name": "Widget", "kind": "class_definition", "visibility": "public", "methods": []},
+            {"name": "detail", "kind": "class_definition", "visibility": "internal", "methods": []},
+            {"name": "unlabeled", "kind": "class_definition", "methods": []},
+        ],
+    )
+
+    result = detect_api_public_surface("widget", "rust", data_root=tmp_path)
+
+    assert result is not None
+    names = {item.name for module in result.modules for item in module.classes}
+    # Rust visibility is a real `pub` keyword, never inferable from spelling
+    # -- an unlabeled entry stays unknown, not guessed from its name.
+    assert names == {"Widget", "unlabeled"}
+    assert _class_by_name(result, "unlabeled").state.visibility == "unknown"
+
+
+def test_detect_api_public_surface_typescript_visibility_states(tmp_path):
+    _write_api_surface_fixture(
+        tmp_path,
+        "widget",
+        "typescript",
+        [
+            {"name": "Widget", "kind": "class_definition", "visibility": "exported", "methods": []},
+            {
+                "name": "Internal",
+                "kind": "class_definition",
+                "visibility": "internal",
+                "methods": [],
+            },
+            {"name": "Unlabeled", "kind": "class_definition", "methods": []},
+        ],
+    )
+
+    result = detect_api_public_surface("widget", "typescript", data_root=tmp_path)
+
+    assert result is not None
+    names = {item.name for module in result.modules for item in module.classes}
+    assert names == {"Widget", "Unlabeled"}
+    assert _class_by_name(result, "Unlabeled").state.visibility == "unknown"
+
+
+def test_detect_api_public_surface_reachable_field_stays_unknown_when_uniform(tmp_path):
+    """A `reachable` field that never actually varies across the bundle
+    (the real 3D/Note/Barcode shape) must never gate inclusion or become a
+    verified `True`/`False` per-entry signal -- always `"unknown"`."""
+
+    _write_api_surface_fixture(
+        tmp_path,
+        "widget",
+        "java",
+        [
+            {
+                "name": "Widget",
+                "kind": "class_definition",
+                "visibility": "public",
+                "reachable": False,
+                "methods": [],
+            },
+            {
+                "name": "Gadget",
+                "kind": "class_definition",
+                "visibility": "public",
+                "reachable": False,
+                "methods": [],
+            },
+        ],
+    )
+
+    result = detect_api_public_surface("widget", "java", data_root=tmp_path)
+
+    assert result is not None
+    assert _class_by_name(result, "Widget").state.reachable == "unknown"
+    assert _class_by_name(result, "Gadget").state.reachable == "unknown"
+
+
+def test_detect_api_public_surface_reachable_field_trusted_when_discriminating(tmp_path):
+    """When `reachable` genuinely varies within one bundle, it is trusted
+    as real per-entry evidence -- proven False (not merely omitted) becomes
+    `"not_reachable"`, proven True becomes `"reachable"`."""
+
+    _write_api_surface_fixture(
+        tmp_path,
+        "widget",
+        "java",
+        [
+            {
+                "name": "Widget",
+                "kind": "class_definition",
+                "visibility": "public",
+                "reachable": True,
+                "methods": [],
+            },
+            {
+                "name": "Gadget",
+                "kind": "class_definition",
+                "visibility": "public",
+                "reachable": False,
+                "methods": [],
+            },
+        ],
+    )
+
+    result = detect_api_public_surface("widget", "java", data_root=tmp_path)
+
+    assert result is not None
+    assert _class_by_name(result, "Widget").state.reachable == "reachable"
+    assert _class_by_name(result, "Gadget").state.reachable == "not_reachable"
+
+
+def test_detect_api_public_surface_implementation_state_is_always_unknown_from_corpus(tmp_path):
+    """The imported corpus's own per-entry projection carries no
+    implementation-status signal for any ecosystem -- always `"unknown"`,
+    never guessed true or false from presence alone."""
+
+    _write_api_surface_fixture(
+        tmp_path,
+        "widget",
+        "java",
+        [{"name": "Widget", "kind": "class_definition", "visibility": "public", "methods": []}],
+    )
+
+    result = detect_api_public_surface("widget", "java", data_root=tmp_path)
+
+    assert result is not None
+    assert _class_by_name(result, "Widget").state.implemented == "unknown"

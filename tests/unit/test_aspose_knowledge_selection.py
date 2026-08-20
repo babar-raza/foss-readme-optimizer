@@ -1030,3 +1030,75 @@ def test_select_knowledge_claims_api_kind_falls_back_to_selection_when_surface_i
     assert disposition.resulting_fact_field == "aspose.api_claims"
     fact = next(f for f in result.fact_records if f.field == "aspose.api_claims")
     assert any(entry["claim_id"] == "synthapi/python/API-FALLBACK" for entry in fact.value)
+
+
+def test_select_knowledge_claims_api_claim_uncovered_by_a_real_surface_still_falls_back(
+    tmp_path,
+):
+    """K1/K2-course-correction mandatory red/green: a product WITH a real,
+    non-empty canonical API surface must not blanket-suppress every
+    api*-kind claim as "covered" -- only a claim whose own named symbol
+    genuinely appears in that surface is rejected; a claim naming a symbol
+    the surface does not contain still falls through to the same
+    selection/corroboration pipeline as any other kind."""
+
+    data_root = tmp_path / "data-root"
+    clone_cache = tmp_path / "clone"
+    repo_sha = "8b" * 20
+    real_dir = clone_cache / "pkg"
+    real_dir.mkdir(parents=True)
+    (real_dir / "other.py").write_text(
+        "class OtherThing:\n    def run(self):\n        return b'ok'\n", encoding="utf-8"
+    )
+    claims = [
+        {
+            "claim_id": "COVERED",
+            "kind": "api_method",
+            "text": "Widget.export() -> bytes",
+            "confidence": 0.9,
+            "evidence": [],
+        },
+        {
+            "claim_id": "UNCOVERED",
+            "kind": "api_method",
+            "text": "OtherThing.run() -> bytes",
+            "confidence": 0.9,
+            "evidence": [{"file": "pkg/other.py", "line": 2}],
+        },
+    ]
+    _write_synthetic_bundle(data_root, "synthapi2", "python", repo_sha, claims)
+    (data_root / "knowledge" / "synthapi2" / "python" / "merged" / "api_surface.json").write_text(
+        json.dumps(
+            [
+                {
+                    "name": "Widget",
+                    "kind": "class_definition",
+                    "visibility": "public",
+                    "methods": [{"name": "export", "params": [], "return_type": "bytes"}],
+                    "properties": [],
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    result = select_knowledge_claims(
+        "synthapi2",
+        "python",
+        data_root=data_root,
+        clone_cache=clone_cache,
+        source_revision=repo_sha,
+    )
+
+    covered = next(
+        d for d in result.dispositions if d.global_claim_id == "synthapi2/python/COVERED"
+    )
+    assert covered.accepted is False
+    assert covered.rejection_reason == "kind_covered_by_api_surface_field"
+
+    uncovered = next(
+        d for d in result.dispositions if d.global_claim_id == "synthapi2/python/UNCOVERED"
+    )
+    assert uncovered.rejection_reason != "kind_covered_by_api_surface_field"
+    assert uncovered.accepted is True
+    assert uncovered.resulting_fact_field == "aspose.api_claims"

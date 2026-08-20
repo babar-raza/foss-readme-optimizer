@@ -351,6 +351,7 @@ def aspose_fact_records(
                         "kind": item.kind,
                         "methods": [dict(member) for member in item.methods],
                         "properties": [dict(member) for member in item.properties],
+                        "state": dict(item.state),
                     }
                     for module in surface.modules
                     for item in module.classes
