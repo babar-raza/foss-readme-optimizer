@@ -233,7 +233,22 @@ def test_agentic_composition_plan_is_characterized() -> None:
         client=client,
     )
 
+    # 2026-08-20: both hashes moved after `fbb923918`/`27182979b`. Root-cause traced field by
+    # field against fbb923918^ (the parent commit) rather than refreshed blindly: the diff there
+    # is confined entirely to fact-projection/input-payload construction --
+    # `compact_prompt_fact_value`'s new structured api.public_surface projection,
+    # `_fact_corroboration`/`_fact_polarity` feeding `composition_fact_payloads()`, and
+    # `plan_readme_composition()` now threading `do_not_claim_payloads(facts)` into
+    # `composition_input_payload()` the same way every other authoring/reviewing caller already
+    # did (`composition_input_payload()`'s own docstring: "a caller that has not yet computed it
+    # is visible in the hashed payload shape rather than silently absent from it"). None of
+    # `materialize_tool_draft`/`bind_source_dispositions`/`normalize_diagram_role_nodes`/
+    # `validate_composition_draft` (the operations that actually build the plan's rendered
+    # content from the fixed `tool_result` above) appear in that diff at all -- candidate
+    # semantics, operation order, and operation IDs are unchanged; only the upstream input
+    # payload `input_sha256` binds is richer, which is why `canonical_hash()` (which embeds
+    # `input_sha256`) moved too even though the draft itself did not.
     assert plan.canonical_hash() == (
-        "22db82fa92a47ab79bd29207488152ab9724c6efd43a10f7f8855612cd984828"
+        "3713be523039db8a424de0dfdabc1fd29c167b70c4399a299316e994dd194402"
     )
-    assert plan.input_sha256 == ("004ab18a2a6a0745f585917821013cb3bc2b926fd5905a33cbe607cdaa9d30a9")
+    assert plan.input_sha256 == ("48df7f5966369c2ef8081aea7cbc7b137c2cfc92bb8e284d2459d19cae79981d")
