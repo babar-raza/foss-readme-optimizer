@@ -393,3 +393,6 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
   cause). Lesson: when a commit's final diff grows after the verifying full-suite run already
   passed, re-run the full suite against the actual final tree before committing, not just before
   the last code change.
+- 2026-08-20: poc runner failed for aspose-note-foss/Aspose.Note-FOSS-for-Python: container registry acquisition remained unavailable after bounded retry
+- 2026-08-20: poc runner failed for aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python: container registry acquisition remained unavailable after bounded retry
+- 2026-08-20: poc runner failed for aspose-3d-foss/Aspose.3D-FOSS-for-Python: container registry acquisition remained unavailable after bounded retry
