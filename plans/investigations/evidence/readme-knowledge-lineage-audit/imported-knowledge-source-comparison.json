@@ -1,0 +1,102 @@
+{
+  "boundary": "B",
+  "boundary_name": "actual_source_versus_imported_knowledge",
+  "boundary_path": "pinned repository evidence (Boundary A) + data/imported/knowledge/<family>/<platform>/merged/ -> field-level source-truth comparison",
+  "produced_at_source_head": "88f00145e",
+  "producer": "knowledge_lineage_import_inventory (inventory) + knowledge_lineage_source_comparison (comparison), read-only Explore subagents",
+  "method": "gh api read-only calls against the real repository tree at the pinned SHA, cross-checked against data/imported/knowledge claims.json/README snapshots and this repo's own selection/corroboration code -- no local mutation, no target write",
+  "audited_repository": {
+    "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "family": "3d",
+    "platform": "python",
+    "pinned_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+    "pinned_branch": "master",
+    "pin_confirmed_current": true
+  },
+  "corpus_scope": {
+    "claims_total": 3452,
+    "by_kind": {
+      "api_method": 1400, "api": 987, "limitation": 401, "api_class": 343,
+      "feature": 112, "format_support": 97, "troubleshoot": 85, "format": 24, "install": 3
+    },
+    "by_provenance": {"scout": 2243, "enriched": 1209}
+  },
+  "findings": {
+    "scout_claim_sample": {
+      "sample_size": 9,
+      "kinds_covered": ["api_method", "api_class", "install"],
+      "result": "9/9 exact -- every sampled claim's text matched the real cited source file/line verbatim"
+    },
+    "format_support_false_positives": {
+      "description": "All 97 format_support scout claims cross-checked against their cited source file/line at the pin. 6 assert a positive capability whose cited method body is a NotImplementedError stub -- the claim is technically about a real class/method that exists, but the capability it asserts does not work.",
+      "source_truth_status": "contradicted",
+      "count_contradicted": 6,
+      "count_total_checked": 97,
+      "rate": "6.2%",
+      "examples": [
+        {"claim_id": "CLM-3d-2d3c40", "text": "export support for Fbx via FbxExporter", "cited": "FbxExporter.py:13", "reality": "raise NotImplementedError(\"FBX export is not implemented\")"},
+        {"claim_id": "CLM-3d-92990d", "text": "export support for EntityFeatures via EntityRendererFeatures", "cited": "EntityRendererFeatures.py:5", "reality": "raise NotImplementedError(...)"},
+        {"claim_id": "CLM-3d-f81310", "text": "export support for VariableManager via RendererVariableManager", "cited": "RendererVariableManager.py:5", "reality": "raise NotImplementedError(...)"},
+        {"claim_id": "CLM-3d-4ae50d", "text": "import support for degree format (from_degree)", "cited": "EndPoint.py:10", "reality": "raise NotImplementedError(\"from_degree is not implemented\")"},
+        {"claim_id": "CLM-3d-3eea2b", "text": "import support for radian format (from_radian)", "cited": "EndPoint.py:15", "reality": "raise NotImplementedError(\"from_radian is not implemented\")"},
+        {"claim_id": "CLM-3d-f8cae3", "text": "import support for points format (from_points)", "cited": "Line.py:21", "reality": "raise NotImplementedError(\"from_points is not implemented\")"}
+      ],
+      "root_cause": "the scout extractor pattern-matches method/class names (from_X, save/export, plugin class instantiation) into format_support claims without checking whether the method body is a real implementation or a stub. A correctly-working separate pass in the same run emits accurate limitation claims for the identical lines (e.g. CLM-3d-ced677 'Not implemented: EndPoint.from_radian'), so the false-positive and the true-negative claim coexist in claims.json at confidence 1.0.",
+      "knowledge_gap_backlog_id": "KGAP-002"
+    },
+    "enriched_claim_sample": {
+      "sample_size": 6,
+      "exact": 3,
+      "supported": 2,
+      "contradicted": 1,
+      "contradicted_example": {
+        "claim_id": "ERC-3d-python-0e50c2ce",
+        "text": "The Scene class provides a high-level API for loading, saving, rendering, and animating 3D content.",
+        "cited": "Scene.py:187",
+        "reality": "def render(...): raise NotImplementedError(\"render is not implemented\")",
+        "corroboration": "the real README's own Scope and Limitations section states explicitly: this library reads, builds, and writes 3D scene data, it does not render or rasterize scenes",
+        "assessment": "LLM enrichment embellished a method signature it saw in the source snippet into a working capability the product does not actually have"
+      },
+      "stale_evidence_example": {
+        "claim_ids": ["ERC-3d-python-0f5da421", "ERC-3d-python-7728de02"],
+        "issue": "cited evidence snippet has headers ('### Supported Formats', '### Import (Implemented)') that do not exist anywhere in the current README at the pinned SHA -- captured from an earlier README revision (repo has docs: refresh README commits after the evidence was likely captured, before the pin)",
+        "claim_text_status": "supported (the underlying facts -- OBJ/GLTF/STL/3MF import+export -- remain true of the current README)",
+        "evidence_status": "not_observable_in_repo (the cited snippet itself is not reproducible against the current source)",
+        "knowledge_gap_backlog_id": "KGAP-003"
+      }
+    },
+    "limitation_claim_sample": {
+      "sample_size": 5,
+      "result": "5/5 exact and currently accurate -- no staleness found in the negative-claim set; independently corroborated by the real README's own Scope and Limitations section for at least 2 of the 5"
+    },
+    "snippet_validity_sample": {
+      "sample_size": 5,
+      "result": "5/5 exact, byte-for-content reproductions of real cited test files; every referenced class/method confirmed present in both api_surface.json and the real source at the pin"
+    },
+    "anomaly_resolutions": {
+      "bundle_manifest_staleness": {
+        "verdict": "dead, unused data -- zero functional impact",
+        "evidence": "aspose_knowledge_claims.py::load_bundle_provenance() reads only model.yaml; grep of 'bundle_manifest' across src/ finds only an unrelated concept in supervisor/trusted_cohort_restore.py. The corpus-wide data/imported/knowledge_manifest.json (a different file) is what acceptance_contract.py hashes for cache invalidation."
+      },
+      "fleet_freshness_snapshot_stale_state": {
+        "verdict": "orphaned monitoring snapshot, not read by production code -- the real gate (assess_bundle_freshness()) correctly evaluates this bundle as current",
+        "evidence": "grep of 'fleet_freshness|freshness_guard_state|freshness_snapshot' across src/ returns zero matches. assess_bundle_freshness() (aspose_knowledge_claims.py) compares model.yaml's repo_sha against the live-cloned source_revision only. The snapshot's own checked_at (2026-08-14T09:29:42Z) is 27 minutes before the pinned commit (2026-08-14T09:56:03Z) landed -- it was accurate when taken, simply never refreshed after the corpus was re-promoted 2.5 hours later."
+      }
+    },
+    "negative_retention_check": {
+      "verdict": "no systemic bias against negative/limitation claims found",
+      "confidence_by_kind": {
+        "limitation_scout": {"n": 401, "mean_confidence": 1.0},
+        "format_support_scout": {"n": 97, "mean_confidence": 1.0},
+        "api_class_scout": {"n": 343, "mean_confidence": 1.0},
+        "api_method_scout": {"n": 1400, "mean_confidence": 1.0},
+        "feature_enriched": {"n": 112, "mean_confidence": 0.897},
+        "format_enriched": {"n": 24, "mean_confidence": 0.912}
+      },
+      "note": "limitation claims carry the same maximal confidence as every other scout kind and strictly higher confidence than enriched marketing-adjacent kinds; each field (limitation, format_support, etc.) has its own independent selection cap (max 8) and never competes against other kinds for slots, so there is no cross-field mechanism suppressing negatives.",
+      "real_defect_found_instead": "the shallow file-existence-only corroboration check (see format_support_false_positives) lets both a false-positive positive claim and its correct limitation counterpart survive selection simultaneously for the same underlying fact, risking a self-contradictory generated README -- a corroboration-methodology gap, not a negative-suppression bias."
+    }
+  },
+  "confirmed_defects": ["format_support_false_positives", "enriched_claim_sample.contradicted_example"],
+  "knowledge_gap_backlog_ids": ["KGAP-002", "KGAP-003"]
+}

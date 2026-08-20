@@ -18,6 +18,50 @@
       "regression_test": "a setup.py-only fixture Python repository whose setup.py declares a non-empty install_requires list, asserting the dependency-derived output is not silently []",
       "invalidated_stage": "python dependency-evidence acquisition (facts/python_dependency_acquisition.py), and any downstream consumer of declared_python_runtime_dependencies/declared_python_build_dependencies (facts/python_consumer.py per the audit's citation)",
       "status": "confirmed_unqueued"
+    },
+    {
+      "id": "KGAP-002",
+      "slug": "aspose-knowledge-corroboration-check-does-not-verify-claim-content-against-cited-file",
+      "boundary": "B",
+      "affected_products": [
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python (confirmed); likely any product whose scout extractor pattern-matches method/class names into format_support or api_method claims without checking whether the method body is a real implementation or a NotImplementedError stub"
+      ],
+      "affected_ecosystems": ["python", "likely all -- the corroboration gap is ecosystem-agnostic"],
+      "severity": "confirmed_defect_quantified_6_of_97_format_support_claims_false_positive",
+      "evidence_pointers": [
+        "plans/investigations/evidence/readme-knowledge-lineage-audit/imported-knowledge-source-comparison.json#findings[format_support_false_positives]"
+      ],
+      "causal_owner": "src/readme_agent/facts/aspose_knowledge_selection.py::_file_evidence_corroboration (only verifies the cited file exists, never that its content still supports the claim)",
+      "smallest_repair": "extend _file_evidence_corroboration to check the cited evidence[].file:line for a NotImplementedError/stub pattern (or, more generally, diff the claim's asserted capability against a lightweight AST check of the cited method body) before treating a format_support/api_method claim as corroborated",
+      "regression_test": "a claims.json fixture with one format_support claim whose cited method body is `raise NotImplementedError(...)`, asserting the claim is rejected or downgraded at selection time rather than passing corroboration",
+      "invalidated_stage": "facts/aspose_knowledge_selection.py's selection/corroboration pass for the format_support and api_method claim kinds",
+      "concrete_examples": [
+        "CLM-3d-2d3c40 'export support for Fbx via FbxExporter' -- FbxExporter.py:13 raises NotImplementedError",
+        "CLM-3d-4ae50d 'import support for degree format (from_degree)' -- EndPoint.py:10 raises NotImplementedError",
+        "ERC-3d-python-0e50c2ce (enriched) 'Scene class provides... rendering' -- Scene.py:187 raises NotImplementedError, contradicted by the real README's own Scope and Limitations section"
+      ],
+      "status": "confirmed_unqueued"
+    },
+    {
+      "id": "KGAP-003",
+      "slug": "imported-knowledge-enrichment-evidence-can-cite-a-superseded-readme-snippet",
+      "boundary": "B",
+      "affected_products": [
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python (confirmed, 2 enriched claims); likely any product whose enrichment pass ran before a subsequent README refresh upstream and was never re-run"
+      ],
+      "affected_ecosystems": ["python", "likely all"],
+      "severity": "corpus_quality_gap_claim_text_still_correct_evidence_snippet_stale",
+      "evidence_pointers": [
+        "plans/investigations/evidence/readme-knowledge-lineage-audit/imported-knowledge-source-comparison.json#findings[stale_enrichment_evidence]"
+      ],
+      "causal_owner": "the enrichment pipeline's evidence snapshot (data-refresh scouting) is not re-validated against the current README at promotion time",
+      "smallest_repair": "at bundle promotion (classify_aspose_checks.py-adjacent data-refresh tooling), re-fetch the cited evidence[].source_file at the bundle's own repo_sha and confirm the cited snippet substring still appears verbatim before accepting the enriched claim, or re-run enrichment when the README changed since the claim was captured",
+      "regression_test": "not yet designed -- needs the data-refresh pipeline's own test harness, out of scope for this repo's src/ tests",
+      "invalidated_stage": "imported-knowledge promotion/enrichment (outside this repo's own src/ -- a corpus-build-time concern)",
+      "concrete_examples": [
+        "ERC-3d-python-0f5da421/7728de02 cite a snippet with headers '### Supported Formats'/'### Import (Implemented)' that do not exist anywhere in the current README at the pin -- the underlying facts remain true, but the evidence trail is non-reproducible"
+      ],
+      "status": "confirmed_unqueued"
     }
   ]
 }

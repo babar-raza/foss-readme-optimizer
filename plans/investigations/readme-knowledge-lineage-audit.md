@@ -99,6 +99,64 @@ report's own audit trail; not merely accepted from the subagent's quote).
 
 **Knowledge-gap backlog entries opened:** `KGAP-001` (below).
 
+## 2026-08-20 — Boundary B: actual source versus imported knowledge
+
+Evidence: [`imported-knowledge-source-comparison.json`](evidence/readme-knowledge-lineage-audit/imported-knowledge-source-comparison.json).
+
+**Scope.** Field-level comparison, with provenance and freshness, of the imported Aspose knowledge
+corpus (`data/imported/knowledge/3d/python/merged/`, 3,452 claims across 9 kinds) against the real
+repository at the same pinned SHA. Never a file-count comparison — every sampled claim's text was
+checked against the real cited source file/line or README section.
+
+**Findings.**
+
+- **Scout claims (api_method, api_class, install): 9/9 sampled exact.** Every claim's text matched
+  the real cited source file/line verbatim.
+- **Confirmed defect, quantified: 6 of 97 `format_support` claims (6.2%) are false positives.** Each
+  asserts a positive capability (e.g. "export support for Fbx via `FbxExporter`") whose cited method
+  body is, in reality, `raise NotImplementedError(...)`. Root cause: the scout extractor
+  pattern-matches method/class names into `format_support` claims without checking whether the
+  method body is a real implementation or a stub — a separate, correctly-working pass in the *same*
+  run emits an accurate `limitation` claim for the identical line, so the false-positive and the
+  true-negative claim coexist in `claims.json` at confidence 1.0 each. Opened `KGAP-002`.
+- **Enriched claims (LLM-derived, README/snippet-sourced): 3/6 exact, 2/6 supported, 1/6
+  contradicted.** The contradicted case (`ERC-3d-python-0e50c2ce`, claiming the `Scene` class
+  supports "rendering") is a genuine hallucination-under-grounding: the LLM enrichment saw a
+  `render(...)` method signature in a source snippet and embellished it into a working capability;
+  the real method raises `NotImplementedError`, and the real README's own Scope and Limitations
+  section explicitly states the library "does not render or rasterize scenes." Two "supported"
+  claims cite an evidence snippet (`### Supported Formats` heading structure) that no longer exists
+  anywhere in the current README — captured from an earlier revision, never revalidated after a
+  subsequent upstream `docs: refresh README` — the underlying facts remain true but the evidence
+  trail is non-reproducible. Opened `KGAP-003`.
+- **Limitation claims: 5/5 sampled exact and currently accurate** — no staleness found in the
+  negative-claim set; the risk runs the other way (see false positives above), not toward outdated
+  negatives.
+- **Snippets: 5/5 sampled are byte-for-content exact reproductions** of real cited test files, every
+  referenced class/method confirmed present in both `api_surface.json` and the real source.
+- **Both previously-unassessed anomalies from the Boundary B inventory pass resolved definitively,
+  both benign:** `bundle_manifest.json`'s hash/entry mismatches are dead, unused data (only
+  `model.yaml` is read by the production provenance loader; grep of `bundle_manifest` across `src/`
+  finds only an unrelated concept). `fleet_freshness_snapshot.json`'s `STALE` state is an orphaned
+  monitoring artifact with zero consumers in `src/` — the real freshness gate
+  (`assess_bundle_freshness()`) correctly evaluates this bundle as current, and the snapshot's own
+  timestamp shows it was accurate when taken, simply never refreshed after a later re-promotion.
+- **No systemic bias against negative/limitation claims.** Confidence-by-kind data shows
+  `limitation` claims carry the same maximal confidence as every other scout kind, strictly *higher*
+  than enriched marketing-adjacent kinds, with an independent per-field selection cap that never lets
+  positive and negative claims compete for the same slots. The real defect is narrower and more
+  actionable: a corroboration check (`aspose_knowledge_selection.py::_file_evidence_corroboration`)
+  that only verifies the cited file *exists*, never that its content still supports the claim — the
+  exact mechanism that let the 6 false-positive `format_support` claims above pass alongside their
+  correct `limitation` counterparts.
+
+**Verification.** The subagent's own transparency note (a stray temp-file redirect outside the repo
+and scratchpad, aborted immediately, never used, not deleted since deletion is out of scope for a
+read-only investigation) was reviewed and accepted as adequately disclosed; no repo file was
+touched.
+
+**Knowledge-gap backlog entries opened:** `KGAP-002`, `KGAP-003` (below).
+
 ## Knowledge gap backlog
 
 See [`knowledge-gap-backlog.json`](evidence/readme-knowledge-lineage-audit/knowledge-gap-backlog.json).
