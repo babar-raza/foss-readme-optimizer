@@ -107,6 +107,12 @@ def test_imported_knowledge_component_hash_changes_when_manifest_content_changes
     facts_dir.mkdir(parents=True)
     (facts_dir / "aspose_knowledge_claims.py").write_text("# claims loader\n", encoding="utf-8")
     (facts_dir / "aspose_knowledge_selection.py").write_text("# selection\n", encoding="utf-8")
+    (facts_dir / "knowledge_evidence_verification.py").write_text(
+        "# evidence verification\n", encoding="utf-8"
+    )
+    (facts_dir / "python_evidence_polarity.py").write_text(
+        "# python evidence polarity\n", encoding="utf-8"
+    )
     manifest_dir = tmp_path / "data" / "imported"
     manifest_dir.mkdir(parents=True)
     manifest_path = manifest_dir / "knowledge_manifest.json"

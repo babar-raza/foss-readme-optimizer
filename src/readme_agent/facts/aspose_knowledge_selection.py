@@ -25,16 +25,34 @@ third-party imported knowledge specifically:
   sufficient.** Corroboration is real for every claim family that can
   affect output, not only license: `license` claims are compared against
   the current LICENSE file through this repo's own proven SPDX classifier
-  (`license/auditor.py::classify_license_text`) -- a genuine mismatch is a
-  **conflict** (current evidence wins, the claim is rejected outright, not
-  merely downgraded); every other kind is corroborated when its own
-  `evidence` cites a real source file that still exists in the current
-  clone (a real, mechanically-checkable "this code region likely still
-  exists" signal). An uncorroborated `current`-freshness claim is still
+  (`license/auditor.py::classify_license_text`); every other kind is
+  corroborated through `knowledge_evidence_verification.py`'s item-level,
+  polarity-aware content check -- the cited evidence's actual code region
+  (or, for LLM-enriched claims, its cited prose snippet) is inspected, never
+  merely whether the cited file exists. A positive capability claim whose
+  cited implementation is a stub (`raise NotImplementedError` or
+  equivalent) is a **conflict**, not a corroboration, exactly the same as a
+  genuine SPDX mismatch: current repository evidence always wins, and the
+  claim is rejected outright, never merely downgraded. The mirror case also
+  holds: a `limitation` claim whose cited implementation is that same stub
+  is corroborated. An uncorroborated `current`-freshness claim is still
   carried at reduced, `unverified` confidence (a few days' staleness on an
   otherwise-accurate claim is common and still useful supplementary
   evidence) -- but an uncorroborated `stale`/`unknown`-revision claim is
   never selected, at any confidence.
+* **one verified item can never promote its unverified siblings.** When a
+  field's selected items are a genuine mix of verified and unverified (the
+  expected outcome now that corroboration is polarity-aware, not merely
+  file-existence-based), selection emits two separate `FactRecordV2`
+  records for that field -- one holding only the verified items
+  (`aspose-knowledge` qualifier, `verification_state="verified"`, the one
+  the resolver picks as that field's authorizing fact) and one holding only
+  the unverified items (`aspose-knowledge-supporting` qualifier,
+  `verification_state="unverified"`, visible as supporting context but
+  never the resolver's selected fact and therefore never composition- or
+  claim-map-eligible). A field that is homogeneously verified or
+  homogeneously unverified still emits exactly one record, under the
+  original `aspose-knowledge` qualifier, unchanged from before.
 
 Two claim kinds are deliberately never selected here, with an explicit
 disposition reason rather than silent omission: `dependency` (already
@@ -60,6 +78,7 @@ from readme_agent.facts.aspose_detectors import detect_relevant_seo_keywords
 from readme_agent.facts.aspose_knowledge_claims import (
     BundleFreshness,
     ImportedKnowledgeClaimV1,
+    KnowledgeBundleProvenanceV1,
     KnowledgeClaimKind,
     KnowledgeLoadFindingV1,
     assess_bundle_freshness,
@@ -67,6 +86,7 @@ from readme_agent.facts.aspose_knowledge_claims import (
     load_bundle_provenance,
     load_knowledge_claims_with_findings,
 )
+from readme_agent.facts.knowledge_evidence_verification import evidence_content_signal
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, descriptive_fact_id
 from readme_agent.license.auditor import classify_license_text
 
@@ -233,28 +253,31 @@ def _license_claim_corroboration(
     return "corroborated" if current_spdx == claimed_spdx else "conflict"
 
 
-def _file_evidence_corroboration(
+def _content_claim_corroboration(
     claim: ImportedKnowledgeClaimV1, clone_cache: Path
 ) -> ClaimCorroboration:
-    """Every non-license claim family's real corroboration path: does this
-    claim's own cited evidence file still exist in the current clone? A
-    weak but genuine, mechanically-checkable signal -- not license-only."""
+    """Every non-license claim family's real corroboration path:
+    item-level, polarity-aware content verification
+    (`knowledge_evidence_verification.evidence_content_signal`) of the
+    claim's own cited evidence, never mere file existence. A `limitation`
+    claim expects negative (stub/constraint) evidence; every other kind
+    expects positive (real implementation) evidence. Agreement corroborates;
+    disagreement is a genuine conflict (current repository evidence always
+    wins, exactly like the license path's SPDX mismatch); no resolvable
+    signal at all stays uncorroborated."""
 
-    for item in claim.evidence:
-        file_ref = item.get("file")
-        if isinstance(file_ref, str) and file_ref:
-            try:
-                if (clone_cache / file_ref).is_file():
-                    return "corroborated"
-            except OSError:
-                continue
-    return "uncorroborated"
+    signal = evidence_content_signal(claim.evidence, clone_cache, claim_kind=claim.kind)
+    if signal == "unresolved":
+        return "uncorroborated"
+    expects_negative = claim.kind == "limitation"
+    observed_negative = signal == "negative"
+    return "corroborated" if observed_negative == expects_negative else "conflict"
 
 
 def _claim_corroboration(claim: ImportedKnowledgeClaimV1, clone_cache: Path) -> ClaimCorroboration:
     if claim.kind == "license":
         return _license_claim_corroboration(claim, clone_cache)
-    return _file_evidence_corroboration(claim, clone_cache)
+    return _content_claim_corroboration(claim, clone_cache)
 
 
 def _claim_eligibility(
@@ -344,6 +367,43 @@ def _relevance_sort_key(
         -claim.confidence,
         claim.kind,
         claim.claim_id,
+    )
+
+
+def _knowledge_fact_record(
+    field: str,
+    qualifier: str,
+    items: list[tuple[ImportedKnowledgeClaimV1, float]],
+    *,
+    verification_state: Literal["verified", "unverified"],
+    family: str,
+    platform: str,
+    provenance: KnowledgeBundleProvenanceV1 | None,
+    stable_retrieved_at: str,
+    surfaces: list[str],
+) -> FactRecordV2:
+    return FactRecordV2(
+        fact_id=descriptive_fact_id(field, qualifier),
+        field=field,
+        value=[
+            {
+                "claim_id": claim.global_claim_id,
+                "kind": claim.kind,
+                "text": claim.text,
+                "confidence": confidence,
+            }
+            for claim, confidence in items
+        ],
+        source=FactSourceV2(
+            source_type="approved_documentation",
+            location=f"data/imported:{family}/{platform}",
+            source_revision=provenance.repo_sha if provenance else None,
+            retrieved_at=stable_retrieved_at,
+        ),
+        verification_state=verification_state,
+        authoritative_owner="aspose.org",
+        confidence=max(c for _, c in items),
+        affected_surfaces=surfaces,
     )
 
 
@@ -437,7 +497,9 @@ def select_knowledge_claims(
                 search_intent_match=signals[c.global_claim_id][2],
             ),
         )
-        selected_for_field: list[tuple[ImportedKnowledgeClaimV1, float]] = []
+        selected_for_field: list[
+            tuple[ImportedKnowledgeClaimV1, float, Literal["verified", "unverified"]]
+        ] = []
         seen_normalized_texts: set[str] = set()
         for claim in ranked:
             corroboration, already_in_readme, _search_intent_match = signals[claim.global_claim_id]
@@ -527,7 +589,7 @@ def select_knowledge_claims(
                 continue
             if normalized_text:
                 seen_normalized_texts.add(normalized_text)
-            selected_for_field.append((claim, confidence))
+            selected_for_field.append((claim, confidence, state))
             dispositions.append(
                 KnowledgeClaimDispositionV1(
                     global_claim_id=claim.global_claim_id,
@@ -548,37 +610,58 @@ def select_knowledge_claims(
 
         if not selected_for_field:
             continue
-        selected_ids = {claim.global_claim_id for claim, _ in selected_for_field}
-        verified_any = any(
-            d.verification_state == "verified"
-            for d in dispositions
-            if d.global_claim_id in selected_ids and d.accepted
-        )
+        verified_items = [
+            (claim, confidence)
+            for claim, confidence, state in selected_for_field
+            if state == "verified"
+        ]
+        unverified_items = [
+            (claim, confidence)
+            for claim, confidence, state in selected_for_field
+            if state == "unverified"
+        ]
+        # One verified item must never promote its unverified siblings
+        # (the `verified_any` laundering defect): when both are present,
+        # emit two records -- the resolver's precedence rules
+        # (`resolution.py::_VERIFICATION_PRECEDENCE`) always pick the
+        # verified one as this field's authorizing fact, leaving the
+        # unverified one visible as supporting context but never
+        # composition- or claim-map-eligible. The primary record keeps the
+        # original `aspose-knowledge` qualifier so a field that is (as
+        # today) homogeneously one state or the other is fully unchanged.
+        primary_state: Literal["verified", "unverified"]
+        primary_items: list[tuple[ImportedKnowledgeClaimV1, float]]
+        if verified_items:
+            primary_state, primary_items = "verified", verified_items
+        else:
+            primary_state, primary_items = "unverified", unverified_items
         fact_records.append(
-            FactRecordV2(
-                fact_id=descriptive_fact_id(field, "aspose-knowledge"),
-                field=field,
-                value=[
-                    {
-                        "claim_id": claim.global_claim_id,
-                        "kind": claim.kind,
-                        "text": claim.text,
-                        "confidence": confidence,
-                    }
-                    for claim, confidence in selected_for_field
-                ],
-                source=FactSourceV2(
-                    source_type="approved_documentation",
-                    location=f"data/imported:{family}/{platform}",
-                    source_revision=provenance.repo_sha if provenance else None,
-                    retrieved_at=stable_retrieved_at,
-                ),
-                verification_state="verified" if verified_any else "unverified",
-                authoritative_owner="aspose.org",
-                confidence=max(c for _, c in selected_for_field),
-                affected_surfaces=surfaces,
+            _knowledge_fact_record(
+                field,
+                "aspose-knowledge",
+                primary_items,
+                verification_state=primary_state,
+                family=family,
+                platform=platform,
+                provenance=provenance,
+                stable_retrieved_at=stable_retrieved_at,
+                surfaces=surfaces,
             )
         )
+        if verified_items and unverified_items:
+            fact_records.append(
+                _knowledge_fact_record(
+                    field,
+                    "aspose-knowledge-supporting",
+                    unverified_items,
+                    verification_state="unverified",
+                    family=family,
+                    platform=platform,
+                    provenance=provenance,
+                    stable_retrieved_at=stable_retrieved_at,
+                    surfaces=surfaces,
+                )
+            )
 
     return KnowledgeSelectionResultV1(
         family=family,

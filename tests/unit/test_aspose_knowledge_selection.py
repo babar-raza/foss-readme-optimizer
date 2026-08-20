@@ -168,15 +168,140 @@ def test_select_knowledge_claims_current_repo_evidence_wins_on_real_license_conf
     assert all(not d.accepted for d in conflict_dispositions)
 
 
-def test_select_knowledge_claims_file_evidence_corroborates_non_license_claims(tmp_path):
-    """A non-license claim (format_support) whose cited evidence file
-    genuinely exists in the current clone is corroborated and reaches
-    `verified` -- proving corroboration is real for claim families beyond
-    license, not license-only."""
+_FBX_EXPORTER_SOURCE = (
+    "from typing import TYPE_CHECKING\n"
+    "import io\n\n"
+    "from ..Exporter import Exporter\n\n"
+    "if TYPE_CHECKING:\n"
+    "    from .FbxSaveOptions import FbxSaveOptions\n"
+    "    from aspose.threed import Scene\n\n\n"
+    "class FbxExporter(Exporter):\n"
+    "    def save(self, filename: str, scene: 'Scene', options: 'FbxSaveOptions' = None):\n"
+    '        raise NotImplementedError("FBX export is not implemented")\n\n'
+    "    def save_to_stream(self, stream: io.IOBase, scene: 'Scene', "
+    "options: 'FbxSaveOptions' = None):\n"
+    '        raise NotImplementedError("FBX export is not implemented")\n'
+)
 
-    evidence_file = tmp_path / "src" / "aspose_barcode_foss" / "_internal" / "renderers" / "pdf.py"
-    evidence_file.parent.mkdir(parents=True)
-    evidence_file.write_text("# real file the claim's evidence cites\n", encoding="utf-8")
+
+def test_select_knowledge_claims_fbx_positive_claim_conflicts_with_stub_implementation(tmp_path):
+    """K1 mandatory red/green fixture: the real 3D corpus claim
+    `CLM-3d-2d3c40` asserts "export support for Fbx via FbxExporter", but
+    the real, current `FbxExporter.save`/`save_to_stream` both raise
+    `NotImplementedError`. File existence alone used to be treated as
+    corroboration (the K1 defect); now the cited implementation's actual
+    content is checked, and the positive claim is rejected as a genuine
+    conflict, never selected into an authorizing fact."""
+
+    fbx_dir = tmp_path / "aspose" / "threed" / "formats" / "fbx"
+    fbx_dir.mkdir(parents=True)
+    (fbx_dir / "FbxExporter.py").write_text(_FBX_EXPORTER_SOURCE, encoding="utf-8")
+
+    result = select_knowledge_claims(
+        "3d",
+        "python",
+        data_root=_DATA_ROOT,
+        clone_cache=tmp_path,
+        source_revision=_3D_PYTHON_REPO_SHA,
+    )
+
+    positive = next(
+        d for d in result.dispositions if d.global_claim_id == "3d/python/CLM-3d-2d3c40"
+    )
+    assert positive.corroboration == "conflict"
+    assert positive.accepted is False
+    assert positive.rejection_reason == "conflicts_with_current_repository_evidence"
+
+    format_support_facts = [
+        f for f in result.fact_records if f.field == "aspose.format_support_claims"
+    ]
+    for fact in format_support_facts:
+        assert all(entry["claim_id"] != "3d/python/CLM-3d-2d3c40" for entry in fact.value)
+
+
+def test_select_knowledge_claims_fbx_limitation_claim_stays_corroborated(tmp_path):
+    """The mirror of the conflict above: the real limitation claim
+    `CLM-3d-f966ea` ("Not implemented: FbxExporter.save in
+    .../FbxExporter.py:13") cites the exact same stub, and is retained as
+    corroborated/verified -- negative evidence supports a negative claim."""
+
+    fbx_dir = tmp_path / "aspose" / "threed" / "formats" / "fbx"
+    fbx_dir.mkdir(parents=True)
+    (fbx_dir / "FbxExporter.py").write_text(_FBX_EXPORTER_SOURCE, encoding="utf-8")
+
+    result = select_knowledge_claims(
+        "3d",
+        "python",
+        data_root=_DATA_ROOT,
+        clone_cache=tmp_path,
+        source_revision=_3D_PYTHON_REPO_SHA,
+    )
+
+    limitation = next(
+        d for d in result.dispositions if d.global_claim_id == "3d/python/CLM-3d-f966ea"
+    )
+    assert limitation.corroboration == "corroborated"
+    assert limitation.accepted is True
+    assert limitation.verification_state == "verified"
+
+
+def test_select_knowledge_claims_fbx_dispositions_are_deterministic(tmp_path):
+    fbx_dir = tmp_path / "aspose" / "threed" / "formats" / "fbx"
+    fbx_dir.mkdir(parents=True)
+    (fbx_dir / "FbxExporter.py").write_text(_FBX_EXPORTER_SOURCE, encoding="utf-8")
+
+    kwargs = dict(
+        family="3d",
+        platform="python",
+        data_root=_DATA_ROOT,
+        clone_cache=tmp_path,
+        source_revision=_3D_PYTHON_REPO_SHA,
+    )
+    first = select_knowledge_claims(**kwargs)
+    second = select_knowledge_claims(**kwargs)
+
+    assert [d.model_dump(mode="json") for d in first.dispositions] == [
+        d.model_dump(mode="json") for d in second.dispositions
+    ]
+    assert [f.model_dump(mode="json") for f in first.fact_records] == [
+        f.model_dump(mode="json") for f in second.fact_records
+    ]
+
+
+_PDF_RENDERER_SOURCE = (
+    '"""PDF renderer."""\n\n'
+    "from __future__ import annotations\n\n"
+    "from aspose_barcode_foss._internal.models.artifacts import RenderedArtifact\n"
+    "from aspose_barcode_foss._internal.models.options import ResolvedRenderOptions\n"
+    "from aspose_barcode_foss._internal.models.symbols import EncodedSymbol\n"
+    "from aspose_barcode_foss._internal.models.text import TextLayout\n"
+    "from aspose_barcode_foss._internal.renderers.base import Renderer\n\n\n"
+    "class PdfRenderer(Renderer):\n"
+    '    """Render a barcode into PDF or another vector-friendly artifact."""\n\n'
+    "    def render(\n"
+    "        self,\n"
+    "        symbol: EncodedSymbol,\n"
+    "        *,\n"
+    "        layout: TextLayout,\n"
+    "        options: ResolvedRenderOptions,\n"
+    "    ) -> RenderedArtifact:\n"
+    '        """Render an encoded symbol as PDF."""\n'
+    "        raise NotImplementedError\n"
+)
+
+
+def test_select_knowledge_claims_barcode_pdf_positive_claim_conflicts_with_stub_implementation(
+    tmp_path,
+):
+    """K1 mandatory red/green fixture: the real Barcode corpus claim
+    `CLM-barcode-5c60a4` asserts "export support for Pdf via PdfRenderer",
+    but the real, current `PdfRenderer.render` raises `NotImplementedError`.
+    No simultaneous positive capability authorization when implementation
+    evidence is negative."""
+
+    pdf_dir = tmp_path / "src" / "aspose_barcode_foss" / "_internal" / "renderers"
+    pdf_dir.mkdir(parents=True)
+    (pdf_dir / "pdf.py").write_text(_PDF_RENDERER_SOURCE, encoding="utf-8")
 
     result = select_knowledge_claims(
         "barcode",
@@ -186,13 +311,146 @@ def test_select_knowledge_claims_file_evidence_corroborates_non_license_claims(t
         source_revision=_BARCODE_PYTHON_REPO_SHA,
     )
 
-    corroborated = [
-        d
-        for d in result.dispositions
-        if d.kind == "format_support" and d.corroboration == "corroborated" and d.accepted
+    positive = next(
+        d for d in result.dispositions if d.global_claim_id == "barcode/python/CLM-barcode-5c60a4"
+    )
+    assert positive.corroboration == "conflict"
+    assert positive.accepted is False
+
+    limitation = next(
+        d for d in result.dispositions if d.global_claim_id == "barcode/python/CLM-barcode-ca5609"
+    )
+    assert limitation.corroboration == "corroborated"
+    assert limitation.accepted is True
+    assert limitation.verification_state == "verified"
+
+    format_support_facts = [
+        f for f in result.fact_records if f.field == "aspose.format_support_claims"
     ]
-    assert corroborated
-    assert all(d.verification_state == "verified" for d in corroborated)
+    for fact in format_support_facts:
+        assert all(entry["claim_id"] != "barcode/python/CLM-barcode-5c60a4" for entry in fact.value)
+
+
+_COLLADA_EXPORTER_SOURCE = (
+    "from typing import TYPE_CHECKING\n"
+    "import xml.etree.ElementTree as ET\n\n"
+    "from ..Exporter import Exporter\n\n"
+    "if TYPE_CHECKING:\n"
+    "    from aspose.threed import Scene\n"
+    "    from .ColladaSaveOptions import ColladaSaveOptions\n\n\n"
+    "class ColladaExporter(Exporter):\n"
+    "    def __init__(self):\n"
+    "        super().__init__()\n"
+    "        self._node_counter = 0\n\n"
+    "    def supports_format(self, file_format) -> bool:\n"
+    "        from .ColladaFormat import ColladaFormat\n"
+    "        return isinstance(file_format, ColladaFormat)\n\n"
+    "    def export(self, scene: 'Scene', stream, options: 'ColladaSaveOptions'):\n"
+    "        content = self._write_collada(scene, options)\n"
+    "        stream.write(content.encode('utf-8'))\n\n"
+    "    def _write_collada(self, scene, options) -> str:\n"
+    "        collada = ET.Element('COLLADA')\n"
+    "        return ET.tostring(collada, encoding='unicode')\n"
+)
+
+
+def test_select_knowledge_claims_collada_class_level_citation_reflects_real_implementation(
+    tmp_path,
+):
+    """K1 mandatory public/internal-distinction fixture: `ColladaExporter`
+    is genuinely implemented (`supports_format`/`export` both have real
+    bodies, not stubs), and its evidence is cited at the class-declaration
+    line, not inside a specific method -- the class-wide fallback must
+    correctly classify this as positive evidence and keep the real corpus
+    claim `CLM-3d-cc8796` corroborated, proving the FBX-style rejection
+    above is a genuine content check, not a blanket "class-line citation is
+    always suspect" rule."""
+
+    collada_dir = tmp_path / "aspose" / "threed" / "formats" / "collada"
+    collada_dir.mkdir(parents=True)
+    (collada_dir / "ColladaExporter.py").write_text(_COLLADA_EXPORTER_SOURCE, encoding="utf-8")
+
+    result = select_knowledge_claims(
+        "3d",
+        "python",
+        data_root=_DATA_ROOT,
+        clone_cache=tmp_path,
+        source_revision=_3D_PYTHON_REPO_SHA,
+    )
+
+    positive = next(
+        d for d in result.dispositions if d.global_claim_id == "3d/python/CLM-3d-cc8796"
+    )
+    assert positive.corroboration == "corroborated"
+    assert positive.accepted is True
+    assert positive.verification_state == "verified"
+
+
+_PNG_RENDERER_SOURCE = (
+    '"""PNG renderer."""\n\n'
+    "from __future__ import annotations\n\n"
+    "import io\n\n"
+    "import PIL.Image\n"
+    "import PIL.ImageColor\n"
+    "import PIL.ImageDraw\n"
+    "import PIL.ImageFont\n\n"
+    "from aspose_barcode_foss._internal.exceptions import RenderingError\n"
+    "from aspose_barcode_foss._internal.models.artifacts import RenderedArtifact\n"
+    "from aspose_barcode_foss._internal.models.options import ResolvedRenderOptions\n"
+    "from aspose_barcode_foss._internal.models.symbols import EncodedSymbol\n"
+    "from aspose_barcode_foss._internal.models.text import TextLayout\n"
+    "from aspose_barcode_foss._internal.renderers._matrix import _iter_dark_runs\n"
+    "from aspose_barcode_foss._internal.renderers.base import Renderer\n\n\n"
+    "_ANCHOR_MAP: dict[str, str] = {\n"
+    '    "start": "lt",\n'
+    '    "middle": "mt",\n'
+    '    "end": "rt",\n'
+    "}\n\n\n"
+    # The real cited evidence line (28) is the class declaration below --
+    # the padding above faithfully reproduces the real file's leading
+    # import/constant block so the line offset matches the real claim.
+    "class PngRenderer(Renderer):\n"
+    '    """Render a barcode into PNG output."""\n\n'
+    "    def render(self, symbol, *, layout, options) -> RenderedArtifact:\n"
+    '        """Render an encoded symbol as PNG."""\n'
+    "        image_bytes = self._draw(symbol, layout, options)\n"
+    "        return RenderedArtifact(data=image_bytes, media_type='image/png', backend='png')\n\n"
+    "    def _draw(self, symbol, layout, options) -> bytes:\n"
+    "        buf = io.BytesIO()\n"
+    "        buf.write(b'\\x89PNG')\n"
+    "        return buf.getvalue()\n"
+)
+
+
+def test_select_knowledge_claims_true_supported_export_reaches_verified(tmp_path):
+    """Replaces the old placeholder-file expectation this test file used to
+    encode (source_knowledge_truth audit finding): a claim whose cited
+    implementation is genuinely real -- not a stub, not a bare comment -- is
+    corroborated on real content, not merely because the cited file exists.
+    Uses the real Barcode corpus claim `CLM-barcode-2794b6` ("export support
+    for Png via PngRenderer"), whose cited `PngRenderer.render` is a real,
+    working implementation."""
+
+    png_dir = tmp_path / "src" / "aspose_barcode_foss" / "_internal" / "renderers"
+    png_dir.mkdir(parents=True)
+    (png_dir / "png.py").write_text(_PNG_RENDERER_SOURCE, encoding="utf-8")
+
+    result = select_knowledge_claims(
+        "barcode",
+        "python",
+        data_root=_DATA_ROOT,
+        clone_cache=tmp_path,
+        source_revision=_BARCODE_PYTHON_REPO_SHA,
+    )
+
+    positive = next(
+        d for d in result.dispositions if d.global_claim_id == "barcode/python/CLM-barcode-2794b6"
+    )
+    assert positive.corroboration == "corroborated"
+    assert positive.accepted is True
+    assert positive.verification_state == "verified"
+    fact = next(f for f in result.fact_records if f.field == "aspose.format_support_claims")
+    assert any(entry["claim_id"] == "barcode/python/CLM-barcode-2794b6" for entry in fact.value)
 
 
 def test_select_knowledge_claims_corroborated_license_reaches_verified(clone_with_mit_license):
@@ -530,3 +788,196 @@ def test_select_knowledge_claims_search_intent_keyword_outranks_equal_confidence
     fact = next(f for f in result.fact_records if f.field == "aspose.feature_claims")
     ranked_claim_ids = [entry["claim_id"].rsplit("/", 1)[-1] for entry in fact.value]
     assert ranked_claim_ids.index("HAS-KEYWORD") < ranked_claim_ids.index("NO-KEYWORD")
+
+
+def test_select_knowledge_claims_mixed_verified_and_unverified_never_merge_into_one_fact(
+    tmp_path,
+):
+    """K1 mandatory red/green: a synthetic field with one genuinely
+    corroborated item and two uncorroborated-but-fresh items must never
+    become a single `verified` aggregate (the `verified_any` laundering
+    defect this commit removes) -- the verified item gets its own
+    authorizing fact, the two unverified items are visible only in a
+    separate, non-authorizing supporting fact, and no unverified claim ID
+    ever appears in the verified fact's value."""
+
+    data_root = tmp_path / "data-root"
+    clone_cache = tmp_path / "clone"
+    repo_sha = "c" * 40
+    real_dir = clone_cache / "pkg"
+    real_dir.mkdir(parents=True)
+    (real_dir / "widget.py").write_text(
+        "class Widget:\n    def export(self):\n        return b'real bytes'\n",
+        encoding="utf-8",
+    )
+    claims = [
+        {
+            "claim_id": "VERIFIED-ONE",
+            "kind": "format_support",
+            "text": "export support for Widget via Widget",
+            "confidence": 0.9,
+            "evidence": [{"file": "pkg/widget.py", "line": 2}],
+        },
+        {
+            "claim_id": "UNVERIFIED-ONE",
+            "kind": "format_support",
+            "text": "claims a second undocumented capability",
+            "confidence": 0.8,
+            "evidence": [],
+        },
+        {
+            "claim_id": "UNVERIFIED-TWO",
+            "kind": "format_support",
+            "text": "claims a third undocumented capability",
+            "confidence": 0.7,
+            "evidence": [],
+        },
+    ]
+    _write_synthetic_bundle(data_root, "synthmix", "python", repo_sha, claims)
+
+    result = select_knowledge_claims(
+        "synthmix",
+        "python",
+        data_root=data_root,
+        clone_cache=clone_cache,
+        source_revision=repo_sha,
+    )
+
+    matching = [f for f in result.fact_records if f.field == "aspose.format_support_claims"]
+    assert len(matching) == 2
+    verified_fact = next(f for f in matching if f.verification_state == "verified")
+    supporting_fact = next(f for f in matching if f.verification_state == "unverified")
+    assert verified_fact.fact_id != supporting_fact.fact_id
+
+    verified_claim_ids = {entry["claim_id"] for entry in verified_fact.value}
+    supporting_claim_ids = {entry["claim_id"] for entry in supporting_fact.value}
+    assert verified_claim_ids == {"synthmix/python/VERIFIED-ONE"}
+    assert supporting_claim_ids == {
+        "synthmix/python/UNVERIFIED-ONE",
+        "synthmix/python/UNVERIFIED-TWO",
+    }
+    assert verified_claim_ids.isdisjoint(supporting_claim_ids)
+
+
+def test_select_knowledge_claims_source_file_evidence_key_is_evaluated(tmp_path):
+    """K1 mandatory red/green: LLM-enriched claims cite `source_file`, not
+    `file` -- corroboration must actually resolve and check that key, not
+    silently ignore it because the old code only ever read `file`."""
+
+    data_root = tmp_path / "data-root"
+    clone_cache = tmp_path / "clone"
+    clone_cache.mkdir()
+    repo_sha = "d" * 40
+    (clone_cache / "README.md").write_text(
+        "## Supported Formats\nThis library supports exporting to Widget format.\n",
+        encoding="utf-8",
+    )
+    claims = [
+        {
+            "claim_id": "SOURCE-FILE-FRESH",
+            "kind": "feature",
+            "text": "The library supports exporting to Widget format.",
+            "confidence": 0.9,
+            "evidence": [
+                {
+                    "source_file": "README.md",
+                    "snippet": "This library supports exporting to Widget format.",
+                }
+            ],
+        }
+    ]
+    _write_synthetic_bundle(data_root, "synthsrc", "python", repo_sha, claims)
+
+    result = select_knowledge_claims(
+        "synthsrc",
+        "python",
+        data_root=data_root,
+        clone_cache=clone_cache,
+        source_revision=repo_sha,
+    )
+
+    disposition = next(
+        d for d in result.dispositions if d.global_claim_id == "synthsrc/python/SOURCE-FILE-FRESH"
+    )
+    assert disposition.corroboration == "corroborated"
+    assert disposition.verification_state == "verified"
+
+
+def test_select_knowledge_claims_traversal_evidence_path_cannot_corroborate(tmp_path):
+    """K1 mandatory red/green: an evidence path that escapes the pinned
+    clone root via traversal must never resolve, let alone corroborate --
+    real content one directory above the clone must stay invisible."""
+
+    data_root = tmp_path / "data-root"
+    clone_cache = tmp_path / "clone"
+    clone_cache.mkdir()
+    (tmp_path / "outside-secret.py").write_text(
+        "class Anything:\n    def do(self):\n        return 1\n", encoding="utf-8"
+    )
+    repo_sha = "e" * 40
+    claims = [
+        {
+            "claim_id": "TRAVERSAL",
+            "kind": "feature",
+            "text": "Claims a capability via a traversal path",
+            "confidence": 0.9,
+            "evidence": [{"file": "../outside-secret.py", "line": 2}],
+        }
+    ]
+    _write_synthetic_bundle(data_root, "synthtrav", "python", repo_sha, claims)
+
+    result = select_knowledge_claims(
+        "synthtrav",
+        "python",
+        data_root=data_root,
+        clone_cache=clone_cache,
+        source_revision=repo_sha,
+    )
+
+    disposition = next(
+        d for d in result.dispositions if d.global_claim_id == "synthtrav/python/TRAVERSAL"
+    )
+    assert disposition.corroboration == "uncorroborated"
+
+
+def test_select_knowledge_claims_stale_snippet_cannot_corroborate(tmp_path):
+    """K1 mandatory red/green: an enriched claim's cited snippet that no
+    longer appears verbatim in the current file (captured from a
+    since-refreshed README, per the real KGAP-003 finding) must never
+    corroborate, even though the underlying fact might still be true."""
+
+    data_root = tmp_path / "data-root"
+    clone_cache = tmp_path / "clone"
+    clone_cache.mkdir()
+    (clone_cache / "README.md").write_text(
+        "Current content, unrelated to the old captured snippet.\n", encoding="utf-8"
+    )
+    repo_sha = "f" * 40
+    claims = [
+        {
+            "claim_id": "STALE-SNIPPET",
+            "kind": "feature",
+            "text": "The library supports an advanced processing mode.",
+            "confidence": 0.9,
+            "evidence": [
+                {
+                    "source_file": "README.md",
+                    "snippet": "### Advanced Processing (Implemented)\n- Mode A\n- Mode B",
+                }
+            ],
+        }
+    ]
+    _write_synthetic_bundle(data_root, "synthstale", "python", repo_sha, claims)
+
+    result = select_knowledge_claims(
+        "synthstale",
+        "python",
+        data_root=data_root,
+        clone_cache=clone_cache,
+        source_revision=repo_sha,
+    )
+
+    disposition = next(
+        d for d in result.dispositions if d.global_claim_id == "synthstale/python/STALE-SNIPPET"
+    )
+    assert disposition.corroboration == "uncorroborated"
