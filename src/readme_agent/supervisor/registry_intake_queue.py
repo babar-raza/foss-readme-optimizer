@@ -11,7 +11,12 @@ from readme_agent.state.lifecycle import accept_trigger, transition_trigger
 from readme_agent.state.trigger_v2 import normalize_trigger_envelope
 from readme_agent.supervisor.intake import run_readonly_intake_preflight
 
-_SETTLED_OUTCOMES = {"READY_FAST_PATH", "READY_FULL_PIPELINE", "NOT_APPLICABLE"}
+_SETTLED_OUTCOMES = {
+    "READY_FAST_PATH",
+    "READY_FULL_PIPELINE",
+    "NOT_APPLICABLE",
+    "BLOCKED_NO_SUBSTANTIVE_CONTENT",
+}
 
 
 class RegistryIntakeQueueItemV1(BaseModel):

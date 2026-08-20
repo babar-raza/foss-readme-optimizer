@@ -42,6 +42,7 @@ def test_second_observation_reuses_one_receipt_and_does_not_reclone(
 
     readme = "# Example\n\nA valuable short maintainer README.\n"
     (tmp_path / "README.md").write_text(readme, encoding="utf-8")
+    (tmp_path / "example_source.py").write_text("value = 1\n", encoding="utf-8")
     revision = "a" * 40
     snapshot = RepositorySnapshotV1(
         org_repo="example-org/Example",

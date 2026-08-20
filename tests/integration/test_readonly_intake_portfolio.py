@@ -78,6 +78,7 @@ MIT.
     else:
         readme = f"# {ecosystem}\n\nValuable existing maintainer context.\n"
     (source / "README.md").write_text(readme, encoding="utf-8")
+    (source / "example_source.txt").write_text("placeholder source content\n", encoding="utf-8")
     run_git(["add", "."], cwd=source)
     run_git(["commit", "-m", "initial"], cwd=source)
     return source

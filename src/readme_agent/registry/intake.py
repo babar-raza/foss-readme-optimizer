@@ -4,16 +4,29 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
+from dataclasses import dataclass
 from typing import Any, Literal
 
 from markdown_it import MarkdownIt
 from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.ecosystems.registry import known_manifest_globs
+from readme_agent.inspection.file_inventory import LICENSE_FILENAMES, NOISE_DIRS, README_FILENAMES
 from readme_agent.registry.models import ProductEntry
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.lifecycle_schema import IntakePreflightOutcomeV1
+
+# The ticket-binding shape rule additionally excludes NOTICE variants, which
+# `inspection/file_inventory.py::LICENSE_FILENAMES` does not carry (that set
+# answers a narrower "is this a LICENSE file" question for license
+# detection, not this gate's broader "is this a license/notice-class file"
+# question) -- extended locally rather than widening the shared set's own
+# meaning for its other callers.
+_LICENSE_OR_NOTICE_FILENAMES: frozenset[str] = LICENSE_FILENAMES | frozenset(
+    {"notice", "notice.txt", "notice.md", "notice.rst"}
+)
 
 INTAKE_PREFLIGHT_CONTRACT_VERSION = "read-only-intake-v1"
 INTAKE_PREFLIGHT_CONTRACT_HASH = hashlib.sha256(
@@ -86,6 +99,48 @@ def intake_contract_hash(entry: ProductEntry) -> str:
     return hashlib.sha256(material.encode()).hexdigest()
 
 
+@dataclass(frozen=True)
+class _TreeProcessability:
+    """Generic pinned-tree shape verdict -- never keyed on family/org/platform."""
+
+    processable: bool
+    reason: str
+
+
+def _classify_tree_processability(snapshot: RepositorySnapshotV1) -> _TreeProcessability:
+    """A repository is terminally unprocessable when its pinned tree is empty,
+    or -- after excluding README and LICENSE/COPYING/NOTICE variants -- has no
+    other file. Any other tracked file (source, manifest, docs, admin
+    metadata, binaries, ...) makes it processable; a missing LICENSE never
+    blocks. Purely name/shape-based, at any depth: no product/family branch.
+
+    Walks the filesystem (matching `inspection/file_inventory.py::scan()`'s
+    own established convention for "what's in this repo," not `git ls-tree`)
+    so this works uniformly whether `snapshot.root_path` is a real clone or a
+    synthetic test fixture directory; `NOISE_DIRS` (already shared with that
+    module) excludes `.git` and other never-a-tracked-source-file dirs.
+    """
+
+    root = snapshot.root_path
+    if not root.is_dir():
+        return _TreeProcessability(False, "pinned tree is empty")
+    any_file = False
+    for _current_root, dirs, files in os.walk(root):
+        dirs[:] = [d for d in dirs if d not in NOISE_DIRS]
+        for filename in files:
+            any_file = True
+            if filename.lower() in README_FILENAMES or filename.lower() in (
+                _LICENSE_OR_NOTICE_FILENAMES
+            ):
+                continue
+            return _TreeProcessability(True, f"substantive file present: {filename!r}")
+    if not any_file:
+        return _TreeProcessability(False, "pinned tree is empty")
+    return _TreeProcessability(
+        False, "pinned tree contains only README and/or LICENSE/COPYING/NOTICE variants"
+    )
+
+
 def classify_readonly_intake(
     entry: ProductEntry,
     snapshot: RepositorySnapshotV1,
@@ -120,6 +175,13 @@ def classify_readonly_intake(
             **base,
             outcome="BLOCKED_CLASSIFICATION",
             reason="ecosystem or policy profile is not yet configured",
+        )
+    processability = _classify_tree_processability(snapshot)
+    if not processability.processable:
+        return ReadOnlyIntakePreflightV1(
+            **base,
+            outcome="BLOCKED_NO_SUBSTANTIVE_CONTENT",
+            reason=processability.reason,
         )
     if snapshot.readme_path is None:
         return ReadOnlyIntakePreflightV1(
