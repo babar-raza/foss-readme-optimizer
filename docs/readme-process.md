@@ -56,8 +56,9 @@ gate inside `readme/document_validation.py::validate_readme_document_candidate` 
   checks only). None of the 89 checks currently classify here; the bucket is retained for a future
   vendored-battery refresh that might add one.
 
-As of the current classification: 11 of 89 checks are promoted to blocking, 38 are runnable with
-data this repo currently produces, and 51 are skipped for missing production inputs. Every
+As of the current classification: 11 of 89 checks are promoted to blocking, 45 are runnable with
+data this repo currently produces (`dependency_snapshot` wiring, Gate R6c, moved 9 of these from
+not-runnable), and 44 are skipped for missing production inputs. Every
 invocation of `aspose_checks_bridge.run_aspose_checks()` records real, per-check
 run/skipped/errored accounting (`AsposeCheckResultV1.checks_run` / `checks_skipped` /
 `checks_errored`): a check whose real-data requirements this repo cannot currently satisfy is

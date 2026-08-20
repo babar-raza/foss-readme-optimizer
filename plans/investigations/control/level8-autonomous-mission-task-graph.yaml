@@ -510,6 +510,7 @@ taskcards:
   - target default branches
   dependencies:
   - L8-VPY-03-ALL-PYTHON-VERIFIED-POC
+  - L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
   expected_outputs:
   - Canonical Python act workflow receipt
   - Disposable-staging GitHub App create, no-op, update, drift, deduplication, lost-response, and recovery
@@ -601,6 +602,7 @@ taskcards:
   - non-Python product repositories
   dependencies:
   - L8-VPY-04-PRODUCTION-TRANSPORT
+  - L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
   expected_outputs:
   - Python production-admission manifest bound to every accepted candidate and authorization
   - Authorized create, unchanged retry, drift, duplicate-delivery, lost-response, expiry, crash-recovery,
@@ -693,6 +695,7 @@ taskcards:
   dependencies:
   - L8-VNET-01-ACCELERATED-LOCAL-NO-OP
   - L8-VPY-04-PRODUCTION-TRANSPORT
+  - L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
   expected_outputs:
   - .NET canonical workflow and staging/App receipts
   - Complete .NET human-review package and exact authorization handoffs
