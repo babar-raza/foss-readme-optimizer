@@ -104,6 +104,37 @@ def test_evidence_content_signal_source_file_key_is_recognized(tmp_path: Path):
     assert signal == "positive"
 
 
+def test_evidence_content_signal_verified_facts_txt_is_never_authorizing(tmp_path: Path):
+    """Owner review (2026-08-20), mandatory correction 6: `verified_facts.txt`
+    is a real filename dozens of `llm_enriched` claims across the imported
+    corpus cite as their sole evidence (e.g. 3d/python's DracoFormat claim:
+    `{"source_file": "verified_facts.txt", "snippet": "Class: DracoFormat\\n
+    Docstring: Google Draco format"}`) -- aspose.org's own pipeline digest
+    about itself, not genuine product documentation. Even when a file with
+    that exact name is present inside the pinned clone and its content
+    verbatim-matches the cited snippet (the ordinary positive-signal path,
+    proven working one test above for README.md), it must still resolve
+    `unresolved`, never `positive` -- synthetic self-description can never
+    substitute for real corroboration, regardless of what it contains."""
+
+    (tmp_path / "verified_facts.txt").write_text(
+        "Class: DracoFormat\n  Docstring: Google Draco format\n", encoding="utf-8"
+    )
+
+    signal = evidence_content_signal(
+        (
+            {
+                "source_file": "verified_facts.txt",
+                "snippet": "Class: DracoFormat\n  Docstring: Google Draco format",
+            },
+        ),
+        tmp_path,
+        claim_kind="api",
+    )
+
+    assert signal == "unresolved"
+
+
 def test_evidence_content_signal_limitation_kind_expects_negative_snippet(tmp_path: Path):
     (tmp_path / "README.md").write_text("Widget export is not supported.\n", encoding="utf-8")
 

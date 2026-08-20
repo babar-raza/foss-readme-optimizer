@@ -182,13 +182,17 @@ def summarize_api_members(item: dict[str, Any], *, limit: int = 3) -> list[str]:
 
     A method whose body is a proven stub (`member["implemented"] is False`)
     never contributes a "Supports ..." action phrase here -- symbol presence
-    is never itself a capability assertion."""
+    is never itself a capability assertion. Neither does a method whose
+    implementation status is unresolved (`implemented` absent or `None`):
+    only a proven-`True` implementation may authorize functional wording,
+    matching `describe_api_member`'s own rule -- unknown is conservative,
+    never optimistic."""
 
     actions: list[str] = []
     for _score, member in _member_rows(item):
         if str(member.get("kind") or "") != "method":
             continue
-        if member.get("implemented") is False:
+        if member.get("implemented") is not True:
             continue
         phrase = method_phrase(str(member.get("name") or "").strip())
         if phrase and phrase not in actions:
@@ -227,9 +231,12 @@ def describe_api_member(
     method whose cited body is a proven stub (`member["implemented"] is
     False`) still appears -- discoverable with its exact signature -- but
     is described with neutral presence language, never "Supports ..." or
-    equivalent capability wording. `implemented is None` (not a callable,
-    or unresolvable) preserves the prior capability phrasing, since no
-    negative evidence was ever established for it."""
+    equivalent capability wording. `implemented is None` (unresolvable --
+    not a callable, or no evidence either way) is equally conservative: it
+    documents the symbol's existence but never claims a functional
+    capability without proof, and never asserts the negative "not yet
+    implemented" either, since that itself is unproven. Only a proven
+    `implemented is True` may use capability wording."""
 
     name = str(member.get("name") or "").strip()
     kind = str(member.get("kind") or "").strip()
@@ -241,8 +248,11 @@ def describe_api_member(
             f"Exposes the `{name}` entry point alongside `{case_variant_of}` on `{owner}`." + origin
         )
     if kind == "method":
-        if member.get("implemented") is False:
+        implemented = member.get("implemented")
+        if implemented is False:
             return f"Declares the `{name}` operation on `{owner}` (not yet implemented)." + origin
+        if implemented is not True:
+            return f"Exposes the `{name}` operation on `{owner}`." + origin
         phrase = method_phrase(name)
         description = (
             f"Calls the `{name}` operation on `{owner}`."

@@ -9,7 +9,12 @@ from readme_agent.presentation.verified_template_api_descriptions import (
 
 
 def _method(name: str) -> dict[str, object]:
-    return {"name": name, "kind": "method", "inherited": False}
+    # A real, working method (this file's fixtures model genuine Aspose API
+    # members) -- `implemented: True` is the honest production shape once
+    # curated_python_api_projection.py has computed it, not a test-only
+    # relaxation of the owner-review invariant that unknown must stay
+    # conservative.
+    return {"name": name, "kind": "method", "inherited": False, "implemented": True}
 
 
 def test_document_description_uses_role_and_complete_member_actions() -> None:
@@ -238,6 +243,7 @@ def test_every_member_has_an_exact_class_qualified_surface_and_complete_descript
         "return_annotation": "None",
         "declared_by": "NodeCollection",
         "inherited": False,
+        "implemented": True,
     }
     assert member_api_identifier("NodeCollection", method) == (
         "NodeCollection.copy_to(target, start_index=0) -> None"
@@ -431,11 +437,37 @@ def test_stub_method_never_contributes_a_supports_action_to_the_class_summary() 
     assert "mesh" not in description.casefold()
 
 
-def test_implemented_true_and_missing_preserve_existing_capability_phrasing() -> None:
-    """Backward compatibility: `implemented is True` (a real body) and a
-    missing/`None` `implemented` key (older cached facts, or a non-callable
-    member) both keep the original "Supports ..." phrasing -- only a proven
-    `False` suppresses it."""
+def test_unknown_implementation_method_never_contributes_a_supports_action_either() -> None:
+    """Owner-review correction: an unresolved (`implemented` absent/`None`)
+    method must be just as absent from the class summary's "Supports ..."
+    sentence as a proven stub -- unknown is conservative, never optimistic."""
+
+    item = {
+        "bases": [],
+        "members": [
+            {
+                "name": "to_mesh",
+                "kind": "method",
+                "declared_by": "NurbsSurface",
+                "inherited": False,
+            }
+        ],
+    }
+
+    description = describe_api_export(
+        item, module="aspose.threed", name="NurbsSurface", family="3D"
+    )
+
+    assert "supports" not in description.casefold()
+    assert "mesh" not in description.casefold()
+
+
+def test_only_proven_implemented_true_uses_capability_phrasing() -> None:
+    """Owner-review correction: only a proven `implemented is True` may use
+    capability wording. A missing/`None` `implemented` key (unresolvable --
+    no evidence either way) is conservative, exactly like a proven `False`
+    stub, but with its own neutral phrasing that asserts neither a
+    capability nor a negative -- never "Supports ..." for either."""
 
     real_member = {
         "name": "to_mesh",
@@ -454,6 +486,9 @@ def test_implemented_true_and_missing_preserve_existing_capability_phrasing() ->
     assert describe_api_member("NurbsSurface", real_member) == (
         "Supports converting content to mesh through `NurbsSurface`."
     )
-    assert describe_api_member("NurbsSurface", unknown_member) == (
-        "Supports converting content to mesh through `NurbsSurface`."
-    )
+    unknown_description = describe_api_member("NurbsSurface", unknown_member)
+    assert unknown_description == "Exposes the `to_mesh` operation on `NurbsSurface`."
+    lowered = unknown_description.casefold()
+    assert "supports" not in lowered
+    assert "converts" not in lowered
+    assert "not yet implemented" not in lowered

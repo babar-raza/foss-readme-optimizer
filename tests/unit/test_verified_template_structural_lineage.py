@@ -72,6 +72,7 @@ def _facts() -> ProductFactsV2:
                             "surface": "open(file_or_stream, options=None)",
                             "source_path": "aspose/threed/Scene.py",
                             "source_sha256": "a" * 64,
+                            "implemented": True,
                         }
                     ],
                 }
@@ -295,7 +296,7 @@ def test_api_reference_humanizes_underscore_root_without_repeating_product_famil
                         {
                             "module": "aspose_pdf.annotations",
                             "name": "PdfPlugin",
-                            "members": [{"name": "process", "kind": "method"}],
+                            "members": [{"name": "process", "kind": "method", "implemented": True}],
                         }
                     ],
                 }

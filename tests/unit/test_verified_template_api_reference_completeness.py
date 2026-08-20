@@ -58,6 +58,7 @@ def test_api_reference_uses_complete_catalog_without_dumping_every_member_row() 
                                 "return_annotation": "None",
                                 "declared_by": "Scene",
                                 "inherited": False,
+                                "implemented": True,
                             },
                             {
                                 "name": "Open",
@@ -66,6 +67,7 @@ def test_api_reference_uses_complete_catalog_without_dumping_every_member_row() 
                                 "return_annotation": "None",
                                 "declared_by": "Scene",
                                 "inherited": False,
+                                "implemented": True,
                             },
                             {
                                 "name": "root_node",

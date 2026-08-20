@@ -67,7 +67,7 @@ def test_composer_factpack_facts_are_byte_identical_across_calls(tmp_path):
         bundle = build_aspose_detection_bundle(
             "3d", "python", data_root=_DATA_ROOT, clone_cache=tmp_path
         )
-        facts = aspose_fact_records(bundle, family="3d", platform="python")
+        facts = aspose_fact_records(bundle, family="3d", platform="python", clone_cache=tmp_path)
         return [f.model_dump(mode="json") for f in facts]
 
     first = build()
@@ -87,7 +87,7 @@ def test_composer_factpack_enterprise_link_value_excludes_volatile_age_fields(tm
     bundle = build_aspose_detection_bundle(
         "3d", "python", data_root=_DATA_ROOT, clone_cache=tmp_path
     )
-    facts = aspose_fact_records(bundle, family="3d", platform="python")
+    facts = aspose_fact_records(bundle, family="3d", platform="python", clone_cache=tmp_path)
     enterprise_link_fact = next((f for f in facts if f.field == "aspose.enterprise_link"), None)
 
     assert enterprise_link_fact is not None
@@ -104,7 +104,9 @@ def test_end_to_end_product_facts_canonical_hash_is_stable_across_collections(tm
         bundle = build_aspose_detection_bundle(
             "3d", "python", data_root=_DATA_ROOT, clone_cache=tmp_path
         )
-        candidates = aspose_fact_records(bundle, family="3d", platform="python")
+        candidates = aspose_fact_records(
+            bundle, family="3d", platform="python", clone_cache=tmp_path
+        )
         candidates.extend(
             knowledge_claim_fact_records(
                 "3d",
@@ -161,10 +163,16 @@ def test_enterprise_link_fact_is_identical_on_both_sides_of_stale_warn_days(tmp_
     )
 
     fresh_facts = aspose_fact_records(
-        bundle.model_copy(update={"enterprise_link": fresh_link}), family="cells", platform="java"
+        bundle.model_copy(update={"enterprise_link": fresh_link}),
+        family="cells",
+        platform="java",
+        clone_cache=tmp_path,
     )
     stale_facts = aspose_fact_records(
-        bundle.model_copy(update={"enterprise_link": stale_link}), family="cells", platform="java"
+        bundle.model_copy(update={"enterprise_link": stale_link}),
+        family="cells",
+        platform="java",
+        clone_cache=tmp_path,
     )
 
     fresh_fact = next(f for f in fresh_facts if f.field == "aspose.enterprise_link")
@@ -191,7 +199,9 @@ def test_end_to_end_canonical_hash_is_stable_across_the_stale_warn_days_threshol
         )
         bundle = bundle.model_copy(update={"enterprise_link": aged_link})
 
-        candidates = aspose_fact_records(bundle, family="3d", platform="python")
+        candidates = aspose_fact_records(
+            bundle, family="3d", platform="python", clone_cache=tmp_path
+        )
         candidates.extend(
             knowledge_claim_fact_records(
                 "3d",
@@ -237,8 +247,12 @@ def test_enterprise_link_verification_reflects_relationship_not_staleness(tmp_pa
     )
     mismatched_bundle = bundle.model_copy(update={"enterprise_link": mismatched_link})
 
-    resolved_facts = aspose_fact_records(bundle, family="cells", platform="java")
-    mismatched_facts = aspose_fact_records(mismatched_bundle, family="cells", platform="java")
+    resolved_facts = aspose_fact_records(
+        bundle, family="cells", platform="java", clone_cache=tmp_path
+    )
+    mismatched_facts = aspose_fact_records(
+        mismatched_bundle, family="cells", platform="java", clone_cache=tmp_path
+    )
 
     resolved_fact = next(f for f in resolved_facts if f.field == "aspose.enterprise_link")
     mismatched_fact = next(f for f in mismatched_facts if f.field == "aspose.enterprise_link")
@@ -265,6 +279,7 @@ def test_composer_factpack_omits_enterprise_link_when_target_map_is_missing(tmp_
         bundle.model_copy(update={"enterprise_link": missing_map_link}),
         family="cells",
         platform="java",
+        clone_cache=tmp_path,
     )
 
     assert not any(f.field == "aspose.enterprise_link" for f in facts)

@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import time
 from pathlib import Path
 from typing import Literal
@@ -33,6 +34,7 @@ from pydantic import BaseModel, ConfigDict
 
 from readme_agent.facts.aspose_detectors import (
     ApiPublicSurfaceDetectionV1,
+    ApiSurfaceClassV1,
     ArchetypeDetectionV1,
     DependencyClaimsDetectionV1,
     DevTestArtifactV1,
@@ -52,6 +54,7 @@ from readme_agent.facts.aspose_detectors import (
     detect_license_file,
     detect_seo_keywords,
 )
+from readme_agent.facts.dependency_snapshot import build_dependency_snapshot
 from readme_agent.facts.schema_v2 import (
     FactRecordV2,
     FactSourceV2,
@@ -143,8 +146,109 @@ def build_composer_factpack(
     )
 
 
+# Owner review (2026-08-20), correction 1/3/4: `model_sha`/`repo_sha` fields
+# read off the imported corpus are provenance stamps identifying which
+# upstream snapshot aspose.org's own extraction ran against -- never
+# evidence that the extracted claim still matches what this repo's own
+# pinned clone (`clone_cache`, the same real checkout `dependency_snapshot_
+# fact_record` already reads at provider.py) actually contains today. Both
+# blocks below replace "the corpus recorded a SHA" with a real, item-level,
+# generic (no per-platform branch beyond a data-driven extension/ecosystem
+# table) check against that pinned clone, and split each field's aggregate
+# into a verified record carrying only the items that passed and a
+# supporting/unverified record carrying everything else -- never a single
+# blanket flag laundering unverified items as confirmed, and never a
+# discarded item (aspose_knowledge_selection.py's `_knowledge_fact_record`
+# established this same same-field/two-fact-id split for the identical
+# reason).
+
+_API_SOURCE_EXTENSIONS_BY_PLATFORM: dict[str, tuple[str, ...]] = {
+    "python": (".py",),
+    "net": (".cs",),
+    "java": (".java",),
+    "cpp": (".cpp", ".cc", ".cxx", ".h", ".hpp", ".hh"),
+    "go": (".go",),
+    "rust": (".rs",),
+    "typescript": (".ts", ".tsx"),
+}
+_EXCLUDED_SOURCE_DIR_NAMES = frozenset(
+    {".git", "node_modules", "target", "bin", "obj", "__pycache__", "dist", "build", "vendor"}
+)
+_MAX_REPOSITORY_SOURCE_TEXT_BYTES = 8_000_000
+
+
+def _repository_source_text(clone_cache: Path, *, platform: str) -> str:
+    """Concatenate the pinned clone's own source files for `platform` (a
+    data-driven extension lookup, not a family branch) into one bounded
+    search corpus -- read once per detection pass, then checked per symbol,
+    matching `_canonical_api_symbol_pattern`'s established one-corpus/many-
+    checks shape rather than re-walking the tree per class."""
+
+    extensions = _API_SOURCE_EXTENSIONS_BY_PLATFORM.get(platform)
+    if not extensions or not clone_cache.is_dir():
+        return ""
+    chunks: list[str] = []
+    total = 0
+    for path in sorted(clone_cache.rglob("*")):
+        if total >= _MAX_REPOSITORY_SOURCE_TEXT_BYTES:
+            break
+        if not path.is_file() or path.suffix not in extensions:
+            continue
+        if _EXCLUDED_SOURCE_DIR_NAMES.intersection(path.relative_to(clone_cache).parts):
+            continue
+        try:
+            text = path.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            continue
+        chunks.append(text)
+        total += len(text)
+    return "\n".join(chunks)
+
+
+def _symbol_present_in_repository(source_text: str, name: str) -> bool:
+    if not name or not source_text:
+        return False
+    return re.search(rf"\b{re.escape(name)}\b", source_text) is not None
+
+
+_DEPENDENCY_CLAIM_TEXT_RE = re.compile(r"^Depends on (\S+)")
+_DEPENDENCY_VERSION_MARKERS = (">=", "<=", "==", "!=", "~=", ">", "<", "=")
+
+
+def _dependency_claim_name(text: str) -> str | None:
+    """Extract the bare dependency name from the corpus's own free-text
+    claim (confirmed by direct inspection: every real `kind == "dependency"`
+    claim across python/rust/typescript products reads "Depends on
+    {name}{optional version constraint}") -- one generic pattern, not a
+    per-ecosystem parser."""
+
+    match = _DEPENDENCY_CLAIM_TEXT_RE.match(text.strip())
+    if match is None:
+        return None
+    token = match.group(1)
+    cut = len(token)
+    for marker in _DEPENDENCY_VERSION_MARKERS:
+        index = token.find(marker)
+        if index != -1:
+            cut = min(cut, index)
+    name = token[:cut].strip()
+    return name or None
+
+
+def _normalized_dependency_name(name: str) -> str:
+    return re.sub(r"[-_.]+", "-", name.strip().casefold())
+
+
+def _confirmed_dependency_names(clone_cache: Path, *, platform: str) -> frozenset[str]:
+    snapshot = build_dependency_snapshot(clone_cache, platform)
+    if not snapshot.applicable:
+        return frozenset()
+    entries = (*snapshot.required, *snapshot.optional, *snapshot.development)
+    return frozenset(_normalized_dependency_name(entry.name) for entry in entries)
+
+
 def aspose_fact_records(
-    bundle: AsposeDetectionBundleV1, *, family: str, platform: str
+    bundle: AsposeDetectionBundleV1, *, family: str, platform: str, clone_cache: Path
 ) -> list[FactRecordV2]:
     """Project an AsposeDetectionBundleV1 into additional, non-mandatory
     ProductFactsV2 fields (the "aspose.*" namespace), using the extension
@@ -166,6 +270,13 @@ def aspose_fact_records(
     `ProductFactsV2.canonical_hash()` non-deterministic across otherwise
     identical runs, defeating no-op/cache-reuse proof for every candidate
     that consumes any `aspose.*` field.
+
+    `clone_cache` is the same pinned current repository checkout
+    `dependency_snapshot_fact_record` and `detect_license_file` already
+    read (provider.py passes the identical `root`) -- used here to qualify
+    `aspose.dependency_claims` and `api.public_surface` items against real,
+    current content instead of trusting the imported corpus's own SHA
+    metadata (see the comment above `_repository_source_text`).
     """
 
     # Exclude live wall-clock-relative fields (target_map_age_days/_stale --
@@ -301,12 +412,48 @@ def aspose_fact_records(
 
     claims = bundle.dependency_claims
     if claims.claims:
-        add(
-            "aspose.dependency_claims",
-            [dict(claim) for claim in claims.claims],
-            verified=claims.repo_sha is not None,
-            surfaces=["readme.capabilities"],
-        )
+        # `claims.repo_sha` (model.yaml's own recorded SHA) is corpus
+        # provenance, not confirmation the claim still holds -- correction 4
+        # (owner review, 2026-08-20): only a claim whose extracted package
+        # name agrees with the pinned clone's OWN current manifest
+        # (`dependency_snapshot.py`, already wired for python/rust; every
+        # other ecosystem honestly reports `applicable=False` there rather
+        # than a fabricated snapshot) is authorized; every other claim is
+        # preserved verbatim as non-authorizing supporting evidence, never
+        # discarded and never silently verified.
+        confirmed_names = _confirmed_dependency_names(clone_cache, platform=platform)
+        confirmed_claims: list[dict[str, object]] = []
+        supporting_claims: list[dict[str, object]] = []
+        for claim in claims.claims:
+            name = _dependency_claim_name(str(claim.get("text", "")))
+            target = (
+                confirmed_claims
+                if (name is not None and _normalized_dependency_name(name) in confirmed_names)
+                else supporting_claims
+            )
+            target.append(dict(claim))
+        if confirmed_claims:
+            add(
+                "aspose.dependency_claims",
+                confirmed_claims,
+                verified=True,
+                surfaces=["readme.capabilities"],
+            )
+        if supporting_claims:
+            records.append(
+                FactRecordV2(
+                    fact_id=descriptive_fact_id(
+                        "aspose.dependency_claims", "aspose-detection-supporting"
+                    ),
+                    field="aspose.dependency_claims",
+                    value=supporting_claims,
+                    source=source,
+                    verification_state="unverified",
+                    authoritative_owner="aspose.org",
+                    confidence=0.4,
+                    affected_surfaces=["readme.capabilities"],
+                )
+            )
 
     # homepage_link is intentionally never injected: aspose_detectors.py's own
     # docstring documents it always returns verified=False in this repo (the
@@ -334,33 +481,80 @@ def aspose_fact_records(
         # already uses -- not a `{name: {...}}` dict, which both the
         # compact prompt projection and template consumers reading this
         # field generically expect a list from.
-        add(
-            "api.public_surface",
-            {
-                "modules": [
-                    {
-                        "module": module.module,
-                        "exports": [item.name for item in module.classes],
-                    }
-                    for module in surface.modules
-                ],
-                "classes": [
-                    {
-                        "name": item.name,
-                        "description": item.description,
-                        "kind": item.kind,
-                        "methods": [dict(member) for member in item.methods],
-                        "properties": [dict(member) for member in item.properties],
-                        "state": dict(item.state),
-                    }
-                    for module in surface.modules
-                    for item in module.classes
-                ],
-                "model_sha": surface.model_sha,
-            },
-            verified=surface.model_sha is not None,
-            surfaces=["readme.api_reference"],
-        )
+        #
+        # Owner review (2026-08-20), corrections 1 & 3: a class is only
+        # eligible for the authorizing `modules[].exports`/`classes` payload
+        # (the one `verified_template_api_reference.py` reads to render a
+        # confirmed public export) when BOTH its own resolved
+        # `state.visibility == "public"` AND its bare name is mechanically
+        # present in the pinned clone's own current source
+        # (`_symbol_present_in_repository`) -- declared-public-but-
+        # unconfirmed and unknown-visibility entries never share that list
+        # with a confirmed one (no flattening); they are preserved in full
+        # detail in a separate, always-unverified supporting record instead
+        # of being discarded.
+        repository_text = _repository_source_text(clone_cache, platform=platform)
+
+        def _class_dict(item: ApiSurfaceClassV1) -> dict[str, object]:
+            return {
+                "name": item.name,
+                "description": item.description,
+                "kind": item.kind,
+                "methods": [dict(member) for member in item.methods],
+                "properties": [dict(member) for member in item.properties],
+                "state": dict(item.state),
+            }
+
+        confirmed_by_module: dict[str, list[dict[str, object]]] = {}
+        unresolved_by_module: dict[str, list[dict[str, object]]] = {}
+        for module in surface.modules:
+            for item in module.classes:
+                bucket = (
+                    confirmed_by_module
+                    if item.state.visibility == "public"
+                    and _symbol_present_in_repository(repository_text, item.name)
+                    else unresolved_by_module
+                )
+                bucket.setdefault(module.module, []).append(_class_dict(item))
+
+        if confirmed_by_module:
+            add(
+                "api.public_surface",
+                {
+                    "modules": [
+                        {"module": module_name, "exports": [c["name"] for c in classes]}
+                        for module_name, classes in confirmed_by_module.items()
+                    ],
+                    "classes": [c for classes in confirmed_by_module.values() for c in classes],
+                    "model_sha": surface.model_sha,
+                },
+                verified=True,
+                surfaces=["readme.api_reference"],
+            )
+        if unresolved_by_module:
+            records.append(
+                FactRecordV2(
+                    fact_id=descriptive_fact_id(
+                        "api.public_surface", "aspose-detection-supporting"
+                    ),
+                    field="api.public_surface",
+                    value={
+                        "modules": [
+                            {"module": module_name, "exports": [c["name"] for c in classes]}
+                            for module_name, classes in unresolved_by_module.items()
+                        ],
+                        "classes": [
+                            c for classes in unresolved_by_module.values() for c in classes
+                        ],
+                        "model_sha": surface.model_sha,
+                    },
+                    source=source,
+                    verification_state="unverified",
+                    authoritative_owner="aspose.org",
+                    confidence=0.4,
+                    affected_surfaces=["readme.api_reference"],
+                )
+            )
 
     return records
 

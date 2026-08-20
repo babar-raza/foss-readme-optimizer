@@ -364,7 +364,9 @@ def collect_product_facts(
             entry.family, entry.platform, data_root=aspose_data_root, clone_cache=root
         )
         candidates.extend(
-            aspose_fact_records(aspose_bundle, family=entry.family, platform=entry.platform)
+            aspose_fact_records(
+                aspose_bundle, family=entry.family, platform=entry.platform, clone_cache=root
+            )
         )
         candidates.extend(
             knowledge_claim_fact_records(

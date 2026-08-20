@@ -33,16 +33,38 @@ EvidenceContentSignal = Literal["positive", "negative", "unresolved"]
 # more specific citation the enrichment pass actually inspected.
 _PATH_KEYS: tuple[str, ...] = ("source_file", "file")
 
+# Owner review (2026-08-20), correction 6: aspose.org's own scout/LLM-
+# enrichment pipeline writes its own intermediate digest to a file it names
+# `verified_facts.txt` -- confirmed live, dozens of real `llm_enriched`
+# claims across the imported corpus (e.g. 3d/python's DracoFormat claim)
+# cite it as their sole evidence, with snippets like "Class: DracoFormat\n
+# Docstring: Google Draco format": the pipeline's own notes about itself,
+# never genuine product documentation or source. Even if a file with this
+# exact name also happens to exist inside the pinned repository clone, it
+# must never be treated as corroborating evidence -- doing so would let the
+# pipeline's own self-description authorize a claim without ever inspecting
+# real content, the same circular-authority risk this whole module exists
+# to prevent for "cited file merely exists" signals.
+_SYNTHETIC_EVIDENCE_FILENAMES = frozenset({"verified_facts.txt"})
+
+
+def _is_synthetic_evidence_reference(reference: str) -> bool:
+    return Path(reference).name in _SYNTHETIC_EVIDENCE_FILENAMES
+
 
 def _safe_resolve(clone_cache: Path, reference: str) -> Path | None:
     """Resolve `reference` to a real file strictly inside `clone_cache`.
 
     Rejects traversal, an absolute path escaping the clone root, a missing
-    file, and an unreadable path -- a corroboration signal only ever comes
-    from a real file inside the pinned repository clone, never from mere
-    path syntax."""
+    file, an unreadable path, and a known-synthetic pipeline artifact name
+    (see `_SYNTHETIC_EVIDENCE_FILENAMES`) -- a corroboration signal only
+    ever comes from a real, genuine file inside the pinned repository
+    clone, never from mere path syntax or the pipeline's own output about
+    itself."""
 
     if not isinstance(reference, str) or not reference:
+        return None
+    if _is_synthetic_evidence_reference(reference):
         return None
     root = clone_cache.resolve()
     try:
