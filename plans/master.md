@@ -188,6 +188,27 @@ Binding current decisions:
   capability row's generic fallback wording when grounded in that row's own capability text,
   never cited as evidence either way. The other five imported-knowledge fact fields remain
   unconsumed.
+  Gate R2's "real per-claim corroboration" (above) was corroboration-by-cited-file-existence
+  only, not content/polarity-aware: the 2026-08-19 owner audit (`plans/investigations/owner_audit/`)
+  confirmed against real source that a claim citing a stub `raise NotImplementedError`
+  implementation (3D FBX `FbxExporter.save`, Barcode PDF `PdfRenderer.render`) was still accepted
+  as corroborating a positive capability claim, and the field-level `verified_any` aggregate could
+  let one verified item promote unverified siblings under one fact ID. `d11ac3800` (K1) replaces
+  file-existence corroboration with item-level, polarity-aware content verification
+  (`facts/knowledge_evidence_verification.py`: resolves `file`/`source_file` evidence safely
+  inside the pinned clone, classifies the cited Python region as a real implementation or a proven
+  stub) and removes `verified_any` by splitting a mixed field into a verified-authorizing
+  `FactRecordV2` and a separate, non-authorizing `aspose-knowledge-supporting` one. `872abdd04`
+  (K2) separates symbol presence from capability authorization for `api.public_surface`:
+  `curated_python_api_ast.py::member_is_implemented` marks a proven-stub method (confirmed against
+  real 3D `NurbsSurface.to_mesh`); `verified_template_api_members.py`'s renderer no longer emits
+  "Supports ..." prose for one; a new deterministic `readme/claim_map_capability_validation.py`
+  check rejects capability wording for an unimplemented member regardless of which renderer
+  produced it; `aspose_detectors.py::detect_api_public_surface`'s hard `reachable` requirement
+  (never a discriminating signal in the real 3D/Note/Barcode bundles) is replaced by corpus
+  visibility-vocabulary resolution; and `aspose_knowledge_selection.py`'s blanket api*-kind
+  rejection as "covered by the structured API surface" is now conditional on that surface actually
+  existing and being non-empty for the family/platform.
 - **#107 — Control-repo auto-push.** This repository's own landed commits are pushed to its own
   `origin` automatically and immediately, with no separate confirmation, mechanically enforced by a
   `post-commit` hook (`scripts/governance/post_commit_push.py`) that never force-pushes. The
