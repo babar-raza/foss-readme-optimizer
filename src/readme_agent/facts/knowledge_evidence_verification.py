@@ -60,6 +60,7 @@ class EvidenceContentCache:
         self.resolved: dict[str, Path | None] = {}
         self.texts: dict[Path, str | None] = {}
         self.trees: dict[Path, ast.Module | None] = {}
+        self.python_line_signals: dict[tuple[Path, int], EvidenceContentSignal] = {}
         self.tree_sitter = TreeSitterEvidenceCache(self.root)
 
     def resolve(self, reference: str) -> Path | None:
@@ -177,6 +178,19 @@ def _python_line_signal(
     line = evidence_item.get("line")
     if resolved_path.suffix != ".py" or not isinstance(line, int) or line < 1:
         return "unresolved"
+    key = (resolved_path, line)
+    if key in cache.python_line_signals:
+        return cache.python_line_signals[key]
+    signal = _uncached_python_line_signal(resolved_path, line, cache)
+    cache.python_line_signals[key] = signal
+    return signal
+
+
+def _uncached_python_line_signal(
+    resolved_path: Path,
+    line: int,
+    cache: EvidenceContentCache,
+) -> EvidenceContentSignal:
     source, tree = cache.source_and_tree(resolved_path)
     if source is None or tree is None:
         return "unresolved"

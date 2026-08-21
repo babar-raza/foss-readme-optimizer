@@ -378,11 +378,15 @@ def test_evidence_cache_parses_one_immutable_file_once_across_claims(tmp_path: P
     evidence = ({"file": "widget.py", "line": 2},)
 
     first = evidence_content_signal(evidence, tmp_path, claim_kind="format_support", cache=cache)
+    source_path = cache.resolve("widget.py")
+    assert source_path is not None
+    cache.trees[source_path] = None
     second = evidence_content_signal(evidence, tmp_path, claim_kind="format_support", cache=cache)
 
     assert first == second == "positive"
     assert len(cache.texts) == 1
     assert len(cache.trees) == 1
+    assert cache.python_line_signals == {(source_path, 2): "positive"}
 
 
 def test_evidence_cache_classifies_one_non_python_source_line_once(tmp_path: Path):
