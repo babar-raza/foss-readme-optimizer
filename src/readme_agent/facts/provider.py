@@ -23,6 +23,7 @@ from readme_agent.facts.local_verification import verify_local_product_example
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES, migrate_product_facts_v1
 from readme_agent.facts.platform_audience import derive_platform_audience
 from readme_agent.facts.policy_evidence import evidence_failures
+from readme_agent.facts.presentation_knowledge import presentation_knowledge_facts
 from readme_agent.facts.problem_grounding import derive_grounded_problem_fallback
 from readme_agent.facts.repository_examples import (
     ExampleLanguage,
@@ -418,6 +419,37 @@ def collect_product_facts(
         missing_field_surfaces=SURFACE_DEPENDENCIES,
         package_root_roles=package_root_roles,
     )
+    presentation_selection = None
+    presentation_catalog = Path.cwd() / "data" / "imported" / "presentation_knowledge.json"
+    if presentation_catalog.is_file():
+        presentation_fallbacks, presentation_selection = presentation_knowledge_facts(
+            entry.family,
+            entry.platform,
+            root=root,
+            source_revision=source_revision,
+            observed_at=observed_at,
+            catalog_path=presentation_catalog,
+        )
+        eligible_fallbacks = [
+            fact
+            for fact in presentation_fallbacks
+            if resolved.selected_fact(fact.field).verification_state
+            not in {"verified", "policy_approved"}
+        ]
+        if eligible_fallbacks:
+            candidates.extend(eligible_fallbacks)
+            resolved = resolve_product_facts(
+                org_repo,
+                candidates,
+                missing_source=FactSourceV2(
+                    source_type="mechanical_repository",
+                    location=f"repository://{org_repo}",
+                    source_revision=source_revision,
+                    retrieved_at=observed_at,
+                ),
+                missing_field_surfaces=SURFACE_DEPENDENCIES,
+                package_root_roles=package_root_roles,
+            )
     derived_facts: list[FactRecordV2] = []
     if (
         resolved.selected_fact("product.audience").verification_state
@@ -462,6 +494,8 @@ def collect_product_facts(
             )
         resolved = active_facts
     result["product_facts_v2"] = resolved.model_dump(mode="json")
+    if presentation_selection is not None:
+        result["presentation_knowledge_selection"] = presentation_selection.model_dump(mode="json")
     result["local_product_verification"] = local_verification or {
         "outcome": "NOT_RUN",
         "detail": "local build/example verification was not executed",

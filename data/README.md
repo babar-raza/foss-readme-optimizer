@@ -290,6 +290,15 @@ checkout; everything it may use is this one committed, pinned snapshot.
   (e.g. via `plans/investigations/`) that gets encoded into this repo's own native contracts and
   regression tests.
 
+- `data/imported/presentation_knowledge.json` is a deterministic, denominator-checked projection
+  of the latest 31 processable `repo-presenter-regen-full` capability and limitation hints.
+  `scripts/data-refresh/import_presentation_knowledge.py` records the producer revision, dirty
+  fingerprint, source-tree hash, per-ledger hash, exact evidence path, and extracted technical
+  anchors. The prose is never trusted: `facts/presentation_knowledge.py` must rediscover every
+  anchor with the required implementation/constraint polarity in the current immutable product
+  snapshot before a hint can fill otherwise-missing canonical truth. Deployed execution reads
+  only this committed catalog and product source; it never requires the sibling checkout.
+
 None of this corpus overrides current repository evidence on conflict, and none of it is silently
 promoted to verified truth — see `aspose_knowledge_selection.py`'s module docstring for the exact
 corroboration rule.
