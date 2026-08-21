@@ -149,6 +149,8 @@ def test_format_projection_supports_via_and_method_claims_without_false_formats(
             "export support for SVG format (method name: SaveSvg)",
             "import support for Auto via LoadFormat",
             "import support for hint via hintReader",
+            "export support for insert via InsertVisitor",
+            "export support for PdfV0 via InternalVersion",
             "export support for xlsx via XlsxSaveOptions",
         ],
     )
@@ -159,4 +161,23 @@ def test_format_projection_supports_via_and_method_claims_without_false_formats(
         "Input format: PDF",
         "Output format: XLSX",
         "Output format: SVG",
+    ]
+
+
+def test_format_projection_normalizes_repository_identifier_aliases():
+    source = _knowledge(
+        "aspose.format_support_claims",
+        [
+            "import support for ThreeMf via ThreeMfReader",
+            "export support for Microsoft3MF via ThreeMfWriter",
+            "export support for Type1 via Type1Writer",
+        ],
+    )
+
+    projected = project_knowledge_into_canonical_facts([source])
+
+    assert projected[0].value == [
+        "Input format: 3MF",
+        "Output format: 3MF",
+        "Output format: TYPE1",
     ]

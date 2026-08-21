@@ -12,6 +12,7 @@ import pytest
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, ProductFactsV2
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.assessment import assess_readme_document
+from readme_agent.readme.diagram_semantic_candidates import bounded_diagram_label
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_structure import heading_identity, parse_headings
@@ -1045,3 +1046,10 @@ def test_header_visual_validation_rejects_semantically_duplicate_badge_targets()
     assert result.valid is False
     assert result.checks["badge_targets_distinct"] is False
     assert "badge_targets_distinct failed" in result.errors
+
+
+def test_diagram_labels_remove_markdown_without_losing_api_words():
+    assert (
+        bounded_diagram_label("**Low-level MSG access** — inspect `cfb_reader` records")
+        == "Low-level MSG access — inspect cfb_reader records"
+    )

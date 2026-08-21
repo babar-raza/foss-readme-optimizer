@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 from collections.abc import Iterable
 
+from readme_agent.facts.format_vocabulary import parse_format_support_claim
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, descriptive_fact_id
 
@@ -14,11 +15,7 @@ _PROJECTION_MAP = {
     "aspose.format_support_claims": "product.formats",
     "aspose.limitation_claims": "product.limitations",
 }
-_FORMAT_RE = re.compile(
-    r"^(import|export) support for\s+([A-Za-z0-9.+_-]+)"
-    r"(?:\s+format)?(?:\s+\(method name:\s*[^)]+\))?(?:\s+via\s+.+)?$",
-    re.IGNORECASE,
-)
+
 _LIMITATION_RE = re.compile(
     r"^Not implemented:\s*(.+?)(?:\s+in\s+.+(?:[/\\].+)?(?::\d+)?)?$",
     re.IGNORECASE,
@@ -28,44 +25,6 @@ _INTERNAL_TEXT_RE = re.compile(
     r"evidence receipt|confidence score|extraction failure)",
     re.IGNORECASE,
 )
-_ABBREVIATIONS = {
-    "3mf": "3MF",
-    "bmp": "BMP",
-    "csv": "CSV",
-    "doc": "DOC",
-    "docx": "DOCX",
-    "dxf": "DXF",
-    "epub": "EPUB",
-    "eps": "EPS",
-    "fbx": "FBX",
-    "gif": "GIF",
-    "gltf": "GLTF",
-    "html": "HTML",
-    "jbig2": "JBIG2",
-    "jpeg": "JPEG",
-    "jpg": "JPG",
-    "json": "JSON",
-    "obj": "OBJ",
-    "odf": "ODF",
-    "ods": "ODS",
-    "odt": "ODT",
-    "pdf": "PDF",
-    "ply": "PLY",
-    "png": "PNG",
-    "ps": "PS",
-    "rvm": "RVM",
-    "stl": "STL",
-    "svg": "SVG",
-    "tiff": "TIFF",
-    "txt": "TXT",
-    "xls": "XLS",
-    "xlsb": "XLSB",
-    "xlsm": "XLSM",
-    "xlsx": "XLSX",
-    "xml": "XML",
-    "xps": "XPS",
-}
-_NON_FORMAT_TOKENS = {"auto", "hint", "unknown"}
 
 
 def _accepted_without_conflict(fact: FactRecordV2) -> bool:
@@ -92,22 +51,16 @@ def _clean_capabilities(items: list[dict[str, object]]) -> list[str]:
     return _deduplicate(values)
 
 
-def _format_label(raw: str) -> str:
-    return _ABBREVIATIONS.get(raw.casefold(), raw)
-
-
 def _clean_formats(items: list[dict[str, object]]) -> list[str]:
     values: list[str] = []
     for item in items:
         text = str(item.get("text", "")).strip()
-        match = _FORMAT_RE.match(text)
-        if match is None:
+        parsed = parse_format_support_claim(text)
+        if parsed is None:
             continue
-        raw_format = match.group(2)
-        if raw_format.casefold() in _NON_FORMAT_TOKENS:
-            continue
-        direction = "Input" if match.group(1).casefold() == "import" else "Output"
-        values.append(f"{direction} format: {_format_label(raw_format)}")
+        action, format_name = parsed
+        direction = "Input" if action == "import" else "Output"
+        values.append(f"{direction} format: {format_name}")
     return _deduplicate(values)
 
 

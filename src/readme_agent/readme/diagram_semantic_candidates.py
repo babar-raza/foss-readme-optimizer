@@ -60,12 +60,23 @@ _GENERAL_FORMAT_DIRECTION = re.compile(
     r"(?:import|export|load|save|read|write)"
     r"|(?:import|export|load|save|read|write).*\b(?:file\s+formats?|formats?)\b"
 )
+_MARKDOWN_LINK = re.compile(r"\[([^\]\n]+)\]\([^)\n]+\)")
+_INLINE_CODE = re.compile(r"`([^`\n]+)`")
+
+
+def _plain_diagram_text(value: str) -> str:
+    """Remove presentation markup while retaining the cited technical wording."""
+
+    text = _MARKDOWN_LINK.sub(r"\1", value)
+    text = _INLINE_CODE.sub(r"\1", text)
+    text = text.replace("**", "").replace("__", "")
+    return text.lstrip("-* ")
 
 
 def bounded_diagram_label(value: str) -> str:
     """Return one normalized visitor label within the presentation limit."""
 
-    normalized = " ".join(value.split())
+    normalized = " ".join(_plain_diagram_text(value).split())
     if len(normalized) <= 80:
         return normalized
     without_list_conjunction = normalized.replace(", and ", ", ")

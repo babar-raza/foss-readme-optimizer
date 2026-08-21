@@ -468,3 +468,24 @@ def test_internal_tokens_and_arbitrary_nested_values_have_no_render_view():
 
     assert visitor_fact_render_view(unsafe, "product.capabilities") is None
     assert visitor_fact_render_view(unsafe, "product.problems_solved") is None
+
+
+def test_backticked_public_api_identifiers_do_not_look_like_internal_state():
+    facts = _facts()
+    problems = facts.selected_fact("product.problems_solved")
+    phrase = "Use `Document.replace_text()` to replace text in PDF files."
+    accepted = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": [phrase]})
+                if fact.fact_id == problems.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    view = visitor_fact_render_view(accepted, "product.problems_solved")
+
+    assert view is not None
+    assert view.phrases == [phrase]

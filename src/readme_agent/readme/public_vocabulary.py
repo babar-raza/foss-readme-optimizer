@@ -7,6 +7,8 @@ from collections.abc import Iterable
 from functools import lru_cache
 from typing import TYPE_CHECKING
 
+from readme_agent.facts.format_vocabulary import DOCUMENT_FORMAT_ABBREVIATIONS
+
 if TYPE_CHECKING:
     from readme_agent.facts.schema_v2 import ProductFactsV2
 
@@ -65,67 +67,6 @@ DEFAULT_TECHNICAL_ABBREVIATIONS = (
     "XML",
     "XPS",
     "ZIP",
-)
-DOCUMENT_FORMAT_ABBREVIATIONS = frozenset(
-    {
-        "3MF",
-        "BMP",
-        "CFB",
-        "CFF",
-        "COLLADA",
-        "CSV",
-        "CGM",
-        "DAE",
-        "DOC",
-        "DOCX",
-        "EMF",
-        "EML",
-        "EPS",
-        "FBX",
-        "GIF",
-        "GLB",
-        "GLTF",
-        "HTML",
-        "ICS",
-        "JPEG",
-        "JPG",
-        "JSON",
-        "MHT",
-        "MHTML",
-        "MSG",
-        "OBJ",
-        "ODP",
-        "ODS",
-        "OST",
-        "OTF",
-        "PDF",
-        "PLY",
-        "PNG",
-        "PPT",
-        "PPTX",
-        "PS",
-        "PSB",
-        "PSD",
-        "PST",
-        "RTF",
-        "STL",
-        "SVG",
-        "TEX",
-        "TGA",
-        "TIFF",
-        "TTF",
-        "U3D",
-        "VCF",
-        "WEBP",
-        "WMF",
-        "WOFF",
-        "WOFF2",
-        "XLS",
-        "XLSX",
-        "XML",
-        "XPS",
-        "ZIP",
-    }
 )
 _FACT_ABBREVIATION = re.compile(r"(?<![A-Za-z0-9_-])([A-Z][A-Z0-9]{2,7})(?![A-Za-z0-9_-])")
 _DYNAMIC_STOPWORDS = {

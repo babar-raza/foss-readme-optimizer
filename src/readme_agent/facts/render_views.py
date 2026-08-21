@@ -28,6 +28,7 @@ _INTERNAL_TOKEN_RE = re.compile(
     flags=re.IGNORECASE,
 )
 _KEY_VALUE_RE = re.compile(r"^[a-z][a-z0-9_]*\s*[:=]")
+_INLINE_CODE_RE = re.compile(r"`[^`\n]+`")
 _VISITOR_REQUIRED_FIELDS = {
     "product.audience",
     "product.problems_solved",
@@ -50,11 +51,12 @@ class VisitorFactRenderViewV1(BaseModel):
 
 def _is_visitor_phrase(value: str) -> bool:
     phrase = value.strip()
+    prose = _INLINE_CODE_RE.sub(" API ", phrase)
     return bool(
         phrase
         and "\n" not in phrase
-        and not _INTERNAL_TOKEN_RE.search(phrase)
-        and not _KEY_VALUE_RE.search(phrase)
+        and not _INTERNAL_TOKEN_RE.search(prose)
+        and not _KEY_VALUE_RE.search(prose)
         and not any(character in phrase for character in "{}[]")
     )
 

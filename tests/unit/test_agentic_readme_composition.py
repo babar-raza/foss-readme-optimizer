@@ -170,6 +170,54 @@ def test_offline_knowledge_qualification_plan_does_not_require_a_finished_source
     assert plan.attempt_count == 1
 
 
+def test_offline_knowledge_qualification_omits_unproved_optional_limitations():
+    facts, revision = _facts()
+    limitation = facts.selected_fact("product.limitations")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "value": {"reason": "no repository limitation evidence"},
+                        "verification_state": "missing",
+                        "confidence": 0.0,
+                    }
+                )
+                if fact.fact_id == limitation.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    source = "# Aspose.Cells FOSS for Java\n\nRepository source overview.\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+
+    blockers = offline_knowledge_qualification_blockers(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        lifecycle_status="FACTS_READY",
+    )
+
+    assert blockers == ()
+    assert (
+        build_offline_knowledge_qualification_plan(
+            facts.org_repo,
+            source,
+            facts,
+            assessment,
+            lifecycle_status="FACTS_READY",
+        )
+        is not None
+    )
+
+
 def test_authoring_packet_bounds_native_verifier_receipts_and_caps_equivalent_attempts():
     """Cross-ecosystem course-correction: `compiled_consumer` (the .NET/
     Java/C++/Go example-verification proof) must survive compaction as real

@@ -97,6 +97,7 @@ from readme_agent.facts.aspose_knowledge_claims import (
     load_bundle_provenance,
     load_knowledge_claims_with_findings,
 )
+from readme_agent.facts.format_vocabulary import parse_format_support_claim
 from readme_agent.facts.knowledge_evidence_verification import (
     EvidenceContentCache,
     evidence_content_signal,
@@ -588,6 +589,30 @@ def select_knowledge_claims(
         ] = []
         seen_normalized_texts: set[str] = set()
         for claim in ranked:
+            if (
+                field == "aspose.format_support_claims"
+                and parse_format_support_claim(claim.text) is None
+            ):
+                corroboration, already_in_readme, _search_intent_match = signals[
+                    claim.global_claim_id
+                ]
+                dispositions.append(
+                    KnowledgeClaimDispositionV1(
+                        global_claim_id=claim.global_claim_id,
+                        family=family,
+                        platform=platform,
+                        kind=claim.kind,
+                        source_revision=source_revision,
+                        freshness=freshness,
+                        corroboration=corroboration,
+                        intended_section=section,
+                        accepted=False,
+                        rejection_reason="format_token_not_recognized",
+                        resulting_fact_field=field,
+                        already_in_readme=already_in_readme,
+                    )
+                )
+                continue
             if field == _API_CLAIM_FIELD[0] and _claim_covered_by_canonical_surface(
                 claim, canonical_api_pattern
             ):

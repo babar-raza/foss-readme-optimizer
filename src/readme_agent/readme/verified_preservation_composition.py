@@ -7,6 +7,7 @@ import json
 import re
 
 from readme_agent.errors import LLMError
+from readme_agent.facts.acceptance_contract import README_TRUTH_FIELDS
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import README_DRAFTABLE_PRODUCT_FIELDS, ProductFactsV2
 from readme_agent.llm.generation_prompts import build_readme_composition_tool_schema
@@ -491,7 +492,7 @@ def offline_knowledge_qualification_blockers(
         blockers.append("assessment_facts_hash_mismatch")
     if assessment.untrusted_repository_instructions:
         blockers.append("untrusted_repository_instructions")
-    for field in README_DRAFTABLE_PRODUCT_FIELDS:
+    for field in README_TRUTH_FIELDS:
         selected = facts.selected_fact(field)
         if selected.verification_state not in {"verified", "policy_approved"}:
             blockers.append(f"{field}:verification_state={selected.verification_state}")
