@@ -16,6 +16,9 @@ from readme_agent.facts.knowledge_application_evidence import (
     build_knowledge_application_report,
 )
 from readme_agent.facts.schema_v2 import descriptive_fact_id
+from readme_agent.readme.claim_accountability_coordinates import (
+    structured_list_item_coordinate,
+)
 from readme_agent.readme.document_operations import build_operation
 from readme_agent.readme.document_plan import (
     CandidateContentProvenanceV1,
@@ -315,10 +318,16 @@ def _synthetic_selection_result(field: str = "aspose.feature_claims"):
         resulting_fact_field=field,
         verification_state="verified",
     )
+    item = {
+        "claim_id": disposition.global_claim_id,
+        "kind": "feature",
+        "text": "Synthetic capability text.",
+        "confidence": 1.0,
+    }
     fact_record = FactRecordV2(
         fact_id=descriptive_fact_id(field, "aspose-knowledge"),
         field=field,
-        value="Synthetic capability text.",
+        value=[item],
         source=FactSourceV2(
             source_type="approved_documentation",
             location="synthetic-fixture",
@@ -408,19 +417,27 @@ def test_final_report_output_authorizing_item_rendered_via_a_real_span_never_omi
         module, "select_knowledge_claims", lambda *a, **k: _synthetic_selection_result(field)
     )
     source = b"# Aspose.3D FOSS for Python\n\nOriginal text.\n"
+    candidate_text = "# Aspose.3D FOSS for Python\n\nSynthetic capability text.\n"
     real_fact_id = descriptive_fact_id(field, "aspose-knowledge")
-    citing_operation = build_operation(
-        operation_id="readme.test.cite-synthetic-fact",
-        operation="insert_after",
-        source=source,
-        start=len(source),
-        end=len(source),
-        replacement="Extra capability text.",
+    item = {
+        "claim_id": "3d/python/CLM-synthetic-0001",
+        "kind": "feature",
+        "text": "Synthetic capability text.",
+        "confidence": 1.0,
+    }
+    coordinate = structured_list_item_coordinate(real_fact_id, field, item)
+    start = candidate_text.index("Synthetic capability text.")
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.capabilities.claim:1",
+        candidate_byte_start=start,
+        candidate_byte_end=start + len("Synthetic capability text."),
         fact_ids=[real_fact_id],
-        treatment="preserve",
-        rationale="test citation",
+        fact_coordinates=[coordinate],
+        rationale="exact selected knowledge item rendered in the capability section",
     )
-    plan = _minimal_plan(source, [citing_operation])
+    plan = _minimal_plan(source, []).model_copy(
+        update={"candidate_content_provenance": [provenance]}
+    )
 
     report = build_knowledge_application_report(
         "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
@@ -430,7 +447,7 @@ def test_final_report_output_authorizing_item_rendered_via_a_real_span_never_omi
         clone_cache=tmp_path,
         source_revision=_3D_PYTHON_REPO_SHA,
         document_plan=plan,
-        candidate_text="# Aspose.3D FOSS for Python\n\nOriginal text.\n",
+        candidate_text=candidate_text,
         status="final",
     )
 
@@ -438,6 +455,67 @@ def test_final_report_output_authorizing_item_rendered_via_a_real_span_never_omi
     entry = report.final_dispositions[0]
     assert entry.disposition == "rendered_with_exact_spans"
     assert entry.output_spans
+
+
+def test_one_rendered_item_never_promotes_an_unrendered_verified_sibling(tmp_path, monkeypatch):
+    import readme_agent.facts.knowledge_application_evidence as module
+
+    result = _synthetic_selection_result()
+    first_disposition = result.dispositions[0]
+    second_disposition = first_disposition.model_copy(
+        update={"global_claim_id": "3d/python/CLM-synthetic-0002"}
+    )
+    first_item = result.fact_records[0].value[0]
+    second_item = {
+        "claim_id": second_disposition.global_claim_id,
+        "kind": "feature",
+        "text": "A separate verified capability.",
+        "confidence": 1.0,
+    }
+    fact = result.fact_records[0].model_copy(update={"value": [first_item, second_item]})
+    result = result.model_copy(
+        update={
+            "dispositions": (first_disposition, second_disposition),
+            "fact_records": (fact,),
+        }
+    )
+    monkeypatch.setattr(module, "select_knowledge_claims", lambda *a, **k: result)
+
+    candidate_text = "# Product\n\nSynthetic capability text.\n"
+    start = candidate_text.index("Synthetic capability text.")
+    first_coordinate = structured_list_item_coordinate(fact.fact_id, fact.field, first_item)
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.capabilities.claim:1",
+        candidate_byte_start=start,
+        candidate_byte_end=start + len("Synthetic capability text."),
+        fact_ids=[fact.fact_id],
+        fact_coordinates=[first_coordinate],
+        rationale="only the first exact selected item survives",
+    )
+    source = b"# Product\n"
+    plan = _minimal_plan(source, []).model_copy(
+        update={"candidate_content_provenance": [provenance]}
+    )
+
+    report = build_knowledge_application_report(
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "3d",
+        "python",
+        data_root=_DATA_ROOT,
+        clone_cache=tmp_path,
+        source_revision=_3D_PYTHON_REPO_SHA,
+        document_plan=plan,
+        candidate_text=candidate_text,
+        status="final",
+    )
+
+    by_claim = {entry.global_claim_id: entry for entry in report.final_dispositions}
+    assert by_claim[first_disposition.global_claim_id].disposition == "rendered_with_exact_spans"
+    assert (
+        by_claim[second_disposition.global_claim_id].disposition
+        == "intentionally_omitted_with_evidence"
+    )
+    assert by_claim[second_disposition.global_claim_id].output_spans == ()
 
 
 def test_rejected_claim_gets_rejected_before_authorship():
@@ -492,6 +570,27 @@ def test_rendered_with_exact_spans_requires_non_empty_output_spans():
         _report_with(dispositions=(disposition,), final_dispositions=(entry,))
 
 
+def test_rendered_with_exact_spans_requires_item_level_fact_coordinates():
+    span = RenderedOutputSpanV1(
+        fact_id=descriptive_fact_id("aspose.feature_claims", "aspose-knowledge"),
+        section="Key Capabilities",
+        operation_id="op.1",
+        operation="verified_template_provenance",
+        replacement_sha256="a" * 64,
+    )
+    entry = FinalKnowledgeItemDispositionV1(
+        global_claim_id="claim:1",
+        fact_field="aspose.feature_claims",
+        disposition="rendered_with_exact_spans",
+        reason="rendered",
+        output_spans=(span,),
+    )
+    disposition = _considered_disposition("claim:1")
+
+    with pytest.raises(ValueError, match="no exact fact coordinate"):
+        _report_with(dispositions=(disposition,), final_dispositions=(entry,))
+
+
 def test_non_rendered_disposition_requires_a_reason():
     entry = FinalKnowledgeItemDispositionV1(
         global_claim_id="claim:1",
@@ -517,6 +616,13 @@ def test_unaccounted_rendered_output_span_blocks_a_final_report():
         operation_id="op.1",
         operation="replace",
         replacement_sha256="a" * 64,
+        fact_coordinates=(
+            structured_list_item_coordinate(
+                descriptive_fact_id("product.capabilities", "aspose-knowledge"),
+                "product.capabilities",
+                "claim:1",
+            ),
+        ),
     )
 
     with pytest.raises(ValueError, match="unaccounted for"):

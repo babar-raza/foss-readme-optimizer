@@ -48,7 +48,13 @@ from readme_agent.readme.document_structure import heading_identity, parse_headi
 from readme_agent.readme.document_templates import example_text, installation_text
 from readme_agent.readme.header_badges import render_brand_banner
 from readme_agent.readme.header_visual import render_readme_header_visual
+from readme_agent.readme.knowledge_claim_presentation import (
+    knowledge_installation_items,
+    knowledge_limitation_items,
+    knowledge_troubleshooting_items,
+)
 from readme_agent.readme.license_location import repository_license_path
+from readme_agent.readme.limitation_semantics import public_limitations_equivalent
 from readme_agent.readme.public_limitations import public_limitation_phrases
 from readme_agent.readme.source_claim_fact_binding import complete_source_claim_fact_binding
 
@@ -358,6 +364,17 @@ def _scope_text(
     contextual_links: ContextualLinkPlanV1 | None,
 ) -> tuple[str, list[str], tuple[str, ...]]:
     limitations = public_limitation_phrases(facts)
+    knowledge_limitations: list[str] = []
+    for item in knowledge_limitation_items(facts):
+        public_text = item.markdown.removeprefix("- ")
+        if any(public_limitations_equivalent(public_text, existing) for existing in limitations):
+            continue
+        if any(
+            public_limitations_equivalent(public_text, existing.removeprefix("- "))
+            for existing in knowledge_limitations
+        ):
+            continue
+        knowledge_limitations.append(item.markdown)
     paragraphs = (
         [
             _scope_limitations_brief(facts, limitations),
@@ -367,6 +384,9 @@ def _scope_text(
         else []
     )
     fields = ["product.limitations"] if limitations else []
+    if knowledge_limitations:
+        paragraphs.append("\n".join(knowledge_limitations))
+        fields.append("aspose.limitation_claims")
     package_status = package_status_markdown(facts)
     if package_status:
         paragraphs.append(package_status)
@@ -477,6 +497,11 @@ def build_verified_template_draft(
         # show the clone-and-import usage that does work and keep the broken
         # install path out of the README (it lands in the upstream defect log).
         installation = source_tree_installation_text(facts)
+    installation_knowledge = knowledge_installation_items(facts)
+    if installation and installation_knowledge:
+        installation += "\n\nPackage metadata:\n\n" + "\n".join(
+            item.markdown for item in installation_knowledge
+        )
     scenario_dependencies = scenario_dependency_markdown(facts, source_text=source_text)
     required_dependencies = dependency_markdown(facts)
     development_dependencies = development_dependency_markdown(facts)
@@ -551,6 +576,16 @@ def build_verified_template_draft(
         }
     }
     development = development_markdown(facts)
+    troubleshooting = knowledge_troubleshooting_items(facts)
+    if troubleshooting:
+        troubleshooting_markdown = "### Troubleshooting\n\n" + "\n".join(
+            item.markdown for item in troubleshooting
+        )
+        development = (
+            f"{development}\n\n{troubleshooting_markdown}"
+            if development
+            else troubleshooting_markdown
+        )
     contributing = contributing_markdown(facts)
     security = security_markdown(facts)
     optional_sections = {
@@ -599,6 +634,7 @@ def build_verified_template_draft(
                 "development.assets",
                 "development.commands",
                 "development.golden_workflow",
+                "aspose.troubleshoot_claims",
             ),
             ("readme.development_and_testing",),
         ),
@@ -644,13 +680,15 @@ def build_verified_template_draft(
             "key_capabilities": (
                 _included(
                     capability_text,
-                    "product.capabilities",
                     *_accepted_fields(
                         facts,
+                        "product.capabilities",
                         "product.identity",
                         "product.platforms",
                         "product.formats",
                         "api.public_surface",
+                        "aspose.feature_claims",
+                        "aspose.format_support_claims",
                     ),
                 )
                 if capability_text
@@ -667,6 +705,7 @@ def build_verified_template_draft(
                     or ("product.identity", *_accepted_fields(facts, "api.public_surface"))
                 ),
                 *_accepted_fields(facts, "product.compatibility"),
+                *_accepted_fields(facts, "aspose.install_claims"),
                 standards=("readme.verified_acquisition",),
             ),
             "quick_start": (

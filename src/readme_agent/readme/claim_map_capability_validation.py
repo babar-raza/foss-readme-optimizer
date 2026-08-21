@@ -26,14 +26,14 @@ _CAPABILITY_VERB_RE = re.compile(
 )
 
 
-def _stub_member_names(facts: ProductFactsV2, fact_id: str) -> set[str]:
+def _stub_members(facts: ProductFactsV2, fact_id: str) -> dict[str, set[str]]:
     try:
         fact = facts.fact_by_id(fact_id)
     except KeyError:
-        return set()
+        return {}
     if not isinstance(fact.value, dict):
-        return set()
-    names: set[str] = set()
+        return {}
+    members: dict[str, set[str]] = {}
     for row in fact.value.get("classes") or []:
         if not isinstance(row, dict):
             continue
@@ -44,8 +44,21 @@ def _stub_member_names(facts: ProductFactsV2, fact_id: str) -> set[str]:
                 and isinstance(member.get("name"), str)
                 and member["name"]
             ):
-                names.add(member["name"].casefold())
-    return names
+                name = member["name"].casefold()
+                members.setdefault(name, set()).add(str(member.get("kind") or "member"))
+    return members
+
+
+def _mentions_stub_member(text: str, name: str, kinds: set[str]) -> bool:
+    """Require an API-shaped code reference, not a coincidental prose/namespace token."""
+
+    code_tokens = re.findall(r"`([^`\n]+)`", text)
+    for token in code_tokens:
+        if "method" in kinds and re.search(rf"(?i)(?:^|\.){re.escape(name)}\s*\(", token):
+            return True
+        if "method" not in kinds and re.search(rf"(?i)(?:^|\.){re.escape(name)}$", token.strip()):
+            return True
+    return False
 
 
 def api_capability_claims_without_implementation_evidence(
@@ -66,15 +79,14 @@ def api_capability_claims_without_implementation_evidence(
     for claim in claim_map.claims:
         if claim.field != "api.public_surface" or claim.coordinate_space != "candidate_utf8":
             continue
-        stub_names = _stub_member_names(facts, claim.fact_id)
-        if not stub_names:
+        stub_members = _stub_members(facts, claim.fact_id)
+        if not stub_members:
             continue
         text = candidate_bytes[claim.byte_start : claim.byte_end].decode("utf-8", errors="ignore")
         if not _CAPABILITY_VERB_RE.search(text):
             continue
-        lowered = text.casefold()
-        for name in sorted(stub_names):
-            if re.search(rf"(?<![A-Za-z0-9_]){re.escape(name)}(?![A-Za-z0-9_])", lowered):
+        for name, kinds in sorted(stub_members.items()):
+            if _mentions_stub_member(text, name, kinds):
                 violations.append(
                     f"{claim.claim_id}: capability wording for unimplemented member {name!r}"
                 )

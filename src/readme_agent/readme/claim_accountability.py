@@ -181,6 +181,7 @@ def _content_identity_fallback_matches(
     *,
     positionally_matched_source_ids: set[str],
     positionally_matched_candidate_ids: set[str],
+    explicitly_resolved_source_ids: set[str],
 ) -> dict[str, ReadmeMaterialClaimAssessmentV1]:
     """Last-resort content-identity fallback: candidate claim_id -> its
     matched source claim, for a claim whose composition-ledger positional
@@ -197,7 +198,10 @@ def _content_identity_fallback_matches(
     refused, not guessed."""
 
     unmatched_sources = [
-        claim for claim in source_claims if claim.claim_id not in positionally_matched_source_ids
+        claim
+        for claim in source_claims
+        if claim.claim_id not in positionally_matched_source_ids
+        and claim.claim_id not in explicitly_resolved_source_ids
     ]
     unmatched_candidates = [
         claim
@@ -393,6 +397,7 @@ def build_readme_claim_accountability_map(
             positionally_matched_candidate_ids={
                 claim_id for claim_id, source_claim in candidate_sources.items() if source_claim
             },
+            explicitly_resolved_source_ids=set(resolutions),
         )
         candidate_sources.update(content_fallback_matches)
         content_fallback_source_ids = {

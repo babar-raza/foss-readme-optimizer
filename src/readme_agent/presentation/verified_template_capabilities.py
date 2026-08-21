@@ -29,6 +29,7 @@ from readme_agent.readme.claim_accountability_implementation_coordinates import 
     implementation_component_coordinates,
 )
 from readme_agent.readme.claim_accountability_models import StructuredFactCoordinateV1
+from readme_agent.readme.knowledge_claim_presentation import knowledge_capability_items
 from readme_agent.readme.presentation_similarity import (
     capability_discriminators,
     semantically_repeats,
@@ -850,13 +851,20 @@ def build_capability_presentation_plan(
 ) -> CapabilityPresentationPlanV1:
     """Build one reusable capability rendering and provenance plan."""
 
+    rows = _capability_rows(facts, source_text=source_text)
+    for item in knowledge_capability_items(facts):
+        if any(_same_capability_presentation(item.markdown, row[0]) for row in rows):
+            continue
+        coordinate = structured_list_item_coordinate(
+            item.fact_id,
+            item.field,
+            item.source_value,
+        )
+        rows.append((item.markdown, [item.fact_id], [coordinate]))
     return CapabilityPresentationPlanV1(
         rows=tuple(
             (markdown, tuple(fact_ids), tuple(coordinates))
-            for markdown, fact_ids, coordinates in _capability_rows(
-                facts,
-                source_text=source_text,
-            )
+            for markdown, fact_ids, coordinates in rows
         )
     )
 

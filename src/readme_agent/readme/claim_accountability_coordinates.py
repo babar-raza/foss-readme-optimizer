@@ -29,6 +29,7 @@ from readme_agent.readme.claim_accountability_installation_coordinates import (
 from readme_agent.readme.claim_accountability_models import StructuredFactCoordinateV1
 from readme_agent.readme.document_structure import parse_headings
 from readme_agent.readme.document_templates import installation_text
+from readme_agent.readme.knowledge_claim_presentation import rendered_knowledge_coordinates
 from readme_agent.readme.public_limitations import public_limitation_fact_coordinates
 from readme_agent.readme.python_install_target import (
     normalized_python_distribution,
@@ -250,7 +251,7 @@ def literal_list_fact_coordinates(
 def structured_list_item_coordinate(
     fact_id: str,
     field: str,
-    value: str,
+    value: object,
 ) -> StructuredFactCoordinateV1:
     """Return the canonical coordinate for one exact selected-list value."""
 
@@ -390,6 +391,15 @@ def structured_fact_coordinates(
                     known_non_dependency_names=api_names,
                 )
             )
+        elif fact.field.startswith("aspose."):
+            for item in rendered_knowledge_coordinates(text, facts, {fact_id}):
+                coordinates.append(
+                    structured_list_item_coordinate(
+                        item.fact_id,
+                        item.field,
+                        item.source_value,
+                    )
+                )
     return sorted(
         set(coordinates),
         key=lambda item: (item.fact_id, item.path, item.value_sha256),

@@ -147,6 +147,21 @@ def test_non_capability_wording_for_a_stub_member_is_not_flagged():
     assert violations == []
 
 
+def test_namespace_or_prose_token_does_not_impersonate_a_stub_method_reference():
+    facts = _api_public_surface_facts([{"name": "render", "kind": "method", "implemented": False}])
+    candidate_text = (
+        "The `aspose.threed.render` namespace documents rendering types. "
+        "`Renderer` renders scene content."
+    )
+    claim = _claim("api.public_surface:python-exports", candidate_text, byte_start=0)
+
+    violations = api_capability_claims_without_implementation_evidence(
+        _claim_map([claim]), facts, candidate_text
+    )
+
+    assert violations == []
+
+
 def test_preserved_source_span_claims_are_out_of_scope():
     """Only newly rendered (`candidate_utf8`) bindings are checked --
     preserved source text is a separate accountability concern."""

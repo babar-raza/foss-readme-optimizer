@@ -343,7 +343,7 @@ def test_blocking_check_error_in_coverage_evidence_denies_reuse(tmp_path):
 
 def _knowledge_application_payload(*, status="final", candidate_sha256="f" * 64, **overrides):
     payload = {
-        "schema_version": 3,
+        "schema_version": 4,
         "status": status,
         "org_repo": "acme/product",
         "family": "cells",
@@ -380,7 +380,7 @@ def test_knowledge_application_error_denies_reuse_of_an_otherwise_valid_bundle(t
     state, bundle = _valid_cache(tmp_path)
     write_redacted_json(
         bundle / "knowledge-application.json",
-        {"schema_version": 3, "error": "no post-render knowledge_application in render_result"},
+        {"schema_version": 4, "error": "no post-render knowledge_application in render_result"},
     )
     refresh_sha256sums(bundle)
 
@@ -475,6 +475,15 @@ def test_internally_inconsistent_knowledge_application_denies_reuse(tmp_path):
                 "operation_id": "op.1",
                 "operation": "replace",
                 "replacement_sha256": "a" * 64,
+                "fact_coordinates": [
+                    {
+                        "fact_id": "aspose.feature_claims:aspose-knowledge",
+                        "field": "aspose.feature_claims",
+                        "path": "/items/0123456789abcdef",
+                        "value_sha256": "b" * 64,
+                        "normalization_version": "structured-fact-coordinate-v1",
+                    }
+                ],
             }
         ],
     )

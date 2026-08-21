@@ -58,6 +58,10 @@ from readme_agent.facts.aspose_seo_keyword_facts import (
     seo_keyword_dispositions,
 )
 from readme_agent.facts.schema_v2 import descriptive_fact_id
+from readme_agent.readme.claim_accountability_coordinates import (
+    structured_list_item_coordinate,
+)
+from readme_agent.readme.claim_accountability_models import StructuredFactCoordinateV1
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 
@@ -93,6 +97,7 @@ class RenderedOutputSpanV1(BaseModel):
     replacement_sha256: str
     candidate_byte_start: int | None = None
     candidate_byte_end: int | None = None
+    fact_coordinates: tuple[StructuredFactCoordinateV1, ...] = ()
 
 
 class FinalKnowledgeItemDispositionV1(BaseModel):
@@ -116,7 +121,7 @@ class KnowledgeApplicationV1(BaseModel):
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
-    schema_version: int = 3
+    schema_version: int = 4
     status: Literal["provisional", "final"] = "provisional"
     org_repo: str
     family: str
@@ -160,22 +165,55 @@ class KnowledgeApplicationV1(BaseModel):
                     f"claim {entry.global_claim_id} is rendered_with_exact_spans "
                     "but carries no output_spans"
                 )
+            if entry.disposition == "rendered_with_exact_spans" and any(
+                not span.fact_coordinates for span in entry.output_spans
+            ):
+                raise ValueError(
+                    f"claim {entry.global_claim_id} is rendered_with_exact_spans "
+                    "but a cited span has no exact fact coordinate"
+                )
             if entry.disposition != "rendered_with_exact_spans" and not entry.reason.strip():
                 raise ValueError(f"claim {entry.global_claim_id} has no omission/rejection reason")
         if self.status == "final":
-            rendered_fact_ids = {span.fact_id for span in self.rendered_output_spans}
-            dispositioned_rendered_fact_ids = {
-                span.fact_id
+            rendered_coordinates = {
+                coordinate
+                for span in self.rendered_output_spans
+                for coordinate in span.fact_coordinates
+            }
+            dispositioned_rendered_coordinates = {
+                coordinate
                 for entry in self.final_dispositions
                 if entry.disposition == "rendered_with_exact_spans"
                 for span in entry.output_spans
+                for coordinate in span.fact_coordinates
             }
-            unaccounted = rendered_fact_ids - dispositioned_rendered_fact_ids
+            unaccounted = rendered_coordinates - dispositioned_rendered_coordinates
             if unaccounted:
                 raise ValueError(
                     f"rendered output span(s) unaccounted for by any disposition: {unaccounted}"
                 )
         return self
+
+
+def _selected_claim_coordinates(result) -> dict[str, StructuredFactCoordinateV1]:
+    """Bind each selected knowledge claim to its exact structured fact item."""
+
+    coordinates: dict[str, StructuredFactCoordinateV1] = {}
+    for fact in result.fact_records:
+        if not isinstance(fact.value, list):
+            continue
+        for item in fact.value:
+            if not isinstance(item, dict):
+                continue
+            claim_id = item.get("claim_id")
+            if not isinstance(claim_id, str) or not claim_id:
+                continue
+            coordinates[claim_id] = structured_list_item_coordinate(
+                fact.fact_id,
+                fact.field,
+                item,
+            )
+    return coordinates
 
 
 def _output_authorizing(disposition: KnowledgeClaimDispositionV1) -> bool:
@@ -196,14 +234,15 @@ def _output_authorizing(disposition: KnowledgeClaimDispositionV1) -> bool:
 
 def _final_dispositions(
     dispositions: tuple[KnowledgeClaimDispositionV1, ...],
-    field_fact_ids: dict[str, str],
+    claim_coordinates: dict[str, StructuredFactCoordinateV1],
     rendered_output_spans: tuple[RenderedOutputSpanV1, ...],
     *,
     status: Literal["provisional", "final"],
 ) -> tuple[FinalKnowledgeItemDispositionV1, ...]:
-    spans_by_fact_id: dict[str, list[RenderedOutputSpanV1]] = {}
+    spans_by_coordinate: dict[StructuredFactCoordinateV1, list[RenderedOutputSpanV1]] = {}
     for span in rendered_output_spans:
-        spans_by_fact_id.setdefault(span.fact_id, []).append(span)
+        for coordinate in span.fact_coordinates:
+            spans_by_coordinate.setdefault(coordinate, []).append(span)
 
     entries: list[FinalKnowledgeItemDispositionV1] = []
     for disposition in dispositions:
@@ -224,8 +263,12 @@ def _final_dispositions(
         # is definitive, first-hand evidence the pipeline treated it as
         # output-authorizing -- the item-level re-check below governs
         # categorization only for items that were NOT demonstrably rendered.
-        fact_id = field_fact_ids.get(field) if field else None
-        spans = spans_by_fact_id.get(fact_id, []) if fact_id else []
+        selected_coordinate = claim_coordinates.get(disposition.global_claim_id)
+        spans = (
+            spans_by_coordinate.get(selected_coordinate, [])
+            if selected_coordinate is not None
+            else []
+        )
         if spans:
             entries.append(
                 FinalKnowledgeItemDispositionV1(
@@ -309,6 +352,7 @@ def build_knowledge_application_report(
     field_fact_ids = {
         field: descriptive_fact_id(field, "aspose-knowledge") for field in fact_fields
     }
+    claim_coordinates = _selected_claim_coordinates(result)
     sections_considered = tuple(
         sorted({d.intended_section for d in result.dispositions if d.intended_section})
     )
@@ -370,6 +414,11 @@ def build_knowledge_application_report(
                             replacement_sha256=sha256_hex(span_bytes),
                             candidate_byte_start=provenance.candidate_byte_start,
                             candidate_byte_end=provenance.candidate_byte_end,
+                            fact_coordinates=tuple(
+                                coordinate
+                                for coordinate in provenance.fact_coordinates
+                                if coordinate.fact_id == fact_id
+                            ),
                         )
                     )
                     if section is not None:
@@ -382,7 +431,7 @@ def build_knowledge_application_report(
     )
     final_dispositions = _final_dispositions(
         result.dispositions,
-        field_fact_ids,
+        claim_coordinates,
         rendered_output_spans,
         status=final_status,
     )

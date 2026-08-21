@@ -366,13 +366,13 @@ def _knowledge_application_report_or_error(render_result: dict) -> dict:
     raw = render_result.get("knowledge_application")
     if not isinstance(raw, dict):
         return {
-            "schema_version": 3,
+            "schema_version": 4,
             "error": "no post-render knowledge_application in render_result",
         }
     try:
         KnowledgeApplicationV1.model_validate(raw)
     except ValueError as exc:
-        return {"schema_version": 3, "error": str(exc)}
+        return {"schema_version": 4, "error": str(exc)}
     return raw
 
 
