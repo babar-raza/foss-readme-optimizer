@@ -98,7 +98,9 @@ def _canonical_format_token(token: str) -> str:
     return _FORMAT_TOKEN_ALIASES.get(normalized, normalized)
 
 
-def _verified_input_extensions(example_fact: FactRecordV2) -> set[str]:
+def _verified_input_extensions(example_fact: FactRecordV2 | None) -> set[str]:
+    if example_fact is None:
+        return set()
     if example_fact.verification_state != "verified" or not isinstance(example_fact.value, dict):
         return set()
     bindings = example_fact.value.get("input_fixture_bindings")
@@ -117,9 +119,13 @@ def _verified_input_extensions(example_fact: FactRecordV2) -> set[str]:
     return extensions
 
 
-def _verified_example_literal_directions(example_fact: FactRecordV2) -> set[tuple[str, str]]:
+def _verified_example_literal_directions(
+    example_fact: FactRecordV2 | None,
+) -> set[tuple[str, str]]:
     """Extract only unambiguous I/O literals from a compiled public example."""
 
+    if example_fact is None:
+        return set()
     if example_fact.verification_state != "verified" or not isinstance(example_fact.value, dict):
         return set()
     value = example_fact.value
@@ -163,7 +169,7 @@ def directional_format_fact_from_verified_evidence(
     *,
     source_revision: str,
     specifications: Sequence[EvidenceBackedProductFact],
-    example_fact: FactRecordV2,
+    example_fact: FactRecordV2 | None,
     native_extraction: AsposeOrgFormatExtractionV1 | RepositoryFormatExtractionV1,
 ) -> FactRecordV2:
     """Combine consumer-proven inputs with battle-tested native format extraction."""

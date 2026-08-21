@@ -31,17 +31,9 @@ def repository_format_fact_candidate(
         return None
 
     example_fact = next(
-        (
-            fact
-            for fact in reversed(candidates)
-            if fact.field == "example.minimal"
-            and fact.verification_state in {"verified", "policy_approved"}
-            and not fact.has_unresolved_conflict
-        ),
+        (fact for fact in reversed(candidates) if fact.field == "example.minimal"),
         None,
     )
-    if example_fact is None:
-        return None
 
     native_extraction = extract_repository_format_directions(
         repository_root,

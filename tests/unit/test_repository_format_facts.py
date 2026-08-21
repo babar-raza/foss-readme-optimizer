@@ -52,7 +52,7 @@ def test_repository_native_format_evidence_fills_an_unresolved_fact(
         family="slides",
         platform="cpp",
         specifications=[],
-        candidates=[_fact("example.minimal", {"compiled_consumer": {"accepted": True}})],
+        candidates=[],
     )
 
     assert result is not None
