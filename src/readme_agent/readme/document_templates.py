@@ -272,6 +272,40 @@ def installation_text(
             "```\n\n"
             f"Use source installation for the `{package_name}` distribution."
         )
+    if method == "source_tree" and ecosystem == "python":
+        try:
+            decision = AcquisitionDecisionV1.model_validate(acquisition_value)
+        except ValueError:
+            return None
+        tree_receipt = decision.source_tree_receipt
+        registry_receipt = decision.registry_receipt
+        repository_identity = str(identity_value.get("repository") or "").strip()
+        if (
+            decision.outcome != "SOURCE_TREE_VERIFIED"
+            or decision.org_repo != org_repo
+            or decision.source_revision != source_revision
+            or tree_receipt is None
+            or registry_receipt is None
+            or registry_receipt.found
+            or registry_receipt.resolver_ecosystem != "python"
+            or registry_receipt.coordinate != coordinate
+            or repository_identity != org_repo
+        ):
+            return None
+        repository_name = org_repo.split("/", 1)[1]
+        source_root = tree_receipt.source_root.replace("\\", "/")
+        return (
+            "Use the repository source at the verified revision. This revision is not "
+            "installable as a Python distribution because its declared build backend is "
+            "unavailable, so no PyPI or `pip install` command is shown.\n\n"
+            "```bash\n"
+            f"git clone https://github.com/{org_repo}.git\n"
+            f"cd {repository_name}\n"
+            f"git checkout --detach {source_revision}\n"
+            "```\n\n"
+            f"Run repository examples with `{source_root}` on Python's import path; the "
+            f"verified public package is imported as `{tree_receipt.canonical_import}`."
+        )
     if method == "nuget" and ecosystem in {"net", "dotnet", "cpp"}:
         package_name = str(coordinate.get("name") or "").strip()
         if not package_name:

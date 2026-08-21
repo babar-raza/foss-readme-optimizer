@@ -75,7 +75,7 @@ def build_missing_installation_operations(
 def _source_build_only(context: DocumentRenderContext) -> tuple[bool, FactRecordV2 | None]:
     acquisition = accepted_fact(context.facts, "installation.verified_acquisition")
     value = mapping_value(acquisition.value) if acquisition is not None else {}
-    return value.get("method") == "source_build", acquisition
+    return value.get("method") in {"source_build", "source_tree"}, acquisition
 
 
 def build_acquisition_correction_operations(

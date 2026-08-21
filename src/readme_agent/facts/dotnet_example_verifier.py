@@ -61,6 +61,13 @@ _SUPPORTED_TARGETS = {
     "net9.0": (DOTNET_9_IMAGE, "9.0.316"),
     "net10.0": (DOTNET_10_IMAGE, "10.0.302"),
 }
+_DEFAULT_MEMORY_MEBIBYTES = 1536
+_MEDIUM_CLOSURE_MEMORY_MEBIBYTES = 3072
+_LARGE_CLOSURE_MEMORY_MEBIBYTES = 4096
+_MEDIUM_CLOSURE_FILE_COUNT = 150
+_LARGE_CLOSURE_FILE_COUNT = 400
+_MEDIUM_CLOSURE_BYTES = 4 * 1024 * 1024
+_LARGE_CLOSURE_BYTES = 8 * 1024 * 1024
 
 
 def _project(
@@ -166,6 +173,25 @@ def _selected_sources(
     return sorted(set(paths)), sorted(set(symbols))
 
 
+def _closure_memory_mebibytes(root: Path, export_paths: tuple[str, ...]) -> int:
+    """Size the isolated build from the immutable project closure."""
+
+    files: set[Path] = set()
+    for relative in export_paths:
+        path = root / relative
+        if path.is_file():
+            files.add(path)
+        elif path.is_dir():
+            files.update(candidate for candidate in path.rglob("*") if candidate.is_file())
+    source_files = [path for path in files if path.suffix.casefold() in {".cs", ".csproj"}]
+    source_bytes = sum(path.stat().st_size for path in source_files)
+    if len(source_files) >= _LARGE_CLOSURE_FILE_COUNT or source_bytes >= _LARGE_CLOSURE_BYTES:
+        return _LARGE_CLOSURE_MEMORY_MEBIBYTES
+    if len(source_files) >= _MEDIUM_CLOSURE_FILE_COUNT or source_bytes >= _MEDIUM_CLOSURE_BYTES:
+        return _MEDIUM_CLOSURE_MEMORY_MEBIBYTES
+    return _DEFAULT_MEMORY_MEBIBYTES
+
+
 def verify(
     snapshot: RepositorySnapshotV1,
     example: MinimalExamplePolicy,
@@ -185,6 +211,8 @@ def verify(
     image = immutable_image or selected_image
     source_paths, symbols = _selected_sources(snapshot, project, example.code)
     project_relative = project.relative_to(snapshot.root_path).as_posix()
+    export_paths = dotnet_project_export_paths(snapshot.root_path, project)
+    memory_mebibytes = _closure_memory_mebibytes(snapshot.root_path, export_paths)
     bundle = (dependency_acquirer or acquire_dotnet_dependencies)(
         snapshot,
         project_relative,
@@ -207,7 +235,7 @@ def verify(
         copy_snapshot(
             snapshot,
             workspace,
-            included_paths=dotnet_project_export_paths(snapshot.root_path, project),
+            included_paths=export_paths,
         )
         consumer_dir = workspace / ".readme-agent"
         consumer_dir.mkdir()
@@ -273,7 +301,7 @@ def verify(
                 policy=IsolatedExecutionPolicyV1(
                     immutable_image=image,
                     timeout_seconds=300,
-                    memory_mebibytes=1536,
+                    memory_mebibytes=memory_mebibytes,
                     pids_limit=128,
                 ),
             )
@@ -308,6 +336,7 @@ def verify(
             proof,
             f"dotnet_sdk={sdk_version}",
             f"dotnet_target_framework={selected_target}",
+            f"dotnet_memory_mebibytes={memory_mebibytes}",
             *(
                 [
                     f"nuget_inventory_sha256={bundle.acquisition.inventory_sha256}",

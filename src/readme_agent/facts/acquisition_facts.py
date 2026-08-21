@@ -32,6 +32,7 @@ def acquisition_fact_from_decision(
     qualifiers = {
         "REGISTRY_VERIFIED": f"registry-{decision.method}",
         "SOURCE_BUILD_VERIFIED": "disposable-source-build",
+        "SOURCE_TREE_VERIFIED": "verified-source-tree",
         "NOT_PUBLISHED": "source-build-required",
         "BLOCKED_NETWORK": "blocked-registry",
         "CAPABILITY_GAP": "capability-gap",

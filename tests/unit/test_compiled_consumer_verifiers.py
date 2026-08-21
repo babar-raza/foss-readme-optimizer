@@ -222,6 +222,54 @@ def test_dotnet_consumer_binds_public_types_and_clears_package_sources(tmp_path,
     assert materialized and materialized[0].name == "nuget-packages"
     assert "nuget_inventory_sha256=" + "f" * 64 in result.acquisition_dependency_pins
     assert calls[0].environment["NUGET_PACKAGES"] == ("/workspace/.readme-agent/nuget-packages")
+    assert calls[0].policy.memory_mebibytes == 1536
+    assert "dotnet_memory_mebibytes=1536" in result.acquisition_dependency_pins
+
+
+def test_dotnet_consumer_sizes_large_source_closure_before_build(tmp_path, monkeypatch):
+    project = tmp_path / "src/Product/Product.csproj"
+    project.parent.mkdir(parents=True)
+    project.write_text(
+        '<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup>'
+        "<TargetFramework>net8.0</TargetFramework>"
+        "</PropertyGroup></Project>",
+        encoding="utf-8",
+    )
+    (project.parent / "Document.cs").write_text(
+        "namespace Aspose.Pdf; public class Document {}\n",
+        encoding="utf-8",
+    )
+    for index in range(400):
+        (project.parent / f"Type{index}.cs").write_text(
+            f"namespace Aspose.Pdf; internal class Type{index} {{}}\n",
+            encoding="utf-8",
+        )
+    snapshot = _snapshot(tmp_path).model_copy(
+        update={
+            "package_roots": (
+                PackageRoot(
+                    path="src/Product",
+                    ecosystem="net",
+                    manifest_path="src/Product/Product.csproj",
+                    confidence=1.0,
+                    evidence="fixture",
+                ),
+            )
+        }
+    )
+    calls: list[IsolatedExecutionRequestV1] = []
+    monkeypatch.setattr(dotnet_example_verifier, "verify_repository_snapshot", lambda _: None)
+
+    result = dotnet_example_verifier.verify(
+        snapshot,
+        _example("dotnet", "using Aspose.Pdf; var document = new Document();"),
+        executor=_successful_executor(calls),
+        dependency_acquirer=lambda *_args, **_kwargs: None,
+    )
+
+    assert result.truth_eligible
+    assert calls[0].policy.memory_mebibytes == 4096
+    assert "dotnet_memory_mebibytes=4096" in result.acquisition_dependency_pins
 
 
 def test_snapshot_copy_can_exclude_dotnet_build_generated_trees(tmp_path):

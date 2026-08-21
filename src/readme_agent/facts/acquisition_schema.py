@@ -68,6 +68,28 @@ class SourceBuildReceiptV1(_StrictModel):
     truth_eligible: Literal[True] = True
 
 
+class SourceTreeReceiptV1(_StrictModel):
+    """Revision- and executor-bound proof for direct Python source-tree use."""
+
+    schema_version: Literal[1] = 1
+    org_repo: str = Field(pattern=r"^[^/]+/[^/]+$")
+    source_revision: str = Field(min_length=1)
+    argv: list[str] = Field(min_length=1)
+    input_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    policy_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    immutable_image: str = Field(min_length=1)
+    network_mode: Literal["none"] = "none"
+    dependency_pins: list[str] = Field(min_length=2)
+    source_root: str = Field(min_length=1)
+    canonical_import: str = Field(min_length=1)
+    public_api_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    verified_public_symbols: list[str] = Field(min_length=1)
+    source_install_failure: Literal["invalid_build_backend"]
+    cleanup_complete: Literal[True] = True
+    return_code: Literal[0] = 0
+    truth_eligible: Literal[True] = True
+
+
 class AcquisitionDecisionV1(_StrictModel):
     """The single selected acquisition path for one immutable repository revision."""
 
@@ -81,6 +103,7 @@ class AcquisitionDecisionV1(_StrictModel):
     coordinate: dict[str, str] | None = None
     registry_receipt: RegistryReceiptV1 | None = None
     source_build_receipt: SourceBuildReceiptV1 | None = None
+    source_tree_receipt: SourceTreeReceiptV1 | None = None
     truth_eligible: bool
 
     @model_validator(mode="after")
@@ -92,6 +115,7 @@ class AcquisitionDecisionV1(_StrictModel):
                 or not self.registry_receipt.found
                 or self.coordinate != self.registry_receipt.coordinate
                 or self.source_build_receipt is not None
+                or self.source_tree_receipt is not None
             ):
                 raise ValueError("registry-verified acquisition requires one matching 2xx receipt")
         elif self.outcome == "SOURCE_BUILD_VERIFIED":
@@ -104,11 +128,33 @@ class AcquisitionDecisionV1(_StrictModel):
                 or self.source_build_receipt is None
                 or self.source_build_receipt.org_repo != self.org_repo
                 or self.source_build_receipt.source_revision != self.source_revision
+                or self.source_tree_receipt is not None
                 or not (registry_disproves_publication or registry_not_applicable)
             ):
                 raise ValueError(
                     "source-build acquisition requires isolated proof and no published coordinate"
                 )
-        elif self.truth_eligible or self.source_build_receipt is not None:
+        elif self.outcome == "SOURCE_TREE_VERIFIED":
+            registry_disproves_publication = (
+                self.registry_receipt is not None and not self.registry_receipt.found
+            )
+            if (
+                not self.truth_eligible
+                or self.method != "source_tree"
+                or self.ecosystem != "python"
+                or self.source_build_receipt is not None
+                or self.source_tree_receipt is None
+                or self.source_tree_receipt.org_repo != self.org_repo
+                or self.source_tree_receipt.source_revision != self.source_revision
+                or not registry_disproves_publication
+            ):
+                raise ValueError(
+                    "source-tree acquisition requires isolated Python proof and registry absence"
+                )
+        elif (
+            self.truth_eligible
+            or self.source_build_receipt is not None
+            or self.source_tree_receipt is not None
+        ):
             raise ValueError("blocked acquisition cannot retain truth-eligible source-build proof")
         return self

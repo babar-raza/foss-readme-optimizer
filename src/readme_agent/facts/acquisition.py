@@ -5,13 +5,13 @@ from __future__ import annotations
 from collections.abc import Callable
 
 from readme_agent.ecosystems.foss_coordinate import canonical_foss_coordinate
-from readme_agent.ecosystems.registry_request import registry_request_url
 from readme_agent.ecosystems.resolver import ResolutionResult, resolve
-from readme_agent.facts.acquisition_schema import (
-    AcquisitionDecisionV1,
-    RegistryReceiptV1,
-    SourceBuildReceiptV1,
+from readme_agent.facts.acquisition_receipts import (
+    registry_receipt,
+    source_build_receipt,
+    source_tree_receipt,
 )
+from readme_agent.facts.acquisition_schema import AcquisitionDecisionV1
 from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
 from readme_agent.registry.models import ProductEntry
 
@@ -24,78 +24,6 @@ _REGISTRY_METHOD_NAMES = {
     "rust": "crates_io",
 }
 AcquisitionResolver = Callable[[str, dict[str, str]], ResolutionResult]
-
-
-def _registry_receipt(
-    resolver_ecosystem: str,
-    coordinate: dict[str, str],
-    result: ResolutionResult,
-) -> RegistryReceiptV1 | None:
-    expected_url = registry_request_url(resolver_ecosystem, coordinate)
-    if (
-        expected_url is None
-        or result.registry_label is None
-        or result.request_url is None
-        or result.request_url != expected_url
-        or result.status_code is None
-        or result.response_sha256 is None
-        or result.retrieved_at is None
-    ):
-        return None
-    return RegistryReceiptV1(
-        resolver_ecosystem=resolver_ecosystem,
-        registry_label=result.registry_label,
-        coordinate=coordinate,
-        request_url=result.request_url,
-        status_code=result.status_code,
-        response_sha256=result.response_sha256,
-        retrieved_at=result.retrieved_at,
-        found=result.found,
-        detail=result.detail,
-    )
-
-
-def _source_build_receipt(
-    verification: LocalProductVerificationV1 | None,
-    *,
-    org_repo: str,
-    source_revision: str,
-) -> SourceBuildReceiptV1 | None:
-    if (
-        verification is None
-        or verification.outcome != "SOURCE_BUILD_VERIFIED"
-        or not verification.truth_eligible
-        or verification.isolated_execution is None
-        or verification.org_repo != org_repo
-        or verification.source_revision != source_revision
-        or verification.isolated_execution.org_repo != org_repo
-        or verification.isolated_execution.source_revision != source_revision
-        or not verification.acquisition_dependency_pins
-    ):
-        return None
-    isolated = verification.isolated_execution
-    pins = {
-        f"container_image={isolated.policy.immutable_image}",
-        f"input_sha256={isolated.input_sha256}",
-        f"source_revision={verification.source_revision}",
-    }
-    if verification.public_api_sha256 is not None:
-        pins.add(f"public_api_sha256={verification.public_api_sha256}")
-    if verification.rust_source_dependency is not None:
-        pins.add(f"rust_source_dependency={verification.rust_source_dependency}")
-    pins.update(verification.acquisition_dependency_pins)
-    return SourceBuildReceiptV1(
-        org_repo=org_repo,
-        source_revision=verification.source_revision,
-        argv=isolated.argv,
-        input_sha256=isolated.input_sha256,
-        policy_sha256=isolated.policy_sha256,
-        immutable_image=isolated.policy.immutable_image,
-        dependency_pins=sorted(pins),
-        cleanup_complete=True,
-        return_code=0,
-        truth_eligible=True,
-    )
 
 
 def select_acquisition(
@@ -127,7 +55,12 @@ def select_acquisition(
         entry.repo_name,
     )
     coordinate = manifest_coordinate or canonical_coordinate
-    source_receipt = _source_build_receipt(
+    source_receipt = source_build_receipt(
+        local_verification,
+        org_repo=entry.org_repo,
+        source_revision=source_revision,
+    )
+    source_tree_proof = source_tree_receipt(
         local_verification,
         org_repo=entry.org_repo,
         source_revision=source_revision,
@@ -169,7 +102,7 @@ def select_acquisition(
         ):
             coordinate = canonical_coordinate
             registry_result = resolve_coordinate(resolver_ecosystem, coordinate)
-    receipt = _registry_receipt(resolver_ecosystem, coordinate, registry_result)
+    receipt = registry_receipt(resolver_ecosystem, coordinate, registry_result)
     method = _REGISTRY_METHOD_NAMES.get(resolver_ecosystem, resolver_ecosystem)
     if registry_result.found:
         if receipt is None:
@@ -230,14 +163,30 @@ def select_acquisition(
             source_build_receipt=source_receipt,
             truth_eligible=True,
         )
+    if source_tree_proof is not None:
+        assert local_verification is not None
+        return AcquisitionDecisionV1(
+            org_repo=entry.org_repo,
+            source_revision=source_revision,
+            ecosystem=entry.ecosystem,
+            method="source_tree",
+            outcome="SOURCE_TREE_VERIFIED",
+            detail=local_verification.detail,
+            coordinate=coordinate,
+            registry_receipt=receipt,
+            source_tree_receipt=source_tree_proof,
+            truth_eligible=True,
+        )
     outcome = (
         local_verification.outcome
-        if local_verification is not None and local_verification.outcome != "SOURCE_BUILD_VERIFIED"
+        if local_verification is not None
+        and local_verification.outcome not in {"SOURCE_BUILD_VERIFIED", "SOURCE_TREE_VERIFIED"}
         else "BLOCKED_LOCAL_VERIFICATION"
     )
     detail = (
         "isolated source-build proof does not match the selected repository revision"
-        if local_verification is not None and local_verification.outcome == "SOURCE_BUILD_VERIFIED"
+        if local_verification is not None
+        and local_verification.outcome in {"SOURCE_BUILD_VERIFIED", "SOURCE_TREE_VERIFIED"}
         else local_verification.detail
         if local_verification is not None
         else unavailable_detail

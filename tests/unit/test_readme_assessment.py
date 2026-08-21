@@ -696,6 +696,56 @@ def test_verified_python_source_build_renders_pinned_local_checkout_without_fals
     assert all(record.currently_accountable for record in acquisition_records)
 
 
+def test_verified_python_source_tree_renders_checkout_without_false_install_command():
+    facts, revision = _java_facts()
+    source_build = _python_source_build_facts(facts, revision)
+    acquisition = source_build.selected_fact("installation.verified_acquisition")
+    value = dict(acquisition.value)
+    source_build_receipt = dict(value.pop("source_build_receipt"))
+    value.update(
+        {
+            "method": "source_tree",
+            "outcome": "SOURCE_TREE_VERIFIED",
+            "source_tree_receipt": {
+                **source_build_receipt,
+                "source_root": "src",
+                "canonical_import": "aspose.page",
+                "public_api_sha256": "f" * 64,
+                "verified_public_symbols": ["aspose.page.Page"],
+                "source_install_failure": "invalid_build_backend",
+            },
+        }
+    )
+    source_tree = source_build.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": value})
+                if fact.fact_id == acquisition.fact_id
+                else fact
+                for fact in source_build.facts
+            ]
+        }
+    )
+
+    rendered = installation_text(source_tree, source_tree.org_repo, revision)
+
+    assert rendered is not None
+    assert f"git checkout --detach {revision}" in rendered
+    assert "declared build backend is unavailable" in rendered
+    assert "no PyPI or `pip install` command is shown" in rendered
+    assert "`src` on Python's import path" in rendered
+    assert "`aspose.page`" in rendered
+    assert "python -m pip install" not in rendered
+    assert "pip install aspose-page-foss" not in rendered
+    assert [badge.badge_id for badge in render_readme_badges(source_tree)] == [
+        "version",
+        "platform",
+        "compatibility",
+        "license",
+        "contributors",
+    ]
+
+
 def test_python_source_build_correction_replaces_only_false_registry_command():
     facts, revision = _java_facts()
     python_facts = _python_source_build_facts(facts, revision)

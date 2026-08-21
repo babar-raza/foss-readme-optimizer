@@ -5,6 +5,7 @@ from datetime import UTC, datetime
 import pytest
 from pydantic import ValidationError
 
+from readme_agent.ecosystems.python_api_schema import PythonPackageLayoutV1
 from readme_agent.ecosystems.registry_request import registry_request_url
 from readme_agent.ecosystems.resolver import ResolutionResult
 from readme_agent.facts.acquisition import reconcile_acquisition, select_acquisition
@@ -116,6 +117,30 @@ def _isolated_verification(*, truth_eligible: bool = True) -> LocalProductVerifi
     )
 
 
+def _source_tree_verification() -> LocalProductVerificationV1:
+    verification = _isolated_verification()
+    return verification.model_copy(
+        update={
+            "outcome": "SOURCE_TREE_VERIFIED",
+            "detail": "public imports and example executed from immutable source tree",
+            "verified_public_symbols": ["aspose.threed.Scene"],
+            "public_api_sha256": "2" * 64,
+            "python_package": PythonPackageLayoutV1(
+                manifest_path="pyproject.toml",
+                distribution_name="aspose-3d-foss",
+                version="1.0.0",
+                requires_python=">=3.11",
+                source_root="src",
+                package_paths=["src/aspose/threed"],
+                canonical_import="aspose.threed",
+                source_sha256="3" * 64,
+            ),
+            "python_execution_mode": "source_tree",
+            "python_source_install_failure": "invalid_build_backend",
+        }
+    )
+
+
 def test_registry_publication_wins_over_available_source_build():
     decision = select_acquisition(
         entry=_entry(),
@@ -212,6 +237,46 @@ def test_registry_404_and_isolated_build_select_reproducible_source():
     assert (
         "python_package_source_sha256=" + "1" * 64 in decision.source_build_receipt.dependency_pins
     )
+
+
+def test_registry_404_and_isolated_source_tree_select_honest_acquisition():
+    decision = select_acquisition(
+        entry=_entry(),
+        source_revision=REVISION,
+        local_verification=_source_tree_verification(),
+        unavailable_detail="not needed",
+        resolution=_resolution(found=False),
+    )
+
+    assert decision.outcome == "SOURCE_TREE_VERIFIED"
+    assert decision.method == "source_tree"
+    assert decision.truth_eligible is True
+    assert decision.registry_receipt is not None
+    assert decision.registry_receipt.status_code == 404
+    assert decision.source_build_receipt is None
+    assert decision.source_tree_receipt is not None
+    assert decision.source_tree_receipt.source_root == "src"
+    assert decision.source_tree_receipt.canonical_import == "aspose.threed"
+    assert decision.source_tree_receipt.verified_public_symbols == ["aspose.threed.Scene"]
+    fact = acquisition_fact_from_decision(
+        decision,
+        observed_at="2026-08-21T00:00:00+00:00",
+    )
+    assert fact.fact_id == "installation.verified_acquisition:verified-source-tree"
+    assert fact.verification_state == "verified"
+
+
+def test_source_tree_cannot_override_registry_publication():
+    decision = select_acquisition(
+        entry=_entry(),
+        source_revision=REVISION,
+        local_verification=_source_tree_verification(),
+        unavailable_detail="not needed",
+        resolution=_resolution(found=True),
+    )
+
+    assert decision.outcome == "REGISTRY_VERIFIED"
+    assert decision.source_tree_receipt is None
 
 
 def test_source_build_without_workload_dependency_inventory_fails_closed():

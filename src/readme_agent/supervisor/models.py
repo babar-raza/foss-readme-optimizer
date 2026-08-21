@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Literal
 
 from readme_agent.state.lifecycle_schema import AssuranceReadmePocStatusV1
 from readme_agent.supervisor.stage_limit import ReadmePocStageLimitV1
@@ -30,3 +31,4 @@ class SuperviseResult:
     evidence_dir: Path | None = None
     requested_readme_stage: ReadmePocStageLimitV1 | None = None
     readme_lifecycle_status: AssuranceReadmePocStatusV1 | None = None
+    processability_disposition: Literal["NON_PROCESSABLE_NO_IMPLEMENTATION"] | None = None

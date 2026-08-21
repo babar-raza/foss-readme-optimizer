@@ -386,7 +386,7 @@ def _cmd_supervise_impl(args: argparse.Namespace) -> int:
         print(
             f"{args.repo}: intake {outcome} at {intake.binding.source_revision} ({execution_label})"
         )
-        if outcome == "NOT_APPLICABLE":
+        if outcome in {"BLOCKED_NO_SUBSTANTIVE_CONTENT", "NOT_APPLICABLE"}:
             _start_intake_llm_accounting(args, lifecycle_recorder)
             result = SuperviseResult(
                 status="STAGE_COMPLETE",
@@ -395,10 +395,11 @@ def _cmd_supervise_impl(args: argparse.Namespace) -> int:
                 decisions=[
                     DecisionSummary(
                         turn=0,
-                        kind="readonly_intake_not_applicable",
+                        kind="readonly_intake_non_processable",
                         detail=(
-                            f"NOT_APPLICABLE at {intake.binding.source_revision}; "
-                            "no later capability or target effect executed"
+                            f"{outcome} at {intake.binding.source_revision}; "
+                            "recorded NON_PROCESSABLE_NO_IMPLEMENTATION and executed no later "
+                            "capability or target effect"
                         ),
                     )
                 ],
@@ -406,6 +407,7 @@ def _cmd_supervise_impl(args: argparse.Namespace) -> int:
                     "INTAKE_READY" if readme_poc_stage_limit == "INTAKE_READY" else None
                 ),
                 readme_lifecycle_status="INTAKE_READY",
+                processability_disposition="NON_PROCESSABLE_NO_IMPLEMENTATION",
             )
             return complete_supervise_command(
                 args,
@@ -981,7 +983,10 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                     else "repository_verified"
                 ),
                 status=(
-                    terminal_result.readme_lifecycle_status
+                    terminal_result.processability_disposition
+                    if terminal_result is not None
+                    and terminal_result.processability_disposition is not None
+                    else terminal_result.readme_lifecycle_status
                     if readme_poc_stage_limit is not None
                     and terminal_result is not None
                     and terminal_result.readme_lifecycle_status is not None

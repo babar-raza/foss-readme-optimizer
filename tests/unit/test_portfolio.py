@@ -107,6 +107,33 @@ def test_facts_target_summary_counts_only_fact_ready_or_later_lifecycle_states()
     assert "target=FACTS_READY complete=2/5" in summary.summary_line()
 
 
+def test_typed_non_processable_dispositions_are_accountable_but_not_in_denominator():
+    summary = PortfolioPocSummaryV1(
+        registry_path="data/products.json",
+        target_lifecycle_stage="FACTS_READY",
+        registry_count=4,
+        results=[
+            PortfolioRepositoryResultV1(org_repo="org/one", status="FACTS_READY", exit_code=0),
+            PortfolioRepositoryResultV1(org_repo="org/two", status="FACTS_READY", exit_code=0),
+            PortfolioRepositoryResultV1(
+                org_repo="org/psd-one",
+                status="NON_PROCESSABLE_NO_IMPLEMENTATION",
+                exit_code=0,
+            ),
+            PortfolioRepositoryResultV1(
+                org_repo="org/psd-two",
+                status="NON_PROCESSABLE_NO_IMPLEMENTATION",
+                exit_code=0,
+            ),
+        ],
+    )
+
+    assert summary.non_processable_count == 2
+    assert summary.processable_count == 2
+    assert summary.target_complete_count == 2
+    assert "complete=2/2 dispositions=2" in summary.summary_line()
+
+
 def test_summary_distinguishes_reviewed_approval_from_complete_bundle():
     summary = PortfolioPocSummaryV1(
         registry_path="data/products.json",

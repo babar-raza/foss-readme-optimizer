@@ -26,12 +26,13 @@ def _verification(
     truth_eligible: bool = False,
     source_revision: str = "a" * 40,
     stderr: str = "",
+    ecosystem: str = "python",
 ):
     return LocalProductVerificationV1.model_construct(
         schema_version=1,
         org_repo="acme/widget",
         source_revision=source_revision,
-        ecosystem="python",
+        ecosystem=ecosystem,
         outcome="SOURCE_BUILD_VERIFIED" if truth_eligible else "BUILD_FAILED",
         detail="controlled result",
         build=SimpleNamespace(return_code=return_code, stdout="", stderr=stderr),
@@ -135,6 +136,79 @@ def test_all_failed_candidates_retain_the_last_bounded_verification(tmp_path, mo
     assert "CS1929" in subject.bounded_local_verification_detail(
         selection.last_attempted_verification
     )
+
+
+def test_dotnet_product_source_failure_stops_after_first_candidate(tmp_path, monkeypatch) -> None:
+    first = _example("First", "README.md")
+    second = _example("Second", "examples/use.py")
+    monkeypatch.setattr(subject, "_revision_matches", lambda *_args: True)
+    monkeypatch.setattr(
+        subject, "repository_readme_example_candidates", lambda *_args, **_kwargs: [first, second]
+    )
+    monkeypatch.setattr(subject, "repository_source_example_candidates", lambda *_args: [])
+    monkeypatch.setattr(subject, "_precheck_failures", lambda *_args: [])
+    calls = 0
+
+    def verify(_example):
+        nonlocal calls
+        calls += 1
+        return _verification(
+            return_code=1,
+            stderr="src/Product.cs(12,4): error CS1929: product source does not compile",
+            ecosystem="dotnet",
+        )
+
+    selection = subject.select_verified_repository_example(
+        tmp_path,
+        source_revision="a" * 40,
+        requested=first,
+        verify_example_fn=verify,
+    )
+
+    assert selection.outcome == "TERMINAL_PRODUCT_FAILURE"
+    assert selection.attempted_count == 1
+    assert calls == 1
+
+
+@pytest.mark.parametrize(
+    "diagnostic",
+    [
+        "System.OutOfMemoryException: Exception of type was thrown",
+        ".readme-agent/Program.cs(1,2): error CS1929: candidate is invalid",
+    ],
+)
+def test_dotnet_resource_or_candidate_failure_allows_later_candidate(
+    tmp_path, monkeypatch, diagnostic
+) -> None:
+    first = _example("First", "README.md")
+    second = _example("Second", "examples/use.py")
+    monkeypatch.setattr(subject, "_revision_matches", lambda *_args: True)
+    monkeypatch.setattr(
+        subject, "repository_readme_example_candidates", lambda *_args, **_kwargs: [first, second]
+    )
+    monkeypatch.setattr(subject, "repository_source_example_candidates", lambda *_args: [])
+    monkeypatch.setattr(subject, "_precheck_failures", lambda *_args: [])
+    outcomes = iter(
+        [
+            _verification(return_code=1, stderr=diagnostic, ecosystem="dotnet"),
+            _verification(
+                return_code=0,
+                truth_eligible=True,
+                source_revision="a" * 40,
+                ecosystem="dotnet",
+            ),
+        ]
+    )
+
+    selection = subject.select_verified_repository_example(
+        tmp_path,
+        source_revision="a" * 40,
+        requested=first,
+        verify_example_fn=lambda _example: next(outcomes),
+    )
+
+    assert selection.outcome == "VERIFIED"
+    assert selection.attempted_count == 2
 
 
 def test_revision_mismatch_and_no_candidate_are_distinct_results(tmp_path, monkeypatch) -> None:

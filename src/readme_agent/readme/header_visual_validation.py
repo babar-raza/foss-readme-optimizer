@@ -199,9 +199,12 @@ def validate_readme_header_visual(
     )
     source_version_verified = (
         acquisition.verification_state in _ACCEPTED_STATES
-        and acquisition_value.get("outcome") == "SOURCE_BUILD_VERIFIED"
+        and acquisition_value.get("outcome") in {"SOURCE_BUILD_VERIFIED", "SOURCE_TREE_VERIFIED"}
         and acquisition_value.get("truth_eligible") is True
-        and isinstance(acquisition_value.get("source_build_receipt"), dict)
+        and (
+            isinstance(acquisition_value.get("source_build_receipt"), dict)
+            or isinstance(acquisition_value.get("source_tree_receipt"), dict)
+        )
     )
     checks["registry_badges_verified"] = (not registry_only_badges or registry_verified) and (
         not version_badges or registry_verified or source_version_verified

@@ -237,8 +237,8 @@ def render_readme_badges(facts: ProductFactsV2) -> list[ReadmeBadgeV1]:
     coordinate_fact, coordinate_rows = _coordinate_rows(facts)
     if (
         acquisition is not None
-        and method == "source_build"
-        and value.get("outcome") == "SOURCE_BUILD_VERIFIED"
+        and method in {"source_build", "source_tree"}
+        and value.get("outcome") in {"SOURCE_BUILD_VERIFIED", "SOURCE_TREE_VERIFIED"}
         and value.get("truth_eligible") is True
     ):
         manifest_coordinate = _source_build_manifest_coordinate(identity_value, coordinate_rows)

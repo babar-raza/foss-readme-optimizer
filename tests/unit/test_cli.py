@@ -1069,7 +1069,19 @@ class TestExecutionProfileFlag:
         trigger = next(iter(backend._state.trigger_lifecycles.values()))
         assert trigger.status == "completed"
 
-    def test_not_applicable_intake_is_a_truthful_zero_call_terminal(self, monkeypatch, tmp_path):
+    @pytest.mark.parametrize(
+        ("intake_outcome", "reason"),
+        [
+            ("NOT_APPLICABLE", "repository is inactive"),
+            (
+                "BLOCKED_NO_SUBSTANTIVE_CONTENT",
+                "pinned tree contains only README and license files",
+            ),
+        ],
+    )
+    def test_non_processable_intake_is_a_truthful_zero_call_terminal(
+        self, monkeypatch, tmp_path, intake_outcome, reason
+    ):
         import readme_agent.env as env
         import readme_agent.paths as paths
         import readme_agent.preflight.runner as preflight_module
@@ -1083,9 +1095,9 @@ class TestExecutionProfileFlag:
         binding = IntakePreflightBindingV1(
             dedup_key="d" * 64,
             source_revision="a" * 40,
-            outcome="NOT_APPLICABLE",
+            outcome=intake_outcome,
             result_hash="e" * 64,
-            reason="repository is inactive",
+            reason=reason,
             evidence_refs=["runs/readme-poc/fixture/intake/preflight.json"],
             observed_by="test",
         )
@@ -1128,6 +1140,9 @@ class TestExecutionProfileFlag:
         assert cmd_supervise(args) == 0
         assert args._terminal_supervise_result.status == "STAGE_COMPLETE"
         assert args._terminal_supervise_result.readme_lifecycle_status == "INTAKE_READY"
+        assert args._terminal_supervise_result.processability_disposition == (
+            "NON_PROCESSABLE_NO_IMPLEMENTATION"
+        )
         assert args._llm_accounting_summary.provider_call_count == 0
         trigger = next(iter(backend._state.trigger_lifecycles.values()))
         assert trigger.status == "completed"

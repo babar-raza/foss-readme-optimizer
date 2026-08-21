@@ -242,6 +242,17 @@ class PortfolioPocSummaryV1(BaseModel):
         )
 
     @property
+    def non_processable_count(self) -> int:
+        return sum(
+            result.exit_code == 0 and result.status == "NON_PROCESSABLE_NO_IMPLEMENTATION"
+            for result in self.results
+        )
+
+    @property
+    def processable_count(self) -> int:
+        return self.registry_count - self.non_processable_count
+
+    @property
     def target_complete_count(self) -> int:
         """Count repositories that honestly reached this bounded campaign target."""
 
@@ -264,9 +275,10 @@ class PortfolioPocSummaryV1(BaseModel):
         return (
             "local_poc portfolio: "
             f"target={self.target_lifecycle_stage} "
-            f"complete={self.target_complete_count}/{self.registry_count} "
-            f"agent_approved={self.raw_agent_approved_count}/{self.registry_count} "
-            f"complete_bundles={self.complete_agent_approved_count}/{self.registry_count} "
+            f"complete={self.target_complete_count}/{self.processable_count} "
+            f"dispositions={self.non_processable_count} "
+            f"agent_approved={self.raw_agent_approved_count}/{self.processable_count} "
+            f"complete_bundles={self.complete_agent_approved_count}/{self.processable_count} "
             f"trusted_approved={self.trusted_transform_approved_count}/{self.registry_count} "
             f"trusted_no_op={self.trusted_no_op_proven_count}/{self.registry_count} "
             f"trusted_pr_open={self.trusted_pr_open_count}/{self.registry_count} "

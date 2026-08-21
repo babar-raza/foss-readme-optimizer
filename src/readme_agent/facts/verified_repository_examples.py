@@ -79,10 +79,10 @@ class RepositoryExampleSelectionV2(BaseModel):
             and self.verification.isolated_execution.return_code == 0
         ):
             raise ValueError("VERIFIED requires a truth-eligible isolated verification")
-        if self.outcome == "TERMINAL_PRODUCT_FAILURE" and not _product_owned_install_failure(
+        if self.outcome == "TERMINAL_PRODUCT_FAILURE" and not _terminal_product_failure(
             self.verification
         ):
-            raise ValueError("TERMINAL_PRODUCT_FAILURE requires Python isolated return code 20/21")
+            raise ValueError("TERMINAL_PRODUCT_FAILURE requires conclusive product-owned failure")
         return self
 
 
@@ -159,7 +159,7 @@ def select_verified_repository_example(
                 attempted_count=attempted,
                 selected_rank=selected_rank,
             )
-        if _product_owned_install_failure(verification):
+        if _terminal_product_failure(verification):
             assert verification is not None
             return RepositoryExampleSelectionV2(
                 outcome="TERMINAL_PRODUCT_FAILURE",
@@ -238,6 +238,34 @@ def _product_owned_install_failure(result: LocalProductVerificationV1 | None) ->
         and result.isolated_execution is not None
         and result.isolated_execution.return_code in {20, 21}
     )
+
+
+def _terminal_product_failure(result: LocalProductVerificationV1 | None) -> bool:
+    if _product_owned_install_failure(result):
+        return True
+    if (
+        result is None
+        or result.truth_eligible
+        or result.outcome != "BUILD_FAILED"
+        or result.ecosystem not in {"dotnet", "net"}
+    ):
+        return False
+    execution = result.example_compile or result.build
+    diagnostic = f"{execution.stderr}\n{execution.stdout}".casefold()
+    if not diagnostic or any(
+        marker in diagnostic
+        for marker in (
+            "outofmemoryexception",
+            "out of memory",
+            "cannot allocate memory",
+            "killed",
+            "oom",
+        )
+    ):
+        return False
+    if ".readme-agent/program.cs" in diagnostic or ".readme-agent\\program.cs" in diagnostic:
+        return False
+    return bool(re.search(r"\b(?:error\s+)?cs\d{4}\b", diagnostic))
 
 
 def _revision_matches(root: Path, expected: str) -> bool:
