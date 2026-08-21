@@ -136,3 +136,25 @@ def test_projection_is_deterministic_and_rejects_internal_assurance_prose():
 
     assert first == second
     assert first[0].value == ["Render document pages."]
+
+
+def test_format_projection_supports_via_and_method_claims_without_false_formats():
+    source = _knowledge(
+        "aspose.format_support_claims",
+        [
+            "import support for Pdf via Document constructor",
+            "export support for Xlsx format (method name: SaveXlsx)",
+            "export support for SVG format (method name: SaveSvg)",
+            "import support for Auto via LoadFormat",
+            "import support for hint via hintReader",
+            "export support for xlsx via XlsxSaveOptions",
+        ],
+    )
+
+    projected = project_knowledge_into_canonical_facts([source])
+
+    assert projected[0].value == [
+        "Input format: PDF",
+        "Output format: XLSX",
+        "Output format: SVG",
+    ]
