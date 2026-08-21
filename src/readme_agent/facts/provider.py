@@ -30,6 +30,7 @@ from readme_agent.facts.repository_examples import (
     repository_readme_example_candidates,
     repository_source_example_candidates,
 )
+from readme_agent.facts.repository_format_facts import repository_format_fact_candidate
 from readme_agent.facts.repository_ingestion import ingest_repository_product_facts
 from readme_agent.facts.resolution import resolve_product_facts
 from readme_agent.facts.root_role_schema import PackageRootRoleInventoryV1
@@ -382,6 +383,17 @@ def collect_product_facts(
         package_root_roles,
     )
     candidates.extend(local_candidates)
+    if source_revision is not None:
+        format_fact = repository_format_fact_candidate(
+            root,
+            source_revision=source_revision,
+            family=entry.family,
+            platform=entry.ecosystem or entry.platform,
+            specifications=(policy.product_truth.formats if policy.product_truth else []),
+            candidates=candidates,
+        )
+        if format_fact is not None:
+            candidates.append(format_fact)
     candidates.append(dependency_snapshot_fact_record(root, entry.ecosystem or "unknown"))
     aspose_data_root = Path.cwd() / "data" / "imported"
     if aspose_data_root.is_dir():
