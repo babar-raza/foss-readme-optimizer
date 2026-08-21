@@ -187,6 +187,33 @@ def test_blocked_evidence_path_does_not_conflict_with_verified_fact():
     assert ProductFactsV2.model_validate(facts.model_dump(mode="json")) == facts
 
 
+def test_blocked_mechanical_path_cannot_outrank_verified_documentation_evidence():
+    blocked = FactRecordV2(
+        fact_id="product.limitations:blocked-extractor",
+        field="product.limitations",
+        value={"reason": "extractor unavailable"},
+        source=_source("mechanical_repository", "repository://acme/widget"),
+        verification_state="blocked",
+        authoritative_owner="repository-owner",
+        confidence=0.0,
+        affected_surfaces=["readme.limitations"],
+    )
+    corroborated = _candidate(
+        "product.limitations:corroborated-docs",
+        "product.limitations",
+        ["`Widget.render` is not implemented."],
+        "approved_documentation",
+        "data/imported:widget/python",
+        ["readme.limitations"],
+    )
+
+    facts = _resolve([blocked, corroborated])
+
+    assert facts.selected_fact("product.limitations").fact_id == corroborated.fact_id
+    assert facts.selected_fact("product.limitations").verification_state == "verified"
+    assert facts.selected_fact("product.limitations").conflicts == []
+
+
 def test_missing_fact_does_not_block_unrelated_surface():
     identity = _candidate(
         "product.identity:repository",

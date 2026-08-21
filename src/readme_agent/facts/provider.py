@@ -15,6 +15,9 @@ from readme_agent.facts.catalog_documentation import catalog_documentation_fact
 from readme_agent.facts.composer_factpack import aspose_fact_records, build_aspose_detection_bundle
 from readme_agent.facts.context import current_product_facts
 from readme_agent.facts.dependency_snapshot import dependency_snapshot_fact_record
+from readme_agent.facts.knowledge_canonical_projection import (
+    project_knowledge_into_canonical_facts,
+)
 from readme_agent.facts.local_verification import verify_local_product_example
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES, migrate_product_facts_v1
 from readme_agent.facts.policy_evidence import evidence_failures
@@ -369,15 +372,15 @@ def collect_product_facts(
                 aspose_bundle, family=entry.family, platform=entry.platform, clone_cache=root
             )
         )
-        candidates.extend(
-            knowledge_claim_fact_records(
-                entry.family,
-                entry.platform,
-                data_root=knowledge_claims_data_root or aspose_data_root,
-                clone_cache=root,
-                source_revision=source_revision,
-            )
+        knowledge_records = knowledge_claim_fact_records(
+            entry.family,
+            entry.platform,
+            data_root=knowledge_claims_data_root or aspose_data_root,
+            clone_cache=root,
+            source_revision=source_revision,
         )
+        candidates.extend(knowledge_records)
+        candidates.extend(project_knowledge_into_canonical_facts(candidates))
         seo_fact = relevant_seo_keyword_fact_record(
             entry.family, entry.platform, data_root=aspose_data_root
         )

@@ -1,0 +1,138 @@
+"""Tests for conservative imported-knowledge projection into canonical facts."""
+
+from readme_agent.facts.knowledge_canonical_projection import (
+    project_knowledge_into_canonical_facts,
+)
+from readme_agent.facts.resolution import resolve_product_facts
+from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2
+
+
+def _source() -> FactSourceV2:
+    return FactSourceV2(
+        source_type="approved_documentation",
+        location="data/imported:3d/net",
+        source_revision="abc123",
+    )
+
+
+def _knowledge(field: str, values: list[str], *, state: str = "verified") -> FactRecordV2:
+    return FactRecordV2(
+        fact_id=f"{field}:aspose-knowledge",
+        field=field,
+        value=[
+            {"claim_id": f"3d/net/claim-{index}", "text": text, "confidence": 0.9}
+            for index, text in enumerate(values)
+        ],
+        source=_source(),
+        verification_state=state,
+        authoritative_owner="aspose.org",
+        confidence=0.9,
+        affected_surfaces=["readme.capabilities"],
+    )
+
+
+def _canonical(field: str, value, *, state: str = "verified") -> FactRecordV2:
+    return FactRecordV2(
+        fact_id=f"{field}:repository",
+        field=field,
+        value=value,
+        source=FactSourceV2(
+            source_type="mechanical_repository",
+            location="repository://acme/widget",
+            source_revision="abc123",
+        ),
+        verification_state=state,
+        authoritative_owner="repository-owner",
+        confidence=1.0 if state == "verified" else 0.0,
+        affected_surfaces=["readme.capabilities"],
+    )
+
+
+def test_verified_knowledge_projects_into_missing_canonical_fields():
+    sources = [
+        _knowledge("aspose.feature_claims", ["Transform 3D scenes"]),
+        _knowledge(
+            "aspose.format_support_claims",
+            ["import support for gltf via GltfReader", "export support for pdf via PdfWriter"],
+        ),
+        _knowledge(
+            "aspose.limitation_claims",
+            ["Not implemented: Scene.Render in src/Aspose/Scene.cs:500"],
+        ),
+    ]
+
+    projected = project_knowledge_into_canonical_facts(sources)
+
+    assert {fact.field for fact in projected} == {
+        "product.capabilities",
+        "product.formats",
+        "product.limitations",
+    }
+    by_field = {fact.field: fact for fact in projected}
+    assert by_field["product.capabilities"].value == ["Transform 3D scenes."]
+    assert by_field["product.formats"].value == [
+        "Input format: GLTF",
+        "Output format: PDF",
+    ]
+    assert by_field["product.limitations"].value == ["`Scene.Render` is not implemented."]
+    assert all(fact.supporting_fact_ids for fact in projected)
+
+
+def test_projection_never_overwrites_accepted_canonical_truth():
+    source = _knowledge("aspose.feature_claims", ["Transform 3D scenes"])
+    canonical = _canonical("product.capabilities", ["Repository capability"])
+
+    assert project_knowledge_into_canonical_facts([source, canonical]) == []
+
+
+def test_unverified_knowledge_is_not_promoted():
+    source = _knowledge(
+        "aspose.limitation_claims",
+        ["Not implemented: Scene.Render in src/Aspose/Scene.cs:500"],
+        state="unverified",
+    )
+
+    assert project_knowledge_into_canonical_facts([source]) == []
+
+
+def test_projection_resolves_a_blocked_mechanical_target_with_complete_lineage():
+    source = _knowledge(
+        "aspose.limitation_claims",
+        ["Not implemented: Scene.Render in src/Aspose/Scene.cs:500"],
+    )
+    blocked = _canonical(
+        "product.limitations", {"reason": "extractor unavailable"}, state="blocked"
+    )
+    projected = project_knowledge_into_canonical_facts([source, blocked])
+
+    facts = resolve_product_facts(
+        "acme/widget",
+        [source, blocked, *projected],
+        missing_source=FactSourceV2(
+            source_type="mechanical_repository",
+            location="repository://acme/widget",
+            source_revision="abc123",
+        ),
+    )
+
+    selected = facts.selected_fact("product.limitations")
+    assert selected.fact_id == "product.limitations:verified-knowledge-projection"
+    assert selected.supporting_fact_ids == [source.fact_id]
+    assert facts.selected_fact(source.field).fact_id == source.fact_id
+
+
+def test_projection_is_deterministic_and_rejects_internal_assurance_prose():
+    source = _knowledge(
+        "aspose.feature_claims",
+        [
+            "Inventoried at the source revision; not executed",
+            "Render document pages",
+            "Render document pages",
+        ],
+    )
+
+    first = project_knowledge_into_canonical_facts([source])
+    second = project_knowledge_into_canonical_facts([source])
+
+    assert first == second
+    assert first[0].value == ["Render document pages."]

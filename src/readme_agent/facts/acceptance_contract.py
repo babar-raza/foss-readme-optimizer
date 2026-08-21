@@ -58,6 +58,7 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
     "imported_knowledge": (
         "aspose_knowledge_claims.py",
         "aspose_knowledge_selection.py",
+        "knowledge_canonical_projection.py",
         "knowledge_evidence_verification.py",
         "python_evidence_polarity.py",
         "aspose_detectors.py",

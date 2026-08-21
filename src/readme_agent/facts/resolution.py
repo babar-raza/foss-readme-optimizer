@@ -66,6 +66,29 @@ def _missing_fact(field_name: str, source: FactSourceV2, surfaces: list[str]) ->
     )
 
 
+def _ranked_candidates(candidates: list[FactRecordV2]) -> list[FactRecordV2]:
+    """Rank factual assertions before unavailable evidence-path observations.
+
+    Source authority orders competing assertions. A blocked/missing record asserts no value and
+    therefore cannot outrank a lower-precedence verified assertion merely because its attempted
+    collector was mechanical.
+    """
+
+    available = [
+        fact for fact in candidates if fact.verification_state not in {"blocked", "missing"}
+    ]
+    unavailable = [fact for fact in candidates if fact.verification_state in {"blocked", "missing"}]
+
+    def rank(fact: FactRecordV2) -> tuple[int, int, str]:
+        return (
+            source_precedence(fact.source),
+            _VERIFICATION_PRECEDENCE[fact.verification_state],
+            fact.fact_id,
+        )
+
+    return [*sorted(available, key=rank), *sorted(unavailable, key=rank)]
+
+
 def resolve_product_facts(
     org_repo: str,
     candidates: list[FactRecordV2],
@@ -102,14 +125,7 @@ def resolve_product_facts(
             selected[field_name] = missing.fact_id
             continue
 
-        ranked = sorted(
-            field_candidates,
-            key=lambda fact: (
-                source_precedence(fact.source),
-                _VERIFICATION_PRECEDENCE[fact.verification_state],
-                fact.fact_id,
-            ),
-        )
+        ranked = _ranked_candidates(field_candidates)
         winner = ranked[0]
         winner_rank = source_precedence(winner.source)
         conflicts = list(winner.conflicts)
@@ -158,14 +174,7 @@ def resolve_product_facts(
     # Preserve additional non-mandatory fact families and select their highest-precedence
     # candidate too, so extensions do not require a schema rewrite.
     for field_name, field_candidates in sorted(grouped.items()):
-        ranked = sorted(
-            field_candidates,
-            key=lambda fact: (
-                source_precedence(fact.source),
-                _VERIFICATION_PRECEDENCE[fact.verification_state],
-                fact.fact_id,
-            ),
-        )
+        ranked = _ranked_candidates(field_candidates)
         output.extend(ranked)
         selected[field_name] = ranked[0].fact_id
 
