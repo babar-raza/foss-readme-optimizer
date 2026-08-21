@@ -118977,7 +118977,7 @@
     "updated_at": "2026-08-21T06:32:08.946307+00:00"
   },
   "schema_version": 2,
-  "state_version": 2472,
+  "state_version": 2473,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
@@ -121524,13 +121524,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:RepositorySnapshotError:sealed local-POC snapshot evidence is invalid: checksum inventory is missing, incomplete, or corrupt: D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ee05c1ba9153ef5916b7a108406c794f2e464d01",
       "last_checkpoint_id": "a5639ee270dc9f5167613bbe9fa0b28b6b4eb5e75761d576aab31a06f36c5b98",
-      "lease_expires_at": "2026-08-21T06:46:43.867270+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-21T06:31:53.017980+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-21T06:32:31.196879+00:00"
     }
   },
   "trigger_records": {},
