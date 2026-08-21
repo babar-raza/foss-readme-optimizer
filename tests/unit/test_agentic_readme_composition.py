@@ -47,7 +47,9 @@ from readme_agent.readme.document_templates import document_template_hash
 from readme_agent.readme.document_validation import validate_readme_document_candidate
 from readme_agent.readme.fact_grounding import literal_fact_ids
 from readme_agent.readme.verified_preservation_composition import (
+    build_offline_knowledge_qualification_plan,
     build_verified_preservation_composition_plan,
+    offline_knowledge_qualification_blockers,
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -122,6 +124,50 @@ def _first_text(value: object) -> str:
 def _canonical_hash(value: object) -> str:
     payload = json.dumps(value, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(payload).hexdigest()
+
+
+def test_offline_knowledge_qualification_plan_does_not_require_a_finished_source_shell():
+    facts, revision = _facts()
+    source = "# Aspose.Cells FOSS for Java\n\nRepository source overview.\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+
+    assert (
+        build_verified_preservation_composition_plan(
+            facts.org_repo,
+            source,
+            facts,
+            assessment,
+            lifecycle_status="FACTS_READY",
+            require_presentation_shell=True,
+        )
+        is None
+    )
+    plan = build_offline_knowledge_qualification_plan(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        lifecycle_status="FACTS_READY",
+    )
+
+    assert (
+        offline_knowledge_qualification_blockers(
+            facts.org_repo,
+            source,
+            facts,
+            assessment,
+            lifecycle_status="FACTS_READY",
+        )
+        == ()
+    )
+    assert plan is not None
+    assert plan.model == "deterministic-knowledge-qualification-v1"
+    assert plan.attempt_count == 1
 
 
 def test_authoring_packet_bounds_native_verifier_receipts_and_caps_equivalent_attempts():

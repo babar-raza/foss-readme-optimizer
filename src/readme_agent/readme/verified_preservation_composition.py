@@ -60,9 +60,14 @@ from readme_agent.state.lifecycle_schema import ReadmePocStatusV2
 
 _JOB = "plan_readme_composition"
 _MODEL = "deterministic-verified-preservation-v1"
+_QUALIFICATION_MODEL = "deterministic-knowledge-qualification-v1"
 _AUTHORING_HINTS = (
     "Deterministic verified-preservation composition from accepted repository facts; "
     "zero authoring-provider calls."
+)
+_QUALIFICATION_HINTS = (
+    "Offline deterministic qualification from accepted repository facts and the source-bound "
+    "assessment; zero authoring-provider calls and no runtime acceptance authority."
 )
 _MINIMUM_SOURCE_BYTES = 512
 _MINIMUM_H2_SECTIONS = 3
@@ -298,27 +303,16 @@ def _verified_opening_summary(facts: ProductFactsV2) -> AgenticOverviewSentenceV
     )
 
 
-def build_verified_preservation_composition_plan(
+def _build_deterministic_composition_plan(
     org_repo: str,
     source_text: str,
     facts: ProductFactsV2,
     assessment: ReadmeAssessmentV1,
     *,
-    lifecycle_status: ReadmePocStatusV2,
-    require_presentation_shell: bool = False,
+    repository_summary: str,
+    model: str,
+    authoring_hints: str,
 ) -> ReadmeAgenticCompositionPlanV1 | None:
-    """Return a fully bound deterministic plan, or defer to live composition."""
-
-    if not verified_preservation_eligible(
-        org_repo,
-        source_text,
-        facts,
-        assessment,
-        lifecycle_status=lifecycle_status,
-        require_presentation_shell=require_presentation_shell,
-    ):
-        return None
-
     accepted_ids = accepted_composition_fact_ids(facts)
     phrase_options = overview_phrase_options(facts)
     required_ids = required_overview_fact_ids(facts)
@@ -331,10 +325,7 @@ def build_verified_preservation_composition_plan(
     if opening_summary is None:
         return None
     tool_draft = AgenticCompositionToolDraftV1(
-        repository_summary=(
-            "Preserve the strong existing README and apply only deterministic, fact-bound "
-            "presentation operations."
-        ),
+        repository_summary=repository_summary,
         section_decisions=_section_decisions(assessment, accepted_ids),
         overview_fact_ids=ordered_required_ids,
         opening_summary=opening_summary,
@@ -378,7 +369,7 @@ def build_verified_preservation_composition_plan(
         facts_payload=composition_fact_payloads(facts, accepted_ids),
         assessment_payload=assessment_payload,
         phrase_options=phrase_options,
-        authoring_hints=_AUTHORING_HINTS,
+        authoring_hints=authoring_hints,
         do_not_claim=do_not_claim_payloads(facts),
     )
     plan = ReadmeAgenticCompositionPlanV1(
@@ -389,9 +380,9 @@ def build_verified_preservation_composition_plan(
         prompt_sha256=prompt_hash(_JOB),
         tool_schema_sha256=_canonical_hash(tool_schema),
         input_sha256=composition_input_sha256(input_payload),
-        model=_MODEL,
+        model=model,
         attempt_count=1,
-        authoring_hints=_AUTHORING_HINTS,
+        authoring_hints=authoring_hints,
         **draft.model_dump(),
     )
     return validate_readme_composition_plan(
@@ -401,3 +392,111 @@ def build_verified_preservation_composition_plan(
         facts=facts,
         assessment=assessment,
     )
+
+
+def build_verified_preservation_composition_plan(
+    org_repo: str,
+    source_text: str,
+    facts: ProductFactsV2,
+    assessment: ReadmeAssessmentV1,
+    *,
+    lifecycle_status: ReadmePocStatusV2,
+    require_presentation_shell: bool = False,
+) -> ReadmeAgenticCompositionPlanV1 | None:
+    """Return the strong-source zero-provider fast path, or defer to live composition."""
+
+    if not verified_preservation_eligible(
+        org_repo,
+        source_text,
+        facts,
+        assessment,
+        lifecycle_status=lifecycle_status,
+        require_presentation_shell=require_presentation_shell,
+    ):
+        return None
+    return _build_deterministic_composition_plan(
+        org_repo,
+        source_text,
+        facts,
+        assessment,
+        repository_summary=(
+            "Preserve the strong existing README and apply only deterministic, fact-bound "
+            "presentation operations."
+        ),
+        model=_MODEL,
+        authoring_hints=_AUTHORING_HINTS,
+    )
+
+
+def build_offline_knowledge_qualification_plan(
+    org_repo: str,
+    source_text: str,
+    facts: ProductFactsV2,
+    assessment: ReadmeAssessmentV1,
+    *,
+    lifecycle_status: ReadmePocStatusV2,
+) -> ReadmeAgenticCompositionPlanV1 | None:
+    """Build diagnostic template prose without weakening verified fact eligibility.
+
+    Unlike the production preservation fast path, this offline-only seam does not require the
+    source README to already contain the finished branded presentation shell. It has no runtime,
+    review, lifecycle-transition, or effect authority.
+    """
+
+    if offline_knowledge_qualification_blockers(
+        org_repo,
+        source_text,
+        facts,
+        assessment,
+        lifecycle_status=lifecycle_status,
+    ):
+        return None
+    return _build_deterministic_composition_plan(
+        org_repo,
+        source_text,
+        facts,
+        assessment,
+        repository_summary=(
+            "Compile a complete offline candidate from accepted facts and the source-bound "
+            "assessment for deterministic knowledge qualification."
+        ),
+        model=_QUALIFICATION_MODEL,
+        authoring_hints=_QUALIFICATION_HINTS,
+    )
+
+
+def offline_knowledge_qualification_blockers(
+    org_repo: str,
+    source_text: str,
+    facts: ProductFactsV2,
+    assessment: ReadmeAssessmentV1,
+    *,
+    lifecycle_status: ReadmePocStatusV2,
+) -> tuple[str, ...]:
+    """Explain why zero-provider qualification cannot safely author this repository."""
+
+    blockers: list[str] = []
+    if lifecycle_status not in _FACTS_READY_OR_LATER:
+        blockers.append(f"lifecycle_status={lifecycle_status}")
+    if facts.content_assurance != "repository_verified":
+        blockers.append(f"content_assurance={facts.content_assurance}")
+    if facts.org_repo != org_repo:
+        blockers.append("facts_repository_mismatch")
+    source_sha256 = hashlib.sha256(source_text.encode("utf-8")).hexdigest()
+    if assessment.org_repo != org_repo:
+        blockers.append("assessment_repository_mismatch")
+    if assessment.source_sha256 != source_sha256:
+        blockers.append("assessment_source_hash_mismatch")
+    if assessment.facts_hash != facts.canonical_hash():
+        blockers.append("assessment_facts_hash_mismatch")
+    if assessment.untrusted_repository_instructions:
+        blockers.append("untrusted_repository_instructions")
+    for field in README_DRAFTABLE_PRODUCT_FIELDS:
+        selected = facts.selected_fact(field)
+        if selected.verification_state not in {"verified", "policy_approved"}:
+            blockers.append(f"{field}:verification_state={selected.verification_state}")
+        if selected.has_unresolved_conflict:
+            blockers.append(f"{field}:unresolved_conflict")
+    if not overview_phrase_options(facts):
+        blockers.append("overview_phrase_options=empty")
+    return tuple(blockers)
