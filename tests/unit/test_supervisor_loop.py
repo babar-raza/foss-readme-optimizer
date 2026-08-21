@@ -797,7 +797,7 @@ def project(tmp_path, monkeypatch):
     )
     real_collect_product_facts = propose_metadata_changes.collect_product_facts
 
-    def _complete_fixture_product_facts(org_repo):
+    def _complete_fixture_product_facts(org_repo, **kwargs):
         """Keep unrelated supervisor tests focused on runtime behavior.
 
         The synthetic repository intentionally represents a complete product.
@@ -806,7 +806,7 @@ def project(tmp_path, monkeypatch):
         to cover missing/conflicting behavior.
         """
 
-        result = real_collect_product_facts(org_repo)
+        result = real_collect_product_facts(org_repo, **kwargs)
         values = {
             "product.audience": ["Java developers"],
             "product.problems_solved": ["creating, reading, and modifying document files"],
@@ -1194,10 +1194,10 @@ class TestBasicLoop:
         original_collect = product_truth.collect_product_facts
         calls = 0
 
-        def _counted_collect(org_repo):
+        def _counted_collect(org_repo, **kwargs):
             nonlocal calls
             calls += 1
-            return original_collect(org_repo)
+            return original_collect(org_repo, **kwargs)
 
         monkeypatch.setattr(product_truth, "collect_product_facts", _counted_collect)
         kwargs = {

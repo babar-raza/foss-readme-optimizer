@@ -6,8 +6,16 @@ import hashlib
 import subprocess
 from pathlib import Path
 
+from readme_agent.facts.aspose_knowledge_claims import (
+    load_bundle_provenance,
+    load_knowledge_claims_with_findings,
+)
 from readme_agent.facts.repository_knowledge_generator import generate_repository_knowledge
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
+from readme_agent.supervisor.knowledge_generation_evidence import (
+    load_current_repository_knowledge_generation,
+    write_repository_knowledge_generation,
+)
 
 
 def _git(root: Path, *args: str) -> str:
@@ -56,7 +64,8 @@ def test_generation_is_self_contained_and_identical_retry_reuses_bytes(tmp_path:
     repository = tmp_path / "repository"
     repository.mkdir()
     snapshot = _repository(repository)
-    destination = tmp_path / "knowledge" / snapshot.source_revision
+    data_root = tmp_path / "generated"
+    destination = data_root / "knowledge" / "note" / "python" / "merged"
 
     first = generate_repository_knowledge(
         snapshot,
@@ -75,7 +84,58 @@ def test_generation_is_self_contained_and_identical_retry_reuses_bytes(tmp_path:
     assert second.status == "reused"
     assert first.artifacts == second.artifacts
     assert first.generator_sha256 == second.generator_sha256
+    assert first.generator_sha256 != first.upstream_generator_sha256
+    assert first.adapter_schema_version == "repository-knowledge-v2"
     assert "model.yaml" in first.artifacts
     assert "api_surface.json" in first.artifacts
     assert "formats.json" in first.artifacts
+    assert "scout-validation.json" in first.artifacts
     assert not list(destination.rglob("__pycache__"))
+
+    provenance = load_bundle_provenance("note", "python", data_root=data_root)
+    loaded = load_knowledge_claims_with_findings("note", "python", data_root=data_root)
+    assert provenance is not None
+    assert provenance.repo_sha == snapshot.source_revision
+    assert provenance.schema_version == 2
+    assert loaded.claims
+    assert not loaded.findings
+    assert all(claim.provenance.startswith("repository-scout") for claim in loaded.claims)
+
+
+def test_generation_receipt_fails_closed_after_artifact_corruption(
+    tmp_path: Path, monkeypatch
+) -> None:
+    from readme_agent import paths
+
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    repository = tmp_path / "repository"
+    repository.mkdir()
+    snapshot = _repository(repository)
+    destination = tmp_path / "generated" / "knowledge" / "note" / "python" / "merged"
+    generation = generate_repository_knowledge(
+        snapshot,
+        family="note",
+        platform="python",
+        output_root=destination,
+    )
+    receipt = write_repository_knowledge_generation(snapshot, generation)
+    bundle_dir = receipt.parents[1]
+
+    assert (
+        load_current_repository_knowledge_generation(
+            bundle_dir,
+            org_repo=snapshot.org_repo,
+            source_revision=snapshot.source_revision,
+        )
+        is not None
+    )
+
+    (destination / "claims.json").write_text("[]\n", encoding="utf-8")
+    assert (
+        load_current_repository_knowledge_generation(
+            bundle_dir,
+            org_repo=snapshot.org_repo,
+            source_revision=snapshot.source_revision,
+        )
+        is None
+    )

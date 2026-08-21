@@ -24,6 +24,10 @@ from readme_agent.facts.knowledge_application_evidence import (
 )
 from readme_agent.facts.local_verification import local_verification_contract_hash
 from readme_agent.facts.provider import collect_product_facts
+from readme_agent.facts.repository_knowledge_generator import (
+    generate_repository_knowledge,
+    repository_knowledge_data_root,
+)
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.registry.loader import require_listed
 from readme_agent.repository_snapshot import RepositorySnapshotV1
@@ -33,6 +37,10 @@ from readme_agent.state.readme_poc_lifecycle import (
     bind_fact_acceptance_contract,
     record_product_facts_outcome,
     switch_content_assurance,
+)
+from readme_agent.supervisor.knowledge_generation_evidence import (
+    load_current_repository_knowledge_generation,
+    write_repository_knowledge_generation,
 )
 from readme_agent.supervisor.local_poc_evidence import (
     bind_local_poc_fact_acceptance,
@@ -152,6 +160,16 @@ def load_prepared_product_truth(
 
     org, repo = org_repo.split("/", maxsplit=1)
     bundle_dir = paths.readme_poc_repository_dir(org, repo, source_revision)
+    if getattr(entry, "family", None) and getattr(entry, "platform", None):
+        if (
+            load_current_repository_knowledge_generation(
+                bundle_dir,
+                org_repo=org_repo,
+                source_revision=source_revision,
+            )
+            is None
+        ):
+            return None
     recovered = recover_interrupted_product_truth_commit(
         org_repo,
         source_revision,
@@ -413,9 +431,39 @@ def prepare_local_product_truth(
     if cached is not None:
         return cached
 
-    base_result = collect_product_facts(org_repo)
-    facts = ProductFactsV2.model_validate(base_result["product_facts_v2"])
     entry = require_listed(org_repo)
+    knowledge_family = getattr(entry, "family", None)
+    knowledge_platform = getattr(entry, "platform", None)
+    knowledge_data_root = (
+        repository_knowledge_data_root(snapshot)
+        if knowledge_family and knowledge_platform
+        else None
+    )
+    knowledge_generation = (
+        generate_repository_knowledge(
+            snapshot,
+            family=knowledge_family,
+            platform=knowledge_platform,
+            output_root=(
+                knowledge_data_root / "knowledge" / knowledge_family / knowledge_platform / "merged"
+            ),
+        )
+        if knowledge_data_root is not None and knowledge_family and knowledge_platform
+        else None
+    )
+    # Keep the established one-argument collector seam for repositories that do not
+    # resolve to a knowledge bundle.  Besides preserving compatibility for non-Aspose
+    # profiles, this makes the presence of the keyword itself an honest signal that a
+    # current generated corpus is being supplied.
+    base_result = (
+        collect_product_facts(
+            org_repo,
+            knowledge_claims_data_root=knowledge_data_root,
+        )
+        if knowledge_data_root is not None
+        else collect_product_facts(org_repo)
+    )
+    facts = ProductFactsV2.model_validate(base_result["product_facts_v2"])
 
     findings: list[dict] = []
     proposed_product_truth: dict | None = None
@@ -466,15 +514,18 @@ def prepare_local_product_truth(
         fact_acceptance_contract_hash=fact_acceptance_contract_hash,
         fact_acceptance_component_hashes=fact_acceptance_contract.component_hashes,
     )
-    knowledge_family = getattr(entry, "family", None)
-    knowledge_platform = getattr(entry, "platform", None)
-    knowledge_data_root = Path.cwd() / "data" / "imported"
-    if knowledge_family and knowledge_platform and knowledge_data_root.is_dir():
+    generation_receipt = (
+        write_repository_knowledge_generation(snapshot, knowledge_generation)
+        if knowledge_generation is not None
+        else None
+    )
+    if knowledge_family and knowledge_platform and knowledge_data_root is not None:
         knowledge_report = build_knowledge_application_report(
             org_repo,
             knowledge_family,
             knowledge_platform,
             data_root=knowledge_data_root,
+            seo_data_root=Path.cwd() / "data" / "imported",
             clone_cache=Path(snapshot.snapshot_root),
             source_revision=snapshot.source_revision,
         )
@@ -489,6 +540,7 @@ def prepare_local_product_truth(
             str(bundle_dir / "facts" / "product-facts.json"),
             str(bundle_dir / "facts" / "provenance.json"),
             str(bundle_dir / "facts" / "conflicts.json"),
+            *([str(generation_receipt)] if generation_receipt is not None else []),
         ],
         prompt_hash=prompt_hash,
         fact_acceptance_contract_hash=fact_acceptance_contract_hash,

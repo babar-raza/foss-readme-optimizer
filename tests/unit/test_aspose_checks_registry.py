@@ -79,6 +79,20 @@ def test_invoke_rejects_an_unaccepted_keyword_argument():
         descriptor.invoke(readme_text="# X", some_unexpected_kwarg=True)
 
 
+def test_optional_check_parameters_are_not_required_or_injected():
+    registry = load_check_registry()
+    descriptor = registry["check_diagram_label_geometry"]
+
+    assert descriptor.parameters == (
+        "markdown_text",
+        "max_token_chars",
+        "chars_per_line",
+        "max_lines",
+    )
+    assert descriptor.required_parameters == ("markdown_text",)
+    assert descriptor.invoke(markdown_text="# Product\n") == []
+
+
 # --- Real end-to-end invocation of actual vendored functions ---
 
 

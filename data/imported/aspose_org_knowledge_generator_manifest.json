@@ -1,5 +1,5 @@
 {
-  "aggregate_sha256": "290335880ffbe5c72334e13dc7397c0d9bfa35331df82da2221686843ceedc02",
+  "aggregate_sha256": "a278092b2fbbcfbde5f4127a6bb1fd76aac871150d36803d73b2a571ffbff2f2",
   "explicitly_not_imported_as_authority": [
     "llm_enrichment_confidence",
     "promotion_and_indexing_controller",
@@ -72,6 +72,36 @@
       "destination": "validate_scout_output.py",
       "git_blob": "e570fd6a76a8b9cb85c6150c7c4100fb052284db",
       "sha256": "18ff7642e33b486297afeed22eb807ec9c96fdf0fb56fa9421a69eb77ddb36e5"
+    },
+    "scripts/pipeline/scout_enrichers/README.md": {
+      "bytes": 3100,
+      "destination": "../scout_enrichers/README.md",
+      "git_blob": "4324f37470fc02010334f42d140cc0af5b68b9f9",
+      "sha256": "f1b6a77775fbfaa5e94b4702f16f90fb59d4ed67c059ec9d4f521a0d0433dbbe"
+    },
+    "scripts/pipeline/scout_enrichers/__init__.py": {
+      "bytes": 1280,
+      "destination": "../scout_enrichers/__init__.py",
+      "git_blob": "99a97a8529d6c257b4ea7ffe7bf392d1eda7f4cd",
+      "sha256": "2e1812c313ff65ce100ce510a8a3338e1e272e66c9d4b2e6216c3e8a454e68a2"
+    },
+    "scripts/pipeline/scout_enrichers/_doxygen.py": {
+      "bytes": 5780,
+      "destination": "../scout_enrichers/_doxygen.py",
+      "git_blob": "d8255b9e88c8a5d367c198bc0a2834d40914bea7",
+      "sha256": "47c131b4bd4b24cc02d13722bdd4631cacbf25321f41be3b1e6913dfe37f786e"
+    },
+    "scripts/pipeline/scout_enrichers/_javadoc.py": {
+      "bytes": 5370,
+      "destination": "../scout_enrichers/_javadoc.py",
+      "git_blob": "c58f8a5a0f994acf5fb2fd6f36519adbbf34bc38",
+      "sha256": "bcd429a6eeebb1262848026a3c8546416e6f17f7c520d353c55396731e534d77"
+    },
+    "scripts/pipeline/scout_enrichers/_xml_doc.py": {
+      "bytes": 4416,
+      "destination": "../scout_enrichers/_xml_doc.py",
+      "git_blob": "6feca6e652ab9b1b0f2b2e181695769fa3e3692a",
+      "sha256": "765acab347a9e4804bacca53e058247e26859596b12b2c7161bbf887b7a22f05"
     }
   },
   "import_policy": "committed_git_objects_allowlist",
@@ -80,10 +110,13 @@
     "api_surface_extraction",
     "format_direction_extraction",
     "limitation_detection",
-    "snippet_extraction"
+    "snippet_extraction",
+    "deterministic_javadoc_enrichment",
+    "deterministic_doxygen_enrichment",
+    "deterministic_xml_doc_enrichment"
   ],
-  "schema_version": "1.0",
-  "source_commit": "bf9381af81415843a36a8f50cb6415e01f03ad55",
-  "source_path": "scripts/pipeline/extraction",
+  "schema_version": "1.1",
+  "source_commit": "92f213302a15797bc0bce1b8f34e45f11db02acc",
+  "source_path": "scripts/pipeline/{extraction,scout_enrichers}",
   "source_repository": "aspose.org"
 }

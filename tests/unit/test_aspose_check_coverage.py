@@ -140,7 +140,7 @@ def test_real_end_to_end_report_against_the_real_registry_and_classification():
 
     assert report.check_count == len(load_check_registry())
     assert report.pass_count + report.fail_count == len(result.checks_run)
-    assert report.skip_count >= len(result.checks_skipped)
+    assert report.skip_count + report.not_applicable_count == len(result.checks_skipped)
     assert report.error_count == len(result.checks_errored)
 
 

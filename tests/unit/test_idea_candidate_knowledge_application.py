@@ -49,6 +49,7 @@ def _wire_common_mocks(monkeypatch, tmp_path, *, candidate: str, document_plan):
     work_root.mkdir()
     (work_root / "README.md").write_text(immutable_source, encoding="utf-8")
     snapshot = SimpleNamespace(
+        org_repo="acme/widget",
         root_path=snapshot_root,
         readme_path="README.md",
         source_revision=revision,

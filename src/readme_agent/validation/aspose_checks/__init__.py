@@ -107,6 +107,7 @@ class AsposeCheckDescriptorV1:
     section: str | None
     doc_summary: str
     parameters: tuple[str, ...]
+    required_parameters: tuple[str, ...]
 
     def invoke(self, **kwargs: Any) -> Any:
         """Call the underlying vendored function with exactly the keyword
@@ -118,6 +119,9 @@ class AsposeCheckDescriptorV1:
         extra = set(kwargs) - accepted
         if extra:
             raise TypeError(f"{self.name} does not accept: {sorted(extra)}")
+        missing = set(self.required_parameters) - set(kwargs)
+        if missing:
+            raise TypeError(f"{self.name} requires: {sorted(missing)}")
         return self.function(**kwargs)
 
 
@@ -167,6 +171,8 @@ _MINIMAL_VALUES_BY_PARAM_NAME: dict[str, Any] = {
     "archetype": "transform",
     "plan_run_date": "2026-08-16",
     "max_token_chars": 28,
+    "chars_per_line": 26,
+    "max_lines": 3,
     "dispositions": [],
     "content_units": [],
     "structural_units": [],
@@ -193,6 +199,13 @@ _MINIMAL_VALUES_BY_PARAM_NAME: dict[str, Any] = {
     "connector_allowlist": None,
     "known_family_display_names": None,
     "canonical_casing": None,
+    "authorized_block_ids": [],
+    "baseline_markdown_text": _MIN_MARKDOWN_TEXT,
+    "candidate_markdown_text": _MIN_MARKDOWN_TEXT,
+    "draft_text": "",
+    "registry_entries": [],
+    "reject_self_citation": True,
+    "seo_keyword_plan": [],
 }
 
 
@@ -250,7 +263,15 @@ def load_check_registry() -> dict[str, AsposeCheckDescriptorV1]:
         docstring = inspect.getdoc(function) or ""
         severity = _classify_severity(docstring)
         scope, section = _classify_scope(name)
-        parameters = tuple(inspect.signature(function).parameters)
+        signature = inspect.signature(function)
+        parameters = tuple(signature.parameters)
+        required_parameters = tuple(
+            name
+            for name, parameter in signature.parameters.items()
+            if parameter.default is inspect.Parameter.empty
+            and parameter.kind
+            not in {inspect.Parameter.VAR_POSITIONAL, inspect.Parameter.VAR_KEYWORD}
+        )
         registry[name] = AsposeCheckDescriptorV1(
             name=name,
             function=function,
@@ -259,6 +280,7 @@ def load_check_registry() -> dict[str, AsposeCheckDescriptorV1]:
             section=section,
             doc_summary=docstring.splitlines()[0] if docstring else "",
             parameters=parameters,
+            required_parameters=required_parameters,
         )
     return registry
 

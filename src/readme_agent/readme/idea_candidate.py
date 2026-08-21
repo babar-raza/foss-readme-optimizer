@@ -8,6 +8,7 @@ from pathlib import Path
 from readme_agent import paths
 from readme_agent.facts.knowledge_application_evidence import build_knowledge_application_report
 from readme_agent.facts.provider import collect_product_facts
+from readme_agent.facts.repository_knowledge_generator import repository_knowledge_data_root
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.gitsafety.clone import clone_baseline
 from readme_agent.gitsafety.hooks import install_pre_push_hook
@@ -136,7 +137,8 @@ def prepare_idea_fidelity_candidate(
             org_repo,
             entry.family,
             entry.platform,
-            data_root=Path.cwd() / "data" / "imported",
+            data_root=repository_knowledge_data_root(snapshot),
+            seo_data_root=Path.cwd() / "data" / "imported",
             clone_cache=snapshot.root_path,
             source_revision=snapshot.source_revision,
             document_plan=document_plan,

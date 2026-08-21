@@ -7,7 +7,10 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from readme_agent.facts.knowledge_evidence_verification import evidence_content_signal
+from readme_agent.facts.knowledge_evidence_verification import (
+    EvidenceContentCache,
+    evidence_content_signal,
+)
 
 
 def test_evidence_content_signal_positive_implementation(tmp_path: Path):
@@ -247,3 +250,18 @@ def test_evidence_content_signal_negative_outranks_positive_across_evidence_item
 
 def test_evidence_content_signal_empty_evidence_is_unresolved(tmp_path: Path):
     assert evidence_content_signal((), tmp_path, claim_kind="format_support") == "unresolved"
+
+
+def test_evidence_cache_parses_one_immutable_file_once_across_claims(tmp_path: Path):
+    (tmp_path / "widget.py").write_text(
+        "class Widget:\n    def export(self):\n        return b'ok'\n", encoding="utf-8"
+    )
+    cache = EvidenceContentCache(tmp_path)
+    evidence = ({"file": "widget.py", "line": 2},)
+
+    first = evidence_content_signal(evidence, tmp_path, claim_kind="format_support", cache=cache)
+    second = evidence_content_signal(evidence, tmp_path, claim_kind="format_support", cache=cache)
+
+    assert first == second == "positive"
+    assert len(cache.texts) == 1
+    assert len(cache.trees) == 1

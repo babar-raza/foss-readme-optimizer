@@ -13,9 +13,10 @@ from readme_agent.facts import aspose_org_vendored_source as source_module
 def test_committed_vendored_source_inventory_validates_without_sibling_checkout() -> None:
     source = source_module.load_vendored_aspose_org_source()
 
-    assert source.source_commit == "bf9381af81415843a36a8f50cb6415e01f03ad55"
-    assert len(source.files) == 11
+    assert source.source_commit == "92f213302a15797bc0bce1b8f34e45f11db02acc"
+    assert len(source.files) == 16
     assert source.pipeline.joinpath("extraction/scout.py").is_file()
+    assert source.pipeline.joinpath("scout_enrichers/_javadoc.py").is_file()
 
 
 def test_vendored_source_rejects_changed_bytes(tmp_path: Path, monkeypatch) -> None:

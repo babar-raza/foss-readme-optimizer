@@ -5,22 +5,11 @@ from __future__ import annotations
 import ast
 
 
-def function_is_unimplemented(source: str, line_number: int) -> bool:
-    """Return whether the function at ``line_number`` only raises an unsupported error."""
+def function_node_is_unimplemented(
+    source: str, function: ast.FunctionDef | ast.AsyncFunctionDef
+) -> bool:
+    """Classify one already-parsed function node without reparsing its source file."""
 
-    try:
-        tree = ast.parse(source)
-    except SyntaxError:
-        return False
-    functions = [
-        node
-        for node in ast.walk(tree)
-        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
-        and node.lineno <= line_number <= (node.end_lineno or node.lineno)
-    ]
-    if not functions:
-        return False
-    function = min(functions, key=lambda node: (node.end_lineno or node.lineno) - node.lineno)
     body = list(function.body)
     if body and isinstance(body[0], ast.Expr) and isinstance(body[0].value, ast.Constant):
         if isinstance(body[0].value.value, str):
@@ -37,3 +26,22 @@ def function_is_unimplemented(source: str, line_number: int) -> bool:
     else:
         return False
     return name.startswith(("NotImplemented", "NotSupported", "Unsupported"))
+
+
+def function_is_unimplemented(source: str, line_number: int) -> bool:
+    """Return whether the function at ``line_number`` only raises an unsupported error."""
+
+    try:
+        tree = ast.parse(source)
+    except SyntaxError:
+        return False
+    functions = [
+        node
+        for node in ast.walk(tree)
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+        and node.lineno <= line_number <= (node.end_lineno or node.lineno)
+    ]
+    if not functions:
+        return False
+    function = min(functions, key=lambda node: (node.end_lineno or node.lineno) - node.lineno)
+    return function_node_is_unimplemented(source, function)

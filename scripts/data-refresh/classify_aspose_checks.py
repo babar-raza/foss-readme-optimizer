@@ -160,6 +160,15 @@ _BLOCKING_OVERRIDES: dict[str, str] = {
     ),
 }
 
+# Current upstream also validates the public issue draft produced by its own
+# refresh workflow. This repository's acceptance bridge validates README
+# candidates, not issue drafts. Keep these functions inventoried and tested,
+# but never imply they are an unimplemented README acceptance obligation.
+_UNRELATED_CHECKS = {
+    "check_issue_draft_rejection_list",
+    "check_no_internal_details_leaked_into_issue_draft",
+}
+
 # `check_no_excluded_domain_links` was previously overridden to nonblocking
 # here: it fired against a real captured-evidence NET fixture
 # (tests/unit/test_readme_existing_section_regressions.py) whose original
@@ -247,11 +256,15 @@ def build_classification() -> dict:
 
     entries = []
     for name, descriptor in sorted(registry.items()):
-        missing_params = sorted(set(descriptor.parameters) - _REAL_PARAM_NAMES)
+        missing_params = sorted(set(descriptor.required_parameters) - _REAL_PARAM_NAMES)
         runnable_now = not missing_params
         severity = _SEVERITY_OVERRIDES.get(name, descriptor.severity)
 
-        if not runnable_now:
+        if name in _UNRELATED_CHECKS:
+            classification = "unrelated"
+            blocking = False
+            reason = "validates an upstream issue-draft artifact, not a README candidate"
+        elif not runnable_now:
             classification = "applicable_after_adaptation"
             blocking = False
             reason = f"blocked on missing production input(s): {', '.join(missing_params)}"

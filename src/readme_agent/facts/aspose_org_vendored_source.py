@@ -28,7 +28,7 @@ def load_vendored_aspose_org_source() -> VendoredAsposeOrgSourceV1:
     manifest_path = repository_root / "data/imported/aspose_org_knowledge_generator_manifest.json"
     vendored_root = repository_root / "src/readme_agent/vendored_asposeorg"
     payload = json.loads(manifest_path.read_text(encoding="utf-8"))
-    if payload.get("schema_version") != "1.0":
+    if payload.get("schema_version") not in {"1.0", "1.1"}:
         raise ValueError("unsupported Aspose.org knowledge-generator manifest")
     raw_files = payload.get("files")
     if not isinstance(raw_files, dict) or not raw_files:
@@ -44,7 +44,10 @@ def load_vendored_aspose_org_source() -> VendoredAsposeOrgSourceV1:
         expected_bytes = raw.get("bytes")
         if not all(isinstance(value, str) for value in (relative, expected, expected_blob)):
             raise ValueError(f"invalid Aspose.org generator identity for {source_path}")
-        path = vendored_root / "scripts/pipeline/extraction" / str(relative)
+        pipeline_root = (vendored_root / "scripts/pipeline").resolve()
+        path = (pipeline_root / "extraction" / str(relative)).resolve()
+        if not path.is_relative_to(pipeline_root):
+            raise ValueError(f"vendored generator path escapes pipeline root: {relative}")
         content = path.read_bytes()
         actual = hashlib.sha256(content).hexdigest()
         if actual != expected or len(content) != expected_bytes:

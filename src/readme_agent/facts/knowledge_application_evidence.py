@@ -290,6 +290,7 @@ def build_knowledge_application_report(
     platform: str,
     *,
     data_root: Path,
+    seo_data_root: Path | None = None,
     clone_cache: Path,
     source_revision: str | None,
     document_plan: ReadmeDocumentPlanV1 | None = None,
@@ -386,7 +387,11 @@ def build_knowledge_application_report(
         status=final_status,
     )
 
-    seo_dispositions = seo_keyword_dispositions(family, platform, data_root=data_root)
+    seo_dispositions = seo_keyword_dispositions(
+        family,
+        platform,
+        data_root=seo_data_root or data_root,
+    )
     return KnowledgeApplicationV1(
         status=final_status,
         org_repo=org_repo,

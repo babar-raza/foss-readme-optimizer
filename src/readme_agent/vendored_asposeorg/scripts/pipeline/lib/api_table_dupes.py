@@ -17,10 +17,6 @@ takes the heading-level regexes as parameters so each caller supplies its own wi
 duplicating the walk logic.
 """
 
-# Adapted from aspose.org: scripts/pipeline/lib/api_table_dupes.py @ 7f72da4e1423546104b40fa8cebf5b9ae3ce9c91
-# Imported under the authorization recorded in
-# plans/investigations/evidence/imported-corpus-v1/licensing-resolution-state.md
-
 from __future__ import annotations
 
 import re

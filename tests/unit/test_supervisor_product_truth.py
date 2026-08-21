@@ -1297,7 +1297,7 @@ def test_changed_fact_graph_contract_recollects_before_reaccepting(
     collection_calls = []
     monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
 
-    def collect(org_repo):
+    def collect(org_repo, **kwargs):
         collection_calls.append(org_repo)
         return {"product_facts_v2": facts}
 

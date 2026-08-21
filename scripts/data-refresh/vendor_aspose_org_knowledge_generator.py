@@ -20,8 +20,23 @@ SOURCE_FILES = (
     "scripts/pipeline/extraction/snippets.py",
     "scripts/pipeline/extraction/tree_helpers.py",
     "scripts/pipeline/extraction/validate_scout_output.py",
+    "scripts/pipeline/scout_enrichers/README.md",
+    "scripts/pipeline/scout_enrichers/__init__.py",
+    "scripts/pipeline/scout_enrichers/_doxygen.py",
+    "scripts/pipeline/scout_enrichers/_javadoc.py",
+    "scripts/pipeline/scout_enrichers/_xml_doc.py",
 )
-SCHEMA_VERSION = "1.0"
+SCHEMA_VERSION = "1.1"
+
+
+def _destination_relative(source_path: str) -> str:
+    extraction_prefix = "scripts/pipeline/extraction/"
+    enricher_prefix = "scripts/pipeline/scout_enrichers/"
+    if source_path.startswith(extraction_prefix):
+        return source_path.removeprefix(extraction_prefix)
+    if source_path.startswith(enricher_prefix):
+        return "../scout_enrichers/" + source_path.removeprefix(enricher_prefix)
+    raise ValueError(f"source file is outside the qualified pipeline paths: {source_path}")
 
 
 def _git(source: Path, *args: str, text: bool = False) -> bytes | str:
@@ -93,12 +108,11 @@ def vendor(
     _guard_local_edits(destination, existing)
     records: dict[str, dict[str, object]] = {}
     staged: dict[Path, bytes] = {}
-    prefix = "scripts/pipeline/extraction/"
     for source_path in SOURCE_FILES:
         content = _git(source, "show", f"{commit}:{source_path}")
         assert isinstance(content, bytes)
         blob = str(_git(source, "rev-parse", f"{commit}:{source_path}", text=True)).strip()
-        relative = source_path.removeprefix(prefix)
+        relative = _destination_relative(source_path)
         staged[destination / relative] = content
         records[source_path] = {
             "destination": relative,
@@ -112,7 +126,7 @@ def vendor(
     manifest: dict[str, object] = {
         "schema_version": SCHEMA_VERSION,
         "source_repository": "aspose.org",
-        "source_path": "scripts/pipeline/extraction",
+        "source_path": "scripts/pipeline/{extraction,scout_enrichers}",
         "source_commit": commit,
         "import_policy": "committed_git_objects_allowlist",
         "qualified_scope": [
@@ -121,6 +135,9 @@ def vendor(
             "format_direction_extraction",
             "limitation_detection",
             "snippet_extraction",
+            "deterministic_javadoc_enrichment",
+            "deterministic_doxygen_enrichment",
+            "deterministic_xml_doc_enrichment",
         ],
         "explicitly_not_imported_as_authority": [
             "llm_enrichment_confidence",

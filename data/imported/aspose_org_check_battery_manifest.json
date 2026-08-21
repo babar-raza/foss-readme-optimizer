@@ -1,0 +1,20 @@
+{
+  "aggregate_sha256": "0afad96ad66968762c0e1b00a14d9cd386104fe9212d7c1b2f31c697c01e971f",
+  "files": [
+    {
+      "destination_path": "src/readme_agent/vendored_asposeorg/scripts/pipeline/commands/foss/readme_refresh_checks.py",
+      "sha256": "e3bfa81cb0fdb5af4dd440236c8b230699dd548ad22a44382ea0672a0a7b961c",
+      "source_path": "scripts/pipeline/commands/foss/readme_refresh_checks.py"
+    },
+    {
+      "destination_path": "src/readme_agent/vendored_asposeorg/scripts/pipeline/lib/api_table_dupes.py",
+      "sha256": "a6fc0e17b26eb8009e35765f44e5ac229e42777b36a97354d6e7b57aa369a8c2",
+      "source_path": "scripts/pipeline/lib/api_table_dupes.py"
+    }
+  ],
+  "qualification": "Upstream checks are imported as evidence-bearing candidates. Local classification, fixtures, and bridge support decide whether each check is blocking, diagnostic, adaptation-required, or not applicable. Upstream controller state is never imported.",
+  "schema_version": 1,
+  "source_commit": "92f213302a15797bc0bce1b8f34e45f11db02acc",
+  "source_mode": "committed_git_objects",
+  "source_repository": "D:\\onedrive\\Documents\\GitHub\\aspose.org"
+}

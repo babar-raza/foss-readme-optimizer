@@ -1043,6 +1043,7 @@ class TestRenderReadmeCandidateCapability:
         work_root.mkdir()
         (work_root / "README.md").write_text("# Stale persistent work clone\n", encoding="utf-8")
         snapshot = SimpleNamespace(
+            org_repo="acme/widget",
             root_path=snapshot_root,
             readme_path="README.md",
             source_revision=revision,

@@ -120,6 +120,11 @@ def test_imported_knowledge_component_hash_changes_when_manifest_content_changes
     manifest_path.write_text('{"aggregate_sha256": "aaaa"}', encoding="utf-8")
 
     relative_paths = _COMPONENT_FILES["imported_knowledge"]
+    for relative_path in relative_paths:
+        dependency = facts_dir / relative_path
+        dependency.parent.mkdir(parents=True, exist_ok=True)
+        if not dependency.exists():
+            dependency.write_text(f"# fixture: {relative_path}\n", encoding="utf-8")
     before = _component_hash(facts_dir, relative_paths)
 
     unchanged = _component_hash(facts_dir, relative_paths)
@@ -165,6 +170,11 @@ def test_aspose_checks_component_hash_changes_when_classification_content_change
     classification_path.write_text('{"blocking_count": 1}', encoding="utf-8")
 
     relative_paths = _COMPONENT_FILES["aspose_checks"]
+    for relative_path in relative_paths:
+        dependency = facts_dir / relative_path
+        dependency.parent.mkdir(parents=True, exist_ok=True)
+        if not dependency.exists():
+            dependency.write_text(f"# fixture: {relative_path}\n", encoding="utf-8")
     before = _component_hash(facts_dir, relative_paths)
 
     classification_path.write_text('{"blocking_count": 2}', encoding="utf-8")

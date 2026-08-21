@@ -220,6 +220,7 @@ def collect_product_facts(
     *,
     prior_upstream_revision: str | None = None,
     prior_profile_result: dict | None = None,
+    knowledge_claims_data_root: Path | None = None,
 ) -> dict:
     """Re-derive facts through the allow-list, policy, and repository seams."""
 
@@ -372,7 +373,7 @@ def collect_product_facts(
             knowledge_claim_fact_records(
                 entry.family,
                 entry.platform,
-                data_root=aspose_data_root,
+                data_root=knowledge_claims_data_root or aspose_data_root,
                 clone_cache=root,
                 source_revision=source_revision,
             )

@@ -97,7 +97,10 @@ from readme_agent.facts.aspose_knowledge_claims import (
     load_bundle_provenance,
     load_knowledge_claims_with_findings,
 )
-from readme_agent.facts.knowledge_evidence_verification import evidence_content_signal
+from readme_agent.facts.knowledge_evidence_verification import (
+    EvidenceContentCache,
+    evidence_content_signal,
+)
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, descriptive_fact_id
 from readme_agent.license.auditor import classify_license_text
 
@@ -322,7 +325,9 @@ def _license_claim_corroboration(
 
 
 def _content_claim_corroboration(
-    claim: ImportedKnowledgeClaimV1, clone_cache: Path
+    claim: ImportedKnowledgeClaimV1,
+    clone_cache: Path,
+    evidence_cache: EvidenceContentCache,
 ) -> ClaimCorroboration:
     """Every non-license claim family's real corroboration path:
     item-level, polarity-aware content verification
@@ -334,7 +339,12 @@ def _content_claim_corroboration(
     wins, exactly like the license path's SPDX mismatch); no resolvable
     signal at all stays uncorroborated."""
 
-    signal = evidence_content_signal(claim.evidence, clone_cache, claim_kind=claim.kind)
+    signal = evidence_content_signal(
+        claim.evidence,
+        clone_cache,
+        claim_kind=claim.kind,
+        cache=evidence_cache,
+    )
     if signal == "unresolved":
         return "uncorroborated"
     expects_negative = claim.kind == "limitation"
@@ -342,10 +352,14 @@ def _content_claim_corroboration(
     return "corroborated" if observed_negative == expects_negative else "conflict"
 
 
-def _claim_corroboration(claim: ImportedKnowledgeClaimV1, clone_cache: Path) -> ClaimCorroboration:
+def _claim_corroboration(
+    claim: ImportedKnowledgeClaimV1,
+    clone_cache: Path,
+    evidence_cache: EvidenceContentCache,
+) -> ClaimCorroboration:
     if claim.kind == "license":
         return _license_claim_corroboration(claim, clone_cache)
-    return _content_claim_corroboration(claim, clone_cache)
+    return _content_claim_corroboration(claim, clone_cache, evidence_cache)
 
 
 def _claim_eligibility(
@@ -500,6 +514,7 @@ def select_knowledge_claims(
     kind_field_map = _effective_kind_field_map()
     api_surface = detect_api_public_surface(family, platform, data_root=data_root)
     canonical_api_pattern = _canonical_api_symbol_pattern(_canonical_api_symbol_names(api_surface))
+    evidence_cache = EvidenceContentCache(clone_cache)
 
     dispositions: list[KnowledgeClaimDispositionV1] = []
     fact_records: list[FactRecordV2] = []
@@ -551,7 +566,7 @@ def select_knowledge_claims(
         # confidence/cap gates).
         signals: dict[str, tuple[ClaimCorroboration, bool, bool]] = {}
         for claim in field_claims:
-            corroboration = _claim_corroboration(claim, clone_cache)
+            corroboration = _claim_corroboration(claim, clone_cache, evidence_cache)
             claim_normalized = _normalize_for_relevance(claim.text)
             already_in_readme = bool(claim_normalized) and claim_normalized in readme_normalized
             search_intent_match = any(

@@ -23,7 +23,7 @@ import ast
 from pathlib import Path
 from typing import Literal
 
-from readme_agent.facts.python_evidence_polarity import function_is_unimplemented
+from readme_agent.facts.python_evidence_polarity import function_node_is_unimplemented
 
 EvidenceContentSignal = Literal["positive", "negative", "unresolved"]
 
@@ -46,6 +46,37 @@ _PATH_KEYS: tuple[str, ...] = ("source_file", "file")
 # real content, the same circular-authority risk this whole module exists
 # to prevent for "cited file merely exists" signals.
 _SYNTHETIC_EVIDENCE_FILENAMES = frozenset({"verified_facts.txt"})
+
+
+class EvidenceContentCache:
+    """Per-immutable-snapshot file, source, and AST cache for claim corroboration."""
+
+    def __init__(self, clone_cache: Path) -> None:
+        self.root = clone_cache.resolve()
+        self.resolved: dict[str, Path | None] = {}
+        self.texts: dict[Path, str | None] = {}
+        self.trees: dict[Path, ast.Module | None] = {}
+
+    def resolve(self, reference: str) -> Path | None:
+        if reference in self.resolved:
+            return self.resolved[reference]
+        resolved = _safe_resolve(self.root, reference)
+        self.resolved[reference] = resolved
+        return resolved
+
+    def text(self, path: Path) -> str | None:
+        if path not in self.texts:
+            self.texts[path] = _read_text(path)
+        return self.texts[path]
+
+    def source_and_tree(self, path: Path) -> tuple[str | None, ast.Module | None]:
+        source = self.text(path)
+        if path not in self.trees:
+            try:
+                self.trees[path] = ast.parse(source) if source is not None else None
+            except SyntaxError:
+                self.trees[path] = None
+        return source, self.trees[path]
 
 
 def _is_synthetic_evidence_reference(reference: str) -> bool:
@@ -119,7 +150,7 @@ def _class_wide_signal(tree: ast.Module, source: str, line: int) -> EvidenceCont
     ]
     if not public_methods:
         return "unresolved"
-    stub_flags = [function_is_unimplemented(source, member.lineno) for member in public_methods]
+    stub_flags = [function_node_is_unimplemented(source, member) for member in public_methods]
     if all(stub_flags):
         return "negative"
     if not any(stub_flags):
@@ -127,7 +158,11 @@ def _class_wide_signal(tree: ast.Module, source: str, line: int) -> EvidenceCont
     return "unresolved"
 
 
-def _python_line_signal(evidence_item: dict, resolved_path: Path) -> EvidenceContentSignal:
+def _python_line_signal(
+    evidence_item: dict,
+    resolved_path: Path,
+    cache: EvidenceContentCache,
+) -> EvidenceContentSignal:
     """Verifier: a cited Python source line. Prefers the innermost function
     containing the line (the common case -- a limitation claim citing the
     exact `raise` line, or a method-level citation); falls back to the
@@ -137,12 +172,8 @@ def _python_line_signal(evidence_item: dict, resolved_path: Path) -> EvidenceCon
     line = evidence_item.get("line")
     if resolved_path.suffix != ".py" or not isinstance(line, int) or line < 1:
         return "unresolved"
-    source = _read_text(resolved_path)
-    if source is None:
-        return "unresolved"
-    try:
-        tree = ast.parse(source)
-    except SyntaxError:
+    source, tree = cache.source_and_tree(resolved_path)
+    if source is None or tree is None:
         return "unresolved"
     functions = [
         node
@@ -152,12 +183,16 @@ def _python_line_signal(evidence_item: dict, resolved_path: Path) -> EvidenceCon
     ]
     if functions:
         innermost = min(functions, key=lambda node: (node.end_lineno or node.lineno) - node.lineno)
-        return "negative" if function_is_unimplemented(source, innermost.lineno) else "positive"
+        return "negative" if function_node_is_unimplemented(source, innermost) else "positive"
     return _class_wide_signal(tree, source, line)
 
 
 def _snippet_freshness_signal(
-    evidence_item: dict, resolved_path: Path, *, claim_kind: str
+    evidence_item: dict,
+    resolved_path: Path,
+    *,
+    claim_kind: str,
+    cache: EvidenceContentCache,
 ) -> EvidenceContentSignal:
     """Verifier: a cited prose/markdown snippet (LLM-enriched claims). The
     snippet was captured, by construction, as support for this exact claim;
@@ -169,7 +204,7 @@ def _snippet_freshness_signal(
     snippet = evidence_item.get("snippet")
     if not isinstance(snippet, str) or not snippet.strip():
         return "unresolved"
-    content = _read_text(resolved_path)
+    content = cache.text(resolved_path)
     if content is None:
         return "unresolved"
     if _normalize_whitespace(snippet) not in _normalize_whitespace(content):
@@ -178,7 +213,11 @@ def _snippet_freshness_signal(
 
 
 def _evidence_item_signal(
-    evidence_item: object, clone_cache: Path, *, claim_kind: str
+    evidence_item: object,
+    clone_cache: Path,
+    *,
+    claim_kind: str,
+    cache: EvidenceContentCache,
 ) -> EvidenceContentSignal:
     if not isinstance(evidence_item, dict):
         return "unresolved"
@@ -186,19 +225,28 @@ def _evidence_item_signal(
     for key in _PATH_KEYS:
         reference = evidence_item.get(key)
         if isinstance(reference, str) and reference:
-            resolved = _safe_resolve(clone_cache, reference)
+            resolved = cache.resolve(reference)
             if resolved is not None:
                 break
     if resolved is None:
         return "unresolved"
-    line_signal = _python_line_signal(evidence_item, resolved)
+    line_signal = _python_line_signal(evidence_item, resolved, cache)
     if line_signal != "unresolved":
         return line_signal
-    return _snippet_freshness_signal(evidence_item, resolved, claim_kind=claim_kind)
+    return _snippet_freshness_signal(
+        evidence_item,
+        resolved,
+        claim_kind=claim_kind,
+        cache=cache,
+    )
 
 
 def evidence_content_signal(
-    evidence: tuple[dict, ...], clone_cache: Path, *, claim_kind: str
+    evidence: tuple[dict, ...],
+    clone_cache: Path,
+    *,
+    claim_kind: str,
+    cache: EvidenceContentCache | None = None,
 ) -> EvidenceContentSignal:
     """Combine every cited evidence item's resolved content signal for one
     claim. Negative (stub/constraint) evidence always outranks a merely
@@ -208,7 +256,18 @@ def evidence_content_signal(
     yields a definite signal -- the mere existence of a cited file is never
     itself a signal."""
 
-    signals = [_evidence_item_signal(item, clone_cache, claim_kind=claim_kind) for item in evidence]
+    active_cache = cache or EvidenceContentCache(clone_cache)
+    if active_cache.root != clone_cache.resolve():
+        raise ValueError("evidence cache belongs to another immutable snapshot")
+    signals = [
+        _evidence_item_signal(
+            item,
+            clone_cache,
+            claim_kind=claim_kind,
+            cache=active_cache,
+        )
+        for item in evidence
+    ]
     if "negative" in signals:
         return "negative"
     if "positive" in signals:
@@ -216,4 +275,4 @@ def evidence_content_signal(
     return "unresolved"
 
 
-__all__ = ["EvidenceContentSignal", "evidence_content_signal"]
+__all__ = ["EvidenceContentCache", "EvidenceContentSignal", "evidence_content_signal"]

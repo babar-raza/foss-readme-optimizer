@@ -11,11 +11,14 @@ import tempfile
 from pathlib import Path
 from typing import Literal
 
-import yaml
 from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.facts.aspose_org_vendored_source import load_vendored_aspose_org_source
 from readme_agent.facts.example_execution import secret_free_environment
+from readme_agent.facts.repository_knowledge_adapter import (
+    ADAPTER_SCHEMA_VERSION,
+    adapt_scout_output,
+)
 from readme_agent.repository_snapshot import RepositorySnapshotV1, verify_repository_snapshot
 
 _PLATFORM_ALIASES = {"dotnet": "net", ".net": "net", "csharp": "net", "ts": "typescript"}
@@ -23,7 +26,7 @@ _SUPPORTED_PLATFORMS = frozenset(
     {"python", "net", "java", "cpp", "typescript", "javascript", "go", "rust"}
 )
 _RUNNER = r"""
-import sys, types
+import json, sys, types, yaml
 from pathlib import Path
 pipeline, family, platform, repository, output = sys.argv[1:]
 package = types.ModuleType("extraction")
@@ -31,7 +34,16 @@ package.__package__ = "extraction"
 package.__path__ = [str(Path(pipeline) / "extraction")]
 sys.modules["extraction"] = package
 from extraction.scout import Scout
+from extraction.validate_scout_output import validate_scout_output
 Scout(family, platform, Path(repository), Path(output)).run()
+model = yaml.safe_load((Path(output) / "model.yaml").read_text(encoding="utf-8"))
+validation = validate_scout_output(model, Path(repository), platform)
+(Path(output) / "scout-validation.json").write_text(
+    json.dumps(validation, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+)
+if validation["verdict"] == "EXTRACTION_FAILURE":
+    print(validation["message"], file=sys.stderr)
+    raise SystemExit(3)
 """
 
 
@@ -48,6 +60,8 @@ class RepositoryKnowledgeGenerationV1(BaseModel):
     output_root: str | None = None
     generator_source_commit: str | None = None
     generator_sha256: str | None = None
+    upstream_generator_sha256: str | None = None
+    adapter_schema_version: str | None = None
     artifacts: dict[str, str] = Field(default_factory=dict)
     detail: str
 
@@ -67,23 +81,36 @@ def _commit_timestamp(root: Path, revision: str) -> str:
     return result.stdout.strip()
 
 
-def _normalize_volatile_metadata(output: Path, *, extracted_at: str) -> None:
-    model_path = output / "model.yaml"
-    model = yaml.safe_load(model_path.read_text(encoding="utf-8"))
-    if not isinstance(model, dict):
-        raise ValueError("scout model.yaml must contain an object")
-    model["extracted_at"] = extracted_at
-    model_path.write_text(
-        yaml.safe_dump(model, default_flow_style=False, sort_keys=False, allow_unicode=True),
-        encoding="utf-8",
-    )
-    claims_path = output / "claims.json"
-    claims = json.loads(claims_path.read_text(encoding="utf-8"))
-    if not isinstance(claims, dict):
-        raise ValueError("scout claims.json must contain an object")
-    claims["extracted_at"] = extracted_at
-    claims_path.write_text(
-        json.dumps(claims, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+def current_repository_knowledge_generator_sha256() -> str:
+    """Hash upstream extractor bytes together with the local compatibility adapter."""
+
+    source = load_vendored_aspose_org_source()
+    adapter_path = Path(__file__).with_name("repository_knowledge_adapter.py")
+    payload = {
+        "upstream_generator_sha256": source.aggregate_sha256,
+        "adapter_schema_version": ADAPTER_SCHEMA_VERSION,
+        "adapter_sha256": hashlib.sha256(adapter_path.read_bytes()).hexdigest(),
+        "wrapper_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+    }
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def repository_knowledge_data_root(snapshot: RepositorySnapshotV1) -> Path:
+    """Return the revision- and generator-addressed root consumed by knowledge loaders."""
+
+    from readme_agent import paths
+
+    repository_alias = hashlib.sha256(snapshot.org_repo.encode()).hexdigest()[:16]
+    return (
+        paths.runs_dir()
+        / "knowledge"
+        / "r"
+        / repository_alias
+        / "s"
+        / snapshot.source_revision[:20]
+        / "g"
+        / current_repository_knowledge_generator_sha256()[:20]
     )
 
 
@@ -117,6 +144,7 @@ def generate_repository_knowledge(
         )
     try:
         source = load_vendored_aspose_org_source()
+        generator_sha256 = current_repository_knowledge_generator_sha256()
         extracted_at = _commit_timestamp(snapshot.root_path, snapshot.source_revision)
     except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
         return RepositoryKnowledgeGenerationV1(
@@ -161,10 +189,16 @@ def generate_repository_knowledge(
                 family=family,
                 platform=normalized_platform,
                 generator_source_commit=source.source_commit,
-                generator_sha256=source.aggregate_sha256,
+                generator_sha256=generator_sha256,
+                upstream_generator_sha256=source.aggregate_sha256,
+                adapter_schema_version=ADAPTER_SCHEMA_VERSION,
                 detail=detail[:2000],
             )
-        _normalize_volatile_metadata(staging, extracted_at=extracted_at)
+        adapt_scout_output(
+            staging,
+            extracted_at=extracted_at,
+            generator_sha256=generator_sha256,
+        )
         hashes = _artifact_hashes(staging)
         if not hashes:
             raise ValueError("deterministic scout produced no artifacts")
@@ -186,7 +220,9 @@ def generate_repository_knowledge(
             platform=normalized_platform,
             output_root=str(destination),
             generator_source_commit=source.source_commit,
-            generator_sha256=source.aggregate_sha256,
+            generator_sha256=generator_sha256,
+            upstream_generator_sha256=source.aggregate_sha256,
+            adapter_schema_version=ADAPTER_SCHEMA_VERSION,
             artifacts=hashes,
             detail=f"{status} {len(hashes)} source-derived artifacts",
         )
@@ -198,7 +234,9 @@ def generate_repository_knowledge(
             family=family,
             platform=normalized_platform,
             generator_source_commit=source.source_commit,
-            generator_sha256=source.aggregate_sha256,
+            generator_sha256=generator_sha256,
+            upstream_generator_sha256=source.aggregate_sha256,
+            adapter_schema_version=ADAPTER_SCHEMA_VERSION,
             detail=str(exc),
         )
     finally:

@@ -26,6 +26,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.validation.aspose_check_inputs import qualified_check_inputs
 from readme_agent.validation.aspose_checks import load_check_registry
 
 # data/aspose_check_classification.json (scripts/data-refresh/classify_aspose_checks.py)
@@ -151,11 +152,12 @@ def run_aspose_checks(candidate_text: str, facts: ProductFactsV2 | None) -> Aspo
     checks_errored: list[str] = []
 
     for name, descriptor in sorted(registry.items()):
-        if not set(descriptor.parameters) <= set(available):
+        check_inputs = qualified_check_inputs(name, available)
+        if not set(descriptor.required_parameters) <= set(check_inputs):
             checks_skipped.append(name)
             continue
         if "dependency_snapshot" in descriptor.parameters and not _dependency_snapshot_applicable(
-            available["dependency_snapshot"]
+            check_inputs["dependency_snapshot"]
         ):
             # This ecosystem/repository has no manifest this bridge's
             # extraction supports at all (dependency_snapshot.py already
@@ -167,7 +169,9 @@ def run_aspose_checks(candidate_text: str, facts: ProductFactsV2 | None) -> Aspo
             # passing dependency check: skip explicitly instead.
             checks_skipped.append(name)
             continue
-        kwargs = {param: available[param] for param in descriptor.parameters}
+        kwargs = {
+            param: check_inputs[param] for param in descriptor.parameters if param in check_inputs
+        }
         try:
             raw_findings = descriptor.invoke(**kwargs)
         except Exception:  # noqa: BLE001 -- isolate one unvalidated check from the rest

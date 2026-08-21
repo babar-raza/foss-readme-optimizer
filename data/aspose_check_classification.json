@@ -1,13 +1,24 @@
 {
-  "blocking_count": 11,
-  "check_count": 89,
+  "blocking_count": 14,
+  "check_count": 103,
   "checks": [
+    {
+      "blocking": true,
+      "check_name": "check_additional_example_headings",
+      "classification": "applicable_reusable",
+      "mechanically_derived_severity": "hard_gate",
+      "reason": "hard gate; runnable with real data; zero false positives observed against the current accepted candidates or this repo's own relevant unit-test suite",
+      "runnable_now": true,
+      "scope": "document_global",
+      "section": null,
+      "severity": "hard_gate"
+    },
     {
       "blocking": false,
       "check_name": "check_api_reference_class_internal_only",
       "classification": "applicable_after_adaptation",
       "mechanically_derived_severity": "heuristic",
-      "reason": "blocked on missing production input(s): clone_cache_root, exclusions, reference_index",
+      "reason": "blocked on missing production input(s): clone_cache_root, reference_index",
       "runnable_now": false,
       "scope": "section",
       "section": "API Reference",
@@ -18,7 +29,7 @@
       "check_name": "check_api_reference_classes_exist_in_reference_site",
       "classification": "applicable_after_adaptation",
       "mechanically_derived_severity": "hard_gate",
-      "reason": "blocked on missing production input(s): clone_cache_root, reference_class_names",
+      "reason": "blocked on missing production input(s): reference_class_names",
       "runnable_now": false,
       "scope": "section",
       "section": "API Reference",
@@ -40,7 +51,7 @@
       "check_name": "check_api_reference_table_completeness",
       "classification": "applicable_after_adaptation",
       "mechanically_derived_severity": "hard_gate",
-      "reason": "blocked on missing production input(s): exclusions, reference_index",
+      "reason": "blocked on missing production input(s): reference_index",
       "runnable_now": false,
       "scope": "section",
       "section": "API Reference",
@@ -191,6 +202,17 @@
     },
     {
       "blocking": false,
+      "check_name": "check_code_example_excluded_reason_citation_too_narrow",
+      "classification": "applicable_after_adaptation",
+      "mechanically_derived_severity": "heuristic",
+      "reason": "blocked on missing production input(s): dispositions",
+      "runnable_now": false,
+      "scope": "document_global",
+      "section": null,
+      "severity": "heuristic"
+    },
+    {
+      "blocking": false,
       "check_name": "check_code_example_imports_match_source",
       "classification": "applicable_after_adaptation",
       "mechanically_derived_severity": "hard_gate",
@@ -249,7 +271,7 @@
       "check_name": "check_content_unit_evidence_resolves",
       "classification": "applicable_after_adaptation",
       "mechanically_derived_severity": "hard_gate",
-      "reason": "blocked on missing production input(s): clone_cache_root, dispositions, docs_texts, package_registry",
+      "reason": "blocked on missing production input(s): clone_cache_root, dispositions",
       "runnable_now": false,
       "scope": "document_global",
       "section": null,
@@ -301,6 +323,17 @@
     },
     {
       "blocking": false,
+      "check_name": "check_content_unit_redundant_claim_verifiable",
+      "classification": "applicable_after_adaptation",
+      "mechanically_derived_severity": "heuristic",
+      "reason": "blocked on missing production input(s): dispositions",
+      "runnable_now": false,
+      "scope": "document_global",
+      "section": null,
+      "severity": "heuristic"
+    },
+    {
+      "blocking": false,
       "check_name": "check_dependencies_intro_contradiction",
       "classification": "applicable_after_adaptation",
       "mechanically_derived_severity": "hard_gate",
@@ -324,6 +357,17 @@
     {
       "blocking": false,
       "check_name": "check_dependency_dev_only_presented_as_runtime",
+      "classification": "applicable_after_adaptation",
+      "mechanically_derived_severity": "hard_gate",
+      "reason": "hard gate; the parameter this check declares is theoretically suppliable (runnable_now=true) but no committed fixture's ProductFactsV2 currently carries real data for it, so the check was skipped at every fixture during this classification's empirical pass -- never genuinely exercised, so never auto-promoted on the strength of a vacuous absence from fired_critical; refresh the fixtures (refresh_check_classification_fixtures.py) once a real candidate carries this input before reconsidering",
+      "runnable_now": true,
+      "scope": "section",
+      "section": "Dependencies",
+      "severity": "hard_gate"
+    },
+    {
+      "blocking": false,
+      "check_name": "check_dependency_development_claim_not_in_manifest",
       "classification": "applicable_after_adaptation",
       "mechanically_derived_severity": "hard_gate",
       "reason": "hard gate; the parameter this check declares is theoretically suppliable (runnable_now=true) but no committed fixture's ProductFactsV2 currently carries real data for it, so the check was skipped at every fixture during this classification's empirical pass -- never genuinely exercised, so never auto-promoted on the strength of a vacuous absence from fired_critical; refresh the fixtures (refresh_check_classification_fixtures.py) once a real candidate carries this input before reconsidering",
@@ -400,6 +444,17 @@
     },
     {
       "blocking": false,
+      "check_name": "check_dependency_section_subheadings_present",
+      "classification": "applicable_after_adaptation",
+      "mechanically_derived_severity": "hard_gate",
+      "reason": "hard gate; the parameter this check declares is theoretically suppliable (runnable_now=true) but no committed fixture's ProductFactsV2 currently carries real data for it, so the check was skipped at every fixture during this classification's empirical pass -- never genuinely exercised, so never auto-promoted on the strength of a vacuous absence from fired_critical; refresh the fixtures (refresh_check_classification_fixtures.py) once a real candidate carries this input before reconsidering",
+      "runnable_now": true,
+      "scope": "section",
+      "section": "Dependencies",
+      "severity": "hard_gate"
+    },
+    {
+      "blocking": false,
       "check_name": "check_dependency_snapshot_completeness",
       "classification": "applicable_after_adaptation",
       "mechanically_derived_severity": "hard_gate",
@@ -469,7 +524,7 @@
       "check_name": "check_diagram_container_format_purity",
       "classification": "applicable_after_adaptation",
       "mechanically_derived_severity": "hard_gate",
-      "reason": "blocked on missing production input(s): connector_allowlist, container_kind, known_format_names",
+      "reason": "blocked on missing production input(s): container_kind",
       "runnable_now": false,
       "scope": "section",
       "section": "At a Glance",
@@ -482,6 +537,17 @@
       "mechanically_derived_severity": "heuristic",
       "reason": "blocked on missing production input(s): formats_md_text",
       "runnable_now": false,
+      "scope": "section",
+      "section": "At a Glance",
+      "severity": "heuristic"
+    },
+    {
+      "blocking": false,
+      "check_name": "check_diagram_from_scratch_capability_labeled",
+      "classification": "diagnostic_heuristic",
+      "mechanically_derived_severity": "heuristic",
+      "reason": "heuristic per vendored docstring convention; reviewer-visible finding only",
+      "runnable_now": true,
       "scope": "section",
       "section": "At a Glance",
       "severity": "heuristic"
@@ -510,11 +576,22 @@
     },
     {
       "blocking": false,
-      "check_name": "check_diagram_label_token_length",
+      "check_name": "check_diagram_label_geometry",
       "classification": "applicable_after_adaptation",
+      "mechanically_derived_severity": "hard_gate",
+      "reason": "hard gate; fired against a currently accepted candidate during this classification's empirical validation pass -- needs template-alignment review before blocking promotion is safe",
+      "runnable_now": true,
+      "scope": "section",
+      "section": "At a Glance",
+      "severity": "hard_gate"
+    },
+    {
+      "blocking": false,
+      "check_name": "check_diagram_label_token_length",
+      "classification": "diagnostic_heuristic",
       "mechanically_derived_severity": "heuristic",
-      "reason": "blocked on missing production input(s): max_token_chars",
-      "runnable_now": false,
+      "reason": "heuristic per vendored docstring convention; reviewer-visible finding only",
+      "runnable_now": true,
       "scope": "section",
       "section": "At a Glance",
       "severity": "heuristic"
@@ -568,7 +645,7 @@
       "check_name": "check_diagram_verified_format_claims",
       "classification": "applicable_after_adaptation",
       "mechanically_derived_severity": "hard_gate",
-      "reason": "blocked on missing production input(s): api_surface_json_text, formats_md_text, known_format_names",
+      "reason": "blocked on missing production input(s): formats_md_text",
       "runnable_now": false,
       "scope": "section",
       "section": "At a Glance",
@@ -630,11 +707,22 @@
       "severity": "hard_gate"
     },
     {
-      "blocking": false,
+      "blocking": true,
       "check_name": "check_format_name_casing",
+      "classification": "applicable_reusable",
+      "mechanically_derived_severity": "hard_gate",
+      "reason": "hard gate; runnable with real data; zero false positives observed against the current accepted candidates or this repo's own relevant unit-test suite",
+      "runnable_now": true,
+      "scope": "document_global",
+      "section": null,
+      "severity": "hard_gate"
+    },
+    {
+      "blocking": false,
+      "check_name": "check_frozen_blocks_unchanged",
       "classification": "applicable_after_adaptation",
       "mechanically_derived_severity": "hard_gate",
-      "reason": "blocked on missing production input(s): canonical_casing",
+      "reason": "blocked on missing production input(s): candidate_markdown_text, registry_entries",
       "runnable_now": false,
       "scope": "document_global",
       "section": null,
@@ -653,6 +741,17 @@
     },
     {
       "blocking": false,
+      "check_name": "check_image_content_unit_excluded_reason_verified",
+      "classification": "applicable_after_adaptation",
+      "mechanically_derived_severity": "heuristic",
+      "reason": "blocked on missing production input(s): content_units, dispositions",
+      "runnable_now": false,
+      "scope": "document_global",
+      "section": null,
+      "severity": "heuristic"
+    },
+    {
+      "blocking": false,
       "check_name": "check_installation_matches_package_registry",
       "classification": "diagnostic_heuristic",
       "mechanically_derived_severity": "heuristic",
@@ -661,6 +760,17 @@
       "scope": "document_global",
       "section": null,
       "severity": "heuristic"
+    },
+    {
+      "blocking": false,
+      "check_name": "check_issue_draft_rejection_list",
+      "classification": "unrelated",
+      "mechanically_derived_severity": "hard_gate",
+      "reason": "validates an upstream issue-draft artifact, not a README candidate",
+      "runnable_now": false,
+      "scope": "document_global",
+      "section": null,
+      "severity": "hard_gate"
     },
     {
       "blocking": false,
@@ -722,19 +832,19 @@
       "check_name": "check_named_member_accuracy",
       "classification": "applicable_after_adaptation",
       "mechanically_derived_severity": "heuristic",
-      "reason": "blocked on missing production input(s): clone_cache_root, reference_dir",
+      "reason": "blocked on missing production input(s): clone_cache_root",
       "runnable_now": false,
       "scope": "document_global",
       "section": null,
       "severity": "heuristic"
     },
     {
-      "blocking": false,
+      "blocking": true,
       "check_name": "check_no_cross_product_citation",
-      "classification": "applicable_after_adaptation",
+      "classification": "applicable_reusable",
       "mechanically_derived_severity": "hard_gate",
-      "reason": "blocked on missing production input(s): known_family_display_names",
-      "runnable_now": false,
+      "reason": "hard gate; runnable with real data; zero false positives observed against the current accepted candidates or this repo's own relevant unit-test suite",
+      "runnable_now": true,
       "scope": "document_global",
       "section": null,
       "severity": "hard_gate"
@@ -785,6 +895,17 @@
     },
     {
       "blocking": false,
+      "check_name": "check_no_internal_details_leaked_into_issue_draft",
+      "classification": "unrelated",
+      "mechanically_derived_severity": "hard_gate",
+      "reason": "validates an upstream issue-draft artifact, not a README candidate",
+      "runnable_now": false,
+      "scope": "document_global",
+      "section": null,
+      "severity": "hard_gate"
+    },
+    {
+      "blocking": false,
       "check_name": "check_no_leaked_docstring_artifacts",
       "classification": "diagnostic_heuristic",
       "mechanically_derived_severity": "hard_gate",
@@ -819,6 +940,17 @@
     {
       "blocking": false,
       "check_name": "check_no_undisclosed_blocking_commands",
+      "classification": "applicable_after_adaptation",
+      "mechanically_derived_severity": "hard_gate",
+      "reason": "blocked on missing production input(s): upstream_issues_text",
+      "runnable_now": false,
+      "scope": "document_global",
+      "section": null,
+      "severity": "hard_gate"
+    },
+    {
+      "blocking": false,
+      "check_name": "check_no_upstream_issue_leaked_into_install_or_quickstart",
       "classification": "applicable_after_adaptation",
       "mechanically_derived_severity": "hard_gate",
       "reason": "blocked on missing production input(s): upstream_issues_text",
@@ -895,6 +1027,17 @@
     },
     {
       "blocking": false,
+      "check_name": "check_scope_compliance",
+      "classification": "applicable_after_adaptation",
+      "mechanically_derived_severity": "hard_gate",
+      "reason": "blocked on missing production input(s): authorized_block_ids, baseline_markdown_text, candidate_markdown_text",
+      "runnable_now": false,
+      "scope": "document_global",
+      "section": null,
+      "severity": "hard_gate"
+    },
+    {
+      "blocking": false,
       "check_name": "check_scope_limitations_format",
       "classification": "applicable_after_adaptation",
       "mechanically_derived_severity": "hard_gate",
@@ -922,6 +1065,17 @@
       "mechanically_derived_severity": "heuristic",
       "reason": "heuristic per vendored docstring convention; reviewer-visible finding only",
       "runnable_now": true,
+      "scope": "document_global",
+      "section": null,
+      "severity": "heuristic"
+    },
+    {
+      "blocking": false,
+      "check_name": "check_seo_keyword_plan_usage",
+      "classification": "applicable_after_adaptation",
+      "mechanically_derived_severity": "heuristic",
+      "reason": "blocked on missing production input(s): seo_keyword_plan",
+      "runnable_now": false,
       "scope": "document_global",
       "section": null,
       "severity": "heuristic"
