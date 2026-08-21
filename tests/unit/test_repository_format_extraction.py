@@ -90,3 +90,35 @@ def test_vendored_extractor_extends_current_source_coverage(monkeypatch, tmp_pat
 
     assert result.status == "available"
     assert [item.format for item in result.formats] == ["Xlsx"]
+
+
+def test_cpp_email_dispatch_uses_repository_corrobborator(monkeypatch, tmp_path: Path) -> None:
+    observed: dict[str, object] = {}
+
+    def corroborate(root, *, source_revision):
+        observed.update(root=root, source_revision=source_revision)
+        return [
+            AsposeOrgFormatEvidenceV1(
+                format="MSG",
+                direction="both",
+                file="include/aspose/email/foss/msg/mapi_message.hpp",
+                line=10,
+                functional=True,
+            )
+        ]
+
+    monkeypatch.setattr(
+        "readme_agent.facts.repository_format_extraction.corroborate_cpp_email_format_directions",
+        corroborate,
+    )
+
+    result = extract_repository_format_directions(
+        tmp_path,
+        platform="cpp",
+        family="email",
+        source_revision="c" * 40,
+    )
+
+    assert result.status == "available"
+    assert [item.format for item in result.formats] == ["MSG"]
+    assert observed == {"root": tmp_path, "source_revision": "c" * 40}

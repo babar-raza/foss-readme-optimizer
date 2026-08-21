@@ -261,6 +261,14 @@ def test_dotnet_family_adapter_hash_is_scoped_to_3d():
     assert "dotnet_email_format_functionality.py" not in pdf
 
 
+def test_cpp_email_format_adapter_hash_is_family_scoped():
+    email = _scoped_component_files("drafting_and_example_selection", "cpp", "email")
+    slides = _scoped_component_files("drafting_and_example_selection", "cpp", "slides")
+
+    assert "cpp_email_format_functionality.py" in email
+    assert "cpp_email_format_functionality.py" not in slides
+
+
 def test_python_family_adapter_hashes_invalidate_only_their_owner(tmp_path):
     component = "drafting_and_example_selection"
     family_files = {

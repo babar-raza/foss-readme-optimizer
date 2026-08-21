@@ -134,6 +134,7 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
         "python_html_format_functionality.py",
         "dotnet_3d_format_functionality.py",
         "dotnet_email_format_functionality.py",
+        "cpp_email_format_functionality.py",
         "dotnet_repository_evidence_schema.py",
         "aspose_org_dotnet_adapter.py",
         "dotnet_repository_evidence.py",
@@ -237,6 +238,7 @@ _FAMILY_FILE_OWNERS = {
     "curated_python_pdf_guidance.py": ("python", "pdf"),
     "dotnet_3d_format_functionality.py": ("net", "3d"),
     "dotnet_email_format_functionality.py": ("net", "email"),
+    "cpp_email_format_functionality.py": ("cpp", "email"),
 }
 
 

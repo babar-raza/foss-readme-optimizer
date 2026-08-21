@@ -9,6 +9,9 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.facts.aspose_org_format_adapter import extract_aspose_org_formats
 from readme_agent.facts.aspose_org_format_contract import AsposeOrgFormatEvidenceV1
+from readme_agent.facts.cpp_email_format_functionality import (
+    corroborate_cpp_email_format_directions,
+)
 from readme_agent.facts.python_family_format_functionality import (
     corroborate_python_family_format_directions,
 )
@@ -43,6 +46,11 @@ def extract_repository_format_directions(
             family=family,
             source_revision=source_revision,
             formats=[],
+        )
+    elif normalized_platform == "cpp" and family.casefold() == "email":
+        formats = corroborate_cpp_email_format_directions(
+            repository_root,
+            source_revision=source_revision,
         )
     else:
         extracted = extract_aspose_org_formats(
