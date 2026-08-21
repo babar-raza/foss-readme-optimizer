@@ -479,14 +479,18 @@ def _cmd_supervise_impl(args: argparse.Namespace) -> int:
                 lifecycle_recorder=lifecycle_recorder,
             )
 
-    # Wave 8.5 (`ORC-006`/D2): a single-repo preflight, checked before either
-    # branch below -- the single-domain branch needs this even more than the
-    # full path, since it bypasses more of supervise_repo()'s own
-    # convergence/lock machinery per its own docstring. Exit code 3 matches
-    # PreflightError.exit_code / errors.py's documented convention, same as
-    # cmd_preflight()'s own return value.
-    preflight_result = run_preflight_for_repo(args.repo)
-    if not preflight_result.ok:
+    # Wave 8.5 (`ORC-006`/D2): a single-repo preflight before either branch below.
+    # The sole exception is a registry-bound FACTS_READY member whose scheduler
+    # has already loaded state and fetched its exact live remote HEAD; that stage
+    # is contractually zero-LLM. Exit code 3 matches PreflightError.exit_code.
+    from readme_agent.supervisor.portfolio_preflight_policy import (
+        bounded_portfolio_facts_preflight_satisfied,
+    )
+
+    preflight_result = None
+    if not bounded_portfolio_facts_preflight_satisfied(args):
+        preflight_result = run_preflight_for_repo(args.repo)
+    if preflight_result is not None and not preflight_result.ok:
         if lifecycle_recorder is not None:
             from readme_agent.state.lifecycle import transition_trigger
 
