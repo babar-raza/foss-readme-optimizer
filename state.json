@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
-    "active_task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+    "active_task_id": null,
     "approach_control": {
       "attempts": [
         {
@@ -1263,10 +1263,12 @@
           "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "claim lease expired"
+          ],
           "fingerprint": "b6d454cae09623fe99128f466cf45a369178e7f1fbfe25c1ac96716387873434",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-21T06:30:57.762337+00:00",
           "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY"
         }
@@ -2179,10 +2181,10 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-21T07:00:57.762337+00:00",
-    "claim_id": "eef89d9f658f4d6fbb8ab2935df44e1b",
-    "claimed_at": "2026-08-21T06:30:57.762337+00:00",
-    "claimed_by": "codex-root",
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "05028457629e867f073a332f637b3842e0e11ce6bdeb1122a2ac86f482aa504d",
@@ -2415,12 +2417,12 @@
     ],
     "graph_sha256": "05028457629e867f073a332f637b3842e0e11ce6bdeb1122a2ac86f482aa504d",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-21T06:30:57.762337+00:00",
+    "last_evaluated_at": "2026-08-21T07:20:46.748029+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
       "denominator": 33,
-      "derived_at": "2026-08-17T18:05:22.671713+00:00",
+      "derived_at": "2026-08-21T06:44:50.616840+00:00",
       "deterministic_validated": 0,
       "facts_ready": 0,
       "first_failing_boundary": "FACTS_READY",
@@ -2428,16 +2430,15 @@
       "lifecycle_status_counts": {
         "AGENT_APPROVED": 1,
         "BLOCKED_MISSING_EVIDENCE": 15,
-        "FACTS_READY": 15,
-        "PROFILED": 1,
-        "SYSTEM_FAILURE": 1
+        "FACTS_READY": 16,
+        "PROFILED": 1
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 0,
       "raw_agent_approved": 1,
       "raw_candidate_generated": 1,
       "raw_deterministic_validated": 1,
-      "raw_facts_ready": 16,
+      "raw_facts_ready": 17,
       "raw_human_accepted": 0,
       "raw_no_op_proven": 0,
       "registry_path": "data/products.json",
@@ -2454,6 +2455,9 @@
         "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
+        ],
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
+          "fact_acceptance_recollection_component_changed"
         ],
         "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
@@ -2540,26 +2544,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "campaign_id": "CAMP-SHARED-ACCELERATION",
-      "core_contribution": {
-        "kind": "first_boundary_removal",
-        "summary": "Turn the imported corpus from mostly logged context into safe, accountable README value."
-      },
-      "goal_ids": [
-        "GOAL-TRUTH",
-        "GOAL-README",
-        "GOAL-DELIVERY"
-      ],
-      "immediate_goal_id": "DELIVERY-KNOWLEDGE-TO-BYTES",
-      "immediate_outcome": "Prove one serial knowledge transaction, then refresh and qualify knowledge for every processable registry repository while freezing the latest synchronized benchmark, making generation self-contained, closing the five remaining consumers, and binding acceptance identity.",
-      "repository_scope": [
-        "portfolio:all-processable",
-        "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
-      ],
-      "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
-      "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY"
-    },
+    "next_task": null,
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
@@ -2617,7 +2602,7 @@
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-MISSION-GOAL-GUARD": "CLOSED",
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
-      "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "IN_PROGRESS",
+      "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "REGRESSED",
       "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "TODO",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "TODO",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "TODO",
@@ -12304,6 +12289,15 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-21T07:20:46.748048+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -12313,7 +12307,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1227,
+  "state_version": 1228,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
