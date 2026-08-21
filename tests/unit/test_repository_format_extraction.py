@@ -57,7 +57,30 @@ def test_python_family_dispatch_returns_only_functional_directions(
     }
 
 
-def test_unregistered_platform_fails_closed(tmp_path: Path) -> None:
+def test_vendored_extractor_extends_current_source_coverage(monkeypatch, tmp_path: Path) -> None:
+    class Extraction:
+        status = "available"
+        formats = [
+            AsposeOrgFormatEvidenceV1(
+                format="Xlsx",
+                direction="both",
+                file="src/workbook.go",
+                line=12,
+                functional=True,
+            ),
+            AsposeOrgFormatEvidenceV1(
+                format="Csv",
+                direction="detect",
+                file="src/workbook.go",
+                line=20,
+            ),
+        ]
+
+    monkeypatch.setattr(
+        "readme_agent.facts.repository_format_extraction.extract_aspose_org_formats",
+        lambda *_args, **_kwargs: Extraction(),
+    )
+
     result = extract_repository_format_directions(
         tmp_path,
         platform="go",
@@ -65,5 +88,5 @@ def test_unregistered_platform_fails_closed(tmp_path: Path) -> None:
         source_revision="b" * 40,
     )
 
-    assert result.status == "unavailable"
-    assert result.formats == []
+    assert result.status == "available"
+    assert [item.format for item in result.formats] == ["Xlsx"]

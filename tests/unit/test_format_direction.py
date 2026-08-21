@@ -88,6 +88,18 @@ def _verified_example() -> FactRecordV2:
     )
 
 
+def _compiled_example(code: str) -> FactRecordV2:
+    return _verified_example().model_copy(
+        update={
+            "value": {
+                "code": code,
+                "compiled_consumer": {"accepted": True},
+                "input_fixture_bindings": [],
+            }
+        }
+    )
+
+
 def _native_extraction(
     formats: list[AsposeOrgFormatEvidenceV1],
 ) -> AsposeOrgFormatExtractionV1:
@@ -146,6 +158,39 @@ def test_directional_fact_combines_consumer_input_and_native_export() -> None:
     assert "extractor_sha256=" + "e" * 64 in result.source.location
     assert "dependency_sha256=" in result.source.location
     assert "receipt_sha256=" in result.source.location
+
+
+def test_directional_fact_uses_unambiguous_compiled_example_io_literals() -> None:
+    result = directional_format_fact_from_verified_evidence(
+        source_revision="abc1234",
+        specifications=[_spec("PDF"), _spec("PNG")],
+        example_fact=_compiled_example(
+            'Document document("input.pdf");\n'
+            'std::ofstream output("page1.png");\n'
+            "device.Process(document, output);\n"
+        ),
+        native_extraction=RepositoryFormatExtractionV1(
+            status="unavailable",
+            detail="no functional native directions",
+        ),
+    )
+
+    assert result.verification_state == "verified"
+    assert result.value == ["Input format: PDF", "Output format: PNG"]
+
+
+def test_directional_fact_does_not_guess_ambiguous_compiled_file_literal() -> None:
+    result = directional_format_fact_from_verified_evidence(
+        source_revision="abc1234",
+        specifications=[_spec("PDF")],
+        example_fact=_compiled_example('Document document("sample.pdf");\n'),
+        native_extraction=RepositoryFormatExtractionV1(
+            status="unavailable",
+            detail="no functional native directions",
+        ),
+    )
+
+    assert result.verification_state == "blocked"
 
 
 def test_directional_fact_fails_closed_without_native_or_consumer_evidence() -> None:

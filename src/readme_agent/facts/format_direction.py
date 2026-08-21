@@ -21,6 +21,9 @@ _FORMAT_TOKEN_ALIASES = {
     "microsoft3mf": "3mf",
     "threemf": "3mf",
 }
+_FILE_LITERAL = re.compile(r"['\"]([^'\"\r\n]+\.([A-Za-z0-9]{2,8}))['\"]")
+_INPUT_CONTEXT = re.compile(r"(?i)(?:load|open|read|import|ifstream|from[_a-z]*)\s*[^\n]{0,80}$")
+_OUTPUT_CONTEXT = re.compile(r"(?i)(?:save|write|export|ofstream|to[_a-z]*)\s*[^\n]{0,80}$")
 
 
 def format_direction_failures(specifications: Sequence[EvidenceBackedProductFact]) -> list[str]:
@@ -114,6 +117,30 @@ def _verified_input_extensions(example_fact: FactRecordV2) -> set[str]:
     return extensions
 
 
+def _verified_example_literal_directions(example_fact: FactRecordV2) -> set[tuple[str, str]]:
+    """Extract only unambiguous I/O literals from a compiled public example."""
+
+    if example_fact.verification_state != "verified" or not isinstance(example_fact.value, dict):
+        return set()
+    value = example_fact.value
+    compiled = value.get("compiled_consumer")
+    if not isinstance(compiled, dict) or compiled.get("accepted") is not True:
+        return set()
+    code = value.get("code")
+    if not isinstance(code, str):
+        return set()
+    directions: set[tuple[str, str]] = set()
+    for match in _FILE_LITERAL.finditer(code):
+        path, extension = match.group(1), match.group(2).casefold()
+        context = code[max(0, match.start() - 100) : match.start()]
+        stem = Path(path).stem.casefold()
+        if _OUTPUT_CONTEXT.search(context) or stem.startswith(("out", "output", "result")):
+            directions.add(("output", extension))
+        elif _INPUT_CONTEXT.search(context) or stem.startswith(("in", "input", "source")):
+            directions.add(("input", extension))
+    return directions
+
+
 def _native_extraction_location(extraction: AsposeOrgFormatExtractionV1) -> str:
     revision = extraction.extractor_revision or "unavailable"
     if (
@@ -150,6 +177,14 @@ def directional_format_fact_from_verified_evidence(
         if value not in values:
             values.append(value)
             locations.append("local-verifier://example.minimal")
+
+    for direction, extension in sorted(_verified_example_literal_directions(example_fact)):
+        label = _label_for_token(specifications, extension)
+        prefix = "Input format" if direction == "input" else "Output format"
+        value = f"{prefix}: {label}"
+        if value not in values:
+            values.append(value)
+            locations.append("local-verifier://example.minimal#compiled-io-literal")
 
     if native_extraction.status == "available":
         for entry in native_extraction.formats:

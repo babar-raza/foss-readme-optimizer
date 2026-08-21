@@ -7,6 +7,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from readme_agent.facts.aspose_org_format_adapter import extract_aspose_org_formats
 from readme_agent.facts.aspose_org_format_contract import AsposeOrgFormatEvidenceV1
 from readme_agent.facts.python_family_format_functionality import (
     corroborate_python_family_format_directions,
@@ -43,6 +44,15 @@ def extract_repository_format_directions(
             source_revision=source_revision,
             formats=[],
         )
+    else:
+        extracted = extract_aspose_org_formats(
+            repository_root,
+            platform=normalized_platform,
+            family=family,
+            source_revision=source_revision,
+        )
+        if extracted.status == "available":
+            formats = extracted.formats
     functional = [
         item
         for item in formats
