@@ -24,6 +24,10 @@ from readme_agent.state.lifecycle_schema import (
 )
 from readme_agent.state.readme_poc_lifecycle import migrate_readme_poc_lifecycle
 from readme_agent.state.schema import RunStateV2
+from readme_agent.supervisor.invalid_product_truth import (
+    InvalidProductTruthArchived,
+    preserve_invalid_product_truth,
+)
 from readme_agent.supervisor.product_truth_provenance import (
     load_coherent_product_truth_proposal,
     load_product_truth_json_object,
@@ -267,8 +271,19 @@ def recover_interrupted_product_truth_commit(
         or manifest.get("facts_hash") != facts_hash
         or manifest.get("lifecycle_status") != outcome
     ):
-        raise RuntimeError(
-            "interrupted product-truth recovery found inconsistent bundle identity or outcome"
+        archive = preserve_invalid_product_truth(
+            bundle_dir,
+            manifest,
+            actual_facts_hash=facts_hash,
+            actual_outcome=outcome,
+            reason="interrupted product-truth bundle identity or outcome was inconsistent",
+        )
+        # The checksum inventory proves these bytes were written atomically;
+        # it does not make a contradictory semantic identity reusable. Keep
+        # the exact bytes above, then let the ordinary repository collectors
+        # rebuild the fact boundary from the immutable snapshot.
+        raise InvalidProductTruthArchived(
+            f"preserved inconsistent product-truth evidence at {archive}"
         )
 
     return _commit_recovered_product_truth(

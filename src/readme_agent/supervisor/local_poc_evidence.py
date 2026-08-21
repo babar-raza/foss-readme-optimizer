@@ -101,7 +101,14 @@ def write_local_poc_product_facts(
     proposal_path = facts_dir / "proposed-product-truth.json"
     if proposed_product_truth is None:
         proposal_path.unlink(missing_ok=True)
-    write_redacted_json(facts_dir / "product-facts.json", facts)
+    facts_path = facts_dir / "product-facts.json"
+    write_redacted_json(facts_path, facts)
+    persisted_facts = ProductFactsV2.model_validate_json(facts_path.read_text(encoding="utf-8"))
+    if persisted_facts.canonical_hash() != facts_hash:
+        raise RuntimeError(
+            "redaction changed the semantic product-facts graph; refusing to seal "
+            "an internally inconsistent evidence bundle"
+        )
     write_redacted_json(
         facts_dir / "provenance.json",
         {

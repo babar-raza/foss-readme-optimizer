@@ -5,10 +5,10 @@ matches of live secret values before anything is written to evidence.
 import re
 
 _SECRET_LIKE_PATTERN = re.compile(
-    r"(sk-[A-Za-z0-9]{10,})"
-    r"|(ghp_[A-Za-z0-9]{10,})"
-    r"|(ghu_[A-Za-z0-9]{10,})"
-    r"|(AIzaSy[A-Za-z0-9_-]{10,})"
+    r"(?<![A-Za-z0-9_])(sk-[A-Za-z0-9]{10,})"
+    r"|(?<![A-Za-z0-9_])(ghp_[A-Za-z0-9]{10,})"
+    r"|(?<![A-Za-z0-9_])(ghu_[A-Za-z0-9]{10,})"
+    r"|(?<![A-Za-z0-9_])(AIzaSy[A-Za-z0-9_-]{10,})"
     r"|(Bearer\s+[A-Za-z0-9._-]{20,})"
     r"|([?&](api_key|token|key|access_token)=[^\s&]{8,})",
     re.IGNORECASE,

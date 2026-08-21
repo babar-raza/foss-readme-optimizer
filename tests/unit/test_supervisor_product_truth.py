@@ -607,6 +607,60 @@ def test_interrupted_fact_recovery_rejects_corrupt_bundle_before_collection(tmp_
         product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
 
 
+def test_interrupted_fact_recovery_archives_semantic_mismatch_then_recollects(
+    tmp_path, monkeypatch
+):
+    snapshot, backend, _old_facts, bundle_dir = _write_interrupted_fact_commit(
+        tmp_path, monkeypatch
+    )
+    facts_path = bundle_dir / "facts" / "product-facts.json"
+    persisted = json.loads(facts_path.read_text(encoding="utf-8"))
+    audience = next(fact for fact in persisted["facts"] if fact["field"] == "product.audience")
+    audience["value"] = ["A checksum-valid but semantically different audience"]
+    facts_path.write_text(json.dumps(persisted, indent=2) + "\n", encoding="utf-8")
+    refresh_sha256sums(bundle_dir)
+    fresh_facts = _facts()
+    monkeypatch.setattr(
+        product_truth,
+        "collect_product_facts",
+        lambda org_repo: {"product_facts_v2": fresh_facts},
+    )
+
+    recovered = product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+
+    assert recovered.facts == fresh_facts
+    archives = list((bundle_dir / "invalidated-product-truth").glob("*/invalid-product-truth.json"))
+    assert len(archives) == 1
+    record = json.loads(archives[0].read_text(encoding="utf-8"))
+    assert record["manifest_facts_hash"] != record["actual_facts_hash"]
+    archived_facts = archives[0].parent / "facts" / "product-facts.json"
+    assert "semantically different audience" in archived_facts.read_text(encoding="utf-8")
+
+
+def test_product_truth_writer_refuses_semantic_secret_redaction(tmp_path, monkeypatch):
+    snapshot = _snapshot(tmp_path)
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    secret = "product-audience-secret-value-123456"
+    monkeypatch.setenv("LLM_API_KEY", secret)
+    records = [
+        fact.model_copy(update={"value": [secret]}) if fact.field == "product.audience" else fact
+        for fact in _facts().facts
+    ]
+    facts = _facts().model_copy(update={"facts": records})
+    contract = product_truth.current_fact_acceptance_contract("java")
+
+    with pytest.raises(RuntimeError, match="redaction changed the semantic product-facts graph"):
+        product_truth.write_local_poc_product_facts(
+            snapshot,
+            facts,
+            findings=[],
+            resolution_source="repository_and_policy",
+            local_verification_contract_hash=product_truth.local_verification_contract_hash("java"),
+            fact_acceptance_contract_hash=contract.canonical_hash(),
+            fact_acceptance_component_hashes=contract.component_hashes,
+        )
+
+
 @pytest.mark.parametrize("inventory_defect", ["missing", "extra"])
 def test_interrupted_fact_recovery_requires_exact_checksum_inventory(
     tmp_path, monkeypatch, inventory_defect

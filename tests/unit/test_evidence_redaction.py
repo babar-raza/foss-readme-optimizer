@@ -27,6 +27,10 @@ class TestPatternRedaction:
         text = "This is a normal sentence about MIT licensing."
         assert redact_secret_like_values(text) == text
 
+    def test_does_not_match_openai_prefix_inside_an_ordinary_word(self):
+        text = "Schedule a microtask-checkpoint intent on the event-loop boundary."
+        assert redact_secret_like_values(text) == text
+
     def test_non_string_passthrough(self):
         assert redact_secret_like_values(None) is None  # type: ignore[arg-type]
 

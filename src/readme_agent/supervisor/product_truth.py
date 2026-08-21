@@ -38,6 +38,7 @@ from readme_agent.state.readme_poc_lifecycle import (
     record_product_facts_outcome,
     switch_content_assurance,
 )
+from readme_agent.supervisor.invalid_product_truth import InvalidProductTruthArchived
 from readme_agent.supervisor.knowledge_generation_evidence import (
     load_current_repository_knowledge_generation,
     write_repository_knowledge_generation,
@@ -170,15 +171,18 @@ def load_prepared_product_truth(
             is None
         ):
             return None
-    recovered = recover_interrupted_product_truth_commit(
-        org_repo,
-        source_revision,
-        bundle_dir,
-        state_backend,
-        lifecycle,
-        ecosystem=entry.ecosystem,
-        family=getattr(entry, "family", None),
-    )
+    try:
+        recovered = recover_interrupted_product_truth_commit(
+            org_repo,
+            source_revision,
+            bundle_dir,
+            state_backend,
+            lifecycle,
+            ecosystem=entry.ecosystem,
+            family=getattr(entry, "family", None),
+        )
+    except InvalidProductTruthArchived:
+        return None
     recovered_later_lifecycle = False
     if recovered is not None:
         lifecycle = recovered
