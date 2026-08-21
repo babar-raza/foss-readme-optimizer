@@ -81,6 +81,7 @@ class TreeSitterEvidenceCache:
         self.sources: dict[Path, bytes | None] = {}
         self.trees: dict[Path, Tree | None] = {}
         self.line_signals: dict[tuple[Path, int], SourcePolarity] = {}
+        self.declaration_signals: dict[tuple[Path, str, int, int], SourcePolarity] = {}
 
     def source_and_tree(self, path: Path) -> tuple[bytes | None, Tree | None]:
         if path not in self.sources:
@@ -133,6 +134,42 @@ def _method_signal(method) -> SourcePolarity:
     return "positive"
 
 
+def _declaration_key(path: Path, node) -> tuple[Path, str, int, int]:
+    return path, node.type, node.start_byte, node.end_byte
+
+
+def _cached_method_signal(
+    path: Path,
+    method,
+    cache: TreeSitterEvidenceCache,
+) -> SourcePolarity:
+    key = _declaration_key(path, method)
+    if key not in cache.declaration_signals:
+        cache.declaration_signals[key] = _method_signal(method)
+    return cache.declaration_signals[key]
+
+
+def _cached_container_signal(
+    path: Path,
+    container,
+    cache: TreeSitterEvidenceCache,
+) -> SourcePolarity:
+    key = _declaration_key(path, container)
+    if key in cache.declaration_signals:
+        return cache.declaration_signals[key]
+    methods = collect_nodes(container, _METHOD_TYPES)
+    signals = [_cached_method_signal(path, method, cache) for method in methods]
+    resolved = [signal for signal in signals if signal != "unresolved"]
+    if resolved and all(signal == "negative" for signal in resolved):
+        result: SourcePolarity = "negative"
+    elif resolved and all(signal == "positive" for signal in resolved):
+        result = "positive"
+    else:
+        result = "unresolved"
+    cache.declaration_signals[key] = result
+    return result
+
+
 def source_line_signal(
     path: Path,
     line: int,
@@ -168,17 +205,10 @@ def _uncached_source_line_signal(
     node = tree.root_node.descendant_for_point_range((row, 0), (row, end_column))
     method = _ancestor(node, _METHOD_TYPES)
     if method is not None:
-        return _method_signal(method)
+        return _cached_method_signal(path, method, cache)
     container = _ancestor(node, _CLASS_TYPES)
     if container is not None:
-        methods = collect_nodes(container, _METHOD_TYPES)
-        signals = [_method_signal(method_node) for method_node in methods]
-        resolved = [signal for signal in signals if signal != "unresolved"]
-        if resolved and all(signal == "negative" for signal in resolved):
-            return "negative"
-        if resolved and all(signal == "positive" for signal in resolved):
-            return "positive"
-        return "unresolved"
+        return _cached_container_signal(path, container, cache)
     if _ancestor(node, _CONCRETE_DECLARATION_TYPES) is not None:
         return "positive"
     return "unresolved"

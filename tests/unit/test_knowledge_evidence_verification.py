@@ -405,3 +405,27 @@ def test_evidence_cache_classifies_one_non_python_source_line_once(tmp_path: Pat
 
     assert first == second == "positive"
     assert cache.tree_sitter.line_signals == {(source_path, 3): "positive"}
+
+
+def test_non_python_class_citations_share_one_declaration_analysis(tmp_path: Path):
+    (tmp_path / "Scene.cs").write_text(
+        "public class Scene\n"
+        "{\n"
+        "    public int Count() { return 1; }\n"
+        "    public int Size() { return 2; }\n"
+        "}\n",
+        encoding="utf-8",
+    )
+    cache = EvidenceContentCache(tmp_path)
+
+    first = evidence_content_signal(
+        ({"file": "Scene.cs", "line": 1},), tmp_path, claim_kind="feature", cache=cache
+    )
+    declarations_after_first = dict(cache.tree_sitter.declaration_signals)
+    second = evidence_content_signal(
+        ({"file": "Scene.cs", "line": 2},), tmp_path, claim_kind="feature", cache=cache
+    )
+
+    assert first == second == "positive"
+    assert cache.tree_sitter.declaration_signals == declarations_after_first
+    assert len(declarations_after_first) == 3
