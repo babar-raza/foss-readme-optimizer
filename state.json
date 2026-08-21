@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-P0-PLAN-FREEZE",
-    "active_task_id": null,
+    "active_task_id": "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION",
     "approach_control": {
       "attempts": [
         {
@@ -1237,6 +1237,14 @@
           "outcome": "ineffective",
           "started_at": "2026-08-17T18:50:06.810667+00:00",
           "task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "11256e1e6e3786747e0cf52fdd21b9d1e02c77f82e465f525e5f8b1176694b87",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-21T05:09:01.994048+00:00",
+          "task_id": "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION"
         }
       ],
       "proposed_fingerprints": {
@@ -2147,10 +2155,10 @@
       "total_repository_lanes": 0
     },
     "certification_complete": false,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "claim_expires_at": "2026-08-21T05:39:01.994048+00:00",
+    "claim_id": "88892eac3b8d416687c0e50347a067ab",
+    "claimed_at": "2026-08-21T05:09:01.994048+00:00",
+    "claimed_by": "codex-root",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "4150da879a402ff86fe432cfed60d50b673a422807b775271d82cfe849ba4e82",
@@ -2374,7 +2382,7 @@
     ],
     "graph_sha256": "4150da879a402ff86fe432cfed60d50b673a422807b775271d82cfe849ba4e82",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-21T04:31:38.463192+00:00",
+    "last_evaluated_at": "2026-08-21T05:09:01.994048+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -2573,7 +2581,7 @@
       "L8-LOCAL-README-PROPOSAL-PROOF": "REROUTED",
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-MISSION-GOAL-GUARD": "CLOSED",
-      "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "TODO",
+      "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "IN_PROGRESS",
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "TODO",
       "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "TODO",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "TODO",
@@ -12165,6 +12173,15 @@
         "reason": "claim lease expired before a terminal verification state",
         "task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY",
         "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "TODO",
+        "observed_by": "codex-root",
+        "occurred_at": "2026-08-21T05:09:01.994226+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -12174,7 +12191,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1216,
+  "state_version": 1217,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
