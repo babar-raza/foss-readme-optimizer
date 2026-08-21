@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION",
+  "verdict": "PASS",
+  "tested_branch": "main",
+  "tested_head": "9085581d08a437124728a63aa0a91fddd2e2c000",
+  "graph_sha256": "05028457629e867f073a332f637b3842e0e11ce6bdeb1122a2ac86f482aa504d",
+  "registry_sha256": "eb526af1d1c70b700a89e4445d399e1131170e5ecfb7359147bc671be6da8479",
+  "portfolio_contract_sha256": "88dafaeec84e893a83fe4b929f6a9cba7605efb63abb1e37c32c42e9cfdd92b4",
+  "rubric_sha256": "5b016891000c320218a762c0289ae44d6820636a66ab54f3410e87f12e876268",
+  "owner_audit_manifest_sha256": "13c2e5ffa76f62ad5e60a25b9dc6fc8174f542b1c6f4c36",
+  "portfolio_partition": {
+    "admitted": 33,
+    "processable": 31,
+    "non_processable_psd": 2
+  },
+  "official_gate": {
+    "command": ".venv/Scripts/python scripts/governance/run_official_checks.py",
+    "pytest_receipt": "runs/verification/pytest-full-latest.json",
+    "pytest_receipt_sha256": "cc77aaccbcbf5f4ef8d2454102e03760041bd92145254df14c923fcd13a0e1a7",
+    "test_inventory": 4632,
+    "passed": 4631,
+    "skipped": 1,
+    "failed": 0,
+    "errors": 0,
+    "ruff_check": "PASS",
+    "ruff_format_check": "PASS",
+    "mypy": "PASS",
+    "semantic_traceability": "PASS",
+    "plan_and_graph_validation": "PASS",
+    "actionlint": "PASS",
+    "tree_dirty": false,
+    "tree_changed_during_run": false,
+    "leaked_process_ids": []
+  },
+  "independent_verification": {
+    "verdict": "PASS",
+    "receipt": "runs/multi-agent/L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION/pf00-independent-verifier/receipt.json",
+    "receipt_sha256": "f1565f7e3bbea96c7bb49eb5ae00f25ae0a1b7ff91d30d13a66c76fd69dbaf18",
+    "focused_tests_passed": 6,
+    "full_gate_independently_reproduced": false,
+    "full_gate_receipt_independently_inspected": true
+  },
+  "owner_audit_ingest": {
+    "declared_files": 76,
+    "verified_exact": 76,
+    "verified_lf_normalized": 0,
+    "unverified": 0
+  },
+  "product_repository_writes": 0,
+  "product_effects": 0,
+  "limitations": [
+    "This proves campaign authority, denominator, acceptance identity, and safety boundaries only.",
+    "It does not claim a README candidate, Gate A, delivery, or maturity milestone."
+  ]
+}

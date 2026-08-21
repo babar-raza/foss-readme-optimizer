@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION",
+  "stage_goal_id": "GOAL-P0-PLAN-FREEZE",
+  "campaign_id": "CAMP-PLAN-FREEZE",
+  "goal_ids": [
+    "GOAL-AUTONOMY",
+    "GOAL-DELIVERY"
+  ],
+  "core_contribution": {
+    "kind": "first_boundary_removal",
+    "summary": "Remove campaign-identity and sequencing ambiguity before product execution."
+  },
+  "acceptance_checks_passed": [
+    "The frozen baseline partitions 33 admitted repositories into 31 processable targets and two typed PSD dispositions",
+    "The 30-point rubric and zero-hard-disqualifier rule are graph-bound",
+    "Aspose.org is development input only and product effects are disabled"
+  ],
+  "proof_refs": [
+    "plans/investigations/control/portfolio-readme-proof-contract.md",
+    "plans/investigations/owner_audit/aspose_candidate_rubric/RUBRIC_30.md",
+    "plans/investigations/owner_audit/execution-2026-08-20/MANIFEST.json",
+    "plans/investigations/evidence/portfolio-proof-authority-20260821/verification.json",
+    "runs/multi-agent/L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION/pf00-independent-verifier/receipt.json",
+    "runs/verification/pytest-full-latest.json"
+  ],
+  "scoreboard_before_sha256": "f93a26692baec42b69919cac6b2d71ed45dfdb6918aaefd91388044d31228862",
+  "scoreboard_after_sha256": "f93a26692baec42b69919cac6b2d71ed45dfdb6918aaefd91388044d31228862",
+  "first_failing_boundary_before": "FACTS_READY",
+  "first_failing_boundary_after": "FACTS_READY",
+  "contribution_boundary_before": "conflicting_denominator_acceptance_and_execution_authority",
+  "contribution_boundary_after": "one_graph_bound_31_processable_campaign_authority",
+  "independently_verified": true
+}

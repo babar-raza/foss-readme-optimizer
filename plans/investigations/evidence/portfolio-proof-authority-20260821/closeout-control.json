@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION",
+  "verification_plan_sha256": "d8d89b27400bb637c0a3092172937a73ffe1e70b731a9129bf057c052df75198",
+  "completed_tiers": [
+    "touched_static",
+    "focused",
+    "impacted_integration"
+  ],
+  "promotion_boundary": "runtime_only",
+  "canonical_evidence_promoted": false,
+  "transaction_isolation_proven": false,
+  "proof_refs": [
+    "plans/investigations/evidence/portfolio-proof-authority-20260821/verification.json",
+    "runs/multi-agent/L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION/pf00-independent-verifier/receipt.json",
+    "runs/verification/pytest-full-latest.json"
+  ],
+  "independently_verified": true,
+  "multi_agent_execution_plan_sha256": "e871f9cad474db4328fbf352009ceb591de2a2d93dbaecebb408783f9e215835",
+  "multi_agent_admission_decision_sha256": "70286d76c0e71703ebf1964951e75e050dd4f0c59e55427d84a23ec3cc265477"
+}
