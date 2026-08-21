@@ -28,7 +28,7 @@ _LICENSE_OR_NOTICE_FILENAMES: frozenset[str] = LICENSE_FILENAMES | frozenset(
     {"notice", "notice.txt", "notice.md", "notice.rst"}
 )
 
-INTAKE_PREFLIGHT_CONTRACT_VERSION = "read-only-intake-v1"
+INTAKE_PREFLIGHT_CONTRACT_VERSION = "read-only-intake-v2"
 INTAKE_PREFLIGHT_CONTRACT_HASH = hashlib.sha256(
     INTAKE_PREFLIGHT_CONTRACT_VERSION.encode("utf-8")
 ).hexdigest()

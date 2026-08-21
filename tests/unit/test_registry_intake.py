@@ -7,7 +7,11 @@ from pathlib import Path
 
 import pytest
 
-from readme_agent.registry.intake import classify_readonly_intake, intake_contract_hash
+from readme_agent.registry.intake import (
+    INTAKE_PREFLIGHT_CONTRACT_VERSION,
+    classify_readonly_intake,
+    intake_contract_hash,
+)
 from readme_agent.registry.loader import find_entry, load_policy
 from readme_agent.registry.models import ProductEntry
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
@@ -32,6 +36,10 @@ def _entry(*, configured: bool = True, active: bool = True) -> ProductEntry:
         ecosystem="python" if configured else None,
         policy_profile="example-python" if configured else None,
     )
+
+
+def test_current_intake_contract_invalidates_pre_typed_disposition_cache() -> None:
+    assert INTAKE_PREFLIGHT_CONTRACT_VERSION == "read-only-intake-v2"
 
 
 def _snapshot(
