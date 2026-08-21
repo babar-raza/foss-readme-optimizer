@@ -677,6 +677,35 @@ def test_interrupted_fact_recovery_requires_exact_checksum_inventory(
         product_truth.load_prepared_product_truth(ORG_REPO, backend, REVISION)
 
 
+def test_interrupted_contract_recollection_rebuilds_instead_of_false_corruption(
+    tmp_path, monkeypatch
+):
+    _snapshot_value, backend, _new_facts, _bundle_dir = _write_interrupted_fact_commit(
+        tmp_path, monkeypatch
+    )
+    original = product_truth.current_fact_acceptance_contract("java")
+    changed = original.model_copy(
+        update={
+            "component_hashes": {
+                **original.component_hashes,
+                "evidence_polarity": "0" * 64,
+            }
+        }
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "current_fact_acceptance_contract",
+        lambda ecosystem=None, family=None: changed,
+    )
+    monkeypatch.setattr(
+        product_truth,
+        "recover_interrupted_product_truth_commit",
+        lambda *args, **kwargs: None,
+    )
+
+    assert product_truth.load_prepared_product_truth(ORG_REPO, backend, REVISION) is None
+
+
 @pytest.mark.parametrize(
     ("resolution_source", "proposal", "prompt_hash", "error"),
     [

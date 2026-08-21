@@ -231,7 +231,23 @@ def load_prepared_product_truth(
             "durable product-facts evidence belongs to a different repository: "
             f"expected {org_repo}, found {facts.org_repo}"
         )
+    contract = current_fact_acceptance_contract(entry.ecosystem, getattr(entry, "family", None))
+    contract_hash = contract.canonical_hash()
+    manifest_contract_current = (
+        manifest.get("fact_acceptance_contract_hash") == contract_hash
+        and manifest.get("fact_acceptance_component_hashes") == contract.component_hashes
+    )
+    lifecycle_contract_current = (
+        lifecycle.fact_acceptance_contract_hash == contract_hash
+        and lifecycle.fact_acceptance_component_hashes == contract.component_hashes
+    )
     if facts.canonical_hash() != lifecycle.facts_hash:
+        if not manifest_contract_current or not lifecycle_contract_current:
+            # Cancellation during contract-driven recollection can leave a newly written graph
+            # beside the prior manifest/lifecycle. Neither side is current, so the only safe
+            # action is deterministic recollection from the immutable snapshot. A mismatch when
+            # both bindings claim the current contract remains a hard corruption failure below.
+            return None
         if _recovered_non_intake_failure(lifecycle):
             # A failed later stage can leave a newly sealed fact bundle ahead of the durable
             # lifecycle. Recollect from repository evidence; never trust the mismatched bundle.
@@ -253,16 +269,6 @@ def load_prepared_product_truth(
     proposed_product_truth = load_coherent_product_truth_proposal(bundle_dir, manifest)
     if proposed_product_truth is not None and lifecycle.prompt_hash is not None:
         return None
-    contract = current_fact_acceptance_contract(entry.ecosystem, getattr(entry, "family", None))
-    contract_hash = contract.canonical_hash()
-    manifest_contract_current = (
-        manifest.get("fact_acceptance_contract_hash") == contract_hash
-        and manifest.get("fact_acceptance_component_hashes") == contract.component_hashes
-    )
-    lifecycle_contract_current = (
-        lifecycle.fact_acceptance_contract_hash == contract_hash
-        and lifecycle.fact_acceptance_component_hashes == contract.component_hashes
-    )
     outcome = classify_product_truth(facts, contract)
     returned_lifecycle_status = cast(ReadmePocStatusV2, lifecycle.status)
     outcome_matches_lifecycle = _cached_outcome_matches_lifecycle(lifecycle.status, outcome)
