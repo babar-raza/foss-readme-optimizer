@@ -111,6 +111,28 @@ def _ancestor(node, types: set[str]):
     return None
 
 
+def _nested_declaration_on_row(node, types: set[str], row: int):
+    """Return the narrowest wrapped declaration that contains ``row``.
+
+    TypeScript and JavaScript expose exported declarations through an
+    ``export_statement`` wrapper.  A point lookup on the declaration line can
+    therefore return the wrapper even though its child is the concrete class,
+    interface, or function carrying the evidence.  Search only descendants of
+    the point node that still contain the cited row; this preserves exact-line
+    accountability instead of accepting an unrelated declaration elsewhere in
+    the wrapper.
+    """
+
+    matches = [
+        candidate
+        for candidate in collect_nodes(node, types)
+        if candidate.start_point.row <= row <= candidate.end_point.row
+    ]
+    return min(
+        matches, key=lambda candidate: candidate.end_byte - candidate.start_byte, default=None
+    )
+
+
 def _method_body(method):
     body = method.child_by_field_name("body")
     if body is not None:
@@ -203,13 +225,16 @@ def _uncached_source_line_signal(
     row = line - 1
     end_column = max(1, len(rows[row]))
     node = tree.root_node.descendant_for_point_range((row, 0), (row, end_column))
-    method = _ancestor(node, _METHOD_TYPES)
+    method = _ancestor(node, _METHOD_TYPES) or _nested_declaration_on_row(node, _METHOD_TYPES, row)
     if method is not None:
         return _cached_method_signal(path, method, cache)
-    container = _ancestor(node, _CLASS_TYPES)
+    container = _ancestor(node, _CLASS_TYPES) or _nested_declaration_on_row(node, _CLASS_TYPES, row)
     if container is not None:
         return _cached_container_signal(path, container, cache)
-    if _ancestor(node, _CONCRETE_DECLARATION_TYPES) is not None:
+    if (
+        _ancestor(node, _CONCRETE_DECLARATION_TYPES) is not None
+        or _nested_declaration_on_row(node, _CONCRETE_DECLARATION_TYPES, row) is not None
+    ):
         return "positive"
     return "unresolved"
 

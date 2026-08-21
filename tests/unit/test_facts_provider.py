@@ -290,6 +290,61 @@ class _VerifiedRustResult:
         return {"outcome": self.outcome, **self.fact_projection()}
 
 
+def test_typescript_repository_example_is_selected_without_policy_truth(monkeypatch):
+    example = SimpleNamespace(
+        language="typescript",
+        class_name="readmeExample",
+        code="import { Scene } from './src';\nconst scene = new Scene();\n",
+        evidence_paths=["README.md"],
+        required_symbols=["Scene"],
+    )
+    verification = _VerifiedRustResult()
+    observed_languages = []
+    monkeypatch.setattr(provider, "current_repository_snapshot", lambda _org_repo: object())
+    monkeypatch.setattr(provider, "local_fact_verification_allowed", lambda: True)
+    monkeypatch.setattr(provider, "repository_source_example_candidates", lambda *_args: [])
+
+    def readme_candidates(_root, language):
+        observed_languages.append(language)
+        return [example]
+
+    monkeypatch.setattr(provider, "repository_readme_example_candidates", readme_candidates)
+    monkeypatch.setattr(
+        provider,
+        "select_verified_repository_example",
+        lambda *_args, **_kwargs: SimpleNamespace(
+            outcome="VERIFIED",
+            example=example,
+            verification=verification,
+        ),
+    )
+    monkeypatch.setattr(
+        provider,
+        "verify_local_product_example",
+        lambda _snapshot, _example: verification,
+    )
+    monkeypatch.setattr(
+        provider,
+        "collect_acquisition_fact",
+        lambda *_args, **_kwargs: _fake_registry_fact("npm"),
+    )
+
+    facts, local_verification = provider._local_verification_facts(
+        "acme/widget",
+        "a" * 40,
+        None,
+        root=object(),
+        policy=SimpleNamespace(product_truth=None),
+        entry=SimpleNamespace(ecosystem="typescript"),
+    )
+
+    assert observed_languages == ["typescript"]
+    example_fact = next(fact for fact in facts if fact.field == "example.minimal")
+    assert example_fact.verification_state == "verified"
+    assert example_fact.fact_id == "example.minimal:compiled-repository-example"
+    assert local_verification["outcome"] == "SOURCE_BUILD_VERIFIED"
+
+
 def test_verified_rust_surface_is_preserved_in_example_product_fact(monkeypatch):
     example = SimpleNamespace(
         language="rust",

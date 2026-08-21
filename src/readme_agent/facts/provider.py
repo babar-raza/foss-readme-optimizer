@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import cast
 
 from readme_agent import paths
 from readme_agent.errors import NotAllowlistedError
@@ -20,9 +21,11 @@ from readme_agent.facts.knowledge_canonical_projection import (
 )
 from readme_agent.facts.local_verification import verify_local_product_example
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES, migrate_product_facts_v1
+from readme_agent.facts.platform_audience import derive_platform_audience
 from readme_agent.facts.policy_evidence import evidence_failures
 from readme_agent.facts.problem_grounding import derive_grounded_problem_fallback
 from readme_agent.facts.repository_examples import (
+    ExampleLanguage,
     repository_readme_example_candidates,
     repository_source_example_candidates,
 )
@@ -108,15 +111,32 @@ def _local_verification_facts(
         )
         if snapshot is not None and local_fact_verification_allowed() and not failures:
             local_result = verify_example(example)
+    raw_example_language = getattr(example, "language", None) or (
+        "dotnet" if ecosystem == "net" else ecosystem
+    )
+    supported_example_languages = {
+        "cpp",
+        "dotnet",
+        "go",
+        "java",
+        "python",
+        "rust",
+        "typescript",
+    }
+    example_language = (
+        cast(ExampleLanguage, raw_example_language)
+        if raw_example_language in supported_example_languages
+        else None
+    )
     if (
-        ecosystem == "net"
+        example_language is not None
         and snapshot is not None
         and local_fact_verification_allowed()
         and (local_result is None or not local_result.truth_eligible)
     ):
         repository_candidates = [
-            *repository_source_example_candidates(root, "dotnet"),
-            *repository_readme_example_candidates(root, "dotnet"),
+            *repository_source_example_candidates(root, example_language),
+            *repository_readme_example_candidates(root, example_language),
         ]
         if repository_candidates:
             selection = select_verified_repository_example(
@@ -398,6 +418,13 @@ def collect_product_facts(
         missing_field_surfaces=SURFACE_DEPENDENCIES,
         package_root_roles=package_root_roles,
     )
+    derived_facts: list[FactRecordV2] = []
+    if (
+        resolved.selected_fact("product.audience").verification_state
+        not in {"verified", "policy_approved"}
+        and (audience_fact := derive_platform_audience(resolved)) is not None
+    ):
+        derived_facts.append(audience_fact)
     problem_fallback = derive_grounded_problem_fallback(
         resolved,
         source_revision,
@@ -410,7 +437,9 @@ def collect_product_facts(
         and problem_fallback is not None
     ):
         _claims, problem_fact = problem_fallback
-        candidates.append(problem_fact)
+        derived_facts.append(problem_fact)
+    if derived_facts:
+        candidates.extend(derived_facts)
         resolved = resolve_product_facts(
             org_repo,
             candidates,

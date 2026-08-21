@@ -429,3 +429,37 @@ def test_non_python_class_citations_share_one_declaration_analysis(tmp_path: Pat
     assert first == second == "positive"
     assert cache.tree_sitter.declaration_signals == declarations_after_first
     assert len(declarations_after_first) == 3
+
+
+def test_typescript_exported_class_line_resolves_nested_declaration(tmp_path: Path):
+    (tmp_path / "GltfExporter.ts").write_text(
+        "export class GltfExporter {\n"
+        "    export(scene: Scene): Uint8Array { return scene.toBytes(); }\n"
+        "}\n",
+        encoding="utf-8",
+    )
+
+    signal = evidence_content_signal(
+        ({"file": "GltfExporter.ts", "line": 1},),
+        tmp_path,
+        claim_kind="format_support",
+    )
+
+    assert signal == "positive"
+
+
+def test_typescript_exported_stub_class_remains_negative(tmp_path: Path):
+    (tmp_path / "GltfExporter.ts").write_text(
+        "export class GltfExporter {\n"
+        "    export(): Uint8Array { throw new Error('not implemented'); }\n"
+        "}\n",
+        encoding="utf-8",
+    )
+
+    signal = evidence_content_signal(
+        ({"file": "GltfExporter.ts", "line": 1},),
+        tmp_path,
+        claim_kind="format_support",
+    )
+
+    assert signal == "negative"
