@@ -88,7 +88,13 @@ CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
     # mapping never covered. `expected_disposition`/`currently_accountable`
     # for that claim are unchanged (`accepted_fact`/`True`, via its own real
     # accepted facts) -- only the `origin` field corrected.
-    "b3339c5e83c7fc921282702e087abe4f9cffd464be80e45a1088e2562b2d7ff0"
+    #
+    # 2026-08-21: moved after explicit source-claim resolutions were excluded
+    # from content-identity fallback. A generated navigation line may have the
+    # same bytes as source text, but its explicit presentation-policy
+    # resolution remains authoritative; identical bytes no longer silently
+    # reclassify that resolved claim as inherited.
+    "9d40f48e638a7deddfe70af70f2a09e7ee315391dda445874f4bc634b9ee8205"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
     "48acd4b33fedaf91ac1e8e7c69e3adb2bf09db542abcc92cde9db75ed7432636"

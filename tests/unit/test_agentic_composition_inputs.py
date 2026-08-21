@@ -192,7 +192,10 @@ def test_compact_prompt_fact_value_bounds_a_native_transcript_regardless_of_ecos
 
 
 def _acquisition_value(ecosystem: str, coordinate: dict[str, str] | None) -> dict:
-    outcome = "NOT_PUBLISHED" if coordinate is None else "SOURCE_TREE_VERIFIED"
+    # This helper exercises prompt compaction, not acquisition acceptance.  A coordinate may be
+    # retained while its route is blocked, but SOURCE_TREE_VERIFIED now correctly requires a
+    # complete Python-only isolated-execution receipt and must never be fabricated by a fixture.
+    outcome = "NOT_PUBLISHED" if coordinate is None else "BLOCKED_LOCAL_VERIFICATION"
     decision = AcquisitionDecisionV1(
         org_repo="acme/widget",
         source_revision="a" * 40,
