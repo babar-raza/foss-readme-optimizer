@@ -1276,12 +1276,21 @@
           "evidence_refs": [
             "runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-selection/receipt.json",
             "runs/evidence/20260821-072532-97b7/aspose-3d-foss__Aspose.3D-FOSS-for-Python/manifest.json",
-            "runs/verification/pytest-full-latest.json"
+            "runs/verification/pytest-full-latest.json",
+            "claim lease expired"
           ],
           "fingerprint": "bb73427bbbbf602bdbbccd13b7bf93a7ff63fe1425d1343786e4d84e9afd437d",
           "last_material_narrowing_at": "2026-08-21T08:07:05.894746+00:00",
-          "outcome": "in_progress",
+          "outcome": "effective",
           "started_at": "2026-08-21T07:25:15.049649+00:00",
+          "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "bb73427bbbbf602bdbbccd13b7bf93a7ff63fe1425d1343786e4d84e9afd437d",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-21T08:07:33.005620+00:00",
           "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY"
         }
       ],
@@ -2224,9 +2233,9 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-21T07:55:15.049649+00:00",
-    "claim_id": "3e19b47a10e2418aaca25b82ee066d22",
-    "claimed_at": "2026-08-21T07:25:15.049649+00:00",
+    "claim_expires_at": "2026-08-21T08:37:33.005620+00:00",
+    "claim_id": "cfeb9056e73d4855ba035cfa4c516aa9",
+    "claimed_at": "2026-08-21T08:07:33.005620+00:00",
     "claimed_by": "codex-root",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
@@ -2460,7 +2469,7 @@
     ],
     "graph_sha256": "05028457629e867f073a332f637b3842e0e11ce6bdeb1122a2ac86f482aa504d",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-21T08:07:05.894769+00:00",
+    "last_evaluated_at": "2026-08-21T08:07:33.005620+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -12370,6 +12379,24 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-21T08:07:33.005643+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "codex-root",
+        "occurred_at": "2026-08-21T08:07:33.006066+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -12379,7 +12406,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1233,
+  "state_version": 1234,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
