@@ -44,7 +44,7 @@ next execution boundary.
 | All-portfolio claim disposition | `runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-selection/receipt.json` |
 | Development benchmark freeze and limitations | `runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/benchmark-snapshot/receipt.json` |
 | Canonical facts-only canary | `runs/evidence/20260821-072532-97b7/aspose-3d-foss__Aspose.3D-FOSS-for-Python/manifest.json` |
-| Complete non-live test receipt | `runs/verification/pytest-full-latest.json` |
+| Complete non-live test receipt | `plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/full-test-receipt.json` |
 | Generator provenance | `data/imported/aspose_org_knowledge_generator_manifest.json` |
 | Check-battery provenance | `data/imported/aspose_org_check_battery_manifest.json` |
 | Check classification | `data/aspose_check_classification.json` |
