@@ -85,6 +85,12 @@ def _catalog(path: Path) -> tuple[PresentationKnowledgeCatalogV1, str]:
     )
 
 
+def _public_text(value: str) -> str:
+    """Remove producer wrapping without changing the imported wording."""
+
+    return " ".join(value.split())
+
+
 def _safe_evidence_path(root: Path, relative: str) -> Path | None:
     candidate = (root / relative).resolve()
     try:
@@ -127,7 +133,7 @@ def _verify_hint(
                 evidence_paths=[relative],
                 anchor=anchor,
                 fact_id=fact_id,
-                claim_text=hint.text,
+                claim_text=_public_text(hint.text),
                 expected_polarity=expected,
                 source_revision=source_revision,
                 observed_at=observed_at,
@@ -191,7 +197,7 @@ def presentation_knowledge_facts(
         )
         if verified is None:
             continue
-        values[hint.field].append(hint.text)
+        values[hint.field].append(_public_text(hint.text))
         assessments[hint.field].extend(verified)
         evidence_paths[hint.field].update(item.source_path for item in verified)
 

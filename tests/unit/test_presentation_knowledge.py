@@ -65,7 +65,7 @@ def test_current_source_promotes_capability_and_explicit_limitation(tmp_path: Pa
             _hint(
                 unit_id="u1",
                 field="product.capabilities",
-                text="Open widgets with `Widget.open()`.",
+                text="Open widgets with\n  `Widget.open()`.",
                 evidence_path="src/Widget.java",
                 anchors=["Widget", "open"],
             ),
@@ -92,6 +92,8 @@ def test_current_source_promotes_capability_and_explicit_limitation(tmp_path: Pa
     assert selection.rejected == 0
     assert {fact.field for fact in facts} == {"product.capabilities", "product.limitations"}
     assert all(fact.verification_state == "verified" for fact in facts)
+    capability = next(fact for fact in facts if fact.field == "product.capabilities")
+    assert capability.value == ["Open widgets with `Widget.open()`."]
     assert all(
         assessment.accepted for fact in facts for assessment in fact.evidence_assessments or []
     )
