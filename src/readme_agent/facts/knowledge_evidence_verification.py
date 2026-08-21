@@ -23,6 +23,10 @@ import ast
 from pathlib import Path
 from typing import Literal
 
+from readme_agent.facts.knowledge_source_polarity import (
+    TreeSitterEvidenceCache,
+    source_line_signal,
+)
 from readme_agent.facts.python_evidence_polarity import function_node_is_unimplemented
 
 EvidenceContentSignal = Literal["positive", "negative", "unresolved"]
@@ -56,6 +60,7 @@ class EvidenceContentCache:
         self.resolved: dict[str, Path | None] = {}
         self.texts: dict[Path, str | None] = {}
         self.trees: dict[Path, ast.Module | None] = {}
+        self.tree_sitter = TreeSitterEvidenceCache(self.root)
 
     def resolve(self, reference: str) -> Path | None:
         if reference in self.resolved:
@@ -233,6 +238,11 @@ def _evidence_item_signal(
     line_signal = _python_line_signal(evidence_item, resolved, cache)
     if line_signal != "unresolved":
         return line_signal
+    line = evidence_item.get("line")
+    if isinstance(line, int):
+        source_signal = source_line_signal(resolved, line, cache=cache.tree_sitter)
+        if source_signal != "unresolved":
+            return source_signal
     return _snippet_freshness_signal(
         evidence_item,
         resolved,

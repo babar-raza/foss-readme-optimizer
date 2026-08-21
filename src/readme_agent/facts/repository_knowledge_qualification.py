@@ -142,7 +142,7 @@ def qualify_repository_knowledge(
             facts_path=facts_path,
         )
 
-    contract = current_fact_acceptance_contract()
+    contract = current_fact_acceptance_contract(entry.ecosystem, entry.family)
     contract_current = manifest.get("fact_acceptance_contract_hash") == contract.canonical_hash()
     source_text = (snapshot.root_path / snapshot.readme_path).read_text(encoding="utf-8")
     assessment = assess_readme_document(
