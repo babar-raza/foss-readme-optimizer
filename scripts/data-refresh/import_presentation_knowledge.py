@@ -9,8 +9,7 @@ import re
 import subprocess
 from pathlib import Path
 
-from markdown_it import MarkdownIt
-
+from readme_agent.facts.presentation_hint_anchors import technical_anchors
 from readme_agent.facts.presentation_knowledge_schema import (
     PresentationKnowledgeCatalogV1,
     PresentationKnowledgeHintV1,
@@ -20,27 +19,6 @@ _FIELDS = {
     "Key Capabilities": "product.capabilities",
     "Scope and Limitations": "product.limitations",
 }
-_SKIP_IDENTIFIERS = {
-    "as",
-    "await",
-    "const",
-    "false",
-    "for",
-    "from",
-    "import",
-    "let",
-    "new",
-    "none",
-    "null",
-    "return",
-    "true",
-    "using",
-    "var",
-    "with",
-}
-_IDENTIFIER = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
-_CALL = re.compile(r"([A-Za-z_][A-Za-z0-9_]*)\s*\(")
-_DOTTED = re.compile(r"\.([A-Za-z_][A-Za-z0-9_]*)")
 
 
 def _sha256(path: Path) -> str:
@@ -66,42 +44,6 @@ def _git_value(root: Path, *args: str) -> str:
         encoding="utf-8",
     )
     return result.stdout.strip()
-
-
-def _inline_code(text: str) -> list[str]:
-    values: list[str] = []
-    for token in MarkdownIt("commonmark").parse(text):
-        if token.type != "inline":
-            continue
-        values.extend(
-            child.content.strip()
-            for child in token.children or []
-            if child.type == "code_inline" and child.content.strip()
-        )
-    return values
-
-
-def _anchors(text: str, salient_tokens: list[object]) -> list[str]:
-    fragments = [*_inline_code(text), *(str(value) for value in salient_tokens)]
-    anchors: list[str] = []
-    for fragment in fragments:
-        candidates = [*_CALL.findall(fragment), *_DOTTED.findall(fragment)]
-        candidates.extend(
-            identifier
-            for identifier in _IDENTIFIER.findall(fragment)
-            if identifier[:1].isupper() or "_" in identifier
-        )
-        for candidate in candidates:
-            normalized = candidate.strip()
-            if (
-                len(normalized) < 2
-                or normalized.casefold() in _SKIP_IDENTIFIERS
-                or normalized.isdigit()
-            ):
-                continue
-            if normalized not in anchors:
-                anchors.append(normalized)
-    return anchors
 
 
 def _clean_text(value: object) -> str:
@@ -140,7 +82,7 @@ def build_catalog(source_root: Path, registry_path: Path) -> PresentationKnowled
             ):
                 continue
             text = _clean_text(row.get("excerpt"))
-            anchors = _anchors(text, list(row.get("salient_tokens") or []))
+            anchors = technical_anchors(text, list(row.get("salient_tokens") or []))
             if not text or not anchors:
                 continue
             hints.append(

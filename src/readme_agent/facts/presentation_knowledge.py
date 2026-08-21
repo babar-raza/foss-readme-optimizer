@@ -7,12 +7,15 @@ import json
 import re
 from pathlib import Path
 
+from markdown_it import MarkdownIt
+
 from readme_agent.facts.evidence_polarity import (
     EvidencePolarityAssessmentV1,
     ExpectedEvidencePolarity,
     assess_evidence_polarity,
 )
 from readme_agent.facts.migration import SURFACE_DEPENDENCIES
+from readme_agent.facts.presentation_hint_anchors import technical_anchors
 from readme_agent.facts.presentation_knowledge_schema import (
     PresentationKnowledgeCatalogV1,
     PresentationKnowledgeDispositionV1,
@@ -91,6 +94,98 @@ def _public_text(value: str) -> str:
     return " ".join(value.split())
 
 
+def _section_bullets(source: str, heading: str) -> list[str]:
+    """Return top-level list items from one level-two CommonMark section."""
+
+    lines = source.splitlines()
+    tokens = MarkdownIt("commonmark").parse(source)
+    section_start: int | None = None
+    section_end = len(lines)
+    for index, token in enumerate(tokens):
+        if token.type != "heading_open" or token.tag != "h2" or token.map is None:
+            continue
+        title = tokens[index + 1].content if index + 1 < len(tokens) else ""
+        if section_start is None and title.strip().casefold() == heading.casefold():
+            section_start = token.map[1]
+            continue
+        if section_start is not None:
+            section_end = token.map[0]
+            break
+    if section_start is None:
+        return []
+
+    bullets: list[str] = []
+    list_depth = 0
+    for token in tokens:
+        if token.map is not None and (token.map[0] < section_start or token.map[0] >= section_end):
+            continue
+        if token.type in {"bullet_list_open", "ordered_list_open"}:
+            list_depth += 1
+            continue
+        if token.type in {"bullet_list_close", "ordered_list_close"}:
+            list_depth = max(0, list_depth - 1)
+            continue
+        if token.type != "list_item_open" or list_depth != 1 or token.map is None:
+            continue
+        raw = "\n".join(lines[token.map[0] : token.map[1]])
+        cleaned = re.sub(r"^\s*(?:[-+*]|\d+[.)])\s+", "", raw, count=1)
+        cleaned = _public_text(cleaned)
+        if cleaned:
+            bullets.append(cleaned)
+    return bullets
+
+
+def _repository_readme_hints(
+    root: Path,
+    *,
+    family: str,
+    platform: str,
+    index: _SourceIndex,
+) -> list[PresentationKnowledgeHintV1]:
+    """Treat current README statements as hints and bind them to non-README evidence paths."""
+
+    readme = next(
+        (
+            path
+            for path in (root / "README.md", root / "Readme.md", root / "readme.md")
+            if path.is_file()
+        ),
+        None,
+    )
+    if readme is None:
+        return []
+    source = readme.read_text(encoding="utf-8-sig", errors="replace")
+    source_sha256 = hashlib.sha256(readme.read_bytes()).hexdigest()
+    hints: list[PresentationKnowledgeHintV1] = []
+    for heading, field in (
+        ("Key Capabilities", "product.capabilities"),
+        ("Scope and Limitations", "product.limitations"),
+    ):
+        for offset, text in enumerate(_section_bullets(source, heading), start=1):
+            anchors = technical_anchors(text)
+            if not anchors:
+                continue
+            evidence_paths = index.paths_containing(anchors[0], root / "__no_preferred_source__")
+            evidence_path = (
+                evidence_paths[0].relative_to(root.resolve()).as_posix()
+                if evidence_paths
+                else readme.relative_to(root).as_posix()
+            )
+            hints.append(
+                PresentationKnowledgeHintV1(
+                    family=family,
+                    platform=platform,
+                    unit_id=f"source-readme-{heading.casefold().replace(' ', '-')}-{offset:04d}",
+                    field=field,  # type: ignore[arg-type]
+                    text=text,
+                    evidence_path=evidence_path,
+                    anchors=anchors,
+                    source_file_sha256=source_sha256,
+                )
+            )
+    return hints
+
+
 def _safe_evidence_path(root: Path, relative: str) -> Path | None:
     candidate = (root / relative).resolve()
     try:
@@ -166,6 +261,17 @@ def presentation_knowledge_facts(
         and hint.platform.casefold() == platform.casefold()
     ]
     index = _SourceIndex(root)
+    catalog_ids = {(hint.field, _public_text(hint.text)) for hint in hints}
+    hints.extend(
+        hint
+        for hint in _repository_readme_hints(
+            root,
+            family=family,
+            platform=platform,
+            index=index,
+        )
+        if (hint.field, _public_text(hint.text)) not in catalog_ids
+    )
     dispositions: list[PresentationKnowledgeDispositionV1] = []
     values: dict[str, list[str]] = {"product.capabilities": [], "product.limitations": []}
     assessments: dict[str, list[EvidencePolarityAssessmentV1]] = {

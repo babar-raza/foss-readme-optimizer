@@ -135,3 +135,53 @@ def test_stale_anchor_and_escaping_evidence_fail_closed(tmp_path: Path):
     assert selection.accepted == 0
     assert selection.rejected == 2
     assert all(item.status == "rejected" for item in selection.dispositions)
+
+
+def test_source_readme_capability_is_only_promoted_after_non_readme_reverification(
+    tmp_path: Path,
+):
+    (tmp_path / "README.md").write_text(
+        "# Widget\n\n## Key Capabilities\n\n- Extract text with `TextAbsorber.extract()`.\n",
+        encoding="utf-8",
+    )
+    source = tmp_path / "src" / "TextAbsorber.java"
+    source.parent.mkdir()
+    source.write_text(
+        'public class TextAbsorber {\n  public String extract() { return "text"; }\n}\n',
+        encoding="utf-8",
+    )
+
+    facts, selection = presentation_knowledge_facts(
+        "widget",
+        "java",
+        root=tmp_path,
+        source_revision="e" * 40,
+        observed_at=None,
+        catalog_path=_catalog(tmp_path, []),
+    )
+
+    assert selection.considered == 1
+    assert selection.accepted == 1
+    assert facts[0].field == "product.capabilities"
+    assert facts[0].value == ["Extract text with `TextAbsorber.extract()`."]
+    assert facts[0].source.location == "repository://src/TextAbsorber.java"
+
+
+def test_source_readme_hint_fails_closed_when_non_readme_anchor_is_absent(tmp_path: Path):
+    (tmp_path / "README.md").write_text(
+        "# Widget\n\n## Key Capabilities\n\n- Export with `MissingExporter.save()`.\n",
+        encoding="utf-8",
+    )
+
+    facts, selection = presentation_knowledge_facts(
+        "widget",
+        "java",
+        root=tmp_path,
+        source_revision="e" * 40,
+        observed_at=None,
+        catalog_path=_catalog(tmp_path, []),
+    )
+
+    assert facts == []
+    assert selection.considered == 1
+    assert selection.rejected == 1
