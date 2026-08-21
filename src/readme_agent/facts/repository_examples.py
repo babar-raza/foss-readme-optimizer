@@ -252,7 +252,7 @@ def _go_source_example(root: Path, path: Path) -> MinimalExamplePolicy | None:
         return None
     module = module_match.group(1)
     import_match = re.search(
-        rf'(?m)^\s*(?:import\s+)?(?:(\w+)\s+)?"{re.escape(module)}"\s*$',
+        rf'(?m)^\s*(?:import\s+)?(?:(\w+)\s+)?"{re.escape(module)}(?:/[^"\s]+)*"\s*$',
         source,
     )
     if import_match is None:

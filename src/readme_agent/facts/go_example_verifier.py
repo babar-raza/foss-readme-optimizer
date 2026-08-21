@@ -41,17 +41,22 @@ def _selected_sources(
 ) -> tuple[list[str], list[str]]:
     module = _module_path(snapshot.root_path)
     imports = re.findall(
-        rf'(?m)^\s*(?:import\s+)?(\w+)?\s*"{re.escape(module)}"\s*$',
+        rf'(?m)^\s*(?:import\s+)?(?:(\w+)\s+)?"({re.escape(module)}(?:/[^"\s]+)*)"\s*$',
         code,
     )
     if not imports:
         raise ValueError("Go example does not import the immutable repository module")
-    alias = next((item for item in imports if item), Path(module).name.replace("-", "_"))
+    explicit_alias, import_path = imports[0]
+    alias = explicit_alias or Path(import_path).name.replace("-", "_")
     names = sorted(set(re.findall(rf"\b{re.escape(alias)}\.([A-Z]\w*)", code)))
     if not names:
         raise ValueError("Go example uses no exported repository symbol")
+    package_suffix = import_path.removeprefix(module).lstrip("/")
+    package_root = snapshot.root_path / package_suffix
+    if not package_root.is_dir():
+        raise ValueError("Go example imports a package outside the immutable repository module")
     paths = ["go.mod"]
-    for path in sorted(snapshot.root_path.glob("*.go")):
+    for path in sorted(package_root.glob("*.go")):
         text = path.read_text(encoding="utf-8", errors="replace")
         if any(
             re.search(
@@ -64,7 +69,7 @@ def _selected_sources(
             paths.append(path.relative_to(snapshot.root_path).as_posix())
     if len(paths) == 1:
         raise ValueError("Go exported symbols do not resolve to repository source")
-    return sorted(set(paths)), [f"{module}.{name}" for name in names]
+    return sorted(set(paths)), [f"{import_path}.{name}" for name in names]
 
 
 def verify(

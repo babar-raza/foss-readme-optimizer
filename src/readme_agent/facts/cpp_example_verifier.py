@@ -44,7 +44,7 @@ def _selected_sources(
     package_root: Path,
     code: str,
 ) -> tuple[list[str], list[str]]:
-    includes = sorted(set(re.findall(r'(?m)^\s*#include\s+"([^"]+)"', code)))
+    includes = sorted(set(re.findall(r'(?m)^\s*#include\s+[<"]([^>"]+)[>"]', code)))
     resolved = [
         package_root / "include" / include
         for include in includes

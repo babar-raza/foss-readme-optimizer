@@ -77,6 +77,25 @@ try (Widget widget = new Widget()) {
     assert 'widget.save("output.bin");' in candidates[0].code
 
 
+def test_go_source_example_accepts_repository_subpackage_import(tmp_path):
+    (tmp_path / "go.mod").write_text(
+        "module example.test/acme/widget\n\ngo 1.24\n",
+        encoding="utf-8",
+    )
+    example = tmp_path / "examples" / "basic" / "main.go"
+    example.parent.mkdir(parents=True)
+    example.write_text(
+        'package main\nimport api "example.test/acme/widget/api"\n'
+        "func main() { _ = api.NewWorkbook() }\n",
+        encoding="utf-8",
+    )
+
+    candidates = repository_source_example_candidates(tmp_path, "go")
+
+    assert len(candidates) == 1
+    assert candidates[0].required_symbols == ["api.NewWorkbook"]
+
+
 def test_repository_authored_native_example_keeps_required_compiler_scaffolding(tmp_path):
     includes = "\n".join(f'#include "widget/header_{index}.h"' for index in range(30))
     source = f'{includes}\n\nint main() {{\n    Widget item;\n    item.Save("out.bin");\n}}\n'

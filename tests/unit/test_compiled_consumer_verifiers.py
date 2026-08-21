@@ -450,6 +450,28 @@ def test_cpp_consumer_binds_public_headers_and_namespace(tmp_path, monkeypatch):
     assert "g++ --version" in calls[0].argv[-1]
 
 
+def test_cpp_consumer_accepts_repository_angle_bracket_header(tmp_path, monkeypatch):
+    package = tmp_path / "Widget"
+    (package / "include/acme").mkdir(parents=True)
+    (package / "src").mkdir()
+    (package / "CMakeLists.txt").write_text("project(widget)\n", encoding="utf-8")
+    (package / "include/acme/Widget.h").write_text(
+        "namespace acme { class Widget {}; }\n",
+        encoding="utf-8",
+    )
+    calls: list[IsolatedExecutionRequestV1] = []
+    monkeypatch.setattr(cpp_example_verifier, "verify_repository_snapshot", lambda _: None)
+
+    result = cpp_example_verifier.verify(
+        _snapshot(tmp_path),
+        _example("cpp", "#include <acme/Widget.h>\nint main() { return 0; }\n"),
+        executor=_successful_executor(calls),
+    )
+
+    assert result.truth_eligible
+    assert result.verified_public_symbols == ["acme/Widget.h"]
+
+
 def test_go_consumer_binds_exported_module_symbols(tmp_path, monkeypatch):
     (tmp_path / "go.mod").write_text(
         "module example.test/acme/widget\n\ngo 1.24\n",
@@ -485,6 +507,36 @@ def test_go_consumer_binds_exported_module_symbols(tmp_path, monkeypatch):
     }
     assert calls[0].policy.network_mode == "none"
     assert "go version" in calls[0].argv[-1]
+
+
+def test_go_consumer_binds_exported_subpackage_symbols(tmp_path, monkeypatch):
+    (tmp_path / "go.mod").write_text(
+        "module example.test/acme/widget\n\ngo 1.24\n",
+        encoding="utf-8",
+    )
+    package = tmp_path / "api"
+    package.mkdir()
+    (package / "workbook.go").write_text(
+        "package api\n\n"
+        "type Workbook struct{}\n"
+        "func NewWorkbook() *Workbook { return &Workbook{} }\n",
+        encoding="utf-8",
+    )
+    calls: list[IsolatedExecutionRequestV1] = []
+    monkeypatch.setattr(go_example_verifier, "verify_repository_snapshot", lambda _: None)
+
+    result = go_example_verifier.verify(
+        _snapshot(tmp_path),
+        _example(
+            "go",
+            'package main\nimport cells "example.test/acme/widget/api"\n'
+            "func main() { _ = cells.NewWorkbook() }\n",
+        ),
+        executor=_successful_executor(calls),
+    )
+
+    assert result.truth_eligible
+    assert result.verified_public_symbols == ["example.test/acme/widget/api.NewWorkbook"]
 
 
 @pytest.mark.parametrize(
