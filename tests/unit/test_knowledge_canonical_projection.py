@@ -57,7 +57,7 @@ def test_verified_knowledge_projects_into_missing_canonical_fields():
         ),
         _knowledge(
             "aspose.limitation_claims",
-            ["Not implemented: Scene.Render in src/Aspose/Scene.cs:500"],
+            ["Not implemented: Scene.Render() in src/Aspose/Scene.cs:500"],
         ),
     ]
 
@@ -74,7 +74,7 @@ def test_verified_knowledge_projects_into_missing_canonical_fields():
         "Input format: GLTF",
         "Output format: PDF",
     ]
-    assert by_field["product.limitations"].value == ["`Scene.Render` is not implemented."]
+    assert by_field["product.limitations"].value == ["`Scene.Render()` is not implemented."]
     assert all(fact.supporting_fact_ids for fact in projected)
 
 
@@ -95,7 +95,7 @@ def test_unverified_knowledge_is_not_promoted():
     assert project_knowledge_into_canonical_facts([source]) == []
 
 
-def test_projection_resolves_a_blocked_mechanical_target_with_complete_lineage():
+def test_unqualified_method_limitation_cannot_override_blocked_mechanical_truth():
     source = _knowledge(
         "aspose.limitation_claims",
         ["Not implemented: Scene.Render in src/Aspose/Scene.cs:500"],
@@ -104,6 +104,8 @@ def test_projection_resolves_a_blocked_mechanical_target_with_complete_lineage()
         "product.limitations", {"reason": "extractor unavailable"}, state="blocked"
     )
     projected = project_knowledge_into_canonical_facts([source, blocked])
+
+    assert projected == []
 
     facts = resolve_product_facts(
         "acme/widget",
@@ -116,8 +118,8 @@ def test_projection_resolves_a_blocked_mechanical_target_with_complete_lineage()
     )
 
     selected = facts.selected_fact("product.limitations")
-    assert selected.fact_id == "product.limitations:verified-knowledge-projection"
-    assert selected.supporting_fact_ids == [source.fact_id]
+    assert selected.fact_id == "product.limitations:repository"
+    assert selected.verification_state == "blocked"
     assert facts.selected_fact(source.field).fact_id == source.fact_id
 
 

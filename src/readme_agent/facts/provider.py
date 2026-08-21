@@ -430,26 +430,43 @@ def collect_product_facts(
             observed_at=observed_at,
             catalog_path=presentation_catalog,
         )
+        selection_fact = FactRecordV2(
+            fact_id=descriptive_fact_id(
+                "aspose.presentation_knowledge_selection",
+                f"{entry.family}-{entry.platform}",
+            ),
+            field="aspose.presentation_knowledge_selection",
+            value=presentation_selection.model_dump(mode="json"),
+            source=FactSourceV2(
+                source_type="mechanical_repository",
+                location="repository://presentation-knowledge-reverification",
+                source_revision=source_revision,
+                retrieved_at=observed_at,
+            ),
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["evidence.knowledge"],
+        )
         eligible_fallbacks = [
             fact
             for fact in presentation_fallbacks
             if resolved.selected_fact(fact.field).verification_state
             not in {"verified", "policy_approved"}
         ]
-        if eligible_fallbacks:
-            candidates.extend(eligible_fallbacks)
-            resolved = resolve_product_facts(
-                org_repo,
-                candidates,
-                missing_source=FactSourceV2(
-                    source_type="mechanical_repository",
-                    location=f"repository://{org_repo}",
-                    source_revision=source_revision,
-                    retrieved_at=observed_at,
-                ),
-                missing_field_surfaces=SURFACE_DEPENDENCIES,
-                package_root_roles=package_root_roles,
-            )
+        candidates.extend([selection_fact, *eligible_fallbacks])
+        resolved = resolve_product_facts(
+            org_repo,
+            candidates,
+            missing_source=FactSourceV2(
+                source_type="mechanical_repository",
+                location=f"repository://{org_repo}",
+                source_revision=source_revision,
+                retrieved_at=observed_at,
+            ),
+            missing_field_surfaces=SURFACE_DEPENDENCIES,
+            package_root_roles=package_root_roles,
+        )
     derived_facts: list[FactRecordV2] = []
     if (
         resolved.selected_fact("product.audience").verification_state

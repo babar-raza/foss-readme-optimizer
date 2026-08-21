@@ -121,7 +121,12 @@ def _clean_limitations(items: list[dict[str, object]]) -> list[str]:
         if match is None:
             continue
         symbol = match.group(1).strip().rstrip(". ")
-        if not symbol or "/" in symbol or "\\" in symbol:
+        # A bare Type.method token loses overload identity. Live Slides/Java
+        # evidence proved this can turn one unsupported overload into the false
+        # public claim that the working method itself is unimplemented. Only an
+        # explicit signature is safe enough to project; richer current-source
+        # limitation hints are handled by presentation_knowledge.py.
+        if not symbol or "/" in symbol or "\\" in symbol or "(" not in symbol or ")" not in symbol:
             continue
         values.append(f"`{symbol}` is not implemented.")
     return _deduplicate(values)

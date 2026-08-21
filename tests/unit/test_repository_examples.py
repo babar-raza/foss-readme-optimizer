@@ -50,6 +50,33 @@ def test_unlabelled_and_wrong_language_blocks_are_not_candidates(tmp_path):
     assert repository_readme_example_candidates(tmp_path, "python") == []
 
 
+def test_java_statement_fence_becomes_comment_free_compilable_program(tmp_path):
+    (tmp_path / "README.md").write_text(
+        """# Widget
+
+```java
+import com.acme.Widget;
+
+// Create the visitor example.
+try (Widget widget = new Widget()) {
+    widget.save("output.bin");
+}
+```
+""",
+        encoding="utf-8",
+    )
+
+    candidates = repository_readme_example_candidates(tmp_path, "java")
+
+    assert len(candidates) == 1
+    assert candidates[0].class_name == "ReadmeExample"
+    assert candidates[0].code.startswith("import com.acme.Widget;")
+    assert "public final class ReadmeExample" in candidates[0].code
+    assert "public static void main(String[] args) throws Exception" in candidates[0].code
+    assert "Create the visitor example" not in candidates[0].code
+    assert 'widget.save("output.bin");' in candidates[0].code
+
+
 def test_repository_authored_native_example_keeps_required_compiler_scaffolding(tmp_path):
     includes = "\n".join(f'#include "widget/header_{index}.h"' for index in range(30))
     source = f'{includes}\n\nint main() {{\n    Widget item;\n    item.Save("out.bin");\n}}\n'

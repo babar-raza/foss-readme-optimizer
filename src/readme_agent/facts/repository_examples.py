@@ -39,6 +39,9 @@ _EXAMPLE_DIRECTORY_NAMES = frozenset(
 _UNSUITABLE_VISITOR_EXAMPLE_PARTS = frozenset(
     {"ai", "auth", "credential", "password", "secret", "token"}
 )
+_JAVA_TYPE_DECLARATION = re.compile(
+    r"\b(?:public\s+)?(?:final\s+|abstract\s+)?(?:class|interface|enum|record)\s+\w+"
+)
 
 
 def _class_name(source: str, fallback: str) -> str:
@@ -63,6 +66,35 @@ def _evidence_anchor(source: str) -> str | None:
         if len(anchor) >= 4 and not anchor.startswith(("//", "#", "/*", "*")):
             return anchor
     return None
+
+
+def _complete_java_example(source: str) -> str:
+    """Wrap a repository-authored Java statement fence as a compilable program."""
+
+    if _JAVA_TYPE_DECLARATION.search(source):
+        return source
+    declarations: list[str] = []
+    statements: list[str] = []
+    for line in source.splitlines():
+        stripped = line.strip()
+        if stripped.startswith(("package ", "import ")):
+            declarations.append(stripped)
+        else:
+            statements.append(line.rstrip())
+    body = "\n".join(statements).strip()
+    if not body:
+        return source
+    indented = "\n".join(f"        {line}" if line else "" for line in body.splitlines())
+    prefix = "\n".join(declarations)
+    if prefix:
+        prefix += "\n\n"
+    return (
+        f"{prefix}public final class ReadmeExample {{\n"
+        "    public static void main(String[] args) throws Exception {\n"
+        f"{indented}\n"
+        "    }\n"
+        "}"
+    )
 
 
 def _imported_symbol_anchors(language: ExampleLanguage, source: str) -> list[str]:
@@ -161,8 +193,10 @@ def repository_readme_example_candidates(
     for token in MarkdownIt("commonmark").parse(text):
         info = token.info.strip().split(maxsplit=1)[0].lower() if token.info.strip() else ""
         code = token.content.strip()
-        if info in aliases and language in {"python", "dotnet"}:
+        if info in aliases:
             code = strip_source_comments(language, code).strip()
+        if info in aliases and language == "java":
+            code = _complete_java_example(code)
         anchor = _evidence_anchor(code)
         if (
             token.type != "fence"
