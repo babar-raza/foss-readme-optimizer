@@ -119079,7 +119079,7 @@
     "updated_at": "2026-08-21T06:32:08.946307+00:00"
   },
   "schema_version": 2,
-  "state_version": 2484,
+  "state_version": 2485,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
@@ -121670,13 +121670,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "transient",
+      "failure_detail": "unhandled_runtime_failure:ValidationError:1 validation error for KnowledgeApplicationV1   Value error, duplicate final disposition attribution: 3d/python/CLM-3d-0a241f [type=value_error, input_value={'status': 'provisional',...ason='wrong_platform'))}, input_type=dict]     For further information visit https://errors.pydantic.dev/2.13/v/value_error",
       "last_checkpoint_id": "68b4d476e791cbef25346d47cc428831700675e3a3c7c2046ea39fa124f2c6f4",
-      "lease_expires_at": "2026-08-21T06:52:23.055001+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-21T06:38:20.388724+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-21T06:39:54.442892+00:00"
     }
   },
   "trigger_records": {},
