@@ -1274,6 +1274,7 @@
         }
       ],
       "proposed_fingerprints": {
+        "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "bb73427bbbbf602bdbbccd13b7bf93a7ff63fe1425d1343786e4d84e9afd437d",
         "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "9d8091b625ebf675542727bfa42e720a03906a4d5b9ca7bfa0a7b171f1668ee0",
         "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "7eab48b74512b28f340785e99422bc0b0a88419dcf7f91a2ae403ef898dd2186",
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "bf6d148aeae3f3e33e2b35911a5594270cc97525ebb8a9d1fe20e511b1a5f392",
@@ -2171,6 +2172,36 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-21T12:30:00+05:00",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-refresh-python/receipt.json",
+            "runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-refresh-net-java/receipt.json",
+            "runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-refresh-other/receipt.json",
+            "runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-selection/receipt.json",
+            "runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/benchmark-snapshot/receipt.json",
+            "src/readme_agent/facts/repository_knowledge_adapter.py",
+            "src/readme_agent/facts/repository_knowledge_generator.py"
+          ],
+          "input_classification": "constraint",
+          "mechanism_changed": true,
+          "new_fingerprint": "bb73427bbbbf602bdbbccd13b7bf93a7ff63fe1425d1343786e4d84e9afd437d",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "b6d454cae09623fe99128f466cf45a369178e7f1fbfe25c1ac96716387873434",
+          "rationale": "Both ineffective attempts are lease-expiry bookkeeping, not repeated technical failure. During those leases the task materially changed its causal boundary: the local generator became self-contained and validation-gated; weak upstream 24-bit claim identifiers were replaced by deterministic semantic 64-bit identifiers after six real Java/.NET collisions; all 31 processable repositories were refreshed at current immutable revisions with two typed PSD dispositions and zero failures; and all 72,956 claims received one evidence-aware selection disposition. Reuse the completed generator, refresh, benchmark, and selection evidence. Invalidate the earlier FACTS_READY canary because the generator and adapter identities changed. Keep the stage ceiling at FACTS_READY, reclaim this task, and rerun only the canonical Aspose.3D Python knowledge/facts transaction before checkpoint verification. This records the actual narrowed boundary and avoids either repeating extraction or entering README composition before the user-requested discussion.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY"
         }
       ]
     },
@@ -2417,7 +2448,7 @@
     ],
     "graph_sha256": "05028457629e867f073a332f637b3842e0e11ce6bdeb1122a2ac86f482aa504d",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-21T07:21:49.142521+00:00",
+    "last_evaluated_at": "2026-08-21T07:24:49.089086+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -2544,7 +2575,26 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "campaign_id": "CAMP-SHARED-ACCELERATION",
+      "core_contribution": {
+        "kind": "first_boundary_removal",
+        "summary": "Turn the imported corpus from mostly logged context into safe, accountable README value."
+      },
+      "goal_ids": [
+        "GOAL-TRUTH",
+        "GOAL-README",
+        "GOAL-DELIVERY"
+      ],
+      "immediate_goal_id": "DELIVERY-KNOWLEDGE-TO-BYTES",
+      "immediate_outcome": "Prove one serial knowledge transaction, then refresh and qualify knowledge for every processable registry repository while freezing the latest synchronized benchmark, making generation self-contained, closing the five remaining consumers, and binding acceptance identity.",
+      "repository_scope": [
+        "portfolio:all-processable",
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+      ],
+      "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
+      "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY"
+    },
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
@@ -12307,7 +12357,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1230,
+  "state_version": 1231,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
