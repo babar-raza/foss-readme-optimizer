@@ -119040,6 +119040,15 @@
         "reason": "recovered checksum-bound safe boundary after non-intake system failure",
         "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
         "to_status": "DETERMINISTIC_VALIDATED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "DETERMINISTIC_VALIDATED",
+        "observed_by": "supervisor_product_truth",
+        "occurred_at": "2026-08-21T06:44:42.762122+00:00",
+        "reason": "fact inputs changed; invalidating dependent README stages",
+        "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "to_status": "FACTS_COLLECTING"
       }
     ],
     "human_acceptance_history": [],
@@ -119126,11 +119135,11 @@
     "reviewer_standard_hash": "0ccb5304729e9ec918dea73ec13787912187782dd50b8296d0d9cb9f40a6da38",
     "schema_version": 2,
     "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
-    "status": "DETERMINISTIC_VALIDATED",
-    "updated_at": "2026-08-21T06:32:08.946307+00:00"
+    "status": "FACTS_COLLECTING",
+    "updated_at": "2026-08-21T06:44:42.762122+00:00"
   },
   "schema_version": 2,
-  "state_version": 2490,
+  "state_version": 2491,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
