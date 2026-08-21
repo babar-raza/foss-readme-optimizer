@@ -383,3 +383,21 @@ def test_evidence_cache_parses_one_immutable_file_once_across_claims(tmp_path: P
     assert first == second == "positive"
     assert len(cache.texts) == 1
     assert len(cache.trees) == 1
+
+
+def test_evidence_cache_classifies_one_non_python_source_line_once(tmp_path: Path):
+    (tmp_path / "Scene.cs").write_text(
+        "public class Scene\n{\n    public int Count() { return 1; }\n}\n",
+        encoding="utf-8",
+    )
+    cache = EvidenceContentCache(tmp_path)
+    evidence = ({"file": "Scene.cs", "line": 3},)
+
+    first = evidence_content_signal(evidence, tmp_path, claim_kind="feature", cache=cache)
+    source_path = cache.resolve("Scene.cs")
+    assert source_path is not None
+    cache.tree_sitter.trees[source_path] = None
+    second = evidence_content_signal(evidence, tmp_path, claim_kind="feature", cache=cache)
+
+    assert first == second == "positive"
+    assert cache.tree_sitter.line_signals == {(source_path, 3): "positive"}

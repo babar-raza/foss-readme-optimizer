@@ -80,6 +80,7 @@ class TreeSitterEvidenceCache:
         self.root = root.resolve()
         self.sources: dict[Path, bytes | None] = {}
         self.trees: dict[Path, Tree | None] = {}
+        self.line_signals: dict[tuple[Path, int], SourcePolarity] = {}
 
     def source_and_tree(self, path: Path) -> tuple[bytes | None, Tree | None]:
         if path not in self.sources:
@@ -140,6 +141,20 @@ def source_line_signal(
 ) -> SourcePolarity:
     """Classify the exact syntax declaration containing a one-based cited line."""
 
+    key = (path, line)
+    if key in cache.line_signals:
+        return cache.line_signals[key]
+    signal = _uncached_source_line_signal(path, line, cache=cache)
+    cache.line_signals[key] = signal
+    return signal
+
+
+def _uncached_source_line_signal(
+    path: Path,
+    line: int,
+    *,
+    cache: TreeSitterEvidenceCache,
+) -> SourcePolarity:
     if line < 1 or _LANGUAGE_BY_SUFFIX.get(path.suffix.casefold()) is None:
         return "unresolved"
     source, tree = cache.source_and_tree(path)
