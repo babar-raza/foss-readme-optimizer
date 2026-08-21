@@ -41,6 +41,7 @@ from readme_agent.facts.verified_repository_examples import (
     bounded_local_verification_detail,
     select_verified_repository_example,
 )
+from readme_agent.facts.verified_truth_retention import retain_current_verified_truth
 from readme_agent.registry.loader import require_listed
 from readme_agent.registry.models import MinimalExamplePolicy, ProductTruthPolicy
 from readme_agent.repository_snapshot import (
@@ -171,6 +172,12 @@ def _repository_enriched_technical_facts(
     technical: dict[str, FactRecordV2],
 ) -> dict[str, FactRecordV2]:
     """Project exact repository extension facts into the selected product fields."""
+
+    retain_current_verified_truth(
+        base_facts,
+        technical,
+        fields=("product.capabilities", "product.formats"),
+    )
 
     try:
         detail = base_facts.selected_fact("repository.capability_details")
