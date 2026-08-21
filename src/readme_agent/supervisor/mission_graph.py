@@ -1,6 +1,7 @@
 """Load and validate the supervisor's declarative central mission graph."""
 
 import hashlib
+import json
 from pathlib import Path
 
 import yaml
@@ -119,10 +120,29 @@ def _validate_reference(graph_path: Path, reference, label: str) -> Path:
 def _validate_graph(graph: MissionTaskGraphV1, *, graph_path: Path) -> None:
     contract = graph.autonomous_execution_contract
     authority = graph.mission_authority
+    portfolio = graph.portfolio_proof_contract
     if not contract.mechanism_locked or contract.mechanism_type != "autonomous_supervision":
         raise ConfigError("mission must stay locked to autonomous_supervision")
     if not authority.mission_locked:
         raise ConfigError("mission_authority.mission_locked must be true")
+    supporting_contract = _resolve_reference(graph_path, portfolio.supporting_contract_path)
+    supporting_contract_sha256 = hashlib.sha256(supporting_contract.read_bytes()).hexdigest()
+    if supporting_contract_sha256 != portfolio.supporting_contract_sha256:
+        raise ConfigError("portfolio proof supporting contract hash does not match")
+    registry_path = _resolve_reference(graph_path, portfolio.registry_path)
+    registry_sha256 = hashlib.sha256(registry_path.read_bytes()).hexdigest()
+    if registry_sha256 != portfolio.registry_sha256:
+        raise ConfigError("portfolio proof registry hash does not match the frozen baseline")
+    try:
+        registry_rows = json.loads(registry_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise ConfigError(f"portfolio proof registry cannot be loaded: {exc}") from exc
+    if not isinstance(registry_rows, list) or len(registry_rows) != portfolio.baseline_admitted:
+        raise ConfigError("portfolio proof baseline count does not match the frozen registry")
+    rubric_path = _resolve_reference(graph_path, portfolio.rubric_path)
+    rubric_sha256 = hashlib.sha256(rubric_path.read_bytes()).hexdigest()
+    if rubric_sha256 != portfolio.rubric_sha256:
+        raise ConfigError("portfolio proof rubric hash does not match")
     if authority.core_goal_id is not None or authority.goal_catalog:
         raise ConfigError("legacy universal mission goals must be absent after TRP-00 migration")
     stage_goals = authority.stage_goal_catalog

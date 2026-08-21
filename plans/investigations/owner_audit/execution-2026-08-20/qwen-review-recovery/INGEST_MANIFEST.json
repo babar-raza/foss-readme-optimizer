@@ -1,0 +1,63 @@
+{
+  "$id": "qwen-review-recovery-ingest-manifest",
+  "task": "OPT-QWEN-REVIEW-RECOVERY-DESIGN",
+  "pin": {
+    "expected": "aa998102191c530af4dca3a6895d62a4027a613e",
+    "verified_head_at_design_time": "aa998102191c530af4dca3a6895d62a4027a613e",
+    "verified_via": "git rev-parse HEAD",
+    "working_tree_status": "clean (git status --porcelain empty)"
+  },
+  "constraints_honored": [
+    "no worktree/branch/clone/workspace change",
+    "no tracked file modified",
+    "no commit created",
+    "no push",
+    "no live LLM call made",
+    "no Docker run",
+    "no full test suite run",
+    "output confined to runs/owner_audit_staging/qwen-review-recovery-aa9981021/"
+  ],
+  "source_files_inspected": [
+    "src/readme_agent/specialists/merged_readme_review.py",
+    "src/readme_agent/specialists/merged_readme_review_contracts.py",
+    "src/readme_agent/specialists/separated_readme_review.py",
+    "src/readme_agent/specialists/review_role_execution.py",
+    "src/readme_agent/specialists/readme_review_reducer.py",
+    "src/readme_agent/specialists/readme_review_roles.py",
+    "src/readme_agent/specialists/review_finding_grounding.py",
+    "src/readme_agent/llm/reviewer_client.py",
+    "src/readme_agent/llm/verifier_client.py",
+    "src/readme_agent/llm/merged_readme_review.py",
+    "src/readme_agent/llm/schema.py",
+    "src/readme_agent/errors.py",
+    "src/readme_agent/env.py",
+    "src/readme_agent/retry.py (signature check only)",
+    "tests/unit/test_separated_readme_review.py",
+    "src/readme_agent/supervisor/repair.py (MAX_REPAIR_ATTEMPTS)",
+    "src/readme_agent/supervisor/action_dispatch.py (repair-cap enforcement site)"
+  ],
+  "research_performed_via_subagents": [
+    {
+      "topic": "no-op zero-call caching mechanism, Stage 5 identity, receipt persistence convention, env.py job routing, AnalysisResult shape",
+      "scope": "read-only Explore agent, no writes"
+    },
+    {
+      "topic": "resume mechanism, lifecycle stage enum, empty-shell terminology search, 33-repo timing data",
+      "scope": "read-only Explore agent, no writes"
+    }
+  ],
+  "stage_5_relevance_finding": "Investigated and ruled out of scope: 'Stage 5 calibration' (plans/master.md 2026-08-20 changelog, commit aa9981021 backlog entry) is a Docker container-registry-acquisition failure during the FACTS_COLLECTING lifecycle stage (src/readme_agent/facts/isolated_docker_control.py), unrelated to Qwen review calls (AGENT_REVIEWING stage). Confirmed via direct grep of the failure's error-string origin, not inference.",
+  "empty_shell_terminology_finding": "The literal term 'empty-shell' does not exist anywhere in this repository's source. This design defines it operationally (repos that terminate before AGENT_REVIEWING) rather than citing a nonexistent existing mechanism -- flagged explicitly in RUNNER_COST_MODEL.json rather than presented as a confirmed existing feature.",
+  "pre_existing_gap_found": "src/readme_agent/specialists/separated_readme_review.py:104-107 already constructs the factual-role fallback client via build_live_role_review_clients(...) and discards it (`[0]` taken, `[1]` unused) -- the single most load-bearing finding this design's patch map is built on.",
+  "files_produced": [
+    "REPORT.md",
+    "REQUEST_OUTPUT_BUDGET.json",
+    "FAILURE_STATE_MACHINE.json",
+    "IMPLEMENTATION_PATCH_MAP.md",
+    "RED_TEST_PLAN.md",
+    "RUNNER_COST_MODEL.json",
+    "INGEST_MANIFEST.json",
+    "PROPOSED_COMMIT_MESSAGE.txt",
+    "SHA256SUMS"
+  ]
+}

@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "audit_id": "OPT-CANDIDATE-ASPOSE-PARITY-AUDIT",
+  "convention": "Non-blocking issues discovered during this read-only audit are logged as open BACKLOG rows per GOV-014 (plans/GOVERNANCE.md); nothing here has been fixed or committed.",
+  "rows": [
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-001",
+      "product": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/readme/document_templates.py",
+      "function": "installation_text",
+      "gap_summary": "Source-build installation branch never emits dependency classification (required/optional/dev/native), so dependency truth is silently absent rather than explicitly verified-zero.",
+      "repair": "Add a dependency-classification slot to the source_build installation template, sourced from existing manifest facts.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-002",
+      "product": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/presentation/verified_template_api_method_index.py",
+      "function": "_verified_method_rows / api_method_index_markdown",
+      "gap_summary": "Method Index includes any member merely because its name is textually mentioned elsewhere in the document, pulling in NotImplementedError stubs (Mesh.union/do_boolean/etc., NurbsCurve.evaluate, NurbsSurface.to_mesh) and presenting them as normal working API, contradicting the Scope and Limitations section.",
+      "repair": "Exclude or annotate members already classified as raising NotImplementedError before including them in the Method Index.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-003",
+      "product": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/presentation/verified_template_api_method_index.py",
+      "function": "api_method_index_markdown",
+      "gap_summary": "The public API surface is rendered three overlapping times in one candidate (namespace table, orphan bullet list, Method Index) with no deduplication.",
+      "repair": "Deduplicate API-surface renderers so only one representation is emitted per candidate.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-004",
+      "product": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/commands_poc.py",
+      "function": "build_source_disposition_ledger",
+      "gap_summary": "Case-sensitive `compiled_blocks.get(heading)` lookup fails for any unit whose extracted heading_text casing (e.g. 'At a glance') differs from the template compiler's canonical casing (e.g. 'At a Glance'), leaving `target` blank for 21 of 24 units even when the content genuinely exists in the candidate.",
+      "repair": "Normalize case (or use a slug/casefold comparison) when matching heading_text against compiled_slot_blocks keys.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-005",
+      "product": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/commands_poc.py",
+      "function": "run_poc_for_repo",
+      "gap_summary": "The computed disposition-ledger validity (`ledger_valid`) is never consulted by the promotion/status decision, so a candidate with 21 real ledger errors can still be reported DELIVERED with 'none' open issues at the portfolio level.",
+      "repair": "Make the promotion status conditional on ledger_valid, and make RESULTS.md supersede stale per-repo rows instead of only appending.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-006",
+      "product": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/presentation/verified_template_draft.py",
+      "function": "generated_minimal_example",
+      "gap_summary": "When no catalogued class member matches _EXAMPLE_ENTRY_MEMBERS, the function falls back to a bare, content-free constructor call (e.g. `scene = Scene()`), which then ships as the entire Quick Start section.",
+      "repair": "Extend the entry-point matching to recognize Scene.open()/Scene.save() (or similar) as valid one-call entry points before falling back to a bare constructor-only example.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-007",
+      "product": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/readme/source_claim_contradiction.py",
+      "function": "contradicted_source_claim_fact_ids",
+      "gap_summary": "No check compares a Scope-and-Limitations 'not implemented' bullet against method calls demonstrated as working in the same candidate's code examples, allowing a direct in-document contradiction to ship.",
+      "repair": "Add a cross-check between limitation claims and example call sites before a candidate can be accepted.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-008",
+      "product": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/readme/source_claim_overview_binding.py",
+      "function": "_product_positioning_overview_fact_ids",
+      "gap_summary": "Opening-line binder produced a single-symbology (Code 128-only) product description when the product supports seven symbologies.",
+      "repair": "Bind the opening sentence to the full product.capabilities fact set, not a single narrowed identity fact.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-009",
+      "product": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/readme/public_limitations.py",
+      "function": "_public_limitations / public_limitation_phrases",
+      "gap_summary": "Emits stale/false per-symbology limitation strings from bootstrap.py verbatim ('Only the SVG backend is implemented for Code 128/Code 39') without validating them against the shared renderer implementation or demonstrated examples.",
+      "repair": "Cross-validate each limitation phrase against source/example evidence before emission; fix the stale source strings in bootstrap.py.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-010",
+      "product": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/commands_poc.py",
+      "function": "build_source_disposition_ledger",
+      "gap_summary": "Ledger is always built against whatever README is currently checked out at the target repo's HEAD, never against a designated true pre-refresh original, and independently produces fabricated DROPPED rows for units (H1, Key Capabilities, API Reference) that are actually present in the candidate.",
+      "repair": "Support reconciling against an explicitly designated old-README baseline distinct from the live checkout, and fix the DROPPED-classification logic to check actual presence in render['final_text'] before recording a drop.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-011",
+      "product": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/commands_poc.py",
+      "function": "_disposition_acceptance",
+      "gap_summary": "Computes disposition_ledger_valid/errors but nothing in the acceptance pipeline gates promotion on this result; a candidate with 3 unresolved ledger errors was still promoted.",
+      "repair": "Fail closed on disposition_ledger_valid=false before writing README.md/marking the run accepted.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-012",
+      "product": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/presentation/verified_template_capabilities.py",
+      "function": "_capability_rows / build_capability_presentation_plan",
+      "gap_summary": "QR Code, a real major capability, is absent from both the At-a-Glance diagram and Key Capabilities list.",
+      "repair": "Ensure every top-level product.capabilities entry is represented in the overview diagram/list, or explicitly logs any capability it excludes.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-013",
+      "product": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/presentation/verified_template_capabilities.py",
+      "function": "_description",
+      "gap_summary": "Falls back to fixed generic boilerplate sentences ('Build the corresponding content through the public object model.') when related_types resolves empty, producing repetitive, low-information capability bullets.",
+      "repair": "Derive a source-grounded descriptive sentence (e.g., from docstrings) instead of a fixed template string when related_types is empty.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-014",
+      "product": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/presentation/verified_template_api_method_index.py",
+      "function": "(row-description template, not individually named)",
+      "gap_summary": "Every API Method Index row uses the identical templated sentence pattern 'Calls the `<op>` operation on `<Class>`.', reading as machine filler.",
+      "repair": "Prefer a signature/docstring-derived description per method, falling back to the template only when no richer source text exists.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-015",
+      "product": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/readme/claim_accountability_golden_workflow_coordinates.py",
+      "function": "golden_workflow_fact_coordinates",
+      "gap_summary": "The Quick Start section is bound to a trivial 'instantiate a renderer' snippet instead of a complete generate+render workflow.",
+      "repair": "Re-derive the development.golden_workflow fact for this repository to capture a full working example, and add a check that a Quick Start slot must include at least one generation and one render call before acceptance.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-016",
+      "product": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/readme/document_validation.py",
+      "function": "validate_readme_document_candidate (aspose_checks integration, lines 556-580)",
+      "gap_summary": "A false aspose_checks value carries no visible finding detail into validation.json and cannot be independently investigated from persisted evidence.",
+      "repair": "Persist the actual list of aspose_check_findings (not just the aggregate boolean) alongside deterministic_checks.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-017",
+      "product": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/readme/document_validation.py",
+      "function": "claim_accountability_complete check (lines 524-539), using validate_claim_accountability_map in src/readme_agent/readme/claim_accountability_validation.py",
+      "gap_summary": "2 blocking claim-accountability conflicts left unresolved for this candidate while delivery proceeded.",
+      "repair": "Block delivery when claim_accountability_complete is false; surface the specific claim IDs for resolution.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-018",
+      "product": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/commands_poc.py",
+      "function": "build_source_disposition_ledger (line 96) / _disposition_acceptance (lines 282-296)",
+      "gap_summary": "16 heading units marked VERIFIED_MERGED/SUPERSEDED with an empty target field, making the preservation ledger invalid by its own check.",
+      "repair": "Populate the target field with the real candidate destination for every retained/superseded unit; fail the run (not just log) on any _disposition_acceptance error.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-019",
+      "product": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/commands_poc.py",
+      "function": "build_source_disposition_ledger (line 96) -- has no code-block-level disposition class",
+      "gap_summary": "The 'Extract Attached Files' code example from the predecessor README has no equivalent anywhere in the delivered candidate and no disclosed reason.",
+      "repair": "Rewrite the Extract Attached Files example using open()/write() as was done for the sibling image-save example, and add a dedicated code-block-level disposition ledger.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-020",
+      "product": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/readme/header_badges.py",
+      "function": "badge selection/target logic (no ledger equivalent exists)",
+      "gap_summary": "The predecessor README's CI badge is dropped with zero accounting; a Contributors badge and banner image are added with zero accounting.",
+      "repair": "Add a badge/media disposition ledger (mirroring Aspose's own badge-dispositions.json) to the POC delivery path.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-021",
+      "product": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/commands_poc.py",
+      "function": "run_poc_for_repo delivery path (lines 518-568) and _append_results_row (line 320)",
+      "gap_summary": "README.md is written and the run recorded as deliverable regardless of deterministic_verdict; RESULTS.md's hand-curated top summary table ('DELIVERED'/'none') is not reconciled against the auto-appended diagnostic log showing DIAGNOSTIC_VALIDATION_reject for the same candidate.",
+      "repair": "Gate README/evidence writing on deterministic_verdict=='accept', or clearly propagate reject status into whatever process produces the top RESULTS.md summary table; regenerate that table from the same status data as the auto-appended log.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-022",
+      "product": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/commands_poc.py",
+      "function": "_review_once retry/accept logic (lines 474-496)",
+      "gap_summary": "independent_review_verdict recorded ACCEPT despite an unresolved blocking claim conflict found by the deterministic layer moments earlier in the same run.",
+      "repair": "Pass the deterministic claim-accountability findings into the review gate so ACCEPT cannot be recorded while blocking claims remain unresolved.",
+      "status": "open"
+    },
+    {
+      "id": "BACKLOG-ASPOSE-PARITY-023",
+      "product": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "platform": "python",
+      "module": "src/readme_agent/commands_poc.py",
+      "function": "noop verdict computation (lines 505-516)",
+      "gap_summary": "Recomposing the candidate for the no-op/reproducibility proof required 2 new LLM provider calls, so the rerun is not a true deterministic replay despite the bytes matching.",
+      "repair": "Investigate and remove the non-determinism in the recomposition/caching path so a sealed rerun needs zero new provider calls.",
+      "status": "open"
+    }
+  ]
+}

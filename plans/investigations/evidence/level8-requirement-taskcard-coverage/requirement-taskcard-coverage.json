@@ -4,45 +4,37 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements/catalog.jsonl",
-  "source_sha256": "70ad633d7d180367bf3fd42ca4d2d1bce792fb165043de1709d1506ef017464d",
+  "source_sha256": "bb58cb62b8489c5b46a8be3566a85d9279ab5edb50af5a99031b3dc069c16e2a",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 475,
-  "mandatory_requirement_rows": 424,
-  "excluded_backlog_rows": 28,
+  "total_requirement_rows": 489,
+  "mandatory_requirement_rows": 433,
+  "excluded_backlog_rows": 33,
   "excluded_deprecated_rows": 23,
-  "reopened_implemented_rows": 0,
+  "reopened_implemented_rows": 4,
   "disposition_counts": {
     "active_governance": 35,
-    "excluded_backlog": 28,
+    "excluded_backlog": 33,
     "excluded_deprecated": 23,
-    "open_mandatory": 229,
-    "preserved_verified": 160
+    "open_mandatory": 234,
+    "preserved_verified": 160,
+    "reopened_semantic_evidence_gap": 4
   },
   "taskcard_counts": {
-    "L8-PLAN-RECONCILIATION-ACCELERATION": 1,
-    "L8-VPY-00-GOLDEN-TEMPLATE": 1,
-    "TRP-00-ASSURANCE-CONTRACT": 3,
-    "TRP-01-README-DERIVED-FACTS": 2,
-    "TRP-02-LLM-FIRST-COMPOSITION": 2,
-    "TRP-03-INDEPENDENT-FIDELITY-REVIEW": 2,
-    "TRP-04P-COHORT-FREEZE": 1,
-    "TRP-04P-TEST-LATENCY": 1,
-    "TRP-04P-COHERENT-PRESENTATION-REPAIR": 4,
-    "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": 1,
-    "TRP-04P-DRAFT-PR-COHORT": 1,
-    "TRP-04P-POC-PRESENTATION": 1,
-    "TRP-04-CANARY-QUALIFICATION": 1,
-    "TRP-05-FULL-REGISTRY-TRANSFORM": 1,
-    "TRP-05A-ACT-WORKFLOW-PARITY": 1,
-    "TRP-05B-STAGING-EFFECT-PROOF": 1,
-    "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION": 2,
-    "TRP-06-AUTHORIZATION-ACCESS": 1,
-    "TRP-07-DRAFT-PR-PORTFOLIO": 1,
-    "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 38,
-    "L8-WAVE1-CANONICAL-SAFETY-SPINE": 78,
-    "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 52,
-    "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 44,
-    "L8-WAVE4-PRESENTATION-INTELLIGENCE": 113,
+    "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": 3,
+    "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": 11,
+    "L8-PF-02-COMPLETE-CANDIDATE-SEAM": 3,
+    "L8-PF-03-SEALED-CANDIDATE-NO-OP": 2,
+    "L8-PF-04-MINIMAL-GRAPH-RUNNER": 1,
+    "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": 1,
+    "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY": 2,
+    "L8-AGILE-AUTHORITY-RESET": 7,
+    "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": 1,
+    "L8-COMPOSE-01C-CONTEXTUAL-LINKING": 4,
+    "L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF": 1,
+    "L8-GATE-D-GITHUB-APP-INTEGRATION": 1,
+    "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY": 1,
+    "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": 1,
+    "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH": 1,
     "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": 1,
     "L8-TRUTH-01-STAGE-LIMIT": 1,
     "L8-TRUTH-01A-FACT-CONTRACT": 1,
@@ -55,26 +47,36 @@
     "L8-TRUTH-02D-RUST-API-TRUTH": 1,
     "L8-TRUTH-03A-ISOLATED-EXECUTOR": 2,
     "L8-TRUTH-07-SEVEN-ECOSYSTEMS": 1,
-    "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT": 2,
-    "L8-COMPOSE-01C-CONTEXTUAL-LINKING": 4,
-    "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS": 1,
-    "L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY": 1,
-    "L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION": 1,
-    "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT": 1,
-    "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH": 2,
-    "L8-QUAL-01-CAMPAIGN-IDENTITY": 1,
-    "L8-QUAL-03-RECOVERY": 1,
+    "L8-VPY-00-GOLDEN-TEMPLATE": 1,
+    "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": 1,
+    "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": 1,
+    "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 38,
+    "L8-WAVE1-CANONICAL-SAFETY-SPINE": 78,
+    "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 52,
+    "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 44,
+    "L8-WAVE4-PRESENTATION-INTELLIGENCE": 115,
     "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 53,
-    "L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF": 1,
-    "L8-WAVE6-CONTROLLED-JAVA-PILOT": 15,
-    "L8-GATE-D-GITHUB-APP-INTEGRATION": 1,
-    "L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO": 1,
+    "L8-WAVE6-CONTROLLED-JAVA-PILOT": 14,
     "L8-WAVE7-HETEROGENEOUS-PORTFOLIO": 5,
+    "L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO": 1,
     "L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE": 7,
-    "L8-AGILE-AUTHORITY-RESET": 8,
-    "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": 2,
-    "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": 1,
-    "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": 1
+    "TRP-00-ASSURANCE-CONTRACT": 3,
+    "TRP-01-README-DERIVED-FACTS": 2,
+    "TRP-02-LLM-FIRST-COMPOSITION": 2,
+    "TRP-03-INDEPENDENT-FIDELITY-REVIEW": 2,
+    "TRP-04-CANARY-QUALIFICATION": 1,
+    "TRP-04P-COHERENT-PRESENTATION-REPAIR": 4,
+    "TRP-04P-COHORT-FREEZE": 1,
+    "TRP-04P-DRAFT-PR-COHORT": 1,
+    "TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION": 1,
+    "TRP-04P-POC-PRESENTATION": 1,
+    "TRP-04P-TEST-LATENCY": 1,
+    "TRP-05-FULL-REGISTRY-TRANSFORM": 1,
+    "TRP-05A-ACT-WORKFLOW-PARITY": 1,
+    "TRP-05B-STAGING-EFFECT-PROOF": 1,
+    "TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION": 2,
+    "TRP-06-AUTHORIZATION-ACCESS": 1,
+    "TRP-07-DRAFT-PR-PORTFOLIO": 1
   },
   "unmapped_requirement_ids": [],
   "duplicate_requirement_ids": [],
@@ -763,7 +765,7 @@
       "requirement_id": "RDM-018",
       "priority": "P1",
       "requirement_status": "PLANNED",
-      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -827,7 +829,7 @@
       "requirement_id": "RDM-026",
       "priority": "P0",
       "requirement_status": "PARTIAL",
-      "task_id": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
+      "task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -2259,7 +2261,7 @@
       "requirement_id": "PIL-015",
       "priority": "P0",
       "requirement_status": "PLANNED",
-      "task_id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
+      "task_id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -3531,7 +3533,7 @@
       "requirement_id": "L8-012",
       "priority": "P1",
       "requirement_status": "PARTIAL",
-      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -3563,7 +3565,7 @@
       "requirement_id": "L8-016",
       "priority": "P0",
       "requirement_status": "PLANNED",
-      "task_id": "L8-QUAL-01-CAMPAIGN-IDENTITY",
+      "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -3571,7 +3573,7 @@
       "requirement_id": "L8-017",
       "priority": "P0",
       "requirement_status": "PLANNED",
-      "task_id": "L8-QUAL-03-RECOVERY",
+      "task_id": "L8-PF-04-MINIMAL-GRAPH-RUNNER",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -3595,7 +3597,7 @@
       "requirement_id": "L8-020",
       "priority": "P0",
       "requirement_status": "PLANNED",
-      "task_id": "L8-COMPOSE-02B-FINAL-CLAIM-CORPUS",
+      "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -3707,7 +3709,7 @@
       "requirement_id": "L8-034",
       "priority": "P0",
       "requirement_status": "PARTIAL",
-      "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
+      "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -3730,16 +3732,16 @@
     {
       "requirement_id": "L8-037",
       "priority": "P0",
-      "requirement_status": "IMPLEMENTED",
-      "task_id": "L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT",
-      "disposition": "preserved_verified",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION",
+      "disposition": "open_mandatory",
       "semantic_findings": []
     },
     {
       "requirement_id": "L8-038",
       "priority": "P0",
       "requirement_status": "PARTIAL",
-      "task_id": "L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH",
+      "task_id": "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -3763,7 +3765,7 @@
       "requirement_id": "L8-041",
       "priority": "P0",
       "requirement_status": "PARTIAL",
-      "task_id": "L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT",
+      "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -3787,7 +3789,7 @@
       "requirement_id": "L8-044",
       "priority": "P0",
       "requirement_status": "PARTIAL",
-      "task_id": "L8-PLAN-RECONCILIATION-ACCELERATION",
+      "task_id": "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -3803,7 +3805,7 @@
       "requirement_id": "L8-046",
       "priority": "P0",
       "requirement_status": "PLANNED",
-      "task_id": "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
+      "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -3819,7 +3821,7 @@
       "requirement_id": "L8-048",
       "priority": "P0",
       "requirement_status": "PARTIAL",
-      "task_id": "L8-AGILE-AUTHORITY-RESET",
+      "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP",
       "disposition": "open_mandatory",
       "semantic_findings": []
     },
@@ -3876,6 +3878,128 @@
       "priority": "P0",
       "requirement_status": "PLANNED",
       "task_id": "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "KNOW-001",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "KNOW-002",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "KNOW-003",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "KNOW-004",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "KNOW-005",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+      "disposition": "open_mandatory",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "KNOW-006",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "KNOW-007",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "KNOW-008",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "KNOW-009",
+      "priority": "P3",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "KNOW-010",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-TRUTH-07-SEVEN-ECOSYSTEMS",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "KNOW-011",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "KNOW-012",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+      "disposition": "reopened_semantic_evidence_gap",
+      "semantic_findings": [
+        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      ]
+    },
+    {
+      "requirement_id": "KNOW-013",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "KNOW-014",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
       "disposition": "open_mandatory",
       "semantic_findings": []
     }

@@ -176,30 +176,32 @@ state. This file also defines machinery-artifact naming and organization.
     preference. (Added 2026-07-25, user directive — see Decision #78; extends rule 8, Decision #30.)
 17. **A partial or source-incomplete registry result MUST NOT be claimed as a complete POC.** Any
     status claim, report, or Decision Ledger/requirements update that describes README-candidate,
-    review, or proof work across `data/products.json` MUST state the actual count and
-    runtime-derived denominator it covers. Completion additionally requires a freshness-valid,
-    source-complete registry revision with zero unexplained observations, source failures, or
-    pending intake. Language that implies full-registry completion — "the POC is done,"
-    "portfolio proof complete," or equivalent — is prohibited unless every admitted entry has
-    reached the claimed status and discovery proves no authorized-source repository was silently
-    omitted.
+    review, or proof work MUST name the frozen `RegistryRevisionV1`, processable numerator and
+    denominator, and typed non-processable count. Completion requires a freshness-valid,
+    source-complete revision with zero unexplained observations, source failures, or pending intake;
+    every processable repository must reach the claimed state and every non-processable repository
+    must carry immutable source/inventory evidence plus a resume predicate. Language that implies
+    full-registry completion — "the POC is done," "portfolio proof complete," or equivalent — is
+    prohibited when any repository is omitted, silently blocked, or disposed for an agent-fixable gap.
     This is the same discipline `GOV-007`'s evidence bar and rule 10's "prove it in production"
     already require, made explicit for the specific, previously-seen failure mode of a
     three-repository or other partial result being described as if it were the whole POC. (Added
     2026-07-25, user directive — see Decision #78.)
-18. **Gate A has a discovery-to-candidate artifact contract and makes its own
+18. **Portfolio proof has a discovery-to-candidate artifact contract and makes its own
     repository-specific decisions.** Verified Gate-A work is the exclusive active presentation
     path; no trusted artifact satisfies it. Every Gate-A campaign first binds a complete discovery-source
-    catalog, raw observation snapshot, registry revision, and intake disposition, then starts from
-    the README at each admitted repository's observed default-branch
-    revision and records the original bytes/revision, verified facts and conflicts, selected
-    product/platform capabilities, operation plan, local candidate, exact diff, deterministic
-    validation, independent agentic verdict, repair history, and no-op rerun result. Product-agent
+    catalog, raw observation snapshot, registry revision, and processability disposition. Every
+    processable repository then records original README bytes/revision, verified facts and conflicts,
+    imported-knowledge selections and final dispositions, selected product/platform capabilities,
+    operation plan, local candidate, exact diff, deterministic validation, criterion-specific
+    evidence for all 30 rubric points, independent verdict, repair history, and immediate complete-
+    transaction no-op result. Product-agent
     content and the existing README are inputs to reconcile, neither trusted nor discarded without
     evidence. Product/platform capability selection is automatic in the canonical path; a human
     does not choose the template, capability, skill, or command sequence. A repository is not
-    human-review-ready merely because a candidate file exists: it must have an agent-approved,
-    no-op-proven result. A strong existing README may produce a byte-identical empty-patch
+    human-review-ready merely because a candidate file exists: it must be
+    `AGENT_ACCEPTED_30_OF_30` with zero hard disqualifiers and no-op-proven. A strong existing README
+    may produce a byte-identical empty-patch
     candidate, but it receives the same fact, inherited-claim, deterministic, independent-review,
     and no-op proof. (Added 2026-07-25; amended 2026-07-29 — see Decisions #78 and #84.)
 19. **One accountable coordinator; parallelism is adaptive, measured, and repository-isolated.**
@@ -271,8 +273,9 @@ state. This file also defines machinery-artifact naming and organization.
     invariants attached to the current goals, not alternate destinations. Narrative handovers and
     operators may not manually override derived goal state. Level 7 and Level 8 are post-deployment
     background certification states, not executable delivery blockers. (Added 2026-07-29, user
-    directive; amended for verified Python execution and agile delivery; see Decisions
-    #85/#88/#96, `L8-025`, `L8-042`, and `L8-VPY-00`–`L8-VPY-03`.)
+    directive; amended for candidate-first portfolio execution; see Decisions #85/#88/#96/#108,
+    `L8-PF-00`–`L8-PF-05`, and `L8-PORT-01`. One sealed transaction precedes the general runner;
+    seven ecosystem canaries precede processable-portfolio fan-out.)
     Reporting distinguishes `delivery_complete` (all executable work through deployable Level 6)
     from `certification_complete` (closed Level-7/8 observations and audits). Full
     `mission_complete` requires both; no delivery-only result may claim Level 7 or Level 8.

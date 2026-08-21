@@ -84,10 +84,14 @@ content. Additional-examples prose previews the named workflows a visitor can ex
 platforms” or promotional sections that add no reader utility.
 Internal assurance narration never appears in the public README. Source revisions, isolated-build conditions, network policy, registry receipts, provider calls, evidence collectors, and validation status belong in evidence; the README states only the useful public consequence, such as installing from source when no verified package command is available. Aspose.com product links use natural explanatory prose and an informative **full-featured ... Enterprise Edition** anchor below the fold. Competing sections may not repeat the same capability inventory.
 Maintainer-authored source README information is valuable evidence, not disposable text and not automatically true. Once reconciled, its validated product information, commands, examples, APIs, workflows, limitations, and terminology are preserved or improved inside the relevant canonical section such as Key Capabilities, Installation, Additional Examples, API Reference, Documentation and Resources, Scope and Limitations, or Development and Testing. The approved presentation template owns public tone, headings, organization, and formatting; source tone and prose structure are not preservation obligations. Every material source unit maps exactly once to a non-empty candidate destination, an evidence-backed correction, or an explicit justified omission. The system must never expose generic implementation labels such as “Preserved repository details.” Material detail with no safe semantic destination fails closed for upstream reconciliation rather than being dumped into the document.
-The manually composed Note reference is a structural seed, not the ceiling. Its same-revision
-Aspose.org comparison is development-only and exposes missing native extraction, selection,
-composition, graph, and review behavior that must become self-contained Repo Presenter contracts.
-Production and acceptance cannot read sibling assets; Note must regenerate independently.
+The manually composed Note reference is a structural seed, not the ceiling. Its same-revision Aspose.org comparison exposes missing native extraction, selection, composition, graph, and review behavior.
+Those behaviors must become self-contained Repo Presenter contracts; production and acceptance cannot read sibling assets, and Note must regenerate independently.
+
+Aspose.org is an evolving development oracle, not a presumed-perfect specification. Committed mechanisms, knowledge, checks, generators, fixtures, and patterns require local reconciliation, negative controls, and independent review.
+Defects are adapted, quarantined, or rejected; origin never makes an item factual or blocking, and acceptance/deployed runs succeed without the sibling checkout.
+
+The latest complete, stably synchronized canonical `repo-presenter-regen-full` corpus is the development visitor-quality benchmark. Because generated reports may be gitignored, campaigns bind producer HEAD/dirty fingerprint separately from two identical full-tree inventories, then reconcile denominators and run a fresh aggregate audit before freezing `BenchmarkQualityProfileV1`.
+Repo Presenter must meet or exceed every accepted applicable coverage/quality dimension while still requiring current-source `ProductFactsV2`, lineage, native 30-point acceptance, and complete-transaction no-op. Missing, mutating, incomplete, or failing benchmark proof cannot lower the bar; later improvement becomes `BENCHMARK_REFRESH_AVAILABLE` and is adopted only at a declared boundary.
 
 The composer creates a coherent developer journey, not a fact inventory: precise opening, one badge
 row, navigation, semantic graph, task-oriented capabilities, acquisition, executed example, curated
@@ -119,52 +123,47 @@ merely because its machinery, tests, or evidence exist.
 
 ## README POC Readiness and Ordered Delivery Gates
 
-The POC is the full currently eligible, discoverable authorized portfolio, not a sample and not
-merely a stale checked-in list. `data/products.json` remains the hard execution allow-list and its
-exact admitted count is computed at runtime (`len()` over its entries), never hard-coded. Gate-A
-closure also requires a fresh, complete discovery reconciliation: every repository visible from
-each authorized source has an explicit observation and disposition; pending intake, unexplained
-observations, source failures, and stale scans are zero. Eligibility is fail-closed and
-case-insensitive: a repository name must have exactly the form
-`Aspose[.-]{Family}-FOSS-for-{Platform}`, with one terminal platform token and no trailing variant
-suffix. Both `Aspose.PDF-FOSS-for-Go` and `aspose-pdf-foss-for-go` qualify; `CSSForge` and
-`Aspose-PDF-FOSS-for-Go-MCP` remain visible discovery exclusions and never enter the execution
-allow-list. A newly observed eligible repository is admitted automatically only as disabled/read-only
-and enters the same preflight and README lifecycle. A naming mismatch never makes an observation
-invisible, but it prevents admission. A result covering only part of the admitted registry, or a
-registry whose source inventory is incomplete, is a development batch or partial result and is
-never presented as "the POC."
+The POC is the full currently eligible, discoverable authorized portfolio, not a sample or stale
+checked-in count. `data/products.json` remains the hard execution allow-list, while a frozen
+`RegistryRevisionV1` supplies the campaign denominator and every observation's disposition.
+Pending intake, unexplained observations, source failures, and stale scans block portfolio closure
+without stopping unrelated admitted work. New eligible repositories enter disabled and read-only;
+naming mismatches remain visible exclusions.
 
-### Current delivery-first verified Python proving milestone
+At the baseline registry revision for commit `df864ffd189167ef7e3cd458fb092c704769babe`, 31
+repositories contain substantive product evidence and are README targets. Two source-empty PSD
+repositories receive evidence-bound `NON_PROCESSABLE_NO_IMPLEMENTATION` dispositions with exact
+resume predicates. The immediate delivery outcome is therefore **31/31 processable READMEs**, not
+31/33 and not 33 fabricated candidates. These figures are baseline observations: discovery or
+admission growth reopens processability and affected portfolio proof. The bounded supporting
+contract is `plans/investigations/control/portfolio-readme-proof-contract.md`; the Level-8 graph
+and durable state remain the only execution authority and mutable cursor.
+
+### Current Candidate-First Portfolio Proving Milestone
 
 The temporary trusted lane is preserved but no longer executes. Its README-derived extraction,
 LLM composition, targeted repair, cache, retry, lease, workflow, staging, App, and effect evidence
 remain reusable only within their proven assurance boundary. They never become repository facts
 or verified acceptance merely through reuse.
 
-The project remains **pre-POC** until one current repository completes the entire verified
-lifecycle. Machinery, facts, candidates, deterministic validation, historical approval, and a
-golden sample do not change that classification. The first visible milestone is one finalized
-verified README; it is not itself a platform POC. The first platform POC is Python and closes only
-when every runtime-loaded Python repository completes the same current contract.
+The project remains **pre-POC** until one current weak-input repository completes the entire
+verified transaction. Machinery, section canaries, historical candidates, and old approvals do not
+change that classification. The first milestone is one complete candidate with repository-grounded
+facts, source dispositions, all applicable blocking checks, independent factual and visitor review,
+criterion-specific evidence for all 30 rubric points with zero hard disqualifiers, and an immediate
+complete-transaction no-op with zero new provider work.
 
 Execution is delivery-first but its mutable cursor never lives in this product document:
 
 1. mission `evaluate` reconciles graph drift, claims, lifecycle freshness, and component hashes;
 2. mission `status` selects one typed immediate goal, repository scope, and next action from the
    earliest dependency-ready or regressed boundary;
-3. that repository completes facts, composition, deterministic validation, independent review,
-   targeted repair, unchanged no-op, promotion, aspose.org corpus parity review, and manifest
-   reconstruction before its task closes; the parity review is diagnostic (Decision #104) — it
-   compares the promoted candidate against aspose.org's real candidate for the same product and
-   routes confirmed systemic gaps to their actual causal owner — native extraction, typed
-   knowledge projection, fact reconciliation, agentic composition, deterministic rendering, or
-   validation, whichever owns the defect, never defaulted to a deterministic fix — but does not
-   itself gate promotion or change Gate A's AGENT_APPROVED/NO_OP_PROVEN completion definition;
-4. feedback creates a component delta and reruns only dependent stages; historical closure cannot
-   satisfy a changed factual, safety, protected-content, or severe acceptance contract;
-5. the same loop completes the dynamic Python denominator, then .NET, Java, C++, TypeScript, Rust,
-   and Go, followed by verified Gate A/B/C and production deployment;
+3. close only the identity and acceptance gaps required to wire one complete candidate, then seal
+   one weak-input 30/30 candidate and prove its immediate complete-transaction no-op;
+4. encode that proven transaction behind typed allow-listed graph actions and machine-evaluated
+   predicates; the runner automates proven behavior and does not author or commit control code;
+5. prove one complete candidate per supported ecosystem, then execute isolated portfolio lanes and
+   failed-only repair until all processable repositories are accepted and no-op proven;
 6. Level-7 and Level-8 elapsed observations run only as background certification after deployment.
 
 The Level-8 mission graph owns the stable repository-focus chain. Durable mission state alone says
@@ -172,9 +171,10 @@ which member is current. Narrative documents may describe stage order but must n
 duplicate that cursor.
 
 At each boundary, terminology is fail-closed: one finalized repository is the **first verified
-README**, all current Python repositories are the **verified Python platform POC**, and all current
-admitted repositories are **verified Gate A**. A smaller numerator must be reported as partial
-progress with its exact denominator.
+README**; one accepted candidate per ecosystem is the **cross-ecosystem canary gate**; and every
+processable repository in the frozen registry revision is the **portfolio README proof**. Its
+terminal state is `PORTFOLIO_AGENT_ACCEPTED_AWAITING_GLOBAL_HUMAN_REVIEW`, not human acceptance,
+publication eligibility, production readiness, or umbrella-mission closure.
 
 ### Agile operating model
 

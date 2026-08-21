@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "audit_id": "OPT-CANONICAL-103-CHECK-GAP",
+  "note": "Every field below is inferred from this repo's own sibling vendored-check patterns and the committed D12 evidence text, NOT from the missing checks' actual canonical source (not committed to this repository). Per requirement 9, do not treat these as confirmed canonical behavior -- confirm against real canonical source text before implementation, and keep family-specific presentation policy configurable rather than copying Aspose's literal wording/thresholds.",
+  "missing_checks": [
+    {
+      "canonical_name": "check_additional_example_headings",
+      "d12_category": "quick-start/examples",
+      "candidate_gate_relevance": "candidate-gate (README-only execution)",
+      "sibling_vendored_checks": [
+        "check_examples_table_collapsed"
+      ],
+      "inferred_required_inputs": [
+        "readme_text"
+      ],
+      "inferred_severity_default": "hard_gate (inferred from sibling; NOT confirmed against canonical source)",
+      "smallest_adaptation": "Structural heading-presence check for the Additional Examples section, same shape as the already-vendored check_examples_table_collapsed (readme_text-only, always available -- no new producer needed).",
+      "policy_configurability_note": "Heading text/casing must stay template-driven, not Aspose's literal string.",
+      "red_test_name": "test_check_additional_example_headings_real_invocation_flags_missing_heading",
+      "red_test_file": "tests/unit/test_aspose_checks_missing_adaptation.py",
+      "proposed_implementation_file": "src/readme_agent/validation/aspose_checks_adapted.py"
+    },
+    {
+      "canonical_name": "check_code_example_excluded_reason_citation_too_narrow",
+      "d12_category": "content-unit/code-example",
+      "candidate_gate_relevance": "candidate-gate (README-only execution)",
+      "sibling_vendored_checks": [
+        "check_code_example_disposition_coverage",
+        "check_code_example_no_exact_duplicate_merge",
+        "check_content_unit_excerpt_matches_extraction"
+      ],
+      "inferred_required_inputs": [
+        "dispositions"
+      ],
+      "inferred_severity_default": "heuristic (inferred; citation-narrowness reads as a quality heuristic, not confirmed)",
+      "smallest_adaptation": "Same dispositions-list input already required by every check_code_example_* sibling -- no new producer category, only reachable once 'dispositions' itself is wired (see the 61 applicable_after_adaptation checks already blocked on this same input in CHECK_103_MATRIX.json).",
+      "policy_configurability_note": "Narrowness threshold must be a configurable parameter, not a fixed Aspose heuristic constant.",
+      "red_test_name": "test_check_code_example_excluded_reason_citation_too_narrow_flags_underspecified_citation",
+      "red_test_file": "tests/unit/test_aspose_checks_missing_adaptation.py",
+      "proposed_implementation_file": "src/readme_agent/validation/aspose_checks_adapted.py"
+    },
+    {
+      "canonical_name": "check_content_unit_redundant_claim_verifiable",
+      "d12_category": "content-unit",
+      "candidate_gate_relevance": "candidate-gate (README-only execution)",
+      "sibling_vendored_checks": [
+        "check_content_unit_probable_duplicate",
+        "check_content_unit_classification_plausibility"
+      ],
+      "inferred_required_inputs": [
+        "content_units",
+        "dispositions"
+      ],
+      "inferred_severity_default": "heuristic (inferred from sibling family; not confirmed)",
+      "smallest_adaptation": "Blocked on the same content_units/dispositions producer gap as its vendored siblings; no new gap class.",
+      "policy_configurability_note": "Redundancy-detection threshold must remain configurable, not a hardcoded Aspose similarity cutoff.",
+      "red_test_name": "test_check_content_unit_redundant_claim_verifiable_flags_unverifiable_redundant_claim",
+      "red_test_file": "tests/unit/test_aspose_checks_missing_adaptation.py",
+      "proposed_implementation_file": "src/readme_agent/validation/aspose_checks_adapted.py"
+    },
+    {
+      "canonical_name": "check_dependency_development_claim_not_in_manifest",
+      "d12_category": "dependency",
+      "candidate_gate_relevance": "candidate-gate (README-only execution)",
+      "sibling_vendored_checks": [
+        "check_dependency_dev_only_presented_as_runtime",
+        "check_dependency_optional_presented_as_required"
+      ],
+      "inferred_required_inputs": [
+        "readme_text",
+        "dependency_snapshot"
+      ],
+      "inferred_severity_default": "hard_gate (inferred from sibling family; not confirmed)",
+      "smallest_adaptation": "Same readme_text+dependency_snapshot shape as its vendored dependency-family siblings -- already wired for python/rust as of Gate R6c per aspose_checks_bridge.py's own docstring; reachable today for those ecosystems without any new producer.",
+      "policy_configurability_note": "Manifest-field name mapping must stay per-ecosystem configurable (pyproject.toml vs Cargo.toml vs package.json).",
+      "red_test_name": "test_check_dependency_development_claim_not_in_manifest_flags_unlisted_dev_dependency",
+      "red_test_file": "tests/unit/test_aspose_checks_missing_adaptation.py",
+      "proposed_implementation_file": "src/readme_agent/validation/aspose_checks_adapted.py"
+    },
+    {
+      "canonical_name": "check_dependency_section_subheadings_present",
+      "d12_category": "dependency",
+      "candidate_gate_relevance": "candidate-gate (README-only execution)",
+      "sibling_vendored_checks": [
+        "check_heading_title_case",
+        "check_required_sections"
+      ],
+      "inferred_required_inputs": [
+        "readme_text"
+      ],
+      "inferred_severity_default": "hard_gate (inferred from sibling; not confirmed)",
+      "smallest_adaptation": "Purely structural, readme_text-only -- always available, no new producer needed once ported.",
+      "policy_configurability_note": "Exact required subheading set must be template-driven/configurable, not Aspose's literal list.",
+      "red_test_name": "test_check_dependency_section_subheadings_present_real_invocation_flags_missing_subheading",
+      "red_test_file": "tests/unit/test_aspose_checks_missing_adaptation.py",
+      "proposed_implementation_file": "src/readme_agent/validation/aspose_checks_adapted.py"
+    },
+    {
+      "canonical_name": "check_diagram_from_scratch_capability_labeled",
+      "d12_category": "diagram",
+      "candidate_gate_relevance": "candidate-gate (README-only execution)",
+      "sibling_vendored_checks": [
+        "check_diagram_starting_points_presence"
+      ],
+      "inferred_required_inputs": [
+        "markdown_text",
+        "archetype"
+      ],
+      "inferred_severity_default": "hard_gate (inferred from sibling; not confirmed)",
+      "smallest_adaptation": "Same markdown_text+archetype shape as check_diagram_starting_points_presence, which is already runnable_now=true -- reachable without a new producer once ported.",
+      "policy_configurability_note": "Label text conventions must stay configurable per family, not Aspose's literal wording.",
+      "red_test_name": "test_check_diagram_from_scratch_capability_labeled_real_invocation_on_missing_label",
+      "red_test_file": "tests/unit/test_aspose_checks_missing_adaptation.py",
+      "proposed_implementation_file": "src/readme_agent/validation/aspose_checks_adapted.py"
+    },
+    {
+      "canonical_name": "check_diagram_label_geometry",
+      "d12_category": "diagram",
+      "candidate_gate_relevance": "candidate-gate (README-only execution)",
+      "sibling_vendored_checks": [
+        "check_diagram_shape",
+        "check_diagram_label_token_length"
+      ],
+      "inferred_required_inputs": [
+        "markdown_text"
+      ],
+      "inferred_severity_default": "hard_gate (inferred from sibling check_diagram_shape; not confirmed)",
+      "smallest_adaptation": "markdown_text-only, always available -- no new producer needed once ported.",
+      "policy_configurability_note": "Geometry/layout thresholds must remain configurable, not fixed Aspose pixel/token constants.",
+      "red_test_name": "test_check_diagram_label_geometry_real_invocation_on_malformed_layout",
+      "red_test_file": "tests/unit/test_aspose_checks_missing_adaptation.py",
+      "proposed_implementation_file": "src/readme_agent/validation/aspose_checks_adapted.py"
+    },
+    {
+      "canonical_name": "check_frozen_blocks_unchanged",
+      "d12_category": "frozen-block",
+      "candidate_gate_relevance": "candidate-gate (README-only execution) -- HIGH VALUE",
+      "sibling_vendored_checks": [
+        "check_dropped_content (deliberately unreachable diff-pair check)"
+      ],
+      "inferred_required_inputs": [
+        "readme_text (or a protected-fragment manifest)"
+      ],
+      "inferred_severity_default": "hard_gate (inferred; frozen-content preservation is treated as hard elsewhere in this repo)",
+      "smallest_adaptation": "UNLIKE the other 13, this repo already has a NATIVE frozen/protected-content concept: document_validation.py's authorized_protected_corrections / working_condition_hidden_fragment_ids and find_presentation_span already identify and track protected spans. The generic existing source is this repo's own protected-content machinery, not an imported Aspose fact -- adaptation should bind check_frozen_blocks_unchanged to that existing span tracker rather than inventing a new frozen-block representation.",
+      "policy_configurability_note": "What counts as 'frozen' is already this repo's own policy layer (protected spans) -- port the verification intent (unchanged-bytes-in-protected-span), not Aspose's own block-delimiter syntax.",
+      "red_test_name": "test_check_frozen_blocks_unchanged_flags_modified_protected_span",
+      "red_test_file": "tests/unit/test_aspose_checks_missing_adaptation.py",
+      "proposed_implementation_file": "src/readme_agent/validation/aspose_checks_adapted.py"
+    },
+    {
+      "canonical_name": "check_image_content_unit_excluded_reason_verified",
+      "d12_category": "image/content-unit",
+      "candidate_gate_relevance": "candidate-gate (README-only execution)",
+      "sibling_vendored_checks": [
+        "check_content_unit_excerpt_matches_extraction",
+        "check_badge_available_fact_not_shown"
+      ],
+      "inferred_required_inputs": [
+        "content_units",
+        "dispositions"
+      ],
+      "inferred_severity_default": "hard_gate (inferred from sibling content_unit family; not confirmed)",
+      "smallest_adaptation": "Blocked on the same content_units/dispositions producer gap as its vendored siblings; no new gap class.",
+      "policy_configurability_note": "What qualifies as a verified exclusion reason must stay configurable, not an Aspose-specific enum.",
+      "red_test_name": "test_check_image_content_unit_excluded_reason_verified_flags_unverified_exclusion",
+      "red_test_file": "tests/unit/test_aspose_checks_missing_adaptation.py",
+      "proposed_implementation_file": "src/readme_agent/validation/aspose_checks_adapted.py"
+    },
+    {
+      "canonical_name": "check_issue_draft_rejection_list",
+      "d12_category": "issue-draft-only",
+      "candidate_gate_relevance": "GENUINE EVIDENCE-BACKED N/A for this repo's current README-only candidate-gate scope -- DEFECT_GATE_MATRIX.json's own text ('Two are issue-draft-only... not candidate gates for README-only execution') identifies this as out of scope for candidate validation, though it remains part of the canonical 103-function inventory and must stay accounted for, not silently absent.",
+      "sibling_vendored_checks": [],
+      "inferred_required_inputs": [
+        "an issue-draft text/object this pipeline does not currently produce"
+      ],
+      "inferred_severity_default": "unknown_not_vendored",
+      "smallest_adaptation": "Do not port into aspose_checks_bridge.py's candidate-validation path. Record as a governed 'not_applicable_for_readme_only_scope' entry in an extended classification file so the canonical 103 count reconciles exactly, without inventing an issue-draft producer this pipeline doesn't have.",
+      "policy_configurability_note": "N/A -- out of current pipeline scope.",
+      "red_test_name": "test_canonical_inventory_marks_issue_draft_checks_explicitly_not_applicable",
+      "red_test_file": "tests/unit/test_aspose_checks_registry.py",
+      "proposed_implementation_file": "data/aspose_check_classification.json (extend schema with an explicit not_applicable bucket, not a new check function)"
+    },
+    {
+      "canonical_name": "check_no_internal_details_leaked_into_issue_draft",
+      "d12_category": "issue-draft-only",
+      "candidate_gate_relevance": "GENUINE EVIDENCE-BACKED N/A for this repo's current README-only candidate-gate scope -- same reasoning as check_issue_draft_rejection_list above.",
+      "sibling_vendored_checks": [
+        "check_no_implementation_bridge_disclosure (readme-scoped analogue, already vendored/blocking)"
+      ],
+      "inferred_required_inputs": [
+        "an issue-draft text/object this pipeline does not currently produce"
+      ],
+      "inferred_severity_default": "unknown_not_vendored",
+      "smallest_adaptation": "Same disposition as check_issue_draft_rejection_list: record as governed not-applicable rather than fabricating an issue-draft producer. This repo's README-scoped equivalent concern is already covered by the vendored, blocking check_no_implementation_bridge_disclosure.",
+      "policy_configurability_note": "N/A -- out of current pipeline scope.",
+      "red_test_name": "test_canonical_inventory_marks_issue_draft_checks_explicitly_not_applicable",
+      "red_test_file": "tests/unit/test_aspose_checks_registry.py",
+      "proposed_implementation_file": "data/aspose_check_classification.json (extend schema with an explicit not_applicable bucket, not a new check function)"
+    },
+    {
+      "canonical_name": "check_no_upstream_issue_leaked_into_install_or_quickstart",
+      "d12_category": "dependency/quick-start",
+      "candidate_gate_relevance": "candidate-gate (README-only execution)",
+      "sibling_vendored_checks": [
+        "check_no_upstream_issue_leaked_into_readme",
+        "check_no_undisclosed_blocking_commands"
+      ],
+      "inferred_required_inputs": [
+        "readme_text",
+        "upstream_issues_text"
+      ],
+      "inferred_severity_default": "hard_gate (inferred from sibling family; not confirmed)",
+      "smallest_adaptation": "Same readme_text+upstream_issues_text shape as its two already-vendored siblings -- both of those are classified applicable_after_adaptation, blocked on the same missing upstream_issues_text producer. Porting this one closes no new gap class, just adds a section-scoped variant.",
+      "policy_configurability_note": "Install/Quick Start section boundaries must stay template-driven.",
+      "red_test_name": "test_check_no_upstream_issue_leaked_into_install_or_quickstart_flags_leaked_issue_text",
+      "red_test_file": "tests/unit/test_aspose_checks_missing_adaptation.py",
+      "proposed_implementation_file": "src/readme_agent/validation/aspose_checks_adapted.py"
+    },
+    {
+      "canonical_name": "check_scope_compliance",
+      "d12_category": "scope",
+      "candidate_gate_relevance": "candidate-gate (README-only execution)",
+      "sibling_vendored_checks": [
+        "check_scope_limitations_format",
+        "check_enterprise_edition_naming"
+      ],
+      "inferred_required_inputs": [
+        "readme_text"
+      ],
+      "inferred_severity_default": "hard_gate (inferred from sibling family; not confirmed)",
+      "smallest_adaptation": "readme_text-only, always available -- no new producer needed once ported.",
+      "policy_configurability_note": "Scope-and-Limitations wording conventions must stay this repo's own template, not Aspose's closing-paragraph convention verbatim (see check_scope_limitations_format's own classification reason for a concrete example of this exact risk).",
+      "red_test_name": "test_check_scope_compliance_real_invocation_flags_noncompliant_scope_section",
+      "red_test_file": "tests/unit/test_aspose_checks_missing_adaptation.py",
+      "proposed_implementation_file": "src/readme_agent/validation/aspose_checks_adapted.py"
+    },
+    {
+      "canonical_name": "check_seo_keyword_plan_usage",
+      "d12_category": "SEO-plan",
+      "candidate_gate_relevance": "candidate-gate (README-only execution)",
+      "sibling_vendored_checks": [],
+      "inferred_required_inputs": [
+        "readme_text",
+        "seo_keywords (aspose.relevant_seo_keywords / aspose.seo_keywords)"
+      ],
+      "inferred_severity_default": "heuristic (inferred; SEO usage reads as advisory, not confirmed)",
+      "smallest_adaptation": "This repo already has a partially-wired aspose.relevant_seo_keywords fact and a keyword-consumption capability renderer (plans/investigations/owner_audit/defect_gate_map/REPORT.md finding #7, fixed by commit 05ef1e532e). The generic existing source for this check's input already exists; smallest adaptation is to read the same selected fact this renderer already consumes, not build a new SEO producer.",
+      "policy_configurability_note": "Keyword-usage threshold must remain configurable per family, not a fixed Aspose SEO policy.",
+      "red_test_name": "test_check_seo_keyword_plan_usage_flags_unused_planned_keyword",
+      "red_test_file": "tests/unit/test_aspose_checks_missing_adaptation.py",
+      "proposed_implementation_file": "src/readme_agent/validation/aspose_checks_adapted.py"
+    }
+  ]
+}

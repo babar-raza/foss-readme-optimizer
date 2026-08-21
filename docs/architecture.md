@@ -206,21 +206,23 @@ The canonical `local_poc` path is broader than the legacy capability above and i
 inventory every authorized source and freeze a complete RegistryRevisionV1
   -> settle each provider-ID plus observation-revision intake delivery exactly once
   -> reject stale scans, source failures, unexplained observations, pending intake, or registry drift
-  -> read the revision-bound data/products.json and derive the live denominator
+  -> classify every immutable snapshot as PROCESSABLE or typed NON_PROCESSABLE_NO_IMPLEMENTATION
+  -> derive the processable denominator and retained disposition partition
   -> reserve one source-and-classification-contract-bound read-only intake
-  -> classify preserve-first fast path, ordinary full path, or a narrow visible block
   -> capture each repository's current default-branch README + immutable revision
   -> retain the exact original bytes as evidence
   -> inspect repository/product/platform and reconcile existing/product-agent claims
-  -> use LLM judgment to draft verified product understanding and repository-specific presentation
+  -> current-source-corroborate and bound-select imported development knowledge
+  -> use bounded structured LLM jobs for repository interpretation and editorial planning
   -> select relevant capabilities/sections/examples/validators automatically
   -> render a local candidate through bounded, hash-checked document operations
-  -> retain candidate + exact diff + facts + plan + deterministic validation
-  -> independent agentic review (separate judgment role)
+  -> retain candidate + exact diff + facts + knowledge/source dispositions + plan
+  -> run the versioned applicable-check registry and native deterministic validation
+  -> independent factual and visitor review against the 30-point standard
   -> bounded repair until accepted or honestly blocked
-  -> unchanged rerun/no-op proof
-  -> portfolio manifest may declare Gate A only when every live registry entry passes
-  -> human review/acceptance (Gate B)
+  -> immediate fresh-process complete-transaction no-op proof with zero provider work
+  -> portfolio manifest may reach 31/31 only when every processable entry passes
+  -> one global human review/acceptance package
   -> controlled Java PR proof (Gate C)
   -> broad GitHub App integration (Gate D)
 ```
@@ -229,8 +231,9 @@ Dynamic product/platform-aware selection is mandatory in the canonical `local_po
 `commands_supervision.py` constructs the specialist-selection and repair-planner clients
 unconditionally for that profile. `--enable-dynamic-planning` remains an explicit compatibility
 opt-in for other profiles; it is not required by the canonical local command (`ORC-009`). A
-candidate file's existence is not acceptance: the lifecycle must reach agent approval plus no-op
-proof before the artifact can enter the human-review queue (`PIL-015`).
+candidate file's existence is not acceptance: the exact bytes must reach
+`AGENT_ACCEPTED_30_OF_30` with zero hard disqualifiers plus immediate complete-transaction no-op
+before the artifact can enter the global human-review package (`PIL-015`).
 
 The same supervisor also requires a typed maximum lifecycle stage (`L8-015`). Product-truth
 qualification stops at `FACTS_READY`; composition qualification stops after deterministic
@@ -294,7 +297,7 @@ similarly-named commercial package.
 
 ## Native knowledge-application layer
 
-Decision 106 (`plans/decisions/catalog.jsonl`; `KNOW-001`..`KNOW-013` in
+Decision 106 (`plans/decisions/catalog.jsonl`; `KNOW-001`..`KNOW-014` in
 `plans/requirements/catalog.jsonl`) applies the two principles above to the imported aspose.org
 claim corpus (`data/imported/knowledge/`, documented in `data/README.md`) specifically. Three
 `facts/` modules:
@@ -312,20 +315,20 @@ claim corpus (`data/imported/knowledge/`, documented in `data/README.md`) specif
   whole corpus, never first-N truncation — into `ProductFactsV2`, ranked by real signals in
   priority order: repository corroboration outranks everything (`license` claims are compared
   against the current LICENSE file through `license/auditor.py::classify_license_text`; every
-  other kind corroborates when its own cited evidence file still exists in the current clone, a
-  genuine mismatch rejects the claim outright — current repository evidence always wins); among
+  other kind uses item-level, polarity-aware content verification against the cited code/prose
+  region in the current clone; a positive claim backed by a stub or constraint is a conflict, while
+  the same evidence may corroborate a limitation — current repository evidence always wins); among
   equally-corroborated claims, information the current README does not already state outranks a
   restatement; a claim naming one of this product's own relevance-filtered SEO keywords outranks
   one that does not; confidence and claim id break remaining ties, never decide alone. A stale- or
   unknown-revision claim can never become output-eligible without independent corroboration —
   confidence scaling alone is never sufficient. Every considered claim gets exactly one disposition
   record (`KnowledgeClaimDispositionV1`: selected, or rejected with a reason).
-- `knowledge_application_evidence.py` builds the per-run `knowledge-application.json` artifact,
-  keeping four stages genuinely separate, never conflated: claims *considered*; claims *selected
-  for planning* (survived into a `FactRecordV2`); sections actually *influenced* (a surviving
-  `ReadmeDocumentPlanV1` operation cites the fact in its own `fact_ids` — correctly empty before a
-  document plan exists); and the exact *rendered output spans* that carried an influencing fact
-  (operation id, section, the operation's own `replacement_sha256`).
+- `knowledge_application_evidence.py` builds provisional fact-stage and final post-render
+  `knowledge-application.json` artifacts. The final artifact joins both document operations and
+  verified-template candidate provenance, binds the exact candidate hash, and gives every selected
+  claim exact output spans or a typed omission/rejection reason. Acceptance fails closed on stale,
+  provisional, internally inconsistent, or missing final accountability.
 
 `data/imported/knowledge_manifest.json` checksum-binds the whole corpus as one deterministic unit
 (`scripts/data-refresh/build_imported_knowledge_manifest.py`), feeding a new `imported_knowledge`
@@ -346,7 +349,8 @@ per-family SEO keyword lists (`data/imported/keywords/`), filtering for reposito
 relevance before they become candidate evidence (`aspose.relevant_seo_keywords`, `KNOW-006`). As
 of this writing five of six new fact fields (`aspose.feature_claims`, `format_support_claims`,
 `install_claims`, `limitation_claims`, `troubleshoot_claims`) still have no renderer/composition
-consumer — an explicit, tracked gap, not a silent one (`KNOW-013`). `aspose.relevant_seo_keywords`
+consumer — the candidate-first campaign's first implementation boundary, not a later fleet cleanup
+(`KNOW-013`, `L8-PF-01`). `aspose.relevant_seo_keywords`
 first gained a narrow, attribution-only consumer (Gate R6a, commit `cbccb8623`) that only cited the
 fact into a row's `fact_ids` when an already-generated title coincidentally named a keyword —
 evidence lineage only, never shaping rendered bytes, and risking claim-map rejection since the fact
@@ -359,6 +363,24 @@ never cited in `fact_ids`/`CandidateContentProvenanceV1` either way, since it st
 vocabulary, not evidence for a factual claim. `KNOW-013`'s core bar (a consumer that affects
 rendered output) is now met for `aspose.relevant_seo_keywords` alone; the other five fields remain
 unconsumed.
+
+### Refreshable visitor-quality benchmark
+
+Aspose.org's `repo-presenter-regen-full` output is a development benchmark, not a runtime service,
+template source, or factual authority. Its generated report tree may be gitignored, so campaign
+calibration separates committed producer provenance from generated-output provenance. A
+`DevelopmentBenchmarkSnapshotV1` records producer HEAD and redacted dirty fingerprint, requires two
+identical full-tree checksum inventories after quiescence, reconciles candidate, receipt, and
+aggregate-audit denominators, and binds a fresh audit. Only then may local qualification derive
+`BenchmarkQualityProfileV1` and candidate-specific `CandidateBenchmarkComparisonV1` obligations.
+
+The benchmark lifecycle is independent from the repository transaction lifecycle. Mutating or
+incomplete sibling output remains visible as `SOURCE_MUTATING` or `INCOMPLETE_SYNC`; current sibling
+failures are item-level diagnostics and never weaken local acceptance. A later stable improvement is
+`BENCHMARK_REFRESH_AVAILABLE` and is adopted at a declared campaign or cohort boundary, not during an
+in-flight accepted transaction. Candidate facts still come only from the immutable product snapshot,
+and candidate generation, validation, independent 30-point review, no-op proof, and deployed operation
+must pass after the sibling checkout is unavailable.
 
 ## One owned span, not two
 

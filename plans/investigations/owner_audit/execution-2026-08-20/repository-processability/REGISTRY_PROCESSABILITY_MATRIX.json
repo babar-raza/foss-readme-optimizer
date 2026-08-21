@@ -1,0 +1,2173 @@
+{
+  "audit_id": "OPT-REGISTRY-PROCESSABILITY-AUDIT",
+  "expected_github_pin": "aa998102191c530af4dca3a6895d62a4027a613e",
+  "registry_entry_count": 33,
+  "rows_collected": 33,
+  "errors": [],
+  "rows": [
+    {
+      "registry_identity": {
+        "family": "3d",
+        "platform": "java",
+        "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Java",
+        "policy_profile": "aspose-3d-foss",
+        "mode": "full",
+        "provider_repository_id": 1178837520
+      },
+      "repository_sha": "e308de58888635956cd66e5b0e2994dd42cd4356",
+      "tree_sha_github": "8abc9bed9e07295e2aff71264706e385a040fb4f",
+      "tree_inventory_sha256": "6edf4f0e84a0e6ec411d8a49c05d9d28e7178238f4691526c83314d3f3626601",
+      "tree_truncated_by_github_api": false,
+      "total_files": 285,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 2,
+        "substantive": 281
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".github/workflows/maven-central-release.yml",
+          ".gitignore"
+        ],
+        "substantive": [
+          "AGENTS.md",
+          "FILE_FORMATS.md",
+          "PUBLISHING.md",
+          "TODO.md",
+          "docs/api-diff-26.1.0.md"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "docs/api-diff-26.1.0.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/directory-structures.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/foss-java-progress.md",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 3,
+      "classification": "PROCESSABLE",
+      "reason": "281 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "3d",
+        "platform": "net",
+        "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-.NET",
+        "policy_profile": "aspose-3d-foss-net",
+        "mode": "dry_run",
+        "provider_repository_id": 1178837115
+      },
+      "repository_sha": "042a1e5f731d8fbca65e2a47a15891b2ba32b352",
+      "tree_sha_github": "ba404181b3de2226beb2241d66e7266c92a7031c",
+      "tree_inventory_sha256": "acedebcc47fe1e6fcefd825707f51c8a9c2d52f45a6d06fd5f9ab2b1d302e316",
+      "tree_truncated_by_github_api": false,
+      "total_files": 314,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 1,
+        "substantive": 311
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".gitignore"
+        ],
+        "substantive": [
+          "AGENTS.md",
+          "docs/foss-net-progress.md",
+          "docs/release-26.2.0.md",
+          "src/converter/Converter.csproj",
+          "src/converter/Program.cs"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "docs/foss-net-progress.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/release-26.2.0.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "src/main/Aspose.ThreeD/logo.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "src/main/Aspose.ThreeD/logo.svg",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 4,
+      "classification": "PROCESSABLE",
+      "reason": "311 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "3d",
+        "platform": "python",
+        "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        "policy_profile": "aspose-3d-foss-python",
+        "mode": "dry_run",
+        "provider_repository_id": 1138357893
+      },
+      "repository_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+      "tree_sha_github": "418a4746ab9d3ec30226f2bd8f743154a0f0d246",
+      "tree_inventory_sha256": "8feafc09ef1c2d72116541c8bda50e38a94b16bc5a12b82f21dfa2d36f04cf51",
+      "tree_truncated_by_github_api": false,
+      "total_files": 403,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 1,
+        "substantive": 400
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".gitignore"
+        ],
+        "substantive": [
+          "AGENTS.md",
+          "MANIFEST.in",
+          "aspose/__init__.py",
+          "aspose/pydrawing/__init__.py",
+          "aspose/pydrawing/design/__init__.py"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "docs/FBX_IMPLEMENTATION_SUMMARY.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/IMPLEMENTATION_SUMMARY.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/OBJ_IMPORTER_IMPLEMENTATION.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/PYPI_READINESS.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/STL_IMPORT_IMPLEMENTATION.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/foss-python-progress.md",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 6,
+      "classification": "PROCESSABLE",
+      "reason": "400 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "3d",
+        "platform": "typescript",
+        "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+        "policy_profile": "aspose-3d-foss-typescript",
+        "mode": "dry_run",
+        "provider_repository_id": 1168969375
+      },
+      "repository_sha": "7b959706f2ad976db929f26ec079f43a07d578e1",
+      "tree_sha_github": "b6c5a00a0e85950629f250d51373ba25ad75d84f",
+      "tree_inventory_sha256": "9d2b167ddc951fd9049253636b80cc432c7361bc12e0419efe42a093f01b4dc4",
+      "tree_truncated_by_github_api": false,
+      "total_files": 190,
+      "github_declared_license_spdx": null,
+      "counts": {
+        "readme": 1,
+        "license": 0,
+        "admin": 1,
+        "substantive": 188
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [],
+        "admin": [
+          ".gitignore"
+        ],
+        "substantive": [
+          "AGENTS.md",
+          "jest.config.js",
+          "package.json",
+          "src/aspose/threed/A3DObject.ts",
+          "src/aspose/threed/AssetInfo.ts"
+        ]
+      },
+      "borderline_paths": [],
+      "borderline_count": 0,
+      "classification": "PROCESSABLE",
+      "reason": "188 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "barcode",
+        "platform": "python",
+        "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+        "policy_profile": "aspose-barcode-foss-python",
+        "mode": "dry_run",
+        "provider_repository_id": 1280393633
+      },
+      "repository_sha": "06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
+      "tree_sha_github": "50eaf3fe8247abb3eb95511d6b21a560a9ffedb8",
+      "tree_inventory_sha256": "8295a7642b053f0840fa60375e1c9a838499562bc86a779c3a0cb4bd06952a95",
+      "tree_truncated_by_github_api": false,
+      "total_files": 136,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 2,
+        "license": 1,
+        "admin": 1,
+        "substantive": 132
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md",
+          "examples/README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".gitignore"
+        ],
+        "substantive": [
+          "examples/all_symbologies.py",
+          "examples/error_handling.py",
+          "examples/quickstart.py",
+          "examples/render_options.py",
+          "pyproject.toml"
+        ]
+      },
+      "borderline_paths": [],
+      "borderline_count": 0,
+      "classification": "PROCESSABLE",
+      "reason": "132 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "cells",
+        "platform": "cpp",
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+        "policy_profile": "aspose-cells-foss-cpp",
+        "mode": "dry_run",
+        "provider_repository_id": 1246258574
+      },
+      "repository_sha": "9f852d0ff1cfdad2d661556d6b87a8eff8c063a2",
+      "tree_sha_github": "76195977a3c5b68107c54837a45c83250d161db6",
+      "tree_inventory_sha256": "c5196a0d0eee347f8a1fd6b24fb78f0e84941018261e852aa7ed8f093471c5da",
+      "tree_truncated_by_github_api": false,
+      "total_files": 401,
+      "github_declared_license_spdx": null,
+      "counts": {
+        "readme": 2,
+        "license": 1,
+        "admin": 2,
+        "substantive": 396
+      },
+      "representative_paths": {
+        "readme": [
+          "Aspose.Cells.Foss.Cpp.Tests/README.md",
+          "README.md"
+        ],
+        "license": [
+          "License/LICENSE.txt"
+        ],
+        "admin": [
+          ".gitignore",
+          "Aspose.Cells.Foss.Cpp.Tests/.gitignore"
+        ],
+        "substantive": [
+          "AGENTS.md",
+          "Aspose.Cells.Foss.Cpp.Tests/CMakeLists.txt",
+          "Aspose.Cells.Foss.Cpp.Tests/tests/Compatibility/CompatibilityTests.cpp",
+          "Aspose.Cells.Foss.Cpp.Tests/tests/Golden/CellDataGoldenTests.cpp",
+          "Aspose.Cells.Foss.Cpp.Tests/tests/Golden/OpenXmlFeatureGoldenTests.cpp"
+        ]
+      },
+      "borderline_paths": [],
+      "borderline_count": 0,
+      "classification": "PROCESSABLE",
+      "reason": "396 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "cells",
+        "platform": "go",
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Go",
+        "policy_profile": "aspose-cells-foss-go",
+        "mode": "dry_run",
+        "provider_repository_id": 1301410121
+      },
+      "repository_sha": "9f0a4033b59e9127afec7662ec9079b500af8032",
+      "tree_sha_github": "b4e2c9c8d8f1fb509cf40109a54720cf2de10992",
+      "tree_inventory_sha256": "2247b83778a2fa2f43f5829161a843ab1daba9fe196530cd38c40559820750d6",
+      "tree_truncated_by_github_api": false,
+      "total_files": 51,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 2,
+        "substantive": 47
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".gitignore",
+          "examples/outputfiles/.gitkeep"
+        ],
+        "substantive": [
+          "AGENTS.md",
+          "aspose/cells_foss/cell.go",
+          "aspose/cells_foss/cells.go",
+          "aspose/cells_foss/crypto.go",
+          "aspose/cells_foss/csv_handler.go"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "docs/usage.md",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 1,
+      "classification": "PROCESSABLE",
+      "reason": "47 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "cells",
+        "platform": "java",
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+        "policy_profile": "aspose-cells-foss",
+        "mode": "full",
+        "provider_repository_id": 1213521112
+      },
+      "repository_sha": "779c9640ee38ed9e80c53e8db1e850f6be24372f",
+      "tree_sha_github": "062a43b39570df8e34a3a4c4db2e0d9ad885ae7c",
+      "tree_inventory_sha256": "d307bfa8127a36ca720e4ce947cea4062575979fa74d368cbc0abd9dd31ede60",
+      "tree_truncated_by_github_api": false,
+      "total_files": 364,
+      "github_declared_license_spdx": null,
+      "counts": {
+        "readme": 1,
+        "license": 2,
+        "admin": 2,
+        "substantive": 359
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "License/LICENSE.txt",
+          "docs/apidocs/legal/LICENSE"
+        ],
+        "admin": [
+          ".github/workflows/maven-central-release.yml",
+          ".gitignore"
+        ],
+        "substantive": [
+          ".actrc",
+          ".env.act.example",
+          ".secrets.example",
+          "Agents.md",
+          "PUBLISHING.md"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "docs/apidocs/allclasses-index.html",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/apidocs/allpackages-index.html",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterColorFilter.html",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterCustomFilter.html",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterCustomFilterCollection.html",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterDynamicFilter.html",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterSortCondition.html",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterSortConditionCollection.html",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterSortState.html",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterTop10.html",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.FilterColumn.html",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.FilterColumnCollection.html",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.FilterValueCollection.html",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.html",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/apidocs/com/aspose/cells_foss/AutoFilterCriteria.AutoFilterColorFilter.html",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 128,
+      "classification": "PROCESSABLE",
+      "reason": "359 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "cells",
+        "platform": "net",
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
+        "policy_profile": "aspose-cells-foss-net",
+        "mode": "dry_run",
+        "provider_repository_id": 1203447266
+      },
+      "repository_sha": "6ee32c08a6090a778fab03e66afac731859f93a9",
+      "tree_sha_github": "f35c7a84d039eee57498e3da9e44a9243f492a8b",
+      "tree_inventory_sha256": "c422651c02baf927daf0073a6c563e67539af0ec621d668cf0195977fa666217",
+      "tree_truncated_by_github_api": false,
+      "total_files": 395,
+      "github_declared_license_spdx": null,
+      "counts": {
+        "readme": 2,
+        "license": 1,
+        "admin": 0,
+        "substantive": 392
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md",
+          "samples/README.md"
+        ],
+        "license": [
+          "License/LICENSE.txt"
+        ],
+        "admin": [],
+        "substantive": [
+          "Aspose.Cells_FOSS.sln",
+          "agents.md",
+          "documentation/_site/api-reference.html",
+          "documentation/_site/api/Aspose.Cells_FOSS.AutoFilter.html",
+          "documentation/_site/api/Aspose.Cells_FOSS.AutoFilterColorFilter.html"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "documentation/_site/favicon.ico",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "documentation/_site/logo.svg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "documentation/_site/styles/glyphicons-halflings-regular-QXYEM3FU.svg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "src/Aspose.Cells_FOSS/icon.png",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 4,
+      "classification": "PROCESSABLE",
+      "reason": "392 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "cells",
+        "platform": "python",
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Python",
+        "policy_profile": "aspose-cells-foss-python",
+        "mode": "dry_run",
+        "provider_repository_id": 1037981320
+      },
+      "repository_sha": "26c3bd1633e84b91c0f6fad1fd353662fd61fb54",
+      "tree_sha_github": "f5b4b0eba95058bad5afd026f14d075083e937d0",
+      "tree_inventory_sha256": "e009b84ce832c59141d52b7ca490531d9adb554c9b812de91874f4493c0b9b3e",
+      "tree_truncated_by_github_api": false,
+      "total_files": 93,
+      "github_declared_license_spdx": null,
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 0,
+        "substantive": 91
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "License/LICENSE.txt"
+        ],
+        "admin": [],
+        "substantive": [
+          "AGENTS.md",
+          "aspose/__init__.py",
+          "aspose/cells_foss/__init__.py",
+          "aspose/cells_foss/auto_filter.py",
+          "aspose/cells_foss/cell.py"
+        ]
+      },
+      "borderline_paths": [],
+      "borderline_count": 0,
+      "classification": "PROCESSABLE",
+      "reason": "91 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "cells",
+        "platform": "rust",
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+        "policy_profile": "aspose-cells-foss-rust",
+        "mode": "dry_run",
+        "provider_repository_id": 1301317734
+      },
+      "repository_sha": "1a6004af47b1ef15385f9d36d381a8172428cc7e",
+      "tree_sha_github": "bd69c246b6713c1f49632793c639cf1f6d81d531",
+      "tree_inventory_sha256": "94e9caeb1111703f269bba726b8f2db46fa950bb599b0a35c94815aef4b6a889",
+      "tree_truncated_by_github_api": false,
+      "total_files": 259,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 2,
+        "license": 2,
+        "admin": 2,
+        "substantive": 253
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md",
+          "samples/README.md"
+        ],
+        "license": [
+          "LICENSE.txt",
+          "License/LICENSE.txt"
+        ],
+        "admin": [
+          ".github/workflows/ci.yml",
+          ".github/workflows/pages.yml"
+        ],
+        "substantive": [
+          "AGENTS.md",
+          "Cargo.toml",
+          "samples/basic.rs",
+          "samples/charts.rs",
+          "samples/comments.rs"
+        ]
+      },
+      "borderline_paths": [],
+      "borderline_count": 0,
+      "classification": "PROCESSABLE",
+      "reason": "253 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "cells",
+        "platform": "typescript",
+        "org_repo": "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
+        "policy_profile": "aspose-cells-foss-typescript",
+        "mode": "dry_run",
+        "provider_repository_id": 1224468949
+      },
+      "repository_sha": "fc186507e5b7124f4664aa6035f25cfd3112367d",
+      "tree_sha_github": "5bbf8231454f8f3df8e62d3fd3ea3c6640811ec3",
+      "tree_inventory_sha256": "236a7e56a0b3a2ed991298b1eb33391eae9bd38b619b8be5b40f432ffa07892e",
+      "tree_truncated_by_github_api": false,
+      "total_files": 44,
+      "github_declared_license_spdx": null,
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 0,
+        "substantive": 42
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "License/LICENSE.txt"
+        ],
+        "admin": [],
+        "substantive": [
+          ".vscode/launch.json",
+          "agents.md",
+          "aspose_cells/autofilter.ts",
+          "aspose_cells/cell.ts",
+          "aspose_cells/chart.ts"
+        ]
+      },
+      "borderline_paths": [],
+      "borderline_count": 0,
+      "classification": "PROCESSABLE",
+      "reason": "42 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "email",
+        "platform": "cpp",
+        "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+        "policy_profile": "aspose-email-foss-cpp",
+        "mode": "dry_run",
+        "provider_repository_id": 1193857039
+      },
+      "repository_sha": "fef9c934c3ad7a207c97cc24546176e678f577af",
+      "tree_sha_github": "625c4faf4a424274f8fbd964673f5b127b920638",
+      "tree_inventory_sha256": "512a4c67e6835ddbc79acc952df2ef7139b2e7e55b0a694cbb94ac0766cadb06",
+      "tree_truncated_by_github_api": false,
+      "total_files": 75,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 2,
+        "license": 1,
+        "admin": 2,
+        "substantive": 70
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md",
+          "examples/README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".gitignore",
+          "CHANGELOG.md"
+        ],
+        "substantive": [
+          "CMakeLists.txt",
+          "CMakePresets.json",
+          "PUBLIC_API.md",
+          "cmake/AsposeEmailFossConfig.cmake.in",
+          "examples/CMakeLists.txt"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "CHANGELOG.md",
+          "assigned_class": "admin"
+        }
+      ],
+      "borderline_count": 1,
+      "classification": "PROCESSABLE",
+      "reason": "70 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "email",
+        "platform": "net",
+        "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-.Net",
+        "policy_profile": "aspose-email-foss-net",
+        "mode": "dry_run",
+        "provider_repository_id": 1193864496
+      },
+      "repository_sha": "59125b4732df0eedbc4d4c2ab978698ed4348eb7",
+      "tree_sha_github": "ec98479454c63827c008b67401c2da63170aaf13",
+      "tree_inventory_sha256": "47638bb5445ba54ec2f3f3ae5dfb7c2dfab588cad64243dae9aba04a9034d819",
+      "tree_truncated_by_github_api": false,
+      "total_files": 72,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 2,
+        "license": 1,
+        "admin": 2,
+        "substantive": 67
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md",
+          "examples/README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".gitignore",
+          "CHANGELOG.md"
+        ],
+        "substantive": [
+          "Directory.Build.props",
+          "PUBLIC_API.md",
+          "examples/create_msg_and_eml.cs",
+          "examples/create_msg_and_eml/create_msg_and_eml.csproj",
+          "examples/msg_reader.cs"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "CHANGELOG.md",
+          "assigned_class": "admin"
+        }
+      ],
+      "borderline_count": 1,
+      "classification": "PROCESSABLE",
+      "reason": "67 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "email",
+        "platform": "python",
+        "org_repo": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+        "policy_profile": "aspose-email-foss-python",
+        "mode": "dry_run",
+        "provider_repository_id": 1183488768
+      },
+      "repository_sha": "10a906b48c0c11005c4d93b524e4431901c9717c",
+      "tree_sha_github": "67d6cd82ad109bae3d92c257853f67bfd5f8d58f",
+      "tree_inventory_sha256": "75451eddcda95028eded4fc99f24faf57dda6b44468c3d8323f070f35c88f9e2",
+      "tree_truncated_by_github_api": false,
+      "total_files": 33,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 2,
+        "license": 1,
+        "admin": 6,
+        "substantive": 24
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md",
+          "examples/README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".github/workflows/ci.yml",
+          ".github/workflows/release.yml",
+          ".gitignore",
+          "CHANGELOG.md",
+          "CONTRIBUTING.md"
+        ],
+        "substantive": [
+          "AGENTS.md",
+          "CITATION.cff",
+          "MANIFEST.in",
+          "PUBLIC_API.md",
+          "aspose/email_foss/__init__.py"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "CHANGELOG.md",
+          "assigned_class": "admin"
+        }
+      ],
+      "borderline_count": 1,
+      "classification": "PROCESSABLE",
+      "reason": "24 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "font",
+        "platform": "python",
+        "org_repo": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
+        "policy_profile": "aspose-font-foss-python",
+        "mode": "dry_run",
+        "provider_repository_id": 1230713255
+      },
+      "repository_sha": "7971880964143c86ffd4baa7c8ea1dd959fea04e",
+      "tree_sha_github": "7280f1380d5be5256f72925a93565cb636dbb7ff",
+      "tree_inventory_sha256": "976d83820ec433713bd3051597643150636bc313e579deac192eb841f2e30a3c",
+      "tree_truncated_by_github_api": false,
+      "total_files": 393,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 4,
+        "substantive": 387
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "LICENSE.txt"
+        ],
+        "admin": [
+          ".gitignore",
+          "CHANGELOG.md",
+          "CODEOWNERS",
+          "SECURITY.md"
+        ],
+        "substantive": [
+          "Dockerfile",
+          "Makefile",
+          "pyproject.toml",
+          "setup.py",
+          "src/aspose_font/__init__.py"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "CHANGELOG.md",
+          "assigned_class": "admin"
+        },
+        {
+          "path": "testdata/ImageTemplates/DrawTextByGlyphs_LineSpacing_Arial.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/ImageTemplates/DrawText_LineSpacing_Lora Regular.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/ImageTemplates/DrawText_LineSpacing_Mangal.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/ImageTemplates/Mangal1.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/ImageTemplates/Mangal2.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/ImageTemplates/Mangal3.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/ImageTemplates/drawingSample_MingLiU-Template-1.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/SVG/Abel-Regular.svg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/SVG/Tahoma.svg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/SVG/segoepr.svg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "website/generated/roboto-animation-sweep.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "website/generated/roboto-axis-grid.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "website/generated/roboto-delta-compare.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "website/generated/roboto-family-review-board.png",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 16,
+      "classification": "PROCESSABLE",
+      "reason": "387 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "html",
+        "platform": "python",
+        "org_repo": "aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+        "policy_profile": "aspose-html-foss-python",
+        "mode": "dry_run",
+        "provider_repository_id": 1276603134
+      },
+      "repository_sha": "912f0ae078b5418226a51de08539bc591547682e",
+      "tree_sha_github": "813b6a2b2b334bc05ffad9359ae2bef3a91c4f64",
+      "tree_inventory_sha256": "9dab0a43100ddaeda9562739b3d779cef4dab78cbb7a708dcacd348101325115",
+      "tree_truncated_by_github_api": false,
+      "total_files": 336,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 4,
+        "substantive": 330
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".gitignore",
+          "CHANGELOG.md",
+          "CONTRIBUTING.md",
+          "SECURITY.md"
+        ],
+        "substantive": [
+          "CITATION.cff",
+          "MANIFEST.in",
+          "PUBLIC_API.md",
+          "conftest.py",
+          "examples/parse_and_update.py"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "CHANGELOG.md",
+          "assigned_class": "admin"
+        }
+      ],
+      "borderline_count": 1,
+      "classification": "PROCESSABLE",
+      "reason": "330 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "note",
+        "platform": "python",
+        "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        "policy_profile": "aspose-note-foss-python",
+        "mode": "dry_run",
+        "provider_repository_id": 1137426093
+      },
+      "repository_sha": "41de2e8ab478b5aeff3663f7f7cbf83b19fdf676",
+      "tree_sha_github": "5e4b73b7e7a2e4a2b67050e7cbd3ff8ec875e159",
+      "tree_inventory_sha256": "2ba76d8cb6d94cada48a32f244c33f957ed5530042b9eaa8c7ee8f34119b0506",
+      "tree_truncated_by_github_api": false,
+      "total_files": 88,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 2,
+        "license": 1,
+        "admin": 7,
+        "substantive": 78
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md",
+          "examples/README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".github/skills/add-pdf-golden-test/SKILL.md",
+          ".github/workflows/ci.yml",
+          ".github/workflows/publish-pypi.yml",
+          ".gitignore",
+          "THIRD_PARTY_NOTICES.md"
+        ],
+        "substantive": [
+          ".vscode/settings.json",
+          "MANIFEST.in",
+          "[MS-ONESTORE].pdf",
+          "[MS-ONE].pdf",
+          "examples/MANIFEST.in"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "assigned_class": "admin"
+        },
+        {
+          "path": "examples/THIRD_PARTY_NOTICES.md",
+          "assigned_class": "admin"
+        }
+      ],
+      "borderline_count": 2,
+      "classification": "PROCESSABLE",
+      "reason": "78 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "page",
+        "platform": "python",
+        "org_repo": "aspose-page-foss/Aspose.Page-FOSS-for-Python",
+        "policy_profile": "aspose-page-foss-python",
+        "mode": "dry_run",
+        "provider_repository_id": 1243410151
+      },
+      "repository_sha": "ca4fb3d76f9a3bdac34fc0f96801efd1cd31eb9e",
+      "tree_sha_github": "9d98e667f3d3320016efb7bfbaaa1324c5795ea6",
+      "tree_inventory_sha256": "f361389135211baf08c54dea7fdc4706d394d7ffaac2622245043c87144d5610",
+      "tree_truncated_by_github_api": false,
+      "total_files": 2430,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 1,
+        "substantive": 2427
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "LICENSE.txt"
+        ],
+        "admin": [
+          ".gitignore"
+        ],
+        "substantive": [
+          "Makefile",
+          "pyproject.toml",
+          "readme.resources/RGB10.png",
+          "readme.resources/TestImages.png",
+          "readme.resources/mb03.png"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "readme.resources/RGB10.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "readme.resources/TestImages.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "readme.resources/mb03.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "resources/LiberationSerif-Bold.ttf",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "resources/LiberationSerif-BoldItalic.ttf",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "resources/LiberationSerif-Italic.ttf",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "resources/LiberationSerif-Regular.ttf",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "resources/djVuDingbats.ttf",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "resources/sRGB_IEC61966-2-1_black_scaled.icc",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/ps/baseline/ps2image/functional/arcs07/ARC0.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/ps/baseline/ps2image/functional/arcs07/ARCT0.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/ps/baseline/ps2image/functional/arcs07/ARCTO10.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/ps/baseline/ps2image/functional/arcs07/ARCTO20.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/ps/baseline/ps2image/functional/arcs07/ARCTO30.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/ps/baseline/ps2image/functional/arcs07/ARCTO40.png",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 1590,
+      "classification": "PROCESSABLE",
+      "reason": "2427 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "pdf",
+        "platform": "cpp",
+        "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp",
+        "policy_profile": "aspose-pdf-foss-cpp",
+        "mode": "dry_run",
+        "provider_repository_id": 1280033370
+      },
+      "repository_sha": "888700a8e361d32df21d0810c2eb939345e0603e",
+      "tree_sha_github": "b9860c3197cea88d8706445afeb32a0c510ce15a",
+      "tree_inventory_sha256": "13251527b41dd69bbf24cd1e91b97ec54ff9502182941af52e5e3ceea44a4949",
+      "tree_truncated_by_github_api": false,
+      "total_files": 1521,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 4,
+        "license": 1,
+        "admin": 7,
+        "substantive": 1509
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md",
+          "examples/README.md",
+          "tests/fixtures/xmp/README.md",
+          "tests/go_parity/README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".gitattributes",
+          ".github/workflows/ci.yml",
+          ".gitignore",
+          "CONTRIBUTING.md",
+          "THIRD_PARTY_NOTICES.md"
+        ],
+        "substantive": [
+          "CMakeLists.txt",
+          "CMakePresets.json",
+          "build.bat",
+          "examples/01_pages.cpp",
+          "examples/02_read_metadata.cpp"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "assigned_class": "admin"
+        },
+        {
+          "path": "examples/pdflib.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/fixtures/bmp_decoder/bgr24_checker_16.bmp",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/fixtures/bmp_decoder/bgr24_padded_2x3.bmp",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/fixtures/bmp_decoder/bgr24_padded_3x4.bmp",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/fixtures/bmp_decoder/bgr24_padded_5x4.bmp",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/fixtures/bmp_decoder/bgr24_solid_8.bmp",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/fixtures/bmp_decoder/bgra32_checker_8.bmp",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/fixtures/bmp_decoder/bgra32_gradient_16.bmp",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/fixtures/bmp_decoder/bgra32_solid_4.bmp",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/fixtures/cff/NOTICE.txt",
+          "assigned_class": "admin"
+        },
+        {
+          "path": "tests/fixtures/dctdecode/bars_64.jpg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/fixtures/dctdecode/checker_16.jpg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/fixtures/dctdecode/cmyk_blocks_16.jpg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/fixtures/dctdecode/gradient_32.jpg",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 28,
+      "classification": "PROCESSABLE",
+      "reason": "1509 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "pdf",
+        "platform": "go",
+        "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go",
+        "policy_profile": "aspose-pdf-foss-go",
+        "mode": "dry_run",
+        "provider_repository_id": 1245479016
+      },
+      "repository_sha": "2306eeb06216be4d9cb663adcb85155594572c11",
+      "tree_sha_github": "6c5d1f7964498de58092a46faacda207bfb9170f",
+      "tree_inventory_sha256": "f23a301ccd765719adc05b1dc138a5256db198b31c5da55fbde840271ae46b8b",
+      "tree_truncated_by_github_api": false,
+      "total_files": 735,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 2,
+        "license": 2,
+        "admin": 6,
+        "substantive": 725
+      },
+      "representative_paths": {
+        "readme": [
+          ".beads/README.md",
+          "README.md"
+        ],
+        "license": [
+          "LICENSE",
+          "fonts/LICENSE.txt"
+        ],
+        "admin": [
+          ".beads/.gitignore",
+          ".github/workflows/lint.yml",
+          ".github/workflows/test.yml",
+          ".gitignore",
+          "CHANGELOG.md"
+        ],
+        "substantive": [
+          ".beads/config.yaml",
+          ".beads/metadata.json",
+          ".claude/settings.json",
+          ".claude/skills/fix-bug/SKILL.md",
+          ".claude/skills/new-feature/SKILL.md"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "CHANGELOG.md",
+          "assigned_class": "admin"
+        },
+        {
+          "path": "_examples/feature_showcase/assets/aspose-pinwheel.svg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "_examples/feature_showcase/assets/einstein.jpg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "_examples/feature_showcase/assets/github-mark.svg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "_examples/feature_showcase/assets/go-logo.svg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "_examples/feature_showcase/assets/newton.jpg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "_examples/feature_showcase/assets/sales-banner.jpg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "_examples/feature_showcase/assets/starry-night.jpg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/feature_showcase-preview.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/feature_showcase.pdf",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/superpowers/plans/2026-04-02-metadata-crud.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/superpowers/plans/2026-04-03-in-memory-model.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/superpowers/plans/2026-04-06-text-extraction.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/superpowers/plans/2026-04-07-glyph-widths.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/superpowers/plans/2026-04-07-tounicode-cmap.md",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 119,
+      "classification": "PROCESSABLE",
+      "reason": "725 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "pdf",
+        "platform": "java",
+        "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java",
+        "policy_profile": "aspose-pdf-foss",
+        "mode": "dry_run",
+        "provider_repository_id": 1245412430
+      },
+      "repository_sha": "0dafbf4bd723e32d3269801d8894860e2ba2ae83",
+      "tree_sha_github": "ddd06e1743978cce7112521412c64adccc4d1dec",
+      "tree_inventory_sha256": "15f995cdabde2ddace03299d998d9ce0acb50c043d5c8793566c790f407c3ea4",
+      "tree_truncated_by_github_api": false,
+      "total_files": 1253,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 4,
+        "substantive": 1247
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".github/workflows/build.yml",
+          ".github/workflows/maven-central-release.yml",
+          ".gitignore",
+          "docs/security.md"
+        ],
+        "substantive": [
+          "AGENTS.md",
+          "PUBLISHING.md",
+          "docs/annotations.md",
+          "docs/attachments.md",
+          "docs/conversion.md"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "docs/annotations.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/attachments.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/conversion.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/document-generation.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/drawing.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/facades.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/forms.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/getting-started.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/limitations.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/metadata.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/navigation.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/optimization.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/page-operations.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/pdfa.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/rasterization.md",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 18,
+      "classification": "PROCESSABLE",
+      "reason": "1247 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "pdf",
+        "platform": "net",
+        "org_repo": "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET",
+        "policy_profile": "aspose-pdf-foss-net",
+        "mode": "dry_run",
+        "provider_repository_id": 1250546660
+      },
+      "repository_sha": "663783d18ec1c00efbd9b56a0a6ea20e4671d92b",
+      "tree_sha_github": "c5cb23558206fa2a7909b366e7381068645f4caa",
+      "tree_inventory_sha256": "3ee95c10c5caec4edf87a6a8e37046b9577d91df81b6015f1082549025888d5d",
+      "tree_truncated_by_github_api": false,
+      "total_files": 666,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 2,
+        "substantive": 662
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".github/workflows/build.yml",
+          ".gitignore"
+        ],
+        "substantive": [
+          "Aspose.Pdf.Foss.sln",
+          "docs/api-reference.md",
+          "docs/bookmarks-and-navigation.md",
+          "docs/comparison.md",
+          "docs/converters.md"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "docs/api-reference.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/bookmarks-and-navigation.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/comparison.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/converters.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/facades.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/fonts.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/getting-started.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/media/at-a-glance.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/media/banner-readme.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/metadata-and-xmp.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/optimization.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/rendering.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/security-and-encryption.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/tagged-pdf.md",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "docs/working-with-annotations.md",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 20,
+      "classification": "PROCESSABLE",
+      "reason": "662 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "pdf",
+        "platform": "python",
+        "org_repo": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+        "policy_profile": "aspose-pdf-foss-python",
+        "mode": "dry_run",
+        "provider_repository_id": 1276658443
+      },
+      "repository_sha": "3dfe9f86cc819c1eb829c951a6f5face3f6d8ad5",
+      "tree_sha_github": "4c5c3efc6574aa313d7c0901db8f488429bc22aa",
+      "tree_inventory_sha256": "2d759ed8b0d0094483652025af138cd06af685b555dce9a14b12ca985ecf4c49",
+      "tree_truncated_by_github_api": false,
+      "total_files": 383,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 6,
+        "license": 1,
+        "admin": 12,
+        "substantive": 364
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md",
+          "fuzz/README.md",
+          "fuzz/corpus/README.md",
+          "src/aspose_pdf/engine/data/agl/README.md",
+          "src/aspose_pdf/engine/data/cmaps/README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".github/ISSUE_TEMPLATE/bug_report.yml",
+          ".github/ISSUE_TEMPLATE/config.yml",
+          ".github/ISSUE_TEMPLATE/feature_request.yml",
+          ".github/PULL_REQUEST_TEMPLATE.md",
+          ".github/dependabot.yml"
+        ],
+        "substantive": [
+          ".env.example",
+          "AGENTS.md",
+          "MANIFEST.in",
+          "fuzz/__init__.py",
+          "fuzz/corpus/content/text.txt"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "CHANGELOG.md",
+          "assigned_class": "admin"
+        }
+      ],
+      "borderline_count": 1,
+      "classification": "PROCESSABLE",
+      "reason": "364 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "psd",
+        "platform": "net",
+        "org_repo": "aspose-psd-foss/Aspose.PSD-FOSS-for-.NET",
+        "policy_profile": "aspose-psd-foss-net",
+        "mode": "disabled",
+        "provider_repository_id": 1332915817
+      },
+      "repository_sha": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903",
+      "tree_sha_github": "772ff83a2de2ce7541131e576647e538c9aa7871",
+      "tree_inventory_sha256": "b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5",
+      "tree_truncated_by_github_api": false,
+      "total_files": 1,
+      "github_declared_license_spdx": null,
+      "counts": {
+        "readme": 1,
+        "license": 0,
+        "admin": 0,
+        "substantive": 0
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [],
+        "admin": [],
+        "substantive": []
+      },
+      "borderline_paths": [],
+      "borderline_count": 0,
+      "classification": "UNPROCESSABLE_SKIP",
+      "reason": "pinned tree contains only README and/or LICENSE files"
+    },
+    {
+      "registry_identity": {
+        "family": "psd",
+        "platform": "python",
+        "org_repo": "aspose-psd-foss/Aspose.PSD-FOSS-for-Python",
+        "policy_profile": "aspose-psd-foss-python",
+        "mode": "disabled",
+        "provider_repository_id": 1323959290
+      },
+      "repository_sha": "2f6c746a8a3ebfaf686a7053e34abfad3a2fd8b3",
+      "tree_sha_github": "05ccafef53f3df147a89fa1bab2b54db6aac5358",
+      "tree_inventory_sha256": "b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5",
+      "tree_truncated_by_github_api": false,
+      "total_files": 1,
+      "github_declared_license_spdx": null,
+      "counts": {
+        "readme": 1,
+        "license": 0,
+        "admin": 0,
+        "substantive": 0
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [],
+        "admin": [],
+        "substantive": []
+      },
+      "borderline_paths": [],
+      "borderline_count": 0,
+      "classification": "UNPROCESSABLE_SKIP",
+      "reason": "pinned tree contains only README and/or LICENSE files"
+    },
+    {
+      "registry_identity": {
+        "family": "slides",
+        "platform": "cpp",
+        "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Cpp",
+        "policy_profile": "aspose-slides-foss-cpp",
+        "mode": "dry_run",
+        "provider_repository_id": 1186397596
+      },
+      "repository_sha": "ecc2baf8cc3e3e4a6ee36cbfb992ec4fa6dd7765",
+      "tree_sha_github": "446cf78c15dd8732576889bcb004557a6b44a07e",
+      "tree_inventory_sha256": "6c5f3f142dcbf862fb79ba87fe134f01cc4715e2a4cb62551eb8a66598c1b1a7",
+      "tree_truncated_by_github_api": false,
+      "total_files": 474,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 2,
+        "substantive": 470
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".gitattributes",
+          ".gitignore"
+        ],
+        "substantive": [
+          "CMakeLists.txt",
+          "THIRD_PARTY_NOTICES",
+          "include/Aspose/Slides/Foss/_internal/base_collection.h",
+          "include/Aspose/Slides/Foss/_internal/export/exporter_base.h",
+          "include/Aspose/Slides/Foss/_internal/export/exporter_registry.h"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "tests/test_data/image_example.jpg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/test_data/lotus.png",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 2,
+      "classification": "PROCESSABLE",
+      "reason": "470 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "slides",
+        "platform": "java",
+        "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Java",
+        "policy_profile": "aspose-slides-foss-java",
+        "mode": "dry_run",
+        "provider_repository_id": 1185448261
+      },
+      "repository_sha": "5d76f44cdd52a2510b66bbc20c663759cda60432",
+      "tree_sha_github": "d6220a7259c9f4e2e888cea26037e54cf75e80b8",
+      "tree_inventory_sha256": "2733ae9f573c161ac9eb0b9a2ccf4b960cab5910f5c904937406fe701fa747d8",
+      "tree_truncated_by_github_api": false,
+      "total_files": 402,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 2,
+        "substantive": 398
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".github/workflows/maven-central-release.yml",
+          ".gitignore"
+        ],
+        "substantive": [
+          "AGENTS.md",
+          "PUBLISHING.md",
+          "pom.xml",
+          "src/main/java/org/aspose/slides/foss/AdjustValue.java",
+          "src/main/java/org/aspose/slides/foss/AdjustValueCollection.java"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "tests/test_data/image_example.jpg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/test_data/lotus.png",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 2,
+      "classification": "PROCESSABLE",
+      "reason": "398 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "slides",
+        "platform": "net",
+        "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
+        "policy_profile": "aspose-slides-foss-net",
+        "mode": "dry_run",
+        "provider_repository_id": 1185437353
+      },
+      "repository_sha": "6c650e96d07958c496f9c757a384b76b5fa7bbb9",
+      "tree_sha_github": "91d5aba761b8c3df8525d86659f4184e694e75f2",
+      "tree_inventory_sha256": "a2db703a66b9e8f8653ac4e170c01124aacbd57544384e32d63f5da4574473b0",
+      "tree_truncated_by_github_api": false,
+      "total_files": 419,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 2,
+        "substantive": 415
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".github/workflows/ci.yml",
+          ".gitignore"
+        ],
+        "substantive": [
+          "AGENTS.md",
+          "Aspose.Slides.Foss.sln",
+          "Directory.Build.props",
+          "Directory.Packages.props",
+          "nuget.config"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "tests/test_data/image_example.jpg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/test_data/lotus.png",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 2,
+      "classification": "PROCESSABLE",
+      "reason": "415 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "slides",
+        "platform": "python",
+        "org_repo": "aspose-slides-foss/Aspose.Slides-FOSS-for-Python",
+        "policy_profile": "aspose-slides-foss-python",
+        "mode": "dry_run",
+        "provider_repository_id": 1172529510
+      },
+      "repository_sha": "90e523b90b91eab58e70e725fa88aa551f115731",
+      "tree_sha_github": "98f7db3f2170a2f52364a93a269dada2b5e907dd",
+      "tree_inventory_sha256": "f8ac657fdd36b208be481523f42699da3665ff11f9a01b8634251a319e45c312",
+      "tree_truncated_by_github_api": false,
+      "total_files": 614,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 1,
+        "substantive": 611
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".gitignore"
+        ],
+        "substantive": [
+          "agents.md",
+          "aspose/slides_foss/AdjustValue.py",
+          "aspose/slides_foss/AdjustValueCollection.py",
+          "aspose/slides_foss/AutoShape.py",
+          "aspose/slides_foss/Background.py"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "tests/test_data/image_example.jpg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "tests/test_data/lotus.png",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 2,
+      "classification": "PROCESSABLE",
+      "reason": "611 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "tex",
+        "platform": "python",
+        "org_repo": "aspose-tex-foss/Aspose.TeX-FOSS-for-Python",
+        "policy_profile": "aspose-tex-foss-python",
+        "mode": "dry_run",
+        "provider_repository_id": 1243409232
+      },
+      "repository_sha": "2f4bfab3863e66ef32868f5464685eb4c2d36911",
+      "tree_sha_github": "307c0562e66d18f0f09f655c220a27b292b52c39",
+      "tree_inventory_sha256": "27da83a4cf8401742161e5ae94a1f613845e7857347a1b680dc4f320ae545309",
+      "tree_truncated_by_github_api": false,
+      "total_files": 314,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 4,
+        "license": 1,
+        "admin": 5,
+        "substantive": 304
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md",
+          "src/aspose_tex/data/README.md",
+          "testdata/baselines/README.md",
+          "testdata/e2e/README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".gitignore",
+          "src/aspose_tex/data/fonts/.gitkeep",
+          "src/aspose_tex/data/hyphenation/.gitkeep",
+          "testdata/.gitkeep",
+          "testdata/baselines/.gitkeep"
+        ],
+        "substantive": [
+          "LICENSE-FONTS",
+          "pyproject.toml",
+          "run_hello.py",
+          "src/aspose_tex/__init__.py",
+          "src/aspose_tex/_engine/__init__.py"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "testdata/hello_miktex.svg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/hello_ours.svg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/mikrex_pdf_1.png.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/ours_pdf_1.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/smoke_m2_miktex-1.svg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/smoke_m2_miktex-2.svg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/smoke_m2_ours-1.svg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "testdata/smoke_m2_ours-2.svg",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 8,
+      "classification": "PROCESSABLE",
+      "reason": "304 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "words",
+        "platform": "net",
+        "org_repo": "aspose-words-foss/Aspose.Words-FOSS-for-.NET",
+        "policy_profile": "aspose-words-foss-net",
+        "mode": "dry_run",
+        "provider_repository_id": 1159931799
+      },
+      "repository_sha": "68d56fdaf7fcd2d95935a0c180b6e69e99a9b4b8",
+      "tree_sha_github": "117a7d7bf9d019df6eb31d2fa9c679b84494bd09",
+      "tree_inventory_sha256": "257e65d0b7775a24714eb182c88a3ade8e267e9fca4e56995013b782fcac3c96",
+      "tree_truncated_by_github_api": false,
+      "total_files": 14669,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 19,
+        "license": 1,
+        "admin": 3,
+        "substantive": 14646
+      },
+      "representative_paths": {
+        "readme": [
+          "Aspose.Foundation/Aspose.Foundation.Tests/Tests/Collections/Auto/ReadMe.txt",
+          "Aspose.Foundation/Aspose.Foundation.Tests/Tests/Collections/Auto/Templates/ReadMe.txt",
+          "Aspose.Foundation/Aspose.Foundation/Collections/Auto/ReadMe.txt",
+          "Aspose.Foundation/Aspose.Foundation/Collections/Auto/Templates/ReadMe.txt",
+          "Aspose.Foundation/Aspose.Foundation/Fonts/TrueType/Readme.txt"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".editorconfig",
+          ".gitattributes",
+          ".gitignore"
+        ],
+        "substantive": [
+          "AGENTS.md",
+          "Aspose.Foundation/0ReadMe.txt",
+          "Aspose.Foundation/Aspose.Foundation.Tests/0ReadMe.txt",
+          "Aspose.Foundation/Aspose.Foundation.Tests/App.config",
+          "Aspose.Foundation/Aspose.Foundation.Tests/Aspose.Foundation.Tests.csproj"
+        ]
+      },
+      "borderline_paths": [
+        {
+          "path": "Aspose.Foundation/Aspose.Foundation/Resources/NoImage.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "Aspose.Foundation/TestData/Images/AWReference.gif",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "Aspose.Foundation/TestData/Images/CMYK/Test18764_0.jpeg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "Aspose.Foundation/TestData/Images/CMYK/Test18764_1.jpeg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "Aspose.Foundation/TestData/Images/CMYK/Test24845.jpg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "Aspose.Foundation/TestData/Images/CMYK/Test420CMYKImage_0.jpeg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "Aspose.Foundation/TestData/Images/CMYK/TestCMYK517_0.jpeg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "Aspose.Foundation/TestData/Images/CMYK/TestCMYKImages_0.jpeg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "Aspose.Foundation/TestData/Images/CMYK/TestCMYKImages_1.jpeg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "Aspose.Foundation/TestData/Images/CMYK/TestCMYKImages_10.jpeg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "Aspose.Foundation/TestData/Images/CMYK/TestCMYKImages_10_gray.png",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "Aspose.Foundation/TestData/Images/CMYK/TestCMYKImages_11.jpeg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "Aspose.Foundation/TestData/Images/CMYK/TestCMYKImages_12.jpeg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "Aspose.Foundation/TestData/Images/CMYK/TestCMYKImages_2.jpeg",
+          "assigned_class": "substantive"
+        },
+        {
+          "path": "Aspose.Foundation/TestData/Images/CMYK/TestCMYKImages_3.jpeg",
+          "assigned_class": "substantive"
+        }
+      ],
+      "borderline_count": 278,
+      "classification": "PROCESSABLE",
+      "reason": "14646 substantive product-evidence file(s) present"
+    },
+    {
+      "registry_identity": {
+        "family": "words",
+        "platform": "python",
+        "org_repo": "aspose-words-foss/Aspose.Words-FOSS-for-Python",
+        "policy_profile": "aspose-words-foss-python",
+        "mode": "dry_run",
+        "provider_repository_id": 1199624632
+      },
+      "repository_sha": "2d2efee2787cb9e56d071d17f8d7b740dce8b784",
+      "tree_sha_github": "9e212222358cf728e05f1d8c0e0ab16d6952a614",
+      "tree_inventory_sha256": "e002a70ec84b21e11f4ab517ceff3a9697aa00d4a6fa35c4d7971c6f41ed934e",
+      "tree_truncated_by_github_api": false,
+      "total_files": 137,
+      "github_declared_license_spdx": "MIT",
+      "counts": {
+        "readme": 1,
+        "license": 1,
+        "admin": 1,
+        "substantive": 134
+      },
+      "representative_paths": {
+        "readme": [
+          "README.md"
+        ],
+        "license": [
+          "LICENSE"
+        ],
+        "admin": [
+          ".gitignore"
+        ],
+        "substantive": [
+          "ApiExamples/__init__.py",
+          "ApiExamples/conftest.py",
+          "ApiExamples/convert_document.py",
+          "ApiExamples/docs_examples_base.py",
+          "ApiExamples/loading_document.py"
+        ]
+      },
+      "borderline_paths": [],
+      "borderline_count": 0,
+      "classification": "PROCESSABLE",
+      "reason": "134 substantive product-evidence file(s) present"
+    }
+  ]
+}

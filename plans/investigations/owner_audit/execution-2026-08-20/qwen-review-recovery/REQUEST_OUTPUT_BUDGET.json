@@ -1,0 +1,66 @@
+{
+  "$id": "qwen-review-recovery-request-output-budget",
+  "pin": "aa998102191c530af4dca3a6895d62a4027a613e",
+  "generated_by": "OPT-QWEN-REVIEW-RECOVERY-DESIGN",
+  "notes": "Every existing constant is cited by file:line. New values are marked \"status\": \"new\".",
+  "calls": {
+    "merged_readme_review": {
+      "status": "existing, unchanged",
+      "source": "src/readme_agent/llm/reviewer_client.py:20 (MERGED_REVIEW_MAX_TOKENS)",
+      "max_output_tokens": 4000,
+      "timeout_seconds": 90,
+      "transport_max_attempts": 1,
+      "response_max_attempts": 1,
+      "source_config": "src/readme_agent/llm/reviewer_client.py:113-123"
+    },
+    "blind_readme_quality_review_recovery": {
+      "status": "existing, reused",
+      "source": "src/readme_agent/llm/reviewer_client.py:18 (BLIND_REVIEW_MAX_TOKENS)",
+      "max_output_tokens": 3000,
+      "timeout_seconds": 90,
+      "internal_grounding_attempts_normal": 3,
+      "internal_grounding_attempts_recovery": 2,
+      "recovery_override_source": "run_grounded_role(max_attempts_override=2) -- new call site in execute_merged_readme_review",
+      "note": "3000 exactly matches the requirement's stated blind-quality budget; no new constant required."
+    },
+    "factual_readme_plan_review_recovery": {
+      "status": "existing, reused",
+      "source": "src/readme_agent/llm/reviewer_client.py:19 (FACTUAL_REVIEW_MAX_TOKENS)",
+      "max_output_tokens": 6000,
+      "timeout_seconds": 90,
+      "internal_grounding_attempts_normal": 2,
+      "internal_grounding_attempts_recovery": 2,
+      "recovery_override_source": "run_grounded_role(max_attempts_override=2) -- same call as normal separated path, no change needed",
+      "note": "6000 exactly matches the requirement's stated factual-review budget; no new constant required."
+    }
+  },
+  "request_ceiling": {
+    "status": "new",
+    "applies_to": "the assembled merged_readme_review message list, pre-flight, before client.analyze()",
+    "max_request_bytes": 204800,
+    "max_request_bytes_human": "200 KB",
+    "approx_max_input_tokens": 60000,
+    "token_estimate_method": "len(utf8_bytes) / 4, documented heuristic -- no tokenizer is vendored in this repo; matches the requirement's own \"approximately\" framing",
+    "on_exceed": "skip the normal merged call entirely (counts as 0 normal calls); route directly to two-facet recovery, each independently subject to the same ceiling",
+    "new_function": "enforce_merged_review_request_ceiling(messages) -> None, raises MergedReviewRequestTooLargeError(LLMError)",
+    "new_function_location": "src/readme_agent/llm/merged_readme_review.py (co-located with build_merged_readme_review_messages)",
+    "calibration_caveat": "heuristic; recommend recording actual byte size in every QwenReviewRecoveryReceiptV1 even on success, to calibrate this ceiling against real traffic before it is tightened or relaxed"
+  },
+  "per_call_hard_timeout_seconds": {
+    "status": "existing, unchanged",
+    "value": 90,
+    "source": "default timeout=90 on every Live*ReviewClient constructor, src/readme_agent/llm/reviewer_client.py (lines 32, 58, 84, 110, 138, 173, 218)"
+  },
+  "physical_call_ceilings": {
+    "status": "new (derived from existing per-role attempt constants)",
+    "normal_max_calls": 1,
+    "worst_case_max_calls": 5,
+    "worst_case_breakdown": [
+      "1 x merged_readme_review (fails or is skipped by the request ceiling)",
+      "up to 2 x blind_readme_quality_review_recovery (initial + 1 compact grounding retry)",
+      "up to 2 x factual_readme_plan_review_recovery (initial + 1 compact grounding retry)"
+    ],
+    "accepted_unchanged_rerun_max_calls": 0,
+    "accepted_unchanged_rerun_source": "src/readme_agent/supervisor/loop.py:317-363 (supervise_repo, AGENT_APPROVED -> NO_OP_PROVEN promotion)"
+  }
+}

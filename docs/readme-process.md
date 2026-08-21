@@ -20,6 +20,14 @@ outside a comment explaining it changes -- see resolution 7 of this plan ("check
 inventory is derived, never a binding constant"). The registry's own `load_check_registry()`
 re-derives it by introspection on the vendored module every time it's called.
 
+Every candidate transaction records the derived check-registry hash, applicable check IDs, run/
+skipped/errored disposition, native-validator hash, and 30-point reviewer-standard hash. A changed
+registry or reviewer standard invalidates validation/review, not repository facts. A stored
+candidate cannot remain accepted when its bound applicable check failed, errored, disappeared
+without a versioned disposition, or was never run. The older second-hand 103-function inventory is
+diagnostic provenance only; the vendored module's current introspected registry is authoritative for
+the candidate transaction.
+
 ## Classification
 
 Each check carries two independently derived properties:

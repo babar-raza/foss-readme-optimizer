@@ -1,0 +1,112 @@
+{
+  "$id": "qwen-review-recovery-failure-state-machine",
+  "pin": "aa998102191c530af4dca3a6895d62a4027a613e",
+  "entry_state": "PRE_FLIGHT",
+  "states": {
+    "PRE_FLIGHT": {
+      "description": "Assemble merged_readme_review messages; check request ceiling before spending the normal call.",
+      "function": "execute_merged_readme_review (new leading step) -> enforce_merged_review_request_ceiling(messages)",
+      "transitions": [
+        {"to": "NORMAL_CALL", "when": "assembled request <= 200 KB"},
+        {"to": "RECOVERY_DISPATCH", "when": "assembled request > 200 KB", "facets_unresolved": ["blind", "factual"], "failure_kind": "request_ceiling_exceeded", "calls_spent": 0}
+      ]
+    },
+    "NORMAL_CALL": {
+      "description": "The one preserved normal merged-review call.",
+      "function": "client.analyze(messages) inside execute_merged_readme_review, now wrapped in try/except",
+      "calls_spent": 1,
+      "transitions": [
+        {"to": "PARSE_TOP_LEVEL", "when": "client.analyze returns without raising"},
+        {"to": "RECOVERY_DISPATCH", "when": "LLMTruncatedResponseError raised (finish_reason == \"length\")", "facets_unresolved": ["blind", "factual"], "failure_kind": "truncated_response", "source": "new: llm/verifier_client.py::_parse_response, checked before the JSON-decode branch"},
+        {"to": "RECOVERY_DISPATCH", "when": "LLMError raised, not a subtype below (malformed JSON args, non-length finish_reason)", "facets_unresolved": ["blind", "factual"], "failure_kind": "malformed_arguments", "source": "existing: llm/verifier_client.py:199-208 (json.JSONDecodeError branch)"},
+        {"to": "RECOVERY_DISPATCH", "when": "LLMInfrastructureError raised (HTTP 401/403/5xx or exhausted transport retry)", "facets_unresolved": ["blind", "factual"], "failure_kind": "transport_failure", "source": "existing: llm/verifier_client.py:_request, transport_max_attempts=1 so no gateway-level retry occurs first"}
+      ]
+    },
+    "PARSE_TOP_LEVEL": {
+      "description": "Validate the merged response has exactly the {quality, factual} keys, both dict-shaped.",
+      "function": "execute_merged_readme_review, existing check at merged_readme_review.py:75-80, now raising a typed MergedReviewSchemaError instead of bare LLMError",
+      "transitions": [
+        {"to": "PARSE_FACTUAL_FACET", "when": "parsed has exactly {quality, factual}, both dicts"},
+        {"to": "RECOVERY_DISPATCH", "when": "keys missing/extra, or either facet is not a dict", "facets_unresolved": ["blind", "factual"], "failure_kind": "top_level_schema_failure", "source": "existing check, new exception type MergedReviewSchemaError(LLMError)"}
+      ]
+    },
+    "PARSE_FACTUAL_FACET": {
+      "description": "Project the factual payload through run_grounded_role with max_attempts_override=1 (existing).",
+      "function": "run_grounded_role(role=\"factual_plan\", ..., max_attempts_override=1) at merged_readme_review.py:81-89",
+      "calls_spent": 0,
+      "transitions": [
+        {"to": "PARSE_BLIND_FACET", "when": "grounding succeeds"},
+        {"to": "RECOVERY_DISPATCH", "when": "GroundedRoleFailure raised", "facets_unresolved": ["factual"], "failure_kind": "factual_grounding_failure", "source": "existing GroundedRoleFailure, currently UNCAUGHT here -- this is the primary defect this design fixes", "gap_before_fix": true}
+      ]
+    },
+    "PARSE_BLIND_FACET": {
+      "description": "Project the quality payload through run_grounded_role with max_attempts_override=1 (existing).",
+      "function": "run_grounded_role(role=\"blind_quality\", ..., max_attempts_override=1) at merged_readme_review.py:93-103",
+      "calls_spent": 0,
+      "transitions": [
+        {"to": "RESOLVED", "when": "grounding succeeds"},
+        {"to": "RECOVERY_DISPATCH", "when": "GroundedRoleFailure raised", "facets_unresolved": ["blind"], "failure_kind": "blind_grounding_failure", "source": "existing, already caught today via blind_fallback_client -- this design keeps that behavior and only unifies it under the same receipt"}
+      ]
+    },
+    "RECOVERY_DISPATCH": {
+      "description": "New: classify which facet(s) are unresolved and invoke only the matching separated client(s), each bounded to max_attempts_override=2.",
+      "function": "new: _recover_unresolved_facets(facets_unresolved, failure_kind, blind_fallback_client, factual_fallback_client, ...)",
+      "precondition": "blind_fallback_client and/or factual_fallback_client is not None (both None => fall through to FAIL_CLOSED, preserving today's exact behavior for callers that supply neither)",
+      "transitions": [
+        {"to": "RECOVER_BLIND", "when": "\"blind\" in facets_unresolved and blind_fallback_client is not None"},
+        {"to": "RECOVER_FACTUAL", "when": "\"factual\" in facets_unresolved and factual_fallback_client is not None"},
+        {"to": "FAIL_CLOSED", "when": "an unresolved facet has no matching fallback client supplied"}
+      ]
+    },
+    "RECOVER_BLIND": {
+      "description": "Isolated blind-quality call using build_blind_quality_review_messages, existing mechanism, now reachable from every failure_kind, not just blind_grounding_failure.",
+      "function": "run_grounded_role(role=\"blind_quality\", prompt_id=_BLIND_PROMPT_ID, client=blind_fallback_client, ..., max_attempts_override=2)",
+      "calls_spent": "1 or 2 (initial + at most 1 compact grounding retry, internal to run_grounded_role)",
+      "transitions": [
+        {"to": "RESOLVED_PARTIAL", "when": "succeeds and factual facet already resolved from NORMAL_CALL"},
+        {"to": "AWAIT_FACTUAL_RECOVERY", "when": "succeeds and factual facet also unresolved (join point)"},
+        {"to": "SYSTEM_FAILURE", "when": "GroundedRoleFailure raised even after the bounded compact retry"}
+      ]
+    },
+    "RECOVER_FACTUAL": {
+      "description": "Isolated factual-plan call using build_factual_plan_review_messages -- new: symmetric to RECOVER_BLIND, using a new factual_fallback_client parameter.",
+      "function": "run_grounded_role(role=\"factual_plan\", prompt_id=_FACTUAL_PROMPT_ID, client=factual_fallback_client, ..., max_attempts_override=2)",
+      "calls_spent": "1 or 2 (initial + at most 1 compact grounding retry, internal to run_grounded_role)",
+      "transitions": [
+        {"to": "RESOLVED_PARTIAL", "when": "succeeds and blind facet already resolved from NORMAL_CALL"},
+        {"to": "RESOLVED_PARTIAL", "when": "succeeds and blind facet was also recovered in RECOVER_BLIND"},
+        {"to": "SYSTEM_FAILURE", "when": "GroundedRoleFailure raised even after the bounded compact retry"}
+      ]
+    },
+    "AWAIT_FACTUAL_RECOVERY": {
+      "description": "Join point when both facets are unresolved: RECOVER_BLIND and RECOVER_FACTUAL both run (order does not affect the call-count ceiling; sequential in the reference implementation).",
+      "transitions": [{"to": "RECOVER_FACTUAL", "when": "always"}]
+    },
+    "RESOLVED": {
+      "description": "Normal-path success. No recovery attempted. QwenReviewRecoveryReceiptV1 is None.",
+      "terminal": true,
+      "receipt": null
+    },
+    "RESOLVED_PARTIAL": {
+      "description": "One or both facets resolved via recovery. QwenReviewRecoveryReceiptV1 is populated with the failure_kind, which facet(s) recovered, attempt counts, token usage, and latency.",
+      "terminal": true,
+      "receipt": "QwenReviewRecoveryReceiptV1 (see IMPLEMENTATION_PATCH_MAP.md)"
+    },
+    "FAIL_CLOSED": {
+      "description": "No fallback client supplied for an unresolved facet -- identical to today's behavior when blind_fallback_client is None (test_merged_false_missing_premise_fails_closed_without_repeating_call). Preserved unchanged as the zero-fallback-client default.",
+      "terminal": true,
+      "raises": "the original classified exception (LLMTruncatedResponseError | LLMError | LLMInfrastructureError | MergedReviewSchemaError | GroundedRoleFailure)"
+    },
+    "SYSTEM_FAILURE": {
+      "description": "Recovery was attempted (fallback client(s) supplied) but a facet still failed grounding after its bounded compact retry. Surfaces as SYSTEM_FAILURE verdict via the existing BlindQualityReviewResultV1/FactualPlanReviewResultV1 SYSTEM_FAILURE shape, never as a synthetic REJECT_REPAIRABLE -- this is the requirement-11 non-interference invariant: a recovery exhaustion must not consume MAX_REPAIR_ATTEMPTS budget by masquerading as a repairable rejection.",
+      "terminal": true,
+      "receipt": "QwenReviewRecoveryReceiptV1 with final_disposition = \"system_failure\""
+    }
+  },
+  "invariants": [
+    "Every path from PRE_FLIGHT to a terminal state spends at most 5 physical provider calls.",
+    "RESOLVED is the only terminal state reachable in exactly 1 call.",
+    "No transition ever re-sends the full merged request; RECOVER_BLIND/RECOVER_FACTUAL always use the smaller separated prompts.",
+    "candidate_text, product_facts, and visitor_contract passed into RECOVER_BLIND/RECOVER_FACTUAL are byte-identical to those used in NORMAL_CALL -- verified by a dedicated invariant test, not just by convention."
+  ]
+}

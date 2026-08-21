@@ -7,27 +7,42 @@ graph; and live claims/transitions to durable supervisor state.
 
 ## Current horizon
 
-1. **Current repository focus**
-   - Run mission `evaluate`, then execute only the immediate goal and repository printed by mission
-     `status`.
-   - Reopen the earliest stale closeout before a dependent; reuse unaffected content-addressed
-     stages.
-2. **Representative Python reconciliation chain**
-   - Complete the graph-owned PDF, Page, Note, and Aspose.3D current-contract focus tasks in their
-     dependency order, showing each independently accepted/no-op-proven README immediately.
-3. **Complete Python platform**
-   - Finalize every dynamically admitted Python repository.
-4. **Post-Python representatives**
-   - Prove one current .NET and one current Java vertical slice.
-5. **Next horizon activation**
-   - Promote only the next dependency-ready verified tasks from the deferred catalog into the same
-     graph; do not create another controller or load the entire backlog.
+1. **Campaign authority**
+   - Reconcile the frozen RegistryRevision, 31-processable/two-disposition partition, 30-point
+     acceptance identity, check-registry hash, graph dependencies, and durable state.
+2. **Qualified development-oracle refresh**
+   - Bind the latest reviewed committed Aspose.org revision; diff the knowledge-generation mechanism
+     and exported artifacts, checks, runner inputs, schemas, data, fixtures, and skill rules; import
+     only necessary reusable behavior and make the local generator independently reproducible.
+   - Snapshot and re-audit the latest complete synchronized canonical `repo-presenter-regen-full`
+     corpus. Because generated reports may be gitignored, bind producer HEAD/dirty fingerprint and
+     require two identical generated-tree inventories, complete receipts, denominator reconciliation,
+     and a fresh aggregate audit before freezing it. Derive a locally qualified visitor-quality profile
+     from all candidates, dispositions, reports, and audit results; a mutating/incomplete sync or
+     failing upstream proof remains diagnostic and cannot lower the local bar.
+   - Independently classify every imported item as adopted, adapted, diagnostic, quarantined,
+     not-applicable, or deferred for a missing typed input. Upstream origin is not acceptance proof.
+3. **Knowledge-to-bytes**
+   - Preserve the current K1 item-level polarity and K3 final-accountability repairs; implement and
+     prove bounded consumers for feature, format, install, limitation, and troubleshooting claims.
+4. **First complete transaction**
+   - Build one current Aspose.3D Python candidate through `supervise`, independently accept all
+     30 criteria with zero hard disqualifiers, meet or exceed every applicable qualified benchmark
+     dimension, and prove immediate zero-provider transaction no-op.
+5. **Minimal runner and ecosystem canaries**
+   - Automate only the sealed transaction through typed allow-listed actions, then qualify one
+     processable repository per Python, .NET, Java, C++, TypeScript, Rust, and Go.
+6. **Processable portfolio**
+   - Fan out with repository isolation and failed-only repair until all 31 processable repositories
+     are accepted/no-op-proven, retain two typed PSD dispositions, and reconstruct one review package.
+7. **Next horizon activation**
+   - After global human review, promote only the next authorized transport/publication horizon from
+     the deferred catalog; do not create another controller or load the entire backlog.
 
 ## Later ordered outcomes
 
-- Reconcile source-complete discovery and intake.
-- Complete verified Gate A in .NET, Java, C++, TypeScript, Rust, and Go order.
-- Complete representative and final all-registry Gate-B human acceptance.
+- Maintain source-complete discovery, processability, and intake as the denominator evolves.
+- Complete global portfolio human acceptance.
 - Prove the canonical workflow under `act`, disposable staging, and authorized Gate C.
 - Deploy hosted GitHub App operation and all presentation surfaces.
 - Earn Level 5 and deployable Level 6.
@@ -42,6 +57,11 @@ graph; and live claims/transitions to durable supervisor state.
   and measured throughput proof.
 - Infrastructure is just in time, verification is risk-tiered, and evidence is promoted at declared
   repository/cohort/shared-code boundaries.
+- Aspose.org mechanisms are committed-source inputs; its generated benchmark corpus is accepted only
+  through the stable-synchronization protocol. An upstream rule is never promoted merely because it
+  is newer or already used there. Each campaign freezes a fresh qualified benchmark snapshot; later
+  semantic improvement is queued for the next declared boundary, while deployed execution remains
+  sibling-independent.
 - A cosmetic component update creates `VALID_UPDATE_AVAILABLE`; factual, safety, protected-content,
   or severe acceptance defects reopen only the earliest affected stage.
 - Two equivalent failures or 15 minutes without narrowing require a first-principles mechanism or

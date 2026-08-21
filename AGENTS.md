@@ -310,13 +310,15 @@ rule 10).
 ## Full-registry POC scope and gate ordering
 
 Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section and
-`plans/master.md` decisions #78/#85/#88:
+`plans/master.md` decisions #78/#85/#88/#108:
 
-- **Every repo in `data/products.json` is part of the POC.** The POC is the full registry, not a
-  sample of it — the count is computed at runtime (`len()` over the file's current entries), never
-  hard-coded into a plan, a report, or a status claim. A result covering only some of the registry
-  is a development batch or partial result and must be labeled as one, never presented as "the
-  POC."
+- **Every repo in the frozen `RegistryRevisionV1` is accountable in the POC.** `data/products.json`
+  remains the allow-list, but processability is decided from each immutable source snapshot before
+  authoring. The reviewed baseline is 33 admitted: 31 processable README targets and two source-empty
+  PSD repositories with typed `NON_PROCESSABLE_NO_IMPLEMENTATION` dispositions. The delivery metric
+  is 31/31 processable repositories; the two dispositions remain inside revision accountability and
+  must bind evidence plus a resume predicate. A partial numerator is never "the POC," and a later
+  discovery/admission change reopens the affected dynamic denominator.
 - **Trusted execution is suspended; trusted assets are preserved.**
   `trusted_readme_transform` evidence remains explicitly `README_INHERITED` and may contribute
   compatible implementation, tests, cache/retry/lease controls, workflow/staging transport, and
@@ -338,19 +340,16 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
   inherited claims, facts, and protected content; deterministic assessment may then produce a
   byte-identical candidate and empty patch, but independent agent approval and no-op proof remain
   mandatory.
-- **Verified Python is the immediate complete-platform POC.** Finish the current Aspose.3D FOSS for
-  Python calibration README, then rebuild Note, qualify Page/PDF, and complete every dynamically
-  admitted Python repository. After repository-transaction isolation is proven, one disjoint
-  repository-local .NET qualification lane may run while Python remains the sole primary goal;
-  it has no shared-state, transition, aggregate, commit, or effect authority. Python production
-  transport is proven before .NET transport, and Java follows .NET. No product effect occurs in
-  these local stages. Continue source-complete
-  discovery and the verified Gate A/B/C sequence afterwards. For every verified entry, capture the
-  current
-  default-branch revision and exact README bytes, then preserve reviewable local artifacts for the
-  original, verified facts, decision/operation plan, enhanced candidate, diff, deterministic
-  validation, independent agentic verdict, and no-op rerun. Read-only GitHub access needed to
-  obtain evidence is allowed; `local_poc` must not perform a remote write.
+- **The immediate POC is candidate-first and portfolio-wide.** First close imported-knowledge and
+  acceptance identity, then seal one current weak-input Aspose.3D Python transaction at 30/30 with
+  zero hard disqualifiers and an immediate zero-provider full-transaction no-op. Only then automate
+  that exact transaction, qualify one processable representative per Python, .NET, Java, C++,
+  TypeScript, Rust, and Go, and fan out to all 31 processable repositories. This ordering replaces
+  Python-production-admission-first gating; platform priority breaks ties among otherwise ready
+  canaries and repairs but does not delay local proof in another ecosystem. For every processable
+  entry preserve the immutable source, verified facts, knowledge dispositions, operation plan,
+  candidate, diff, deterministic validation, independent 30-point verdict, and no-op receipt.
+  `local_poc` performs no remote write.
 - **Dynamic/agentic capability selection is mandatory for the canonical local path.**
   `commands_supervision.py` forces the specialist-selection and repair-planner clients whenever
   `--execution-profile local_poc` is active; `--enable-dynamic-planning` remains an explicit
@@ -371,14 +370,12 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
 - **The system makes product/platform decisions.** Detect the product, ecosystem, repository
   shape, and evidence, then select capabilities, sections, examples, and validators automatically.
   A normal run must not ask a human to choose a template, capability, skill, or command sequence.
-- **Human review never replaces independent approval.** A trusted POC PR is itself the human review
-  surface after trusted deterministic and independent fidelity approval. Verified Gate B still
-  begins only after every candidate in the proposed platform cohort goes through
-  deterministic validation, independent agentic review, repair, and no-op proof before a human
-  acceptance decision. Human acceptance is a separate recorded Gate-B state; it is never inferred from
-  agent approval. A complete human-accepted platform may enter separately authorized draft-PR
-  operation without promoting another platform or satisfying full-registry Gate A/B; every member
-  of the affected platform must be accepted first.
+- **Human review never replaces independent approval.** The current campaign presents one global
+  review package only after every processable repository is independently `AGENT_ACCEPTED_30_OF_30`
+  and immediate-no-op-proven. Human acceptance is a separate recorded state and is never inferred
+  from agent approval. No product PR is created during the portfolio-proof campaign; later platform
+  effects still require complete applicable human acceptance, transport qualification, and fresh
+  exact what/why/where authorization.
 - **Package resolution follows declared, sprint-bounded routes.** The active verified POC may use
   pip/PyPI for repository-declared Python packages, NuGet, Maven, npm, Go modules/proxy, and
   Cargo/crates.io. Conan and vcpkg remain inactive and non-blocking even if dormant resolver code
@@ -447,35 +444,33 @@ affected goal after regression, invalidation, or denominator growth. Only a goal
 selected. Safety, autonomy, authorization, factuality, idempotency, and evidence are always-on
 acceptance invariants, not competing goals.
 
+The stage-goal IDs are stable compatibility bands; their historical Python-oriented names do not
+override the active task dependencies. The current bounded queue is `L8-PF-00` through
+`L8-PF-05`, then `L8-PORT-01`: authority, knowledge-to-bytes, one complete candidate, sealed
+30-point/no-op proof, minimal runner, seven ecosystem canaries, and the 31/31 processable fleet.
+
 Always execute the durable graph-selected task and its declared contribution. A target breach
 means record the first failing boundary and make the smallest permanent repair; it never
 authorizes a new plan/controller, unrelated abstraction, reduced acceptance, or report-only
 closure.
 
 Within those goals, the binding platform priority is **Python, .NET, Java, C++, TypeScript, Rust,
-Go**. `data/platform_priorities.json` is the fail-closed machine-readable source, and the canonical
-portfolio runtime must load it rather than inherit registry file order. When multiple
-representative, repair, cohort, review, publication, or rollout items are dependency-ready,
-exhaust the earlier platform before the later one. Preserve valid cached work; do not redo
-completed stages to manufacture historical ordering. If an earlier platform is genuinely blocked
-by unavailable external authority or infrastructure, record that block and continue to the next
-platform. Never skip an earlier platform because its defect is merely difficult or agent-fixable.
-This priority never overrides graph dependencies, an unexpired claim, safety, the dynamic
-denominator, or per-repository proof. Unknown future ecosystems follow the configured platforms
-in stable registry order until the user assigns them a priority.
+Go**. `data/platform_priorities.json` is the fail-closed machine-readable source. It breaks ties
+among otherwise dependency-ready canaries, repairs, and portfolio members; it does not create a
+production-transport dependency or force the coordinator to leave safe disjoint work idle. Preserve
+valid cached work and never redo stages to manufacture ordering. This priority never overrides graph
+dependencies, an unexpired claim, safety, the dynamic denominator, or per-repository proof.
 
 Portfolio reuse follows `validated source README + applicable family evidence + applicable
 ecosystem evidence + repository-specific delta`. Shared evidence must be content-addressed and
 repository-bound before rendering; coordinates, APIs, examples, limitations, license, workflows,
 and inherited claims remain per-repository proof. Use one repository lane for the current
-Aspose.3D Python end-to-end slice. After its complete lifecycle, promotion, recovery, cache, and
-serialized-aggregation proof passes, the sole supervisor may use two representative and later at
-most three isolated repository workers with separate leases/state/evidence and serialized aggregation.
-While Python remains primary, one disjoint .NET lane may qualify the complete local cohort; Python
-transport closes before .NET transport, and the Java slice follows. Follow the graph's seven-campaign mapping and one closure evidence package
-per campaign. Run the pending optimized complete non-live suite on current committed HEAD before the
-first slice, then at Python-platform and Gate-A closure, plus only a declared later repository-wide
-gate or typed P0 exception; do not revive micro-fix evidence churn.
+Aspose.3D Python end-to-end slice. After its complete lifecycle, 30-point acceptance, promotion,
+recovery, cache, no-op, and serialized-aggregation proof pass, the sole supervisor may use two and
+later at most three isolated repository workers. Qualify one representative per ecosystem before
+fleet fan-out. Run the complete non-live suite only at the declared shared-contract, first-sealed-
+transaction, canary-freeze, portfolio-freeze, and later delivery boundaries; do not revive
+micro-fix evidence churn.
 
 The completed historical small goals remain in durable state. The current executable sequence lives
 in durable mission state as typed execution focuses on durable taskcards, not a second controller —
@@ -489,8 +484,10 @@ Never run a bounded canary around this guard. Nonblocking findings are recorded 
 expand the current task. Once deterministic and independent acceptance plus no-op proof exist, show
 the README before starting a broad suite or another repository.
 
-One finalized repository is the first verified README, all current Python repositories are the
-Python platform POC, and the full admitted registry is Gate A. Smaller numerators are partial only.
+One sealed repository is the first verified README, seven accepted representatives are the
+cross-ecosystem canary gate, and all processable repositories in the frozen revision are the
+portfolio README proof. The baseline terminal state is 31/31 plus two typed dispositions; smaller
+numerators are partial only.
 Two ineffective attempts with one approach fingerprint or
 15 minutes without material narrowing prohibit another equivalent attempt. Before a third
 approach, record a first-principles review and change the causal owner, pipeline boundary,

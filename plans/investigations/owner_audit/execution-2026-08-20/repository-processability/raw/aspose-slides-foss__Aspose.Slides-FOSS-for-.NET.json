@@ -1,0 +1,3833 @@
+{
+  "branch": {
+    "_links": {
+      "html": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/tree/main",
+      "self": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/branches/main"
+    },
+    "commit": {
+      "author": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1225645?v=4",
+        "events_url": "https://api.github.com/users/babar-raza/events{/privacy}",
+        "followers_url": "https://api.github.com/users/babar-raza/followers",
+        "following_url": "https://api.github.com/users/babar-raza/following{/other_user}",
+        "gists_url": "https://api.github.com/users/babar-raza/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/babar-raza",
+        "id": 1225645,
+        "login": "babar-raza",
+        "node_id": "MDQ6VXNlcjEyMjU2NDU=",
+        "organizations_url": "https://api.github.com/users/babar-raza/orgs",
+        "received_events_url": "https://api.github.com/users/babar-raza/received_events",
+        "repos_url": "https://api.github.com/users/babar-raza/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/babar-raza/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/babar-raza/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/babar-raza",
+        "user_view_type": "public"
+      },
+      "comments_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/commits/6c650e96d07958c496f9c757a384b76b5fa7bbb9/comments",
+      "commit": {
+        "author": {
+          "date": "2026-08-17T13:54:36Z",
+          "email": "babar.raza@aspose.com",
+          "name": "Babar Raza"
+        },
+        "comment_count": 0,
+        "committer": {
+          "date": "2026-08-17T13:54:36Z",
+          "email": "noreply@github.com",
+          "name": "GitHub"
+        },
+        "message": "docs: correct README Key Capabilities accuracy and diagram completeness\n\n- Reframed the fabricated \"group existing shapes with GroupShape\" claim.\n  GroupShape is a sealed, empty class implementing no members -- it does not\n  even implement IGroupShape, so it exposes no Shapes collection. It is only\n  ever constructed internally by ShapeFactory when parsing a pre-existing\n  <p:grpSp> element on load. The claim now correctly describes read-only\n  recognition of existing groups, not creation.\n- Fixed the Images.AddImage() misattribution. Images (the static factory\n  class) only has FromFile()/FromStream(); AddImage() is a real method, but\n  it lives on ImageCollection (reached via Presentation.Images), with return\n  type IPPImage, not IImage. Corrected in both Key Capabilities and the API\n  Reference Detailed Member Reference table, which previously contradicted\n  the file's own class-summary table.\n- Corrected the text-formatting capability description, which covered only\n  character-level formatting. Real ParagraphFormat (alignment, spacing,\n  indentation, margins) and TextFrameFormat (margins, wrap, anchoring,\n  columns, autofit) both exist and are reachable via Paragraph.ParagraphFormat\n  and TextFrame.TextFrameFormat -- the bullet now covers all three real\n  formatting levels the library actually supports.\n- Corrected the At a Glance diagram, which was missing 3D formatting\n  entirely despite it being a real, documented capability (ThreeDFormat --\n  bevel, camera, light rig, material, extrusion depth), and had lumped\n  visual effects into a single fill/line/effect node. Restructured to 8\n  nodes matching the real capability boundaries already documented in Key\n  Capabilities.\n\nVerification: every class/method claim above was independently confirmed\nagainst the real, current source (GroupShape.cs, IGroupShape.cs, Images.cs,\nImageCollection.cs, IImageCollection.cs, ParagraphFormat.cs,\nTextFrameFormat.cs, ThreeDFormat.cs, EffectFormat.cs) before being added or\nchanged.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "91d5aba761b8c3df8525d86659f4184e694e75f2",
+          "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/91d5aba761b8c3df8525d86659f4184e694e75f2"
+        },
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/commits/6c650e96d07958c496f9c757a384b76b5fa7bbb9",
+        "verification": {
+          "payload": "tree 91d5aba761b8c3df8525d86659f4184e694e75f2\nparent bd19e16057b628310b4a04330585d366cb40e9b7\nauthor Babar Raza <babar.raza@aspose.com> 1786974876 +0500\ncommitter GitHub <noreply@github.com> 1786974876 +0500\n\ndocs: correct README Key Capabilities accuracy and diagram completeness\n\n- Reframed the fabricated \"group existing shapes with GroupShape\" claim.\n  GroupShape is a sealed, empty class implementing no members -- it does not\n  even implement IGroupShape, so it exposes no Shapes collection. It is only\n  ever constructed internally by ShapeFactory when parsing a pre-existing\n  <p:grpSp> element on load. The claim now correctly describes read-only\n  recognition of existing groups, not creation.\n- Fixed the Images.AddImage() misattribution. Images (the static factory\n  class) only has FromFile()/FromStream(); AddImage() is a real method, but\n  it lives on ImageCollection (reached via Presentation.Images), with return\n  type IPPImage, not IImage. Corrected in both Key Capabilities and the API\n  Reference Detailed Member Reference table, which previously contradicted\n  the file's own class-summary table.\n- Corrected the text-formatting capability description, which covered only\n  character-level formatting. Real ParagraphFormat (alignment, spacing,\n  indentation, margins) and TextFrameFormat (margins, wrap, anchoring,\n  columns, autofit) both exist and are reachable via Paragraph.ParagraphFormat\n  and TextFrame.TextFrameFormat -- the bullet now covers all three real\n  formatting levels the library actually supports.\n- Corrected the At a Glance diagram, which was missing 3D formatting\n  entirely despite it being a real, documented capability (ThreeDFormat --\n  bevel, camera, light rig, material, extrusion depth), and had lumped\n  visual effects into a single fill/line/effect node. Restructured to 8\n  nodes matching the real capability boundaries already documented in Key\n  Capabilities.\n\nVerification: every class/method claim above was independently confirmed\nagainst the real, current source (GroupShape.cs, IGroupShape.cs, Images.cs,\nImageCollection.cs, IImageCollection.cs, ParagraphFormat.cs,\nTextFrameFormat.cs, ThreeDFormat.cs, EffectFormat.cs) before being added or\nchanged.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqgxKcCRC1aQ7uu5UhlAAAF+MQAFWQOgEckNnhFdGs6Ml6zO9T\nuA35Q2RI+edJk8V1w0CoYoadUNH/+1N5zFa8iexH0JBaFRI8jGRDNKEZFemJX/kq\nWROI1nouD46aNzj3DWsQPsq+j22Q+V8yyWC0R4yLO/7XSH7X1cYGQqN9GzEiWt6M\nfLy0DizlSfYcqNLSqI5RTgvcfZ9YHsgxd8DBGArpLgfr5UFaoBN8t1mx2yRcpVdk\ntxx+gLVk5h06MnzHBsIx7KkJ9iSm/KJI9j0rfChPu1HngGOgVHEhl6PC6isUV+Yt\nocYVOVvPNxflnbCbdt6GR0pxQ/uAoR2BO7U7hYME+Z7KcYbBwXQBe8FTcakWfmZL\nTGR1Pb5QYkhhyKt7BUUJtPC4J7fueYLtdE4atQG/c/DFESmQhjiW3OXZ0wNjlKKo\nYHhLgum2xS+8FvWe7aeYFekKyUlQmzo5uOSdWPIVU4LphU8OC74rH7o9EBryPWYO\n1A2ZCA2MZHZEdyXNM6qBXwSAYMM6zhEzkpAKDT9GGElW4WpbUqhJZgDwf6JLjEuy\ndpMWA1/56Y7DBEK3qnR0aQeBa3pIRiIN89GPbszMyYWhRHV4ACUx2yKQZPHiVhbX\n82hK5NVgTzMvN6oFNwB1KsQaVOVRTCv++sB7Yk8Uh0oEaTjtNMlV4p6MLVLY+p2z\nsM3Tfspar3Ec3YMWwwjU\n=qBGa\n-----END PGP SIGNATURE-----\n",
+          "verified": true,
+          "verified_at": "2026-08-17T13:54:36Z"
+        }
+      },
+      "committer": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/web-flow",
+        "id": 19864447,
+        "login": "web-flow",
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/web-flow",
+        "user_view_type": "public"
+      },
+      "html_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/commit/6c650e96d07958c496f9c757a384b76b5fa7bbb9",
+      "node_id": "C_kwDORqhWqdoAKDZjNjUwZTk2ZDA3OTU4YzQ5NmY5Yzc1N2EzODRiNzZiNWZhN2JiYjk",
+      "parents": [
+        {
+          "html_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/commit/bd19e16057b628310b4a04330585d366cb40e9b7",
+          "sha": "bd19e16057b628310b4a04330585d366cb40e9b7",
+          "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/commits/bd19e16057b628310b4a04330585d366cb40e9b7"
+        }
+      ],
+      "sha": "6c650e96d07958c496f9c757a384b76b5fa7bbb9",
+      "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/commits/6c650e96d07958c496f9c757a384b76b5fa7bbb9"
+    },
+    "name": "main",
+    "protected": false,
+    "protection": {
+      "enabled": false,
+      "required_status_checks": {
+        "checks": [],
+        "contexts": [],
+        "enforcement_level": "off"
+      }
+    },
+    "protection_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/branches/main/protection"
+  },
+  "repo": {
+    "allow_auto_merge": false,
+    "allow_forking": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "archive_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/branches{/branch}",
+    "clone_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET.git",
+    "collaborators_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/comments{/number}",
+    "commits_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/contributors",
+    "created_at": "2026-03-18T15:26:53Z",
+    "custom_properties": {},
+    "default_branch": "main",
+    "delete_branch_on_merge": false,
+    "deployments_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/deployments",
+    "description": "Open-source C#/.NET library for creating, reading and editing PowerPoint (.pptx) presentations \u2014 slides, shapes, text, tables, fills, effects, notes and comments. MIT licensed.",
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/downloads",
+    "events_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/events",
+    "fork": false,
+    "forks": 0,
+    "forks_count": 0,
+    "forks_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/forks",
+    "full_name": "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
+    "git_commits_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/tags{/sha}",
+    "git_url": "git://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET.git",
+    "has_discussions": true,
+    "has_downloads": false,
+    "has_issues": true,
+    "has_pages": false,
+    "has_projects": true,
+    "has_pull_requests": true,
+    "has_wiki": false,
+    "homepage": "https://products.aspose.org/slides/net/",
+    "hooks_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/hooks",
+    "html_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
+    "id": 1185437353,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/issues{/number}",
+    "keys_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/labels{/name}",
+    "language": "C#",
+    "languages_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/languages",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "node_id": "MDc6TGljZW5zZTEz",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit"
+    },
+    "merge_commit_message": "PR_TITLE",
+    "merge_commit_title": "MERGE_MESSAGE",
+    "merges_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/merges",
+    "milestones_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/milestones{/number}",
+    "mirror_url": null,
+    "name": "Aspose.Slides-FOSS-for-.NET",
+    "network_count": 0,
+    "node_id": "R_kgDORqhWqQ",
+    "notifications_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/notifications{?since,all,participating}",
+    "open_issues": 0,
+    "open_issues_count": 0,
+    "organization": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224591375?v=4",
+      "events_url": "https://api.github.com/users/aspose-slides-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-slides-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-slides-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-slides-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-slides-foss",
+      "id": 224591375,
+      "login": "aspose-slides-foss",
+      "node_id": "O_kgDODWL-Dw",
+      "organizations_url": "https://api.github.com/users/aspose-slides-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-slides-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-slides-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-slides-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-slides-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-slides-foss",
+      "user_view_type": "public"
+    },
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224591375?v=4",
+      "events_url": "https://api.github.com/users/aspose-slides-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-slides-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-slides-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-slides-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-slides-foss",
+      "id": 224591375,
+      "login": "aspose-slides-foss",
+      "node_id": "O_kgDODWL-Dw",
+      "organizations_url": "https://api.github.com/users/aspose-slides-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-slides-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-slides-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-slides-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-slides-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-slides-foss",
+      "user_view_type": "public"
+    },
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "private": false,
+    "pull_request_creation_policy": "all",
+    "pulls_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/pulls{/number}",
+    "pushed_at": "2026-08-17T13:54:37Z",
+    "releases_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/releases{/id}",
+    "security_and_analysis": {
+      "dependabot_security_updates": {
+        "status": "disabled"
+      },
+      "secret_scanning": {
+        "status": "disabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    },
+    "size": 735,
+    "squash_merge_commit_message": "COMMIT_MESSAGES",
+    "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+    "ssh_url": "git@github.com:aspose-slides-foss/Aspose.Slides-FOSS-for-.NET.git",
+    "stargazers_count": 0,
+    "stargazers_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/stargazers",
+    "statuses_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/statuses/{sha}",
+    "subscribers_count": 0,
+    "subscribers_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/subscribers",
+    "subscription_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/subscription",
+    "svn_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
+    "tags_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/tags",
+    "teams_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/teams",
+    "temp_clone_token": "",
+    "topics": [
+      "aspose",
+      "csharp",
+      "dotnet",
+      "dotnet9",
+      "mit-license",
+      "office-documents",
+      "ooxml",
+      "open-source",
+      "powerpoint",
+      "pptx",
+      "pptx-library",
+      "presentation",
+      "presentation-library",
+      "slides"
+    ],
+    "trees_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees{/sha}",
+    "updated_at": "2026-08-17T13:54:40Z",
+    "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET",
+    "use_squash_pr_title_as_default": false,
+    "visibility": "public",
+    "watchers": 0,
+    "watchers_count": 0,
+    "web_commit_signoff_required": false
+  },
+  "tree": {
+    "sha": "91d5aba761b8c3df8525d86659f4184e694e75f2",
+    "tree": [
+      {
+        "mode": "040000",
+        "path": ".github",
+        "sha": "755749249a3d8eab20784154fd1604fbecdd7457",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/755749249a3d8eab20784154fd1604fbecdd7457"
+      },
+      {
+        "mode": "040000",
+        "path": ".github/workflows",
+        "sha": "4f4cb0797e8f0326bf746ed71b7dbbad18603978",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/4f4cb0797e8f0326bf746ed71b7dbbad18603978"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/workflows/ci.yml",
+        "sha": "699f2b7b642b5d9463737412a6563b7c3a4320ba",
+        "size": 811,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/699f2b7b642b5d9463737412a6563b7c3a4320ba"
+      },
+      {
+        "mode": "100644",
+        "path": ".gitignore",
+        "sha": "2750e3a3f3309996b3d479866a13483ed8241c81",
+        "size": 8366,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/2750e3a3f3309996b3d479866a13483ed8241c81"
+      },
+      {
+        "mode": "100644",
+        "path": "AGENTS.md",
+        "sha": "9a949c9614efff56f15865073b3e64c0f88141c9",
+        "size": 6549,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/9a949c9614efff56f15865073b3e64c0f88141c9"
+      },
+      {
+        "mode": "100644",
+        "path": "Aspose.Slides.Foss.sln",
+        "sha": "2c1159fb9e7d1503a08b3bb7648a2cbee3847f88",
+        "size": 4693,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/2c1159fb9e7d1503a08b3bb7648a2cbee3847f88"
+      },
+      {
+        "mode": "100644",
+        "path": "Directory.Build.props",
+        "sha": "a93f8e3206c99d3fbba6a59956a5f44cb1bfa809",
+        "size": 235,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a93f8e3206c99d3fbba6a59956a5f44cb1bfa809"
+      },
+      {
+        "mode": "100644",
+        "path": "Directory.Packages.props",
+        "sha": "382adbb05f48f528180d605a6d0051c08262bd14",
+        "size": 498,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/382adbb05f48f528180d605a6d0051c08262bd14"
+      },
+      {
+        "mode": "100644",
+        "path": "LICENSE",
+        "sha": "f7d6f4b93b50af4e55408bb30341507675e75be6",
+        "size": 1090,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f7d6f4b93b50af4e55408bb30341507675e75be6"
+      },
+      {
+        "mode": "100644",
+        "path": "README.md",
+        "sha": "d2a6418b8bf7bf0ab275a913a91ada2adc7e507f",
+        "size": 31938,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d2a6418b8bf7bf0ab275a913a91ada2adc7e507f"
+      },
+      {
+        "mode": "100644",
+        "path": "nuget.config",
+        "sha": "cead1668128a18cc729c4b9726b365e29cfc0313",
+        "size": 204,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/cead1668128a18cc729c4b9726b365e29cfc0313"
+      },
+      {
+        "mode": "040000",
+        "path": "src",
+        "sha": "7837a93c70c067210827b9b89bc287b86a261c5d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/7837a93c70c067210827b9b89bc287b86a261c5d"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss",
+        "sha": "64870828ecdcab712658ec41c3f388ffe55f4953",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/64870828ecdcab712658ec41c3f388ffe55f4953"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/AdjustValue.cs",
+        "sha": "751d61a0be8f4bc3d35df9751e441ab1ab3ad19b",
+        "size": 1640,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/751d61a0be8f4bc3d35df9751e441ab1ab3ad19b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/AdjustValueCollection.cs",
+        "sha": "5d1d9d0f684de34f29f4cb0842446a1d36c77912",
+        "size": 2770,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/5d1d9d0f684de34f29f4cb0842446a1d36c77912"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Aspose.Slides.Foss.csproj",
+        "sha": "b721a79e25dc7e5a259b78ec36308fcb92cfb0fb",
+        "size": 314,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/b721a79e25dc7e5a259b78ec36308fcb92cfb0fb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/AutoShape.cs",
+        "sha": "746c0b765990852dc1e13ba5c0306f3aec2e3bfa",
+        "size": 4244,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/746c0b765990852dc1e13ba5c0306f3aec2e3bfa"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/BaseHandoutNotesSlideHeaderFooterManager.cs",
+        "sha": "9d90f5fc804a506e0b5ea01f4b87cfa9849f2e21",
+        "size": 253,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/9d90f5fc804a506e0b5ea01f4b87cfa9849f2e21"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/BasePortionFormat.cs",
+        "sha": "76f4aa006ef751862c7da2d9a5fc012601f3a57f",
+        "size": 17362,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/76f4aa006ef751862c7da2d9a5fc012601f3a57f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/BaseShapeLock.cs",
+        "sha": "3217de6a5a7bdf045b47657092f51b8f13365ade",
+        "size": 188,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/3217de6a5a7bdf045b47657092f51b8f13365ade"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/BaseSlide.cs",
+        "sha": "1c732038e51a18d660c6faf2d52ba5a1a8408d93",
+        "size": 2207,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/1c732038e51a18d660c6faf2d52ba5a1a8408d93"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/BevelPresetType.cs",
+        "sha": "c617bf44a1f5aa1936bcec279a3f74f446f766fb",
+        "size": 1111,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c617bf44a1f5aa1936bcec279a3f74f446f766fb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/BulletFormat.cs",
+        "sha": "ad79abbf3c0ccf5dfa21728324b7996154fdb57b",
+        "size": 13082,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ad79abbf3c0ccf5dfa21728324b7996154fdb57b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/BulletType.cs",
+        "sha": "4708808171716bba6daf2ca3504d09ed4ab40fbb",
+        "size": 505,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/4708808171716bba6daf2ca3504d09ed4ab40fbb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Camera.cs",
+        "sha": "0dfe038ec25dc1bd851071e18fff1c0d0618995c",
+        "size": 9118,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/0dfe038ec25dc1bd851071e18fff1c0d0618995c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/CameraPresetType.cs",
+        "sha": "fce33021e209826caa5c1b36ee43d2043592661e",
+        "size": 6491,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/fce33021e209826caa5c1b36ee43d2043592661e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Cell.cs",
+        "sha": "a716655cbede39e2a6f60877f7bbea932bf18fc0",
+        "size": 10118,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a716655cbede39e2a6f60877f7bbea932bf18fc0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/CellCollection.cs",
+        "sha": "74904a585728544cff88db696f28cee3b2fc7f28",
+        "size": 2090,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/74904a585728544cff88db696f28cee3b2fc7f28"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/CellFormat.cs",
+        "sha": "30d053a5b27a441c7fc05c052409a0930a0c5e15",
+        "size": 2213,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/30d053a5b27a441c7fc05c052409a0930a0c5e15"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ColorFormat.cs",
+        "sha": "18abebf0514ca0185129493a8c980c988496fca8",
+        "size": 12491,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/18abebf0514ca0185129493a8c980c988496fca8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ColorType.cs",
+        "sha": "0acdbbd18384479d8c6bc779ef7b2bfd23b29a9a",
+        "size": 647,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/0acdbbd18384479d8c6bc779ef7b2bfd23b29a9a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Column.cs",
+        "sha": "5342b6dedfafbbbb6b6a184f1eb084f653c5a74a",
+        "size": 4808,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/5342b6dedfafbbbb6b6a184f1eb084f653c5a74a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ColumnCollection.cs",
+        "sha": "9fd087385b44a1e9fa8bf3e014d39bd85a68cdcc",
+        "size": 6747,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/9fd087385b44a1e9fa8bf3e014d39bd85a68cdcc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ColumnFormat.cs",
+        "sha": "1f3d01a5a6ef3e6925a6ea567d59a266fda42084",
+        "size": 173,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/1f3d01a5a6ef3e6925a6ea567d59a266fda42084"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Comment.cs",
+        "sha": "dfae6711d584f0f818f76056a52639a6702793bf",
+        "size": 3361,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/dfae6711d584f0f818f76056a52639a6702793bf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/CommentAuthor.cs",
+        "sha": "0b1c8069e6fa438c5cab686b445ecf1902c775e8",
+        "size": 1677,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/0b1c8069e6fa438c5cab686b445ecf1902c775e8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/CommentAuthorCollection.cs",
+        "sha": "8bc733561642a38c828f4a506359975d5843e8e7",
+        "size": 3621,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/8bc733561642a38c828f4a506359975d5843e8e7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/CommentCollection.cs",
+        "sha": "847c9597c465c532e67007cf9295c6a49b5b827f",
+        "size": 8869,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/847c9597c465c532e67007cf9295c6a49b5b827f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Connector.cs",
+        "sha": "97ea5892f5f4a688b696672c04f5597199d299e9",
+        "size": 10451,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/97ea5892f5f4a688b696672c04f5597199d299e9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ConnectorLock.cs",
+        "sha": "13d7f18bde3003f6e236e98b0379075956239f6d",
+        "size": 191,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/13d7f18bde3003f6e236e98b0379075956239f6d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/CustomData.cs",
+        "sha": "50f22c36551b8246c2293757a3f43f97faefcfba",
+        "size": 161,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/50f22c36551b8246c2293757a3f43f97faefcfba"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/DocumentProperties.cs",
+        "sha": "b817546eef746e073872b7380512bf9936a87b61",
+        "size": 10477,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/b817546eef746e073872b7380512bf9936a87b61"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Drawing",
+        "sha": "ed84fa8c24a49afbb9424f7634ffa50c4cd1ece2",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/ed84fa8c24a49afbb9424f7634ffa50c4cd1ece2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Drawing/Color.cs",
+        "sha": "75a8678da7bbb810c2073dc5c5b269097d57e416",
+        "size": 11953,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/75a8678da7bbb810c2073dc5c5b269097d57e416"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Drawing/PointF.cs",
+        "sha": "7d3d941533d2565aef36f349b2488569a9ef4256",
+        "size": 894,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/7d3d941533d2565aef36f349b2488569a9ef4256"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Drawing/Size.cs",
+        "sha": "d883112cb1bb4393f6b1ae5fea6d899ce5e26525",
+        "size": 941,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d883112cb1bb4393f6b1ae5fea6d899ce5e26525"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Drawing/SizeF.cs",
+        "sha": "43cb6e0ff8f610dc7cdf436b31923eb0df311533",
+        "size": 954,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/43cb6e0ff8f610dc7cdf436b31923eb0df311533"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/EffectFormat.cs",
+        "sha": "8a2d49504326d26bab380391c0dbfb3f66a74184",
+        "size": 11015,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/8a2d49504326d26bab380391c0dbfb3f66a74184"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Effects",
+        "sha": "156abf84b8f311694c9d7c94c12813ee4bd6f48d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/156abf84b8f311694c9d7c94c12813ee4bd6f48d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/Blur.cs",
+        "sha": "665b435d9f0d80ec1b6fea558bd1c1382f4a9322",
+        "size": 2315,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/665b435d9f0d80ec1b6fea558bd1c1382f4a9322"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/FillOverlay.cs",
+        "sha": "fe78bbade5763168b2abe284c76e0548959e4b70",
+        "size": 3263,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/fe78bbade5763168b2abe284c76e0548959e4b70"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/Glow.cs",
+        "sha": "df85a2c69fd5a8adfb0bf8c1dc8c75a37c779161",
+        "size": 1898,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/df85a2c69fd5a8adfb0bf8c1dc8c75a37c779161"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/IBlur.cs",
+        "sha": "dcb44b104a40046391906b240936cfddd877221d",
+        "size": 1223,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/dcb44b104a40046391906b240936cfddd877221d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/IFillOverlay.cs",
+        "sha": "dbebc758745f84125b0bc841afa262588abcca57",
+        "size": 1092,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/dbebc758745f84125b0bc841afa262588abcca57"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/IGlow.cs",
+        "sha": "5d7318f7c368f4392fddf3aaef6e616ae154041d",
+        "size": 725,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/5d7318f7c368f4392fddf3aaef6e616ae154041d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/IImageTransformOperation.cs",
+        "sha": "50f2d949aa9400a81db9a675251737358a375afa",
+        "size": 166,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/50f2d949aa9400a81db9a675251737358a375afa"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/IInnerShadow.cs",
+        "sha": "e3a4b9c302076653a64b4ab1afcef71e9fe3047a",
+        "size": 848,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/e3a4b9c302076653a64b4ab1afcef71e9fe3047a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/IOuterShadow.cs",
+        "sha": "4fbfc6f48dfbd9e516f0e15d21f498f055296b53",
+        "size": 2012,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/4fbfc6f48dfbd9e516f0e15d21f498f055296b53"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/IPresetShadow.cs",
+        "sha": "852535af43f2ab75f818f6d9eccb247a4380512b",
+        "size": 913,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/852535af43f2ab75f818f6d9eccb247a4380512b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/IReflection.cs",
+        "sha": "d1930918051fc7220185f17d2c006b000b6e15c2",
+        "size": 2480,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d1930918051fc7220185f17d2c006b000b6e15c2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/ISoftEdge.cs",
+        "sha": "8920822cf79bd2255877a27dd89cf5209cedcb1d",
+        "size": 597,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/8920822cf79bd2255877a27dd89cf5209cedcb1d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/ImageTransformOperation.cs",
+        "sha": "ef683e9d137d7c8951dad7bfb93829ae79ac394f",
+        "size": 206,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ef683e9d137d7c8951dad7bfb93829ae79ac394f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/InnerShadow.cs",
+        "sha": "ce7f49dfec7f8463d20f9e5d7049f904b41ec5fc",
+        "size": 2967,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ce7f49dfec7f8463d20f9e5d7049f904b41ec5fc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/OuterShadow.cs",
+        "sha": "004b1d5f29e2fe829af7973e7aed7f572634bf23",
+        "size": 5902,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/004b1d5f29e2fe829af7973e7aed7f572634bf23"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/PresetShadow.cs",
+        "sha": "90c2dcd4b80cd7fd80c6acb8023c5ba894517dff",
+        "size": 4241,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/90c2dcd4b80cd7fd80c6acb8023c5ba894517dff"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/Reflection.cs",
+        "sha": "aa00891eddc8d4935d94552c6e3aa35037f96075",
+        "size": 6888,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/aa00891eddc8d4935d94552c6e3aa35037f96075"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Effects/SoftEdge.cs",
+        "sha": "52a716af0751abd03ecf58ff974d11bc7c0a371c",
+        "size": 1619,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/52a716af0751abd03ecf58ff974d11bc7c0a371c"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Export",
+        "sha": "8fb3f8bf7285ddc5b2d2730d4ebefe51c0e5e9c1",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/8fb3f8bf7285ddc5b2d2730d4ebefe51c0e5e9c1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Export/ISaveOptions.cs",
+        "sha": "b1a94eb0d5c2cbcb98c94e92e7e0ae76608a95ab",
+        "size": 332,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/b1a94eb0d5c2cbcb98c94e92e7e0ae76608a95ab"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Export/SaveFormat.cs",
+        "sha": "45be42f75ea74f4ea3d188d1e6ce3568eed59cf5",
+        "size": 1485,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/45be42f75ea74f4ea3d188d1e6ce3568eed59cf5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Export/SaveOptions.cs",
+        "sha": "5d5ab0781a456d3e8cc9da50df2ec8c0855e2c68",
+        "size": 258,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/5d5ab0781a456d3e8cc9da50df2ec8c0855e2c68"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/FillBlendMode.cs",
+        "sha": "cae76e15548014f3ce808fc67814b7b1d4edfd4b",
+        "size": 499,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/cae76e15548014f3ce808fc67814b7b1d4edfd4b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/FillFormat.cs",
+        "sha": "4d9c32d61a812bee56e07aa5831fb3e2b7ec5cf6",
+        "size": 7085,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/4d9c32d61a812bee56e07aa5831fb3e2b7ec5cf6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/FillType.cs",
+        "sha": "c30e2a12c272e66e24e358855555cd45d4d9295d",
+        "size": 647,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c30e2a12c272e66e24e358855555cd45d4d9295d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/FontAlignment.cs",
+        "sha": "7b9db200660301e6b12904bb18f2c3dc0e58369d",
+        "size": 582,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/7b9db200660301e6b12904bb18f2c3dc0e58369d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/FontData.cs",
+        "sha": "aa9d4bf00f33e0d8eb93a9b641d2d3094e6ada53",
+        "size": 784,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/aa9d4bf00f33e0d8eb93a9b641d2d3094e6ada53"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/GeometryShape.cs",
+        "sha": "09401e7f03e98b5b19f7a43a2761d910ffbc5eb0",
+        "size": 1129,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/09401e7f03e98b5b19f7a43a2761d910ffbc5eb0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/GlobalLayoutSlideCollection.cs",
+        "sha": "3ad7858652b075b9ed09608ab71afaf843bbe8db",
+        "size": 1507,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/3ad7858652b075b9ed09608ab71afaf843bbe8db"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/GradientDirection.cs",
+        "sha": "df2fd55a40fb037d4f566b8ccb7c777590b70f44",
+        "size": 637,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/df2fd55a40fb037d4f566b8ccb7c777590b70f44"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/GradientFormat.cs",
+        "sha": "a784d39a913596a7bd8edd97e0c49f39582691fd",
+        "size": 7674,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a784d39a913596a7bd8edd97e0c49f39582691fd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/GradientShape.cs",
+        "sha": "4a8f4be97eabaf76bac5ecd2fbece9632d506093",
+        "size": 511,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/4a8f4be97eabaf76bac5ecd2fbece9632d506093"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/GradientStop.cs",
+        "sha": "cda07ed62e13d0d7a7570e0365b2720ec7a627c8",
+        "size": 1335,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/cda07ed62e13d0d7a7570e0365b2720ec7a627c8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/GradientStopCollection.cs",
+        "sha": "27ddcbd4f1135567e9d777226dc94c8ca819d982",
+        "size": 5506,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/27ddcbd4f1135567e9d777226dc94c8ca819d982"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/GraphicalObject.cs",
+        "sha": "d1fa732fd53d844522c23acc6f18fc5ea38c2c04",
+        "size": 279,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d1fa732fd53d844522c23acc6f18fc5ea38c2c04"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/GraphicalObjectLock.cs",
+        "sha": "544af99e677057995122f3a14e3d057e49dc56ed",
+        "size": 211,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/544af99e677057995122f3a14e3d057e49dc56ed"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/GroupShape.cs",
+        "sha": "347943cdc56d1d553f8d0f6ea5c176e7fc006f9b",
+        "size": 170,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/347943cdc56d1d553f8d0f6ea5c176e7fc006f9b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/HeadingPair.cs",
+        "sha": "231ee7213b4ba2fb6f0dff271adc3a18e5cadec3",
+        "size": 881,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/231ee7213b4ba2fb6f0dff271adc3a18e5cadec3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IAdjustValue.cs",
+        "sha": "30bfe4de80dce26e1918313a31ed1a87185acc56",
+        "size": 552,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/30bfe4de80dce26e1918313a31ed1a87185acc56"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IAdjustValueCollection.cs",
+        "sha": "ea393858d6b80ba56a2f400cc6c700bf46860e88",
+        "size": 679,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ea393858d6b80ba56a2f400cc6c700bf46860e88"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IAutoShape.cs",
+        "sha": "dfcff2db86ac56752723931605cac2b5e11c1925",
+        "size": 875,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/dfcff2db86ac56752723931605cac2b5e11c1925"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IBaseHandoutNotesSlideHeaderFooterManager.cs",
+        "sha": "5c12bd44f7592ba33741fa736c777b465fbe5473",
+        "size": 245,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/5c12bd44f7592ba33741fa736c777b465fbe5473"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IBaseHeaderFooterManager.cs",
+        "sha": "624594c53df0ceff59cdb9111a47e93df7991df9",
+        "size": 172,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/624594c53df0ceff59cdb9111a47e93df7991df9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IBasePortionFormat.cs",
+        "sha": "f9a1aba11dfa02a72908740b3661b77cdd5883ca",
+        "size": 3693,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f9a1aba11dfa02a72908740b3661b77cdd5883ca"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IBaseSlide.cs",
+        "sha": "95a3ea7af9f1e524adbed08c4b8bd1aefcc6ea94",
+        "size": 590,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/95a3ea7af9f1e524adbed08c4b8bd1aefcc6ea94"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IBaseSlideHeaderFooterManager.cs",
+        "sha": "f89b1d7d9505c76049d7f01b5223e4b9db7afdbb",
+        "size": 216,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f89b1d7d9505c76049d7f01b5223e4b9db7afdbb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IBulkTextFormattable.cs",
+        "sha": "9ee45feb9e5c72ba4d80eae7aa60a502bca59f7b",
+        "size": 903,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/9ee45feb9e5c72ba4d80eae7aa60a502bca59f7b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IBulletFormat.cs",
+        "sha": "88af260f1cb1f6525301a1410b215dc01fc06b39",
+        "size": 1474,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/88af260f1cb1f6525301a1410b215dc01fc06b39"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ICamera.cs",
+        "sha": "061743d59ff0ca2fd865d7fad53dcb9110a1b02d",
+        "size": 815,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/061743d59ff0ca2fd865d7fad53dcb9110a1b02d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ICell.cs",
+        "sha": "55e47269d2cf39f3d933c174e8f503b1f0836a54",
+        "size": 3518,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/55e47269d2cf39f3d933c174e8f503b1f0836a54"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ICellCollection.cs",
+        "sha": "e74f967e8032d9b230322d33143988566a3819db",
+        "size": 1249,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/e74f967e8032d9b230322d33143988566a3819db"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ICellFormat.cs",
+        "sha": "b5a41560e7438663b1d8667c0c8e239b4f12fa70",
+        "size": 986,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/b5a41560e7438663b1d8667c0c8e239b4f12fa70"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IColorFormat.cs",
+        "sha": "6878ecc5f73550289dccf1ce012dc53ad153383f",
+        "size": 1745,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/6878ecc5f73550289dccf1ce012dc53ad153383f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IColumn.cs",
+        "sha": "c02c9ff4c996d3d31f5509bb838f3f69f4a9098c",
+        "size": 826,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c02c9ff4c996d3d31f5509bb838f3f69f4a9098c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IColumnCollection.cs",
+        "sha": "cc8064ce1379f457ede15e18bec00ae56bc1bb96",
+        "size": 2068,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/cc8064ce1379f457ede15e18bec00ae56bc1bb96"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IColumnFormat.cs",
+        "sha": "da3c46876a2152fd051153bcb7916215df3cbff5",
+        "size": 155,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/da3c46876a2152fd051153bcb7916215df3cbff5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IComment.cs",
+        "sha": "a3320fe94f8835c493735fafce968995279a8107",
+        "size": 1049,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a3320fe94f8835c493735fafce968995279a8107"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ICommentAuthor.cs",
+        "sha": "b8ebc35321308c4c9233a97a740be15860d84835",
+        "size": 631,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/b8ebc35321308c4c9233a97a740be15860d84835"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ICommentAuthorCollection.cs",
+        "sha": "fd4cf54fa6d9b5b3530a1a4ffde0f524a6d20711",
+        "size": 2761,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/fd4cf54fa6d9b5b3530a1a4ffde0f524a6d20711"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ICommentCollection.cs",
+        "sha": "1519b8cc08019793f53bc69a62d6671d6c114d8b",
+        "size": 3395,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/1519b8cc08019793f53bc69a62d6671d6c114d8b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IConnector.cs",
+        "sha": "16eb713a3d2417d32475186304e69713bc5f584e",
+        "size": 1181,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/16eb713a3d2417d32475186304e69713bc5f584e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IConnectorLock.cs",
+        "sha": "ec341b24f300dc2a9951145c18ac85046a0aa098",
+        "size": 172,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ec341b24f300dc2a9951145c18ac85046a0aa098"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ICustomData.cs",
+        "sha": "9171c81b5dc1904fdecfc22a612bebab72e11326",
+        "size": 145,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/9171c81b5dc1904fdecfc22a612bebab72e11326"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IDocumentProperties.cs",
+        "sha": "69dc17108839ff93f732d37d296e7c6f88a0446d",
+        "size": 6136,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/69dc17108839ff93f732d37d296e7c6f88a0446d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IEffectFormat.cs",
+        "sha": "da027a230ead5eebeeb10906c79f9f9704129064",
+        "size": 2978,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/da027a230ead5eebeeb10906c79f9f9704129064"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IEffectParamSource.cs",
+        "sha": "4c4fa2469099d724f82c3141bc522e27e51ebaa9",
+        "size": 146,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/4c4fa2469099d724f82c3141bc522e27e51ebaa9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IFillFormat.cs",
+        "sha": "798c5d4cbcaf5f45d1cf5b98db8823b3e6ce07da",
+        "size": 910,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/798c5d4cbcaf5f45d1cf5b98db8823b3e6ce07da"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IFillParamSource.cs",
+        "sha": "8ac8272854289b3a17f3d33e59b025b0a80c32c6",
+        "size": 146,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/8ac8272854289b3a17f3d33e59b025b0a80c32c6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IFontData.cs",
+        "sha": "a5992cad9b3e07378a256640687acb36ea5a03f7",
+        "size": 493,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a5992cad9b3e07378a256640687acb36ea5a03f7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IGeometryShape.cs",
+        "sha": "a39514cd6e594a1c97c33c5cf18a850f45433e81",
+        "size": 534,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a39514cd6e594a1c97c33c5cf18a850f45433e81"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IGlobalLayoutSlideCollection.cs",
+        "sha": "55a13e4a16efc0805ba7e99a15ae24b9ac7d22df",
+        "size": 957,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/55a13e4a16efc0805ba7e99a15ae24b9ac7d22df"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IGradientFormat.cs",
+        "sha": "86ac64db5d72ccccdc9f8546bd6528243663e8ee",
+        "size": 971,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/86ac64db5d72ccccdc9f8546bd6528243663e8ee"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IGradientStop.cs",
+        "sha": "8df587bea5ad4c7bb68cd464ea4aa7d190766aa9",
+        "size": 377,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/8df587bea5ad4c7bb68cd464ea4aa7d190766aa9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IGradientStopCollection.cs",
+        "sha": "a638f1352374561dc71e53ea1a6c59b2b7547b67",
+        "size": 3389,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a638f1352374561dc71e53ea1a6c59b2b7547b67"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IGraphicalObject.cs",
+        "sha": "b2bde9b26de04482186b184d761bd424d1fd4036",
+        "size": 294,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/b2bde9b26de04482186b184d761bd424d1fd4036"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IGraphicalObjectLock.cs",
+        "sha": "a151c3033c7189783ee5acf56df90fbcc07e8301",
+        "size": 179,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a151c3033c7189783ee5acf56df90fbcc07e8301"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IGroupShape.cs",
+        "sha": "fd68539a58029013a1de589e45bcd7053f29fc1b",
+        "size": 290,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/fd68539a58029013a1de589e45bcd7053f29fc1b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IHeadingPair.cs",
+        "sha": "2b6f7c38acb5552cff0662a570c4b44817bbbae4",
+        "size": 430,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/2b6f7c38acb5552cff0662a570c4b44817bbbae4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IHyperlinkContainer.cs",
+        "sha": "35b679e07d69cfe202028a827c12eded47eb12dc",
+        "size": 155,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/35b679e07d69cfe202028a827c12eded47eb12dc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IImage.cs",
+        "sha": "cc636b2ea3fcd97e76688d9f3a2e5fa5fcaae69b",
+        "size": 2088,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/cc636b2ea3fcd97e76688d9f3a2e5fa5fcaae69b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IImageCollection.cs",
+        "sha": "d304a453a14655dc322d5b67230e726987264497",
+        "size": 1905,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d304a453a14655dc322d5b67230e726987264497"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ILayoutSlide.cs",
+        "sha": "ed6970116ad5ec15ce422ebac5d614f7d7201070",
+        "size": 429,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ed6970116ad5ec15ce422ebac5d614f7d7201070"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ILayoutSlideCollection.cs",
+        "sha": "3896827fe25c5ceb4e8e99a65f1acb32464df3e6",
+        "size": 1144,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/3896827fe25c5ceb4e8e99a65f1acb32464df3e6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ILightRig.cs",
+        "sha": "506850015fc3f3d3642fd4f70e0b29152d4366bb",
+        "size": 709,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/506850015fc3f3d3642fd4f70e0b29152d4366bb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ILineFillFormat.cs",
+        "sha": "7598a45eb25e393014bf3456a2e9b8c8472cad41",
+        "size": 831,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/7598a45eb25e393014bf3456a2e9b8c8472cad41"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ILineFormat.cs",
+        "sha": "5514716f1117c07df48a1d89f776ad91d4a0d32d",
+        "size": 2554,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/5514716f1117c07df48a1d89f776ad91d4a0d32d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ILineParamSource.cs",
+        "sha": "35f58eda7637833e14d206f6a56efe6148b562ee",
+        "size": 178,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/35f58eda7637833e14d206f6a56efe6148b562ee"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ILoadOptions.cs",
+        "sha": "030920e0366c1ff79b53453bc0c46409cb2ff975",
+        "size": 827,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/030920e0366c1ff79b53453bc0c46409cb2ff975"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IMasterLayoutSlideCollection.cs",
+        "sha": "6917f163781704392a913774455d004523a105ec",
+        "size": 329,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/6917f163781704392a913774455d004523a105ec"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IMasterSlide.cs",
+        "sha": "d048a3be13cea105f3b26523b9265b4ef9cc4330",
+        "size": 336,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d048a3be13cea105f3b26523b9265b4ef9cc4330"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IMasterSlideCollection.cs",
+        "sha": "b8300af66e7d8ed0d0d02522d0cfb8ac08c6fb69",
+        "size": 1152,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/b8300af66e7d8ed0d0d02522d0cfb8ac08c6fb69"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/INotesSize.cs",
+        "sha": "649d7c03009fe3b0b53d6b4a7d45d568910ac350",
+        "size": 298,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/649d7c03009fe3b0b53d6b4a7d45d568910ac350"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/INotesSlide.cs",
+        "sha": "edd2795c47c611448df4c4bd7b612450394a43bb",
+        "size": 731,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/edd2795c47c611448df4c4bd7b612450394a43bb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/INotesSlideHeaderFooterManager.cs",
+        "sha": "967e657162b41633b8e1f0cf8e567906fc8c66b5",
+        "size": 1331,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/967e657162b41633b8e1f0cf8e567906fc8c66b5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/INotesSlideManager.cs",
+        "sha": "fb9b2b36933cc77772391db96d82c12528a222d8",
+        "size": 646,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/fb9b2b36933cc77772391db96d82c12528a222d8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IPPImage.cs",
+        "sha": "98c43c4de2279c56b604c167601df6d48182fd5f",
+        "size": 1767,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/98c43c4de2279c56b604c167601df6d48182fd5f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IParagraph.cs",
+        "sha": "5bd2229e715dcb07ed2420e19118c88873815405",
+        "size": 1150,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/5bd2229e715dcb07ed2420e19118c88873815405"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IParagraphCollection.cs",
+        "sha": "55aded8145828cc705aa815e0c4972a0b3d5060c",
+        "size": 2702,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/55aded8145828cc705aa815e0c4972a0b3d5060c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IParagraphFormat.cs",
+        "sha": "76c65e509898aedb9afc7a282a4d73e24f7490a3",
+        "size": 3811,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/76c65e509898aedb9afc7a282a4d73e24f7490a3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IPatternFormat.cs",
+        "sha": "a9bf4398ad3e8f635ca3fb8b19b8be02fa525148",
+        "size": 489,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a9bf4398ad3e8f635ca3fb8b19b8be02fa525148"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IPictureFillFormat.cs",
+        "sha": "5fa89322759627f0986b3d58c94415152dad680c",
+        "size": 3351,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/5fa89322759627f0986b3d58c94415152dad680c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IPictureFrame.cs",
+        "sha": "05c41b0de4f3c9fa617ade11e9604f3189346dc4",
+        "size": 709,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/05c41b0de4f3c9fa617ade11e9604f3189346dc4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IPictureFrameLock.cs",
+        "sha": "2785ced7f59f3ff9317c82863ff6749fc5a21123",
+        "size": 1704,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/2785ced7f59f3ff9317c82863ff6749fc5a21123"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IPlaceholder.cs",
+        "sha": "88182cb9857407332bf8f4a4d95291d84d1b8254",
+        "size": 135,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/88182cb9857407332bf8f4a4d95291d84d1b8254"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IPortion.cs",
+        "sha": "4963d94caeb251ebeaedb68f6c9f8ed2350c507d",
+        "size": 637,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/4963d94caeb251ebeaedb68f6c9f8ed2350c507d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IPortionCollection.cs",
+        "sha": "a259efa181fe2b9b87860d62be93777de87dd73b",
+        "size": 2480,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a259efa181fe2b9b87860d62be93777de87dd73b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IPortionFormat.cs",
+        "sha": "ddad861f77d3c788b2803f609fa802412df90c35",
+        "size": 273,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ddad861f77d3c788b2803f609fa802412df90c35"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IPresentation.cs",
+        "sha": "8a983f01f2ba2afbbb1e8f478f14b12234cfba55",
+        "size": 5613,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/8a983f01f2ba2afbbb1e8f478f14b12234cfba55"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IPresentationComponent.cs",
+        "sha": "500aa8e53d061b7a25b64bb3bd0230b05c80d4d5",
+        "size": 302,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/500aa8e53d061b7a25b64bb3bd0230b05c80d4d5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IRow.cs",
+        "sha": "a6f082a8b96a3b191f34b86c77e4dbd157abbe9a",
+        "size": 1008,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a6f082a8b96a3b191f34b86c77e4dbd157abbe9a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IRowCollection.cs",
+        "sha": "8de8d6914633c3a7bd6e09512af9bd842b60a8ae",
+        "size": 2328,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/8de8d6914633c3a7bd6e09512af9bd842b60a8ae"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IRowFormat.cs",
+        "sha": "3a08697c0f7fcc4529c0da015730da44b5b9b1ec",
+        "size": 150,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/3a08697c0f7fcc4529c0da015730da44b5b9b1ec"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ISection.cs",
+        "sha": "dc39ae34500a2a15319fd117afe1f70c336a3ac5",
+        "size": 700,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/dc39ae34500a2a15319fd117afe1f70c336a3ac5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ISectionCollection.cs",
+        "sha": "cd78758de5862a2efc0a652a559479415d5bb95c",
+        "size": 2428,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/cd78758de5862a2efc0a652a559479415d5bb95c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IShape.cs",
+        "sha": "e34614d8a572bffa13bd3f43f2bf988dacb45ecd",
+        "size": 4039,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/e34614d8a572bffa13bd3f43f2bf988dacb45ecd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IShapeBevel.cs",
+        "sha": "c5eb2f4cae20731992dd16f7f4d3540245fe9a09",
+        "size": 516,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c5eb2f4cae20731992dd16f7f4d3540245fe9a09"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IShapeCollection.cs",
+        "sha": "be8a4258b78b01d29e07fe3842a9a450ffe20a13",
+        "size": 12027,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/be8a4258b78b01d29e07fe3842a9a450ffe20a13"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IShapeFrame.cs",
+        "sha": "f847a102e3eb8b64d7e92fb39df416345f08cb28",
+        "size": 1659,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f847a102e3eb8b64d7e92fb39df416345f08cb28"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IShapeStyle.cs",
+        "sha": "278fb036116574b5877fe053fae56eaac2d34009",
+        "size": 135,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/278fb036116574b5877fe053fae56eaac2d34009"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ISlide.cs",
+        "sha": "7395fad3eb58f8b3ec177f36613dad4ae737d785",
+        "size": 1271,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/7395fad3eb58f8b3ec177f36613dad4ae737d785"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ISlideCollection.cs",
+        "sha": "b85e0152638f793f888c23f36d485c46a232a492",
+        "size": 5647,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/b85e0152638f793f888c23f36d485c46a232a492"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ISlideComponent.cs",
+        "sha": "2e88bd4a7cb85aa937608c7efe61f7f443ba313c",
+        "size": 497,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/2e88bd4a7cb85aa937608c7efe61f7f443ba313c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ISlidesPicture.cs",
+        "sha": "bffaf69d38dfaf52301dad921b18f4355cae6cd0",
+        "size": 628,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/bffaf69d38dfaf52301dad921b18f4355cae6cd0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ITable.cs",
+        "sha": "4efc1c48cd948e3cd68c6370feaf74555379df74",
+        "size": 2980,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/4efc1c48cd948e3cd68c6370feaf74555379df74"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ITableFormat.cs",
+        "sha": "f790ce250d625035c41235aa1d2318bd2c7d90a6",
+        "size": 260,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f790ce250d625035c41235aa1d2318bd2c7d90a6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ITextFrame.cs",
+        "sha": "72f15db7386a8523907d9494efae6d696db9d8c0",
+        "size": 1083,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/72f15db7386a8523907d9494efae6d696db9d8c0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ITextFrameFormat.cs",
+        "sha": "b3c35159efba57d71ee260c7f0c3a7a9af8e1d70",
+        "size": 2755,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/b3c35159efba57d71ee260c7f0c3a7a9af8e1d70"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IThreeDFormat.cs",
+        "sha": "b929a13ba4ccc91c594e636485572bb19207eda4",
+        "size": 1443,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/b929a13ba4ccc91c594e636485572bb19207eda4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/IThreeDParamSource.cs",
+        "sha": "2c5956f7519fec17570240666f6679acd9f8cd71",
+        "size": 169,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/2c5956f7519fec17570240666f6679acd9f8cd71"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Image.cs",
+        "sha": "720610175a76181ae54f19554ea1531590ac3f89",
+        "size": 1931,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/720610175a76181ae54f19554ea1531590ac3f89"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ImageCollection.cs",
+        "sha": "1ad616729a8a2be314621351d08250d48dcfa4b3",
+        "size": 4821,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/1ad616729a8a2be314621351d08250d48dcfa4b3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Images.cs",
+        "sha": "1a8af3ffb8c72ef5c1040827dbf35dacedfd7009",
+        "size": 1311,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/1a8af3ffb8c72ef5c1040827dbf35dacedfd7009"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Internal",
+        "sha": "631dd53f5cdc20f58abb731d069b7f48eb6eb139",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/631dd53f5cdc20f58abb731d069b7f48eb6eb139"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/AppPropertiesPart.cs",
+        "sha": "56cd96a0ce9d58b3c39bc6f0a66179e3ab6c229c",
+        "size": 6702,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/56cd96a0ce9d58b3c39bc6f0a66179e3ab6c229c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/AuthorData.cs",
+        "sha": "c57043fa6edbe3eaf0611c7838fa07ceeb662c56",
+        "size": 676,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c57043fa6edbe3eaf0611c7838fa07ceeb662c56"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/BaseCollection.cs",
+        "sha": "1995376d75e5bffdfcb4a66638e42b7ae4a8531d",
+        "size": 1763,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/1995376d75e5bffdfcb4a66638e42b7ae4a8531d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/CommentAuthor.cs",
+        "sha": "88cb287136f378ea4aea9ef539d98790030e0131",
+        "size": 925,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/88cb287136f378ea4aea9ef539d98790030e0131"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/CommentAuthorsPart.cs",
+        "sha": "482a66eef9519de10d99cf4c0fef80d586346c23",
+        "size": 4162,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/482a66eef9519de10d99cf4c0fef80d586346c23"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/CommentData.cs",
+        "sha": "679bf8b3a2a18acd9a00bc5f7997b2eb03ec6632",
+        "size": 2616,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/679bf8b3a2a18acd9a00bc5f7997b2eb03ec6632"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/CommentsPart.cs",
+        "sha": "44befdc8bbb6f7f684784ead07dc27b50a14c296",
+        "size": 4499,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/44befdc8bbb6f7f684784ead07dc27b50a14c296"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/ConnectorDefaultAdjustments.cs",
+        "sha": "0906224ee9da6f68bc9ee027274fcf5cb624ea5f",
+        "size": 1060,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/0906224ee9da6f68bc9ee027274fcf5cb624ea5f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/ContentTypesManager.cs",
+        "sha": "83c55155f95182649984c68691411851dc55ee5d",
+        "size": 859,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/83c55155f95182649984c68691411851dc55ee5d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/CorePropertiesPart.cs",
+        "sha": "a1e2232e27b3af6a57e2588bca2cbcdf617eefab",
+        "size": 5976,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a1e2232e27b3af6a57e2588bca2cbcdf617eefab"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/CustomPropertiesPart.cs",
+        "sha": "5ceed61b26e08366135b19489fececa3676c5e26",
+        "size": 5219,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/5ceed61b26e08366135b19489fececa3676c5e26"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/DateTimeHelpers.cs",
+        "sha": "c0fe1673b934ad95f787e6f38957571a154685b5",
+        "size": 1117,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c0fe1673b934ad95f787e6f38957571a154685b5"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Internal/Export",
+        "sha": "28a6d69e1683e23b70e0867ab17f2055eaf8cb55",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/28a6d69e1683e23b70e0867ab17f2055eaf8cb55"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Export/ExporterBase.cs",
+        "sha": "5d80fdf9e3e6b8aad51283169617fa432452422d",
+        "size": 2594,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/5d80fdf9e3e6b8aad51283169617fa432452422d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Export/ExporterRegistry.cs",
+        "sha": "63a0352e3e0ab934d51ec0eba346c03b670b5848",
+        "size": 3976,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/63a0352e3e0ab934d51ec0eba346c03b670b5848"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Export/PptxExporter.cs",
+        "sha": "f28e0387f84d23cdb7944b80660891b58f369885",
+        "size": 3936,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f28e0387f84d23cdb7944b80660891b58f369885"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/ImageHelpers.cs",
+        "sha": "def8ba77d79ef5a2e19ecd87c5a138b45dce310b",
+        "size": 7438,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/def8ba77d79ef5a2e19ecd87c5a138b45dce310b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/MinimalPptxCreator.cs",
+        "sha": "42dde5a9f30aa3f457d3c4c53ac110c72267008a",
+        "size": 11725,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/42dde5a9f30aa3f457d3c4c53ac110c72267008a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/NotesSlidePart.cs",
+        "sha": "af229d911a54920dc3ac95e6c399b686a7f7b4c9",
+        "size": 13408,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/af229d911a54920dc3ac95e6c399b686a7f7b4c9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/OoxmlPresetMapping.cs",
+        "sha": "1d718d020c2e08030403e5096ea36c6174562988",
+        "size": 11312,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/1d718d020c2e08030403e5096ea36c6174562988"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Internal/Opc",
+        "sha": "ed2d13c15971709648cf0fe353bfcb0c56223baa",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/ed2d13c15971709648cf0fe353bfcb0c56223baa"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Internal/Opc/ContentTypes",
+        "sha": "ba59a89042147e8a1c57bbba70d3c0fb6b89399c",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/ba59a89042147e8a1c57bbba70d3c0fb6b89399c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Opc/ContentTypes/ContentTypeConstants.cs",
+        "sha": "15a708ff6bf7008b7f0b62f30257bc7bd7cea192",
+        "size": 2395,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/15a708ff6bf7008b7f0b62f30257bc7bd7cea192"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Opc/ContentTypes/ContentTypesManager.cs",
+        "sha": "e33e7a1fd5aa33370cb6fe7c5f5e5211ecbfca60",
+        "size": 5619,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/e33e7a1fd5aa33370cb6fe7c5f5e5211ecbfca60"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Opc/OpcPackage.cs",
+        "sha": "9a9ee0fb972f3ac4782ad1994698371a1355c5c7",
+        "size": 6886,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/9a9ee0fb972f3ac4782ad1994698371a1355c5c7"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Internal/Opc/Relationships",
+        "sha": "b390af524990267ee191bad05eefebf2095a812a",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/b390af524990267ee191bad05eefebf2095a812a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Opc/Relationships/RelConstants.cs",
+        "sha": "7db465e4e42fbfed715863c200b78bd614d8fb98",
+        "size": 3013,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/7db465e4e42fbfed715863c200b78bd614d8fb98"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Opc/Relationships/Relationship.cs",
+        "sha": "0b569899a80fcacb2a84e0a5be03eabc4abe2bff",
+        "size": 568,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/0b569899a80fcacb2a84e0a5be03eabc4abe2bff"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Opc/Relationships/RelationshipsManager.cs",
+        "sha": "2d79c857e0b925e97e7f5dc215f800adec3674b4",
+        "size": 7134,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/2d79c857e0b925e97e7f5dc215f800adec3674b4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/OpcPackage.cs",
+        "sha": "81c121d5b844d1d85ca68eb2914256fa33b5a4a7",
+        "size": 2941,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/81c121d5b844d1d85ca68eb2914256fa33b5a4a7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/OpcRegistration.cs",
+        "sha": "f9a0e71c206026b22a0d1fe1292fe496f8a17aa3",
+        "size": 2780,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f9a0e71c206026b22a0d1fe1292fe496f8a17aa3"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx",
+        "sha": "5de981bb673af17ddc5559577be7435381c1fbab",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/5de981bb673af17ddc5559577be7435381c1fbab"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/AppPropertiesPart",
+        "sha": "192de6afb57a4000a67d83f1615957ff7f56a5eb",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/192de6afb57a4000a67d83f1615957ff7f56a5eb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/AppPropertiesPart/AppPropertiesPart.cs",
+        "sha": "847168369c9aff87116515c81aee2a833e3b5cdc",
+        "size": 13593,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/847168369c9aff87116515c81aee2a833e3b5cdc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/AppPropertiesPart/HeadingPairData.cs",
+        "sha": "478cf8881c23479cf21da1cde130881414df470e",
+        "size": 590,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/478cf8881c23479cf21da1cde130881414df470e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/BulkTextFormat.cs",
+        "sha": "d7bb22d94e3834f07186a78dcd95c2cb81ed7cd7",
+        "size": 7147,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d7bb22d94e3834f07186a78dcd95c2cb81ed7cd7"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/CommentAuthorsPart",
+        "sha": "124c880cfbace1a996a1f8b86d0a00c58d5aac86",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/124c880cfbace1a996a1f8b86d0a00c58d5aac86"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/CommentAuthorsPart/AuthorData.cs",
+        "sha": "c923ae583a84c7380d19e49c5ee04986d800d415",
+        "size": 1553,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c923ae583a84c7380d19e49c5ee04986d800d415"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/CommentAuthorsPart/CommentAuthorsPart.cs",
+        "sha": "e235622be315f6f9bd81d697cb4370d92bdd82ee",
+        "size": 8384,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/e235622be315f6f9bd81d697cb4370d92bdd82ee"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/CommentsPart",
+        "sha": "ce5ca7ae4515459d9bfecd8316cd17eb48ed2c52",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/ce5ca7ae4515459d9bfecd8316cd17eb48ed2c52"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/CommentsPart/CommentData.cs",
+        "sha": "6adb381db81cd1f72e8732ddbf586937bb58680e",
+        "size": 3469,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/6adb381db81cd1f72e8732ddbf586937bb58680e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/CommentsPart/CommentsPart.cs",
+        "sha": "de8392ba487509b8c4f356bbc7a6ea78a137d23f",
+        "size": 15170,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/de8392ba487509b8c4f356bbc7a6ea78a137d23f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/CommentsPart/DateTimeHelpers.cs",
+        "sha": "474b6edf72d98c872509580807cf200d8004beff",
+        "size": 1167,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/474b6edf72d98c872509580807cf200d8004beff"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/Constants.cs",
+        "sha": "e389603944c8c54f5a2b193e9eb09392f4befaac",
+        "size": 19771,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/e389603944c8c54f5a2b193e9eb09392f4befaac"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/CorePropertiesPart",
+        "sha": "9bd479b7ad9cbbc77c018c4a58ec336885a6fc8b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/9bd479b7ad9cbbc77c018c4a58ec336885a6fc8b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/CorePropertiesPart/CorePropertiesPart.cs",
+        "sha": "c05f2f835973d9eeabe7a33829cfcb4f09e25f9a",
+        "size": 9708,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c05f2f835973d9eeabe7a33829cfcb4f09e25f9a"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/CustomPropertiesPart",
+        "sha": "6f72e7e9c33b9f297ced5b0b647070fea64d701c",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/6f72e7e9c33b9f297ced5b0b647070fea64d701c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/CustomPropertiesPart/CustomPropertiesPart.cs",
+        "sha": "7cf1b4745e17bad42165f9b671fdf57e7936ee48",
+        "size": 11310,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/7cf1b4745e17bad42165f9b671fdf57e7936ee48"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/ImageUtils.cs",
+        "sha": "81f132deaed2183a864d659686140eb468a90098",
+        "size": 11225,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/81f132deaed2183a864d659686140eb468a90098"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/LayoutSlidePart",
+        "sha": "2debfdeec994300384e6d9fd08e948990a2a2f3d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/2debfdeec994300384e6d9fd08e948990a2a2f3d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/LayoutSlidePart/LayoutSlidePart.cs",
+        "sha": "087fb0e919b9b913d528eb0f0debe50be53b1dc6",
+        "size": 7296,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/087fb0e919b9b913d528eb0f0debe50be53b1dc6"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/MasterSlidePart",
+        "sha": "da80db3ce4c3d8040ac641471801cac7826b1a86",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/da80db3ce4c3d8040ac641471801cac7826b1a86"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/MasterSlidePart/MasterSlidePart.cs",
+        "sha": "0b49bfbda0a24748590d2ec5158abe2e9a60fdd2",
+        "size": 4183,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/0b49bfbda0a24748590d2ec5158abe2e9a60fdd2"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/NotesSlidePart",
+        "sha": "8eb6d2609150517890980b9d6dfe71c035593f46",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/8eb6d2609150517890980b9d6dfe71c035593f46"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/NotesSlidePart/NotesSlidePart.cs",
+        "sha": "9436fb2affefa049c2ed407cb6f06db44dcfc007",
+        "size": 18424,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/9436fb2affefa049c2ed407cb6f06db44dcfc007"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/PresentationPart",
+        "sha": "dc9dbe0079b3981dd040ee8bc862d4b3982b5296",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/dc9dbe0079b3981dd040ee8bc862d4b3982b5296"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/PresentationPart/MasterReference.cs",
+        "sha": "e5e9e3af5989504af2b198878980a8332524153a",
+        "size": 550,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/e5e9e3af5989504af2b198878980a8332524153a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/PresentationPart/PresentationPart.cs",
+        "sha": "c6ece53bcc830b718551d133ecf3ef6feaf3661a",
+        "size": 12295,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c6ece53bcc830b718551d133ecf3ef6feaf3661a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/PresentationPart/SlideReference.cs",
+        "sha": "6d6769a032e60934e1353cc22bc49b253b6e38a8",
+        "size": 532,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/6d6769a032e60934e1353cc22bc49b253b6e38a8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/ShapeFactory.cs",
+        "sha": "4d3ef022513db4d3f42cf5654321c8446bda4a06",
+        "size": 3543,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/4d3ef022513db4d3f42cf5654321c8446bda4a06"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/ShapeTypeMapping.cs",
+        "sha": "9efd4bebe49a2c97abe61ceb2217d910cb9a2e53",
+        "size": 1353,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/9efd4bebe49a2c97abe61ceb2217d910cb9a2e53"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/TableStyleMapping.cs",
+        "sha": "f97564470cb454cf0b3c378f3d883d367eff255c",
+        "size": 5862,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f97564470cb454cf0b3c378f3d883d367eff255c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/Pptx/Template.cs",
+        "sha": "091e531a759f2bbe7138f04b7c202193dda8199e",
+        "size": 1890,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/091e531a759f2bbe7138f04b7c202193dda8199e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/PresentationPart.cs",
+        "sha": "8dfbe04391a40ad14c275a359ad0900a9304c9ad",
+        "size": 5062,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/8dfbe04391a40ad14c275a359ad0900a9304c9ad"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/RelsManager.cs",
+        "sha": "590aa5c8af0435221f5284c7de349e6540e8fc67",
+        "size": 4348,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/590aa5c8af0435221f5284c7de349e6540e8fc67"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/ShapeFactory.cs",
+        "sha": "fcac0baa9fbd710c8c587cf2f95400d88cfd4f67",
+        "size": 654,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/fcac0baa9fbd710c8c587cf2f95400d88cfd4f67"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/SlidePart.cs",
+        "sha": "de4d6cacbce21191678205d5472327371b0842a4",
+        "size": 3197,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/de4d6cacbce21191678205d5472327371b0842a4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Internal/TableStyleMapping.cs",
+        "sha": "10b11cbeb9785cf15eae9c6016e15d85792051ce",
+        "size": 8237,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/10b11cbeb9785cf15eae9c6016e15d85792051ce"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LayoutSlide.cs",
+        "sha": "99be0867502df6c634204472276d5836a9134296",
+        "size": 7154,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/99be0867502df6c634204472276d5836a9134296"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LayoutSlideCollection.cs",
+        "sha": "ab3251a89203c7a4900727eb67c3a108bfe956ae",
+        "size": 691,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ab3251a89203c7a4900727eb67c3a108bfe956ae"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LightRig.cs",
+        "sha": "bd615392946b6cce651f114e507b5a6db53b1270",
+        "size": 6022,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/bd615392946b6cce651f114e507b5a6db53b1270"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LightRigPresetType.cs",
+        "sha": "0ec904b6edb093828e1e98563adec259aa9f7f41",
+        "size": 2333,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/0ec904b6edb093828e1e98563adec259aa9f7f41"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LightingDirection.cs",
+        "sha": "8d131c7293b6eeae8064b146074c8e5bc443c41c",
+        "size": 817,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/8d131c7293b6eeae8064b146074c8e5bc443c41c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LineAlignment.cs",
+        "sha": "dfc9f2997ea01a6f8934ad0db5d05d49cf7a30df",
+        "size": 363,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/dfc9f2997ea01a6f8934ad0db5d05d49cf7a30df"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LineArrowheadLength.cs",
+        "sha": "1298998e1ccfc4529cdf757af2b17ea1876b93e9",
+        "size": 443,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/1298998e1ccfc4529cdf757af2b17ea1876b93e9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LineArrowheadStyle.cs",
+        "sha": "e028f6db08dc9b1e5ac927e70383502cc0dd91e1",
+        "size": 659,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/e028f6db08dc9b1e5ac927e70383502cc0dd91e1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LineArrowheadWidth.cs",
+        "sha": "88386e6402724b367db46fa62425108d0962207f",
+        "size": 443,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/88386e6402724b367db46fa62425108d0962207f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LineCapStyle.cs",
+        "sha": "f2d8b218f83a7bbea6059b601927d2bcbbf142d4",
+        "size": 429,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f2d8b218f83a7bbea6059b601927d2bcbbf142d4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LineDashStyle.cs",
+        "sha": "5cd05ae5e1a6ed027424ca8607d88c5991542e58",
+        "size": 1159,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/5cd05ae5e1a6ed027424ca8607d88c5991542e58"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LineFillFormat.cs",
+        "sha": "eefe676fc84f7f5a23a90309186072951746271c",
+        "size": 6109,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/eefe676fc84f7f5a23a90309186072951746271c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LineFormat.cs",
+        "sha": "3b25aa09cdbf725703026dd76281ca9eb054abf6",
+        "size": 20220,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/3b25aa09cdbf725703026dd76281ca9eb054abf6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LineJoinStyle.cs",
+        "sha": "5237d20346ac4db9594dc6edc38febe5deea2104",
+        "size": 431,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/5237d20346ac4db9594dc6edc38febe5deea2104"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LineStyle.cs",
+        "sha": "032ac7a14bc131895b38457e531c18fc4fb65132",
+        "size": 609,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/032ac7a14bc131895b38457e531c18fc4fb65132"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/LoadOptions.cs",
+        "sha": "652322e5a82f5affdd3db7d690d6acc91d39a2ee",
+        "size": 482,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/652322e5a82f5affdd3db7d690d6acc91d39a2ee"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/MasterLayoutSlideCollection.cs",
+        "sha": "88dece3e8ab62e45a7234dfdaced6f647dea19ff",
+        "size": 1418,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/88dece3e8ab62e45a7234dfdaced6f647dea19ff"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/MasterSlide.cs",
+        "sha": "c91f1a1f5161850e174cf3c0e5094b0f28fe270c",
+        "size": 2605,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c91f1a1f5161850e174cf3c0e5094b0f28fe270c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/MasterSlideCollection.cs",
+        "sha": "c4e72e708c63df75114dbb293dcd5dde9755a59a",
+        "size": 25970,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c4e72e708c63df75114dbb293dcd5dde9755a59a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/MaterialPresetType.cs",
+        "sha": "ac204233ce12bdf65b275c1642049c4cc9744fd5",
+        "size": 1393,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ac204233ce12bdf65b275c1642049c4cc9744fd5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/NotesSize.cs",
+        "sha": "0b6652e205aacad095859e265ebde703e4cbc041",
+        "size": 2069,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/0b6652e205aacad095859e265ebde703e4cbc041"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/NotesSlide.cs",
+        "sha": "04d1b161e841f4480020a0bf81a1fe2a1f66a0f8",
+        "size": 2404,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/04d1b161e841f4480020a0bf81a1fe2a1f66a0f8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/NotesSlideHeaderFooterManager.cs",
+        "sha": "cbf7dc8871372fad72fc4089290ba9d4732b8acc",
+        "size": 4675,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/cbf7dc8871372fad72fc4089290ba9d4732b8acc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/NotesSlideManager.cs",
+        "sha": "4fee60fe3f415bae9996ddd31cc5645ec8bd9864",
+        "size": 5821,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/4fee60fe3f415bae9996ddd31cc5645ec8bd9864"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/NullableBool.cs",
+        "sha": "33d6afa0f88d1c4dbf659be2568c1fcd6af69446",
+        "size": 357,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/33d6afa0f88d1c4dbf659be2568c1fcd6af69446"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/NumberedBulletStyle.cs",
+        "sha": "c7b004475385558b7bfa2d5866d22dfaf5aedcad",
+        "size": 4548,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c7b004475385558b7bfa2d5866d22dfaf5aedcad"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/PPImage.cs",
+        "sha": "ec8710b3cd7d279c1cd4227dcfb60146c21cfb3b",
+        "size": 2897,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ec8710b3cd7d279c1cd4227dcfb60146c21cfb3b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/PVIObject.cs",
+        "sha": "70c19609dc340a70cc225b2187ced9cacfd9d558",
+        "size": 626,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/70c19609dc340a70cc225b2187ced9cacfd9d558"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Paragraph.cs",
+        "sha": "f692c93152cb78ea4276b8d32c0ef6f1cb9eca37",
+        "size": 3095,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f692c93152cb78ea4276b8d32c0ef6f1cb9eca37"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ParagraphCollection.cs",
+        "sha": "1ff07385e52f689519288be39d4dd215805ecb1f",
+        "size": 4881,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/1ff07385e52f689519288be39d4dd215805ecb1f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ParagraphFormat.cs",
+        "sha": "7b0e83506d3501a4990a56ceb44a2d4acc59a6aa",
+        "size": 11243,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/7b0e83506d3501a4990a56ceb44a2d4acc59a6aa"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/PatternFormat.cs",
+        "sha": "921f4821d7d9154517f86de832f43a1202e301f8",
+        "size": 5583,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/921f4821d7d9154517f86de832f43a1202e301f8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/PatternStyle.cs",
+        "sha": "a150b8596e840a7ff53d4f06d1cfe1f29069070c",
+        "size": 4631,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a150b8596e840a7ff53d4f06d1cfe1f29069070c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Picture.cs",
+        "sha": "712909c366eca2e034e3a9a726b807f7167fc1ea",
+        "size": 7713,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/712909c366eca2e034e3a9a726b807f7167fc1ea"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/PictureFillFormat.cs",
+        "sha": "eabdfb4af9b6e4f7453d9499d6b9761fa64ab969",
+        "size": 12607,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/eabdfb4af9b6e4f7453d9499d6b9761fa64ab969"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/PictureFillMode.cs",
+        "sha": "a0d0ea2de91950125d15eef2badc8f81b48bce4e",
+        "size": 277,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a0d0ea2de91950125d15eef2badc8f81b48bce4e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/PictureFrame.cs",
+        "sha": "b34567f007979c6d4f8d1bc4340bf8e7fd26fd97",
+        "size": 3563,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/b34567f007979c6d4f8d1bc4340bf8e7fd26fd97"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/PictureFrameLock.cs",
+        "sha": "0bea8b882da5b4eb12e7617f5e9ec82ce1570fab",
+        "size": 3961,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/0bea8b882da5b4eb12e7617f5e9ec82ce1570fab"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Placeholder.cs",
+        "sha": "b32ac8cb8dfc63f3b3d6e89e6bbc30746ee5956b",
+        "size": 152,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/b32ac8cb8dfc63f3b3d6e89e6bbc30746ee5956b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Portion.cs",
+        "sha": "3bf3ea4e6ca92fe0ee2a0ff305d01c2f9d172529",
+        "size": 3056,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/3bf3ea4e6ca92fe0ee2a0ff305d01c2f9d172529"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/PortionCollection.cs",
+        "sha": "2336052c8c5a76b00304cba415d8a25fb78df45e",
+        "size": 4624,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/2336052c8c5a76b00304cba415d8a25fb78df45e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/PortionFormat.cs",
+        "sha": "680e574781b8d63786ca2e18c59d57b0c5b714b2",
+        "size": 287,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/680e574781b8d63786ca2e18c59d57b0c5b714b2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Presentation.cs",
+        "sha": "12e78ff539ec36e81978b66cb476f72b5b2bd0a9",
+        "size": 18339,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/12e78ff539ec36e81978b66cb476f72b5b2bd0a9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/PresetColor.cs",
+        "sha": "927de8feaba6cc7a6af899a8dc6120e1be2dd5b5",
+        "size": 11107,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/927de8feaba6cc7a6af899a8dc6120e1be2dd5b5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/PresetShadowType.cs",
+        "sha": "05e078cd0d29048dcf684a58cdbf549f954a830d",
+        "size": 2275,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/05e078cd0d29048dcf684a58cdbf549f954a830d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/RectangleAlignment.cs",
+        "sha": "001fd0658ec62814015bff83f1258b27859f56ee",
+        "size": 891,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/001fd0658ec62814015bff83f1258b27859f56ee"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Row.cs",
+        "sha": "9756491ff3f506f957293c4e1ee302f871cf48c7",
+        "size": 4912,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/9756491ff3f506f957293c4e1ee302f871cf48c7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/RowCollection.cs",
+        "sha": "123b2a737cf408b09bba2cfd075fdf126a9a6b18",
+        "size": 4550,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/123b2a737cf408b09bba2cfd075fdf126a9a6b18"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/RowFormat.cs",
+        "sha": "ec03276bc1791b69faa2049dd91452f00148b97c",
+        "size": 164,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ec03276bc1791b69faa2049dd91452f00148b97c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/SchemeColor.cs",
+        "sha": "11f27eb5d376eabe1071431ddf863b71a5de91e9",
+        "size": 1501,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/11f27eb5d376eabe1071431ddf863b71a5de91e9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Section.cs",
+        "sha": "f1ae95a7d5c93f6ace615c0a0264f6e5f12bce4b",
+        "size": 474,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f1ae95a7d5c93f6ace615c0a0264f6e5f12bce4b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/SectionCollection.cs",
+        "sha": "751a38f91619e63278f658ea557960481d4cd24d",
+        "size": 1758,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/751a38f91619e63278f658ea557960481d4cd24d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Shape.cs",
+        "sha": "71bf04fba323b78e749920a3377f7f27bac9d076",
+        "size": 22533,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/71bf04fba323b78e749920a3377f7f27bac9d076"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ShapeBevel.cs",
+        "sha": "a228a5358cfed9ade3ab3fb5eb7743db061f0f59",
+        "size": 3384,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a228a5358cfed9ade3ab3fb5eb7743db061f0f59"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ShapeCollection.cs",
+        "sha": "93bbe7a15f1fa66e9f4637114774b93fab8ac1f9",
+        "size": 24575,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/93bbe7a15f1fa66e9f4637114774b93fab8ac1f9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ShapeFrame.cs",
+        "sha": "995d4b5f02e1d9aed5f1892c7106d4fc44c5f45c",
+        "size": 2895,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/995d4b5f02e1d9aed5f1892c7106d4fc44c5f45c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ShapeStyle.cs",
+        "sha": "c14bf7e6453968b365feb7a7bdba054d08bbde8e",
+        "size": 151,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c14bf7e6453968b365feb7a7bdba054d08bbde8e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ShapeType.cs",
+        "sha": "6e758d34317cdaee94d247eef7692f5889bb2583",
+        "size": 13287,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/6e758d34317cdaee94d247eef7692f5889bb2583"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Slide.cs",
+        "sha": "a47646355b1e170d43847b7c9b75db293b1bd1be",
+        "size": 5734,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a47646355b1e170d43847b7c9b75db293b1bd1be"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/SlideCollection.cs",
+        "sha": "b1598c33cf5a1ccde4b1f0ca136b1aeecd4a660b",
+        "size": 23734,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/b1598c33cf5a1ccde4b1f0ca136b1aeecd4a660b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/SlideLayoutType.cs",
+        "sha": "d273a0b679e81323786cc660d66154072588a196",
+        "size": 3173,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d273a0b679e81323786cc660d66154072588a196"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/SourceFormat.cs",
+        "sha": "db538bee78f43c85b5141a730ac80c742648561a",
+        "size": 329,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/db538bee78f43c85b5141a730ac80c742648561a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Table.cs",
+        "sha": "b2efe92f771ee636b99d8ee31749e10a0620f24b",
+        "size": 8472,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/b2efe92f771ee636b99d8ee31749e10a0620f24b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/TableFormat.cs",
+        "sha": "627238417d48a9e6cb56168126bf6db8670f1b68",
+        "size": 913,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/627238417d48a9e6cb56168126bf6db8670f1b68"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/TableStylePreset.cs",
+        "sha": "2d752bf9c5d7d185a255143233703ca8bf3607a9",
+        "size": 7449,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/2d752bf9c5d7d185a255143233703ca8bf3607a9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/TextAlignment.cs",
+        "sha": "c5b3deb722363ab7de6a8f8e6d82da3e527750da",
+        "size": 667,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c5b3deb722363ab7de6a8f8e6d82da3e527750da"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/TextAnchorType.cs",
+        "sha": "ec8a3bb69dc4e41f02f31b30fca82cf4d5fe26ec",
+        "size": 593,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ec8a3bb69dc4e41f02f31b30fca82cf4d5fe26ec"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/TextAutofitType.cs",
+        "sha": "82d710276366d8e99072e9202e552064c6bc75b0",
+        "size": 435,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/82d710276366d8e99072e9202e552064c6bc75b0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/TextCapType.cs",
+        "sha": "c612adc75db4bf7e2091be0c45787d42fedbf42b",
+        "size": 421,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c612adc75db4bf7e2091be0c45787d42fedbf42b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/TextFormatHelper.cs",
+        "sha": "e51766716c70627205bbb625e629e04b48902619",
+        "size": 1254,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/e51766716c70627205bbb625e629e04b48902619"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/TextFrame.cs",
+        "sha": "046f5050606ef0b0bd0f64838362d2dde3a40b25",
+        "size": 4710,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/046f5050606ef0b0bd0f64838362d2dde3a40b25"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/TextFrameFormat.cs",
+        "sha": "9028c98a828485f238f70871c080fd21060a9d91",
+        "size": 16894,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/9028c98a828485f238f70871c080fd21060a9d91"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/TextShapeType.cs",
+        "sha": "70bd1330e29c0f65e1816a606395b9a5ff47774c",
+        "size": 3481,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/70bd1330e29c0f65e1816a606395b9a5ff47774c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/TextStrikethroughType.cs",
+        "sha": "a9667417a9515a87b88017d6cecf82f917756fe3",
+        "size": 449,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a9667417a9515a87b88017d6cecf82f917756fe3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/TextUnderlineType.cs",
+        "sha": "8a3df8ff177520fc4e9913d699fe1c834411c946",
+        "size": 1613,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/8a3df8ff177520fc4e9913d699fe1c834411c946"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/TextVerticalType.cs",
+        "sha": "a701960368febda8e2d10f219f75f639e9bc3fb9",
+        "size": 855,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a701960368febda8e2d10f219f75f639e9bc3fb9"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Slides.Foss/Theme",
+        "sha": "fbaee6951566975a5e89752ae2f16785eb058750",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/fbaee6951566975a5e89752ae2f16785eb058750"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/Theme/IThemeable.cs",
+        "sha": "7a212ba1963668cac8d64d6db2391910a98bb8d4",
+        "size": 164,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/7a212ba1963668cac8d64d6db2391910a98bb8d4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/ThreeDFormat.cs",
+        "sha": "68366af17c22df29d1945fba960b70d7b5c22acb",
+        "size": 8457,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/68366af17c22df29d1945fba960b70d7b5c22acb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Slides.Foss/TileFlip.cs",
+        "sha": "7b16dc750b3a471a70d485ce46a1a6387a07fed1",
+        "size": 499,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/7b16dc750b3a471a70d485ce46a1a6387a07fed1"
+      },
+      {
+        "mode": "040000",
+        "path": "tests",
+        "sha": "0e07ac0a90da8401d137d275fa2f65fc774fa5e7",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/0e07ac0a90da8401d137d275fa2f65fc774fa5e7"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests",
+        "sha": "073b3d8885e4ee587b27e838827fe6049620b9a3",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/073b3d8885e4ee587b27e838827fe6049620b9a3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/Aspose.Slides.Foss.IntegrationTests.csproj",
+        "sha": "f3a9fba05645892c98f038fc3bd1ca8dc3270d40",
+        "size": 996,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f3a9fba05645892c98f038fc3bd1ca8dc3270d40"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/CommentsTests.cs",
+        "sha": "b033904200f6b24af0fbb1f8f7cf09e396823226",
+        "size": 5422,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/b033904200f6b24af0fbb1f8f7cf09e396823226"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/ConnectorTests.cs",
+        "sha": "a87adc3c81f6bb57ca20619094200ab34d0f4ee8",
+        "size": 5039,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a87adc3c81f6bb57ca20619094200ab34d0f4ee8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/DocumentPropertiesTests.cs",
+        "sha": "bb1ce2c50fda4b7a38cd4ec5b78f64b51adb62be",
+        "size": 2749,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/bb1ce2c50fda4b7a38cd4ec5b78f64b51adb62be"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/EffectFormatTests.cs",
+        "sha": "fe2aa73143f4c9ab913be2f44ff16887a7f10879",
+        "size": 4089,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/fe2aa73143f4c9ab913be2f44ff16887a7f10879"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/FillFormatTests.cs",
+        "sha": "d7226acf575ed0830c8e500b102e675632dedc7f",
+        "size": 4284,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d7226acf575ed0830c8e500b102e675632dedc7f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/ImagesTests.cs",
+        "sha": "8567652890c618dfb9827d90fd08e07e0dc4aca8",
+        "size": 2500,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/8567652890c618dfb9827d90fd08e07e0dc4aca8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/LineFormatTests.cs",
+        "sha": "f2bf05785976a4ec6f68f01c0e0d567fc9f9442b",
+        "size": 2822,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f2bf05785976a4ec6f68f01c0e0d567fc9f9442b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/NotesSlideTests.cs",
+        "sha": "a4945a694cec9240464f9591a5f34ce556a25331",
+        "size": 3038,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a4945a694cec9240464f9591a5f34ce556a25331"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/PresentationTests.cs",
+        "sha": "aec17385d0cf564421ac4ea64387caa0c9ffa31e",
+        "size": 2911,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/aec17385d0cf564421ac4ea64387caa0c9ffa31e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/ShapesTests.cs",
+        "sha": "21f67d4c1a48acd8d0ff1ede68749cdce73288af",
+        "size": 5463,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/21f67d4c1a48acd8d0ff1ede68749cdce73288af"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/SlidesTests.cs",
+        "sha": "06eaa7baef45fbe907104f0ccc66f334ff90baf1",
+        "size": 3925,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/06eaa7baef45fbe907104f0ccc66f334ff90baf1"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/TableTests.cs",
+        "sha": "f89f9dec41868909f80914f7dd6f16e31e18ef0b",
+        "size": 6062,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f89f9dec41868909f80914f7dd6f16e31e18ef0b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/TestHelpers.cs",
+        "sha": "672d8269f5d6c9ed3263914a10ed86c881376864",
+        "size": 4307,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/672d8269f5d6c9ed3263914a10ed86c881376864"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/TextFormattingTests.cs",
+        "sha": "4c950c3c0595183579e4bddab157fe55746f6024",
+        "size": 4940,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/4c950c3c0595183579e4bddab157fe55746f6024"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/TextTests.cs",
+        "sha": "9acd203448668c6117817680c354f53bf0fc7c7c",
+        "size": 3905,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/9acd203448668c6117817680c354f53bf0fc7c7c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.IntegrationTests/ThreeDFormatTests.cs",
+        "sha": "bc0ba3e7907729f1516e429ba07255f76562b193",
+        "size": 3355,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/bc0ba3e7907729f1516e429ba07255f76562b193"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/Aspose.Slides.Foss.Tests",
+        "sha": "ee8e05aee706aa8a0a92f38e5cb2780712660a62",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/ee8e05aee706aa8a0a92f38e5cb2780712660a62"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/AdjustValueTests.cs",
+        "sha": "e0e3c6d02c3c20e71fff86b838e919a12a445ba8",
+        "size": 4048,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/e0e3c6d02c3c20e71fff86b838e919a12a445ba8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/Aspose.Slides.Foss.Tests.csproj",
+        "sha": "dbb8eae15448e94d1eeef44a292b17d1e4e3d62d",
+        "size": 746,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/dbb8eae15448e94d1eeef44a292b17d1e4e3d62d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/AutoShapeTests.cs",
+        "sha": "f778e9432c6efc866cc8dee100b8db4ce74fbd24",
+        "size": 15196,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f778e9432c6efc866cc8dee100b8db4ce74fbd24"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/BaseSlideTests.cs",
+        "sha": "c72f3ea271b55a177720578017cd4c7cc05c2430",
+        "size": 4347,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c72f3ea271b55a177720578017cd4c7cc05c2430"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/BlurTests.cs",
+        "sha": "29fe7dc684d422f7aa5b307de33d6d37aa29ce22",
+        "size": 3888,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/29fe7dc684d422f7aa5b307de33d6d37aa29ce22"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/BulletFormatTests.cs",
+        "sha": "0d0d124023e7909714278cf18d65c292ad3019d4",
+        "size": 10161,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/0d0d124023e7909714278cf18d65c292ad3019d4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/CameraTests.cs",
+        "sha": "567fd03414cc30dd6a86399fbcdf6064398b5443",
+        "size": 3600,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/567fd03414cc30dd6a86399fbcdf6064398b5443"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/CellCollectionTests.cs",
+        "sha": "7db16ec5a503f86f7c69cee66f434aabaf9e754e",
+        "size": 21103,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/7db16ec5a503f86f7c69cee66f434aabaf9e754e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/CellTests.cs",
+        "sha": "46e809507992f4d9ea7eb002bac9c4a1ff1fe900",
+        "size": 34369,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/46e809507992f4d9ea7eb002bac9c4a1ff1fe900"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ColorFormatTests.cs",
+        "sha": "576a7650f5fa1b2f64c6e20fce971671ae2eedc7",
+        "size": 11818,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/576a7650f5fa1b2f64c6e20fce971671ae2eedc7"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ColorTests.cs",
+        "sha": "9754913e00884c2207937e0497b7981e79d9c77c",
+        "size": 5760,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/9754913e00884c2207937e0497b7981e79d9c77c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ColumnCollectionTests.cs",
+        "sha": "2a9d4a1a7dea52ad66323bfcb5e43919e4932696",
+        "size": 7402,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/2a9d4a1a7dea52ad66323bfcb5e43919e4932696"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ColumnTests.cs",
+        "sha": "cf678b053959d32bbbbd13d15c5ec8a2a4e7333a",
+        "size": 8251,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/cf678b053959d32bbbbd13d15c5ec8a2a4e7333a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/CommentAuthorCollectionTests.cs",
+        "sha": "77c1b531e000850e84446cca6a10cdc46daa8962",
+        "size": 5738,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/77c1b531e000850e84446cca6a10cdc46daa8962"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/CommentAuthorTests.cs",
+        "sha": "77a3d8fec21a053e14cd5b0c4b1c0d58114572d3",
+        "size": 4136,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/77a3d8fec21a053e14cd5b0c4b1c0d58114572d3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/CommentCollectionTests.cs",
+        "sha": "5d4dc3a97719324e52c65f33b53dbf05383c3b15",
+        "size": 9656,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/5d4dc3a97719324e52c65f33b53dbf05383c3b15"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/CommentIntegrationTests.cs",
+        "sha": "caf5af92d26f234012c753019631427e1976b3ae",
+        "size": 9021,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/caf5af92d26f234012c753019631427e1976b3ae"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/CommentTests.cs",
+        "sha": "a0d0e3241cc50dced0f84c60fe92b27b0dee0eb5",
+        "size": 11333,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a0d0e3241cc50dced0f84c60fe92b27b0dee0eb5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ConnectorIntegrationTests.cs",
+        "sha": "9d2ae4c737ee3930013b23ffe55276ab4ddaa180",
+        "size": 8766,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/9d2ae4c737ee3930013b23ffe55276ab4ddaa180"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ConnectorTests.cs",
+        "sha": "8851c9b2edcb65fcc9ae8c83608457667136c0c0",
+        "size": 10397,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/8851c9b2edcb65fcc9ae8c83608457667136c0c0"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/DocumentPropertiesIntegrationTests.cs",
+        "sha": "ead7ccbaa638766f708cba7be887b86c21cef985",
+        "size": 8329,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ead7ccbaa638766f708cba7be887b86c21cef985"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/DocumentPropertiesTests.cs",
+        "sha": "fb59b38b43f91ddbecbb80944b7da983973bfaf9",
+        "size": 16465,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/fb59b38b43f91ddbecbb80944b7da983973bfaf9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/EffectFormatIntegrationTests.cs",
+        "sha": "50f8b3339ee221b67694afe0f64bef30e415f00c",
+        "size": 6322,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/50f8b3339ee221b67694afe0f64bef30e415f00c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/EffectFormatTests.cs",
+        "sha": "ed01a5e1acbbddb97b52b618cb96bf1fb09247db",
+        "size": 6817,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ed01a5e1acbbddb97b52b618cb96bf1fb09247db"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/FillFormatIntegrationTests.cs",
+        "sha": "68dc67458ef76520d2334fa64e4a11e58e6427cc",
+        "size": 8084,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/68dc67458ef76520d2334fa64e4a11e58e6427cc"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/FillFormatTests.cs",
+        "sha": "3d86fc94bc389cf003bdda8916c30bb2ed10b43f",
+        "size": 11182,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/3d86fc94bc389cf003bdda8916c30bb2ed10b43f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/FillOverlayTests.cs",
+        "sha": "67dd3092b245a8c053e55d79df3f800ad7788ddf",
+        "size": 5100,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/67dd3092b245a8c053e55d79df3f800ad7788ddf"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/GlowTests.cs",
+        "sha": "914d68c6c6988101d912937238beef3173afc7d3",
+        "size": 5358,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/914d68c6c6988101d912937238beef3173afc7d3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/GradientFormatTests.cs",
+        "sha": "de5a3e782a0c1a6c60f97a5a58267a0ecc852946",
+        "size": 12286,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/de5a3e782a0c1a6c60f97a5a58267a0ecc852946"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/GradientStopCollectionTests.cs",
+        "sha": "8432aba4ec816d69b1cf37cf56286dce96f4941d",
+        "size": 9369,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/8432aba4ec816d69b1cf37cf56286dce96f4941d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/GradientStopTests.cs",
+        "sha": "d1170c703a78f15c9a87ad9d9d360e3f75f5fff8",
+        "size": 4637,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d1170c703a78f15c9a87ad9d9d360e3f75f5fff8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ICellFormatTests.cs",
+        "sha": "e61cafd324200081c8a69ea19a011afa0f258af9",
+        "size": 10396,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/e61cafd324200081c8a69ea19a011afa0f258af9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ICommentAuthorContractTests.cs",
+        "sha": "f61b04c898ae4df4a526e7434ac4bfb66ec419fc",
+        "size": 5385,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f61b04c898ae4df4a526e7434ac4bfb66ec419fc"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ICommentCollectionContractTests.cs",
+        "sha": "fe0500066c3dfcc5224dd34d23b4bb253b1f2f9f",
+        "size": 9248,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/fe0500066c3dfcc5224dd34d23b4bb253b1f2f9f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/IGeometryShapeTests.cs",
+        "sha": "ed3df842e0413325b6b12c86fcf541842e90ea59",
+        "size": 7203,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ed3df842e0413325b6b12c86fcf541842e90ea59"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/IInnerShadowTests.cs",
+        "sha": "6710b1185b80d9f937ac8763f8b20066572b6f38",
+        "size": 2805,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/6710b1185b80d9f937ac8763f8b20066572b6f38"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ILineFillFormatTests.cs",
+        "sha": "585934ba6296ba7155f35986d5c262bdbbb8a9d6",
+        "size": 9852,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/585934ba6296ba7155f35986d5c262bdbbb8a9d6"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/IMasterSlideCollectionTests.cs",
+        "sha": "faf80f8f8a91011a457ce252b19ffc68f9afe872",
+        "size": 2878,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/faf80f8f8a91011a457ce252b19ffc68f9afe872"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/IMasterSlideTests.cs",
+        "sha": "400bbfc57653b3d47de561f759eaf8c58ededc98",
+        "size": 4804,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/400bbfc57653b3d47de561f759eaf8c58ededc98"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/INotesSizeTests.cs",
+        "sha": "a2ba0bd7c65486d865a5b5e68363a1509bb1c022",
+        "size": 361,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a2ba0bd7c65486d865a5b5e68363a1509bb1c022"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/INotesSlideManagerTests.cs",
+        "sha": "d041f23306ed96defe1725ea64fdae8aaeaf450f",
+        "size": 8533,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d041f23306ed96defe1725ea64fdae8aaeaf450f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/INotesSlideTests.cs",
+        "sha": "73b4d09e847fc6e63506b241001ef686cec7f851",
+        "size": 4249,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/73b4d09e847fc6e63506b241001ef686cec7f851"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/IOuterShadowTests.cs",
+        "sha": "3be9ade89696bee1f2b944d74f3901f9bc17867c",
+        "size": 5881,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/3be9ade89696bee1f2b944d74f3901f9bc17867c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/IParagraphCollectionTests.cs",
+        "sha": "23a8a1f55c87b9cd2ae8bebfbd240cc034d93051",
+        "size": 13050,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/23a8a1f55c87b9cd2ae8bebfbd240cc034d93051"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/IParagraphTests.cs",
+        "sha": "d946982a3d2776a1a1d3eff033f464ab9cf8d148",
+        "size": 15788,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d946982a3d2776a1a1d3eff033f464ab9cf8d148"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/IPictureFillFormatTests.cs",
+        "sha": "25ec0956af0da558df85c00281c818ec5858a886",
+        "size": 6899,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/25ec0956af0da558df85c00281c818ec5858a886"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/IPortionCollectionTests.cs",
+        "sha": "24b4d4ce57d0fffb1f2bb7f81f9d827eac119a1a",
+        "size": 10201,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/24b4d4ce57d0fffb1f2bb7f81f9d827eac119a1a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/IPresetShadowTests.cs",
+        "sha": "9104348379230c3041f76131ebab3271fe9910a7",
+        "size": 3098,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/9104348379230c3041f76131ebab3271fe9910a7"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/IReflectionTests.cs",
+        "sha": "3f6366838cecb9ae10b13b4d19e9b9754e08b29c",
+        "size": 11068,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/3f6366838cecb9ae10b13b4d19e9b9754e08b29c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/IRowContractTests.cs",
+        "sha": "8f025846a1b0f743d2f261612bdacee0cc43eb24",
+        "size": 4970,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/8f025846a1b0f743d2f261612bdacee0cc43eb24"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/IShapeCollectionContractTests.cs",
+        "sha": "3af157c868ad1bfd7f18a3e43334ab69f9d4b6d2",
+        "size": 22314,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/3af157c868ad1bfd7f18a3e43334ab69f9d4b6d2"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/IShapeFrameContractTests.cs",
+        "sha": "ad25bfb92cf891beb82437ccd129469d2cce038b",
+        "size": 10763,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/ad25bfb92cf891beb82437ccd129469d2cce038b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ISlideCollectionTests.cs",
+        "sha": "53032c2ce5152784e00d733582b6bb7587359aac",
+        "size": 8523,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/53032c2ce5152784e00d733582b6bb7587359aac"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ISlideTests.cs",
+        "sha": "c71b828d4284563ea1802d8476a4c38a75483525",
+        "size": 8845,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c71b828d4284563ea1802d8476a4c38a75483525"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ISoftEdgeTests.cs",
+        "sha": "f8a4c93c0f11d1bdd5956ea8567cc4bd694b8e54",
+        "size": 2630,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f8a4c93c0f11d1bdd5956ea8567cc4bd694b8e54"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ITableFormatTests.cs",
+        "sha": "f4b37bf72e721a8206d4f9f0c156cebf3fb03969",
+        "size": 7887,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/f4b37bf72e721a8206d4f9f0c156cebf3fb03969"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ITextFrameTests.cs",
+        "sha": "874394ec8c685d1e205da839bf5ac49a589aaf49",
+        "size": 14817,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/874394ec8c685d1e205da839bf5ac49a589aaf49"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ImageIntegrationTests.cs",
+        "sha": "a772827f55a1ab8b366a1322c9d4a24f9fd31b17",
+        "size": 6087,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a772827f55a1ab8b366a1322c9d4a24f9fd31b17"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ImageTests.cs",
+        "sha": "dbb05c6d3ec851a0adef20b847d8cb358ca7ed78",
+        "size": 11463,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/dbb05c6d3ec851a0adef20b847d8cb358ca7ed78"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/LightRigTests.cs",
+        "sha": "11d1783967990b3cffd3794a063458833039f969",
+        "size": 5126,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/11d1783967990b3cffd3794a063458833039f969"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/LineFormatIntegrationTests.cs",
+        "sha": "c048c986350d29a8058dffdda6c637ca6e636f79",
+        "size": 5590,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/c048c986350d29a8058dffdda6c637ca6e636f79"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/LineFormatTests.cs",
+        "sha": "369d2498cead58d5d16662e5f4d40dfe23030af3",
+        "size": 7977,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/369d2498cead58d5d16662e5f4d40dfe23030af3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/NotesSlideHeaderFooterTests.cs",
+        "sha": "6145693ad25f96f28396a40fe28511e7db38e8db",
+        "size": 4999,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/6145693ad25f96f28396a40fe28511e7db38e8db"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/NotesSlideIntegrationTests.cs",
+        "sha": "82e9ab4525494014c4bc35597b6321ebbff9a2a4",
+        "size": 8113,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/82e9ab4525494014c4bc35597b6321ebbff9a2a4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/NotesSlideTests.cs",
+        "sha": "74f35c556d33c2139116d2a00bf137f852d405b9",
+        "size": 1263,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/74f35c556d33c2139116d2a00bf137f852d405b9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/PVIObjectTests.cs",
+        "sha": "34f5a3cad7c285ba92cd62844b2766f9cbaf5d20",
+        "size": 4669,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/34f5a3cad7c285ba92cd62844b2766f9cbaf5d20"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ParagraphFormatTests.cs",
+        "sha": "6e99d88b4a2e50f80fde9e8bf5b33edade743972",
+        "size": 10178,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/6e99d88b4a2e50f80fde9e8bf5b33edade743972"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ParagraphTests.cs",
+        "sha": "1b62d4d5ea41256aa68357b6c4454590d2fbfa8e",
+        "size": 10799,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/1b62d4d5ea41256aa68357b6c4454590d2fbfa8e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/PatternFormatTests.cs",
+        "sha": "8fc6b9bdff8d112f56477c558bb45659c0ce3f10",
+        "size": 5538,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/8fc6b9bdff8d112f56477c558bb45659c0ce3f10"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/PointFTests.cs",
+        "sha": "83b8feb133a243faf3e76d1334bb388fea4052e5",
+        "size": 2272,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/83b8feb133a243faf3e76d1334bb388fea4052e5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/PortionTests.cs",
+        "sha": "7a22de888df7dd5cbf115cec91db925d16c03958",
+        "size": 10249,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/7a22de888df7dd5cbf115cec91db925d16c03958"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/PresentationIntegrationTests.cs",
+        "sha": "6615ea43781d1d64225d8442e49e4cc060f0288d",
+        "size": 6629,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/6615ea43781d1d64225d8442e49e4cc060f0288d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/PresentationTests.cs",
+        "sha": "cad5641da0894e17781bb35b22f2f6d0c6091b2e",
+        "size": 3804,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/cad5641da0894e17781bb35b22f2f6d0c6091b2e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/PresetShadowTests.cs",
+        "sha": "5d1d7d12efc49e81743d702dde42340ae2c70f9d",
+        "size": 4589,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/5d1d7d12efc49e81743d702dde42340ae2c70f9d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/RowCollectionTests.cs",
+        "sha": "324b3f6e402f7bf7b5fb9fb3cb41f42315ab3542",
+        "size": 7345,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/324b3f6e402f7bf7b5fb9fb3cb41f42315ab3542"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/RowTests.cs",
+        "sha": "293fd3b8ab07a6a651b1fb2ee13e91e4b614df28",
+        "size": 8742,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/293fd3b8ab07a6a651b1fb2ee13e91e4b614df28"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ShapeBevelTests.cs",
+        "sha": "0db160636f1b1b507229cb90f0e86e023a4a0500",
+        "size": 5631,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/0db160636f1b1b507229cb90f0e86e023a4a0500"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ShapeIntegrationTests.cs",
+        "sha": "74a302ad08ec3c38a8b85f7c84740ebd80e51fd3",
+        "size": 11273,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/74a302ad08ec3c38a8b85f7c84740ebd80e51fd3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/SizeTests.cs",
+        "sha": "d7d8c5f5be27847da6f0a65622609589a93305a9",
+        "size": 3386,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d7d8c5f5be27847da6f0a65622609589a93305a9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/SlideIntegrationTests.cs",
+        "sha": "da3f9d0311cbe25946d877c0b8e15a209c8573aa",
+        "size": 8779,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/da3f9d0311cbe25946d877c0b8e15a209c8573aa"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/SlidesTests.cs",
+        "sha": "d1106e8812d4d23b2843dca4770e31a0df15e0cd",
+        "size": 3893,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d1106e8812d4d23b2843dca4770e31a0df15e0cd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/TableIntegrationTests.cs",
+        "sha": "27d4f00dc57b237779171aefd4a536c5ce50af5d",
+        "size": 16920,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/27d4f00dc57b237779171aefd4a536c5ce50af5d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/TableRoundTripTests.cs",
+        "sha": "6ffd7135e1182bc85e9e5a378f063903a7e51e0a",
+        "size": 8523,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/6ffd7135e1182bc85e9e5a378f063903a7e51e0a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/TableTableTests.cs",
+        "sha": "fd797b907b6260d0d1c65550eebe76ffc29fac5d",
+        "size": 12059,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/fd797b907b6260d0d1c65550eebe76ffc29fac5d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/TableTests.cs",
+        "sha": "35862809c15a954f5f0e61fcc8a57799afe796ea",
+        "size": 8504,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/35862809c15a954f5f0e61fcc8a57799afe796ea"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/TextFormattingIntegrationTests.cs",
+        "sha": "1ced9d0c43daf4d96bf1fcc8f078c87b58aae994",
+        "size": 7257,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/1ced9d0c43daf4d96bf1fcc8f078c87b58aae994"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/TextFormattingTests.cs",
+        "sha": "6b416f451e830487ad4ba084b57cd9c7a7dd7f14",
+        "size": 6395,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/6b416f451e830487ad4ba084b57cd9c7a7dd7f14"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/TextFrameFormatTests.cs",
+        "sha": "07d3f8e00c515f9ba5bafddcecf776aa43d7350c",
+        "size": 13608,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/07d3f8e00c515f9ba5bafddcecf776aa43d7350c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/TextFrameTests.cs",
+        "sha": "1debdf1d1655da149f3b21a833c4fc75f046d218",
+        "size": 5440,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/1debdf1d1655da149f3b21a833c4fc75f046d218"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/TextIntegrationTests.cs",
+        "sha": "a6a576c606430db7ad559a0b8dc4a7282ae9e4db",
+        "size": 10535,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/a6a576c606430db7ad559a0b8dc4a7282ae9e4db"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ThreeDFormatIntegrationTests.cs",
+        "sha": "d9c505ef6459843526ce08ec158ea34dd9c3cafe",
+        "size": 4425,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d9c505ef6459843526ce08ec158ea34dd9c3cafe"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Slides.Foss.Tests/ThreeDFormatTests.cs",
+        "sha": "d84410c92de446d606edef7b64a149bd6ff77ff0",
+        "size": 9119,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/d84410c92de446d606edef7b64a149bd6ff77ff0"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/test_data",
+        "sha": "2cc4d01433fec58e079841f2b73e3aa6a33c2a78",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/2cc4d01433fec58e079841f2b73e3aa6a33c2a78"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_data/Presentation.pptx",
+        "sha": "06b9c3ff5edeae7ef4a6ca0defb72dd88cc0e874",
+        "size": 5135,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/06b9c3ff5edeae7ef4a6ca0defb72dd88cc0e874"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_data/image_example.jpg",
+        "sha": "2046471916e9dd73db262fecb2bc4e1c04e8b79d",
+        "size": 140425,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/2046471916e9dd73db262fecb2bc4e1c04e8b79d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_data/lotus.png",
+        "sha": "4c043a6f0d60262baf691943fa9436ef439cce7b",
+        "size": 3462,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/blobs/4c043a6f0d60262baf691943fa9436ef439cce7b"
+      }
+    ],
+    "truncated": false,
+    "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-.NET/git/trees/91d5aba761b8c3df8525d86659f4184e694e75f2"
+  }
+}

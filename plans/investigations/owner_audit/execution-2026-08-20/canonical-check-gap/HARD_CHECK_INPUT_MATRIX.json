@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "audit_id": "OPT-CANONICAL-103-CHECK-GAP",
+  "requirement": "Identify applicable hard checks that can currently skip or error without blocking; include check_banner_present and determine the generic existing source for family/platform instead of permitting a skip.",
+  "classified_blocking_hard_checks": [
+    {
+      "canonical_name": "check_api_reference_detail_collapsed",
+      "hard_advisory_status": "hard_gate",
+      "required_inputs": [
+        "readme_text"
+      ],
+      "skip_risk": "none -- required params (readme_text and/or markdown_text) are always supplied unconditionally",
+      "error_risk": "present but unmeasured in this read-only pass (no live run executed, per task constraints: no Docker/Qwen/full suite)",
+      "gated_closed_in_broad_validator": false,
+      "gated_closed_in_narrow_acceptance_binding": true,
+      "why_currently_ungated": "validate_readme_document_candidate (src/readme_agent/readme/document_validation.py, the broad gate used by commands_poc.py, presentation/document_planner.py, specialists/readme_factuality.py, verification/checks.py, verification/readme_proposal_bundle.py) calls run_aspose_checks() and only ever inspects AsposeCheckResultV1.findings via blocking_aspose_check_findings() -- an errored check produces zero findings (it never reaches checks_run), so aspose_checks.valid stays True. The error-closes-if-blocking fix (blocking_aspose_check_gaps(), commit 907ac0847) is wired only into local_poc_acceptance_binding.py::validate_acceptance_artifact_chain, a narrower, later-stage gate reachable only through the local-POC candidate/check-coverage.json acceptance path (local_poc_cache.py), not through the five broad-gate call sites above.",
+      "generic_existing_source_identified": null
+    },
+    {
+      "canonical_name": "check_banner_present",
+      "hard_advisory_status": "hard_gate",
+      "required_inputs": [
+        "readme_text",
+        "family",
+        "platform"
+      ],
+      "skip_risk": "high -- empirically skips in nearly every non-full-portfolio run (GOV-014, plans/backlog-post-poc.md:362-379)",
+      "error_risk": "low (readme_text always present once invoked)",
+      "gated_closed_in_broad_validator": false,
+      "gated_closed_in_narrow_acceptance_binding": false,
+      "why_currently_ungated": "family/platform are supplied only when a selected aspose.* fact's source.location starts with 'data/imported:' (aspose_checks_bridge.py::_real_kwargs). Neither gate treats a classified-blocking SKIP as a failure -- local_poc_acceptance_binding.py's validate_acceptance_artifact_chain gates only on outcome=='error' by deliberate design (907ac0847 commit message: gating on skip broke 36+ unrelated tests); validate_readme_document_candidate never inspects skip/error state at all.",
+      "generic_existing_source_identified": "data/products.json (the 33-repository registry) carries 'family' and 'platform' for every registered repository deterministically at load time, keyed by repo_url/org_repo -- independent of whether any Aspose knowledge fact was imported, selected, or survived verification. This is NOT currently threaded into run_aspose_checks()/_real_kwargs(); GOV-014's own text independently proposes the same fix direction ('derive family/platform from a broader real source e.g. the run's own org_repo/registry entry')."
+    },
+    {
+      "canonical_name": "check_dependency_native_system_scope_limitations_placement",
+      "hard_advisory_status": "hard_gate",
+      "required_inputs": [
+        "readme_text"
+      ],
+      "skip_risk": "none -- required params (readme_text and/or markdown_text) are always supplied unconditionally",
+      "error_risk": "present but unmeasured in this read-only pass (no live run executed, per task constraints: no Docker/Qwen/full suite)",
+      "gated_closed_in_broad_validator": false,
+      "gated_closed_in_narrow_acceptance_binding": true,
+      "why_currently_ungated": "validate_readme_document_candidate (src/readme_agent/readme/document_validation.py, the broad gate used by commands_poc.py, presentation/document_planner.py, specialists/readme_factuality.py, verification/checks.py, verification/readme_proposal_bundle.py) calls run_aspose_checks() and only ever inspects AsposeCheckResultV1.findings via blocking_aspose_check_findings() -- an errored check produces zero findings (it never reaches checks_run), so aspose_checks.valid stays True. The error-closes-if-blocking fix (blocking_aspose_check_gaps(), commit 907ac0847) is wired only into local_poc_acceptance_binding.py::validate_acceptance_artifact_chain, a narrower, later-stage gate reachable only through the local-POC candidate/check-coverage.json acceptance path (local_poc_cache.py), not through the five broad-gate call sites above.",
+      "generic_existing_source_identified": null
+    },
+    {
+      "canonical_name": "check_enterprise_edition_naming",
+      "hard_advisory_status": "hard_gate",
+      "required_inputs": [
+        "readme_text"
+      ],
+      "skip_risk": "none -- required params (readme_text and/or markdown_text) are always supplied unconditionally",
+      "error_risk": "present but unmeasured in this read-only pass (no live run executed, per task constraints: no Docker/Qwen/full suite)",
+      "gated_closed_in_broad_validator": false,
+      "gated_closed_in_narrow_acceptance_binding": true,
+      "why_currently_ungated": "validate_readme_document_candidate (src/readme_agent/readme/document_validation.py, the broad gate used by commands_poc.py, presentation/document_planner.py, specialists/readme_factuality.py, verification/checks.py, verification/readme_proposal_bundle.py) calls run_aspose_checks() and only ever inspects AsposeCheckResultV1.findings via blocking_aspose_check_findings() -- an errored check produces zero findings (it never reaches checks_run), so aspose_checks.valid stays True. The error-closes-if-blocking fix (blocking_aspose_check_gaps(), commit 907ac0847) is wired only into local_poc_acceptance_binding.py::validate_acceptance_artifact_chain, a narrower, later-stage gate reachable only through the local-POC candidate/check-coverage.json acceptance path (local_poc_cache.py), not through the five broad-gate call sites above.",
+      "generic_existing_source_identified": null
+    },
+    {
+      "canonical_name": "check_examples_table_collapsed",
+      "hard_advisory_status": "hard_gate",
+      "required_inputs": [
+        "readme_text"
+      ],
+      "skip_risk": "none -- required params (readme_text and/or markdown_text) are always supplied unconditionally",
+      "error_risk": "present but unmeasured in this read-only pass (no live run executed, per task constraints: no Docker/Qwen/full suite)",
+      "gated_closed_in_broad_validator": false,
+      "gated_closed_in_narrow_acceptance_binding": true,
+      "why_currently_ungated": "validate_readme_document_candidate (src/readme_agent/readme/document_validation.py, the broad gate used by commands_poc.py, presentation/document_planner.py, specialists/readme_factuality.py, verification/checks.py, verification/readme_proposal_bundle.py) calls run_aspose_checks() and only ever inspects AsposeCheckResultV1.findings via blocking_aspose_check_findings() -- an errored check produces zero findings (it never reaches checks_run), so aspose_checks.valid stays True. The error-closes-if-blocking fix (blocking_aspose_check_gaps(), commit 907ac0847) is wired only into local_poc_acceptance_binding.py::validate_acceptance_artifact_chain, a narrower, later-stage gate reachable only through the local-POC candidate/check-coverage.json acceptance path (local_poc_cache.py), not through the five broad-gate call sites above.",
+      "generic_existing_source_identified": null
+    },
+    {
+      "canonical_name": "check_no_duplicate_badges_in_candidate",
+      "hard_advisory_status": "hard_gate",
+      "required_inputs": [
+        "readme_text"
+      ],
+      "skip_risk": "none -- required params (readme_text and/or markdown_text) are always supplied unconditionally",
+      "error_risk": "present but unmeasured in this read-only pass (no live run executed, per task constraints: no Docker/Qwen/full suite)",
+      "gated_closed_in_broad_validator": false,
+      "gated_closed_in_narrow_acceptance_binding": true,
+      "why_currently_ungated": "validate_readme_document_candidate (src/readme_agent/readme/document_validation.py, the broad gate used by commands_poc.py, presentation/document_planner.py, specialists/readme_factuality.py, verification/checks.py, verification/readme_proposal_bundle.py) calls run_aspose_checks() and only ever inspects AsposeCheckResultV1.findings via blocking_aspose_check_findings() -- an errored check produces zero findings (it never reaches checks_run), so aspose_checks.valid stays True. The error-closes-if-blocking fix (blocking_aspose_check_gaps(), commit 907ac0847) is wired only into local_poc_acceptance_binding.py::validate_acceptance_artifact_chain, a narrower, later-stage gate reachable only through the local-POC candidate/check-coverage.json acceptance path (local_poc_cache.py), not through the five broad-gate call sites above.",
+      "generic_existing_source_identified": null
+    },
+    {
+      "canonical_name": "check_no_excluded_domain_links",
+      "hard_advisory_status": "hard_gate",
+      "required_inputs": [
+        "readme_text"
+      ],
+      "skip_risk": "none -- required params (readme_text and/or markdown_text) are always supplied unconditionally",
+      "error_risk": "present but unmeasured in this read-only pass (no live run executed, per task constraints: no Docker/Qwen/full suite)",
+      "gated_closed_in_broad_validator": false,
+      "gated_closed_in_narrow_acceptance_binding": true,
+      "why_currently_ungated": "validate_readme_document_candidate (src/readme_agent/readme/document_validation.py, the broad gate used by commands_poc.py, presentation/document_planner.py, specialists/readme_factuality.py, verification/checks.py, verification/readme_proposal_bundle.py) calls run_aspose_checks() and only ever inspects AsposeCheckResultV1.findings via blocking_aspose_check_findings() -- an errored check produces zero findings (it never reaches checks_run), so aspose_checks.valid stays True. The error-closes-if-blocking fix (blocking_aspose_check_gaps(), commit 907ac0847) is wired only into local_poc_acceptance_binding.py::validate_acceptance_artifact_chain, a narrower, later-stage gate reachable only through the local-POC candidate/check-coverage.json acceptance path (local_poc_cache.py), not through the five broad-gate call sites above.",
+      "generic_existing_source_identified": null
+    },
+    {
+      "canonical_name": "check_no_implementation_bridge_disclosure",
+      "hard_advisory_status": "hard_gate",
+      "required_inputs": [
+        "readme_text"
+      ],
+      "skip_risk": "none -- required params (readme_text and/or markdown_text) are always supplied unconditionally",
+      "error_risk": "present but unmeasured in this read-only pass (no live run executed, per task constraints: no Docker/Qwen/full suite)",
+      "gated_closed_in_broad_validator": false,
+      "gated_closed_in_narrow_acceptance_binding": true,
+      "why_currently_ungated": "validate_readme_document_candidate (src/readme_agent/readme/document_validation.py, the broad gate used by commands_poc.py, presentation/document_planner.py, specialists/readme_factuality.py, verification/checks.py, verification/readme_proposal_bundle.py) calls run_aspose_checks() and only ever inspects AsposeCheckResultV1.findings via blocking_aspose_check_findings() -- an errored check produces zero findings (it never reaches checks_run), so aspose_checks.valid stays True. The error-closes-if-blocking fix (blocking_aspose_check_gaps(), commit 907ac0847) is wired only into local_poc_acceptance_binding.py::validate_acceptance_artifact_chain, a narrower, later-stage gate reachable only through the local-POC candidate/check-coverage.json acceptance path (local_poc_cache.py), not through the five broad-gate call sites above.",
+      "generic_existing_source_identified": null
+    },
+    {
+      "canonical_name": "check_project_structure_canonical_tree_format",
+      "hard_advisory_status": "hard_gate",
+      "required_inputs": [
+        "markdown_text"
+      ],
+      "skip_risk": "none -- required params (readme_text and/or markdown_text) are always supplied unconditionally",
+      "error_risk": "present but unmeasured in this read-only pass (no live run executed, per task constraints: no Docker/Qwen/full suite)",
+      "gated_closed_in_broad_validator": false,
+      "gated_closed_in_narrow_acceptance_binding": true,
+      "why_currently_ungated": "validate_readme_document_candidate (src/readme_agent/readme/document_validation.py, the broad gate used by commands_poc.py, presentation/document_planner.py, specialists/readme_factuality.py, verification/checks.py, verification/readme_proposal_bundle.py) calls run_aspose_checks() and only ever inspects AsposeCheckResultV1.findings via blocking_aspose_check_findings() -- an errored check produces zero findings (it never reaches checks_run), so aspose_checks.valid stays True. The error-closes-if-blocking fix (blocking_aspose_check_gaps(), commit 907ac0847) is wired only into local_poc_acceptance_binding.py::validate_acceptance_artifact_chain, a narrower, later-stage gate reachable only through the local-POC candidate/check-coverage.json acceptance path (local_poc_cache.py), not through the five broad-gate call sites above.",
+      "generic_existing_source_identified": null
+    },
+    {
+      "canonical_name": "check_section_intro_no_meta_narration",
+      "hard_advisory_status": "hard_gate",
+      "required_inputs": [
+        "readme_text"
+      ],
+      "skip_risk": "none -- required params (readme_text and/or markdown_text) are always supplied unconditionally",
+      "error_risk": "present but unmeasured in this read-only pass (no live run executed, per task constraints: no Docker/Qwen/full suite)",
+      "gated_closed_in_broad_validator": false,
+      "gated_closed_in_narrow_acceptance_binding": true,
+      "why_currently_ungated": "validate_readme_document_candidate (src/readme_agent/readme/document_validation.py, the broad gate used by commands_poc.py, presentation/document_planner.py, specialists/readme_factuality.py, verification/checks.py, verification/readme_proposal_bundle.py) calls run_aspose_checks() and only ever inspects AsposeCheckResultV1.findings via blocking_aspose_check_findings() -- an errored check produces zero findings (it never reaches checks_run), so aspose_checks.valid stays True. The error-closes-if-blocking fix (blocking_aspose_check_gaps(), commit 907ac0847) is wired only into local_poc_acceptance_binding.py::validate_acceptance_artifact_chain, a narrower, later-stage gate reachable only through the local-POC candidate/check-coverage.json acceptance path (local_poc_cache.py), not through the five broad-gate call sites above.",
+      "generic_existing_source_identified": null
+    },
+    {
+      "canonical_name": "check_unqualified_dependency_claims",
+      "hard_advisory_status": "hard_gate",
+      "required_inputs": [
+        "readme_text"
+      ],
+      "skip_risk": "none -- required params (readme_text and/or markdown_text) are always supplied unconditionally",
+      "error_risk": "present but unmeasured in this read-only pass (no live run executed, per task constraints: no Docker/Qwen/full suite)",
+      "gated_closed_in_broad_validator": false,
+      "gated_closed_in_narrow_acceptance_binding": true,
+      "why_currently_ungated": "validate_readme_document_candidate (src/readme_agent/readme/document_validation.py, the broad gate used by commands_poc.py, presentation/document_planner.py, specialists/readme_factuality.py, verification/checks.py, verification/readme_proposal_bundle.py) calls run_aspose_checks() and only ever inspects AsposeCheckResultV1.findings via blocking_aspose_check_findings() -- an errored check produces zero findings (it never reaches checks_run), so aspose_checks.valid stays True. The error-closes-if-blocking fix (blocking_aspose_check_gaps(), commit 907ac0847) is wired only into local_poc_acceptance_binding.py::validate_acceptance_artifact_chain, a narrower, later-stage gate reachable only through the local-POC candidate/check-coverage.json acceptance path (local_poc_cache.py), not through the five broad-gate call sites above.",
+      "generic_existing_source_identified": null
+    }
+  ],
+  "never_attempted_applicable_hard_gates": {
+    "count": 32,
+    "explanation": "These are severity=hard_gate, classification=applicable_after_adaptation checks that classification.runnable_now is False for -- their real-data production inputs are not wired into aspose_checks_bridge.py at all, so they are skipped on every single run today (not merely 'can skip', but 'always skips'). They are not blocking (classification.blocking is false for all of them), so this is a distinct gap from the 11 above: a hard-gate check with zero real enforcement, pending producer wiring, not pending a skip/error acceptance-gate fix.",
+    "names": [
+      "check_api_reference_classes_exist_in_reference_site",
+      "check_api_reference_table_completeness",
+      "check_badge_disposition_coverage",
+      "check_badge_preserved_or_credited_in_candidate",
+      "check_badge_row_meets_verified_floor",
+      "check_banner_links_to_homepage",
+      "check_code_example_api_coverage_survives",
+      "check_code_example_disposition_coverage",
+      "check_code_example_imports_match_source",
+      "check_code_example_no_exact_duplicate_merge",
+      "check_content_unit_disposition_coverage",
+      "check_content_unit_evidence_resolves",
+      "check_content_unit_excerpt_matches_extraction",
+      "check_content_unit_merged_into_target_section",
+      "check_content_unit_no_exact_duplicate_merge",
+      "check_dependency_disposition_reconciliation",
+      "check_dev_test_artifacts_linked",
+      "check_diagram_container_format_purity",
+      "check_diagram_hybrid_reverification",
+      "check_diagram_matches_capability_dependencies",
+      "check_diagram_verified_format_claims",
+      "check_dropped_content",
+      "check_format_name_casing",
+      "check_license_link_target",
+      "check_no_cross_product_citation",
+      "check_no_undisclosed_blocking_commands",
+      "check_no_upstream_issue_leaked_into_readme",
+      "check_only_mermaid_block_changed",
+      "check_only_sections_changed",
+      "check_structural_unit_disposition_coverage",
+      "check_structural_unit_merged_into_target_section",
+      "check_structural_unit_no_exact_duplicate_merge"
+    ]
+  }
+}

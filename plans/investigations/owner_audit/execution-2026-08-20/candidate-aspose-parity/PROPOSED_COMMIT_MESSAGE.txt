@@ -1,0 +1,15 @@
+docs(owner-audit): add Aspose-parity byte-level audit for 3D/BarCode/Note Python candidates
+
+Read-only rubric audit of the latest runs/share/poc Stage-5 candidates against
+plans/investigations/owner_audit/aspose_candidate_rubric/RUBRIC_30.md, comparing each against
+its sealed pre-refresh source README, current published README, and Aspose.org canonical
+candidate. All three products score below acceptance (14-15/30) and carry hard disqualifiers:
+in-document API/limitations contradictions on all three, a disposition ledger that fails its
+own validity check without blocking delivery on all three, and one confirmed case
+(Aspose.Note) where the product-owner-facing RESULTS.md summary claims DELIVERED against a
+validation.json verdict of reject for the same candidate bytes.
+
+No production code changed; findings are logged as open BACKLOG-ASPOSE-PARITY-* rows in
+CAUSAL_OWNER_BACKLOG.json for follow-up.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>

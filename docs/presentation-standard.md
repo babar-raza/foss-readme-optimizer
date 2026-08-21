@@ -22,8 +22,9 @@ own 25-repository registry, read directly rather than assumed:
   spreadsheets: a third independent instance of the open-core tension, different ecosystem.
 - **Apache PDFBox** (github.com/apache/pdfbox) — pure ASF open source, zero commercial upsell:
   a no-promotional-pressure baseline for contrast.
-- **This project's own 25-repository registry** (`data/products.json`), surveyed live on GitHub
-  and scored against the criteria below, to see where the real portfolio already stands.
+- **A historical 25-repository snapshot of this project's registry**, surveyed live on GitHub and
+  scored against the criteria below. It remains reference evidence, not the current campaign
+  denominator; current scope comes from `RegistryRevisionV1`.
 
 Full evidence, method, and exact quotes: `plans/investigations/reference-repository-benchmark.md`
 and `plans/investigations/full-registry-portfolio-survey.md`.
@@ -34,6 +35,12 @@ not one project's idiosyncrasies — and it surfaced at least one leading projec
 something that should **not** be imitated (see "Product clarity" below).
 
 ## The ten dimensions
+
+The current portfolio campaign evaluates these dimensions through the versioned 30-point rubric in
+`plans/investigations/owner_audit/aspose_candidate_rubric/RUBRIC_30.md`. Acceptance is conjunctive:
+all 30 criterion-specific obligations must pass and every hard disqualifier must be absent. An
+aggregate score, fluent prose, or comparison with an Aspose.org candidate cannot hide a factual,
+preservation, safety, or evidence-lineage failure.
 
 ### 1. Product clarity
 

@@ -1,0 +1,38 @@
+Prospective commit message for a FUTURE implementation commit executing this audit's design
+(IMPLEMENTATION_SEQUENCE.md). Nothing has been implemented or committed by this audit itself --
+this task was design-only, per its constraints (no tracked-file edits, no commits). Provided as the
+task's requested deliverable, to be used verbatim or adapted once K3-1..K3-4 (and, separately,
+C1-1..C1-4) actually land.
+
+---
+
+fix(knowledge): make knowledge-application.json post-render and gate acceptance on it
+
+`knowledge-application.json` was only ever written before a document plan existed
+(supervisor/product_truth.py), so `sections_influenced`/`rendered_output_spans` were always empty --
+confirmed live today against fresh 3D/Note/Barcode facts runs at pin aa998102. Wire the
+already-plan-aware build_knowledge_application_report() into the real post-render call site
+(readme/idea_candidate.py::prepare_idea_fidelity_candidate), join candidate_content_provenance in
+addition to operations[*].fact_ids so the verified-template route is covered too, add per-item
+final_dispositions with a required omission_reason for every selected-but-unrendered item, and block
+local_poc acceptance on a missing/stale/invalid final report
+(local_poc_acceptance_binding.py::validate_acceptance_artifact_chain).
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+---
+
+feat(presentation): render verified limitation/install/troubleshoot/format-support knowledge
+
+Five of six imported aspose.*_claims fields (KNOW-013) had zero renderer consumers despite reaching
+the Qwen packet or the fact graph. Add bounded, fact_id-cited consumers: limitation_claims into
+document_limitations.py, install_claims into document_acquisition.py, a new
+document_troubleshooting.py for troubleshoot_claims, and format_support/feature_claims into
+verified_template_capabilities.py's capability rows behind a narrow inline source-polarity check
+(cited method body must not be a bare NotImplementedError stub) -- required because today's live 3D
+data shows two verified/corroborated format_support items (CLM-3d-2d3c40, CLM-3d-4ae50d) that are
+false positives excluded from the current run only by selection-cap luck, not by any correctness
+check. Every field keeps its existing per-field selection cap as the render-time ceiling; every
+omitted verified item gets a typed omission_reason surfaced through the K3 accountability artifact.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>

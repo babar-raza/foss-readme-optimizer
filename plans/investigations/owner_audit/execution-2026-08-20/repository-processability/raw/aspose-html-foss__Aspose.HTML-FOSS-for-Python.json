@@ -1,0 +1,3168 @@
+{
+  "branch": {
+    "_links": {
+      "html": "https://github.com/aspose-html-foss/Aspose.HTML-FOSS-for-Python/tree/main",
+      "self": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/branches/main"
+    },
+    "commit": {
+      "author": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1225645?v=4",
+        "events_url": "https://api.github.com/users/babar-raza/events{/privacy}",
+        "followers_url": "https://api.github.com/users/babar-raza/followers",
+        "following_url": "https://api.github.com/users/babar-raza/following{/other_user}",
+        "gists_url": "https://api.github.com/users/babar-raza/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/babar-raza",
+        "id": 1225645,
+        "login": "babar-raza",
+        "node_id": "MDQ6VXNlcjEyMjU2NDU=",
+        "organizations_url": "https://api.github.com/users/babar-raza/orgs",
+        "received_events_url": "https://api.github.com/users/babar-raza/received_events",
+        "repos_url": "https://api.github.com/users/babar-raza/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/babar-raza/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/babar-raza/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/babar-raza",
+        "user_view_type": "public"
+      },
+      "comments_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/commits/912f0ae078b5418226a51de08539bc591547682e/comments",
+      "commit": {
+        "author": {
+          "date": "2026-08-16T13:12:43Z",
+          "email": "babar.raza@aspose.com",
+          "name": "Babar Raza"
+        },
+        "comment_count": 0,
+        "committer": {
+          "date": "2026-08-16T13:12:43Z",
+          "email": "noreply@github.com",
+          "name": "GitHub"
+        },
+        "message": "fix(readme): production-grade README refresh (#2)\n\nfix(readme): production-grade README refresh\n\n- Restore or add a Dependencies section, At-a-Glance diagram, and Documentation\n  and Resources links, matching this repository real, current source and its\n  documented capabilities.\n- Rewrite Installation to state the real, working source-checkout install path\n  directly, without narrating internal build-diagnostic detail.\n- Verify code examples, API reference entries, and capability descriptions\n  against the current source; correct or remove anything unverifiable.\n- No other unrelated content changed.\n\nVerification:\n- Every code example and API reference claim independently verified against\n  the current source at commit c2356ec872fd7d64c14a0ae8cc043eea1a03847e.\n- Full deterministic README-quality check battery re-run against the final\n  candidate: 0 hard-gate failures.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "813b6a2b2b334bc05ffad9359ae2bef3a91c4f64",
+          "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/813b6a2b2b334bc05ffad9359ae2bef3a91c4f64"
+        },
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/commits/912f0ae078b5418226a51de08539bc591547682e",
+        "verification": {
+          "payload": "tree 813b6a2b2b334bc05ffad9359ae2bef3a91c4f64\nparent c2356ec872fd7d64c14a0ae8cc043eea1a03847e\nauthor Babar Raza <babar.raza@aspose.com> 1786885963 +0500\ncommitter GitHub <noreply@github.com> 1786885963 +0500\n\nfix(readme): production-grade README refresh (#2)\n\nfix(readme): production-grade README refresh\n\n- Restore or add a Dependencies section, At-a-Glance diagram, and Documentation\n  and Resources links, matching this repository real, current source and its\n  documented capabilities.\n- Rewrite Installation to state the real, working source-checkout install path\n  directly, without narrating internal build-diagnostic detail.\n- Verify code examples, API reference entries, and capability descriptions\n  against the current source; correct or remove anything unverifiable.\n- No other unrelated content changed.\n\nVerification:\n- Every code example and API reference claim independently verified against\n  the current source at commit c2356ec872fd7d64c14a0ae8cc043eea1a03847e.\n- Full deterministic README-quality check battery re-run against the final\n  candidate: 0 hard-gate failures.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqgbdLCRC1aQ7uu5UhlAAAploQAJnhx4vBTORsnI7Hf+Du3OBj\nANI+d3wBmu6PERPTux+34LmonXDyQCr33zSwlpKU6zu1AMVZewfAqt+wihJG6ou+\naYBZhkA+UI4oI8Abcn6pP8EmasZcWbxT2OAEKf1PVKClzPaCj6CXP4DSXm4Nd9wW\nNvTgrZGs7NPxxEQyD8qScKdFgvl0oFiQKlBgfUnV9A92rukUT6V3NBvn42exoUdJ\nlyBzRqlujhOY2Q+qIfZyNtn1Vpdhg4C+hUhrqe9pVz2UnQHe8GNt85pxk/miuoYY\n5B2w+d2OLFuLNxTrPtwjU4YXlR7w6BdhydDjjP42caGp1EW308jULL7QPTH+eEhb\n/uWwCoOoFqhRRWNMDM2lwWXzq27Ck2sQZ+J1fKNqGquiqen3DkQuYz6MDUo8AMdK\nuM2o8GkVdhKfR96pKi3calWUVQ/z1rfSDz9wNvJXBWss215Tp1vL17mw5IXbxTi/\nMQe5GBeG4jy6a6EBVwfFLf/EljpTVIwT+ucgboehJtzFWb8Dl4dQcdFnThkSPH8R\nfFgkHugMWK+Qa8gPC1h9LfTXshOw0r+oBAef/A3SUBt1Bh6o1l3UPgsFRsus96yZ\ngQjym3UyFINDVh47Ds+bXq2C29rnBH5UQ0sYLVOwiUUa1wRvM4PHDI+LuZ5LdeMf\n9hDk1IO36DPbtuFKsbBF\n=KVrn\n-----END PGP SIGNATURE-----\n",
+          "verified": true,
+          "verified_at": "2026-08-16T13:12:43Z"
+        }
+      },
+      "committer": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/web-flow",
+        "id": 19864447,
+        "login": "web-flow",
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/web-flow",
+        "user_view_type": "public"
+      },
+      "html_url": "https://github.com/aspose-html-foss/Aspose.HTML-FOSS-for-Python/commit/912f0ae078b5418226a51de08539bc591547682e",
+      "node_id": "C_kwDOTBdq_toAKDkxMmYwYWUwNzhiNTQxODIyNmE1MWRlMDg1MzliYzU5MTU0NzY4MmU",
+      "parents": [
+        {
+          "html_url": "https://github.com/aspose-html-foss/Aspose.HTML-FOSS-for-Python/commit/c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
+          "sha": "c2356ec872fd7d64c14a0ae8cc043eea1a03847e",
+          "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/commits/c2356ec872fd7d64c14a0ae8cc043eea1a03847e"
+        }
+      ],
+      "sha": "912f0ae078b5418226a51de08539bc591547682e",
+      "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/commits/912f0ae078b5418226a51de08539bc591547682e"
+    },
+    "name": "main",
+    "protected": false,
+    "protection": {
+      "enabled": false,
+      "required_status_checks": {
+        "checks": [],
+        "contexts": [],
+        "enforcement_level": "off"
+      }
+    },
+    "protection_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/branches/main/protection"
+  },
+  "repo": {
+    "allow_auto_merge": false,
+    "allow_forking": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "archive_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/branches{/branch}",
+    "clone_url": "https://github.com/aspose-html-foss/Aspose.HTML-FOSS-for-Python.git",
+    "collaborators_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/comments{/number}",
+    "commits_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/contributors",
+    "created_at": "2026-06-22T06:06:37Z",
+    "custom_properties": {},
+    "default_branch": "main",
+    "delete_branch_on_merge": false,
+    "deployments_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/deployments",
+    "description": "Open-source pure Python library for parsing, creating, and modifying HTML documents, with DOM, CSS, URL, and encoding support\u2014no browser or native dependencies required.",
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/downloads",
+    "events_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/events",
+    "fork": false,
+    "forks": 0,
+    "forks_count": 0,
+    "forks_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/forks",
+    "full_name": "aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+    "git_commits_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/tags{/sha}",
+    "git_url": "git://github.com/aspose-html-foss/Aspose.HTML-FOSS-for-Python.git",
+    "has_discussions": false,
+    "has_downloads": false,
+    "has_issues": true,
+    "has_pages": false,
+    "has_projects": true,
+    "has_pull_requests": true,
+    "has_wiki": false,
+    "homepage": "https://products.aspose.org/html/python/",
+    "hooks_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/hooks",
+    "html_url": "https://github.com/aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+    "id": 1276603134,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/issues{/number}",
+    "keys_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/labels{/name}",
+    "language": "Python",
+    "languages_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/languages",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "node_id": "MDc6TGljZW5zZTEz",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit"
+    },
+    "merge_commit_message": "PR_TITLE",
+    "merge_commit_title": "MERGE_MESSAGE",
+    "merges_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/merges",
+    "milestones_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/milestones{/number}",
+    "mirror_url": null,
+    "name": "Aspose.HTML-FOSS-for-Python",
+    "network_count": 0,
+    "node_id": "R_kgDOTBdq_g",
+    "notifications_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/notifications{?since,all,participating}",
+    "open_issues": 0,
+    "open_issues_count": 0,
+    "organization": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224595845?v=4",
+      "events_url": "https://api.github.com/users/aspose-html-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-html-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-html-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-html-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-html-foss",
+      "id": 224595845,
+      "login": "aspose-html-foss",
+      "node_id": "O_kgDODWMPhQ",
+      "organizations_url": "https://api.github.com/users/aspose-html-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-html-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-html-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-html-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-html-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-html-foss",
+      "user_view_type": "public"
+    },
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224595845?v=4",
+      "events_url": "https://api.github.com/users/aspose-html-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-html-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-html-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-html-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-html-foss",
+      "id": 224595845,
+      "login": "aspose-html-foss",
+      "node_id": "O_kgDODWMPhQ",
+      "organizations_url": "https://api.github.com/users/aspose-html-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-html-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-html-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-html-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-html-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-html-foss",
+      "user_view_type": "public"
+    },
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "private": false,
+    "pull_request_creation_policy": "all",
+    "pulls_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/pulls{/number}",
+    "pushed_at": "2026-08-16T13:12:44Z",
+    "releases_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/releases{/id}",
+    "security_and_analysis": {
+      "dependabot_security_updates": {
+        "status": "disabled"
+      },
+      "secret_scanning": {
+        "status": "disabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    },
+    "size": 872,
+    "squash_merge_commit_message": "COMMIT_MESSAGES",
+    "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+    "ssh_url": "git@github.com:aspose-html-foss/Aspose.HTML-FOSS-for-Python.git",
+    "stargazers_count": 0,
+    "stargazers_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/stargazers",
+    "statuses_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/statuses/{sha}",
+    "subscribers_count": 0,
+    "subscribers_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/subscribers",
+    "subscription_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/subscription",
+    "svn_url": "https://github.com/aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+    "tags_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/tags",
+    "teams_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/teams",
+    "temp_clone_token": "",
+    "topics": [],
+    "trees_url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees{/sha}",
+    "updated_at": "2026-08-16T13:13:08Z",
+    "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python",
+    "use_squash_pr_title_as_default": false,
+    "visibility": "public",
+    "watchers": 0,
+    "watchers_count": 0,
+    "web_commit_signoff_required": false
+  },
+  "tree": {
+    "sha": "813b6a2b2b334bc05ffad9359ae2bef3a91c4f64",
+    "tree": [
+      {
+        "mode": "100644",
+        "path": ".gitignore",
+        "sha": "3d43398e1e532eb46ecba7a2a3d68ada5084bc2a",
+        "size": 377,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/3d43398e1e532eb46ecba7a2a3d68ada5084bc2a"
+      },
+      {
+        "mode": "100644",
+        "path": "CHANGELOG.md",
+        "sha": "f2192b0d3abf5b4dd406a5d1399076119b6521d7",
+        "size": 462,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f2192b0d3abf5b4dd406a5d1399076119b6521d7"
+      },
+      {
+        "mode": "100644",
+        "path": "CITATION.cff",
+        "sha": "16eed634e6645bfbe6a713e1f276f3bbb8a34eb0",
+        "size": 379,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/16eed634e6645bfbe6a713e1f276f3bbb8a34eb0"
+      },
+      {
+        "mode": "100644",
+        "path": "CONTRIBUTING.md",
+        "sha": "b6135e03b10846809e628f85cf9cebbaae4e8a79",
+        "size": 707,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/b6135e03b10846809e628f85cf9cebbaae4e8a79"
+      },
+      {
+        "mode": "100644",
+        "path": "LICENSE",
+        "sha": "dbff7613e29a601b1bc15c406762e24c93c63102",
+        "size": 1086,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/dbff7613e29a601b1bc15c406762e24c93c63102"
+      },
+      {
+        "mode": "100644",
+        "path": "MANIFEST.in",
+        "sha": "15068cdbc5e88f7a0f6f3a53a7062863f076869f",
+        "size": 164,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/15068cdbc5e88f7a0f6f3a53a7062863f076869f"
+      },
+      {
+        "mode": "100644",
+        "path": "PUBLIC_API.md",
+        "sha": "35bc7a1480cf6eff830b11456a0dc17ad772f4b3",
+        "size": 1752,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/35bc7a1480cf6eff830b11456a0dc17ad772f4b3"
+      },
+      {
+        "mode": "100644",
+        "path": "README.md",
+        "sha": "dbd8233a2d8463d047efc6a94cd9776757f07699",
+        "size": 33238,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/dbd8233a2d8463d047efc6a94cd9776757f07699"
+      },
+      {
+        "mode": "100644",
+        "path": "SECURITY.md",
+        "sha": "d07716a54b5d385848be4fd71327579037a328dd",
+        "size": 552,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/d07716a54b5d385848be4fd71327579037a328dd"
+      },
+      {
+        "mode": "100644",
+        "path": "conftest.py",
+        "sha": "3b57b474b295136f04329b5e58756efe2f44d774",
+        "size": 829,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/3b57b474b295136f04329b5e58756efe2f44d774"
+      },
+      {
+        "mode": "040000",
+        "path": "examples",
+        "sha": "d9f29abfd069fc7ea1710e3883a7bdbd4f72cae4",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/d9f29abfd069fc7ea1710e3883a7bdbd4f72cae4"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/parse_and_update.py",
+        "sha": "f8639fabc13f8e12bb97cf211c3cb5ed2ca3e49e",
+        "size": 329,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f8639fabc13f8e12bb97cf211c3cb5ed2ca3e49e"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/url_search_params.py",
+        "sha": "4ff4402e60c3b769613a092c01b31122bc720646",
+        "size": 138,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/4ff4402e60c3b769613a092c01b31122bc720646"
+      },
+      {
+        "mode": "100644",
+        "path": "pyproject.toml",
+        "sha": "dc642ae2d719fdb81fd61dcdf3fe0e02e09e91ca",
+        "size": 1357,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/dc642ae2d719fdb81fd61dcdf3fe0e02e09e91ca"
+      },
+      {
+        "mode": "040000",
+        "path": "src",
+        "sha": "220cedff181beb83d8c79380b2f211dc06268a4f",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/220cedff181beb83d8c79380b2f211dc06268a4f"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_html",
+        "sha": "8e3f8c407acdd5f17f22a6273f91366db359a276",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/8e3f8c407acdd5f17f22a6273f91366db359a276"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/__init__.py",
+        "sha": "30cdada0c2a581c6d1a8ed400bdb1b69aa41417c",
+        "size": 424,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/30cdada0c2a581c6d1a8ed400bdb1b69aa41417c"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_html/css",
+        "sha": "c8e84eaead6f180632e9006eb7b0a4976ceacc76",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/c8e84eaead6f180632e9006eb7b0a4976ceacc76"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/css/__init__.py",
+        "sha": "79a3e02d3385c544248856abbbd865ac6b9185ce",
+        "size": 3897,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/79a3e02d3385c544248856abbbd865ac6b9185ce"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/css/_ast.py",
+        "sha": "8953a93320cfd7d52beb85ffc92139f58c524fda",
+        "size": 10566,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/8953a93320cfd7d52beb85ffc92139f58c524fda"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/css/_errors.py",
+        "sha": "8b05be6e830100515b16147c434b72975c16a6d8",
+        "size": 735,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/8b05be6e830100515b16147c434b72975c16a6d8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/css/_matcher.py",
+        "sha": "b18149aa69c51705e77c0f0098e96340e15f6d23",
+        "size": 37462,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/b18149aa69c51705e77c0f0098e96340e15f6d23"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/css/_parser.py",
+        "sha": "19e31b519d58e6d791d7965a23431453c0557b39",
+        "size": 45461,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/19e31b519d58e6d791d7965a23431453c0557b39"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/css/_specificity.py",
+        "sha": "0dbc13114faf7c3b1fd592d9b3346702e1419687",
+        "size": 5381,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/0dbc13114faf7c3b1fd592d9b3346702e1419687"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_html/cssom",
+        "sha": "ca591b63e5ab0224c54029b57552c40fa18a586b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/ca591b63e5ab0224c54029b57552c40fa18a586b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/cssom/__init__.py",
+        "sha": "808fd54768eae7202c1b02fe20ad7937596cad8a",
+        "size": 3289,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/808fd54768eae7202c1b02fe20ad7937596cad8a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/cssom/_declarations.py",
+        "sha": "96479a691080be26d30963449d706780396490ad",
+        "size": 7465,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/96479a691080be26d30963449d706780396490ad"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/cssom/_parser.py",
+        "sha": "8e249a4335b32875a133036e0d7c40f20538fe0f",
+        "size": 19355,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/8e249a4335b32875a133036e0d7c40f20538fe0f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/cssom/_rules.py",
+        "sha": "3e5611a105651dbf71e1b77bd836fa31f5c168ac",
+        "size": 36844,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/3e5611a105651dbf71e1b77bd836fa31f5c168ac"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/cssom/_stylesheet.py",
+        "sha": "3376e3fab8cfbe24b7ef7680faecff847723472d",
+        "size": 13827,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/3376e3fab8cfbe24b7ef7680faecff847723472d"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_html/dom",
+        "sha": "c80ec751dacb397cab0ffcc56bb6679f28cb2708",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/c80ec751dacb397cab0ffcc56bb6679f28cb2708"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/__init__.py",
+        "sha": "4bba7274fa40360fe3d94dc8ecaa2aee6a1a4100",
+        "size": 8548,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/4bba7274fa40360fe3d94dc8ecaa2aee6a1a4100"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_abort_controller.py",
+        "sha": "2c4aa756f42cd0ff1599ec4bb91a040ec1e9d602",
+        "size": 4456,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/2c4aa756f42cd0ff1599ec4bb91a040ec1e9d602"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_attr.py",
+        "sha": "01a0009fb509a921c84e41b501cca8ee16fbe552",
+        "size": 7218,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/01a0009fb509a921c84e41b501cca8ee16fbe552"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_browsing_context.py",
+        "sha": "fe5cf34f9d5e56d22c7721ab36985702688c943a",
+        "size": 5297,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/fe5cf34f9d5e56d22c7721ab36985702688c943a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_cascade.py",
+        "sha": "6745066a3d1e13c88f9a1d478e7cf34035014dad",
+        "size": 34853,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/6745066a3d1e13c88f9a1d478e7cf34035014dad"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_cascade_data.py",
+        "sha": "cd469f832821ac9098ac1848caa638f61f03f66a",
+        "size": 42384,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/cd469f832821ac9098ac1848caa638f61f03f66a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_cascade_shorthands.py",
+        "sha": "33c907c06f3a07e674f687fa208d1e1ce275f7af",
+        "size": 45438,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/33c907c06f3a07e674f687fa208d1e1ce275f7af"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_character_data.py",
+        "sha": "765556cf6050b7442b86b3e581b35ad13cc07085",
+        "size": 14817,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/765556cf6050b7442b86b3e581b35ad13cc07085"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_collections.py",
+        "sha": "fa418c4eb0962018d0664529c286f9a6de33124d",
+        "size": 15833,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/fa418c4eb0962018d0664529c286f9a6de33124d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_custom_elements.py",
+        "sha": "fdd65246db520e623c649ecb372fc1f10da49dea",
+        "size": 7162,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/fdd65246db520e623c649ecb372fc1f10da49dea"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_dataset.py",
+        "sha": "e133a5469043d81e6b840859c8b9202072628e17",
+        "size": 11526,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e133a5469043d81e6b840859c8b9202072628e17"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_document.py",
+        "sha": "02a8fbccedfc784076599accff3816e0df2631a2",
+        "size": 109512,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/02a8fbccedfc784076599accff3816e0df2631a2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_document_fragment.py",
+        "sha": "dd31a39ff8685e37f1893d3e881a8243766a23a2",
+        "size": 9641,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/dd31a39ff8685e37f1893d3e881a8243766a23a2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_document_type.py",
+        "sha": "2741f50a98e871b69a668f209b1dcc19d9ea15a8",
+        "size": 2591,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/2741f50a98e871b69a668f209b1dcc19d9ea15a8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_dom_parsing.py",
+        "sha": "c2c870b3ac8d5ba3faab40b6382a7ec12b99c8bb",
+        "size": 2434,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c2c870b3ac8d5ba3faab40b6382a7ec12b99c8bb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_element.py",
+        "sha": "f5d6f7abe0fa8c23a5ea545677658de8d85363e1",
+        "size": 95739,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f5d6f7abe0fa8c23a5ea545677658de8d85363e1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_event.py",
+        "sha": "2bbbb1b8a68e905d1cb33976e524826b88a9fad3",
+        "size": 25434,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/2bbbb1b8a68e905d1cb33976e524826b88a9fad3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_event_target.py",
+        "sha": "1cb5dff975b6800313e7dd92b47817987b63b735",
+        "size": 10128,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/1cb5dff975b6800313e7dd92b47817987b63b735"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_exceptions.py",
+        "sha": "3a1afe8ff7407e1a05caf7d8ee62a82521eca96f",
+        "size": 3442,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/3a1afe8ff7407e1a05caf7d8ee62a82521eca96f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_form_data.py",
+        "sha": "0d0f9939b06dacf9ed033e414dcd1f75bb0328b1",
+        "size": 4167,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/0d0f9939b06dacf9ed033e414dcd1f75bb0328b1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_geometry.py",
+        "sha": "60471e15fc7ae7bfe230b5302070080494aee8d6",
+        "size": 4826,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/60471e15fc7ae7bfe230b5302070080494aee8d6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_history.py",
+        "sha": "2bc8d6a18b3451cd0d1b106d63923dd0c5bda165",
+        "size": 7579,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/2bc8d6a18b3451cd0d1b106d63923dd0c5bda165"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_html_element.py",
+        "sha": "18f6de0fa8b4ce00a7489fbff7778e87b7934272",
+        "size": 29183,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/18f6de0fa8b4ce00a7489fbff7778e87b7934272"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_implementation.py",
+        "sha": "2a77b65489f5f142c547301b192a3d2fc22e6982",
+        "size": 5937,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/2a77b65489f5f142c547301b192a3d2fc22e6982"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_mutation_observer.py",
+        "sha": "97c0ea96814424c4c8fa879d0fbc6cbbee3e3d21",
+        "size": 12993,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/97c0ea96814424c4c8fa879d0fbc6cbbee3e3d21"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_node.py",
+        "sha": "cb1cab5075001bea8dc6cbcd1c0fb77735689043",
+        "size": 48275,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/cb1cab5075001bea8dc6cbcd1c0fb77735689043"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_node_type.py",
+        "sha": "eb3c72de50b2ac1ff03ffb98494677bb741093fd",
+        "size": 678,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/eb3c72de50b2ac1ff03ffb98494677bb741093fd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_processing_instruction.py",
+        "sha": "524c04c75adfce4abce9db018d8100ffbd0d2b6b",
+        "size": 1945,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/524c04c75adfce4abce9db018d8100ffbd0d2b6b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_range.py",
+        "sha": "80bb5e5afd5389ff6ba01ac3e957682381589cc8",
+        "size": 66833,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/80bb5e5afd5389ff6ba01ac3e957682381589cc8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_selection.py",
+        "sha": "22cf6975b1b3185ca260b73e5a0620232481304d",
+        "size": 16383,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/22cf6975b1b3185ca260b73e5a0620232481304d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_structured_clone.py",
+        "sha": "c35e6cf3effbeebe6994767220adeb535328348a",
+        "size": 6662,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c35e6cf3effbeebe6994767220adeb535328348a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_style.py",
+        "sha": "75f44b4ca2f4913686bfa74331f0471bea49c803",
+        "size": 15484,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/75f44b4ca2f4913686bfa74331f0471bea49c803"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_style_sheets.py",
+        "sha": "3ede601bd9b60ebd54ed9bea8663ffc01c087486",
+        "size": 1239,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/3ede601bd9b60ebd54ed9bea8663ffc01c087486"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_token_list.py",
+        "sha": "b03020bebf80371274d66efaa0fbf08a98d0ebbb",
+        "size": 19395,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/b03020bebf80371274d66efaa0fbf08a98d0ebbb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_traversal.py",
+        "sha": "54b2c4cff511a6913187d275ce26828489ab30ea",
+        "size": 33451,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/54b2c4cff511a6913187d275ce26828489ab30ea"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_ua_stylesheet.py",
+        "sha": "240bd283a20e219b13b07da29a9f56d663fa545d",
+        "size": 10311,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/240bd283a20e219b13b07da29a9f56d663fa545d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_validation.py",
+        "sha": "26bcf43a052cb0101420b2be95a144f0860431e7",
+        "size": 5018,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/26bcf43a052cb0101420b2be95a144f0860431e7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_window.py",
+        "sha": "57980663e25f29dabfa4c5f0ea3307f1dbe7a0b7",
+        "size": 67221,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/57980663e25f29dabfa4c5f0ea3307f1dbe7a0b7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_window_event_loop.py",
+        "sha": "d370f4001c7aebf55fa94c0523acd994b18896c2",
+        "size": 4685,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/d370f4001c7aebf55fa94c0523acd994b18896c2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/_window_stubs.py",
+        "sha": "b220d534eb6fbc9bad34bcf44fa2e29661c112da",
+        "size": 57059,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/b220d534eb6fbc9bad34bcf44fa2e29661c112da"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_html/dom/html",
+        "sha": "10ba5aba2042c9345df520a3b5c7f8ff7cbfc385",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/10ba5aba2042c9345df520a3b5c7f8ff7cbfc385"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/html/__init__.py",
+        "sha": "81777558baada6d49c44c03632bcb31fc23baa9f",
+        "size": 9083,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/81777558baada6d49c44c03632bcb31fc23baa9f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/html/_anchor_elements.py",
+        "sha": "47037359f4d9aa93b581167c7f70941e5bc3ebc7",
+        "size": 26435,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/47037359f4d9aa93b581167c7f70941e5bc3ebc7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/html/_elements.py",
+        "sha": "f444408925a4ddf0b16116e32b029ba4f347e903",
+        "size": 5140,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f444408925a4ddf0b16116e32b029ba4f347e903"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/html/_embedded_elements.py",
+        "sha": "399b3b7717ec634e5909e025da16fbdf7351bbee",
+        "size": 42931,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/399b3b7717ec634e5909e025da16fbdf7351bbee"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/html/_form_elements.py",
+        "sha": "1f2d98fb2c7d6583f0a716cb9fe686cd919e1bf7",
+        "size": 136880,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/1f2d98fb2c7d6583f0a716cb9fe686cd919e1bf7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/html/_list_elements.py",
+        "sha": "e34789e4411d49041d368ee5812eee51dd5609f7",
+        "size": 5281,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e34789e4411d49041d368ee5812eee51dd5609f7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/html/_media_elements.py",
+        "sha": "f1ee7d31fdbd1788948f6f14c614e3ae8619a482",
+        "size": 27338,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f1ee7d31fdbd1788948f6f14c614e3ae8619a482"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/html/_metadata_elements.py",
+        "sha": "6be76d12d0cbb8221f3a8c358a32034195914da8",
+        "size": 38722,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/6be76d12d0cbb8221f3a8c358a32034195914da8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/html/_sectioning_elements.py",
+        "sha": "b2397148339099243e92f9f1c4468a0dcf453488",
+        "size": 21607,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/b2397148339099243e92f9f1c4468a0dcf453488"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/html/_table_elements.py",
+        "sha": "23cb092cfc464e74f4cbde43ccbe694cbe661d54",
+        "size": 38691,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/23cb092cfc464e74f4cbde43ccbe694cbe661d54"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/dom/html/_text_elements.py",
+        "sha": "337f08a8bb50b992d9a0e9c33198df13c346170c",
+        "size": 6036,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/337f08a8bb50b992d9a0e9c33198df13c346170c"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_html/encoding",
+        "sha": "ace9daa31accbe34c194e1a69436457d1c10dd9b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/ace9daa31accbe34c194e1a69436457d1c10dd9b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/encoding/__init__.py",
+        "sha": "6bc6cd03cb36c624af2376518ce0d0e7fa8db79c",
+        "size": 318,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/6bc6cd03cb36c624af2376518ce0d0e7fa8db79c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/encoding/_bom.py",
+        "sha": "5e561a6775320c3c7caa2a6659d2c089aeeeadbf",
+        "size": 990,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/5e561a6775320c3c7caa2a6659d2c089aeeeadbf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/encoding/_decoder.py",
+        "sha": "3173f55ab2d160c4132f5d77ee5fe37065efb23e",
+        "size": 3707,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/3173f55ab2d160c4132f5d77ee5fe37065efb23e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/encoding/_labels.py",
+        "sha": "4a7a3300c1e7203cccac0cbd0c2356acf07e1443",
+        "size": 9358,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/4a7a3300c1e7203cccac0cbd0c2356acf07e1443"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/encoding/_prescan.py",
+        "sha": "0c4f038cf2e2df473615253448a53fa5ac48be58",
+        "size": 5478,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/0c4f038cf2e2df473615253448a53fa5ac48be58"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/encoding/detection.py",
+        "sha": "babefaa2a9a3539c1202bcae8192605547220cd7",
+        "size": 4666,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/babefaa2a9a3539c1202bcae8192605547220cd7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/html_document.py",
+        "sha": "f8c708393df9649db2933c4ee83cde97fd835a08",
+        "size": 9614,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f8c708393df9649db2933c4ee83cde97fd835a08"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_html/js",
+        "sha": "21025548b5eb84e55ae5c35f79dee2865e345ec9",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/21025548b5eb84e55ae5c35f79dee2865e345ec9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/js/__init__.py",
+        "sha": "81d18dbe4cf76064b7ef53ad6e609b434316ba94",
+        "size": 1524,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/81d18dbe4cf76064b7ef53ad6e609b434316ba94"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/js/_dom_proxy.py",
+        "sha": "e881f1d49b14f1b294b109519c379a0eca592cf7",
+        "size": 14422,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e881f1d49b14f1b294b109519c379a0eca592cf7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/js/_module_loader.py",
+        "sha": "2d1628aefa2a246f6ee8c0ed7b308350874f0fbf",
+        "size": 6438,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/2d1628aefa2a246f6ee8c0ed7b308350874f0fbf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/js/_quickjs_bridge.py",
+        "sha": "56cf3b57a07e7f9639d93d7aad99077ee58562ba",
+        "size": 20359,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/56cf3b57a07e7f9639d93d7aad99077ee58562ba"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_html/layout",
+        "sha": "a07c47121279b3162a518a5b1ddb89d8fe9b4fda",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/a07c47121279b3162a518a5b1ddb89d8fe9b4fda"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/layout/__init__.py",
+        "sha": "b27b51be191037aea0ee7dfb310e3c64a8e7e450",
+        "size": 2664,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/b27b51be191037aea0ee7dfb310e3c64a8e7e450"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/layout/_block.py",
+        "sha": "382d3bb3e4da2a94ee0cb93110f29d44184602dd",
+        "size": 5961,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/382d3bb3e4da2a94ee0cb93110f29d44184602dd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/layout/_box_tree.py",
+        "sha": "761edae8a91ad9a9e4e0823c16e8000b59880293",
+        "size": 18458,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/761edae8a91ad9a9e4e0823c16e8000b59880293"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/layout/_computed_style.py",
+        "sha": "a37a048c088a106c72619b4a438e492c7df0ae5e",
+        "size": 5523,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/a37a048c088a106c72619b4a438e492c7df0ae5e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/layout/_fragment_tree.py",
+        "sha": "cfca9583bf50d7efec0e082bd99072744f1ef8ca",
+        "size": 2423,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/cfca9583bf50d7efec0e082bd99072744f1ef8ca"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/layout/_inline.py",
+        "sha": "dcb84030eea0abb313738a89e17658e268b1cb08",
+        "size": 6537,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/dcb84030eea0abb313738a89e17658e268b1cb08"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/layout/_pagination.py",
+        "sha": "9ac440e55137675a0dfe06c4723d24f88c6ea700",
+        "size": 4820,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/9ac440e55137675a0dfe06c4723d24f88c6ea700"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/layout/_style_cache.py",
+        "sha": "d7e5efb0d40f14ce771b926f71cd2f12fee7352a",
+        "size": 3581,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/d7e5efb0d40f14ce771b926f71cd2f12fee7352a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/py.typed",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/serialiser.py",
+        "sha": "48e0f3e1bfcd622079fc6f7a4f0f3451460dd30a",
+        "size": 11165,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/48e0f3e1bfcd622079fc6f7a4f0f3451460dd30a"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_html/tokenizer",
+        "sha": "6227273fb6b5e93c882746419d64d167053f3dcb",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/6227273fb6b5e93c882746419d64d167053f3dcb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tokenizer/__init__.py",
+        "sha": "2b96bf21707250093df11617ecda2cba51a9fbac",
+        "size": 1205,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/2b96bf21707250093df11617ecda2cba51a9fbac"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tokenizer/_char_ref_data.py",
+        "sha": "92c73829c9076feba152a2028657234840bd07fc",
+        "size": 50597,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/92c73829c9076feba152a2028657234840bd07fc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tokenizer/_char_refs.py",
+        "sha": "5cceef91a54ec0aaf67681b8be2cf227f465a4ab",
+        "size": 6443,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/5cceef91a54ec0aaf67681b8be2cf227f465a4ab"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tokenizer/_states.py",
+        "sha": "16b4c1bba31237b8cf1cd314ed402389188dd4dd",
+        "size": 4960,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/16b4c1bba31237b8cf1cd314ed402389188dd4dd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tokenizer/_tokenizer.py",
+        "sha": "b8b7a1a9d0a66604a8a0a7ed5d1b18978bd0771e",
+        "size": 94494,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/b8b7a1a9d0a66604a8a0a7ed5d1b18978bd0771e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tokenizer/_tokens.py",
+        "sha": "5bae25156f361a73d8641d5ac5db972ec39dece8",
+        "size": 4781,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/5bae25156f361a73d8641d5ac5db972ec39dece8"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_html/tree",
+        "sha": "8302256ae17a19d56bd7022d54766af4fa58091a",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/8302256ae17a19d56bd7022d54766af4fa58091a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tree/__init__.py",
+        "sha": "89d2d30452bc6ef10e5e0a392c8fcbbea2e319e9",
+        "size": 669,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/89d2d30452bc6ef10e5e0a392c8fcbbea2e319e9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tree/_active_formatting.py",
+        "sha": "62248b9f51e031f0c5500d417299ea2fb5c9c6fa",
+        "size": 5670,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/62248b9f51e031f0c5500d417299ea2fb5c9c6fa"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tree/_adoption_agency.py",
+        "sha": "4f6d7a69d2dfaf8fcbb52f550c73ce1d4736882a",
+        "size": 13895,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/4f6d7a69d2dfaf8fcbb52f550c73ce1d4736882a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tree/_builder.py",
+        "sha": "14fca9c7253074f82bf635756ecfc2dbc1e73fcc",
+        "size": 94610,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/14fca9c7253074f82bf635756ecfc2dbc1e73fcc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tree/_doctype_switch.py",
+        "sha": "234a83e489388706a3461a41d101eeb49a2078d0",
+        "size": 3415,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/234a83e489388706a3461a41d101eeb49a2078d0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tree/_foreign_content.py",
+        "sha": "6e8b78ca3890377d03bfc813ef1ffd6b61f80099",
+        "size": 5300,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/6e8b78ca3890377d03bfc813ef1ffd6b61f80099"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tree/_foster_parenting.py",
+        "sha": "a78c68052fcc2e95a39457e188590098c7ace33d",
+        "size": 2343,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/a78c68052fcc2e95a39457e188590098c7ace33d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tree/_insertion_modes.py",
+        "sha": "5dd389b41fc84ef10b9b526b9382b132c9594dd6",
+        "size": 1282,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/5dd389b41fc84ef10b9b526b9382b132c9594dd6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tree/_open_elements.py",
+        "sha": "473ad8680c0efa0cfb5cbfba0c13158c33079987",
+        "size": 5656,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/473ad8680c0efa0cfb5cbfba0c13158c33079987"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tree/_parse.py",
+        "sha": "ad683685f88e108e7c51ab0ec6d19762c3211d07",
+        "size": 4223,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/ad683685f88e108e7c51ab0ec6d19762c3211d07"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tree/_quirks_table.py",
+        "sha": "b9b013f0a5b5fc353f0f030e36b7891a499e4c19",
+        "size": 3606,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/b9b013f0a5b5fc353f0f030e36b7891a499e4c19"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/tree/_template.py",
+        "sha": "19ac0e4baa48b5ea586e9c20793bc797dedcb095",
+        "size": 1569,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/19ac0e4baa48b5ea586e9c20793bc797dedcb095"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_html/url",
+        "sha": "b01252a20ec508f98ad5f7302fa157af6108749d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/b01252a20ec508f98ad5f7302fa157af6108749d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/url/__init__.py",
+        "sha": "e5000b25c52988d175f490fe8a5bf278466f1004",
+        "size": 202,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e5000b25c52988d175f490fe8a5bf278466f1004"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/url/_search_params.py",
+        "sha": "7f91201414ed4dadef7023a6316cfd7015557653",
+        "size": 5792,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/7f91201414ed4dadef7023a6316cfd7015557653"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_html/url/_url.py",
+        "sha": "488643ae6b2a9106cb77f8d66923d9824d0165a3",
+        "size": 9780,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/488643ae6b2a9106cb77f8d66923d9824d0165a3"
+      },
+      {
+        "mode": "040000",
+        "path": "tests",
+        "sha": "1d414c75f5f16f117ad4ab8c0fee01a1df5da248",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/1d414c75f5f16f117ad4ab8c0fee01a1df5da248"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/encoding",
+        "sha": "f541c7e12c8d47df6f27aa1319f94480eccf055c",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/f541c7e12c8d47df6f27aa1319f94480eccf055c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_encoding.py",
+        "sha": "31b8bee76912fc7a6080c62b898ad040e2ff9d56",
+        "size": 8685,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/31b8bee76912fc7a6080c62b898ad040e2ff9d56"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/test_css",
+        "sha": "56c0cecdfa7a3e46092e88f9c74e4d8cbe395d71",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/56c0cecdfa7a3e46092e88f9c74e4d8cbe395d71"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_border_sub_shorthands.py",
+        "sha": "acca997274f3a35e368367bbc61368aa9d55a4be",
+        "size": 9258,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/acca997274f3a35e368367bbc61368aa9d55a4be"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_cascade_full.py",
+        "sha": "5c8a3fda757517706ea93ee5c38d69dd78fba947",
+        "size": 10988,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/5c8a3fda757517706ea93ee5c38d69dd78fba947"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_cascade_inheritance.py",
+        "sha": "640e384d9d7e771bc2262c04cd5f76d41c4504ae",
+        "size": 18667,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/640e384d9d7e771bc2262c04cd5f76d41c4504ae"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_cascade_property_table.py",
+        "sha": "3bf3a2c207e88628deed61fd78a1dac479a17ed0",
+        "size": 17175,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/3bf3a2c207e88628deed61fd78a1dac479a17ed0"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_css_property_table_completeness_tail.py",
+        "sha": "0a9684387c421ab12b90eb82e266a253d2dca011",
+        "size": 13321,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/0a9684387c421ab12b90eb82e266a253d2dca011"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_css_svg_misc_property_completeness.py",
+        "sha": "c9c1d95391531db487d3a85c1d3bf24affcb1c9e",
+        "size": 13728,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c9c1d95391531db487d3a85c1d3bf24affcb1c9e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_level4_selectors.py",
+        "sha": "48217fd27dee611231672561783742a738f3d50e",
+        "size": 40615,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/48217fd27dee611231672561783742a738f3d50e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_logical_properties.py",
+        "sha": "2cf221fbc16f0461cb740bfa0401a2c6ed236c12",
+        "size": 22558,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/2cf221fbc16f0461cb740bfa0401a2c6ed236c12"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_match_media.py",
+        "sha": "b01279b88e30f91a2c6c72b8e06d332b73bf8be1",
+        "size": 5315,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/b01279b88e30f91a2c6c72b8e06d332b73bf8be1"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_nth_of_selector.py",
+        "sha": "93628fc2a4c249a366d860b21caf08b450a13100",
+        "size": 17783,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/93628fc2a4c249a366d860b21caf08b450a13100"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_parser.py",
+        "sha": "c2deea6e6efb647a6cf71f3e1eca39ba21675cea",
+        "size": 24241,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c2deea6e6efb647a6cf71f3e1eca39ba21675cea"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_select.py",
+        "sha": "4fa449ce4ef1efb6041d9f7feeca299e80437afd",
+        "size": 29449,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/4fa449ce4ef1efb6041d9f7feeca299e80437afd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_selector_errors.py",
+        "sha": "2d31b4f8b10dca9e1bc107eb85b893bf67895dbd",
+        "size": 1728,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/2d31b4f8b10dca9e1bc107eb85b893bf67895dbd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_shorthand_expansion.py",
+        "sha": "67b84df1ed0c26b1791567275c415cdfe720b687",
+        "size": 15737,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/67b84df1ed0c26b1791567275c415cdfe720b687"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_shorthand_registration.py",
+        "sha": "8540a7b04225e5781a482b312cbb84e0c6913788",
+        "size": 7507,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/8540a7b04225e5781a482b312cbb84e0c6913788"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_specificity.py",
+        "sha": "9e6ebd0e8b6d7c51372263e8b9e7d4ef036f7ec8",
+        "size": 3641,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/9e6ebd0e8b6d7c51372263e8b9e7d4ef036f7ec8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_track108_css_property_tail.py",
+        "sha": "3756923423e4cacc1ad6e7aa8635bf4052d2bf2c",
+        "size": 5398,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/3756923423e4cacc1ad6e7aa8635bf4052d2bf2c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_track52_integration.py",
+        "sha": "d09bf56ebf66610840d5a00a8083e47e0ed1a36d",
+        "size": 19318,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/d09bf56ebf66610840d5a00a8083e47e0ed1a36d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_track72_integration.py",
+        "sha": "44c55c3b2d88980d32f9a75a8ebd8e23aa6507d2",
+        "size": 14629,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/44c55c3b2d88980d32f9a75a8ebd8e23aa6507d2"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_track74_integration.py",
+        "sha": "96479b8fc96918ac1f38d93addc554f1369e3bf8",
+        "size": 14515,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/96479b8fc96918ac1f38d93addc554f1369e3bf8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_css/test_w3c_fixture_loader.py",
+        "sha": "c2b74cf81471e4fcbdd0c02a8c1e1a7763e2a806",
+        "size": 10061,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c2b74cf81471e4fcbdd0c02a8c1e1a7763e2a806"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/test_cssom",
+        "sha": "db6617a3a0693d1afc18dc4b03e41c77cbace344",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/db6617a3a0693d1afc18dc4b03e41c77cbace344"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cssom/test_at_rules.py",
+        "sha": "bfef033056de5fad752dcc8d41dc7abc4b5aad07",
+        "size": 27465,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/bfef033056de5fad752dcc8d41dc7abc4b5aad07"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cssom/test_css_supports.py",
+        "sha": "51f890bb1d184433e2b79e6514b928e80638447b",
+        "size": 4831,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/51f890bb1d184433e2b79e6514b928e80638447b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cssom/test_cssom_grouping_keyframes_idl.py",
+        "sha": "a2dcec30a05a5bad189a68371bdd91bf65f21864",
+        "size": 7559,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/a2dcec30a05a5bad189a68371bdd91bf65f21864"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cssom/test_cssom_idl_completeness.py",
+        "sha": "c7cc55ba9add17887732757fc6acfd06ca7039a7",
+        "size": 6833,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c7cc55ba9add17887732757fc6acfd06ca7039a7"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cssom/test_layer_rules.py",
+        "sha": "f29b204118cba73c6f999442e67764b6fb7c604c",
+        "size": 7383,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f29b204118cba73c6f999442e67764b6fb7c604c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cssom/test_rule_objects.py",
+        "sha": "ac767aa69692c7c6336bb9d7ff3ac9c038405448",
+        "size": 4081,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/ac767aa69692c7c6336bb9d7ff3ac9c038405448"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cssom/test_track39_integration.py",
+        "sha": "c64c18924336ad142846c08a14a957e12cc4ab21",
+        "size": 16407,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c64c18924336ad142846c08a14a957e12cc4ab21"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/test_dom",
+        "sha": "e57862c6b3ed54c3e5c01348e34df9c385cfefc6",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/e57862c6b3ed54c3e5c01348e34df9c385cfefc6"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/test_dom/html",
+        "sha": "9635801923f923683aa9d978e9b29360cf368593",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/9635801923f923683aa9d978e9b29360cf368593"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/html/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/html/test_dialog_element.py",
+        "sha": "e55d4dd6d03a058baf6f8425fafb1d2891299b5e",
+        "size": 4470,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e55d4dd6d03a058baf6f8425fafb1d2891299b5e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/html/test_form_check_validity.py",
+        "sha": "953b54d2b0ee358d47da4b252cba48d8b5b8ff52",
+        "size": 4335,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/953b54d2b0ee358d47da4b252cba48d8b5b8ff52"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/html/test_form_elements.py",
+        "sha": "d4c20f132cc32014805728f123d81181cf367e16",
+        "size": 12534,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/d4c20f132cc32014805728f123d81181cf367e16"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/html/test_html_elements.py",
+        "sha": "113e51a707fae0525704b46fbc36e63c018c5b8f",
+        "size": 136090,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/113e51a707fae0525704b46fbc36e63c018c5b8f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/html/test_html_elements_track6.py",
+        "sha": "83f796e11b514e5948bd1066e3d3ceeaeef10856",
+        "size": 16940,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/83f796e11b514e5948bd1066e3d3ceeaeef10856"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/html/test_list_elements.py",
+        "sha": "46095f9edd4e5ed8cbe746fb9e0e80280f7171a5",
+        "size": 4950,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/46095f9edd4e5ed8cbe746fb9e0e80280f7171a5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/html/test_structural_elements.py",
+        "sha": "7cadfb5ca91d7340abb9196f706152bf65574898",
+        "size": 4046,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/7cadfb5ca91d7340abb9196f706152bf65574898"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/html/test_summary_menu_elements.py",
+        "sha": "57604811458248bfb830594f0b182b0b13f0a5fd",
+        "size": 7855,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/57604811458248bfb830594f0b182b0b13f0a5fd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/html/test_table_elements.py",
+        "sha": "6c3e376baf019e4819ee5a722816b02e2279feb6",
+        "size": 6628,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/6c3e376baf019e4819ee5a722816b02e2279feb6"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/html/test_text_control_selection.py",
+        "sha": "a851f2f5eb5caa4bc27f225dfbb8f40e4dfba43b",
+        "size": 8353,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/a851f2f5eb5caa4bc27f225dfbb8f40e4dfba43b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_abort_controller.py",
+        "sha": "21d1f67bb909c0b863934892d568343d9e97e63d",
+        "size": 4655,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/21d1f67bb909c0b863934892d568343d9e97e63d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_attr_prefix_specified.py",
+        "sha": "ffd4b7593230149c4b2ecaea7ee53e1b7087d859",
+        "size": 2498,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/ffd4b7593230149c4b2ecaea7ee53e1b7087d859"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_cascade.py",
+        "sha": "ae20d5e4adfba8f2ae2d0cee8275dbcf60766713",
+        "size": 10199,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/ae20d5e4adfba8f2ae2d0cee8275dbcf60766713"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_cascade_style_resolution.py",
+        "sha": "9c077659d08342dd44b78f34bc18e570001beab5",
+        "size": 45770,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/9c077659d08342dd44b78f34bc18e570001beab5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_character_data.py",
+        "sha": "a9bb4ed243d0166af3611fc60ac448189909e944",
+        "size": 4232,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/a9bb4ed243d0166af3611fc60ac448189909e944"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_childnode_mixin.py",
+        "sha": "fa27603bfffe9bafb973924301ad3512ac67b9b5",
+        "size": 7931,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/fa27603bfffe9bafb973924301ad3512ac67b9b5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_clone.py",
+        "sha": "e2943e91641c46a041f00138d31073bda8797b7a",
+        "size": 2377,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e2943e91641c46a041f00138d31073bda8797b7a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_clone_node_audit.py",
+        "sha": "a88611cd0f48d959e64825e43632d55c15eb5d10",
+        "size": 9464,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/a88611cd0f48d959e64825e43632d55c15eb5d10"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_collections.py",
+        "sha": "5064d83a1d62196e897bc819147eab1d4daa9be6",
+        "size": 2675,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/5064d83a1d62196e897bc819147eab1d4daa9be6"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_compare_document_position.py",
+        "sha": "b24e839f1b988e65eadc0499039df24d928fbb16",
+        "size": 13004,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/b24e839f1b988e65eadc0499039df24d928fbb16"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_create_element_ns.py",
+        "sha": "3a1d78eae58ca0ec814b1ea5daa1608f4ec00c7a",
+        "size": 7135,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/3a1d78eae58ca0ec814b1ea5daa1608f4ec00c7a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_css_shorthand_tail.py",
+        "sha": "0fbcca27900d739f1b8e794eb798028a27e71fcb",
+        "size": 5440,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/0fbcca27900d739f1b8e794eb798028a27e71fcb"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_cssom_objects.py",
+        "sha": "2766c23e4c2fe00e77fcb79c18bb2875af0c0b6c",
+        "size": 6268,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/2766c23e4c2fe00e77fcb79c18bb2875af0c0b6c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_cssom_write.py",
+        "sha": "ec7cd2f5fc9f4c94120262584d0dc05c0d57628d",
+        "size": 5749,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/ec7cd2f5fc9f4c94120262584d0dc05c0d57628d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_custom_elements.py",
+        "sha": "18890b66f2eb3c1de6fd520b0b03088e503af0c7",
+        "size": 2749,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/18890b66f2eb3c1de6fd520b0b03088e503af0c7"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_dataset.py",
+        "sha": "de414c666155082a0ff9cdda7606533c2dad767d",
+        "size": 7935,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/de414c666155082a0ff9cdda7606533c2dad767d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_document.py",
+        "sha": "ba326a6e1e317e4e468137dd8743815a87789a7e",
+        "size": 47310,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/ba326a6e1e317e4e468137dd8743815a87789a7e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_document_convenience.py",
+        "sha": "44e8671e79d982ee143dde5805a1ede31539fa4e",
+        "size": 7486,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/44e8671e79d982ee143dde5805a1ede31539fa4e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_document_write_stubs.py",
+        "sha": "6758aff5fc36e43b39c41869c4d62cc42b368997",
+        "size": 3306,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/6758aff5fc36e43b39c41869c4d62cc42b368997"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_dom_parser_xml_serializer.py",
+        "sha": "9671d0f8b667a12e08f16a6dc5106cb7cd05e46a",
+        "size": 3018,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/9671d0f8b667a12e08f16a6dc5106cb7cd05e46a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_dom_surface_gap.py",
+        "sha": "63e81b9337490d67bce4d5e798ab741d1eb810c2",
+        "size": 6455,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/63e81b9337490d67bce4d5e798ab741d1eb810c2"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_domimplementation.py",
+        "sha": "91b47fbaff0808dd79439e85dbb16f51cf127220",
+        "size": 6969,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/91b47fbaff0808dd79439e85dbb16f51cf127220"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_element.py",
+        "sha": "ed48151ddf0be2d0080aaacb03e66e1c5647af8b",
+        "size": 11794,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/ed48151ddf0be2d0080aaacb03e66e1c5647af8b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_element_attr_node_ns.py",
+        "sha": "598b90e1bec3a1d2fec186c51af8815adca2e9d3",
+        "size": 7170,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/598b90e1bec3a1d2fec186c51af8815adca2e9d3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_element_closest_matches.py",
+        "sha": "2f2b17fe609b9a66f09dc03735677be13dcf42b0",
+        "size": 6499,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/2f2b17fe609b9a66f09dc03735677be13dcf42b0"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_element_geometry.py",
+        "sha": "c27129fd39351aeaf001d0e9407f4b2beacb9134",
+        "size": 6212,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c27129fd39351aeaf001d0e9407f4b2beacb9134"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_element_html_props.py",
+        "sha": "c7788dc826117768e0a7371b02b18d27bd6cf874",
+        "size": 10532,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c7788dc826117768e0a7371b02b18d27bd6cf874"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_element_style.py",
+        "sha": "edca4f4cd2e59c514b8419c5044492ef037b186a",
+        "size": 8878,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/edca4f4cd2e59c514b8419c5044492ef037b186a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_element_subtree_queries.py",
+        "sha": "99fd22f266dcea592bc96fd27e325e1fda67496f",
+        "size": 6508,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/99fd22f266dcea592bc96fd27e325e1fda67496f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_event_subclasses.py",
+        "sha": "671ca547bae80fecc15875c0b8cedcaa7b1e0f65",
+        "size": 11602,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/671ca547bae80fecc15875c0b8cedcaa7b1e0f65"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_event_target_once.py",
+        "sha": "512343d46f366d1fabb5bce50e02404453df170f",
+        "size": 7630,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/512343d46f366d1fabb5bce50e02404453df170f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_events.py",
+        "sha": "131c67de2a97cec1cf0b7804736aa8e23d2d3eed",
+        "size": 16611,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/131c67de2a97cec1cf0b7804736aa8e23d2d3eed"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_form_data.py",
+        "sha": "5845f29aca9c49d84af5f94e89df383401e2c871",
+        "size": 595,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/5845f29aca9c49d84af5f94e89df383401e2c871"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_getelements_by_name_rootnode.py",
+        "sha": "44cf8dfb922c49cb76d5de25fdbc6a7d7fee3dba",
+        "size": 6055,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/44cf8dfb922c49cb76d5de25fdbc6a7d7fee3dba"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_hierarchy.py",
+        "sha": "4068311092f2adc497a817c2d50a6e6c26b5719d",
+        "size": 2130,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/4068311092f2adc497a817c2d50a6e6c26b5719d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_history.py",
+        "sha": "2b2e8f75f1cbad47f18937e325f4e7d4bfc2e7e3",
+        "size": 23126,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/2b2e8f75f1cbad47f18937e325f4e7d4bfc2e7e3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_html_element_base.py",
+        "sha": "92e7cdc9843d60d87765dd5c72d2831ffe26d26d",
+        "size": 7111,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/92e7cdc9843d60d87765dd5c72d2831ffe26d26d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_html_elements.py",
+        "sha": "c41eeaad33a31faa5ae7dd877b2a95454b467cfd",
+        "size": 11418,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c41eeaad33a31faa5ae7dd877b2a95454b467cfd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_htmlelement_global_properties.py",
+        "sha": "28eeceebb694cd50c32fd45b39c90b72723ab152",
+        "size": 31762,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/28eeceebb694cd50c32fd45b39c90b72723ab152"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_htmlinputelement_idl.py",
+        "sha": "d83184f2ce99a1ee840fa3f33ce3b3f0581d1576",
+        "size": 7797,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/d83184f2ce99a1ee840fa3f33ce3b3f0581d1576"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_htmlselect_idl.py",
+        "sha": "aea78177e9bf9f28094122d96414faaa7fccac3b",
+        "size": 10299,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/aea78177e9bf9f28094122d96414faaa7fccac3b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_insert_adjacent.py",
+        "sha": "bd69a584b7fd85d5b8df9d8e0b7a4fa3815f4d32",
+        "size": 13457,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/bd69a584b7fd85d5b8df9d8e0b7a4fa3815f4d32"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_mutation_observer.py",
+        "sha": "f30f77405971310358fdbe1faac196a3aaaac0e2",
+        "size": 8548,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f30f77405971310358fdbe1faac196a3aaaac0e2"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_namespaced_attributes.py",
+        "sha": "296f38a5496bf55ddd140dbfd02c4b9f80978017",
+        "size": 8970,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/296f38a5496bf55ddd140dbfd02c4b9f80978017"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_node.py",
+        "sha": "f3cf81f5ba7c98292b4b005a71740bb51c2e5c70",
+        "size": 11160,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f3cf81f5ba7c98292b4b005a71740bb51c2e5c70"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_node_contains_equal.py",
+        "sha": "deafa13cad15272ad658006114863798bc34de07",
+        "size": 5550,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/deafa13cad15272ad658006114863798bc34de07"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_node_normalize.py",
+        "sha": "f2e87871233e6101b9d6ca1b8f7dc31a59591f1b",
+        "size": 8978,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f2e87871233e6101b9d6ca1b8f7dc31a59591f1b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_node_text_content.py",
+        "sha": "c0bef1fb528d8a8915097b303354ec1111dbc4bf",
+        "size": 6613,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c0bef1fb528d8a8915097b303354ec1111dbc4bf"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_parentnode_mixin.py",
+        "sha": "5c7c2dbb0198da87ac44e4f4bd44b0b90f95a095",
+        "size": 7455,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/5c7c2dbb0198da87ac44e4f4bd44b0b90f95a095"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_range.py",
+        "sha": "0e4ceea238afea95dcaa820ca18d25e9c309fa1f",
+        "size": 34897,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/0e4ceea238afea95dcaa820ca18d25e9c309fa1f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_range_live.py",
+        "sha": "54823e57260bfc563226ba26038d9a2931ba19e7",
+        "size": 5884,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/54823e57260bfc563226ba26038d9a2931ba19e7"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_repr.py",
+        "sha": "f4fb4d6acc97676127d3eeaffbdf4f0b558ffefc",
+        "size": 2337,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f4fb4d6acc97676127d3eeaffbdf4f0b558ffefc"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_selection.py",
+        "sha": "063d83d62e803aa003b473bdf31a7f5b8c180b65",
+        "size": 18046,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/063d83d62e803aa003b473bdf31a7f5b8c180b65"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_structured_clone.py",
+        "sha": "40277b1cd15ded5f7db7124ec5c75e5675ea51c6",
+        "size": 8558,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/40277b1cd15ded5f7db7124ec5c75e5675ea51c6"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_stylesheet_attachment.py",
+        "sha": "dbbd61fa052171212f567b639e6b41f0b9c6f9f8",
+        "size": 3346,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/dbbd61fa052171212f567b639e6b41f0b9c6f9f8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_text_content.py",
+        "sha": "c0bef1fb528d8a8915097b303354ec1111dbc4bf",
+        "size": 6613,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c0bef1fb528d8a8915097b303354ec1111dbc4bf"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_text_split_and_pi.py",
+        "sha": "446d97d853b58bbf7f0ef8b9bd9fffeaf1dd8145",
+        "size": 5745,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/446d97d853b58bbf7f0ef8b9bd9fffeaf1dd8145"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_token_list.py",
+        "sha": "dd5b2337e927e61b5e0516820bf801d20ec98964",
+        "size": 20176,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/dd5b2337e927e61b5e0516820bf801d20ec98964"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track109_idl_tail.py",
+        "sha": "5fc662de3fd3c921656244a35c7d26f414cd2446",
+        "size": 14290,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/5fc662de3fd3c921656244a35c7d26f414cd2446"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track110_element_window_navigator_css_tail.py",
+        "sha": "e37b876ef157fecfa526792826340306b583516a",
+        "size": 12939,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e37b876ef157fecfa526792826340306b583516a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track111_html_element_css_idl_tail.py",
+        "sha": "24f6534f2fd31d8e2162a090d30cdaf09ab67d49",
+        "size": 6920,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/24f6534f2fd31d8e2162a090d30cdaf09ab67d49"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track112_html_element_css_idl_tail.py",
+        "sha": "595ea09a935e96f0c74b64af0ee0a3b42e953102",
+        "size": 23746,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/595ea09a935e96f0c74b64af0ee0a3b42e953102"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track113_html_element_css_idl_tail.py",
+        "sha": "339f8e024368a5dd623d190e78523c3d611d9f66",
+        "size": 9760,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/339f8e024368a5dd623d190e78523c3d611d9f66"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track114_html_element_css_idl_tail.py",
+        "sha": "8314230eaa32b90441c887e2eda8c12145ae11ed",
+        "size": 10093,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/8314230eaa32b90441c887e2eda8c12145ae11ed"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track36_integration.py",
+        "sha": "dc4daba8ca039f80b531896ddc2ebe5fe6c3dae5",
+        "size": 13388,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/dc4daba8ca039f80b531896ddc2ebe5fe6c3dae5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track40_integration.py",
+        "sha": "6f55c934fd829cf7af2686accb3b6fc830f56d0f",
+        "size": 6302,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/6f55c934fd829cf7af2686accb3b6fc830f56d0f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track41_integration.py",
+        "sha": "0da2a258816c0129700e736218fbc7bc9f0ef161",
+        "size": 5705,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/0da2a258816c0129700e736218fbc7bc9f0ef161"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track42_integration.py",
+        "sha": "160edf539954b8f7a6519126b580268c4173efd2",
+        "size": 14119,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/160edf539954b8f7a6519126b580268c4173efd2"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track43_integration.py",
+        "sha": "f42bae3b13a8c28cbe3bf58842f3ed4dd32f5494",
+        "size": 11876,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f42bae3b13a8c28cbe3bf58842f3ed4dd32f5494"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track44_integration.py",
+        "sha": "7a2d7e58732de16a4949fa44b6769d9f9f1cc3cd",
+        "size": 11645,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/7a2d7e58732de16a4949fa44b6769d9f9f1cc3cd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track45_integration.py",
+        "sha": "d740ca3d3c5e0a8024252dc48609fa68d050a5ab",
+        "size": 13763,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/d740ca3d3c5e0a8024252dc48609fa68d050a5ab"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track46_integration.py",
+        "sha": "76e282df8b07f160661f25dcfc73352124a4c1cd",
+        "size": 12255,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/76e282df8b07f160661f25dcfc73352124a4c1cd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track47_integration.py",
+        "sha": "ceae257f76f5a2d95d3e1a75e9159a02fd9e69f4",
+        "size": 6864,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/ceae257f76f5a2d95d3e1a75e9159a02fd9e69f4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track48_integration.py",
+        "sha": "cbbb363a4db876ae81af8afe9d31368b44e8fdd3",
+        "size": 3297,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/cbbb363a4db876ae81af8afe9d31368b44e8fdd3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track49_integration.py",
+        "sha": "c0c2fcd3028b6d7bdc40de98145632f2ab276372",
+        "size": 3290,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c0c2fcd3028b6d7bdc40de98145632f2ab276372"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track50_integration.py",
+        "sha": "947942103c9c0d35f7c188c9edbad05cdff76903",
+        "size": 2476,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/947942103c9c0d35f7c188c9edbad05cdff76903"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track53_integration.py",
+        "sha": "e01b2af084a70a3c9e2ac4193c5dc829336c5394",
+        "size": 1482,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e01b2af084a70a3c9e2ac4193c5dc829336c5394"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track54_integration.py",
+        "sha": "b00e055d018100b5044f2c4f82e158145bfac7df",
+        "size": 2125,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/b00e055d018100b5044f2c4f82e158145bfac7df"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track56_integration.py",
+        "sha": "b6867985ed34c5d2d3b9245aa40c791676f0180b",
+        "size": 3765,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/b6867985ed34c5d2d3b9245aa40c791676f0180b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track59_integration.py",
+        "sha": "97d1d7e55ac769ce9f36eaecf868ac6afadb19c6",
+        "size": 11298,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/97d1d7e55ac769ce9f36eaecf868ac6afadb19c6"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track60_integration.py",
+        "sha": "f612c4eac2834f3e3801e1b7feb33f5fc2d3c907",
+        "size": 14427,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f612c4eac2834f3e3801e1b7feb33f5fc2d3c907"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track61_integration.py",
+        "sha": "10bfabd8db262116990f8d71c8221cd4f4d3804b",
+        "size": 2453,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/10bfabd8db262116990f8d71c8221cd4f4d3804b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track62_integration.py",
+        "sha": "fa163688da6ffef5b9a43244884939e06b1b2604",
+        "size": 2097,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/fa163688da6ffef5b9a43244884939e06b1b2604"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track65_integration.py",
+        "sha": "f4e906f596094e41c59443ba3f89e011339e7258",
+        "size": 3796,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f4e906f596094e41c59443ba3f89e011339e7258"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track66_integration.py",
+        "sha": "0c6a995dd3fe7c303494c932178ee7f7f35aee5c",
+        "size": 2462,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/0c6a995dd3fe7c303494c932178ee7f7f35aee5c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track67_integration.py",
+        "sha": "58414dae7703318b10e347d8a7a0d3ac52dc3400",
+        "size": 2243,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/58414dae7703318b10e347d8a7a0d3ac52dc3400"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track69_integration.py",
+        "sha": "404daf35698bbd570fc3cc332d69fb10fede9d53",
+        "size": 6214,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/404daf35698bbd570fc3cc332d69fb10fede9d53"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track75_integration.py",
+        "sha": "6c86162dce4c91a7cfa9756002d4d41d8a077c02",
+        "size": 8061,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/6c86162dce4c91a7cfa9756002d4d41d8a077c02"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track76_idl_fixes.py",
+        "sha": "21c9466553576ef40040a5addddea34cd89dc1c8",
+        "size": 10016,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/21c9466553576ef40040a5addddea34cd89dc1c8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track76_integration.py",
+        "sha": "7cb152e78d879715fabd09b14cad1d73afe59028",
+        "size": 14356,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/7cb152e78d879715fabd09b14cad1d73afe59028"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_track77_integration.py",
+        "sha": "89d43ab2dd56eeef8dbaedd49f0f24d0086801a5",
+        "size": 9528,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/89d43ab2dd56eeef8dbaedd49f0f24d0086801a5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_traversal.py",
+        "sha": "2cb40587a9d390704fbd41d23cd75a41801b9e25",
+        "size": 29335,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/2cb40587a9d390704fbd41d23cd75a41801b9e25"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_ua_stylesheet.py",
+        "sha": "3d87c5bf9cbbe0af3ea4774514fc1862afa74624",
+        "size": 7233,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/3d87c5bf9cbbe0af3ea4774514fc1862afa74624"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_visual_viewport.py",
+        "sha": "53df862940dd94ee26d86c3c08a6ebb1e759be58",
+        "size": 1485,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/53df862940dd94ee26d86c3c08a6ebb1e759be58"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_web_storage.py",
+        "sha": "7aaa93683d1e3be15bfd8b5293b10fd2e9784853",
+        "size": 5156,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/7aaa93683d1e3be15bfd8b5293b10fd2e9784853"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_window.py",
+        "sha": "c4db8c464ecc42f23fbb6c174fb6b0a7a5491c2f",
+        "size": 85613,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c4db8c464ecc42f23fbb6c174fb6b0a7a5491c2f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dom/test_window_document_idl_tail.py",
+        "sha": "a04f565134033c7116e949d0e8f2fc3e9ea488dc",
+        "size": 6169,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/a04f565134033c7116e949d0e8f2fc3e9ea488dc"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_file_io.py",
+        "sha": "aa57ef44d26b2771faa6a4c8ea9a5e21cd71428d",
+        "size": 7025,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/aa57ef44d26b2771faa6a4c8ea9a5e21cd71428d"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/test_html",
+        "sha": "9b7283472e5c01f4ae38394287c75bb49c9f8dba",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/9b7283472e5c01f4ae38394287c75bb49c9f8dba"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_html/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_html/test_html_document.py",
+        "sha": "c77cfeabc22b4fc1f2733c619ac0eb7ea2aedee0",
+        "size": 8134,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c77cfeabc22b4fc1f2733c619ac0eb7ea2aedee0"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/test_js",
+        "sha": "d48c734c0257e00e643a061484b26bdf45f3aa13",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/d48c734c0257e00e643a061484b26bdf45f3aa13"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_js/__init__.py",
+        "sha": "1032a66b947e9c1cf1fa3f79d28e9de3c72af513",
+        "size": 18,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/1032a66b947e9c1cf1fa3f79d28e9de3c72af513"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_js/test_get_computed_style_js.py",
+        "sha": "1ffa77791c2b22938fa1b6bca00d622ea574d671",
+        "size": 13077,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/1ffa77791c2b22938fa1b6bca00d622ea574d671"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_js/test_js_event_stubs.py",
+        "sha": "af71bfa1ad03841e7dafa1a13aa4731fdee6ee6b",
+        "size": 10029,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/af71bfa1ad03841e7dafa1a13aa4731fdee6ee6b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_js/test_module_loader.py",
+        "sha": "fa50524ca56cd44cd1b1e7716602e5504b1f73c1",
+        "size": 7402,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/fa50524ca56cd44cd1b1e7716602e5504b1f73c1"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_js/test_quickjs_bridge.py",
+        "sha": "1b2f9d055c4e7d6e0be31d02cc54be158e033c3d",
+        "size": 19477,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/1b2f9d055c4e7d6e0be31d02cc54be158e033c3d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_js/test_quickjs_bridge_module.py",
+        "sha": "660a1b1f3beaaf8a35276052c69f8f8ab9ef9ae4",
+        "size": 4136,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/660a1b1f3beaaf8a35276052c69f8f8ab9ef9ae4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_js/test_track38_integration.py",
+        "sha": "896fb2b296b25d0df372059c4be433506c0ebcdb",
+        "size": 18295,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/896fb2b296b25d0df372059c4be433506c0ebcdb"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_js/test_track71_integration.py",
+        "sha": "2b9357ad98380150d86a210a0c8181e1400bda7a",
+        "size": 6515,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/2b9357ad98380150d86a210a0c8181e1400bda7a"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/test_layout",
+        "sha": "d0602a3507840145c504051e891571a0d4457fc4",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/d0602a3507840145c504051e891571a0d4457fc4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_layout/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_layout/test_block_layout.py",
+        "sha": "d12e45226a78e30870dcec94b00d51732724b484",
+        "size": 3042,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/d12e45226a78e30870dcec94b00d51732724b484"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_layout/test_box_tree.py",
+        "sha": "156ca8d471b3f0a8193505c02b763da097576f41",
+        "size": 21718,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/156ca8d471b3f0a8193505c02b763da097576f41"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_layout/test_computed_style.py",
+        "sha": "0b908c8eca205a90948ebae662c0da46321d8e23",
+        "size": 6522,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/0b908c8eca205a90948ebae662c0da46321d8e23"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_layout/test_fragment_tree.py",
+        "sha": "f3bc121d143d9ed5773246599c9ff4e88eac4c1b",
+        "size": 2350,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f3bc121d143d9ed5773246599c9ff4e88eac4c1b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_layout/test_inline_layout.py",
+        "sha": "1e0117fa0d108e6276237f9eb85223627732f85d",
+        "size": 3028,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/1e0117fa0d108e6276237f9eb85223627732f85d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_layout/test_pagination.py",
+        "sha": "a4f361fe2299b5c417241fe7f224af3be28e02e1",
+        "size": 3799,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/a4f361fe2299b5c417241fe7f224af3be28e02e1"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_layout/test_style_epoch.py",
+        "sha": "0a0caf0d6e5264bbe1c6bf12772dab358480718e",
+        "size": 10326,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/0a0caf0d6e5264bbe1c6bf12772dab358480718e"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/test_render",
+        "sha": "b57a770b6f47355515c28b170f654c953bbf16c0",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/b57a770b6f47355515c28b170f654c953bbf16c0"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_render/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_render/test_skia_smoke.py",
+        "sha": "6f922911b49066b379dae3f7b80bf81d48a148e0",
+        "size": 1317,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/6f922911b49066b379dae3f7b80bf81d48a148e0"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/test_serialiser",
+        "sha": "07421f6640b09b30d12a1cb3ff9fad16b8f0f654",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/07421f6640b09b30d12a1cb3ff9fad16b8f0f654"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_serialiser/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_serialiser/test_serialiser.py",
+        "sha": "a611ad20597b683802b23e2c25ef7bc18fe2b9d9",
+        "size": 16722,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/a611ad20597b683802b23e2c25ef7bc18fe2b9d9"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/test_tree",
+        "sha": "b230d5fcacd12cd177a0350439b48c83e757a092",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/b230d5fcacd12cd177a0350439b48c83e757a092"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/test_tree/html5lib",
+        "sha": "bc294c7b2634590f1553dd8d1a6d8dc3703d629a",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/bc294c7b2634590f1553dd8d1a6d8dc3703d629a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/html5lib/__init__.py",
+        "sha": "70b7a63c8a25606a847657f085f9a3bc5fc4cfd5",
+        "size": 55,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/70b7a63c8a25606a847657f085f9a3bc5fc4cfd5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/html5lib/_tree_serialiser.py",
+        "sha": "ec51191a95791ff83b84acef45930a137ac336a5",
+        "size": 2225,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/ec51191a95791ff83b84acef45930a137ac336a5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/html5lib/_xfail_baseline.json",
+        "sha": "757f9dbbb17401bd1de3a31865e7dd3967699b02",
+        "size": 5978,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/757f9dbbb17401bd1de3a31865e7dd3967699b02"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/html5lib/adoption01.dat",
+        "sha": "38f98efded0ae8a4f096f4c1cebba64a914241ea",
+        "size": 6084,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/38f98efded0ae8a4f096f4c1cebba64a914241ea"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/html5lib/adoption02.dat",
+        "sha": "e54d8033bac7197de04c202a1c4d556f090f809d",
+        "size": 672,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e54d8033bac7197de04c202a1c4d556f090f809d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/html5lib/conftest.py",
+        "sha": "9668c0a4ea850459dd80ea64e39b9a3aef69b910",
+        "size": 2211,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/9668c0a4ea850459dd80ea64e39b9a3aef69b910"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/html5lib/foreign-fragment.dat",
+        "sha": "e562c6b8ff62c32ccefcf4c4666a1c9dfb45dd85",
+        "size": 9082,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e562c6b8ff62c32ccefcf4c4666a1c9dfb45dd85"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/html5lib/template.dat",
+        "sha": "45fb507c6b9d63564ff423fc8c47e214564a5642",
+        "size": 25142,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/45fb507c6b9d63564ff423fc8c47e214564a5642"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/html5lib/tests1.dat",
+        "sha": "15d496eb713de4ab15398d07a56c70dc7cbc50ed",
+        "size": 39802,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/15d496eb713de4ab15398d07a56c70dc7cbc50ed"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/html5lib/tests2.dat",
+        "sha": "9232edde3091880495754475f98377a25c682639",
+        "size": 13193,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/9232edde3091880495754475f98377a25c682639"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/html5lib/tests3.dat",
+        "sha": "c7583d99e8b698287e1a45042126485c42d3c174",
+        "size": 4601,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c7583d99e8b698287e1a45042126485c42d3c174"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/html5lib/tests4.dat",
+        "sha": "4f0cf70e28cea9be6bc0b47de3ba515b32516949",
+        "size": 1041,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/4f0cf70e28cea9be6bc0b47de3ba515b32516949"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/html5lib/track63-extra.dat",
+        "sha": "24330d4c6ede2ed7e0f618efc370859870f03533",
+        "size": 987,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/24330d4c6ede2ed7e0f618efc370859870f03533"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/test_active_formatting.py",
+        "sha": "fe3f88d746cc8c73c04cb6d5749c73687acdd0ff",
+        "size": 3983,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/fe3f88d746cc8c73c04cb6d5749c73687acdd0ff"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/test_adoption_agency.py",
+        "sha": "b9c4c437ec629c78b3c7018d0ae89979a82833a3",
+        "size": 2754,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/b9c4c437ec629c78b3c7018d0ae89979a82833a3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/test_foreign_content.py",
+        "sha": "1d17e631565d4ff3c4bce7781c382203e0657d7b",
+        "size": 2439,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/1d17e631565d4ff3c4bce7781c382203e0657d7b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/test_foster_parenting.py",
+        "sha": "ef3d21beca120ad08b3ed3f0e0a47191332b8a44",
+        "size": 2476,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/ef3d21beca120ad08b3ed3f0e0a47191332b8a44"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/test_fragment_parsing.py",
+        "sha": "2f7983c5ec52d02ca52751f4ee65f968dae4dda3",
+        "size": 2842,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/2f7983c5ec52d02ca52751f4ee65f968dae4dda3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/test_html5lib_tree.py",
+        "sha": "26a27e0f92e14020696a57d53896e70f2b9be9eb",
+        "size": 3572,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/26a27e0f92e14020696a57d53896e70f2b9be9eb"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/test_insertion_modes.py",
+        "sha": "496ccae46cbc5b49487413349d61dfb25d1de3b2",
+        "size": 17057,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/496ccae46cbc5b49487413349d61dfb25d1de3b2"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/test_open_elements.py",
+        "sha": "f5d44d30e16cd58426a480c93129ec36ab16f676",
+        "size": 4441,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f5d44d30e16cd58426a480c93129ec36ab16f676"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/test_parse_errors.py",
+        "sha": "aa0c8e81e01bc26636e885a334c9c22744948da9",
+        "size": 2312,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/aa0c8e81e01bc26636e885a334c9c22744948da9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/test_parse_html.py",
+        "sha": "f3f39a469bdbb505404532a3c43b2ddec1a1a7ad",
+        "size": 5964,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f3f39a469bdbb505404532a3c43b2ddec1a1a7ad"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/test_quirks_mode.py",
+        "sha": "df78ffd12e631eff8be2da19d721975f0030b40c",
+        "size": 3251,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/df78ffd12e631eff8be2da19d721975f0030b40c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tree/test_template.py",
+        "sha": "35064b80a798ae4c4f74440153c5a17a42c20c35",
+        "size": 2917,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/35064b80a798ae4c4f74440153c5a17a42c20c35"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/test_url",
+        "sha": "2ed1d24fd2df434bd71cdad62295c53ae9f0b32a",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/2ed1d24fd2df434bd71cdad62295c53ae9f0b32a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_url/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_url/test_search_params.py",
+        "sha": "3273fad7a1bd57d934fc9ca668ac30984108f8bd",
+        "size": 2366,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/3273fad7a1bd57d934fc9ca668ac30984108f8bd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_url/test_track73_integration.py",
+        "sha": "aec00cb8440a5b82542f26822799865e36b6d584",
+        "size": 8778,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/aec00cb8440a5b82542f26822799865e36b6d584"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_url/test_url.py",
+        "sha": "fad1dbdd9b7bbf691233abd0ca3b3784703469b1",
+        "size": 4319,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/fad1dbdd9b7bbf691233abd0ca3b3784703469b1"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_url/test_url_parse_static.py",
+        "sha": "4acdb6bc1c0b88618c32a6aae915fd87e61a3ac5",
+        "size": 1449,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/4acdb6bc1c0b88618c32a6aae915fd87e61a3ac5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_url/test_urlsearchparams_conformance.py",
+        "sha": "9beb04c4c84272903e225d3e9f38bae8d4ad08a0",
+        "size": 4885,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/9beb04c4c84272903e225d3e9f38bae8d4ad08a0"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/tokenizer",
+        "sha": "786c624c7c06a5295842e999406cc123ad55d75f",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/786c624c7c06a5295842e999406cc123ad55d75f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/tokenizer/html5lib",
+        "sha": "c0e7e5a87bdc84704435cdf0ee37112c911f14dc",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/c0e7e5a87bdc84704435cdf0ee37112c911f14dc"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/html5lib/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/html5lib/_xfail_baseline.json",
+        "sha": "b7e8278e0b82bcc5293dfe71ff63abb2cab86f5a",
+        "size": 226104,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/b7e8278e0b82bcc5293dfe71ff63abb2cab86f5a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/html5lib/contentModelFlags.test",
+        "sha": "9cf7c8bd9e70dfbd0037726d6a840e67d3aa5e12",
+        "size": 3055,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/9cf7c8bd9e70dfbd0037726d6a840e67d3aa5e12"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/html5lib/domjs.test",
+        "sha": "1a0824d789b767792286c98e92843d388eb6b5ce",
+        "size": 13430,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/1a0824d789b767792286c98e92843d388eb6b5ce"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/html5lib/entities.test",
+        "sha": "a6469cd0dc533d0c3b60d0ec8e8b3726524a98d7",
+        "size": 19147,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/a6469cd0dc533d0c3b60d0ec8e8b3726524a98d7"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/html5lib/escapeFlag.test",
+        "sha": "d7d2c490bfd161681df4a846a454d588b94e3d19",
+        "size": 1378,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/d7d2c490bfd161681df4a846a454d588b94e3d19"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/html5lib/namedEntities.test",
+        "sha": "f74f5bff6d6513ca832da5dd12437d3f5d5861a5",
+        "size": 1128317,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f74f5bff6d6513ca832da5dd12437d3f5d5861a5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/html5lib/numericEntities.test",
+        "sha": "085109b797acc6657dea2ccf7c29d31942cc7214",
+        "size": 49842,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/085109b797acc6657dea2ccf7c29d31942cc7214"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/html5lib/pendingSpecChanges.test",
+        "sha": "191434f1b13532b03c1bc8519d6c4a1247ac2582",
+        "size": 162,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/191434f1b13532b03c1bc8519d6c4a1247ac2582"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/html5lib/test1.test",
+        "sha": "5323fbbeae2c6116aab14a716c8df1174e7870fb",
+        "size": 10006,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/5323fbbeae2c6116aab14a716c8df1174e7870fb"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/html5lib/test2.test",
+        "sha": "c29e4c315a66e9cb17f6629816331de4421af15a",
+        "size": 8647,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/c29e4c315a66e9cb17f6629816331de4421af15a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/html5lib/test3.test",
+        "sha": "901a581e35cd64fafec2db0b4d5b2390ec12534f",
+        "size": 349970,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/901a581e35cd64fafec2db0b4d5b2390ec12534f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/html5lib/test4.test",
+        "sha": "8963c7471184e53446afaa31e9cc7a74624a3812",
+        "size": 16339,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/8963c7471184e53446afaa31e9cc7a74624a3812"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/html5lib/unicodeChars.test",
+        "sha": "49a8098528ea9771f42c619cb6a63d7bb4b6be86",
+        "size": 43771,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/49a8098528ea9771f42c619cb6a63d7bb4b6be86"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/test_char_refs.py",
+        "sha": "256ed775e5d7ed32eaa37602864e0ad1a97c5b04",
+        "size": 7008,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/256ed775e5d7ed32eaa37602864e0ad1a97c5b04"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/test_fragment.py",
+        "sha": "214211d6dcd401e1bd47e0af2dfbb46cb0aa366e",
+        "size": 5787,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/214211d6dcd401e1bd47e0af2dfbb46cb0aa366e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/test_html5lib_tokenizer.py",
+        "sha": "858491dd6e523bb3f294fa633cca274ace1bbe3d",
+        "size": 11565,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/858491dd6e523bb3f294fa633cca274ace1bbe3d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/test_parse_errors.py",
+        "sha": "f37372da70685914e93d6c58f73b103f91d309ca",
+        "size": 6784,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/f37372da70685914e93d6c58f73b103f91d309ca"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/test_states.py",
+        "sha": "18452cd56c4f3cac0a6a78cdfba8c6544006021d",
+        "size": 1767,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/18452cd56c4f3cac0a6a78cdfba8c6544006021d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/test_tokenizer.py",
+        "sha": "d510dc5927f00078eab61274727b0bf44284425e",
+        "size": 10202,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/d510dc5927f00078eab61274727b0bf44284425e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/tokenizer/test_tokens.py",
+        "sha": "b6ee027f3a2866afc4a5f6ab8aa8860704f4f793",
+        "size": 2697,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/blobs/b6ee027f3a2866afc4a5f6ab8aa8860704f4f793"
+      }
+    ],
+    "truncated": false,
+    "url": "https://api.github.com/repos/aspose-html-foss/Aspose.HTML-FOSS-for-Python/git/trees/813b6a2b2b334bc05ffad9359ae2bef3a91c4f64"
+  }
+}

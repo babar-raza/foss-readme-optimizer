@@ -1,0 +1,1499 @@
+{
+  "branch": {
+    "_links": {
+      "html": "https://github.com/aspose-words-foss/Aspose.Words-FOSS-for-Python/tree/main",
+      "self": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/branches/main"
+    },
+    "commit": {
+      "author": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1225645?v=4",
+        "events_url": "https://api.github.com/users/babar-raza/events{/privacy}",
+        "followers_url": "https://api.github.com/users/babar-raza/followers",
+        "following_url": "https://api.github.com/users/babar-raza/following{/other_user}",
+        "gists_url": "https://api.github.com/users/babar-raza/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/babar-raza",
+        "id": 1225645,
+        "login": "babar-raza",
+        "node_id": "MDQ6VXNlcjEyMjU2NDU=",
+        "organizations_url": "https://api.github.com/users/babar-raza/orgs",
+        "received_events_url": "https://api.github.com/users/babar-raza/received_events",
+        "repos_url": "https://api.github.com/users/babar-raza/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/babar-raza/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/babar-raza/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/babar-raza",
+        "user_view_type": "public"
+      },
+      "comments_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/commits/2d2efee2787cb9e56d071d17f8d7b740dce8b784/comments",
+      "commit": {
+        "author": {
+          "date": "2026-08-17T11:36:27Z",
+          "email": "babar.raza@aspose.com",
+          "name": "Babar Raza"
+        },
+        "comment_count": 0,
+        "committer": {
+          "date": "2026-08-17T11:36:27Z",
+          "email": "noreply@github.com",
+          "name": "GitHub"
+        },
+        "message": "docs: refresh README with verified content, images, and Markdown-loading examples\n\n## Summary\n\nRefreshes `README.md` with a real, source-verified content pass \u2014 a disclosed, AI-assisted,\nhuman-reviewed change, not a wholesale rewrite. Every claim below was individually checked\nagainst the current source tree before being written.\n\n## What changed\n\n- Corrected the `PdfSaveOptions` field list to separate the 9 fields the PDF writer actually\n  applies from the 8 that exist for API compatibility but are not yet consumed (confirmed\n  against `saving.py`'s own `# Currently unused` markers)\n- Added a worked example converting image-containing documents (inline, captioned, in tables,\n  in headers/footers) to every output format\n- Added a worked example for loading Markdown from in-memory bytes/streams via\n  `MarkdownLoadOptions`, including `preserve_empty_lines` and a base64-embedded-image/hyperlink\n  round trip to DOCX and PDF\n- Restored the real per-file descriptions for the `ApiExamples/` scripts (previously a bare\n  filename list) as a table inside the collapsed Additional Examples detail\n- Added a `## Dependencies` section, a `## At a Glance` diagram, and a full `## API Reference`\n  table mirroring the product's own reference-site index, all sourced directly from the real\n  manifest/source tree\n- General structure, badge, and prose accuracy pass\n\n## Verification\n\n- Every `PdfSaveOptions` field's functional status was checked against the real\n  `aspose/words_foss/saving.py` source, including its own inline comments\n- Both new worked examples (image-containing document conversion; in-memory Markdown loading\n  with `preserve_empty_lines` and the base64-image/hyperlink round trip) were executed against\n  the real, current library in a disposable virtual environment before being written\n- Only `README.md` was touched \u2014 confirmed via a surgical single-file diff\n\nCo-authored by: Claude Sonnet 5",
+        "tree": {
+          "sha": "9e212222358cf728e05f1d8c0e0ab16d6952a614",
+          "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/9e212222358cf728e05f1d8c0e0ab16d6952a614"
+        },
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/commits/2d2efee2787cb9e56d071d17f8d7b740dce8b784",
+        "verification": {
+          "payload": "tree 9e212222358cf728e05f1d8c0e0ab16d6952a614\nparent 4473f8cbeef1a65961adc7de304d982ada53a1dd\nauthor Babar Raza <babar.raza@aspose.com> 1786966587 +0500\ncommitter GitHub <noreply@github.com> 1786966587 +0500\n\ndocs: refresh README with verified content, images, and Markdown-loading examples\n\n## Summary\n\nRefreshes `README.md` with a real, source-verified content pass \u2014 a disclosed, AI-assisted,\nhuman-reviewed change, not a wholesale rewrite. Every claim below was individually checked\nagainst the current source tree before being written.\n\n## What changed\n\n- Corrected the `PdfSaveOptions` field list to separate the 9 fields the PDF writer actually\n  applies from the 8 that exist for API compatibility but are not yet consumed (confirmed\n  against `saving.py`'s own `# Currently unused` markers)\n- Added a worked example converting image-containing documents (inline, captioned, in tables,\n  in headers/footers) to every output format\n- Added a worked example for loading Markdown from in-memory bytes/streams via\n  `MarkdownLoadOptions`, including `preserve_empty_lines` and a base64-embedded-image/hyperlink\n  round trip to DOCX and PDF\n- Restored the real per-file descriptions for the `ApiExamples/` scripts (previously a bare\n  filename list) as a table inside the collapsed Additional Examples detail\n- Added a `## Dependencies` section, a `## At a Glance` diagram, and a full `## API Reference`\n  table mirroring the product's own reference-site index, all sourced directly from the real\n  manifest/source tree\n- General structure, badge, and prose accuracy pass\n\n## Verification\n\n- Every `PdfSaveOptions` field's functional status was checked against the real\n  `aspose/words_foss/saving.py` source, including its own inline comments\n- Both new worked examples (image-containing document conversion; in-memory Markdown loading\n  with `preserve_empty_lines` and the base64-image/hyperlink round trip) were executed against\n  the real, current library in a disposable virtual environment before being written\n- Only `README.md` was touched \u2014 confirmed via a surgical single-file diff\n\nCo-authored by: Claude Sonnet 5",
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqgvI7CRC1aQ7uu5UhlAAAmRoQAKtLsw+N2F7C3dJGohtv6itc\n67ikjzdHtPA6/6LkXep7zzOVGFmk2ecjoUwAN4ZJ/NLKwLSpG7wKp3HL79/50zw8\n19TgqhgYvtYu1f4AI/m4LL86Gnsfr+ku97TrrVdmH7/fWNWV9KJIXa/uLgoH9cPj\n/2JN+Ktxg1qBMHSQmxyWCX3WurWw0D517r/LuE0Ytp3RrZKv3ojgaQYl0JL/0uuA\nQAfqdT37vL+/WGo4JLuMmCCmV/FB9uJ3D8XTK1HmDD2ZUDCvL+Y6ox2jMOWUUWpC\nP6of1DBy/+C1rlsMCMY999wzJUQL/h7UH1fVosulsDwYuRdMtF/fZE/wgrJUZfTT\n5lNMavrzJPmTSB25Y0m30HQKLdJbu8YoEQg9u0D5Y1VUKxScNiTUdZ+pE2r8onjt\nZzt4ceS2zUA8o5OmM2+WfaiRK4tA71f3+KONTxRGJ53DabiBMSwRHzd3LuPs+CWJ\nKgXmSwZiGcUDKoANxPExVG01Y16/H0UXPlpb18p5Jv0hrYk+IQrdfZkLzBLGSEnX\nmppXzSLYQI6ce8QgK2Xd/pkClT8T7kMLwgb9rv3di6mkHpQgi31UPI6jzeIB5gbQ\nYSgid4nmICFE9y0pcHdmVe+mz+jfNBuI9hfDUWJyDAUj1hzJ9ErbMLPu7sjJRw4i\nW1vIOFsPmdO6fnEyDf2y\n=1mWV\n-----END PGP SIGNATURE-----\n",
+          "verified": true,
+          "verified_at": "2026-08-17T11:36:28Z"
+        }
+      },
+      "committer": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/web-flow",
+        "id": 19864447,
+        "login": "web-flow",
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/web-flow",
+        "user_view_type": "public"
+      },
+      "html_url": "https://github.com/aspose-words-foss/Aspose.Words-FOSS-for-Python/commit/2d2efee2787cb9e56d071d17f8d7b740dce8b784",
+      "node_id": "C_kwDOR4DRuNoAKDJkMmVmZWUyNzg3Y2I5ZTU2ZDA3MWQxN2Y4ZDdiNzQwZGNlOGI3ODQ",
+      "parents": [
+        {
+          "html_url": "https://github.com/aspose-words-foss/Aspose.Words-FOSS-for-Python/commit/4473f8cbeef1a65961adc7de304d982ada53a1dd",
+          "sha": "4473f8cbeef1a65961adc7de304d982ada53a1dd",
+          "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/commits/4473f8cbeef1a65961adc7de304d982ada53a1dd"
+        }
+      ],
+      "sha": "2d2efee2787cb9e56d071d17f8d7b740dce8b784",
+      "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/commits/2d2efee2787cb9e56d071d17f8d7b740dce8b784"
+    },
+    "name": "main",
+    "protected": false,
+    "protection": {
+      "enabled": false,
+      "required_status_checks": {
+        "checks": [],
+        "contexts": [],
+        "enforcement_level": "off"
+      }
+    },
+    "protection_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/branches/main/protection"
+  },
+  "repo": {
+    "allow_auto_merge": false,
+    "allow_forking": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "archive_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/branches{/branch}",
+    "clone_url": "https://github.com/aspose-words-foss/Aspose.Words-FOSS-for-Python.git",
+    "collaborators_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/comments{/number}",
+    "commits_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/contributors",
+    "created_at": "2026-04-02T14:37:05Z",
+    "custom_properties": {},
+    "default_branch": "main",
+    "delete_branch_on_merge": false,
+    "deployments_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/deployments",
+    "description": "The official open-source Python library by Aspose.Words for document conversion and data extraction.",
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/downloads",
+    "events_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/events",
+    "fork": false,
+    "forks": 2,
+    "forks_count": 2,
+    "forks_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/forks",
+    "full_name": "aspose-words-foss/Aspose.Words-FOSS-for-Python",
+    "git_commits_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/tags{/sha}",
+    "git_url": "git://github.com/aspose-words-foss/Aspose.Words-FOSS-for-Python.git",
+    "has_discussions": false,
+    "has_downloads": false,
+    "has_issues": true,
+    "has_pages": false,
+    "has_projects": true,
+    "has_pull_requests": true,
+    "has_wiki": false,
+    "homepage": "https://products.aspose.org/words/python/",
+    "hooks_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/hooks",
+    "html_url": "https://github.com/aspose-words-foss/Aspose.Words-FOSS-for-Python",
+    "id": 1199624632,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/issues{/number}",
+    "keys_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/labels{/name}",
+    "language": "Python",
+    "languages_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/languages",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "node_id": "MDc6TGljZW5zZTEz",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit"
+    },
+    "merge_commit_message": "PR_TITLE",
+    "merge_commit_title": "MERGE_MESSAGE",
+    "merges_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/merges",
+    "milestones_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/milestones{/number}",
+    "mirror_url": null,
+    "name": "Aspose.Words-FOSS-for-Python",
+    "network_count": 2,
+    "node_id": "R_kgDOR4DRuA",
+    "notifications_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/notifications{?since,all,participating}",
+    "open_issues": 0,
+    "open_issues_count": 0,
+    "organization": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224589373?v=4",
+      "events_url": "https://api.github.com/users/aspose-words-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-words-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-words-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-words-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-words-foss",
+      "id": 224589373,
+      "login": "aspose-words-foss",
+      "node_id": "O_kgDODWL2PQ",
+      "organizations_url": "https://api.github.com/users/aspose-words-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-words-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-words-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-words-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-words-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-words-foss",
+      "user_view_type": "public"
+    },
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224589373?v=4",
+      "events_url": "https://api.github.com/users/aspose-words-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-words-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-words-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-words-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-words-foss",
+      "id": 224589373,
+      "login": "aspose-words-foss",
+      "node_id": "O_kgDODWL2PQ",
+      "organizations_url": "https://api.github.com/users/aspose-words-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-words-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-words-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-words-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-words-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-words-foss",
+      "user_view_type": "public"
+    },
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "private": false,
+    "pull_request_creation_policy": "all",
+    "pulls_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/pulls{/number}",
+    "pushed_at": "2026-08-17T11:36:29Z",
+    "releases_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/releases{/id}",
+    "security_and_analysis": {
+      "dependabot_security_updates": {
+        "status": "disabled"
+      },
+      "secret_scanning": {
+        "status": "disabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    },
+    "size": 523,
+    "squash_merge_commit_message": "COMMIT_MESSAGES",
+    "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+    "ssh_url": "git@github.com:aspose-words-foss/Aspose.Words-FOSS-for-Python.git",
+    "stargazers_count": 6,
+    "stargazers_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/stargazers",
+    "statuses_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/statuses/{sha}",
+    "subscribers_count": 0,
+    "subscribers_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/subscribers",
+    "subscription_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/subscription",
+    "svn_url": "https://github.com/aspose-words-foss/Aspose.Words-FOSS-for-Python",
+    "tags_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/tags",
+    "teams_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/teams",
+    "temp_clone_token": "",
+    "topics": [],
+    "trees_url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees{/sha}",
+    "updated_at": "2026-08-17T11:36:58Z",
+    "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python",
+    "use_squash_pr_title_as_default": false,
+    "visibility": "public",
+    "watchers": 6,
+    "watchers_count": 6,
+    "web_commit_signoff_required": false
+  },
+  "tree": {
+    "sha": "9e212222358cf728e05f1d8c0e0ab16d6952a614",
+    "tree": [
+      {
+        "mode": "100644",
+        "path": ".gitignore",
+        "sha": "d3c95774f407e020f5ed86b4e6ca568efa55ed24",
+        "size": 803,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/d3c95774f407e020f5ed86b4e6ca568efa55ed24"
+      },
+      {
+        "mode": "040000",
+        "path": "ApiExamples",
+        "sha": "042dd8f6bf192185c245e43631a5f666a7f48793",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/042dd8f6bf192185c245e43631a5f666a7f48793"
+      },
+      {
+        "mode": "100644",
+        "path": "ApiExamples/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "100644",
+        "path": "ApiExamples/conftest.py",
+        "sha": "b23f8c52ecaa46d161e7bf263303b253ca7a4a62",
+        "size": 327,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/b23f8c52ecaa46d161e7bf263303b253ca7a4a62"
+      },
+      {
+        "mode": "100644",
+        "path": "ApiExamples/convert_document.py",
+        "sha": "10b3f5823261a29cb1d23008b66903dae77d4e5f",
+        "size": 2242,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/10b3f5823261a29cb1d23008b66903dae77d4e5f"
+      },
+      {
+        "mode": "100644",
+        "path": "ApiExamples/docs_examples_base.py",
+        "sha": "fdb8273e62a6ba8770e3fa6222807f0583dab796",
+        "size": 2571,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/fdb8273e62a6ba8770e3fa6222807f0583dab796"
+      },
+      {
+        "mode": "100644",
+        "path": "ApiExamples/loading_document.py",
+        "sha": "83fea41097ff9562b788352e4bcaa1dd60f638ea",
+        "size": 3616,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/83fea41097ff9562b788352e4bcaa1dd60f638ea"
+      },
+      {
+        "mode": "100644",
+        "path": "ApiExamples/loading_markdown.py",
+        "sha": "266d78fb5ab9765a2f352c920cfb23595dced385",
+        "size": 7405,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/266d78fb5ab9765a2f352c920cfb23595dced385"
+      },
+      {
+        "mode": "100644",
+        "path": "ApiExamples/pytest.ini",
+        "sha": "9f8c6aa6a5d2c15b28f9a337537c2d194e05fcc9",
+        "size": 99,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/9f8c6aa6a5d2c15b28f9a337537c2d194e05fcc9"
+      },
+      {
+        "mode": "100644",
+        "path": "ApiExamples/working_with_images.py",
+        "sha": "97fa0053167ac3fc8134337b61bfdce668d94e3e",
+        "size": 1490,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/97fa0053167ac3fc8134337b61bfdce668d94e3e"
+      },
+      {
+        "mode": "100644",
+        "path": "ApiExamples/working_with_markdown_save_options.py",
+        "sha": "9e7f4925209c46f16d88ff993c43e0ed24028554",
+        "size": 3522,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/9e7f4925209c46f16d88ff993c43e0ed24028554"
+      },
+      {
+        "mode": "100644",
+        "path": "ApiExamples/working_with_ooxml_save_options.py",
+        "sha": "cd348b2f8cd8330c2826602cffd32fa9bda128ed",
+        "size": 3831,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/cd348b2f8cd8330c2826602cffd32fa9bda128ed"
+      },
+      {
+        "mode": "100644",
+        "path": "ApiExamples/working_with_pdf_save_options.py",
+        "sha": "3291e42429dabd934d8039654bb29bbee61f2ef9",
+        "size": 2089,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/3291e42429dabd934d8039654bb29bbee61f2ef9"
+      },
+      {
+        "mode": "100644",
+        "path": "ApiExamples/working_with_txt_save_options.py",
+        "sha": "363d9f7001de8fba0215c7d4e6a6d5897138eb95",
+        "size": 1745,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/363d9f7001de8fba0215c7d4e6a6d5897138eb95"
+      },
+      {
+        "mode": "100644",
+        "path": "LICENSE",
+        "sha": "83292d410e352d7f821d2015db61ad39521b9810",
+        "size": 1081,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/83292d410e352d7f821d2015db61ad39521b9810"
+      },
+      {
+        "mode": "100644",
+        "path": "README.md",
+        "sha": "158b566437a4f3407445525748d53e7b05aef7c2",
+        "size": 29181,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/158b566437a4f3407445525748d53e7b05aef7c2"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose",
+        "sha": "d8e94a410090256b09bd1e637e9da06c7a8ad5bc",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/d8e94a410090256b09bd1e637e9da06c7a8ad5bc"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/words_foss",
+        "sha": "ab49d4b63cc100bc36a6876de19cf756b97db625",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/ab49d4b63cc100bc36a6876de19cf756b97db625"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/__init__.py",
+        "sha": "5c30e3a8cdb5a922ab17c9af4d19022127255b5c",
+        "size": 790,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/5c30e3a8cdb5a922ab17c9af4d19022127255b5c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/_visible_runs.py",
+        "sha": "5f079c24ba32f6d887853925f7a46012c28094b6",
+        "size": 1212,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/5f079c24ba32f6d887853925f7a46012c28094b6"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/words_foss/converters",
+        "sha": "4063ee37d05ff5e6a193d259a75d31dab32f8f51",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/4063ee37d05ff5e6a193d259a75d31dab32f8f51"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/converters/__init__.py",
+        "sha": "d28796bfbfeb312753edb7c382c7e0f31742a56a",
+        "size": 324,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/d28796bfbfeb312753edb7c382c7e0f31742a56a"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/converters/list_handler.py",
+        "sha": "4b2f23337384daf9e3eeecc6dea278442e31f44b",
+        "size": 3384,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/4b2f23337384daf9e3eeecc6dea278442e31f44b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/converters/paragraph.py",
+        "sha": "e700cbe7363a3775e77fb7daa3bf9f81dd810c9e",
+        "size": 4526,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/e700cbe7363a3775e77fb7daa3bf9f81dd810c9e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/converters/table.py",
+        "sha": "e7104646d7eae3e8f979a6225078ac44338c6816",
+        "size": 5102,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/e7104646d7eae3e8f979a6225078ac44338c6816"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/words_foss/doc_reader",
+        "sha": "532cd0a6503ec3201c5561f1fcf92c2a189be7a1",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/532cd0a6503ec3201c5561f1fcf92c2a189be7a1"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/doc_reader/__init__.py",
+        "sha": "4c19735b71e42e1e4ee5dc6d88ce710cd9a9fdcc",
+        "size": 235,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/4c19735b71e42e1e4ee5dc6d88ce710cd9a9fdcc"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/doc_reader/constants.py",
+        "sha": "809d4fbc573015ba712334b85751128926b506f9",
+        "size": 10181,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/809d4fbc573015ba712334b85751128926b506f9"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/doc_reader/doc_file_reader.py",
+        "sha": "959b491583ddc60bc242ad2633a7ac67650416f5",
+        "size": 61650,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/959b491583ddc60bc242ad2633a7ac67650416f5"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/doc_reader/doc_file_reader_core.py",
+        "sha": "c94b2d099bda055af4a2abbc9f9b74a962ad6605",
+        "size": 26500,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/c94b2d099bda055af4a2abbc9f9b74a962ad6605"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/doc_reader/fib.py",
+        "sha": "3e07676363e91140e6e338cdd89676ed228b76ce",
+        "size": 1827,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/3e07676363e91140e6e338cdd89676ed228b76ce"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/doc_reader/fonts.py",
+        "sha": "852ac4d36500ae4907d0c9e5305dcfaab935488d",
+        "size": 1438,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/852ac4d36500ae4907d0c9e5305dcfaab935488d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/doc_reader/images.py",
+        "sha": "6bf4be913f3acbae237b757d529b9f31dc22b716",
+        "size": 23184,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/6bf4be913f3acbae237b757d529b9f31dc22b716"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/doc_reader/lists.py",
+        "sha": "211c100b6ddf8f00bce9d9a311e8e4fceea334b6",
+        "size": 8315,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/211c100b6ddf8f00bce9d9a311e8e4fceea334b6"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/doc_reader/properties.py",
+        "sha": "22bc3c049ac0f8154327996feb0aacdd92b2ce07",
+        "size": 41915,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/22bc3c049ac0f8154327996feb0aacdd92b2ce07"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/doc_reader/styles.py",
+        "sha": "f13c941088d9639600ee33b578535b4c4b1ee9b6",
+        "size": 7927,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/f13c941088d9639600ee33b578535b4c4b1ee9b6"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/doc_reader/table_builder.py",
+        "sha": "f12efbf69389444561d9ccc830cb98720113ea38",
+        "size": 14274,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/f12efbf69389444561d9ccc830cb98720113ea38"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/doc_reader/tables.py",
+        "sha": "b4a05f6b451ef040d819b6f90964d5075f43e254",
+        "size": 946,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/b4a05f6b451ef040d819b6f90964d5075f43e254"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/doc_reader/text.py",
+        "sha": "0a58c234e60ee3f8a282e5f92f52a914aed4e51d",
+        "size": 6854,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/0a58c234e60ee3f8a282e5f92f52a914aed4e51d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/document.py",
+        "sha": "d7b9fe7550ccf3b58667fac02a7cbeda545a6885",
+        "size": 15987,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/d7b9fe7550ccf3b58667fac02a7cbeda545a6885"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/words_foss/docx_reader",
+        "sha": "b301c215a33385f59817f625f0c25755e4337682",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/b301c215a33385f59817f625f0c25755e4337682"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/__init__.py",
+        "sha": "5f149a08d13874cd11f1505c9f763fd41ab55a3e",
+        "size": 2129,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/5f149a08d13874cd11f1505c9f763fd41ab55a3e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/constants.py",
+        "sha": "e9565cbc5441cb7d9fbd5ef2af8b3393075a14dc",
+        "size": 8462,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/e9565cbc5441cb7d9fbd5ef2af8b3393075a14dc"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/data_classes.py",
+        "sha": "396b56a034a774a269d953ce18ad7102815a1ff9",
+        "size": 1577,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/396b56a034a774a269d953ce18ad7102815a1ff9"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/document_reader.py",
+        "sha": "0eaf5da0ab6edf842e0a07652538d6763887ed13",
+        "size": 24698,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/0eaf5da0ab6edf842e0a07652538d6763887ed13"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/field_mappings.py",
+        "sha": "fcb4bcd3d81f985535fe565a17b6e60f44a09772",
+        "size": 7572,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/fcb4bcd3d81f985535fe565a17b6e60f44a09772"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/words_foss/docx_reader/ldm_builder",
+        "sha": "82dd7332514139676e6e085b6bd0eaa96ebf9bb5",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/82dd7332514139676e6e085b6bd0eaa96ebf9bb5"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/ldm_builder/__init__.py",
+        "sha": "33ddb71304a277c86695e63bd065be09600c6e51",
+        "size": 146,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/33ddb71304a277c86695e63bd065be09600c6e51"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/ldm_builder/_context.py",
+        "sha": "930430398d35c65c018e5ecf8b7e06ac2e073e71",
+        "size": 2627,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/930430398d35c65c018e5ecf8b7e06ac2e073e71"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/ldm_builder/_helpers.py",
+        "sha": "d493cd3ab45c44f88e385b8eeeafb5a8457a9c66",
+        "size": 6246,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/d493cd3ab45c44f88e385b8eeeafb5a8457a9c66"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/ldm_builder/cascading.py",
+        "sha": "8842d1de74b23ff20c7fb273830cf164f4ea2fe8",
+        "size": 19814,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/8842d1de74b23ff20c7fb273830cf164f4ea2fe8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/ldm_builder/definitions.py",
+        "sha": "923e1809b3c7b7eb7b0c74d15e44ecd2df0f0560",
+        "size": 16992,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/923e1809b3c7b7eb7b0c74d15e44ecd2df0f0560"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/ldm_builder/mixin.py",
+        "sha": "309998d60659fce25020294641a545dd43d78368",
+        "size": 8771,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/309998d60659fce25020294641a545dd43d78368"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/ldm_builder/paragraphs.py",
+        "sha": "217e56fcba85c88c62b9b827c67f93be2e8b5980",
+        "size": 12994,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/217e56fcba85c88c62b9b827c67f93be2e8b5980"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/ldm_builder/sections.py",
+        "sha": "84cae5c75d2876ea950ffcb76271ebfbb4087f95",
+        "size": 8685,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/84cae5c75d2876ea950ffcb76271ebfbb4087f95"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/ldm_builder/tables.py",
+        "sha": "0cce35a2d9c13884813ef07b6596c4b2bddca452",
+        "size": 12358,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/0cce35a2d9c13884813ef07b6596c4b2bddca452"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/shapes.py",
+        "sha": "9143623e3afa0bffa96e53f4e137c91a7e702ed0",
+        "size": 31836,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/9143623e3afa0bffa96e53f4e137c91a7e702ed0"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_reader/utils.py",
+        "sha": "50b13d96363dc858d49ccdd461c849a467681f8b",
+        "size": 9703,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/50b13d96363dc858d49ccdd461c849a467681f8b"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/words_foss/docx_writer",
+        "sha": "d845f08c2ba8db83b51eafedd0fd17d565508ed2",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/d845f08c2ba8db83b51eafedd0fd17d565508ed2"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/__init__.py",
+        "sha": "384560e036d82a1acbfe8d4e743160d42e6b514a",
+        "size": 556,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/384560e036d82a1acbfe8d4e743160d42e6b514a"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/blank_template.py",
+        "sha": "54d2a5aa23766eaf61213e6f4d68aea7aec5e01f",
+        "size": 1875,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/54d2a5aa23766eaf61213e6f4d68aea7aec5e01f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/bookmarks.py",
+        "sha": "715d3da99f991b5fb058322cbe65062cf3a5085b",
+        "size": 1898,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/715d3da99f991b5fb058322cbe65062cf3a5085b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/constants.py",
+        "sha": "256003126ea784ba4aca04e054374a6df9bf545a",
+        "size": 6588,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/256003126ea784ba4aca04e054374a6df9bf545a"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/doc_props_part.py",
+        "sha": "dfcd6d33f43ba432bd32ea2d7060aef14058f26e",
+        "size": 3495,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/dfcd6d33f43ba432bd32ea2d7060aef14058f26e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/document_part.py",
+        "sha": "e159b834cd0c6b324f62f2efa70a6d044db4074e",
+        "size": 17215,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/e159b834cd0c6b324f62f2efa70a6d044db4074e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/drawing.py",
+        "sha": "be0fe2cf95e8de192b7235d6e102eb4a595e0ca3",
+        "size": 39362,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/be0fe2cf95e8de192b7235d6e102eb4a595e0ca3"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/headers_footers.py",
+        "sha": "502f6fed9b907e2faa34918362e4fc484d8284bd",
+        "size": 6911,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/502f6fed9b907e2faa34918362e4fc484d8284bd"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/numbering_part.py",
+        "sha": "44aaeaccedb06a357249d995a84feb7bd8d17972",
+        "size": 8877,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/44aaeaccedb06a357249d995a84feb7bd8d17972"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/package.py",
+        "sha": "5df6dbe8cb5374d3296c1dcd429349bdd77b0c0c",
+        "size": 14633,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/5df6dbe8cb5374d3296c1dcd429349bdd77b0c0c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/paragraphs.py",
+        "sha": "f7786b78d6fc3e6030dd2db20398303a1f077127",
+        "size": 30572,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/f7786b78d6fc3e6030dd2db20398303a1f077127"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/words_foss/docx_writer/resources",
+        "sha": "900bbf80fba2a01288be0dd22422449b24be4238",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/900bbf80fba2a01288be0dd22422449b24be4238"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/resources/blank.docx",
+        "sha": "58bfe8ba1f88a672e5749fd6356d859cd2f52ce6",
+        "size": 7551,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/58bfe8ba1f88a672e5749fd6356d859cd2f52ce6"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/runs.py",
+        "sha": "9b7d14d643a7c8c5f4e063ce717bb9d6a6146e04",
+        "size": 17615,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/9b7d14d643a7c8c5f4e063ce717bb9d6a6146e04"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/settings_part.py",
+        "sha": "f756888ebd6d721d759792f52b10bd926c1de684",
+        "size": 1147,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/f756888ebd6d721d759792f52b10bd926c1de684"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/styles_part.py",
+        "sha": "aa9be6c4a20cdb776a53d295d2b5826cab187879",
+        "size": 24667,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/aa9be6c4a20cdb776a53d295d2b5826cab187879"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/tables.py",
+        "sha": "f91fc1c3b0cd4fcfa1adb83c633899e4f7bdb08f",
+        "size": 17745,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/f91fc1c3b0cd4fcfa1adb83c633899e4f7bdb08f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/writer.py",
+        "sha": "f6fac13c150f561b69a822cd05b1f6db81f5e672",
+        "size": 12938,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/f6fac13c150f561b69a822cd05b1f6db81f5e672"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/docx_writer/xml_utils.py",
+        "sha": "4c6910073e792a1b6968f82a7ab37e6abf61d5b8",
+        "size": 11374,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/4c6910073e792a1b6968f82a7ab37e6abf61d5b8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/drawing.py",
+        "sha": "ae9ffeafde84f5528dee2e515e073a0cf109d3c2",
+        "size": 316,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/ae9ffeafde84f5528dee2e515e073a0cf109d3c2"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/light_document_model.py",
+        "sha": "14d48faf1b4b5ea83a187b1772851b7d38f0f4c0",
+        "size": 45930,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/14d48faf1b4b5ea83a187b1772851b7d38f0f4c0"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/loading.py",
+        "sha": "6d55638ca4cf9bf2b68c5351587ea419705839d1",
+        "size": 363,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/6d55638ca4cf9bf2b68c5351587ea419705839d1"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/markdown_reader.py",
+        "sha": "182a780a1fc4a6103323880b28c66f8d38668930",
+        "size": 3248,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/182a780a1fc4a6103323880b28c66f8d38668930"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/words_foss/md_import",
+        "sha": "e5f4a0c14f1c6b6254373a5b6ab4fc2dbf9d3c93",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/e5f4a0c14f1c6b6254373a5b6ab4fc2dbf9d3c93"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/md_import/__init__.py",
+        "sha": "ee7ab5695bf14601d2e28576228b302f5cff52a0",
+        "size": 2720,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/ee7ab5695bf14601d2e28576228b302f5cff52a0"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/md_import/_image_loader.py",
+        "sha": "205ccb7e05e07e2724efcf2e585a69c1047a6fa8",
+        "size": 4298,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/205ccb7e05e07e2724efcf2e585a69c1047a6fa8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/md_import/_list_mixin.py",
+        "sha": "e438ff5001cca9abf46350f00698fd15280fd0e7",
+        "size": 6385,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/e438ff5001cca9abf46350f00698fd15280fd0e7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/md_import/_reader_constants.py",
+        "sha": "4fc2d6d4d387ed292440539412f5fdbf8b7fd46e",
+        "size": 3167,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/4fc2d6d4d387ed292440539412f5fdbf8b7fd46e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/md_import/_style_mixin.py",
+        "sha": "fc85e2d34d268e49035c7063b7fe947a25463d1e",
+        "size": 12036,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/fc85e2d34d268e49035c7063b7fe947a25463d1e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/md_import/block_parser.py",
+        "sha": "430afaee415fd714d73a84d2bacc354c7cb9c66f",
+        "size": 24046,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/430afaee415fd714d73a84d2bacc354c7cb9c66f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/md_import/blocks.py",
+        "sha": "9f3598fb0b5086d59ec242fb4ff8456b70ab9303",
+        "size": 13009,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/9f3598fb0b5086d59ec242fb4ff8456b70ab9303"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/md_import/document_builder.py",
+        "sha": "ad03b04591de338918d4a85ae04d61967f763945",
+        "size": 19237,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/ad03b04591de338918d4a85ae04d61967f763945"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/md_import/inline_parser.py",
+        "sha": "8b2932342055a0e6c98c1e76ca58c59a8dff489f",
+        "size": 20104,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/8b2932342055a0e6c98c1e76ca58c59a8dff489f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/md_import/reader_context.py",
+        "sha": "79da33343681e65ccc12393bdee05c3cde7872a5",
+        "size": 27968,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/79da33343681e65ccc12393bdee05c3cde7872a5"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/md_import/traversal.py",
+        "sha": "61550d6f8c6ae8cde117a7dd3ecb1e04660db440",
+        "size": 4102,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/61550d6f8c6ae8cde117a7dd3ecb1e04660db440"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/md_writer.py",
+        "sha": "a6c6078f9c546ebd2c063e574dc4bd02630b8a0b",
+        "size": 61744,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/a6c6078f9c546ebd2c063e574dc4bd02630b8a0b"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/words_foss/model",
+        "sha": "c9386f23b4eceb98ff1adb76b673edde680099e5",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/c9386f23b4eceb98ff1adb76b673edde680099e5"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/model/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/words_foss/model/enums",
+        "sha": "6fd610676269ac8eaca4493e8991c455d96f2b34",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/6fd610676269ac8eaca4493e8991c455d96f2b34"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/model/enums/__init__.py",
+        "sha": "dba44c1871451aff9a7f843b4887411124b557bd",
+        "size": 812,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/dba44c1871451aff9a7f843b4887411124b557bd"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/model/enums/border.py",
+        "sha": "584d04f0e4aee88cb7fe330239c1ea4b6e416bbc",
+        "size": 703,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/584d04f0e4aee88cb7fe330239c1ea4b6e416bbc"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/model/enums/font.py",
+        "sha": "48ebd626a6b02b3dad610fed0d202f8825f30a24",
+        "size": 443,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/48ebd626a6b02b3dad610fed0d202f8825f30a24"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/model/enums/image.py",
+        "sha": "c7f872c012807313bb32cd8b7f6d70cc31b28531",
+        "size": 1075,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/c7f872c012807313bb32cd8b7f6d70cc31b28531"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/model/enums/layout.py",
+        "sha": "467cae3f0ea4bb29eebb2f211aa6a4f698c9cddb",
+        "size": 783,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/467cae3f0ea4bb29eebb2f211aa6a4f698c9cddb"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/model/enums/paragraph.py",
+        "sha": "1e34cc5d739645c14248827146e7d82d95c24b7b",
+        "size": 873,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/1e34cc5d739645c14248827146e7d82d95c24b7b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/model/enums/style.py",
+        "sha": "74da058aa46cb4d90cb3a80ec22823a8ca610ec7",
+        "size": 13022,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/74da058aa46cb4d90cb3a80ec22823a8ca610ec7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/model/enums/table.py",
+        "sha": "2e28441dac691d768e216859616e7770449420ec",
+        "size": 478,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/2e28441dac691d768e216859616e7770449420ec"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/model/list_limits.py",
+        "sha": "13db81414fa9eee6e60468deef07abed99873cca",
+        "size": 164,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/13db81414fa9eee6e60468deef07abed99873cca"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/model/style_identifiers.py",
+        "sha": "463a8cefbc8aae501a9b4e8f1dcd37972cc69aa7",
+        "size": 24149,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/463a8cefbc8aae501a9b4e8f1dcd37972cc69aa7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/model/wrap_type.py",
+        "sha": "b10512dc6e2ab0279b4fdc9e936a8cb2b3968a9f",
+        "size": 764,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/b10512dc6e2ab0279b4fdc9e936a8cb2b3968a9f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/models.py",
+        "sha": "b907a383d1bc0076062f22ab84f396d664933cc3",
+        "size": 3636,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/b907a383d1bc0076062f22ab84f396d664933cc3"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/words_foss/parsers",
+        "sha": "37f76eb4d6eaa72cd268f85b5cb53675361776c6",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/37f76eb4d6eaa72cd268f85b5cb53675361776c6"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/parsers/__init__.py",
+        "sha": "6939a29247dfc253d84b6df709a1d9f9e1a122bc",
+        "size": 221,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/6939a29247dfc253d84b6df709a1d9f9e1a122bc"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/parsers/numbering_parser.py",
+        "sha": "4d151b53839effe81c69cf3f5ab586764f109e2f",
+        "size": 5438,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/4d151b53839effe81c69cf3f5ab586764f109e2f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/parsers/style_parser.py",
+        "sha": "ad54054898326e3faa018a0aa296f153a1e7739a",
+        "size": 4325,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/ad54054898326e3faa018a0aa296f153a1e7739a"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/words_foss/pdf_writer",
+        "sha": "9d620c2f98d5d02949979d8870309c2c27724d50",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/9d620c2f98d5d02949979d8870309c2c27724d50"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/pdf_writer/__init__.py",
+        "sha": "8c33ad7a356157c19240f2a8ecb6085463f2e167",
+        "size": 416,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/8c33ad7a356157c19240f2a8ecb6085463f2e167"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/pdf_writer/_context.py",
+        "sha": "0d375239f940c2c089d0d45caf0aca3025f627a2",
+        "size": 1035,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/0d375239f940c2c089d0d45caf0aca3025f627a2"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/pdf_writer/color.py",
+        "sha": "7c28d6b5520e9f2fd7900ce3b350f238786d47f1",
+        "size": 1175,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/7c28d6b5520e9f2fd7900ce3b350f238786d47f1"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/pdf_writer/constants.py",
+        "sha": "e94827df19dac6e72bbe078eacd6e3869f1715fb",
+        "size": 7186,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/e94827df19dac6e72bbe078eacd6e3869f1715fb"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/pdf_writer/font.py",
+        "sha": "1240ab37439ebc5aec36a9926808a0e0cbc743a3",
+        "size": 2222,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/1240ab37439ebc5aec36a9926808a0e0cbc743a3"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/pdf_writer/page_bands.py",
+        "sha": "1e8c3d5f198333224e95ab5413b346b31c1c8afe",
+        "size": 6049,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/1e8c3d5f198333224e95ab5413b346b31c1c8afe"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/pdf_writer/paragraph_renderer.py",
+        "sha": "7de452ccfae381f989e249d6fe3ab1e6d09a3ac3",
+        "size": 24200,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/7de452ccfae381f989e249d6fe3ab1e6d09a3ac3"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/pdf_writer/run_renderer.py",
+        "sha": "cab1e8b4c01e52430307995c992699ef5bacb441",
+        "size": 18361,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/cab1e8b4c01e52430307995c992699ef5bacb441"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/pdf_writer/shape_renderer.py",
+        "sha": "91b96651aaf0f875eb62c5de1d68537d7bc06ee8",
+        "size": 14520,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/91b96651aaf0f875eb62c5de1d68537d7bc06ee8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/pdf_writer/table_renderer.py",
+        "sha": "65e629e5eee9449481c81738b21768391ff5b7b3",
+        "size": 21940,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/65e629e5eee9449481c81738b21768391ff5b7b3"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/pdf_writer/text.py",
+        "sha": "8dd48f56a00969dcee5c22060c24343b290deb94",
+        "size": 5191,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/8dd48f56a00969dcee5c22060c24343b290deb94"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/pdf_writer/writer.py",
+        "sha": "2f1cc2ba586d15da6de61e1590f5af69bb81a85c",
+        "size": 30450,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/2f1cc2ba586d15da6de61e1590f5af69bb81a85c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/reader_factory.py",
+        "sha": "867803b01a05e7b96b7a48fc049eb961b68d1c03",
+        "size": 1627,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/867803b01a05e7b96b7a48fc049eb961b68d1c03"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/rtf_reader.py",
+        "sha": "dd825fd1c7cbd48ad2bf6e7c5191e49ad7b6920e",
+        "size": 2137,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/dd825fd1c7cbd48ad2bf6e7c5191e49ad7b6920e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/saving.py",
+        "sha": "5d2b96bcefeb40e6e322bb6515f62d921949f9b8",
+        "size": 12776,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/5d2b96bcefeb40e6e322bb6515f62d921949f9b8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/text_reader.py",
+        "sha": "c13874a97709499038f727620a8d51897cf8709d",
+        "size": 6569,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/c13874a97709499038f727620a8d51897cf8709d"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/words_foss/utils",
+        "sha": "b901048f91f7331f92b6f90ae03dbcb97a369ee2",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/b901048f91f7331f92b6f90ae03dbcb97a369ee2"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/utils/__init__.py",
+        "sha": "fa29c70e5a032b55c913004271d02e425d6ae3ab",
+        "size": 185,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/fa29c70e5a032b55c913004271d02e425d6ae3ab"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/words_foss/utils/xml_helpers.py",
+        "sha": "fa68d32166608f42c2ef38221cfd3488799e0403",
+        "size": 1319,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/fa68d32166608f42c2ef38221cfd3488799e0403"
+      },
+      {
+        "mode": "100644",
+        "path": "pyproject.toml",
+        "sha": "af4509730e871794ab1a0b62b760583ded48fcba",
+        "size": 1773,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/af4509730e871794ab1a0b62b760583ded48fcba"
+      },
+      {
+        "mode": "040000",
+        "path": "tests",
+        "sha": "d19776df3bd46da1aee178dabd53afa6fbb608e1",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/d19776df3bd46da1aee178dabd53afa6fbb608e1"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/data",
+        "sha": "89c7a7f2a720bedb0c3f182da75656e3429ee047",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/89c7a7f2a720bedb0c3f182da75656e3429ee047"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/data/input",
+        "sha": "c715bd004d58bbe6da5ec1a2d8ac2411cbea4c0d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/c715bd004d58bbe6da5ec1a2d8ac2411cbea4c0d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/consecutive_images.docx",
+        "sha": "85eb14d083622ad95a4fb44293accc8d6139dfb5",
+        "size": 37516,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/85eb14d083622ad95a4fb44293accc8d6139dfb5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/image_in_footer.docx",
+        "sha": "b70e0574fb1b067254b8d497afeb08b565f75d0c",
+        "size": 38027,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/b70e0574fb1b067254b8d497afeb08b565f75d0c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/image_in_header.docx",
+        "sha": "e6ab9f6503e0fde5527c02f1bd0818d4eaf6a5ca",
+        "size": 38028,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/e6ab9f6503e0fde5527c02f1bd0818d4eaf6a5ca"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/image_in_table.docx",
+        "sha": "071774d085c2d0277e9a63b0a5ed636dfeb77f9a",
+        "size": 37300,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/071774d085c2d0277e9a63b0a5ed636dfeb77f9a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/image_with_caption.docx",
+        "sha": "510af9a177fb9be02434e9a09265019e4846d084",
+        "size": 37277,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/510af9a177fb9be02434e9a09265019e4846d084"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/multi_image_ordered.docx",
+        "sha": "4e913aac24d5dca97ae3edb2d857d7960620b1d8",
+        "size": 42630,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/4e913aac24d5dca97ae3edb2d857d7960620b1d8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/no_images.docx",
+        "sha": "ee6442e962328af8254c7ccc9ed41b86d32ad8c9",
+        "size": 36623,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/ee6442e962328af8254c7ccc9ed41b86d32ad8c9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/simple_inline.docx",
+        "sha": "e58e9bfc673b7c8b746d088b59cbd98a50863eae",
+        "size": 37185,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/e58e9bfc673b7c8b746d088b59cbd98a50863eae"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/test_bold.doc",
+        "sha": "c4c986515ded054e4ded6a86fa792a12a91bdae5",
+        "size": 9728,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/c4c986515ded054e4ded6a86fa792a12a91bdae5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/test_full_article.doc",
+        "sha": "572b3de0df7bc1945f47ab2c398cb7f38a008003",
+        "size": 15360,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/572b3de0df7bc1945f47ab2c398cb7f38a008003"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/test_full_article.docx",
+        "sha": "6b1360b06e0fde9589cbd5f6bc9b7776849af08e",
+        "size": 8790,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/6b1360b06e0fde9589cbd5f6bc9b7776849af08e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/test_full_article.rtf",
+        "sha": "f32a2e794e8df7ece413a36a5a82ff9452a4ff4e",
+        "size": 15360,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/f32a2e794e8df7ece413a36a5a82ff9452a4ff4e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/test_markdown.md",
+        "sha": "678a076d8ee6275c9c53f59566e57f1364e839d6",
+        "size": 200,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/678a076d8ee6275c9c53f59566e57f1364e839d6"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/test_plain.txt",
+        "sha": "7da3239a4f44ce9e6d7192ddaac96e4bb8c5530e",
+        "size": 87,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/7da3239a4f44ce9e6d7192ddaac96e4bb8c5530e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/test_underline_text.docx",
+        "sha": "646333253403b6fe558662f5bd945221015afb23",
+        "size": 7180,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/646333253403b6fe558662f5bd945221015afb23"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/data/input/wide_image.docx",
+        "sha": "48ca20e130d54a0a7c2f864271a87f8497666e82",
+        "size": 37272,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/blobs/48ca20e130d54a0a7c2f864271a87f8497666e82"
+      }
+    ],
+    "truncated": false,
+    "url": "https://api.github.com/repos/aspose-words-foss/Aspose.Words-FOSS-for-Python/git/trees/9e212222358cf728e05f1d8c0e0ab16d6952a614"
+  }
+}

@@ -1,0 +1,3372 @@
+{
+  "branch": {
+    "_links": {
+      "html": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/tree/master",
+      "self": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/branches/master"
+    },
+    "commit": {
+      "author": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1225645?v=4",
+        "events_url": "https://api.github.com/users/babar-raza/events{/privacy}",
+        "followers_url": "https://api.github.com/users/babar-raza/followers",
+        "following_url": "https://api.github.com/users/babar-raza/following{/other_user}",
+        "gists_url": "https://api.github.com/users/babar-raza/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/babar-raza",
+        "id": 1225645,
+        "login": "babar-raza",
+        "node_id": "MDQ6VXNlcjEyMjU2NDU=",
+        "organizations_url": "https://api.github.com/users/babar-raza/orgs",
+        "received_events_url": "https://api.github.com/users/babar-raza/received_events",
+        "repos_url": "https://api.github.com/users/babar-raza/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/babar-raza/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/babar-raza/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/babar-raza",
+        "user_view_type": "public"
+      },
+      "comments_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/commits/779c9640ee38ed9e80c53e8db1e850f6be24372f/comments",
+      "commit": {
+        "author": {
+          "date": "2026-08-13T18:01:11Z",
+          "email": "babar.raza@aspose.com",
+          "name": "Babar Raza"
+        },
+        "comment_count": 0,
+        "committer": {
+          "date": "2026-08-13T18:01:11Z",
+          "email": "noreply@github.com",
+          "name": "GitHub"
+        },
+        "message": "docs: refresh repository presentation\n\n- Package rename: update all 20 Java import statements from the\n  deprecated com.aspose.cells_foss namespace to the current, real\n  org.aspose.cells_foss namespace (matching the live upstream package\n  layout as of the current master), so every code example compiles\n  against the currently published library.\n- Restore a Project Structure section (box-drawing directory tree,\n  matching the corrected, current source layout) and reconcile\n  Enterprise Edition badge/package coordinates against verified,\n  live sources.\n- Rework the At-a-Glance diagram: remove two duplicated nodes whose\n  content already exists as real Capabilities (embedded-picture\n  bytes as a Starting Point, load-diagnostics reporting as an\n  Output), keeping only genuinely distinct inputs/outputs.\n- Rewrite the Key Capabilities section for natural, varied phrasing\n  (reduced repetitive \"`Identifier` does X\" openings from 82% to 27%\n  of bullets) while preserving every documented class, method, and\n  fact exactly as verified against the real source.\n- Every code example, class/member reference, and diagram claim in\n  this candidate was checked against the real, current published\n  source and API surface before being included.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "062a43b39570df8e34a3a4c4db2e0d9ad885ae7c",
+          "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/062a43b39570df8e34a3a4c4db2e0d9ad885ae7c"
+        },
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/commits/779c9640ee38ed9e80c53e8db1e850f6be24372f",
+        "verification": {
+          "payload": "tree 062a43b39570df8e34a3a4c4db2e0d9ad885ae7c\nparent 2be25d979d1f3bf2875a1798aed62a16efab6619\nauthor Babar Raza <babar.raza@aspose.com> 1786644071 +0500\ncommitter GitHub <noreply@github.com> 1786644071 +0500\n\ndocs: refresh repository presentation\n\n- Package rename: update all 20 Java import statements from the\n  deprecated com.aspose.cells_foss namespace to the current, real\n  org.aspose.cells_foss namespace (matching the live upstream package\n  layout as of the current master), so every code example compiles\n  against the currently published library.\n- Restore a Project Structure section (box-drawing directory tree,\n  matching the corrected, current source layout) and reconcile\n  Enterprise Edition badge/package coordinates against verified,\n  live sources.\n- Rework the At-a-Glance diagram: remove two duplicated nodes whose\n  content already exists as real Capabilities (embedded-picture\n  bytes as a Starting Point, load-diagnostics reporting as an\n  Output), keeping only genuinely distinct inputs/outputs.\n- Rewrite the Key Capabilities section for natural, varied phrasing\n  (reduced repetitive \"`Identifier` does X\" openings from 82% to 27%\n  of bullets) while preserving every documented class, method, and\n  fact exactly as verified against the real source.\n- Every code example, class/member reference, and diagram claim in\n  this candidate was checked against the real, current published\n  source and API surface before being included.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqfgZnCRC1aQ7uu5UhlAAACBAQAHy5NNrBbyBC6NFDhyfnL2cD\n27LufFohRQqafo+cbw1QdIIDcNkC1Hw9nNq50GZmJ2+Kdb2LjnjjzbRi8lZ1qGKo\nj2U0egC5BpQlPVZtCn8RC95aLW45HB5ixESkBGSJuAA5VXng1BSsSh4cRqF4guOY\nn4AOLMFcPBhtJs9Pe6lpx5M6JiSneDMOOECVcoijE3LtCetzQXr7h2aAfycIprHq\nZAcs7Xm/lqic16+9kPMj76gDzkro4fQ6BDNLKdPWqYGLorz4Ua0ThTgaM6ETAKja\nxFwruRaPLzMu8u4/WDVF/tQUlmVoR14EiTkLJpbryUIS7LBbztk7AGrIWFEn0fF2\nDEHrBZpUE7vw6I/e+vk90qoQF/dn/hNcShVf51IGlFyQfjqMtZ6W//yPiCJguFlX\nJ1giXANnVcNeuP4YgV02ocqWJ+9X4aoefYax4T47QsygotRjeDqiJFwF8s28rPYs\n8aaT0HFJFwHhHDiZfhBU3xMkPIUWASDDcT6RxWzZb0DMeHh9tLItTioXa8yJrIUG\n1CwffVznp5kNC2LhySv7f4rBm/S232Tx4V51r63o1gLLGeNDirLmH5R9BZ4tjz8c\n2qr5dWNk0PRP9R83L2BLjRgcaNXRWE+xD7PviMsi9E/jasjzcfznOLW9YI07ub/O\n9euTnp9afbM7Ote23dut\n=TRKD\n-----END PGP SIGNATURE-----\n",
+          "verified": true,
+          "verified_at": "2026-08-13T18:01:34Z"
+        }
+      },
+      "committer": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/web-flow",
+        "id": 19864447,
+        "login": "web-flow",
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/web-flow",
+        "user_view_type": "public"
+      },
+      "html_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/commit/779c9640ee38ed9e80c53e8db1e850f6be24372f",
+      "node_id": "C_kwDOSFTc2NoAKDc3OWM5NjQwZWUzOGVkOWU4MGM1M2U4ZGIxZTg1MGY2YmUyNDM3MmY",
+      "parents": [
+        {
+          "html_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/commit/2be25d979d1f3bf2875a1798aed62a16efab6619",
+          "sha": "2be25d979d1f3bf2875a1798aed62a16efab6619",
+          "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/commits/2be25d979d1f3bf2875a1798aed62a16efab6619"
+        }
+      ],
+      "sha": "779c9640ee38ed9e80c53e8db1e850f6be24372f",
+      "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/commits/779c9640ee38ed9e80c53e8db1e850f6be24372f"
+    },
+    "name": "master",
+    "protected": false,
+    "protection": {
+      "enabled": false,
+      "required_status_checks": {
+        "checks": [],
+        "contexts": [],
+        "enforcement_level": "off"
+      }
+    },
+    "protection_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/branches/master/protection"
+  },
+  "repo": {
+    "allow_auto_merge": false,
+    "allow_forking": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "archive_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/branches{/branch}",
+    "clone_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java.git",
+    "collaborators_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/comments{/number}",
+    "commits_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/contributors",
+    "created_at": "2026-04-17T13:21:47Z",
+    "custom_properties": {},
+    "default_branch": "master",
+    "delete_branch_on_merge": false,
+    "deployments_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/deployments",
+    "description": "Open-source Java library for creating, reading, modifying, and converting Excel files programmatically.",
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/downloads",
+    "events_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/events",
+    "fork": false,
+    "forks": 1,
+    "forks_count": 1,
+    "forks_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/forks",
+    "full_name": "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    "git_commits_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/tags{/sha}",
+    "git_url": "git://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java.git",
+    "has_discussions": false,
+    "has_downloads": false,
+    "has_issues": true,
+    "has_pages": false,
+    "has_projects": true,
+    "has_pull_requests": true,
+    "has_wiki": true,
+    "homepage": "https://products.aspose.org/cells/java/",
+    "hooks_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/hooks",
+    "html_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    "id": 1213521112,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/issues{/number}",
+    "keys_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/labels{/name}",
+    "language": "Java",
+    "languages_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/languages",
+    "license": null,
+    "merge_commit_message": "PR_TITLE",
+    "merge_commit_title": "MERGE_MESSAGE",
+    "merges_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/merges",
+    "milestones_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/milestones{/number}",
+    "mirror_url": null,
+    "name": "Aspose.Cells-FOSS-for-Java",
+    "network_count": 1,
+    "node_id": "R_kgDOSFTc2A",
+    "notifications_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/notifications{?since,all,participating}",
+    "open_issues": 0,
+    "open_issues_count": 0,
+    "organization": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224591102?v=4",
+      "events_url": "https://api.github.com/users/aspose-cells-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-cells-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-cells-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-cells-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-cells-foss",
+      "id": 224591102,
+      "login": "aspose-cells-foss",
+      "node_id": "O_kgDODWL8_g",
+      "organizations_url": "https://api.github.com/users/aspose-cells-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-cells-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-cells-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-cells-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-cells-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-cells-foss",
+      "user_view_type": "public"
+    },
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224591102?v=4",
+      "events_url": "https://api.github.com/users/aspose-cells-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-cells-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-cells-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-cells-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-cells-foss",
+      "id": 224591102,
+      "login": "aspose-cells-foss",
+      "node_id": "O_kgDODWL8_g",
+      "organizations_url": "https://api.github.com/users/aspose-cells-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-cells-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-cells-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-cells-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-cells-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-cells-foss",
+      "user_view_type": "public"
+    },
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "private": false,
+    "pull_request_creation_policy": "all",
+    "pulls_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/pulls{/number}",
+    "pushed_at": "2026-08-13T18:01:12Z",
+    "releases_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/releases{/id}",
+    "security_and_analysis": {
+      "dependabot_security_updates": {
+        "status": "disabled"
+      },
+      "secret_scanning": {
+        "status": "disabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    },
+    "size": 889,
+    "squash_merge_commit_message": "COMMIT_MESSAGES",
+    "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+    "ssh_url": "git@github.com:aspose-cells-foss/Aspose.Cells-FOSS-for-Java.git",
+    "stargazers_count": 2,
+    "stargazers_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/stargazers",
+    "statuses_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/statuses/{sha}",
+    "subscribers_count": 0,
+    "subscribers_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/subscribers",
+    "subscription_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/subscription",
+    "svn_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    "tags_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/tags",
+    "teams_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/teams",
+    "temp_clone_token": "",
+    "topics": [],
+    "trees_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees{/sha}",
+    "updated_at": "2026-08-13T18:01:48Z",
+    "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
+    "use_squash_pr_title_as_default": false,
+    "visibility": "public",
+    "watchers": 2,
+    "watchers_count": 2,
+    "web_commit_signoff_required": false
+  },
+  "tree": {
+    "sha": "062a43b39570df8e34a3a4c4db2e0d9ad885ae7c",
+    "tree": [
+      {
+        "mode": "100644",
+        "path": ".actrc",
+        "sha": "e16d41721625bd7c82c000c9ab136fb26bcae5f0",
+        "size": 63,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e16d41721625bd7c82c000c9ab136fb26bcae5f0"
+      },
+      {
+        "mode": "100644",
+        "path": ".env.act.example",
+        "sha": "3150153ceeffde5539446b63363b794ef76b46b4",
+        "size": 9,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/3150153ceeffde5539446b63363b794ef76b46b4"
+      },
+      {
+        "mode": "040000",
+        "path": ".github",
+        "sha": "0e42f27097bdc5afe9c966f746004a8d23f08a88",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/0e42f27097bdc5afe9c966f746004a8d23f08a88"
+      },
+      {
+        "mode": "040000",
+        "path": ".github/workflows",
+        "sha": "592bb0c7769e764531e391a907073c0952c5b34d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/592bb0c7769e764531e391a907073c0952c5b34d"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/workflows/maven-central-release.yml",
+        "sha": "dd8966eddac5e72e5009f5805aefaabfca5793a2",
+        "size": 13164,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/dd8966eddac5e72e5009f5805aefaabfca5793a2"
+      },
+      {
+        "mode": "100644",
+        "path": ".gitignore",
+        "sha": "9a68071f5889857e1c3380951bbcdef3162326a5",
+        "size": 295,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/9a68071f5889857e1c3380951bbcdef3162326a5"
+      },
+      {
+        "mode": "100644",
+        "path": ".secrets.example",
+        "sha": "4dd40cb915825aef608f58399a97bae6e18ab27d",
+        "size": 217,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/4dd40cb915825aef608f58399a97bae6e18ab27d"
+      },
+      {
+        "mode": "100644",
+        "path": "Agents.md",
+        "sha": "0aabaf718fb8310452d8154a2721c767c03dbd42",
+        "size": 7691,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/0aabaf718fb8310452d8154a2721c767c03dbd42"
+      },
+      {
+        "mode": "040000",
+        "path": "License",
+        "sha": "fb70d7154092114252d8d73b460a472fc4a9cc09",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/fb70d7154092114252d8d73b460a472fc4a9cc09"
+      },
+      {
+        "mode": "100644",
+        "path": "License/LICENSE.txt",
+        "sha": "0efd310a7051ba96b8fa3cd35e309a745cc4642a",
+        "size": 1087,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/0efd310a7051ba96b8fa3cd35e309a745cc4642a"
+      },
+      {
+        "mode": "100644",
+        "path": "PUBLISHING.md",
+        "sha": "c0b413f4ef3966f0eb54c0755e529abb50b1c617",
+        "size": 4594,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c0b413f4ef3966f0eb54c0755e529abb50b1c617"
+      },
+      {
+        "mode": "100644",
+        "path": "README.md",
+        "sha": "167c79768c48b1cb12c8ae8bce0da9c76d48e0d6",
+        "size": 29294,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/167c79768c48b1cb12c8ae8bce0da9c76d48e0d6"
+      },
+      {
+        "mode": "040000",
+        "path": "docs",
+        "sha": "521d72314df729d821c9d9328f48c3bc74875ff5",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/521d72314df729d821c9d9328f48c3bc74875ff5"
+      },
+      {
+        "mode": "040000",
+        "path": "docs/apidocs",
+        "sha": "54691bfb26dc6fe2085ab75047d913f1a121bdbc",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/54691bfb26dc6fe2085ab75047d913f1a121bdbc"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/allclasses-index.html",
+        "sha": "2854589076df15969b04d216da46460176be3e6b",
+        "size": 44911,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/2854589076df15969b04d216da46460176be3e6b"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/allpackages-index.html",
+        "sha": "c47dedb2814815b38c939f59bdff6d7d3a4f2886",
+        "size": 2815,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c47dedb2814815b38c939f59bdff6d7d3a4f2886"
+      },
+      {
+        "mode": "040000",
+        "path": "docs/apidocs/com",
+        "sha": "72962c19f964cc651fd8743a53d8c45fce71111e",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/72962c19f964cc651fd8743a53d8c45fce71111e"
+      },
+      {
+        "mode": "040000",
+        "path": "docs/apidocs/com/aspose",
+        "sha": "78c6ad73ff80790abe4504fc7e0d4fd764bb40fa",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/78c6ad73ff80790abe4504fc7e0d4fd764bb40fa"
+      },
+      {
+        "mode": "040000",
+        "path": "docs/apidocs/com/aspose/cells_foss",
+        "sha": "4ccc30f737158015d90657187eb27145566c7e59",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/4ccc30f737158015d90657187eb27145566c7e59"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterColorFilter.html",
+        "sha": "dfbce680c62e5334b836dc82ec92fd07dba0720e",
+        "size": 15642,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/dfbce680c62e5334b836dc82ec92fd07dba0720e"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterCustomFilter.html",
+        "sha": "3bf30764e3197a460d4cce87537a8839293fcac2",
+        "size": 13013,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/3bf30764e3197a460d4cce87537a8839293fcac2"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterCustomFilterCollection.html",
+        "sha": "73ebe0447d4cdf1892ab8af99277ca85e554c517",
+        "size": 19350,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/73ebe0447d4cdf1892ab8af99277ca85e554c517"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterDynamicFilter.html",
+        "sha": "84b66d392af3fbc213bb5bddff08d6ac03a1ba7d",
+        "size": 18491,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/84b66d392af3fbc213bb5bddff08d6ac03a1ba7d"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterSortCondition.html",
+        "sha": "43595b86da5afbc63ddaf126c90460e85a9c54e8",
+        "size": 25419,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/43595b86da5afbc63ddaf126c90460e85a9c54e8"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterSortConditionCollection.html",
+        "sha": "e69c5cb55c76f2badb72e9ca24a553c36ee52537",
+        "size": 17149,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e69c5cb55c76f2badb72e9ca24a553c36ee52537"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterSortState.html",
+        "sha": "1af7e8742b1de3a693a35933bbc6209c04b411a9",
+        "size": 19256,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/1af7e8742b1de3a693a35933bbc6209c04b411a9"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.AutoFilterTop10.html",
+        "sha": "64464141a0b2d4e34107ebe0eee058e511911ae3",
+        "size": 19711,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/64464141a0b2d4e34107ebe0eee058e511911ae3"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.FilterColumn.html",
+        "sha": "e8569c0ee34a9baf4050d9e78296f84d403c49dd",
+        "size": 18451,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e8569c0ee34a9baf4050d9e78296f84d403c49dd"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.FilterColumnCollection.html",
+        "sha": "87452dbe96fe8f05aa5b1ae0b565e5359376921e",
+        "size": 16588,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/87452dbe96fe8f05aa5b1ae0b565e5359376921e"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.FilterValueCollection.html",
+        "sha": "f62615141d837b134ce37df0225796824d18c63e",
+        "size": 17324,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f62615141d837b134ce37df0225796824d18c63e"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilter.html",
+        "sha": "24cd070b8af9c52b453c26956b6f312c8e05aa3f",
+        "size": 18577,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/24cd070b8af9c52b453c26956b6f312c8e05aa3f"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilterCriteria.AutoFilterColorFilter.html",
+        "sha": "d6af5870f6be8c3b7df4af8a64c9eb8cf481ddc8",
+        "size": 15704,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/d6af5870f6be8c3b7df4af8a64c9eb8cf481ddc8"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilterCriteria.AutoFilterCustomFilter.html",
+        "sha": "e085235a59d89ced2d63730cd99acc793e9a62d9",
+        "size": 13085,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e085235a59d89ced2d63730cd99acc793e9a62d9"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilterCriteria.AutoFilterCustomFilterCollection.html",
+        "sha": "e5acb8ab393c7665d504668af31ac4faebcab823",
+        "size": 19522,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e5acb8ab393c7665d504668af31ac4faebcab823"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilterCriteria.AutoFilterDynamicFilter.html",
+        "sha": "28f9fd03b842bcf2db7cba64ca3f3c3c89dffbe6",
+        "size": 18553,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/28f9fd03b842bcf2db7cba64ca3f3c3c89dffbe6"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilterCriteria.AutoFilterSortCondition.html",
+        "sha": "518a293c6800e171dd728b979d1c3878b26b1a22",
+        "size": 25481,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/518a293c6800e171dd728b979d1c3878b26b1a22"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilterCriteria.AutoFilterSortConditionCollection.html",
+        "sha": "d4d844409ea46bd416d63da27f3decf9e35af9c3",
+        "size": 17321,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/d4d844409ea46bd416d63da27f3decf9e35af9c3"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilterCriteria.AutoFilterSortState.html",
+        "sha": "008427be39cc14b885bb68be2c30b1773c956d81",
+        "size": 19352,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/008427be39cc14b885bb68be2c30b1773c956d81"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilterCriteria.AutoFilterTop10.html",
+        "sha": "ea9e172809f53e01f1d0ba11e46125efdd1512af",
+        "size": 19780,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/ea9e172809f53e01f1d0ba11e46125efdd1512af"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilterCriteria.html",
+        "sha": "b93c8a3ff987211345ddced682e935cbe078117e",
+        "size": 10339,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/b93c8a3ff987211345ddced682e935cbe078117e"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoFilterSupport.html",
+        "sha": "fbee78a074435c26ed26c7bb0d61649cdcc94113",
+        "size": 26584,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/fbee78a074435c26ed26c7bb0d61649cdcc94113"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/AutoShapeType.html",
+        "sha": "469d0072847c1ca3937444db1ad6c22394253563",
+        "size": 40525,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/469d0072847c1ca3937444db1ad6c22394253563"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Border.html",
+        "sha": "8b15c7fcfca75c0946836287ca6fe0b95115ffda",
+        "size": 14684,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/8b15c7fcfca75c0946836287ca6fe0b95115ffda"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/BorderStyleType.html",
+        "sha": "6046c51461e9a10e5a091c5188ae98afcc3ff205",
+        "size": 24562,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/6046c51461e9a10e5a091c5188ae98afcc3ff205"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Borders.html",
+        "sha": "dd7c2f5f8990f72cb7865166f339864c8d10846a",
+        "size": 24786,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/dd7c2f5f8990f72cb7865166f339864c8d10846a"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/CalculationProperties.html",
+        "sha": "9a6a82478811d0b0ef0b25881c7201fd78f1fd57",
+        "size": 29116,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/9a6a82478811d0b0ef0b25881c7201fd78f1fd57"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Cell.html",
+        "sha": "572ba2c6409263770aeb95803c3bd9e0b7226b39",
+        "size": 24083,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/572ba2c6409263770aeb95803c3bd9e0b7226b39"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/CellArea.html",
+        "sha": "27d3b76387a76ab7368ccb26187cbd63fa06490f",
+        "size": 19711,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/27d3b76387a76ab7368ccb26187cbd63fa06490f"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/CellValueType.html",
+        "sha": "0fe02f4c35dbb44b0991ae6732d727020a36f8f4",
+        "size": 19799,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/0fe02f4c35dbb44b0991ae6732d727020a36f8f4"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Cells.html",
+        "sha": "736e15f76dd32aa872502e1fc40dd6d91e42fb0a",
+        "size": 15378,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/736e15f76dd32aa872502e1fc40dd6d91e42fb0a"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/CellsException.html",
+        "sha": "344cb6c793d4319c445618ed8f98f493c05455b8",
+        "size": 14510,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/344cb6c793d4319c445618ed8f98f493c05455b8"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Chart.html",
+        "sha": "779bdbed3b9a8d4af83a5fb379cc71e83d5bf99c",
+        "size": 14599,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/779bdbed3b9a8d4af83a5fb379cc71e83d5bf99c"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/ChartCollection.html",
+        "sha": "626f5d555969d9c045ccbb6a907f9d52d72b6539",
+        "size": 15123,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/626f5d555969d9c045ccbb6a907f9d52d72b6539"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/ChartType.html",
+        "sha": "1915e5ed9b407b137313ebe3e91595d5daf0ca9b",
+        "size": 28969,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/1915e5ed9b407b137313ebe3e91595d5daf0ca9b"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Color.html",
+        "sha": "0cf12e3bbd843b561dd20055380c87ea65ff6349",
+        "size": 18143,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/0cf12e3bbd843b561dd20055380c87ea65ff6349"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Column.html",
+        "sha": "da3de2e41636d1ecc778c9639430881168246156",
+        "size": 16026,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/da3de2e41636d1ecc778c9639430881168246156"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/ColumnCollection.html",
+        "sha": "004e2b2211f73b5afdc2f9750e3ad423d2738117",
+        "size": 9433,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/004e2b2211f73b5afdc2f9750e3ad423d2738117"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Comment.html",
+        "sha": "936bdbf9cfdbbde4d0e1b8f95ed5b671ab9b6a60",
+        "size": 18768,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/936bdbf9cfdbbde4d0e1b8f95ed5b671ab9b6a60"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/CommentCollection.html",
+        "sha": "7b54c956485f6e1f99d65586965084e1d9ac27ad",
+        "size": 15660,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/7b54c956485f6e1f99d65586965084e1d9ac27ad"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/ConditionalFormattingCollection.html",
+        "sha": "c7196f74be889dab5b23f2c332d27c6fa9408c4a",
+        "size": 13289,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c7196f74be889dab5b23f2c332d27c6fa9408c4a"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/DefinedName.html",
+        "sha": "e637d0b5abae4dbfa1f1db210210702d713e4bfc",
+        "size": 19961,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e637d0b5abae4dbfa1f1db210210702d713e4bfc"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/DefinedNameCollection.html",
+        "sha": "a3216f87a31666ebe6c44783fcdbde3246b33387",
+        "size": 18390,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/a3216f87a31666ebe6c44783fcdbde3246b33387"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/DiagnosticSeverity.html",
+        "sha": "2caeed7458351d5d85246ecbf1f8dd078b653169",
+        "size": 18935,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/2caeed7458351d5d85246ecbf1f8dd078b653169"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/DisplayFormatSectionInfo.html",
+        "sha": "43d36af9c1abd6ac39bece0bd601061fccbe8028",
+        "size": 18239,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/43d36af9c1abd6ac39bece0bd601061fccbe8028"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/DisplayTextFormatterSupport.html",
+        "sha": "b3a57ea2b5a8be3e3eda36a3d518ae9ab4fc04a3",
+        "size": 39625,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/b3a57ea2b5a8be3e3eda36a3d518ae9ab4fc04a3"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/DocumentProperties.html",
+        "sha": "05725dc65ce9a48e53cb1ec90a37b7d0c3ea1df8",
+        "size": 28219,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/05725dc65ce9a48e53cb1ec90a37b7d0c3ea1df8"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/FillPattern.html",
+        "sha": "3e6ca1f39638ffbefa4ca28dd9834de745d7cbf0",
+        "size": 26836,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/3e6ca1f39638ffbefa4ca28dd9834de745d7cbf0"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Font.html",
+        "sha": "41df64fe9045820d844993524029e50a8bd7bc25",
+        "size": 24034,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/41df64fe9045820d844993524029e50a8bd7bc25"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/FormatCondition.html",
+        "sha": "1d00eefdfe8312ceb817f08ed362f08ece9767db",
+        "size": 66592,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/1d00eefdfe8312ceb817f08ed362f08ece9767db"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/FormatConditionCollection.html",
+        "sha": "f32054ccca88cbdb0298f12df9bf6e903afa2d3e",
+        "size": 23015,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f32054ccca88cbdb0298f12df9bf6e903afa2d3e"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/FormatConditionType.html",
+        "sha": "b0ee36d1ddd18c83e5a0292a96d747777cbfc1d6",
+        "size": 26659,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/b0ee36d1ddd18c83e5a0292a96d747777cbfc1d6"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/FormulaException.html",
+        "sha": "19acf00edf1cfa7760a4f3bc927571dccecb6f51",
+        "size": 12133,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/19acf00edf1cfa7760a4f3bc927571dccecb6f51"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/HorizontalAlignmentType.html",
+        "sha": "1cf22101f5aa3d7c6dbe8cef2fd773d016e8d671",
+        "size": 21283,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/1cf22101f5aa3d7c6dbe8cef2fd773d016e8d671"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Hyperlink.html",
+        "sha": "fddcb8e70ad95539b998b0ccf3c9c285b6dbbac8",
+        "size": 18498,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/fddcb8e70ad95539b998b0ccf3c9c285b6dbbac8"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/HyperlinkCollection.html",
+        "sha": "fa4e8c190567725783b0eac4af4878a18f5a3f66",
+        "size": 18969,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/fa4e8c190567725783b0eac4af4878a18f5a3f66"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/IWarningCallback.html",
+        "sha": "6780328285a49d876025be450d27f6aa053f7121",
+        "size": 6511,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/6780328285a49d876025be450d27f6aa053f7121"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/ImageType.html",
+        "sha": "f293e119f6e5eb01ceff9bb172326b6ef90a9cd8",
+        "size": 18498,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f293e119f6e5eb01ceff9bb172326b6ef90a9cd8"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/InvalidFileFormatException.html",
+        "sha": "36b8eea3263fa54280b3fb62da219b92172fcfb1",
+        "size": 13862,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/36b8eea3263fa54280b3fb62da219b92172fcfb1"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/ListColumn.html",
+        "sha": "c10934d0e5738d1603ce2864e3e6ea4e7d2f2aff",
+        "size": 20676,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c10934d0e5738d1603ce2864e3e6ea4e7d2f2aff"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/ListColumnCollection.html",
+        "sha": "e743f8ec8d61cbe039475c0d77e6120cd1ba654f",
+        "size": 12799,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e743f8ec8d61cbe039475c0d77e6120cd1ba654f"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/ListObject.html",
+        "sha": "f0586c1e2e09e4c76ec83c8ded6efacdf5ab6b35",
+        "size": 33860,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f0586c1e2e09e4c76ec83c8ded6efacdf5ab6b35"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/ListObjectCollection.html",
+        "sha": "389bd7f09cea4f4c46dcc985c9829f056f893efa",
+        "size": 17931,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/389bd7f09cea4f4c46dcc985c9829f056f893efa"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/LoadDiagnostics.html",
+        "sha": "88ae97d729efa6d8e42f80f68ae7741fcb592626",
+        "size": 12284,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/88ae97d729efa6d8e42f80f68ae7741fcb592626"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/LoadFormat.html",
+        "sha": "599bc33db324627d732120ab8c98284df54eb38e",
+        "size": 17349,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/599bc33db324627d732120ab8c98284df54eb38e"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/LoadIssue.html",
+        "sha": "42bca8b1e8de85c5773b51b1099b480aa19701af",
+        "size": 26098,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/42bca8b1e8de85c5773b51b1099b480aa19701af"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/LoadOptions.html",
+        "sha": "225f1d8f6af2adf52f9773d85b0f08276cd7774b",
+        "size": 21885,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/225f1d8f6af2adf52f9773d85b0f08276cd7774b"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/NumberFormat.html",
+        "sha": "44df9d61720d4f8b4f70c4829d8928e15ed245a1",
+        "size": 14834,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/44df9d61720d4f8b4f70c4829d8928e15ed245a1"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/OperatorType.html",
+        "sha": "8b5668666e42a127a918d9ac394cd34c2d5659d0",
+        "size": 21604,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/8b5668666e42a127a918d9ac394cd34c2d5659d0"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/PageOrientationType.html",
+        "sha": "25ef47ab3441565f05f3b2ffa34fc2e6885df118",
+        "size": 18155,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/25ef47ab3441565f05f3b2ffa34fc2e6885df118"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/PageSetup.html",
+        "sha": "1033075d80ecffb9c2ee7ebcc4f473bb538c5b44",
+        "size": 84303,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/1033075d80ecffb9c2ee7ebcc4f473bb538c5b44"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/PaperSizeType.html",
+        "sha": "d5e47704073b6ebde36566f03f90d5319e59ed19",
+        "size": 24248,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/d5e47704073b6ebde36566f03f90d5319e59ed19"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Picture.html",
+        "sha": "c9ba59039d8383d409ff2a1b188d28b34dbb7148",
+        "size": 20078,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c9ba59039d8383d409ff2a1b188d28b34dbb7148"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/PictureCollection.html",
+        "sha": "0fcf48df7d1c62992b5433b402ae4ab2e16569b5",
+        "size": 18626,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/0fcf48df7d1c62992b5433b402ae4ab2e16569b5"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Row.html",
+        "sha": "0bb7db9d5ede030a4f27fdb5c6f3aa4ffaa01f30",
+        "size": 16007,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/0bb7db9d5ede030a4f27fdb5c6f3aa4ffaa01f30"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/RowCollection.html",
+        "sha": "3a4efc69844574a848b36a6d851644b4146cda97",
+        "size": 9187,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/3a4efc69844574a848b36a6d851644b4146cda97"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/SaveFormat.html",
+        "sha": "24716b1937a5b7c60a78c1f7de3527f39f3e75c1",
+        "size": 16731,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/24716b1937a5b7c60a78c1f7de3527f39f3e75c1"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/SaveOptions.html",
+        "sha": "f104c08e7d6b1e60bf2acdb5fdc36b9c00aa6994",
+        "size": 19550,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f104c08e7d6b1e60bf2acdb5fdc36b9c00aa6994"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Shape.html",
+        "sha": "3c5bccae761a85dc00412bf73fdf4745b9d19b3c",
+        "size": 21666,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/3c5bccae761a85dc00412bf73fdf4745b9d19b3c"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/ShapeCollection.html",
+        "sha": "9bf9526cdfdae4195affc3c61aa506ac479916a1",
+        "size": 12281,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/9bf9526cdfdae4195affc3c61aa506ac479916a1"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Style.html",
+        "sha": "c7577a2267e9b26a04ec57b63c1c7f07b785d94f",
+        "size": 49408,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c7577a2267e9b26a04ec57b63c1c7f07b785d94f"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/StyleException.html",
+        "sha": "ec4aa0de7966ec52fdbe9c4d49c1bd3d62359bd9",
+        "size": 12107,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/ec4aa0de7966ec52fdbe9c4d49c1bd3d62359bd9"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/StyleValueSanitizer.html",
+        "sha": "35576d5205542d2ee9dc0bffab263c4fec4de0f7",
+        "size": 12962,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/35576d5205542d2ee9dc0bffab263c4fec4de0f7"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/TableStyleType.html",
+        "sha": "2b6bbdb16b05c4ce0e852ac5e7f0a14a8bcd89b6",
+        "size": 51277,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/2b6bbdb16b05c4ce0e852ac5e7f0a14a8bcd89b6"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/TargetModeType.html",
+        "sha": "be7d29a3b9586b727c1bdb3b189330630ed48397",
+        "size": 18631,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/be7d29a3b9586b727c1bdb3b189330630ed48397"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/TotalsCalculation.html",
+        "sha": "5233d850317366c7522fb24aa532fc14c6a72fda",
+        "size": 21277,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/5233d850317366c7522fb24aa532fc14c6a72fda"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/UnsupportedFeatureException.html",
+        "sha": "622245930b66ed72c069878d2fa0eb606147b29d",
+        "size": 12253,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/622245930b66ed72c069878d2fa0eb606147b29d"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Validation.html",
+        "sha": "912bd89868c3e830f45e61f04e08495d1d468905",
+        "size": 42205,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/912bd89868c3e830f45e61f04e08495d1d468905"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/ValidationAlertType.html",
+        "sha": "1ff6a6845f6591c79e08c5395364147a917ea9bd",
+        "size": 18142,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/1ff6a6845f6591c79e08c5395364147a917ea9bd"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/ValidationCollection.html",
+        "sha": "4600419d4f9f892436f19a03940ff95c471d6198",
+        "size": 14794,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/4600419d4f9f892436f19a03940ff95c471d6198"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/ValidationType.html",
+        "sha": "7b0c7d8b4c120eb116c4a8dfcedcbabce12b54cb",
+        "size": 20933,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/7b0c7d8b4c120eb116c4a8dfcedcbabce12b54cb"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/VerticalAlignmentType.html",
+        "sha": "1d08c8d62465d996d698d255508cbe6e75070d9a",
+        "size": 19616,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/1d08c8d62465d996d698d255508cbe6e75070d9a"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/VisibilityType.html",
+        "sha": "35e00bd5da06ca2d1c07c197ce011669d50c0feb",
+        "size": 18030,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/35e00bd5da06ca2d1c07c197ce011669d50c0feb"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/WarningInfo.html",
+        "sha": "97976692cd30470a38b8c96306fb46708526baa0",
+        "size": 28390,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/97976692cd30470a38b8c96306fb46708526baa0"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Workbook.html",
+        "sha": "c480c1646224676208946a4308d258f54e100afc",
+        "size": 30748,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c480c1646224676208946a4308d258f54e100afc"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/WorkbookLoadException.html",
+        "sha": "e289463a3b5f4a81b4016d9cb6b6ac9ee6b34721",
+        "size": 13763,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e289463a3b5f4a81b4016d9cb6b6ac9ee6b34721"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/WorkbookProperties.html",
+        "sha": "51a42f9ea5c4cbd6a9a27e50ef26b5924fdcd8be",
+        "size": 33600,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/51a42f9ea5c4cbd6a9a27e50ef26b5924fdcd8be"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/WorkbookProtection.html",
+        "sha": "8db5bd823dddee922b70ca9aafec80245b4e5e81",
+        "size": 18014,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/8db5bd823dddee922b70ca9aafec80245b4e5e81"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/WorkbookSaveException.html",
+        "sha": "ab12b6198effd194d52a92fbf243673b20ccb661",
+        "size": 13762,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/ab12b6198effd194d52a92fbf243673b20ccb661"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/WorkbookSettings.html",
+        "sha": "d28e527b7e00654e6af489ee6e798e7ef4ced8f5",
+        "size": 12472,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/d28e527b7e00654e6af489ee6e798e7ef4ced8f5"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/WorkbookView.html",
+        "sha": "afd6427945c11f93cb2ac525ac18f6a43443a985",
+        "size": 35060,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/afd6427945c11f93cb2ac525ac18f6a43443a985"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/Worksheet.html",
+        "sha": "852e4621e070e3e2338a595fdcea229adf7af852",
+        "size": 45725,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/852e4621e070e3e2338a595fdcea229adf7af852"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/WorksheetCollection.html",
+        "sha": "98293a9ddb90041f022d26a094264f3b18661d7e",
+        "size": 23859,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/98293a9ddb90041f022d26a094264f3b18661d7e"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/WorksheetProtection.html",
+        "sha": "976e4650c8ea8d9e7760be910e6e6b387504b57d",
+        "size": 38255,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/976e4650c8ea8d9e7760be910e6e6b387504b57d"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/XlsxDocumentProperties.html",
+        "sha": "ed563215415122fb549d05165840d44d375c6be9",
+        "size": 13305,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/ed563215415122fb549d05165840d44d375c6be9"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/XlsxWorkbookSerializer.html",
+        "sha": "ff94bcab8f684f176772accca8684a76a5c1998d",
+        "size": 13067,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/ff94bcab8f684f176772accca8684a76a5c1998d"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/XlsxWorkbookStylesValueHelpers.html",
+        "sha": "01e2067c47af3325fcfee3200bb034a45464a1a7",
+        "size": 21024,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/01e2067c47af3325fcfee3200bb034a45464a1a7"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/XlsxWorkbookStylesXml.CellFormatValue.html",
+        "sha": "ba479e4bde9ae96003e8f860e4483de937f69517",
+        "size": 21078,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/ba479e4bde9ae96003e8f860e4483de937f69517"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/XlsxWorkbookStylesXml.FillValue.html",
+        "sha": "c51b485fe4d2e22329276b2b97565aa879d2a9cb",
+        "size": 15908,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c51b485fe4d2e22329276b2b97565aa879d2a9cb"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/XlsxWorkbookStylesXml.html",
+        "sha": "756434f4fbb949157d132caebd4775cabe58a7c1",
+        "size": 26742,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/756434f4fbb949157d132caebd4775cabe58a7c1"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/package-summary.html",
+        "sha": "2b6f15c9b49c286c40ace26aa395690ea4f7d3ca",
+        "size": 41081,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/2b6f15c9b49c286c40ace26aa395690ea4f7d3ca"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/com/aspose/cells_foss/package-tree.html",
+        "sha": "5b88311156c5df557473b8bd6e42c98f0c700167",
+        "size": 25465,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/5b88311156c5df557473b8bd6e42c98f0c700167"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/element-list",
+        "sha": "f1cdd636077483c6446be21d1bb8800aa4c97cc0",
+        "size": 22,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f1cdd636077483c6446be21d1bb8800aa4c97cc0"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/help-doc.html",
+        "sha": "b24883c032ccbeec3cfe78fc98bc55a6f0479879",
+        "size": 8904,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/b24883c032ccbeec3cfe78fc98bc55a6f0479879"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/index-all.html",
+        "sha": "fe98e5a550dbcb806828fcc4cdc7825957051ec0",
+        "size": 491372,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/fe98e5a550dbcb806828fcc4cdc7825957051ec0"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/index.html",
+        "sha": "bfd866b50fa6cf528797c4671c86cb30cb55e5db",
+        "size": 1062,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/bfd866b50fa6cf528797c4671c86cb30cb55e5db"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/jquery-ui.overrides.css",
+        "sha": "03c010ba512d9adcc28324835aec904f7e7bc153",
+        "size": 501,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/03c010ba512d9adcc28324835aec904f7e7bc153"
+      },
+      {
+        "mode": "040000",
+        "path": "docs/apidocs/legal",
+        "sha": "afabfd0a050f039e20640e371dd54f7f6c78d26a",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/afabfd0a050f039e20640e371dd54f7f6c78d26a"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/legal/COPYRIGHT",
+        "sha": "ca74fffd91e5bc8a11c659648e7f394c5b2a1714",
+        "size": 34,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/ca74fffd91e5bc8a11c659648e7f394c5b2a1714"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/legal/LICENSE",
+        "sha": "4ad9fe4011573af48ce558ad68ebef81478d8dfd",
+        "size": 32,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/4ad9fe4011573af48ce558ad68ebef81478d8dfd"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/legal/jquery.md",
+        "sha": "d468b3183a70056cfd6219cb996c4df5f9136899",
+        "size": 2936,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/d468b3183a70056cfd6219cb996c4df5f9136899"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/legal/jqueryUI.md",
+        "sha": "8bda9d7a85e8514f66523283c2417c8e720a644b",
+        "size": 1870,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/8bda9d7a85e8514f66523283c2417c8e720a644b"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/member-search-index.js",
+        "sha": "f4a71c8388c82dd724f90cc8c5e2ac8352073446",
+        "size": 115379,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f4a71c8388c82dd724f90cc8c5e2ac8352073446"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/module-search-index.js",
+        "sha": "0d59754fc4adb2e15c50f5f6a6ff2e509e6af170",
+        "size": 45,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/0d59754fc4adb2e15c50f5f6a6ff2e509e6af170"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/overview-tree.html",
+        "sha": "635b40c9a03fb14f6abc9d25c09f7f3ead74b2fc",
+        "size": 27872,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/635b40c9a03fb14f6abc9d25c09f7f3ead74b2fc"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/package-search-index.js",
+        "sha": "90d464c1b09799fa97b35fd4424c271a46a0ce7c",
+        "size": 125,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/90d464c1b09799fa97b35fd4424c271a46a0ce7c"
+      },
+      {
+        "mode": "040000",
+        "path": "docs/apidocs/resources",
+        "sha": "e0a83fef1597023e12cd68262193add419f74ec9",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/e0a83fef1597023e12cd68262193add419f74ec9"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/resources/glass.png",
+        "sha": "a7f591f467a1c0c949bbc510156a0c1afb860a6e",
+        "size": 499,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/a7f591f467a1c0c949bbc510156a0c1afb860a6e"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/resources/x.png",
+        "sha": "30548a756e151be4e927e8d28c508cc5b3514bf3",
+        "size": 394,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/30548a756e151be4e927e8d28c508cc5b3514bf3"
+      },
+      {
+        "mode": "040000",
+        "path": "docs/apidocs/script-dir",
+        "sha": "83307fcb4ddd6e8a10a378ab84bf8b45a710b8a3",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/83307fcb4ddd6e8a10a378ab84bf8b45a710b8a3"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/script-dir/jquery-3.6.1.min.js",
+        "sha": "2c69bc908b10d854c2c3fe6e3268dcffe20e1b5a",
+        "size": 89664,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/2c69bc908b10d854c2c3fe6e3268dcffe20e1b5a"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/script-dir/jquery-ui.min.css",
+        "sha": "693327f014859055d025f6d8872d90bc5a8879b2",
+        "size": 1842,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/693327f014859055d025f6d8872d90bc5a8879b2"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/script-dir/jquery-ui.min.js",
+        "sha": "8166a15ee23d84b3cb009b5f21205d463f814eb4",
+        "size": 32680,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/8166a15ee23d84b3cb009b5f21205d463f814eb4"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/script.js",
+        "sha": "0765364ed6223ae26423443e822eec57b5c8e387",
+        "size": 4030,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/0765364ed6223ae26423443e822eec57b5c8e387"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/search.js",
+        "sha": "13aba8531300b7f5c6d8ba61198960332146e594",
+        "size": 12762,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/13aba8531300b7f5c6d8ba61198960332146e594"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/serialized-form.html",
+        "sha": "479637c89e08d6f70cb8cfb707c8ca0e7435fe2b",
+        "size": 7262,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/479637c89e08d6f70cb8cfb707c8ca0e7435fe2b"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/stylesheet.css",
+        "sha": "6dc5b365d0d2b8b53055622cbc7f80bf788d0609",
+        "size": 18717,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/6dc5b365d0d2b8b53055622cbc7f80bf788d0609"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/tag-search-index.js",
+        "sha": "f38b3cb3ce64922ccbf16d005533a89925663d74",
+        "size": 99,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f38b3cb3ce64922ccbf16d005533a89925663d74"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/apidocs/type-search-index.js",
+        "sha": "401c1dc90befb432020146fc5cf9a41ecf632503",
+        "size": 6246,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/401c1dc90befb432020146fc5cf9a41ecf632503"
+      },
+      {
+        "mode": "100644",
+        "path": "pom.xml",
+        "sha": "64d4d3b40b9377a1adbd9cb9b5f64639b70f31e4",
+        "size": 6006,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/64d4d3b40b9377a1adbd9cb9b5f64639b70f31e4"
+      },
+      {
+        "mode": "040000",
+        "path": "src",
+        "sha": "3da511eb2c466bfff937f5550478791bc97d7558",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/3da511eb2c466bfff937f5550478791bc97d7558"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main",
+        "sha": "b3520bbfa093705b78514c822906dc834abff3b2",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/b3520bbfa093705b78514c822906dc834abff3b2"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java",
+        "sha": "40f2c8d46eb80c4e0b6591db7ae970e2d028884b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/40f2c8d46eb80c4e0b6591db7ae970e2d028884b"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org",
+        "sha": "f7d011bf3128253c214b86d26cce2348a717c293",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/f7d011bf3128253c214b86d26cce2348a717c293"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose",
+        "sha": "7d5914d06d861d1663b486fa4e234f6b34964265",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/7d5914d06d861d1663b486fa4e234f6b34964265"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose/cells_foss",
+        "sha": "1f5b41f049b3dffdfffe5356d5f673d683f6e0e6",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/1f5b41f049b3dffdfffe5356d5f673d683f6e0e6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/AutoFilter.java",
+        "sha": "988cab29ae4a79b0cc09a935f3b98c61a4f9a2e6",
+        "size": 33933,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/988cab29ae4a79b0cc09a935f3b98c61a4f9a2e6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/AutoFilterCriteria.java",
+        "sha": "937607118bfaeb04907d53a7194a56ae7ba011e8",
+        "size": 23117,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/937607118bfaeb04907d53a7194a56ae7ba011e8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/AutoFilterSupport.java",
+        "sha": "aba136cb01bb4077ef7447fbc6fe311394f7bf09",
+        "size": 8450,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/aba136cb01bb4077ef7447fbc6fe311394f7bf09"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/AutoShapeType.java",
+        "sha": "fa563302b5e61e05fb3f58184209af917ccb4858",
+        "size": 2403,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/fa563302b5e61e05fb3f58184209af917ccb4858"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Border.java",
+        "sha": "210c4306c6539ef5b1ab73dbd5dd1ba3ee7d370b",
+        "size": 4902,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/210c4306c6539ef5b1ab73dbd5dd1ba3ee7d370b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/BorderStyleType.java",
+        "sha": "51b6b354c40947431fa77433fbcce8a62c5d2e77",
+        "size": 723,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/51b6b354c40947431fa77433fbcce8a62c5d2e77"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Borders.java",
+        "sha": "3644543b0ae52306d2a278a63530a66e5ae3facc",
+        "size": 4291,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/3644543b0ae52306d2a278a63530a66e5ae3facc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/CalculationProperties.java",
+        "sha": "a16802b53c308fa70ed7c0d129b6c2ca840b6e7a",
+        "size": 3040,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/a16802b53c308fa70ed7c0d129b6c2ca840b6e7a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Cell.java",
+        "sha": "437f1b68c475c54d677e2bf503cf5f857d87ae7e",
+        "size": 7969,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/437f1b68c475c54d677e2bf503cf5f857d87ae7e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/CellArea.java",
+        "sha": "72b91c1eec42bb9609766d0e7169f30200ae1934",
+        "size": 3949,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/72b91c1eec42bb9609766d0e7169f30200ae1934"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/CellValueType.java",
+        "sha": "75d30b4b7666571185b62db6fc4033f53ac8b6c0",
+        "size": 427,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/75d30b4b7666571185b62db6fc4033f53ac8b6c0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Cells.java",
+        "sha": "bad5624b4f9df3fae71d7f4762f72e7227548026",
+        "size": 3571,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/bad5624b4f9df3fae71d7f4762f72e7227548026"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/CellsException.java",
+        "sha": "f3fd773fbeeb739fa566d3d2c685a87e1a1448e5",
+        "size": 742,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f3fd773fbeeb739fa566d3d2c685a87e1a1448e5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Chart.java",
+        "sha": "00d248b70b604a68f6ac49e343cf9e78864d1cf6",
+        "size": 1031,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/00d248b70b604a68f6ac49e343cf9e78864d1cf6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/ChartCollection.java",
+        "sha": "46a23d3d55c69e4e070d61e9bff7bdf9473170c2",
+        "size": 5944,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/46a23d3d55c69e4e070d61e9bff7bdf9473170c2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/ChartType.java",
+        "sha": "2dd43beeb69571ff4af80ee6e133892bceeea3b3",
+        "size": 450,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/2dd43beeb69571ff4af80ee6e133892bceeea3b3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Color.java",
+        "sha": "b68becff08e41048e6455dc43be2fc03d258b2c3",
+        "size": 2837,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/b68becff08e41048e6455dc43be2fc03d258b2c3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Column.java",
+        "sha": "1b5bf2f1ce1b710039a077ca11805bd320b2928f",
+        "size": 4882,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/1b5bf2f1ce1b710039a077ca11805bd320b2928f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/ColumnCollection.java",
+        "sha": "b4de684557ab3e721a77be36b77301020e078ef2",
+        "size": 824,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/b4de684557ab3e721a77be36b77301020e078ef2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Comment.java",
+        "sha": "6d7fe5d3fb342dfb811c8001d5f014f57d3dd58e",
+        "size": 1527,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/6d7fe5d3fb342dfb811c8001d5f014f57d3dd58e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/CommentCollection.java",
+        "sha": "b4adde33f4fe62d71e2537650d1e7b2e1c995df1",
+        "size": 2683,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/b4adde33f4fe62d71e2537650d1e7b2e1c995df1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/ConditionalFormattingCollection.java",
+        "sha": "a003c4e4baf88f568537a77b53c855545f2bc406",
+        "size": 3131,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/a003c4e4baf88f568537a77b53c855545f2bc406"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/DefinedName.java",
+        "sha": "f59a9e5a7a3c24546248f28fb4daa60b866be99f",
+        "size": 2471,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f59a9e5a7a3c24546248f28fb4daa60b866be99f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/DefinedNameCollection.java",
+        "sha": "5495b5d7e12ca63764175caff49e07c544c53dbf",
+        "size": 3356,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/5495b5d7e12ca63764175caff49e07c544c53dbf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/DefinedNameUtility.java",
+        "sha": "13972b3b3339b21f5e04136ae5586491fe413dcc",
+        "size": 3366,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/13972b3b3339b21f5e04136ae5586491fe413dcc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/DiagnosticSeverity.java",
+        "sha": "637e9e3322db2573959bc634b51f9046b096ea12",
+        "size": 417,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/637e9e3322db2573959bc634b51f9046b096ea12"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/DisplayFormatSectionInfo.java",
+        "sha": "d56f9b5b033370afac2d5f6efb741a56b4b37625",
+        "size": 1577,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/d56f9b5b033370afac2d5f6efb741a56b4b37625"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/DisplayTextDateFormatSupport.java",
+        "sha": "23391f6a8ed2da9283458f3e8081ee6f0d34347a",
+        "size": 20722,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/23391f6a8ed2da9283458f3e8081ee6f0d34347a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/DisplayTextFormatter.java",
+        "sha": "d3b9d91e71e49c34746679346adaf4941e4ed909",
+        "size": 18645,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/d3b9d91e71e49c34746679346adaf4941e4ed909"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/DisplayTextFormatterSupport.java",
+        "sha": "baf0e085ca38b3f07ce577c7f7895ab147a82b4f",
+        "size": 19400,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/baf0e085ca38b3f07ce577c7f7895ab147a82b4f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/DisplayTextLocaleSupport.java",
+        "sha": "70cd048ee0f50e5e3e7486fd1fc0f30de694e3b9",
+        "size": 6139,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/70cd048ee0f50e5e3e7486fd1fc0f30de694e3b9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/DocumentProperties.java",
+        "sha": "2eba587b80cb95978d1d947f76047c67720126aa",
+        "size": 3503,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/2eba587b80cb95978d1d947f76047c67720126aa"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/FillPattern.java",
+        "sha": "9a9355a2c1c5a857c95565244c13467f4e4838c0",
+        "size": 925,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/9a9355a2c1c5a857c95565244c13467f4e4838c0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Font.java",
+        "sha": "ee120cfbb0edb4a79e802238401f09a2f644dc29",
+        "size": 3797,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/ee120cfbb0edb4a79e802238401f09a2f644dc29"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/FormatCondition.java",
+        "sha": "701657d7df8acd422383918a5a298e4081bf952c",
+        "size": 11919,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/701657d7df8acd422383918a5a298e4081bf952c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/FormatConditionCollection.java",
+        "sha": "50eaf03b5b2e4b946245aae7eac375d7d9e87579",
+        "size": 13414,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/50eaf03b5b2e4b946245aae7eac375d7d9e87579"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/FormatConditionType.java",
+        "sha": "3793bedbb98913b6d6f7e5d1dd3cc5a9ba684556",
+        "size": 1112,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/3793bedbb98913b6d6f7e5d1dd3cc5a9ba684556"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/FormulaException.java",
+        "sha": "d6656b0bb9721157544cacc26a022445f82c1cc3",
+        "size": 337,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/d6656b0bb9721157544cacc26a022445f82c1cc3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/HorizontalAlignmentType.java",
+        "sha": "d5b87e19dcaa056272eaaf186f0933375a5fde04",
+        "size": 502,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/d5b87e19dcaa056272eaaf186f0933375a5fde04"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Hyperlink.java",
+        "sha": "59e8e53785bcc40b7b74b2d9778cc5641b7372a2",
+        "size": 4441,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/59e8e53785bcc40b7b74b2d9778cc5641b7372a2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/HyperlinkCollection.java",
+        "sha": "7d30ee8ae2a74dd31d28d1f1fc998180263bbc8c",
+        "size": 8989,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/7d30ee8ae2a74dd31d28d1f1fc998180263bbc8c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/IWarningCallback.java",
+        "sha": "af2febdb7301bb855efab1e3456797577ea1e961",
+        "size": 321,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/af2febdb7301bb855efab1e3456797577ea1e961"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/ImageType.java",
+        "sha": "192b66fa4c1b15d18947a357cac44a527eb77277",
+        "size": 159,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/192b66fa4c1b15d18947a357cac44a527eb77277"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/InvalidFileFormatException.java",
+        "sha": "06d1b447a984bb3cd86399dddf8565251242d46b",
+        "size": 661,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/06d1b447a984bb3cd86399dddf8565251242d46b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/ListColumn.java",
+        "sha": "9c217c6fec9392d47c7ca55610ef5654dbf93c37",
+        "size": 2727,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/9c217c6fec9392d47c7ca55610ef5654dbf93c37"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/ListColumnCollection.java",
+        "sha": "1280d1557ee93c68f391b6a4b39bbf00a23cdc56",
+        "size": 1122,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/1280d1557ee93c68f391b6a4b39bbf00a23cdc56"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/ListObject.java",
+        "sha": "5e0879841031e7f0e8634fd02f5a7840a7dc98d2",
+        "size": 4716,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/5e0879841031e7f0e8634fd02f5a7840a7dc98d2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/ListObjectCollection.java",
+        "sha": "f9840c2d950423c432d358ac8dd3dcf09a23e70e",
+        "size": 9182,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f9840c2d950423c432d358ac8dd3dcf09a23e70e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/LoadDiagnostics.java",
+        "sha": "1a0016aabf745efdc85ff1f248de58f51730a5b3",
+        "size": 1417,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/1a0016aabf745efdc85ff1f248de58f51730a5b3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/LoadFormat.java",
+        "sha": "29466a275fde3099f79ebb25fd48fd4b920b9dc8",
+        "size": 246,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/29466a275fde3099f79ebb25fd48fd4b920b9dc8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/LoadIssue.java",
+        "sha": "3495dc816c92c522d00338fd9067b0b2a02d2b9f",
+        "size": 3037,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/3495dc816c92c522d00338fd9067b0b2a02d2b9f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/LoadOptions.java",
+        "sha": "68572f653e794b765e8211eeccb3b5c7e3803693",
+        "size": 2632,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/68572f653e794b765e8211eeccb3b5c7e3803693"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/NumberFormat.java",
+        "sha": "8f42d866fb7a976da0a9f1ba3a59b38d565e730a",
+        "size": 5441,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/8f42d866fb7a976da0a9f1ba3a59b38d565e730a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/OperatorType.java",
+        "sha": "a9df23aa16a14728692f605ed58ddd52779ba5e2",
+        "size": 580,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/a9df23aa16a14728692f605ed58ddd52779ba5e2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/PageOrientationType.java",
+        "sha": "b79bf84aa66f4a293906e400cab9aef649a2598d",
+        "size": 282,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/b79bf84aa66f4a293906e400cab9aef649a2598d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/PageSetup.java",
+        "sha": "7459f5873e302c539d10545fe1be233e60fc6aeb",
+        "size": 18233,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/7459f5873e302c539d10545fe1be233e60fc6aeb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/PaperSizeType.java",
+        "sha": "2f88f3ac746a36895cfb1bc610104beba2b6a621",
+        "size": 1156,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/2f88f3ac746a36895cfb1bc610104beba2b6a621"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Picture.java",
+        "sha": "e428dd71ac198602814cefc63907a512a99116a3",
+        "size": 2143,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e428dd71ac198602814cefc63907a512a99116a3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/PictureCollection.java",
+        "sha": "5a4e3a421c821b2d1452800db0ec800e29024ebe",
+        "size": 5269,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/5a4e3a421c821b2d1452800db0ec800e29024ebe"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Row.java",
+        "sha": "78f657293b9a1ec0d222f548e81c95329e0a196e",
+        "size": 2938,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/78f657293b9a1ec0d222f548e81c95329e0a196e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/RowCollection.java",
+        "sha": "7c773dfcf156bea09290f02acf7d7f2aa6d3db2b",
+        "size": 693,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/7c773dfcf156bea09290f02acf7d7f2aa6d3db2b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/SaveFormat.java",
+        "sha": "a3d165e26e243d347a6eeaab21afe47fdc0b449e",
+        "size": 181,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/a3d165e26e243d347a6eeaab21afe47fdc0b449e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/SaveOptions.java",
+        "sha": "836f76e0166a0db5d95a47d01c654416e2d2de98",
+        "size": 2226,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/836f76e0166a0db5d95a47d01c654416e2d2de98"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Shape.java",
+        "sha": "2fa3b06f7aec190625dc7c6b2ea0453e2958af2a",
+        "size": 7754,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/2fa3b06f7aec190625dc7c6b2ea0453e2958af2a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/ShapeCollection.java",
+        "sha": "e079a3016735fdcc30623f2b675bb1d848eb3a5c",
+        "size": 2298,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e079a3016735fdcc30623f2b675bb1d848eb3a5c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Style.java",
+        "sha": "8a4669d3ece9e7db614fa5d7362a46965a0b1bd2",
+        "size": 20226,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/8a4669d3ece9e7db614fa5d7362a46965a0b1bd2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/StyleException.java",
+        "sha": "d3c601300f140f26e64bf813cfdaad0cac3ab9a2",
+        "size": 329,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/d3c601300f140f26e64bf813cfdaad0cac3ab9a2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/StyleValueSanitizer.java",
+        "sha": "122a432700008e573c903aa0f158bfae2e377a74",
+        "size": 1884,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/122a432700008e573c903aa0f158bfae2e377a74"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/TableStyleType.java",
+        "sha": "5437a5e48e7061c634c5f8395b8df78045b75ed5",
+        "size": 1683,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/5437a5e48e7061c634c5f8395b8df78045b75ed5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/TargetModeType.java",
+        "sha": "1d78ab4d83079b07489409c49ead73e363a60e1a",
+        "size": 322,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/1d78ab4d83079b07489409c49ead73e363a60e1a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/TotalsCalculation.java",
+        "sha": "4b24146450e5694067607dc6408fec682c017a64",
+        "size": 238,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/4b24146450e5694067607dc6408fec682c017a64"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/UnsupportedFeatureException.java",
+        "sha": "66e936122ad5c5a86b3242b3ade5137f3392d680",
+        "size": 358,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/66e936122ad5c5a86b3242b3ade5137f3392d680"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Validation.java",
+        "sha": "f7485b45eb8810a0f32dbf32a09063360ea985d2",
+        "size": 6060,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f7485b45eb8810a0f32dbf32a09063360ea985d2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/ValidationAlertType.java",
+        "sha": "174da7c9b7d573900f453d821b96d0fcf39f08e7",
+        "size": 275,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/174da7c9b7d573900f453d821b96d0fcf39f08e7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/ValidationCollection.java",
+        "sha": "c59231ffe2c715a7c6b640731cc9e126ef487328",
+        "size": 4999,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c59231ffe2c715a7c6b640731cc9e126ef487328"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/ValidationType.java",
+        "sha": "7c7a91b7be841cd5cc4c0f0e63a669482c71b0b0",
+        "size": 475,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/7c7a91b7be841cd5cc4c0f0e63a669482c71b0b0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/VerticalAlignmentType.java",
+        "sha": "792840c71a668e44dfc58a74aef377e2fb59145d",
+        "size": 482,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/792840c71a668e44dfc58a74aef377e2fb59145d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/VisibilityType.java",
+        "sha": "30de727d728d4371c884c7ab92e2a4b8d926c121",
+        "size": 276,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/30de727d728d4371c884c7ab92e2a4b8d926c121"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/WarningInfo.java",
+        "sha": "17fddb845f42530069413bdfead0a5f46173a912",
+        "size": 2752,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/17fddb845f42530069413bdfead0a5f46173a912"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Workbook.java",
+        "sha": "d3abaaead755377165743cf424354e3373f23e62",
+        "size": 9741,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/d3abaaead755377165743cf424354e3373f23e62"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/WorkbookLoadException.java",
+        "sha": "23fe5b1e3d394ec3e28bdd5ea2c0b92a899c6391",
+        "size": 622,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/23fe5b1e3d394ec3e28bdd5ea2c0b92a899c6391"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/WorkbookProperties.java",
+        "sha": "3c40e6d6298218df348e299771bf5261a4cc373e",
+        "size": 4889,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/3c40e6d6298218df348e299771bf5261a4cc373e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/WorkbookPropertySupport.java",
+        "sha": "5b756bbb0431d4ca083f64ce38708e6189e0c516",
+        "size": 3190,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/5b756bbb0431d4ca083f64ce38708e6189e0c516"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/WorkbookProtection.java",
+        "sha": "81e64ce500bf4aeac0670a7fc057f71ffa28b678",
+        "size": 1275,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/81e64ce500bf4aeac0670a7fc057f71ffa28b678"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/WorkbookSaveException.java",
+        "sha": "0f7b1da1876c2a38d84e002d35bebedf22388685",
+        "size": 621,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/0f7b1da1876c2a38d84e002d35bebedf22388685"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/WorkbookSettings.java",
+        "sha": "08fe3da991685b1021d2e264c7a74eb7c0f1307a",
+        "size": 1466,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/08fe3da991685b1021d2e264c7a74eb7c0f1307a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/WorkbookView.java",
+        "sha": "76f6d3243f79f883e6111bf9ab6aeaabff11279f",
+        "size": 2577,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/76f6d3243f79f883e6111bf9ab6aeaabff11279f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/Worksheet.java",
+        "sha": "eb4eb96c0ab95845bb66202f3851bde749f3410c",
+        "size": 10580,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/eb4eb96c0ab95845bb66202f3851bde749f3410c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/WorksheetCollection.java",
+        "sha": "b9cbc9b66710c9efa1b015a3e90ad4118b8f7b33",
+        "size": 6881,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/b9cbc9b66710c9efa1b015a3e90ad4118b8f7b33"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/WorksheetProtection.java",
+        "sha": "78719ed8eece5b54c172447d84ece93c51102bb5",
+        "size": 6141,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/78719ed8eece5b54c172447d84ece93c51102bb5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxDocumentProperties.java",
+        "sha": "9a81b0c29670bcb11a946f853d3e9e1d42436bd7",
+        "size": 28383,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/9a81b0c29670bcb11a946f853d3e9e1d42436bd7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookArchiveHelpers.java",
+        "sha": "0d07f45e8b3b763bfc93531209c80db04c649485",
+        "size": 20485,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/0d07f45e8b3b763bfc93531209c80db04c649485"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookAutoFilter.java",
+        "sha": "5ed5f27b4b7d8d3b37e17e567cba4833849ac14d",
+        "size": 10644,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/5ed5f27b4b7d8d3b37e17e567cba4833849ac14d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookChartTemplates.java",
+        "sha": "c3cedece388b734ba5c079ad850fc19a093921ca",
+        "size": 9293,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c3cedece388b734ba5c079ad850fc19a093921ca"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookComments.java",
+        "sha": "816704984997c8d5a4692ef5020a403b94fe62a2",
+        "size": 9894,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/816704984997c8d5a4692ef5020a403b94fe62a2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookConditionalFormatting.java",
+        "sha": "10ebc3d31e10fc070386332c6506fa195003c5d9",
+        "size": 26897,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/10ebc3d31e10fc070386332c6506fa195003c5d9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookDefinedNames.java",
+        "sha": "96d3ec0400f67116097827b0d0f963ac03518be4",
+        "size": 6777,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/96d3ec0400f67116097827b0d0f963ac03518be4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookDrawings.java",
+        "sha": "a2bf281783dd1ae11f23167ccd99999a0b510ed5",
+        "size": 41217,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/a2bf281783dd1ae11f23167ccd99999a0b510ed5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookHyperlinks.java",
+        "sha": "ac11dea4b3983b179f15277ab286f6bc9f986494",
+        "size": 6094,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/ac11dea4b3983b179f15277ab286f6bc9f986494"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookPageSetup.java",
+        "sha": "43ba049d7cf56a9010cc3985d596e12979789b7f",
+        "size": 10670,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/43ba049d7cf56a9010cc3985d596e12979789b7f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookProperties.java",
+        "sha": "30b541d693ce1d64685890626e4268b686687046",
+        "size": 27380,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/30b541d693ce1d64685890626e4268b686687046"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookSerializer.java",
+        "sha": "2e910782650043647ab197a515f9356159fe0225",
+        "size": 50007,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/2e910782650043647ab197a515f9356159fe0225"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookSerializerCommon.java",
+        "sha": "6ae68a8003b4e98f61197242196fa80673fc5261",
+        "size": 8631,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/6ae68a8003b4e98f61197242196fa80673fc5261"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookStyles.java",
+        "sha": "32aeaae6e05d83939a17068fe1f462f924380e91",
+        "size": 51795,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/32aeaae6e05d83939a17068fe1f462f924380e91"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookStylesValueHelpers.java",
+        "sha": "e62b5c922ca75d275d26253addc33bc32b04bad6",
+        "size": 8032,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e62b5c922ca75d275d26253addc33bc32b04bad6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookStylesXml.java",
+        "sha": "c33ab7b5cc5a2ac758d0386c58dd276250baa42a",
+        "size": 54710,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c33ab7b5cc5a2ac758d0386c58dd276250baa42a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookTables.java",
+        "sha": "7debda23dc416a0f04c2ba0d7be467f395bac085",
+        "size": 8156,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/7debda23dc416a0f04c2ba0d7be467f395bac085"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookValidations.java",
+        "sha": "8f43c6d04b2121a3026e5636287d444e14716b3f",
+        "size": 11369,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/8f43c6d04b2121a3026e5636287d444e14716b3f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookWorksheetProtection.java",
+        "sha": "26b4a6c88bdd579b83e39bb45522818b884c3516",
+        "size": 3730,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/26b4a6c88bdd579b83e39bb45522818b884c3516"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/XlsxWorkbookWorksheetViews.java",
+        "sha": "dc693aeb9f6b274325b7f3e8d1571b4fbef858dc",
+        "size": 9222,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/dc693aeb9f6b274325b7f3e8d1571b4fbef858dc"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose/cells_foss/core",
+        "sha": "2496cff537ad94e292bad2328de71e4e43dd17fb",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/2496cff537ad94e292bad2328de71e4e43dd17fb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/AlignmentValue.java",
+        "sha": "513d036207ac29df7703c38c9a09f884141888b9",
+        "size": 3553,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/513d036207ac29df7703c38c9a09f884141888b9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/AutoFilterModel.java",
+        "sha": "5ae537ff03e613ba79d9c811a68ae4ca1c7bbc8a",
+        "size": 17883,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/5ae537ff03e613ba79d9c811a68ae4ca1c7bbc8a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/BorderSideValue.java",
+        "sha": "0022d3590e9ba933bc21bd21efa3ff9540813e14",
+        "size": 1120,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/0022d3590e9ba933bc21bd21efa3ff9540813e14"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/BorderStyle.java",
+        "sha": "ec8917cca9dcc8ab29c690ea0f42ea75c778bcc2",
+        "size": 739,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/ec8917cca9dcc8ab29c690ea0f42ea75c778bcc2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/BordersValue.java",
+        "sha": "bad1edffc98bfa49119710d4eb0c3d1c9849b453",
+        "size": 3115,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/bad1edffc98bfa49119710d4eb0c3d1c9849b453"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/CellAddress.java",
+        "sha": "c6802f52928346a13a0d2e1c59487d6e1f7343e2",
+        "size": 4300,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c6802f52928346a13a0d2e1c59487d6e1f7343e2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/CellRecord.java",
+        "sha": "c440f2c637df4e57a0fdaad6d3af3ca1a1881518",
+        "size": 1916,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c440f2c637df4e57a0fdaad6d3af3ca1a1881518"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/CellValueKind.java",
+        "sha": "67a1367099cf06aba4c9b88146bf26340b05890e",
+        "size": 516,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/67a1367099cf06aba4c9b88146bf26340b05890e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/ChartModel.java",
+        "sha": "ccad383fb58c7b5ab5deb8cb4886ce9d680e8dc6",
+        "size": 4511,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/ccad383fb58c7b5ab5deb8cb4886ce9d680e8dc6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/ColorValue.java",
+        "sha": "0c56b4fca8069516be3184cacde92cb00a842ea0",
+        "size": 1869,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/0c56b4fca8069516be3184cacde92cb00a842ea0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/ColumnRangeModel.java",
+        "sha": "3ff122965e7430b456ebc29edc11ec1b9e218ba9",
+        "size": 2750,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/3ff122965e7430b456ebc29edc11ec1b9e218ba9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/CommentModel.java",
+        "sha": "053635616504c26baa817961299bc4d22799630d",
+        "size": 1469,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/053635616504c26baa817961299bc4d22799630d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/ConditionalFormattingModel.java",
+        "sha": "27d99b5e9fa3a88a2273c88267cf9affdecc843c",
+        "size": 939,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/27d99b5e9fa3a88a2273c88267cf9affdecc843c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/DateSerialConverter.java",
+        "sha": "2e632010a7c20711f8bedf1266aa4d2297ee7996",
+        "size": 2007,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/2e632010a7c20711f8bedf1266aa4d2297ee7996"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/DateSystem.java",
+        "sha": "121656123cadb36498d808b600d926318f81a911",
+        "size": 218,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/121656123cadb36498d808b600d926318f81a911"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/DefinedNameModel.java",
+        "sha": "029fc5dcaafd064102f871b7b6933c866d41d1e4",
+        "size": 1731,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/029fc5dcaafd064102f871b7b6933c866d41d1e4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/DiagnosticBag.java",
+        "sha": "528e286d84d6c002c04dd09e1776cb7b01ce80f2",
+        "size": 639,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/528e286d84d6c002c04dd09e1776cb7b01ce80f2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/DiagnosticEntry.java",
+        "sha": "e1d63db481158fe6082d325b88b2ac08fe8c212b",
+        "size": 1857,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e1d63db481158fe6082d325b88b2ac08fe8c212b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/DiagnosticSeverity.java",
+        "sha": "490ee3b198f93da53a397f4eca3e671e1e485c67",
+        "size": 337,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/490ee3b198f93da53a397f4eca3e671e1e485c67"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/DocumentPropertiesModel.java",
+        "sha": "c959cbdf7a53a177ccae41202a061416ad495d16",
+        "size": 11466,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c959cbdf7a53a177ccae41202a061416ad495d16"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/FillPatternKind.java",
+        "sha": "95ede92e517f232518c6d0f665e65662b42b2b88",
+        "size": 1100,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/95ede92e517f232518c6d0f665e65662b42b2b88"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/FontValue.java",
+        "sha": "a6170b51654b06f23d2b3335c11e9c80ba887b02",
+        "size": 3039,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/a6170b51654b06f23d2b3335c11e9c80ba887b02"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/FormatConditionModel.java",
+        "sha": "d31fcb3856ab5b8026c8ffc2ef954191160a35c0",
+        "size": 8929,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/d31fcb3856ab5b8026c8ffc2ef954191160a35c0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/HeaderFooterModel.java",
+        "sha": "444327e75e5fdab3e3f9c9bea2a4c014dd34bbd0",
+        "size": 2239,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/444327e75e5fdab3e3f9c9bea2a4c014dd34bbd0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/HorizontalAlignment.java",
+        "sha": "3f1e1f45e1cf014520cdc7b9cb8bb3af04818f69",
+        "size": 570,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/3f1e1f45e1cf014520cdc7b9cb8bb3af04818f69"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/HyperlinkModel.java",
+        "sha": "171e25e7b78dd4d4f36b291875f18edd11d6c5ae",
+        "size": 2801,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/171e25e7b78dd4d4f36b291875f18edd11d6c5ae"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/ListColumnModel.java",
+        "sha": "1dbba987addd3893d5bacde140f034dcedb62b33",
+        "size": 1151,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/1dbba987addd3893d5bacde140f034dcedb62b33"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/ListObjectModel.java",
+        "sha": "f31572f2028311e18bd171159668b163518fab15",
+        "size": 3268,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f31572f2028311e18bd171159668b163518fab15"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/MergeRegion.java",
+        "sha": "d5821c389eef931798168f8a8ed99048f6b9b583",
+        "size": 1280,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/d5821c389eef931798168f8a8ed99048f6b9b583"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/NumberFormatValue.java",
+        "sha": "e4bf80f9962ef3b776dbb5117a36b51c3a09c9c3",
+        "size": 1044,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e4bf80f9962ef3b776dbb5117a36b51c3a09c9c3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/PageMarginsModel.java",
+        "sha": "c884e3684957df37f7b44168612cf9a661f99dd2",
+        "size": 1864,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c884e3684957df37f7b44168612cf9a661f99dd2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/PageOrientation.java",
+        "sha": "624d2efe73dc473ac62e187d6846dcd7eadf93bf",
+        "size": 278,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/624d2efe73dc473ac62e187d6846dcd7eadf93bf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/PageSetupModel.java",
+        "sha": "d3c476161f1109867d42c48888cc6892e063c90b",
+        "size": 4573,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/d3c476161f1109867d42c48888cc6892e063c90b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/PictureModel.java",
+        "sha": "aa89dc1a6351976a5c751612883a6b81ff9d665c",
+        "size": 2601,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/aa89dc1a6351976a5c751612883a6b81ff9d665c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/PrintOptionsModel.java",
+        "sha": "8a32574ba55506ede1d1a8bc1136df320796ed5c",
+        "size": 1613,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/8a32574ba55506ede1d1a8bc1136df320796ed5c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/ProtectionValue.java",
+        "sha": "5e0a0b86ba14fc5b8787dbd6f14045d09d9f0f9e",
+        "size": 1040,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/5e0a0b86ba14fc5b8787dbd6f14045d09d9f0f9e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/RowModel.java",
+        "sha": "7f0412456d60ff39ee1f949036c01f8069e7ce84",
+        "size": 1809,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/7f0412456d60ff39ee1f949036c01f8069e7ce84"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/ShapeModel.java",
+        "sha": "b099d40d0387be5086d3e7986d0ec4413598a020",
+        "size": 3551,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/b099d40d0387be5086d3e7986d0ec4413598a020"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/SharedStringRepository.java",
+        "sha": "bdfe2d5ec859a6231d3fa611a004b6cc3acd7695",
+        "size": 1776,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/bdfe2d5ec859a6231d3fa611a004b6cc3acd7695"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/SheetVisibility.java",
+        "sha": "dbe713ceaa65b099a59d273a1a8adff70bd10eec",
+        "size": 345,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/dbe713ceaa65b099a59d273a1a8adff70bd10eec"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/StyleRepository.java",
+        "sha": "039049ebad4be59a23efcdaa4d44c08c8d9db9e2",
+        "size": 386,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/039049ebad4be59a23efcdaa4d44c08c8d9db9e2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/StyleValue.java",
+        "sha": "f88756c149f6016ec0c27efbbf5b822bff0aa087",
+        "size": 4157,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f88756c149f6016ec0c27efbbf5b822bff0aa087"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/ValidationModel.java",
+        "sha": "12d7e29920e54202067d6a7bf8cebea2a8962ff5",
+        "size": 5213,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/12d7e29920e54202067d6a7bf8cebea2a8962ff5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/VerticalAlignment.java",
+        "sha": "26c480c832427d247e18065f6260cc0d685e1689",
+        "size": 487,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/26c480c832427d247e18065f6260cc0d685e1689"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/WorkbookModel.java",
+        "sha": "2cdce67634f7a9f3e4dcebb0c89e0650336fd50d",
+        "size": 4491,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/2cdce67634f7a9f3e4dcebb0c89e0650336fd50d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/WorkbookPropertiesModel.java",
+        "sha": "dd41e04dc1211ba0a4c64ad9968d270917521e3b",
+        "size": 23210,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/dd41e04dc1211ba0a4c64ad9968d270917521e3b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/WorkbookSettingsModel.java",
+        "sha": "30a5e67fb358c43c67db69b960333b72766987f0",
+        "size": 927,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/30a5e67fb358c43c67db69b960333b72766987f0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/WorksheetModel.java",
+        "sha": "509593a0b4e8cfd2da1cfa376e3e36441a4efceb",
+        "size": 4561,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/509593a0b4e8cfd2da1cfa376e3e36441a4efceb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/WorksheetProtectionModel.java",
+        "sha": "baada8650bf8f696b50e5b5072a627846fdc8fa0",
+        "size": 9504,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/baada8650bf8f696b50e5b5072a627846fdc8fa0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/core/WorksheetViewModel.java",
+        "sha": "4e57b7d2c9d3433514bfc244ed476ed0278150d8",
+        "size": 3040,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/4e57b7d2c9d3433514bfc244ed476ed0278150d8"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose/cells_foss/packaging",
+        "sha": "b001a9f365c1205af6cca396e48c54c97be8aa29",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/b001a9f365c1205af6cca396e48c54c97be8aa29"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/packaging/IPackageReader.java",
+        "sha": "8234718ddb3093cc673034641c218df4cdb73c8a",
+        "size": 393,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/8234718ddb3093cc673034641c218df4cdb73c8a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/packaging/IPackageWriter.java",
+        "sha": "f401801c4d85ec030b4596cd836fc5aacd6128d1",
+        "size": 525,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f401801c4d85ec030b4596cd836fc5aacd6128d1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/packaging/MissingPartException.java",
+        "sha": "fddd24b43a7a7246905851aba161788f9e205a2b",
+        "size": 374,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/fddd24b43a7a7246905851aba161788f9e205a2b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/packaging/PackageLoadContext.java",
+        "sha": "6d7bc8273ad149df9c2a458c55673541ebce756b",
+        "size": 760,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/6d7bc8273ad149df9c2a458c55673541ebce756b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/packaging/PackageModel.java",
+        "sha": "3e9b7b59c66624542b8e54f4b09da312abeaacf7",
+        "size": 1061,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/3e9b7b59c66624542b8e54f4b09da312abeaacf7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/packaging/PackagePartDescriptor.java",
+        "sha": "c146c9523366a343134dfc07155a4b47ed50083b",
+        "size": 1144,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c146c9523366a343134dfc07155a4b47ed50083b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/packaging/PackageStructureException.java",
+        "sha": "fcceab09daed7e6a587ed884da5016d1ef6bfff9",
+        "size": 377,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/fcceab09daed7e6a587ed884da5016d1ef6bfff9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/packaging/PackagingConventions.java",
+        "sha": "e4526bbb9fcf29be4f10f58d3e02f6762260107f",
+        "size": 1642,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e4526bbb9fcf29be4f10f58d3e02f6762260107f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/packaging/RelationshipDescriptor.java",
+        "sha": "92a7d5f5def361f19545e9b01aa286bb8c17cc1a",
+        "size": 1314,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/92a7d5f5def361f19545e9b01aa286bb8c17cc1a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/packaging/RelationshipResolutionException.java",
+        "sha": "16877ceb171c40b067655cbd096b7233c60d9303",
+        "size": 452,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/16877ceb171c40b067655cbd096b7233c60d9303"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose/cells_foss/validation",
+        "sha": "04922187ec95b733a02075aff155e2345c03928b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/04922187ec95b733a02075aff155e2345c03928b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/validation/ValidationMessage.java",
+        "sha": "97457d780646c74acc5eb644f95326a4180b8777",
+        "size": 1117,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/97457d780646c74acc5eb644f95326a4180b8777"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/validation/ValidationMessageSeverity.java",
+        "sha": "21b66105af253ef3f3a1c9ce3ff10f0558c394a1",
+        "size": 272,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/21b66105af253ef3f3a1c9ce3ff10f0558c394a1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/validation/WorkbookValidator.java",
+        "sha": "31a960969207d1db6eb1056d67387719a871137b",
+        "size": 639,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/31a960969207d1db6eb1056d67387719a871137b"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose/cells_foss/xml",
+        "sha": "61aa93ca789712a910e2d4af06364c5799cdb860",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/61aa93ca789712a910e2d4af06364c5799cdb860"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/xml/SharedStringTableXmlMapper.java",
+        "sha": "de5baea782542575f51b9e60f1c39f725ebfbcc0",
+        "size": 1294,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/de5baea782542575f51b9e60f1c39f725ebfbcc0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/xml/StylesheetXmlMapper.java",
+        "sha": "71fedce93c43e04484ad37eaeba036ba95eafb64",
+        "size": 1238,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/71fedce93c43e04484ad37eaeba036ba95eafb64"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/xml/WorkbookXmlMapper.java",
+        "sha": "382d0c134f9ba7ce2934b70e43c350632d7b032b",
+        "size": 1642,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/382d0c134f9ba7ce2934b70e43c350632d7b032b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/xml/WorksheetXmlMapper.java",
+        "sha": "4297fb50d287681006cfb3138d119aeda1c4db51",
+        "size": 877,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/4297fb50d287681006cfb3138d119aeda1c4db51"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/cells_foss/xml/XmlParsingException.java",
+        "sha": "345759f9d4b090a3bd4e87c59672bc195428dcb0",
+        "size": 345,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/345759f9d4b090a3bd4e87c59672bc195428dcb0"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test",
+        "sha": "1717c0081fe13ccedb14a096834587ef5c9e7c49",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/1717c0081fe13ccedb14a096834587ef5c9e7c49"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java",
+        "sha": "7ffe1590d4ad68694f41a55126f6132d64fccdfb",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/7ffe1590d4ad68694f41a55126f6132d64fccdfb"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java/org",
+        "sha": "4c004d7dac4298e617159b96ea9024f1c290711a",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/4c004d7dac4298e617159b96ea9024f1c290711a"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java/org/aspose",
+        "sha": "9b4f45b434549b60ea8a2fddcd848b5acaa7bfce",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/9b4f45b434549b60ea8a2fddcd848b5acaa7bfce"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java/org/aspose/cells_foss",
+        "sha": "c258c4d6d6517c01ccdc686f8a379286d713bae6",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/c258c4d6d6517c01ccdc686f8a379286d713bae6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/AResourceGeneratorTest.java",
+        "sha": "ff2fe71046c737840304538aa323379b027d9aa3",
+        "size": 7824,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/ff2fe71046c737840304538aa323379b027d9aa3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/AssertEx.java",
+        "sha": "c4ace2b6b6b8f47911e8a9aa3971d99d781bcbea",
+        "size": 4589,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/c4ace2b6b6b8f47911e8a9aa3971d99d781bcbea"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/AutoFilterScenarioFactory.java",
+        "sha": "8ad5d3455671457e33c05058d5ed9e9341c0c19a",
+        "size": 6871,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/8ad5d3455671457e33c05058d5ed9e9341c0c19a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/AutoFilterTest.java",
+        "sha": "f69bc41fe7c59cce51170e71c01782ba64707612",
+        "size": 39115,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f69bc41fe7c59cce51170e71c01782ba64707612"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/CellValueTest.java",
+        "sha": "cfead569aab53b2a3f46d97755ef87b2baede263",
+        "size": 23185,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/cfead569aab53b2a3f46d97755ef87b2baede263"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/ChartScenarioFactory.java",
+        "sha": "9f715f222d36a95999716e48e78f0a87aade8a38",
+        "size": 1819,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/9f715f222d36a95999716e48e78f0a87aade8a38"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/CompatibilityTest.java",
+        "sha": "98de5fba218c8e3661ed02551ccafb1435b99544",
+        "size": 19514,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/98de5fba218c8e3661ed02551ccafb1435b99544"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/ConditionalFormattingScenarioFactory.java",
+        "sha": "45e8f03a76d4e93a6db378c0b15f0fedcbe363ab",
+        "size": 4655,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/45e8f03a76d4e93a6db378c0b15f0fedcbe363ab"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/ConditionalFormattingTest.java",
+        "sha": "a546fade4e294e0abb7999a64562f49911f42a66",
+        "size": 54812,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/a546fade4e294e0abb7999a64562f49911f42a66"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/CsCompatibilityTest.java",
+        "sha": "663bc8ad5a8771904265f25be62c2704d1299946",
+        "size": 42250,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/663bc8ad5a8771904265f25be62c2704d1299946"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/CsUnitTest.java",
+        "sha": "f76161d7bf2625d11f190f4ce0be3da87ef9f6b6",
+        "size": 42706,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f76161d7bf2625d11f190f4ce0be3da87ef9f6b6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/DataValidationTest.java",
+        "sha": "58d356b3dfd9412db576215351e223a72e266e2b",
+        "size": 34850,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/58d356b3dfd9412db576215351e223a72e266e2b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/DefinedNameScenarioFactory.java",
+        "sha": "a4d86dc66e3958362e3696b117ab5377afe70e93",
+        "size": 1613,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/a4d86dc66e3958362e3696b117ab5377afe70e93"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/DocumentPropertiesTest.java",
+        "sha": "95015446daf54ceb67dfc32516cc3dc7d374e926",
+        "size": 19836,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/95015446daf54ceb67dfc32516cc3dc7d374e926"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/HyperlinkTest.java",
+        "sha": "824b13400e39177b651bb512ec513a89275fd0d3",
+        "size": 33201,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/824b13400e39177b651bb512ec513a89275fd0d3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/ListObjectScenarioFactory.java",
+        "sha": "e840cc09a9d22cae943f4f058248f6b014f488d1",
+        "size": 3224,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e840cc09a9d22cae943f4f058248f6b014f488d1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/OutlineGroupTest.java",
+        "sha": "e03dd66ece67f1f2e4027f3f54a8fd9a84174545",
+        "size": 15907,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e03dd66ece67f1f2e4027f3f54a8fd9a84174545"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/PageSetupScenarioFactory.java",
+        "sha": "f31fd6ace31866de8274f7675c3aeacf654b9894",
+        "size": 4246,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f31fd6ace31866de8274f7675c3aeacf654b9894"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/PageSetupTest.java",
+        "sha": "00f99851c1cb643ccd55cea453d88219caf134f1",
+        "size": 34119,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/00f99851c1cb643ccd55cea453d88219caf134f1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/PictureScenarioFactory.java",
+        "sha": "753bf2e8c6f26d2a6e107bc9e796fda504d29828",
+        "size": 2689,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/753bf2e8c6f26d2a6e107bc9e796fda504d29828"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/ShapeScenarioFactory.java",
+        "sha": "01628e1fbbdf4a58dfe8ca292a22774fea44538f",
+        "size": 2793,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/01628e1fbbdf4a58dfe8ca292a22774fea44538f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/StyleScenarioFactory.java",
+        "sha": "54da52d899514ed57917d50e7203142a8234b3e6",
+        "size": 4034,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/54da52d899514ed57917d50e7203142a8234b3e6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/StyleTest.java",
+        "sha": "12981f86701f280e4047725cb2437e3c48f6092a",
+        "size": 58556,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/12981f86701f280e4047725cb2437e3c48f6092a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/TemporaryDirectory.java",
+        "sha": "cad3b1eab64a9384e4e6d824355f5c31fa13f644",
+        "size": 2020,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/cad3b1eab64a9384e4e6d824355f5c31fa13f644"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/ValidationScenarioFactory.java",
+        "sha": "ba40c7d480f5a8bb3e4ef8499727f3110666769d",
+        "size": 2420,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/ba40c7d480f5a8bb3e4ef8499727f3110666769d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/WorkbookScenarioFactory.java",
+        "sha": "3faedb7a6f77b0e9969e8258095f9ab4f5ba469f",
+        "size": 2570,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/3faedb7a6f77b0e9969e8258095f9ab4f5ba469f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/WorkbookTest.java",
+        "sha": "777343e1ecda7a6cf6a832938d3ba29472e779cd",
+        "size": 55855,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/777343e1ecda7a6cf6a832938d3ba29472e779cd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/WorksheetScenarioFactory.java",
+        "sha": "2009d070d16f8a95b33e878e6d6d9f2e08028cf6",
+        "size": 5167,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/2009d070d16f8a95b33e878e6d6d9f2e08028cf6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/ZipPackageHelper.java",
+        "sha": "f494a8d3d05c56dadbf14d256ca620d4f1e4abb0",
+        "size": 2354,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/f494a8d3d05c56dadbf14d256ca620d4f1e4abb0"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java/org/aspose/cells_foss/unit",
+        "sha": "c3dcd7f75ed18a2baf195d20b42aa4da3ec59c55",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/c3dcd7f75ed18a2baf195d20b42aa4da3ec59c55"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/unit/AutoFilterAdvancedTest.java",
+        "sha": "7b52b60881a1dd4533c8f517907b19551c278804",
+        "size": 8375,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/7b52b60881a1dd4533c8f517907b19551c278804"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/unit/CalculationPropertiesTest.java",
+        "sha": "dd812da331beed1f554b392b745f2922f7f6ebfd",
+        "size": 2684,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/dd812da331beed1f554b392b745f2922f7f6ebfd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/unit/ChartCollectionTest.java",
+        "sha": "a7778a63523f16d18c1967cf87daadbf3aaf3a3c",
+        "size": 2313,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/a7778a63523f16d18c1967cf87daadbf3aaf3a3c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/unit/CommentCollectionTest.java",
+        "sha": "da9bc14ae3b3d19573cde19819869b2c847c4816",
+        "size": 4256,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/da9bc14ae3b3d19573cde19819869b2c847c4816"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/unit/ListObjectCollectionTest.java",
+        "sha": "14a1f1813b0ee4057b3730cd91c7c2453df48de7",
+        "size": 5820,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/14a1f1813b0ee4057b3730cd91c7c2453df48de7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/unit/NumberFormatTest.java",
+        "sha": "e18fe6d52e75e4fda039d43ef142d0571521046e",
+        "size": 3387,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e18fe6d52e75e4fda039d43ef142d0571521046e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/unit/PictureCollectionTest.java",
+        "sha": "14a4e6621f8492bd79b4aa58517bf4d7a56a6282",
+        "size": 4332,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/14a4e6621f8492bd79b4aa58517bf4d7a56a6282"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/unit/TableStyleTypeTest.java",
+        "sha": "9c8737e947fc43dd3e96e1bfe8d10b114851fd56",
+        "size": 2616,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/9c8737e947fc43dd3e96e1bfe8d10b114851fd56"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/cells_foss/unit/TotalsCalculationTest.java",
+        "sha": "e4628ce518f5b2395663571420c68b092eea3608",
+        "size": 1728,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/blobs/e4628ce518f5b2395663571420c68b092eea3608"
+      }
+    ],
+    "truncated": false,
+    "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Java/git/trees/062a43b39570df8e34a3a4c4db2e0d9ad885ae7c"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "pin": "aa998102191c530af4dca3a6895d62a4027a613e",
+  "requirement_reference": "KNOW-013 (plans/requirements/catalog.jsonl line 488, status PARTIAL) -- \"the new aspose.feature_claims/format_support_claims/install_claims/limitation_claims/troubleshoot_claims/relevant_seo_keywords fact fields MUST gain at least one real renderer/composition consumer that affects rendered candidate bytes\"",
+  "method": "Full-src grep for each field's literal fact-field string outside its own producer module (facts/aspose_knowledge_selection.py) and its own test, cross-checked by direct read of render_views.py::_FIELD_RENDERERS (L205-216/219-234) and verified_template_capabilities.py in full.",
+  "fields": [
+    {
+      "field": "aspose.feature_claims",
+      "coverage_category": "feature_capability",
+      "producer": "src/readme_agent/facts/aspose_knowledge_selection.py (field literal at ~L76-95)",
+      "render_views_consumer": "none -- absent from _FIELD_RENDERERS dict, render_views.py:205-216",
+      "verified_template_consumer": "none -- zero references anywhere in presentation/verified_template_capabilities.py",
+      "document_renderer_editorial_consumer": "none -- zero references in document_opening.py/document_examples.py/document_limitations.py/document_acquisition.py/document_release.py",
+      "qwen_reachability": "field-locked: this field's aggregate verification_state is unverified for all three trio products (K1 defect), so accepted_composition_fact_ids() (agentic_composition_grounding.py:23-29) excludes it entirely -- it never reaches the Qwen packet in the observed trio, though a hypothetical fully-verified feature_claims field would reach the packet the same way format_support_claims does today.",
+      "current_status": "zero consumers at every layer",
+      "proposed_consumer": "presentation/verified_template_capabilities.py::_capability_rows() -- extend the existing capability-row assembly (which already sources product.capabilities) to admit a bounded number of additional rows sourced from verified feature_claims items, citing their real fact_ids (unlike the SEO consumer, which is deliberately attribution-only because its source fact is unverified -- feature_claims items reaching this point ARE verified, so citing fact_ids is correct and required for claim-map/K3 accountability)."
+    },
+    {
+      "field": "aspose.format_support_claims",
+      "coverage_category": "format_support",
+      "producer": "src/readme_agent/facts/aspose_knowledge_selection.py",
+      "render_views_consumer": "none",
+      "verified_template_consumer": "none",
+      "document_renderer_editorial_consumer": "none",
+      "qwen_reachability": "packet-eligible when verified (true for all three trio products) -- reaches composition_fact_payloads() unconditionally, confirmed by direct code read of agentic_composition_inputs.py:113-139 (field-agnostic projection over every accepted fact id).",
+      "current_status": "reaches the Qwen prompt context; zero renderer/template consumer downstream of that",
+      "caveat": "SEE FACT_TO_OUTPUT_MATRIX.json 3D entry: 2 of the 8 items known-false-positive per KGAP-002 (FBX export/import claims contradicted by NotImplementedError source). Do not ship a consumer for this field without either (a) K1's per-item verification landing first, so mixed fields split into genuinely-verified-only aggregates, or (b) this consumer's own polarity check on the cited evidence file/line before rendering.",
+      "proposed_consumer": "product.formats section (canonical, already rendered) -- extend the existing format-support row builder (wherever product.formats compiles rows, canonical field, verified_template_capabilities.py-adjacent) to merge in verified format_support_claims rows that name a format the canonical extractor did not already surface, bounded and fact_id-cited, gated on a lightweight source-polarity check (see IMPLEMENTATION_SEQUENCE.md step C1-2)."
+    },
+    {
+      "field": "aspose.install_claims",
+      "coverage_category": "installation",
+      "producer": "src/readme_agent/facts/aspose_knowledge_selection.py",
+      "render_views_consumer": "none", "verified_template_consumer": "none", "document_renderer_editorial_consumer": "none",
+      "qwen_reachability": "field-locked (unverified in 3D, the only trio product with this field selected).",
+      "current_status": "zero consumers at every layer",
+      "proposed_consumer": "document_acquisition.py (editorial module per docs/readme-composition-seams.md's before/after map) -- append a bounded number of verified install_claims as supplementary installation notes only when they add real content the canonical installation.verified_acquisition fact does not already cover (e.g. an optional extra, a platform-specific caveat), fact_id-cited."
+    },
+    {
+      "field": "aspose.limitation_claims",
+      "coverage_category": "limitation",
+      "producer": "src/readme_agent/facts/aspose_knowledge_selection.py",
+      "render_views_consumer": "none", "verified_template_consumer": "none",
+      "document_renderer_editorial_consumer": "none -- document_limitations.py exists as a named editorial module (readme-composition-seams.md) but per full grep does not reference aspose.limitation_claims",
+      "qwen_reachability": "packet-eligible when verified (true for 3D and Barcode).",
+      "current_status": "reaches the Qwen prompt context; zero renderer/template consumer downstream",
+      "proposed_consumer": "document_limitations.py -- this is the lowest-risk of the five: limitation prose is inherently additive/cautionary (never a positive capability claim), so no polarity check is needed the way format_support/feature need one. Append bounded, fact_id-cited verified limitation_claims items not already covered by product.limitations, deduplicated by normalized text against the canonical field to avoid restating the same limitation twice."
+    },
+    {
+      "field": "aspose.troubleshoot_claims",
+      "coverage_category": "troubleshooting",
+      "producer": "src/readme_agent/facts/aspose_knowledge_selection.py",
+      "render_views_consumer": "none", "verified_template_consumer": "none", "document_renderer_editorial_consumer": "none",
+      "qwen_reachability": "field-locked (unverified in 3D, the only trio product with this field selected).",
+      "current_status": "zero consumers at every layer; no existing canonical 'Troubleshooting' section/fact exists to merge into",
+      "proposed_consumer": "New bounded, capped editorial operation (not a new pipeline -- one more document_*.py-style module following the existing one-editorial-responsibility-per-module pattern, e.g. document_troubleshooting.py) that renders a 'Troubleshooting' subsection only when >=1 verified troubleshoot_claims item exists; omitted entirely (not an empty heading) when zero verified items exist, per the section/item-cap and omission-reason requirements below."
+    },
+    {
+      "field": "aspose.relevant_seo_keywords",
+      "coverage_category": "seo_keywords",
+      "producer": "src/readme_agent/facts/aspose_seo_keyword_facts.py",
+      "render_views_consumer": "none (deliberately -- this fact is intentionally never verified, so render_views.py correctly excludes it from the accepted-fact rendering path)",
+      "verified_template_consumer": "presentation/verified_template_capability_seo.py::seo_capability_title (fact_id param), consumed by presentation/verified_template_capabilities.py::_capability_rows (~L698-769, updated 05ef1e532)",
+      "document_renderer_editorial_consumer": "n/a -- verified-template route only",
+      "qwen_reachability": "excluded from accepted_composition_fact_ids (unverified by design); never reaches the Qwen packet as an authoritative fact.",
+      "current_status": "SHIPPED, real, tested (test_verified_template_capability_seo.py, test_verified_template_capabilities_seo_keyword_lineage.py). Attribution-only by design: reshapes an existing capability row's title wording when vocabulary genuinely overlaps; never cited in fact_ids, never authorizes new prose, byte-identical fallback when ungrounded.",
+      "proposed_consumer": "none needed -- this field is the one closed item of the six named in KNOW-013 and is out of C1's remaining scope."
+    }
+  ],
+  "summary": {
+    "fields_with_zero_consumers": 5,
+    "fields_with_real_consumer": 1,
+    "matches_requirement": "KNOW-013 acceptance_evidence text verbatim confirms this exact 5-of-6 gap as of the current PARTIAL status"
+  }
+}

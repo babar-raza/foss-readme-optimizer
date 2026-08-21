@@ -1,0 +1,89 @@
+{
+  "aggregate_sha256": "290335880ffbe5c72334e13dc7397c0d9bfa35331df82da2221686843ceedc02",
+  "explicitly_not_imported_as_authority": [
+    "llm_enrichment_confidence",
+    "promotion_and_indexing_controller",
+    "site_state",
+    "upstream_fact_graph"
+  ],
+  "files": {
+    "scripts/pipeline/extraction/__init__.py": {
+      "bytes": 1390,
+      "destination": "__init__.py",
+      "git_blob": "bd1517e14214cd60105c975d6fc9c7c988152417",
+      "sha256": "cbdaab4500e6c1ca8cb2841f3db73bd58d01946256f2579d15abbd2b41c1e79f"
+    },
+    "scripts/pipeline/extraction/api_surface.py": {
+      "bytes": 152327,
+      "destination": "api_surface.py",
+      "git_blob": "47423b4a6947b8e2b97bc6aafa49adbdad6328a5",
+      "sha256": "09a0e7c98ce2c22e44e5c40b4c4d78ccdb9df393c9bd09d48f1afa6db8050379"
+    },
+    "scripts/pipeline/extraction/claims.py": {
+      "bytes": 1357,
+      "destination": "claims.py",
+      "git_blob": "880aa887d2e3f9fc6566380f225a8f3407ab4e22",
+      "sha256": "56400cdc9d4c6013e52857444065c55d90d30ed8f1f0f01731ceb4632577919c"
+    },
+    "scripts/pipeline/extraction/formats.py": {
+      "bytes": 84877,
+      "destination": "formats.py",
+      "git_blob": "de11697d731a4630dd1d2f80b0ea20d7eeb77913",
+      "sha256": "7e073b426fc395c014dc1fc9af5080119e195625f62816b03bfc446387ac40cc"
+    },
+    "scripts/pipeline/extraction/outputs.py": {
+      "bytes": 19618,
+      "destination": "outputs.py",
+      "git_blob": "3b6261b9ddea8156736ffe32f251bf384897b8c4",
+      "sha256": "0fcb5bc78722ab4f45fce4e9453d0d997d73d8a50c29a91e72dae517e4b88488"
+    },
+    "scripts/pipeline/extraction/package_manifest.py": {
+      "bytes": 16953,
+      "destination": "package_manifest.py",
+      "git_blob": "e8a504e9a730035de96a5715cde226cd67734d93",
+      "sha256": "3a60f9b732d7331373b9183eebfa84b842f7b0168d52b0668c0231acc97acf84"
+    },
+    "scripts/pipeline/extraction/package_root.py": {
+      "bytes": 6039,
+      "destination": "package_root.py",
+      "git_blob": "1c1f91c81cee3084ff598746d6fde50cf3f0e390",
+      "sha256": "4217619dfa28c68a01db73ac1a679df4935e71d4997b6b2ecda321a99457c74a"
+    },
+    "scripts/pipeline/extraction/scout.py": {
+      "bytes": 30131,
+      "destination": "scout.py",
+      "git_blob": "eef47b3ac87aed5743576cb418be6ac983b11fb3",
+      "sha256": "f4e4f759ccba44c4107bf79d48b1fb30e4742e81d5d878d23597a46ad2aeb8af"
+    },
+    "scripts/pipeline/extraction/snippets.py": {
+      "bytes": 26784,
+      "destination": "snippets.py",
+      "git_blob": "0aafd71d08d6464c8ef846f1c201f28d865b7a18",
+      "sha256": "7a3dc9d01fe863c06dcfedcede4b9e0a284fc45f651e51c408ee1fbf7a5959cc"
+    },
+    "scripts/pipeline/extraction/tree_helpers.py": {
+      "bytes": 40381,
+      "destination": "tree_helpers.py",
+      "git_blob": "066e92346fbafc3fd0d0c2df47e7cb5bffe9c1ad",
+      "sha256": "9b210435c575b28ae67ebba99c9544d1a0e0978f297d9b69a99e5348d17f75bd"
+    },
+    "scripts/pipeline/extraction/validate_scout_output.py": {
+      "bytes": 5496,
+      "destination": "validate_scout_output.py",
+      "git_blob": "e570fd6a76a8b9cb85c6150c7c4100fb052284db",
+      "sha256": "18ff7642e33b486297afeed22eb807ec9c96fdf0fb56fa9421a69eb77ddb36e5"
+    }
+  },
+  "import_policy": "committed_git_objects_allowlist",
+  "qualified_scope": [
+    "deterministic_repository_scout",
+    "api_surface_extraction",
+    "format_direction_extraction",
+    "limitation_detection",
+    "snippet_extraction"
+  ],
+  "schema_version": "1.0",
+  "source_commit": "bf9381af81415843a36a8f50cb6415e01f03ad55",
+  "source_path": "scripts/pipeline/extraction",
+  "source_repository": "aspose.org"
+}

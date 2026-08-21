@@ -7,17 +7,17 @@ human-readable entry point. Every catalog line is one complete `RequirementRecor
 never reused. Requirement status is not completion proof: current evidence and the mapped active task
 still govern acceptance.
 
-The catalog contains **488** requirements:
+The catalog contains **489** requirements:
 
-- `BACKLOG`: 34
+- `BACKLOG`: 33
 - `DEPRECATED`: 23
 - `GOVERNANCE`: 35
-- `IMPLEMENTED`: 166
-- `PARTIAL`: 101
+- `IMPLEMENTED`: 164
+- `PARTIAL`: 105
 - `PLANNED`: 123
 - `RESEARCH-GATED`: 6
 
-Families: `AGT` 10, `AUTH` 8, `BIZ` 8, `CAP` 9, `CORE` 34, `DEP` 6, `DOC` 10, `ECO` 5, `EFF` 6, `EVID` 5, `FACT` 17, `FRESH` 6, `GAP` 3, `GOV` 30, `INT` 10, `KNOW` 13, `L8` 55, `LLM` 22, `MEM` 5, `MET` 8, `NFR` 14, `ONB` 4, `OPS` 13, `ORC` 9, `OWN` 15, `PIL` 16, `PKG` 6, `PRL` 9, `RDM` 26, `RUN` 10, `SAFE` 19, `SCL` 10, `SURF` 15, `TRP` 23, `VAL` 18, `VER` 11.
+Families: `AGT` 10, `AUTH` 8, `BIZ` 8, `CAP` 9, `CORE` 34, `DEP` 6, `DOC` 10, `ECO` 5, `EFF` 6, `EVID` 5, `FACT` 17, `FRESH` 6, `GAP` 3, `GOV` 30, `INT` 10, `KNOW` 14, `L8` 55, `LLM` 22, `MEM` 5, `MET` 8, `NFR` 14, `ONB` 4, `OPS` 13, `ORC` 9, `OWN` 15, `PIL` 16, `PKG` 6, `PRL` 9, `RDM` 26, `RUN` 10, `SAFE` 19, `SCL` 10, `SURF` 15, `TRP` 23, `VAL` 18, `VER` 11.
 
 ## Loading requirements
 
@@ -49,6 +49,13 @@ repository work. Aspose.org artifacts may
 diagnose development-time contract gaps, but accepted runs must succeed without that checkout and
 may not write any product repository. Durable supervisor state remains the sole authority for the
 live task; this compact index intentionally does not duplicate a task ID that can become stale.
+
+The current bounded dependency horizon is candidate-first: campaign authority; committed-source
+Aspose.org mechanism refresh plus a twice-stable, denominator-reconciled snapshot of its evolving
+generated visitor-quality benchmark; independent import/profile qualification;
+imported-knowledge-to-bytes and acceptance identity; one complete Aspose.3D Python candidate; 30-point acceptance plus
+immediate no-op; minimal graph runner; seven ecosystem canaries; then the 31/31 processable fleet.
+The graph owns the exact task IDs and durable state owns the current cursor.
 
 ## Status and history
 

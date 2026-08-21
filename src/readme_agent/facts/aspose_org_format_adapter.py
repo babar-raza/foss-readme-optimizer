@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import json
-import os
 import subprocess
+import sys
 from pathlib import Path
 from typing import Literal
 
@@ -15,6 +15,10 @@ from readme_agent.facts.aspose_org_format_contract import (
     ASPOSE_ORG_FORMATS_RELATIVE_PATH,
     AsposeOrgFormatEvidenceV1,
     AsposeOrgFormatExtractionV1,
+)
+from readme_agent.facts.aspose_org_vendored_source import (
+    VendoredAsposeOrgSourceV1,
+    load_vendored_aspose_org_source,
 )
 from readme_agent.facts.dotnet_3d_format_functionality import (
     corroborate_dotnet_3d_format_directions,
@@ -30,7 +34,6 @@ from readme_agent.facts.python_format_functionality import (
     corroborate_python_primary_format_directions,
 )
 
-_DEFAULT_ASPOSE_ORG_ROOT = Path("D:/onedrive/Documents/GitHub/aspose.org")
 _PLATFORM_ALIASES = {"dotnet": "net", ".net": "net", "csharp": "net", "ts": "typescript"}
 _LANGUAGE_BY_PLATFORM = {
     "python": "python",
@@ -67,30 +70,8 @@ def _adapter_environment() -> dict[str, str]:
     return environment
 
 
-def _root() -> Path | None:
-    configured = os.environ.get("ASPOSE_ORG_ROOT")
-    candidate = Path(configured) if configured else _DEFAULT_ASPOSE_ORG_ROOT
-    return candidate.resolve() if candidate.is_dir() else None
-
-
-def _python(root: Path) -> Path | None:
-    candidates = (
-        root / ".venv" / "Scripts" / "python.exe",
-        root / ".venv" / "bin" / "python",
-    )
-    return next((candidate for candidate in candidates if candidate.is_file()), None)
-
-
-def _revision(root: Path) -> str | None:
-    result = subprocess.run(
-        ["git", "-C", str(root), "rev-parse", "HEAD"],
-        capture_output=True,
-        text=True,
-        timeout=10,
-        check=False,
-        env=secret_free_environment(),
-    )
-    return result.stdout.strip() if result.returncode == 0 else None
+def _source() -> VendoredAsposeOrgSourceV1:
+    return load_vendored_aspose_org_source()
 
 
 def extract_aspose_org_formats(
@@ -102,29 +83,30 @@ def extract_aspose_org_formats(
 ) -> AsposeOrgFormatExtractionV1:
     """Run only Aspose.org's format extractor against one immutable snapshot."""
 
-    root = _root()
-    if root is None:
+    try:
+        source = _source()
+    except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
         return AsposeOrgFormatExtractionV1(
-            status="unavailable", detail="ASPOSE_ORG_ROOT is unavailable"
+            status="unavailable", detail=f"vendored extractor is unavailable: {exc}"
         )
-    interpreter = _python(root)
-    pipeline = root / "scripts" / "pipeline"
+    root = source.root
+    pipeline = source.pipeline
     extractor = pipeline / "extraction" / "formats.py"
-    if interpreter is None or not extractor.is_file():
+    if not extractor.is_file():
         return AsposeOrgFormatExtractionV1(
             status="unavailable",
-            extractor_revision=_revision(root),
-            detail="Aspose.org extractor or its repository virtualenv is unavailable",
+            extractor_revision=source.source_commit,
+            detail="vendored Aspose.org extractor is unavailable",
         )
     normalized_platform = _PLATFORM_ALIASES.get(platform.casefold(), platform.casefold())
     language = _LANGUAGE_BY_PLATFORM.get(normalized_platform)
     if language is None:
         return AsposeOrgFormatExtractionV1(
             status="unavailable",
-            extractor_revision=_revision(root),
+            extractor_revision=source.source_commit,
             detail=f"unsupported Aspose.org extractor platform: {normalized_platform}",
         )
-    revision_before = _revision(root)
+    revision_before = source.source_commit
     try:
         dependency_before = snapshot_aspose_org_dependencies(root, pipeline)
     except ValueError as exc:
@@ -156,7 +138,7 @@ def extract_aspose_org_formats(
     try:
         result = subprocess.run(
             [
-                str(interpreter),
+                sys.executable,
                 "-B",
                 "-c",
                 _SCRIPT,
@@ -175,17 +157,17 @@ def extract_aspose_org_formats(
         )
     except subprocess.TimeoutExpired:
         execution_error = "Aspose.org extractor timed out"
-    revision_after = _revision(root)
     try:
         dependency_after = snapshot_aspose_org_dependencies(root, pipeline)
+        source_after = _source()
     except ValueError as exc:
         return provenance_result(
             status="unavailable",
             detail=f"extractor dependency changed during execution: {exc}",
         )
     if (
-        revision_before is None
-        or revision_before != revision_after
+        revision_before != source_after.source_commit
+        or source.aggregate_sha256 != source_after.aggregate_sha256
         or dependency_before != dependency_after
     ):
         return provenance_result(

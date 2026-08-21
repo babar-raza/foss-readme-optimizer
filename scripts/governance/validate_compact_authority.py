@@ -244,10 +244,10 @@ def main() -> int:
         errors.append("requirement catalog contains duplicate IDs")
     if len({record["decision_id"] for record in decisions}) != len(decisions):
         errors.append("decision catalog contains duplicate IDs")
-    if {record["requirement_id"] for record in requirements} != set(
-        inventory["before"]["requirement_ids"]
-    ):
-        errors.append("requirement stable-ID set changed during migration")
+    current_requirement_ids = {record["requirement_id"] for record in requirements}
+    source_requirement_ids = set(inventory["before"]["requirement_ids"])
+    if not source_requirement_ids.issubset(current_requirement_ids):
+        errors.append("a source requirement stable ID was removed after migration")
     current_decision_ids = {record["decision_id"] for record in decisions}
     source_decision_ids = set(inventory["before"]["decision_ids"])
     if not source_decision_ids.issubset(current_decision_ids):
@@ -299,6 +299,8 @@ def main() -> int:
         errors.append("decision migration matrix count mismatch")
     if len(matrix["requirements"]) != len(requirements):
         errors.append("requirement migration matrix count mismatch")
+    if {record["id"] for record in matrix["requirements"]} != current_requirement_ids:
+        errors.append("requirement migration matrix stable-ID set mismatch")
     if len(matrix["tasks"]) != len(original_task_ids):
         errors.append("task migration matrix count mismatch")
     source_commit = matrix["source_commit"]

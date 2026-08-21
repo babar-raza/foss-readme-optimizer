@@ -1,0 +1,1498 @@
+{
+  "branch": {
+    "_links": {
+      "html": "https://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/tree/main",
+      "self": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/branches/main"
+    },
+    "commit": {
+      "author": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1225645?v=4",
+        "events_url": "https://api.github.com/users/babar-raza/events{/privacy}",
+        "followers_url": "https://api.github.com/users/babar-raza/followers",
+        "following_url": "https://api.github.com/users/babar-raza/following{/other_user}",
+        "gists_url": "https://api.github.com/users/babar-raza/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/babar-raza",
+        "id": 1225645,
+        "login": "babar-raza",
+        "node_id": "MDQ6VXNlcjEyMjU2NDU=",
+        "organizations_url": "https://api.github.com/users/babar-raza/orgs",
+        "received_events_url": "https://api.github.com/users/babar-raza/received_events",
+        "repos_url": "https://api.github.com/users/babar-raza/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/babar-raza/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/babar-raza/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/babar-raza",
+        "user_view_type": "public"
+      },
+      "comments_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/commits/06eca5c01e13ed6d59a640f1cf330c1c5a57d151/comments",
+      "commit": {
+        "author": {
+          "date": "2026-08-15T06:33:11Z",
+          "email": "babar.raza@aspose.com",
+          "name": "Babar Raza"
+        },
+        "comment_count": 0,
+        "committer": {
+          "date": "2026-08-15T06:33:11Z",
+          "email": "noreply@github.com",
+          "name": "GitHub"
+        },
+        "message": "docs: refresh README with verified content, structure, and examples\n\n- Rewrites the README onto the standard Aspose FOSS presentation template:\n  badge row + banner, a Navigation TOC, an At-a-Glance capability diagram,\n  Key Capabilities, Installation, a dedicated Dependencies section, Quick\n  Start, and a curated Additional Examples set.\n- Adds a module-grouped API Reference table (mirroring the structure of the\n  full generated reference documentation) plus a curated set of core/internal\n  classes and enumerations, collapsed behind a <details> disclosure so the\n  page stays scannable.\n- Adds a Documentation & Resources section linking the real getting-started\n  guide, how-to/FAQ articles, full API reference, and the issue tracker.\n- Adds a Scope and Limitations section naming the real, verified constraints\n  (no barcode decoding, PDF rendering not implemented, ECI/GS1 fields present\n  in the options surface but not yet implemented) and a single, standalone\n  Enterprise Edition paragraph for readers who need PDF rendering or\n  additional symbologies.\n- Adds Development and Testing instructions and a standard MIT License\n  section linking the real license file.\n\nVerification: every code example was checked against the real, current\npackage surface; every claim in Scope and Limitations was verified against\nsource; the diagram and API Reference detail were checked with this\nproject's own automated structural/content gates before this change was\nproposed.\n\nCo-authored-by: Claude Sonnet 5 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "50eaf3fe8247abb3eb95511d6b21a560a9ffedb8",
+          "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/50eaf3fe8247abb3eb95511d6b21a560a9ffedb8"
+        },
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/commits/06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
+        "verification": {
+          "payload": "tree 50eaf3fe8247abb3eb95511d6b21a560a9ffedb8\nparent 53f2c3350b8171f2c8275e7b1a178f218695ac45\nauthor Babar Raza <babar.raza@aspose.com> 1786775591 +0500\ncommitter GitHub <noreply@github.com> 1786775591 +0500\n\ndocs: refresh README with verified content, structure, and examples\n\n- Rewrites the README onto the standard Aspose FOSS presentation template:\n  badge row + banner, a Navigation TOC, an At-a-Glance capability diagram,\n  Key Capabilities, Installation, a dedicated Dependencies section, Quick\n  Start, and a curated Additional Examples set.\n- Adds a module-grouped API Reference table (mirroring the structure of the\n  full generated reference documentation) plus a curated set of core/internal\n  classes and enumerations, collapsed behind a <details> disclosure so the\n  page stays scannable.\n- Adds a Documentation & Resources section linking the real getting-started\n  guide, how-to/FAQ articles, full API reference, and the issue tracker.\n- Adds a Scope and Limitations section naming the real, verified constraints\n  (no barcode decoding, PDF rendering not implemented, ECI/GS1 fields present\n  in the options surface but not yet implemented) and a single, standalone\n  Enterprise Edition paragraph for readers who need PDF rendering or\n  additional symbologies.\n- Adds Development and Testing instructions and a standard MIT License\n  section linking the real license file.\n\nVerification: every code example was checked against the real, current\npackage surface; every claim in Scope and Limitations was verified against\nsource; the diagram and API Reference detail were checked with this\nproject's own automated structural/content gates before this change was\nproposed.\n\nCo-authored-by: Claude Sonnet 5 <noreply@anthropic.com>",
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqgAgnCRC1aQ7uu5UhlAAA10sQABkhry3/4BXfwSu2L1kF6T9P\ngtGKYJYo6sgvMLboGQ/lMBSclnSi4m7UAQdeMIXGUU8tlzzFnM2jvdB3Z+erHpkC\ncOHML6OYhFd0MDJnoD6J3nhDQ2FSkR6F5A2lQi+BexjAFoi5p2nDe00qYdfQ3f7F\ntnmMOOFCYy8x2CPxKXi88fHN90ILTX/5mkqmSvhTKFe7IQPpSnlBnwf06qumTjsI\nWNiPTrZLwLSW0Q7KlAZlocc+xEFZj/TEYuTMKdaWpYr4CWh4zE+K4EUvrfr+PHj/\nA+ii9UbHmdF/5JDO6C6M3wUtjkQgGJxsY1EoH0s1butYu69UkfflTmTWgi1ns6UD\nGMFmdbq9G18MDiNFGxMXV4yy+iVBJLvzzkzH6NCRZWDbnvs/dGiVru1gutjaynTP\nmh0W7uv2LvyGBl5pJm0IDK87xIF+HXQiDbtD0B7PONwSKiPSKkYLq92DVdRV7mi3\nMMcFr6yv/J2stzq4KnlEN+2s/69OaEWW29iix1iOzYFCNsBaoFCEKI9p27M5Ch96\nZxBFYycWygHYnRtHhYE0CcuBF4uPiVOiRDyZMtshn2WIROP93v+UZax5Bocmilff\nzlAIlQRE0DHM+vECGPl0Fvd8aNiTM3RyZ98oinSG4GfmvyvKJk3kYWdXZFRsHYYc\nPGOPPiHfq8VcBFJ2cwIw\n=Zgo0\n-----END PGP SIGNATURE-----\n",
+          "verified": true,
+          "verified_at": "2026-08-15T06:33:11Z"
+        }
+      },
+      "committer": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/web-flow",
+        "id": 19864447,
+        "login": "web-flow",
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/web-flow",
+        "user_view_type": "public"
+      },
+      "html_url": "https://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/commit/06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
+      "node_id": "C_kwDOTFFBodoAKDA2ZWNhNWMwMWUxM2VkNmQ1OWE2NDBmMWNmMzMwYzFjNWE1N2QxNTE",
+      "parents": [
+        {
+          "html_url": "https://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/commit/53f2c3350b8171f2c8275e7b1a178f218695ac45",
+          "sha": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+          "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/commits/53f2c3350b8171f2c8275e7b1a178f218695ac45"
+        }
+      ],
+      "sha": "06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
+      "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/commits/06eca5c01e13ed6d59a640f1cf330c1c5a57d151"
+    },
+    "name": "main",
+    "protected": false,
+    "protection": {
+      "enabled": false,
+      "required_status_checks": {
+        "checks": [],
+        "contexts": [],
+        "enforcement_level": "off"
+      }
+    },
+    "protection_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/branches/main/protection"
+  },
+  "repo": {
+    "allow_auto_merge": false,
+    "allow_forking": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "archive_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/branches{/branch}",
+    "clone_url": "https://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python.git",
+    "collaborators_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/comments{/number}",
+    "commits_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/contributors",
+    "created_at": "2026-06-25T14:37:23Z",
+    "custom_properties": {},
+    "default_branch": "main",
+    "delete_branch_on_merge": false,
+    "deployments_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/deployments",
+    "description": "Open-source pure Python library for generating Code 128, Code 39, EAN, QR Code, and UPC barcodes in SVG or PNG, with simple pip installation and no native dependencies.",
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/downloads",
+    "events_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/events",
+    "fork": false,
+    "forks": 0,
+    "forks_count": 0,
+    "forks_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/forks",
+    "full_name": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+    "git_commits_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/tags{/sha}",
+    "git_url": "git://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python.git",
+    "has_discussions": false,
+    "has_downloads": false,
+    "has_issues": true,
+    "has_pages": false,
+    "has_projects": true,
+    "has_pull_requests": true,
+    "has_wiki": true,
+    "homepage": "https://products.aspose.org/barcode/python/",
+    "hooks_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/hooks",
+    "html_url": "https://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+    "id": 1280393633,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/issues{/number}",
+    "keys_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/labels{/name}",
+    "language": "Python",
+    "languages_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/languages",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "node_id": "MDc6TGljZW5zZTEz",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit"
+    },
+    "merge_commit_message": "PR_TITLE",
+    "merge_commit_title": "MERGE_MESSAGE",
+    "merges_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/merges",
+    "milestones_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/milestones{/number}",
+    "mirror_url": null,
+    "name": "Aspose.BarCode-FOSS-for-Python",
+    "network_count": 0,
+    "node_id": "R_kgDOTFFBoQ",
+    "notifications_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/notifications{?since,all,participating}",
+    "open_issues": 0,
+    "open_issues_count": 0,
+    "organization": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224593294?v=4",
+      "events_url": "https://api.github.com/users/aspose-barcode-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-barcode-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-barcode-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-barcode-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-barcode-foss",
+      "id": 224593294,
+      "login": "aspose-barcode-foss",
+      "node_id": "O_kgDODWMFjg",
+      "organizations_url": "https://api.github.com/users/aspose-barcode-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-barcode-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-barcode-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-barcode-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-barcode-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-barcode-foss",
+      "user_view_type": "public"
+    },
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224593294?v=4",
+      "events_url": "https://api.github.com/users/aspose-barcode-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-barcode-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-barcode-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-barcode-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-barcode-foss",
+      "id": 224593294,
+      "login": "aspose-barcode-foss",
+      "node_id": "O_kgDODWMFjg",
+      "organizations_url": "https://api.github.com/users/aspose-barcode-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-barcode-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-barcode-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-barcode-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-barcode-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-barcode-foss",
+      "user_view_type": "public"
+    },
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "private": false,
+    "pull_request_creation_policy": "all",
+    "pulls_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/pulls{/number}",
+    "pushed_at": "2026-08-15T06:33:12Z",
+    "releases_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/releases{/id}",
+    "security_and_analysis": {
+      "dependabot_security_updates": {
+        "status": "disabled"
+      },
+      "secret_scanning": {
+        "status": "disabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    },
+    "size": 153,
+    "squash_merge_commit_message": "COMMIT_MESSAGES",
+    "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+    "ssh_url": "git@github.com:aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python.git",
+    "stargazers_count": 9,
+    "stargazers_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/stargazers",
+    "statuses_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/statuses/{sha}",
+    "subscribers_count": 0,
+    "subscribers_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/subscribers",
+    "subscription_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/subscription",
+    "svn_url": "https://github.com/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+    "tags_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/tags",
+    "teams_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/teams",
+    "temp_clone_token": "",
+    "topics": [],
+    "trees_url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees{/sha}",
+    "updated_at": "2026-08-15T06:33:21Z",
+    "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+    "use_squash_pr_title_as_default": false,
+    "visibility": "public",
+    "watchers": 9,
+    "watchers_count": 9,
+    "web_commit_signoff_required": false
+  },
+  "tree": {
+    "sha": "50eaf3fe8247abb3eb95511d6b21a560a9ffedb8",
+    "tree": [
+      {
+        "mode": "100644",
+        "path": ".gitignore",
+        "sha": "93fb55818085c1e7335114ad47b4a9db8574c7be",
+        "size": 457,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/93fb55818085c1e7335114ad47b4a9db8574c7be"
+      },
+      {
+        "mode": "100644",
+        "path": "LICENSE",
+        "sha": "c139a9872e0da0c3cb200ccaf7b30b263c04cf73",
+        "size": 1086,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/c139a9872e0da0c3cb200ccaf7b30b263c04cf73"
+      },
+      {
+        "mode": "100644",
+        "path": "README.md",
+        "sha": "03445fbc7b846b51c500a4a5e3d956c14a57b149",
+        "size": 11093,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/03445fbc7b846b51c500a4a5e3d956c14a57b149"
+      },
+      {
+        "mode": "040000",
+        "path": "examples",
+        "sha": "b82eaeb20cc6c73caebe1c2854513e3c27ec55ff",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/b82eaeb20cc6c73caebe1c2854513e3c27ec55ff"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/README.md",
+        "sha": "2dc24c966314e1937c418821db46752e89312fd8",
+        "size": 658,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/2dc24c966314e1937c418821db46752e89312fd8"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/all_symbologies.py",
+        "sha": "24d0ae040d26fdba77ca2b82f9b04fa85e21e179",
+        "size": 838,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/24d0ae040d26fdba77ca2b82f9b04fa85e21e179"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/error_handling.py",
+        "sha": "5eca5901954ea217f538a74b8765e272ac2ed43e",
+        "size": 757,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/5eca5901954ea217f538a74b8765e272ac2ed43e"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/quickstart.py",
+        "sha": "2f91ee272be6b8ce5f01ee97fcf64187c64ba3e2",
+        "size": 651,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/2f91ee272be6b8ce5f01ee97fcf64187c64ba3e2"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/render_options.py",
+        "sha": "dcb143f546a24827c481e3e424d3c5f207528f15",
+        "size": 949,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/dcb143f546a24827c481e3e424d3c5f207528f15"
+      },
+      {
+        "mode": "100644",
+        "path": "pyproject.toml",
+        "sha": "ac3de8057c64ba9da9d3435106d4ce6cb0e1c3cd",
+        "size": 2980,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/ac3de8057c64ba9da9d3435106d4ce6cb0e1c3cd"
+      },
+      {
+        "mode": "040000",
+        "path": "src",
+        "sha": "0b946a7d09a1cd1ca73a550f2d703730448d527c",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/0b946a7d09a1cd1ca73a550f2d703730448d527c"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_barcode_foss",
+        "sha": "30d605a8fb858d1d8dff860c8be55d775c7068d5",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/30d605a8fb858d1d8dff860c8be55d775c7068d5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/__init__.py",
+        "sha": "d0a0a0b736a1aaf239b66f6175ba7cb5cfc34bd8",
+        "size": 1549,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/d0a0a0b736a1aaf239b66f6175ba7cb5cfc34bd8"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_barcode_foss/_internal",
+        "sha": "eb5b924321f194728e9c9be283a479ae70562407",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/eb5b924321f194728e9c9be283a479ae70562407"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/__init__.py",
+        "sha": "a3a74bc1a9535ee5713870f4d62f5c362fa024aa",
+        "size": 130,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/a3a74bc1a9535ee5713870f4d62f5c362fa024aa"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/bootstrap.py",
+        "sha": "1a2676a65b698815ea4fa5263f5ebdc92f2bff85",
+        "size": 16329,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/1a2676a65b698815ea4fa5263f5ebdc92f2bff85"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_barcode_foss/_internal/encoders",
+        "sha": "7697895ec63f0fa296d2964ad0d3bf0f83fb00c9",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/7697895ec63f0fa296d2964ad0d3bf0f83fb00c9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/encoders/__init__.py",
+        "sha": "dcded4ed3e503e9df64dd0ede3182d830e4dffef",
+        "size": 508,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/dcded4ed3e503e9df64dd0ede3182d830e4dffef"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/encoders/base.py",
+        "sha": "64a86d53415aeaa1ad85abe1494a6e94b8e096e3",
+        "size": 690,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/64a86d53415aeaa1ad85abe1494a6e94b8e096e3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/encoders/code128.py",
+        "sha": "881e09144bd52d4c4e061d8ee6f19fce473851a8",
+        "size": 21450,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/881e09144bd52d4c4e061d8ee6f19fce473851a8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/encoders/code39.py",
+        "sha": "6c4cf6a58ff8279f45b0adb9645e8731ab02e111",
+        "size": 5698,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/6c4cf6a58ff8279f45b0adb9645e8731ab02e111"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/encoders/ean13.py",
+        "sha": "697835b026d478b3912a3c7e92a2f5255a2a9961",
+        "size": 3951,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/697835b026d478b3912a3c7e92a2f5255a2a9961"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/encoders/ean8.py",
+        "sha": "41a3463625c6a27ce5458768cf3afca624115167",
+        "size": 3984,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/41a3463625c6a27ce5458768cf3afca624115167"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/encoders/qr.py",
+        "sha": "1c8be7093b0b00756364eabaa5b56e29e5da43b1",
+        "size": 8547,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/1c8be7093b0b00756364eabaa5b56e29e5da43b1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/encoders/upca.py",
+        "sha": "af44ffe41ae97d945fb19a1bef077f4af6425145",
+        "size": 4754,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/af44ffe41ae97d945fb19a1bef077f4af6425145"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/encoders/upce.py",
+        "sha": "4f3cb8fbf3e778842a851aa06b92dc5d9140cdbb",
+        "size": 4221,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/4f3cb8fbf3e778842a851aa06b92dc5d9140cdbb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/exceptions.py",
+        "sha": "e23519ebdf10d3beacc96e0ebc241bdce71afd25",
+        "size": 733,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/e23519ebdf10d3beacc96e0ebc241bdce71afd25"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_barcode_foss/_internal/models",
+        "sha": "779bd8c88d9301688fce7c98e4766460fc4def09",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/779bd8c88d9301688fce7c98e4766460fc4def09"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/models/__init__.py",
+        "sha": "7fa69ab3151d23feb55818d7f0f4e4553caef979",
+        "size": 1153,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/7fa69ab3151d23feb55818d7f0f4e4553caef979"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/models/artifacts.py",
+        "sha": "f9b1e077b89e32a3b0ad60fd416ae55592f43c9d",
+        "size": 277,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/f9b1e077b89e32a3b0ad60fd416ae55592f43c9d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/models/capabilities.py",
+        "sha": "bdbbaa32c476086cdb2c5c21920b396545b47e71",
+        "size": 584,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/bdbbaa32c476086cdb2c5c21920b396545b47e71"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/models/options.py",
+        "sha": "c8161ee38786b7f1fe7eb6e0d311808e915118b0",
+        "size": 3267,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/c8161ee38786b7f1fe7eb6e0d311808e915118b0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/models/payloads.py",
+        "sha": "23b8d4c0702fc1512dbab7f13bac429a843ffc86",
+        "size": 1243,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/23b8d4c0702fc1512dbab7f13bac429a843ffc86"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/models/symbols.py",
+        "sha": "3f93f3149849de809d9b77faf6d2184e388e88d0",
+        "size": 2943,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/3f93f3149849de809d9b77faf6d2184e388e88d0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/models/text.py",
+        "sha": "68da3e019a5edd1f09058ab6ee75ccfd8831687c",
+        "size": 1281,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/68da3e019a5edd1f09058ab6ee75ccfd8831687c"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_barcode_foss/_internal/parsers",
+        "sha": "7cfb65943a9eda92875c264304bd5a561c2010c3",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/7cfb65943a9eda92875c264304bd5a561c2010c3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/parsers/__init__.py",
+        "sha": "2f90dcbda3e159eb55c0ed998006e5a8642db1e2",
+        "size": 520,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/2f90dcbda3e159eb55c0ed998006e5a8642db1e2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/parsers/base.py",
+        "sha": "5edb7161edaa46c848ecd57327223ab36b7c2004",
+        "size": 637,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/5edb7161edaa46c848ecd57327223ab36b7c2004"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/parsers/code128.py",
+        "sha": "2fe944fef93b136f8e63890291db68aa4a3c9ae5",
+        "size": 7564,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/2fe944fef93b136f8e63890291db68aa4a3c9ae5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/parsers/code39.py",
+        "sha": "6c9aed45170623edea6e34a16bca0a06ef1b4f62",
+        "size": 6330,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/6c9aed45170623edea6e34a16bca0a06ef1b4f62"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/parsers/ean13.py",
+        "sha": "01782b7f077d6a92714fca9b9993a23f6791c570",
+        "size": 4121,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/01782b7f077d6a92714fca9b9993a23f6791c570"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/parsers/ean8.py",
+        "sha": "aabcded74dc7d3abb99e3176af1da4bb57279ab9",
+        "size": 4085,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/aabcded74dc7d3abb99e3176af1da4bb57279ab9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/parsers/qr.py",
+        "sha": "6b2111dc58d45cecf90e6f4f0ff78f22768b3b38",
+        "size": 12893,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/6b2111dc58d45cecf90e6f4f0ff78f22768b3b38"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/parsers/upca.py",
+        "sha": "f5b1d20b5b0ccd7eed80bcbb8dca3de72b6adf26",
+        "size": 3192,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/f5b1d20b5b0ccd7eed80bcbb8dca3de72b6adf26"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/parsers/upce.py",
+        "sha": "6b4f157a1ef92fa4af77b0930788eb04963e877a",
+        "size": 5058,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/6b4f157a1ef92fa4af77b0930788eb04963e877a"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_barcode_foss/_internal/profiles",
+        "sha": "ca0b053f1622c2dceb3e89160c15154eb6152c8a",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/ca0b053f1622c2dceb3e89160c15154eb6152c8a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/profiles/__init__.py",
+        "sha": "cac7a6aa72581026c6922040567107ce1f6c81b0",
+        "size": 508,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/cac7a6aa72581026c6922040567107ce1f6c81b0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/profiles/base.py",
+        "sha": "9adeb50acbd5610f17fc31f24fa14f1228babbc1",
+        "size": 707,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/9adeb50acbd5610f17fc31f24fa14f1228babbc1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/profiles/code128.py",
+        "sha": "c764d79e7aa4e2fd39495f4a52646bf94bdcda01",
+        "size": 306,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/c764d79e7aa4e2fd39495f4a52646bf94bdcda01"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/profiles/code39.py",
+        "sha": "4039dacccf905114e7748c2f04bdbab46f5043e2",
+        "size": 303,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/4039dacccf905114e7748c2f04bdbab46f5043e2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/profiles/ean13.py",
+        "sha": "63f4c3f96f06afebcc1ba37a2af1bf3883ed2d2f",
+        "size": 315,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/63f4c3f96f06afebcc1ba37a2af1bf3883ed2d2f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/profiles/ean8.py",
+        "sha": "25f8aecbf78b12d7d975ac84ff74af1c46175dd4",
+        "size": 312,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/25f8aecbf78b12d7d975ac84ff74af1c46175dd4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/profiles/qr.py",
+        "sha": "4f9dedd3edc2df87feff9064f407f71ec8378d2b",
+        "size": 299,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/4f9dedd3edc2df87feff9064f407f71ec8378d2b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/profiles/upca.py",
+        "sha": "0cd8fbf94e3c25a19a2c997fe6ed62aa8bb9b4d2",
+        "size": 297,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/0cd8fbf94e3c25a19a2c997fe6ed62aa8bb9b4d2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/profiles/upce.py",
+        "sha": "0b3270a6929c5b57267748dacef8ad433937ef0b",
+        "size": 312,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/0b3270a6929c5b57267748dacef8ad433937ef0b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/registry.py",
+        "sha": "5c3c981ce70fa6dade76fb854ac4b5d20d6cccef",
+        "size": 4212,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/5c3c981ce70fa6dade76fb854ac4b5d20d6cccef"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_barcode_foss/_internal/renderers",
+        "sha": "f390b4f4463131abd48da678928772386535db67",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/f390b4f4463131abd48da678928772386535db67"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/renderers/__init__.py",
+        "sha": "2061fe4fa2b1cffdf579e173cc40c3fa56464014",
+        "size": 385,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/2061fe4fa2b1cffdf579e173cc40c3fa56464014"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/renderers/_matrix.py",
+        "sha": "cd5e6fe8c6ddf2614e6f08591d403d50fbbe5014",
+        "size": 675,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/cd5e6fe8c6ddf2614e6f08591d403d50fbbe5014"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/renderers/base.py",
+        "sha": "3fd81cd6d6be9c87b665bbc958eaf97a72ac2c3b",
+        "size": 754,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/3fd81cd6d6be9c87b665bbc958eaf97a72ac2c3b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/renderers/pdf.py",
+        "sha": "99f94c6bf462fabd47a9d58e854c8bb0a6100ac5",
+        "size": 767,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/99f94c6bf462fabd47a9d58e854c8bb0a6100ac5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/renderers/png.py",
+        "sha": "54acf479f764e08745a3e20df55869b23da73288",
+        "size": 5129,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/54acf479f764e08745a3e20df55869b23da73288"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/renderers/svg.py",
+        "sha": "6ffe38888c498976ddfaa4981ed5820d0079a936",
+        "size": 6705,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/6ffe38888c498976ddfaa4981ed5820d0079a936"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/resolver.py",
+        "sha": "4d4bf7aa3c768e3850e0a76bf071da6ef91c3eba",
+        "size": 9706,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/4d4bf7aa3c768e3850e0a76bf071da6ef91c3eba"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/service.py",
+        "sha": "e6f97d8c2c72cee69edd7316d3605de96f466761",
+        "size": 2719,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/e6f97d8c2c72cee69edd7316d3605de96f466761"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_barcode_foss/_internal/standards",
+        "sha": "c832707a6253b0f64034469dc0569e3bda041892",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/c832707a6253b0f64034469dc0569e3bda041892"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/__init__.py",
+        "sha": "9d8cf0022f7202e9dcce90b6758d1845b82946de",
+        "size": 426,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/9d8cf0022f7202e9dcce90b6758d1845b82946de"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/code128.py",
+        "sha": "52c16973922bb96a5321b1f98ed3bf06a0783d5c",
+        "size": 9633,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/52c16973922bb96a5321b1f98ed3bf06a0783d5c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/code39.py",
+        "sha": "f14988bf24672229d675981f2faaee3bd5820a57",
+        "size": 7619,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/f14988bf24672229d675981f2faaee3bd5820a57"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/ean.py",
+        "sha": "2a558f2379208f395e7da392e4197b59863ae936",
+        "size": 11449,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/2a558f2379208f395e7da392e4197b59863ae936"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/eci.py",
+        "sha": "1c4e393dd4878248d564db0708a5d81e51177d6e",
+        "size": 641,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/1c4e393dd4878248d564db0708a5d81e51177d6e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/gs1.py",
+        "sha": "8a6a36b0c4f06d9db45a9b0f8dfccb96c445611f",
+        "size": 914,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/8a6a36b0c4f06d9db45a9b0f8dfccb96c445611f"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_barcode_foss/_internal/standards/qr",
+        "sha": "d863d5dfcdb2cbaa189d6b18933bc7f10951f957",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/d863d5dfcdb2cbaa189d6b18933bc7f10951f957"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/qr/__init__.py",
+        "sha": "1fd66662c04dfceb290f5c693f1196426fc0bc26",
+        "size": 1960,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/1fd66662c04dfceb290f5c693f1196426fc0bc26"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/qr/alignment.py",
+        "sha": "ef6e92cb50526561d5211dc88a7c7d331621a09e",
+        "size": 2690,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/ef6e92cb50526561d5211dc88a7c7d331621a09e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/qr/bitstream.py",
+        "sha": "1b282fb2c31ab91b2fbbef150b2c78ca4e4bd77b",
+        "size": 2824,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/1b282fb2c31ab91b2fbbef150b2c78ca4e4bd77b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/qr/galois.py",
+        "sha": "6097ddad79728c828fe92a1114b4abd79a85ea87",
+        "size": 7197,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/6097ddad79728c828fe92a1114b4abd79a85ea87"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/qr/info_strings.py",
+        "sha": "6ff1e6a7f37c396e4857e2e1fe8da0df19adff2c",
+        "size": 5784,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/6ff1e6a7f37c396e4857e2e1fe8da0df19adff2c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/qr/masking.py",
+        "sha": "b0348e8673614844e7bca7a7afc18e067538e4fb",
+        "size": 5597,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/b0348e8673614844e7bca7a7afc18e067538e4fb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/qr/matrix.py",
+        "sha": "4423e0bd4ddac22104b74bd89798ff29989574a5",
+        "size": 8132,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/4423e0bd4ddac22104b74bd89798ff29989574a5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/qr/reed_solomon.py",
+        "sha": "7cd0d05b3ca7847cf1f624fa53ac9cf2b1053403",
+        "size": 898,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/7cd0d05b3ca7847cf1f624fa53ac9cf2b1053403"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/qr/segmentation.py",
+        "sha": "3fedb85945f0081e87956e19195e57164ccf04b5",
+        "size": 10297,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/3fedb85945f0081e87956e19195e57164ccf04b5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/qr/segments.py",
+        "sha": "8ea05d08e7c03338a31f7461aa414b2dc74eb56d",
+        "size": 11342,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/8ea05d08e7c03338a31f7461aa414b2dc74eb56d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/standards/qr/tables.py",
+        "sha": "b6af71132166eb245be3b3c4abbe51f9dcef913c",
+        "size": 12699,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/b6af71132166eb245be3b3c4abbe51f9dcef913c"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_barcode_foss/_internal/text",
+        "sha": "f5f6ce36ad909fbed8b0467f0b4f987467623cce",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/f5f6ce36ad909fbed8b0467f0b4f987467623cce"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/text/__init__.py",
+        "sha": "e4f02d36c5c46625b418b2747f5830add1cf3b09",
+        "size": 562,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/e4f02d36c5c46625b418b2747f5830add1cf3b09"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/text/base.py",
+        "sha": "596f25d638647d3cebfcb7a6951a12eb18cfd82c",
+        "size": 685,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/596f25d638647d3cebfcb7a6951a12eb18cfd82c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/text/code128.py",
+        "sha": "2fe092e3aa03b713d378212476ad937c36f9ccc7",
+        "size": 1305,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/2fe092e3aa03b713d378212476ad937c36f9ccc7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/text/code39.py",
+        "sha": "f27c3550819d1aa4908faa6a9786a9da3362694f",
+        "size": 1301,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/f27c3550819d1aa4908faa6a9786a9da3362694f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/text/ean13.py",
+        "sha": "a5840262ab50f4294949ba832c4ecd2450119b62",
+        "size": 1682,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/a5840262ab50f4294949ba832c4ecd2450119b62"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/text/ean8.py",
+        "sha": "bdcc737e963a5e028cf0df61badd6d7c1a430939",
+        "size": 1474,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/bdcc737e963a5e028cf0df61badd6d7c1a430939"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/text/qr.py",
+        "sha": "69c033c193661d330a53a17a7eeb375bf043022a",
+        "size": 751,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/69c033c193661d330a53a17a7eeb375bf043022a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/text/upca.py",
+        "sha": "32590ce8759b9fc5217c4925aa599c090f6f0a53",
+        "size": 1913,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/32590ce8759b9fc5217c4925aa599c090f6f0a53"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/_internal/text/upce.py",
+        "sha": "9fd1b203b81d55c49b1494048d60b3c7a87072d6",
+        "size": 1913,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/9fd1b203b81d55c49b1494048d60b3c7a87072d6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/api.py",
+        "sha": "f8b69751dfc91194d1569c251cf4252672b3c9c7",
+        "size": 2992,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/f8b69751dfc91194d1569c251cf4252672b3c9c7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/exceptions.py",
+        "sha": "e0ef8fa4e3dd66a95dbf1136f946b98647d096d5",
+        "size": 455,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/e0ef8fa4e3dd66a95dbf1136f946b98647d096d5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/options.py",
+        "sha": "49c2165c42b112c3dce877414c78b7e5b38248b2",
+        "size": 690,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/49c2165c42b112c3dce877414c78b7e5b38248b2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/py.typed",
+        "sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+        "size": 1,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/8b137891791fe96927ad78e64b0aad7bded08bdc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/renderers.py",
+        "sha": "571ca38876bc88d3d4fd72d1104ba231544c4f82",
+        "size": 388,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/571ca38876bc88d3d4fd72d1104ba231544c4f82"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_barcode_foss/result.py",
+        "sha": "e1dca00ac018b85e5ba664ffa4d4212f71284d2d",
+        "size": 3280,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/e1dca00ac018b85e5ba664ffa4d4212f71284d2d"
+      },
+      {
+        "mode": "040000",
+        "path": "tests",
+        "sha": "9301554aef43c4e5b4507c8f1c7d2dc025f7acf3",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/9301554aef43c4e5b4507c8f1c7d2dc025f7acf3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/__init__.py",
+        "sha": "370465a0f5f27dc575fe567b247a8828dd952388",
+        "size": 42,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/370465a0f5f27dc575fe567b247a8828dd952388"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/api",
+        "sha": "1fba8033867f9a06e8f283f481c1f72c9fa503e7",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/1fba8033867f9a06e8f283f481c1f72c9fa503e7"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/api/test_api_entrypoints.py",
+        "sha": "8b264c0e0c646a16214ab5c2a24a7e8d42bec110",
+        "size": 2904,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/8b264c0e0c646a16214ab5c2a24a7e8d42bec110"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/api/test_barcode_service.py",
+        "sha": "af84a5eb254ac8a02cb5606a98e6de9db296e1cd",
+        "size": 11197,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/af84a5eb254ac8a02cb5606a98e6de9db296e1cd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/api/test_code128_api_success.py",
+        "sha": "3a06452d325adf366af87b90d61e95b4e42b4365",
+        "size": 1274,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/3a06452d325adf366af87b90d61e95b4e42b4365"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/api/test_symbology_registry.py",
+        "sha": "15f6c93d142438e4ff2b995027f7a4088606bb64",
+        "size": 10446,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/15f6c93d142438e4ff2b995027f7a4088606bb64"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/conftest.py",
+        "sha": "8e9998735007c6150b61dac258b0ba219e0dae45",
+        "size": 340,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/8e9998735007c6150b61dac258b0ba219e0dae45"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/encoding",
+        "sha": "bd6d499c4e97486b5907cb7098c21c7d039e62d1",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/bd6d499c4e97486b5907cb7098c21c7d039e62d1"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/__init__.py",
+        "sha": "a52cb7753b8a9e75c90a35543f5aa3221e8fa29e",
+        "size": 29,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/a52cb7753b8a9e75c90a35543f5aa3221e8fa29e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_code128_golden_vectors.py",
+        "sha": "9d16524626502dbaef6d3046316ff72b42b90e67",
+        "size": 10647,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/9d16524626502dbaef6d3046316ff72b42b90e67"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_code128_parser.py",
+        "sha": "243222419c294bd249807d8a4a825e9f99874040",
+        "size": 5126,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/243222419c294bd249807d8a4a825e9f99874040"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_code39_golden_vectors.py",
+        "sha": "ddfc76954f2782ddf4fd4116320306e8d20a38ef",
+        "size": 2639,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/ddfc76954f2782ddf4fd4116320306e8d20a38ef"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_code39_parser.py",
+        "sha": "aa2e038348a4a575c19aae07e109e5620a8c7a43",
+        "size": 6014,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/aa2e038348a4a575c19aae07e109e5620a8c7a43"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_ean13_golden_vectors.py",
+        "sha": "26e09c310c23a47c551ac7891d3bb8de8330aa53",
+        "size": 3292,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/26e09c310c23a47c551ac7891d3bb8de8330aa53"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_ean13_parser.py",
+        "sha": "d355ddf059bdb8c43b02d38a215ba516c0cd77c8",
+        "size": 5808,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/d355ddf059bdb8c43b02d38a215ba516c0cd77c8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_ean8_golden_vectors.py",
+        "sha": "dda1cea50ae13bc8d900c36f3e3812069b1eb822",
+        "size": 2707,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/dda1cea50ae13bc8d900c36f3e3812069b1eb822"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_ean8_parser.py",
+        "sha": "b11710bcc9c2b5f7fafbf7858b7cc5b782d95ee4",
+        "size": 4713,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/b11710bcc9c2b5f7fafbf7858b7cc5b782d95ee4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_ean_standards.py",
+        "sha": "b32dde0ec44a7e8973a9d85b0bb084824030e3ca",
+        "size": 7484,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/b32dde0ec44a7e8973a9d85b0bb084824030e3ca"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_qr_auto_segmentation.py",
+        "sha": "1da1c62e28f21754aa832a30fe25e289523a7052",
+        "size": 8771,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/1da1c62e28f21754aa832a30fe25e289523a7052"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_qr_galois.py",
+        "sha": "0dc3c01529cfbf0eed0e4a07e770dd1cabe25a60",
+        "size": 688,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/0dc3c01529cfbf0eed0e4a07e770dd1cabe25a60"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_qr_golden_vectors.py",
+        "sha": "a23d96548f02002b6a037265dc657a4daa7e16e2",
+        "size": 3335,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/a23d96548f02002b6a037265dc657a4daa7e16e2"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_qr_info_strings.py",
+        "sha": "ae6c6c9a02c0ca027b3961309f1fbe2dcfa4aad0",
+        "size": 759,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/ae6c6c9a02c0ca027b3961309f1fbe2dcfa4aad0"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_qr_masking.py",
+        "sha": "b2325766b424a99b938bc8df34f46d69bb78f3fa",
+        "size": 5953,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/b2325766b424a99b938bc8df34f46d69bb78f3fa"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_qr_matrix_structure.py",
+        "sha": "c5ed7aa16797ab30214dfb8e09a7f6e33ab0b5d1",
+        "size": 4881,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/c5ed7aa16797ab30214dfb8e09a7f6e33ab0b5d1"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_qr_parser_negative.py",
+        "sha": "28056ffd63d9d7bbbe8bd620073d00ba78793813",
+        "size": 7145,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/28056ffd63d9d7bbbe8bd620073d00ba78793813"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_qr_reed_solomon.py",
+        "sha": "629f2fba8cf17eaffd2e89226be9cc944fc3cebd",
+        "size": 800,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/629f2fba8cf17eaffd2e89226be9cc944fc3cebd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_qr_rendering.py",
+        "sha": "d4b8e3ae9fb97857c16beda9c32e652534204efb",
+        "size": 4295,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/d4b8e3ae9fb97857c16beda9c32e652534204efb"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_qr_tables.py",
+        "sha": "a1eb6fcd71d6cfe9d78514e681f22a068a905433",
+        "size": 1572,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/a1eb6fcd71d6cfe9d78514e681f22a068a905433"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_upca_golden_vectors.py",
+        "sha": "5988220553bdfaff53159ae74ff85a6847806b1a",
+        "size": 4861,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/5988220553bdfaff53159ae74ff85a6847806b1a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_upca_parser.py",
+        "sha": "94f105dc07a7cbb75587edb41ed46da6a8b739a2",
+        "size": 6014,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/94f105dc07a7cbb75587edb41ed46da6a8b739a2"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_upce_golden_vectors.py",
+        "sha": "87db557405c14df581451a04edd074d9de5e55aa",
+        "size": 4856,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/87db557405c14df581451a04edd074d9de5e55aa"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/test_upce_parser.py",
+        "sha": "83a0477e5e10682838ff937529a5e7d607d8b90c",
+        "size": 5364,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/83a0477e5e10682838ff937529a5e7d607d8b90c"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/encoding/vectors",
+        "sha": "8d9f5d819cfb39f8c269071073935ba7d05fbda1",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/8d9f5d819cfb39f8c269071073935ba7d05fbda1"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/vectors/__init__.py",
+        "sha": "21b025fc42c33ee5d8a8412b3c7e00958c1c9567",
+        "size": 43,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/21b025fc42c33ee5d8a8412b3c7e00958c1c9567"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/vectors/code128.py",
+        "sha": "884cf599e9af52dad7046db2a00539c068e0543e",
+        "size": 4057,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/884cf599e9af52dad7046db2a00539c068e0543e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/vectors/code39.py",
+        "sha": "c2aa0252d05af85cdb802d8912911fc3c2e4b98d",
+        "size": 4289,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/c2aa0252d05af85cdb802d8912911fc3c2e4b98d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/vectors/ean13.py",
+        "sha": "dcd227526327b9074c908c844c5539bfb5900e0e",
+        "size": 3786,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/dcd227526327b9074c908c844c5539bfb5900e0e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/vectors/ean8.py",
+        "sha": "08061cd3c9e37905a6561008d3f08f9e93c73002",
+        "size": 2830,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/08061cd3c9e37905a6561008d3f08f9e93c73002"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/vectors/qr.py",
+        "sha": "036334fa80f0f0f8a4db3451191aad53ef4f2c68",
+        "size": 17100,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/036334fa80f0f0f8a4db3451191aad53ef4f2c68"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/vectors/upca.py",
+        "sha": "40e72550da9bfe395127b6d625c28e8ffa4785a0",
+        "size": 2969,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/40e72550da9bfe395127b6d625c28e8ffa4785a0"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/encoding/vectors/upce.py",
+        "sha": "4672784d99761e4bcd2de6508b686ec696be150f",
+        "size": 3503,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/4672784d99761e4bcd2de6508b686ec696be150f"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/examples",
+        "sha": "f60b3cbe059ba8564edbcb558662361f73764916",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/f60b3cbe059ba8564edbcb558662361f73764916"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/examples/test_example_scripts.py",
+        "sha": "c60e10a0a5a670d03ace120a42a352d2b471600f",
+        "size": 1266,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/c60e10a0a5a670d03ace120a42a352d2b471600f"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/models",
+        "sha": "ba32441d5fbbb8c6d59082765f5aa3093b2a6d8b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/ba32441d5fbbb8c6d59082765f5aa3093b2a6d8b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/models/test_symbols.py",
+        "sha": "b576afa97684988fb01a6f4e7e342fdce60e953b",
+        "size": 6819,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/b576afa97684988fb01a6f4e7e342fdce60e953b"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/rendering",
+        "sha": "91032e3ff670654477650d33317ba392885b4716",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/91032e3ff670654477650d33317ba392885b4716"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/rendering/test_barcode_png.py",
+        "sha": "af66d1a2465237c0f3681ae05b1fc1ee74dd264e",
+        "size": 3084,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/af66d1a2465237c0f3681ae05b1fc1ee74dd264e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/rendering/test_barcode_svg.py",
+        "sha": "f7fb80c9cb5566828c7b213a4c8b880be04393fd",
+        "size": 12135,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/f7fb80c9cb5566828c7b213a4c8b880be04393fd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/rendering/test_code128_text_layout.py",
+        "sha": "da8c287cfaaeb3d92b262567d0d74c5dcdaaab1c",
+        "size": 2059,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/da8c287cfaaeb3d92b262567d0d74c5dcdaaab1c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/rendering/test_code39_text_layout.py",
+        "sha": "0a0458b2e6be3d197ed4452a6b30896ffcf4f311",
+        "size": 3215,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/0a0458b2e6be3d197ed4452a6b30896ffcf4f311"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/rendering/test_ean_text_layout.py",
+        "sha": "6924d4d8abec0fa5f8436b150fb45d1fba0b2160",
+        "size": 8577,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/6924d4d8abec0fa5f8436b150fb45d1fba0b2160"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/rendering/test_options_resolver.py",
+        "sha": "b9d766416757d35e7662d5f16153bd81a67066c9",
+        "size": 9415,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/b9d766416757d35e7662d5f16153bd81a67066c9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/rendering/test_png_renderer.py",
+        "sha": "64528136efcf5a1bff9c7b58641ae1ce3487f7ff",
+        "size": 7901,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/64528136efcf5a1bff9c7b58641ae1ce3487f7ff"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/rendering/test_svg_renderer.py",
+        "sha": "7fcc7178f1cc5c6b150ae3024d7ae81e87504dbf",
+        "size": 8697,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/blobs/7fcc7178f1cc5c6b150ae3024d7ae81e87504dbf"
+      }
+    ],
+    "truncated": false,
+    "url": "https://api.github.com/repos/aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python/git/trees/50eaf3fe8247abb3eb95511d6b21a560a9ffedb8"
+  }
+}

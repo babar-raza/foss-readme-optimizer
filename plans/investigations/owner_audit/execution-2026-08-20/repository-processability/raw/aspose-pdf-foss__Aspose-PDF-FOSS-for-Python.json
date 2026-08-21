@@ -1,0 +1,3476 @@
+{
+  "branch": {
+    "_links": {
+      "html": "https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/tree/main",
+      "self": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/branches/main"
+    },
+    "commit": {
+      "author": null,
+      "comments_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/commits/3dfe9f86cc819c1eb829c951a6f5face3f6d8ad5/comments",
+      "commit": {
+        "author": {
+          "date": "2026-08-19T12:46:25Z",
+          "email": "contact@aspose.com",
+          "name": "aspose-sa"
+        },
+        "comment_count": 0,
+        "committer": {
+          "date": "2026-08-19T12:46:25Z",
+          "email": "contact@aspose.com",
+          "name": "aspose-sa"
+        },
+        "message": "feat(render): composite annotation appearances onto the page\n\nThe rasterizer drew page content only, so highlights, stamps, notes and form\nwidgets were missing from every rendered page. Place each visible annotation's\n/AP /N by fitting its /Matrix-transformed /BBox to /Rect per ISO 32000-1 12.5.5,\nresolve appearance states through /AS, and skip Hidden/NoView and Popup.\ndraw_annotations=False keeps the content-only behaviour.",
+        "tree": {
+          "sha": "4c5c3efc6574aa313d7c0901db8f488429bc22aa",
+          "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/4c5c3efc6574aa313d7c0901db8f488429bc22aa"
+        },
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/commits/3dfe9f86cc819c1eb829c951a6f5face3f6d8ad5",
+        "verification": {
+          "payload": null,
+          "reason": "unsigned",
+          "signature": null,
+          "verified": false,
+          "verified_at": null
+        }
+      },
+      "committer": null,
+      "html_url": "https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/commit/3dfe9f86cc819c1eb829c951a6f5face3f6d8ad5",
+      "node_id": "C_kwDOTBhDC9oAKDNkZmU5Zjg2Y2M4MTljMWViODI5Yzk1MWE2ZjVmYWNlM2Y2ZDhhZDU",
+      "parents": [
+        {
+          "html_url": "https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/commit/f06ab0baec1648410dee4030ab530488491a2f00",
+          "sha": "f06ab0baec1648410dee4030ab530488491a2f00",
+          "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/commits/f06ab0baec1648410dee4030ab530488491a2f00"
+        }
+      ],
+      "sha": "3dfe9f86cc819c1eb829c951a6f5face3f6d8ad5",
+      "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/commits/3dfe9f86cc819c1eb829c951a6f5face3f6d8ad5"
+    },
+    "name": "main",
+    "protected": false,
+    "protection": {
+      "enabled": false,
+      "required_status_checks": {
+        "checks": [],
+        "contexts": [],
+        "enforcement_level": "off"
+      }
+    },
+    "protection_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/branches/main/protection"
+  },
+  "repo": {
+    "allow_auto_merge": false,
+    "allow_forking": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "archive_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/branches{/branch}",
+    "clone_url": "https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python.git",
+    "collaborators_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/comments{/number}",
+    "commits_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/contributors",
+    "created_at": "2026-06-22T07:15:51Z",
+    "custom_properties": {},
+    "default_branch": "main",
+    "delete_branch_on_merge": false,
+    "deployments_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/deployments",
+    "description": "Python-native Aspose.PDF FOSS package for reading, writing, parsing, encryption, signing, and working with PDF primitives",
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/downloads",
+    "events_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/events",
+    "fork": false,
+    "forks": 0,
+    "forks_count": 0,
+    "forks_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/forks",
+    "full_name": "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+    "git_commits_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/tags{/sha}",
+    "git_url": "git://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python.git",
+    "has_discussions": false,
+    "has_downloads": false,
+    "has_issues": true,
+    "has_pages": false,
+    "has_projects": true,
+    "has_pull_requests": true,
+    "has_wiki": false,
+    "homepage": "https://products.aspose.org/pdf/python",
+    "hooks_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/hooks",
+    "html_url": "https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+    "id": 1276658443,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/issues{/number}",
+    "keys_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/labels{/name}",
+    "language": "Python",
+    "languages_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/languages",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "node_id": "MDc6TGljZW5zZTEz",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit"
+    },
+    "merge_commit_message": "PR_TITLE",
+    "merge_commit_title": "MERGE_MESSAGE",
+    "merges_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/merges",
+    "milestones_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/milestones{/number}",
+    "mirror_url": null,
+    "name": "Aspose-PDF-FOSS-for-Python",
+    "network_count": 0,
+    "node_id": "R_kgDOTBhDCw",
+    "notifications_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/notifications{?since,all,participating}",
+    "open_issues": 0,
+    "open_issues_count": 0,
+    "organization": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224591933?v=4",
+      "events_url": "https://api.github.com/users/aspose-pdf-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-pdf-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-pdf-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-pdf-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-pdf-foss",
+      "id": 224591933,
+      "login": "aspose-pdf-foss",
+      "node_id": "O_kgDODWMAPQ",
+      "organizations_url": "https://api.github.com/users/aspose-pdf-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-pdf-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-pdf-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-pdf-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-pdf-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-pdf-foss",
+      "user_view_type": "public"
+    },
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224591933?v=4",
+      "events_url": "https://api.github.com/users/aspose-pdf-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-pdf-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-pdf-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-pdf-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-pdf-foss",
+      "id": 224591933,
+      "login": "aspose-pdf-foss",
+      "node_id": "O_kgDODWMAPQ",
+      "organizations_url": "https://api.github.com/users/aspose-pdf-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-pdf-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-pdf-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-pdf-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-pdf-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-pdf-foss",
+      "user_view_type": "public"
+    },
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "private": false,
+    "pull_request_creation_policy": "all",
+    "pulls_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/pulls{/number}",
+    "pushed_at": "2026-08-19T12:46:32Z",
+    "releases_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/releases{/id}",
+    "security_and_analysis": {
+      "dependabot_security_updates": {
+        "status": "disabled"
+      },
+      "secret_scanning": {
+        "status": "disabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    },
+    "size": 7001,
+    "squash_merge_commit_message": "COMMIT_MESSAGES",
+    "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+    "ssh_url": "git@github.com:aspose-pdf-foss/Aspose-PDF-FOSS-for-Python.git",
+    "stargazers_count": 0,
+    "stargazers_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/stargazers",
+    "statuses_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/statuses/{sha}",
+    "subscribers_count": 0,
+    "subscribers_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/subscribers",
+    "subscription_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/subscription",
+    "svn_url": "https://github.com/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+    "tags_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/tags",
+    "teams_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/teams",
+    "temp_clone_token": "",
+    "topics": [],
+    "trees_url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees{/sha}",
+    "updated_at": "2026-08-19T12:49:22Z",
+    "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python",
+    "use_squash_pr_title_as_default": false,
+    "visibility": "public",
+    "watchers": 0,
+    "watchers_count": 0,
+    "web_commit_signoff_required": false
+  },
+  "tree": {
+    "sha": "4c5c3efc6574aa313d7c0901db8f488429bc22aa",
+    "tree": [
+      {
+        "mode": "100644",
+        "path": ".env.example",
+        "sha": "40a84f7c7927b3367c088a788f784d6a9ea3cc9b",
+        "size": 151,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/40a84f7c7927b3367c088a788f784d6a9ea3cc9b"
+      },
+      {
+        "mode": "040000",
+        "path": ".github",
+        "sha": "3f11b22310138cc3307b042a3e1b6d7a25e457a3",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/3f11b22310138cc3307b042a3e1b6d7a25e457a3"
+      },
+      {
+        "mode": "040000",
+        "path": ".github/ISSUE_TEMPLATE",
+        "sha": "e073e265fe7ec7300694a0e63b343908b0bd9247",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/e073e265fe7ec7300694a0e63b343908b0bd9247"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/ISSUE_TEMPLATE/bug_report.yml",
+        "sha": "fd1e4bc6335543ab3f275d29aa3ad5da096263f8",
+        "size": 1820,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/fd1e4bc6335543ab3f275d29aa3ad5da096263f8"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/ISSUE_TEMPLATE/config.yml",
+        "sha": "e9d14e1da6d095b8cc7bd42b565fe06ae3c5827f",
+        "size": 251,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e9d14e1da6d095b8cc7bd42b565fe06ae3c5827f"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/ISSUE_TEMPLATE/feature_request.yml",
+        "sha": "774118dcedd7966452744201527c091a84369173",
+        "size": 770,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/774118dcedd7966452744201527c091a84369173"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/PULL_REQUEST_TEMPLATE.md",
+        "sha": "f0451ab7a683b18172fefd39194cefea433327fb",
+        "size": 510,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f0451ab7a683b18172fefd39194cefea433327fb"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/dependabot.yml",
+        "sha": "1204638e484df134dc6e6f772ffd97636fdb5ae7",
+        "size": 347,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/1204638e484df134dc6e6f772ffd97636fdb5ae7"
+      },
+      {
+        "mode": "040000",
+        "path": ".github/workflows",
+        "sha": "1d42c468e495c857b87a2ac05813e0e2ec551ada",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/1d42c468e495c857b87a2ac05813e0e2ec551ada"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/workflows/ci.yml",
+        "sha": "e09149ff532b925906e35bc0e4f1fb2739cc8eb6",
+        "size": 2229,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e09149ff532b925906e35bc0e4f1fb2739cc8eb6"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/workflows/publish-pypi.yml",
+        "sha": "356a16619a6a3cc524c6725bd335f5f98b402336",
+        "size": 1581,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/356a16619a6a3cc524c6725bd335f5f98b402336"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/workflows/publish-testpypi.yml",
+        "sha": "03c828d0a7c3ee119bc840aba133a1198d50da5a",
+        "size": 1654,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/03c828d0a7c3ee119bc840aba133a1198d50da5a"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/workflows/security-audit.yml",
+        "sha": "bbc7b0bc29e52ca3377c4ecef3cc0c81cad32c8e",
+        "size": 1307,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/bbc7b0bc29e52ca3377c4ecef3cc0c81cad32c8e"
+      },
+      {
+        "mode": "100644",
+        "path": ".gitignore",
+        "sha": "f6be2cde89d9f0bae7a080c6952a6ad0752e0247",
+        "size": 183,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f6be2cde89d9f0bae7a080c6952a6ad0752e0247"
+      },
+      {
+        "mode": "100644",
+        "path": "AGENTS.md",
+        "sha": "81f6261b0efa67458f6e2da1c17fa52f0f7d3285",
+        "size": 4353,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/81f6261b0efa67458f6e2da1c17fa52f0f7d3285"
+      },
+      {
+        "mode": "100644",
+        "path": "CHANGELOG.md",
+        "sha": "48aa4d914d3b8be25ae6f6160c02690358e36cec",
+        "size": 21912,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/48aa4d914d3b8be25ae6f6160c02690358e36cec"
+      },
+      {
+        "mode": "100644",
+        "path": "LICENSE",
+        "sha": "e5521ef598d6c2b4143927eb8eaa5a96a3da18ca",
+        "size": 1071,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e5521ef598d6c2b4143927eb8eaa5a96a3da18ca"
+      },
+      {
+        "mode": "100644",
+        "path": "MANIFEST.in",
+        "sha": "361087103d34215a373272614b48d46ca66e9490",
+        "size": 141,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/361087103d34215a373272614b48d46ca66e9490"
+      },
+      {
+        "mode": "100644",
+        "path": "README.md",
+        "sha": "8c52c29614ca910cb1b58f06591bbfca786be87d",
+        "size": 40800,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/8c52c29614ca910cb1b58f06591bbfca786be87d"
+      },
+      {
+        "mode": "100644",
+        "path": "SECURITY.md",
+        "sha": "486119100de9129366d9c59c8fc0f6011e3200ca",
+        "size": 1568,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/486119100de9129366d9c59c8fc0f6011e3200ca"
+      },
+      {
+        "mode": "040000",
+        "path": "fuzz",
+        "sha": "6b625e8be0b69720f073d160950ea5515af4908b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/6b625e8be0b69720f073d160950ea5515af4908b"
+      },
+      {
+        "mode": "100644",
+        "path": "fuzz/README.md",
+        "sha": "914603c2045d89e13c8fe5d9154aa257e111d595",
+        "size": 813,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/914603c2045d89e13c8fe5d9154aa257e111d595"
+      },
+      {
+        "mode": "100644",
+        "path": "fuzz/__init__.py",
+        "sha": "4ad1c67fcc5b6788061e56c959c63880e9bfaf4f",
+        "size": 52,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/4ad1c67fcc5b6788061e56c959c63880e9bfaf4f"
+      },
+      {
+        "mode": "040000",
+        "path": "fuzz/corpus",
+        "sha": "33ff06ecb55bb5f640fca640503d9daf8c5251db",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/33ff06ecb55bb5f640fca640503d9daf8c5251db"
+      },
+      {
+        "mode": "100644",
+        "path": "fuzz/corpus/README.md",
+        "sha": "805f193d5adcbda0e6ec3cb09cd3d1366091a4ae",
+        "size": 204,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/805f193d5adcbda0e6ec3cb09cd3d1366091a4ae"
+      },
+      {
+        "mode": "040000",
+        "path": "fuzz/corpus/content",
+        "sha": "ce5d0ac55695cafdbe1dd7584e9400fd8cb839c8",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/ce5d0ac55695cafdbe1dd7584e9400fd8cb839c8"
+      },
+      {
+        "mode": "100644",
+        "path": "fuzz/corpus/content/text.txt",
+        "sha": "ab57f118eaa9db005afbd65b82941ae50c68d0a6",
+        "size": 40,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ab57f118eaa9db005afbd65b82941ae50c68d0a6"
+      },
+      {
+        "mode": "040000",
+        "path": "fuzz/corpus/cos",
+        "sha": "8f4edae007bb9e6c34b36fa316ecac866d021466",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/8f4edae007bb9e6c34b36fa316ecac866d021466"
+      },
+      {
+        "mode": "100644",
+        "path": "fuzz/corpus/cos/minimal.pdf",
+        "sha": "5d8cbf73fa4f7236f69947cc2145af714836f2cc",
+        "size": 443,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/5d8cbf73fa4f7236f69947cc2145af714836f2cc"
+      },
+      {
+        "mode": "100644",
+        "path": "fuzz/corpus/cos/truncated.pdf",
+        "sha": "ae931d71755088b3f5543711b7ddfe7efa6ebdf2",
+        "size": 35,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ae931d71755088b3f5543711b7ddfe7efa6ebdf2"
+      },
+      {
+        "mode": "040000",
+        "path": "fuzz/corpus/filters",
+        "sha": "1a27cd14fb2ae7239c17d951ec7f8e53e77cf0f7",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/1a27cd14fb2ae7239c17d951ec7f8e53e77cf0f7"
+      },
+      {
+        "mode": "100644",
+        "path": "fuzz/corpus/filters/asciihex.txt",
+        "sha": "1a78b187d78fb79d5d8d0a712e26027663b3862f",
+        "size": 9,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/1a78b187d78fb79d5d8d0a712e26027663b3862f"
+      },
+      {
+        "mode": "040000",
+        "path": "fuzz/corpus/tokenizer",
+        "sha": "cafb2df4b062a4bd1567992f73b76324689fc8c6",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/cafb2df4b062a4bd1567992f73b76324689fc8c6"
+      },
+      {
+        "mode": "100644",
+        "path": "fuzz/corpus/tokenizer/dictionary.txt",
+        "sha": "43def86d4b3a78fd78c9c83376bdd9a822ddc854",
+        "size": 48,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/43def86d4b3a78fd78c9c83376bdd9a822ddc854"
+      },
+      {
+        "mode": "100644",
+        "path": "fuzz/run.py",
+        "sha": "37f9a92cad5e0ca71e3c30a8cb9d0a264fff7d9e",
+        "size": 756,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/37f9a92cad5e0ca71e3c30a8cb9d0a264fff7d9e"
+      },
+      {
+        "mode": "100644",
+        "path": "fuzz/targets.py",
+        "sha": "49c3d40e404bf0fac7f3e00829b32a7c5178e1b0",
+        "size": 2863,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/49c3d40e404bf0fac7f3e00829b32a7c5178e1b0"
+      },
+      {
+        "mode": "100644",
+        "path": "pyproject.toml",
+        "sha": "35f8f2ae3007dcdf86273af5806498d17eaef3c5",
+        "size": 2491,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/35f8f2ae3007dcdf86273af5806498d17eaef3c5"
+      },
+      {
+        "mode": "040000",
+        "path": "scripts",
+        "sha": "b6e987c9bc4cb53bc3021db90b9dfc82a5082b85",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/b6e987c9bc4cb53bc3021db90b9dfc82a5082b85"
+      },
+      {
+        "mode": "100755",
+        "path": "scripts/build.sh",
+        "sha": "821489940d0a824380ab53337354b956f516e4ae",
+        "size": 393,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/821489940d0a824380ab53337354b956f516e4ae"
+      },
+      {
+        "mode": "100644",
+        "path": "scripts/build_agl_data.py",
+        "sha": "9b9a703005632cd7faf254771ecdd82381b9983a",
+        "size": 4099,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/9b9a703005632cd7faf254771ecdd82381b9983a"
+      },
+      {
+        "mode": "100644",
+        "path": "scripts/build_cmap_data.py",
+        "sha": "a0820c7fea4a65b73fb08030de3f1250edc8d6ea",
+        "size": 16705,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a0820c7fea4a65b73fb08030de3f1250edc8d6ea"
+      },
+      {
+        "mode": "100644",
+        "path": "scripts/build_std_fonts.py",
+        "sha": "b04b42fe1169ddb214754ccf8b7de26a36028460",
+        "size": 5991,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/b04b42fe1169ddb214754ccf8b7de26a36028460"
+      },
+      {
+        "mode": "100755",
+        "path": "scripts/check.sh",
+        "sha": "7e8ceda50a7f5a4aff5a9af9d213f38904587899",
+        "size": 480,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/7e8ceda50a7f5a4aff5a9af9d213f38904587899"
+      },
+      {
+        "mode": "040000",
+        "path": "src",
+        "sha": "9c3fe1b4b1439ec55f827e60f0668a0d7848298d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/9c3fe1b4b1439ec55f827e60f0668a0d7848298d"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_pdf",
+        "sha": "ed0f3f124c7382ca611472e62508fff8ebc48697",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/ed0f3f124c7382ca611472e62508fff8ebc48697"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/__init__.py",
+        "sha": "856d6cdb72716fe96020003727ae740640e34edb",
+        "size": 4476,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/856d6cdb72716fe96020003727ae740640e34edb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/_compat_surface.py",
+        "sha": "7685238b21443836d3ac9a963c69c0a49c016247",
+        "size": 4331,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/7685238b21443836d3ac9a963c69c0a49c016247"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/_version.py",
+        "sha": "2d85ac2a1d95ca2e8712d395a7d7a2bb1212a00e",
+        "size": 399,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/2d85ac2a1d95ca2e8712d395a7d7a2bb1212a00e"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_pdf/annotations",
+        "sha": "7d263463a2fa53ae646b242cfc131ffa7bf4aa1f",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/7d263463a2fa53ae646b242cfc131ffa7bf4aa1f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/annotations/__init__.py",
+        "sha": "a49f2876f7e6f9b73d1c9d8a0547e224cf40abed",
+        "size": 11542,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a49f2876f7e6f9b73d1c9d8a0547e224cf40abed"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/annotations/pdf3d.py",
+        "sha": "ae08586d284d50abc12bc338f2b0f29ad27e00b4",
+        "size": 1597,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ae08586d284d50abc12bc338f2b0f29ad27e00b4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/attachments.py",
+        "sha": "797d3bad530cbade0a6c4b58e1be0a9d6c7521bb",
+        "size": 1672,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/797d3bad530cbade0a6c4b58e1be0a9d6c7521bb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/cgm.py",
+        "sha": "dc073d0a1178e4d08219cd2676974a566aa59be5",
+        "size": 151,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/dc073d0a1178e4d08219cd2676974a566aa59be5"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_pdf/clustering",
+        "sha": "97bc25b6d55c4d9366bced576127f6ade2294586",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/97bc25b6d55c4d9366bced576127f6ade2294586"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/clustering/__init__.py",
+        "sha": "5e062b69a1a6f62c73fa73e2b6e2c4037c177cb6",
+        "size": 377,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/5e062b69a1a6f62c73fa73e2b6e2c4037c177cb6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/clustering/hierarchical_agglomerative_clustering.py",
+        "sha": "1c4538054cdde3f426f79ba8ba57bca2e2981bed",
+        "size": 4485,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/1c4538054cdde3f426f79ba8ba57bca2e2981bed"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/color.py",
+        "sha": "16f2a62f7b500e96240147d333c41836e971dc06",
+        "size": 2686,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/16f2a62f7b500e96240147d333c41836e971dc06"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/document.py",
+        "sha": "b460bb18408f8f3c15a8e3c5e30a1b08d3b371f1",
+        "size": 48176,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/b460bb18408f8f3c15a8e3c5e30a1b08d3b371f1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/drawing.py",
+        "sha": "bad51af987a401d9ba64e13db19557c48779a9cb",
+        "size": 144,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/bad51af987a401d9ba64e13db19557c48779a9cb"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_pdf/engine",
+        "sha": "ef03511be3003bc6b758569c084e1b8eabf6e141",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/ef03511be3003bc6b758569c084e1b8eabf6e141"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/__init__.py",
+        "sha": "7e6416ea2b97e31914a0c93fa373f6174acaf0a6",
+        "size": 17,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/7e6416ea2b97e31914a0c93fa373f6174acaf0a6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/agl.py",
+        "sha": "b66616791c2d0e3ced728d55ba7184e829ed962b",
+        "size": 4954,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/b66616791c2d0e3ced728d55ba7184e829ed962b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/appearance.py",
+        "sha": "67d01ad41eda8dcccca29cb0c204d8fbb72e8ae9",
+        "size": 47892,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/67d01ad41eda8dcccca29cb0c204d8fbb72e8ae9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/auto_tag.py",
+        "sha": "13412bffd9f50a4ac9eb801cf0a670b3599bcc11",
+        "size": 38164,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/13412bffd9f50a4ac9eb801cf0a670b3599bcc11"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/ccitt.py",
+        "sha": "e590adf4b3cf823e07fc79a1010a05508f80406a",
+        "size": 14541,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e590adf4b3cf823e07fc79a1010a05508f80406a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/ccitt_tables.py",
+        "sha": "2e9bbddaaa0a3ad5948433fa59e59d2357c20527",
+        "size": 4118,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/2e9bbddaaa0a3ad5948433fa59e59d2357c20527"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/cert_chain.py",
+        "sha": "98da6575500f3d1917d37fc26a3b323ec6de8b75",
+        "size": 6389,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/98da6575500f3d1917d37fc26a3b323ec6de8b75"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/cff_outlines.py",
+        "sha": "ea2606f90d1653ecc715638aa5d670678ba2ed1c",
+        "size": 29461,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ea2606f90d1653ecc715638aa5d670678ba2ed1c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/cms.py",
+        "sha": "55aa2de58b142369c7b753e3b034b6d69da0fb80",
+        "size": 21437,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/55aa2de58b142369c7b753e3b034b6d69da0fb80"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/conformance.py",
+        "sha": "cbe5bd4906564c62b12e84cb1b68cde095559801",
+        "size": 38665,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/cbe5bd4906564c62b12e84cb1b68cde095559801"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/content_authoring.py",
+        "sha": "08cacd5bca2446c08b46b34a9fe1db572fbab22c",
+        "size": 24662,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/08cacd5bca2446c08b46b34a9fe1db572fbab22c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/content_stream_parser.py",
+        "sha": "c5dfaa0e1b7748592c408f49322d271b42d3eb24",
+        "size": 69506,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c5dfaa0e1b7748592c408f49322d271b42d3eb24"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/cos.py",
+        "sha": "ccf688ae88bdabab46b18675c5b5f23e2727c27f",
+        "size": 6603,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ccf688ae88bdabab46b18675c5b5f23e2727c27f"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_pdf/engine/data",
+        "sha": "573602dce073071c84d53d7194cd7d3abdb1e59f",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/573602dce073071c84d53d7194cd7d3abdb1e59f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/__init__.py",
+        "sha": "5d39c7423afe08b33a4cb97b037edbd3e56a0762",
+        "size": 1829,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/5d39c7423afe08b33a4cb97b037edbd3e56a0762"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_pdf/engine/data/agl",
+        "sha": "f5278d406dc4e3b1a4b2bc36b8076ef5cd1cfd00",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/f5278d406dc4e3b1a4b2bc36b8076ef5cd1cfd00"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/agl/LICENSE-ADOBE-AGL.txt",
+        "sha": "ab83e37ebcb8ab15431f75c11a393602b76657e3",
+        "size": 1453,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ab83e37ebcb8ab15431f75c11a393602b76657e3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/agl/README.md",
+        "sha": "6c5d3b03db08c36f7bf4d48019c318760afb27cd",
+        "size": 1464,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/6c5d3b03db08c36f7bf4d48019c318760afb27cd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/agl/glyphlist.json.zlib",
+        "sha": "ea7baea72c8226aa1ef40e7affa8aa50ac8901ac",
+        "size": 26595,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ea7baea72c8226aa1ef40e7affa8aa50ac8901ac"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_pdf/engine/data/cmaps",
+        "sha": "3d7c08f4b5bbedc730539cbdd5ce035cf85afdc0",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/3d7c08f4b5bbedc730539cbdd5ce035cf85afdc0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/cmaps/LICENSE-ADOBE-CMAP.txt",
+        "sha": "2552cc990c12f85cdc50ef3c5185061a8c64e326",
+        "size": 1453,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/2552cc990c12f85cdc50ef3c5185061a8c64e326"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/cmaps/LICENSE-ADOBE-MAPPING.txt",
+        "sha": "adeab22f9b694884dd3c3c49f83dcdd1d5a89906",
+        "size": 1453,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/adeab22f9b694884dd3c3c49f83dcdd1d5a89906"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/cmaps/README.md",
+        "sha": "9cae7698697bde5668a6e9cf6638ece9b5a6eaaa",
+        "size": 2443,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/9cae7698697bde5668a6e9cf6638ece9b5a6eaaa"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/cmaps/predefined_cmaps_CNS1.json.zlib",
+        "sha": "eee513524878b49636c0adfaaf4eaf4f565dafbc",
+        "size": 604101,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/eee513524878b49636c0adfaaf4eaf4f565dafbc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/cmaps/predefined_cmaps_GB1.json.zlib",
+        "sha": "18a6e7c3f32141dfd9f857c2d29596f7d83715bd",
+        "size": 595411,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/18a6e7c3f32141dfd9f857c2d29596f7d83715bd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/cmaps/predefined_cmaps_Japan1.json.zlib",
+        "sha": "ff7c04925d87c80d9374c9ce42c9ccc39af6facc",
+        "size": 930705,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ff7c04925d87c80d9374c9ce42c9ccc39af6facc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/cmaps/predefined_cmaps_Korea1.json.zlib",
+        "sha": "c732bff82daeae4220d50030aebe2db4cf40b42d",
+        "size": 323541,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c732bff82daeae4220d50030aebe2db4cf40b42d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/cmaps/predefined_cmaps_index.json.zlib",
+        "sha": "a651ab3fe0a04e0e28ee9f8dc332711e2a738a28",
+        "size": 995,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a651ab3fe0a04e0e28ee9f8dc332711e2a738a28"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_pdf/engine/data/fonts",
+        "sha": "5691fcd8814a57abe970b08dc35dcb8fb971bed7",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/5691fcd8814a57abe970b08dc35dcb8fb971bed7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/LICENSE-DEJAVU.txt",
+        "sha": "df52c1709bea171104d41bf084313ea434858423",
+        "size": 8816,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/df52c1709bea171104d41bf084313ea434858423"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/LICENSE-OFL.txt",
+        "sha": "aba73e8a403084a93a245ca00e4a0db007886e0a",
+        "size": 4414,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/aba73e8a403084a93a245ca00e4a0db007886e0a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/README.md",
+        "sha": "f1d08b8bb3d9b9568a374893288587688e505e19",
+        "size": 2043,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f1d08b8bb3d9b9568a374893288587688e505e19"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/dingbats.ttf.zlib",
+        "sha": "16944bb545b733e06054b106b88f8a54a84427a4",
+        "size": 25611,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/16944bb545b733e06054b106b88f8a54a84427a4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/mono-bold.ttf.zlib",
+        "sha": "7ae2e2dd77aa625ef56c6fb3e6e49c7670110428",
+        "size": 26747,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/7ae2e2dd77aa625ef56c6fb3e6e49c7670110428"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/mono-bolditalic.ttf.zlib",
+        "sha": "3ef9f4406fc8e533b9acf06a3a5e5b8a2f609ff0",
+        "size": 24700,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/3ef9f4406fc8e533b9acf06a3a5e5b8a2f609ff0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/mono-italic.ttf.zlib",
+        "sha": "56e7fec8ad9828e599ddf0018fce5ee1b6723f0e",
+        "size": 24386,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/56e7fec8ad9828e599ddf0018fce5ee1b6723f0e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/mono-regular.ttf.zlib",
+        "sha": "165db20543c56f9e496c5d811a5ce568111a431a",
+        "size": 26789,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/165db20543c56f9e496c5d811a5ce568111a431a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/sans-bold.ttf.zlib",
+        "sha": "bfcb19d91f341bedcd8cffe3fb33276f745bf515",
+        "size": 30699,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/bfcb19d91f341bedcd8cffe3fb33276f745bf515"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/sans-bolditalic.ttf.zlib",
+        "sha": "a6aff7ce31ca6727eb3d4622bacf10fa4cd424e2",
+        "size": 31010,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a6aff7ce31ca6727eb3d4622bacf10fa4cd424e2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/sans-italic.ttf.zlib",
+        "sha": "6d56527a76b309d45dea79cf25d2de631894498a",
+        "size": 31665,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/6d56527a76b309d45dea79cf25d2de631894498a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/sans-regular.ttf.zlib",
+        "sha": "e77b226db04017bd79ab52415b211e269b287064",
+        "size": 31281,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e77b226db04017bd79ab52415b211e269b287064"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/serif-bold.ttf.zlib",
+        "sha": "cba47fbe9c64c84cd35a78b12ea2ce33280aafe6",
+        "size": 32244,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/cba47fbe9c64c84cd35a78b12ea2ce33280aafe6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/serif-bolditalic.ttf.zlib",
+        "sha": "6b27ad6130863038677a1a3864c40a3771696476",
+        "size": 33196,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/6b27ad6130863038677a1a3864c40a3771696476"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/serif-italic.ttf.zlib",
+        "sha": "041738a7136dd2c892dede8f5ba500ec4573592f",
+        "size": 34097,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/041738a7136dd2c892dede8f5ba500ec4573592f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/serif-regular.ttf.zlib",
+        "sha": "73aa0d594a45099839a51f7d972c146843f94b09",
+        "size": 35915,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/73aa0d594a45099839a51f7d972c146843f94b09"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/fonts/symbol.ttf.zlib",
+        "sha": "c72ec2c14fb13d8767d44a41ec2355420a4576c1",
+        "size": 21321,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c72ec2c14fb13d8767d44a41ec2355420a4576c1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/number.py",
+        "sha": "c5a20e1f271f78e8454fa18f12bf75dfba8365d1",
+        "size": 2491,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c5a20e1f271f78e8454fa18f12bf75dfba8365d1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/types.py",
+        "sha": "b66a17fd389e5146e45fadcaaffba2f173133048",
+        "size": 3953,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/b66a17fd389e5146e45fadcaaffba2f173133048"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/data/xmp.py",
+        "sha": "4e0fdc336c8b02ab795919717d8659e91debe96c",
+        "size": 50517,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/4e0fdc336c8b02ab795919717d8659e91debe96c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/dct.py",
+        "sha": "8802984dc3d9599296e3b573a53f6bf51bdc4bdf",
+        "size": 29156,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/8802984dc3d9599296e3b573a53f6bf51bdc4bdf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/dss.py",
+        "sha": "5c666a8133a17dd30413304804b6ef2bdf42083c",
+        "size": 16630,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/5c666a8133a17dd30413304804b6ef2bdf42083c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/encryption.py",
+        "sha": "0459eba50d6608247fb79228f94293e996da3ce8",
+        "size": 25396,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/0459eba50d6608247fb79228f94293e996da3ce8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/field_appearance.py",
+        "sha": "ef84105e61ef14f515b882ace2365ee5df3939b3",
+        "size": 10035,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ef84105e61ef14f515b882ace2365ee5df3939b3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/filters.py",
+        "sha": "a9f04ecd38f317dbaac6edacc530867cdbb2a228",
+        "size": 35450,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a9f04ecd38f317dbaac6edacc530867cdbb2a228"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/font_authoring.py",
+        "sha": "815cb884f33123f50a8a80497f77ff3ce95126c4",
+        "size": 25259,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/815cb884f33123f50a8a80497f77ff3ce95126c4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/font_subset.py",
+        "sha": "6324ff12387358ce9842ddbdcd801969cbd26be3",
+        "size": 18984,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/6324ff12387358ce9842ddbdcd801969cbd26be3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/font_subset_cff.py",
+        "sha": "0de28fa9aa403c91ece854c70b8f77472278a38d",
+        "size": 23823,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/0de28fa9aa403c91ece854c70b8f77472278a38d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/font_subset_type1.py",
+        "sha": "1bbb09c0c96f386e6abd3c591569dd3a20eadd3c",
+        "size": 4427,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/1bbb09c0c96f386e6abd3c591569dd3a20eadd3c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/glyph_outlines.py",
+        "sha": "79dfe5b585c70d269b2211eb91703889472fa015",
+        "size": 13490,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/79dfe5b585c70d269b2211eb91703889472fa015"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/image_export.py",
+        "sha": "cb72b2705ef96f2376dbf8a4275053795bd5f554",
+        "size": 19930,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/cb72b2705ef96f2376dbf8a4275053795bd5f554"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/image_resample.py",
+        "sha": "f0ed81d365cdff9e4917f08789b2b18463be3853",
+        "size": 2872,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f0ed81d365cdff9e4917f08789b2b18463be3853"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/incremental_update.py",
+        "sha": "f00afd4314ffd08c9cfaa9c5631be1d3e6a5ab66",
+        "size": 14714,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f00afd4314ffd08c9cfaa9c5631be1d3e6a5ab66"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/io.py",
+        "sha": "46f67ceefdb06d155d604ae99b8df15f4b4f1b0d",
+        "size": 1592,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/46f67ceefdb06d155d604ae99b8df15f4b4f1b0d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/jbig2.py",
+        "sha": "504d7565582c46bb5cf7ccf62db1d6cfd3220696",
+        "size": 6822,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/504d7565582c46bb5cf7ccf62db1d6cfd3220696"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/jpeg_encoder.py",
+        "sha": "68b164634fb131ed1f1903bf3561eecd299ac4b3",
+        "size": 25651,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/68b164634fb131ed1f1903bf3561eecd299ac4b3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/jpx.py",
+        "sha": "d4664a13056be58037a9e32d2af48b2508b3e725",
+        "size": 4038,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/d4664a13056be58037a9e32d2af48b2508b3e725"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/logging.py",
+        "sha": "8b373cb7b83f07dec6458c663246f013703103b2",
+        "size": 544,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/8b373cb7b83f07dec6458c663246f013703103b2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/parser_exceptions.py",
+        "sha": "40b3e0a17b104ff554159ca4c4bb964499ded000",
+        "size": 3430,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/40b3e0a17b104ff554159ca4c4bb964499ded000"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/pdf_matrix.py",
+        "sha": "061ff3dcc802daff023405b26bad900220778e32",
+        "size": 2138,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/061ff3dcc802daff023405b26bad900220778e32"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/pdf_parser_cos.py",
+        "sha": "1cb64fe1e6bf5199dabbc1af1c009eb3d7129e8c",
+        "size": 46693,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/1cb64fe1e6bf5199dabbc1af1c009eb3d7129e8c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/pdf_writer_cos.py",
+        "sha": "fa669ad1973a168ce7f6447572e63b015218f5ac",
+        "size": 14424,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/fa669ad1973a168ce7f6447572e63b015218f5ac"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/predefined_cmaps.py",
+        "sha": "bec2ee4f8c270a39e8de03efa4e6d4b6ce55336e",
+        "size": 20820,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/bec2ee4f8c270a39e8de03efa4e6d4b6ce55336e"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_pdf/engine/primitives",
+        "sha": "8c1859a55851dd685bede1886631a08700f8a34b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/8c1859a55851dd685bede1886631a08700f8a34b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/primitives/__init__.py",
+        "sha": "54f1438c3822938f216642c5d1492ff83d54a49d",
+        "size": 111,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/54f1438c3822938f216642c5d1492ff83d54a49d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/primitives/matrix.py",
+        "sha": "9489163180bc2b5ba694ffe62abf8d93e044390b",
+        "size": 772,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/9489163180bc2b5ba694ffe62abf8d93e044390b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/rasterizer.py",
+        "sha": "a9253b82c2946a7bd6f2476472785446433b644c",
+        "size": 138359,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a9253b82c2946a7bd6f2476472785446433b644c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/rename_resources.py",
+        "sha": "eaec08508c8b21f4d5ef7962f8acb6845c945a7a",
+        "size": 3120,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/eaec08508c8b21f4d5ef7962f8acb6845c945a7a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/revocation.py",
+        "sha": "826564de1b4921dd39f936cb1f4487a2bea20f39",
+        "size": 9588,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/826564de1b4921dd39f936cb1f4487a2bea20f39"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/rich_text.py",
+        "sha": "c98cb2c7652af8b2d93d9a0c0de315f2e7a90476",
+        "size": 10311,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c98cb2c7652af8b2d93d9a0c0de315f2e7a90476"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/sfnt.py",
+        "sha": "2b473c0ecd1326dfbebe57de8e0ba420e4ece3d4",
+        "size": 7762,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/2b473c0ecd1326dfbebe57de8e0ba420e4ece3d4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/shading.py",
+        "sha": "9137e86a7ad65ba001f9c90fe5ac2ccc3f89bff5",
+        "size": 72258,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/9137e86a7ad65ba001f9c90fe5ac2ccc3f89bff5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/sign_field.py",
+        "sha": "f61191917f9f74bd150103c88a3b29d87d3bdf81",
+        "size": 15927,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f61191917f9f74bd150103c88a3b29d87d3bdf81"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/signature_validator.py",
+        "sha": "9219b6ca9084911caa567d2e162a4902acc7209f",
+        "size": 9442,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/9219b6ca9084911caa567d2e162a4902acc7209f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/signing.py",
+        "sha": "d7b50545bcb511d08dcd33546ee439052b4c13b1",
+        "size": 10750,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/d7b50545bcb511d08dcd33546ee439052b4c13b1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/simple_pdf.py",
+        "sha": "26c47082620212990db40c3e7af4f4b8eef06a61",
+        "size": 571642,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/26c47082620212990db40c3e7af4f4b8eef06a61"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/std_font_data.py",
+        "sha": "32198bfb0f49d97360c92cc294b6432ca779a1c8",
+        "size": 6361,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/32198bfb0f49d97360c92cc294b6432ca779a1c8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/std_fonts.py",
+        "sha": "1884a77549972f589d4c29b96a8a2f4888f4021b",
+        "size": 2273,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/1884a77549972f589d4c29b96a8a2f4888f4021b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/symbol_encodings.py",
+        "sha": "886485f1d92ae62f695590137c696292b43dda4f",
+        "size": 9796,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/886485f1d92ae62f695590137c696292b43dda4f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/text_edit.py",
+        "sha": "3bd3cdae1e008f85131a6437951a1f207528d478",
+        "size": 62349,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/3bd3cdae1e008f85131a6437951a1f207528d478"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/text_layout.py",
+        "sha": "8aa87597b51823098646e94e718168690e2b743b",
+        "size": 19185,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/8aa87597b51823098646e94e718168690e2b743b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/text_locate.py",
+        "sha": "37952723accb943db625954e6acd31a85a237a1b",
+        "size": 11891,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/37952723accb943db625954e6acd31a85a237a1b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/text_metrics.py",
+        "sha": "1112b6dca0d177d8cddcded93910fd71de5bfde7",
+        "size": 3160,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/1112b6dca0d177d8cddcded93910fd71de5bfde7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/timestamp.py",
+        "sha": "7ecb7ba1e9451a3e7d186ba4421bf9b0d3d95270",
+        "size": 7847,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/7ecb7ba1e9451a3e7d186ba4421bf9b0d3d95270"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/type1_outlines.py",
+        "sha": "367f177295b2beda2b33e112642fc78ed80a135c",
+        "size": 17507,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/367f177295b2beda2b33e112642fc78ed80a135c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/woff.py",
+        "sha": "533ee90874768608f47ac18a8da8b760e9b9776d",
+        "size": 11380,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/533ee90874768608f47ac18a8da8b760e9b9776d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/engine/woff2.py",
+        "sha": "8bd0da0572537f80cfc1e722e8322683e7cdcde3",
+        "size": 23140,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/8bd0da0572537f80cfc1e722e8322683e7cdcde3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/exceptions.py",
+        "sha": "48dd8737a2e5e39ebe7790c068bf428a88afc5a6",
+        "size": 3712,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/48dd8737a2e5e39ebe7790c068bf428a88afc5a6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/facades.py",
+        "sha": "0019a73d3049bd4fa3af8fae451497b6f33d73a6",
+        "size": 17670,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/0019a73d3049bd4fa3af8fae451497b6f33d73a6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/font_registry.py",
+        "sha": "9931aca98fc4be9534fd3542d6c6aa92cbabe0f7",
+        "size": 5220,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/9931aca98fc4be9534fd3542d6c6aa92cbabe0f7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/font_repository.py",
+        "sha": "40e2bf8ddd986bf56f55c4ace1529843c30b3a9f",
+        "size": 10255,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/40e2bf8ddd986bf56f55c4ace1529843c30b3a9f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/forms.py",
+        "sha": "c1cae4a059a822fcd826952c52499092a6505798",
+        "size": 24932,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c1cae4a059a822fcd826952c52499092a6505798"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_pdf/generated",
+        "sha": "b6ae2ca336475607c0691789b62360684ae27039",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/b6ae2ca336475607c0691789b62360684ae27039"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/generated/__init__.py",
+        "sha": "9a70143b6d148d9303606f7e3e43afb625151fb1",
+        "size": 110,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/9a70143b6d148d9303606f7e3e43afb625151fb1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/generated/document.py",
+        "sha": "c4ade70215a28c1da1d2ed76a93c6668aadf7eb4",
+        "size": 12890,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c4ade70215a28c1da1d2ed76a93c6668aadf7eb4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/generated/forms.py",
+        "sha": "8df247924dff67e206480b0c9a95016e81319f60",
+        "size": 3823,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/8df247924dff67e206480b0c9a95016e81319f60"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/generated/pdfa.py",
+        "sha": "15fabf051fe65c24e4c3df260d43e5f2b93e8fbf",
+        "size": 4902,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/15fabf051fe65c24e4c3df260d43e5f2b93e8fbf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/generated/security.py",
+        "sha": "be909b7f31a6c92b848bbc4a0b9aa923d2a261d5",
+        "size": 835,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/be909b7f31a6c92b848bbc4a0b9aa923d2a261d5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/geometry.py",
+        "sha": "7e1fff307cd6aa1706bea6a04e3dbe2485e41ecc",
+        "size": 3927,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/7e1fff307cd6aa1706bea6a04e3dbe2485e41ecc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/graphics.py",
+        "sha": "6c210094df7bca6dc58fb718c593e55e182fa0b5",
+        "size": 3915,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/6c210094df7bca6dc58fb718c593e55e182fa0b5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/html.py",
+        "sha": "a6e3d19cc6576eaf5fe5cb1768141bd037892a46",
+        "size": 3576,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a6e3d19cc6576eaf5fe5cb1768141bd037892a46"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/images.py",
+        "sha": "d79556b27a744213d3007e3bd7e848358ab6ae64",
+        "size": 13998,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/d79556b27a744213d3007e3bd7e848358ab6ae64"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/interactive.py",
+        "sha": "87e50d5d85daed3aced5e4f8a5a192fb58114d74",
+        "size": 7395,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/87e50d5d85daed3aced5e4f8a5a192fb58114d74"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/latex.py",
+        "sha": "14b59eb77afac1e74318e3dbff747ce26f9d6b62",
+        "size": 333,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/14b59eb77afac1e74318e3dbff747ce26f9d6b62"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/license_management.py",
+        "sha": "1b9e3aa3acb59d84751a2e9c5d80a4f1a6886036",
+        "size": 2012,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/1b9e3aa3acb59d84751a2e9c5d80a4f1a6886036"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/load_limits.py",
+        "sha": "7266bd2dfc067d86866758b0dc265678c9a73785",
+        "size": 5917,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/7266bd2dfc067d86866758b0dc265678c9a73785"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/load_options.py",
+        "sha": "b08cad122f66effe712e88614e9b0de667380e40",
+        "size": 1801,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/b08cad122f66effe712e88614e9b0de667380e40"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/logical_structure.py",
+        "sha": "e45973dfd76f5f518bd2311b175640482a79a342",
+        "size": 758,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e45973dfd76f5f518bd2311b175640482a79a342"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/lowcode.py",
+        "sha": "5afa0bd26e0165958543f88f1594f36b773e5e10",
+        "size": 14855,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/5afa0bd26e0165958543f88f1594f36b773e5e10"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/markdown.py",
+        "sha": "39ac0be86365d3b7f99d395ac5b4f17beccf6486",
+        "size": 654,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/39ac0be86365d3b7f99d395ac5b4f17beccf6486"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/ofd.py",
+        "sha": "57f3c02bc9f900713f6f6af66bb675bdce2dae66",
+        "size": 151,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/57f3c02bc9f900713f6f6af66bb675bdce2dae66"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/optimization.py",
+        "sha": "6b4b2c6c3c201a327b14f56200f119d668c9cbae",
+        "size": 2156,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/6b4b2c6c3c201a327b14f56200f119d668c9cbae"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/outlines.py",
+        "sha": "389c328105cfa909bae90de9f7e809d92003f8cc",
+        "size": 4505,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/389c328105cfa909bae90de9f7e809d92003f8cc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/pages.py",
+        "sha": "2fee5dff3db5565e73915589238ef024b90f9bb6",
+        "size": 19372,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/2fee5dff3db5565e73915589238ef024b90f9bb6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/pdf_consts.py",
+        "sha": "3c290dd050c103895849d9b81163da8195676408",
+        "size": 545,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/3c290dd050c103895849d9b81163da8195676408"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/pdfa.py",
+        "sha": "f4f8a2fa104baaaebecc44e6c80fd0038e4341f0",
+        "size": 8741,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f4f8a2fa104baaaebecc44e6c80fd0038e4341f0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/pdfua.py",
+        "sha": "673798a19e3b09f9297478409354873443500c54",
+        "size": 6317,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/673798a19e3b09f9297478409354873443500c54"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/presentation.py",
+        "sha": "58fadba634c349437cbce8af88320d83d19c850d",
+        "size": 2695,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/58fadba634c349437cbce8af88320d83d19c850d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/primitives.py",
+        "sha": "4acbbf70c4bb0845a4def261e5ca92c6cea7207e",
+        "size": 586,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/4acbbf70c4bb0845a4def261e5ca92c6cea7207e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/printing.py",
+        "sha": "dac64cee4c76c0b31eff93cf4ea840ba0dc478ea",
+        "size": 980,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/dac64cee4c76c0b31eff93cf4ea840ba0dc478ea"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/py.typed",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/save_format.py",
+        "sha": "d8a45484ee15c2becd52fbb0a455309094926f0c",
+        "size": 636,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/d8a45484ee15c2becd52fbb0a455309094926f0c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/save_options.py",
+        "sha": "f40e42d72516dcf639edf17e6e1c4f985adc36e4",
+        "size": 659,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f40e42d72516dcf639edf17e6e1c4f985adc36e4"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_pdf/security",
+        "sha": "3f1eea4b3fd2096b757e3bd6882517992e321726",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/3f1eea4b3fd2096b757e3bd6882517992e321726"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/security/__init__.py",
+        "sha": "4caa72516287a21f89d6be16aa132df65e7bf137",
+        "size": 5679,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/4caa72516287a21f89d6be16aa132df65e7bf137"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_pdf/security/impl",
+        "sha": "d517d9fd19b360e5fb1e7196492f98daccdfa3ae",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/d517d9fd19b360e5fb1e7196492f98daccdfa3ae"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/security/impl/__init__.py",
+        "sha": "e87f47918701573a89637b03a7460ede042a3ea2",
+        "size": 38,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e87f47918701573a89637b03a7460ede042a3ea2"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_pdf/security/impl/digests",
+        "sha": "82839fc282256ec70202be9f5a2bb754523fa6b1",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/82839fc282256ec70202be9f5a2bb754523fa6b1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/security/impl/digests/__init__.py",
+        "sha": "c57f38210d618d826ddeae1819a9541219bf6c3d",
+        "size": 38,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c57f38210d618d826ddeae1819a9541219bf6c3d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/signature.py",
+        "sha": "c4e2b6264d1dfa8ad7a340f3a20543cfb4a79a36",
+        "size": 13957,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c4e2b6264d1dfa8ad7a340f3a20543cfb4a79a36"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/svg.py",
+        "sha": "98335f0c3e7898bc34fa18e907b26bb4b04c8e38",
+        "size": 1015,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/98335f0c3e7898bc34fa18e907b26bb4b04c8e38"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/tagged.py",
+        "sha": "6a3594510686acd13f47dde08b1b2d8a94d2fddd",
+        "size": 8903,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/6a3594510686acd13f47dde08b1b2d8a94d2fddd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/text.py",
+        "sha": "f9326f9e9492617e1c72d89ae814886484269558",
+        "size": 18442,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f9326f9e9492617e1c72d89ae814886484269558"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/text_layout.py",
+        "sha": "4b9e507f6a4e5ca27f0c2612af5a5bfdb059196e",
+        "size": 4172,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/4b9e507f6a4e5ca27f0c2612af5a5bfdb059196e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/utils.py",
+        "sha": "08c7b9f5a59d15fcf5398b95b67136d1a914c27d",
+        "size": 1707,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/08c7b9f5a59d15fcf5398b95b67136d1a914c27d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/validation.py",
+        "sha": "5a4d099afd83b7d4fbc5ba1997735938d492b5b2",
+        "size": 9365,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/5a4d099afd83b7d4fbc5ba1997735938d492b5b2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/visualization.py",
+        "sha": "b649b7829d70e298ca761719a8ebfde2ea848f8f",
+        "size": 1509,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/b649b7829d70e298ca761719a8ebfde2ea848f8f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_pdf/xmp.py",
+        "sha": "50a569dd16feb414f616690e195075287b3f765c",
+        "size": 2234,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/50a569dd16feb414f616690e195075287b3f765c"
+      },
+      {
+        "mode": "100644",
+        "path": "supported-features.md",
+        "sha": "f562e4c63f74262db385a98e8e9c84c2d9283502",
+        "size": 80222,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f562e4c63f74262db385a98e8e9c84c2d9283502"
+      },
+      {
+        "mode": "040000",
+        "path": "tests",
+        "sha": "49d54d7fc4c347f74eb6588483f04dd62134ca9d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/49d54d7fc4c347f74eb6588483f04dd62134ca9d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/__init__.py",
+        "sha": "6c761e729dcfc5f3530c392b133821130986d70a",
+        "size": 164,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/6c761e729dcfc5f3530c392b133821130986d70a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/conftest.py",
+        "sha": "3f154d64adae15402bdf1a464d13e96dd4c19f46",
+        "size": 184,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/3f154d64adae15402bdf1a464d13e96dd4c19f46"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/fixtures_4pages.pdf",
+        "sha": "ec69b13624cda436b39e4bf505c78d5dbd1bbb41",
+        "size": 707,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ec69b13624cda436b39e4bf505c78d5dbd1bbb41"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/helpers_make_pdfs.py",
+        "sha": "23a480be4beab1de5e460429c2c977b780af8edc",
+        "size": 279,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/23a480be4beab1de5e460429c2c977b780af8edc"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_acc01_font_embedding.py",
+        "sha": "4529e3599483e2f3e58ba89330ce04101e5e4dd7",
+        "size": 3957,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/4529e3599483e2f3e58ba89330ce04101e5e4dd7"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_add_image_png_variants.py",
+        "sha": "a397df6f900c16104847ad6d5895c952c022081e",
+        "size": 8847,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a397df6f900c16104847ad6d5895c952c022081e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_aes_key_derivation.py",
+        "sha": "77ffb7998d9ca312ad90e8deed0eaccc94a2cea7",
+        "size": 10541,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/77ffb7998d9ca312ad90e8deed0eaccc94a2cea7"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_agl.py",
+        "sha": "dc245020a868b47bebbc6595ab71f1272b5e8a43",
+        "size": 2558,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/dc245020a868b47bebbc6595ab71f1272b5e8a43"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_algorithm_2b_v5r6.py",
+        "sha": "e5c307fa24380d3eb1000e552d066504dc47d7f9",
+        "size": 5981,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e5c307fa24380d3eb1000e552d066504dc47d7f9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_annotation_appearance_decorations.py",
+        "sha": "ab0c09729358cac7ef05d1c2c4c9b23c129bd4b6",
+        "size": 4846,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ab0c09729358cac7ef05d1c2c4c9b23c129bd4b6"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_annotation_appearance_generation.py",
+        "sha": "49cf640358f8b627c035c138ce85278a0be40c8e",
+        "size": 13554,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/49cf640358f8b627c035c138ce85278a0be40c8e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_annotation_icon_appearances.py",
+        "sha": "bee96463b23c5580b9a1ea527cd1e3551da40345",
+        "size": 5802,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/bee96463b23c5580b9a1ea527cd1e3551da40345"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_annotation_property_roundtrip.py",
+        "sha": "a0f150caa5e632af87df758f967f620213e1595b",
+        "size": 5856,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a0f150caa5e632af87df758f967f620213e1595b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_annotations.py",
+        "sha": "b03e5d8df106f9c68263a04d14c6f501fc7d9015",
+        "size": 5768,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/b03e5d8df106f9c68263a04d14c6f501fc7d9015"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_api_surface.py",
+        "sha": "c94547aae5f75a33f3c4f8816a6dbbb944bcb9c2",
+        "size": 557,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c94547aae5f75a33f3c4f8816a6dbbb944bcb9c2"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_attachment_metadata.py",
+        "sha": "2bc88f1306379c2ed5d5c2bea20cd36c5bb1699d",
+        "size": 12561,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/2bc88f1306379c2ed5d5c2bea20cd36c5bb1699d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_attachment_name_tree.py",
+        "sha": "3017d7aa58bc6a8649fb1c33130ceb5a96da2631",
+        "size": 6881,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/3017d7aa58bc6a8649fb1c33130ceb5a96da2631"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_attachments.py",
+        "sha": "086cc386c6a9e0f99dd994666bd18c73bfc99aae",
+        "size": 5378,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/086cc386c6a9e0f99dd994666bd18c73bfc99aae"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_10_trailer_nested_dict.py",
+        "sha": "a2389ebf3748e7121ca41eab68c880834d2ad898",
+        "size": 2476,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a2389ebf3748e7121ca41eab68c880834d2ad898"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_11_tokenizer_null.py",
+        "sha": "31baeb3afa6b5faaadc1096b11cffe3871b0abf0",
+        "size": 966,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/31baeb3afa6b5faaadc1096b11cffe3871b0abf0"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_12_lazy_object_parse_errors.py",
+        "sha": "fa9e327703256a6b52e77735f61f1a6da854cc52",
+        "size": 1324,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/fa9e327703256a6b52e77735f61f1a6da854cc52"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_13_object_stream.py",
+        "sha": "030e431dad3aefd7e8303c91569925b3b7d17c8f",
+        "size": 3528,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/030e431dad3aefd7e8303c91569925b3b7d17c8f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_16_lazy_encryption.py",
+        "sha": "5f8977e2c7e86f76347baf13f34150cd61dd9e4e",
+        "size": 2241,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/5f8977e2c7e86f76347baf13f34150cd61dd9e4e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_17_exceptions.py",
+        "sha": "7b3362072ab274aa421e51238649eaa044f0de75",
+        "size": 3590,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/7b3362072ab274aa421e51238649eaa044f0de75"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_18_encrypted_exception_types.py",
+        "sha": "2ca78caeb6a15e87dee7e1f481cb30f8651d9eb4",
+        "size": 2667,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/2ca78caeb6a15e87dee7e1f481cb30f8651d9eb4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_19_content_stream_text.py",
+        "sha": "57e6d68e784e86f8f17f3fb3f35a31d2b62b5dfa",
+        "size": 3992,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/57e6d68e784e86f8f17f3fb3f35a31d2b62b5dfa"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_20_content_stream_token_memory.py",
+        "sha": "959a51e5353660f9026f534ac178038142f58c47",
+        "size": 3749,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/959a51e5353660f9026f534ac178038142f58c47"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_21_fonts_cmap_tounicode.py",
+        "sha": "abc657621ce6dcb453a8b3e6afd8cd47695ee1c0",
+        "size": 3811,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/abc657621ce6dcb453a8b3e6afd8cd47695ee1c0"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_22_jbig2.py",
+        "sha": "5f01e6315a01e64cf44ce6d2a6d51202b17a446e",
+        "size": 1965,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/5f01e6315a01e64cf44ce6d2a6d51202b17a446e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_23_jpx_ccitt.py",
+        "sha": "c4ecbdd935e79bd73e611223d2123e6eb2cdffc8",
+        "size": 2633,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c4ecbdd935e79bd73e611223d2123e6eb2cdffc8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_24_incremental_update.py",
+        "sha": "fd76def3cfffcdab9b9a29c37292a695ffdcef43",
+        "size": 3688,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/fd76def3cfffcdab9b9a29c37292a695ffdcef43"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_25_encryption_v_and_password.py",
+        "sha": "e290808b511eda5ab725a8495ecdcf5c1beb659a",
+        "size": 3336,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e290808b511eda5ab725a8495ecdcf5c1beb659a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_26_decrypt_lazy.py",
+        "sha": "c5219e3e234f776bcf923c771afd86cc1f56d29b",
+        "size": 2262,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c5219e3e234f776bcf923c771afd86cc1f56d29b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_27_incremental_byte_range.py",
+        "sha": "f8132668394a222e2ff33afc4efb98166b93f7bf",
+        "size": 1174,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f8132668394a222e2ff33afc4efb98166b93f7bf"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_28_signatures_compromise_detector.py",
+        "sha": "70ec5a7c59585d84a6f4e5e80054646f0752e317",
+        "size": 3069,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/70ec5a7c59585d84a6f4e5e80054646f0752e317"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_29_pdfa_heuristic.py",
+        "sha": "0d6f6f4d11c28d0f86d51fe9f377898337a5bafb",
+        "size": 2004,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/0d6f6f4d11c28d0f86d51fe9f377898337a5bafb"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_30_pdfua_heuristic.py",
+        "sha": "c9f4fbb2e6ed461e0989507858f4eb9b06ba5fa8",
+        "size": 4834,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c9f4fbb2e6ed461e0989507858f4eb9b06ba5fa8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_33_mmap_dispose.py",
+        "sha": "2223ca357b9c9a4ee735e86bb93c2fc9945cb479",
+        "size": 2106,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/2223ca357b9c9a4ee735e86bb93c2fc9945cb479"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_34_dispose_close_consistency.py",
+        "sha": "3059b0296df8b76671db4776039a29a07caf8209",
+        "size": 5390,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/3059b0296df8b76671db4776039a29a07caf8209"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_35_float_precision.py",
+        "sha": "5b6209b64431eb12e0cbeae981696a63c8a24562",
+        "size": 2671,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/5b6209b64431eb12e0cbeae981696a63c8a24562"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_36_stream_boundaries.py",
+        "sha": "ba8622adac86c26a48ca77def07edb3b7f45d9d9",
+        "size": 3341,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ba8622adac86c26a48ca77def07edb3b7f45d9d9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_37_stream_decoder.py",
+        "sha": "bb41a96d751ce4cefb8c7242f34a0ff9a4e8c667",
+        "size": 2507,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/bb41a96d751ce4cefb8c7242f34a0ff9a4e8c667"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_38_attachments.py",
+        "sha": "7acab2a78bbab80937806c29aec4d8770e3c8adb",
+        "size": 5367,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/7acab2a78bbab80937806c29aec4d8770e3c8adb"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_39_outlines.py",
+        "sha": "e404e3f85fa2eacca3edae370ff605bfa758ebb6",
+        "size": 5599,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e404e3f85fa2eacca3edae370ff605bfa758ebb6"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_40_annotations_appearance.py",
+        "sha": "05034136d0d290307ba7a732ef925105fcd8ee3a",
+        "size": 3088,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/05034136d0d290307ba7a732ef925105fcd8ee3a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_41_generated_document.py",
+        "sha": "0cfd35d889395140cf1c3ec28e8916b1d4930a36",
+        "size": 3244,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/0cfd35d889395140cf1c3ec28e8916b1d4930a36"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_42_logging.py",
+        "sha": "c3a567f16b94b594387cd2cd00a97eb90d234d2d",
+        "size": 4787,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c3a567f16b94b594387cd2cd00a97eb90d234d2d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_5_lazy_cos.py",
+        "sha": "6a448d5f18462714e7a9a17b22ded20c6751415f",
+        "size": 2942,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/6a448d5f18462714e7a9a17b22ded20c6751415f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_6_from_bytes.py",
+        "sha": "b6ac9647086767a438a15d080044eba1328b6b3f",
+        "size": 1818,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/b6ac9647086767a438a15d080044eba1328b6b3f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_7_parse_exception_handling.py",
+        "sha": "1172e3ad142bc2668030a438d31273e776befc5f",
+        "size": 3362,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/1172e3ad142bc2668030a438d31273e776befc5f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_audit_issue_9_xref_stream.py",
+        "sha": "e78ed00d26ae94098692ac02a9f010ad176a3bfb",
+        "size": 4087,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e78ed00d26ae94098692ac02a9f010ad176a3bfb"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_authoring_resource_limits.py",
+        "sha": "3f4d879fe75647b267d8bfe451c4d26157657699",
+        "size": 4961,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/3f4d879fe75647b267d8bfe451c4d26157657699"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_auto_tag.py",
+        "sha": "51012835ca3e36056025bbc3b7b7c09fde5292f8",
+        "size": 25195,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/51012835ca3e36056025bbc3b7b7c09fde5292f8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_auto_tag_limits.py",
+        "sha": "c0e1dce74f2601ebf0b840627c733f24e08da749",
+        "size": 2567,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c0e1dce74f2601ebf0b840627c733f24e08da749"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_ccitt_decoder.py",
+        "sha": "e70c1d6cf631b7d469b0e6164e0b1cd733e0874a",
+        "size": 2541,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e70c1d6cf631b7d469b0e6164e0b1cd733e0874a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cff_predefined_encoding.py",
+        "sha": "9839914dc3b385eccb97212003393f39118f10a8",
+        "size": 3675,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/9839914dc3b385eccb97212003393f39118f10a8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cff_rasterization.py",
+        "sha": "72c7ec03e51f31f1f74c6ed3dffb3e621ffa152c",
+        "size": 12740,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/72c7ec03e51f31f1f74c6ed3dffb3e621ffa152c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cjk_cmap_rendering.py",
+        "sha": "aced9a7e096173d8040162f240617c062ea7b92f",
+        "size": 11949,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/aced9a7e096173d8040162f240617c062ea7b92f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cmap_build_data.py",
+        "sha": "9637802973a39cd1d6c6c7a0d87116fac96c2798",
+        "size": 2211,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/9637802973a39cd1d6c6c7a0d87116fac96c2798"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cmap_resource_limits.py",
+        "sha": "9397ee4c215ed81d17e58d9278198d8064e74f0f",
+        "size": 4943,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/9397ee4c215ed81d17e58d9278198d8064e74f0f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_compatibility_surfaces.py",
+        "sha": "37406c2516c847973e89925a0485c23ae3826d0b",
+        "size": 10846,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/37406c2516c847973e89925a0485c23ae3826d0b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_complex_text_layout.py",
+        "sha": "7cfb2212fb412bdcf59381347629abca8cbb24f5",
+        "size": 14088,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/7cfb2212fb412bdcf59381347629abca8cbb24f5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_content_authoring.py",
+        "sha": "30f4a7900fc60bf88f5efb6c76a8562b2812ee20",
+        "size": 5706,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/30f4a7900fc60bf88f5efb6c76a8562b2812ee20"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cos.py",
+        "sha": "05188c685e032ce8463b5fdea996290294db7571",
+        "size": 3111,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/05188c685e032ce8463b5fdea996290294db7571"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cos_preservation.py",
+        "sha": "6a4f3c594e701595fab6f980c9a9d1af035a14f4",
+        "size": 2430,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/6a4f3c594e701595fab6f980c9a9d1af035a14f4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cos_tree_resource_limits.py",
+        "sha": "796f90154562d816aa9438365187af29ea83d5ee",
+        "size": 9473,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/796f90154562d816aa9438365187af29ea83d5ee"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_dct.py",
+        "sha": "5e35e8cceb5bbf6dd43ff2a164adb2372f68509c",
+        "size": 10017,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/5e35e8cceb5bbf6dd43ff2a164adb2372f68509c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_document_lifecycle.py",
+        "sha": "e25ede503b31ce000e91cc9c23d71c94a3a0e7d9",
+        "size": 7112,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e25ede503b31ce000e91cc9c23d71c94a3a0e7d9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_document_metadata.py",
+        "sha": "d0d24d0c114782e5505a94abeb4eb23951373c71",
+        "size": 8868,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/d0d24d0c114782e5505a94abeb4eb23951373c71"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_encrypted_pdf_validation.py",
+        "sha": "e6a0d3240e1422d5f172e9f59679a7e9756b0869",
+        "size": 3492,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e6a0d3240e1422d5f172e9f59679a7e9756b0869"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_encryption_aes.py",
+        "sha": "63cb683a459abac592e362d92c45353714ddae89",
+        "size": 1481,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/63cb683a459abac592e362d92c45353714ddae89"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_encryption_task7.py",
+        "sha": "b0efb1628ff3736e1cc32a195e81845d09670fee",
+        "size": 513,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/b0efb1628ff3736e1cc32a195e81845d09670fee"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_engine_v0.py",
+        "sha": "3398a6ac181cdd296d87e48d4e4c1843feab0010",
+        "size": 1283,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/3398a6ac181cdd296d87e48d4e4c1843feab0010"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_engine_v1.py",
+        "sha": "c4a9e76b4d9ccd9063cac824e8d52994a9e99de6",
+        "size": 3295,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c4a9e76b4d9ccd9063cac824e8d52994a9e99de6"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_error_handling.py",
+        "sha": "4e09182068c01a80b64344461a3dd76d9826239b",
+        "size": 4329,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/4e09182068c01a80b64344461a3dd76d9826239b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_field_appearance_generation.py",
+        "sha": "4a22b138fe441b7ddd509e41de1d5fb5ad5f8511",
+        "size": 25072,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/4a22b138fe441b7ddd509e41de1d5fb5ad5f8511"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_field_type0_font.py",
+        "sha": "230303cb9567c669281430ce881407dc6f3c572f",
+        "size": 5260,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/230303cb9567c669281430ce881407dc6f3c572f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_file_editor_io.py",
+        "sha": "1011037976416b16869cb01a9191280c1a0da3d4",
+        "size": 7502,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/1011037976416b16869cb01a9191280c1a0da3d4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_filters.py",
+        "sha": "7a395e2ebe31d146627c9d796852b7cd802ad5af",
+        "size": 9618,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/7a395e2ebe31d146627c9d796852b7cd802ad5af"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_filters_decoding.py",
+        "sha": "1577a5c2d43935694d277134c98cf4d9ca384a04",
+        "size": 4055,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/1577a5c2d43935694d277134c98cf4d9ca384a04"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_filters_encoding.py",
+        "sha": "fb387b78659f449fa3723f17a14ea9afd0f293b5",
+        "size": 3787,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/fb387b78659f449fa3723f17a14ea9afd0f293b5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_flattening_task5.py",
+        "sha": "672cf03208bc4c8c9d9d4879b4bea7f985afc263",
+        "size": 385,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/672cf03208bc4c8c9d9d4879b4bea7f985afc263"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_font_authoring_formats.py",
+        "sha": "a5f4805131ec1499ae94b110e316b9303abaf245",
+        "size": 8953,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a5f4805131ec1499ae94b110e316b9303abaf245"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_font_source.py",
+        "sha": "eef63dff93edf67cd61c360e2042f9d16247406c",
+        "size": 12760,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/eef63dff93edf67cd61c360e2042f9d16247406c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_font_subset.py",
+        "sha": "7fe4f167c4808d7c102e35ce6014527dd5e7cbab",
+        "size": 26515,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/7fe4f167c4808d7c102e35ce6014527dd5e7cbab"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_font_subset_cff.py",
+        "sha": "f84c45f82be375a278282d681adedbd058676035",
+        "size": 21065,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f84c45f82be375a278282d681adedbd058676035"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_font_subset_type1.py",
+        "sha": "f3fbc56f745ea4c13af849c2ee79f0da34dbf2e3",
+        "size": 8569,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f3fbc56f745ea4c13af849c2ee79f0da34dbf2e3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_form_creation.py",
+        "sha": "95bdf6831f553c47bda4a816815e37b5208c4f8d",
+        "size": 10078,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/95bdf6831f553c47bda4a816815e37b5208c4f8d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_form_field_types.py",
+        "sha": "3d6bd3509f5aeee0e1964c1a56d6bb36b7213b54",
+        "size": 4559,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/3d6bd3509f5aeee0e1964c1a56d6bb36b7213b54"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_forms.py",
+        "sha": "e707bbbea67f03329b55261840762513329515e6",
+        "size": 5092,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e707bbbea67f03329b55261840762513329515e6"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_forms_icons_and_submit.py",
+        "sha": "ea8ea3e8ad8dabed8157c71b4261b01956bca2a8",
+        "size": 8478,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ea8ea3e8ad8dabed8157c71b4261b01956bca2a8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_fuzz_corpus.py",
+        "sha": "8c1a6768d92acec4353e624bb06c8896e1bdef07",
+        "size": 645,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/8c1a6768d92acec4353e624bb06c8896e1bdef07"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_glyph_rasterization.py",
+        "sha": "e34ec8f72e16618067b1d32baf740cd59d11db48",
+        "size": 12930,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e34ec8f72e16618067b1d32baf740cd59d11db48"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_image_codec_limits.py",
+        "sha": "19990fa33fe7dc0c22cd057972526157973bd006",
+        "size": 3817,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/19990fa33fe7dc0c22cd057972526157973bd006"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_image_dimensions.py",
+        "sha": "5ce9458178b606c801a79adba2bec11194b1fb79",
+        "size": 2787,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/5ce9458178b606c801a79adba2bec11194b1fb79"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_image_export.py",
+        "sha": "10c518721df53130dad2e3ecb64550345c2eba46",
+        "size": 14837,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/10c518721df53130dad2e3ecb64550345c2eba46"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_image_extraction.py",
+        "sha": "a3efca1bf217cb634cce9bfff30d2c01aa309c99",
+        "size": 3756,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a3efca1bf217cb634cce9bfff30d2c01aa309c99"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_image_optimize_coverage.py",
+        "sha": "98812f6a21d9c5e380a013d006608c0142a40c98",
+        "size": 9145,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/98812f6a21d9c5e380a013d006608c0142a40c98"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_image_recompress.py",
+        "sha": "57aa28ff4ac3cc0c95b2d451c6b8818abe720bf8",
+        "size": 16359,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/57aa28ff4ac3cc0c95b2d451c6b8818abe720bf8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_image_resample.py",
+        "sha": "6ad7b9893533d4e012b539429908fdf8383574c0",
+        "size": 1896,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/6ad7b9893533d4e012b539429908fdf8383574c0"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_incremental_save.py",
+        "sha": "cccd053cbc43af22821acf0bdadfb184c0af83a9",
+        "size": 5393,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/cccd053cbc43af22821acf0bdadfb184c0af83a9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_incremental_update.py",
+        "sha": "db9a00f603abb3d42f94229323eb8b30c6389f3d",
+        "size": 5416,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/db9a00f603abb3d42f94229323eb8b30c6389f3d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_integration_final.py",
+        "sha": "65800520ef1a51220b248908a1bbdba35f57595a",
+        "size": 917,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/65800520ef1a51220b248908a1bbdba35f57595a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_interactive_actions.py",
+        "sha": "bbb3403fc0990044b2bda9376ae88e6cbb1f0b2c",
+        "size": 4974,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/bbb3403fc0990044b2bda9376ae88e6cbb1f0b2c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_jbig2_decoder.py",
+        "sha": "e4ec999cff6d95d1949f38ddf30b6de3f047f0a9",
+        "size": 4350,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e4ec999cff6d95d1949f38ddf30b6de3f047f0a9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_jpeg_encoder.py",
+        "sha": "74c841c8774e10a732bb05ebaf8ac0b6c1f9b593",
+        "size": 8996,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/74c841c8774e10a732bb05ebaf8ac0b6c1f9b593"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_jpx_task8.py",
+        "sha": "f40b0e6ffbc92175972d7bcea2429176c511a5f7",
+        "size": 686,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f40b0e6ffbc92175972d7bcea2429176c511a5f7"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_lazy_images.py",
+        "sha": "990c5f9b3fd78461b1bc0333efdf69414b43e407",
+        "size": 2781,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/990c5f9b3fd78461b1bc0333efdf69414b43e407"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_load_from_stream.py",
+        "sha": "a96daee6afc0abfb73f6ecee1c378cef9b209370",
+        "size": 8811,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a96daee6afc0abfb73f6ecee1c378cef9b209370"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_load_limits.py",
+        "sha": "8878375f79d5a1fd968e5ca5837ebea1bcb4b438",
+        "size": 17161,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/8878375f79d5a1fd968e5ca5837ebea1bcb4b438"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_logging_task10.py",
+        "sha": "aee4cf11fa7229424dd7ab07a0d70e194dded4f5",
+        "size": 505,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/aee4cf11fa7229424dd7ab07a0d70e194dded4f5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_lowcode.py",
+        "sha": "9f2cfe9d2c8c248f5b684bb870fe417813338dbd",
+        "size": 9551,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/9f2cfe9d2c8c248f5b684bb870fe417813338dbd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_lowcode_resource_limits.py",
+        "sha": "27c3352e21da84287231587b2d7d7ffd54600fb6",
+        "size": 5164,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/27c3352e21da84287231587b2d7d7ffd54600fb6"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_merging_task4.py",
+        "sha": "b2c1d74ec8d6dc41c2b36d4ef0ae062fa75e3b7f",
+        "size": 1560,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/b2c1d74ec8d6dc41c2b36d4ef0ae062fa75e3b7f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_metadata.py",
+        "sha": "812f62c0ea4e3e269c2e2949acf361da00eb08f0",
+        "size": 2296,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/812f62c0ea4e3e269c2e2949acf361da00eb08f0"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_opt_01_gc.py",
+        "sha": "6429dd99983bf56f286c1bc6045ed41319ca5d75",
+        "size": 2663,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/6429dd99983bf56f286c1bc6045ed41319ca5d75"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_optimization_options.py",
+        "sha": "2dd8d4407b1a4c103eb5d6dc7ef24a80fc764ce4",
+        "size": 18332,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/2dd8d4407b1a4c103eb5d6dc7ef24a80fc764ce4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_optimization_task6.py",
+        "sha": "2ec9676b29dcb5f3238626723e74772a14c7f4b0",
+        "size": 559,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/2ec9676b29dcb5f3238626723e74772a14c7f4b0"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_p0_bugfixes.py",
+        "sha": "71d71c091937645a7a0b2667ff5bc22ee5b710f5",
+        "size": 4220,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/71d71c091937645a7a0b2667ff5bc22ee5b710f5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_package_metadata.py",
+        "sha": "aa0685282699ea11e6bad21b9abc723a9ef3f03f",
+        "size": 2787,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/aa0685282699ea11e6bad21b9abc723a9ef3f03f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_page_rendering.py",
+        "sha": "c1bbd9b060a99993f3a6f602348b754910433b95",
+        "size": 7824,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c1bbd9b060a99993f3a6f602348b754910433b95"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_page_rotation_cropbox.py",
+        "sha": "50b290c9b69ca8e893d4e5eda9b458c21cd29a70",
+        "size": 3178,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/50b290c9b69ca8e893d4e5eda9b458c21cd29a70"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pages.py",
+        "sha": "544fe7d186a801086607934d16e3bd9d45629a97",
+        "size": 6881,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/544fe7d186a801086607934d16e3bd9d45629a97"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_password.py",
+        "sha": "9b877da381a7940b916eb9f4adec9e6c3014fd29",
+        "size": 2015,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/9b877da381a7940b916eb9f4adec9e6c3014fd29"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdf_cos_parser_stream_sources.py",
+        "sha": "d369051160ae9dd8f5588eae9faa4983927bd0fa",
+        "size": 2775,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/d369051160ae9dd8f5588eae9faa4983927bd0fa"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdf_extractor_bind_password.py",
+        "sha": "94040f80b127633c99cd72be870a95302da30efa",
+        "size": 2137,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/94040f80b127633c99cd72be870a95302da30efa"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdf_file_editor_last_exception.py",
+        "sha": "00c9f2a556ca85814a9d975f3afa66739e792454",
+        "size": 2005,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/00c9f2a556ca85814a9d975f3afa66739e792454"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdfa.py",
+        "sha": "cb137cb71c65b47640a8187c51fe397ec3fe57ac",
+        "size": 3614,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/cb137cb71c65b47640a8187c51fe397ec3fe57ac"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdfa_cmyk_images.py",
+        "sha": "f163370a34d9ed3c2d4a402bf3919e6a3c91bfb9",
+        "size": 7557,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f163370a34d9ed3c2d4a402bf3919e6a3c91bfb9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdfa_cmyk_normalize.py",
+        "sha": "65a357910e1358003b395ec162df2b6fa42cd4c7",
+        "size": 5073,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/65a357910e1358003b395ec162df2b6fa42cd4c7"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdfa_conformance_extended.py",
+        "sha": "9852c745034f758590b4d10aca832c4f5aee5b88",
+        "size": 20815,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/9852c745034f758590b4d10aca832c4f5aee5b88"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdfa_conversion.py",
+        "sha": "94ed0dede3917441134f1eb6bfe00fc4f2582663",
+        "size": 17626,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/94ed0dede3917441134f1eb6bfe00fc4f2582663"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdfa_embed_fonts.py",
+        "sha": "aa14e455594c7354e43195de9f8511eb8e509da2",
+        "size": 4234,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/aa14e455594c7354e43195de9f8511eb8e509da2"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdfa_output_intent_match.py",
+        "sha": "6e85b974b893324e7dc923e133d206c4fba57c45",
+        "size": 6956,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/6e85b974b893324e7dc923e133d206c4fba57c45"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdfa_separation_devicen.py",
+        "sha": "bde242e1dedf5bc78fd1836d1cad8953b7d86f3b",
+        "size": 11714,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/bde242e1dedf5bc78fd1836d1cad8953b7d86f3b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdfa_task9.py",
+        "sha": "eee09ebd359599ff1791057854d99cafd9a6f834",
+        "size": 541,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/eee09ebd359599ff1791057854d99cafd9a6f834"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdfa_transparency_groups.py",
+        "sha": "31fe68a85d35d333947df1a5c59688b85ca7f143",
+        "size": 7104,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/31fe68a85d35d333947df1a5c59688b85ca7f143"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdfa_validation_result.py",
+        "sha": "537e880077314618c718ccb80d15979652927e41",
+        "size": 13516,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/537e880077314618c718ccb80d15979652927e41"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdfua_conformance.py",
+        "sha": "3fe24f958caa3d747fb6c703253f90582634685c",
+        "size": 15603,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/3fe24f958caa3d747fb6c703253f90582634685c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pdfua_mcid_coverage.py",
+        "sha": "0746cd8618aa53c71e515cbdb1956be4a29a95a4",
+        "size": 5520,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/0746cd8618aa53c71e515cbdb1956be4a29a95a4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_predefined_cjk_cmaps.py",
+        "sha": "daf4358319b477fa3509e7c013a4b072da3ddbba",
+        "size": 23110,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/daf4358319b477fa3509e7c013a4b072da3ddbba"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_pushbutton_appearance.py",
+        "sha": "f1c2857e3e7f4f2c83c605f92e3cb643b16df46a",
+        "size": 2757,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f1c2857e3e7f4f2c83c605f92e3cb643b16df46a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_rc4_external.py",
+        "sha": "100026beb6e6c59536e13e2e363eedd2519bba0d",
+        "size": 1909,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/100026beb6e6c59536e13e2e363eedd2519bba0d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_redaction_overlay.py",
+        "sha": "1928666588a4a770c5018ba521a71b8ee2fa87ae",
+        "size": 5104,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/1928666588a4a770c5018ba521a71b8ee2fa87ae"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_refactored_simple_pdf.py",
+        "sha": "03ebe1558c5dc38578836effdd5d426ea892d044",
+        "size": 1904,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/03ebe1558c5dc38578836effdd5d426ea892d044"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_render_annotations.py",
+        "sha": "85d4fc9929c6ff6f5cc588a4fa0a34d4942dfd69",
+        "size": 8017,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/85d4fc9929c6ff6f5cc588a4fa0a34d4942dfd69"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_repair_task2.py",
+        "sha": "b7a19787aa29e8b9a22821430cee512beae0f1af",
+        "size": 805,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/b7a19787aa29e8b9a22821430cee512beae0f1af"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_resource_limits_ccitt_jbig2.py",
+        "sha": "733c37064c2e32f245d13777fa0f5e89bc6f7845",
+        "size": 2735,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/733c37064c2e32f245d13777fa0f5e89bc6f7845"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_rich_text.py",
+        "sha": "c07a4236d548d875b26be51bc28a61f9e4cb9e56",
+        "size": 4226,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c07a4236d548d875b26be51bc28a61f9e4cb9e56"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_save_to_stream.py",
+        "sha": "6527de2ec2c3d27ed0fbcd1d52e60e0ec4cd9439",
+        "size": 5237,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/6527de2ec2c3d27ed0fbcd1d52e60e0ec4cd9439"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_security.py",
+        "sha": "afdc1654847362916f145317bfd8618f59512537",
+        "size": 1055,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/afdc1654847362916f145317bfd8618f59512537"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_shading.py",
+        "sha": "910801b9353430293f934deb77cc742bcedec247",
+        "size": 26470,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/910801b9353430293f934deb77cc742bcedec247"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_shading_resource_limits.py",
+        "sha": "5d2d5573925ff47230d198e54f90076a58ba78d4",
+        "size": 7935,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/5d2d5573925ff47230d198e54f90076a58ba78d4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_sign_authored_field.py",
+        "sha": "49c9b066e62ed0c875e517be7e9ae886d96d105d",
+        "size": 12838,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/49c9b066e62ed0c875e517be7e9ae886d96d105d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_signature.py",
+        "sha": "f4cce663db160bb31b5018452fbabe6f83e391f7",
+        "size": 850,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/f4cce663db160bb31b5018452fbabe6f83e391f7"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_signature_certification.py",
+        "sha": "48ec4c1ad4d9eaf676d7ded380ed874568f48dbd",
+        "size": 2752,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/48ec4c1ad4d9eaf676d7ded380ed874568f48dbd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_signature_chain_validation.py",
+        "sha": "22680a2897ab0a9afd2b2bf40ed36c53d19e1eea",
+        "size": 3978,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/22680a2897ab0a9afd2b2bf40ed36c53d19e1eea"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_signature_field_authoring.py",
+        "sha": "26d90f5d9a60dd06c16c612a61591f8dc2725ac0",
+        "size": 5489,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/26d90f5d9a60dd06c16c612a61591f8dc2725ac0"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_signature_pades.py",
+        "sha": "d51208b86ccd00b51af48f5a4f12ffc66829e0cb",
+        "size": 12815,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/d51208b86ccd00b51af48f5a4f12ffc66829e0cb"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_signature_revocation.py",
+        "sha": "938f4355027489a7ad6b0273823d79ca851ea9f4",
+        "size": 5239,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/938f4355027489a7ad6b0273823d79ca851ea9f4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_signature_timestamp.py",
+        "sha": "5d491f898c92a9a2203bb4a53447c75decbf8bb6",
+        "size": 2232,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/5d491f898c92a9a2203bb4a53447c75decbf8bb6"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_signature_validation.py",
+        "sha": "bff09b9be90037a511f9ab84f685ee9be85c62e9",
+        "size": 15840,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/bff09b9be90037a511f9ab84f685ee9be85c62e9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_signature_verification.py",
+        "sha": "ce27cd947ec4e5a78159372e3da2f8228d49e6cb",
+        "size": 4752,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ce27cd947ec4e5a78159372e3da2f8228d49e6cb"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_signing.py",
+        "sha": "ffdd5be15b3bebcbdf8cc8122b436c085d69685c",
+        "size": 1483,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ffdd5be15b3bebcbdf8cc8122b436c085d69685c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_signing_e2e.py",
+        "sha": "618bfbf3e749de29ac412d2559a01c051b21dcc7",
+        "size": 1045,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/618bfbf3e749de29ac412d2559a01c051b21dcc7"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_smoke_imports.py",
+        "sha": "906af9eddf7289fb0b0782c0e4013dfd26578df5",
+        "size": 749,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/906af9eddf7289fb0b0782c0e4013dfd26578df5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_soft_mask_rendering.py",
+        "sha": "cac453ee5a2dc29758489e0d1f4ed958f7037b55",
+        "size": 12529,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/cac453ee5a2dc29758489e0d1f4ed958f7037b55"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_standard14_rendering.py",
+        "sha": "517ffb755425baa2e52c987107fe8720e6848422",
+        "size": 8663,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/517ffb755425baa2e52c987107fe8720e6848422"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_std_fonts.py",
+        "sha": "816fa171db8b1cb0ec31361f9117c7bd939f9179",
+        "size": 1589,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/816fa171db8b1cb0ec31361f9117c7bd939f9179"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_stream_cmap_render.py",
+        "sha": "de8428a566fccde8d1b295289948a32a789c901d",
+        "size": 7466,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/de8428a566fccde8d1b295289948a32a789c901d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_streaming.py",
+        "sha": "646b0ccfb13ce3004aefd9d8e55b07fb4b649074",
+        "size": 11778,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/646b0ccfb13ce3004aefd9d8e55b07fb4b649074"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tagged_remediation.py",
+        "sha": "00bfab4c6e7bc34e4a9e5f1df7b3b7738122c646",
+        "size": 6250,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/00bfab4c6e7bc34e4a9e5f1df7b3b7738122c646"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_text_edit_cross_operator.py",
+        "sha": "1a3faa65be3b1717f817b568baca84b31f5c879f",
+        "size": 6444,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/1a3faa65be3b1717f817b568baca84b31f5c879f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_text_edit_cross_position.py",
+        "sha": "b4f84934c9b85875a98fa70f7e3776a0d2628ea3",
+        "size": 6767,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/b4f84934c9b85875a98fa70f7e3776a0d2628ea3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_text_edit_limits.py",
+        "sha": "ddcd20a0fe98217fab471562cc29c731f16ccdaa",
+        "size": 3599,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/ddcd20a0fe98217fab471562cc29c731f16ccdaa"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_text_edit_multi_tj.py",
+        "sha": "99fc52bdbc7117ea59c1eb1bdf967102e413b007",
+        "size": 4537,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/99fc52bdbc7117ea59c1eb1bdf967102e413b007"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_text_edit_type0.py",
+        "sha": "d78e3f6dad13cfdd02c56f1abbb610eb36e1db17",
+        "size": 8217,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/d78e3f6dad13cfdd02c56f1abbb610eb36e1db17"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_text_edit_type0_encodings.py",
+        "sha": "7cb1b412847e442a3dcd89fef1f5c024a7eaae7c",
+        "size": 5287,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/7cb1b412847e442a3dcd89fef1f5c024a7eaae7c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_text_edit_type0_reconstruct.py",
+        "sha": "e3e6e90adb6a6b52b74c0f44f31f68d0ad4b5c7e",
+        "size": 11261,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/e3e6e90adb6a6b52b74c0f44f31f68d0ad4b5c7e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_text_editing.py",
+        "sha": "bcc65015c2bed6adad286c85a18b5de58ab70bf2",
+        "size": 3443,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/bcc65015c2bed6adad286c85a18b5de58ab70bf2"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_text_extraction.py",
+        "sha": "c6c9d136f000c36f5be8d16e38f58920f7fe0131",
+        "size": 2556,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c6c9d136f000c36f5be8d16e38f58920f7fe0131"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_text_extraction_task3.py",
+        "sha": "de5d0cb2e24d5b1e8d50c81df9fa8bfc3b085187",
+        "size": 496,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/de5d0cb2e24d5b1e8d50c81df9fa8bfc3b085187"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_text_fragment_absorber.py",
+        "sha": "872ffe78f42a1f8612727819a4751818d532cb19",
+        "size": 17023,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/872ffe78f42a1f8612727819a4751818d532cb19"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_text_reshape_edit.py",
+        "sha": "d5951bfe80ca1d2c09c01588426e9c0167a36b9b",
+        "size": 13583,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/d5951bfe80ca1d2c09c01588426e9c0167a36b9b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_tiling_pattern.py",
+        "sha": "1a3e50b30a7a1d7cff24622abfcbbb76c7fa5516",
+        "size": 4091,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/1a3e50b30a7a1d7cff24622abfcbbb76c7fa5516"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_txt01_fallback.py",
+        "sha": "a5cbbd115d8e05a1dd91b061d44c9472b6cc0f22",
+        "size": 1781,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a5cbbd115d8e05a1dd91b061d44c9472b6cc0f22"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_type1_rasterization.py",
+        "sha": "fe6ccb2d7981ae9f726752c316c8048e8dd43b18",
+        "size": 11955,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/fe6ccb2d7981ae9f726752c316c8048e8dd43b18"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_unicode_font_authoring.py",
+        "sha": "c0fdb457daa36484d251d39b8a52b2857aab0638",
+        "size": 13973,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/c0fdb457daa36484d251d39b8a52b2857aab0638"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_validation_task1.py",
+        "sha": "458ec5d5833a768c80f6aa6c30d69f3bfba4c17e",
+        "size": 840,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/458ec5d5833a768c80f6aa6c30d69f3bfba4c17e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_validator_bytearray_limits.py",
+        "sha": "28f658a4ba188427c118597a7017747c8c2b1ce7",
+        "size": 6743,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/28f658a4ba188427c118597a7017747c8c2b1ce7"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_verify_aes_generation.py",
+        "sha": "fad8833d4217e7fba23a485962b39e6dfcab3497",
+        "size": 1350,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/fad8833d4217e7fba23a485962b39e6dfcab3497"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_watermark.py",
+        "sha": "a03903c9a54017ce776c589392ed33e6a4e38008",
+        "size": 1226,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a03903c9a54017ce776c589392ed33e6a4e38008"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_woff.py",
+        "sha": "a9206b97763129a09b173eea2e8e012a6f0827d3",
+        "size": 10450,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/a9206b97763129a09b173eea2e8e012a6f0827d3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_woff2.py",
+        "sha": "9cbcab74b04df7e182cc8855daf6c6ff2dbaf5b6",
+        "size": 8084,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/9cbcab74b04df7e182cc8855daf6c6ff2dbaf5b6"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_woff2_collections.py",
+        "sha": "97168d176920a2b5f139d2015798b466c5368a3e",
+        "size": 5425,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/97168d176920a2b5f139d2015798b466c5368a3e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_xmp_info_sync.py",
+        "sha": "2c1bc74f5a6055808d5e06d3338c1cf430854d27",
+        "size": 7530,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/2c1bc74f5a6055808d5e06d3338c1cf430854d27"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_xmp_namespace.py",
+        "sha": "abd41e037bcee928cd5cd306773a59cb8e0d13a2",
+        "size": 6392,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/abd41e037bcee928cd5cd306773a59cb8e0d13a2"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_xmp_packet.py",
+        "sha": "33098edb80e62d6b9b3677ff8d2395f96c8c2a57",
+        "size": 32392,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/33098edb80e62d6b9b3677ff8d2395f96c8c2a57"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_xref_streams.py",
+        "sha": "3a3f27993b55e62d442f271ef2c68917aba47fd1",
+        "size": 8275,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/blobs/3a3f27993b55e62d442f271ef2c68917aba47fd1"
+      }
+    ],
+    "truncated": false,
+    "url": "https://api.github.com/repos/aspose-pdf-foss/Aspose-PDF-FOSS-for-Python/git/trees/4c5c3efc6574aa313d7c0901db8f488429bc22aa"
+  }
+}

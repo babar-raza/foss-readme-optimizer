@@ -177,6 +177,8 @@ def _graph_with_tasks_reactivated(tmp_path, *task_ids):
     production reality, durably closed and retired."""
 
     raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    for task in raw["taskcards"]:
+        task["status"] = "CLOSED"
     deferred_catalog_path = REPO_ROOT / raw["deferred_task_catalog"]["path"]
     catalog_lines = [
         line for line in deferred_catalog_path.read_text(encoding="utf-8").splitlines() if line
@@ -197,6 +199,21 @@ def _graph_with_tasks_reactivated(tmp_path, *task_ids):
 
     missing = wanted - {task["task_id"] for task in reactivated_tasks}
     assert not missing, f"tasks not found in deferred catalog: {missing}"
+
+    normalized_lines = []
+    normalized_index = []
+    for line, index_entry in zip(kept_lines, kept_index, strict=True):
+        record = json.loads(line)
+        index_entry = dict(index_entry)
+        if record["activation_group"] != "historical-control":
+            record["task"]["status"] = "CLOSED"
+            index_entry["status"] = "CLOSED"
+        normalized = json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        index_entry["record_sha256"] = hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+        normalized_lines.append(normalized)
+        normalized_index.append(index_entry)
+    kept_lines = normalized_lines
+    kept_index = normalized_index
 
     raw["taskcards"].extend(reactivated_tasks)
     raw["deferred_task_index"] = kept_index
@@ -222,16 +239,40 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert 1 <= len(graph.taskcards) <= 15
     assert len(graph.deferred_task_index) == graph.deferred_task_catalog.record_count
     assert len(graph_hash) == 64
+    assert graph.portfolio_proof_contract.baseline_admitted == 33
+    assert graph.portfolio_proof_contract.baseline_processable == 31
+    assert graph.portfolio_proof_contract.baseline_non_processable == 2
+    assert graph.portfolio_proof_contract.required_score == 30
+    assert graph.portfolio_proof_contract.product_effects_allowed is False
     tasks = {task.task_id: task for task in graph.taskcards}
     assert set(tasks) == {
-        "L8-VNET-01-ACCELERATED-LOCAL-NO-OP",
-        "L8-VPY-04-PRODUCTION-TRANSPORT",
-        "L8-VPY-05-PRODUCTION-ADMISSION",
-        "L8-VNET-02-PRODUCTION-TRANSPORT",
-        "L8-HORIZON-01-ACTIVATE-GATE-A",
-        "L8-FRESH-00-FRESHNESS-SERVICE",
+        "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION",
+        "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+        "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+        "L8-PF-03-SEALED-CANDIDATE-NO-OP",
+        "L8-PF-04-MINIMAL-GRAPH-RUNNER",
+        "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
         "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY",
     }
+    assert tasks["L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION"].dependencies == []
+    assert tasks["L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY"].dependencies == [
+        "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION"
+    ]
+    assert tasks["L8-PF-02-COMPLETE-CANDIDATE-SEAM"].dependencies == [
+        "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY"
+    ]
+    assert tasks["L8-PF-03-SEALED-CANDIDATE-NO-OP"].dependencies == [
+        "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+    ]
+    assert tasks["L8-PF-04-MINIMAL-GRAPH-RUNNER"].dependencies == [
+        "L8-PF-03-SEALED-CANDIDATE-NO-OP"
+    ]
+    assert tasks["L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"].dependencies == [
+        "L8-PF-04-MINIMAL-GRAPH-RUNNER"
+    ]
+    assert tasks["L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY"].dependencies == [
+        "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
+    ]
     # These tasks are durably CLOSED in production and retired to the deferred
     # catalog (see l8-horizon-01-deferral-2026-08-13/findings.md, Finding 3);
     # their original TaskCardV1 content -- including dependencies and
@@ -258,7 +299,7 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert deferred_tasks["L8-VPY-00-PRESENTATION-CONTRACT-RESET"]["dependencies"] == [
         "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E"
     ]
-    assert tasks["L8-VNET-01-ACCELERATED-LOCAL-NO-OP"].dependencies == [
+    assert deferred_tasks["L8-VNET-01-ACCELERATED-LOCAL-NO-OP"]["dependencies"] == [
         "L8-VPY-05-PRODUCTION-ADMISSION"
     ]
     assert deferred_tasks["L8-VPY-03C-PAGE-CURRENT-REFRESH"]["dependencies"] == [
@@ -281,8 +322,8 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert deferred_tasks["L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"]["dependencies"] == [
         "L8-VNET-02-PRODUCTION-TRANSPORT"
     ]
-    assert tasks["L8-HORIZON-01-ACTIVATE-GATE-A"].dependencies == [
-        "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES"
+    assert deferred_tasks["L8-HORIZON-01-ACTIVATE-GATE-A"]["dependencies"] == [
+        "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY"
     ]
     goals = {goal.goal_id: goal for goal in graph.mission_authority.stage_goal_catalog}
     campaigns = {campaign.campaign_id: campaign for campaign in graph.campaign_catalog}
@@ -513,8 +554,13 @@ def test_concurrent_lane_cannot_replace_an_admission_blocked_primary_claim(tmp_p
     assert claimed.mission_execution.task_statuses[concurrent_id] == "TODO"
 
 
-def test_platform_production_admission_keeps_python_ahead_of_dotnet_and_java():
-    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+def test_platform_production_admission_keeps_python_ahead_of_dotnet_and_java(tmp_path):
+    graph, graph_hash = _graph_with_tasks_reactivated(
+        tmp_path,
+        "L8-VPY-04-PRODUCTION-TRANSPORT",
+        "L8-VNET-02-PRODUCTION-TRANSPORT",
+        "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
+    )
     statuses = _all_closed_statuses(graph)
     statuses.update(
         {
@@ -644,8 +690,8 @@ def test_first_verified_readme_goal_precedes_the_python_platform_goal(tmp_path):
     assert evaluation.next_task.task_id == "L8-AGILE-AUTHORITY-RESET"
 
 
-def test_terminal_exception_stage_does_not_starve_later_ready_work():
-    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+def test_terminal_exception_stage_does_not_starve_later_ready_work(tmp_path):
+    graph, graph_hash = _graph_with_tasks_reactivated(tmp_path, "L8-HORIZON-01-ACTIVATE-GATE-A")
     statuses = _all_closed_statuses(graph)
     statuses.update(
         {
@@ -1158,13 +1204,18 @@ def test_evaluate_initializes_then_claims_the_reset_task():
     assert state.lifecycle_scoreboard is not None
     assert state.lifecycle_scoreboard.denominator == len(load_products())
     assert state.next_task is not None
-    assert state.next_task.task_id == "L8-HORIZON-01-ACTIVATE-GATE-A"
+    assert state.next_task.task_id == "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION"
     assert evaluation.core_goal_active is True
 
     claimed = claim_next_task(backend, graph, graph_hash, claimed_by="test-worker")
     assert claimed.mission_execution is not None
-    assert claimed.mission_execution.active_task_id == "L8-HORIZON-01-ACTIVATE-GATE-A"
-    assert claimed.mission_execution.task_statuses["L8-HORIZON-01-ACTIVATE-GATE-A"] == "IN_PROGRESS"
+    assert claimed.mission_execution.active_task_id == (
+        "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION"
+    )
+    assert (
+        claimed.mission_execution.task_statuses["L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION"]
+        == "IN_PROGRESS"
+    )
 
 
 def test_evaluate_reopens_a_stale_closed_repository_before_its_dependent(monkeypatch, tmp_path):
@@ -1284,7 +1335,7 @@ def test_read_only_evaluation_accepts_a_new_graph_task_before_state_reconciliati
         **{task.task_id: task.status for task in graph.taskcards},
         **{task.task_id: task.status for task in graph.deferred_task_index},
     }
-    statuses.pop("L8-HORIZON-01-ACTIVATE-GATE-A")
+    statuses.pop("L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION")
     state = MissionExecutionStateV1(
         mission_id=graph.mission_authority.mission_id,
         graph_sha256=graph_hash,
@@ -1293,9 +1344,9 @@ def test_read_only_evaluation_accepts_a_new_graph_task_before_state_reconciliati
 
     evaluation = evaluate_mission(graph, state)
 
-    assert "L8-HORIZON-01-ACTIVATE-GATE-A" in evaluation.unresolved_task_ids
+    assert "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION" in evaluation.unresolved_task_ids
     assert evaluation.next_task is not None
-    assert evaluation.next_task.task_id == "L8-HORIZON-01-ACTIVATE-GATE-A"
+    assert evaluation.next_task.task_id == "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION"
     assert evaluation.mission_complete is False
 
 
@@ -1327,7 +1378,7 @@ def test_claim_rejects_substitution_when_expected_task_is_not_eligible():
             graph,
             graph_hash,
             claimed_by="test-worker",
-            expected_task_id="L8-VNET-01-ACCELERATED-LOCAL-NO-OP",
+            expected_task_id="L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
         )
 
     record = backend.load(mission_state_key(graph.mission_authority.mission_id))
@@ -1349,7 +1400,7 @@ def test_claim_rejects_expected_task_that_differs_from_live_claim():
             graph,
             graph_hash,
             claimed_by="secondary-worker",
-            expected_task_id="L8-VNET-01-ACCELERATED-LOCAL-NO-OP",
+            expected_task_id="L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
         )
 
 
@@ -1452,7 +1503,9 @@ def test_expired_claim_is_recovered_before_the_next_claim():
     claimed = claim_next_task(backend, graph, graph_hash, claimed_by="recovery-worker")
 
     assert claimed.mission_execution is not None
-    assert claimed.mission_execution.active_task_id == "L8-HORIZON-01-ACTIVATE-GATE-A"
+    assert claimed.mission_execution.active_task_id == (
+        "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION"
+    )
     assert claimed.mission_execution.claimed_by == "recovery-worker"
     assert any(
         transition.to_status == "REGRESSED"
@@ -1569,7 +1622,7 @@ def test_expired_claim_recovery_persists_even_when_expected_task_stays_unclaimab
         update={"mission_execution": expired}
     )
 
-    with pytest.raises(ConfigError, match="is not eligible"):
+    with pytest.raises(ConfigError, match="not dependency-ready"):
         claim_next_task(
             backend,
             graph,
@@ -1595,14 +1648,15 @@ def test_direct_close_and_closure_without_evidence_fail_closed():
     persist_evaluation(backend, graph, graph_hash)
     claimed = claim_next_task(backend, graph, graph_hash, claimed_by="test")
     assert claimed.mission_execution is not None
-    assert claimed.mission_execution.active_task_id == "L8-HORIZON-01-ACTIVATE-GATE-A"
+    task_id = "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION"
+    assert claimed.mission_execution.active_task_id == task_id
 
     with pytest.raises(ConfigError, match="invalid mission transition"):
         transition_task(
             backend,
             graph,
             graph_hash,
-            task_id="L8-HORIZON-01-ACTIVATE-GATE-A",
+            task_id=task_id,
             to_status="CLOSED",
             observed_by="test",
             reason="skip every verification stage",
@@ -1614,7 +1668,7 @@ def test_direct_close_and_closure_without_evidence_fail_closed():
             backend,
             graph,
             graph_hash,
-            task_id="L8-HORIZON-01-ACTIVATE-GATE-A",
+            task_id=task_id,
             to_status="IMPLEMENTED",
             observed_by="test",
             reason="no evidence",
@@ -1626,7 +1680,7 @@ def test_direct_close_and_closure_without_evidence_fail_closed():
             backend,
             graph,
             graph_hash,
-            task_id="L8-HORIZON-01-ACTIVATE-GATE-A",
+            task_id=task_id,
             to_status=status,
             observed_by="test",
             reason=f"reach {status} for closure guard",
@@ -1637,7 +1691,7 @@ def test_direct_close_and_closure_without_evidence_fail_closed():
             backend,
             graph,
             graph_hash,
-            task_id="L8-HORIZON-01-ACTIVATE-GATE-A",
+            task_id=task_id,
             to_status="CLOSED",
             observed_by="test",
             reason="ordinary report cannot close the task",
@@ -1655,7 +1709,7 @@ def test_observation_running_is_reserved_for_background_certification():
             backend,
             graph,
             graph_hash,
-            task_id="L8-HORIZON-01-ACTIVATE-GATE-A",
+            task_id="L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION",
             to_status="OBSERVATION_RUNNING",
             observed_by="test",
             reason="delivery work cannot become an elapsed-time observation",
@@ -1719,6 +1773,24 @@ def test_requirement_coverage_reference_is_hash_bound(tmp_path):
 
     with pytest.raises(ConfigError, match="requirement coverage hash mismatch"):
         load_mission_graph(invalid)
+
+
+def test_portfolio_proof_contract_is_hash_bound_and_partitions_registry(tmp_path):
+    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    raw["portfolio_proof_contract"]["rubric_sha256"] = "0" * 64
+    invalid_hash = tmp_path / "invalid-portfolio-rubric.yaml"
+    invalid_hash.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
+
+    with pytest.raises(ConfigError, match="portfolio proof rubric hash does not match"):
+        load_mission_graph(invalid_hash)
+
+    raw = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    raw["portfolio_proof_contract"]["baseline_processable"] = 30
+    invalid_partition = tmp_path / "invalid-portfolio-partition.yaml"
+    invalid_partition.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
+
+    with pytest.raises(ConfigError, match="portfolio baseline dispositions must partition"):
+        load_mission_graph(invalid_partition)
 
 
 def test_deferred_index_metadata_is_bound_to_its_exact_catalog_record(tmp_path):

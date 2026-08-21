@@ -1,0 +1,619 @@
+{
+  "branch": {
+    "_links": {
+      "html": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python/tree/master",
+      "self": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/branches/master"
+    },
+    "commit": {
+      "author": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1225645?v=4",
+        "events_url": "https://api.github.com/users/babar-raza/events{/privacy}",
+        "followers_url": "https://api.github.com/users/babar-raza/followers",
+        "following_url": "https://api.github.com/users/babar-raza/following{/other_user}",
+        "gists_url": "https://api.github.com/users/babar-raza/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/babar-raza",
+        "id": 1225645,
+        "login": "babar-raza",
+        "node_id": "MDQ6VXNlcjEyMjU2NDU=",
+        "organizations_url": "https://api.github.com/users/babar-raza/orgs",
+        "received_events_url": "https://api.github.com/users/babar-raza/received_events",
+        "repos_url": "https://api.github.com/users/babar-raza/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/babar-raza/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/babar-raza/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/babar-raza",
+        "user_view_type": "public"
+      },
+      "comments_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/commits/10a906b48c0c11005c4d93b524e4431901c9717c/comments",
+      "commit": {
+        "author": {
+          "date": "2026-08-15T07:32:33Z",
+          "email": "babar.raza@aspose.com",
+          "name": "Babar Raza"
+        },
+        "comment_count": 0,
+        "committer": {
+          "date": "2026-08-15T07:32:33Z",
+          "email": "noreply@github.com",
+          "name": "GitHub"
+        },
+        "message": "docs: refresh README with verified content, structure, and examples\n\n- Rewrites the README onto the standard Aspose FOSS presentation template:\n  badge row + banner, a Navigation TOC, an At-a-Glance capability diagram,\n  Key Capabilities, Installation, a dedicated Dependencies section, Quick\n  Start, and Additional Examples.\n- Adds a real Dependencies section documenting that the package has no\n  required third-party package dependencies, plus the real Python version\n  requirement.\n- Adds a CI status badge reflecting the project's real CI workflow.\n- Adds a module-grouped API Reference table plus curated core/internal\n  classes and enumerations, collapsed behind a <details> disclosure so the\n  page stays scannable.\n- Adds a Documentation & Resources section linking the real getting-started\n  guide, how-to/FAQ articles, full API reference, and the issue tracker.\n- Adds a Scope and Limitations section naming the real, verified constraints\n  of this FOSS build, closed by a single standalone paragraph pointing to\n  the Enterprise Edition for broader functionality.\n- Adds Development and Testing instructions and a standard MIT License\n  section linking the real license file.\n\nVerification: every code example and dependency claim was checked against\nthe real, current package surface; every claim in Scope and Limitations was\nverified against source; the diagram and API Reference detail were checked\nwith this project's own automated structural/content gates before this\nchange was proposed.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "67d6cd82ad109bae3d92c257853f67bfd5f8d58f",
+          "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/trees/67d6cd82ad109bae3d92c257853f67bfd5f8d58f"
+        },
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/commits/10a906b48c0c11005c4d93b524e4431901c9717c",
+        "verification": {
+          "payload": "tree 67d6cd82ad109bae3d92c257853f67bfd5f8d58f\nparent c336fa7c1d6b90c6155ecf25a261477640c2b1b6\nauthor Babar Raza <babar.raza@aspose.com> 1786779153 +0500\ncommitter GitHub <noreply@github.com> 1786779153 +0500\n\ndocs: refresh README with verified content, structure, and examples\n\n- Rewrites the README onto the standard Aspose FOSS presentation template:\n  badge row + banner, a Navigation TOC, an At-a-Glance capability diagram,\n  Key Capabilities, Installation, a dedicated Dependencies section, Quick\n  Start, and Additional Examples.\n- Adds a real Dependencies section documenting that the package has no\n  required third-party package dependencies, plus the real Python version\n  requirement.\n- Adds a CI status badge reflecting the project's real CI workflow.\n- Adds a module-grouped API Reference table plus curated core/internal\n  classes and enumerations, collapsed behind a <details> disclosure so the\n  page stays scannable.\n- Adds a Documentation & Resources section linking the real getting-started\n  guide, how-to/FAQ articles, full API reference, and the issue tracker.\n- Adds a Scope and Limitations section naming the real, verified constraints\n  of this FOSS build, closed by a single standalone paragraph pointing to\n  the Enterprise Edition for broader functionality.\n- Adds Development and Testing instructions and a standard MIT License\n  section linking the real license file.\n\nVerification: every code example and dependency claim was checked against\nthe real, current package surface; every claim in Scope and Limitations was\nverified against source; the diagram and API Reference detail were checked\nwith this project's own automated structural/content gates before this\nchange was proposed.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqgBYRCRC1aQ7uu5UhlAAA9+QQAF7HRcfm+ANQ27YO3hSUZdad\njytyXkmtgigFEIV/MR57Hkh7M7d2aU99QGmM1UeRJiZo/dZVa7kQ80Igg/hoKrch\nlKwaDhu6+Rfe+DsRDx3lHIzjANemg4kPlkjZJfy4cRYcl/i82iB4AVOYkvy+qeBS\nvBes1MNH5gaHef37KDBvONEQrnbJ2LFnm46PfGhwTrgQb1IglfhAqXy0pK+8lByS\nUqBoF2ZfVRz3YgqthfSZipOxsd8qGUwCcp4ZsrislUvNzR1xhxKWdATtmyReZxwy\nYa8FIM8ekMV9jxQAmaXBt/+HiHLb1kczZHJUl/Nk0AbaNMRN4ZjqbYimgmAXN4k0\nPSE4kmx8y7sFtRIrTIYRX82aWNqVbtgNSXHsEXcB0/J13KfNPefLa9oJNSNyBrL0\nxxFu06AkfkqECMXMW98GybwLzg67WOWl6suZdyJiXyH+ouoJARrGTys0MaLVE1Eb\n+T4S8KunqAYjqVJVYUJERdSB1Fj3Cot5y7gGOrz19vmGbiS7N7c1dY8IH65bvKAv\nl2MTeEAt1+jqEZ1pmzadgNCLNvPNgGX+keWm18UFBYmkfenz3BW0dM/+kK0nSGqc\n1cidBKT9IRNc724y0tB9UPgwyaRzpOybYGkUUg3oxXEhhCgnPL+Kf7XGLY73L0q2\n7Uu6Tz06/BO/uWWVfnkF\n=b77y\n-----END PGP SIGNATURE-----\n",
+          "verified": true,
+          "verified_at": "2026-08-15T07:32:34Z"
+        }
+      },
+      "committer": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/web-flow",
+        "id": 19864447,
+        "login": "web-flow",
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/web-flow",
+        "user_view_type": "public"
+      },
+      "html_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python/commit/10a906b48c0c11005c4d93b524e4431901c9717c",
+      "node_id": "C_kwDORoqbANoAKDEwYTkwNmI0OGMwYzExMDA1YzRkOTNiNTI0ZTQ0MzE5MDFjOTcxN2M",
+      "parents": [
+        {
+          "html_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python/commit/c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+          "sha": "c336fa7c1d6b90c6155ecf25a261477640c2b1b6",
+          "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/commits/c336fa7c1d6b90c6155ecf25a261477640c2b1b6"
+        }
+      ],
+      "sha": "10a906b48c0c11005c4d93b524e4431901c9717c",
+      "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/commits/10a906b48c0c11005c4d93b524e4431901c9717c"
+    },
+    "name": "master",
+    "protected": true,
+    "protection": {
+      "enabled": true,
+      "required_status_checks": {
+        "checks": [
+          {
+            "app_id": 15368,
+            "context": "Tests (Python 3.10)"
+          },
+          {
+            "app_id": 15368,
+            "context": "Tests (Python 3.11)"
+          },
+          {
+            "app_id": 15368,
+            "context": "Tests (Python 3.12)"
+          },
+          {
+            "app_id": 15368,
+            "context": "Packaging checks"
+          }
+        ],
+        "contexts": [
+          "Tests (Python 3.10)",
+          "Tests (Python 3.11)",
+          "Tests (Python 3.12)",
+          "Packaging checks"
+        ],
+        "enforcement_level": "non_admins"
+      }
+    },
+    "protection_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/branches/master/protection"
+  },
+  "repo": {
+    "allow_auto_merge": false,
+    "allow_forking": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "archive_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/branches{/branch}",
+    "clone_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python.git",
+    "collaborators_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/comments{/number}",
+    "commits_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/contributors",
+    "created_at": "2026-03-16T16:53:44Z",
+    "custom_properties": {},
+    "default_branch": "master",
+    "delete_branch_on_merge": false,
+    "deployments_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/deployments",
+    "description": "The official open-source Python library by Aspose.Email for creating, reading, and editing Microsoft Outlook files (.msg)",
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/downloads",
+    "events_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/events",
+    "fork": false,
+    "forks": 0,
+    "forks_count": 0,
+    "forks_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/forks",
+    "full_name": "aspose-email-foss/Aspose.Email-FOSS-for-Python",
+    "git_commits_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/tags{/sha}",
+    "git_url": "git://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python.git",
+    "has_discussions": false,
+    "has_downloads": false,
+    "has_issues": true,
+    "has_pages": false,
+    "has_projects": true,
+    "has_pull_requests": true,
+    "has_wiki": false,
+    "homepage": "https://products.aspose.org/email/python/",
+    "hooks_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/hooks",
+    "html_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python",
+    "id": 1183488768,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/issues{/number}",
+    "keys_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/labels{/name}",
+    "language": "Python",
+    "languages_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/languages",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "node_id": "MDc6TGljZW5zZTEz",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit"
+    },
+    "merge_commit_message": "PR_TITLE",
+    "merge_commit_title": "MERGE_MESSAGE",
+    "merges_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/merges",
+    "milestones_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/milestones{/number}",
+    "mirror_url": null,
+    "name": "Aspose.Email-FOSS-for-Python",
+    "network_count": 0,
+    "node_id": "R_kgDORoqbAA",
+    "notifications_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/notifications{?since,all,participating}",
+    "open_issues": 0,
+    "open_issues_count": 0,
+    "organization": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224592720?v=4",
+      "events_url": "https://api.github.com/users/aspose-email-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-email-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-email-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-email-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-email-foss",
+      "id": 224592720,
+      "login": "aspose-email-foss",
+      "node_id": "O_kgDODWMDUA",
+      "organizations_url": "https://api.github.com/users/aspose-email-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-email-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-email-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-email-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-email-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-email-foss",
+      "user_view_type": "public"
+    },
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224592720?v=4",
+      "events_url": "https://api.github.com/users/aspose-email-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-email-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-email-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-email-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-email-foss",
+      "id": 224592720,
+      "login": "aspose-email-foss",
+      "node_id": "O_kgDODWMDUA",
+      "organizations_url": "https://api.github.com/users/aspose-email-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-email-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-email-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-email-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-email-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-email-foss",
+      "user_view_type": "public"
+    },
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "private": false,
+    "pull_request_creation_policy": "all",
+    "pulls_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/pulls{/number}",
+    "pushed_at": "2026-08-15T07:32:35Z",
+    "releases_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/releases{/id}",
+    "security_and_analysis": {
+      "dependabot_security_updates": {
+        "status": "disabled"
+      },
+      "secret_scanning": {
+        "status": "disabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    },
+    "size": 74,
+    "squash_merge_commit_message": "COMMIT_MESSAGES",
+    "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+    "ssh_url": "git@github.com:aspose-email-foss/Aspose.Email-FOSS-for-Python.git",
+    "stargazers_count": 2,
+    "stargazers_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/stargazers",
+    "statuses_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/statuses/{sha}",
+    "subscribers_count": 0,
+    "subscribers_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/subscribers",
+    "subscription_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/subscription",
+    "svn_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Python",
+    "tags_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/tags",
+    "teams_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/teams",
+    "temp_clone_token": "",
+    "topics": [],
+    "trees_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/trees{/sha}",
+    "updated_at": "2026-08-15T07:32:50Z",
+    "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python",
+    "use_squash_pr_title_as_default": false,
+    "visibility": "public",
+    "watchers": 2,
+    "watchers_count": 2,
+    "web_commit_signoff_required": false
+  },
+  "tree": {
+    "sha": "67d6cd82ad109bae3d92c257853f67bfd5f8d58f",
+    "tree": [
+      {
+        "mode": "040000",
+        "path": ".github",
+        "sha": "4b0410dd818b47b96d239674f14c70af127bb300",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/trees/4b0410dd818b47b96d239674f14c70af127bb300"
+      },
+      {
+        "mode": "040000",
+        "path": ".github/workflows",
+        "sha": "3b73c1febe4269817a47dd6925f068fb7e61069c",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/trees/3b73c1febe4269817a47dd6925f068fb7e61069c"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/workflows/ci.yml",
+        "sha": "f1c469e06b569ffa0008fb913a7a1548a022a26d",
+        "size": 1322,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/f1c469e06b569ffa0008fb913a7a1548a022a26d"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/workflows/release.yml",
+        "sha": "ab928b0e7c7e4744097112666aaed5abab5b6382",
+        "size": 1269,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/ab928b0e7c7e4744097112666aaed5abab5b6382"
+      },
+      {
+        "mode": "100644",
+        "path": ".gitignore",
+        "sha": "59ee0a502268715e007c5347f06a9e1690b0c4c1",
+        "size": 18,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/59ee0a502268715e007c5347f06a9e1690b0c4c1"
+      },
+      {
+        "mode": "100644",
+        "path": "AGENTS.md",
+        "sha": "26a0249ab6a4f5e2382b279a34fdccb9b17eaca7",
+        "size": 4971,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/26a0249ab6a4f5e2382b279a34fdccb9b17eaca7"
+      },
+      {
+        "mode": "100644",
+        "path": "CHANGELOG.md",
+        "sha": "5c23e5a649f34ad5c52379c0185064a2266520f8",
+        "size": 684,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/5c23e5a649f34ad5c52379c0185064a2266520f8"
+      },
+      {
+        "mode": "100644",
+        "path": "CITATION.cff",
+        "sha": "3e5f8c2a8c71d730474cc742ad7ca50bcf0faf76",
+        "size": 362,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/3e5f8c2a8c71d730474cc742ad7ca50bcf0faf76"
+      },
+      {
+        "mode": "100644",
+        "path": "CONTRIBUTING.md",
+        "sha": "7b7c9fb87b9250c8b57115b52afd9d9469cce773",
+        "size": 1143,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/7b7c9fb87b9250c8b57115b52afd9d9469cce773"
+      },
+      {
+        "mode": "100644",
+        "path": "LICENSE",
+        "sha": "b0d66f0175f748587426e54d6b4140f6b87921e4",
+        "size": 1087,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/b0d66f0175f748587426e54d6b4140f6b87921e4"
+      },
+      {
+        "mode": "100644",
+        "path": "MANIFEST.in",
+        "sha": "1203be9fa610c1cfda641d9e5eae7881986743d4",
+        "size": 224,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/1203be9fa610c1cfda641d9e5eae7881986743d4"
+      },
+      {
+        "mode": "100644",
+        "path": "PUBLIC_API.md",
+        "sha": "55592d1c6d5a0800065f53ddeecada3822ad1104",
+        "size": 3251,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/55592d1c6d5a0800065f53ddeecada3822ad1104"
+      },
+      {
+        "mode": "100644",
+        "path": "README.md",
+        "sha": "a7117b3386969cbf5e335dbdcdc28b36161dd098",
+        "size": 19965,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/a7117b3386969cbf5e335dbdcdc28b36161dd098"
+      },
+      {
+        "mode": "100644",
+        "path": "SECURITY.md",
+        "sha": "c34f69b9ef95792da51acf2d8540d49e5cec1b6a",
+        "size": 702,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/c34f69b9ef95792da51acf2d8540d49e5cec1b6a"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose",
+        "sha": "f75f2fa4840f7c1b9b2775af7ca53f165400fac4",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/trees/f75f2fa4840f7c1b9b2775af7ca53f165400fac4"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/email_foss",
+        "sha": "0eae7a4566525e3aeff2b1283348b4fe9e1f1cd2",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/trees/0eae7a4566525e3aeff2b1283348b4fe9e1f1cd2"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/email_foss/__init__.py",
+        "sha": "1e9414918d25cfd815215617e79d00b26ca2b3ae",
+        "size": 103,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/1e9414918d25cfd815215617e79d00b26ca2b3ae"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/email_foss/cfb",
+        "sha": "70e65ccaf2d2f3a8c0d6f8aa543716f60a07a9ee",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/trees/70e65ccaf2d2f3a8c0d6f8aa543716f60a07a9ee"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/email_foss/cfb/__init__.py",
+        "sha": "0cc6f47ee30ddc3cec0f2e23b2e66091d453a4c4",
+        "size": 1375,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/0cc6f47ee30ddc3cec0f2e23b2e66091d453a4c4"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/email_foss/cfb/reader.py",
+        "sha": "91a05058535e929fa7028e23a41e9e70bfcec357",
+        "size": 25745,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/91a05058535e929fa7028e23a41e9e70bfcec357"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/email_foss/cfb/types.py",
+        "sha": "0eeac4aa60d4817a22a5152050ff7cfe77303f2e",
+        "size": 2177,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/0eeac4aa60d4817a22a5152050ff7cfe77303f2e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/email_foss/cfb/writer.py",
+        "sha": "a75111c45cfc8b07321fa26a67abcdb0fbaec2a0",
+        "size": 25506,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/a75111c45cfc8b07321fa26a67abcdb0fbaec2a0"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/email_foss/msg",
+        "sha": "6392f115696aed543e978ed55884f0229c074edd",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/trees/6392f115696aed543e978ed55884f0229c074edd"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/email_foss/msg/__init__.py",
+        "sha": "11aa2671a6562d7b9fdfc048a80c57f2246e11f2",
+        "size": 2716,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/11aa2671a6562d7b9fdfc048a80c57f2246e11f2"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/email_foss/msg/mapi_message.py",
+        "sha": "afb478ca2bb2799554fc8a03ade027f7b938817e",
+        "size": 95186,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/afb478ca2bb2799554fc8a03ade027f7b938817e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/email_foss/msg/property_id.py",
+        "sha": "fa4bb3f7eaafeb6a70f613d77ebd6171bb55e794",
+        "size": 3198,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/fa4bb3f7eaafeb6a70f613d77ebd6171bb55e794"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/email_foss/msg/property_tags.py",
+        "sha": "c954a269725a13098ed435c18cd39d9d76b4f273",
+        "size": 2809,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/c954a269725a13098ed435c18cd39d9d76b4f273"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/email_foss/msg/property_types.py",
+        "sha": "f8887bf8c18777d9eda6ab5f5dca193c932c8d0b",
+        "size": 2382,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/f8887bf8c18777d9eda6ab5f5dca193c932c8d0b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/email_foss/msg/reader.py",
+        "sha": "83c8ee3492441fcc5aa312cd94457c9c0ccbba39",
+        "size": 12125,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/83c8ee3492441fcc5aa312cd94457c9c0ccbba39"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/email_foss/msg/types.py",
+        "sha": "bec5ea6f2f60ab2fb401f3b86cebbfa807b0a642",
+        "size": 3149,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/bec5ea6f2f60ab2fb401f3b86cebbfa807b0a642"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/email_foss/msg/writer.py",
+        "sha": "48fcdc691f1375e5e995d4c797da5719de896eb1",
+        "size": 10838,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/48fcdc691f1375e5e995d4c797da5719de896eb1"
+      },
+      {
+        "mode": "040000",
+        "path": "examples",
+        "sha": "56f32e679e45a4e1e48454893cf6ba50eae7ef6f",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/trees/56f32e679e45a4e1e48454893cf6ba50eae7ef6f"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/README.md",
+        "sha": "92ed9b71a063903a38722bca4d805733ed067d11",
+        "size": 1973,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/92ed9b71a063903a38722bca4d805733ed067d11"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/create_msg_and_eml.py",
+        "sha": "c6b01c078a13da3ef5d566ea30900adfd3b910e3",
+        "size": 2901,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/c6b01c078a13da3ef5d566ea30900adfd3b910e3"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/msg_reader.py",
+        "sha": "b82f5382ffa9ca42701940a81d1ef32997842467",
+        "size": 5007,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/b82f5382ffa9ca42701940a81d1ef32997842467"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/msg_summary.py",
+        "sha": "2d78b7ca3b42d633c7df47ccd20fb1bda825411d",
+        "size": 4721,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/2d78b7ca3b42d633c7df47ccd20fb1bda825411d"
+      },
+      {
+        "mode": "100644",
+        "path": "llms.txt",
+        "sha": "0b92274ac26fa05fc17bcfbe0d331801b7d79988",
+        "size": 699,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/0b92274ac26fa05fc17bcfbe0d331801b7d79988"
+      },
+      {
+        "mode": "100644",
+        "path": "pyproject.toml",
+        "sha": "1c235da1976d6c8ebc952851c7419d8af2a00593",
+        "size": 1560,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/1c235da1976d6c8ebc952851c7419d8af2a00593"
+      },
+      {
+        "mode": "040000",
+        "path": "tests",
+        "sha": "782f49da8303f3597f4a3ac2e03588cdbec82012",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/trees/782f49da8303f3597f4a3ac2e03588cdbec82012"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cfb_formats.py",
+        "sha": "ad785e0ab1ce08e7f94599e6967ad0ff92cef2ff",
+        "size": 4116,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/ad785e0ab1ce08e7f94599e6967ad0ff92cef2ff"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_msg_formats.py",
+        "sha": "a334aea3ae656b3d329678c097e402ab655ce48c",
+        "size": 15550,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/blobs/a334aea3ae656b3d329678c097e402ab655ce48c"
+      }
+    ],
+    "truncated": false,
+    "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Python/git/trees/67d6cd82ad109bae3d92c257853f67bfd5f8d58f"
+  }
+}

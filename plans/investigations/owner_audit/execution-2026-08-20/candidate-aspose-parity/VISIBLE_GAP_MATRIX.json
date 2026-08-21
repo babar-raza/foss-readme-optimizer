@@ -1,0 +1,393 @@
+{
+  "schema_version": 1,
+  "audit_id": "OPT-CANDIDATE-ASPOSE-PARITY-AUDIT",
+  "note": "Reader-facing gaps only, derived from score=0 rubric rows. 'visible_in_readme_text' marks whether the gap is directly observable by a reader of the candidate README, versus a process/evidence-trail gap invisible in the rendered document.",
+  "products": [
+    {
+      "product": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "platform": "python",
+      "gaps": [
+        {
+          "criterion_id": 3,
+          "criterion": "Dependency truth",
+          "section": "A",
+          "gap": "No dependency information (required/optional/dev/native, or an explicit 'none') is stated anywhere in the README.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 4,
+          "criterion": "API surface truth",
+          "section": "A",
+          "gap": "The API Method Index presents several methods (Mesh.union/do_boolean/difference/intersect, NurbsCurve.evaluate, NurbsSurface.to_mesh) as normal working API, contradicting the Scope and Limitations section of the same document which says they raise NotImplementedError.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "1. A material unsupported or contradicted claim about ... API ... behavior"
+        },
+        {
+          "criterion_id": 6,
+          "criterion": "API-reference integrity",
+          "section": "A",
+          "gap": "The public API surface is documented three separate, overlapping times (namespace table, orphan bullet list, Method Index) with no explanation and no deduplication.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "1. A material unsupported or contradicted claim about ... API ... behavior"
+        },
+        {
+          "criterion_id": 9,
+          "criterion": "Content-unit accounting",
+          "section": "B",
+          "gap": "The candidate's own content-accounting ledger reports 21 of 24 units as failing its 'has a candidate destination' check, even though the headings genuinely exist in the README -- the accounting evidence is unreliable.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "3. A blocking check that failed, skipped, or errored; ... or an evidence artifact containing an error envelope while promotion continues."
+        },
+        {
+          "criterion_id": 10,
+          "criterion": "Structural accounting",
+          "section": "B",
+          "gap": "Same ledger failure applies to structural units, plus a visibly orphaned/dangling bullet fragment in Key Capabilities with no lead-in sentence.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "3. A blocking check that failed, skipped, or errored; ... or an evidence artifact containing an error envelope while promotion continues."
+        },
+        {
+          "criterion_id": 11,
+          "criterion": "Code-example accounting",
+          "section": "B",
+          "gap": "The code-example ledger flags even a present, correct example ('Build a Cube and Export It to 3MF') as lacking a proven candidate destination.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "3. A blocking check that failed, skipped, or errored; ... or an evidence artifact containing an error envelope while promotion continues."
+        },
+        {
+          "criterion_id": 13,
+          "criterion": "Reconciliation integrity",
+          "section": "B",
+          "gap": "The reconciliation report is not zero-error; both the ledger's self-check and manual inspection (triplicated API content) confirm real reconciliation gaps.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "3. A blocking check that failed, skipped, or errored; a parser/reviewer failure treated as approval; or an evidence artifact containing an error envelope while promotion continues."
+        },
+        {
+          "criterion_id": 15,
+          "criterion": "Capability overview",
+          "section": "C",
+          "gap": "The 'At a Glance' Mermaid diagram declares 6 input/output format nodes but only wires 2 of them (1 input, 1 output) with flow arrows; the rest appear disconnected in the rendered diagram.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 16,
+          "criterion": "Concrete capabilities",
+          "section": "C",
+          "gap": "Key Capabilities lists only 3 clean, fairly generic bullets (plus one broken fragment) versus a much richer capability set documented elsewhere (API Reference) in the same candidate.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 18,
+          "criterion": "Minimal successful start",
+          "section": "C",
+          "gap": "The 'Quick Start' section is 2 lines of code that create an empty Scene object and do nothing observable; the genuinely useful minimal example is mislabeled as part of 'Additional Examples' instead.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 21,
+          "criterion": "Coherent information architecture",
+          "section": "D",
+          "gap": "Section roles are muddled: API Reference/API Method Index duplicate each other, and Quick Start/Additional Examples have their content swapped.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "1. A material unsupported or contradicted claim about ... API ... behavior (same underlying duplication as criterion 6)"
+        },
+        {
+          "criterion_id": 22,
+          "criterion": "Clear public prose",
+          "section": "D",
+          "gap": "An orphaned bullet fragment in Key Capabilities and a terse, awkward Installation stub sentence read as rough, unedited prose.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 25,
+          "criterion": "Proportionate depth",
+          "section": "D",
+          "gap": "The document is bloated with ~1,100 lines of largely mechanical, partly self-contradictory API listing while its most reader-critical section (Quick Start) is nearly empty.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 26,
+          "criterion": "Sealed inputs",
+          "section": "E",
+          "gap": "No immutable pre-composition manifest (old-README hash, corpus hash, policy version, model config) is bound alongside source_revision; the run explicitly bypasses the durable acceptance lifecycle.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 28,
+          "criterion": "Complete fail-closed checks",
+          "section": "E",
+          "gap": "A real, computed blocking-adjacent check (disposition ledger validity) failed but was not wired into the promotion/status decision, and the portfolio report shows 'none' for open issues despite the candidate's own validation.json showing 21 errors.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "3. A blocking check that failed, skipped, or errored; a parser/reviewer failure treated as approval; or an evidence artifact containing an error envelope while promotion continues."
+        },
+        {
+          "criterion_id": 29,
+          "criterion": "Independent, claim-bound review",
+          "section": "E",
+          "gap": "The independent review accepted on its first pass despite multiple structural/self-contradiction defects being directly visible in the candidate bytes.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        }
+      ]
+    },
+    {
+      "product": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "platform": "python",
+      "gaps": [
+        {
+          "criterion_id": 1,
+          "criterion": "Material-claim grounding",
+          "section": "A",
+          "gap": "Opening line says the product only makes Code 128 barcodes; Scope and Limitations later claims PNG isn't implemented for Code 128/Code 39 even though earlier examples in the same document use to_png() successfully for both.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A material unsupported or contradicted claim about installation, dependencies, API, formats, behavior, licensing, security, or compatibility."
+        },
+        {
+          "criterion_id": 3,
+          "criterion": "Dependency truth",
+          "section": "A",
+          "gap": "Dependencies section never states the Python 3.12+ runtime requirement; it's only visible in a small badge.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 7,
+          "criterion": "Limitations honesty",
+          "section": "A",
+          "gap": "Limitations section contains a false claim (SVG-only backend for Code 128/Code 39) contradicted by the document's own examples.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A material unsupported or contradicted claim about installation, dependencies, API, formats, behavior, licensing, security, or compatibility."
+        },
+        {
+          "criterion_id": 9,
+          "criterion": "Content-unit accounting",
+          "section": "B",
+          "gap": "Content from the true original README (Error Handling worked example, detailed per-symbology accepted-input table) is gone with no explanation anywhere.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A verified old-README fact, structural unit, code example, badge, or meaningful image is silently dropped when an old README exists."
+        },
+        {
+          "criterion_id": 10,
+          "criterion": "Structural accounting",
+          "section": "B",
+          "gap": "A 'Native and System Requirements' subsection the ledger claims was retained is not actually present anywhere in the document.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A verified old-README fact, structural unit, code example, badge, or meaningful image is silently dropped when an old README exists."
+        },
+        {
+          "criterion_id": 11,
+          "criterion": "Code-example accounting",
+          "section": "B",
+          "gap": "No evidence trail exists showing what happened to each individual code example from the true original README.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A verified old-README fact, structural unit, code example, badge, or meaningful image is silently dropped when an old README exists."
+        },
+        {
+          "criterion_id": 13,
+          "criterion": "Reconciliation integrity",
+          "section": "B",
+          "gap": "The evidence backing the published README contains self-contradictory bookkeeping (claims content was dropped that is actually present) with no visible correction before publication.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A blocking check that failed, skipped, or errored; a parser/reviewer failure treated as approval; or an evidence artifact containing an error envelope while promotion continues."
+        },
+        {
+          "criterion_id": 14,
+          "criterion": "Immediate orientation",
+          "section": "C",
+          "gap": "First impression of the README misrepresents the product as single-symbology (Code 128 only) when it supports seven symbologies including QR Code.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A material unsupported or contradicted claim about installation, dependencies, API, formats, behavior, licensing, security, or compatibility."
+        },
+        {
+          "criterion_id": 15,
+          "criterion": "Capability overview",
+          "section": "C",
+          "gap": "The 'At a Glance' capability diagram never shows QR Code as an input or capability, despite it being a real, major, documented feature.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 16,
+          "criterion": "Concrete capabilities",
+          "section": "C",
+          "gap": "Several Key Capabilities bullets are generic filler sentences that don't add information beyond the headline, and QR Code has no bullet at all.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 18,
+          "criterion": "Minimal successful start",
+          "section": "C",
+          "gap": "The Quick Start example never generates or renders a barcode -- it only instantiates a renderer object and stops, giving no working starting point.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 22,
+          "criterion": "Clear public prose",
+          "section": "D",
+          "gap": "Large stretches of prose (Key Capabilities descriptions, API Method Index rows) read as repetitive machine-templated filler rather than genuinely explanatory text.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 25,
+          "criterion": "Proportionate depth",
+          "section": "D",
+          "gap": "Scope and Limitations is padded with narrow ISO-spec engineering trivia disproportionate to a top-level README, while the higher-value QR Code capability is missing from the overview.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 28,
+          "criterion": "Complete fail-closed checks",
+          "section": "E",
+          "gap": "An internal quality check (aspose_checks) is recorded as failed with no visible detail on what failed or why it didn't block acceptance.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A blocking check that failed, skipped, or errored; a parser/reviewer failure treated as approval; or an evidence artifact containing an error envelope while promotion continues."
+        },
+        {
+          "criterion_id": 29,
+          "criterion": "Independent, claim-bound review",
+          "section": "E",
+          "gap": "The independent review approved the README despite it containing a verifiable self-contradiction and a self-contradictory evidence ledger.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A blocking check that failed, skipped, or errored; a parser/reviewer failure treated as approval; or an evidence artifact containing an error envelope while promotion continues."
+        }
+      ]
+    },
+    {
+      "product": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "platform": "python",
+      "gaps": [
+        {
+          "criterion_id": 1,
+          "criterion": "Material-claim grounding",
+          "section": "A",
+          "gap": "Two claims in the delivered prose are flagged by the tool's own accountability layer as unresolved against source; the reader cannot tell which sentence is affected, but the guarantee that every visible claim traces to a fact is broken for at least one of them.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A material unsupported or contradicted claim about installation, dependencies, API, formats, behavior, licensing, security, or compatibility."
+        },
+        {
+          "criterion_id": 4,
+          "criterion": "API surface truth",
+          "section": "A",
+          "gap": "License.SetLicense, Metered.SetMeteredKey, and DetectLayoutChanges are documented as if they work; a reader who calls them gets silent no-op behavior with no warning.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A material unsupported or contradicted claim about installation, dependencies, API, formats, behavior, licensing, security, or compatibility."
+        },
+        {
+          "criterion_id": 6,
+          "criterion": "API-reference integrity",
+          "section": "A",
+          "gap": "The aspose.note.model namespace section repeats ~29 rows nearly verbatim as re-export notices, adding scroll length without new information; AsposeNoteError is referenced as a base class but never itself documented.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 7,
+          "criterion": "Limitations honesty",
+          "section": "A",
+          "gap": "Scope and Limitations lists only 3 constraints, omitting the License/Metered no-op and DetectLayoutChanges-stub facts the immediate predecessor README stated plainly.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A material unsupported or contradicted claim about installation, dependencies, API, formats, behavior, licensing, security, or compatibility."
+        },
+        {
+          "criterion_id": 9,
+          "criterion": "Content-unit accounting",
+          "section": "B",
+          "gap": "The candidate's own content-preservation ledger cannot prove where 16 retained/superseded headings actually landed in the delivered text.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A verified old-README fact, structural unit, code example, badge, or meaningful image is silently dropped when an old README exists."
+        },
+        {
+          "criterion_id": 10,
+          "criterion": "Structural accounting",
+          "section": "B",
+          "gap": "The 'Document Structure' and 'Enumerations' organizing subheadings from the predecessor README's detailed API section are gone, leaving an undifferentiated bullet list in their place.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 11,
+          "criterion": "Code-example accounting",
+          "section": "B",
+          "gap": "No example anywhere in the README shows how to extract attached files via the AttachedFile API, even though that capability is still listed in Key Capabilities and the API Reference.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A verified old-README fact, structural unit, code example, badge, or meaningful image is silently dropped when an old README exists."
+        },
+        {
+          "criterion_id": 12,
+          "criterion": "Badge/media accounting",
+          "section": "B",
+          "gap": "The CI build-status badge from the predecessor README is gone with no explanation, while a new Contributors badge and banner image appear with no accounting either.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A verified old-README fact, structural unit, code example, badge, or meaningful image is silently dropped when an old README exists."
+        },
+        {
+          "criterion_id": 13,
+          "criterion": "Reconciliation integrity",
+          "section": "B",
+          "gap": "16 reconciliation rows are unresolved by the tool's own validator; not directly visible in the text, but the delivery's own preservation proof is incomplete.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": null
+        },
+        {
+          "criterion_id": 16,
+          "criterion": "Concrete capabilities",
+          "section": "C",
+          "gap": "Key Capabilities reads as fully working, concrete, and specific, but hides that three named API members are no-ops in this edition.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A material unsupported or contradicted claim about installation, dependencies, API, formats, behavior, licensing, security, or compatibility."
+        },
+        {
+          "criterion_id": 26,
+          "criterion": "Sealed inputs",
+          "section": "E",
+          "gap": "Not visible in the README; the delivery bypassed the canonical sealed/immutable-manifest lifecycle per its own evidence.",
+          "visible_in_readme_text": false,
+          "hard_disqualifier": "A blocking check that failed, skipped, or errored; a parser/reviewer failure treated as approval; or an evidence artifact containing an error envelope while promotion continues."
+        },
+        {
+          "criterion_id": 27,
+          "criterion": "Exact-byte verification",
+          "section": "E",
+          "gap": "Not visible in the README; the exact-byte match on rerun required 2 live provider calls rather than being a true deterministic replay.",
+          "visible_in_readme_text": false,
+          "hard_disqualifier": "Candidate bytes do not match the SHA reviewed and verified, or input source/knowledge revisions are not pinned."
+        },
+        {
+          "criterion_id": 28,
+          "criterion": "Complete fail-closed checks",
+          "section": "E",
+          "gap": "The product-owner-facing summary table calls this delivery clean ('DELIVERED', 'none') while the bundled evidence for the same candidate shows a rejected deterministic verdict and an invalid disposition ledger.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A blocking check that failed, skipped, or errored; a parser/reviewer failure treated as approval; or an evidence artifact containing an error envelope while promotion continues."
+        },
+        {
+          "criterion_id": 29,
+          "criterion": "Independent, claim-bound review",
+          "section": "E",
+          "gap": "The independent review recorded ACCEPT despite an unresolved, named claim conflict found by the deterministic layer for the same candidate bytes.",
+          "visible_in_readme_text": true,
+          "hard_disqualifier": "A blocking check that failed, skipped, or errored; a parser/reviewer failure treated as approval; or an evidence artifact containing an error envelope while promotion continues."
+        },
+        {
+          "criterion_id": 30,
+          "criterion": "Repeatable acceptance",
+          "section": "E",
+          "gap": "Not visible in the README; the no-op/rerun proof required by the acceptance process explicitly failed (RENDER_REPRODUCIBILITY_FAILED).",
+          "visible_in_readme_text": false,
+          "hard_disqualifier": "A blocking check that failed, skipped, or errored; a parser/reviewer failure treated as approval; or an evidence artifact containing an error envelope while promotion continues."
+        }
+      ]
+    }
+  ]
+}

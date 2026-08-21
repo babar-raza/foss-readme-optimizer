@@ -5,10 +5,10 @@ from __future__ import annotations
 import hashlib
 import json
 import subprocess
-import sys
 from pathlib import Path
 
 from readme_agent.facts import aspose_org_format_adapter as adapter
+from readme_agent.facts.aspose_org_vendored_source import VendoredAsposeOrgSourceV1
 
 _REVISION = "a" * 40
 
@@ -57,10 +57,18 @@ def sys_dont_write_bytecode():
 
 
 def _configure(monkeypatch, root: Path) -> None:
-    monkeypatch.setenv("ASPOSE_ORG_ROOT", str(root))
     monkeypatch.setenv("GH_TOKEN", "must-not-cross-boundary")
-    monkeypatch.setattr(adapter, "_python", lambda _root: Path(sys.executable))
-    monkeypatch.setattr(adapter, "_revision", lambda _root: _REVISION)
+    monkeypatch.setattr(
+        adapter,
+        "_source",
+        lambda: VendoredAsposeOrgSourceV1(
+            root=root,
+            pipeline=root / "scripts/pipeline",
+            source_commit=_REVISION,
+            aggregate_sha256="b" * 64,
+            files={},
+        ),
+    )
 
 
 def test_adapter_success_hashes_exact_transitive_inputs_and_writes_no_bytecode(
@@ -95,12 +103,16 @@ def test_adapter_success_hashes_exact_transitive_inputs_and_writes_no_bytecode(
 
 
 def test_adapter_reports_unavailable_root(tmp_path: Path, monkeypatch) -> None:
-    monkeypatch.setenv("ASPOSE_ORG_ROOT", str(tmp_path / "missing"))
+    monkeypatch.setattr(
+        adapter,
+        "_source",
+        lambda: (_ for _ in ()).throw(ValueError("manifest missing")),
+    )
 
     result = adapter.extract_aspose_org_formats(tmp_path, platform="python", family="note")
 
     assert result.status == "unavailable"
-    assert result.detail == "ASPOSE_ORG_ROOT is unavailable"
+    assert result.detail == "vendored extractor is unavailable: manifest missing"
 
 
 def test_adapter_rejects_invalid_subprocess_output(tmp_path: Path, monkeypatch) -> None:

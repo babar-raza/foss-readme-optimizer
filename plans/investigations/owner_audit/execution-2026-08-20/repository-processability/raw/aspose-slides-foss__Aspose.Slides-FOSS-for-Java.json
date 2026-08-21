@@ -1,0 +1,3816 @@
+{
+  "branch": {
+    "_links": {
+      "html": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/tree/main",
+      "self": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/branches/main"
+    },
+    "commit": {
+      "author": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1225645?v=4",
+        "events_url": "https://api.github.com/users/babar-raza/events{/privacy}",
+        "followers_url": "https://api.github.com/users/babar-raza/followers",
+        "following_url": "https://api.github.com/users/babar-raza/following{/other_user}",
+        "gists_url": "https://api.github.com/users/babar-raza/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/babar-raza",
+        "id": 1225645,
+        "login": "babar-raza",
+        "node_id": "MDQ6VXNlcjEyMjU2NDU=",
+        "organizations_url": "https://api.github.com/users/babar-raza/orgs",
+        "received_events_url": "https://api.github.com/users/babar-raza/received_events",
+        "repos_url": "https://api.github.com/users/babar-raza/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/babar-raza/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/babar-raza/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/babar-raza",
+        "user_view_type": "public"
+      },
+      "comments_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/commits/5d76f44cdd52a2510b66bbc20c663759cda60432/comments",
+      "commit": {
+        "author": {
+          "date": "2026-08-17T13:21:11Z",
+          "email": "babar.raza@aspose.com",
+          "name": "Babar Raza"
+        },
+        "comment_count": 0,
+        "committer": {
+          "date": "2026-08-17T13:21:11Z",
+          "email": "noreply@github.com",
+          "name": "GitHub"
+        },
+        "message": "docs: correct README Key Capabilities accuracy and diagram granularity\n\n- Removed a fabricated \"reorder slides\" claim -- SlideCollection/ISlideCollection\n  has no reorder/move/swap method of any kind (verified by reading the full\n  public surface: addClone/insertClone x3, addEmptySlide/insertEmptySlide,\n  remove/removeAt, iteration only). Reorder exists only on ShapeCollection\n  (shapes within a slide), which is already, correctly, documented elsewhere\n  in this same file.\n- Fixed \"arrowhead alignment\" -> \"arrowhead style, width, and length\". The\n  original phrasing conflated two unrelated LineFormat properties: the real\n  arrowhead properties are style/width/length; getAlignment()/setAlignment()\n  controls the line's own pen alignment (OOXML algn attribute), unrelated to\n  arrowheads.\n- Added a real, previously undocumented capability: per-slide visibility\n  control via ISlide.setHidden()/isHidden() during a slideshow.\n- Corrected the At a Glance diagram, which had lost real granularity relative\n  to this product's own Key Capabilities text and its sibling C++ README:\n  Fill/Line/Effects/3D formatting (4 distinct, substantial capability areas)\n  were crammed into one node; Connectors (a shape type, same method family as\n  AutoShape/Table/PictureFrame) was incoherently paired with unrelated\n  document-properties in another node; and a data-integrity guarantee\n  (round-trip preservation of unknown XML) was promoted to a capability node\n  it doesn't belong as. Restructured to 8 nodes matching the real capability\n  boundaries already documented in Key Capabilities.\n\nVerification: every class/method claim above was independently confirmed\nagainst the real, current source (ISlideCollection.java, SlideCollection.java,\nLineFormat.java, Slide.java, ISlide.java) before being added or changed. The\ndiagram restructure reuses only capability groupings already stated in this\nfile's own Key Capabilities section -- no new claims introduced.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "d6220a7259c9f4e2e888cea26037e54cf75e80b8",
+          "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/d6220a7259c9f4e2e888cea26037e54cf75e80b8"
+        },
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/commits/5d76f44cdd52a2510b66bbc20c663759cda60432",
+        "verification": {
+          "payload": "tree d6220a7259c9f4e2e888cea26037e54cf75e80b8\nparent 9968c5b42525919f50bca3cdbcedd3ae1dc382c4\nauthor Babar Raza <babar.raza@aspose.com> 1786972871 +0500\ncommitter GitHub <noreply@github.com> 1786972871 +0500\n\ndocs: correct README Key Capabilities accuracy and diagram granularity\n\n- Removed a fabricated \"reorder slides\" claim -- SlideCollection/ISlideCollection\n  has no reorder/move/swap method of any kind (verified by reading the full\n  public surface: addClone/insertClone x3, addEmptySlide/insertEmptySlide,\n  remove/removeAt, iteration only). Reorder exists only on ShapeCollection\n  (shapes within a slide), which is already, correctly, documented elsewhere\n  in this same file.\n- Fixed \"arrowhead alignment\" -> \"arrowhead style, width, and length\". The\n  original phrasing conflated two unrelated LineFormat properties: the real\n  arrowhead properties are style/width/length; getAlignment()/setAlignment()\n  controls the line's own pen alignment (OOXML algn attribute), unrelated to\n  arrowheads.\n- Added a real, previously undocumented capability: per-slide visibility\n  control via ISlide.setHidden()/isHidden() during a slideshow.\n- Corrected the At a Glance diagram, which had lost real granularity relative\n  to this product's own Key Capabilities text and its sibling C++ README:\n  Fill/Line/Effects/3D formatting (4 distinct, substantial capability areas)\n  were crammed into one node; Connectors (a shape type, same method family as\n  AutoShape/Table/PictureFrame) was incoherently paired with unrelated\n  document-properties in another node; and a data-integrity guarantee\n  (round-trip preservation of unknown XML) was promoted to a capability node\n  it doesn't belong as. Restructured to 8 nodes matching the real capability\n  boundaries already documented in Key Capabilities.\n\nVerification: every class/method claim above was independently confirmed\nagainst the real, current source (ISlideCollection.java, SlideCollection.java,\nLineFormat.java, Slide.java, ISlide.java) before being added or changed. The\ndiagram restructure reuses only capability groupings already stated in this\nfile's own Key Capabilities section -- no new claims introduced.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqgwrHCRC1aQ7uu5UhlAAAGfkQAJMODIPSOZ8hA9IHCLD76U5u\nWn59K+z/zbhyF6wQdFuuJtix8dJxZJ77ZqMy5CJxfDdopsLwPagKWvPosXSzLOHS\nOYmo47B8PnyUY37PR/dnNNfnVGGQ2r1981tUW3IQNqjBbhJ/XZ58jLQ5bwk4PNvB\n/G9eaPYdyNWz3sFQN6yVUmix66Asfnlc8vDUDC51CisGbAMIik4Yd3bxzu1UTx2E\nGOlNuhb7mSp11RxT9I0lU7V0pT/+FEvtAR2gLysZUfZcTL3cHBLo0Ws0J2+kRhXr\nLvwSnvkUAFS3Pq4WuSRNKzpQzDxZvOwx7akXY7qYO05jptcJ4RqhUdsA1uzpDLIL\nfU+tBW7OqnnpP4g7+9KXNo2mK+15oStep3umGMRm9mL18bD958LuX1JINoQZMy49\nvHd1D6HLTzW8Vj+9GY4/43DfSf+UEy7uthVQGQQfAZ/nBDaydyt0qbKVvqwi4yPR\nQEXq6XV1WQrkLR+/SjdHN2rsnslzKi0NvZ63+IqToA6jij8Xsxzf5j9D1bepCIUP\n0K10tnRDhFM29jk70NrlP2MmHb8hNOQOxtDGusfyzWIDUXFzujxE9st3Kv8dP8/b\n1bOnGlvQzWCKxc+ixB5rHaPoace0S0CToNxyQUa2FcVkz0b4JMyR5AnwOJIQvOp3\nf7VwRcKGhaOsCugBX1Q9\n=KBk8\n-----END PGP SIGNATURE-----\n",
+          "verified": true,
+          "verified_at": "2026-08-17T13:21:11Z"
+        }
+      },
+      "committer": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/web-flow",
+        "id": 19864447,
+        "login": "web-flow",
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/web-flow",
+        "user_view_type": "public"
+      },
+      "html_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/commit/5d76f44cdd52a2510b66bbc20c663759cda60432",
+      "node_id": "C_kwDORqiBRdoAKDVkNzZmNDRjZGQ1MmEyNTEwYjY2YmJjMjBjNjYzNzU5Y2RhNjA0MzI",
+      "parents": [
+        {
+          "html_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/commit/9968c5b42525919f50bca3cdbcedd3ae1dc382c4",
+          "sha": "9968c5b42525919f50bca3cdbcedd3ae1dc382c4",
+          "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/commits/9968c5b42525919f50bca3cdbcedd3ae1dc382c4"
+        }
+      ],
+      "sha": "5d76f44cdd52a2510b66bbc20c663759cda60432",
+      "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/commits/5d76f44cdd52a2510b66bbc20c663759cda60432"
+    },
+    "name": "main",
+    "protected": false,
+    "protection": {
+      "enabled": false,
+      "required_status_checks": {
+        "checks": [],
+        "contexts": [],
+        "enforcement_level": "off"
+      }
+    },
+    "protection_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/branches/main/protection"
+  },
+  "repo": {
+    "allow_auto_merge": false,
+    "allow_forking": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "archive_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/branches{/branch}",
+    "clone_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Java.git",
+    "collaborators_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/comments{/number}",
+    "commits_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/contributors",
+    "created_at": "2026-03-18T15:39:39Z",
+    "custom_properties": {},
+    "default_branch": "main",
+    "delete_branch_on_merge": false,
+    "deployments_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/deployments",
+    "description": "Open-source Java library for creating, reading and editing PowerPoint (.pptx) presentations \u2014 slides, shapes, text, tables, fills, effects, notes and comments. MIT licensed.",
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/downloads",
+    "events_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/events",
+    "fork": false,
+    "forks": 2,
+    "forks_count": 2,
+    "forks_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/forks",
+    "full_name": "aspose-slides-foss/Aspose.Slides-FOSS-for-Java",
+    "git_commits_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/tags{/sha}",
+    "git_url": "git://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Java.git",
+    "has_discussions": true,
+    "has_downloads": false,
+    "has_issues": true,
+    "has_pages": false,
+    "has_projects": true,
+    "has_pull_requests": true,
+    "has_wiki": false,
+    "homepage": "https://products.aspose.org/slides/java/",
+    "hooks_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/hooks",
+    "html_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Java",
+    "id": 1185448261,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/issues{/number}",
+    "keys_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/labels{/name}",
+    "language": "Java",
+    "languages_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/languages",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "node_id": "MDc6TGljZW5zZTEz",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit"
+    },
+    "merge_commit_message": "PR_TITLE",
+    "merge_commit_title": "MERGE_MESSAGE",
+    "merges_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/merges",
+    "milestones_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/milestones{/number}",
+    "mirror_url": null,
+    "name": "Aspose.Slides-FOSS-for-Java",
+    "network_count": 2,
+    "node_id": "R_kgDORqiBRQ",
+    "notifications_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/notifications{?since,all,participating}",
+    "open_issues": 0,
+    "open_issues_count": 0,
+    "organization": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224591375?v=4",
+      "events_url": "https://api.github.com/users/aspose-slides-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-slides-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-slides-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-slides-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-slides-foss",
+      "id": 224591375,
+      "login": "aspose-slides-foss",
+      "node_id": "O_kgDODWL-Dw",
+      "organizations_url": "https://api.github.com/users/aspose-slides-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-slides-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-slides-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-slides-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-slides-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-slides-foss",
+      "user_view_type": "public"
+    },
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224591375?v=4",
+      "events_url": "https://api.github.com/users/aspose-slides-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-slides-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-slides-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-slides-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-slides-foss",
+      "id": 224591375,
+      "login": "aspose-slides-foss",
+      "node_id": "O_kgDODWL-Dw",
+      "organizations_url": "https://api.github.com/users/aspose-slides-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-slides-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-slides-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-slides-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-slides-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-slides-foss",
+      "user_view_type": "public"
+    },
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "private": false,
+    "pull_request_creation_policy": "all",
+    "pulls_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/pulls{/number}",
+    "pushed_at": "2026-08-17T13:21:13Z",
+    "releases_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/releases{/id}",
+    "security_and_analysis": {
+      "dependabot_security_updates": {
+        "status": "disabled"
+      },
+      "secret_scanning": {
+        "status": "disabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    },
+    "size": 799,
+    "squash_merge_commit_message": "COMMIT_MESSAGES",
+    "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+    "ssh_url": "git@github.com:aspose-slides-foss/Aspose.Slides-FOSS-for-Java.git",
+    "stargazers_count": 1,
+    "stargazers_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/stargazers",
+    "statuses_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/statuses/{sha}",
+    "subscribers_count": 0,
+    "subscribers_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/subscribers",
+    "subscription_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/subscription",
+    "svn_url": "https://github.com/aspose-slides-foss/Aspose.Slides-FOSS-for-Java",
+    "tags_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/tags",
+    "teams_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/teams",
+    "temp_clone_token": "",
+    "topics": [
+      "aspose",
+      "java",
+      "java21",
+      "maven",
+      "mit-license",
+      "office-documents",
+      "ooxml",
+      "open-source",
+      "powerpoint",
+      "pptx",
+      "pptx-library",
+      "presentation",
+      "presentation-library",
+      "slides"
+    ],
+    "trees_url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees{/sha}",
+    "updated_at": "2026-08-17T13:25:28Z",
+    "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java",
+    "use_squash_pr_title_as_default": false,
+    "visibility": "public",
+    "watchers": 1,
+    "watchers_count": 1,
+    "web_commit_signoff_required": false
+  },
+  "tree": {
+    "sha": "d6220a7259c9f4e2e888cea26037e54cf75e80b8",
+    "tree": [
+      {
+        "mode": "040000",
+        "path": ".github",
+        "sha": "19bc38899b9f1e992dbefd380c0007cf03f95c4c",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/19bc38899b9f1e992dbefd380c0007cf03f95c4c"
+      },
+      {
+        "mode": "040000",
+        "path": ".github/workflows",
+        "sha": "d1a423a29960700784e2fc307503034432c57cac",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/d1a423a29960700784e2fc307503034432c57cac"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/workflows/maven-central-release.yml",
+        "sha": "d4551d8159822c7aad62ac02c9ea0eef5b92ae52",
+        "size": 13756,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d4551d8159822c7aad62ac02c9ea0eef5b92ae52"
+      },
+      {
+        "mode": "100644",
+        "path": ".gitignore",
+        "sha": "32ad307a5f53d605d009bda413a966a7945f25a9",
+        "size": 422,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/32ad307a5f53d605d009bda413a966a7945f25a9"
+      },
+      {
+        "mode": "100644",
+        "path": "AGENTS.md",
+        "sha": "fb057d460ac9a668660db0501df4a992233afde7",
+        "size": 7029,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/fb057d460ac9a668660db0501df4a992233afde7"
+      },
+      {
+        "mode": "100644",
+        "path": "LICENSE",
+        "sha": "f7d6f4b93b50af4e55408bb30341507675e75be6",
+        "size": 1090,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/f7d6f4b93b50af4e55408bb30341507675e75be6"
+      },
+      {
+        "mode": "100644",
+        "path": "PUBLISHING.md",
+        "sha": "4254a326aaa11fd71339de31b620f0e1185dac2f",
+        "size": 4822,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4254a326aaa11fd71339de31b620f0e1185dac2f"
+      },
+      {
+        "mode": "100644",
+        "path": "README.md",
+        "sha": "6e83a2c4ed5f81ae2f1bfc2c3a56c86f3a48d723",
+        "size": 38058,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/6e83a2c4ed5f81ae2f1bfc2c3a56c86f3a48d723"
+      },
+      {
+        "mode": "100644",
+        "path": "pom.xml",
+        "sha": "70923ef058c195ce4264900dd54ec56805b0edf2",
+        "size": 6138,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/70923ef058c195ce4264900dd54ec56805b0edf2"
+      },
+      {
+        "mode": "040000",
+        "path": "src",
+        "sha": "c51a7d0047dc9e175c822420b80240931915c882",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/c51a7d0047dc9e175c822420b80240931915c882"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main",
+        "sha": "972cbb8ac7607a93fac65faed9a7ce63cea9181c",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/972cbb8ac7607a93fac65faed9a7ce63cea9181c"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java",
+        "sha": "e9e4f6f034c1818575347638ce173984fd8bf636",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/e9e4f6f034c1818575347638ce173984fd8bf636"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org",
+        "sha": "f21e7db84528c0e9f307adec5ac08d5772ccf0e9",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/f21e7db84528c0e9f307adec5ac08d5772ccf0e9"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose",
+        "sha": "dd9bf549e58397ab4cf2a65a81e27044ed16f561",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/dd9bf549e58397ab4cf2a65a81e27044ed16f561"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose/slides",
+        "sha": "e0f094029cd04d63edd6e2d3d43684a3bc20120c",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/e0f094029cd04d63edd6e2d3d43684a3bc20120c"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose/slides/foss",
+        "sha": "25a7367b93d80b429c982d1ebeef850c77f254da",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/25a7367b93d80b429c982d1ebeef850c77f254da"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/AdjustValue.java",
+        "sha": "89363f14df4fad797191d1c93ee0799f5521a784",
+        "size": 2268,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/89363f14df4fad797191d1c93ee0799f5521a784"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/AdjustValueCollection.java",
+        "sha": "f33f3c1c225bd8f3d78d2a20e25c9daa8a60589a",
+        "size": 2973,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/f33f3c1c225bd8f3d78d2a20e25c9daa8a60589a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/AutoShape.java",
+        "sha": "bf8177938e552fbf8cc19965bca49086fdac961c",
+        "size": 6145,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/bf8177938e552fbf8cc19965bca49086fdac961c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/BaseHandoutNotesSlideHeaderFooterManager.java",
+        "sha": "2c28671ba283564044b946e6a156e22e0c8665ac",
+        "size": 255,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/2c28671ba283564044b946e6a156e22e0c8665ac"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/BasePortionFormat.java",
+        "sha": "1022cbe789d8a32acf01b1f445d49de5f4ff2b38",
+        "size": 20818,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/1022cbe789d8a32acf01b1f445d49de5f4ff2b38"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/BaseShapeLock.java",
+        "sha": "23b6124f651ac904e9b7cd7d601060e86309e494",
+        "size": 489,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/23b6124f651ac904e9b7cd7d601060e86309e494"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/BaseSlide.java",
+        "sha": "013cb54f92f573e9be708b3ca46236bf0d8993ad",
+        "size": 1742,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/013cb54f92f573e9be708b3ca46236bf0d8993ad"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/BevelPresetType.java",
+        "sha": "0d65b2ab001c208cde1f2375b9ed7703312b95df",
+        "size": 977,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/0d65b2ab001c208cde1f2375b9ed7703312b95df"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/BulletFormat.java",
+        "sha": "d5f15e0784be73cf258426976b425f3154336771",
+        "size": 14219,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d5f15e0784be73cf258426976b425f3154336771"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/BulletType.java",
+        "sha": "b6240dfb4867e02067f95dee2b280792e49685b9",
+        "size": 626,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/b6240dfb4867e02067f95dee2b280792e49685b9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/Camera.java",
+        "sha": "a389198e861a3c34f52c40730b1c50c66478e010",
+        "size": 9925,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/a389198e861a3c34f52c40730b1c50c66478e010"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/CameraPresetType.java",
+        "sha": "15054c6d9eabcb631b8d1fec642bb52e9d44035d",
+        "size": 5997,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/15054c6d9eabcb631b8d1fec642bb52e9d44035d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/Cell.java",
+        "sha": "4d7991b0a47a7340b8f567ff041b728326fee723",
+        "size": 15206,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4d7991b0a47a7340b8f567ff041b728326fee723"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/CellCollection.java",
+        "sha": "25ec5496fe7c9fa00c458b4d255fc86fca9241d1",
+        "size": 3748,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/25ec5496fe7c9fa00c458b4d255fc86fca9241d1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/CellFormat.java",
+        "sha": "3af411dd2c28e417cbe9efa8010c3ee1deec4bd0",
+        "size": 2356,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/3af411dd2c28e417cbe9efa8010c3ee1deec4bd0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ColorFormat.java",
+        "sha": "9eb780b62513c82142d7c972ffd6bdb88b97119d",
+        "size": 14690,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/9eb780b62513c82142d7c972ffd6bdb88b97119d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ColorType.java",
+        "sha": "cb5311f2b88d27e8a01c5702b8fbb64783204c40",
+        "size": 761,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/cb5311f2b88d27e8a01c5702b8fbb64783204c40"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/Column.java",
+        "sha": "28e76dfc7c1d8ef8e6beb85a8d6da8626b2dd4c1",
+        "size": 5734,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/28e76dfc7c1d8ef8e6beb85a8d6da8626b2dd4c1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ColumnCollection.java",
+        "sha": "01d4b3cce3c4a63b4f28ce73c879252b0f92d051",
+        "size": 10397,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/01d4b3cce3c4a63b4f28ce73c879252b0f92d051"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ColumnFormat.java",
+        "sha": "d0b4f9a329fa2412ce1529346560080fe7fa4a1a",
+        "size": 358,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d0b4f9a329fa2412ce1529346560080fe7fa4a1a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/Comment.java",
+        "sha": "0cc9894cde5f7dd51b102d7d5c9f9caa877a73f6",
+        "size": 6087,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/0cc9894cde5f7dd51b102d7d5c9f9caa877a73f6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/CommentAuthor.java",
+        "sha": "b3cd03092f3fbf06b58cee1299752c761479dbf2",
+        "size": 4897,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/b3cd03092f3fbf06b58cee1299752c761479dbf2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/CommentAuthorCollection.java",
+        "sha": "9cd99cd1d1081b16b17d009a3938592f5f2ef868",
+        "size": 7485,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/9cd99cd1d1081b16b17d009a3938592f5f2ef868"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/CommentCollection.java",
+        "sha": "2ab6431329f0b8cbecd73b6e2b641ff52bbe4155",
+        "size": 9616,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/2ab6431329f0b8cbecd73b6e2b641ff52bbe4155"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/Connector.java",
+        "sha": "5dab458c735af8c48d2dd65f69d422764bf0a682",
+        "size": 11131,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5dab458c735af8c48d2dd65f69d422764bf0a682"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ConnectorLock.java",
+        "sha": "854a6321e9d1ec9a3e68933c6c44a77acf7a8657",
+        "size": 253,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/854a6321e9d1ec9a3e68933c6c44a77acf7a8657"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/DocumentProperties.java",
+        "sha": "c093ba5d585bb720a549366238aab4f6d49e7b96",
+        "size": 13077,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c093ba5d585bb720a549366238aab4f6d49e7b96"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/EffectFormat.java",
+        "sha": "30429d83cfb3691d29d6a98f018bf1dc3b5994db",
+        "size": 12621,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/30429d83cfb3691d29d6a98f018bf1dc3b5994db"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/FillBlendMode.java",
+        "sha": "18866bd5b47f000369c8233ee6e898919082e371",
+        "size": 581,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/18866bd5b47f000369c8233ee6e898919082e371"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/FillFormat.java",
+        "sha": "241d75bdfd596ee3ce64fd1085b83c6a75ccfdcc",
+        "size": 8632,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/241d75bdfd596ee3ce64fd1085b83c6a75ccfdcc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/FillType.java",
+        "sha": "85af9482e523e7e53dff2d808af93918872b91bf",
+        "size": 700,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/85af9482e523e7e53dff2d808af93918872b91bf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/FontAlignment.java",
+        "sha": "ba75513b1f84ce587d9908d49c4935e9280ff780",
+        "size": 632,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/ba75513b1f84ce587d9908d49c4935e9280ff780"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/FontData.java",
+        "sha": "44f45bd3ae814999dee85495436aa98becc449f8",
+        "size": 944,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/44f45bd3ae814999dee85495436aa98becc449f8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/GeometryShape.java",
+        "sha": "a1723fa65c1ca040192289db006296f4776ba0e0",
+        "size": 19782,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/a1723fa65c1ca040192289db006296f4776ba0e0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/GlobalLayoutSlideCollection.java",
+        "sha": "c9e7575ad85fe1c1ebf815a86a5eed15a9eed07d",
+        "size": 1741,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c9e7575ad85fe1c1ebf815a86a5eed15a9eed07d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/GradientDirection.java",
+        "sha": "6fdd86b1fa0ff1f37241b59f59777fa9a3c6bfdd",
+        "size": 762,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/6fdd86b1fa0ff1f37241b59f59777fa9a3c6bfdd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/GradientFormat.java",
+        "sha": "7dbdb4f4d4b31369aceabf329d03e6774d5d72a0",
+        "size": 8946,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/7dbdb4f4d4b31369aceabf329d03e6774d5d72a0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/GradientShape.java",
+        "sha": "a816c50cb40fa44ccd49a2b4187378df776e4bef",
+        "size": 602,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/a816c50cb40fa44ccd49a2b4187378df776e4bef"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/GradientStop.java",
+        "sha": "4fad38c5801b9384b7339df0e5e43d4a1043a4c8",
+        "size": 2642,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4fad38c5801b9384b7339df0e5e43d4a1043a4c8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/GradientStopCollection.java",
+        "sha": "559868f2b919cc718b57c2c49df080d10b0461e3",
+        "size": 6737,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/559868f2b919cc718b57c2c49df080d10b0461e3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/GraphicalObject.java",
+        "sha": "c1bbe4f5025b0cff12fb6b5e1cbaf7537909d4ee",
+        "size": 800,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c1bbe4f5025b0cff12fb6b5e1cbaf7537909d4ee"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/GraphicalObjectLock.java",
+        "sha": "c8c6c3782c4c0bdc107b2e5335b68ba63d21dfda",
+        "size": 272,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c8c6c3782c4c0bdc107b2e5335b68ba63d21dfda"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/GroupShape.java",
+        "sha": "3d4458daff57e25d14edcf06382181af4c43f3d4",
+        "size": 898,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/3d4458daff57e25d14edcf06382181af4c43f3d4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/HeadingPair.java",
+        "sha": "de9c4e842ba72a2440b85da971889ade5994b2d4",
+        "size": 759,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/de9c4e842ba72a2440b85da971889ade5994b2d4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IAdjustValue.java",
+        "sha": "ca520343c014252ff31f117dfaf96b2b6a831335",
+        "size": 968,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/ca520343c014252ff31f117dfaf96b2b6a831335"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IAdjustValueCollection.java",
+        "sha": "ece3b4a6b036b8627cda57e0e056c4f49b01de17",
+        "size": 894,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/ece3b4a6b036b8627cda57e0e056c4f49b01de17"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IAutoShape.java",
+        "sha": "8dacf25c371a2d3f7d195a533d6c6176e223a303",
+        "size": 1127,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/8dacf25c371a2d3f7d195a533d6c6176e223a303"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IBaseHandoutNotesSlideHeaderFooterManager.java",
+        "sha": "61bd2baf3ba1389078fe6411a4204047301f4848",
+        "size": 831,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/61bd2baf3ba1389078fe6411a4204047301f4848"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IBaseHeaderFooterManager.java",
+        "sha": "349f70775d9109a268629d96b83f5bafa90a01b2",
+        "size": 144,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/349f70775d9109a268629d96b83f5bafa90a01b2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IBasePortionFormat.java",
+        "sha": "8d1e2beccbf1242f203bf2739acfa007eaedd57d",
+        "size": 9821,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/8d1e2beccbf1242f203bf2739acfa007eaedd57d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IBaseSlide.java",
+        "sha": "9d1d5841f92b0333cffa8ac8aec44a19678016d2",
+        "size": 737,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/9d1d5841f92b0333cffa8ac8aec44a19678016d2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IBaseSlideHeaderFooterManager.java",
+        "sha": "a00fba3c8eb9910ec9334a4820d9fa5741a44a37",
+        "size": 1735,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/a00fba3c8eb9910ec9334a4820d9fa5741a44a37"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IBulkTextFormattable.java",
+        "sha": "465e4c0ed76e2fbc6bfd66de94d71e77ee36f556",
+        "size": 342,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/465e4c0ed76e2fbc6bfd66de94d71e77ee36f556"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IBulletFormat.java",
+        "sha": "23f297aa84de805699f1ee06769cfa95421e2530",
+        "size": 3430,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/23f297aa84de805699f1ee06769cfa95421e2530"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ICamera.java",
+        "sha": "886097957e80b10ac9fa9ea76593ac0c0b6c189d",
+        "size": 1411,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/886097957e80b10ac9fa9ea76593ac0c0b6c189d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ICell.java",
+        "sha": "f8a227ce6caeb492b5c030b06c14eea946ad6aa4",
+        "size": 5193,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/f8a227ce6caeb492b5c030b06c14eea946ad6aa4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ICellCollection.java",
+        "sha": "26b363f71eda4b6b8d7989c93f3cb9ad84bde6c7",
+        "size": 955,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/26b363f71eda4b6b8d7989c93f3cb9ad84bde6c7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ICellFormat.java",
+        "sha": "1588c1973352f157f9ca29e6d56ef5af2d52e76d",
+        "size": 1307,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/1588c1973352f157f9ca29e6d56ef5af2d52e76d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IColorFormat.java",
+        "sha": "3169ca3797d268819709bb4cb98069580949bc1a",
+        "size": 4097,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/3169ca3797d268819709bb4cb98069580949bc1a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IColumn.java",
+        "sha": "4e74928c7be3f03b1c85a70778e360cdfc8303a8",
+        "size": 962,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4e74928c7be3f03b1c85a70778e360cdfc8303a8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IColumnCollection.java",
+        "sha": "6ca498b6ad1b6606f954d005f40d74d6883cc7a7",
+        "size": 1779,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/6ca498b6ad1b6606f954d005f40d74d6883cc7a7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IColumnFormat.java",
+        "sha": "cb995f3bcfede52e37623060db721812c1a6328e",
+        "size": 281,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/cb995f3bcfede52e37623060db721812c1a6328e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IComment.java",
+        "sha": "d4154fb62804b41ed410f4deda4f9916b4e4840e",
+        "size": 1185,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d4154fb62804b41ed410f4deda4f9916b4e4840e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ICommentAuthor.java",
+        "sha": "512f28fabf328164a69b306fe23856f9bd73b896",
+        "size": 738,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/512f28fabf328164a69b306fe23856f9bd73b896"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ICommentAuthorCollection.java",
+        "sha": "2085a1d4e1242107c3dcf95d83588df97b54f592",
+        "size": 1997,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/2085a1d4e1242107c3dcf95d83588df97b54f592"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ICommentCollection.java",
+        "sha": "a5a91ed33d76e9e92127df407e22bfcb0164c908",
+        "size": 2684,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/a5a91ed33d76e9e92127df407e22bfcb0164c908"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IConnector.java",
+        "sha": "119d3c419179bef8fe4322bcf6d8632ea874285d",
+        "size": 2026,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/119d3c419179bef8fe4322bcf6d8632ea874285d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IConnectorLock.java",
+        "sha": "1a5d00cb0d489377a4e694f6bd5e36ab36c366b4",
+        "size": 146,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/1a5d00cb0d489377a4e694f6bd5e36ab36c366b4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ICustomData.java",
+        "sha": "12d095b97b3f748e6af13d327e7762d123fb83c0",
+        "size": 125,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/12d095b97b3f748e6af13d327e7762d123fb83c0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IDocumentProperties.java",
+        "sha": "4a133582fb8be2075432b7945861591f5f2d40b9",
+        "size": 6628,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4a133582fb8be2075432b7945861591f5f2d40b9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IEffectFormat.java",
+        "sha": "c39bb8120373b9a086c68e13be72914786ef8772",
+        "size": 5169,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c39bb8120373b9a086c68e13be72914786ef8772"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IEffectParamSource.java",
+        "sha": "f4d7bf7638d89cc5d75d87902eb51e8a4ed64133",
+        "size": 158,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/f4d7bf7638d89cc5d75d87902eb51e8a4ed64133"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IFillFormat.java",
+        "sha": "8e99035f855ae1b31e15063021a72d6580e41d2d",
+        "size": 1348,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/8e99035f855ae1b31e15063021a72d6580e41d2d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IFillParamSource.java",
+        "sha": "47e22d97ea05ef5e07741936f75d0db60f2499c6",
+        "size": 154,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/47e22d97ea05ef5e07741936f75d0db60f2499c6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IFontData.java",
+        "sha": "35ee0335c0b3393f2a48995398642f446b04f038",
+        "size": 438,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/35ee0335c0b3393f2a48995398642f446b04f038"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IGeometryShape.java",
+        "sha": "3fd990136735e1edf6c9af916a9c36fd41c97a2a",
+        "size": 765,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/3fd990136735e1edf6c9af916a9c36fd41c97a2a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IGlobalLayoutSlideCollection.java",
+        "sha": "ecfedded9449c625bcbdd9c2c5b631e0bf039923",
+        "size": 605,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/ecfedded9449c625bcbdd9c2c5b631e0bf039923"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IGradientFormat.java",
+        "sha": "15dc79f5d7c2d14ff1a485a2c1d653c3c821fa99",
+        "size": 1877,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/15dc79f5d7c2d14ff1a485a2c1d653c3c821fa99"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IGradientStop.java",
+        "sha": "7e461136b4982bc1eadb6dcd50a4dc4951885ad1",
+        "size": 546,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/7e461136b4982bc1eadb6dcd50a4dc4951885ad1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IGradientStopCollection.java",
+        "sha": "b973f02f1980446b033098b2beb56b92104169a6",
+        "size": 2929,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/b973f02f1980446b033098b2beb56b92104169a6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IGraphicalObject.java",
+        "sha": "2bbb7dc7cbd54cbe318f1564b939a8cc4b60ce53",
+        "size": 299,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/2bbb7dc7cbd54cbe318f1564b939a8cc4b60ce53"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IGraphicalObjectLock.java",
+        "sha": "c1e0fd825dda7b48e848a8ae7bd59830f4111804",
+        "size": 167,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c1e0fd825dda7b48e848a8ae7bd59830f4111804"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IGroupShape.java",
+        "sha": "1b3f94d62e408bc92bd2f3656c4a696b1db1003d",
+        "size": 285,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/1b3f94d62e408bc92bd2f3656c4a696b1db1003d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IHeadingPair.java",
+        "sha": "71c4f20842de2decf09277fbc8929ec1f5f4da0b",
+        "size": 441,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/71c4f20842de2decf09277fbc8929ec1f5f4da0b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IHyperlinkContainer.java",
+        "sha": "5dfe6f15785ca005ccc4a6b1543559a3b28ff376",
+        "size": 139,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5dfe6f15785ca005ccc4a6b1543559a3b28ff376"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IImage.java",
+        "sha": "1d43f9a625eef0aec1d8deb219629a3ba306ea91",
+        "size": 1874,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/1d43f9a625eef0aec1d8deb219629a3ba306ea91"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IImageCollection.java",
+        "sha": "de5081f66412820f9988e1e7eebb7989748a5c0c",
+        "size": 1519,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/de5081f66412820f9988e1e7eebb7989748a5c0c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ILayoutSlide.java",
+        "sha": "8f56d3061de07d2e2853a1fdc0c676347f2a739a",
+        "size": 583,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/8f56d3061de07d2e2853a1fdc0c676347f2a739a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ILayoutSlideCollection.java",
+        "sha": "9c0ed3f23e7c54df9626016bc68e75cf682ef5b3",
+        "size": 1325,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/9c0ed3f23e7c54df9626016bc68e75cf682ef5b3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ILightRig.java",
+        "sha": "abe35f436a62ced380517bf81869fb356cbf4bc9",
+        "size": 1149,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/abe35f436a62ced380517bf81869fb356cbf4bc9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ILineFillFormat.java",
+        "sha": "665fc2ab299dd8df91521f6440d691519d04379f",
+        "size": 290,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/665fc2ab299dd8df91521f6440d691519d04379f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ILineFormat.java",
+        "sha": "06158314995406abdd6e7a869b6585783b8e6bfe",
+        "size": 4800,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/06158314995406abdd6e7a869b6585783b8e6bfe"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ILineParamSource.java",
+        "sha": "bb0da8abbe0c6ce1d37752d63ef180d2e1ae54c1",
+        "size": 154,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/bb0da8abbe0c6ce1d37752d63ef180d2e1ae54c1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ILoadOptions.java",
+        "sha": "1828747e695b8bfa896d30436a9ee5b39472a498",
+        "size": 157,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/1828747e695b8bfa896d30436a9ee5b39472a498"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IMasterLayoutSlideCollection.java",
+        "sha": "abb44ef6139fc02b758e89660b8563315a26ee13",
+        "size": 195,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/abb44ef6139fc02b758e89660b8563315a26ee13"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IMasterSlide.java",
+        "sha": "ef0b0f692bc15199fa91c61b8672e840772c3a75",
+        "size": 377,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/ef0b0f692bc15199fa91c61b8672e840772c3a75"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IMasterSlideCollection.java",
+        "sha": "5310b8d22eec7cc68f2796dffa94c8bed6f0bdf8",
+        "size": 1059,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5310b8d22eec7cc68f2796dffa94c8bed6f0bdf8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/INotesSize.java",
+        "sha": "2a9cab8ae175c30ca669bbb9e60935a6add8f8af",
+        "size": 475,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/2a9cab8ae175c30ca669bbb9e60935a6add8f8af"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/INotesSlide.java",
+        "sha": "c1c991b903e482fba8dcd1b547e722af8ae460af",
+        "size": 792,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c1c991b903e482fba8dcd1b547e722af8ae460af"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/INotesSlideHeaderFooterManager.java",
+        "sha": "162305ba337f853aaff5278fe623f77c4bb600ef",
+        "size": 939,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/162305ba337f853aaff5278fe623f77c4bb600ef"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/INotesSlideManager.java",
+        "sha": "d08225c89885e865a04f377b91a8372ca76e981f",
+        "size": 552,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d08225c89885e865a04f377b91a8372ca76e981f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IPPImage.java",
+        "sha": "1ba1731d2826a4dc1e8068226271b911618471b1",
+        "size": 1566,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/1ba1731d2826a4dc1e8068226271b911618471b1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IParagraph.java",
+        "sha": "66fccd97b50fa3af81deb595badd5567e729ac38",
+        "size": 1228,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/66fccd97b50fa3af81deb595badd5567e729ac38"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IParagraphCollection.java",
+        "sha": "c2a887dc58dc5be3833a7db78160bd5f157c6ba7",
+        "size": 2690,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c2a887dc58dc5be3833a7db78160bd5f157c6ba7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IParagraphFormat.java",
+        "sha": "1a92979b98ad8d9939a1803c2699fdf53e23c905",
+        "size": 4699,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/1a92979b98ad8d9939a1803c2699fdf53e23c905"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IPatternFormat.java",
+        "sha": "2ca501d2dd6da2396ed8f69ecc05123cd099b52d",
+        "size": 712,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/2ca501d2dd6da2396ed8f69ecc05123cd099b52d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IPictureFillFormat.java",
+        "sha": "66a0f1c1cb01ec3e53d412a13dba766637e8d1c0",
+        "size": 7712,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/66a0f1c1cb01ec3e53d412a13dba766637e8d1c0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IPictureFrame.java",
+        "sha": "ed239522b1b5f4f32f680ee5a7033de4145c32d8",
+        "size": 1576,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/ed239522b1b5f4f32f680ee5a7033de4145c32d8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IPictureFrameLock.java",
+        "sha": "d3ed8ff98dd1685303dfa16b300b7fe2281ae987",
+        "size": 4235,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d3ed8ff98dd1685303dfa16b300b7fe2281ae987"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IPlaceholder.java",
+        "sha": "bc6d0b2ba073e31d982389e14f59fa603825bb00",
+        "size": 115,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/bc6d0b2ba073e31d982389e14f59fa603825bb00"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IPortion.java",
+        "sha": "2d8a7e789555f404ad425ad79943c5c8ed48db16",
+        "size": 1121,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/2d8a7e789555f404ad425ad79943c5c8ed48db16"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IPortionCollection.java",
+        "sha": "42c052cdba68c1a204eada81cc45231b82d66145",
+        "size": 2176,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/42c052cdba68c1a204eada81cc45231b82d66145"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IPortionFormat.java",
+        "sha": "313ef2bc59bc56ff909d1075379e35c6e89d1d46",
+        "size": 303,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/313ef2bc59bc56ff909d1075379e35c6e89d1d46"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IPresentation.java",
+        "sha": "4db7b3ab35c5f4c75d5a162e7424c8d7cab3fe19",
+        "size": 6815,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4db7b3ab35c5f4c75d5a162e7424c8d7cab3fe19"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IPresentationComponent.java",
+        "sha": "7c6530c2c3b8a2b980c371e661edb280c714accd",
+        "size": 329,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/7c6530c2c3b8a2b980c371e661edb280c714accd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IRow.java",
+        "sha": "6df942a2deec56a1312b5aba60d57e7b3dabe20a",
+        "size": 1106,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/6df942a2deec56a1312b5aba60d57e7b3dabe20a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IRowCollection.java",
+        "sha": "e02c94dc7ca0bb732a590a2dc09cd5708ac39b1b",
+        "size": 1698,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/e02c94dc7ca0bb732a590a2dc09cd5708ac39b1b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IRowFormat.java",
+        "sha": "761eda603eaf09631bfd1ddf4eca631cda66f291",
+        "size": 272,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/761eda603eaf09631bfd1ddf4eca631cda66f291"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ISection.java",
+        "sha": "0757ca7f6ab8e09c0fdf1b7e5f037c6cdf91e770",
+        "size": 114,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/0757ca7f6ab8e09c0fdf1b7e5f037c6cdf91e770"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IShape.java",
+        "sha": "481b52cda2cf3a336f7114c5058620a6e71eb154",
+        "size": 6530,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/481b52cda2cf3a336f7114c5058620a6e71eb154"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IShapeBevel.java",
+        "sha": "773c1c87f31a8ab51addf0198eecb306cdf9934e",
+        "size": 906,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/773c1c87f31a8ab51addf0198eecb306cdf9934e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IShapeCollection.java",
+        "sha": "53d087e585e56ce2a855ad1b37f0c5a848dadd45",
+        "size": 8802,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/53d087e585e56ce2a855ad1b37f0c5a848dadd45"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IShapeFrame.java",
+        "sha": "a89e4e4aae10b5ebc5c61c851c3092007cfd4137",
+        "size": 1730,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/a89e4e4aae10b5ebc5c61c851c3092007cfd4137"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IShapeStyle.java",
+        "sha": "51eae4d55687bf692d590bfd398b7bf1eff2c6bf",
+        "size": 115,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/51eae4d55687bf692d590bfd398b7bf1eff2c6bf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ISlide.java",
+        "sha": "5bf4a30f83f8acad1149dd105033acc6c0d6049f",
+        "size": 1735,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5bf4a30f83f8acad1149dd105033acc6c0d6049f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ISlideCollection.java",
+        "sha": "0736b7c470cebdd6235f1cf9c57ee0d3b902170e",
+        "size": 4506,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/0736b7c470cebdd6235f1cf9c57ee0d3b902170e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ISlideComponent.java",
+        "sha": "6e22706d68155b288f54146d1ecf4d4d428cb6e9",
+        "size": 512,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/6e22706d68155b288f54146d1ecf4d4d428cb6e9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ISlidesPicture.java",
+        "sha": "fa9a2593ac58e948b9827ab77a19f57065d5721a",
+        "size": 1195,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/fa9a2593ac58e948b9827ab77a19f57065d5721a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ITable.java",
+        "sha": "dbf38525d07422f645ba777afbf0ac6b4d50e309",
+        "size": 4290,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/dbf38525d07422f645ba777afbf0ac6b4d50e309"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ITableFormat.java",
+        "sha": "fd01567a4a996eb43d01a9563eb527f214db3fde",
+        "size": 272,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/fd01567a4a996eb43d01a9563eb527f214db3fde"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ITextFrame.java",
+        "sha": "c95c0603bf9418439f84b467482774f37be56c7f",
+        "size": 1493,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c95c0603bf9418439f84b467482774f37be56c7f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ITextFrameFormat.java",
+        "sha": "efe54b26c2f85646590a3fff7b42abd791ae1521",
+        "size": 4375,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/efe54b26c2f85646590a3fff7b42abd791ae1521"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IThreeDFormat.java",
+        "sha": "96e275e330bd4303b9deab16298ee0a7dcd2a6cd",
+        "size": 2196,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/96e275e330bd4303b9deab16298ee0a7dcd2a6cd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/IThreeDParamSource.java",
+        "sha": "e4a7e79d466eae9002ccce2163d7c44b49b88fb3",
+        "size": 154,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/e4a7e79d466eae9002ccce2163d7c44b49b88fb3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/Image.java",
+        "sha": "2d01f0fcf6ff47043881444468245a031bdc6dd2",
+        "size": 2919,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/2d01f0fcf6ff47043881444468245a031bdc6dd2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ImageCollection.java",
+        "sha": "6f5b7dae01e1083746b1756be35efdf4abfe1d26",
+        "size": 7069,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/6f5b7dae01e1083746b1756be35efdf4abfe1d26"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/Images.java",
+        "sha": "f8c47a02fd0b41708c98937743bcf03d2f1900e0",
+        "size": 2733,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/f8c47a02fd0b41708c98937743bcf03d2f1900e0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/LayoutSlide.java",
+        "sha": "973a2a3402b8f76d28c07aaa6dfbd4e76b2caefa",
+        "size": 2940,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/973a2a3402b8f76d28c07aaa6dfbd4e76b2caefa"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/LayoutSlideCollection.java",
+        "sha": "e9f37f95465a3852e2ab3752672571bd9433db91",
+        "size": 1725,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/e9f37f95465a3852e2ab3752672571bd9433db91"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/LightRig.java",
+        "sha": "e568094105d3e6097b9f16c21e86bcc8b92af0b6",
+        "size": 8370,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/e568094105d3e6097b9f16c21e86bcc8b92af0b6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/LightRigPresetType.java",
+        "sha": "4d6518f0a031539566cb9d5445047f463430ad95",
+        "size": 1841,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4d6518f0a031539566cb9d5445047f463430ad95"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/LightingDirection.java",
+        "sha": "620de39d2a8ca37e2409842e25f125cd04491dc9",
+        "size": 799,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/620de39d2a8ca37e2409842e25f125cd04491dc9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/LineAlignment.java",
+        "sha": "5dcb37c8489f46a36467f51ab7876149ddcda95c",
+        "size": 512,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5dcb37c8489f46a36467f51ab7876149ddcda95c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/LineArrowheadLength.java",
+        "sha": "13d95527ea6dc07e6c291e97c51c529c96d6bb21",
+        "size": 561,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/13d95527ea6dc07e6c291e97c51c529c96d6bb21"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/LineArrowheadStyle.java",
+        "sha": "eb9cb67ed86ef1f2c0f9355013f43f26ce0cbbeb",
+        "size": 684,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/eb9cb67ed86ef1f2c0f9355013f43f26ce0cbbeb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/LineArrowheadWidth.java",
+        "sha": "95854125e18cc970c7b6389512facadb8b6547c4",
+        "size": 561,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/95854125e18cc970c7b6389512facadb8b6547c4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/LineCapStyle.java",
+        "sha": "4b00f5e51556c6d6dfd43bc75d6f0a3862935e98",
+        "size": 539,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4b00f5e51556c6d6dfd43bc75d6f0a3862935e98"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/LineDashStyle.java",
+        "sha": "af5a55f011e4e64ec16a26c7285268017ad8ec9f",
+        "size": 1072,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/af5a55f011e4e64ec16a26c7285268017ad8ec9f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/LineFillFormat.java",
+        "sha": "379f9e2fa63cd38910c47debd5f2070a9d65dc10",
+        "size": 4891,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/379f9e2fa63cd38910c47debd5f2070a9d65dc10"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/LineFormat.java",
+        "sha": "55b433f6f90a2c3a4cd93ed7894c10511ff95677",
+        "size": 22455,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/55b433f6f90a2c3a4cd93ed7894c10511ff95677"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/LineJoinStyle.java",
+        "sha": "9e8fe9c31f8a308d34c02cdf098546bfcad00de2",
+        "size": 543,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/9e8fe9c31f8a308d34c02cdf098546bfcad00de2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/LineStyle.java",
+        "sha": "54bfed04611e5ed150e73dd23a0a96c04d11ba81",
+        "size": 689,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/54bfed04611e5ed150e73dd23a0a96c04d11ba81"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/MasterLayoutSlideCollection.java",
+        "sha": "060a150c1c68fef7118ff143a5957f7de1f6c62c",
+        "size": 2331,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/060a150c1c68fef7118ff143a5957f7de1f6c62c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/MasterSlide.java",
+        "sha": "40095e3511e46a6e3ed89d2512ec66fe9efeba7d",
+        "size": 2737,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/40095e3511e46a6e3ed89d2512ec66fe9efeba7d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/MasterSlideCollection.java",
+        "sha": "3dfd737a1bd2e583fe48d53b70f419128e3d014a",
+        "size": 16450,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/3dfd737a1bd2e583fe48d53b70f419128e3d014a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/MaterialPresetType.java",
+        "sha": "0fb68efb4a973f3b0a8fa8444d7ac172e7766016",
+        "size": 1204,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/0fb68efb4a973f3b0a8fa8444d7ac172e7766016"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/NotesSize.java",
+        "sha": "d823fb3a6f298dd5cefdbc09d94dd9cb4daa3bf6",
+        "size": 2262,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d823fb3a6f298dd5cefdbc09d94dd9cb4daa3bf6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/NotesSlide.java",
+        "sha": "bb916a23839faeb251949698a4e11376d377c71c",
+        "size": 3544,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/bb916a23839faeb251949698a4e11376d377c71c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/NotesSlideHeaderFooterManager.java",
+        "sha": "d939d81c73509f1b66fd481f09be6deb9218afe5",
+        "size": 3394,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d939d81c73509f1b66fd481f09be6deb9218afe5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/NotesSlideManager.java",
+        "sha": "c06fd13857f8075857171400019ad8a50f40682d",
+        "size": 8038,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c06fd13857f8075857171400019ad8a50f40682d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/NotesTextFrame.java",
+        "sha": "19c909da88ab86e0bb70b20b0747ae9c70466448",
+        "size": 1452,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/19c909da88ab86e0bb70b20b0747ae9c70466448"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/NullableBool.java",
+        "sha": "d102677d93cdc8fb7d6b879285faa6aae191b52a",
+        "size": 528,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d102677d93cdc8fb7d6b879285faa6aae191b52a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/NumberedBulletStyle.java",
+        "sha": "54e635592b7180b6bc71c3a7c42a290205ad4e7d",
+        "size": 4138,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/54e635592b7180b6bc71c3a7c42a290205ad4e7d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/PPImage.java",
+        "sha": "ee5950ac403615036f7084184fbb5fb552017e82",
+        "size": 4321,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/ee5950ac403615036f7084184fbb5fb552017e82"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/PVIObject.java",
+        "sha": "c4e65157b6f9283aab066f396b91f196841d56a9",
+        "size": 1246,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c4e65157b6f9283aab066f396b91f196841d56a9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/Paragraph.java",
+        "sha": "860353076956641aa97038bd83334ee27a79b624",
+        "size": 5180,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/860353076956641aa97038bd83334ee27a79b624"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ParagraphCollection.java",
+        "sha": "733896bfe546f056733585791f5c43bb455bb16b",
+        "size": 5477,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/733896bfe546f056733585791f5c43bb455bb16b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ParagraphFormat.java",
+        "sha": "6c442956275900dfd681ec4aef7616ab85657ab6",
+        "size": 17899,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/6c442956275900dfd681ec4aef7616ab85657ab6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/PatternFormat.java",
+        "sha": "d8fc453cb0566a3a7a0f00ccd8af75f7ef1e276a",
+        "size": 3411,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d8fc453cb0566a3a7a0f00ccd8af75f7ef1e276a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/PatternStyle.java",
+        "sha": "873f0308f2598d2ab9716a045d31049c46ab0bf1",
+        "size": 3744,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/873f0308f2598d2ab9716a045d31049c46ab0bf1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/Picture.java",
+        "sha": "0b0c9311f7926ab5a4bc458890addaca9292d4bc",
+        "size": 11244,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/0b0c9311f7926ab5a4bc458890addaca9292d4bc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/PictureFillFormat.java",
+        "sha": "5700b23cf85a2c67c7b80304568f9fba4e9af16b",
+        "size": 15533,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5700b23cf85a2c67c7b80304568f9fba4e9af16b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/PictureFillMode.java",
+        "sha": "7439abb4e2847d96a1009bedc24a23560d8b2c81",
+        "size": 463,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/7439abb4e2847d96a1009bedc24a23560d8b2c81"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/PictureFrame.java",
+        "sha": "058b63d96b67134286cc03ab7a93c71ab49409ec",
+        "size": 5177,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/058b63d96b67134286cc03ab7a93c71ab49409ec"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/PictureFrameLock.java",
+        "sha": "458a9f857a99964a767b73cb2d2f799d9e67aacc",
+        "size": 4722,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/458a9f857a99964a767b73cb2d2f799d9e67aacc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/Portion.java",
+        "sha": "52ddb1ffb175cd3ef47172f1b2b2d9b9a6a281d7",
+        "size": 5595,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/52ddb1ffb175cd3ef47172f1b2b2d9b9a6a281d7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/PortionCollection.java",
+        "sha": "4114eecec31c554728f06268661ac668a6139f75",
+        "size": 9155,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4114eecec31c554728f06268661ac668a6139f75"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/PortionFormat.java",
+        "sha": "b77a1d959189131802c8d3efa0327435f7ff9ceb",
+        "size": 796,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/b77a1d959189131802c8d3efa0327435f7ff9ceb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/PptCorruptFileException.java",
+        "sha": "fad6a535085ba24202a0a7af98343538f2db9d08",
+        "size": 880,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/fad6a535085ba24202a0a7af98343538f2db9d08"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/PptException.java",
+        "sha": "56320a780026bd7ac8a0125b3f2622fdec412c91",
+        "size": 767,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/56320a780026bd7ac8a0125b3f2622fdec412c91"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/PptReadException.java",
+        "sha": "50fb0f41d147d35cedc6e971e9ac61c9c3298af2",
+        "size": 801,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/50fb0f41d147d35cedc6e971e9ac61c9c3298af2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/Presentation.java",
+        "sha": "2fe61e1a092b0dbcd7703ee8bb5fcbcd47f41a7f",
+        "size": 35563,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/2fe61e1a092b0dbcd7703ee8bb5fcbcd47f41a7f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/PresetColor.java",
+        "sha": "046360f675bcb99439178a1696d28e6b7057a3fe",
+        "size": 7588,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/046360f675bcb99439178a1696d28e6b7057a3fe"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/PresetShadowType.java",
+        "sha": "9516bafabcb8cb9142ac25a4d3b076a848ae617f",
+        "size": 2389,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/9516bafabcb8cb9142ac25a4d3b076a848ae617f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/RectangleAlignment.java",
+        "sha": "0c4a9639218cd1f307d9e90b8b12222f13b505a9",
+        "size": 832,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/0c4a9639218cd1f307d9e90b8b12222f13b505a9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/Row.java",
+        "sha": "3dc0d29a530dbda75ce497861e771bf1ce43e166",
+        "size": 6070,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/3dc0d29a530dbda75ce497861e771bf1ce43e166"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/RowCollection.java",
+        "sha": "3d3ccc28a5963190be9f4bc1ca856c84e6b0a305",
+        "size": 7347,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/3d3ccc28a5963190be9f4bc1ca856c84e6b0a305"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/RowFormat.java",
+        "sha": "c8ed2aeb766bed89c45d2f380df97f0cc04d562e",
+        "size": 343,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c8ed2aeb766bed89c45d2f380df97f0cc04d562e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/SchemeColor.java",
+        "sha": "63662973c5ae8f2bcdd69efcf100df34e1d59ea1",
+        "size": 1234,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/63662973c5ae8f2bcdd69efcf100df34e1d59ea1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/Shape.java",
+        "sha": "f2226fb5d76e06bde876898ec5d8507d4eccde13",
+        "size": 18930,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/f2226fb5d76e06bde876898ec5d8507d4eccde13"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ShapeBevel.java",
+        "sha": "d98522343a5a57eb89697c2815f5d2b475593e87",
+        "size": 5901,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d98522343a5a57eb89697c2815f5d2b475593e87"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ShapeCollection.java",
+        "sha": "df190168fca761d48c752eb3ddac4b9f68ec093c",
+        "size": 42006,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/df190168fca761d48c752eb3ddac4b9f68ec093c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ShapeFrame.java",
+        "sha": "895e8505ec277076c6a6edda78878940b85928f3",
+        "size": 3022,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/895e8505ec277076c6a6edda78878940b85928f3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ShapeStyle.java",
+        "sha": "1de86ee446cd727ab8ebf4ea4da5cf5b8e83ebee",
+        "size": 139,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/1de86ee446cd727ab8ebf4ea4da5cf5b8e83ebee"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ShapeType.java",
+        "sha": "4712bdce9e94123556fef8a60adcb22e70d62d60",
+        "size": 23244,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4712bdce9e94123556fef8a60adcb22e70d62d60"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/Slide.java",
+        "sha": "407056a879f5ba1ea499ebd4aa5d32f76d06e820",
+        "size": 12175,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/407056a879f5ba1ea499ebd4aa5d32f76d06e820"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/SlideCollection.java",
+        "sha": "57550e1a15491cbff7457d17d163d313fdeb4a73",
+        "size": 26592,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/57550e1a15491cbff7457d17d163d313fdeb4a73"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/SlideLayoutType.java",
+        "sha": "491b182308d437ef963d8f65a6a0c0b1c8011976",
+        "size": 3493,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/491b182308d437ef963d8f65a6a0c0b1c8011976"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/SourceFormat.java",
+        "sha": "48bf11b444604ed2389c42e1d42bd8341f9d49cc",
+        "size": 490,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/48bf11b444604ed2389c42e1d42bd8341f9d49cc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/Table.java",
+        "sha": "b4f0e37ef23a2e06bdc8cb970e0fcab7ae1aa3dc",
+        "size": 16489,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/b4f0e37ef23a2e06bdc8cb970e0fcab7ae1aa3dc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/TableFormat.java",
+        "sha": "fe79767fd3a189e45242fd3aa747a41977190352",
+        "size": 1282,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/fe79767fd3a189e45242fd3aa747a41977190352"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/TableStylePreset.java",
+        "sha": "f30c441f49176160ff713dbf81b390b42bcc412b",
+        "size": 6649,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/f30c441f49176160ff713dbf81b390b42bcc412b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/TextAlignment.java",
+        "sha": "907c08a2489ddc67f61feccefd2c5d18cce36895",
+        "size": 709,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/907c08a2489ddc67f61feccefd2c5d18cce36895"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/TextAnchorType.java",
+        "sha": "85bc855424fd25203b9e5b2eb671ea6665da44e7",
+        "size": 657,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/85bc855424fd25203b9e5b2eb671ea6665da44e7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/TextAutofitType.java",
+        "sha": "f90bd258700ca7c1f841c5d5a8e6aad37227cba4",
+        "size": 634,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/f90bd258700ca7c1f841c5d5a8e6aad37227cba4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/TextCapType.java",
+        "sha": "5b2be1d68e624c2b40c41a62d0ad36bed8b91995",
+        "size": 541,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5b2be1d68e624c2b40c41a62d0ad36bed8b91995"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/TextFrame.java",
+        "sha": "e2a24847f6f19f907bc2645f0f284082ad5eb161",
+        "size": 7330,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/e2a24847f6f19f907bc2645f0f284082ad5eb161"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/TextFrameFormat.java",
+        "sha": "089bd40e3d94e73278727da769279954c4464b58",
+        "size": 21086,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/089bd40e3d94e73278727da769279954c4464b58"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/TextShapeType.java",
+        "sha": "64f25a3ae7f4496177f89d1d400000d5f1b3ac0c",
+        "size": 2572,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/64f25a3ae7f4496177f89d1d400000d5f1b3ac0c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/TextStrikethroughType.java",
+        "sha": "561657f3af898a9ee19bf8b0dc7d0ed232a91988",
+        "size": 572,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/561657f3af898a9ee19bf8b0dc7d0ed232a91988"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/TextUnderlineType.java",
+        "sha": "584945e10d71479e8da27e7f207849b22dfd134e",
+        "size": 1343,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/584945e10d71479e8da27e7f207849b22dfd134e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/TextVerticalType.java",
+        "sha": "b43b8f99c104ef494c4604e5accc437892bd5c66",
+        "size": 941,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/b43b8f99c104ef494c4604e5accc437892bd5c66"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/ThreeDFormat.java",
+        "sha": "0b6a930e003921c77248829196636d8e60201c52",
+        "size": 8070,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/0b6a930e003921c77248829196636d8e60201c52"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/TileFlip.java",
+        "sha": "6deb44d4354a9dbd2698fbcae98e6611febbf833",
+        "size": 586,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/6deb44d4354a9dbd2698fbcae98e6611febbf833"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose/slides/foss/drawing",
+        "sha": "5c12a0cd02ccdf8abdf1a83a3aee8f1953b67501",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/5c12a0cd02ccdf8abdf1a83a3aee8f1953b67501"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/drawing/Color.java",
+        "sha": "985b137e228b54466102d4e1749e324c1391ed15",
+        "size": 16931,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/985b137e228b54466102d4e1749e324c1391ed15"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/drawing/PointF.java",
+        "sha": "5862228f9fa224284dcc45a897ef8298df668a39",
+        "size": 1763,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5862228f9fa224284dcc45a897ef8298df668a39"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/drawing/RectangleF.java",
+        "sha": "4dc1899cbf532aec3a5a3f8f0e170bf55a92dd4a",
+        "size": 1893,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4dc1899cbf532aec3a5a3f8f0e170bf55a92dd4a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/drawing/Size.java",
+        "sha": "f2d555a706c04887e1525e9fa0a217fbcf8ab689",
+        "size": 2469,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/f2d555a706c04887e1525e9fa0a217fbcf8ab689"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/drawing/SizeF.java",
+        "sha": "9d47fa6129ce7c5f70ad8880728e2a55de6146ea",
+        "size": 2396,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/9d47fa6129ce7c5f70ad8880728e2a55de6146ea"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose/slides/foss/effects",
+        "sha": "2ae2fd107f5c67306a64d84d07edde95efe9ab2f",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/2ae2fd107f5c67306a64d84d07edde95efe9ab2f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/Blur.java",
+        "sha": "f731e3d5ce58d088064b6a5c14bf997bd2d1ea4a",
+        "size": 3094,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/f731e3d5ce58d088064b6a5c14bf997bd2d1ea4a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/FillOverlay.java",
+        "sha": "c6a41dc4e5b9723cb3f22c883fd1c6ff8a26ea87",
+        "size": 4160,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c6a41dc4e5b9723cb3f22c883fd1c6ff8a26ea87"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/Glow.java",
+        "sha": "cb76606910cd7da8627ce7560c9d6978f5c36ed9",
+        "size": 1608,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/cb76606910cd7da8627ce7560c9d6978f5c36ed9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/IBlur.java",
+        "sha": "9528b5e52886e8dd011a106321d0905c1eb23a51",
+        "size": 841,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/9528b5e52886e8dd011a106321d0905c1eb23a51"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/IFillOverlay.java",
+        "sha": "44e03c3ac67ebfd3f47932bb98f181993cd5f99b",
+        "size": 787,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/44e03c3ac67ebfd3f47932bb98f181993cd5f99b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/IGlow.java",
+        "sha": "269aa147f1b18679932bbc667b2edf07d8f046a4",
+        "size": 594,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/269aa147f1b18679932bbc667b2edf07d8f046a4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/IImageTransformOperation.java",
+        "sha": "d3ad14d3818cb5b72d9909f05489c7dc50501850",
+        "size": 335,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d3ad14d3818cb5b72d9909f05489c7dc50501850"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/IInnerShadow.java",
+        "sha": "92f4204eabe8137bf8254c50f672759d838a2d9f",
+        "size": 1161,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/92f4204eabe8137bf8254c50f672759d838a2d9f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/IOuterShadow.java",
+        "sha": "ad1d377674ade4381f95ad9a333b183b218e7cc0",
+        "size": 3553,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/ad1d377674ade4381f95ad9a333b183b218e7cc0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/IPresetShadow.java",
+        "sha": "7bd8277645b66104038740bb66a8a9e60a70e684",
+        "size": 1352,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/7bd8277645b66104038740bb66a8a9e60a70e684"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/IReflection.java",
+        "sha": "80ead53d1022f74a47d0cc27bb24121c21a226a7",
+        "size": 4995,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/80ead53d1022f74a47d0cc27bb24121c21a226a7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/ISoftEdge.java",
+        "sha": "5d2cee53f9606be7c51c8940cb4afd96c3981f23",
+        "size": 472,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5d2cee53f9606be7c51c8940cb4afd96c3981f23"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/ImageTransformOperation.java",
+        "sha": "bbc31b135cf154b111f142bbe96ed27d9ae9d122",
+        "size": 917,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/bbc31b135cf154b111f142bbe96ed27d9ae9d122"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/InnerShadow.java",
+        "sha": "02e760a29bdedb0d689872cd62dea3fd292cebd9",
+        "size": 3642,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/02e760a29bdedb0d689872cd62dea3fd292cebd9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/OuterShadow.java",
+        "sha": "5885a0a8e825c56d0d99e57472b6dbc5d96d38e2",
+        "size": 7222,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5885a0a8e825c56d0d99e57472b6dbc5d96d38e2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/PresetShadow.java",
+        "sha": "318df57ebd85f0fd499a18286fa4d7e061970532",
+        "size": 5560,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/318df57ebd85f0fd499a18286fa4d7e061970532"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/Reflection.java",
+        "sha": "43a2f553c3b527319222314220cf7f996a257e5a",
+        "size": 8896,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/43a2f553c3b527319222314220cf7f996a257e5a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/effects/SoftEdge.java",
+        "sha": "c4db93352752cad45c996a8b71be39c2eb040ee5",
+        "size": 1386,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c4db93352752cad45c996a8b71be39c2eb040ee5"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose/slides/foss/export",
+        "sha": "d130394cdefcabc9c881a8cb798bb96e24f751e2",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/d130394cdefcabc9c881a8cb798bb96e24f751e2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/export/ISaveOptions.java",
+        "sha": "c0369ee5e408f61642834eaedcfaba5369cca09c",
+        "size": 254,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c0369ee5e408f61642834eaedcfaba5369cca09c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/export/SaveFormat.java",
+        "sha": "33c687855b0add49c127ca52a8a66c793f525a5d",
+        "size": 2135,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/33c687855b0add49c127ca52a8a66c793f525a5d"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose/slides/foss/internal",
+        "sha": "abdb85fdf9935d9e61b15edf2d99c92e114eb649",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/abdb85fdf9935d9e61b15edf2d99c92e114eb649"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/BaseCollection.java",
+        "sha": "1a16d8e54bc1dca94c09cf47f53be6a7fecd2d00",
+        "size": 2691,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/1a16d8e54bc1dca94c09cf47f53be6a7fecd2d00"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose/slides/foss/internal/export",
+        "sha": "508e369722d378b433ad5b17a77b302d5b1356c0",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/508e369722d378b433ad5b17a77b302d5b1356c0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/export/ExporterBase.java",
+        "sha": "fab84b1d09ab78f1f9fa0c14dc5763700f96ba0d",
+        "size": 3462,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/fab84b1d09ab78f1f9fa0c14dc5763700f96ba0d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/export/ExporterRegistry.java",
+        "sha": "ef33f74f1925eb21ab75dde0ee9132e40b89975f",
+        "size": 4681,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/ef33f74f1925eb21ab75dde0ee9132e40b89975f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/export/PptxExporter.java",
+        "sha": "b0983fd98980cf9404689f733e1d4f6c7d89bc9e",
+        "size": 4182,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/b0983fd98980cf9404689f733e1d4f6c7d89bc9e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/export/PptxExporterFactory.java",
+        "sha": "1b996cf92ff9b9b153ab14068c49067e0a3c6524",
+        "size": 732,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/1b996cf92ff9b9b153ab14068c49067e0a3c6524"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose/slides/foss/internal/opc",
+        "sha": "ff12da502b3b1acdccbc3a776bfdf33c4bcecfc7",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/ff12da502b3b1acdccbc3a776bfdf33c4bcecfc7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/opc/ContentTypesManager.java",
+        "sha": "24dcee7cc3d1e6dff775f7b473d88455ae5b3ade",
+        "size": 10338,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/24dcee7cc3d1e6dff775f7b473d88455ae5b3ade"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/opc/OpcPackage.java",
+        "sha": "de8ae832a3f83a0bfed7dbf01ebb02dffce154cc",
+        "size": 7830,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/de8ae832a3f83a0bfed7dbf01ebb02dffce154cc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/opc/Relationship.java",
+        "sha": "b3ab267c0494e002e8073fe6ddda7feb5c9ebe8a",
+        "size": 868,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/b3ab267c0494e002e8073fe6ddda7feb5c9ebe8a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/opc/RelationshipsManager.java",
+        "sha": "6dbae90f4200c90d10d701de163b00e28b5e5dcd",
+        "size": 13797,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/6dbae90f4200c90d10d701de163b00e28b5e5dcd"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx",
+        "sha": "e46e8d8c890f0cf19995a403cfca58b7e3b004a9",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/e46e8d8c890f0cf19995a403cfca58b7e3b004a9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/AppPropertiesPart.java",
+        "sha": "24858dcab83e00a84470d9ac8ba91fa2b978aba0",
+        "size": 18572,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/24858dcab83e00a84470d9ac8ba91fa2b978aba0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/Attributes.java",
+        "sha": "5c3e2a2f46e1a1d5fe83fa0d5da817e76bccdc03",
+        "size": 1411,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5c3e2a2f46e1a1d5fe83fa0d5da817e76bccdc03"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/AuthorData.java",
+        "sha": "c059ad7b8edc49c2c4c5f5b3e87eca77ffa3e411",
+        "size": 2424,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c059ad7b8edc49c2c4c5f5b3e87eca77ffa3e411"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/BulkTextFormat.java",
+        "sha": "ba6eea0f4789b7047c785c4e4a5718fb47e90eca",
+        "size": 10755,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/ba6eea0f4789b7047c785c4e4a5718fb47e90eca"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/CommentAuthorsPart.java",
+        "sha": "fd56ac53a4463788c7a57ca66a5a86d8a9a6c751",
+        "size": 8284,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/fd56ac53a4463788c7a57ca66a5a86d8a9a6c751"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/CommentData.java",
+        "sha": "800d9451a7b715f87b037a79ce1b34824a4fcca7",
+        "size": 5421,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/800d9451a7b715f87b037a79ce1b34824a4fcca7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/CommentsPart.java",
+        "sha": "d577c238fc1d33297a6900c37cbe35ad87ebb7ad",
+        "size": 22607,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d577c238fc1d33297a6900c37cbe35ad87ebb7ad"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/ContentTypesManager.java",
+        "sha": "1e90f1226a00ff3b0d55e905e6cdcaf6cdaef6da",
+        "size": 7807,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/1e90f1226a00ff3b0d55e905e6cdcaf6cdaef6da"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/CorePropertiesPart.java",
+        "sha": "92e6a3197c1ac5b61ce1855c35b98b1927e33386",
+        "size": 12129,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/92e6a3197c1ac5b61ce1855c35b98b1927e33386"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/CustomPropertiesPart.java",
+        "sha": "039077b091fd61804bb1ccb5f8370cfde876e5ac",
+        "size": 13086,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/039077b091fd61804bb1ccb5f8370cfde876e5ac"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/Elements.java",
+        "sha": "6a13c79fdc6043c81b3086d5feebb31289b998c7",
+        "size": 15586,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/6a13c79fdc6043c81b3086d5feebb31289b998c7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/HeadingPairData.java",
+        "sha": "12f831351fd2fee74f62e742752df49d91372381",
+        "size": 260,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/12f831351fd2fee74f62e742752df49d91372381"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/ImageUtils.java",
+        "sha": "a997f244a8ff6b81f9d51925dff43d601c35a4ec",
+        "size": 11408,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/a997f244a8ff6b81f9d51925dff43d601c35a4ec"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/LayoutSlidePart.java",
+        "sha": "5a0ce2c4487ae672757294f3031b72be546d1028",
+        "size": 8613,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5a0ce2c4487ae672757294f3031b72be546d1028"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/MasterReference.java",
+        "sha": "4dfcdfb71275f83bbddc31ad712717b97e80ad28",
+        "size": 917,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4dfcdfb71275f83bbddc31ad712717b97e80ad28"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/MasterSlidePart.java",
+        "sha": "a3fe9dc0e7284003e81669f5c53979ea01337159",
+        "size": 5715,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/a3fe9dc0e7284003e81669f5c53979ea01337159"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/NotesSlidePart.java",
+        "sha": "50546f422f0dcbefd1484cfc312fe6865656799c",
+        "size": 26157,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/50546f422f0dcbefd1484cfc312fe6865656799c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/Ns.java",
+        "sha": "2007e1a828e2aa00208c680e5d08d66168fbae38",
+        "size": 1816,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/2007e1a828e2aa00208c680e5d08d66168fbae38"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/OpcPackage.java",
+        "sha": "1fdea7109011faed4c30ad3f68f8ef6dd23a3afd",
+        "size": 4756,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/1fdea7109011faed4c30ad3f68f8ef6dd23a3afd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/PptxConstants.java",
+        "sha": "23af2c5668fd70e5dc08448183daea737a5b66e7",
+        "size": 3130,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/23af2c5668fd70e5dc08448183daea737a5b66e7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/PresentationPart.java",
+        "sha": "948338dfb73ad24a463597fb5a733fd006c7e0a6",
+        "size": 14569,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/948338dfb73ad24a463597fb5a733fd006c7e0a6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/RelsHelper.java",
+        "sha": "0d66b6cf63ac19db5aa08804f07987e87f6cb5b2",
+        "size": 5672,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/0d66b6cf63ac19db5aa08804f07987e87f6cb5b2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/ShapeFactory.java",
+        "sha": "fb40ced50d68f651c0425dc8f4236873ab80da83",
+        "size": 5752,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/fb40ced50d68f651c0425dc8f4236873ab80da83"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/ShapeTypeMapping.java",
+        "sha": "6bb75253354694eab78e87c980a9718ed71be0f4",
+        "size": 1750,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/6bb75253354694eab78e87c980a9718ed71be0f4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/SlidePart.java",
+        "sha": "bed15a36bd2137fb52ec38df76c5caac3fe0e4bd",
+        "size": 14056,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/bed15a36bd2137fb52ec38df76c5caac3fe0e4bd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/SlideReference.java",
+        "sha": "a0c914e96fa98ef447f6b38ba6370e28d00a730a",
+        "size": 861,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/a0c914e96fa98ef447f6b38ba6370e28d00a730a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/TableStyleMapping.java",
+        "sha": "60999d4ee2da81f0584c037f6c66f31b41269648",
+        "size": 9101,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/60999d4ee2da81f0584c037f6c66f31b41269648"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/internal/pptx/Template.java",
+        "sha": "0708c35b30e9c9882afff7c107272d57694be8ad",
+        "size": 2989,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/0708c35b30e9c9882afff7c107272d57694be8ad"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/java/org/aspose/slides/foss/theme",
+        "sha": "26327bb11bbd7c3978fce428e3c94638c988be47",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/26327bb11bbd7c3978fce428e3c94638c988be47"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/java/org/aspose/slides/foss/theme/IThemeable.java",
+        "sha": "0b3247a9ac7cc9b8e934168e69aa8d8837d5e99f",
+        "size": 536,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/0b3247a9ac7cc9b8e934168e69aa8d8837d5e99f"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/resources",
+        "sha": "a4c263b3a9f6280d79a5321b01bfd651ca40320a",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/a4c263b3a9f6280d79a5321b01bfd651ca40320a"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/resources/org",
+        "sha": "25d8bc589cca42b8bf9872cab03df8f11d34e43b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/25d8bc589cca42b8bf9872cab03df8f11d34e43b"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/resources/org/aspose",
+        "sha": "0aa57466045ea70bbc0e9a1b98ece317427a60fb",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/0aa57466045ea70bbc0e9a1b98ece317427a60fb"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/resources/org/aspose/slides",
+        "sha": "572816fa281458a7b62e4055156b3c1a079e9ac1",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/572816fa281458a7b62e4055156b3c1a079e9ac1"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/resources/org/aspose/slides/foss",
+        "sha": "4dacada0f013bfe988bbd0a90549466682d495f8",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/4dacada0f013bfe988bbd0a90549466682d495f8"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/resources/org/aspose/slides/foss/internal",
+        "sha": "4857bb8f104474d5d572daddb832de24314f5a87",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/4857bb8f104474d5d572daddb832de24314f5a87"
+      },
+      {
+        "mode": "040000",
+        "path": "src/main/resources/org/aspose/slides/foss/internal/pptx",
+        "sha": "958fd60d11b054ff3c3a2b6c46180d30e929a31c",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/958fd60d11b054ff3c3a2b6c46180d30e929a31c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/main/resources/org/aspose/slides/foss/internal/pptx/Template.pptx",
+        "sha": "937e8dcf869ccf0aedab5bc42e6e4287805ba90a",
+        "size": 528,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/937e8dcf869ccf0aedab5bc42e6e4287805ba90a"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test",
+        "sha": "8e09a619c512181400ce18f10e59f2f4feb2ea6e",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/8e09a619c512181400ce18f10e59f2f4feb2ea6e"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java",
+        "sha": "f5c1e79fea35819ca0a7efd3ce2d6e4612353eb9",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/f5c1e79fea35819ca0a7efd3ce2d6e4612353eb9"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java/org",
+        "sha": "4271fe83db8970c88d52ad49e45aaf011d755685",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/4271fe83db8970c88d52ad49e45aaf011d755685"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java/org/aspose",
+        "sha": "94a7adcdabfaadfc0e0b2f85da854a02b8b9bd1a",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/94a7adcdabfaadfc0e0b2f85da854a02b8b9bd1a"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java/org/aspose/slides",
+        "sha": "04c197fbdab7a9986a6d2cc234acf6d62d8c7422",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/04c197fbdab7a9986a6d2cc234acf6d62d8c7422"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java/org/aspose/slides/foss",
+        "sha": "4d264a62626b4ba4ea151f65355c69d93b15f6e9",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/4d264a62626b4ba4ea151f65355c69d93b15f6e9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/AdjustValueCollectionTest.java",
+        "sha": "21764724c90b3549a67470460138cc61a6081616",
+        "size": 5637,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/21764724c90b3549a67470460138cc61a6081616"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/AdjustValueTest.java",
+        "sha": "2852b227e5cbf502bf791ed9c1071ade7e64f2e4",
+        "size": 5513,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/2852b227e5cbf502bf791ed9c1071ade7e64f2e4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/AutoShapeTest.java",
+        "sha": "1642c46f7da5b99010124813a13924a08dfd929b",
+        "size": 15865,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/1642c46f7da5b99010124813a13924a08dfd929b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/BasePortionFormatTest.java",
+        "sha": "63ca6733b870c2cf83ec8e5d3c29a6be0c4dcda1",
+        "size": 19722,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/63ca6733b870c2cf83ec8e5d3c29a6be0c4dcda1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/BaseSlideConnectorTest.java",
+        "sha": "a9e6b334af4818001fcc22745505a1372121988a",
+        "size": 5893,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/a9e6b334af4818001fcc22745505a1372121988a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/BulletFormatTest.java",
+        "sha": "044ee85bb68bb0fcc2309c576ef1773d46703321",
+        "size": 17278,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/044ee85bb68bb0fcc2309c576ef1773d46703321"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/CameraTest.java",
+        "sha": "22135024a13ea3c3a39971b9684a206f8c9e7aa1",
+        "size": 6070,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/22135024a13ea3c3a39971b9684a206f8c9e7aa1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/CellCollectionTest.java",
+        "sha": "3d517ff02829154b81e36a5ff83a0934ea96276a",
+        "size": 7467,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/3d517ff02829154b81e36a5ff83a0934ea96276a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/CellFormatBorderTest.java",
+        "sha": "e4ca0f3fa90ba0e4a5b3100b07aa528c1e2016ae",
+        "size": 2831,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/e4ca0f3fa90ba0e4a5b3100b07aa528c1e2016ae"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/CellTest.java",
+        "sha": "688d59419cf7751f94ec59c3e64d6f161c14c0c9",
+        "size": 15953,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/688d59419cf7751f94ec59c3e64d6f161c14c0c9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ColorFormatTest.java",
+        "sha": "63c36634a16b29452293beac06cd5013dccfddab",
+        "size": 13779,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/63c36634a16b29452293beac06cd5013dccfddab"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ColumnCollectionTest.java",
+        "sha": "b90965c4d5fc745821e5393c611741796336ab83",
+        "size": 12704,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/b90965c4d5fc745821e5393c611741796336ab83"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ColumnTest.java",
+        "sha": "7f6bfab6f10ba04edf85a9619b97ef5714bafb02",
+        "size": 7722,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/7f6bfab6f10ba04edf85a9619b97ef5714bafb02"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/CommentAuthorCollectionTest.java",
+        "sha": "415b27f55cff2180b3d117e4a636853e2820a1fc",
+        "size": 5268,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/415b27f55cff2180b3d117e4a636853e2820a1fc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/CommentCollectionTest.java",
+        "sha": "125375d6e98e6a9f5e077f62a91a53c2f65c734e",
+        "size": 4900,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/125375d6e98e6a9f5e077f62a91a53c2f65c734e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/CommentTest.java",
+        "sha": "7461349e48aef4c6a4f1b92aee8c32a31393dfb0",
+        "size": 7269,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/7461349e48aef4c6a4f1b92aee8c32a31393dfb0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ConnectorTest.java",
+        "sha": "e9738c49f941c99277de5b11fba0a910161710ad",
+        "size": 14931,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/e9738c49f941c99277de5b11fba0a910161710ad"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/EffectFormatTest.java",
+        "sha": "e2aec796d04c477bd09581e4d52f6e949106bdfc",
+        "size": 7293,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/e2aec796d04c477bd09581e4d52f6e949106bdfc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/EnumsContractTest.java",
+        "sha": "bc7b8c09984bebec64eed8f40c40f1a1b516d0e1",
+        "size": 6441,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/bc7b8c09984bebec64eed8f40c40f1a1b516d0e1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/FillFormatEnumsTest.java",
+        "sha": "a3309efbb767807b434c862264f3092a50f4a90c",
+        "size": 3341,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/a3309efbb767807b434c862264f3092a50f4a90c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/FillFormatTest.java",
+        "sha": "96eef5c1f87201a14e0f2bbce3f9d7e27e55d3ec",
+        "size": 10791,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/96eef5c1f87201a14e0f2bbce3f9d7e27e55d3ec"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/FillTypeTest.java",
+        "sha": "3053ec94a541b57a1294663562e8e8d76e959d83",
+        "size": 2688,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/3053ec94a541b57a1294663562e8e8d76e959d83"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/FontDataTest.java",
+        "sha": "c606e18c6d36a74d0ce0bcfb9ff0e0f0995f7606",
+        "size": 2528,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c606e18c6d36a74d0ce0bcfb9ff0e0f0995f7606"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/GeometryShapeFrameTest.java",
+        "sha": "67e857488f233743fc0a6655615c6b37e480bb16",
+        "size": 3658,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/67e857488f233743fc0a6655615c6b37e480bb16"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/GradientStopCollectionTest.java",
+        "sha": "02644bc922e2783ed3fcb8353dd191527e305e79",
+        "size": 8314,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/02644bc922e2783ed3fcb8353dd191527e305e79"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/GradientStopTest.java",
+        "sha": "56f591f211fd79c083b5a1af9b3f37762406699e",
+        "size": 3679,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/56f591f211fd79c083b5a1af9b3f37762406699e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/IAutoShapeTest.java",
+        "sha": "ec73eb212fea8c83d95ca5a091809bc949680132",
+        "size": 4780,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/ec73eb212fea8c83d95ca5a091809bc949680132"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/IGeometryShapeTest.java",
+        "sha": "264fadab0e9ef4c2040b0e122fea7ec68b4ef3b4",
+        "size": 9367,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/264fadab0e9ef4c2040b0e122fea7ec68b4ef3b4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/IGradientFormatTest.java",
+        "sha": "783ac16ee0f6272f6857a381032ac3b72da58c62",
+        "size": 4054,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/783ac16ee0f6272f6857a381032ac3b72da58c62"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/IImageTest.java",
+        "sha": "c8de4be31d06db338e1c66142d86dde61b7610dc",
+        "size": 3941,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c8de4be31d06db338e1c66142d86dde61b7610dc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ILineFillFormatTest.java",
+        "sha": "0a4cac1c2002d40588a3ff216e445760d46047bb",
+        "size": 5314,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/0a4cac1c2002d40588a3ff216e445760d46047bb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/IMasterSlideCollectionTest.java",
+        "sha": "2ced08b07a2ace9391fe028d8060135e53a6cced",
+        "size": 749,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/2ced08b07a2ace9391fe028d8060135e53a6cced"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/IPPImageTest.java",
+        "sha": "28f2bb0e6416241e1e0bbb0284fc10a2c0b05a7b",
+        "size": 6444,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/28f2bb0e6416241e1e0bbb0284fc10a2c0b05a7b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/IParagraphCollectionTest.java",
+        "sha": "84b7ca933e42c2b74eb6eef4bc8b59536f5b1abb",
+        "size": 4213,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/84b7ca933e42c2b74eb6eef4bc8b59536f5b1abb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/IPictureFillFormatTest.java",
+        "sha": "c54cd72df17ac0d27e63c4a918864f04aa747fad",
+        "size": 13306,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c54cd72df17ac0d27e63c4a918864f04aa747fad"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/IPortionCollectionTest.java",
+        "sha": "8a9d85725db8789d1546aaba1a58b9a69de45202",
+        "size": 5644,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/8a9d85725db8789d1546aaba1a58b9a69de45202"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/IPresentationTest.java",
+        "sha": "8e520adf5d0b54ce1e8991bf597e6d7a3a6bfba4",
+        "size": 6419,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/8e520adf5d0b54ce1e8991bf597e6d7a3a6bfba4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/IRowCollectionTest.java",
+        "sha": "86b0491a2fb8da49d896f49ba8b3ab8705fc68b9",
+        "size": 8917,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/86b0491a2fb8da49d896f49ba8b3ab8705fc68b9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/IShapeBevelTest.java",
+        "sha": "154d5ee896e0b21b564f7d7145fbad12e94e2932",
+        "size": 5359,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/154d5ee896e0b21b564f7d7145fbad12e94e2932"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/IShapeCollectionTest.java",
+        "sha": "43d556df540996c79013f683f8d1a34ad7c0931d",
+        "size": 14290,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/43d556df540996c79013f683f8d1a34ad7c0931d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/IShapeFrameTest.java",
+        "sha": "d314d38f816ef546a22b983fe657c19d487378b0",
+        "size": 4973,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d314d38f816ef546a22b983fe657c19d487378b0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/IShapeTest.java",
+        "sha": "f0770f01e69de4dba12226d2910599eb00cfbcd0",
+        "size": 8813,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/f0770f01e69de4dba12226d2910599eb00cfbcd0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ISlideCollectionTest.java",
+        "sha": "9bfa3d8cad4815c723717e47c0a43870976437e2",
+        "size": 3915,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/9bfa3d8cad4815c723717e47c0a43870976437e2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ITableTest.java",
+        "sha": "f30c63e9c7268dc44216ea9eb64c2b2b50742327",
+        "size": 6957,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/f30c63e9c7268dc44216ea9eb64c2b2b50742327"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ITextFrameTest.java",
+        "sha": "7dfabbf01af4ac314b4e67ce3ff40b92c41cb3ef",
+        "size": 6094,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/7dfabbf01af4ac314b4e67ce3ff40b92c41cb3ef"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ImageCollectionTest.java",
+        "sha": "4f14c80171a277c37ffd14fe2167440913afa3e5",
+        "size": 6983,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4f14c80171a277c37ffd14fe2167440913afa3e5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ImageTest.java",
+        "sha": "f5641cc449fb3bb63b006c646702bdc3737ffae5",
+        "size": 3977,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/f5641cc449fb3bb63b006c646702bdc3737ffae5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ImagesTest.java",
+        "sha": "62ae809965b0fc25e117a575e1ac2185a52c0302",
+        "size": 3626,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/62ae809965b0fc25e117a575e1ac2185a52c0302"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/LightRigTest.java",
+        "sha": "e24f61ded50e0dc72fe07a57c8ffbd07b12eda5e",
+        "size": 5703,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/e24f61ded50e0dc72fe07a57c8ffbd07b12eda5e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/LineDashStyleIntegrationTest.java",
+        "sha": "69106c1f8f32bfc98d769d026f351dd145d21879",
+        "size": 2815,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/69106c1f8f32bfc98d769d026f351dd145d21879"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/LineDashStyleTest.java",
+        "sha": "450386c6d1a840b795059f56fa383effb71326d3",
+        "size": 1711,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/450386c6d1a840b795059f56fa383effb71326d3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/LineEnumsTest.java",
+        "sha": "8cb76118eefa13d1ecf772885cf33f5992a0880c",
+        "size": 2754,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/8cb76118eefa13d1ecf772885cf33f5992a0880c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/LineFormatColorWidthTest.java",
+        "sha": "91cea959a0ef074108b78c04c6eee0f0b865cdfe",
+        "size": 1811,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/91cea959a0ef074108b78c04c6eee0f0b865cdfe"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/LineFormatEnumsTest.java",
+        "sha": "e283f845a711bdc76d6315933c7c6b25f47cc77a",
+        "size": 6098,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/e283f845a711bdc76d6315933c7c6b25f47cc77a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/LineFormatTest.java",
+        "sha": "9057ed233588d45e19f983918f343ee4e6852ffe",
+        "size": 15391,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/9057ed233588d45e19f983918f343ee4e6852ffe"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/MasterSlideTest.java",
+        "sha": "5ad7bf28dd8e7eda5e4694ae0564d93c32946602",
+        "size": 2290,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5ad7bf28dd8e7eda5e4694ae0564d93c32946602"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/MiscEnumsTest.java",
+        "sha": "2443180bff55466e57a923f09f5738ecebe2acbf",
+        "size": 4572,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/2443180bff55466e57a923f09f5738ecebe2acbf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/NotesSizeTest.java",
+        "sha": "20235b6d4b226539d040c78825b38134d7bb1a9d",
+        "size": 630,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/20235b6d4b226539d040c78825b38134d7bb1a9d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/NotesSlideHeaderFooterManagerTest.java",
+        "sha": "94fc8e7c0d80bdb0838cc04c25c38d365515de58",
+        "size": 5927,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/94fc8e7c0d80bdb0838cc04c25c38d365515de58"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/NotesSlideTest.java",
+        "sha": "e5d81fc297c19670fa909a52514b5dd3d855b864",
+        "size": 3340,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/e5d81fc297c19670fa909a52514b5dd3d855b864"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/PPImageTest.java",
+        "sha": "abf2a1c7a374ac659d2fee63506c1468779bb290",
+        "size": 5874,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/abf2a1c7a374ac659d2fee63506c1468779bb290"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ParagraphCollectionTest.java",
+        "sha": "5652ecc4e2428e7031114cd597fe39b19933988b",
+        "size": 9324,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5652ecc4e2428e7031114cd597fe39b19933988b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ParagraphFormatTest.java",
+        "sha": "17bd9c5dd0fa7e675dfd47d72ad329ca239cb3cb",
+        "size": 14114,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/17bd9c5dd0fa7e675dfd47d72ad329ca239cb3cb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ParagraphTest.java",
+        "sha": "f2fa1908f32b9430d183e8ce4b52002cc7b15a99",
+        "size": 1343,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/f2fa1908f32b9430d183e8ce4b52002cc7b15a99"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/PatternFormatTest.java",
+        "sha": "50f8096e5849da04f8e4e790506ce6896deeb35c",
+        "size": 3763,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/50f8096e5849da04f8e4e790506ce6896deeb35c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/PictureFillFormatTest.java",
+        "sha": "058b8c0b1f847bc41bb7c546c18ba0f75e353220",
+        "size": 7195,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/058b8c0b1f847bc41bb7c546c18ba0f75e353220"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/PictureFrameTest.java",
+        "sha": "e752d1e240a45611ec421cbf6096a361f103449c",
+        "size": 11971,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/e752d1e240a45611ec421cbf6096a361f103449c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/PictureTest.java",
+        "sha": "190c91e4050584e683ee2cec9f3a468ce42578eb",
+        "size": 5849,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/190c91e4050584e683ee2cec9f3a468ce42578eb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/PortionCollectionTest.java",
+        "sha": "5fe590ca09e62186e0a0b1eb27a7a06db20b3c8c",
+        "size": 8635,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5fe590ca09e62186e0a0b1eb27a7a06db20b3c8c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/PortionTest.java",
+        "sha": "b5f849f8f2f50d67584228472eb980ace11691a0",
+        "size": 1303,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/b5f849f8f2f50d67584228472eb980ace11691a0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/RowTest.java",
+        "sha": "ab14fcc144561846dd9ba810998999b412a7fec5",
+        "size": 8558,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/ab14fcc144561846dd9ba810998999b412a7fec5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ShapeBevelTest.java",
+        "sha": "c99fc35f2a711cfd79f2b1f553933d5c4ac9b8d8",
+        "size": 7009,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c99fc35f2a711cfd79f2b1f553933d5c4ac9b8d8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ShapeTest.java",
+        "sha": "3cf482de1eb7502b924467bd805ad1af8d193fdf",
+        "size": 13762,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/3cf482de1eb7502b924467bd805ad1af8d193fdf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ShapeTypeTest.java",
+        "sha": "06ef7782d89b926875240e21204cda714f2c9ec8",
+        "size": 13919,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/06ef7782d89b926875240e21204cda714f2c9ec8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/SlideTest.java",
+        "sha": "184ece7b1d644bbd2d263d3b0552d08e7c39e153",
+        "size": 1139,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/184ece7b1d644bbd2d263d3b0552d08e7c39e153"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/TableFormatTest.java",
+        "sha": "27e3e346d4d620b46a79e7aef3a1f1ffe6293598",
+        "size": 2878,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/27e3e346d4d620b46a79e7aef3a1f1ffe6293598"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/TestHelpers.java",
+        "sha": "8a2ba793ac1adeaac0470bb3c6e20fd61624e72b",
+        "size": 4713,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/8a2ba793ac1adeaac0470bb3c6e20fd61624e72b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/TextEnumsTest.java",
+        "sha": "3ee6c732629b1eaac8c1245c8fe9c8fa7ff09c3e",
+        "size": 2468,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/3ee6c732629b1eaac8c1245c8fe9c8fa7ff09c3e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/TextFrameFormatTest.java",
+        "sha": "b47a6e1a51998898142addb54380833d5e1baca5",
+        "size": 9669,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/b47a6e1a51998898142addb54380833d5e1baca5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/ThreeDFormatTest.java",
+        "sha": "ec286e13d9ec557e76acede32a13fb49989fcfc4",
+        "size": 3084,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/ec286e13d9ec557e76acede32a13fb49989fcfc4"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java/org/aspose/slides/foss/drawing",
+        "sha": "99fe43a13be62761b0cbd1472a117f2114e88943",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/99fe43a13be62761b0cbd1472a117f2114e88943"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/drawing/ColorTest.java",
+        "sha": "bc0d14b93d4652f22a010b6ce444648984cbd1b3",
+        "size": 6752,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/bc0d14b93d4652f22a010b6ce444648984cbd1b3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/drawing/PointFTest.java",
+        "sha": "d0faa3d10badd6af368e349269fe02a7cbff2249",
+        "size": 2758,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d0faa3d10badd6af368e349269fe02a7cbff2249"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/drawing/SizeFTest.java",
+        "sha": "38ea6bfa62f2f118c6b2f707a1e4067b55f577cb",
+        "size": 2571,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/38ea6bfa62f2f118c6b2f707a1e4067b55f577cb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/drawing/SizeTest.java",
+        "sha": "5e4879b643e69cf6a8f47aba61e1a818e3b37899",
+        "size": 3140,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/5e4879b643e69cf6a8f47aba61e1a818e3b37899"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java/org/aspose/slides/foss/effects",
+        "sha": "6381b2627c0955049f62bab6c0f97a08d80c5b3a",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/6381b2627c0955049f62bab6c0f97a08d80c5b3a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/effects/BlurTest.java",
+        "sha": "4113c0066123b65e47a10fabf74b5eb8411d7eac",
+        "size": 4359,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4113c0066123b65e47a10fabf74b5eb8411d7eac"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/effects/FillOverlayTest.java",
+        "sha": "604014d897a79452564655278871331039ff1a15",
+        "size": 5289,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/604014d897a79452564655278871331039ff1a15"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/effects/GlowTest.java",
+        "sha": "a0a95951296117334aabf293969ffb7ed9f7d057",
+        "size": 3088,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/a0a95951296117334aabf293969ffb7ed9f7d057"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/effects/InnerShadowTest.java",
+        "sha": "969dbee61f17b0e60b5ff626b9f04665b9343808",
+        "size": 6134,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/969dbee61f17b0e60b5ff626b9f04665b9343808"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/effects/OuterShadowTest.java",
+        "sha": "0332b5619fe96cc8a5bdf834ecbd24cf327f435e",
+        "size": 13152,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/0332b5619fe96cc8a5bdf834ecbd24cf327f435e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/effects/PresetShadowTest.java",
+        "sha": "c8d2de6965e7c2910c274738e4a3f67012b4c99d",
+        "size": 6222,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/c8d2de6965e7c2910c274738e4a3f67012b4c99d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/effects/ReflectionTest.java",
+        "sha": "4d4d420616e72d24faba49966cbcaaf250ebf040",
+        "size": 18460,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4d4d420616e72d24faba49966cbcaaf250ebf040"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/effects/SoftEdgeTest.java",
+        "sha": "34bd87098b9d5e323cf156ca4c63c99f703bb1f8",
+        "size": 3111,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/34bd87098b9d5e323cf156ca4c63c99f703bb1f8"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java/org/aspose/slides/foss/export",
+        "sha": "278ec240aaa658038b77260d920b682eb7993867",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/278ec240aaa658038b77260d920b682eb7993867"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/export/SaveFormatTest.java",
+        "sha": "27278655d7230c7b9ca67ae7fad67bf14c276ba4",
+        "size": 3929,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/27278655d7230c7b9ca67ae7fad67bf14c276ba4"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java/org/aspose/slides/foss/internal",
+        "sha": "e293534c600f89f2385b2d11057e1d0a10aa1293",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/e293534c600f89f2385b2d11057e1d0a10aa1293"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java/org/aspose/slides/foss/internal/opc",
+        "sha": "fcd0cce3fc4a6c2b0662c9cdce2ea03c06fb6fbf",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/fcd0cce3fc4a6c2b0662c9cdce2ea03c06fb6fbf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/internal/opc/ContentTypesManagerTest.java",
+        "sha": "80c5fd2ccf35d78ef8bb2b99e9e5f3a0fbec4a58",
+        "size": 5626,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/80c5fd2ccf35d78ef8bb2b99e9e5f3a0fbec4a58"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/internal/opc/OpcPackageTest.java",
+        "sha": "9321cda0fdb0387160272a880aab27903e38941b",
+        "size": 4784,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/9321cda0fdb0387160272a880aab27903e38941b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/internal/opc/RelationshipsManagerTest.java",
+        "sha": "ed84acd4350338c67024a1a889e4fe655383afa7",
+        "size": 8622,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/ed84acd4350338c67024a1a889e4fe655383afa7"
+      },
+      {
+        "mode": "040000",
+        "path": "src/test/java/org/aspose/slides/foss/internal/pptx",
+        "sha": "f24f71b46f659354f92be834c7717c81e579c5a4",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/f24f71b46f659354f92be834c7717c81e579c5a4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/internal/pptx/LayoutSlidePartTest.java",
+        "sha": "0adfaf5c204c50579e998b5ee2f9beaece75557f",
+        "size": 6667,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/0adfaf5c204c50579e998b5ee2f9beaece75557f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/internal/pptx/ShapeTypeMappingTest.java",
+        "sha": "12cd031948a0bb69cb674e934a492ebdcdff0808",
+        "size": 2118,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/12cd031948a0bb69cb674e934a492ebdcdff0808"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/internal/pptx/TableStyleMappingTest.java",
+        "sha": "a7a85250d1bad3354eb7503cee58a3a197c17f22",
+        "size": 2574,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/a7a85250d1bad3354eb7503cee58a3a197c17f22"
+      },
+      {
+        "mode": "100644",
+        "path": "src/test/java/org/aspose/slides/foss/internal/pptx/TemplateTest.java",
+        "sha": "8a7df293d4694f7aae3bae8a945be5203bac0aae",
+        "size": 1612,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/8a7df293d4694f7aae3bae8a945be5203bac0aae"
+      },
+      {
+        "mode": "040000",
+        "path": "tests",
+        "sha": "a69b3b31adefd1750a025863bc48ac22565ff891",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/a69b3b31adefd1750a025863bc48ac22565ff891"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/integration",
+        "sha": "117935f1d6036f365b671c47dcaa7931032edf62",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/117935f1d6036f365b671c47dcaa7931032edf62"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/integration/org",
+        "sha": "2f1298bddd3681c050b9451d9e37c7d610efd644",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/2f1298bddd3681c050b9451d9e37c7d610efd644"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/integration/org/aspose",
+        "sha": "d09fbf3d40e49b61551f4012d51edf413f4b52f4",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/d09fbf3d40e49b61551f4012d51edf413f4b52f4"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/integration/org/aspose/slides",
+        "sha": "d1a3fe8423887ea6ed4960e07b8485f0d6124601",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/d1a3fe8423887ea6ed4960e07b8485f0d6124601"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/integration/org/aspose/slides/foss",
+        "sha": "437fa6dac69eefe8edae43d36150e77a24f6b8f9",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/437fa6dac69eefe8edae43d36150e77a24f6b8f9"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/integration/org/aspose/slides/foss/integration",
+        "sha": "531e84e8e6e64780a76713298c025d6bd2eb91b3",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/531e84e8e6e64780a76713298c025d6bd2eb91b3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/integration/org/aspose/slides/foss/integration/CommentsTest.java",
+        "sha": "261b78e4c3a2c212eb87ff4fae1d4e4191287b02",
+        "size": 6856,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/261b78e4c3a2c212eb87ff4fae1d4e4191287b02"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/integration/org/aspose/slides/foss/integration/ConnectorTest.java",
+        "sha": "f337b4c653bbf89cb64c0267ba97212298737740",
+        "size": 6012,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/f337b4c653bbf89cb64c0267ba97212298737740"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/integration/org/aspose/slides/foss/integration/DocumentPropertiesTest.java",
+        "sha": "58c64909d3d350f89874e66fa54b82a61efc6679",
+        "size": 3703,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/58c64909d3d350f89874e66fa54b82a61efc6679"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/integration/org/aspose/slides/foss/integration/EffectFormatTest.java",
+        "sha": "58d0ee75b8fc653c83660be00a625ae68771adf2",
+        "size": 5183,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/58d0ee75b8fc653c83660be00a625ae68771adf2"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/integration/org/aspose/slides/foss/integration/FillFormatTest.java",
+        "sha": "d770a7b819eea8831371c0674d39bb704c466d87",
+        "size": 5449,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/d770a7b819eea8831371c0674d39bb704c466d87"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/integration/org/aspose/slides/foss/integration/ImagesTest.java",
+        "sha": "239075a94140c84cb60ba3f5dc25ee3b38ac7327",
+        "size": 4071,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/239075a94140c84cb60ba3f5dc25ee3b38ac7327"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/integration/org/aspose/slides/foss/integration/LineFormatTest.java",
+        "sha": "dda54087de46f9ce213fa07a1f4a093c3fa0b2bd",
+        "size": 3887,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/dda54087de46f9ce213fa07a1f4a093c3fa0b2bd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/integration/org/aspose/slides/foss/integration/NotesSlideTest.java",
+        "sha": "a943668577761b5ced9a6fec7b8ac3e0d7f11d1a",
+        "size": 3760,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/a943668577761b5ced9a6fec7b8ac3e0d7f11d1a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/integration/org/aspose/slides/foss/integration/PresentationTest.java",
+        "sha": "bce329b51ddfdde858592afb343d0bdeff4c223d",
+        "size": 3815,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/bce329b51ddfdde858592afb343d0bdeff4c223d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/integration/org/aspose/slides/foss/integration/ShapesTest.java",
+        "sha": "b413302f526cb7d7805c1a8a5b2737c0ba349b92",
+        "size": 6531,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/b413302f526cb7d7805c1a8a5b2737c0ba349b92"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/integration/org/aspose/slides/foss/integration/SlidesTest.java",
+        "sha": "3d322cbeb7e01df29c6e17062e48462d0479f495",
+        "size": 5084,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/3d322cbeb7e01df29c6e17062e48462d0479f495"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/integration/org/aspose/slides/foss/integration/TableTest.java",
+        "sha": "e7dea8ef6c0e9074dec4c253adb444496407b70e",
+        "size": 8212,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/e7dea8ef6c0e9074dec4c253adb444496407b70e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/integration/org/aspose/slides/foss/integration/TextFormattingTest.java",
+        "sha": "89d070621d6f6b13a296229028bac2287cd04e42",
+        "size": 6532,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/89d070621d6f6b13a296229028bac2287cd04e42"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/integration/org/aspose/slides/foss/integration/TextTest.java",
+        "sha": "76496370bbfe6d53a9753388bf689fb69d987c77",
+        "size": 4895,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/76496370bbfe6d53a9753388bf689fb69d987c77"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/integration/org/aspose/slides/foss/integration/ThreeDFormatTest.java",
+        "sha": "9d52522bce1367a6557fc56ba1ba4fe181f21315",
+        "size": 4235,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/9d52522bce1367a6557fc56ba1ba4fe181f21315"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/test_data",
+        "sha": "57e1dd30ccd654adc19f1b7cf168a6a60f71bc37",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/57e1dd30ccd654adc19f1b7cf168a6a60f71bc37"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_data/image_example.jpg",
+        "sha": "2046471916e9dd73db262fecb2bc4e1c04e8b79d",
+        "size": 140425,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/2046471916e9dd73db262fecb2bc4e1c04e8b79d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_data/lotus.png",
+        "sha": "4c043a6f0d60262baf691943fa9436ef439cce7b",
+        "size": 3462,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/blobs/4c043a6f0d60262baf691943fa9436ef439cce7b"
+      }
+    ],
+    "truncated": false,
+    "url": "https://api.github.com/repos/aspose-slides-foss/Aspose.Slides-FOSS-for-Java/git/trees/d6220a7259c9f4e2e888cea26037e54cf75e80b8"
+  }
+}

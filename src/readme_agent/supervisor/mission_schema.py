@@ -91,6 +91,49 @@ class ExecutionCampaignV1(_StrictModel):
     full_suite_policy: str = Field(min_length=20)
 
 
+class PortfolioProofContractV1(_StrictModel):
+    """Frozen baseline and closure semantics for the current README campaign."""
+
+    contract_id: Literal["ASPOSE-README-PORTFOLIO-PROOF-V1"]
+    supporting_contract_path: str
+    supporting_contract_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    baseline_optimizer_revision: str = Field(pattern=r"^[0-9a-f]{40}$")
+    registry_path: str
+    registry_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    denominator_policy: Literal["dynamic_registry_revision"]
+    baseline_admitted: int = Field(gt=0)
+    baseline_processable: int = Field(gt=0)
+    baseline_non_processable: int = Field(ge=0)
+    delivery_numerator: Literal["processable_repositories"]
+    candidate_acceptance_state: Literal["AGENT_ACCEPTED_30_OF_30"]
+    campaign_terminal_state: Literal["PORTFOLIO_AGENT_ACCEPTED_AWAITING_GLOBAL_HUMAN_REVIEW"]
+    rubric_path: str
+    rubric_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    required_score: int = Field(ge=1)
+    hard_disqualifier_limit: int = Field(ge=0)
+    processability_disposition: Literal["NON_PROCESSABLE_NO_IMPLEMENTATION"]
+    first_complete_candidate_before_runner: bool
+    model_route_is_campaign_configuration: bool
+    aspose_org_runtime_dependency_allowed: bool
+    product_effects_allowed: bool
+
+    @model_validator(mode="after")
+    def _baseline_partitions_admitted_registry(self) -> PortfolioProofContractV1:
+        if self.baseline_processable + self.baseline_non_processable != self.baseline_admitted:
+            raise ValueError("portfolio baseline dispositions must partition admitted repositories")
+        if self.required_score != 30 or self.hard_disqualifier_limit != 0:
+            raise ValueError("portfolio candidate acceptance requires 30/30 and zero disqualifiers")
+        if not self.first_complete_candidate_before_runner:
+            raise ValueError("the graph runner may not precede the first complete candidate")
+        if (
+            not self.model_route_is_campaign_configuration
+            or self.aspose_org_runtime_dependency_allowed
+            or self.product_effects_allowed
+        ):
+            raise ValueError("portfolio campaign configuration weakens a binding mission boundary")
+        return self
+
+
 class TaskExecutionFocusV1(_StrictModel):
     """One small, visible execution goal inside the umbrella mission."""
 
@@ -291,6 +334,7 @@ class MissionTaskGraphV1(_StrictModel):
     schema_version: Literal[3]
     autonomous_execution_contract: AutonomousExecutionContractV1
     mission_authority: MissionAuthorityV1
+    portfolio_proof_contract: PortfolioProofContractV1
     verified_baseline: dict
     campaign_catalog: list[ExecutionCampaignV1]
     taskcards: list[TaskCardV1]

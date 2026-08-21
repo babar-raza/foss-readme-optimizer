@@ -1,0 +1,78 @@
+{
+  "$id": "qwen-review-recovery-runner-cost-model",
+  "pin": "aa998102191c530af4dca3a6895d62a4027a613e",
+  "registry_size": {
+    "value": 33,
+    "source": "data/products.json entry count, confirmed live at design time"
+  },
+  "concurrency": {
+    "value": 2,
+    "note": "No --concurrency flag exists in this repo today (registry loop in commands_supervision.py:732 is a plain sequential `for entry in entries`). This model computes the concurrency=2 wall time the requirement asks for as a projection over the existing sequential per-repo cost, not a measurement of an existing parallel runner."
+  },
+  "empty_shell_repositories": {
+    "definition_caveat": "\"empty-shell\" is not an existing term or lifecycle status in this codebase (verified: no match for empty_shell/empty-shell anywhere in src/). This model treats it as repositories that terminate before reaching AGENT_REVIEWING -- e.g. unonboarded entries with no ecosystem/policy_profile (loop.py:265-272, blocked before any clone or LLM call) or a FACTS_COLLECTING-stage block (BLOCKED_FACT_CONFLICT/BLOCKED_MISSING_EVIDENCE) -- both already exclude Qwen review calls today without any new code.",
+    "excluded_from_qwen_calls": true,
+    "estimated_fraction_of_registry": "unknown -- not measured in this design pass; the model below reports both a 0%-skip and a 20%-skip scenario so downstream planning isn't anchored to an invented number"
+  },
+  "lifecycle_stages_relevant_to_qwen": {
+    "review_stage": "AGENT_REVIEWING",
+    "source": "src/readme_agent/state/readme_poc_lifecycle.py:78-137 (_README_POC_TRANSITIONS)",
+    "full_ordered_lifecycle": [
+      "DISCOVERED", "INTAKE_PREFLIGHTING", "INTAKE_READY", "SNAPSHOTTED", "PROFILED",
+      "FACTS_COLLECTING", "FACTS_READY|BLOCKED_FACT_CONFLICT|BLOCKED_MISSING_EVIDENCE",
+      "README_ASSESSED", "PLAN_READY", "CANDIDATE_GENERATED",
+      "DETERMINISTIC_VALIDATED|DETERMINISTIC_VALIDATION_FAILED", "AGENT_REVIEWING",
+      "AGENT_APPROVED|AGENT_REVIEW_REJECTED", "NO_OP_PROVEN", "HUMAN_REVIEW_READY",
+      "HUMAN_ACCEPTED", "PR_ELIGIBLE", "PR_PROOF_COMPLETE"
+    ],
+    "resume_mechanism": "src/readme_agent/supervisor/loop.py:317-363 (supervise_repo) reads prior_full_state.readme_poc_lifecycle.status from StateBackend and resumes from that stage rather than restarting; product_truth_recovery.py:250-258 states the pipeline explicitly reprocesses \"from durable state's actual position instead of crashing the whole repository.\" A repo whose last failure was, e.g., a merged-review transport failure resumes directly at AGENT_REVIEWING on the next pass -- it does not re-run FACTS_COLLECTING or CANDIDATE_GENERATED."
+  },
+  "per_call_latency_inputs": {
+    "measured_qwen3_next_call_seconds": {"min": 1.6, "max": 6.1, "source": "plans/investigations/evidence/llm-probe/probe-results.json"},
+    "measured_trusted_review_tail_seconds": {"max_observed": 115, "source": "src/readme_agent/env.py:7-8"},
+    "configured_hard_timeout_seconds": 90,
+    "model_choice": "use the measured 1.6-6.1s range for the typical case and the 90s hard timeout as the worst-case single-call bound (a call that hits the timeout is itself a transport_failure trigger for this design's recovery path, not an unbounded wait)"
+  },
+  "per_repo_call_count_scenarios": {
+    "best_case_normal": {"qwen_calls": 1, "wall_seconds_typical": "1.6-6.1", "wall_seconds_worst": 90},
+    "single_facet_recovery": {"qwen_calls": "up to 3 (1 merged + up to 2 recovery)", "wall_seconds_typical": "4.8-18.3", "wall_seconds_worst": 270},
+    "both_facets_recovery_worst_case": {"qwen_calls": "up to 5", "wall_seconds_typical": "8-30.5", "wall_seconds_worst": 450}
+  },
+  "wall_time_estimate_33_repos_concurrency_2": {
+    "assumptions": [
+      "Sequential per-repo review cost dominated by Qwen call latency (typical case, not the 90s timeout ceiling -- timeouts are the exceptional path this design exists to bound, not the common case).",
+      "concurrency=2 halves total wall time versus fully sequential, modulo the usual non-linear scheduling overhead which this model ignores as out of scope for a design task.",
+      "Only the AGENT_REVIEWING stage's Qwen calls are modeled here; clone/facts-collection/publish stage time is out of scope (see plans/investigations/evidence/verification-latency-root-cause-2026-08-19/root-cause-and-durable-design.md for the full end-to-end 10-25 minute portfolio-pass figures, which are NOT Qwen-call-specific)."
+    ],
+    "scenario_0pct_empty_shell_skip": {
+      "reviewed_repos": 33,
+      "typical_case_all_repos_normal_1_call": {
+        "sequential_seconds": "33 x ~4 (midpoint of 1.6-6.1) = ~132s",
+        "concurrency_2_seconds": "~66s"
+      },
+      "pessimistic_case_20pct_need_recovery": {
+        "note": "~7 repos need up to-3-call single-facet recovery, ~26 need 1 call",
+        "sequential_seconds": "26 x 4 + 7 x 11.5(midpoint of 4.8-18.3) = ~184.5s",
+        "concurrency_2_seconds": "~92s"
+      }
+    },
+    "scenario_20pct_empty_shell_skip": {
+      "reviewed_repos": 27,
+      "note": "6 repos never reach AGENT_REVIEWING -- zero Qwen calls, zero wall-time contribution to this model; their cost lives entirely in FACTS_COLLECTING/onboarding, out of scope here",
+      "typical_case_all_repos_normal_1_call": {
+        "sequential_seconds": "27 x ~4 = ~108s",
+        "concurrency_2_seconds": "~54s"
+      }
+    },
+    "resumed_run_after_partial_failure": {
+      "description": "A run interrupted mid-registry (e.g. by a transient Docker-unavailable failure in a different repo's FACTS_COLLECTING stage, per plans/master.md's 2026-08-20 Stage-5-calibration changelog entry) resumes at each repo's own persisted lifecycle stage. Repos already past AGENT_REVIEWING contribute zero additional Qwen calls on resume; only repos still at or before AGENT_REVIEWING re-enter this cost model.",
+      "source": "supervisor/loop.py:317-363, product_truth_recovery.py:250-258"
+    },
+    "headline_estimate": "With realistic recovery incidence and no empty-shell skipping, the full 33-repository registry's Qwen-review-call wall time at concurrency=2 is on the order of 1-2 minutes in the typical case, with a hard worst-case ceiling of 33 x 450s / 2 = ~4.1 hours if every single repo hit the full 5-call/90s-timeout worst case simultaneously -- a bound this design's recovery dispatcher exists specifically to keep the system away from, not an expected outcome."
+  },
+  "caveats": [
+    "No empty-shell fraction is measured anywhere in this repo today; both 0% and 20% scenarios are reported rather than asserting a single number.",
+    "No concurrency=2 runner exists to benchmark directly; this is a projection, explicitly labeled as such.",
+    "The 'headline estimate' worst-case (4.1h) assumes maximally-correlated failure across all 33 repos, which is not realistic for independent gateway calls -- included only to bound the design's own worst-case ceiling, not as a planning number."
+  ]
+}

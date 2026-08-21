@@ -1,0 +1,3701 @@
+{
+  "branch": {
+    "_links": {
+      "html": "https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python/tree/main",
+      "self": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/branches/main"
+    },
+    "commit": {
+      "author": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1225645?v=4",
+        "events_url": "https://api.github.com/users/babar-raza/events{/privacy}",
+        "followers_url": "https://api.github.com/users/babar-raza/followers",
+        "following_url": "https://api.github.com/users/babar-raza/following{/other_user}",
+        "gists_url": "https://api.github.com/users/babar-raza/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/babar-raza",
+        "id": 1225645,
+        "login": "babar-raza",
+        "node_id": "MDQ6VXNlcjEyMjU2NDU=",
+        "organizations_url": "https://api.github.com/users/babar-raza/orgs",
+        "received_events_url": "https://api.github.com/users/babar-raza/received_events",
+        "repos_url": "https://api.github.com/users/babar-raza/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/babar-raza/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/babar-raza/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/babar-raza",
+        "user_view_type": "public"
+      },
+      "comments_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/commits/7971880964143c86ffd4baa7c8ea1dd959fea04e/comments",
+      "commit": {
+        "author": {
+          "date": "2026-08-15T15:22:31Z",
+          "email": "babar.raza@aspose.com",
+          "name": "Babar Raza"
+        },
+        "comment_count": 0,
+        "committer": {
+          "date": "2026-08-15T15:22:31Z",
+          "email": "noreply@github.com",
+          "name": "GitHub"
+        },
+        "message": "fix(readme): restore preserved-but-lost content and fix internal-tooling leak (#1)\n\nfix(readme): restore preserved-but-lost content and fix internal-tooling leak\n\n- Remove 3 internal build-reporting classes (TaskTokenEstimate,\n  TaskCompletionReceipt, CompletedTaskRecord) that were incorrectly listed\n  in the public API Reference table -- these back a separate internal\n  console script (aspose-font-reporting) and are not part of the public\n  font-processing API.\n- Restore CLI coverage for the general inspection/conversion and QA-tooling\n  command categories, plus the var-instance subcommand, matching the\n  breadth of CLI usage already documented in the original project README.\n- Add verified, runnable examples for five capabilities that were present\n  in the original README but had no working equivalent in this candidate:\n  font subsetting, preview-naming-policy control, live vs. static\n  variable-font export, menu-safe naming overrides, and the grid-family\n  package workflow.\n- No other section of the README was changed.\n\nVerification:\n- Every added API call and CLI invocation independently verified against\n  the current source at commit 136b6e20c3916ac4c8efac0714948a4136b491a3.\n- Full deterministic check battery (92 checks) re-run against the final\n  candidate: 0 hard-gate failures.\n- Section-isolation confirmed: only the API Reference and Additional\n  Examples sections changed; every other section is byte-identical to the\n  prior candidate.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "7280f1380d5be5256f72925a93565cb636dbb7ff",
+          "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/7280f1380d5be5256f72925a93565cb636dbb7ff"
+        },
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/commits/7971880964143c86ffd4baa7c8ea1dd959fea04e",
+        "verification": {
+          "payload": "tree 7280f1380d5be5256f72925a93565cb636dbb7ff\nparent 136b6e20c3916ac4c8efac0714948a4136b491a3\nauthor Babar Raza <babar.raza@aspose.com> 1786807351 +0500\ncommitter GitHub <noreply@github.com> 1786807351 +0500\n\nfix(readme): restore preserved-but-lost content and fix internal-tooling leak (#1)\n\nfix(readme): restore preserved-but-lost content and fix internal-tooling leak\n\n- Remove 3 internal build-reporting classes (TaskTokenEstimate,\n  TaskCompletionReceipt, CompletedTaskRecord) that were incorrectly listed\n  in the public API Reference table -- these back a separate internal\n  console script (aspose-font-reporting) and are not part of the public\n  font-processing API.\n- Restore CLI coverage for the general inspection/conversion and QA-tooling\n  command categories, plus the var-instance subcommand, matching the\n  breadth of CLI usage already documented in the original project README.\n- Add verified, runnable examples for five capabilities that were present\n  in the original README but had no working equivalent in this candidate:\n  font subsetting, preview-naming-policy control, live vs. static\n  variable-font export, menu-safe naming overrides, and the grid-family\n  package workflow.\n- No other section of the README was changed.\n\nVerification:\n- Every added API call and CLI invocation independently verified against\n  the current source at commit 136b6e20c3916ac4c8efac0714948a4136b491a3.\n- Full deterministic check battery (92 checks) re-run against the final\n  candidate: 0 hard-gate failures.\n- Section-isolation confirmed: only the API Reference and Additional\n  Examples sections changed; every other section is byte-identical to the\n  prior candidate.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqgIQ3CRC1aQ7uu5UhlAAAluUQAFqzHBFGbyvY1MZUXbKO/tje\nnTTKS3alWrsDPdIrTcgpXkX9LTIcWTVej+dIbEk4fO0w/DgSDGh78FG561tpgbwK\nNWjBsvD50zys/U9VjNornq0NTTeVZi6PQYcyuiRhHvV+VXJVSvfnIX156/Wj7GQL\nljtIKcn2IEO7cFnqXQVDQ7Gi0jzbLZ7aM2AjmvnDwttDCVyxFFhVUWQkNQLZ9HGz\npXqfJkEOfJTJGpWi1q6w1VnSvIMaH4wUt2gSkt4BNeZH5SMKMoJlpkrSLffw3MFm\nhjYZmZRwRoQqEbpfOr2HdLiV6R3gkYffkm10850byItdLBUL/V+4W4rlbV7gxkV/\n6sWQ1Ns8KBYnY6ilvsov6o62qkVLrirCnShDAhIgMhQv9AYNcEiuPwBG62p9ZYtY\n3/zDJn45zStFbh+HhbP2DabPTDabQ3mmer+ypTxdK+CQKzBSeOuJZ6uv0+fSlvut\npq880y/aPINJJScElB3IjvnmDdFWzG6r6Sxup7l13Zxna9fHR5p/gAv9cn8HRYeO\nwRJ0PUZqNolMSU86qI2KzBRXQHfVEzwGjvamEZK3vgKPhXuSDnmyu3UuromYqinf\nIkAGbUSU0qGMG0k8NX/UJPR54L4BjVqk7fnpRgf08llLYy3dm0eebvo6O/4iHF4A\nG4TdqZeGc4UHNNUUJBXA\n=ar01\n-----END PGP SIGNATURE-----\n",
+          "verified": true,
+          "verified_at": "2026-08-15T15:22:32Z"
+        }
+      },
+      "committer": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/web-flow",
+        "id": 19864447,
+        "login": "web-flow",
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/web-flow",
+        "user_view_type": "public"
+      },
+      "html_url": "https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python/commit/7971880964143c86ffd4baa7c8ea1dd959fea04e",
+      "node_id": "C_kwDOSVsxp9oAKDc5NzE4ODA5NjQxNDNjODZmZmQ0YmFhN2M4ZWExZGQ5NTlmZWEwNGU",
+      "parents": [
+        {
+          "html_url": "https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python/commit/136b6e20c3916ac4c8efac0714948a4136b491a3",
+          "sha": "136b6e20c3916ac4c8efac0714948a4136b491a3",
+          "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/commits/136b6e20c3916ac4c8efac0714948a4136b491a3"
+        }
+      ],
+      "sha": "7971880964143c86ffd4baa7c8ea1dd959fea04e",
+      "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/commits/7971880964143c86ffd4baa7c8ea1dd959fea04e"
+    },
+    "name": "main",
+    "protected": false,
+    "protection": {
+      "enabled": false,
+      "required_status_checks": {
+        "checks": [],
+        "contexts": [],
+        "enforcement_level": "off"
+      }
+    },
+    "protection_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/branches/main/protection"
+  },
+  "repo": {
+    "allow_auto_merge": false,
+    "allow_forking": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "archive_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/branches{/branch}",
+    "clone_url": "https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python.git",
+    "collaborators_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/comments{/number}",
+    "commits_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/contributors",
+    "created_at": "2026-05-06T08:48:24Z",
+    "custom_properties": {},
+    "default_branch": "main",
+    "delete_branch_on_merge": false,
+    "deployments_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/deployments",
+    "description": "The official open-source Python library by Aspose.Font for loading, rendering, and saving multiple font formats, including CFF, TTF, OpenType, and Type1.",
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/downloads",
+    "events_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/events",
+    "fork": false,
+    "forks": 0,
+    "forks_count": 0,
+    "forks_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/forks",
+    "full_name": "aspose-font-foss/Aspose.Font-FOSS-for-Python",
+    "git_commits_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/tags{/sha}",
+    "git_url": "git://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python.git",
+    "has_discussions": false,
+    "has_downloads": false,
+    "has_issues": true,
+    "has_pages": false,
+    "has_projects": true,
+    "has_pull_requests": true,
+    "has_wiki": true,
+    "homepage": null,
+    "hooks_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/hooks",
+    "html_url": "https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python",
+    "id": 1230713255,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/issues{/number}",
+    "keys_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/labels{/name}",
+    "language": "Python",
+    "languages_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/languages",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "node_id": "MDc6TGljZW5zZTEz",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit"
+    },
+    "merge_commit_message": "PR_TITLE",
+    "merge_commit_title": "MERGE_MESSAGE",
+    "merges_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/merges",
+    "milestones_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/milestones{/number}",
+    "mirror_url": null,
+    "name": "Aspose.Font-FOSS-for-Python",
+    "network_count": 0,
+    "node_id": "R_kgDOSVsxpw",
+    "notifications_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/notifications{?since,all,participating}",
+    "open_issues": 0,
+    "open_issues_count": 0,
+    "organization": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224598199?v=4",
+      "events_url": "https://api.github.com/users/aspose-font-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-font-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-font-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-font-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-font-foss",
+      "id": 224598199,
+      "login": "aspose-font-foss",
+      "node_id": "O_kgDODWMYtw",
+      "organizations_url": "https://api.github.com/users/aspose-font-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-font-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-font-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-font-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-font-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-font-foss",
+      "user_view_type": "public"
+    },
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224598199?v=4",
+      "events_url": "https://api.github.com/users/aspose-font-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-font-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-font-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-font-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-font-foss",
+      "id": 224598199,
+      "login": "aspose-font-foss",
+      "node_id": "O_kgDODWMYtw",
+      "organizations_url": "https://api.github.com/users/aspose-font-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-font-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-font-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-font-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-font-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-font-foss",
+      "user_view_type": "public"
+    },
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "private": false,
+    "pull_request_creation_policy": "all",
+    "pulls_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/pulls{/number}",
+    "pushed_at": "2026-08-15T15:22:32Z",
+    "releases_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/releases{/id}",
+    "security_and_analysis": {
+      "dependabot_security_updates": {
+        "status": "disabled"
+      },
+      "secret_scanning": {
+        "status": "disabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    },
+    "size": 72322,
+    "squash_merge_commit_message": "COMMIT_MESSAGES",
+    "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+    "ssh_url": "git@github.com:aspose-font-foss/Aspose.Font-FOSS-for-Python.git",
+    "stargazers_count": 0,
+    "stargazers_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/stargazers",
+    "statuses_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/statuses/{sha}",
+    "subscribers_count": 0,
+    "subscribers_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/subscribers",
+    "subscription_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/subscription",
+    "svn_url": "https://github.com/aspose-font-foss/Aspose.Font-FOSS-for-Python",
+    "tags_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/tags",
+    "teams_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/teams",
+    "temp_clone_token": "",
+    "topics": [],
+    "trees_url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees{/sha}",
+    "updated_at": "2026-08-15T15:22:46Z",
+    "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python",
+    "use_squash_pr_title_as_default": false,
+    "visibility": "public",
+    "watchers": 0,
+    "watchers_count": 0,
+    "web_commit_signoff_required": false
+  },
+  "tree": {
+    "sha": "7280f1380d5be5256f72925a93565cb636dbb7ff",
+    "tree": [
+      {
+        "mode": "100644",
+        "path": ".gitignore",
+        "sha": "c55fc6aedfbcf9859af74877b69c3a2565d7eef4",
+        "size": 122,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/c55fc6aedfbcf9859af74877b69c3a2565d7eef4"
+      },
+      {
+        "mode": "100644",
+        "path": "CHANGELOG.md",
+        "sha": "c0752d0d03cbd5148627e20c90c5df772e7fb43d",
+        "size": 1234,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/c0752d0d03cbd5148627e20c90c5df772e7fb43d"
+      },
+      {
+        "mode": "100644",
+        "path": "CODEOWNERS",
+        "sha": "8e21258cee6cd52a0294fd5603dabc9fc6b72b59",
+        "size": 243,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8e21258cee6cd52a0294fd5603dabc9fc6b72b59"
+      },
+      {
+        "mode": "100644",
+        "path": "Dockerfile",
+        "sha": "03a83471139bf63ecf5dba15c887faa3e9c18694",
+        "size": 386,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/03a83471139bf63ecf5dba15c887faa3e9c18694"
+      },
+      {
+        "mode": "100644",
+        "path": "LICENSE.txt",
+        "sha": "369d91c1c44a5630ca17d7a67a4303ab4f0cf23a",
+        "size": 1063,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/369d91c1c44a5630ca17d7a67a4303ab4f0cf23a"
+      },
+      {
+        "mode": "100644",
+        "path": "Makefile",
+        "sha": "c491d6a582230f4738452b4c04703100678dae92",
+        "size": 3194,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/c491d6a582230f4738452b4c04703100678dae92"
+      },
+      {
+        "mode": "100644",
+        "path": "README.md",
+        "sha": "585c2a2cfe8c51bbfc9747d7f3d9b6d97948ca1f",
+        "size": 43942,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/585c2a2cfe8c51bbfc9747d7f3d9b6d97948ca1f"
+      },
+      {
+        "mode": "100644",
+        "path": "SECURITY.md",
+        "sha": "763f810d859a6703dc871a995e847d1efeedfe45",
+        "size": 731,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/763f810d859a6703dc871a995e847d1efeedfe45"
+      },
+      {
+        "mode": "100644",
+        "path": "pyproject.toml",
+        "sha": "b478426e68089b80b0fbb495889402ae55c96a73",
+        "size": 1881,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b478426e68089b80b0fbb495889402ae55c96a73"
+      },
+      {
+        "mode": "100644",
+        "path": "setup.py",
+        "sha": "e64bedd6ea40b550a179b444ee6b9b26d5a03e10",
+        "size": 1256,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/e64bedd6ea40b550a179b444ee6b9b26d5a03e10"
+      },
+      {
+        "mode": "040000",
+        "path": "src",
+        "sha": "7b1c9af0547c1ece2f00129dd94d792b34f8dd17",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/7b1c9af0547c1ece2f00129dd94d792b34f8dd17"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_font",
+        "sha": "0905c464cc5894b73eaf94b44cf87ba5c716d74b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/0905c464cc5894b73eaf94b44cf87ba5c716d74b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/__init__.py",
+        "sha": "08fc6e6821657e3156354d7c10d1daa9fbf326f2",
+        "size": 5053,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/08fc6e6821657e3156354d7c10d1daa9fbf326f2"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_font/_brotli",
+        "sha": "3a8e7057bfec0ae4d8f0e50a9d31215098b69a09",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/3a8e7057bfec0ae4d8f0e50a9d31215098b69a09"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/_brotli/__init__.py",
+        "sha": "88b1dab6ab62f0d7cf53c3ebbdc9cb063f0e22bf",
+        "size": 476,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/88b1dab6ab62f0d7cf53c3ebbdc9cb063f0e22bf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/_brotli/_decode.py",
+        "sha": "a9673c96ea8cc458a16538e7847b6adcadf12b7e",
+        "size": 3002,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/a9673c96ea8cc458a16538e7847b6adcadf12b7e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/_brotli/_dict.py",
+        "sha": "d9994c701017d14fd9cba9f6c814c8b1333a7484",
+        "size": 109100,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/d9994c701017d14fd9cba9f6c814c8b1333a7484"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/_brotli/_encode.py",
+        "sha": "79b275dda6594617432d3d029a66f326d170e587",
+        "size": 2798,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/79b275dda6594617432d3d029a66f326d170e587"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_font/_brotli/vendor",
+        "sha": "abd4cb5cc105fb98be84c2bdb68a47959c96fc47",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/abd4cb5cc105fb98be84c2bdb68a47959c96fc47"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/_brotli/vendor/LICENSE.brotlihaxe.txt",
+        "sha": "8674e1be9a7cb8a0fb163860edbb923b53f8ecb5",
+        "size": 1213,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8674e1be9a7cb8a0fb163860edbb923b53f8ecb5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/_brotli/vendor/__init__.py",
+        "sha": "45d061c949c53180bbf5d2998f7da59b5bb0bb5a",
+        "size": 50,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/45d061c949c53180bbf5d2998f7da59b5bb0bb5a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/_brotli/vendor/brotlihaxe.py",
+        "sha": "fd4a73e2c074b06b22b3dc1934c463a3c3929fb3",
+        "size": 492463,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/fd4a73e2c074b06b22b3dc1934c463a3c3929fb3"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_font/_brotli/vendor/data",
+        "sha": "48cf2f17bfc6d78957d68b3f7235dd459e61fee1",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/48cf2f17bfc6d78957d68b3f7235dd459e61fee1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/_brotli/vendor/data/DictionaryBuckets.txt",
+        "sha": "15efe46a8ed08e7eaf1f555f045cf977ed386575",
+        "size": 98304,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/15efe46a8ed08e7eaf1f555f045cf977ed386575"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/_brotli/vendor/data/DictionaryHash.txt",
+        "sha": "a0fc26f5502d729089600b2850e6123d31ba616a",
+        "size": 65536,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/a0fc26f5502d729089600b2850e6123d31ba616a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/_brotli/vendor/data/DictionaryWords.txt",
+        "sha": "52711ff6b472f1123af2b83729ac48b44a4f686f",
+        "size": 95112,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/52711ff6b472f1123af2b83729ac48b44a4f686f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/_brotli/vendor/data/dictionary.txt",
+        "sha": "a585c0e292eba19e594ef95f5c4fb38fcb1f7a84",
+        "size": 122784,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/a585c0e292eba19e594ef95f5c4fb38fcb1f7a84"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/_exceptions.py",
+        "sha": "3578e3824fce9fd4434956bab630a9a95be17d56",
+        "size": 1288,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/3578e3824fce9fd4434956bab630a9a95be17d56"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/_font_base.py",
+        "sha": "9504cc92d01fa8f9b970465b1e3e9fd616b8ab08",
+        "size": 3135,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/9504cc92d01fa8f9b970465b1e3e9fd616b8ab08"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/_io.py",
+        "sha": "2be28240853d6638f559fcdbcf5075c5ac20a2a6",
+        "size": 8057,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/2be28240853d6638f559fcdbcf5075c5ac20a2a6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/_types.py",
+        "sha": "afcfb38f23b0a79c281d67bd5e7005fa17eb3c2e",
+        "size": 3295,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/afcfb38f23b0a79c281d67bd5e7005fa17eb3c2e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/animation.py",
+        "sha": "8d99d5c6584648160d8c8aee72265cd0241bf2dc",
+        "size": 38185,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8d99d5c6584648160d8c8aee72265cd0241bf2dc"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_font/cff",
+        "sha": "46e228e0921a8c1b1c09ba4fabb857969d9b6144",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/46e228e0921a8c1b1c09ba4fabb857969d9b6144"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/cff/__init__.py",
+        "sha": "d81545145cb80c736d43c32e5b6646214dbc25e2",
+        "size": 476,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/d81545145cb80c736d43c32e5b6646214dbc25e2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/cff/charset.py",
+        "sha": "6fa4720af7b56eec8e54bdabf7d0741009acd065",
+        "size": 8649,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6fa4720af7b56eec8e54bdabf7d0741009acd065"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/cff/dict_.py",
+        "sha": "f3a5f7656590fb7e769d30c9e39630b4dadd22e7",
+        "size": 9637,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/f3a5f7656590fb7e769d30c9e39630b4dadd22e7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/cff/encoding.py",
+        "sha": "be6b03e7613a22972d5e69896661b26bc55fd9e4",
+        "size": 9318,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/be6b03e7613a22972d5e69896661b26bc55fd9e4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/cff/font.py",
+        "sha": "caff2477df5b93cb5400c08f68420e0df4c3d4c0",
+        "size": 9571,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/caff2477df5b93cb5400c08f68420e0df4c3d4c0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/cff/index.py",
+        "sha": "bd16fcc3bc93b216be3ebcd083ef21f7c2c9a254",
+        "size": 2201,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/bd16fcc3bc93b216be3ebcd083ef21f7c2c9a254"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/cff/type2.py",
+        "sha": "8690164e33fd5cbf572380720b2aa155024aac8f",
+        "size": 18795,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8690164e33fd5cbf572380720b2aa155024aac8f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/cleaner.py",
+        "sha": "4b55daa9f152e160130b649cfd66fe3561ade27f",
+        "size": 3417,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/4b55daa9f152e160130b649cfd66fe3561ade27f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/cli.py",
+        "sha": "01c9bf705699af2e30f87c9cbd948a254de52989",
+        "size": 142094,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/01c9bf705699af2e30f87c9cbd948a254de52989"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/compatibility.py",
+        "sha": "1a88613fd9902550c2775286cc9b988e2d5f65a5",
+        "size": 24935,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/1a88613fd9902550c2775286cc9b988e2d5f65a5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/converter.py",
+        "sha": "538b89cb69d9eac8ebb782716f72690b3ece0c27",
+        "size": 34672,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/538b89cb69d9eac8ebb782716f72690b3ece0c27"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/delta.py",
+        "sha": "adf055db8d460b31fe9b684c41ee6898d7b9bc59",
+        "size": 69877,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/adf055db8d460b31fe9b684c41ee6898d7b9bc59"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_font/eot",
+        "sha": "2f85b7259cb5a7f22c77b2c17011c1a308c3d9cd",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/2f85b7259cb5a7f22c77b2c17011c1a308c3d9cd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/eot/__init__.py",
+        "sha": "c7c4ac803e5f2754dcafc372cb27a42696cba0c8",
+        "size": 104,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/c7c4ac803e5f2754dcafc372cb27a42696cba0c8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/eot/font.py",
+        "sha": "802f131b957634dadd19b36b9951163ac17d4a80",
+        "size": 6259,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/802f131b957634dadd19b36b9951163ac17d4a80"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/instancing.py",
+        "sha": "b32ad8bbb64102527b05a935c44acdc0f66e31ea",
+        "size": 44063,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b32ad8bbb64102527b05a935c44acdc0f66e31ea"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/loader.py",
+        "sha": "9258fab2f83c4462dab0c10ba510f8a9f4245353",
+        "size": 9061,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/9258fab2f83c4462dab0c10ba510f8a9f4245353"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/mcp.py",
+        "sha": "a664bf2aeb9fc52d8889499dd8f0c1408c36fc27",
+        "size": 16363,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/a664bf2aeb9fc52d8889499dd8f0c1408c36fc27"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/preview.py",
+        "sha": "bf0eba88864a1633a2b53811a3654fefe9aff64f",
+        "size": 29787,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/bf0eba88864a1633a2b53811a3654fefe9aff64f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/qa.py",
+        "sha": "7057a44b86e3232c2d46133dec891ced9ac2baa9",
+        "size": 17812,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/7057a44b86e3232c2d46133dec891ced9ac2baa9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/rasterizer.py",
+        "sha": "6b0b9e5ebaf053a6cec4d42804a609e88fbefe17",
+        "size": 11908,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6b0b9e5ebaf053a6cec4d42804a609e88fbefe17"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/reporting.py",
+        "sha": "51ff960349c78f5d80ce728a403e270f2d3af9f5",
+        "size": 28230,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/51ff960349c78f5d80ce728a403e270f2d3af9f5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/serializer.py",
+        "sha": "cc8fdd6c65413c7c1dc39e9ab861d0ade157b187",
+        "size": 21940,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/cc8fdd6c65413c7c1dc39e9ab861d0ade157b187"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/subset_presets.py",
+        "sha": "8db9122af54ab2f05c27d071b2cc561844a29f39",
+        "size": 2308,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8db9122af54ab2f05c27d071b2cc561844a29f39"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/subsetter.py",
+        "sha": "400461a56d3ee4508488de579e7dce04a41b5ed8",
+        "size": 22848,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/400461a56d3ee4508488de579e7dce04a41b5ed8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/text.py",
+        "sha": "63019e61b6259271260709af4fb68d14a2e28582",
+        "size": 11036,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/63019e61b6259271260709af4fb68d14a2e28582"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_font/ttf",
+        "sha": "f19a5835173ecaa646834e631c6a1b2ebdf93e05",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/f19a5835173ecaa646834e631c6a1b2ebdf93e05"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/__init__.py",
+        "sha": "0a7a317faa319d096ad0ec6b8cae1b472e8f9444",
+        "size": 155,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/0a7a317faa319d096ad0ec6b8cae1b472e8f9444"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/collection.py",
+        "sha": "f6193a03b18c621b1bda949550b73a72652ae825",
+        "size": 4892,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/f6193a03b18c621b1bda949550b73a72652ae825"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/font.py",
+        "sha": "41d90f6b1a6265a171f9d944a7076f526917dff2",
+        "size": 23867,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/41d90f6b1a6265a171f9d944a7076f526917dff2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/glyph.py",
+        "sha": "99bf703df17a7bbf6e150340784b0e7d5b96d412",
+        "size": 9856,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/99bf703df17a7bbf6e150340784b0e7d5b96d412"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/instancer.py",
+        "sha": "69d67d872ba2995299b78d4274f60a93ee4edddb",
+        "size": 71292,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/69d67d872ba2995299b78d4274f60a93ee4edddb"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_font/ttf/tables",
+        "sha": "82d4cc0c232fcbdfde2d132e418e64b8ecb525c7",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/82d4cc0c232fcbdfde2d132e418e64b8ecb525c7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/__init__.py",
+        "sha": "e8e22ab8529a88f3f502254199feacbcafb5164b",
+        "size": 2448,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/e8e22ab8529a88f3f502254199feacbcafb5164b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/avar.py",
+        "sha": "84bb0c590e4fe86a412cb01086828c2becaa9be8",
+        "size": 1718,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/84bb0c590e4fe86a412cb01086828c2becaa9be8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/cmap.py",
+        "sha": "b74015c172fb0c39cf19357914f1c75ebaa942d3",
+        "size": 10835,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b74015c172fb0c39cf19357914f1c75ebaa942d3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/fvar.py",
+        "sha": "0fa78fae1e80bda0a7001010c0c8cf91cc5cddb6",
+        "size": 3044,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/0fa78fae1e80bda0a7001010c0c8cf91cc5cddb6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/glyf.py",
+        "sha": "96584b5f4e960b367d719114e585d1f2153fd050",
+        "size": 509,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/96584b5f4e960b367d719114e585d1f2153fd050"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/gvar.py",
+        "sha": "1ccb57789d2ea12d816de1216894a3a8ef910605",
+        "size": 6456,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/1ccb57789d2ea12d816de1216894a3a8ef910605"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/head.py",
+        "sha": "c019288d0d7a5ef283e2f99701000c69eb9d2b9c",
+        "size": 2725,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/c019288d0d7a5ef283e2f99701000c69eb9d2b9c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/hhea.py",
+        "sha": "7fcb0f65e902d95c5fec002ca6b79bd4cbc4f406",
+        "size": 2486,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/7fcb0f65e902d95c5fec002ca6b79bd4cbc4f406"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/hmtx.py",
+        "sha": "a6a280d430700f2791fd0244e14f39be5406cba2",
+        "size": 1353,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/a6a280d430700f2791fd0244e14f39be5406cba2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/hvar.py",
+        "sha": "0de6ea39f114e9afdda713b37599b37b01fa29f5",
+        "size": 8118,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/0de6ea39f114e9afdda713b37599b37b01fa29f5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/kern.py",
+        "sha": "04020045dab13d24fe204baea23e2b17c3f122ee",
+        "size": 2650,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/04020045dab13d24fe204baea23e2b17c3f122ee"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/loca.py",
+        "sha": "2e82b4701a677ef046f1794039627d734db444f7",
+        "size": 1269,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/2e82b4701a677ef046f1794039627d734db444f7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/maxp.py",
+        "sha": "f501d8d74da11d3cb88148815a49fa21c0885bf9",
+        "size": 892,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/f501d8d74da11d3cb88148815a49fa21c0885bf9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/name.py",
+        "sha": "c36bf8491ab76efb26ed2608e3fbc9a3503160f7",
+        "size": 9645,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/c36bf8491ab76efb26ed2608e3fbc9a3503160f7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/os2.py",
+        "sha": "4d2a463fb7d79e807c845420e1728199cd3604b9",
+        "size": 1931,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/4d2a463fb7d79e807c845420e1728199cd3604b9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/post.py",
+        "sha": "c3cab5a3d411a289f6a07bb12cf2d414ffbd8c6d",
+        "size": 2156,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/c3cab5a3d411a289f6a07bb12cf2d414ffbd8c6d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/ttf/tables/stat.py",
+        "sha": "a16d1471c2dadc88afe9641cf9e8dcb65c138ce6",
+        "size": 7477,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/a16d1471c2dadc88afe9641cf9e8dcb65c138ce6"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_font/type1",
+        "sha": "f95089f293e3f34487da825d32d9a6c63d868932",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/f95089f293e3f34487da825d32d9a6c63d868932"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/type1/__init__.py",
+        "sha": "3ab83a721c0e8bbb787b5026bbd0e0dbab8b2574",
+        "size": 943,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/3ab83a721c0e8bbb787b5026bbd0e0dbab8b2574"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/type1/afm.py",
+        "sha": "9db675dd4e2e13099ea21b9b6b5dd57daf9fbe3d",
+        "size": 4220,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/9db675dd4e2e13099ea21b9b6b5dd57daf9fbe3d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/type1/charstring.py",
+        "sha": "42f71bb81eb830a948474cbee258bd5b26b995d0",
+        "size": 9682,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/42f71bb81eb830a948474cbee258bd5b26b995d0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/type1/eexec.py",
+        "sha": "eb8a48a1f765b11dbc068963ab8c0873549780a0",
+        "size": 1573,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/eb8a48a1f765b11dbc068963ab8c0873549780a0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/type1/font.py",
+        "sha": "6c3bfd5b82f0abcc86ef3c3d59cd05833b2d2224",
+        "size": 7472,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6c3bfd5b82f0abcc86ef3c3d59cd05833b2d2224"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/type1/pfa.py",
+        "sha": "d9f063494b84811e5f24f7cad4d6c45da3e0f436",
+        "size": 1144,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/d9f063494b84811e5f24f7cad4d6c45da3e0f436"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/type1/pfb.py",
+        "sha": "b8d5a1618fac8fd0d1d58af2c4cb886f6d23c012",
+        "size": 1630,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b8d5a1618fac8fd0d1d58af2c4cb886f6d23c012"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/type1/ps_lexer.py",
+        "sha": "0615f831618f8c504840defa6818e7a0f90b34d7",
+        "size": 5472,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/0615f831618f8c504840defa6818e7a0f90b34d7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/variation.py",
+        "sha": "a01a0fb5392f6ede5b002a675496be21b5b952b9",
+        "size": 33112,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/a01a0fb5392f6ede5b002a675496be21b5b952b9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/web.py",
+        "sha": "36adddc03239c6b359efd476e2fbac500da73a79",
+        "size": 85910,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/36adddc03239c6b359efd476e2fbac500da73a79"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose_font/woff",
+        "sha": "9a670c947a00ce8806635500e531ea799d3cd0b4",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/9a670c947a00ce8806635500e531ea799d3cd0b4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/woff/__init__.py",
+        "sha": "b9f550910d22f3463419fbd16d309bd727067881",
+        "size": 152,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b9f550910d22f3463419fbd16d309bd727067881"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/woff/woff1.py",
+        "sha": "36f8e2d0bbe00ae3699a160d48378e138a644796",
+        "size": 9452,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/36f8e2d0bbe00ae3699a160d48378e138a644796"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose_font/woff/woff2.py",
+        "sha": "d1881f1aa849db6540ca4b8d68533f91623cb2ee",
+        "size": 24451,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/d1881f1aa849db6540ca4b8d68533f91623cb2ee"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata",
+        "sha": "b71c209997ea185a8d0baedae01b3cd2a6d6a8c9",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/b71c209997ea185a8d0baedae01b3cd2a6d6a8c9"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Arial.pfa",
+        "sha": "61cc48087d3dd21fe43ee9a75df601edc9615b34",
+        "size": 110310,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/61cc48087d3dd21fe43ee9a75df601edc9615b34"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/BadFonts",
+        "sha": "0032160f1da722e59fb6444465f925c9f8a1655d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/0032160f1da722e59fb6444465f925c9f8a1655d"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/BadFonts/OpenSans-Regular.cff",
+        "sha": "92f53a352d9a3a279622b5df67e7bbc42a9f131f",
+        "size": 70537,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/92f53a352d9a3a279622b5df67e7bbc42a9f131f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/BadFonts/nonFontFile.pfa",
+        "sha": "33219ae0d075c75c2b754afc352504687d8d5aea",
+        "size": 11,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/33219ae0d075c75c2b754afc352504687d8d5aea"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/BadFonts/nonFontFile.pfb",
+        "sha": "33219ae0d075c75c2b754afc352504687d8d5aea",
+        "size": 11,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/33219ae0d075c75c2b754afc352504687d8d5aea"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/BadFonts/nonFontFile.ttc",
+        "sha": "33219ae0d075c75c2b754afc352504687d8d5aea",
+        "size": 11,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/33219ae0d075c75c2b754afc352504687d8d5aea"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/BadFonts/nonFontFile.ttf",
+        "sha": "33219ae0d075c75c2b754afc352504687d8d5aea",
+        "size": 11,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/33219ae0d075c75c2b754afc352504687d8d5aea"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/CFF",
+        "sha": "13234e27fb23c3cc40043a7b27d8a20caf8fded3",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/13234e27fb23c3cc40043a7b27d8a20caf8fded3"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/12380_C0_0.cff",
+        "sha": "d9a08710e59aa3ccbc5a47af63ccc3fc922b4b05",
+        "size": 1668,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/d9a08710e59aa3ccbc5a47af63ccc3fc922b4b05"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/12380_C0_1.cff",
+        "sha": "baa97926cc5e81ef0097bb2f7177a34a6299cd25",
+        "size": 1488,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/baa97926cc5e81ef0097bb2f7177a34a6299cd25"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/12380_C0_2.cff",
+        "sha": "d08e68fa7d605f9b5cfe375dc0be471f3758c701",
+        "size": 1100,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/d08e68fa7d605f9b5cfe375dc0be471f3758c701"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/12380_C0_3.cff",
+        "sha": "43ff1caf4587dd552b7577d0390a7aa5cc5ae6a2",
+        "size": 554,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/43ff1caf4587dd552b7577d0390a7aa5cc5ae6a2"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/29645.cff",
+        "sha": "0980db3dfcdc3c80db83019d6acbd7d054883d44",
+        "size": 5198,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/0980db3dfcdc3c80db83019d6acbd7d054883d44"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/6510_T1_0.cff",
+        "sha": "38654788dab1a0be420592c326931929653a993a",
+        "size": 1255,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/38654788dab1a0be420592c326931929653a993a"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/8987_F1.cff",
+        "sha": "25151e80ae9e16fa0062a6ae57a648bac2b5057f",
+        "size": 1002,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/25151e80ae9e16fa0062a6ae57a648bac2b5057f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/8987_F2.cff",
+        "sha": "4176f17a73da8e5104e2e111fb33a3ca7e87f2e0",
+        "size": 1570,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/4176f17a73da8e5104e2e111fb33a3ca7e87f2e0"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/8987_F3.cff",
+        "sha": "a2f6bbe47871ae210a46bde83769a96d25d62f7a",
+        "size": 1647,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/a2f6bbe47871ae210a46bde83769a96d25d62f7a"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/8987_F4.cff",
+        "sha": "39174ac353529ae9c5dc902bc0c490776e58205f",
+        "size": 2760,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/39174ac353529ae9c5dc902bc0c490776e58205f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/8987_F5.cff",
+        "sha": "fdc1656ff9dd80c97e2e0f6e706600d5c9518dd7",
+        "size": 1257,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/fdc1656ff9dd80c97e2e0f6e706600d5c9518dd7"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/CFF/CIDKeyed",
+        "sha": "d39c38ec0efaf1c3ea1383cbcd5c25aca5dd916d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/d39c38ec0efaf1c3ea1383cbcd5c25aca5dd916d"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/CIDKeyed/NotoSansJP-Regular.cff",
+        "sha": "c03d0a801d5ff611f484fbf5cc5a808a2ea62cfa",
+        "size": 4136492,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/c03d0a801d5ff611f484fbf5cc5a808a2ea62cfa"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/PDFKITNET-22786.cff",
+        "sha": "2c568b608a0d66fb3670f49e6bb67a38372a4bbe",
+        "size": 32768,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/2c568b608a0d66fb3670f49e6bb67a38372a4bbe"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/PDFKITNET_13867_1.cff",
+        "sha": "80d1d9ac9ed132abe326440ef3b05de8391daeb2",
+        "size": 551,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/80d1d9ac9ed132abe326440ef3b05de8391daeb2"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/PDFKITNET_13867_2.cff",
+        "sha": "9f9b149f0804a471ee5cadbc11b8565d8284f0f4",
+        "size": 5801,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/9f9b149f0804a471ee5cadbc11b8565d8284f0f4"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/CFF/PDFNET_38917.cff",
+        "sha": "96e4b4b21d6188c1af22aafd6a3621fdbaa63d49",
+        "size": 19359,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/96e4b4b21d6188c1af22aafd6a3621fdbaa63d49"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/EOT",
+        "sha": "148f501d6d3dd16454d99fa21874cbbf6d6623bc",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/148f501d6d3dd16454d99fa21874cbbf6d6623bc"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/Lora-Regular.eot",
+        "sha": "44938643d79fc540296a9b72414888185379e793",
+        "size": 45577,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/44938643d79fc540296a9b72414888185379e793"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/Montserrat-Regular.eot",
+        "sha": "71ef5949a78f425ba4332914e0ce468eacbb5a44",
+        "size": 321892,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/71ef5949a78f425ba4332914e0ce468eacbb5a44"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/OSHARED-37021-1.fntdata",
+        "sha": "764a8df6a1959cbfd19d88af6736c9fe6f70b1d5",
+        "size": 64271,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/764a8df6a1959cbfd19d88af6736c9fe6f70b1d5"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/OSHARED-37021-2.fntdata",
+        "sha": "bfb8c30af2f3c2ff2842cf5bea4ef451c770793a",
+        "size": 64190,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/bfb8c30af2f3c2ff2842cf5bea4ef451c770793a"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/OSHARED-37021-3.fntdata",
+        "sha": "88cb4591c437f18e4c1f608239ccbf21b6181ba1",
+        "size": 65210,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/88cb4591c437f18e4c1f608239ccbf21b6181ba1"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/OSHARED-37021-4.fntdata",
+        "sha": "dfd44e814642e5377bf8d9e0df6378490c14dbfa",
+        "size": 66249,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/dfd44e814642e5377bf8d9e0df6378490c14dbfa"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/OSHARED-37021-9.fntdata",
+        "sha": "527e7c9e3b468e3536d148a8650627d722d7fb5d",
+        "size": 4697424,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/527e7c9e3b468e3536d148a8650627d722d7fb5d"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA-34627-font2.fntdata",
+        "sha": "ce65105ae85dedf16b3765d015d24d361d9b15b3",
+        "size": 18638,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/ce65105ae85dedf16b3765d015d24d361d9b15b3"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA-34627-font3.fntdata",
+        "sha": "83a929514a109576c9bd5dccebd6f228a7754187",
+        "size": 19628,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/83a929514a109576c9bd5dccebd6f228a7754187"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA-34627-font4.fntdata",
+        "sha": "75358c5c0946e1abd9cd76004140cffe94493aa3",
+        "size": 20545,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/75358c5c0946e1abd9cd76004140cffe94493aa3"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34596_font1.eot",
+        "sha": "8136b9cfab623906877b88ab66fddf0d04596907",
+        "size": 22060,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8136b9cfab623906877b88ab66fddf0d04596907"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34596_font1.fntdata",
+        "sha": "8136b9cfab623906877b88ab66fddf0d04596907",
+        "size": 22060,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8136b9cfab623906877b88ab66fddf0d04596907"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34596_font2.fntdata",
+        "sha": "47a2222b06a260bc01824729506ad505156948fd",
+        "size": 19832,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/47a2222b06a260bc01824729506ad505156948fd"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34596_font3.fntdata",
+        "sha": "0e315110334320d261b1faff424512b7287bd549",
+        "size": 20871,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/0e315110334320d261b1faff424512b7287bd549"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34596_font4.fntdata",
+        "sha": "67dfcb7550e756c85f9d48c0b89789300467c3da",
+        "size": 21754,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/67dfcb7550e756c85f9d48c0b89789300467c3da"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34667_font1.fntdata",
+        "sha": "91b56f0d42b33c61be873f7b863d1c1d01e1b3d3",
+        "size": 133107,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/91b56f0d42b33c61be873f7b863d1c1d01e1b3d3"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34695_font1.fntdata",
+        "sha": "80d1d25eab06968ac425dc8bc5e0be2de31d74c9",
+        "size": 84855,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/80d1d25eab06968ac425dc8bc5e0be2de31d74c9"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34695_font2.fntdata",
+        "sha": "b76605cda0e6af5a79696d0dd3ca1f1f568fcb32",
+        "size": 30101,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b76605cda0e6af5a79696d0dd3ca1f1f568fcb32"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34710_font1.fntdata",
+        "sha": "70ae3668566aaf9785107bfeef74ae9d4f1616e6",
+        "size": 71731,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/70ae3668566aaf9785107bfeef74ae9d4f1616e6"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34710_font10.fntdata",
+        "sha": "e6b4b8801f085e3eb5cfd54c8547361d00abb61b",
+        "size": 21110,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/e6b4b8801f085e3eb5cfd54c8547361d00abb61b"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34710_font11.fntdata",
+        "sha": "49fe29f35ddc4ef7a97d60075fbd8c603b002363",
+        "size": 22022,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/49fe29f35ddc4ef7a97d60075fbd8c603b002363"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34710_font12.fntdata",
+        "sha": "b80e9a08892b2a72f99d755244badce22f54609f",
+        "size": 67630,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b80e9a08892b2a72f99d755244badce22f54609f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34710_font2.fntdata",
+        "sha": "6567a3d943de21b6ca408abe84186a8221389d1a",
+        "size": 85391,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6567a3d943de21b6ca408abe84186a8221389d1a"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34710_font3.fntdata",
+        "sha": "738e6083ee19b583b1188903cae142031d723ed4",
+        "size": 77478,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/738e6083ee19b583b1188903cae142031d723ed4"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34710_font8.fntdata",
+        "sha": "d9c456c5692f8d15f9b34457000fd24b11442db4",
+        "size": 23239,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/d9c456c5692f8d15f9b34457000fd24b11442db4"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34710_font9.fntdata",
+        "sha": "dc8ea5dab189cf019bcd645adf921de324d7c8d7",
+        "size": 20102,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/dc8ea5dab189cf019bcd645adf921de324d7c8d7"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34779_font1.fntdata",
+        "sha": "b860d9efc3f7322a9235c5aef445ca39311332da",
+        "size": 368202,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b860d9efc3f7322a9235c5aef445ca39311332da"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESJAVA_34784_font1.fntdata",
+        "sha": "b860d9efc3f7322a9235c5aef445ca39311332da",
+        "size": 368202,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b860d9efc3f7322a9235c5aef445ca39311332da"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_35272_only_needed_chars_are_embedded_font9.fntdata",
+        "sha": "b0b3a6da40532e0880eb622daaa9cf8828d2afda",
+        "size": 28288,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b0b3a6da40532e0880eb622daaa9cf8828d2afda"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_35486_font2.fntdata",
+        "sha": "f0614cc65dff0b5c1ba3c2517004dab04bd825c5",
+        "size": 23171,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/f0614cc65dff0b5c1ba3c2517004dab04bd825c5"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_35486_font3.fntdata",
+        "sha": "822d676defb1f79d824d84cc09f665a5e7dd4aa8",
+        "size": 19958,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/822d676defb1f79d824d84cc09f665a5e7dd4aa8"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_35486_font4.fntdata",
+        "sha": "95062433c78843338378e98beef6d2278766ab33",
+        "size": 20981,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/95062433c78843338378e98beef6d2278766ab33"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_35486_font5.fntdata",
+        "sha": "d23036c100dbb6644459fab0d46e83c6eb7504c5",
+        "size": 21870,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/d23036c100dbb6644459fab0d46e83c6eb7504c5"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_35655_font1.fntdata",
+        "sha": "14f0d3f43dd61e81e3a031770f3aad9b335af522",
+        "size": 34957,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/14f0d3f43dd61e81e3a031770f3aad9b335af522"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_35655_font2.fntdata",
+        "sha": "e763345439c304c0fd3ae913f592d249f09a4a4c",
+        "size": 42494,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/e763345439c304c0fd3ae913f592d249f09a4a4c"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_35655_font3.fntdata",
+        "sha": "08bc4beedc54c6b43bfa3618b4f2ab9e81c15026",
+        "size": 27540,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/08bc4beedc54c6b43bfa3618b4f2ab9e81c15026"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_35685_font1.fntdata",
+        "sha": "33d4c22502573a134855dda80fda70637b0e866b",
+        "size": 26048,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/33d4c22502573a134855dda80fda70637b0e866b"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_35742_font2.fntdata",
+        "sha": "9847b14c0f6a22e3077f32cdde00e443a1b3423c",
+        "size": 22963,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/9847b14c0f6a22e3077f32cdde00e443a1b3423c"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_35775_font1.fntdata",
+        "sha": "6634da36af19cf27fc7c5be0f137ffdefd6b8753",
+        "size": 14854,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6634da36af19cf27fc7c5be0f137ffdefd6b8753"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_35815_font6.fntdata",
+        "sha": "25d8db6d9051b37891aeb7b3f72a89ec352170dd",
+        "size": 132364,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/25d8db6d9051b37891aeb7b3f72a89ec352170dd"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_36071_font6.fntdata",
+        "sha": "25d8db6d9051b37891aeb7b3f72a89ec352170dd",
+        "size": 132364,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/25d8db6d9051b37891aeb7b3f72a89ec352170dd"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_36127_font10.fntdata",
+        "sha": "de21474d296303c0cdbcb4e9db5a5e92fe4b3804",
+        "size": 31633,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/de21474d296303c0cdbcb4e9db5a5e92fe4b3804"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_36154_font5.fntdata",
+        "sha": "7bdd426cf2e885bb3533422a6282769438957d34",
+        "size": 322047,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/7bdd426cf2e885bb3533422a6282769438957d34"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_36154_font6.fntdata",
+        "sha": "5ce2c1080dacd38cdb0628ea9b5b5df0eae7b3b0",
+        "size": 309932,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/5ce2c1080dacd38cdb0628ea9b5b5df0eae7b3b0"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/SLIDESNET_36154_font7.fntdata",
+        "sha": "786ec217d46837e118765da469e693594ef6f83f",
+        "size": 236280,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/786ec217d46837e118765da469e693594ef6f83f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/code.dat",
+        "sha": "8b7bf0752995cad9d18b500f0b915b9c74c2bf53",
+        "size": 1400,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8b7bf0752995cad9d18b500f0b915b9c74c2bf53"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/data.dat",
+        "sha": "379305c1cf6035fc022de55eb5e0ccadd303e9c2",
+        "size": 3768,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/379305c1cf6035fc022de55eb5e0ccadd303e9c2"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/font1_Perpetua_regular.fntdata",
+        "sha": "ca231dcb3a65a0b7a7c9f7885608e67b43d41576",
+        "size": 18833,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/ca231dcb3a65a0b7a7c9f7885608e67b43d41576"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/font2_Perpetua_bold.fntdata",
+        "sha": "00d7d0c86e9bd7f8cf82ad254e9194a2010b684f",
+        "size": 19389,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/00d7d0c86e9bd7f8cf82ad254e9194a2010b684f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/font5_Wingdings 2_regular.fntdata",
+        "sha": "1625f3a2f44efa7f96f55d309d77263f5240f27d",
+        "size": 29495,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/1625f3a2f44efa7f96f55d309d77263f5240f27d"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/font6_Gabriola_uncompressed.eot",
+        "sha": "d50c6550136fa7788539d98d33152c2bc901ebfa",
+        "size": 1804682,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/d50c6550136fa7788539d98d33152c2bc901ebfa"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/font9.fntdata",
+        "sha": "527e7c9e3b468e3536d148a8650627d722d7fb5d",
+        "size": 4697424,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/527e7c9e3b468e3536d148a8650627d722d7fb5d"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EOT/rest.dat",
+        "sha": "1717ad0361abe08529ce2c33c15b6ed11265fd58",
+        "size": 13461,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/1717ad0361abe08529ce2c33c15b6ed11265fd58"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/EvaluationFonts",
+        "sha": "64139de97c1531c479265b67e989d93a40eb64d1",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/64139de97c1531c479265b67e989d93a40eb64d1"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Lora-Bold.ttf",
+        "sha": "6f49b884351aad076426c9087b23872a2e8c1184",
+        "size": 123996,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6f49b884351aad076426c9087b23872a2e8c1184"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Lora-BoldItalic.ttf",
+        "sha": "ec67275a1060add9e3b9cf5ced4c9f5da76e25e5",
+        "size": 132568,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/ec67275a1060add9e3b9cf5ced4c9f5da76e25e5"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Lora-Italic.ttf",
+        "sha": "826b2bab57e403be5471dfb6fffb958d46fd92f0",
+        "size": 131920,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/826b2bab57e403be5471dfb6fffb958d46fd92f0"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Lora-Medium.ttf",
+        "sha": "4456b9de2c7328dcd1e21f0b29e67bbd0ee0f4ea",
+        "size": 124348,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/4456b9de2c7328dcd1e21f0b29e67bbd0ee0f4ea"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Lora-MediumItalic.ttf",
+        "sha": "8d362e48e0c29464d313661e92ae76c4c311584c",
+        "size": 132844,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8d362e48e0c29464d313661e92ae76c4c311584c"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Lora-Regular.ttf",
+        "sha": "5ad50b2eca14436c4376db293939258b8c50b15e",
+        "size": 124204,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/5ad50b2eca14436c4376db293939258b8c50b15e"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Lora-SemiBold.ttf",
+        "sha": "4df8a959e0b92104769249abb82899db28308e05",
+        "size": 124356,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/4df8a959e0b92104769249abb82899db28308e05"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Lora-SemiBoldItalic.ttf",
+        "sha": "7af707a3b0ca21d3177deb3f57462dfdc05014cb",
+        "size": 132808,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/7af707a3b0ca21d3177deb3f57462dfdc05014cb"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Merriweather-Black.ttf",
+        "sha": "555f892c69c483e784a11bdd195fb228c37b23a0",
+        "size": 141624,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/555f892c69c483e784a11bdd195fb228c37b23a0"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Merriweather-BlackItalic.ttf",
+        "sha": "01ab074373421040b329e5b94a53567f8947c8f8",
+        "size": 142520,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/01ab074373421040b329e5b94a53567f8947c8f8"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Merriweather-Bold.ttf",
+        "sha": "c6374c0ac303926a84930c5c9ccc3a7f8201970b",
+        "size": 141964,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/c6374c0ac303926a84930c5c9ccc3a7f8201970b"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Merriweather-BoldItalic.ttf",
+        "sha": "b2e7663d7a0933422e96a1b51326268b68a4cf30",
+        "size": 143736,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b2e7663d7a0933422e96a1b51326268b68a4cf30"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Merriweather-Italic.ttf",
+        "sha": "179acf3fb16697c9e30cb5021cd613ce3eb7d4c9",
+        "size": 142548,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/179acf3fb16697c9e30cb5021cd613ce3eb7d4c9"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Merriweather-Light.ttf",
+        "sha": "843b8a86d04c4bcc87926ad18d6c3a16bd1e13c3",
+        "size": 148100,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/843b8a86d04c4bcc87926ad18d6c3a16bd1e13c3"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Merriweather-LightItalic.ttf",
+        "sha": "16ea25ef6a549a39e3efabf29512bd5615c04115",
+        "size": 141956,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/16ea25ef6a549a39e3efabf29512bd5615c04115"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Merriweather-Regular.ttf",
+        "sha": "18da9e5b0a8b30db8401c3c09fd99bb9868fa393",
+        "size": 149092,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/18da9e5b0a8b30db8401c3c09fd99bb9868fa393"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-Black.ttf",
+        "sha": "437b1157cb4c32560095c6d40accde2956070c1c",
+        "size": 257552,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/437b1157cb4c32560095c6d40accde2956070c1c"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-BlackItalic.ttf",
+        "sha": "52348354c2916fbecf10f9c17e08db7bccd96653",
+        "size": 261732,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/52348354c2916fbecf10f9c17e08db7bccd96653"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-Bold.ttf",
+        "sha": "221819bca06ec2b584dd1c24ccd701082d12774f",
+        "size": 244468,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/221819bca06ec2b584dd1c24ccd701082d12774f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-BoldItalic.ttf",
+        "sha": "9ae2bd240fee41917519b3d57a2818606e3d9de2",
+        "size": 249556,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/9ae2bd240fee41917519b3d57a2818606e3d9de2"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-ExtraBold.ttf",
+        "sha": "80ea8061b046af5af78623788022a3bdd9f79994",
+        "size": 244868,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/80ea8061b046af5af78623788022a3bdd9f79994"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-ExtraBoldItalic.ttf",
+        "sha": "6c961e1cc944ee69e76b98bdc97c549fafdba31b",
+        "size": 249776,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6c961e1cc944ee69e76b98bdc97c549fafdba31b"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-ExtraLight.ttf",
+        "sha": "ca0bbb6569d51021125875d40e951ca09e5be5ca",
+        "size": 242128,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/ca0bbb6569d51021125875d40e951ca09e5be5ca"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-ExtraLightItalic.ttf",
+        "sha": "f3c1559ec7f7353d50be555554bd1715170d1115",
+        "size": 246176,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/f3c1559ec7f7353d50be555554bd1715170d1115"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-Italic.ttf",
+        "sha": "eb4232a0c2cd4970128e5271fec45b6868fa2eae",
+        "size": 249088,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/eb4232a0c2cd4970128e5271fec45b6868fa2eae"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-Light.ttf",
+        "sha": "990857de8e03f4db6c2e1112045dfa37ed2d675d",
+        "size": 242068,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/990857de8e03f4db6c2e1112045dfa37ed2d675d"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-LightItalic.ttf",
+        "sha": "209604046b343269618c3a857bc5c00238db7171",
+        "size": 246276,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/209604046b343269618c3a857bc5c00238db7171"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-Medium.ttf",
+        "sha": "6e079f6984098cc53f68a24390936a73a6dcd944",
+        "size": 243180,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6e079f6984098cc53f68a24390936a73a6dcd944"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-MediumItalic.ttf",
+        "sha": "0dc3ac9c29cb870a141d10dd6225c06205c17872",
+        "size": 248044,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/0dc3ac9c29cb870a141d10dd6225c06205c17872"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-Regular.ttf",
+        "sha": "8d443d5d56ac36091e9689cd5d1b1948d9124545",
+        "size": 245708,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8d443d5d56ac36091e9689cd5d1b1948d9124545"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-SemiBold.ttf",
+        "sha": "f8a43f2b203054676b64e38e2b78af5468c39b6d",
+        "size": 243816,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/f8a43f2b203054676b64e38e2b78af5468c39b6d"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-SemiBoldItalic.ttf",
+        "sha": "336c56ec0cf2e118410440df4f81bde7fc464b1d",
+        "size": 249192,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/336c56ec0cf2e118410440df4f81bde7fc464b1d"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-Thin.ttf",
+        "sha": "b9858757eb98286718cc526d245ee2ed50e3b68b",
+        "size": 241436,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b9858757eb98286718cc526d245ee2ed50e3b68b"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Montserrat-ThinItalic.ttf",
+        "sha": "e488998ec79ac8e5bde78cf3ba1f4991d5e25511",
+        "size": 245372,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/e488998ec79ac8e5bde78cf3ba1f4991d5e25511"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/NotoSansJP-Black.otf",
+        "sha": "4a344f240d0c1c4acfcd00b53e21b516c6eff699",
+        "size": 4799288,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/4a344f240d0c1c4acfcd00b53e21b516c6eff699"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/NotoSansJP-Bold.otf",
+        "sha": "a0a3214e7f4926a3438f83baec313386e344fa66",
+        "size": 4623440,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/a0a3214e7f4926a3438f83baec313386e344fa66"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/NotoSansJP-Light.otf",
+        "sha": "16986577ab74ca96c43c40a9547037b0f1b74956",
+        "size": 4434532,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/16986577ab74ca96c43c40a9547037b0f1b74956"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/NotoSansJP-Medium.otf",
+        "sha": "8d362658429548fbcde7f1a401d1088dc82da342",
+        "size": 4488572,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8d362658429548fbcde7f1a401d1088dc82da342"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/NotoSansJP-Regular.cff",
+        "sha": "c03d0a801d5ff611f484fbf5cc5a808a2ea62cfa",
+        "size": 4136492,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/c03d0a801d5ff611f484fbf5cc5a808a2ea62cfa"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/NotoSansJP-Regular.otf",
+        "sha": "61b62f21af28b150bb20cc11b815d6ae950e1a78",
+        "size": 4472168,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/61b62f21af28b150bb20cc11b815d6ae950e1a78"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/NotoSansJP-Thin.otf",
+        "sha": "520aac736b8026656aff535ae52ce19ad73075ae",
+        "size": 4183752,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/520aac736b8026656aff535ae52ce19ad73075ae"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/OFL.txt",
+        "sha": "366206f549504e758eae3c1b0416667af51dd3fe",
+        "size": 4528,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/366206f549504e758eae3c1b0416667af51dd3fe"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/OpenSans-Regular.pfb",
+        "sha": "da8a7f7b34ceb00b0210bc364b914addcccd4d43",
+        "size": 100921,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/da8a7f7b34ceb00b0210bc364b914addcccd4d43"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/SourceCodePro-Black.ttf",
+        "sha": "fe62ead26d30d5ec37a25d6074445b7712b8a6f7",
+        "size": 191284,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/fe62ead26d30d5ec37a25d6074445b7712b8a6f7"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/SourceCodePro-BlackItalic.ttf",
+        "sha": "a412dd9386f28a78753897dbd04f7fc625a905db",
+        "size": 155056,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/a412dd9386f28a78753897dbd04f7fc625a905db"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/SourceCodePro-Bold.ttf",
+        "sha": "c790e045bfef5a65717c0a794781478f7e3b138b",
+        "size": 191568,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/c790e045bfef5a65717c0a794781478f7e3b138b"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/SourceCodePro-BoldItalic.ttf",
+        "sha": "087819947ab9d32dc5497bcb5e1a23c4f2783928",
+        "size": 155288,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/087819947ab9d32dc5497bcb5e1a23c4f2783928"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/SourceCodePro-ExtraLight.ttf",
+        "sha": "ca7bce8f1454a4bf135837daffd9f26bb93fe676",
+        "size": 193360,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/ca7bce8f1454a4bf135837daffd9f26bb93fe676"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/SourceCodePro-ExtraLightItalic.ttf",
+        "sha": "c33f28409d8329beed81fe13171f059c04a4f53d",
+        "size": 156884,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/c33f28409d8329beed81fe13171f059c04a4f53d"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/SourceCodePro-Italic.ttf",
+        "sha": "91a2a44fd31e05a9e439b630cff6b253ec9cb033",
+        "size": 161376,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/91a2a44fd31e05a9e439b630cff6b253ec9cb033"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/SourceCodePro-Light.ttf",
+        "sha": "7af27ce67e125df391e78fc1968ce33c6d173257",
+        "size": 193160,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/7af27ce67e125df391e78fc1968ce33c6d173257"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/SourceCodePro-LightItalic.ttf",
+        "sha": "330c523a1d037e2e1446cd5d69a4f513eb3bca7a",
+        "size": 156984,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/330c523a1d037e2e1446cd5d69a4f513eb3bca7a"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/SourceCodePro-Medium.ttf",
+        "sha": "6450399d1c2ab36f22254794ca7dd200354f61ba",
+        "size": 191984,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6450399d1c2ab36f22254794ca7dd200354f61ba"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/SourceCodePro-MediumItalic.ttf",
+        "sha": "50cd774b29d4a9a080f9e3d782b7c671e96c3d38",
+        "size": 156156,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/50cd774b29d4a9a080f9e3d782b7c671e96c3d38"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/SourceCodePro-Regular.ttf",
+        "sha": "3563e7347be1ef18a3a447df1cd5d049cc088e14",
+        "size": 192740,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/3563e7347be1ef18a3a447df1cd5d049cc088e14"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/SourceCodePro-SemiBold.ttf",
+        "sha": "526be56c0354e6a353ba6d31ddfa137e45b33830",
+        "size": 191792,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/526be56c0354e6a353ba6d31ddfa137e45b33830"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/SourceCodePro-SemiBoldItalic.ttf",
+        "sha": "689c1389f36ba4e589134b77ae592a84ef6897a1",
+        "size": 155568,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/689c1389f36ba4e589134b77ae592a84ef6897a1"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Times-Italic.pfb",
+        "sha": "1e13626cf7484a0d216ad26007e5cb262756f51f",
+        "size": 35733,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/1e13626cf7484a0d216ad26007e5cb262756f51f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/EvaluationFonts/Times-Roman.pfb",
+        "sha": "3154ad9264959d839cee0a1833f900fff9ba687a",
+        "size": 32976,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/3154ad9264959d839cee0a1833f900fff9ba687a"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/Fonts",
+        "sha": "2343b93b36954fa2e045bcc6293fbbe2c5e36856",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/2343b93b36954fa2e045bcc6293fbbe2c5e36856"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/OpenSans-Bold.ttf",
+        "sha": "efdd5e84a0397ecada7b9cfde51db87db08766bd",
+        "size": 104120,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/efdd5e84a0397ecada7b9cfde51db87db08766bd"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/OpenSans-BoldItalic.ttf",
+        "sha": "9bf9b4e97b6576c8cc3d4527073731fd9cc57493",
+        "size": 92628,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/9bf9b4e97b6576c8cc3d4527073731fd9cc57493"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/OpenSans-ExtraBold.ttf",
+        "sha": "67fcf0fb2af0c069495fbc7fe7ab0e442a86e357",
+        "size": 102076,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/67fcf0fb2af0c069495fbc7fe7ab0e442a86e357"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/OpenSans-ExtraBoldItalic.ttf",
+        "sha": "086722809c74d5031c2427b31262de14e4a10560",
+        "size": 92772,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/086722809c74d5031c2427b31262de14e4a10560"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/OpenSans-Italic.ttf",
+        "sha": "117856707b9b867863a9b48b127f756ee25fe109",
+        "size": 92240,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/117856707b9b867863a9b48b127f756ee25fe109"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/OpenSans-Light.ttf",
+        "sha": "6580d3a169e895d914f159c060b947e36746f275",
+        "size": 101696,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6580d3a169e895d914f159c060b947e36746f275"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/OpenSans-LightItalic.ttf",
+        "sha": "1e0c3319810ad7a0312e10c3d62da6beea7f1c58",
+        "size": 92488,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/1e0c3319810ad7a0312e10c3d62da6beea7f1c58"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/OpenSans-Regular.ttf",
+        "sha": "29bfd35a2bfdd92b6e8b4ec2970f4d1eebf49357",
+        "size": 96932,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/29bfd35a2bfdd92b6e8b4ec2970f4d1eebf49357"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/OpenSans-SemiBold.ttf",
+        "sha": "54e7059cf36359cb5a3860085714a95306af0dea",
+        "size": 100820,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/54e7059cf36359cb5a3860085714a95306af0dea"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/OpenSans-SemiBoldItalic.ttf",
+        "sha": "aebcf1421226d045b8043d26433d780fa365b7de",
+        "size": 92180,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/aebcf1421226d045b8043d26433d780fa365b7de"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/Roboto-Black.ttf",
+        "sha": "2d452383651a6ef279743a9926b90234b8b79366",
+        "size": 171072,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/2d452383651a6ef279743a9926b90234b8b79366"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/Roboto-BlackItalic.ttf",
+        "sha": "29a4359ed0ba945a1af87078f3c0f08d298b0285",
+        "size": 177120,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/29a4359ed0ba945a1af87078f3c0f08d298b0285"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/Roboto-Bold.ttf",
+        "sha": "d998cf5b468413ca1c950096dc9d0f5dfdb1359f",
+        "size": 170348,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/d998cf5b468413ca1c950096dc9d0f5dfdb1359f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/Roboto-BoldItalic.ttf",
+        "sha": "b4e22103936078c50cdc7ddf7a3e2d51dd2d3c44",
+        "size": 174520,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b4e22103936078c50cdc7ddf7a3e2d51dd2d3c44"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/Roboto-Italic.ttf",
+        "sha": "5b390ff950e6539bdfd4d84265fdb01e0c35f291",
+        "size": 173516,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/5b390ff950e6539bdfd4d84265fdb01e0c35f291"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/Roboto-Light.ttf",
+        "sha": "35267989deca17116c70c987e90035303e2e3404",
+        "size": 170012,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/35267989deca17116c70c987e90035303e2e3404"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/Roboto-LightItalic.ttf",
+        "sha": "46e9bf7c95adb27c042d0646deb1f8a3beb8087e",
+        "size": 176184,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/46e9bf7c95adb27c042d0646deb1f8a3beb8087e"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/Roboto-Medium.ttf",
+        "sha": "f714a514d94e495095e2f1e525a341eade187c17",
+        "size": 171656,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/f714a514d94e495095e2f1e525a341eade187c17"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/Roboto-MediumItalic.ttf",
+        "sha": "5dc6a2dc6c38c1b1ee54b0ad5072c6e29968ed24",
+        "size": 176428,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/5dc6a2dc6c38c1b1ee54b0ad5072c6e29968ed24"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/Roboto-Regular.ttf",
+        "sha": "2b6392ffe8712b9c5450733320cd220d6c0f4bce",
+        "size": 171272,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/2b6392ffe8712b9c5450733320cd220d6c0f4bce"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/Roboto-Thin.ttf",
+        "sha": "4e797cf7ef9758a9209fae4e0b07e6b186b2c69d",
+        "size": 171500,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/4e797cf7ef9758a9209fae4e0b07e6b186b2c69d"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Fonts/Roboto-ThinItalic.ttf",
+        "sha": "eea836f4a37fea4afe61d6483692dc431a9b1c20",
+        "size": 175872,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/eea836f4a37fea4afe61d6483692dc431a9b1c20"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Helvetica.afm",
+        "sha": "bd32af54dec5563db4033ed2c8bb4a26f1eaeecf",
+        "size": 74292,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/bd32af54dec5563db4033ed2c8bb4a26f1eaeecf"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Helvetica.pfm",
+        "sha": "b1b6277dfbe7db76d561391250852e2f870f6bda",
+        "size": 1676,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b1b6277dfbe7db76d561391250852e2f870f6bda"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/ImageTemplates",
+        "sha": "a5ded608518711af5f0291c0f21ca0d4e95a7429",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/a5ded608518711af5f0291c0f21ca0d4e95a7429"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/ImageTemplates/DrawTextByGlyphs_LineSpacing_Arial.png",
+        "sha": "b8ca60a7f01018899271f79042cbf0f61dc93eec",
+        "size": 22588,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b8ca60a7f01018899271f79042cbf0f61dc93eec"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/ImageTemplates/DrawText_LineSpacing_Lora Regular.png",
+        "sha": "319e6003b04da7cde93911b3baddf423aca1b593",
+        "size": 26225,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/319e6003b04da7cde93911b3baddf423aca1b593"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/ImageTemplates/DrawText_LineSpacing_Mangal.png",
+        "sha": "7badd1e602dee21573fd693a5db1f817e3a0229c",
+        "size": 29073,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/7badd1e602dee21573fd693a5db1f817e3a0229c"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/ImageTemplates/Mangal1.png",
+        "sha": "f836fb8e2f4d5a29bc83e7b810ccb2a7f524d54f",
+        "size": 48275,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/f836fb8e2f4d5a29bc83e7b810ccb2a7f524d54f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/ImageTemplates/Mangal2.png",
+        "sha": "03e6e6928bafc6047283c73179737e3a7d65cdac",
+        "size": 69131,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/03e6e6928bafc6047283c73179737e3a7d65cdac"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/ImageTemplates/Mangal3.png",
+        "sha": "e39d90fcef2c06e54b35f4e4f8c42429d436a0ba",
+        "size": 57258,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/e39d90fcef2c06e54b35f4e4f8c42429d436a0ba"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/ImageTemplates/drawingSample_MingLiU-Template-1.png",
+        "sha": "a3ccd20edfb66b8ac3ac12a743ed3158d8063633",
+        "size": 13087,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/a3ccd20edfb66b8ac3ac12a743ed3158d8063633"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/OpenSans-Regular.cff",
+        "sha": "92f53a352d9a3a279622b5df67e7bbc42a9f131f",
+        "size": 70537,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/92f53a352d9a3a279622b5df67e7bbc42a9f131f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/OpenSans-Regular.pfb",
+        "sha": "da8a7f7b34ceb00b0210bc364b914addcccd4d43",
+        "size": 100921,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/da8a7f7b34ceb00b0210bc364b914addcccd4d43"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/PCL",
+        "sha": "d19bc605deb09c1c1633f6be7abdf74bb0a601ba",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/d19bc605deb09c1c1633f6be7abdf74bb0a601ba"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PCL/#1.bmdata",
+        "sha": "6200e42b135ea21c1dbcec6eb04f4f37689ea2a5",
+        "size": 5129,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6200e42b135ea21c1dbcec6eb04f4f37689ea2a5"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PCL/#2.bmdata",
+        "sha": "1c3e07068e6f33cee19780f3785b2746a8fc4465",
+        "size": 874,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/1c3e07068e6f33cee19780f3785b2746a8fc4465"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PCL/#3.bmdata",
+        "sha": "e0092056d68543e88bfbc142cb0398c51c7f814e",
+        "size": 3221,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/e0092056d68543e88bfbc142cb0398c51c7f814e"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PCL/#4.bmdata",
+        "sha": "e3d3ac56595faab618dbe9bfa8ca862016fd500c",
+        "size": 3271,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/e3d3ac56595faab618dbe9bfa8ca862016fd500c"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PCL/#5.bmdata",
+        "sha": "bfff00f93b440a0b7581ee421a4161f262b91147",
+        "size": 3008,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/bfff00f93b440a0b7581ee421a4161f262b91147"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PCL/#6.bmdata",
+        "sha": "1cbe84af59ea3c475a34f0931f555b7334924524",
+        "size": 1886,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/1cbe84af59ea3c475a34f0931f555b7334924524"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PCL/#8.bmdata",
+        "sha": "bdf31562044e6999c1614c3c771ec6eb74014a04",
+        "size": 377,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/bdf31562044e6999c1614c3c771ec6eb74014a04"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PCL/%Embed0.bmdata",
+        "sha": "efded90d2962940bffcf7f650cfde9e7611b507c",
+        "size": 134,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/efded90d2962940bffcf7f650cfde9e7611b507c"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PCL/Beesknees ITC.ttdata",
+        "sha": "eedad8d22b50054e4af2e5841c69a3ca7101cde2",
+        "size": 51353,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/eedad8d22b50054e4af2e5841c69a3ca7101cde2"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PCL/Eras Bold ITC.ttdata",
+        "sha": "0af451f5d93f90cb7994d02578fd8f2711198bf9",
+        "size": 60617,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/0af451f5d93f90cb7994d02578fd8f2711198bf9"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PCL/Lucida Sans Unic.ttdata",
+        "sha": "2bcd1316b9720fa408470eaa09c2d8b64b7470c6",
+        "size": 37784,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/2bcd1316b9720fa408470eaa09c2d8b64b7470c6"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PCL/MS PCLXLFont 001.ttdata",
+        "sha": "faf98ea7decdb4f58997a557df26f41a1e8d67e5",
+        "size": 13459,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/faf98ea7decdb4f58997a557df26f41a1e8d67e5"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PCL/Tempus Sans ITC.ttdata",
+        "sha": "77c10536a8425ad2f8989f277dce3eb4a8d072c2",
+        "size": 81853,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/77c10536a8425ad2f8989f277dce3eb4a8d072c2"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PCL/Times New Roman.bmdata",
+        "sha": "6d2d6c7ba67c4f15360ffb2c47eb3e1cf1f54459",
+        "size": 2757,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6d2d6c7ba67c4f15360ffb2c47eb3e1cf1f54459"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/PDF",
+        "sha": "49054cd8f4e3bcb8755f40b1f8f1aa456a68321d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/49054cd8f4e3bcb8755f40b1f8f1aa456a68321d"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PDF/48252.ttf",
+        "sha": "62e469bb19c9944164661593c9f4064d8d5595a8",
+        "size": 7880,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/62e469bb19c9944164661593c9f4064d8d5595a8"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PDF/54927.cff",
+        "sha": "b6c2d144d7af9fb59f2ada9176b060a25baf4cf5",
+        "size": 2311,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b6c2d144d7af9fb59f2ada9176b060a25baf4cf5"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PDF/552_F0.pfb",
+        "sha": "e6b92ae5e5326a12d506df297d1f9dd98fabc51f",
+        "size": 7512,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/e6b92ae5e5326a12d506df297d1f9dd98fabc51f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PDF/552_F1.pfb",
+        "sha": "d028859acfd96114583d1cb8b38236e98a64900a",
+        "size": 9504,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/d028859acfd96114583d1cb8b38236e98a64900a"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/PdfUa",
+        "sha": "b6ecab61c2f7a7f01144cc7ae0a4044870520718",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/b6ecab61c2f7a7f01144cc7ae0a4044870520718"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/PdfUa/BookmanOld_Hmtx.ttf",
+        "sha": "155a63a9f66ee6b662079993e90f859e1ec8b271",
+        "size": 69418,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/155a63a9f66ee6b662079993e90f859e1ec8b271"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/ProblemFonts",
+        "sha": "2cddf487926a78b8cbb4444e1a86e7e24de558ba",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/2cddf487926a78b8cbb4444e1a86e7e24de558ba"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/ProblemFonts/239.cff",
+        "sha": "6b7bdb78f6c48e2fdcf5c72d8b25674c2018d8c5",
+        "size": 13545,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6b7bdb78f6c48e2fdcf5c72d8b25674c2018d8c5"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/ProblemFonts/40717.ttf",
+        "sha": "f716d4a67556333ec5916deb71c78867ea1e267a",
+        "size": 32807,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/f716d4a67556333ec5916deb71c78867ea1e267a"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/ProblemFonts/BLAKMAIL.TTF",
+        "sha": "92074b619f1ced752a701e119f4f5535b940e79e",
+        "size": 64404,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/92074b619f1ced752a701e119f4f5535b940e79e"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/ProblemFonts/gautami.ttf",
+        "sha": "4088f24f590c1f64bd190afba3f898ead5467d83",
+        "size": 214936,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/4088f24f590c1f64bd190afba3f898ead5467d83"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/ProblemFonts/mangal.ttf",
+        "sha": "aa345d15bfa110dfa374eef4d7f35dfbf961675a",
+        "size": 143864,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/aa345d15bfa110dfa374eef4d7f35dfbf961675a"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/ProblemFonts/mangal2.ttf",
+        "sha": "ff596e038f475194980677dfff209db428ad0e9f",
+        "size": 206260,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/ff596e038f475194980677dfff209db428ad0e9f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Roboto-VariableFont_wdth,wght.ttf",
+        "sha": "bba55f616c811c4ee31535667dd2ed30229e5e71",
+        "size": 468308,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/bba55f616c811c4ee31535667dd2ed30229e5e71"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/SVG",
+        "sha": "5816ff3f1cb5e47cdeacb0c2b475e439dbb6906a",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/5816ff3f1cb5e47cdeacb0c2b475e439dbb6906a"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/SVG/Abel-Regular.svg",
+        "sha": "66072f8242a3f3ff475a05033fbd59781d75bf52",
+        "size": 114291,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/66072f8242a3f3ff475a05033fbd59781d75bf52"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/SVG/Tahoma.svg",
+        "sha": "672cba8e0b4d61f0789bb96bd94b9690aa248f99",
+        "size": 785534,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/672cba8e0b4d61f0789bb96bd94b9690aa248f99"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/SVG/segoepr.svg",
+        "sha": "74d3662acfbd107fd11f1bf8a064f12ca0bb270d",
+        "size": 475646,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/74d3662acfbd107fd11f1bf8a064f12ca0bb270d"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/TTF",
+        "sha": "2c5df7040d59cb419f1c2815064ca1abf3edcb64",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/2c5df7040d59cb419f1c2815064ca1abf3edcb64"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/39962_RomanWG.ttf",
+        "sha": "a1178dbdef58e29c6e6d2e5afdfd10e8d7ff7b64",
+        "size": 24668,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/a1178dbdef58e29c6e6d2e5afdfd10e8d7ff7b64"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/BM-HANNA.ttf",
+        "sha": "c7ef349543438d1a520a81b65f35987112adf7ff",
+        "size": 593492,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/c7ef349543438d1a520a81b65f35987112adf7ff"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/TTF/BytecodeRequiredFonts",
+        "sha": "196ce2fe17a12bf9e80050074c5d7c311241b670",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/196ce2fe17a12bf9e80050074c5d7c311241b670"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/BytecodeRequiredFonts/pdfnewnet_36462.ttf",
+        "sha": "39b92482d949a764bc128b5dac6960da2a8a5f83",
+        "size": 270076,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/39b92482d949a764bc128b5dac6960da2a8a5f83"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/BytecodeRequiredFonts/pdfnewnet_37296_1.ttf",
+        "sha": "6a6f3ea6c1c24ff007bda3b635a05c50f74c5790",
+        "size": 91880,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6a6f3ea6c1c24ff007bda3b635a05c50f74c5790"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/BytecodeRequiredFonts/pdfnewnet_37296_2.ttf",
+        "sha": "241981a6c8cdb6ed760ef21eec29cd6b7586c46c",
+        "size": 40036,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/241981a6c8cdb6ed760ef21eec29cd6b7586c46c"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/BytecodeRequiredFonts/pdfnewnet_37816_1.ttf",
+        "sha": "79596cd344de8abe5ccbdc4f1a54d8071fd212a2",
+        "size": 44756,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/79596cd344de8abe5ccbdc4f1a54d8071fd212a2"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/BytecodeRequiredFonts/pdfnewnet_37816_2.ttf",
+        "sha": "5cb0baa5388eee402b3bdade2e74281b96d7bbe0",
+        "size": 1848,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/5cb0baa5388eee402b3bdade2e74281b96d7bbe0"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/CABALETT.TTF",
+        "sha": "7cc275eeb2588a97a05aac17e45a0dd5807d9081",
+        "size": 26292,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/7cc275eeb2588a97a05aac17e45a0dd5807d9081"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/TTF/ChineseFonts",
+        "sha": "5cc062d747315ea2fe1d76199692b4fb173d51fc",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/5cc062d747315ea2fe1d76199692b4fb173d51fc"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/ChineseFonts/fontNameProblem-OSHARED-35466.ttf",
+        "sha": "05ef50e6e4ba314b682f2ec7ee880fadb06135e9",
+        "size": 4479325,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/05ef50e6e4ba314b682f2ec7ee880fadb06135e9"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/F1_font_stream_Obj8.ttf",
+        "sha": "8ab8ed99e36dff14c3657945b525949a3a0ca1c2",
+        "size": 28048,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8ab8ed99e36dff14c3657945b525949a3a0ca1c2"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/MTCORSVA.TTF",
+        "sha": "55f88d01ee2298caddad6d13cb3cebe828d36fe1",
+        "size": 157360,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/55f88d01ee2298caddad6d13cb3cebe828d36fe1"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/TTF/MingLiU",
+        "sha": "822f0cee682cdc02452a3c0da5b999e1c18a9258",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/822f0cee682cdc02452a3c0da5b999e1c18a9258"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/MingLiU/mingli.ttf",
+        "sha": "f5b4e12291ef4b80cd172c37700fc5e3dea579a9",
+        "size": 2861696,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/f5b4e12291ef4b80cd172c37700fc5e3dea579a9"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/MingLiU/mingliu_34382_1.ttf",
+        "sha": "3d53e5bfc40e8b75b5115b5ec0c66a1d05978145",
+        "size": 245620,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/3d53e5bfc40e8b75b5115b5ec0c66a1d05978145"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/MingLiU/mingliu_34382_2.ttf",
+        "sha": "a2ae4fefda0bbcbd61e531e4520ea71baa4cdad5",
+        "size": 240340,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/a2ae4fefda0bbcbd61e531e4520ea71baa4cdad5"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/MingLiU/mingliu_win2003.ttc",
+        "sha": "268dd33266d00596c9ec5f59d13020ec7e465bf4",
+        "size": 8829856,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/268dd33266d00596c9ec5f59d13020ec7e465bf4"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/PDFKET-14576-PrintItalize.ttf",
+        "sha": "eeb786a6db44830d987a4c6ca93e412660a4107a",
+        "size": 36420,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/eeb786a6db44830d987a4c6ca93e412660a4107a"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/PDFKET-14576_fontCreator_nolicense.ttf",
+        "sha": "1e815df53a07217077c00dbac8dedf4371cb9f89",
+        "size": 36260,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/1e815df53a07217077c00dbac8dedf4371cb9f89"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/TTF/SymbolicFonts",
+        "sha": "0e47102902b5df2f263fc2c838f1b32bf3f8fc22",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/0e47102902b5df2f263fc2c838f1b32bf3f8fc22"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/SymbolicFonts/symbol.ttf",
+        "sha": "897384ab5b5623aadf11895a60d19719873a2e46",
+        "size": 69036,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/897384ab5b5623aadf11895a60d19719873a2e46"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/Tahoma.ttf",
+        "sha": "59b14a2d2d45b78eecbb2f22e1d2e084678e8d94",
+        "size": 383804,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/59b14a2d2d45b78eecbb2f22e1d2e084678e8d94"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/TTF/TtfTables",
+        "sha": "64c5059f0833671e1097bf515ea8a7d49196cd1b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/64c5059f0833671e1097bf515ea8a7d49196cd1b"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/TtfTables/HanaMina.Maxp.tbl",
+        "sha": "790908e1f6c4990e13b3603077565800dfc7db9f",
+        "size": 32,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/790908e1f6c4990e13b3603077565800dfc7db9f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/TtfTables/HanaMina.Vhea.tbl",
+        "sha": "5fc14c5f5534d5a989017005465cfc1b3b123348",
+        "size": 36,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/5fc14c5f5534d5a989017005465cfc1b3b123348"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/TtfTables/HanaMina.Vmtx.tbl",
+        "sha": "54625aee16ff1ff3fa6dc433752c7403959089c4",
+        "size": 104018,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/54625aee16ff1ff3fa6dc433752c7403959089c4"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/arabtype.ttf",
+        "sha": "99261546bd82ce2b0aa8ac457bc27037de952285",
+        "size": 517000,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/99261546bd82ce2b0aa8ac457bc27037de952285"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/arial.ttf",
+        "sha": "abc899cd55086105f439df7a6d01db84168aebb5",
+        "size": 778552,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/abc899cd55086105f439df7a6d01db84168aebb5"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/arialbd.ttf",
+        "sha": "d0d857e2d29cea7e0c9e10311e4aca71150a9dd7",
+        "size": 352224,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/d0d857e2d29cea7e0c9e10311e4aca71150a9dd7"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/cambria.ttc",
+        "sha": "3bbe2386d65057bbefcb06117c3aa66072520e50",
+        "size": 1090432,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/3bbe2386d65057bbefcb06117c3aa66072520e50"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/cambriab.ttf",
+        "sha": "3c2b3b8e98c2231bc8bce35e8e499e63f1e54edd",
+        "size": 792488,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/3c2b3b8e98c2231bc8bce35e8e499e63f1e54edd"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/cmap_format2_sample.ttf",
+        "sha": "f32fe7997d7ddcf5d2b3e04afc718611c6512d5f",
+        "size": 9943335,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/f32fe7997d7ddcf5d2b3e04afc718611c6512d5f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/cour.ttf",
+        "sha": "2c99e08c255362c9b234b3522affb3f7632426cd",
+        "size": 303296,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/2c99e08c255362c9b234b3522affb3f7632426cd"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/msgothic.ttc",
+        "sha": "ed6f7117fc80fc43d9e83966f2cf167a5b05f9b4",
+        "size": 8272028,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/ed6f7117fc80fc43d9e83966f2cf167a5b05f9b4"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF/segoepr.ttf",
+        "sha": "38f696d4f4cbcd6d4b78614ed82db86c604a2c18",
+        "size": 172732,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/38f696d4f4cbcd6d4b78614ed82db86c604a2c18"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/TTF_with_CFF",
+        "sha": "55cac6f0132313ede2e468554b90294617c37fe7",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/55cac6f0132313ede2e468554b90294617c37fe7"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF_with_CFF/660.otf",
+        "sha": "8338cb99fb5f08ea688b25c8f4ada3c1a138c848",
+        "size": 152632,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8338cb99fb5f08ea688b25c8f4ada3c1a138c848"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF_with_CFF/CenturyStd BoldCondensedIt.otf",
+        "sha": "fbc2fc77e04ae67ef3c5a5cfd2b2092103f3ce4e",
+        "size": 31424,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/fbc2fc77e04ae67ef3c5a5cfd2b2092103f3ce4e"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF_with_CFF/CourierStd.otf",
+        "sha": "2b9fc146b73ea6bc09e063009e4b69a2064bc974",
+        "size": 36732,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/2b9fc146b73ea6bc09e063009e4b69a2064bc974"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF_with_CFF/IdealGothic Bold.otf",
+        "sha": "14c825e38026b1d2fdbf271b75fd574c44b28c57",
+        "size": 50872,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/14c825e38026b1d2fdbf271b75fd574c44b28c57"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF_with_CFF/KozMinPr6N-Regular.otf",
+        "sha": "a679f3e896b126da3cb8f6e17b9d86b6e47053d1",
+        "size": 8135788,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/a679f3e896b126da3cb8f6e17b9d86b6e47053d1"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/TTF_with_CFF/MinionPro SemiboldSubh.otf",
+        "sha": "8f0951d9bb89241e4c8158ea16c137721abd6872",
+        "size": 186256,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8f0951d9bb89241e4c8158ea16c137721abd6872"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/Tasks",
+        "sha": "1fed931118478552600a386f2b042f80819583b1",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/1fed931118478552600a386f2b042f80819583b1"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Tasks/175.ttf",
+        "sha": "953f98a6a7ed9e8061f20b30885e1b69ff19c377",
+        "size": 8276,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/953f98a6a7ed9e8061f20b30885e1b69ff19c377"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Tasks/217.ttf",
+        "sha": "1963263113b91a232625a9743d6fcbfc95989e1b",
+        "size": 27776,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/1963263113b91a232625a9743d6fcbfc95989e1b"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Tasks/241.ttf",
+        "sha": "953f98a6a7ed9e8061f20b30885e1b69ff19c377",
+        "size": 8276,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/953f98a6a7ed9e8061f20b30885e1b69ff19c377"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Tasks/615.otf",
+        "sha": "3309fe2e24d2bc49ce466650bbe71a4cc5a27160",
+        "size": 816972,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/3309fe2e24d2bc49ce466650bbe71a4cc5a27160"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/Type1",
+        "sha": "b0125943d72c5f09dfa9a05fb42f86bd45082d16",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/b0125943d72c5f09dfa9a05fb42f86bd45082d16"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/37359.pfb",
+        "sha": "022e312921a41a09a5489bd6316ea13fe9ee8123",
+        "size": 24103,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/022e312921a41a09a5489bd6316ea13fe9ee8123"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/41897.pfb",
+        "sha": "2bfe82d04a902d576544d1f621523e19f40772a7",
+        "size": 939,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/2bfe82d04a902d576544d1f621523e19f40772a7"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/42543.pfb",
+        "sha": "b9ce3e8e46fc710067d15b249b903001bbcf4d00",
+        "size": 27703,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b9ce3e8e46fc710067d15b249b903001bbcf4d00"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/Astro-Bold.pfb",
+        "sha": "0ce47066042d4fcedb1ca5193f0322bdbe160a6d",
+        "size": 26875,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/0ce47066042d4fcedb1ca5193f0322bdbe160a6d"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/CHEETAH_.AFM",
+        "sha": "75c58ace675fb2b62df7b1e3ecbfeff021042410",
+        "size": 13471,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/75c58ace675fb2b62df7b1e3ecbfeff021042410"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/CHEETAH_.PFB",
+        "sha": "5b5d6f5b2bcdd07635cb3f6e09155010cdcb0f0f",
+        "size": 27395,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/5b5d6f5b2bcdd07635cb3f6e09155010cdcb0f0f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/HE_FURS.PFB",
+        "sha": "724e5c380874e8abf54d6e5490d61204eb13d901",
+        "size": 224973,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/724e5c380874e8abf54d6e5490d61204eb13d901"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/Helvetica.afm",
+        "sha": "bd32af54dec5563db4033ed2c8bb4a26f1eaeecf",
+        "size": 74292,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/bd32af54dec5563db4033ed2c8bb4a26f1eaeecf"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/Symbol.afm",
+        "sha": "6a5386a9190eda3d7e9d4b49cfa7a6dd971c9e70",
+        "size": 9740,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6a5386a9190eda3d7e9d4b49cfa7a6dd971c9e70"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/UNDACRG.PFB",
+        "sha": "54013cf69f2de8db56c59a0cf8e2429405e0ed82",
+        "size": 366138,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/54013cf69f2de8db56c59a0cf8e2429405e0ed82"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/ZapfDingbats.afm",
+        "sha": "b2745053e4086c1a5ea7b74e460e62526b64009a",
+        "size": 9527,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b2745053e4086c1a5ea7b74e460e62526b64009a"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/acade1.afm",
+        "sha": "c3ee1b9969c9720956204be81365f2e60e8aa962",
+        "size": 13769,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/c3ee1b9969c9720956204be81365f2e60e8aa962"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/acade1.pfb",
+        "sha": "397dd4838457abec172a9f8e72d83f1004e5c640",
+        "size": 47187,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/397dd4838457abec172a9f8e72d83f1004e5c640"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/antiq5.afm",
+        "sha": "9bfee82e85b210daa8fa5e4f5f183ef9fd7b4445",
+        "size": 27040,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/9bfee82e85b210daa8fa5e4f5f183ef9fd7b4445"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/antiq5.pfb",
+        "sha": "1915e7e1f2ab99bf598e07fa899a59b13653d84c",
+        "size": 46932,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/1915e7e1f2ab99bf598e07fa899a59b13653d84c"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/arialbi.afm",
+        "sha": "d5167d363e834f79d412019d180448b79f59ebfc",
+        "size": 25410,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/d5167d363e834f79d412019d180448b79f59ebfc"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/arialbi.pfb",
+        "sha": "8c4f044b61db50fbcf2a41af4dee725c01f452d6",
+        "size": 39291,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8c4f044b61db50fbcf2a41af4dee725c01f452d6"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/arrow.pfb",
+        "sha": "43061f97a20f9d32e6abaf67764b2b65bd533897",
+        "size": 2562,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/43061f97a20f9d32e6abaf67764b2b65bd533897"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/cour.pfa",
+        "sha": "b8c097b0682070c4fd97693428cd00780769b591",
+        "size": 126064,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/b8c097b0682070c4fd97693428cd00780769b591"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/courier.afm",
+        "sha": "2f7be81d583f0f95cda1c73f5604d0ee5425019c",
+        "size": 15335,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/2f7be81d583f0f95cda1c73f5604d0ee5425019c"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/courier.pfb",
+        "sha": "dafc40d49c5f62f736c3e6b0b9e8154f31129cbc",
+        "size": 62813,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/dafc40d49c5f62f736c3e6b0b9e8154f31129cbc"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/font_LenIV_0.pfb",
+        "sha": "47ee657e3d84e9e029a337c491361a5fab0051b7",
+        "size": 15740,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/47ee657e3d84e9e029a337c491361a5fab0051b7"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/freeeuro.afm",
+        "sha": "7a8c9ff6715956b5e112c6d2b8f0cf22eef0222e",
+        "size": 1435,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/7a8c9ff6715956b5e112c6d2b8f0cf22eef0222e"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Type1/freeeuro.pfa",
+        "sha": "1a7c433b1e10498f5a91b61f7ccf6675a6164226",
+        "size": 21086,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/1a7c433b1e10498f5a91b61f7ccf6675a6164226"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/Woff",
+        "sha": "527c7bcbe84ac72a68bb131eb9916d499658533d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/527c7bcbe84ac72a68bb131eb9916d499658533d"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/Woff/Standards",
+        "sha": "5a9537fc99e78f567a16b25a2cee66b4c10c9fca",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/5a9537fc99e78f567a16b25a2cee66b4c10c9fca"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Woff/Standards/lora-v16-latin-regular.woff",
+        "sha": "5eca0d1732645b368831d3d11746bfe82b5c6352",
+        "size": 22384,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/5eca0d1732645b368831d3d11746bfe82b5c6352"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Woff/Standards/lora-v16-latin-regular.woff2",
+        "sha": "108eab65b45e30b40d3b45bedfce65b4cac67288",
+        "size": 18472,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/108eab65b45e30b40d3b45bedfce65b4cac67288"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Woff/Standards/merriweather-v22-latin-regular.woff",
+        "sha": "2f2ab42177f443fb04f4991c0511f020a85e46e3",
+        "size": 23600,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/2f2ab42177f443fb04f4991c0511f020a85e46e3"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Woff/Standards/merriweather-v22-latin-regular.woff2",
+        "sha": "099840930c8c9c5c43b9ca50e94b463d08942a2e",
+        "size": 19300,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/099840930c8c9c5c43b9ca50e94b463d08942a2e"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Woff/Standards/roboto-v20-latin_cyrillic-regular.woff",
+        "sha": "d43765c8ddcc11b110d816ffe1db041a74271e81",
+        "size": 28684,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/d43765c8ddcc11b110d816ffe1db041a74271e81"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Woff/Standards/roboto-v20-latin_cyrillic-regular.woff2",
+        "sha": "6b855640196e5b44b6029da29e98f4c4af962945",
+        "size": 22428,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6b855640196e5b44b6029da29e98f4c4af962945"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/Woff/Tasks",
+        "sha": "9427df2f652c37882a7f2ced63859a5ad1516425",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/9427df2f652c37882a7f2ced63859a5ad1516425"
+      },
+      {
+        "mode": "040000",
+        "path": "testdata/Woff/Tasks/688",
+        "sha": "5f2a26c99aae257aabed93b72717c952fc319a70",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/5f2a26c99aae257aabed93b72717c952fc319a70"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/Woff/Tasks/688/Ephesis-Regular.woff2",
+        "sha": "03a7b606e9886439f8c3e49e74c26582a3a519ea",
+        "size": 55652,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/03a7b606e9886439f8c3e49e74c26582a3a519ea"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/saira-extracondensed-semibold.eot",
+        "sha": "22406b6f9b3e2b2f430e8b8288548a5a03ed2203",
+        "size": 485228,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/22406b6f9b3e2b2f430e8b8288548a5a03ed2203"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/saira-extracondensed-semibold.woff",
+        "sha": "0f868bdcf099ffbd123ed1bfc223c723dae3011f",
+        "size": 45704,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/0f868bdcf099ffbd123ed1bfc223c723dae3011f"
+      },
+      {
+        "mode": "100644",
+        "path": "testdata/saira-extracondensed-semibold.woff2",
+        "sha": "60131c6b312c7899cb6142f128a63f6e98f72360",
+        "size": 34676,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/60131c6b312c7899cb6142f128a63f6e98f72360"
+      },
+      {
+        "mode": "040000",
+        "path": "tests",
+        "sha": "f0abb6495ceebe7aeca146ee10ff83f0a26fdbd5",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/f0abb6495ceebe7aeca146ee10ff83f0a26fdbd5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/conftest.py",
+        "sha": "047b3e6d717e4561eb8d2db55e6ef3b9d537dd99",
+        "size": 2758,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/047b3e6d717e4561eb8d2db55e6ef3b9d537dd99"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_animation.py",
+        "sha": "3103cde462765ec7ab61c1fc6b3f1e243c3191ae",
+        "size": 7849,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/3103cde462765ec7ab61c1fc6b3f1e243c3191ae"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cff.py",
+        "sha": "32f449822c406197be1d857dc0317d74ea1c6c2d",
+        "size": 5020,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/32f449822c406197be1d857dc0317d74ea1c6c2d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cff_glyphs.py",
+        "sha": "06990bf917d7f9debfb0a7426075a6f63554c4ee",
+        "size": 5220,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/06990bf917d7f9debfb0a7426075a6f63554c4ee"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cleaner.py",
+        "sha": "8e0bd7087535c7c275ef9b517e2c4db9fc326313",
+        "size": 3465,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8e0bd7087535c7c275ef9b517e2c4db9fc326313"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cli.py",
+        "sha": "50e7ca172df0cb3b76f525bbf2a48f7ca6cecda3",
+        "size": 85986,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/50e7ca172df0cb3b76f525bbf2a48f7ca6cecda3"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_compatibility.py",
+        "sha": "1cad9f93f9f338a35aa6a121511385c5f6c40a05",
+        "size": 12222,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/1cad9f93f9f338a35aa6a121511385c5f6c40a05"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_converter.py",
+        "sha": "f6d418e1f651bc56e52f71e9cb786a1553f9fada",
+        "size": 8152,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/f6d418e1f651bc56e52f71e9cb786a1553f9fada"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_delta.py",
+        "sha": "fc0d5fe20f93e8999a1a052378df505a736f5069",
+        "size": 11093,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/fc0d5fe20f93e8999a1a052378df505a736f5069"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_exceptions.py",
+        "sha": "72a9658ad804da406477f0f228ab562d58e9c0e5",
+        "size": 2302,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/72a9658ad804da406477f0f228ab562d58e9c0e5"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_fixture_corpus.py",
+        "sha": "477df808394852bb6189718b9fdebed8a85c76d0",
+        "size": 10980,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/477df808394852bb6189718b9fdebed8a85c76d0"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_io.py",
+        "sha": "057a3343b77c58200bfcde753ae2a94dc7c814b4",
+        "size": 5934,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/057a3343b77c58200bfcde753ae2a94dc7c814b4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_kerning.py",
+        "sha": "15bca21fcc3e50f28662935cc54078ba9f995484",
+        "size": 6105,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/15bca21fcc3e50f28662935cc54078ba9f995484"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_loader.py",
+        "sha": "788c7ee7237cfadf180feb4033321f136908aaeb",
+        "size": 10552,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/788c7ee7237cfadf180feb4033321f136908aaeb"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_makefile_publish_targets.py",
+        "sha": "15289f3254660c3090d974aa3d3d7d21cb26eee8",
+        "size": 1362,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/15289f3254660c3090d974aa3d3d7d21cb26eee8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_mcp.py",
+        "sha": "5627806be156f6c9691e505382680e797ac14796",
+        "size": 13580,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/5627806be156f6c9691e505382680e797ac14796"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_qa.py",
+        "sha": "a9f2c75a607403fe3fbc06fa8dd609ba040cb34d",
+        "size": 3357,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/a9f2c75a607403fe3fbc06fa8dd609ba040cb34d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_rasterizer.py",
+        "sha": "6b951b22bf02b977060d79fd3d16999f5ff80946",
+        "size": 3216,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6b951b22bf02b977060d79fd3d16999f5ff80946"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_readme.py",
+        "sha": "8acaf11e5f7eb1440e7f23545b08bb0569e3c3a8",
+        "size": 2394,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/8acaf11e5f7eb1440e7f23545b08bb0569e3c3a8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_reporting.py",
+        "sha": "f46185588e63fe01e9b52650e7f7aa8472e3fc24",
+        "size": 16355,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/f46185588e63fe01e9b52650e7f7aa8472e3fc24"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_serializer.py",
+        "sha": "6ff2aafec13e2cd9158ff9fb47e84d1ef9835c48",
+        "size": 7826,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6ff2aafec13e2cd9158ff9fb47e84d1ef9835c48"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_subsetter.py",
+        "sha": "0b06e3c9088e5ae944fd4e8a42ee40e53d68bf6a",
+        "size": 8258,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/0b06e3c9088e5ae944fd4e8a42ee40e53d68bf6a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_text.py",
+        "sha": "48f1ea23ddb079f8687ce77ad16fb04c2c35c674",
+        "size": 5059,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/48f1ea23ddb079f8687ce77ad16fb04c2c35c674"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_ttf.py",
+        "sha": "45666eeeea2fe15d776c2a38ce49710f19b4d56f",
+        "size": 1419,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/45666eeeea2fe15d776c2a38ce49710f19b4d56f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_ttf_glyphs.py",
+        "sha": "2c56aa6a1caa587d00b25a2df5df4ec1daa7f2df",
+        "size": 3688,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/2c56aa6a1caa587d00b25a2df5df4ec1daa7f2df"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_type1.py",
+        "sha": "27d32c61fa08554b2ee4d3b8b2912fcaf6d09d07",
+        "size": 3595,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/27d32c61fa08554b2ee4d3b8b2912fcaf6d09d07"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_variable.py",
+        "sha": "1b509ba4794c435af6c76b2dd60d668cd033c00f",
+        "size": 95474,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/1b509ba4794c435af6c76b2dd60d668cd033c00f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_web.py",
+        "sha": "71afab6eda9427d078324a6bf3116a0a1b9672e9",
+        "size": 28151,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/71afab6eda9427d078324a6bf3116a0a1b9672e9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_woff.py",
+        "sha": "ab13c9697397ac3e88dfb5345c432c67c2a201bb",
+        "size": 6170,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/ab13c9697397ac3e88dfb5345c432c67c2a201bb"
+      },
+      {
+        "mode": "100644",
+        "path": "uv.lock",
+        "sha": "6513fd33817df0ed5c52e569589edc3ce0da7c8d",
+        "size": 166481,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/6513fd33817df0ed5c52e569589edc3ce0da7c8d"
+      },
+      {
+        "mode": "040000",
+        "path": "website",
+        "sha": "639996f6c217c5432537b5d8b3bc870f4457ae74",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/639996f6c217c5432537b5d8b3bc870f4457ae74"
+      },
+      {
+        "mode": "040000",
+        "path": "website/generated",
+        "sha": "85c9245b289be61bd39eb6fe920455d768609aff",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/85c9245b289be61bd39eb6fe920455d768609aff"
+      },
+      {
+        "mode": "100644",
+        "path": "website/generated/roboto-animation-sweep.png",
+        "sha": "41d663d8b2e38e7ef760abd898cd34f1e0a49a28",
+        "size": 141328,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/41d663d8b2e38e7ef760abd898cd34f1e0a49a28"
+      },
+      {
+        "mode": "100644",
+        "path": "website/generated/roboto-axis-grid.png",
+        "sha": "1ddfc5d33f29d5a548c1c4bd5cd08961f8e13b76",
+        "size": 70384,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/1ddfc5d33f29d5a548c1c4bd5cd08961f8e13b76"
+      },
+      {
+        "mode": "100644",
+        "path": "website/generated/roboto-delta-compare.png",
+        "sha": "988f7db14424bc9de39e2203d5328485739106da",
+        "size": 11741,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/988f7db14424bc9de39e2203d5328485739106da"
+      },
+      {
+        "mode": "100644",
+        "path": "website/generated/roboto-family-review-board.png",
+        "sha": "72b03a5a62d7385f7944da8f6c32676b0f94c105",
+        "size": 35704,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/72b03a5a62d7385f7944da8f6c32676b0f94c105"
+      },
+      {
+        "mode": "100644",
+        "path": "website/generated/roboto-qa-report-summary.svg",
+        "sha": "2f9b0408d2f26a302218311151d896ad5b6ea991",
+        "size": 2850,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/blobs/2f9b0408d2f26a302218311151d896ad5b6ea991"
+      }
+    ],
+    "truncated": false,
+    "url": "https://api.github.com/repos/aspose-font-foss/Aspose.Font-FOSS-for-Python/git/trees/7280f1380d5be5256f72925a93565cb636dbb7ff"
+  }
+}

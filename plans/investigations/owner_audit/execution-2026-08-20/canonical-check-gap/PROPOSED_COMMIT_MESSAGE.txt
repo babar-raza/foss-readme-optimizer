@@ -1,0 +1,31 @@
+docs(investigation): audit canonical-vs-vendored Aspose check gap at aa9981021
+
+Read-only diff between the optimizer's aspose_checks_bridge.py and the canonical
+Aspose.org check module named in prior owner-audit evidence (acceptance_runner,
+defect_gate_map). Confirms the prior audit's 103/89/14 counts still hold at this
+pin: src/readme_agent/vendored_asposeorg/.../readme_refresh_checks.py is
+byte-identical to the d71f38b6 comparison point, independently re-confirmed via
+AST extraction (89 top-level check_* functions).
+
+Findings, all against current source (not assumed from the prior audit):
+
+- D11 (blocking skip/error fails open) is only half-fixed by 907ac0847: the
+  error-only fail-closed gate lives in local_poc_acceptance_binding.py, not in
+  the broader validate_readme_document_candidate used by commands_poc.py,
+  document_planner.py, readme_factuality.py, verification/checks.py, and
+  verification/readme_proposal_bundle.py.
+- D12 (14 missing canonical checks) is unfixed; test_aspose_checks_registry.py
+  only asserts len(registry) >= 80, no exact-103 parity gate exists.
+- check_banner_present (GOV-014, plans/backlog-post-poc.md:362-379) skips in
+  nearly every non-full-portfolio run because family/platform are derived only
+  from a selected aspose.* fact's source.location, never from the always-present
+  data/products.json registry entry (keyed by RepositorySnapshotV1.org_repo) --
+  confirms and sharpens the backlog's own proposed fix direction.
+
+No tracked file changed. No implementation performed (time-boxed audit only).
+Deliverables: runs/owner_audit_staging/canonical-check-gap-aa9981021/{REPORT.md,
+CHECK_103_MATRIX.json, MISSING_CHECK_ADAPTATION_PLAN.json,
+HARD_CHECK_INPUT_MATRIX.json, RED_TEST_PLAN.md, INGEST_MANIFEST.json,
+SHA256SUMS}.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>

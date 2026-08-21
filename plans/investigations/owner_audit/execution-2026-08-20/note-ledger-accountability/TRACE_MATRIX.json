@@ -1,0 +1,166 @@
+{
+  "investigation": "OPT-NOTE-LEDGER-ROOT-CAUSE",
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Pinned source README and repository revision",
+      "note": {
+        "source_revision": "41de2e8ab478b5aeff3663f7f7cbf83b19fdf676",
+        "readme_path": "README.md",
+        "readme_sha256": "fd47d03c4579d88d906bf927cbf6002e5e99e44af15708e64268dbd0482fdb71",
+        "evidence": "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/41de2e8ab478b5aeff3663f7f7cbf83b19fdf676/source/revision.json"
+      },
+      "barcode": {
+        "source_revision": "06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
+        "readme_path": "README.md",
+        "readme_sha256": "4e311891fdb4ba0324606b78c594c0d6dd4ea912aa0034ea9cfff6bb45105c17",
+        "evidence": "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/06eca5c01e13ed6d59a640f1cf330c1c5a57d151/source/revision.json"
+      },
+      "three_d": {
+        "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "readme_path": "README.md",
+        "readme_sha256": "66ceadf14240cd913756dacbd709d56ee06915f49f77f769e40e04e309a7cd01",
+        "evidence": "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/source/revision.json"
+      },
+      "common_vs_different": "All three pin distinct, repo-specific revisions produced by today's calibration pass (2026-08-20); no anomaly at this stage."
+    },
+    {
+      "stage": 2,
+      "name": "Extracted source units and semantic identities",
+      "owner": "commands_poc.py::build_source_disposition_ledger L103-141 via extract_trusted_readme_fact_graph(snapshot, verify_snapshot=False); one ledger unit is opened per heading fact regardless of heading depth (H1/H2/H3/...).",
+      "common_vs_different": "Identical mechanism across all three repos. heading_text on each unit retains the literal source markdown prefix and the source repository's own capitalization/wording (e.g. Note/3D's source spells section headings in sentence case: '## Key capabilities', '## Quick start')."
+    },
+    {
+      "stage": 3,
+      "name": "Source-claim resolutions, including equivalence identifiers",
+      "owner": "runs/readme-poc/<repo>/knowledge-application.json (imported-knowledge disposition list, a SEPARATE mechanism from the ledger in stage 7)",
+      "note": {"considered": 333, "selected": 6, "rejected": 327, "imported_bundle_repo_sha": "6d97a522a9ed24708687911f1aabb76e2dea2da7", "freshness": "stale_revision"},
+      "barcode": {"considered": 375, "selected": 13, "rejected": 362, "imported_bundle_repo_sha": "53f2c3350b8171f2c8275e7b1a178f218695ac45", "freshness": "stale_revision"},
+      "three_d": {"considered": 3452, "selected": 35, "rejected": 3417, "imported_bundle_repo_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01", "freshness": "current"},
+      "common_vs_different": "3D's imported-knowledge bundle is CURRENT (bundle SHA == source revision); Note and Barcode are stale_revision. Despite this difference, all three still show disposition_ledger_valid: false with the identical error signature at stage 7 -- this is the control comparison that rules out imported-knowledge staleness as the cause of the stage-7 failure. This stage is otherwise independent of and does not feed stage 7's disposition ledger."
+    },
+    {
+      "stage": 4,
+      "name": "Document-plan operations and source placements",
+      "owner": "readme_agent.readme.document_renderer::build_readme_document_candidate, gated at document_renderer.py L149",
+      "note": "Gate condition: facts.content_assurance == 'repository_verified' AND validated_agentic_plan is not None. All three repos' facts show content_assurance: repository_verified (confirmed for Note via runs/readme-poc/.../facts/product-facts.json L3; not independently re-derived for barcode/3D within the time-box -- see REPORT.md What's missing). When true, routes through build_verified_template_document_candidate (populates compiled_slot_blocks); when false, routes through document_plan_finalizer.py::finalize_legacy_document_candidate (leaves compiled_slot_blocks at its Pydantic default {})."
+    },
+    {
+      "stage": 5,
+      "name": "Candidate-content provenance",
+      "owner": "readme_document_plan.compiled_slot_blocks, confirmed non-empty and correctly keyed for all three repos in the supervisor-lifecycle evidence (see readme-document-plan.json capture below)",
+      "note": {"keys": ["At a Glance", "Key Capabilities", "Installation", "Dependencies", "Quick Start", "Additional Examples", "API Reference", "API Method Index", "Documentation & Resources", "Scope and Limitations", "Development and Testing", "Third-Party Notices", "License"], "count": 13},
+      "barcode": {"keys": ["At a Glance", "Key Capabilities", "Installation", "Dependencies", "Quick Start", "Additional Examples", "API Reference", "API Method Index", "Documentation & Resources", "Scope and Limitations", "Development and Testing", "License"], "count": 12},
+      "three_d": {"keys": ["At a Glance", "Key Capabilities", "Installation", "Quick Start", "Additional Examples", "API Reference", "API Method Index", "Documentation and Resources", "Scope and Limitations", "Development and Testing", "License"], "count": 11},
+      "common_vs_different": "compiled_slot_blocks IS populated and correctly keyed by canonical Title-Case contract slot names for all three repos -- the verified-template (T5-fixed) path IS being exercised. The candidate content itself is not the defect. Note: even the canonical key wording varies slightly across repos ('Documentation & Resources' vs 'Documentation and Resources'), confirming these keys are template-contract-normalized, not copied from source text."
+    },
+    {
+      "stage": 6,
+      "name": "Five-bucket reconciliation",
+      "owner": "readme_agent.readme.readme_reconciliation::build_readme_reconciliation_report (five buckets: preserved/corrected/relocated/... )",
+      "note": "Confirmed NOT imported by commands_poc.py (checked its L1-54 import block). This module belongs to a separate pipeline stage (referenced in the 2026-08-19 GOV-014 backlog entry for the aspose-net-foss real-content-loss finding) and is not part of the poc diagnostic runner's code path exercised by this calibration pass. Not further traced within the time-box."
+    },
+    {
+      "stage": 7,
+      "name": "Disposition-ledger validity",
+      "owner": "commands_poc.py::build_source_disposition_ledger target-assignment block (L185-193) feeding _disposition_acceptance (L282-300)",
+      "note": {
+        "disposition_ledger_valid": false,
+        "error_count": 16,
+        "sample_errors": [
+          "retained unit without candidate destination: H2: '## Navigation'",
+          "retained unit without candidate destination: H3: '### Optional Dependencies'",
+          "retained unit without candidate destination: H3: '### Save Embedded Images to Disk'"
+        ],
+        "evidence": "runs/share/poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/validation.json"
+      },
+      "barcode": {
+        "disposition_ledger_valid": false,
+        "error_count": 3,
+        "sample_errors": [
+          "retained unit without candidate destination: H2: '## Navigation'",
+          "retained unit without candidate destination: H3: '### Required Package Dependencies'",
+          "retained unit without candidate destination: H3: '### Native and System Requirements'"
+        ],
+        "evidence": "runs/share/poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/validation.json"
+      },
+      "three_d": {
+        "disposition_ledger_valid": false,
+        "error_count": 21,
+        "sample_errors": [
+          "retained unit without candidate destination: H1: '# Aspose.3D FOSS for Python'",
+          "retained unit without candidate destination: H2: '## Key capabilities'",
+          "retained unit without candidate destination: H2: '## Quick start'",
+          "retained unit without candidate destination: H3: '### Scene graph (`aspose.threed`)'"
+        ],
+        "evidence": "runs/share/poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/validation.json"
+      },
+      "common_vs_different": "IDENTICAL failure signature across all three repos: every 'retained unit without candidate destination' error is a heading whose ledger-side heading_text never resolves via compiled_blocks.get(heading) at commands_poc.py L191. Two independent, stacking causes: (a) GRANULARITY -- H3+ sub-headings (e.g. '### Native and System Requirements', '### Scene graph') are never keys in compiled_slot_blocks at all, because that dict is keyed only at top-level contract-slot granularity, not per nested sub-heading; (b) CASE/WORDING -- top-level H2 slot headings DO have a compiled_slot_blocks entry, but the lookup key is the SOURCE README's own spelling ('## Key capabilities', sentence case) while compiled_slot_blocks is keyed by the CONTRACT's canonical Title-Case name ('Key Capabilities'), so even a genuinely-retained top-level slot fails the exact-string lookup. 3D shows both failure modes purely (H1 and 'Navigation' are non-slot headings; H2 slot headings fail on case; H3 sub-headings fail on granularity) despite freshness: current, ruling out import staleness as a contributing factor."
+    },
+    {
+      "stage": 8,
+      "name": "Independent review and deterministic acceptance",
+      "note": {
+        "deterministic_verdict": "reject",
+        "deterministic_reason": "claim accountability has 2 blocking claim(s): candidate:claim:4579:7ff54c1da64deecb, source:claim:4064:7ff54c1da64deecb",
+        "claim_accountability_complete": false,
+        "aspose_checks": false,
+        "independent_review_verdict": "ACCEPT",
+        "owner": "document_validation.py::validate_readme_document_candidate L524-548, via claim_accountability_validation.py::validate_claim_accountability_map"
+      },
+      "barcode": {
+        "deterministic_verdict": "accept",
+        "claim_accountability_complete": true,
+        "aspose_checks": false,
+        "independent_review_verdict": "ACCEPT"
+      },
+      "three_d": {
+        "deterministic_verdict": "accept",
+        "claim_accountability_complete": true,
+        "aspose_checks": false,
+        "independent_review_verdict": "ACCEPT"
+      },
+      "common_vs_different": "THIS is where Note diverges from Barcode/3D, and it is a SEPARATE mechanism from stage 7. Note's deterministic_verdict is 'reject' solely because 2 claim-accountability records remain unresolved (blocking_claim_ids); Barcode and 3D have claim_accountability_complete: true and deterministic_verdict: accept. All three independently share the SAME stage-7 ledger failure regardless of stage-8 outcome -- fixing stage 7 would not change Note's stage-8 rejection, and fixing stage 8 would not change any repo's stage-7 ledger validity. aspose_checks: false is common to all three and not investigated further within the time-box (see REPORT.md)."
+    },
+    {
+      "stage": 9,
+      "name": "Cache/no-op binding",
+      "note": "commands_poc.py L501-516: recomposed = _compose(...) a second time; noop.json records RENDER_REPRODUCIBLE iff recomposed text matches and zero new provider calls occurred. Not the subject of disposition_ledger_valid (that field is computed once, before the no-op re-render, at L498-499) and not implicated in either finding. Not separately re-verified within the time-box; see REPORT.md What's missing."
+    }
+  ],
+  "acceptance_treatment": {
+    "diagnostic_only_locations": [
+      {
+        "file": "src/readme_agent/commands_poc.py",
+        "lines": "539-543",
+        "detail": "validation.json itself carries acceptance_authority: false and an explicit acceptance_exclusion string stating the poc runner bypasses the mission graph, durable lifecycle, recovery, and the supervisor transaction."
+      }
+    ],
+    "blocking_locations": [
+      {
+        "file": "scripts/governance/promote_working_condition_exceptions.py",
+        "lines": "136-146",
+        "detail": "_validate_bundle raises ExceptionAcceptanceError when validation.get('disposition_ledger_valid') is not True or disposition_ledger_errors is non-empty. This is the ONLY other reader of disposition_ledger_valid in the repository (confirmed via grep across src/, scripts/, tests/). As of this run, it would refuse to promote ALL THREE calibration repos, including Barcode and 3D whose deterministic_verdict is otherwise a clean accept."
+      }
+    ]
+  },
+  "freshness_service_lane_overlap": {
+    "finding": "YES, overlapping. plans/investigations/evidence/freshness-service-t5/closeout.md (2026-08-15) and its duplicate under freshness-service-final-2026-08-15/t5-closeout.md document a prior fix ('T5') to this exact defect class: compiled_slot_blocks() was added, threaded through ReadmeDocumentPlanV1, and build_source_disposition_ledger's target lookup was wired to it, specifically to fix a 'plain string mismatch' between the source heading's literal '##' prefix and the bare contract heading key, resolved with heading.lstrip('#').strip() (still present today at commands_poc.py L190).",
+    "gap": "The T5 fix's own regression tests (tests/unit/test_template_compiler_slot_blocks.py) use a synthetic fixture whose section dict keys ('installation', 'key_capabilities', ...) already produce contract titles textually identical in wording to what a real repository would need ('Installation', 'Key Capabilities'), and the fixture has no nested H3 sub-headings. Neither the case/wording-drift failure mode nor the sub-heading-granularity failure mode this calibration run exposes is exercised by T5's own tests or (per its closeout doc) its single live-pilot re-run. The freshness-service lane is therefore already the owning lane for this code and left it in a partially-fixed state, not a lane that is currently free to hand this off to."
+  },
+  "root_cause_summary": {
+    "note_rejects_because": "Stage 8 (deterministic acceptance) finds 2 unresolved claim-accountability records (blocking_claim_ids: candidate:claim:4579:7ff54c1da64deecb, source:claim:4064:7ff54c1da64deecb) via claim_accountability_validation.py::validate_claim_accountability_map, which document_validation.py folds into claim_accountability_complete: false and deterministic_verdict: reject. This is unrelated to the disposition ledger and unique to Note among the three calibration repos.",
+    "all_three_report_disposition_ledger_valid_false_because": "Stage 7's build_source_disposition_ledger performs an exact-string lookup of each ledger unit's raw source heading text against compiled_slot_blocks -- a dict keyed only at top-level contract-slot granularity using contract-normalized (Title-Case, canonical-wording) keys. Source headings at any deeper level (H3+) can never be keys in that dict (granularity mismatch), and even top-level H2 slot headings fail whenever the source repository's own heading spelling/case differs from the contract's canonical title (case/wording mismatch). Both failure modes are systemic to any real repository README and independent of imported-knowledge freshness (proven by 3D's freshness: current control case still failing identically).",
+    "is_it_stale_evidence": "No -- ruled out by 3D's freshness: current case failing identically to Note/Barcode's freshness: stale_revision cases.",
+    "is_it_missing_equivalence_linkage": "No -- compiled_slot_blocks is present, correctly populated, and correctly keyed by contract slot name (stage 5 confirmed intact for all three repos).",
+    "is_it_bad_identity_normalization": "Yes -- this is the closest fit. The ledger's target lookup treats the source heading string as if it were already contract-normalized (only '#'-stripped), never applying the same case/wording canonicalization the template compiler itself uses to derive compiled_slot_blocks' keys, and never resolving a sub-heading to its enclosing top-level slot.",
+    "is_it_source_placement_loss": "No -- stage 4/5 evidence shows every relevant section's content genuinely present in the compiled candidate; only the ledger's own bookkeeping fails to record where it landed.",
+    "is_it_acceptance_fail_open_behavior": "No -- the opposite: the diagnostic runner correctly fails CLOSED (disposition_ledger_valid: false, acceptance_authority: false) and the one real acceptance gate that reads this field (promote_working_condition_exceptions.py) also fails closed, correctly refusing promotion. The defect is a false-negative in a fail-closed check, not a fail-open gap.",
+    "first_incorrect_transition": {
+      "module": "src/readme_agent/commands_poc.py",
+      "function": "build_source_disposition_ledger",
+      "lines": "185-193",
+      "detail": "target = compiled_blocks.get(heading) where heading = unit.get('heading_text','').lstrip('#').strip() -- an exact-string, single-level dict lookup with no case/wording canonicalization and no ancestor-slot resolution for nested headings. When this lookup misses, target stays '' , which _disposition_acceptance (L292-296) then reports as 'retained unit without candidate destination'."
+    }
+  }
+}

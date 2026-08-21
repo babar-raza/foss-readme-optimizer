@@ -3,13 +3,16 @@
 ## Mission
 
 Deliver `verified_repository_presentation` for every dynamically discovered and admitted Aspose
-FOSS repository. The system derives repository facts from authoritative evidence, produces
-repository-specific professional presentation, validates every material claim and protected region,
-obtains independent and staged human acceptance, and performs only separately authorized effects.
+FOSS repository. The immediate campaign is the safest, repeatable, fastest path to complete README
+proof for every processable repository in one frozen registry revision. At the reviewed baseline,
+that means 31/31 substantive repositories plus two evidence-bound PSD
+`NON_PROCESSABLE_NO_IMPLEMENTATION` dispositions. The denominator remains dynamic across later
+registry revisions.
 
-Python is the first complete platform, followed by .NET, Java, C++, TypeScript, Rust, and Go.
-Level 5 and deployable Level 6 are delivery milestones. Level 7 and Level 8 are background
-certifications accumulated after deployment, never prerequisites for visible output.
+Every processable candidate must reach candidate-bound 30/30 acceptance with zero hard
+disqualifiers and immediate complete-transaction no-op before global human review. The campaign
+produces no product effect. Level 5 and deployable Level 6 remain later delivery milestones; Level
+7 and Level 8 remain post-deployment background certifications.
 
 `delivery_complete` means every executable stage through deployable Level 6 is closed.
 `certification_complete` means both post-deployment Level-7 and Level-8 observation/audit tracks
@@ -18,7 +21,19 @@ Level 8, or full umbrella-mission closure.
 
 ## Status
 
-**3/33 Python repositories `NO_OP_PROVEN` (2026-08-19)** — 3D, barcode, and cells-Python, up from
+**Current-contract portfolio proof: 0/31 processable repositories accepted (2026-08-20).** The
+dynamic baseline contains 33 admitted repositories: 31 processable README targets and two
+source-empty PSD dispositions pending production-state wiring. Current durable projection reports
+0/33 freshness-valid facts, candidates, deterministic accepts, agent accepts, and no-op proofs;
+16 historical fact records are stale against the current fact contract. The owner audit confirms
+useful machinery and section canaries but no complete current candidate satisfying the 30-point
+contract. The manifest-bound `plans/investigations/owner_audit/execution-2026-08-20/` bundle is
+checksum-verified supporting evidence; its findings remain diagnostic and do not override current
+source, contracts, or durable mission state.
+
+The following is a **historical 2026-08-19 snapshot**, retained for traceability and not current
+closure evidence: **3/33 Python repositories were then reported `NO_OP_PROVEN`** — 3D, barcode,
+and cells-Python, up from
 1/33 at session start, via a chain of four same-day root-cause fixes plus their live verification:
 
 1. **S12** (composition-authority): template-mandated Dependencies content — three H3
@@ -75,7 +90,7 @@ never override the mission graph or durable state.
 
 ## Decision Ledger
 
-The complete typed ledger contains 107 stable decisions in
+The complete typed ledger contains 108 stable decisions in
 `plans/decisions/catalog.jsonl`. This section is the human-readable current decision index; the
 catalog preserves the complete text and hashes of every prior decision.
 
@@ -86,8 +101,10 @@ Binding current decisions:
 - **#26 — Canonical runtime.** `readme-agent supervise` is the only production execution path.
 - **#33 — Product effects.** No product-repository write occurs without fresh exact what/why/where
   authorization; default branches are never written directly.
-- **#78/#85/#88 — Verified POC.** Trusted execution is historical. Verified Python is first, then
-  the dynamic portfolio. Independent approval and no-op proof precede human acceptance.
+- **#78/#85/#88/#108 — Verified portfolio POC.** Trusted execution is historical. The immediate
+  campaign seals one complete weak-input candidate, automates only that proven transaction, qualifies
+  seven ecosystem canaries, and then completes every processable repository. Independent 30/30
+  approval and immediate complete-transaction no-op precede global human review.
 - **#89 — Dependencies.** Required toolchains are provisioned autonomously in disposable isolated
   environments from pinned, verified inputs.
 - **#90 — Agile presentation.** Repository transactions pin component versions; later changes
@@ -102,9 +119,10 @@ Binding current decisions:
   ready tasks, or 25 requirements in one task context. Stable deferred work remains hashed.
 - **#94 — Risk-tiered proof.** Focused proof follows each repair; complete suites and canonical
   evidence occur at declared shared/repository/cohort boundaries.
-- **#95 — Adaptive parallelism.** Calibration and shared repair are serial. Python may use two and
-  later at most three disjoint repository workers after transaction isolation, but no non-Python
-  goal or worker is eligible before Python production admission.
+- **#95 — Adaptive parallelism.** Calibration, shared repair, aggregation, and transition are serial.
+  After one complete repository transaction proves isolation, the coordinator may admit two disjoint
+  repository workers and a third only while measured speedup remains at least 1.5x with coordination
+  overhead at or below 25 percent. Platform labels never override dependency readiness.
 - **#96 — Background certification.** The 30/90-day windows are `OBSERVATION_RUNNING`, not blocked
   delivery tasks.
 - **#97 — Enforced execution focus.** Every visible-delivery task declares one small immediate goal,
@@ -112,9 +130,10 @@ Binding current decisions:
   boundary. A bounded canary must bind to the current durable claim. Two equivalent failures or
   15 minutes without narrowing mechanically reject another equivalent execution until a recorded
   first-principles replan changes the causal approach.
-- **#98 — Python-first production sequence.** A contract defect reopens only presentation-dependent
-  stages. Note is the current contract reference; the complete Python cohort, human acceptance,
-  transport, and production admission close before any non-Python task becomes eligible.
+- **#98 — Candidate-first portfolio sequence.** A contract defect reopens only dependent stages.
+  Aspose.3D Python is the first weak-input transaction; one accepted candidate per ecosystem follows
+  before processable-portfolio fan-out. Production transport remains later than global human review
+  and is never a prerequisite for local candidates in another ecosystem.
 - **#99 — Working-condition presentation, generate-verify split.** Every admitted repository gets a
   visible candidate or an evidence-backed blocker. A candidate is not delivered or qualified until
   deterministic validation and independent review both accept it. Unsupported public content is
@@ -151,11 +170,19 @@ Binding current decisions:
 - **#103 — Continuous progress.** No agent idles while a dependency is in flight and safe eligible
   work remains; idling is recorded with its blocker and resume condition only when genuinely none
   does.
-- **#104 — Aspose.org corpus parity review.** Every repository's first promoted candidate (and any
-  later content change) gets a qualitative comparison against aspose.org's real corpus, logged to
-  `candidate-quality-gap-list.md`; systemic gaps become deterministic template/fact/composition
-  fixes, never one-off prose edits or silent drops. Diagnostic and improvement-driving, not an
-  additional promotion gate — Gate A's own AGENT_APPROVED/NO_OP_PROVEN definition is unchanged.
+- **#104 — Refreshable Aspose.org visitor-quality benchmark.** At campaign freeze, bind the producer
+  Git HEAD and dirty-tree fingerprint, then require two identical inventories of the latest complete
+  synchronized canonical `repo-presenter-regen-full` generated corpus. Reconcile every candidate,
+  disposition, report, receipt, aggregate-audit omission, and current hard-gate result before deriving a
+  qualified
+  `BenchmarkQualityProfileV1`; a local candidate must meet or exceed every accepted applicable
+  information-coverage and visitor-quality dimension as part of its 30-point acceptance. Benchmark
+  prose is never copied, benchmark claims are never facts, and a missing/failing sibling result can
+  never lower the local bar. Systemic gaps are repaired at extraction, knowledge selection,
+  composition, rendering, validation, or review. The snapshot is development-only and deployed
+  execution remains sibling-independent. An incomplete or mutating upstream sync remains visible but
+  cannot lower acceptance; later semantic improvement becomes `BENCHMARK_REFRESH_AVAILABLE` and is
+  adopted only at a declared campaign or cohort boundary.
 - **#105 — Dependency-bound blocked decisions; ratcheting acceptances.** A BLOCKED canonical
   outcome persists with the exact dependency fingerprints current at that moment and is not
   re-executed until a bound fingerprint changes (or `--retry-blocked`); a deterministically
@@ -168,8 +195,8 @@ Binding current decisions:
   is one checksum-bound unit (`data/imported/knowledge_manifest.json`) feeding a new
   `imported_knowledge` fact-acceptance component; a per-run `knowledge-application.json`
   (`facts/knowledge_application_evidence.py`) records considered/selected/rejected claims. The
-  vendored 89-check battery is classified into four buckets
-  (`data/aspose_check_classification.json`) and 11 empirically-validated checks are now blocking
+  currently vendored 89-check snapshot is classified into four buckets
+  (`data/aspose_check_classification.json`) and 11 empirically-validated checks were promoted to blocking
   acceptance gates (raised from 10 by the 2026-08-19 post-landing course-correction commits
   `2608f1257`..`cbccb8623`, "Gate R1"–"Gate R6a": wall-clock removal from hashed contracts,
   fail-closed corpus accountability and real per-claim corroboration, genuine multi-signal
@@ -177,7 +204,7 @@ Binding current decisions:
   `check_no_excluded_domain_links` root-cause link-hygiene fix, truthful
   considered/selected/influenced/rendered evidence staging, and an attribution-only SEO-keyword
   citation into Key Capabilities lineage — same decision, no separate ledger entry recorded for
-  these fixes yet). See `KNOW-001`..`KNOW-013`; `KNOW-007`–`010` remain open (BACKLOG); `KNOW-011`
+  these fixes yet). See `KNOW-001`..`KNOW-014`; `KNOW-007`–`010` remain open (BACKLOG); `KNOW-011`
   remains open but now covers 2 (not 3) unresolved false-positive checks —
   `check_no_excluded_domain_links` was fixed and promoted to blocking by Gate R4; `KNOW-012` is now
   `IMPLEMENTED`, resolved by that same fix; `KNOW-013` (new fact fields need a renderer/composition
@@ -209,25 +236,63 @@ Binding current decisions:
   visibility-vocabulary resolution; and `aspose_knowledge_selection.py`'s blanket api*-kind
   rejection as "covered by the structured API surface" is now conditional on that surface actually
   existing and being non-empty for the family/platform.
+  `0eadaa622` (K3) adds the missing final post-render accountability pass: it binds the exact
+  candidate hash, joins both operation and verified-template provenance, gives every selected item
+  exact output spans or a typed reason, and fails acceptance on provisional, stale, missing, or
+  inconsistent accountability. Current portfolio proof must still exercise K1/K3 on one real
+  candidate, and `L8-PF-01` must add bounded useful-byte consumers for the five remaining fields
+  before that candidate can seal.
+
+  The fresh 2026-08-20 development-oracle recon changes the check-battery premise without changing
+  the safety model. Committed Aspose.org revision
+  `bf9381af81415843a36a8f50cb6415e01f03ad55` contains 103 `check_*` functions: 97 used by the
+  ordinary candidate runner and six auxiliary surgical-scope/upstream-issue checks. Fourteen are
+  absent from the 89-function local snapshot. The existing classification and its 11 blocking checks
+  therefore describe a qualified historical subset, not current parity or complete acceptance.
+  `L8-PF-01` must first content-address the committed upstream blobs, diff knowledge/check/schema/data/
+  fixture/skill inputs, port the ten missing candidate checks and necessary typed dependencies, and
+  retain the four auxiliary checks for their applicable workflows. It must also compare the upstream
+  knowledge-generation mechanism—not only exported knowledge—with this repository's collectors so
+  the deployed system owns a complete, independently reproducible generation path.
+
+  Every imported mechanism, check, fact artifact, or pattern receives an explicit
+  adopted/adapted/diagnostic/quarantined/not-applicable/deferred disposition and local negative-
+  control proof before it can become blocking or factual. Aspose.org itself may contain defects,
+  false positives, incomplete assumptions, or workflow-specific policy; newer is not automatically
+  better, upstream use is not proof, and dirty sibling working-tree bytes are never imported. A
+  module-version/blob-hash currency tripwire detects later drift but cannot silently alter the
+  deployed contract. Acceptance remains self-contained and succeeds with the sibling checkout absent.
 - **#107 — Control-repo auto-push.** This repository's own landed commits are pushed to its own
   `origin` automatically and immediately, with no separate confirmation, mechanically enforced by a
   `post-commit` hook (`scripts/governance/post_commit_push.py`) that never force-pushes. The
   product-repo write path (`open_presentation_pr`, `AUTH-004`, `GOV-018`, decision #69) is entirely
   unchanged — this decision was scoped, on request, to this control repository's own remote only.
+- **#108 — Candidate-first graph-native portfolio proof.** The immediate delivery target is the
+  dynamic processable denominator (31/31 at the reviewed registry revision), with typed
+  non-processable dispositions outside that numerator. The existing portfolio task remains the
+  parent; a bounded child horizon first closes acceptance identity, then one complete sealed 30/30
+  candidate and immediate no-op, and only then implements a minimal allow-listed mission runner
+  around the proven transaction. Canaries, fleet, hosted reconstruction, and adversarial audit are
+  promoted just in time. Current `qwen3-next` routing and Aspose.org comparison are versioned
+  development inputs, not immutable mission or deployed dependencies. The runner initially
+  executes existing handlers only and never authors, commits, pushes, or publishes code/content.
 
-Aspose.org remains a development-only comparative corpus, never a deployed dependency or factual
-authority. Repository order may change only through the durable dependency graph; changing a
+Aspose.org remains an independently qualified, development-only comparative corpus, never a
+presumed-perfect specification, deployed dependency, or factual authority. Repository order may
+change only through the durable dependency graph; changing a
 preference cannot silently enlarge the current task or invalidate unrelated accepted stages.
 
 ## Architecture
 
 ```text
-authorized discovery -> immutable snapshot -> verified ProductFactsV2
+authorized discovery -> RegistryRevisionV1 -> immutable snapshot -> processability
+  -> verified ProductFactsV2
   -> native fact selection + conflict reconciliation
   -> repository assessment -> semantic graph + component-versioned document plan
   -> candidate + native patch -> deterministic validation
-  -> independent review/repair -> unchanged no-op proof
-  -> staged human acceptance -> separately authorized proposal effect
+  -> 30-point criterion evidence + independent factual/visitor review
+  -> immediate complete-transaction no-op -> portfolio adversarial audit
+  -> global human acceptance -> separately authorized proposal effect
   -> hosted observation and background maturity certification
 ```
 
@@ -290,12 +355,11 @@ changes create component deltas rather than global invalidation.
 ### Execution and concurrency
 
 The coordinator owns shared state, plans, integration, commits, and closure. Calibration and shared
-repairs are serial. Python is the sole executable platform until its complete dynamic cohort is
-independently approved, fresh-transaction-no-op-proven, human-accepted, transport-qualified, and
-production-admitted. After transaction/cache/cancellation/aggregation isolation passes, two disjoint
-Python repository workers may run; a third is admitted only while speedup is at least 1.5x and
-coordination overhead at most 25 percent. No non-Python concurrent goal or worker is eligible before
-Python production admission. Independent verification never authors accepted work.
+repairs are serial. After the first complete 30/30 candidate, no-op, recovery, cache, and aggregation
+transaction passes, two disjoint repository workers may run; a third is admitted only while speedup
+is at least 1.5x and coordination overhead at most 25 percent. Canaries follow configured platform
+priority when otherwise ready, but the transaction may qualify any dependency-ready ecosystem before
+production transport. Independent verification never authors accepted work.
 
 ### Small-goal execution and anti-drift
 
@@ -304,23 +368,16 @@ one task, and one `TaskExecutionFocusV1`. Visible work is admitted only when the
 that focus, the named observer owns an unexpired durable claim, the graph hash is current, and the
 approach budget remains open. Nonblocking discoveries become backlog; they cannot enlarge the task.
 
-The stable small-goal catalog is:
+The current bounded small-goal catalog is:
 
-1. `DELIVERY-PY-CONTRACT-CURRENT` — correct the global contract and show current Note as the
-   independently accepted reference without preserving source tone.
-2. `DELIVERY-PY-PDF-CURRENT` — reconcile and show PDF under that exact contract.
-3. `DELIVERY-PY-PAGE-CURRENT` — reconcile and show Page under that exact contract.
-4. `DELIVERY-PY-3D-CURRENT` — reconcile and show Aspose.3D under that exact contract.
-5. `DELIVERY-PY-REMAINING-COHORT` — finalize and expose each remaining Python README individually.
-6. `DELIVERY-PY-PLATFORM-ACCEPTANCE` — independently reconstruct and obtain explicit human
-   acceptance for the complete current Python denominator.
-7. `DELIVERY-PYTHON-PRODUCTION-TRANSPORT` — prove the complete accepted Python platform through
-   the canonical workflow, `act`, disposable staging, hosted GitHub App transport, and recovery.
-8. `DELIVERY-PYTHON-PRODUCTION-ADMISSION` — admit only the accepted Python cohort to hosted
-   operation and separately authorized draft-PR effects.
-9. `DELIVERY-DOTNET-LOCAL-NO-OP` — qualify .NET only after Python production admission.
-10. `DELIVERY-DOTNET-PRODUCTION-TRANSPORT` — reuse the Python-proven transport for .NET.
-11. `DELIVERY-JAVA-FIRST-CURRENT` — prove the first Java repository after .NET admission.
+1. `DELIVERY-PORTFOLIO-AUTHORITY` — reconcile the 31-processable/two-disposition campaign identity.
+2. `DELIVERY-KNOWLEDGE-TO-BYTES` — finish the five imported-knowledge consumers and acceptance identity.
+3. `DELIVERY-FIRST-COMPLETE-CANDIDATE` — produce one complete current Aspose.3D Python candidate.
+4. `DELIVERY-FIRST-SEALED-NO-OP` — independently seal it at 30/30 and prove immediate no-op.
+5. `DELIVERY-PROVEN-TRANSACTION-RUNNER` — automate only that accepted transaction.
+6. `DELIVERY-SEVEN-ECOSYSTEM-CANARIES` — qualify one complete candidate per supported ecosystem.
+7. `DELIVERY-README-PORTFOLIO-PROOF` — reach 31/31 accepted and no-op-proven candidates and prepare
+   the one global human-review package.
 
 The exact current goal and repository scope are printed only by mission `status`. Mission
 `evaluate` first reconciles closed-task freshness; if an accepted repository becomes stale and no
@@ -334,7 +391,8 @@ delay showing an already accepted README.
 2. Impacted integration, safety, recovery, and idempotency proof at coherent slices.
 3. Per-repository facts, candidate, diff, deterministic validation, independent review, repair,
    no-op, LLM ledger, and checksum-valid manifest.
-4. Complete non-live suite at shared-code, Python-platform, Gate-A, and declared delivery boundaries.
+4. Complete non-live suite at shared-contract, first sealed transaction, ecosystem-canary freeze,
+   portfolio freeze, and declared later delivery boundaries.
 5. One independently reconstructed canonical evidence package per repository and cohort.
 
 ## Registry & Policy Config
@@ -381,32 +439,37 @@ Repository/package/test evidence outranks README prose. Approved policy owns sub
 Release data and approved documentation follow. During development, matching Aspose.org knowledge
 and reports may expose gaps in Repo Presenter's extraction, selection, composition, graph, and
 review behavior. Those lessons must be generalized into this repository's native versioned
-contracts. Deployed and acceptance runs never read or depend on the sibling repository, its reports,
-skills, scripts, or caches.
+contracts. Every refresh is bound to committed upstream blobs and independently reconciled against
+repository truth, the presentation contract, local fixtures, negative controls, and independent
+review. This includes comparing the upstream mechanism that generates product knowledge with this
+repository's native collectors, not merely copying its final reports. Upstream defects are adapted,
+quarantined, or rejected rather than inherited. Deployed and acceptance runs never read or depend on
+the sibling repository, its reports, skills, scripts, or caches.
 
 ## Build Checklist
 
-- [x] **Post-Claude baseline adoption:** preserve the clean `69b2af21d` candidate/evidence set by
-  hash and classify its lifecycle claims without regenerating accepted work.
-- [x] **Portfolio candidate visibility:** produce a local reviewable candidate for all 32 active
-  entries, including disabled/read-only PSD, without granting product-write authority.
-- [ ] **Python shared-cause qualification:** repair source-claim placement, component lineage, and
-  recurring presentation-validation families once, then replay only the eight affected Python
-  repositories until all 13 are deterministically and independently accepted.
-- [ ] **Concurrent .NET local qualification:** after transaction isolation, project existing .NET
-  evidence through a disjoint lane and qualify all six repositories through fresh-transaction no-op.
-- [ ] **Complete-transaction no-op:** prove fresh-process byte stability, zero new provider work,
-  recovery, and non-duplication separately from renderer recomposition.
-- [ ] **Canonical-state reconciliation:** make rapid POC and `supervise` consume the shared
-  transaction and import checksum-valid accelerated artifacts into durable lifecycle state.
-- [ ] **Python production transport:** prove the accepted Python platform through the canonical
-  workflow, `act`, disposable staging, hosted App isolation, recovery, and effect reconciliation.
-- [ ] **.NET production transport:** reuse the same production system for the accepted .NET cohort.
-- [ ] **Remaining-platform qualification:** continue Java, C++, TypeScript, Rust, and Go in priority
-  order; preserve every candidate during repair.
-- [ ] **Verified Gate A:** reconcile source discovery and qualify every current admitted repository.
-- [ ] **Post-.NET Java slice:** prove one current Java vertical slice before Java cohort expansion.
-- [ ] **Gate B:** independently approved portfolio package and explicit human acceptance per repository.
+- [ ] **Campaign authority:** freeze the current RegistryRevision, 31-processable/two-disposition
+  partition, 30-point rubric, check-registry hash, graph queue, and no-effect boundary.
+- [ ] **Qualified development-oracle refresh:** bind committed Aspose.org source blobs; diff the
+    knowledge-generation mechanism, knowledge artifacts, checks, runner inputs, schemas, data, fixtures,
+    and skill rules; bind producer HEAD/dirty fingerprint and obtain a twice-stable snapshot of the
+    latest complete synchronized canonical visitor-quality corpus; reconcile its denominator and fresh
+    aggregate audit; derive a
+    qualified benchmark profile; import only necessary behavior after independent qualification;
+    regenerate the classification; and prove the local result with the sibling checkout absent.
+- [ ] **Knowledge-to-bytes:** prove current-source polarity, final post-render accountability, and
+  bounded useful-byte consumers for feature, format, install, limitation, and troubleshooting claims.
+- [ ] **First complete candidate:** generate Aspose.3D Python through the canonical supervisor with
+  complete source, fact, knowledge, claim, component, review, and patch lineage.
+- [ ] **First sealed transaction:** independently accept the exact candidate at 30/30 with zero hard
+  disqualifiers and prove immediate fresh-process zero-provider no-op.
+- [ ] **Minimal graph runner:** automate only the proven transaction through typed allow-listed actions,
+  durable checkpoints, recovery, and effect-null safety.
+- [ ] **Seven ecosystem canaries:** qualify and no-op-prove one current processable representative per
+  Python, .NET, Java, C++, TypeScript, Rust, and Go.
+- [ ] **Portfolio proof:** execute failed-only repair and reach 31/31 processable accepted/no-op bundles,
+  retain two typed PSD dispositions, and independently reconstruct one global review package.
+- [ ] **Global human review:** record acceptance only after the complete portfolio package exists.
 - [ ] **Workflow/staging/Gate C:** prove `act`, disposable GitHub staging, and authorized draft proposals.
 - [ ] **Hosted system:** GitHub App token isolation, recovery, health, backlog, alerts, and dead-man monitor.
 - [ ] **Level 5 and deployable Level 6:** complete presentation surfaces and autonomous portfolio operation.
@@ -434,14 +497,18 @@ skills, scripts, or caches.
   of the shared transaction is required for `TRANSACTION_NO_OP_PROVEN`.
 - [ ] Acceptance and deployed runs succeed with the Aspose.org checkout unavailable; no sibling
   report, raw knowledge record, skill, script, or cache is a runtime input or factual proof.
+- [ ] The Aspose.org import manifest binds committed upstream commit/blob hashes and accounts for all
+  discovered knowledge generators, artifacts, and checks; every imported behavior has an explicit
+  local disposition, applicable hard gates pass negative controls without unresolved false positives,
+  evaluator errors fail closed, and a newer upstream snapshot never silently changes acceptance.
 - [ ] Mermaid validation proves semantic topology and official-rendered SVG geometry, not syntax alone,
   and independent review rejects a correct-but-unhelpful document.
 - [ ] Contract validation rejects collapsed selected capabilities, collapsed material limitations,
   fully collapsed development/testing guidance, untagged or whitespace-corrupt code fences, more
   than two Core columns, unequal endpoint presentation, semantic block/workflow repetition, and any
   merged source unit without one non-empty canonical destination.
-- [ ] No non-Python goal is eligible until the complete Python cohort is current, independently
-  accepted, fresh-transaction-no-op-proven, human-accepted, transport-qualified, and production-admitted.
+- [ ] No general runner precedes one complete 30/30 candidate and immediate complete-transaction no-op;
+  no fleet fan-out precedes one accepted current candidate per supported ecosystem.
 - [ ] Every product effect is limited to a complete, independently approved, explicitly human-accepted
   platform cohort under fresh what/why/where authorization; platform publication cannot promote
   another platform or satisfy full-registry Gate A/B.

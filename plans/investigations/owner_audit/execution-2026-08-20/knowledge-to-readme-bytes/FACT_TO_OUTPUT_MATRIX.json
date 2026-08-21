@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "pin": "aa998102191c530af4dca3a6895d62a4027a613e",
+  "classification_vocabulary": [
+    "rendered_with_exact_span",
+    "preserved_equivalent",
+    "supplied_to_qwen_not_used",
+    "selected_never_supplied",
+    "rejected_with_reason",
+    "silently_lost",
+    "unverified_supporting_only",
+    "incorrectly_reported_influential"
+  ],
+  "coverage_categories": [
+    "feature_capability", "format_support", "installation", "limitation",
+    "troubleshooting", "dependency", "api_surface", "examples", "seo_keywords"
+  ],
+  "method_note": "Field-level counts confirmed by TWO independent sources that agree exactly: (1) plans/investigations/owner_audit/knowledge_to_candidate/report.md (pin 6d112bbf, 2026-08-19), reused because git log 6d112bbf..HEAD is empty for every causal file; (2) a FRESH knowledge-application.json for each of the three products, written 2026-08-20 10:23-10:33 (today, this pin) at runs/readme-poc/<org>__<repo>/<source_revision>/knowledge-application.json, read directly by this task (schema_version 2, considered/selected/rejected counts and per-field breakdowns byte-identical to the 08-19 report's numbers; sections_influenced=[] and rendered_output_spans=[] confirmed live, not just inferred from code -- direct, current-pin proof of the K3 gap). Item-level global_claim_id values below are read directly from that fresh artifact's `dispositions` array, not reconstructed.",
+  "products": [
+    {
+      "product_key": "3d/python",
+      "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "imported_bundle_repo_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+      "current_target_tip_sha_at_prior_audit": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+      "freshness": "current",
+      "raw_claims_considered": 3452,
+      "selected_items": 35,
+      "rejected_items": 3417,
+      "rejection_reasons": {"covered_by_api_surface": 2730, "over_per_field_cap": 683, "below_confidence": 4},
+      "fields": [
+        {
+          "field": "aspose.feature_claims", "coverage_category": "feature_capability",
+          "item_count": 8, "field_verification_state": "unverified_uncorroborated",
+          "accepted_composition_eligible": false,
+          "classification": "unverified_supporting_only",
+          "classification_reason": "Selected (passed corroboration/relevance selection into a FactRecordV2) but the whole field's aggregate verification_state is 'unverified' -- agentic_composition_grounding.py:23-29 requires verification_state in {verified, policy_approved} AND facts.selected_fact_ids[field]==fact_id for accepted_composition_fact_ids(); an unverified field never enters that set, so it never reaches the Qwen packet or any renderer at all.",
+          "example_claim_ids": ["ERC-3d-python-d5875afc", "ERC-3d-python-065b7d80", "ERC-3d-python-0a4cfc27", "ERC-3d-python-395e34aa", "ERC-3d-python-fb03c565", "ERC-3d-python-14fc5f45", "ERC-3d-python-20da75c3", "ERC-3d-python-217bfdd0"],
+          "source_evidence_note": "confidence 0.6 each, live-read from today's (2026-08-20) knowledge-application.json."
+        },
+        {
+          "field": "aspose.format_support_claims", "coverage_category": "format_support",
+          "item_count": 8, "field_verification_state": "verified_corroborated",
+          "accepted_composition_eligible": true,
+          "classification": "supplied_to_qwen_not_used",
+          "classification_reason": "Field is verified -> included in accepted_composition_fact_ids() -> composition_fact_payloads() (agentic_composition_inputs.py:113-139) includes it in the Qwen packet unconditionally for any accepted fact (field-agnostic, confirmed by direct code read). render_views.py::_FIELD_RENDERERS (L205-216) has no entry for aspose.format_support_claims and verified_template_capabilities.py has no consumption path for it (confirmed by full-file grep) -- so it is code-provably supplied but code-provably has no path to become rendered bytes on the verified-template route, and on the agentic route its only reachable prose slot is the model-authored opening summary (report.md finding), never proven used: today's live knowledge-application.json confirms sections_influenced=[] and rendered_output_spans=[] for this exact run.",
+          "example_claim_ids": ["CLM-3d-00305e", "CLM-3d-08aad9", "CLM-3d-0aee70", "CLM-3d-0dba9d", "CLM-3d-11148e", "CLM-3d-188349", "CLM-3d-18a56a", "CLM-3d-19ad6a"],
+          "source_evidence_note": "CRITICAL, LIVE-VERIFIED cross-cutting finding: none of KGAP-002's cited false-positive examples (CLM-3d-2d3c40 'export support for Fbx via FbxExporter', CLM-3d-4ae50d 'import support for degree format via from_degree') are among today's 8 selected items -- checked directly against today's full 3452-item disposition list. BOTH were considered and BOTH carry verification_state=verified, corroboration=corroborated (i.e. they pass today's corroboration check exactly like the 8 that were selected); both were excluded solely by rejection_reason=exceeds_selection_cap (KNOW-002's per-field relevance ranking, not any correctness check). This means today's clean-looking 'verified format_support' field is clean by ranking luck, not by design: a different confidence tiebreak, a corpus refresh, or a raised per-field cap could select CLM-3d-2d3c40/CLM-3d-4ae50d tomorrow with the exact same 'verified/corroborated' tag, because the underlying corroboration check (aspose_knowledge_selection.py::_file_evidence_corroboration) still only checks that the cited file exists, never that its content still supports the claim (K1, independently reconfirmed by KGAP-002). This is the concrete reason IMPLEMENTATION_SEQUENCE.md requires K1 (or an equivalent narrow polarity check) before or alongside C1's format_support/feature consumer, not after -- the absence of a visible defect today is a ranking accident, not a safety property."
+        },
+        {
+          "field": "aspose.install_claims", "coverage_category": "installation",
+          "item_count": 3, "field_verification_state": "unverified_uncorroborated",
+          "accepted_composition_eligible": false, "classification": "unverified_supporting_only",
+          "classification_reason": "Same mechanism as feature_claims above.",
+          "example_claim_ids": ["CLM-3d-0ee30c", "CLM-3d-7cf4d1", "ERC-3d-python-25c919cb"]
+        },
+        {
+          "field": "aspose.limitation_claims", "coverage_category": "limitation",
+          "item_count": 8, "field_verification_state": "verified_corroborated",
+          "accepted_composition_eligible": true, "classification": "supplied_to_qwen_not_used",
+          "classification_reason": "Same mechanism as format_support_claims above (verified field, unconditionally packeted, zero render_views/verified_template consumer, zero proven output span -- today's live artifact confirms sections_influenced=[]/rendered_output_spans=[]).",
+          "example_claim_ids": ["CLM-3d-0024f1", "CLM-3d-01c185", "CLM-3d-02256c", "CLM-3d-02dd76", "CLM-3d-02eae9", "CLM-3d-032cb2", "CLM-3d-032dfa", "CLM-3d-034656"],
+          "source_evidence_note": "KGAP-002's cited true-negative counterparts (CLM-3d-f966ea, CLM-3d-31f56e -- both FBX exporter methods raise NotImplementedError) are, like the format_support false positives above, present in the 3452-item corpus and verified/corroborated, but excluded from today's 8 by exceeds_selection_cap, not selected today. The published current README already states the FBX limitation correctly (from independent Aspose composition, not this pipeline) -- 3D FBX remains 'the mandatory calibration contradiction': the optimizer possesses correct limitation facts but has no render path for them yet, so a future candidate's correctness on this point cannot yet be attributed to this pipeline."
+        },
+        {
+          "field": "aspose.troubleshoot_claims", "coverage_category": "troubleshooting",
+          "item_count": 8, "field_verification_state": "unverified_uncorroborated",
+          "accepted_composition_eligible": false, "classification": "unverified_supporting_only",
+          "classification_reason": "Same mechanism as feature_claims above.",
+          "example_claim_ids": ["ERC-3d-python-9afdee4f", "ERC-3d-python-c9c357b7", "ERC-3d-python-4f2ff5af", "ERC-3d-python-5c5eda4b", "ERC-3d-python-8a20f826", "ERC-3d-python-cd628064", "ERC-3d-python-00aa52e2", "ERC-3d-python-93d3cbbb"]
+        }
+      ],
+      "legacy_detector_fields_verified_of_total": "4 of 6",
+      "api_surface": {
+        "coverage_category": "api_surface", "raw_rows": 327,
+        "classification": "silently_lost",
+        "classification_reason": "detect_api_public_surface() requires visibility=='public' AND truthy reachable (aspose_detectors.py); all 327 3D rows have reachable:false, so zero rows survive into any usable structured api.public_surface fact -- yet the claim selector rejects 2,730 raw API-kind claims as 'covered by API surface', a reason that is false for this product (there is no usable coverage). This is K2's defect (not this task's primary scope) but directly explains why API-surface facts show zero downstream consumers in this matrix: they never reach the fact graph as a usable structured value, and the claims that would have covered the gap are discarded on an incorrect 'covered' pretext, not offered, rendered, or explicitly rejected with an accurate reason."
+      },
+      "examples": {"coverage_category": "examples", "classification": "not_covered_by_imported_knowledge_layer", "note": "example.minimal is a canonical ProductFactsV2 field sourced from repository AST/source extraction, not from the six aspose.*_claims fields; the imported corpus's snippet-index family (100 snippets) is not a direct fact-provider input (report.md 'What was imported' section) -- out of the six-field K3/C1 scope by design, listed here only for the task's required coverage checklist."},
+      "dependency": {"coverage_category": "dependency", "classification": "not_covered_by_imported_knowledge_layer", "note": "aspose 'dependency' claim kind exists in the raw corpus (21 across all 31 bundles) but is not one of the six selector-produced fields; dependency facts come from python_dependency_acquisition.py, a separate module with its own confirmed-open gap (KGAP-001, silent [] for non-pyproject.toml manifests) -- out of this task's K3/C1 scope, listed for completeness."},
+      "seo_keywords": {"coverage_category": "seo_keywords", "classification": "rendered_with_exact_span_conditionally", "note": "aspose.relevant_seo_keywords is the ONE field with a real, shipped, byte-changing renderer consumer (KNOW-013, verified_template_capability_seo.py::seo_capability_title, commit 05ef1e532/cbccb8623) -- attribution-only (never cited in fact_ids, per design, to avoid claim-map rejection of an intentionally-unverified fact). No relevant_seo_keywords fact was present in the 3D/Note/Barcode trio's selected set at the 08-19 audit pin (report.md does not list it among the trio's produced fields), so this consumer's real behavior on this trio specifically has not been observed; it is confirmed real and tested against synthetic fixtures (test_verified_template_capability_seo.py)."}
+    },
+    {
+      "product_key": "note/python",
+      "org_repo": "aspose-note-foss/Aspose.Note-FOSS-for-Python",
+      "imported_bundle_repo_sha": "6d97a522a9ed...",
+      "current_target_tip_sha_at_prior_audit": "41de2e8ab478b5aeff3663f7f7cbf83b19fdf676",
+      "freshness": "stale",
+      "raw_claims_considered": 333, "selected_items": 6, "rejected_items": 327,
+      "rejection_reasons": {"covered_by_api_surface": 324, "stale_uncorroborated": 3},
+      "fields": [
+        {
+          "field": "aspose.format_support_claims", "coverage_category": "format_support",
+          "item_count": 6, "field_verification_state": "verified_corroborated",
+          "accepted_composition_eligible": true, "classification": "supplied_to_qwen_not_used",
+          "classification_reason": "Identical mechanism to 3D's format_support field: verified -> unconditionally packeted -> zero render_views/verified_template consumer -> zero proven output span. Today's live knowledge-application.json for Note confirms sections_influenced=[]/rendered_output_spans=[] -- K3 gap is product-agnostic since it lives in the single shared product_truth.py call site.",
+          "example_claim_ids": ["CLM-note-0696f2", "CLM-note-208562", "CLM-note-56a40c", "CLM-note-604306", "CLM-note-e79187", "CLM-note-f2c7bf"],
+          "source_evidence_note": "Stale-bundle freshness (imported repo_sha 6d97a522... vs current target tip 41de2e8a...) means KNOW-003's Gate R2 fix applies here: an uncorroborated stale claim would be rejected outright, so the fact that these 6 remain selected and verified means they passed independent per-item corroboration against the actual current clone despite bundle staleness -- a genuinely stronger evidentiary position than 3D's freshness-only trust, though still subject to K1's file-existence-only (not content-correctness) corroboration check."
+        }
+      ],
+      "legacy_detector_fields_verified_of_total": "5 of 6",
+      "api_surface": {"coverage_category": "api_surface", "raw_rows": 54, "classification": "silently_lost", "classification_reason": "24 exported, 26 conventional, 4 missing visibility, no reachable value recorded anywhere -- same K2 mechanism as 3D, zero usable structured fact."},
+      "examples": {"coverage_category": "examples", "classification": "not_covered_by_imported_knowledge_layer"},
+      "dependency": {"coverage_category": "dependency", "classification": "not_covered_by_imported_knowledge_layer"},
+      "seo_keywords": {"coverage_category": "seo_keywords", "classification": "not_selected_in_trio", "note": "No relevant_seo_keywords fact recorded as selected for Note in the 08-19 audit."}
+    },
+    {
+      "product_key": "barcode/python",
+      "org_repo": "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+      "imported_bundle_repo_sha": "53f2c3350b81...",
+      "current_target_tip_sha_at_prior_audit": "06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
+      "freshness": "stale",
+      "raw_claims_considered": 375, "selected_items": 13, "rejected_items": 362,
+      "rejection_reasons": {"covered_by_api_surface": 344, "stale_uncorroborated": 17, "dependency_covered": 1},
+      "fields": [
+        {
+          "field": "aspose.format_support_claims", "coverage_category": "format_support",
+          "item_count": 6, "field_verification_state": "verified_corroborated",
+          "accepted_composition_eligible": true, "classification": "supplied_to_qwen_not_used",
+          "classification_reason": "Same mechanism as 3D/Note format_support fields. Today's live artifact confirms sections_influenced=[]/rendered_output_spans=[].",
+          "example_claim_ids": ["CLM-barcode-04970e", "CLM-barcode-2794b6", "CLM-barcode-424fc0", "CLM-barcode-5c60a4", "CLM-barcode-615b98", "CLM-barcode-8e1383"]
+        },
+        {
+          "field": "aspose.limitation_claims", "coverage_category": "limitation",
+          "item_count": 6, "field_verification_state": "verified_corroborated",
+          "accepted_composition_eligible": true, "classification": "supplied_to_qwen_not_used",
+          "classification_reason": "Same mechanism as 3D's limitation field.",
+          "example_claim_ids": ["CLM-barcode-1222ae", "CLM-barcode-630001", "CLM-barcode-ca5609", "CLM-barcode-cb1a28", "CLM-barcode-d75ba8", "CLM-barcode-fbdcba"]
+        },
+        {
+          "field": "aspose.license_claims", "coverage_category": "installation",
+          "item_count": 1, "field_verification_state": "verified_corroborated",
+          "accepted_composition_eligible": true, "classification": "supplied_to_qwen_not_used",
+          "classification_reason": "License claim corroborated against LICENSE via license/auditor.py::classify_license_text (KNOW-003) -- the strongest-evidenced item in the whole trio -- yet still has no render_views.py entry and product.license is already a canonical ProductFactsV2 field populated independently, so this imported license claim's own fact_id specifically has no distinguishable render path even though license content generally does render via the canonical field.",
+          "example_claim_ids": ["CLM-barcode-ac3897"]
+        }
+      ],
+      "legacy_detector_fields_verified_of_total": "7 of 8",
+      "api_surface": {"coverage_category": "api_surface", "raw_rows": 146, "classification": "silently_lost", "classification_reason": "79 public, 67 missing visibility, no reachable value -- same K2 mechanism."},
+      "examples": {"coverage_category": "examples", "classification": "not_covered_by_imported_knowledge_layer"},
+      "dependency": {"coverage_category": "dependency", "classification": "not_covered_by_imported_knowledge_layer", "note": "1 raw dependency claim explicitly rejected as 'dependency_covered' -- the one case in the trio where a real canonical dependency fact suppressed an imported one; this is the correctly-working version of the K2 suppression mechanism, contrasted with API surface's incorrect version above."},
+      "seo_keywords": {"coverage_category": "seo_keywords", "classification": "not_selected_in_trio"}
+    }
+  ],
+  "cross_product_totals": {
+    "selected_items_total": 54,
+    "verified_and_qwen_packet_eligible_total": 35,
+    "unverified_field_locked_total": 19,
+    "items_with_a_proven_rendered_span_total": 0,
+    "note": "Zero is a code-path/evidence-absence finding (no run exists with a real document_plan threaded into build_knowledge_application_report, and no historical candidate predates the knowledge layer), not a claim that no possible run could ever render these -- see REPORT.md 'What zero actually means'."
+  }
+}

@@ -1,0 +1,1903 @@
+{
+  "branch": {
+    "_links": {
+      "html": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/tree/master",
+      "self": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/branches/master"
+    },
+    "commit": {
+      "author": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1225645?v=4",
+        "events_url": "https://api.github.com/users/babar-raza/events{/privacy}",
+        "followers_url": "https://api.github.com/users/babar-raza/followers",
+        "following_url": "https://api.github.com/users/babar-raza/following{/other_user}",
+        "gists_url": "https://api.github.com/users/babar-raza/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/babar-raza",
+        "id": 1225645,
+        "login": "babar-raza",
+        "node_id": "MDQ6VXNlcjEyMjU2NDU=",
+        "organizations_url": "https://api.github.com/users/babar-raza/orgs",
+        "received_events_url": "https://api.github.com/users/babar-raza/received_events",
+        "repos_url": "https://api.github.com/users/babar-raza/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/babar-raza/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/babar-raza/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/babar-raza",
+        "user_view_type": "public"
+      },
+      "comments_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/commits/7b959706f2ad976db929f26ec079f43a07d578e1/comments",
+      "commit": {
+        "author": {
+          "date": "2026-08-11T08:01:01Z",
+          "email": "babar.raza@aspose.com",
+          "name": "Babar Raza"
+        },
+        "comment_count": 0,
+        "committer": {
+          "date": "2026-08-11T08:01:01Z",
+          "email": "noreply@github.com",
+          "name": "GitHub"
+        },
+        "message": "Refresh README: verified API accuracy, simplified diagram, restored content (#2)\n\n- Fixed 4 API-reference member claims that lumped sibling classes\n  together as if they shared an identical method set, checked against\n  the real TypeScript source: Vector2/Vector3/Vector4 (only Vector3 has\n  dot/cross/normalize), FVector2/FVector3/FVector4 (only FVector2 has\n  arithmetic add/sub/mul/div; FVector4 is field-accessors-only),\n  BoundingBox/BoundingBox2D/BoundingBoxExtent (BoundingBox2D has no\n  contains; BoundingBoxExtent has none of merge/contains/overlapsWith),\n  and a missing ThreeMfLoadOptions.flipCoordinateSystem entry.\n- Rewrote the 2 GltfExporter runtime-defect descriptions (the binary\n  glTF RangeError, the node-hierarchy round-trip issue) and the\n  adm-zip packaging note down to plain, non-forensic pointers to\n  upstream-issues.md, removing internal implementation detail\n  (buffer-sizing internals, exact exception text) from the README\n  itself.\n- Restructured Scope and Limitations into a bulleted list; the\n  Enterprise Edition paragraph now names the specific capabilities\n  gained (rendering, additional exchange formats, full production\n  feature completeness).\n- Simplified the At a Glance diagram to Starting Points -> Product ->\n  Core Capabilities -> Outputs.\n- Restored a real, verified link to AGENTS.md (contributor guide) that\n  a previous refresh pass had dropped.\n- Collapsed the full test/type-check command list into a <details>\n  block under Development and Testing, keeping install/build visible.\n- Added the project's banner image and title-cased every heading.\n\nVerification: every code example and every API Reference member claim\nwas checked against the real compiled TypeScript source\n(tsc --strict plus direct source inspection); the diagram's format\nclaims were checked against both this knowledge base's format data\nand the real source, not either alone.\n\nCo-authored-by: babar-raza <babar-raza@users.noreply.github.com>\nCo-authored-by: Claude Sonnet 5 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "b6c5a00a0e85950629f250d51373ba25ad75d84f",
+          "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/b6c5a00a0e85950629f250d51373ba25ad75d84f"
+        },
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/commits/7b959706f2ad976db929f26ec079f43a07d578e1",
+        "verification": {
+          "payload": "tree b6c5a00a0e85950629f250d51373ba25ad75d84f\nparent d04b659a81a50dcde52394514603d39a88787256\nauthor Babar Raza <babar.raza@aspose.com> 1786435261 +0500\ncommitter GitHub <noreply@github.com> 1786435261 +0500\n\nRefresh README: verified API accuracy, simplified diagram, restored content (#2)\n\n- Fixed 4 API-reference member claims that lumped sibling classes\n  together as if they shared an identical method set, checked against\n  the real TypeScript source: Vector2/Vector3/Vector4 (only Vector3 has\n  dot/cross/normalize), FVector2/FVector3/FVector4 (only FVector2 has\n  arithmetic add/sub/mul/div; FVector4 is field-accessors-only),\n  BoundingBox/BoundingBox2D/BoundingBoxExtent (BoundingBox2D has no\n  contains; BoundingBoxExtent has none of merge/contains/overlapsWith),\n  and a missing ThreeMfLoadOptions.flipCoordinateSystem entry.\n- Rewrote the 2 GltfExporter runtime-defect descriptions (the binary\n  glTF RangeError, the node-hierarchy round-trip issue) and the\n  adm-zip packaging note down to plain, non-forensic pointers to\n  upstream-issues.md, removing internal implementation detail\n  (buffer-sizing internals, exact exception text) from the README\n  itself.\n- Restructured Scope and Limitations into a bulleted list; the\n  Enterprise Edition paragraph now names the specific capabilities\n  gained (rendering, additional exchange formats, full production\n  feature completeness).\n- Simplified the At a Glance diagram to Starting Points -> Product ->\n  Core Capabilities -> Outputs.\n- Restored a real, verified link to AGENTS.md (contributor guide) that\n  a previous refresh pass had dropped.\n- Collapsed the full test/type-check command list into a <details>\n  block under Development and Testing, keeping install/build visible.\n- Added the project's banner image and title-cased every heading.\n\nVerification: every code example and every API Reference member claim\nwas checked against the real compiled TypeScript source\n(tsc --strict plus direct source inspection); the diagram's format\nclaims were checked against both this knowledge base's format data\nand the real source, not either alone.\n\nCo-authored-by: babar-raza <babar-raza@users.noreply.github.com>\nCo-authored-by: Claude Sonnet 5 <noreply@anthropic.com>",
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqeta9CRC1aQ7uu5UhlAAA5kAQAEsVfky2hBYM/EQ/8wpAQZDS\nFHonKNODI80l4hZTNd1OWFwTm4lD8DGQA4+U3XjjLRy37srCTT+jPNIkGj+Tzkp1\n7uk929Fgj3zufD8K+doSvFqfXAigy//LmpZ95U0kFZkYKu1kID4MVPQYx3IkQ34a\nAmiljsT+Cw+mUIPbmO+87zIYt8wsVGbKcixWnJWtfiHcP3vxHnbLeYjlES2ynlFn\nXqPrzsj69T/qLgQ+NLacflBTqNwsRyaZmTqTj3EVmkKzsy3/GnIJcQiOfXNPz04n\nkpBDo1galT71mnkS96KuywZc19n56Libipt5jHXvbPmxg7HqxAY3JURWY+axrnXb\nHNeHBH73hD9oLFbM7PBz4uJtwzA7nM3Qt4riM4YkbBDNo5AVG1PfiN1t3XqOy/v5\nGaZp2x97LfSdBcafNLrc7QrV4BW9IlfXOaEAhSwcVOp2ixbj6LHw/4qtbRiKVgRu\nc0AgFDSxhj8qj/M/9WI6i5FUd/H5Sp7fMHyNNe2PLZ/BYTsiC8haCrP4d0DKQrup\nD+EoYQowy/RE1fe03nsYKAJQ3rBSLPP9IswEIu1AhGy+fpE1/adejYKfz+iN+nq9\n3Oej36MdbZ6MQwbxVfwdyuLkHbP1gV9zTOfZ4A9rC7JcOpZq4rgGTj0MYAYCeC9r\nRh7DFv0/W35Y54nVwZVc\n=VtC6\n-----END PGP SIGNATURE-----\n",
+          "verified": true,
+          "verified_at": "2026-08-11T08:01:23Z"
+        }
+      },
+      "committer": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/web-flow",
+        "id": 19864447,
+        "login": "web-flow",
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/web-flow",
+        "user_view_type": "public"
+      },
+      "html_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/commit/7b959706f2ad976db929f26ec079f43a07d578e1",
+      "node_id": "C_kwDORa0On9oAKDdiOTU5NzA2ZjJhZDk3NmRiOTI5ZjI2ZWMwNzlmNDNhMDdkNTc4ZTE",
+      "parents": [
+        {
+          "html_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/commit/d04b659a81a50dcde52394514603d39a88787256",
+          "sha": "d04b659a81a50dcde52394514603d39a88787256",
+          "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/commits/d04b659a81a50dcde52394514603d39a88787256"
+        }
+      ],
+      "sha": "7b959706f2ad976db929f26ec079f43a07d578e1",
+      "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/commits/7b959706f2ad976db929f26ec079f43a07d578e1"
+    },
+    "name": "master",
+    "protected": false,
+    "protection": {
+      "enabled": false,
+      "required_status_checks": {
+        "checks": [],
+        "contexts": [],
+        "enforcement_level": "off"
+      }
+    },
+    "protection_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/branches/master/protection"
+  },
+  "repo": {
+    "allow_auto_merge": false,
+    "allow_forking": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "archive_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/branches{/branch}",
+    "clone_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript.git",
+    "collaborators_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/comments{/number}",
+    "commits_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/contributors",
+    "created_at": "2026-02-28T02:17:07Z",
+    "custom_properties": {},
+    "default_branch": "master",
+    "delete_branch_on_merge": false,
+    "deployments_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/deployments",
+    "description": "Aspose.3D FOSS for TypeScript is a MIT-licensed library for working with 3D file formats in Node.js applications. Install it with a single npm install @aspose/3d command and start reading, constructing, and writing 3D scenes in TypeScript immediately, with no native addons to compile, no external SDKs to install, and no renderer required.",
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/downloads",
+    "events_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/events",
+    "fork": false,
+    "forks": 0,
+    "forks_count": 0,
+    "forks_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/forks",
+    "full_name": "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+    "git_commits_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/tags{/sha}",
+    "git_url": "git://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript.git",
+    "has_discussions": false,
+    "has_downloads": false,
+    "has_issues": true,
+    "has_pages": false,
+    "has_projects": true,
+    "has_pull_requests": true,
+    "has_wiki": true,
+    "homepage": "https://products.aspose.org/3d/typescript/",
+    "hooks_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/hooks",
+    "html_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+    "id": 1168969375,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/issues{/number}",
+    "keys_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/labels{/name}",
+    "language": "TypeScript",
+    "languages_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/languages",
+    "license": null,
+    "merge_commit_message": "PR_TITLE",
+    "merge_commit_title": "MERGE_MESSAGE",
+    "merges_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/merges",
+    "milestones_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/milestones{/number}",
+    "mirror_url": null,
+    "name": "Aspose.3D-FOSS-for-TypeScript",
+    "network_count": 0,
+    "node_id": "R_kgDORa0Onw",
+    "notifications_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/notifications{?since,all,participating}",
+    "open_issues": 0,
+    "open_issues_count": 0,
+    "organization": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224595356?v=4",
+      "events_url": "https://api.github.com/users/aspose-3d-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-3d-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-3d-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-3d-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-3d-foss",
+      "id": 224595356,
+      "login": "aspose-3d-foss",
+      "node_id": "O_kgDODWMNnA",
+      "organizations_url": "https://api.github.com/users/aspose-3d-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-3d-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-3d-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-3d-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-3d-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-3d-foss",
+      "user_view_type": "public"
+    },
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224595356?v=4",
+      "events_url": "https://api.github.com/users/aspose-3d-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-3d-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-3d-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-3d-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-3d-foss",
+      "id": 224595356,
+      "login": "aspose-3d-foss",
+      "node_id": "O_kgDODWMNnA",
+      "organizations_url": "https://api.github.com/users/aspose-3d-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-3d-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-3d-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-3d-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-3d-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-3d-foss",
+      "user_view_type": "public"
+    },
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "private": false,
+    "pull_request_creation_policy": "all",
+    "pulls_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/pulls{/number}",
+    "pushed_at": "2026-08-11T08:01:03Z",
+    "releases_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/releases{/id}",
+    "security_and_analysis": {
+      "dependabot_security_updates": {
+        "status": "disabled"
+      },
+      "secret_scanning": {
+        "status": "disabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    },
+    "size": 196,
+    "squash_merge_commit_message": "COMMIT_MESSAGES",
+    "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+    "ssh_url": "git@github.com:aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript.git",
+    "stargazers_count": 0,
+    "stargazers_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/stargazers",
+    "statuses_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/statuses/{sha}",
+    "subscribers_count": 0,
+    "subscribers_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/subscribers",
+    "subscription_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/subscription",
+    "svn_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+    "tags_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/tags",
+    "teams_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/teams",
+    "temp_clone_token": "",
+    "topics": [],
+    "trees_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees{/sha}",
+    "updated_at": "2026-08-11T08:01:29Z",
+    "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
+    "use_squash_pr_title_as_default": false,
+    "visibility": "public",
+    "watchers": 0,
+    "watchers_count": 0,
+    "web_commit_signoff_required": false
+  },
+  "tree": {
+    "sha": "b6c5a00a0e85950629f250d51373ba25ad75d84f",
+    "tree": [
+      {
+        "mode": "100644",
+        "path": ".gitignore",
+        "sha": "2646aee57b7e2337f239ae44e9a76a3c179c2309",
+        "size": 48,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/2646aee57b7e2337f239ae44e9a76a3c179c2309"
+      },
+      {
+        "mode": "100644",
+        "path": "AGENTS.md",
+        "sha": "28fd3d492367ca6333b29fd71ab52c0993a19a4a",
+        "size": 1199,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/28fd3d492367ca6333b29fd71ab52c0993a19a4a"
+      },
+      {
+        "mode": "100644",
+        "path": "README.md",
+        "sha": "82a9818ac7075c6f7300110200bd13f212e6ce11",
+        "size": 22250,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/82a9818ac7075c6f7300110200bd13f212e6ce11"
+      },
+      {
+        "mode": "100644",
+        "path": "jest.config.js",
+        "sha": "a2aecc210982ea1662056ea62a2d521861976091",
+        "size": 253,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/a2aecc210982ea1662056ea62a2d521861976091"
+      },
+      {
+        "mode": "100644",
+        "path": "package.json",
+        "sha": "caf51add2fa82b8300347b885bbe214ab3521194",
+        "size": 898,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/caf51add2fa82b8300347b885bbe214ab3521194"
+      },
+      {
+        "mode": "040000",
+        "path": "src",
+        "sha": "52ccd901996378bdfe6b4feb901ed3d8a6a3ef93",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/52ccd901996378bdfe6b4feb901ed3d8a6a3ef93"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose",
+        "sha": "471ed8a1b651952839fcbb8917a77f132c30cbf7",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/471ed8a1b651952839fcbb8917a77f132c30cbf7"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose/threed",
+        "sha": "79f845264a4a591cea2129f415d8858b29640bc7",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/79f845264a4a591cea2129f415d8858b29640bc7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/A3DObject.ts",
+        "sha": "6ce7cb5e71c6ab04aeb0c7c65432eca5d82cd1aa",
+        "size": 1400,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/6ce7cb5e71c6ab04aeb0c7c65432eca5d82cd1aa"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/AssetInfo.ts",
+        "sha": "99f30c584230e4384222c6bc4d407bfe90cb7873",
+        "size": 141,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/99f30c584230e4384222c6bc4d407bfe90cb7873"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/Axis.ts",
+        "sha": "1b633a424f929bf4005871d34c9f5a5a615ab068",
+        "size": 584,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/1b633a424f929bf4005871d34c9f5a5a615ab068"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/CustomObject.ts",
+        "sha": "3a360037a6af44fc72845db9baa05dc7b8cfc52c",
+        "size": 150,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/3a360037a6af44fc72845db9baa05dc7b8cfc52c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/Entity.ts",
+        "sha": "d03109232a928371c15b6e9d5d7fce0317eb7123",
+        "size": 1592,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/d03109232a928371c15b6e9d5d7fce0317eb7123"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/FileFormat.ts",
+        "sha": "7f275640afcea6d12f22332b38000bc55ba7276d",
+        "size": 1167,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/7f275640afcea6d12f22332b38000bc55ba7276d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/GlobalTransform.ts",
+        "sha": "1614ff75c73979f32439f20c40ab55b94d098dc6",
+        "size": 1188,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/1614ff75c73979f32439f20c40ab55b94d098dc6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/INamedObject.ts",
+        "sha": "5c48044f4f02e93da5464b7689a3b8457a9c679c",
+        "size": 52,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/5c48044f4f02e93da5464b7689a3b8457a9c679c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/ImageRenderOptions.ts",
+        "sha": "ecb3d121461583e315c824bfc094007555235ad2",
+        "size": 365,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/ecb3d121461583e315c824bfc094007555235ad2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/Node.ts",
+        "sha": "bfcac362022747ab8d4f751e75cf7dacdcbd63fe",
+        "size": 6576,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/bfcac362022747ab8d4f751e75cf7dacdcbd63fe"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/Property.ts",
+        "sha": "28eaae5cd4ecfe814d1690d95d4861ad8792e678",
+        "size": 831,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/28eaae5cd4ecfe814d1690d95d4861ad8792e678"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/PropertyCollection.ts",
+        "sha": "c0267772ffe959d37db48e3fcfcf408e9f28a666",
+        "size": 1650,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/c0267772ffe959d37db48e3fcfcf408e9f28a666"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/Scene.ts",
+        "sha": "5455b941719c74e57b8c997ef107b32220387894",
+        "size": 16412,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/5455b941719c74e57b8c997ef107b32220387894"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/SceneObject.ts",
+        "sha": "116357d168a31b72823a95a337e60cf363461b32",
+        "size": 366,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/116357d168a31b72823a95a337e60cf363461b32"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/Transform.ts",
+        "sha": "7967244158a153b4fea8816c6c2b36c31b821b82",
+        "size": 8409,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/7967244158a153b4fea8816c6c2b36c31b821b82"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose/threed/animation",
+        "sha": "b5cb2ddf54cb534d779b0081cf41605832bd5ae5",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/b5cb2ddf54cb534d779b0081cf41605832bd5ae5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/animation/AnimationChannel.ts",
+        "sha": "730b60ef11c688646c616ddd5b7368030646aac5",
+        "size": 747,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/730b60ef11c688646c616ddd5b7368030646aac5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/animation/AnimationClip.ts",
+        "sha": "a5b4ebc3194cc03da1edf60d6f62ada1e04d7058",
+        "size": 1272,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/a5b4ebc3194cc03da1edf60d6f62ada1e04d7058"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/animation/AnimationNode.ts",
+        "sha": "6f731c3522e75a81bba88851ee1643b782035756",
+        "size": 2810,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/6f731c3522e75a81bba88851ee1643b782035756"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/animation/BindPoint.ts",
+        "sha": "44ab9651b936f88f61c5deb49b02955c39bd81be",
+        "size": 2385,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/44ab9651b936f88f61c5deb49b02955c39bd81be"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/animation/Extrapolation.ts",
+        "sha": "2713f60f0b079b012992708fab5780c9ef623051",
+        "size": 465,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/2713f60f0b079b012992708fab5780c9ef623051"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/animation/ExtrapolationType.ts",
+        "sha": "86a20bee0a026be425c1e475501af661188f2e0d",
+        "size": 127,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/86a20bee0a026be425c1e475501af661188f2e0d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/animation/Interpolation.ts",
+        "sha": "29c5d56e49c074f0f67f597246f5804c00326e5a",
+        "size": 142,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/29c5d56e49c074f0f67f597246f5804c00326e5a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/animation/KeyFrame.ts",
+        "sha": "24c0e3cebe90f661a940c4844f1a884809e31752",
+        "size": 3399,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/24c0e3cebe90f661a940c4844f1a884809e31752"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/animation/KeyframeSequence.ts",
+        "sha": "784c4a42f68ae25b29950b9dfbbc08b57c412898",
+        "size": 1648,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/784c4a42f68ae25b29950b9dfbbc08b57c412898"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/animation/StepMode.ts",
+        "sha": "17ba6d7a333b7a459364954db736b0fd78f88315",
+        "size": 68,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/17ba6d7a333b7a459364954db736b0fd78f88315"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/animation/WeightedMode.ts",
+        "sha": "14cb26664870a86f7c74c620608fedccfea6a46c",
+        "size": 100,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/14cb26664870a86f7c74c620608fedccfea6a46c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/animation/index.ts",
+        "sha": "094d0c1b5a619d0d41b0ae04c3872df093685c65",
+        "size": 529,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/094d0c1b5a619d0d41b0ae04c3872df093685c65"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose/threed/entities",
+        "sha": "754e088da3ca6b73f9e60fa8c04d9307a053e968",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/754e088da3ca6b73f9e60fa8c04d9307a053e968"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/ApertureMode.ts",
+        "sha": "e6cf257e609d64ae4fd40e26e7d6db6167fd6f6a",
+        "size": 163,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/e6cf257e609d64ae4fd40e26e7d6db6167fd6f6a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/BooleanOperation.ts",
+        "sha": "e93ea488e68ef81836cadbc624d9fd2311fb1297",
+        "size": 163,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/e93ea488e68ef81836cadbc624d9fd2311fb1297"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/Camera.ts",
+        "sha": "00b9c8dfa86c55b25cc9773717ab06b2d63d90ee",
+        "size": 3105,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/00b9c8dfa86c55b25cc9773717ab06b2d63d90ee"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/Geometry.ts",
+        "sha": "f3e7730626bd1b641564bf74c63f15efb56b39d1",
+        "size": 3627,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/f3e7730626bd1b641564bf74c63f15efb56b39d1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/IIndexedVertexElement.ts",
+        "sha": "2b920e167df1fc68a0337a4b4acc14763929d675",
+        "size": 75,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/2b920e167df1fc68a0337a4b4acc14763929d675"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/Light.ts",
+        "sha": "d3d7b7c15fb473ccf9ddd1c00b5f21917bd1e425",
+        "size": 431,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/d3d7b7c15fb473ccf9ddd1c00b5f21917bd1e425"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/LightType.ts",
+        "sha": "2d97471810fcd21c4694d0c232291f10b7e9be02",
+        "size": 177,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/2d97471810fcd21c4694d0c232291f10b7e9be02"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/MappingMode.ts",
+        "sha": "66c49f6080dc9cb281fd65a88ba1dc034b2617cd",
+        "size": 240,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/66c49f6080dc9cb281fd65a88ba1dc034b2617cd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/Mesh.ts",
+        "sha": "db47d774a67b4745b9e39f15f167297fb3a9d94f",
+        "size": 3797,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/db47d774a67b4745b9e39f15f167297fb3a9d94f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/PolygonModifier.ts",
+        "sha": "dd1735b1094d1d0e4f42c49afdcaf480f0f26213",
+        "size": 11354,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/dd1735b1094d1d0e4f42c49afdcaf480f0f26213"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/ProjectionType.ts",
+        "sha": "afb9ca1897e3315c09a13a830f452545be4c9c01",
+        "size": 114,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/afb9ca1897e3315c09a13a830f452545be4c9c01"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/ReferenceMode.ts",
+        "sha": "d289102246eb8ca567de00f71a18b665fa02460d",
+        "size": 162,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/d289102246eb8ca567de00f71a18b665fa02460d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/RotationMode.ts",
+        "sha": "3cbd8f6fb6ff408874c7dda6635029c6310cd86a",
+        "size": 108,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/3cbd8f6fb6ff408874c7dda6635029c6310cd86a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/SplitMeshPolicy.ts",
+        "sha": "d1663e3513f0c06d6293964ce8d7277de62120cb",
+        "size": 123,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/d1663e3513f0c06d6293964ce8d7277de62120cb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/TextureMapping.ts",
+        "sha": "5c8e325297e43ef65e7d57866fc15002305b6b7e",
+        "size": 552,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/5c8e325297e43ef65e7d57866fc15002305b6b7e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/VertexElement.ts",
+        "sha": "718bcaf285cead7aa2c501bcad33b4cd7df05448",
+        "size": 1637,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/718bcaf285cead7aa2c501bcad33b4cd7df05448"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/VertexElementBinormal.ts",
+        "sha": "6d8f3e2ff9be6e2628f453fdc49c42d1adf53046",
+        "size": 487,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/6d8f3e2ff9be6e2628f453fdc49c42d1adf53046"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/VertexElementFVector.ts",
+        "sha": "d00d9dadcbf1ba2def3528b9367618b79df8df2c",
+        "size": 1771,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/d00d9dadcbf1ba2def3528b9367618b79df8df2c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/VertexElementIntsTemplate.ts",
+        "sha": "0d0fc1c28de6f3b612494c792203bcdc2fc6c119",
+        "size": 1080,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/0d0fc1c28de6f3b612494c792203bcdc2fc6c119"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/VertexElementNormal.ts",
+        "sha": "482754152535b785aaad68a55120045efd069efc",
+        "size": 483,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/482754152535b785aaad68a55120045efd069efc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/VertexElementSmoothingGroup.ts",
+        "sha": "45aa5553bea67142e50dfaa26d89ba1b7f885b32",
+        "size": 515,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/45aa5553bea67142e50dfaa26d89ba1b7f885b32"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/VertexElementTangent.ts",
+        "sha": "a8a11569b1e22f47289ddfcd29d5f9f894d6ae92",
+        "size": 485,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/a8a11569b1e22f47289ddfcd29d5f9f894d6ae92"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/VertexElementType.ts",
+        "sha": "709f8eb09e5ea9a0dfb2c020a71fa7ee3d65fac3",
+        "size": 752,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/709f8eb09e5ea9a0dfb2c020a71fa7ee3d65fac3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/VertexElementUV.ts",
+        "sha": "9e5279248c7b495645149c19cc304ee34852315b",
+        "size": 1823,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/9e5279248c7b495645149c19cc304ee34852315b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/VertexElementVertexColor.ts",
+        "sha": "c2b3113305b05a9031de699584a390783df9af1e",
+        "size": 494,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/c2b3113305b05a9031de699584a390783df9af1e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/entities/index.ts",
+        "sha": "cd0fd78aa8ccaebc6938515cf679c8fbcbd723d5",
+        "size": 1262,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/cd0fd78aa8ccaebc6938515cf679c8fbcbd723d5"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose/threed/formats",
+        "sha": "f387a0d83dba729b814707c5e29b70c173cdd938",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/f387a0d83dba729b814707c5e29b70c173cdd938"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/Exporter.ts",
+        "sha": "d5968452dc48fb51435fffd8b533d24f800e8442",
+        "size": 320,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/d5968452dc48fb51435fffd8b533d24f800e8442"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/FormatDetector.ts",
+        "sha": "301c80465dc4f63620b3eb33c027466efcc67f06",
+        "size": 179,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/301c80465dc4f63620b3eb33c027466efcc67f06"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/IOConfig.ts",
+        "sha": "098206063df5a6fdcf9277ad6ad58f39cb188b6e",
+        "size": 1106,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/098206063df5a6fdcf9277ad6ad58f39cb188b6e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/IOService.ts",
+        "sha": "c01eb52ab33f370399396ab78c2dad2e4e790e04",
+        "size": 3201,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/c01eb52ab33f370399396ab78c2dad2e4e790e04"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/Importer.ts",
+        "sha": "888a52029d551ddb7dcf99bf390e79f3ca262c3a",
+        "size": 325,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/888a52029d551ddb7dcf99bf390e79f3ca262c3a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/LoadOptions.ts",
+        "sha": "6a960ed160b899ab89064b8e0e794f5938939341",
+        "size": 1053,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/6a960ed160b899ab89064b8e0e794f5938939341"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/Plugin.ts",
+        "sha": "e0de866450af4ad8aa1814320d5fe8378517d696",
+        "size": 648,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/e0de866450af4ad8aa1814320d5fe8378517d696"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/SaveOptions.ts",
+        "sha": "eebe4d58ffc0730c3122407d237760ae13937110",
+        "size": 1276,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/eebe4d58ffc0730c3122407d237760ae13937110"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose/threed/formats/collada",
+        "sha": "7b1e6e0f5af77d0b148c989495f9bf5c4095e9fa",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/7b1e6e0f5af77d0b148c989495f9bf5c4095e9fa"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/collada/ColladaExporter.ts",
+        "sha": "472cfca9ce6b48b2d90eaa14793531c98e8ad0dc",
+        "size": 18698,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/472cfca9ce6b48b2d90eaa14793531c98e8ad0dc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/collada/ColladaFormat.ts",
+        "sha": "66641eca6934a959cd38e5d394f07c0ad5bffb19",
+        "size": 1337,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/66641eca6934a959cd38e5d394f07c0ad5bffb19"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/collada/ColladaFormatDetector.ts",
+        "sha": "ec5a4be009769f5e222eb538650581ee86126fe6",
+        "size": 1347,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/ec5a4be009769f5e222eb538650581ee86126fe6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/collada/ColladaImporter.ts",
+        "sha": "7dcf5a9d3919da5b5641944c827eaaa80d7d7d1a",
+        "size": 22200,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/7dcf5a9d3919da5b5641944c827eaaa80d7d7d1a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/collada/ColladaLoadOptions.ts",
+        "sha": "d7d348fde15318dc53eec62ddc9aef67dcd40a9d",
+        "size": 1018,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/d7d348fde15318dc53eec62ddc9aef67dcd40a9d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/collada/ColladaPlugin.ts",
+        "sha": "b14f59d9ada83034a2eec2fde9eb4efae9aa3748",
+        "size": 1978,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/b14f59d9ada83034a2eec2fde9eb4efae9aa3748"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/collada/ColladaSaveOptions.ts",
+        "sha": "5e0b5bd35f1c5dbb0ec3498ff3da3457f35b2601",
+        "size": 813,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/5e0b5bd35f1c5dbb0ec3498ff3da3457f35b2601"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/collada/ColladaTransformStyle.ts",
+        "sha": "da50547378419652a6504f323934469f8e505364",
+        "size": 981,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/da50547378419652a6504f323934469f8e505364"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/collada/index.ts",
+        "sha": "4d1c6de4549e65b79a0301cb1bd430ac0beb588e",
+        "size": 452,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/4d1c6de4549e65b79a0301cb1bd430ac0beb588e"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose/threed/formats/fbx",
+        "sha": "fea8773db13350198443938db6ec305c64f689fb",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/fea8773db13350198443938db6ec305c64f689fb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/fbx/FbxExporter.ts",
+        "sha": "705aa489d4af7a161a7a406b4c651d70cfd7064d",
+        "size": 6092,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/705aa489d4af7a161a7a406b4c651d70cfd7064d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/fbx/FbxFormat.ts",
+        "sha": "1ac430f83d0006b1637b2a8bd77669fc9cbcacdd",
+        "size": 1140,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/1ac430f83d0006b1637b2a8bd77669fc9cbcacdd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/fbx/FbxFormatDetector.ts",
+        "sha": "a6bd1a5e173a0979a1260000564a474152fe794e",
+        "size": 1097,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/a6bd1a5e173a0979a1260000564a474152fe794e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/fbx/FbxImporter.ts",
+        "sha": "6e6c6cc53babe4cd6a3970d6540995d95e79086b",
+        "size": 12402,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/6e6c6cc53babe4cd6a3970d6540995d95e79086b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/fbx/FbxLoadOptions.ts",
+        "sha": "b5d8f980d65c3e1810e19759a51f32f662919ecf",
+        "size": 418,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/b5d8f980d65c3e1810e19759a51f32f662919ecf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/fbx/FbxPlugin.ts",
+        "sha": "ab2211be02fd5e5e8f3b6a2d9e4c9e33dbeccd82",
+        "size": 1674,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/ab2211be02fd5e5e8f3b6a2d9e4c9e33dbeccd82"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/fbx/FbxSaveOptions.ts",
+        "sha": "f2a76ad9ff86c97a97e5a4f336203bc8c13f8ae3",
+        "size": 359,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/f2a76ad9ff86c97a97e5a4f336203bc8c13f8ae3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/fbx/binary_tokenizer.ts",
+        "sha": "6436beb5f909a0f59ade25c5f8bdc62f36eaef8d",
+        "size": 179,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/6436beb5f909a0f59ade25c5f8bdc62f36eaef8d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/fbx/index.ts",
+        "sha": "63b2ab7fdb31110ed34acbdba8f9c4729934b29d",
+        "size": 467,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/63b2ab7fdb31110ed34acbdba8f9c4729934b29d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/fbx/parser.ts",
+        "sha": "2cb2ee40221963573c60965ed89c4d8c2a7cd6ea",
+        "size": 5432,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/2cb2ee40221963573c60965ed89c4d8c2a7cd6ea"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/fbx/tokenizer.ts",
+        "sha": "ca04ec2c4d910ad6900a535f688a623f4bfcaee9",
+        "size": 5207,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/ca04ec2c4d910ad6900a535f688a623f4bfcaee9"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose/threed/formats/gltf",
+        "sha": "e65049f6102b29554f44c3e8c177029cc6e0e5db",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/e65049f6102b29554f44c3e8c177029cc6e0e5db"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/gltf/GltfExporter.ts",
+        "sha": "919aee5cb6bb7fb80949a4d814986529460de7e5",
+        "size": 15452,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/919aee5cb6bb7fb80949a4d814986529460de7e5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/gltf/GltfFormat.ts",
+        "sha": "30272daea0a96b8babe5da7a7b5364280a360dc2",
+        "size": 1515,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/30272daea0a96b8babe5da7a7b5364280a360dc2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/gltf/GltfFormatDetector.ts",
+        "sha": "a06de9c33f5d3b279d07c3a3ff0477805b672527",
+        "size": 1014,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/a06de9c33f5d3b279d07c3a3ff0477805b672527"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/gltf/GltfImporter.ts",
+        "sha": "88dcc32129a4302ba5bc40a53f5096955aa5b59d",
+        "size": 16186,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/88dcc32129a4302ba5bc40a53f5096955aa5b59d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/gltf/GltfLoadOptions.ts",
+        "sha": "6f45b812326118aab34edbf2b2488048b82fa5df",
+        "size": 359,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/6f45b812326118aab34edbf2b2488048b82fa5df"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/gltf/GltfPlugin.ts",
+        "sha": "b59e4713c02f494eda03c5338cfce80287b9adae",
+        "size": 1855,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/b59e4713c02f494eda03c5338cfce80287b9adae"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/gltf/GltfSaveOptions.ts",
+        "sha": "c043a93e41fcde608e5a84837041c7bab38afa0c",
+        "size": 709,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/c043a93e41fcde608e5a84837041c7bab38afa0c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/gltf/index.ts",
+        "sha": "fc231d3d341804ff6a1f9ef2578977dc573ef832",
+        "size": 345,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/fc231d3d341804ff6a1f9ef2578977dc573ef832"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/index.ts",
+        "sha": "4a5fd4ee9eacaeee5dfc3c6b810b6345942326f7",
+        "size": 1649,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/4a5fd4ee9eacaeee5dfc3c6b810b6345942326f7"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose/threed/formats/obj",
+        "sha": "e498df95db2c9a83bad132d8f5d848a62fddd01d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/e498df95db2c9a83bad132d8f5d848a62fddd01d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/obj/ObjExporter.ts",
+        "sha": "774143bc4316b5a0c2b6c3aa73adb29ff03e3fb0",
+        "size": 5414,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/774143bc4316b5a0c2b6c3aa73adb29ff03e3fb0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/obj/ObjFormat.ts",
+        "sha": "3f5fcf819982e620c329c9935b1ea7d1614b1199",
+        "size": 1121,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/3f5fcf819982e620c329c9935b1ea7d1614b1199"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/obj/ObjFormatDetector.ts",
+        "sha": "cbc340606c75b360dc77bdafb5e8fc3d7dd8241a",
+        "size": 1315,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/cbc340606c75b360dc77bdafb5e8fc3d7dd8241a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/obj/ObjImporter.ts",
+        "sha": "b53b9aecdd021ebb2f18d7ed3d55d47a2f333fbf",
+        "size": 7581,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/b53b9aecdd021ebb2f18d7ed3d55d47a2f333fbf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/obj/ObjLoadOptions.ts",
+        "sha": "9c596486dd0e22210678d24caa7051aa6ad2d5a1",
+        "size": 1014,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/9c596486dd0e22210678d24caa7051aa6ad2d5a1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/obj/ObjPlugin.ts",
+        "sha": "6db6cd8337bd1f0074e9fe9da0fabc6055b2551d",
+        "size": 1503,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/6db6cd8337bd1f0074e9fe9da0fabc6055b2551d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/obj/ObjSaveOptions.ts",
+        "sha": "25b0908437a275ef72d0781b291d51733ccc1a84",
+        "size": 1607,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/25b0908437a275ef72d0781b291d51733ccc1a84"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/obj/index.ts",
+        "sha": "6fac948e8706c593f309cdb7d26a41895087d7dc",
+        "size": 331,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/6fac948e8706c593f309cdb7d26a41895087d7dc"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose/threed/formats/stl",
+        "sha": "0593cc5be4410f1c2aa457ca5b9a823aee7f8e66",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/0593cc5be4410f1c2aa457ca5b9a823aee7f8e66"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/stl/StlExporter.ts",
+        "sha": "0a231a6bd7237520d06190a4bd1d5742578d53a0",
+        "size": 4387,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/0a231a6bd7237520d06190a4bd1d5742578d53a0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/stl/StlFormat.ts",
+        "sha": "b4a6a0627df3f91e8deca51eb261bf0b3cc6e859",
+        "size": 1389,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/b4a6a0627df3f91e8deca51eb261bf0b3cc6e859"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/stl/StlFormatDetector.ts",
+        "sha": "de4714775e37cd4d9f00440939d1d55f2d230bf8",
+        "size": 1708,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/de4714775e37cd4d9f00440939d1d55f2d230bf8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/stl/StlImporter.ts",
+        "sha": "ff895cfc49982e8c8b0e97c27bedf6b95ac9de5a",
+        "size": 4759,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/ff895cfc49982e8c8b0e97c27bedf6b95ac9de5a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/stl/StlLoadOptions.ts",
+        "sha": "3998bcb0d4453dc13e8b95abd32041d95c9dac72",
+        "size": 564,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/3998bcb0d4453dc13e8b95abd32041d95c9dac72"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/stl/StlPlugin.ts",
+        "sha": "531d13dfec1ace26aad57a0e43d493afd5deab94",
+        "size": 1503,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/531d13dfec1ace26aad57a0e43d493afd5deab94"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/stl/StlSaveOptions.ts",
+        "sha": "fc4baf9e789b39d34d7a9d2bf9e39efcfd4f5b50",
+        "size": 914,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/fc4baf9e789b39d34d7a9d2bf9e39efcfd4f5b50"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/stl/index.ts",
+        "sha": "b90111c470e3958c4b780bcdd5ed4474ae50153e",
+        "size": 331,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/b90111c470e3958c4b780bcdd5ed4474ae50153e"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose/threed/formats/threemf",
+        "sha": "50a36e060ead6035bf872531daad5f007a5c7176",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/50a36e060ead6035bf872531daad5f007a5c7176"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/threemf/ThreeMfExporter.ts",
+        "sha": "8da3e620b689467a3abbaf51483ed3fbfb674757",
+        "size": 10912,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/8da3e620b689467a3abbaf51483ed3fbfb674757"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/threemf/ThreeMfFormat.ts",
+        "sha": "841c4baeb1e01218597425d4083df9cd53dcebcf",
+        "size": 2589,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/841c4baeb1e01218597425d4083df9cd53dcebcf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/threemf/ThreeMfFormatDetector.ts",
+        "sha": "8648d7c95de38aaaa280e14f50b52f195a74f442",
+        "size": 1200,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/8648d7c95de38aaaa280e14f50b52f195a74f442"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/threemf/ThreeMfImporter.ts",
+        "sha": "a8935e47c268c857d02ce45d249daf04b45a272d",
+        "size": 16031,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/a8935e47c268c857d02ce45d249daf04b45a272d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/threemf/ThreeMfLoadOptions.ts",
+        "sha": "1adc46003b0a38fff42f991df98e6b18940571ba",
+        "size": 398,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/1adc46003b0a38fff42f991df98e6b18940571ba"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/threemf/ThreeMfPlugin.ts",
+        "sha": "dbcd54420cadd7ce093ed7161f5b5ff5f13668ad",
+        "size": 1643,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/dbcd54420cadd7ce093ed7161f5b5ff5f13668ad"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/threemf/ThreeMfSaveOptions.ts",
+        "sha": "958e45070515b1044ea80d44762455a14d4be82d",
+        "size": 1427,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/958e45070515b1044ea80d44762455a14d4be82d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/formats/threemf/index.ts",
+        "sha": "6f668b92b0d28a2bcec3e60c67ac3dc0cad5f990",
+        "size": 387,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/6f668b92b0d28a2bcec3e60c67ac3dc0cad5f990"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/index.ts",
+        "sha": "f1aa9a5cbc10fbb01b138e657ce07dbce867f47b",
+        "size": 729,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/f1aa9a5cbc10fbb01b138e657ce07dbce867f47b"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose/threed/properties",
+        "sha": "026c384857b708ab5f208fcba25a1c77997f4f45",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/026c384857b708ab5f208fcba25a1c77997f4f45"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/properties/index.ts",
+        "sha": "67dd0203f4b2e9faf9b9e86951603bbdd16b185c",
+        "size": 100,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/67dd0203f4b2e9faf9b9e86951603bbdd16b185c"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose/threed/shading",
+        "sha": "359db37445965b62fdc4c189fb2de5be64742d3b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/359db37445965b62fdc4c189fb2de5be64742d3b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/shading/LambertMaterial.ts",
+        "sha": "e344e51554f5c6ceb6512609bb4280ede534b148",
+        "size": 1557,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/e344e51554f5c6ceb6512609bb4280ede534b148"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/shading/Material.ts",
+        "sha": "4aea3d1b3df5196e43116b1471090ff2209d9ff8",
+        "size": 551,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/4aea3d1b3df5196e43116b1471090ff2209d9ff8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/shading/PbrMaterial.ts",
+        "sha": "2b961204fb8eaa27c53dfb298bfb56673af5aa9d",
+        "size": 3037,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/2b961204fb8eaa27c53dfb298bfb56673af5aa9d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/shading/PhongMaterial.ts",
+        "sha": "fe5bdd8e7cba049b9288f25fe955eaf47d4aca45",
+        "size": 1333,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/fe5bdd8e7cba049b9288f25fe955eaf47d4aca45"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/shading/TextureBase.ts",
+        "sha": "9ac5e01e62982c851e5113c80cfa17362800bf39",
+        "size": 241,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/9ac5e01e62982c851e5113c80cfa17362800bf39"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/shading/index.ts",
+        "sha": "11c46b2910ad458354539cb5f7e876e2c5a7ff0e",
+        "size": 186,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/11c46b2910ad458354539cb5f7e876e2c5a7ff0e"
+      },
+      {
+        "mode": "040000",
+        "path": "src/aspose/threed/utilities",
+        "sha": "d787563d7d0d91f848aeb7f1322f0b1138f02630",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/d787563d7d0d91f848aeb7f1322f0b1138f02630"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/BoundingBox.ts",
+        "sha": "c30ee10abe510b8c8bbbc6679065ae9e8097fb4f",
+        "size": 8366,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/c30ee10abe510b8c8bbbc6679065ae9e8097fb4f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/BoundingBox2D.ts",
+        "sha": "ef9d8807049dfc29ce4802d6b60568fa42e607db",
+        "size": 4491,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/ef9d8807049dfc29ce4802d6b60568fa42e607db"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/BoundingBoxExtent.ts",
+        "sha": "37730c55c71ebcf9d4360a138c5e351ad805c82f",
+        "size": 948,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/37730c55c71ebcf9d4360a138c5e351ad805c82f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/ComposeOrder.ts",
+        "sha": "9e083cc9d321c19fc81ad632caf14b47797d2001",
+        "size": 366,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/9e083cc9d321c19fc81ad632caf14b47797d2001"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/FMatrix4.ts",
+        "sha": "f723731a1b9c15b1dfd0b9238297df2d9a04e244",
+        "size": 7643,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/f723731a1b9c15b1dfd0b9238297df2d9a04e244"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/FVector2.ts",
+        "sha": "3c545e6c5dacd47d17296726f430b61d493ff694",
+        "size": 2092,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/3c545e6c5dacd47d17296726f430b61d493ff694"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/FVector3.ts",
+        "sha": "211e8b07a4c6c56aada858828054ab898a557fdf",
+        "size": 2695,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/211e8b07a4c6c56aada858828054ab898a557fdf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/FVector4.ts",
+        "sha": "44337d1d94fa0d4218a85cd362022b1c8d925a3e",
+        "size": 2617,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/44337d1d94fa0d4218a85cd362022b1c8d925a3e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/FileSystem.ts",
+        "sha": "c48e819fef491ddc8cdc74aa808ea6003c06d8a7",
+        "size": 744,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/c48e819fef491ddc8cdc74aa808ea6003c06d8a7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/IOExtension.ts",
+        "sha": "6f3831791689b1113582d8e58633d5b6567f7010",
+        "size": 29,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/6f3831791689b1113582d8e58633d5b6567f7010"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/MathUtils.ts",
+        "sha": "1d91619629dd9d8b6d0f40af8a7cb21306889442",
+        "size": 4484,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/1d91619629dd9d8b6d0f40af8a7cb21306889442"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/Matrix4.ts",
+        "sha": "ad2be2c0201c14f92bfdcad648d20dd29eee471a",
+        "size": 14066,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/ad2be2c0201c14f92bfdcad648d20dd29eee471a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/ParseException.ts",
+        "sha": "31ee3930a455df3efd20fa3cf050c71ea0abe58b",
+        "size": 141,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/31ee3930a455df3efd20fa3cf050c71ea0abe58b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/Quaternion.ts",
+        "sha": "3812cddda266c6ff28e65c8cf7f8bc7b027acebb",
+        "size": 8162,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/3812cddda266c6ff28e65c8cf7f8bc7b027acebb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/Rect.ts",
+        "sha": "b4b3f32133acf4ac51f87f672cc425e9165fb156",
+        "size": 1653,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/b4b3f32133acf4ac51f87f672cc425e9165fb156"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/RelativeRectangle.ts",
+        "sha": "32faadd451ed46e0cfa6ada3f5698b5328b352d8",
+        "size": 3116,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/32faadd451ed46e0cfa6ada3f5698b5328b352d8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/RotationOrder.ts",
+        "sha": "0fe46a6485a8e9a48694594aaadc8041689b4800",
+        "size": 563,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/0fe46a6485a8e9a48694594aaadc8041689b4800"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/SemanticAttribute.ts",
+        "sha": "ecbe40e2349d59acf29b9bcae5283906948928ca",
+        "size": 566,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/ecbe40e2349d59acf29b9bcae5283906948928ca"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/TransformBuilder.ts",
+        "sha": "eb4df811c7b04205da1da4a3c3cdbeffc0008481",
+        "size": 7111,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/eb4df811c7b04205da1da4a3c3cdbeffc0008481"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/Vector2.ts",
+        "sha": "0b551283b8f42416aa539c3f52e1b836be8299a3",
+        "size": 1742,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/0b551283b8f42416aa539c3f52e1b836be8299a3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/Vector3.ts",
+        "sha": "2c7122d9a77ad8f0a05af26c06556c654627a014",
+        "size": 5220,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/2c7122d9a77ad8f0a05af26c06556c654627a014"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/Vector4.ts",
+        "sha": "50bb7dd6eb005a4dce7590040113ae859c044712",
+        "size": 2822,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/50bb7dd6eb005a4dce7590040113ae859c044712"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/Vertex.ts",
+        "sha": "bbe346388432eefe88ff9f5179672ba3e8add66f",
+        "size": 4232,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/bbe346388432eefe88ff9f5179672ba3e8add66f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/VertexDeclaration.ts",
+        "sha": "2e85f5a5d05eb499dabbbcd4a024a4f7d2da3f45",
+        "size": 2717,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/2e85f5a5d05eb499dabbbcd4a024a4f7d2da3f45"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/VertexField.ts",
+        "sha": "a64c0fcdc043f9e04296b61b161153ccf89a2747",
+        "size": 2405,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/a64c0fcdc043f9e04296b61b161153ccf89a2747"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/VertexFieldDataType.ts",
+        "sha": "dd455b25b1fcf07c997567e08bd27a0f0815a661",
+        "size": 1113,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/dd455b25b1fcf07c997567e08bd27a0f0815a661"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/VertexFieldSemantic.ts",
+        "sha": "19ef8af8256b28ec51edd442ad741a3c1daedf72",
+        "size": 1237,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/19ef8af8256b28ec51edd442ad741a3c1daedf72"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/Watermark.ts",
+        "sha": "6424acaab884dfece3eef0e63bcbc1dcd4e8ae93",
+        "size": 392,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/6424acaab884dfece3eef0e63bcbc1dcd4e8ae93"
+      },
+      {
+        "mode": "100644",
+        "path": "src/aspose/threed/utilities/index.ts",
+        "sha": "f0620ed95d017e0476ede11ae4dce8f888307aa9",
+        "size": 1274,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/f0620ed95d017e0476ede11ae4dce8f888307aa9"
+      },
+      {
+        "mode": "040000",
+        "path": "tests",
+        "sha": "7a935c200b8f01c3bd816e5a8d69f68a2f87bfe4",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/7a935c200b8f01c3bd816e5a8d69f68a2f87bfe4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/setup.ts",
+        "sha": "38dce53136abb8d3fc1ac9d1a2fc5ee8f579772b",
+        "size": 179,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/38dce53136abb8d3fc1ac9d1a2fc5ee8f579772b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_3mf_exporter.test.ts",
+        "sha": "e823ffe8d7d14ec3e2ddcccaeabd02c267925290",
+        "size": 754,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/e823ffe8d7d14ec3e2ddcccaeabd02c267925290"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_3mf_importer.test.ts",
+        "sha": "27ff6eeb8832d4c3ed2bcce38aac046efbb883bd",
+        "size": 853,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/27ff6eeb8832d4c3ed2bcce38aac046efbb883bd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_3mf_material_export.test.ts",
+        "sha": "281131c717f1aeb79162df8f9483561aabb8b025",
+        "size": 1348,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/281131c717f1aeb79162df8f9483561aabb8b025"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_3mf_materials.test.ts",
+        "sha": "8fad8ceb7ee626f504e5a58d3699e1bf7e564783",
+        "size": 609,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/8fad8ceb7ee626f504e5a58d3699e1bf7e564783"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_3mf_roundtrip.test.ts",
+        "sha": "06cfc7d8c2b5d84a59ec037158499bb3fbf06a93",
+        "size": 2167,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/06cfc7d8c2b5d84a59ec037158499bb3fbf06a93"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_collada_exporter.test.ts",
+        "sha": "f5a68f327e92eb5106e8524ec923b7d5d3788296",
+        "size": 3054,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/f5a68f327e92eb5106e8524ec923b7d5d3788296"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_collada_importer.test.ts",
+        "sha": "de953a9c0827ff0daa2bb9cd84de562bdb46aa57",
+        "size": 1160,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/de953a9c0827ff0daa2bb9cd84de562bdb46aa57"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_collada_materials.test.ts",
+        "sha": "4aaa5292b4c364bdc94aa857e25a39229b2b8e0f",
+        "size": 4169,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/4aaa5292b4c364bdc94aa857e25a39229b2b8e0f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_collada_multiple_files.test.ts",
+        "sha": "18f9d3f75aca490437cc82493eba9303fa920542",
+        "size": 1180,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/18f9d3f75aca490437cc82493eba9303fa920542"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_ear_clipping.test.ts",
+        "sha": "b3dfde17e8bf0ceb85f61fb8c5a51efc3e89e387",
+        "size": 1628,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/b3dfde17e8bf0ceb85f61fb8c5a51efc3e89e387"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_fbx_simple.test.ts",
+        "sha": "5528ae77270d9e8d94843300ad28a5465c3ee351",
+        "size": 416,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/5528ae77270d9e8d94843300ad28a5465c3ee351"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_fbx_tokenizer.test.ts",
+        "sha": "3efb5f3ea69c7f16109775e5ee53718d6154f813",
+        "size": 615,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/3efb5f3ea69c7f16109775e5ee53718d6154f813"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_formats.test.ts",
+        "sha": "84853694a4b78d169aab933afc4470e01b7e2f46",
+        "size": 923,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/84853694a4b78d169aab933afc4470e01b7e2f46"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_gltf_attributes.test.ts",
+        "sha": "7d209319f1d86ec677dd816c539e3e019571e443",
+        "size": 5779,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/7d209319f1d86ec677dd816c539e3e019571e443"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_gltf_exporter.test.ts",
+        "sha": "d93d8da0cf3e4f4672eb2b05f895b4d5877ffbe0",
+        "size": 8250,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/d93d8da0cf3e4f4672eb2b05f895b4d5877ffbe0"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_gltf_import.test.ts",
+        "sha": "703bc3f7326aed7e919b1c0726abbeadc31dcbba",
+        "size": 1404,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/703bc3f7326aed7e919b1c0726abbeadc31dcbba"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_gltf_importer.test.ts",
+        "sha": "bc0ce50ec93f87b6db6eafab093fe0146f9a3e51",
+        "size": 2112,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/bc0ce50ec93f87b6db6eafab093fe0146f9a3e51"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_gltf_materials.test.ts",
+        "sha": "d642122d1b42127482aaddc51071b2b951097158",
+        "size": 2571,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/d642122d1b42127482aaddc51071b2b951097158"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_imports.test.ts",
+        "sha": "2f07ad6de69419895cdef99cb1f5a74f55580e7b",
+        "size": 626,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/2f07ad6de69419895cdef99cb1f5a74f55580e7b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_material_import.test.ts",
+        "sha": "f073280e6ceb5d8a11e38e75b089cb88be9653fd",
+        "size": 1227,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/f073280e6ceb5d8a11e38e75b089cb88be9653fd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_mesh.test.ts",
+        "sha": "f20d4abd9bd4ee144d24e097f89d659c33936c58",
+        "size": 1034,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/f20d4abd9bd4ee144d24e097f89d659c33936c58"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_mesh_triangulate.test.ts",
+        "sha": "df2c1f02babe2273ed41f71edd8cd8107db44a1b",
+        "size": 1627,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/df2c1f02babe2273ed41f71edd8cd8107db44a1b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_multiple_meshes_export.test.ts",
+        "sha": "5970f39697f261c49fa6fa068644fd6942cbbd3e",
+        "size": 1633,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/5970f39697f261c49fa6fa068644fd6942cbbd3e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_obj_importer.test.ts",
+        "sha": "710fe589b20c3ea537b23b327ed20c02b79b6732",
+        "size": 7120,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/710fe589b20c3ea537b23b327ed20c02b79b6732"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_plugin_system.test.ts",
+        "sha": "0b862e5f6ba6d1f0bfeff4795fea0b9d4a3249d4",
+        "size": 4911,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/0b862e5f6ba6d1f0bfeff4795fea0b9d4a3249d4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_polygon_modifier.test.ts",
+        "sha": "673c7d632412607ec739593ed867f58befdd12b8",
+        "size": 5079,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/673c7d632412607ec739593ed867f58befdd12b8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_scene_open_stl.test.ts",
+        "sha": "df6581833249c69ae39bfcfacc4c762e0d3e518b",
+        "size": 1561,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/df6581833249c69ae39bfcfacc4c762e0d3e518b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_scene_save_stl.test.ts",
+        "sha": "e018fe5b4ba4d4f5d2665f982d4db782c2c39e2a",
+        "size": 2754,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/e018fe5b4ba4d4f5d2665f982d4db782c2c39e2a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_stl_exporter.test.ts",
+        "sha": "22bc7b734169ca5c4bed3b20b2619dda7bf2c58d",
+        "size": 2935,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/22bc7b734169ca5c4bed3b20b2619dda7bf2c58d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_stl_importer.test.ts",
+        "sha": "33621b18c81d3fd3215e2179a3ff8b3c6d49cde8",
+        "size": 1750,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/33621b18c81d3fd3215e2179a3ff8b3c6d49cde8"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_triangulate_consistency.test.ts",
+        "sha": "12bd2a6de2f91cf44f5f7e3a28d1960dab94713e",
+        "size": 1389,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/12bd2a6de2f91cf44f5f7e3a28d1960dab94713e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/verify_module.test.ts",
+        "sha": "c9616d4301afadbd1946171685e24a8e7650914a",
+        "size": 812,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/c9616d4301afadbd1946171685e24a8e7650914a"
+      },
+      {
+        "mode": "100644",
+        "path": "tsconfig.json",
+        "sha": "5aeaba7b159723aac477f230db69c38a7cec9e89",
+        "size": 649,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/blobs/5aeaba7b159723aac477f230db69c38a7cec9e89"
+      }
+    ],
+    "truncated": false,
+    "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript/git/trees/b6c5a00a0e85950629f250d51373ba25ad75d84f"
+  }
+}

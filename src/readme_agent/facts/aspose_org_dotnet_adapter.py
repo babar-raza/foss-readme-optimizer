@@ -5,12 +5,13 @@ from __future__ import annotations
 import ast
 import hashlib
 import json
-import os
 import subprocess
+import sys
 from pathlib import Path
 from typing import Literal
 
 from readme_agent.facts.aspose_org_format_contract import canonical_dependency_sha256
+from readme_agent.facts.aspose_org_vendored_source import load_vendored_aspose_org_source
 from readme_agent.facts.dotnet_repository_evidence_schema import (
     ASPOSE_ORG_DOTNET_API_RELATIVE_PATH,
     AsposeOrgDotnetExtractionV1,
@@ -19,7 +20,6 @@ from readme_agent.facts.dotnet_repository_evidence_schema import (
 )
 from readme_agent.facts.example_execution import secret_free_environment
 
-_DEFAULT_ROOT = Path("D:/onedrive/Documents/GitHub/aspose.org")
 _ENTRYPOINT = "extraction.api_surface"
 _SCRIPT = r"""
 import json, sys, types
@@ -76,18 +76,6 @@ def _dependency_snapshot(root: Path, pipeline: Path) -> dict[str, str]:
     return dict(sorted(files.items()))
 
 
-def _revision(root: Path) -> str | None:
-    result = subprocess.run(
-        ["git", "-C", str(root), "rev-parse", "HEAD"],
-        capture_output=True,
-        text=True,
-        timeout=10,
-        check=False,
-        env=secret_free_environment(),
-    )
-    return result.stdout.strip() if result.returncode == 0 else None
-
-
 def _unavailable(detail: str, revision: str | None = None) -> AsposeOrgDotnetExtractionV1:
     return AsposeOrgDotnetExtractionV1(
         status="unavailable",
@@ -105,24 +93,15 @@ def extract_aspose_org_dotnet_api(
 ) -> AsposeOrgDotnetExtractionV1:
     """Extract public .NET API records without importing sibling code in-process."""
 
-    sibling = Path(os.environ.get("ASPOSE_ORG_ROOT", _DEFAULT_ROOT)).resolve()
-    pipeline = sibling / "scripts" / "pipeline"
-    interpreter = next(
-        (
-            path
-            for path in (
-                sibling / ".venv" / "Scripts" / "python.exe",
-                sibling / ".venv" / "bin" / "python",
-            )
-            if path.is_file()
-        ),
-        None,
-    )
-    if not sibling.is_dir() or interpreter is None:
-        return _unavailable("Aspose.org repository or virtualenv is unavailable")
-    revision_before = _revision(sibling)
     try:
-        before = _dependency_snapshot(sibling, pipeline)
+        source = load_vendored_aspose_org_source()
+    except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
+        return _unavailable(f"vendored Aspose.org extractor is unavailable: {exc}")
+    root = source.root
+    pipeline = source.pipeline
+    revision_before = source.source_commit
+    try:
+        before = _dependency_snapshot(root, pipeline)
     except (OSError, SyntaxError, ValueError) as exc:
         return _unavailable(str(exc), revision_before)
     environment = secret_free_environment()
@@ -130,7 +109,7 @@ def extract_aspose_org_dotnet_api(
     try:
         result = subprocess.run(
             [
-                str(interpreter),
+                sys.executable,
                 "-B",
                 "-c",
                 _SCRIPT,
@@ -139,7 +118,7 @@ def extract_aspose_org_dotnet_api(
                 str(product_root.resolve()),
                 family.casefold(),
             ],
-            cwd=sibling,
+            cwd=root,
             capture_output=True,
             text=True,
             timeout=120,
@@ -149,10 +128,15 @@ def extract_aspose_org_dotnet_api(
     except subprocess.TimeoutExpired:
         return _unavailable("Aspose.org API extractor timed out", revision_before)
     try:
-        after = _dependency_snapshot(sibling, pipeline)
+        after = _dependency_snapshot(root, pipeline)
+        source_after = load_vendored_aspose_org_source()
     except (OSError, SyntaxError, ValueError) as exc:
         return _unavailable(f"extractor dependencies changed: {exc}", revision_before)
-    if revision_before is None or revision_before != _revision(sibling) or before != after:
+    if (
+        revision_before != source_after.source_commit
+        or source.aggregate_sha256 != source_after.aggregate_sha256
+        or before != after
+    ):
         return _unavailable("extractor revision or dependency bytes changed", revision_before)
     if result.returncode != 0:
         return _unavailable(

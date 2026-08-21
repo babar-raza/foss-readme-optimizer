@@ -1,0 +1,658 @@
+{
+  "branch": {
+    "_links": {
+      "html": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/tree/master",
+      "self": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/branches/master"
+    },
+    "commit": {
+      "author": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1225645?v=4",
+        "events_url": "https://api.github.com/users/babar-raza/events{/privacy}",
+        "followers_url": "https://api.github.com/users/babar-raza/followers",
+        "following_url": "https://api.github.com/users/babar-raza/following{/other_user}",
+        "gists_url": "https://api.github.com/users/babar-raza/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/babar-raza",
+        "id": 1225645,
+        "login": "babar-raza",
+        "node_id": "MDQ6VXNlcjEyMjU2NDU=",
+        "organizations_url": "https://api.github.com/users/babar-raza/orgs",
+        "received_events_url": "https://api.github.com/users/babar-raza/received_events",
+        "repos_url": "https://api.github.com/users/babar-raza/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/babar-raza/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/babar-raza/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/babar-raza",
+        "user_view_type": "public"
+      },
+      "comments_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/commits/fc186507e5b7124f4664aa6035f25cfd3112367d/comments",
+      "commit": {
+        "author": {
+          "date": "2026-08-14T14:57:33Z",
+          "email": "babar.raza@aspose.com",
+          "name": "Babar Raza"
+        },
+        "comment_count": 0,
+        "committer": {
+          "date": "2026-08-14T14:57:33Z",
+          "email": "noreply@github.com",
+          "name": "GitHub"
+        },
+        "message": "docs: refresh README with verified content, diagram, and dependency docs\n\n- Replace the badge row: License plus a real, live-verified Contributors badge\n  (the package is not yet published to npm, so no package-version badge is shown).\n- Add a real, module-grouped API Reference table mirroring reference.aspose.org's\n  own class index, plus a curated capability walkthrough.\n- Add a Mermaid \"At a Glance\" capability diagram (Starting Points -> Core\n  Capabilities -> Outputs), sourced from real, verified format support.\n- Add a \"## Dependencies\" section listing every real runtime dependency (name,\n  version constraint, and purpose) parsed directly from package.json.\n- Rewrite Key Capabilities, Scope and Limitations, Installation, Quick Start, and\n  Development and Testing sections against the real, current source -- every\n  factual claim independently verified, not carried over from the prior text.\n- Remove a stale claim that has since been resolved and would otherwise conflict\n  with the real, current repository state.\n\nVerification: every code example checked against the real TypeScript source;\nevery named class/member checked against the real reference index and source;\nevery dependency listed cross-checked against the real package.json.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "5bbf8231454f8f3df8e62d3fd3ea3c6640811ec3",
+          "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/trees/5bbf8231454f8f3df8e62d3fd3ea3c6640811ec3"
+        },
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/commits/fc186507e5b7124f4664aa6035f25cfd3112367d",
+        "verification": {
+          "payload": "tree 5bbf8231454f8f3df8e62d3fd3ea3c6640811ec3\nparent cabbb9d8ba2067854f7cb3dcdc4acfeec849747b\nauthor Babar Raza <babar.raza@aspose.com> 1786719453 +0500\ncommitter GitHub <noreply@github.com> 1786719453 +0500\n\ndocs: refresh README with verified content, diagram, and dependency docs\n\n- Replace the badge row: License plus a real, live-verified Contributors badge\n  (the package is not yet published to npm, so no package-version badge is shown).\n- Add a real, module-grouped API Reference table mirroring reference.aspose.org's\n  own class index, plus a curated capability walkthrough.\n- Add a Mermaid \"At a Glance\" capability diagram (Starting Points -> Core\n  Capabilities -> Outputs), sourced from real, verified format support.\n- Add a \"## Dependencies\" section listing every real runtime dependency (name,\n  version constraint, and purpose) parsed directly from package.json.\n- Rewrite Key Capabilities, Scope and Limitations, Installation, Quick Start, and\n  Development and Testing sections against the real, current source -- every\n  factual claim independently verified, not carried over from the prior text.\n- Remove a stale claim that has since been resolved and would otherwise conflict\n  with the real, current repository state.\n\nVerification: every code example checked against the real TypeScript source;\nevery named class/member checked against the real reference index and source;\nevery dependency listed cross-checked against the real package.json.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqfyzdCRC1aQ7uu5UhlAAAxGAQAEzaH5ABWMIi5XfjPq4vb+zA\nO0cd+dObqL6tPn4PNppExWglilOfsX/zlfQVl5oau2OwVlap4GYtzERzYLyT5uMu\nM6sXwaYvxRL1E1E2i1wx3KGkPfqaAzVD0Dcrydb0MUGWLAGPk1+VidEyg6ltGVeP\nZD5sru+GqIKbNRfpTVBJ9QMA54jHGZO3i1cVpN+bJyeWZq3Q2/2s+vQNOSgq/TFC\nNwske4I0KSfnQzwosp317I1hT+8cVKKIeWHDCxXZmNQohIpeYjAi6HWw37u99JVl\nB/Sa6P0ki+2YBWgl7az21/5IapFgZda6Y6v1M+Xav8dnggKUP76S/mifcrSJ20fj\nrVcD7lhT4OP0dTQPBcZG13u20C/mt67uG1FEFexZjS9pHGmH1k43rkRHO5m6pK7T\ndhdXwxAeTG5Ttjba8E9j4Jq9m3eq6Eqbkxufr/IueUienrMbHS/G+PeCth4iMcCw\nuksvVrhsojxtu7vW23lTJFneD0BBQkX3H6U/Yy9lYcRhKDY/sEl9IRiHn5fvLcpJ\nTWFldoVKLewTS6E7QrrLCQ7CygG1/BIgbhYZ9qv7B1/2NXiQv3V9OqFMe/lrBvBo\ns/IvzueZSQzto9AaCKlLG62Uih/oycfGg4+kuTDg9PUiD8eNQgoGSpIq/b+ZB6iP\n9zz7LVqhve/RojolR39L\n=8IIj\n-----END PGP SIGNATURE-----\n",
+          "verified": true,
+          "verified_at": "2026-08-14T14:57:51Z"
+        }
+      },
+      "committer": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/web-flow",
+        "id": 19864447,
+        "login": "web-flow",
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/web-flow",
+        "user_view_type": "public"
+      },
+      "html_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/commit/fc186507e5b7124f4664aa6035f25cfd3112367d",
+      "node_id": "C_kwDOSPvp1doAKGZjMTg2NTA3ZTViNzEyNGY0NjY0YWE2MDM1ZjI1Y2ZkMzExMjM2N2Q",
+      "parents": [
+        {
+          "html_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/commit/cabbb9d8ba2067854f7cb3dcdc4acfeec849747b",
+          "sha": "cabbb9d8ba2067854f7cb3dcdc4acfeec849747b",
+          "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/commits/cabbb9d8ba2067854f7cb3dcdc4acfeec849747b"
+        }
+      ],
+      "sha": "fc186507e5b7124f4664aa6035f25cfd3112367d",
+      "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/commits/fc186507e5b7124f4664aa6035f25cfd3112367d"
+    },
+    "name": "master",
+    "protected": false,
+    "protection": {
+      "enabled": false,
+      "required_status_checks": {
+        "checks": [],
+        "contexts": [],
+        "enforcement_level": "off"
+      }
+    },
+    "protection_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/branches/master/protection"
+  },
+  "repo": {
+    "allow_auto_merge": false,
+    "allow_forking": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "archive_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/branches{/branch}",
+    "clone_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript.git",
+    "collaborators_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/comments{/number}",
+    "commits_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/contributors",
+    "created_at": "2026-04-29T10:06:14Z",
+    "custom_properties": {},
+    "default_branch": "master",
+    "delete_branch_on_merge": false,
+    "deployments_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/deployments",
+    "description": "Open-source TypeScript library for creating, reading, modifying, and converting Excel files programmatically, without requiring Microsoft Excel.",
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/downloads",
+    "events_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/events",
+    "fork": false,
+    "forks": 2,
+    "forks_count": 2,
+    "forks_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/forks",
+    "full_name": "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
+    "git_commits_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/tags{/sha}",
+    "git_url": "git://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript.git",
+    "has_discussions": false,
+    "has_downloads": false,
+    "has_issues": true,
+    "has_pages": false,
+    "has_projects": true,
+    "has_pull_requests": true,
+    "has_wiki": true,
+    "homepage": "https://products.aspose.org/cells/typescript/",
+    "hooks_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/hooks",
+    "html_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
+    "id": 1224468949,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/issues{/number}",
+    "keys_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/labels{/name}",
+    "language": "TypeScript",
+    "languages_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/languages",
+    "license": null,
+    "merge_commit_message": "PR_TITLE",
+    "merge_commit_title": "MERGE_MESSAGE",
+    "merges_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/merges",
+    "milestones_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/milestones{/number}",
+    "mirror_url": null,
+    "name": "Aspose.Cells-FOSS-for-TypeScript",
+    "network_count": 2,
+    "node_id": "R_kgDOSPvp1Q",
+    "notifications_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/notifications{?since,all,participating}",
+    "open_issues": 0,
+    "open_issues_count": 0,
+    "organization": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224591102?v=4",
+      "events_url": "https://api.github.com/users/aspose-cells-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-cells-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-cells-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-cells-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-cells-foss",
+      "id": 224591102,
+      "login": "aspose-cells-foss",
+      "node_id": "O_kgDODWL8_g",
+      "organizations_url": "https://api.github.com/users/aspose-cells-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-cells-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-cells-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-cells-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-cells-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-cells-foss",
+      "user_view_type": "public"
+    },
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224591102?v=4",
+      "events_url": "https://api.github.com/users/aspose-cells-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-cells-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-cells-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-cells-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-cells-foss",
+      "id": 224591102,
+      "login": "aspose-cells-foss",
+      "node_id": "O_kgDODWL8_g",
+      "organizations_url": "https://api.github.com/users/aspose-cells-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-cells-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-cells-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-cells-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-cells-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-cells-foss",
+      "user_view_type": "public"
+    },
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "private": false,
+    "pull_request_creation_policy": "all",
+    "pulls_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/pulls{/number}",
+    "pushed_at": "2026-08-14T14:57:34Z",
+    "releases_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/releases{/id}",
+    "security_and_analysis": {
+      "dependabot_security_updates": {
+        "status": "disabled"
+      },
+      "secret_scanning": {
+        "status": "disabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    },
+    "size": 146,
+    "squash_merge_commit_message": "COMMIT_MESSAGES",
+    "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+    "ssh_url": "git@github.com:aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript.git",
+    "stargazers_count": 0,
+    "stargazers_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/stargazers",
+    "statuses_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/statuses/{sha}",
+    "subscribers_count": 0,
+    "subscribers_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/subscribers",
+    "subscription_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/subscription",
+    "svn_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
+    "tags_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/tags",
+    "teams_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/teams",
+    "temp_clone_token": "",
+    "topics": [],
+    "trees_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/trees{/sha}",
+    "updated_at": "2026-08-14T14:59:39Z",
+    "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
+    "use_squash_pr_title_as_default": false,
+    "visibility": "public",
+    "watchers": 0,
+    "watchers_count": 0,
+    "web_commit_signoff_required": false
+  },
+  "tree": {
+    "sha": "5bbf8231454f8f3df8e62d3fd3ea3c6640811ec3",
+    "tree": [
+      {
+        "mode": "040000",
+        "path": ".vscode",
+        "sha": "1baf2f457c5ac3cf3e199473bb3b538d004ac81f",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/trees/1baf2f457c5ac3cf3e199473bb3b538d004ac81f"
+      },
+      {
+        "mode": "100644",
+        "path": ".vscode/launch.json",
+        "sha": "24a4101c75c88cd17188cf1ffad59446603e16cd",
+        "size": 293,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/24a4101c75c88cd17188cf1ffad59446603e16cd"
+      },
+      {
+        "mode": "040000",
+        "path": "License",
+        "sha": "fb70d7154092114252d8d73b460a472fc4a9cc09",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/trees/fb70d7154092114252d8d73b460a472fc4a9cc09"
+      },
+      {
+        "mode": "100644",
+        "path": "License/LICENSE.txt",
+        "sha": "0efd310a7051ba96b8fa3cd35e309a745cc4642a",
+        "size": 1087,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/0efd310a7051ba96b8fa3cd35e309a745cc4642a"
+      },
+      {
+        "mode": "100644",
+        "path": "README.md",
+        "sha": "cc9dcb94e7b0cbe41c41ab4573082377096fa053",
+        "size": 14907,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/cc9dcb94e7b0cbe41c41ab4573082377096fa053"
+      },
+      {
+        "mode": "100644",
+        "path": "agents.md",
+        "sha": "e76caf4a473ab4b4569e9e24df18075fc20ee159",
+        "size": 7288,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/e76caf4a473ab4b4569e9e24df18075fc20ee159"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose_cells",
+        "sha": "268878d6313c666a68ed9ea4c9f3e5f30894c4c9",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/trees/268878d6313c666a68ed9ea4c9f3e5f30894c4c9"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/autofilter.ts",
+        "sha": "d534a7421426234c88607c75e2c901ca2d3fd7c3",
+        "size": 1183,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/d534a7421426234c88607c75e2c901ca2d3fd7c3"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/cell.ts",
+        "sha": "6537faf72ac10b91d184073d7a05ddd78e4245a7",
+        "size": 4430,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/6537faf72ac10b91d184073d7a05ddd78e4245a7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/chart.ts",
+        "sha": "3b6a1e36316a459ff77ecefdfe56d46acf2bed6c",
+        "size": 4355,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/3b6a1e36316a459ff77ecefdfe56d46acf2bed6c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/chartCollection.ts",
+        "sha": "965dc2f0e451aa9e118753cb2e4ec9d05dddf77d",
+        "size": 2865,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/965dc2f0e451aa9e118753cb2e4ec9d05dddf77d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/chartLoader.ts",
+        "sha": "ce2de068d58e496a081714957d32268d958c86d2",
+        "size": 17158,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/ce2de068d58e496a081714957d32268d958c86d2"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/comment.ts",
+        "sha": "d70e21bcfb3d023a939317cefdc8672beeeb7975",
+        "size": 1987,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/d70e21bcfb3d023a939317cefdc8672beeeb7975"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/conditionalformat.ts",
+        "sha": "2a6458c72a2e483781b33e28116f2b698fc4ac0c",
+        "size": 1838,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/2a6458c72a2e483781b33e28116f2b698fc4ac0c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/dataRelationship.ts",
+        "sha": "7bc055f5d2424ed6b334563488f3e4a9764c7771",
+        "size": 1210,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/7bc055f5d2424ed6b334563488f3e4a9764c7771"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/expDrawing.ts",
+        "sha": "aa245b5692dc173e78af7926927c10a2f88e3617",
+        "size": 15101,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/aa245b5692dc173e78af7926927c10a2f88e3617"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose_cells/html",
+        "sha": "9315bf3e3aa6f12a89328d1f8058cc31e0fba40b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/trees/9315bf3e3aa6f12a89328d1f8058cc31e0fba40b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/html/chartRenderer.ts",
+        "sha": "073500ec772b111984e853b6b1d3df00e537035f",
+        "size": 24061,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/073500ec772b111984e853b6b1d3df00e537035f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/html/htmlDocument.ts",
+        "sha": "ee6f4b0bdbf8a43974eedf1f603b10583dd5e074",
+        "size": 16626,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/ee6f4b0bdbf8a43974eedf1f603b10583dd5e074"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/html/htmlExporter.ts",
+        "sha": "b00ad9892fd7c93a17d074574b5540d440b2f6de",
+        "size": 42190,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/b00ad9892fd7c93a17d074574b5540d440b2f6de"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/html/htmlReader.ts",
+        "sha": "3c49edae6381a055f3cb883c192e90c679269cc0",
+        "size": 5871,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/3c49edae6381a055f3cb883c192e90c679269cc0"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/html/htmlTable.ts",
+        "sha": "8f75b64e8f78356cfd3cb4e815369a6abd864258",
+        "size": 27450,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/8f75b64e8f78356cfd3cb4e815369a6abd864258"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/html/htmlWriter.ts",
+        "sha": "d5417ef928ddf2598d20b4748afaa05986d2be20",
+        "size": 3679,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/d5417ef928ddf2598d20b4748afaa05986d2be20"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/html/index.ts",
+        "sha": "56265ecc02231e59dcbb40c43c7b3418e0e21e3c",
+        "size": 501,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/56265ecc02231e59dcbb40c43c7b3418e0e21e3c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/hyperlink.ts",
+        "sha": "a06939e0677cacaf9fb87e58ade141d079c95c98",
+        "size": 2663,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/a06939e0677cacaf9fb87e58ade141d079c95c98"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/impDrawing.ts",
+        "sha": "6f6b223f6b6302e2dbe176506dd34cc4ab21952a",
+        "size": 13886,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/6f6b223f6b6302e2dbe176506dd34cc4ab21952a"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/index.ts",
+        "sha": "7e2e90dcb3dc57743dcd3037cac1f1076809bd8e",
+        "size": 1061,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/7e2e90dcb3dc57743dcd3037cac1f1076809bd8e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/style.ts",
+        "sha": "74680ac61ff145648db46e73d029acf87e6d7a9f",
+        "size": 5538,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/74680ac61ff145648db46e73d029acf87e6d7a9f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/types.ts",
+        "sha": "30389bb4a8e3547c4d5a89a3b111ac734314e4bc",
+        "size": 9998,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/30389bb4a8e3547c4d5a89a3b111ac734314e4bc"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/util.ts",
+        "sha": "f72fa8014ba2e6e9f517e04dd2147f8ce65d5f55",
+        "size": 5830,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/f72fa8014ba2e6e9f517e04dd2147f8ce65d5f55"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/validation.ts",
+        "sha": "220f6c258dd71e78715c1b180bf9e1dfd1d01bf4",
+        "size": 4446,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/220f6c258dd71e78715c1b180bf9e1dfd1d01bf4"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/workbook.ts",
+        "sha": "da588c485f75d2b1bc3f3a9f2400f788834b80a1",
+        "size": 72022,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/da588c485f75d2b1bc3f3a9f2400f788834b80a1"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/worksheet.ts",
+        "sha": "ce1ef5488aec5880140dc9b0bec500e4d7aa6314",
+        "size": 9658,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/ce1ef5488aec5880140dc9b0bec500e4d7aa6314"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/worksheetCollection.ts",
+        "sha": "768606bcd36563a489e0d16c3fb23f13d86d94fa",
+        "size": 3213,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/768606bcd36563a489e0d16c3fb23f13d86d94fa"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose_cells/xmldom.d.ts",
+        "sha": "92b35e3dff12f91c770fef9e9488985b6c5966c9",
+        "size": 144,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/92b35e3dff12f91c770fef9e9488985b6c5966c9"
+      },
+      {
+        "mode": "040000",
+        "path": "examples",
+        "sha": "80fb6596acbbff5b0739370740a9347bbcbbb478",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/trees/80fb6596acbbff5b0739370740a9347bbcbbb478"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/auto_filter.ts",
+        "sha": "14ae4a0fe271f01c682cfc81d0359ab366ff7db2",
+        "size": 1441,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/14ae4a0fe271f01c682cfc81d0359ab366ff7db2"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/cell_values.ts",
+        "sha": "03a2bcf8c437ef2b636d911f62d53bf7e63352ef",
+        "size": 3575,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/03a2bcf8c437ef2b636d911f62d53bf7e63352ef"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/data_validation.ts",
+        "sha": "43b7f22c02b566a0daa2e6db4651a49e9ced9761",
+        "size": 1344,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/43b7f22c02b566a0daa2e6db4651a49e9ced9761"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/export.ts",
+        "sha": "0a2e895ba7ecae66860e5180c4b2488a8c60859f",
+        "size": 2200,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/0a2e895ba7ecae66860e5180c4b2488a8c60859f"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/html_export.ts",
+        "sha": "b661c41cfb43e993906911a0a42230c7e697b868",
+        "size": 1455,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/b661c41cfb43e993906911a0a42230c7e697b868"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/hyperlinks.ts",
+        "sha": "5f502a7fc4000e6e8b6832eeeadd41155673ab5c",
+        "size": 715,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/5f502a7fc4000e6e8b6832eeeadd41155673ab5c"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/index.ts",
+        "sha": "5256b0cd32e1c3bbaac965e92d592e9d352e78bf",
+        "size": 271,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/5256b0cd32e1c3bbaac965e92d592e9d352e78bf"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/protection.ts",
+        "sha": "63a17d5de50b68ad59e1e2a83c5329ea7410ec3c",
+        "size": 990,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/63a17d5de50b68ad59e1e2a83c5329ea7410ec3c"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/styles.ts",
+        "sha": "0acf7afb8f19fef4ec89ca4af8a2602296faa190",
+        "size": 2541,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/0acf7afb8f19fef4ec89ca4af8a2602296faa190"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/worksheet_management.ts",
+        "sha": "76c4e5142f2b21ba0a465daddb63b846cff2e69a",
+        "size": 2978,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/76c4e5142f2b21ba0a465daddb63b846cff2e69a"
+      },
+      {
+        "mode": "100644",
+        "path": "index.ts",
+        "sha": "143a7e2bdc220d89325efe19aa16cb7c717a327c",
+        "size": 558,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/143a7e2bdc220d89325efe19aa16cb7c717a327c"
+      },
+      {
+        "mode": "100644",
+        "path": "package.json",
+        "sha": "58e75319531b3dca1e8fe3a5fda9eddb8a36c07c",
+        "size": 369,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/58e75319531b3dca1e8fe3a5fda9eddb8a36c07c"
+      },
+      {
+        "mode": "100644",
+        "path": "tsconfig.json",
+        "sha": "13261bea0ee6f57e5cd04de7c1019218dd302f64",
+        "size": 264,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/blobs/13261bea0ee6f57e5cd04de7c1019218dd302f64"
+      }
+    ],
+    "truncated": false,
+    "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript/git/trees/5bbf8231454f8f3df8e62d3fd3ea3c6640811ec3"
+  }
+}

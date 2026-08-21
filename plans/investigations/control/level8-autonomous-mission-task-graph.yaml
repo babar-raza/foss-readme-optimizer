@@ -12,9 +12,10 @@ autonomous_execution_contract:
   continuation_source: dependency-ready taskcards in this graph
   continuation_consumer: readme-agent supervisor mission controller
   stop_evaluator: mission-aware supervisor task-graph evaluator
-  resume_strategy: Reload the same task graph and versioned mission state, reconcile claimed work, and
-    claim the highest-priority dependency-ready task. Complete Python through production admission before
-    enabling .NET, Java, C++, TypeScript, Rust, or Go.
+  resume_strategy: Reload this graph and durable mission state, reconcile drift and leases, then claim
+    the highest-priority dependency-ready task. Prove one knowledge-complete 30-of-30 candidate and immediate
+    full-transaction no-op before automating the transaction, then qualify seven ecosystem canaries and
+    fan out to all processable repositories.
   rejected_alternative: repository autonomous cycling mechanism
   mechanism_locked: true
   multi_agent_model: adaptive_coordinator_led
@@ -45,17 +46,28 @@ autonomous_execution_contract:
     criteria or stop unrelated dependency-ready work.
 mission_authority:
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-  mission_summary: Complete verified_repository_presentation through an automatically derived ordered
-    stage-goal state machine. Preserve trusted_readme_transform assets only as lower-assurance reusable
-    inputs. Reconcile current lifecycle freshness, complete the graph-owned Python repository-focus chain
-    and dynamic Python denominator, then continue through the configured platform order, Gate A, Gate
-    B/C, Level 5, and deployable Level 6. Level 7 and Level 8 remain background certification states after
-    deployment and never block tangible delivery. Never promote trusted evidence into verified acceptance
-    or advance a dependent on a stale closed repository deliverable.
+  mission_summary: 'Deliver the safest, repeatable, fastest complete README proof for every processable
+    repository in the current RegistryRevision: 31 of 31 at the reviewed baseline, with two source-empty
+    PSD repositories held as typed non-processable dispositions. Close imported-knowledge use and acceptance
+    identity, seal one complete weak-input 30-of-30 candidate and immediate no-op, automate only that
+    proven transaction, qualify seven ecosystems, then execute the fleet. Aspose.org remains development
+    input only; this campaign performs no product effect.'
   governing_plan_path: plans/master.md
-  current_phase: Derived exclusively from durable mission status after lifecycle-freshness reconciliation;
-    this declarative graph does not store a mutable current-task cursor.
+  current_phase: Derived from durable state; candidate-first portfolio proof begins with campaign authority
+    reconciliation and imported-knowledge-to-bytes closure.
   in_scope_outcomes:
+  - 'IMMEDIATE PORTFOLIO OUTCOME: complete 31/31 processable README candidates at candidate-bound 30/30
+    acceptance and immediate complete-transaction no-op; retain two evidence-bound NON_PROCESSABLE_NO_IMPLEMENTATION
+    dispositions. No product effect is in scope.'
+  - 'CANDIDATE-FIRST ORDER: close imported-knowledge and acceptance identity, seal one weak-input candidate,
+    then build the minimal runner, seven ecosystem canaries, and the full fleet. Do not generalize machinery
+    before its transaction is proven.'
+  - 'IMMEDIATE PORTFOLIO OUTCOME: complete 31/31 processable README candidates at candidate-bound 30/30
+    acceptance and immediate complete-transaction no-op; retain two evidence-bound NON_PROCESSABLE_NO_IMPLEMENTATION
+    dispositions. No product effect is in scope.'
+  - 'CANDIDATE-FIRST ORDER: close imported-knowledge and acceptance identity, seal one weak-input candidate,
+    then build the minimal runner, seven ecosystem canaries, and the full fleet. Do not generalize machinery
+    before its transaction is proven.'
   - 'MISSION OUTCOME: verified_repository_presentation is the immutable closure standard, not a universal
     active runtime goal. The executable delivery path is V0, C0, V1, V2, V3, L5, and L6. L7/L8 are background
     certification states after deployment.'
@@ -71,22 +83,9 @@ mission_authority:
   - 'MATURITY STAGES: L5 proves complete presentation surfaces on the Java pilot and L6 proves deployable
     autonomous portfolio operation. L7 and L8 are non-blocking background certifications earned after
     deployment from 30-day and 90-day evidence windows.'
-  - 'DELIVERY-FIRST SHORT-TERM HORIZON: mission evaluate first reconciles closed-task freshness; mission
-    status then supplies exactly one TaskExecutionFocusV1 and repository scope. Complete that repository
-    through current facts, composition, validation, independent review, unchanged no-op, promotion, and
-    reconstruction before advancing. One repository is partial progress; the complete dynamic Python denominator
-    is the first platform POC.'
   - 'PLATFORM EXECUTION PRIORITY: load data/platform_priorities.json and use Python, .NET, Java, C++,
     TypeScript, Rust, Go whenever otherwise dependency-ready platform work, representatives, repairs,
     cohorts, or rollout items compete; preserve the denominator, valid caches, and active claims.'
-  - 'MEDIUM-TERM HORIZON: qualify Python completely, obtain human acceptance, and prove its reusable workflow,
-    act, disposable staging, hosted GitHub App, recovery, authorization, and production-admission path
-    first. Only then qualify .NET locally and promote it through the same transport before Java, C++,
-    TypeScript, Rust, and Go. Product effects remain separately human-reviewed and authorized.'
-  - 'DELIVERY-FIRST VERTICAL-SLICE MILESTONES: correct and freeze the public presentation contract; finish
-    the dynamic all-Python milestone; obtain human acceptance; prove Python workflow/act/staging/App,
-    recovery, authorization, and production admission; only then qualify and transport .NET; continue
-    Java and lower-priority platforms without omitting any Gate-A task or repository.'
   - 'LONG-TERM HORIZON: deploy with Level-8-grade controls, then accumulate Level-7 and Level-8 evidence
     in the background without blocking usable output or subsequent repository delivery.'
   - 'CAMPAIGN DELIVERY: unresolved taskcards remain distinct dependency and acceptance boundaries. Work
@@ -112,6 +111,22 @@ mission_authority:
   - Writes to GitHub-generated surfaces.
   - Unreviewed onboarding into write-enabled operation.
   mandatory_acceptance_criteria:
+  - The current campaign numerator is every PROCESSABLE repository in its frozen RegistryRevision; NON_PROCESSABLE_NO_IMPLEMENTATION
+    dispositions require immutable source/inventory evidence and a resume predicate and cannot be fabricated
+    candidates.
+  - Imported knowledge is complete only when every selected item is current-source corroborated and has
+    final candidate-span lineage or a typed omission reason; five remaining field consumers must change
+    useful bytes safely before the first candidate seals.
+  - One complete 30-of-30 candidate and immediate zero-provider full-transaction no-op must precede the
+    general runner and fleet fan-out.
+  - The current campaign numerator is every PROCESSABLE repository in its frozen RegistryRevision; NON_PROCESSABLE_NO_IMPLEMENTATION
+    dispositions require immutable source/inventory evidence and a resume predicate and cannot be fabricated
+    candidates.
+  - Imported knowledge is complete only when every selected item is current-source corroborated and has
+    final candidate-span lineage or a typed omission reason; five remaining field consumers must change
+    useful bytes safely before the first candidate seals.
+  - One complete 30-of-30 candidate and immediate zero-provider full-transaction no-op must precede the
+    general runner and fleet fan-out.
   - Content assurance is explicit in facts, candidates, reviews, lifecycle, caches, manifests, proposals,
     and effects; trusted_inherited never satisfies repository_verified acceptance.
   - Exactly one primary stage goal is derived from the earliest incomplete gate, persisted atomically,
@@ -366,587 +381,657 @@ campaign_catalog:
     proof.
   full_suite_policy: Run a full suite only for a declared later gate with repository-wide acceptance scope.
 taskcards:
-- task_id: L8-VNET-01-ACCELERATED-LOCAL-NO-OP
+- task_id: L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
-  title: Qualify the complete .NET cohort through the accelerated local transaction
-  source_audit_finding: All six .NET repositories have visible candidates, but missing public-API projection,
-    source-claim accountability, and fresh-transaction no-op keep every candidate below deterministic
-    acceptance. Existing .NET evidence and consumer-verification components make this the highest-coverage
-    next platform.
-  audit_classification: partially_done
-  priority: P1
-  lane: verified-dotnet-local-qualification
+  title: Reconcile the 31-of-31 portfolio proof authority
+  source_audit_finding: The 2026-08-20 owner audit and the operator-supplied acceleration plan show that
+    delivery stalled because machinery was generalized before one complete candidate transaction proved
+    knowledge use, candidate quality, and immediate no-op behavior.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: portfolio-proof-authority
   owner: readme-agent-supervisor
   status: TODO
-  objective: After Python production admission, project existing .NET evidence into ProductFactsV2, verify
-    repository-declared NuGet or source-build acquisition, reconcile inherited claims, and advance all
-    six .NET repositories through deterministic acceptance, independent review, renderer reproducibility,
-    and fresh-process transaction no-op.
-  why_it_matters: This adds the next highest-coverage platform only after Python has proved the complete
-    production transaction, preventing shared-contract churn from splitting delivery attention.
+  objective: Freeze the current RegistryRevision baseline, typed processability partition, 30-point acceptance
+    identity, no-effect boundary, and candidate-first dependency order in the existing authority documents
+    and sole mission graph.
+  why_it_matters: Execution cannot be fast or trustworthy while denominator, acceptance identity, and
+    task order conflict.
   allowed_paths:
-  - src/readme_agent/ecosystems/dotnet.py
-  - src/readme_agent/ecosystems/dotnet_public_types.py
-  - src/readme_agent/facts/aspose_org_dotnet_adapter.py
-  - src/readme_agent/facts/dotnet_3d_format_functionality.py
-  - src/readme_agent/facts/dotnet_dependency_acquisition.py
-  - src/readme_agent/facts/dotnet_dependency_schema.py
-  - src/readme_agent/facts/dotnet_email_format_functionality.py
-  - src/readme_agent/facts/dotnet_example_verifier.py
-  - src/readme_agent/facts/dotnet_legacy_reference_fallback.py
-  - src/readme_agent/facts/dotnet_lfs_acquisition.py
-  - src/readme_agent/facts/dotnet_project_closure.py
-  - src/readme_agent/facts/dotnet_repository_evidence.py
-  - src/readme_agent/facts/dotnet_repository_evidence_schema.py
-  - src/readme_agent/facts/dotnet_source_generator_fallback.py
-  - src/readme_agent/facts/dotnet_truth_selection.py
-  - tests/unit/test_dotnet_3d_format_functionality.py
-  - tests/unit/test_dotnet_dependency_acquisition.py
-  - tests/unit/test_dotnet_email_format_functionality.py
-  - tests/unit/test_dotnet_lfs_acquisition.py
-  - tests/unit/test_dotnet_public_types.py
-  - tests/unit/test_dotnet_repository_evidence.py
-  - tests/unit/test_dotnet_truth_selection.py
-  - runs/readme-poc/
-  - runs/multi-agent/L8-VNET-01-ACCELERATED-LOCAL-NO-OP/
+  - AGENTS.md
+  - plans/idea.md
+  - plans/master.md
+  - plans/GOVERNANCE.md
+  - plans/requirements.md
+  - plans/requirements/catalog.jsonl
+  - plans/decisions/catalog.jsonl
+  - plans/investigations/control/
+  - plans/investigations/evidence/agile-authority-reset-v1/
+  - plans/investigations/owner_audit/
+  - scripts/governance/
+  - scripts/retrofits/
+  - src/readme_agent/supervisor/
+  - tests/unit/test_mission_control.py
+  - docs/
+  - logs/
   forbidden_paths:
-  - plans/
+  - D:/onedrive/Documents/GitHub/aspose.org (read-only development oracle)
+  - production target repository remotes
+  - target default branches
+  dependencies: []
+  expected_outputs:
+  - One bounded portfolio proof contract bound to the current registry bytes
+  - One graph-native queue with no competing controller or narrative cursor
+  - A checksum-verified owner-audit ingest and truthful current-status reconciliation
+  acceptance_checks:
+  - The frozen baseline partitions 33 admitted repositories into 31 processable targets and two typed
+    PSD dispositions
+  - The 30-point rubric and zero-hard-disqualifier rule are graph-bound
+  - Aspose.org is development input only and product effects are disabled
+  verification:
+  - mission schema and graph-loader tests
+  - compact-authority, requirement-coverage, plan-structure, and graph-drift checks
+  - owner-evidence manifest/hash/path verification
+  negative_controls:
+  - No stale Python-first or 33-candidate statement can govern this campaign
+  - No narrative plan can override durable mission state
+  regression_checks:
+  - allow-list and push-blocking safety
+  - candidate dependency fingerprints and no-op invalidation
+  - mission graph load, dependency ordering, and durable claim recovery
+  evidence_requirements:
+  - contract, graph hash, registry hash, authority-validation receipt, and owner-audit manifest
+  rollback_or_recovery: Resume from the last checksum-valid stage; revert only the specific coherent control-repository
+    commit if a regression is proven. Never reset, clean, or mutate a product remote.
+  failure_reroute: After two equivalent ineffective attempts or fifteen minutes without narrowing, stop
+    repeating the tactic, identify the first failing causal owner, and repair or reroute it inside this
+    graph without lowering acceptance.
+  closeout_rules:
+  - All stated outputs and negative controls have current, checksum-bound evidence.
+  - Focused and impact-mapped regression proof pass on the same committed revision.
+  - A report, schema, candidate file, or mocked test alone cannot close the task.
+  goal_ids:
+  - GOAL-AUTONOMY
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: first_boundary_removal
+    summary: Remove campaign-identity and sequencing ambiguity before product execution.
+  execution_kind: acceptance
+  execution_focus:
+    goal_id: DELIVERY-PORTFOLIO-AUTHORITY
+    immediate_outcome: Freeze one executable 31-of-31 campaign identity and candidate-first queue.
+    repository_scope:
+    - portfolio:registry-revision
+    allowed_change_classes:
+    - shared_code
+    - mission_state
+    next_goal_on_success: Close imported-knowledge and acceptance identity gaps for the first candidate.
+    defer_nonblocking_findings: true
+    show_output_before_broad_regression: true
+    max_equivalent_ineffective_attempts: 2
+    max_minutes_without_narrowing: 15
+  requirement_ids:
+  - L8-037
+  - L8-038
+  - L8-044
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
+  concurrency_class: primary_only
+  campaign_id: CAMP-PLAN-FREEZE
+- task_id: L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
+  title: Qualify portfolio knowledge and the evolving development oracle
+  source_audit_finding: The 2026-08-20 owner audit and fresh Aspose.org recon show both that delivery
+    generalized machinery before one complete transaction and that the local 89-check snapshot is stale
+    against 103 committed upstream check functions. Exported knowledge exists locally, but parity and
+    independence of the mechanism that generates it have not been proven. The 2026-08-21 direct corpus
+    audit also found 31 visitor-facing candidates in a gitignored generated tree but only 30 in the sibling
+    aggregate audit, with 27 clean, three current hard-gate failures, and incomplete Cells/TypeScript
+    receipts; producer-code and generated-output provenance must therefore be bound separately.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: knowledge-acceptance
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: 'Qualify current-revision repository knowledge for every processable product and platform,
+    and qualify committed Aspose.org development inputs without assuming they are correct: compare and,
+    where proven useful, adapt the knowledge-generation mechanism as well as exported artifacts; obtain
+    a twice-stable snapshot of the latest complete synchronized canonical visitor-quality corpus while
+    binding producer HEAD and dirty fingerprint; reconcile its denominator and fresh aggregate audit;
+    derive a locally qualified benchmark profile; refresh the stale check battery and its typed inputs;
+    retain current item-level, polarity-aware corroboration; bind final post-render accountability; add
+    bounded, deduplicated byte-changing consumers for feature, format-support, install, limitation, and
+    troubleshooting fields; and bind the independently qualified check registry and 30-point reviewer
+    identity.'
+  why_it_matters: Loading 97,303 exported claims is not self-contained product knowledge when their generation
+    cannot be reproduced locally, five selected field families cannot affect useful bytes, and the acceptance
+    snapshot omits newer checks. Blindly copying a newer upstream mechanism would replace one gap with
+    unqualified defects and false positives.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
   - data/
-  - prompts/
-  - templates/
-  - shared supervisor, renderer, lifecycle, validator, and portfolio-summary files
-  - Python repository runtime paths
+  - scripts/data-refresh/
+  - plans/investigations/evidence/portfolio-proof-*
+  - plans/investigations/owner_audit/
+  - docs/
+  - logs/
+  forbidden_paths:
+  - D:/onedrive/Documents/GitHub/aspose.org (read-only development oracle)
   - production target repository remotes
   - target default branches
   dependencies:
-  - L8-VPY-05-PRODUCTION-ADMISSION
+  - L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION
   expected_outputs:
-  - Six repository-specific .NET fact, candidate, deterministic-validation, independent-review, and no-op
-    bundles
-  - One platform evidence-adapter receipt proving public API and source-claim projection
-  - Renderer reproducibility and fresh-process transaction no-op reported separately for every .NET repository
+  - Current-revision deterministic knowledge bundles and a coverage/disposition matrix for every processable
+    registry repository
+  - A bounded portfolio refresh command that resumes, caches by source revision and generator identity,
+    isolates repository failures, and emits no remote writes
+  - Content-addressed upstream import manifest bound to committed Aspose.org commit and blob hashes
+  - DevelopmentBenchmarkSnapshotV1 binding producer HEAD/dirty fingerprint, two identical generated-tree
+    inventories, every canonical candidate, disposition, receipt, report, aggregate omission, denominator,
+    and fresh audit result
+  - BenchmarkQualityProfileV1 with accepted, adapted, quarantined, and non-applicable dimensions
+  - Knowledge-generator parity matrix covering inputs, extraction, schemas, outputs, and local equivalents
+  - Self-contained local knowledge generation/refresh path for every adopted mechanism
+  - Qualified current check inventory separating ordinary candidate and auxiliary workflow checks
+  - Per-item import dispositions for adopted, adapted, diagnostic, quarantined, not-applicable, and deferred
+    behavior
+  - Safe byte-changing consumers for all five remaining imported-knowledge fields
+  - Final per-item rendered, preserved, or reasoned-omission knowledge dispositions
+  - A versioned current check-registry and 30-point acceptance identity
   acceptance_checks:
-  - Every runtime-loaded .NET repository reaches deterministic and independent acceptance
-  - Repository-declared NuGet is the only .NET package-registry resolver used; an undeclared package route
-    is never guessed
-  - Missing Conan or vcpkg evidence never blocks, alters, or satisfies this task
-  - The lane writes only its exclusive .NET paths and repository-addressed runtime artifacts
-  - No shared state, aggregate summary, product branch, pull request, or default branch is changed
+  - A serial representative transaction proves the knowledge contract before disjoint repository refresh
+    workers fan out across the portfolio
+  - Every processable Python, .NET, Java, C++, TypeScript, Rust, and Go repository has a current knowledge
+    disposition; absence is explicit and does not become invented prose
+  - Only committed upstream mechanism blobs are imported; generated benchmark bytes are never imported
+    as mechanism or fact authority and require the separate stable-synchronization contract
+  - The local knowledge generator reproduces adopted facts from pinned product sources with Aspose.org
+    absent
+  - Upstream output is never accepted as factual without repository corroboration and local schema validation
+  - The generated benchmark tree reaches BENCHMARK_PROFILE_FROZEN only after two identical inventories,
+    receipt and denominator reconciliation, and a fresh audit
+  - The complete latest canonical candidate tree is inventoried even when its own aggregate audit omits
+    a repository or a receipt
+  - Missing, stale, skipped, mutating, incompletely synchronized, or failing benchmark proof remains diagnostic
+    and cannot lower local acceptance
+  - Every discovered check is accounted for, but only independently qualified applicable checks become
+    blocking
+  - Upstream false positives, defects, and workflow-specific assumptions are adapted, quarantined, or
+    rejected
+  - A current-source contradiction or stub cannot authorize a positive capability/format claim
+  - One verified item cannot promote an unverified sibling
+  - Every selected imported claim either binds exact candidate spans or a typed omission reason
+  - Changing an applicable accepted knowledge item changes useful bytes or an explicit disposition
   verification:
-  - Focused .NET evidence, acquisition, API-surface, example, and claim-accountability tests
-  - Per-repository deterministic validation and independent non-authoring review
-  - Renderer reproducibility, fresh-process no-op, cancellation/resume, and duplicate-work proof
+  - committed-blob manifest and upstream-diff tests for knowledge generators, artifacts, checks, and typed
+    inputs
+  - benchmark stable-double-read, snapshot/profile determinism, audit-omission, denominator-mismatch,
+    failing-candidate, concurrent-mutation, and semantic-drift controls
+  - generator parity and mutation controls against pinned product repositories with the sibling checkout
+    unavailable
+  - check classification fixtures covering missing inputs, evaluator errors, false positives, and upstream
+    drift
+  - focused knowledge selector, evidence-polarity, knowledge-accountability, renderer, and acceptance
+    tests
+  - real Aspose.3D Python knowledge-to-bytes proof against the immutable source revision, followed by
+    bounded full-portfolio regeneration and heterogeneous samples
+  - negative controls for stubs, stale claims, duplicates, cap changes, and missing final accountability
   negative_controls:
-  - Same-process recomposition cannot satisfy transaction no-op
-  - Reviewer acceptance cannot override deterministic rejection
-  - Raw XML documentation cannot be emitted as visitor-facing capability prose without distillation
+  - Facts or prompt packets without visible output lineage cannot satisfy knowledge use
+  - Neither the older 89-function local snapshot nor a newer 103-function upstream count is authority
+    by itself
+  - Neither a strong benchmark README nor a clean sibling audit authorizes its factual claims locally
+  - Upstream use, recency, or a passing upstream fixture cannot bypass local qualification
+  - A currency change reports BENCHMARK_REFRESH_AVAILABLE and reopens affected qualification only at a
+    declared campaign or cohort boundary; it never silently changes blocking acceptance
+  - Accepted knowledge cannot become unbounded prose or cross-product contamination
   regression_checks:
-  - .NET repository isolation
-  - NuGet/source-build truth
-  - no-write safety
-  - artifact redaction
+  - allow-list and push-blocking safety
+  - candidate dependency fingerprints and no-op invalidation
+  - mission graph load, dependency ordering, and durable claim recovery
   evidence_requirements:
-  - Per-repository source, fact, candidate, patch, validation, review, no-op, call-ledger, and manifest
-    artifacts
-  - Lane timing, exclusive-path inventory, cache reuse, and checksum receipt
-  rollback_or_recovery: Reopen only the invalid .NET repository or .NET adapter dependency; retain accepted
-    Python and sibling .NET stages by their complete dependency hashes.
-  failure_reroute: Return a shared-contract defect to the coordinator instead of editing its owner; after
-    two equivalent failures or 15 minutes without narrowing, record a first-principles replan before retrying.
+  - upstream commit/blob manifest, benchmark snapshot/profile, mechanism/artifact parity matrix, import-
+    disposition ledger, per-field fact-to-output matrix, final knowledge-application artifact, qualified
+    check-registry hash, and focused receipts
+  rollback_or_recovery: Resume from the last checksum-valid stage; revert only the specific coherent control-repository
+    commit if a regression is proven. Never reset, clean, or mutate a product remote.
+  failure_reroute: After two equivalent ineffective attempts or fifteen minutes without narrowing, stop
+    repeating the tactic, identify the first failing causal owner, and repair or reroute it inside this
+    graph without lowering acceptance.
   closeout_rules:
-  - All six .NET repositories are locally qualified and fresh-transaction-no-op-proven
-  - The coordinator independently verifies the lane and serially imports its accepted evidence
+  - All stated outputs and negative controls have current, checksum-bound evidence.
+  - Focused and impact-mapped regression proof pass on the same committed revision.
+  - A report, schema, candidate file, or mocked test alone cannot close the task.
   goal_ids:
   - GOAL-TRUTH
   - GOAL-README
-  core_contribution:
-    kind: visible_deliverable
-    summary: Produce the complete .NET local platform cohort after Python production admission.
-  execution_focus:
-    goal_id: DELIVERY-DOTNET-LOCAL-NO-OP
-    immediate_outcome: Qualify and expose all .NET READMEs using the production-proven Python contract.
-    repository_scope:
-    - platform:net
-    allowed_change_classes:
-    - repository_runtime
-    - factuality
-    - presentation
-    next_goal_on_success: Promote .NET through the production transport already proven by Python.
-  requirement_ids: []
-  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
-  concurrency_class: repository_local_write_isolated
-  campaign_id: CAMP-THREE-SLICES
-- task_id: L8-VPY-04-PRODUCTION-TRANSPORT
-  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-  parent_task_id: null
-  title: Prove Python through the reusable production transport
-  source_audit_finding: Local Python candidate qualification alone does not prove the canonical GitHub
-    Actions, staging, hosted GitHub App, recovery, authorization, and effect-reconciliation path needed
-    for production use.
-  audit_classification: not_attempted
-  priority: P0
-  lane: verified-python-production-transport
-  owner: readme-agent-supervisor
-  status: TODO
-  objective: After every Python repository is locally qualified and shown, obtain recorded human acceptance
-    for the complete cohort, then run the same canonical supervisor through act, disposable staging, and
-    hosted GitHub App transport; prove token isolation, deduplication, recovery, authorization, and proposal
-    reconciliation, and prepare exact separately authorized draft-PR effects without writing a product
-    repository during transport qualification.
-  why_it_matters: Python must become the first complete platform that can be safely admitted to production,
-    not remain a collection of locally generated files.
-  allowed_paths:
-  - .github/workflows/
-  - src/readme_agent/
-  - tests/
-  - config/authorization/
-  - runs/
-  - plans/investigations/evidence/
-  - docs/
-  - logs/
-  forbidden_paths:
-  - unauthorized production target repository remotes
-  - target default branches
-  dependencies:
-  - L8-VPY-03-ALL-PYTHON-VERIFIED-POC
-  - L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
-  expected_outputs:
-  - Canonical Python act workflow receipt
-  - Disposable-staging GitHub App create, no-op, update, drift, deduplication, lost-response, and recovery
-    matrix
-  - Complete Python human-review package and exact per-repository publication authorization handoffs
-  acceptance_checks:
-  - Every dynamically admitted Python README has an explicit human acceptance record bound to its accepted
-    candidate hash
-  - The production supervisor is the only workflow runtime
-  - Analysis receives no write credential and effect jobs mint short-lived App tokens
-  - Default branches remain byte-identical and no unauthorized product effect occurs
-  - Every Python repository remains independently accepted and transaction-no-op-proven under transport
-  verification:
-  - Workflow syntax and actionlint
-  - act full-workflow reproduction
-  - staging App effect and recovery matrix
-  - independent transport and evidence review
-  negative_controls:
-  - PAT or ambient GH_TOKEN fallback is rejected by the production profile
-  - A local candidate, renderer no-op, or planning-only workflow cannot satisfy this task
-  regression_checks:
-  - Python lifecycle
-  - authorization
-  - token isolation
-  - effect deduplication
-  - default-branch protection
-  evidence_requirements:
-  - Workflow, staging, App-installation, authorization, effect-ledger, reconciliation, and checksum manifests
-  rollback_or_recovery: Resume the earliest failed transport checkpoint and preserve all accepted Python
-    content evidence.
-  failure_reroute: Classify missing external installation or authorization precisely and continue all
-    independent local work; repair every agent-fixable workflow or reconciliation defect.
-  closeout_rules:
-  - Every Python README is human accepted and Python is transport-qualified for separately authorized
-    draft-PR operation
-  - No product effect is inferred from transport qualification
-  goal_ids:
-  - GOAL-AUTONOMY
   - GOAL-DELIVERY
-  core_contribution:
-    kind: acceptance_proof
-    summary: Prove Python through the actual autonomous workflow and GitHub App transport without an unauthorized
-      effect.
-  execution_focus:
-    goal_id: DELIVERY-PYTHON-PRODUCTION-TRANSPORT
-    immediate_outcome: Make the accepted Python platform safely operable through the production workflow
-      and App path.
-    repository_scope:
-    - platform:python
-    allowed_change_classes:
-    - workflow
-    - effect
-    - safety
-    - mission_state
-    next_goal_on_success: Admit the human-accepted Python cohort to authorized production operation.
-  requirement_ids: []
-  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
-  concurrency_class: primary_only
-  campaign_id: CAMP-GATE-B-AND-LATER
-- task_id: L8-VPY-05-PRODUCTION-ADMISSION
-  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-  parent_task_id: null
-  title: Admit the complete human-accepted Python platform to production
-  source_audit_finding: Python transport qualification without one authorized hosted transaction, recovery,
-    and ongoing operational proof would still leave the first platform outside the production suite.
-  audit_classification: not_attempted
-  priority: P0
-  lane: verified-python-production-admission
-  owner: readme-agent-supervisor
-  status: TODO
-  objective: Use only the human-accepted Python candidates and the transport-qualified canonical supervisor
-    to prove authorized draft-proposal operation, lifecycle recovery, deduplication, authorization expiry,
-    health, and reconciliation for the Python cohort; admit Python as the first production platform without
-    merging, marking ready, force-pushing, closing proposals, or writing a default branch.
-  why_it_matters: This is the exact boundary the user requires before attention or execution capacity
-    moves to another ecosystem.
-  allowed_paths:
-  - .github/workflows/
-  - src/readme_agent/
-  - tests/
-  - config/authorization/
-  - runs/
-  - plans/investigations/evidence/
-  - docs/
-  - logs/
-  forbidden_paths:
-  - unauthorized production target repository remotes
-  - target default branches
-  - non-Python product repositories
-  dependencies:
-  - L8-VPY-04-PRODUCTION-TRANSPORT
-  - L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
-  expected_outputs:
-  - Python production-admission manifest bound to every accepted candidate and authorization
-  - Authorized create, unchanged retry, drift, duplicate-delivery, lost-response, expiry, crash-recovery,
-    and reconciliation receipts
-  - Python production health, backlog, lease, proposal-age, and zero-prohibited-write report
-  acceptance_checks:
-  - Every Python candidate/effect is bound to its human acceptance and fresh what/why/where authorization
-  - Exactly one correct draft proposal state exists per authorized repository/scenario
-  - Analysis, repository inspection, package/example execution, LLM planning, validation, and review receive
-    no target-write credential
-  - Default branches remain byte-identical and no unauthorized, merge, ready, close, release, package,
-    or generated-surface effect occurs
-  - Recovery, deduplication, expiry, reconciliation, health, backlog, and terminal manifests pass independent
-    verification
-  verification:
-  - Hosted Python-only canonical workflow and effect matrix
-  - Fresh-token and analysis/effect isolation proof
-  - Crash, duplicate, lost-response, drift, authorization-expiry, and stale-proposal recovery
-  - Independent production-admission audit and checksum reconstruction
-  negative_controls:
-  - Transport qualification alone cannot satisfy production admission
-  - A renderer no-op, local candidate, staging proposal, or unreviewed candidate cannot authorize an effect
-  - No non-Python task or concurrent goal becomes eligible before this task closes
-  regression_checks:
-  - Complete Python content and no-op evidence
-  - allow-list, authorization, token isolation, push blocking, and default-branch protection
-  - lifecycle recovery, effect deduplication, state migration, redaction, and evidence integrity
-  evidence_requirements:
-  - Per-repository accepted candidate, human acceptance, authorization, proposal/effect, recovery, health,
-    and checksum manifests
-  - Independent audit receipt proving Python production admission and later-platform dependency lock
-  rollback_or_recovery: Reopen the earliest affected Python transport or effect boundary, revoke stale
-    authorization, and preserve every unaffected content-addressed acceptance receipt.
-  failure_reroute: Repair every agent-fixable workflow, state, authorization, or reconciliation defect;
-    record unavailable owner authority or installation as an exact external block without enabling another
-    platform.
-  closeout_rules:
-  - Python is the first complete production-admitted platform through the canonical supervisor
-  - Every prohibited-write, duplicate-effect, false-success, and missing-terminal-manifest count is zero
-  goal_ids:
-  - GOAL-AUTONOMY
-  - GOAL-DELIVERY
-  core_contribution:
-    kind: acceptance_proof
-    summary: Admit the complete human-accepted Python cohort as the first production platform.
-  execution_focus:
-    goal_id: DELIVERY-PYTHON-PRODUCTION-ADMISSION
-    immediate_outcome: Prove authorized, recoverable Python-only production operation before enabling
-      .NET.
-    repository_scope:
-    - platform:python
-    allowed_change_classes:
-    - workflow
-    - effect
-    - safety
-    - mission_state
-    next_goal_on_success: Qualify the complete .NET cohort under the Python-proven contract and transport.
-  requirement_ids: []
-  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
-  concurrency_class: primary_only
-  campaign_id: CAMP-GATE-B-AND-LATER
-- task_id: L8-VNET-02-PRODUCTION-TRANSPORT
-  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-  parent_task_id: null
-  title: Promote the qualified .NET cohort through the Python-proven transport
-  source_audit_finding: A locally qualified .NET cohort is not a production platform until the canonical
-    workflow, staging, App, recovery, authorization, and proposal contracts are proven for its ecosystem.
-  audit_classification: not_attempted
-  priority: P0
-  lane: verified-dotnet-production-transport
-  owner: readme-agent-supervisor
-  status: TODO
-  objective: Reuse the accepted Python production transport without reimplementing it, exercise all six
-    .NET repositories through the canonical platform workflow, and prepare the complete reviewed and separately
-    authorized draft-PR cohort while preserving every .NET content proof.
-  why_it_matters: Platform-by-platform admission must prove one reusable production system rather than
-    accumulate accelerated candidates that cannot be operated safely.
-  allowed_paths:
-  - .github/workflows/
-  - src/readme_agent/
-  - tests/
-  - config/authorization/
-  - runs/
-  - plans/investigations/evidence/
-  - docs/
-  - logs/
-  forbidden_paths:
-  - unauthorized production target repository remotes
-  - target default branches
-  dependencies:
-  - L8-VNET-01-ACCELERATED-LOCAL-NO-OP
-  - L8-VPY-04-PRODUCTION-TRANSPORT
-  - L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
-  expected_outputs:
-  - .NET canonical workflow and staging/App receipts
-  - Complete .NET human-review package and exact authorization handoffs
-  - Cross-platform Python/.NET transport-reuse proof
-  acceptance_checks:
-  - .NET uses the unchanged canonical production transport proven by Python
-  - All six .NET repositories retain deterministic and independent content acceptance
-  - No unauthorized product effect or default-branch write occurs
-  verification:
-  - .NET workflow matrix and recovery proof
-  - transport-reuse and effect-deduplication regression
-  - independent platform admission review
-  negative_controls:
-  - A platform-specific alternate workflow or effect path fails admission
-  regression_checks:
-  - Python transport
-  - .NET lifecycle
-  - GitHub App isolation
-  - authorization
-  evidence_requirements:
-  - Per-repository .NET transport/effect manifests and one platform checksum inventory
-  rollback_or_recovery: Reopen only the affected .NET transport stage; preserve Python transport and .NET
-    content receipts.
-  failure_reroute: Repair the first shared transport boundary once and replay only affected repositories.
-  closeout_rules:
-  - .NET is transport-qualified through the same production system as Python
-  goal_ids:
-  - GOAL-AUTONOMY
-  - GOAL-DELIVERY
-  core_contribution:
-    kind: acceptance_proof
-    summary: Admit .NET through the exact production transport already proven by Python.
-  execution_focus:
-    goal_id: DELIVERY-DOTNET-PRODUCTION-TRANSPORT
-    immediate_outcome: Make the complete accepted .NET cohort safely operable through the production workflow.
-    repository_scope:
-    - platform:net
-    allowed_change_classes:
-    - workflow
-    - effect
-    - safety
-    - mission_state
-    next_goal_on_success: Prove the first current Java vertical slice before Java cohort expansion.
-  requirement_ids: []
-  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
-  concurrency_class: primary_only
-  campaign_id: CAMP-GATE-B-AND-LATER
-- task_id: L8-HORIZON-01-ACTIVATE-GATE-A
-  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-  parent_task_id: null
-  title: Activate the next bounded verified-delivery horizon
-  source_audit_finding: Future work must remain losslessly deferred without loading the complete mission
-    into every active execution context.
-  audit_classification: future_hardening_work
-  priority: P0
-  lane: mission-horizon-activation
-  owner: readme-agent-supervisor
-  status: TODO
-  objective: After the Python and representative post-Python slices close, promote only the next dependency-ready
-    verified task horizon from the hashed deferred catalog into this same graph.
-  why_it_matters: Bounded context prevents authority overload while a lossless activation boundary preserves
-    the full portfolio mission and its stable task identities.
-  allowed_paths:
-  - plans/investigations/control/level8-autonomous-mission-task-graph.yaml
-  - plans/investigations/control/level8-deferred-task-catalog.jsonl
-  - plans/investigations/evidence/
-  - plans/requirements/
-  - scripts/governance/
-  - src/readme_agent/supervisor/
-  - tests/unit/test_mission_control.py
-  - logs/
-  forbidden_paths:
-  - runs/readme-poc/
-  - product repositories
-  - target remotes
-  dependencies:
-  - L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES
-  expected_outputs:
-  - One next-horizon active graph with at most fifteen tasks and five ready tasks
-  - Updated catalog hashes, requirement slice, migration matrix, and durable-state reconciliation
-  acceptance_checks:
-  - Every promoted task retains its stable ID and exact deferred record hash
-  - No task is lost, duplicated, made ready early, or silently treated as complete
-  verification:
-  - catalog integrity, dependency, ready-budget, graph/state migration, and focused mission tests
-  negative_controls:
-  - A missing, duplicate, unmapped, or dependency-ineligible deferred task fails activation
-  regression_checks:
-  - durable claim recovery, stage-goal derivation, and requirement coverage
-  evidence_requirements:
-  - before/after horizon manifest, graph hash, catalog hash, and focused-test receipt
-  rollback_or_recovery: Restore the prior graph/catalog commit and reconcile durable state without deleting
-    history.
-  failure_reroute: Repair the first catalog, dependency, or state-migration boundary; never create another
-    controller.
-  closeout_rules:
-  - The next horizon is dependency-ready, bounded, state-reconciled, and independently verified
-  goal_ids:
-  - GOAL-AUTONOMY
   core_contribution:
     kind: first_boundary_removal
-    summary: Advance the sole mission graph without reloading its complete future backlog.
-  execution_kind: infrastructure
-  infrastructure_admission:
-    trigger: next_cohort_exercised
-    evidence_refs:
-    - The Python and representative post-Python slice dependencies must be CLOSED before this task is
-      eligible.
-  requirement_ids: []
-  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
+    summary: Turn the imported corpus from mostly logged context into safe, accountable README value.
+  execution_kind: acceptance
+  execution_focus:
+    goal_id: DELIVERY-KNOWLEDGE-TO-BYTES
+    immediate_outcome: Prove one serial knowledge transaction, then refresh and qualify knowledge for
+      every processable registry repository while freezing the latest synchronized benchmark, making generation
+      self-contained, closing the five remaining consumers, and binding acceptance identity.
+    repository_scope:
+    - portfolio:all-processable
+    - aspose-3d-foss/Aspose.3D-FOSS-for-Python
+    allowed_change_classes:
+    - shared_code
+    - factuality
+    - presentation
+    next_goal_on_success: Compose one complete weak-input candidate through the proven native seam.
+    defer_nonblocking_findings: true
+    show_output_before_broad_regression: true
+    max_equivalent_ineffective_attempts: 2
+    max_minutes_without_narrowing: 15
+  requirement_ids:
+  - L8-012
+  - L8-016
+  - KNOW-001
+  - KNOW-002
+  - KNOW-003
+  - KNOW-004
+  - KNOW-005
+  - KNOW-006
+  - KNOW-012
+  - KNOW-013
+  - KNOW-014
+  stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
   concurrency_class: primary_only
-  campaign_id: CAMP-GATE-A-PORTFOLIO
-- task_id: L8-FRESH-00-FRESHNESS-SERVICE
+  campaign_id: CAMP-SHARED-ACCELERATION
+- task_id: L8-PF-02-COMPLETE-CANDIDATE-SEAM
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-  parent_task_id: null
-  title: Register the autonomous README freshness-service objective
-  source_audit_finding: plans/claude/moonlit-juggling-flurry.md and its 2026-08-16 reconciliation (plans/investigations/evidence/freshness-service-final-2026-08-15/)
-    designed and partially built an autonomous README freshness service on an isolated, unregistered worktree/branch
-    (freshness-service/integration) instead of through this graph -- real, diagnosed, mostly-tested engineering
-    exists there (T3 vendored checks, T4 factpack views, T14 section registry, a T5 cells/python pilot
-    with a proven disposition-ledger fix) but it was never admitted through TS-01/TS-02/TS-03 registration
-    before executing, so none of it is currently visible to durable mission state.
-  audit_classification: partially_done
-  priority: P2
-  lane: freshness-service
+  parent_task_id: L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
+  title: Wire one complete weak-input candidate
+  source_audit_finding: The 2026-08-20 owner audit and the operator-supplied acceleration plan show that
+    delivery stalled because machinery was generalized before one complete candidate transaction proved
+    knowledge use, candidate quality, and immediate no-op behavior.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: first-complete-candidate
   owner: readme-agent-supervisor
   status: TODO
-  objective: 'Reuse the proven Aspose.org README contract, source-reconciliation, fact-extraction, and
-    validation practices to build an autonomous freshness service on top of the current supervisor, mission
-    graph, taskcards, validators, state, evidence, and recovery machinery: detect unchanged inputs and
-    perform a zero-LLM no-op, compose bounded LLM steps through llm.professionalize.com only where needed,
-    and process the complete portfolio to a local, human-reviewable candidate bundle -- without bypassing
-    any existing remote-write or human-approval boundary.'
-  why_it_matters: Freshness must become one governed capability of the existing autonomous system, not
-    a second execution path -- reusing this mission's proven state machine, evidence contract, and authorization
-    gates is what keeps portfolio-wide freshness work repeatable, auditable, and safe to resume across
-    reruns.
+  objective: Run Aspose.3D FOSS for Python through the existing supervisor from immutable snapshot and
+    verified facts to a complete, repository-specific candidate, source-content disposition ledger, claim
+    map, patch, deterministic checks, and bounded editorial review inputs.
+  why_it_matters: One complete candidate reveals the real transaction boundary faster than more general
+    orchestration work.
   allowed_paths:
   - src/readme_agent/
   - tests/
-  - plans/investigations/evidence/freshness-service-*/
-  - plans/investigations/control/freshness-service-*
+  - plans/investigations/evidence/portfolio-proof-*
+  - plans/investigations/owner_audit/
   - docs/
   - logs/
-  - runs/readme-poc/
-  - runs/multi-agent/L8-FRESH-00-FRESHNESS-SERVICE/
+  - runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/
   forbidden_paths:
-  - plans/claude/moonlit-juggling-flurry.md (historical design reference only; never executed from, never
-    a live status source)
+  - D:/onedrive/Documents/GitHub/aspose.org (read-only development oracle)
   - production target repository remotes
   - target default branches
   dependencies:
-  - L8-VPY-05-PRODUCTION-ADMISSION
+  - L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY
   expected_outputs:
-  - A reconciliation ledger disposing every commit on freshness-service/integration (reusable-unchanged,
-    reusable-after-adaptation, must-be-discarded, or requires-external-authority) against current main
-  - The proven, licensing-cleared aspose.org-derived README contract, checks, and factpack reused behind
-    existing interfaces rather than a second composer/validator stack
-  - A freshness/no-op detection path wired into the existing supervisor and scheduler
+  - One current complete Aspose.3D Python candidate and native patch
+  - Complete source-unit, claim, knowledge, and component provenance
+  - Bounded structured author/reviewer records with no giant whole-repository prompt
+  - CandidateBenchmarkComparisonV1 against the frozen qualified profile
   acceptance_checks:
-  - No live status, gate, or transition model operates outside this graph and durable state
-  - Every reused component from freshness-service/integration is revalidated against current main's baseline
-    before being trusted, not merely carried over on old evidence
-  - Zero-LLM no-op is proven for at least one repository with unchanged inputs
-  - No remote-write or human-approval boundary already enforced by the current system is bypassed or weakened
+  - The candidate is product-specific, professional, non-promotional-first, and free of internal process
+    narration
+  - Every material source unit and final claim has exactly one accepted disposition
+  - Commands, URLs, badges, code, Markdown structure, and Mermaid syntax remain deterministic
+  - The candidate meets or exceeds every applicable accepted benchmark information-coverage and visitor-quality
+    dimension without copying benchmark prose
   verification:
-  - Focused tests for each reused/adapted module
-  - Full governed suite green with zero new failures
-  - run_official_checks.py and validate_compact_authority.py both clean
+  - focused composition/rendering/reconciliation tests
+  - real local_poc bounded canary through candidate generation
+  - frozen qualified Aspose.org profile comparison by obligations and information coverage, never wording
   negative_controls:
-  - A candidate produced outside the tracked supervise lane cannot count as portfolio progress
-  - An evidence directory alone, without a governed commit and mission transition, cannot close this task
+  - The Aspose.org candidate is never a runtime input or copied prose source
+  - No partial section canary or historical candidate counts as the complete transaction
   regression_checks:
-  - mission graph load and dependency resolution (active and deferred)
-  - existing README contract and validator suite
-  - no-op / freshness idempotency
+  - allow-list and push-blocking safety
+  - candidate dependency fingerprints and no-op invalidation
+  - mission graph load, dependency ordering, and durable claim recovery
   evidence_requirements:
-  - The reconciliation ledger, per-component revalidation results, and governed commit history for every
-    piece of freshness-service/integration reused
-  rollback_or_recovery: Nothing in this task's own registration touches product repositories or shared
-    runtime state beyond this graph; a bad reuse decision reverts by discarding the specific governed
-    commit that applied it, per its own task's rollback rule.
-  failure_reroute: A defect in shared supervisor/validator machinery discovered while reconciling reused
-    code is fixed surgically at its own layer with regression tests, not patched inline inside this task.
+  - immutable input hashes, facts, plan, candidate, patch, claim/disposition maps, call ledger, and component
+    versions
+  rollback_or_recovery: Resume from the last checksum-valid stage; revert only the specific coherent control-repository
+    commit if a regression is proven. Never reset, clean, or mutate a product remote.
+  failure_reroute: After two equivalent ineffective attempts or fifteen minutes without narrowing, stop
+    repeating the tactic, identify the first failing causal owner, and repair or reroute it inside this
+    graph without lowering acceptance.
   closeout_rules:
-  - This task closes only once the reconciliation ledger is fully disposed and every kept component is
-    reapplied through a governed commit with passing tests -- not merely once old evidence exists
+  - All stated outputs and negative controls have current, checksum-bound evidence.
+  - Focused and impact-mapped regression proof pass on the same committed revision.
+  - A report, schema, candidate file, or mocked test alone cannot close the task.
   goal_ids:
   - GOAL-README
-  - GOAL-AUTONOMY
+  - GOAL-DELIVERY
   core_contribution:
-    kind: visible_deliverable
-    summary: Bring the autonomous README freshness-service objective, and the real work already done for
-      it, under this mission's one governed state machine.
+    kind: first_boundary_removal
+    summary: Produce the first complete current candidate through the real production seam.
+  execution_kind: visible_delivery
   execution_focus:
-    goal_id: DELIVERY-FRESHNESS-SERVICE
-    immediate_outcome: Reconcile the isolated freshness-service branch into governed state and resume
-      its proven work through the current supervisor.
+    goal_id: DELIVERY-FIRST-COMPLETE-CANDIDATE
+    immediate_outcome: Produce one complete current Aspose.3D Python candidate through supervise.
     repository_scope:
-    - platform:net
-    - platform:python
-    - platform:java
-    - platform:cpp
-    - platform:go
-    - platform:rust
-    - platform:typescript
+    - aspose-3d-foss/Aspose.3D-FOSS-for-Python
     allowed_change_classes:
-    - shared_code
     - repository_runtime
     - factuality
     - presentation
-    next_goal_on_success: Extend the freshness service across the complete portfolio once it is production-proven
-      on its first repository.
-  requirement_ids: []
+    next_goal_on_success: Seal the candidate at 30 of 30 and prove immediate complete-transaction no-op.
+    defer_nonblocking_findings: true
+    show_output_before_broad_regression: true
+    max_equivalent_ineffective_attempts: 2
+    max_minutes_without_narrowing: 15
+  requirement_ids:
+  - RDM-018
+  - L8-020
+  - L8-041
+  stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
+  concurrency_class: primary_only
+  campaign_id: CAMP-FIRST-PYTHON-SLICE
+- task_id: L8-PF-03-SEALED-CANDIDATE-NO-OP
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
+  title: Seal the first 30-of-30 candidate and immediate no-op
+  source_audit_finding: The 2026-08-20 owner audit and the operator-supplied acceleration plan show that
+    delivery stalled because machinery was generalized before one complete candidate transaction proved
+    knowledge use, candidate quality, and immediate no-op behavior.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: first-sealed-candidate
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Independently validate the first current candidate against all 30 criterion-specific obligations
+    with zero hard disqualifiers, then rerun the complete transaction unchanged and prove exact candidate
+    reuse with zero provider calls and no duplicate artifacts or effects.
+  why_it_matters: This is the first honest unit of delivery and the behavior the later runner must automate.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - plans/investigations/evidence/portfolio-proof-*
+  - plans/investigations/owner_audit/
+  - docs/
+  - logs/
+  - runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/
+  forbidden_paths:
+  - D:/onedrive/Documents/GitHub/aspose.org (read-only development oracle)
+  - production target repository remotes
+  - target default branches
+  dependencies:
+  - L8-PF-02-COMPLETE-CANDIDATE-SEAM
+  expected_outputs:
+  - AGENT_ACCEPTED_30_OF_30 candidate-bound verdict
+  - Complete-transaction NO_OP_PROVEN receipt
+  - Checksum-complete independently reconstructed evidence inventory
+  - Independent benchmark-parity verdict bound to the exact candidate and frozen profile
+  acceptance_checks:
+  - Every rubric criterion carries criterion-specific evidence and no average score hides a hard failure
+  - Author and independent reviewer contexts and identities are separate
+  - The unchanged rerun performs zero new author/reviewer calls and returns byte-identical artifacts
+  - All accepted applicable benchmark dimensions pass without using sibling bytes at runtime
+  verification:
+  - 30-point deterministic and independent review
+  - full transaction rerun under the same dependency key
+  - artifact corruption, source drift, prompt/route drift, validator drift, and reviewer drift controls
+  negative_controls:
+  - Same-process renderer recomposition is not complete-transaction no-op proof
+  - An accepted review detached from the current candidate or component hashes fails closed
+  regression_checks:
+  - allow-list and push-blocking safety
+  - candidate dependency fingerprints and no-op invalidation
+  - mission graph load, dependency ordering, and durable claim recovery
+  evidence_requirements:
+  - criterion matrix, reviewer records, final verdict, no-op receipt, LLM ledger, and SHA-256 inventory
+  rollback_or_recovery: Resume from the last checksum-valid stage; revert only the specific coherent control-repository
+    commit if a regression is proven. Never reset, clean, or mutate a product remote.
+  failure_reroute: After two equivalent ineffective attempts or fifteen minutes without narrowing, stop
+    repeating the tactic, identify the first failing causal owner, and repair or reroute it inside this
+    graph without lowering acceptance.
+  closeout_rules:
+  - All stated outputs and negative controls have current, checksum-bound evidence.
+  - Focused and impact-mapped regression proof pass on the same committed revision.
+  - A report, schema, candidate file, or mocked test alone cannot close the task.
+  goal_ids:
+  - GOAL-README
+  - GOAL-AUTONOMY
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: first_boundary_removal
+    summary: Establish the first independently sealed unit of portfolio delivery.
+  execution_kind: acceptance
+  execution_focus:
+    goal_id: DELIVERY-FIRST-SEALED-NO-OP
+    immediate_outcome: Seal Aspose.3D Python at 30 of 30 and prove exact zero-call no-op.
+    repository_scope:
+    - aspose-3d-foss/Aspose.3D-FOSS-for-Python
+    allowed_change_classes:
+    - repository_runtime
+    - factuality
+    - presentation
+    next_goal_on_success: Wrap only the proven transaction in the minimal graph runner.
+    defer_nonblocking_findings: true
+    show_output_before_broad_regression: true
+    max_equivalent_ineffective_attempts: 2
+    max_minutes_without_narrowing: 15
+  requirement_ids:
+  - L8-046
+  - L8-048
+  stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
+  concurrency_class: primary_only
+  campaign_id: CAMP-FIRST-PYTHON-SLICE
+- task_id: L8-PF-04-MINIMAL-GRAPH-RUNNER
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
+  title: Automate only the proven repository transaction
+  source_audit_finding: The 2026-08-20 owner audit and the operator-supplied acceleration plan show that
+    delivery stalled because machinery was generalized before one complete candidate transaction proved
+    knowledge use, candidate quality, and immediate no-op behavior.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: proven-transaction-runner
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Implement the smallest typed, allow-listed graph runner that selects and resumes existing
+    handlers for the already-proven snapshot-to-acceptance transaction. It may not author, commit, push,
+    or publish code/content and may not introduce arbitrary shell execution.
+  why_it_matters: Automation should scale a proven transaction, not hide an unstable one behind more machinery.
+  allowed_paths:
+  - src/readme_agent/supervisor/
+  - src/readme_agent/capabilities/
+  - tests/unit/
+  - tests/integration/
+  - tests/security/
+  - runs/
+  - docs/architecture.md
+  - logs/
+  forbidden_paths:
+  - D:/onedrive/Documents/GitHub/aspose.org (read-only development oracle)
+  - production target repository remotes
+  - target default branches
+  dependencies:
+  - L8-PF-03-SEALED-CANDIDATE-NO-OP
+  expected_outputs:
+  - Typed action registry, predicates, checkpoint resume, and evidence-bound transitions
+  - One runner replay of the sealed candidate and its zero-call no-op
+  - Cancellation, retry, duplicate-delivery, and stale-checkpoint controls
+  acceptance_checks:
+  - Only registered actions with typed inputs/outputs and declared side effects can run
+  - Durable state, leases, and terminal classification remain authoritative
+  - No product write capability is reachable in this campaign
+  verification:
+  - focused mission runner and registry tests
+  - kill/resume and duplicate/no-op integration proof
+  - push-blocking, allow-list, evidence redaction, and effect-null safety regression
+  negative_controls:
+  - No arbitrary shell task, placeholder handler, or success-without-artifact transition
+  - No automation may create or commit its own implementation changes
+  regression_checks:
+  - allow-list and push-blocking safety
+  - candidate dependency fingerprints and no-op invalidation
+  - mission graph load, dependency ordering, and durable claim recovery
+  evidence_requirements:
+  - runner action manifest, transition trace, recovery receipt, and sealed-candidate replay binding
+  rollback_or_recovery: Resume from the last checksum-valid stage; revert only the specific coherent control-repository
+    commit if a regression is proven. Never reset, clean, or mutate a product remote.
+  failure_reroute: After two equivalent ineffective attempts or fifteen minutes without narrowing, stop
+    repeating the tactic, identify the first failing causal owner, and repair or reroute it inside this
+    graph without lowering acceptance.
+  closeout_rules:
+  - All stated outputs and negative controls have current, checksum-bound evidence.
+  - Focused and impact-mapped regression proof pass on the same committed revision.
+  - A report, schema, candidate file, or mocked test alone cannot close the task.
+  goal_ids:
+  - GOAL-AUTONOMY
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: first_boundary_removal
+    summary: Scale only behavior already proven end to end.
+  execution_kind: infrastructure
+  execution_focus:
+    goal_id: DELIVERY-PROVEN-TRANSACTION-RUNNER
+    immediate_outcome: Automate the sealed transaction through typed allow-listed graph actions.
+    repository_scope:
+    - aspose-3d-foss/Aspose.3D-FOSS-for-Python
+    allowed_change_classes:
+    - shared_code
+    - mission_state
+    - safety
+    next_goal_on_success: Qualify one complete current candidate per supported ecosystem.
+    defer_nonblocking_findings: true
+    show_output_before_broad_regression: true
+    max_equivalent_ineffective_attempts: 2
+    max_minutes_without_narrowing: 15
+  requirement_ids:
+  - L8-017
+  infrastructure_admission:
+    trigger: current_repository_blocker
+    evidence_refs:
+    - The sealed candidate transaction must be automated without duplicating its logic.
+  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
+  concurrency_class: primary_only
+  campaign_id: CAMP-SHARED-ACCELERATION
+- task_id: L8-PF-05-SEVEN-ECOSYSTEM-CANARIES
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
+  title: Qualify the proven transaction across seven ecosystems
+  source_audit_finding: The 2026-08-20 owner audit and the operator-supplied acceleration plan show that
+    delivery stalled because machinery was generalized before one complete candidate transaction proved
+    knowledge use, candidate quality, and immediate no-op behavior.
+  audit_classification: final_outcome_blocker
+  priority: P1
+  lane: ecosystem-canaries
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Run one processable representative from Python, .NET, Java, C++, TypeScript, Rust, and Go
+    through the same sealed transaction, repairing only shared causal seams before portfolio fan-out.
+  why_it_matters: Seven bounded canaries expose ecosystem failures once without paying fleet-wide duplicate
+    repair cost.
+  allowed_paths:
+  - src/readme_agent/
+  - tests/
+  - plans/investigations/evidence/portfolio-proof-*
+  - plans/investigations/owner_audit/
+  - docs/
+  - logs/
+  - runs/readme-poc/
+  forbidden_paths:
+  - D:/onedrive/Documents/GitHub/aspose.org (read-only development oracle)
+  - production target repository remotes
+  - target default branches
+  dependencies:
+  - L8-PF-04-MINIMAL-GRAPH-RUNNER
+  expected_outputs:
+  - Seven complete current candidates with 30-of-30 acceptance and immediate no-op proof
+  - Shared ecosystem adapters or precise evidence-backed processability dispositions
+  - A measured safe repository-isolation and bounded-parallelism receipt
+  - Seven candidate-bound benchmark-parity verdicts across the supported ecosystem set
+  acceptance_checks:
+  - Each canary uses only declared package routes and repository-specific source evidence
+  - No ecosystem can silently omit unsupported verification and still accept
+  - Shared repairs invalidate only affected stages and candidates
+  - Each canary meets or exceeds its accepted applicable benchmark dimensions; a missing or failing sibling
+    exemplar cannot waive a local obligation
+  verification:
+  - per-ecosystem focused and real-repository transaction proof
+  - cross-product leakage, dependency, API, format, example, limitation, and Mermaid controls
+  - serial baseline followed by at most two disjoint workers only after isolation proof
+  negative_controls:
+  - A canary cannot use an Aspose.org checkout at runtime
+  - A platform-specific patch cannot masquerade as an ecosystem-general solution
+  regression_checks:
+  - allow-list and push-blocking safety
+  - candidate dependency fingerprints and no-op invalidation
+  - mission graph load, dependency ordering, and durable claim recovery
+  evidence_requirements:
+  - seven candidate bundles, acceptance/no-op receipts, isolation metrics, and shared-repair map
+  rollback_or_recovery: Resume from the last checksum-valid stage; revert only the specific coherent control-repository
+    commit if a regression is proven. Never reset, clean, or mutate a product remote.
+  failure_reroute: After two equivalent ineffective attempts or fifteen minutes without narrowing, stop
+    repeating the tactic, identify the first failing causal owner, and repair or reroute it inside this
+    graph without lowering acceptance.
+  closeout_rules:
+  - All stated outputs and negative controls have current, checksum-bound evidence.
+  - Focused and impact-mapped regression proof pass on the same committed revision.
+  - A report, schema, candidate file, or mocked test alone cannot close the task.
+  goal_ids:
+  - GOAL-README
+  - GOAL-AUTONOMY
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: first_boundary_removal
+    summary: Prove the complete transaction is portable before fleet execution.
+  execution_kind: visible_delivery
+  execution_focus:
+    goal_id: DELIVERY-SEVEN-ECOSYSTEM-CANARIES
+    immediate_outcome: Accept and no-op-prove one current repository per supported ecosystem.
+    repository_scope:
+    - platform:python
+    - platform:net
+    - platform:java
+    - platform:cpp
+    - platform:typescript
+    - platform:rust
+    - platform:go
+    allowed_change_classes:
+    - repository_runtime
+    - factuality
+    - presentation
+    next_goal_on_success: Fan the proven transaction across every processable registry repository.
+    defer_nonblocking_findings: true
+    show_output_before_broad_regression: true
+    max_equivalent_ineffective_attempts: 2
+    max_minutes_without_narrowing: 15
+  requirement_ids:
+  - L8-034
   stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
   concurrency_class: repository_local_write_isolated
-  campaign_id: CAMP-GATE-B-AND-LATER
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
-  title: Deliver the complete local README candidate portfolio at Aspose.org quality parity
-  source_audit_finding: 'Operator directive (2026-08-17): take full ownership and deliver the complete
-    local README.md candidate portfolio at the quality level of Aspose.org''s proven repo-presenter-regen-full
-    corpus (D:/onedrive/Documents/GitHub/aspose.org/reports/repo-presenter-regen-full, 31 candidates across
-    12 families/multiple platforms), using the aspose.org skill-development plan (C:/Users/prora/.claude/plans/d-users-prora-onedrive-documents-github-humble-tome.md,
-    ~18.4k lines) as proven operational evidence. This session already ran the full 33-product portfolio
-    through the existing --registry data/products.json --execution-profile local_poc path twice (fixing
-    a real capability_dependencies type regression from the T3/T4 wiring and a Docker Desktop outage along
-    the way): 4/33 reached CONVERGED_PROPOSAL_READY/AGENT_APPROVED (3D-Python, PDF-Python, Slides-Python,
-    Words-Python), 1/33 CONVERGED_NO_TRACKED_CHANGE (NO_OP_PROVEN reuse), 15/33 BLOCKED on product_truth_not_ready:BLOCKED_MISSING_EVIDENCE
-    (mostly non-Python ecosystems), 13/33 BLOCKED on specialist_failed:readme_presentation (11 genuine
-    claim-accountability/presentation-rule holdouts plus 2 real execution bugs: ''source placements contain
-    duplicate IDs'' on Note-Python, ''valuable source detail has no canonical presentation destination''
-    on Cells-.NET), and 1/33 BLOCKED on readonly_intake:BLOCKED_CLASSIFICATION (Aspose.PSD-FOSS-for-.NET
-    has no ecosystem/policy_profile set in data/products.json).'
-  audit_classification: partially_done
+  title: Deliver every processable README at the sealed portfolio contract
+  source_audit_finding: The 2026-08-20 owner audit establishes a 33-entry baseline with 31 processable
+    repositories and two source-empty PSD dispositions; current-contract acceptance is zero.
+  audit_classification: final_outcome_blocker
   priority: P1
   lane: readme-portfolio-delivery
   owner: readme-agent-supervisor
   status: TODO
-  objective: Reconcile and harden the existing local README pipeline (readme/document_renderer.py, readme/document_validation.py,
-    presentation/verified_template_*.py, the T3 aspose_checks bridge, and the T4 aspose_detectors/composer_factpack
-    facts) against the proven Aspose.org refresh-readme/repo-presenter-regen-full contract and its skill-development
-    plan, fix delivery-blocking defects surfaced by running the real portfolio (not synthetic fixtures),
-    and regenerate the complete local candidate portfolio through the existing supervise/local_poc path
-    until every product has either a validated candidate or a precisely documented genuine external blocker
-    -- entirely local, no push, no PR, no remote-repository mutation.
-  why_it_matters: The system has not yet proven it can deliver README quality the product owner recognizes
-    as matching Aspose.org's own proven output across the whole portfolio, only on a 4/33 slice -- closing
-    that gap using the same proven contract, through the one governed pipeline, is the actual deliverable
-    this mission graph exists to produce.
+  objective: Execute the proven graph-native transaction across every processable repository in the frozen
+    RegistryRevision until 31/31 are candidate-bound AGENT_ACCEPTED_30_OF_30 and immediate NO_OP_PROVEN;
+    retain the two PSD non-processable dispositions and produce one global review package.
+  why_it_matters: This is the tangible portfolio POC the owner can review; partial cohorts are development
+    evidence only.
   allowed_paths:
   - src/readme_agent/
   - tests/
@@ -959,43 +1044,44 @@ taskcards:
   - D:/onedrive/Documents/GitHub/aspose.org (read-only reference corpus and plan; never written to)
   - production target repository remotes
   - target default branches
-  dependencies: []
+  dependencies:
+  - L8-PF-05-SEVEN-ECOSYSTEM-CANARIES
   expected_outputs:
-  - A local README.md candidate under runs/readme-poc/ for every product in data/products.json where genuine
-    evidence supports one
-  - A precise, per-product blocker ledger for every product that cannot yet produce a candidate, distinguishing
-    genuine external-evidence gaps from fixable pipeline defects
-  - Regression tests for every pipeline defect fixed while reconciling against the proven Aspose.org contract
+  - Thirty-one complete current README candidates and native patches
+  - Thirty-one 30-of-30 independent acceptance records and immediate no-op receipts
+  - Thirty-one candidate-bound benchmark-parity records against the frozen qualified profile
+  - Two checksum-bound NON_PROCESSABLE_NO_IMPLEMENTATION dispositions
+  - One reconstructable portfolio summary and global human-review package
   acceptance_checks:
-  - Every candidate contains only verified public claims with exact source provenance
-  - Every candidate preserves useful verified content from the original README
-  - An unchanged rerun of any accepted candidate is proven idempotent (NO_OP_PROVEN)
-  - No target repository is modified and no remote-write or human-approval boundary is bypassed or weakened
+  - accepted_processable == processable_denominator == 31 for the frozen baseline
+  - hard_disqualifiers == 0, system_failures == 0, and manifest_failures == 0
+  - every accepted candidate has complete source, fact, knowledge, claim, review, and no-op lineage
+  - every accepted candidate meets or exceeds all applicable accepted benchmark coverage/quality dimensions
+  - no target repository effect occurred
   verification:
-  - Focused tests for each reused/adapted/fixed module
-  - Full governed suite green with zero new failures
-  - A real, full-portfolio local_poc run (not a fixture) as the acceptance oracle
-  - run_official_checks.py and validate_compact_authority.py both clean
+  - failed-only repository repair with per-repository focused proof
+  - bounded complete non-live suite at the portfolio closure boundary
+  - independent manifest reconstruction and adversarial portfolio audit
   negative_controls:
-  - A candidate produced outside the tracked supervise lane cannot count as portfolio progress
-  - A candidate that fabricates or infers an unverified claim cannot pass validation
-  - An evidence directory alone, without a governed commit and mission transition, cannot close this task
+  - No typed disposition may hide an agent-fixable repository or pipeline defect
+  - No average quality score, historical candidate, or renderer-only no-op counts
+  - No product repository write or publication occurs before later human acceptance and authorization
   regression_checks:
   - mission graph load and dependency resolution (active and deferred)
   - existing README contract, T3/T4 aspose.org check and fact wiring, and validator suite
   - no-op / freshness idempotency
   evidence_requirements:
-  - The per-product local_poc portfolio summary, per-repo candidate paths, and the blocker ledger for
-    unresolved products
+  - 31 candidate bundles, two disposition bundles, campaign identity, portfolio summary, and checksum
+    inventory
   rollback_or_recovery: This task only ever writes to this repository's own working tree and runs/readme-poc/;
     a bad change reverts by discarding the specific governed commit that applied it.
   failure_reroute: A defect in shared supervisor/validator/composition machinery discovered while reconciling
     against the proven Aspose.org contract is fixed surgically at its own layer with regression tests,
     not patched inline inside this task.
   closeout_rules:
-  - This task closes only once every product in the authoritative registry has either a validated local
-    candidate or a precisely documented genuine external blocker, with a governed commit and passing tests
-    -- not merely once some candidates exist
+  - Every processable repository is AGENT_ACCEPTED_30_OF_30 and immediate NO_OP_PROVEN.
+  - Both non-processable dispositions bind immutable source evidence and a resume predicate.
+  - The portfolio terminal state is PORTFOLIO_AGENT_ACCEPTED_AWAITING_GLOBAL_HUMAN_REVIEW.
   goal_ids:
   - GOAL-README
   - GOAL-DELIVERY
@@ -1004,28 +1090,25 @@ taskcards:
     summary: Deliver the complete local README candidate portfolio the product owner can review, at the
       same proven quality bar as Aspose.org's own corpus.
   execution_focus:
-    goal_id: DELIVERY-README-PORTFOLIO-PARITY
-    immediate_outcome: Raise the local_poc portfolio from 4/33 to every achievable candidate, matching
-      the proven Aspose.org presentation and provenance contract.
+    goal_id: DELIVERY-README-PORTFOLIO-PROOF
+    immediate_outcome: Reach 31-of-31 accepted and no-op-proven processable README candidates.
     repository_scope:
-    - platform:net
-    - platform:python
-    - platform:java
-    - platform:cpp
-    - platform:go
-    - platform:rust
-    - platform:typescript
+    - portfolio:processable-registry
     allowed_change_classes:
-    - shared_code
     - repository_runtime
     - factuality
     - presentation
-    next_goal_on_success: Feed the reconciled, hardened pipeline back into L8-FRESH-00-FRESHNESS-SERVICE
-      once production admission unblocks the ongoing autonomous service.
-  requirement_ids: []
+    next_goal_on_success: Present the complete portfolio once for global human review.
+    defer_nonblocking_findings: true
+    show_output_before_broad_regression: true
+    max_equivalent_ineffective_attempts: 2
+    max_minutes_without_narrowing: 15
+  requirement_ids:
+  - RDM-026
+  - PIL-015
   stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
   concurrency_class: repository_local_write_isolated
-  campaign_id: CAMP-GATE-B-AND-LATER
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 bootstrap_state:
   initialization: task status fields are bootstrap defaults only
   selection: derive the earliest dependency-ready task through mission evaluate
@@ -1033,129 +1116,254 @@ bootstrap_state:
   stop_reason: durable supervisor state owns live execution
 requirement_coverage:
   path: plans/investigations/evidence/level8-requirement-taskcard-coverage/requirement-taskcard-coverage.json
-  sha256: 8e14fd0ea03027a196ca03ed3e4a13bde9a3922815888ceebc8b15baca8517b5
-  record_count: 475
-  mandatory_requirement_rows: 424
-  reopened_implemented_rows: 0
+  sha256: c4991f572fa0f9d5be4bf40858e381cb21a8efe78a16e01faf490d58cc91306c
+  record_count: 489
+  mandatory_requirement_rows: 433
+  reopened_implemented_rows: 4
 requirement_catalog:
   path: plans/requirements/catalog.jsonl
-  sha256: e0cd23dfad79adfd4e6ed15c959e6ec3677acd6e21a201e55695bb8d3cca5408
-  record_count: 488
+  sha256: bb58cb62b8489c5b46a8be3566a85d9279ab5edb50af5a99031b3dc069c16e2a
+  record_count: 489
 deferred_task_catalog:
   path: plans/investigations/control/level8-deferred-task-catalog.jsonl
-  sha256: 1bb26ef6d7b82ae4d892ab6a8204e41127a3c1fdc84d46d50d913eeeac43e0c3
-  record_count: 135
+  sha256: 6a5b8d275e182040d31ac39d44054115adabc1c97574820a1809382d967ac604
+  record_count: 141
 deferred_task_index:
-- task_id: L8-PLAN-RECONCILIATION-ACCELERATION
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-P0-PLAN-FREEZE
-  activation_group: historical-control
-  record_sha256: 5c238a7bcccf6bdf455a5d80fb89623c908ec64cc451b37d5d8535c6080c5052
-- task_id: L8-VPY-00-GOLDEN-TEMPLATE
+- task_id: L8-ACCEL-00-PYTHON-READINESS
   status: TODO
   stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
   activation_group: verified-next-horizon
-  record_sha256: 27474547ba275f5007d5d823b3480a645ab6727239784724f97a3e83ba0e404a
-- task_id: TRP-00-ASSURANCE-CONTRACT
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
-  activation_group: historical-control
-  record_sha256: 3040ab83c28b64f63418cc927ee9a2690dfa9cd55ed9700f1b2944d6d0989790
-- task_id: TRP-01-README-DERIVED-FACTS
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
-  activation_group: historical-control
-  record_sha256: daa88b7fcd0e14846c99eff9cfa5715ed47f7f36a2e50cacf528846d9a3ef444
-- task_id: TRP-02-LLM-FIRST-COMPOSITION
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
-  activation_group: historical-control
-  record_sha256: d7c1e448ec8193278f551b71927e17817c5f5c98d4868d0eb9869d9d9d88a63b
-- task_id: TRP-03-INDEPENDENT-FIDELITY-REVIEW
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
-  activation_group: historical-control
-  record_sha256: e96cb53aa72cf79f71ebba67731ddce7acea56d89db668028840cb6248a69aa7
-- task_id: TRP-04P-COHORT-FREEZE
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
-  activation_group: historical-control
-  record_sha256: 7365f7b02a37689ed4a1f1f47343653211b8a193a9b37afce89c7ff178c7e0a9
-- task_id: TRP-04P-TEST-LATENCY
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
-  activation_group: historical-control
-  record_sha256: 5a815e6e696d127b3673055db89a9d7a1f692b69ca35fd18242194d52a99a279
-- task_id: TRP-04P-ACT-WORKFLOW-PARITY
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
-  activation_group: historical-control
-  record_sha256: 221a65ab811fd653cf97fada8e468a5e07d7818c6da97b282cccababccb82f4f
-- task_id: TRP-04P-STAGING-EFFECT-PROOF
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
-  activation_group: historical-control
-  record_sha256: bb0f71360c4e62a5c20ee4cc32228f1df41be291cf525f43a8fb1e106f601bf7
-- task_id: TRP-04P-COHERENT-PRESENTATION-REPAIR
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
-  activation_group: historical-control
-  record_sha256: 65de891cab5d874ae6cb970ae8eb24c09cbf6b7af0138c22c9385ea403372b6e
-- task_id: TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
-  activation_group: historical-control
-  record_sha256: a2bd3fc05ec5be941dff9dceb9a53c7aa49540e5dd5478f682f8f5c6f0fa56e1
-- task_id: TRP-04P-AUTHORIZATION-ACCESS
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
-  activation_group: historical-control
-  record_sha256: 42e5d7f13373fe0f708fcc22ad82603bf79d9e2e81ead0caf4388e1e26fc0728
-- task_id: TRP-04P-DRAFT-PR-COHORT
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
-  activation_group: historical-control
-  record_sha256: 2bd552cea7574c0d4c2056a05d08aeb267c99dbe8628443c1203cdc7cfc73839
-- task_id: TRP-04P-POC-PRESENTATION
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
-  activation_group: historical-control
-  record_sha256: 4005f0f1940bf509f3276591502cd5540f0f3532a56768fa34dde69b46783729
-- task_id: TRP-04-CANARY-QUALIFICATION
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION
-  activation_group: historical-control
-  record_sha256: aef4ab26f042519df4e5db9e4051b9c8840fd90236cdf8670067ee521da967f7
-- task_id: TRP-05-FULL-REGISTRY-TRANSFORM
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-T1-TRUSTED-PORTFOLIO
-  activation_group: historical-control
-  record_sha256: 767e7d9ca93fef807974d76f6d2215797e69f1ae5b9c579d9bc5da4aea0e16b0
-- task_id: TRP-05A-ACT-WORKFLOW-PARITY
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-T2-WORKFLOW-STAGING
-  activation_group: historical-control
-  record_sha256: cfc75335b12f07c30b5ebb4723ad8976c810ab332055e62a1108131fa9eb3630
-- task_id: TRP-05B-STAGING-EFFECT-PROOF
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-T2-WORKFLOW-STAGING
-  activation_group: historical-control
-  record_sha256: 8bb3bf0915b10ca457d08e3195b3eaaa0ad4543ea355231b7d838772b0009c2d
-- task_id: TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-T3-HOSTED-TRUSTED-DELIVERY
-  activation_group: historical-control
-  record_sha256: 58c5d98ff9d99c4af45b78b3449656fa8f21af2e5f9b70d86ed42aa29bc4d204
-- task_id: TRP-06-AUTHORIZATION-ACCESS
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-T3-HOSTED-TRUSTED-DELIVERY
-  activation_group: historical-control
-  record_sha256: 464dfea2fb529d56ef8dd68e5f88e85eaaf5049cc4f9c386d15a7c3b23cd6893
-- task_id: TRP-07-DRAFT-PR-PORTFOLIO
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-T3-HOSTED-TRUSTED-DELIVERY
-  activation_group: historical-control
-  record_sha256: 636377ec4392385d43eb6f8d8673f23ac096de244655241a50b4e60f6d6205dd
+  record_sha256: f42f0dca78306eadabdaa08b7d509c5142b43edc035350823eae9a261b35ccab
+- task_id: L8-ACCEL-01-EIGHT-TOTAL
+  status: REROUTED
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 4d1ab42db5737c1193b94103b851bff863de2855bdd2bbacd394ea21385f5e73
+- task_id: L8-ACCEL-02-EIGHT-PYTHON
+  status: REROUTED
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 8b62e7e9e464f6ca7aa8158368705ce385a878e4fb4b95c3271f0ce2b5e2132d
+- task_id: L8-ACCEL-03-ALL-PYTHON
+  status: REROUTED
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 6e5de663db25305b7ddfa3c75257ab4d016e6a5059908b99f08c72a4ef8237d3
+- task_id: L8-ACT-CANONICAL-WORKFLOW-PARITY
+  status: TODO
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
+  activation_group: gate-b-c
+  record_sha256: a44787ca644bc073c85863957ff41153e42fa0988f44d392dd7cdc5a55354e3e
+- task_id: L8-AGILE-AUTHORITY-RESET
+  status: CLOSED
+  stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
+  activation_group: capacity-retired-closed
+  record_sha256: 99a4e8127b8aea8b46d1cbfe9a2a2ffe0df4d543b763f72b2fcd486514698ec9
+- task_id: L8-COMPOSE-00-CHARACTERIZE
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: dff9d886df7c018631f269eb9cb4856c32d0fa8791b441aaed23bd2ac1512f14
+- task_id: L8-COMPOSE-01-DECOMPOSE
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 4855c47193aa320e60950bc0e27da28b9624edeedc73b7b2002cbb0f034f59c4
+- task_id: L8-COMPOSE-01A-SECTION-REGRESSIONS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 497e02a30513fa6ed037b808466728e65b4894963e44a9f12550f359c656aaa4
+- task_id: L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: f99c6b50220debc2218ebc8b83f8d5b488ed4624f6e8bebae8aa07e25f8dd99e
+- task_id: L8-COMPOSE-01C-CONTEXTUAL-LINKING
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 6e4a3e2c168dcd813e92bceaeab370f9fc61270326a0253bda7ac3fb819badd3
+- task_id: L8-COMPOSE-02-EXISTING-SECTIONS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 6a462f832c026b97b4b84c04566d13398803b239cdcfeabe55885f6bf7e8061c
+- task_id: L8-COMPOSE-02A-OPERATION-REGRESSIONS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 2692bd6df6301724adbaab6b25e901b78da9306821dbba27273f21536fe814fc
+- task_id: L8-COMPOSE-02B-FINAL-CLAIM-CORPUS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 45bb61d44987674eeba69cb22c7b1b0e00fff45cf097bdab3124b52dce93a6ce
+- task_id: L8-COMPOSE-03-OPERATION-COVERAGE
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: a661f56fbe33157cfdd64df64bcdb86575b21dbb56c589bf0d550978330b345b
+- task_id: L8-COMPOSE-03A-PRESENTATION-CORPUS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 9efbd29c6318316971a9640666ef43d26180fe392e4deaf6b8a1241debcb9d49
+- task_id: L8-COMPOSE-04-PRESENTATION-LINT
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 4ebba509762d4ad9a67f524022c8e0c96aeb708b3eb610a5caa634b38c62fffe
+- task_id: L8-COMPOSE-04A-CANDIDATE-FIXTURES
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: bb0b3f73f21ed763bfea7dd10125862a9ca49877a425162181201749478e7e63
+- task_id: L8-COMPOSE-04B-STAGE-TRANSACTIONS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: fb44befa5b4a4f484cae861b5f1920e015cc93c0f4a2e1adf6f3286cd8998058
+- task_id: L8-COMPOSE-05-SEVEN-CANDIDATES
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: e9248f12fb6580c61dccca2024bdb2ddf68dd592c24809899733714851844ec7
+- task_id: L8-COMPOSE-05A-RUST-EXECUTION-REPAIR
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 6644379c2e570cf999aca55b8bcc8870d4f272c8e94256c498e1d1d498ee060f
+- task_id: L8-FRESH-00-FRESHNESS-SERVICE
+  status: TODO
+  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
+  activation_group: post-portfolio-horizon
+  record_sha256: e789dce679aa81d90aed9a92a91f7284bfec9db89222d218e920a6f476e44aa5
+- task_id: L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF
+  status: TODO
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
+  activation_group: gate-b-c
+  record_sha256: 79f3f167573f028d8b63af3ca766f0f17bd9133890d0d68d558bf8d04159acb5
+- task_id: L8-GATE-D-GITHUB-APP-INTEGRATION
+  status: TODO
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
+  activation_group: gate-b-c
+  record_sha256: 3017756c8fd3708284a0411d68fe5e9acc773f8a16ebb3350f5b1662c197ed55
+- task_id: L8-GATEA-00-COHORT-CONTROLS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 37fd1081b8c572e53a43a455dde5300a3ba1d53111f97028c78d226e0a368f0d
+- task_id: L8-GATEA-01-COHORTS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 57f109165dc2ec1f7b22c53cdcdf1302b49c78995729bcaad1a0d33cd91b815b
+- task_id: L8-GATEA-01A-FAILURE-ROUTING
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: c3e8dfab76c6cefcfe80765ff967996838d1ab71c5de4930784cbe49a1f2ead1
+- task_id: L8-GATEA-02-HEAL-FAILURES
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 3c18c25c05d9d5e89fa5538c8f0a0ee55615639e0bd178fd6269fb69dd245aa1
+- task_id: L8-GATEA-02A-CURRENT-CONTRACT
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: be8ec1f2f63cedeaaa6d75cc2e8d3ebe7d338de883c9eb2f026c37e1a589a50e
+- task_id: L8-GATEA-03-NO-OP
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 0e5571d854f14caa930590cf42e8ff0348ca621c6b9f4dd8c15ef68c9e39e928
+- task_id: L8-GATEA-03A-REPRO-CONTROLS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 98101bae83d3be461f31c7d89d07996687070ea271a8da058eec608338c1adb1
+- task_id: L8-GATEA-04-REPRODUCE
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: aa5e875da27e56b1a243602c834de92972f50e6afe0e575cba21852a434bce52
+- task_id: L8-HORIZON-01-ACTIVATE-GATE-A
+  status: TODO
+  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
+  activation_group: post-portfolio-horizon
+  record_sha256: 6b305ee6287808473b56c9c5a964a61b78bc771a6453171c930fe5b48b546168
+- task_id: L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY
+  status: TODO
+  stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
+  activation_group: portfolio-intake
+  record_sha256: 14c66c84d6937fcf86a68891bf48c83330cbcaa86ea6dc9772f60674da078a93
+- task_id: L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION
+  status: TODO
+  stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
+  activation_group: portfolio-intake
+  record_sha256: e231d9b89ab45908826294f4f22af1e07d7b97a3cbace6e9f8602e25dedbf789
+- task_id: L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT
+  status: TODO
+  stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
+  activation_group: portfolio-intake
+  record_sha256: a43502efefa604427f3ec8bbdb31e8a17d5cd759d39378119b539d8c4dbc26c4
+- task_id: L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH
+  status: TODO
+  stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
+  activation_group: portfolio-intake
+  record_sha256: 80505191deea27d597a37dafdfe44c5bc9f8fba3be568246efa4d568db3ae52f
+- task_id: L8-LOCAL-CENTRAL-AGENT-RESILIENCE
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 858e4f473842698a950e05acd2df989ea3ba32974e81742cb2c28f7d084d76a5
+- task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 0bbc8b3787cfe3f5ca09093dff9189bfff25461184560bb12a32e6dec160403a
+- task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: e1df9e4fbb98110a06f04a348904632472f02c062d565944e8c99d7a080deb50
+- task_id: L8-LOCAL-HUMAN-REVIEW-GATE-B
+  status: TODO
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
+  activation_group: gate-b-c
+  record_sha256: 81b79c8301351d9e456cee5d58426c1b7b4c1d8fde910d22f7e43fee457d48c2
+- task_id: L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS
+  status: TODO
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  activation_group: verified-gate-a
+  record_sha256: 1982e69756b003775bfdd7ce7e5b9f468c904da4abd2c1323a17adc53fa1f299
+- task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: e4275d81f19b3b51afba1a48cbc56458efacc99a8bbf588ff3e10e7d1ca76dd4
+- task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+  status: TODO
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  activation_group: verified-gate-a
+  record_sha256: 92b0e1871ac0fb56dde2ad60c468aab90ef1f1e97fb1e93db5026892ba40cf67
+- task_id: L8-LOCAL-PORTFOLIO-RUNTIME
+  status: TODO
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  activation_group: verified-gate-a
+  record_sha256: 3923ed15b9be60328df2828524d520369318dce0210c94e98327f63500511275
+- task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 0b6640c739e9f7654e662595a5c9fe42d7ffc2f23e8474171d3ac0c48a45fc28
+- task_id: L8-LOCAL-README-PROPOSAL-PROOF
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: f5665641bbe5cb0006994b4bd07804466b08ca76892a4b4187ea72d793228a94
 - task_id: L8-MISSION-CONTROL-CONSUMER
   status: DEFERRED_WITH_REASON
   stage_goal_id: GOAL-P0-PLAN-FREEZE
@@ -1166,66 +1374,11 @@ deferred_task_index:
   stage_goal_id: GOAL-P0-PLAN-FREEZE
   activation_group: historical-control
   record_sha256: 9800ce7c3234d99908dfcf95ecce65757492dd244b5b0bd7e39d12cf03b926b8
-- task_id: L8-REQUIREMENT-TO-TASKCARD-COVERAGE
+- task_id: L8-PLAN-RECONCILIATION-ACCELERATION
   status: DEFERRED_WITH_REASON
   stage_goal_id: GOAL-P0-PLAN-FREEZE
   activation_group: historical-control
-  record_sha256: 11a4d1431520f14f91134eb34656ca070a1e256a4bb4a479a7dba8f7f3bf7f17
-- task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-P0-PLAN-FREEZE
-  activation_group: historical-control
-  record_sha256: 556a08443d75fcdf31ac3b6dfada52cb874c1692d98784d80ee2c8469c331306
-- task_id: L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-P0-PLAN-FREEZE
-  activation_group: historical-control
-  record_sha256: f690ec1dd09d29b513be736e03e4fd355ac286e4cb7726c6fb6f2d55a2d10106
-- task_id: L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-P0-PLAN-FREEZE
-  activation_group: historical-control
-  record_sha256: 3dc711c7de5292d5cb0c7811c31668dfc8caf99c8824c4cae508c8ffc6766f15
-- task_id: L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-P0-PLAN-FREEZE
-  activation_group: historical-control
-  record_sha256: 66bbd1f2a3b287bca77a8e711acf05310b8cab5304cff26dbb4d361dba94a20a
-- task_id: L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION
-  status: DEFERRED_WITH_REASON
-  stage_goal_id: GOAL-P0-PLAN-FREEZE
-  activation_group: historical-control
-  record_sha256: aae9fa672a8276cbaa85f2c67edc110f44eb03d9addb5547a54408cd6bd2010a
-- task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
-  status: TODO
-  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
-  activation_group: verified-gate-a
-  record_sha256: 22570315235fc31ae6bc21a37f8030c0a6952f686fe1d9385606f0e0a68b8dfa
-- task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
-  status: TODO
-  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
-  activation_group: gate-b-c
-  record_sha256: a6545eb94601af71ecf681c5fb6337d56f2e74ec03bcb42508fab9c09a351054
-- task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
-  status: TODO
-  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
-  activation_group: verified-gate-a
-  record_sha256: a7b9f79a11662d967652e0eb66398216fb003b79ad10e2906741009fe6a294c3
-- task_id: L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION
-  status: TODO
-  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
-  activation_group: verified-gate-a
-  record_sha256: 6b33461729306eb6f6851af752ea8db3f6552e883341e999d9a7b83b5c07aa6a
-- task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 91ba6704ffcf43137c56b6fc1ab0d1042005b28cd53ac02f1a7bfcc7d0da45bf
-- task_id: L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 01d15960064233679ac767ed61c3a4ea68174f4f4b4feabf133213fc6871912c
+  record_sha256: afd5ddd3d647c145833d8551e81dfd04cd8e0af7c1ccd05af3af4c1d7ae86808
 - task_id: L8-PREPRODUCTION-IDEA-FIDELITY-GATE
   status: TODO
   stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
@@ -1236,21 +1389,121 @@ deferred_task_index:
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   activation_group: verified-gate-a
   record_sha256: 7b40890ec1fdb072e39f64eb9ff0122a315f4d0d331ba65af3da1d4f7ee3944d
-- task_id: L8-LOCAL-IMMUTABLE-SNAPSHOT-AND-FACTS
-  status: TODO
-  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
-  activation_group: verified-gate-a
-  record_sha256: 1982e69756b003775bfdd7ce7e5b9f468c904da4abd2c1323a17adc53fa1f299
-- task_id: L8-LOCAL-README-PROPOSAL-PROOF
+- task_id: L8-QUAL-00-CAMPAIGN-SCHEMA
   status: TODO
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   activation_group: verified-gate-a
-  record_sha256: f5665641bbe5cb0006994b4bd07804466b08ca76892a4b4187ea72d793228a94
-- task_id: L8-LOCAL-PORTFOLIO-RUNTIME
+  record_sha256: 3d58b42bcac7a91a26e2b36503a55ce86733040e6188bbdbacf7209f825f3148
+- task_id: L8-QUAL-01-CAMPAIGN-IDENTITY
   status: TODO
-  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   activation_group: verified-gate-a
-  record_sha256: 3923ed15b9be60328df2828524d520369318dce0210c94e98327f63500511275
+  record_sha256: c87ada93e5fbb5af960681f3886674b3326d01986576f41ce0b97373c00aa8c9
+- task_id: L8-QUAL-01A-REPRESENTATIVE-INPUTS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: a4d2c8e9d5661f170fa30aa2c2f7f1e3efed07a4ac5554f8098f91bf81aac944
+- task_id: L8-QUAL-02-SEVEN-E2E
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 9e585151bfcf72ccda8a880dd2e76d3fdddaf0000048c48f6b7248bfe725adfb
+- task_id: L8-QUAL-02A-FAILURE-MATRIX
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: b12d9a1e61aa2f802e3f11425cb18b9b8900bdf6992b8d0d43f2b21472436561
+- task_id: L8-QUAL-03-RECOVERY
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 8f87c81ecf4fbcd4a7832ce337b64cc3aa00ea000a7deb6767c938b4c997f269
+- task_id: L8-QUAL-03A-EVALUATION-CORPUS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 1bd2f087df4e1bb875812a72de22b0b67c43cf952a66df3d8e065be3e810cdc4
+- task_id: L8-QUAL-04-GOLDEN-SET
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 1d76fbc11e07ed468395d417bae9b24477824928e2aa2183959422fa2b8cf72a
+- task_id: L8-QUAL-04A-FREEZE-CONTROLS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: d2a2c89a7074700d6007abd92077fa85b4abb9a7b20829c76658c4be0ba38881
+- task_id: L8-QUAL-04B-COST-BASELINE
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: c82901b4c3c306f70a3e476abb75003696c0ac87798d321f5a45e4baddcd397d
+- task_id: L8-QUAL-05-FREEZE
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 6dca8cdaedc2973264820a81722340607d5fee796c1380355f9cdd15b122af82
+- task_id: L8-REQUIREMENT-TO-TASKCARD-COVERAGE
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
+  activation_group: historical-control
+  record_sha256: 11a4d1431520f14f91134eb34656ca070a1e256a4bb4a479a7dba8f7f3bf7f17
+- task_id: L8-REVIEW-00-CONTEXT-CORPUS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 4f96ffe74085424c8500f365ffefff509a7b2ca29817c90ffc88f5ce15d471ca
+- task_id: L8-REVIEW-01-FREEZE-ROLES
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: f046102d050a28478da91401d21208c1e1ff93b256234b6467db91ac2122fbfe
+- task_id: L8-REVIEW-01A-FINDING-CONTROLS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 31e262daf8280d73dd717160a9f41440e6dc7e1c22e627ed7139fbca8ee47788
+- task_id: L8-REVIEW-02-FINDING-GROUNDING
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: a777ce8943763de951e517fb8d5eac0cac7237fcb9b331e9bad4b00609b3a393
+- task_id: L8-REVIEW-02A-REPAIR-CONTROLS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 7acd08894d60cd7f2685d1d630bf1f804c65b5ca0132bece536945fcab5d6938
+- task_id: L8-REVIEW-03-EFFECTIVE-REPAIR
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: dde4f8f8c8ea5270e6b5b1896b677669176ddb5ab71e789219c60f97336d60fd
+- task_id: L8-REVIEW-03A-CACHE-MEASUREMENT
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 7c8118bf88aa04b5369adc8fee72bbb90d9521b6e7ac008aafdacb3b70d8daa3
+- task_id: L8-REVIEW-04-NO-OP-CACHE
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 8bdc3035c8196e39ae4011a679d6891048f98bb4332ac0af0c77793145588b49
+- task_id: L8-REVIEW-04A-REAL-CORPUS
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 3195f19c5de973c2247ab3dc1c960a27319f0f9807b0c327982a2bce60ded961
+- task_id: L8-REVIEW-05-REAL-CAMPAIGN
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: f7efd1b600e1ad9d7c237c6d33bc119b2f6bb90fc2e630c3f556d7b785f7e51a
+- task_id: L8-STAGING-VERIFIED-PROPOSAL-PROOF
+  status: TODO
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
+  activation_group: gate-b-c
+  record_sha256: 1821acfeb8f269a5eea3fcce592aa913a89885e7a35fba528b571fe128cc58b9
 - task_id: L8-TRUTH-01-STAGE-LIMIT
   status: TODO
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
@@ -1325,377 +1578,57 @@ deferred_task_index:
   status: TODO
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   activation_group: verified-gate-a
-  record_sha256: 3bdf10df07ae33c8b3eaa4b61874aa1695280cc70b5004dbaa878e6ba6abd0a2
-- task_id: L8-ACCEL-00-PYTHON-READINESS
-  status: TODO
-  stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
-  activation_group: verified-next-horizon
-  record_sha256: f42f0dca78306eadabdaa08b7d509c5142b43edc035350823eae9a261b35ccab
-- task_id: L8-ACCEL-01-EIGHT-TOTAL
-  status: REROUTED
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 4d1ab42db5737c1193b94103b851bff863de2855bdd2bbacd394ea21385f5e73
-- task_id: L8-ACCEL-02-EIGHT-PYTHON
-  status: REROUTED
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 8b62e7e9e464f6ca7aa8158368705ce385a878e4fb4b95c3271f0ce2b5e2132d
-- task_id: L8-ACCEL-03-ALL-PYTHON
-  status: REROUTED
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 6e5de663db25305b7ddfa3c75257ab4d016e6a5059908b99f08c72a4ef8237d3
+  record_sha256: 01a4cd684715f390148f9b384a4a5021a5a1e230cbd967d647c2edd62fa73144
 - task_id: L8-TRUTH-08-FULL-REGISTRY
   status: TODO
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   activation_group: verified-gate-a
   record_sha256: 17f873475940c8e6acbf3c98e196e5537a9bda5cc66e29ef8f1d0bf87d82d4a2
-- task_id: L8-LOCAL-PORTFOLIO-PRODUCT-TRUTH
+- task_id: L8-VNET-01-ACCELERATED-LOCAL-NO-OP
   status: TODO
-  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
-  activation_group: verified-gate-a
-  record_sha256: 92b0e1871ac0fb56dde2ad60c468aab90ef1f1e97fb1e93db5026892ba40cf67
-- task_id: L8-COMPOSE-00-CHARACTERIZE
+  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
+  activation_group: post-portfolio-horizon
+  record_sha256: 8f7987ec4485cba76dbc87a64c65d056091145a4a1686b312acdf1b8c5b50b74
+- task_id: L8-VNET-02-PRODUCTION-TRANSPORT
   status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: dff9d886df7c018631f269eb9cb4856c32d0fa8791b441aaed23bd2ac1512f14
-- task_id: L8-COMPOSE-01A-SECTION-REGRESSIONS
+  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
+  activation_group: post-portfolio-horizon
+  record_sha256: 364115477e0f924411fd92ec4a8646530add65c8edab95151f0dbb6047b5e8e3
+- task_id: L8-VPY-00-GOLDEN-TEMPLATE
   status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 497e02a30513fa6ed037b808466728e65b4894963e44a9f12550f359c656aaa4
-- task_id: L8-COMPOSE-02A-OPERATION-REGRESSIONS
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 2692bd6df6301724adbaab6b25e901b78da9306821dbba27273f21536fe814fc
-- task_id: L8-COMPOSE-03A-PRESENTATION-CORPUS
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 9efbd29c6318316971a9640666ef43d26180fe392e4deaf6b8a1241debcb9d49
-- task_id: L8-COMPOSE-04A-CANDIDATE-FIXTURES
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: bb0b3f73f21ed763bfea7dd10125862a9ca49877a425162181201749478e7e63
-- task_id: L8-COMPOSE-04B-STAGE-TRANSACTIONS
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: fb44befa5b4a4f484cae861b5f1920e015cc93c0f4a2e1adf6f3286cd8998058
-- task_id: L8-COMPOSE-01-DECOMPOSE
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 4855c47193aa320e60950bc0e27da28b9624edeedc73b7b2002cbb0f034f59c4
-- task_id: L8-COMPOSE-01B-HEADER-VISUAL-CONTRACT
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: f5da0737797ac7ed31278f70df39264324604c2c99ddb248bb1ebc008c8e2dc5
-- task_id: L8-COMPOSE-01C-CONTEXTUAL-LINKING
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 6e4a3e2c168dcd813e92bceaeab370f9fc61270326a0253bda7ac3fb819badd3
-- task_id: L8-COMPOSE-02-EXISTING-SECTIONS
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 6a462f832c026b97b4b84c04566d13398803b239cdcfeabe55885f6bf7e8061c
-- task_id: L8-COMPOSE-02B-FINAL-CLAIM-CORPUS
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 94354069dcd88b44fa97978f9cf690232083b30b7eeccf82e1cd2e2e120094ce
-- task_id: L8-COMPOSE-03-OPERATION-COVERAGE
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: a661f56fbe33157cfdd64df64bcdb86575b21dbb56c589bf0d550978330b345b
-- task_id: L8-COMPOSE-04-PRESENTATION-LINT
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 4ebba509762d4ad9a67f524022c8e0c96aeb708b3eb610a5caa634b38c62fffe
-- task_id: L8-COMPOSE-05-SEVEN-CANDIDATES
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: e9248f12fb6580c61dccca2024bdb2ddf68dd592c24809899733714851844ec7
-- task_id: L8-COMPOSE-05A-RUST-EXECUTION-REPAIR
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 6644379c2e570cf999aca55b8bcc8870d4f272c8e94256c498e1d1d498ee060f
-- task_id: L8-LOCAL-README-ASSESSMENT-COMPOSITION
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 0b6640c739e9f7654e662595a5c9fe42d7ffc2f23e8474171d3ac0c48a45fc28
-- task_id: L8-INTAKE-00-DISCOVERY-TRUTH-AND-SAFETY
-  status: TODO
-  stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
-  activation_group: portfolio-intake
-  record_sha256: 14c66c84d6937fcf86a68891bf48c83330cbcaa86ea6dc9772f60674da078a93
-- task_id: L8-INTAKE-01-STABLE-IDENTITY-AND-RECONCILIATION
-  status: TODO
-  stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
-  activation_group: portfolio-intake
-  record_sha256: e231d9b89ab45908826294f4f22af1e07d7b97a3cbace6e9f8602e25dedbf789
-- task_id: L8-INTAKE-02-READONLY-PREFLIGHT-ENROLLMENT
-  status: TODO
-  stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
-  activation_group: portfolio-intake
-  record_sha256: 7209d906dcdf01f3cad1c2a9d5bf41c9a07efd99e864871b3866a50c161d9d65
-- task_id: L8-INTAKE-03-REGISTRY-REVISION-QUEUE-AND-HEALTH
-  status: TODO
-  stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
-  activation_group: portfolio-intake
-  record_sha256: 4775e8f4a5596be613d24aee1ad004e6dc059574adcc73ea20a25d6d36f4413e
-- task_id: L8-REVIEW-00-CONTEXT-CORPUS
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 4f96ffe74085424c8500f365ffefff509a7b2ca29817c90ffc88f5ce15d471ca
-- task_id: L8-REVIEW-01A-FINDING-CONTROLS
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 31e262daf8280d73dd717160a9f41440e6dc7e1c22e627ed7139fbca8ee47788
-- task_id: L8-REVIEW-02A-REPAIR-CONTROLS
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 7acd08894d60cd7f2685d1d630bf1f804c65b5ca0132bece536945fcab5d6938
-- task_id: L8-REVIEW-03A-CACHE-MEASUREMENT
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 7c8118bf88aa04b5369adc8fee72bbb90d9521b6e7ac008aafdacb3b70d8daa3
-- task_id: L8-REVIEW-04A-REAL-CORPUS
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 3195f19c5de973c2247ab3dc1c960a27319f0f9807b0c327982a2bce60ded961
-- task_id: L8-REVIEW-01-FREEZE-ROLES
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: f046102d050a28478da91401d21208c1e1ff93b256234b6467db91ac2122fbfe
-- task_id: L8-REVIEW-02-FINDING-GROUNDING
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: a777ce8943763de951e517fb8d5eac0cac7237fcb9b331e9bad4b00609b3a393
-- task_id: L8-REVIEW-03-EFFECTIVE-REPAIR
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: dde4f8f8c8ea5270e6b5b1896b677669176ddb5ab71e789219c60f97336d60fd
-- task_id: L8-REVIEW-04-NO-OP-CACHE
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 8bdc3035c8196e39ae4011a679d6891048f98bb4332ac0af0c77793145588b49
-- task_id: L8-REVIEW-05-REAL-CAMPAIGN
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: f7efd1b600e1ad9d7c237c6d33bc119b2f6bb90fc2e630c3f556d7b785f7e51a
-- task_id: L8-LOCAL-INDEPENDENT-REVIEW-REPAIR
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: e4275d81f19b3b51afba1a48cbc56458efacc99a8bbf588ff3e10e7d1ca76dd4
-- task_id: L8-QUAL-00-CAMPAIGN-SCHEMA
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 3d58b42bcac7a91a26e2b36503a55ce86733040e6188bbdbacf7209f825f3148
-- task_id: L8-QUAL-01A-REPRESENTATIVE-INPUTS
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: a4d2c8e9d5661f170fa30aa2c2f7f1e3efed07a4ac5554f8098f91bf81aac944
-- task_id: L8-QUAL-02A-FAILURE-MATRIX
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: b12d9a1e61aa2f802e3f11425cb18b9b8900bdf6992b8d0d43f2b21472436561
-- task_id: L8-QUAL-03A-EVALUATION-CORPUS
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 1bd2f087df4e1bb875812a72de22b0b67c43cf952a66df3d8e065be3e810cdc4
-- task_id: L8-QUAL-04A-FREEZE-CONTROLS
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: d2a2c89a7074700d6007abd92077fa85b4abb9a7b20829c76658c4be0ba38881
-- task_id: L8-QUAL-01-CAMPAIGN-IDENTITY
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 9ecec8e08b62a9ba7d23b94d61e519a5ecbe416d310d4889925ac3520b397c99
-- task_id: L8-QUAL-02-SEVEN-E2E
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 9e585151bfcf72ccda8a880dd2e76d3fdddaf0000048c48f6b7248bfe725adfb
-- task_id: L8-QUAL-03-RECOVERY
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 33558908f054bfde4c5a5e4cb07fec13eeb17c82ce113a53927424a2d21312d1
-- task_id: L8-QUAL-04-GOLDEN-SET
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 1d76fbc11e07ed468395d417bae9b24477824928e2aa2183959422fa2b8cf72a
-- task_id: L8-QUAL-04B-COST-BASELINE
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: c82901b4c3c306f70a3e476abb75003696c0ac87798d321f5a45e4baddcd397d
-- task_id: L8-QUAL-05-FREEZE
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 6dca8cdaedc2973264820a81722340607d5fee796c1380355f9cdd15b122af82
-- task_id: L8-LOCAL-HETEROGENEOUS-QUALIFICATION
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: e1df9e4fbb98110a06f04a348904632472f02c062d565944e8c99d7a080deb50
-- task_id: L8-GATEA-00-COHORT-CONTROLS
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 37fd1081b8c572e53a43a455dde5300a3ba1d53111f97028c78d226e0a368f0d
-- task_id: L8-GATEA-01A-FAILURE-ROUTING
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: c3e8dfab76c6cefcfe80765ff967996838d1ab71c5de4930784cbe49a1f2ead1
-- task_id: L8-GATEA-02A-CURRENT-CONTRACT
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: be8ec1f2f63cedeaaa6d75cc2e8d3ebe7d338de883c9eb2f026c37e1a589a50e
-- task_id: L8-GATEA-03A-REPRO-CONTROLS
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 98101bae83d3be461f31c7d89d07996687070ea271a8da058eec608338c1adb1
-- task_id: L8-GATEA-01-COHORTS
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 57f109165dc2ec1f7b22c53cdcdf1302b49c78995729bcaad1a0d33cd91b815b
-- task_id: L8-GATEA-02-HEAL-FAILURES
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 3c18c25c05d9d5e89fa5538c8f0a0ee55615639e0bd178fd6269fb69dd245aa1
-- task_id: L8-GATEA-03-NO-OP
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 0e5571d854f14caa930590cf42e8ff0348ca621c6b9f4dd8c15ef68c9e39e928
-- task_id: L8-GATEA-04-REPRODUCE
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: aa5e875da27e56b1a243602c834de92972f50e6afe0e575cba21852a434bce52
-- task_id: L8-LOCAL-FULL-REGISTRY-GATE-A
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 0bbc8b3787cfe3f5ca09093dff9189bfff25461184560bb12a32e6dec160403a
-- task_id: L8-LOCAL-HUMAN-REVIEW-GATE-B
-  status: TODO
-  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
-  activation_group: gate-b-c
-  record_sha256: 81b79c8301351d9e456cee5d58426c1b7b4c1d8fde910d22f7e43fee457d48c2
-- task_id: L8-LOCAL-CENTRAL-AGENT-RESILIENCE
-  status: TODO
-  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
-  activation_group: verified-gate-a
-  record_sha256: 858e4f473842698a950e05acd2df989ea3ba32974e81742cb2c28f7d084d76a5
-- task_id: L8-ACT-CANONICAL-WORKFLOW-PARITY
-  status: TODO
-  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
-  activation_group: gate-b-c
-  record_sha256: a44787ca644bc073c85863957ff41153e42fa0988f44d392dd7cdc5a55354e3e
-- task_id: L8-STAGING-VERIFIED-PROPOSAL-PROOF
-  status: TODO
-  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
-  activation_group: gate-b-c
-  record_sha256: 1821acfeb8f269a5eea3fcce592aa913a89885e7a35fba528b571fe128cc58b9
-- task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
-  status: TODO
-  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
-  activation_group: gate-b-c
-  record_sha256: 3167c4ef806958dffe48a481db791e2f277ee9fb06a2e2c9be379af9d57658a1
-- task_id: L8-GATE-C-VERIFIED-JAVA-PROPOSAL-PROOF
-  status: TODO
-  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
-  activation_group: gate-b-c
-  record_sha256: 79f3f167573f028d8b63af3ca766f0f17bd9133890d0d68d558bf8d04159acb5
-- task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
-  status: TODO
-  stage_goal_id: GOAL-L5-PRESENTATION-PILOT
-  activation_group: deployment
-  record_sha256: a0caf04f32cb6ba1503862a033a15dad82c3d2d4ff71a859274049d67a70473e
-- task_id: L8-GATE-D-GITHUB-APP-INTEGRATION
-  status: TODO
-  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
-  activation_group: gate-b-c
-  record_sha256: 3017756c8fd3708284a0411d68fe5e9acc773f8a16ebb3350f5b1662c197ed55
-- task_id: L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO
-  status: TODO
-  stage_goal_id: GOAL-L6-AUTONOMOUS-PORTFOLIO
-  activation_group: deployment
-  record_sha256: e4a536fece0fd0b98b217ad9142675d625213f465137f7a0ff6aee9cf5215d88
-- task_id: L8-WAVE7-HETEROGENEOUS-PORTFOLIO
-  status: TODO
-  stage_goal_id: GOAL-L7-HETEROGENEOUS-30D
-  activation_group: background-certification
-  record_sha256: 1f6300481af75b824c70834c95ea87e289f497d45f9011603d75391984a3b249
-- task_id: L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE
-  status: TODO
-  stage_goal_id: GOAL-L8-SELF-MAINTAINING-90D
-  activation_group: background-certification
-  record_sha256: d35dda2178c8b84c96d12681fa96d5a1fcf2277772b44241a9891f199d129221
-- task_id: L8-AGILE-AUTHORITY-RESET
-  status: CLOSED
   stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
-  activation_group: capacity-retired-closed
-  record_sha256: 1d7f8a08b7ef51f5c0470a4dba1b533273855681f24cf3e98caa649dbf53d46a
-- task_id: L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E
-  status: CLOSED
-  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
-  activation_group: capacity-retired-closed
-  record_sha256: bb62e7953dbc4654a34dbbc5230a13bdad12f322411a2ec5248a07fade7da7ae
-- task_id: L8-VPY-01-NOTE-VERIFIED-CANARY
-  status: CLOSED
-  stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
-  activation_group: capacity-retired-closed
-  record_sha256: 3ab29296efa6f8a6269eb653a902cab7a8eca5231fbba30ceaa73c92e7ba7b7a
+  activation_group: verified-next-horizon
+  record_sha256: 27474547ba275f5007d5d823b3480a645ab6727239784724f97a3e83ba0e404a
 - task_id: L8-VPY-00-PRESENTATION-CONTRACT-RESET
   status: CLOSED
   stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
   activation_group: capacity-retired-closed
   record_sha256: fe4e1b3884e82ee65d130d625594b0dada5c8cc94e1ce8ed3811bd814f48786f
+- task_id: L8-VPY-01-NOTE-VERIFIED-CANARY
+  status: CLOSED
+  stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
+  activation_group: capacity-retired-closed
+  record_sha256: 3ab29296efa6f8a6269eb653a902cab7a8eca5231fbba30ceaa73c92e7ba7b7a
+- task_id: L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES
+  status: CLOSED
+  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
+  activation_group: capacity-retired-closed
+  record_sha256: 40ef2b9f2067c4578d16048b2be26b3f8b6a203392da4eee5584e566c8b0aa9e
+- task_id: L8-VPY-03-ALL-PYTHON-VERIFIED-POC
+  status: CLOSED
+  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
+  activation_group: capacity-retired-closed
+  record_sha256: 6d26bf9197d68ae567b7d762ad133893e403c574ca97ea19a4f4772014e0e60d
 - task_id: L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES
   status: CLOSED
   stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
   activation_group: capacity-retired-closed
   record_sha256: 3e91681efe38f9a9f4ffe0d679106f6f259864b8e368bbbb59ec1262d1f8e61d
+- task_id: L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E
+  status: CLOSED
+  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
+  activation_group: capacity-retired-closed
+  record_sha256: 6c48c99a7f44957e57d3413274954a81e0b713d34101084089b2ed0ca5d2f41a
 - task_id: L8-VPY-03C-PAGE-CURRENT-REFRESH
   status: CLOSED
   stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
@@ -1711,13 +1644,216 @@ deferred_task_index:
   stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
   activation_group: capacity-retired-closed
   record_sha256: 5bf7132e7724df2ba632fdeee85bb1f383cd00fbfba981d6284ef38bb2da806e
-- task_id: L8-VPY-03-ALL-PYTHON-VERIFIED-POC
-  status: CLOSED
-  stage_goal_id: GOAL-V0-VERIFIED-PYTHON-POC
-  activation_group: capacity-retired-closed
-  record_sha256: 0f347a1ffb6bbd8bd7171d74f12093d80e96dcce8ce2a8e511c76660210322c5
-- task_id: L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES
-  status: CLOSED
+- task_id: L8-VPY-04-PRODUCTION-TRANSPORT
+  status: TODO
   stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
-  activation_group: capacity-retired-closed
-  record_sha256: 40ef2b9f2067c4578d16048b2be26b3f8b6a203392da4eee5584e566c8b0aa9e
+  activation_group: post-portfolio-horizon
+  record_sha256: 1415f972ba60d5c5cf103458044b6d899047da5ae2fbf285a92270646ec9adf6
+- task_id: L8-VPY-05-PRODUCTION-ADMISSION
+  status: TODO
+  stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
+  activation_group: post-portfolio-horizon
+  record_sha256: 9c964f416f7bfb5292e5c3420c0338a45f2da2ef4f10f1c2d25e0c5596e683ff
+- task_id: L8-WAVE0-CANDIDATE-ARTIFACT-DISPOSITION
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
+  activation_group: historical-control
+  record_sha256: 66bbd1f2a3b287bca77a8e711acf05310b8cab5304cff26dbb4d361dba94a20a
+- task_id: L8-WAVE0-FRESH-CLONE-HEAD-REPRODUCTION
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
+  activation_group: historical-control
+  record_sha256: aae9fa672a8276cbaa85f2c67edc110f44eb03d9addb5547a54408cd6bd2010a
+- task_id: L8-WAVE0-MASTER-STRUCTURAL-AMENDMENT
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
+  activation_group: historical-control
+  record_sha256: f690ec1dd09d29b513be736e03e4fd355ac286e4cb7726c6fb6f2d55a2d10106
+- task_id: L8-WAVE0-PLAN-TRUTH-RECONCILIATION
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
+  activation_group: historical-control
+  record_sha256: 556a08443d75fcdf31ac3b6dfada52cb874c1692d98784d80ee2c8469c331306
+- task_id: L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-P0-PLAN-FREEZE
+  activation_group: historical-control
+  record_sha256: 3dc711c7de5292d5cb0c7811c31668dfc8caf99c8824c4cae508c8ffc6766f15
+- task_id: L8-WAVE1-CANONICAL-SAFETY-SPINE
+  status: TODO
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  activation_group: verified-gate-a
+  record_sha256: 22570315235fc31ae6bc21a37f8030c0a6952f686fe1d9385606f0e0a68b8dfa
+- task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
+  status: TODO
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
+  activation_group: gate-b-c
+  record_sha256: a6545eb94601af71ecf681c5fb6337d56f2e74ec03bcb42508fab9c09a351054
+- task_id: L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION
+  status: TODO
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  activation_group: verified-gate-a
+  record_sha256: 6b33461729306eb6f6851af752ea8db3f6552e883341e999d9a7b83b5c07aa6a
+- task_id: L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP
+  status: TODO
+  stage_goal_id: GOAL-V1-VERIFIED-TRUTH
+  activation_group: verified-gate-a
+  record_sha256: a7b9f79a11662d967652e0eb66398216fb003b79ad10e2906741009fe6a294c3
+- task_id: L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 01d15960064233679ac767ed61c3a4ea68174f4f4b4feabf133213fc6871912c
+- task_id: L8-WAVE4-PRESENTATION-INTELLIGENCE
+  status: TODO
+  stage_goal_id: GOAL-V2-VERIFIED-GATE-A
+  activation_group: verified-gate-a
+  record_sha256: 20939d8b638fa012a7afa3b347212ae74dd36322adaa82b559c37eb992668137
+- task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
+  status: TODO
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
+  activation_group: gate-b-c
+  record_sha256: 3167c4ef806958dffe48a481db791e2f277ee9fb06a2e2c9be379af9d57658a1
+- task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
+  status: TODO
+  stage_goal_id: GOAL-L5-PRESENTATION-PILOT
+  activation_group: deployment
+  record_sha256: 761890e90ee83c7227256f4131562c4406f63f9208bf5ed55b8d1b6c768e4894
+- task_id: L8-WAVE7-HETEROGENEOUS-PORTFOLIO
+  status: TODO
+  stage_goal_id: GOAL-L7-HETEROGENEOUS-30D
+  activation_group: background-certification
+  record_sha256: 1f6300481af75b824c70834c95ea87e289f497d45f9011603d75391984a3b249
+- task_id: L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO
+  status: TODO
+  stage_goal_id: GOAL-L6-AUTONOMOUS-PORTFOLIO
+  activation_group: deployment
+  record_sha256: e4a536fece0fd0b98b217ad9142675d625213f465137f7a0ff6aee9cf5215d88
+- task_id: L8-WAVE8-NINETY-DAY-SELF-MAINTENANCE
+  status: TODO
+  stage_goal_id: GOAL-L8-SELF-MAINTAINING-90D
+  activation_group: background-certification
+  record_sha256: d35dda2178c8b84c96d12681fa96d5a1fcf2277772b44241a9891f199d129221
+- task_id: TRP-00-ASSURANCE-CONTRACT
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  activation_group: historical-control
+  record_sha256: 3040ab83c28b64f63418cc927ee9a2690dfa9cd55ed9700f1b2944d6d0989790
+- task_id: TRP-01-README-DERIVED-FACTS
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  activation_group: historical-control
+  record_sha256: daa88b7fcd0e14846c99eff9cfa5715ed47f7f36a2e50cacf528846d9a3ef444
+- task_id: TRP-02-LLM-FIRST-COMPOSITION
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  activation_group: historical-control
+  record_sha256: d7c1e448ec8193278f551b71927e17817c5f5c98d4868d0eb9869d9d9d88a63b
+- task_id: TRP-03-INDEPENDENT-FIDELITY-REVIEW
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-T0-TRUSTED-QUALIFICATION
+  activation_group: historical-control
+  record_sha256: e96cb53aa72cf79f71ebba67731ddce7acea56d89db668028840cb6248a69aa7
+- task_id: TRP-04-CANARY-QUALIFICATION
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-T0R-TRUSTED-ADVERSARIAL-QUALIFICATION
+  activation_group: historical-control
+  record_sha256: aef4ab26f042519df4e5db9e4051b9c8840fd90236cdf8670067ee521da967f7
+- task_id: TRP-04P-ACT-WORKFLOW-PARITY
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  activation_group: historical-control
+  record_sha256: 221a65ab811fd653cf97fada8e468a5e07d7818c6da97b282cccababccb82f4f
+- task_id: TRP-04P-AUTHORIZATION-ACCESS
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  activation_group: historical-control
+  record_sha256: 42e5d7f13373fe0f708fcc22ad82603bf79d9e2e81ead0caf4388e1e26fc0728
+- task_id: TRP-04P-COHERENT-PRESENTATION-REPAIR
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  activation_group: historical-control
+  record_sha256: 65de891cab5d874ae6cb970ae8eb24c09cbf6b7af0138c22c9385ea403372b6e
+- task_id: TRP-04P-COHORT-FREEZE
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  activation_group: historical-control
+  record_sha256: 7365f7b02a37689ed4a1f1f47343653211b8a193a9b37afce89c7ff178c7e0a9
+- task_id: TRP-04P-DRAFT-PR-COHORT
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  activation_group: historical-control
+  record_sha256: 2bd552cea7574c0d4c2056a05d08aeb267c99dbe8628443c1203cdc7cfc73839
+- task_id: TRP-04P-GITHUB-APP-HOSTED-QUALIFICATION
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  activation_group: historical-control
+  record_sha256: a2bd3fc05ec5be941dff9dceb9a53c7aa49540e5dd5478f682f8f5c6f0fa56e1
+- task_id: TRP-04P-POC-PRESENTATION
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  activation_group: historical-control
+  record_sha256: 4005f0f1940bf509f3276591502cd5540f0f3532a56768fa34dde69b46783729
+- task_id: TRP-04P-STAGING-EFFECT-PROOF
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  activation_group: historical-control
+  record_sha256: bb0f71360c4e62a5c20ee4cc32228f1df41be291cf525f43a8fb1e106f601bf7
+- task_id: TRP-04P-TEST-LATENCY
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-TP-TRUSTED-COHORT-POC
+  activation_group: historical-control
+  record_sha256: 5a815e6e696d127b3673055db89a9d7a1f692b69ca35fd18242194d52a99a279
+- task_id: TRP-05-FULL-REGISTRY-TRANSFORM
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-T1-TRUSTED-PORTFOLIO
+  activation_group: historical-control
+  record_sha256: 767e7d9ca93fef807974d76f6d2215797e69f1ae5b9c579d9bc5da4aea0e16b0
+- task_id: TRP-05A-ACT-WORKFLOW-PARITY
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-T2-WORKFLOW-STAGING
+  activation_group: historical-control
+  record_sha256: cfc75335b12f07c30b5ebb4723ad8976c810ab332055e62a1108131fa9eb3630
+- task_id: TRP-05B-STAGING-EFFECT-PROOF
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-T2-WORKFLOW-STAGING
+  activation_group: historical-control
+  record_sha256: 8bb3bf0915b10ca457d08e3195b3eaaa0ad4543ea355231b7d838772b0009c2d
+- task_id: TRP-05C-GITHUB-APP-HOSTED-QUALIFICATION
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-T3-HOSTED-TRUSTED-DELIVERY
+  activation_group: historical-control
+  record_sha256: 58c5d98ff9d99c4af45b78b3449656fa8f21af2e5f9b70d86ed42aa29bc4d204
+- task_id: TRP-06-AUTHORIZATION-ACCESS
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-T3-HOSTED-TRUSTED-DELIVERY
+  activation_group: historical-control
+  record_sha256: 464dfea2fb529d56ef8dd68e5f88e85eaaf5049cc4f9c386d15a7c3b23cd6893
+- task_id: TRP-07-DRAFT-PR-PORTFOLIO
+  status: DEFERRED_WITH_REASON
+  stage_goal_id: GOAL-T3-HOSTED-TRUSTED-DELIVERY
+  activation_group: historical-control
+  record_sha256: 636377ec4392385d43eb6f8d8673f23ac096de244655241a50b4e60f6d6205dd
+portfolio_proof_contract:
+  contract_id: ASPOSE-README-PORTFOLIO-PROOF-V1
+  supporting_contract_path: plans/investigations/control/portfolio-readme-proof-contract.md
+  supporting_contract_sha256: 88dafaeec84e893a83fe4b929f6a9cba7605efb63abb1e37c32c42e9cfdd92b4
+  baseline_optimizer_revision: df864ffd189167ef7e3cd458fb092c704769babe
+  registry_path: data/products.json
+  registry_sha256: eb526af1d1c70b700a89e4445d399e1131170e5ecfb7359147bc671be6da8479
+  denominator_policy: dynamic_registry_revision
+  baseline_admitted: 33
+  baseline_processable: 31
+  baseline_non_processable: 2
+  delivery_numerator: processable_repositories
+  candidate_acceptance_state: AGENT_ACCEPTED_30_OF_30
+  campaign_terminal_state: PORTFOLIO_AGENT_ACCEPTED_AWAITING_GLOBAL_HUMAN_REVIEW
+  rubric_path: plans/investigations/owner_audit/aspose_candidate_rubric/RUBRIC_30.md
+  rubric_sha256: 5b016891000c320218a762c0289ae44d6820636a66ab54f3410e87f12e876268
+  required_score: 30
+  hard_disqualifier_limit: 0
+  processability_disposition: NON_PROCESSABLE_NO_IMPLEMENTATION
+  first_complete_candidate_before_runner: true
+  model_route_is_campaign_configuration: true
+  aspose_org_runtime_dependency_allowed: false
+  product_effects_allowed: false

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "audit_id": "OPT-CANONICAL-103-CHECK-GAP",
+  "audit_date": "2026-08-20",
+  "optimizer_pin_expected": "aa998102191c530af4dca3a6895d62a4027a613e",
+  "optimizer_pin_confirmed": "aa998102191c530af4dca3a6895d62a4027a613e",
+  "pin_confirmation_method": "git rev-parse HEAD, working tree clean (git status --short empty)",
+  "workspace": "existing VS Code workspace, no worktree/clone/branch created",
+  "read_only": true,
+  "sources_read": [
+    "plans/investigations/owner_audit/acceptance_runner/SOURCE_INVENTORY.json",
+    "plans/investigations/owner_audit/acceptance_runner/REPORT.md",
+    "plans/investigations/owner_audit/acceptance_runner/REPRODUCTION.md",
+    "plans/investigations/owner_audit/defect_gate_map/REPORT.md",
+    "plans/investigations/owner_audit/defect_gate_map/DEFECT_GATE_MATRIX.json",
+    "plans/investigations/owner_audit/OWNER_FINDINGS.json",
+    "plans/investigations/owner_audit/RECONCILED_FINDINGS.md",
+    "plans/backlog-post-poc.md",
+    "data/aspose_check_classification.json",
+    "data/products.json",
+    "src/readme_agent/vendored_asposeorg/scripts/pipeline/commands/foss/readme_refresh_checks.py",
+    "src/readme_agent/validation/aspose_checks/__init__.py",
+    "src/readme_agent/validation/aspose_checks_bridge.py",
+    "src/readme_agent/validation/aspose_check_coverage.py",
+    "src/readme_agent/readme/document_validation.py",
+    "src/readme_agent/supervisor/local_poc_acceptance_binding.py",
+    "src/readme_agent/supervisor/local_poc_evidence.py",
+    "src/readme_agent/facts/schema_v2.py",
+    "src/readme_agent/repository_snapshot.py",
+    "tests/unit/test_aspose_checks_registry.py",
+    "tests/unit/test_aspose_checks_fixture_coverage.py",
+    "tests/unit/test_aspose_check_coverage.py",
+    "git log/show d71f38b6a050b5282f0ada314f9ee4de35950426 (prior audit optimizer pin, comparison only)",
+    "git show 907ac08475cb68a191f80d4f3fdbb5bd347d75c5 (recent blocking-gap fail-closed fix, full commit + diffstat)"
+  ],
+  "commands_run": [
+    "git rev-parse HEAD",
+    "git status --short",
+    "git diff --stat d71f38b6...aa998102... -- src/readme_agent/vendored_asposeorg/scripts/pipeline/commands/foss/readme_refresh_checks.py (empty -- confirms byte-identical)",
+    "python AST parse of readme_refresh_checks.py to enumerate check_* top-level function names (89, matches prior audit)",
+    "python -c load_check_registry() to extract exact per-check severity/scope/section/parameters (ground truth, not re-derived from docstrings by hand)",
+    "grep/rg for check_banner_present, canonical_check_inventory, GOV-014, 103 references across the repo"
+  ],
+  "commands_not_run_per_constraints": [
+    "no Docker",
+    "no Qwen/LLM calls",
+    "no full test suite (scripts/governance/run_full_pytest.py)",
+    "no network fetch of the canonical uploaded bundle (readme-refresh-complete-bundle-20260819-174412.zip) -- it is not committed to this repository, only its sha256 is",
+    "no tracked-file edits, no commits, no pushes"
+  ],
+  "known_limitation": "The canonical 103-function count and the 14 missing names are second-hand: taken from prior committed owner-audit evidence, whose canonical source was an operator upload never committed to this git repository as source text. This audit independently re-confirmed the optimizer side only (89 vendored functions, byte-identical file since the prior audit's pin). See CHECK_103_MATRIX.json.canonical_source_provenance for the full chain."
+}

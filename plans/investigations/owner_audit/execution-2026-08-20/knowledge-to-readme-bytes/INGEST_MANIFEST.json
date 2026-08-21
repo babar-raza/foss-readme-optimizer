@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "audit_slug": "knowledge-to-readme-bytes-aa9981021",
+  "pin": "aa998102191c530af4dca3a6895d62a4027a613e",
+  "pin_confirmed_head": true,
+  "working_tree_clean_at_start": true,
+  "method": "read-only forensic reconciliation of the 2026-08-19 knowledge_to_candidate owner audit (pin 6d112bbf88bc54f7ef3367b16ef8e9b769bdfb51) against current HEAD, plus fresh code-line verification and repair design. No pipeline run, no Qwen call, no Docker, no test execution, no tracked-file edit, no commit.",
+  "prior_audit_reused": {
+    "root": "plans/investigations/owner_audit/knowledge_to_candidate/",
+    "pin": "6d112bbf88bc54f7ef3367b16ef8e9b769bdfb51",
+    "note": "Verified via `git log 6d112bbf..HEAD -- <file>` that every causal module this prior audit characterized (aspose_knowledge_selection.py, knowledge_application_evidence.py, supervisor/product_truth.py, aspose_detectors.py, render_views.py, data/imported/knowledge/{3d,note,barcode}) has ZERO commits between the prior pin and aa998102 -- so its line numbers, item counts, and field dispositions for the K1/K2/K3/C1 causal chain remain byte-accurate at the current pin. This audit therefore reuses those numbers directly (cited below) rather than re-deriving them, and spends its own budget on: (a) reconciling what DID change since 2026-08-19 (V1/reconciliation, P0-4/blocking-checks, P1-1/SEO), (b) confirming K1 is independently reconfirmed still-open by a newer, separate investigation lane (readme-knowledge-lineage-audit, 2026-08-20), and (c) producing an implementation-ready K3/C1 repair design against exact current file:line targets."
+  },
+  "sources": [
+    {"path": "AGENTS.md", "role": "architecture_authority", "sha256": "ca076fcc071ed680767825454b0ed2c609a95538f447822111e85049179fa571"},
+    {"path": "docs/readme-composition-seams.md", "role": "architecture_authority", "sha256": "0b47d9c5f1c4172faba1757b810743de6d7e70acef82aa0fb932212edcafb22d"},
+    {"path": "docs/architecture.md", "role": "architecture_authority", "sha256": "f6026fd98c97234ac4d3acc966676246c5697216f4b1d270db23bb3b5e6c4a62"},
+    {"path": "plans/master.md", "role": "spec_authority_tail_only", "sha256": "ba30a1b7532eb7e87ee09422ad398b43e9e9d60d899487e379489a2979bd0004"},
+    {"path": "plans/requirements/catalog.jsonl", "role": "requirement_register", "sha256": "e0cd23dfad79adfd4e6ed15c959e6ec3677acd6e21a201e55695bb8d3cca5408", "note": "rows KNOW-001..KNOW-013 (lines 476-488) read in full"},
+    {"path": "plans/backlog-post-poc.md", "role": "live_operational_backlog", "sha256": "89583f5f90096de104067b9ad36d6fd922c335a522f1d364c22938c5378c6e29", "note": "confirms 2026-08-20 poc attempts for note/barcode/3d Python all failed at container-registry acquisition (Docker unavailable) -- no fresh post-knowledge-layer candidate exists for the trio"},
+    {"path": "plans/investigations/owner_audit/PRIORITIZED_IMPLEMENTATION_SEQUENCE.md", "role": "prior_audit_evidence", "sha256": "99f097b102835516f84c6f944262915b48796aea0cac6a5e87cb68aa3473a444", "note": "source of K1/K2/K3/V1/C1/... gate naming reused by this task's own K3/C1 references"},
+    {"path": "plans/investigations/owner_audit/PRELIMINARY_FINDINGS.md", "role": "prior_audit_evidence", "sha256": "6f82e1039bb2be9f5f721e98f99322d889a85b66ed16318ba8f9933bd8fe1ba8"},
+    {"path": "plans/investigations/owner_audit/knowledge_to_candidate/report.md", "role": "prior_audit_evidence_primary", "sha256": "4fd27e3926b71a4b5e21929136d6e564e5f3384eb6d4feddc1e1796313ed7736", "note": "primary source of trio selection/field counts reused verbatim (unchanged causal files)"},
+    {"path": "plans/investigations/owner_audit/knowledge_to_candidate/repair-backlog.md", "role": "prior_audit_evidence_primary", "sha256": "466cdb96b4051562a44f2506e537929c57d546b8a495e724ea72b9bf55618435"},
+    {"path": "plans/investigations/owner_audit/knowledge_to_candidate/reproduction-notes.md", "role": "prior_audit_evidence_primary", "sha256": "b1f6e752df545f81f319b4715ac39036e3ed903b36a4a4ecb6e1a1d42bc74c36"},
+    {"path": "plans/investigations/owner_audit/knowledge_to_candidate/lineage-matrix.json", "role": "prior_audit_evidence_primary", "sha256": "50164b5df27f3d1ad52e5a254068ed79cdf69c08c1cc0de1bf6e2bfe31749365"},
+    {"path": "plans/investigations/readme-knowledge-lineage-audit.md", "role": "newer_independent_investigation", "sha256": "7628bc2767c2f3e877d5a5c87f1fc6090a9b928dca175741c85b3246e86874a6", "note": "2026-08-19/20 boundary-by-boundary trace; independently reconfirms K1 open with real 3D examples"},
+    {"path": "plans/investigations/evidence/readme-knowledge-lineage-audit/knowledge-gap-backlog.json", "role": "newer_independent_investigation", "sha256": "7da5b28b1f4fbf0e434e141d7ffb82d5328445d84ebf0fb95ad8c3643ec5c29f", "note": "KGAP-001/002/003; KGAP-002 gives the concrete 3D FBX false-positive claim IDs used in FACT_TO_OUTPUT_MATRIX.json"},
+    {"path": "plans/investigations/evidence/readme-knowledge-lineage-audit/imported-knowledge-source-comparison.json", "role": "newer_independent_investigation", "sha256": "743aac110f2bf56cad49c9588a76a947c0a2ad4aa04e266d57dfc2188ed10959"},
+    {"path": "plans/investigations/evidence/readme-knowledge-lineage-audit/repository-intake-lineage.json", "role": "newer_independent_investigation", "sha256": "8ac2682484127e78d86cb28a8a13bd20941353e1f1684239f56b076074b5d0b2"},
+    {"path": "src/readme_agent/readme/readme_reconciliation.py", "role": "code_current_state", "sha256": "5ae743247f4e36b9e28d02a22e4ef11a5321d1efd4f471852c08d5754655e6ab", "note": "Stage 3A/V1 machinery; module docstring read lines 1-70"},
+    {"path": "src/readme_agent/facts/knowledge_application_evidence.py", "role": "code_current_state_k3_primary", "sha256": "7f3f3739bec6d21d6aa59ea4f66b0aa845de047a936be8e112b634e5504b10fe", "note": "read in full (187 lines); confirms document_plan-aware design exists but is never invoked with a real plan in production"},
+    {"path": "src/readme_agent/facts/aspose_knowledge_selection.py", "role": "code_current_state", "sha256": "616e77a4c7941be6852b0b8684b1b4adf9fb43039a00e0a24bed05a6c394abbd"},
+    {"path": "src/readme_agent/facts/aspose_knowledge_claims.py", "role": "code_current_state", "sha256": "e1a2107425c9ea776d94892c45b8ee7d78a730dafc6ecae15786fac032e6981c"},
+    {"path": "src/readme_agent/supervisor/product_truth.py", "role": "code_current_state_k3_call_site", "sha256": "221b5ca93e4770ba5ad90335e2bd35a60ac6149c9f7f3936ae2ef474bc56ca89"},
+    {"path": "src/readme_agent/facts/aspose_detectors.py", "role": "code_current_state", "sha256": "c96cbf4d5f002a35648b16c1973ec545c38b213dd8122e843785ea87e71971bf"},
+    {"path": "src/readme_agent/facts/render_views.py", "role": "code_current_state_c1", "sha256": "49431b5c0dcdf74fa202f022c60490fd4ed5543c22e03a1b8b9dc1456a22ad60"},
+    {"path": "src/readme_agent/facts/acceptance_contract.py", "role": "code_current_state", "sha256": "a8aca7af4c9e2ea66f4f354a19c20f3da5b370db447ceb19cb97ccd5e9667269"},
+    {"path": "src/readme_agent/readme/claim_map.py", "role": "code_current_state_k3", "sha256": "1cd74141ea44af21c0d9384a23979377a195c66462b68bea26b41fec22fce60e"},
+    {"path": "src/readme_agent/readme/agentic_composition.py", "role": "code_current_state", "sha256": "52e81f8ad666d820d136b73ca89fd570050b816cc345f95c560d03d1f30a8a09"},
+    {"path": "src/readme_agent/readme/agentic_composition_inputs.py", "role": "code_current_state", "sha256": "6b58c8f788212a49ad726354e2eb55d8d083fb6237388c14116a2e54580d87ba"},
+    {"path": "src/readme_agent/presentation/verified_template_capabilities.py", "role": "code_current_state_c1", "sha256": "b3ffe4d3ebafdf866e3c82c626d88b5555e4eec46d3c1d3d579452621eba7bb0"},
+    {"path": "src/readme_agent/specialists/factual_review_packet.py", "role": "code_current_state", "sha256": "56163e270a9187e33e98bc77e2359e5016539acd3fbc1918240ad22d9c8c4b6b"},
+    {"path": "src/readme_agent/validation/aspose_checks_bridge.py", "role": "code_current_state", "sha256": "62d619180f1653fcae5f4af8ef656e8d720636eeac6d458bd698110d1510d78c"},
+    {"path": "src/readme_agent/readme/document_validation.py", "role": "code_current_state", "sha256": "7e301d38c439012aaa25e7d11c08ea9c319c0475eab3a42d66f45c0abfe02c7c"},
+    {"path": "src/readme_agent/supervisor/local_poc_cache.py", "role": "code_current_state_hook_point", "sha256": "7936c988bb6a8758cf2aec9ae865352d72ec792dc527b2694fcfa364bc2bf16e"},
+    {"path": "src/readme_agent/supervisor/local_poc_acceptance_binding.py", "role": "code_current_state_hook_point", "sha256": "861db4135b63ce544b9e782e4a713884025b09a29354dc455653fdb9566c6215"},
+    {"path": "src/readme_agent/supervisor/local_poc_evidence.py", "role": "code_current_state_hook_point", "sha256": "726dfeb2b00162738b2e385e8b0dcd23beb7f9b0538b3c2a494468ab2dae0ff3", "note": "read lines 160-400; the readme-reconciliation/check-coverage 'best-effort report, blocking gate applied later' pattern this design mirrors"},
+    {"path": "src/readme_agent/readme/idea_candidate.py", "role": "code_current_state_hook_point", "sha256": null, "note": "read in full (155 lines); prepare_idea_fidelity_candidate() is the confirmed intended K3 post-render call site (named in knowledge_application_evidence.py's own docstring), called from commands_poc.py:333 and capabilities/render_readme_candidate.py"},
+    {"path": "data/imported/knowledge/3d/python/merged/model.yaml", "role": "imported_corpus_metadata", "sha256": "43afda7cb39382459f082692289971d06fef58ffa7ab23b2e7c2b9e15cf6d95e"},
+    {"path": "data/imported/knowledge/note/python/merged/model.yaml", "role": "imported_corpus_metadata", "sha256": "9b9a894dccc3b4d5fffccaea7f70e199c380e077dc08263ba6f7669fb26c39d8"},
+    {"path": "data/imported/knowledge/barcode/python/merged/model.yaml", "role": "imported_corpus_metadata", "sha256": "e8c18750fda33c95eaeea3e70c4878b9636bb185de163330d03ff4e6e682004d"},
+    {"path": "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/knowledge-application.json", "role": "actual_latest_artifact_live_evidence", "sha256": null, "note": "1,865,101 bytes; written 2026-08-20 10:29, same-pin fresh run; read via python json parse (summary fields + full accepted-disposition enumeration), not fully loaded into context. schema_version=2, considered=3452, selected=35, sections_influenced=[], rendered_output_spans=[] -- LIVE, current-pin proof of the K3 gap and the exact 35 selected global_claim_id values used in FACT_TO_OUTPUT_MATRIX.json."},
+    {"path": "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/41de2e8ab478b5aeff3663f7f7cbf83b19fdf676/knowledge-application.json", "role": "actual_latest_artifact_live_evidence", "sha256": null, "note": "183,686 bytes; written 2026-08-20 10:23; freshness=stale_revision, selected=6, sections_influenced=[], rendered_output_spans=[]."},
+    {"path": "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/06eca5c01e13ed6d59a640f1cf330c1c5a57d151/knowledge-application.json", "role": "actual_latest_artifact_live_evidence", "sha256": null, "note": "210,707 bytes; written 2026-08-20 10:33; freshness=stale_revision, selected=13, sections_influenced=[], rendered_output_spans=[]."},
+    {"path": "runs/backlog-post-poc.md (Docker-failure entries) + runs/share/poc/RESULTS.md", "role": "confirms_no_fresh_candidate", "sha256": null, "note": "per artifact-locator subagent: today's fresh runs reached FACTS_READY only; the last real candidate for each of the trio predates today (superseded/ subfolders dated 2026-08-19 or earlier: 3D d41e958854bbe1c6 14:51, Note f82701b645a37e59 00:49, Barcode 8f9985d5f5ccdedb 14:58); republished runs/share/poc/<product>/README.md today is byte-identical to the Aug-19 candidate, not new output."}
+  ],
+  "git_verification_commands_run": [
+    "git rev-parse HEAD",
+    "git status --porcelain=v1 -uno",
+    "git log --oneline 6d112bbf88bc54f7ef3367b16ef8e9b769bdfb51..HEAD",
+    "git show --stat --format='%H %s' <each of the 8 non-trivial commits in that range>",
+    "git log --oneline 6d112bbf..HEAD -- src/readme_agent/facts/aspose_knowledge_selection.py (empty)",
+    "git log --oneline 6d112bbf..HEAD -- src/readme_agent/facts/knowledge_application_evidence.py (empty)",
+    "git log --oneline 6d112bbf..HEAD -- src/readme_agent/supervisor/product_truth.py (empty)",
+    "git log --oneline 6d112bbf..HEAD -- src/readme_agent/facts/aspose_detectors.py (empty)",
+    "git log --oneline 6d112bbf..HEAD -- src/readme_agent/facts/render_views.py (empty)",
+    "git log --oneline 6d112bbf..HEAD -- data/imported/knowledge/{3d,note,barcode} (empty)",
+    "git log --oneline 6d112bbf..HEAD -- src/readme_agent/supervisor/local_poc_evidence.py (empty)"
+  ],
+  "subagents_used": [
+    {
+      "purpose": "Locate the actual latest 3D/Note/Barcode run artifacts under runs/ and data/imported/, confirm no fresh post-knowledge-layer candidate exists, enumerate readme-knowledge-lineage-audit evidence files",
+      "tool": "Agent(Explore)",
+      "id_label": "artifact-locator"
+    },
+    {
+      "purpose": "Confirm exact current file:line state of every K3/C1 causal module (knowledge_application_evidence.py, product_truth.py call site, document_plan.py CandidateContentProvenanceV1, claim_map.py, agentic_composition*.py, render_views.py, verified_template_capabilities.py, acceptance_contract.py, local_poc_cache.py/local_poc_acceptance_binding.py hook chain, document_validation.py)",
+      "tool": "Agent(Explore)",
+      "id_label": "causal-module-tracer",
+      "status": "completed_and_incorporated"
+    }
+  ],
+  "excluded_by_constraint": [
+    "No readme-agent supervise/poc/preflight command executed",
+    "No Qwen/LLM gateway call made",
+    "No Docker/act invocation",
+    "No pytest/ruff/mypy run",
+    "No tracked file edited or committed",
+    "No new git worktree/branch/clone/workspace created"
+  ]
+}

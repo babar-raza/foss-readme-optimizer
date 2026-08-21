@@ -416,14 +416,17 @@ def _task_migration_records(
                 "changed_fields": transformations,
             }
         )
+    all_destination_tasks = {**deferred_tasks, **active_tasks}
     new_tasks = [
         {
             "id": task_id,
-            "destination": "active_graph",
+            "destination": (
+                "active_graph" if task_id in active_tasks else _relative(DEFERRED_TASK_CATALOG_PATH)
+            ),
             "destination_task_sha256": _semantic_sha256(task),
             "reason": "bounded activation boundary for the next deferred execution horizon",
         }
-        for task_id, task in active_tasks.items()
+        for task_id, task in all_destination_tasks.items()
         if task_id not in source_tasks
     ]
     return task_migrations, new_tasks
@@ -693,10 +696,14 @@ Their enforcement lives in registered validators and official checks, not repeat
 
 ## Current active slice
 
-The next executable slice is `L8-VPY-01-NOTE-VERIFIED-CANARY`: a development-only comparison and
-native comparative regression. Aspose.org artifacts may diagnose contract gaps, but the accepted
-run must succeed without that checkout and may not write any product repository. Durable supervisor
-state remains the sole authority for the live claim.
+Run mission `status` before execution and follow its exact immediate goal and repository scope.
+The bounded dependency horizon is candidate-first: campaign authority; committed-source Aspose.org
+mechanism refresh; a twice-stable, denominator-reconciled snapshot of its evolving generated
+visitor-quality benchmark; independent import/profile qualification; knowledge-to-bytes; one sealed
+Aspose.3D Python transaction; the minimal runner; seven ecosystem canaries; then the 31/31 processable
+portfolio. Aspose.org inputs may diagnose and raise the local quality bar, but acceptance and deployed
+operation must succeed without that checkout and may not write any product repository. Durable
+supervisor state remains the sole authority for the live claim.
 
 ## Status and history
 
@@ -905,6 +912,20 @@ def refresh_inventory() -> None:
     task_migrations, new_tasks = _task_migration_records(source_graph, graph, deferred_records)
     matrix["tasks"] = task_migrations
     matrix["new_tasks"] = new_tasks
+    requirement_rows = _jsonl_records(REQUIREMENT_CATALOG_PATH)
+    requirement_migrations = {row["id"]: row for row in matrix["requirements"]}
+    for requirement in requirement_rows:
+        requirement_id = requirement["requirement_id"]
+        if requirement_id in requirement_migrations:
+            continue
+        requirement_migrations[requirement_id] = {
+            "id": requirement_id,
+            "destination": _relative(REQUIREMENT_CATALOG_PATH),
+            "sha256": requirement["legacy_row_sha256"],
+        }
+    matrix["requirements"] = [
+        requirement_migrations[requirement_id] for requirement_id in sorted(requirement_migrations)
+    ]
     MIGRATION_MATRIX_PATH.write_text(json.dumps(matrix, indent=2) + "\n", encoding="utf-8")
     print("Refreshed AuthorityInventoryV1 after-state hashes")
 

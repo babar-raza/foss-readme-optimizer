@@ -1,0 +1,545 @@
+{
+  "generated_by": "OPT-EVIDENCE-INGEST-20260820",
+  "destination_root": "plans/investigations/owner_audit/execution-2026-08-20",
+  "source_root": "runs/owner_audit_staging/",
+  "audited_source_commit": "aa998102191c530af4dca3a6895d62a4027a613e",
+  "authority_commit": "d11ac38000fe585a393f4418855a7577e6a9b18c",
+  "local_head_at_integration": "d11ac38000fe585a393f4418855a7577e6a9b18c",
+  "origin_head_at_integration": "d11ac38000fe585a393f4418855a7577e6a9b18c",
+  "line_ending_normalization_caveat": "Every sha256 below was computed on the on-disk bytes at copy time and matches each source bundle's own SHA256SUMS declaration exactly (verified before staging). This repository's .gitattributes ('* text=auto eol=lf') normalizes CRLF text files to LF when git stages them. Several source files (all under repository-processability/, plus scattered *.json in candidate-aspose-parity/ and canonical-check-gap/) carried CRLF line endings and were normalized to LF in the committed git blob -- confirmed via `git show :<path> | sha256sum` differing from the value below for those files. This is a line-ending-only change (content byte-identical otherwise), applied uniformly by this repo's standing policy, not introduced by this integration. A future SHA-256 check against a checked-out working tree should expect LF endings for those files; the values below remain the authoritative record of the bytes actually validated against each source bundle's declared checksums.",
+  "file_count": 76,
+  "files": [
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/candidate-aspose-parity/CANDIDATE_SCORE_MATRIX.json",
+      "lane": "candidate-aspose-parity",
+      "source_staging_dir": "runs/owner_audit_staging/candidate-aspose-parity-aa9981021",
+      "sha256": "36493a750e467bba307d31eb6cc5c5d63c380192d917513d5f87763f1451b114",
+      "bytes": 152320
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/candidate-aspose-parity/CAUSAL_OWNER_BACKLOG.json",
+      "lane": "candidate-aspose-parity",
+      "source_staging_dir": "runs/owner_audit_staging/candidate-aspose-parity-aa9981021",
+      "sha256": "be733689852c6106adde1f4d9acb910b650d76e956ea86f220b8fbb46fba34f5",
+      "bytes": 16092
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/candidate-aspose-parity/INGEST_MANIFEST.json",
+      "lane": "candidate-aspose-parity",
+      "source_staging_dir": "runs/owner_audit_staging/candidate-aspose-parity-aa9981021",
+      "sha256": "c7c830d098098916b6673f927d7e6f6377b811184ecb0695a5267ce42f6248a4",
+      "bytes": 8959
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/candidate-aspose-parity/PROPOSED_COMMIT_MESSAGE.txt",
+      "lane": "candidate-aspose-parity",
+      "source_staging_dir": "runs/owner_audit_staging/candidate-aspose-parity-aa9981021",
+      "sha256": "ec232237265704c637acb9bf4d2104509070dc8c66009675d30482fa47c970f7",
+      "bytes": 966
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/candidate-aspose-parity/REPORT.md",
+      "lane": "candidate-aspose-parity",
+      "source_staging_dir": "runs/owner_audit_staging/candidate-aspose-parity-aa9981021",
+      "sha256": "d1e07495b6de7368d46f280db5d9f452a110d6c664974b7caa23841ebb21b12d",
+      "bytes": 12211
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/candidate-aspose-parity/SHA256SUMS",
+      "lane": "candidate-aspose-parity",
+      "source_staging_dir": "runs/owner_audit_staging/candidate-aspose-parity-aa9981021",
+      "sha256": "e23a789309eabd68bd6b69cbfa104d894f813113bf1bb3273684c22da4cb65ae",
+      "bytes": 533
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/candidate-aspose-parity/VISIBLE_GAP_MATRIX.json",
+      "lane": "candidate-aspose-parity",
+      "source_staging_dir": "runs/owner_audit_staging/candidate-aspose-parity-aa9981021",
+      "sha256": "55f374d6586f8df2d2b0cc2aea460b4631804eea694a931463c9636ba63a65d5",
+      "bytes": 23106
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/canonical-check-gap/CHECK_103_MATRIX.json",
+      "lane": "canonical-check-gap",
+      "source_staging_dir": "runs/owner_audit_staging/canonical-check-gap-aa9981021",
+      "sha256": "133f8e07d54b7f6e96a386b14018bec3ff7b573fce7b206fa1341720d88da391",
+      "bytes": 154692
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/canonical-check-gap/HARD_CHECK_INPUT_MATRIX.json",
+      "lane": "canonical-check-gap",
+      "source_staging_dir": "runs/owner_audit_staging/canonical-check-gap-aa9981021",
+      "sha256": "d41f3ce450b6c32c19fe54a87acd1425171e706ab1e0b9b80167c04fb024ffdb",
+      "bytes": 18882
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/canonical-check-gap/INGEST_MANIFEST.json",
+      "lane": "canonical-check-gap",
+      "source_staging_dir": "runs/owner_audit_staging/canonical-check-gap-aa9981021",
+      "sha256": "50958097542d13917698f735e15b212032b57a61e8b67dd98d16d80c6896f2b4",
+      "bytes": 3516
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/canonical-check-gap/MISSING_CHECK_ADAPTATION_PLAN.json",
+      "lane": "canonical-check-gap",
+      "source_staging_dir": "runs/owner_audit_staging/canonical-check-gap-aa9981021",
+      "sha256": "d43317da84a1ac8c7f78abe4e4fbf4c99aed0169abe4c7b13fe6587b75239e72",
+      "bytes": 17862
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/canonical-check-gap/PROPOSED_COMMIT_MESSAGE.txt",
+      "lane": "canonical-check-gap",
+      "source_staging_dir": "runs/owner_audit_staging/canonical-check-gap-aa9981021",
+      "sha256": "8e2c571156859cb3e894eee6c6419cd3acd9705bcee7e2e00c1a59fbe70efafd",
+      "bytes": 1833
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/canonical-check-gap/RED_TEST_PLAN.md",
+      "lane": "canonical-check-gap",
+      "source_staging_dir": "runs/owner_audit_staging/canonical-check-gap-aa9981021",
+      "sha256": "aff988b738e688da1af8c24f167c8c13d3e6a3971239f9dc993093fb8411a41d",
+      "bytes": 8611
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/canonical-check-gap/REPORT.md",
+      "lane": "canonical-check-gap",
+      "source_staging_dir": "runs/owner_audit_staging/canonical-check-gap-aa9981021",
+      "sha256": "5c14c4344115a9d36adb268f28e60dd3abd6fd57e24fb6932a8cf6d27c14897a",
+      "bytes": 17159
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/canonical-check-gap/SHA256SUMS",
+      "lane": "canonical-check-gap",
+      "source_staging_dir": "runs/owner_audit_staging/canonical-check-gap-aa9981021",
+      "sha256": "f24925d2ad52a63d7ec1f8c3494a0901f4f2b3c77e5647ff3c0e316ff8f336f5",
+      "bytes": 624
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/knowledge-to-readme-bytes/FACT_TO_OUTPUT_MATRIX.json",
+      "lane": "knowledge-to-readme-bytes",
+      "source_staging_dir": "runs/owner_audit_staging/knowledge-to-readme-bytes-aa9981021",
+      "sha256": "97b41f59c1ffffc8402842dbaac9fd97e155e4e258d6aa432dc941e7d51b3468",
+      "bytes": 17744
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/knowledge-to-readme-bytes/IMPLEMENTATION_SEQUENCE.md",
+      "lane": "knowledge-to-readme-bytes",
+      "source_staging_dir": "runs/owner_audit_staging/knowledge-to-readme-bytes-aa9981021",
+      "sha256": "e231da338df5402344f42566d3afc354ff354f19fea3d40e6f576d8292b5cb4d",
+      "bytes": 16424
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/knowledge-to-readme-bytes/INGEST_MANIFEST.json",
+      "lane": "knowledge-to-readme-bytes",
+      "source_staging_dir": "runs/owner_audit_staging/knowledge-to-readme-bytes-aa9981021",
+      "sha256": "0e304433c69645bdcd68c869ceb5c3887697886f6a2b7b722d2737f531eb95fc",
+      "bytes": 13846
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/knowledge-to-readme-bytes/MISSING_CONSUMER_MATRIX.json",
+      "lane": "knowledge-to-readme-bytes",
+      "source_staging_dir": "runs/owner_audit_staging/knowledge-to-readme-bytes-aa9981021",
+      "sha256": "fabb38f10d7b021cd73a480ec6072c377daae29d78ef8b199470484a5c513798",
+      "bytes": 8523
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/knowledge-to-readme-bytes/PROPOSED_COMMIT_MESSAGE.txt",
+      "lane": "knowledge-to-readme-bytes",
+      "source_staging_dir": "runs/owner_audit_staging/knowledge-to-readme-bytes-aa9981021",
+      "sha256": "fec43ef30dec87c327f18b63163b13b3432c3ef28d1cc7f8d6f0b6de7c379b59",
+      "bytes": 2458
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/knowledge-to-readme-bytes/RED_TEST_PLAN.md",
+      "lane": "knowledge-to-readme-bytes",
+      "source_staging_dir": "runs/owner_audit_staging/knowledge-to-readme-bytes-aa9981021",
+      "sha256": "d3a05d8e3c5ac4eb73a0d85b39bfac1e774564cbbee17bae8367168f40eb3eb4",
+      "bytes": 9215
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/knowledge-to-readme-bytes/REPORT.md",
+      "lane": "knowledge-to-readme-bytes",
+      "source_staging_dir": "runs/owner_audit_staging/knowledge-to-readme-bytes-aa9981021",
+      "sha256": "4f6ee974dcf3f1fd9b6bf824535503ac19fa0786075d2e08b78b73c1587147a7",
+      "bytes": 13366
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/knowledge-to-readme-bytes/SHA256SUMS",
+      "lane": "knowledge-to-readme-bytes",
+      "source_staging_dir": "runs/owner_audit_staging/knowledge-to-readme-bytes-aa9981021",
+      "sha256": "da007ecc2ba4fdb4439c38966b9fa2ef0318f72495e2837f11a876b07b14b519",
+      "bytes": 621
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/note-ledger-accountability/RED_TEST_PLAN.md",
+      "lane": "note-ledger-accountability",
+      "source_staging_dir": "runs/owner_audit_staging/note-disposition-root-cause-aa9981021",
+      "sha256": "17d9469329c88374f9c0aff37cd8800e2ae89cb4ee5814a2c9dd6dd9a1e9cc4a",
+      "bytes": 7006
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/note-ledger-accountability/REPORT.md",
+      "lane": "note-ledger-accountability",
+      "source_staging_dir": "runs/owner_audit_staging/note-disposition-root-cause-aa9981021",
+      "sha256": "f19cd2f0464ac744c1d9a2915b8738229fa178a0e8eeb79a7d1bc08f67fe058d",
+      "bytes": 19295
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/note-ledger-accountability/SHA256SUMS",
+      "lane": "note-ledger-accountability",
+      "source_staging_dir": "runs/owner_audit_staging/note-disposition-root-cause-aa9981021",
+      "sha256": "f2c0f469b7a196bcd9edc2fccbf15284024d0d882d08102e75c2213fde9efce3",
+      "bytes": 331
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/note-ledger-accountability/SOURCE_INVENTORY.json",
+      "lane": "note-ledger-accountability",
+      "source_staging_dir": "runs/owner_audit_staging/note-disposition-root-cause-aa9981021",
+      "sha256": "a65786e454c28752ccc8b5bccdb17582d96619e27f4165d14eb0f3723f795d43",
+      "bytes": 10038
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/note-ledger-accountability/TRACE_MATRIX.json",
+      "lane": "note-ledger-accountability",
+      "source_staging_dir": "runs/owner_audit_staging/note-disposition-root-cause-aa9981021",
+      "sha256": "ce3bec522d4d950eb3ff37fd3ee96a1829427c613889ae471faa70b3a6ae21c5",
+      "bytes": 17090
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/qwen-review-recovery/FAILURE_STATE_MACHINE.json",
+      "lane": "qwen-review-recovery",
+      "source_staging_dir": "runs/owner_audit_staging/qwen-review-recovery-aa9981021",
+      "sha256": "a8aeb09d8bf5d838b80cd5757f1898612192b6d3b9a9cdb69b5d2edd2c499414",
+      "bytes": 9084
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/qwen-review-recovery/IMPLEMENTATION_PATCH_MAP.md",
+      "lane": "qwen-review-recovery",
+      "source_staging_dir": "runs/owner_audit_staging/qwen-review-recovery-aa9981021",
+      "sha256": "f460db119e4afe493407347272a9ae2cd32fb64f6f03953928398d7ba7013306",
+      "bytes": 15180
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/qwen-review-recovery/INGEST_MANIFEST.json",
+      "lane": "qwen-review-recovery",
+      "source_staging_dir": "runs/owner_audit_staging/qwen-review-recovery-aa9981021",
+      "sha256": "db2a655654899de1fe308791bb65be16214a577c8f87ec4aea8f2cd20065027a",
+      "bytes": 3480
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/qwen-review-recovery/PROPOSED_COMMIT_MESSAGE.txt",
+      "lane": "qwen-review-recovery",
+      "source_staging_dir": "runs/owner_audit_staging/qwen-review-recovery-aa9981021",
+      "sha256": "144685b87b16aa1fd1e33d98fb238eb5cc66294a48afe21f4eb95e9d10db3e1b",
+      "bytes": 1078
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/qwen-review-recovery/RED_TEST_PLAN.md",
+      "lane": "qwen-review-recovery",
+      "source_staging_dir": "runs/owner_audit_staging/qwen-review-recovery-aa9981021",
+      "sha256": "e0dd9825d9de78fe5c70d42341e20c070b7a6e2f228c8e22d5d9956a8412a5b7",
+      "bytes": 8986
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/qwen-review-recovery/REPORT.md",
+      "lane": "qwen-review-recovery",
+      "source_staging_dir": "runs/owner_audit_staging/qwen-review-recovery-aa9981021",
+      "sha256": "044c8ed916ad3819bba4c6726cfc78b361d77e19a692794b0273c0384036db64",
+      "bytes": 13515
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/qwen-review-recovery/REQUEST_OUTPUT_BUDGET.json",
+      "lane": "qwen-review-recovery",
+      "source_staging_dir": "runs/owner_audit_staging/qwen-review-recovery-aa9981021",
+      "sha256": "69952f5045f435e52904c2e56649c414b216cb820b5bb8599210506991c83027",
+      "bytes": 3798
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/qwen-review-recovery/RUNNER_COST_MODEL.json",
+      "lane": "qwen-review-recovery",
+      "source_staging_dir": "runs/owner_audit_staging/qwen-review-recovery-aa9981021",
+      "sha256": "190b988db79e28593374737e49fb0e8861c3c0f79c3de599e1992c64cb9a22be",
+      "bytes": 6947
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/qwen-review-recovery/SHA256SUMS",
+      "lane": "qwen-review-recovery",
+      "source_staging_dir": "runs/owner_audit_staging/qwen-review-recovery-aa9981021",
+      "sha256": "eac42683a941acc68e41a5e132db0280f2af73c75c16ca4816b6b36d241bb482",
+      "bytes": 709
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/INTEGRATION_POINTS.md",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "b3c58f3c7bbf4a98f4081944faf4263a35bd95221edf54c3eac4d1694766e0aa",
+      "bytes": 11488
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/RED_TEST_PLAN.md",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "d6356d0ee4becd541602884f629c275fb61f70d698f581d0a581274ac00ba5b7",
+      "bytes": 9267
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/REGISTRY_PROCESSABILITY_MATRIX.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "390d40ec37916c6a28aefd111d5d462be6dc959cadcae76f2ddd00b96f7d198b",
+      "bytes": 69207
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/REPORT.md",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "f6653eae11126349de659af919e95a319f82c351d648b83804b257563e0540ab",
+      "bytes": 12748
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/SHA256SUMS",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "ca76d3efbc67e9108d9e53ecc65725888ac58162f42968fa6e3563c3c1a805b3",
+      "bytes": 353
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/_fetch_and_classify.py",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "1af712ff71b254b9f68ae2ebd8a3b085feaace5647e9f30843cd9e0d812c03f6",
+      "bytes": 11525
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-3d-foss__Aspose.3D-FOSS-for-.NET.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "4276c55f8fcfb3baf569c7a6a5412d2ec80af338e15a07de3bdf641cce577c70",
+      "bytes": 139619
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-3d-foss__Aspose.3D-FOSS-for-Java.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "d7f18a4520a9acbc8b6a722b889cf9a037017e8932a91fef2dc9851e04e27502",
+      "bytes": 123168
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-3d-foss__Aspose.3D-FOSS-for-Python.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "f9f7ae91d22de9ca58838f9522ee7719f984ced9a2f0aa7d7d8d66de2827247f",
+      "bytes": 166720
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-3d-foss__Aspose.3D-FOSS-for-TypeScript.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "474f3a62ac9dbd78de668f75230ac2c0154d239ebeda731dc71586c1b56b7904",
+      "bytes": 93020
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "a9bcb17afa1f3be4ea6ed1b9b1cf4e85d8aa1fe35da56387257df9b9f0b72af3",
+      "bytes": 75459
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-cells-foss__Aspose.Cells-FOSS-for-.NET.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "1b6b3cdaf73e75a023ebfe93add8a914ecd57caaf043e5197fda64cbbdd0159b",
+      "bytes": 172451
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "0b62311846323ae272236348bc27afb799eedf7017c7b443c0a1e6f01c1abdec",
+      "bytes": 180792
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-cells-foss__Aspose.Cells-FOSS-for-Go.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "afe4a45f2eb40cb84b19435ccbc15f05f1f7ff661a020d79ef262f9a860e6f3c",
+      "bytes": 39179
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-cells-foss__Aspose.Cells-FOSS-for-Java.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "b10651f53ef83ad9a015349b35a60ed9537c9186ac08db37c1ac596d9e5be333",
+      "bytes": 163250
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-cells-foss__Aspose.Cells-FOSS-for-Python.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "a00030007d41cfdb93087f4f08fbc7db1894b45bbd2a52db29f6465a88490590",
+      "bytes": 52284
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-cells-foss__Aspose.Cells-FOSS-for-Rust.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "26d609237c34f4ec6fd9863a76cc6aac2266723809234981a9e675de0aece568",
+      "bytes": 114289
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-cells-foss__Aspose.Cells-FOSS-for-TypeScript.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "c2160a24502da359df7ede4f62c722a7fe678df44fb21fbb4e5a1e95db709022",
+      "bytes": 35621
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-email-foss__Aspose.Email-FOSS-for-.Net.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "13a554504838685a6694befa9d561bc8e8ee86cf6c2ee6845f7dd27d169c57e6",
+      "bytes": 48975
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-email-foss__Aspose.Email-FOSS-for-Cpp.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "2f6b07cb77ab34833f750361f03dab2409adb2becad34ac4b886c9f120704b60",
+      "bytes": 49107
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-email-foss__Aspose.Email-FOSS-for-Python.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "25887c918fc5ccf2422aebe533ff2ba05f01b3ed31c9601a47d2b73f1ec1243f",
+      "bytes": 33553
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-font-foss__Aspose.Font-FOSS-for-Python.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "f11a358727d259f7e3bbb1f788d594c898b453cc7532740926e46ef1f267b4d7",
+      "bytes": 170518
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-html-foss__Aspose.HTML-FOSS-for-Python.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "6f3ea2af779c5766ee766f94f2361e772b2154076c08b3ab87a5022ecca34e12",
+      "bytes": 146195
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-note-foss__Aspose.Note-FOSS-for-Python.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "89dd6780e30f705c47b06efedea182ecb52a2e78f5566c18c195ce4d1dc789a3",
+      "bytes": 54509
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-page-foss__Aspose.Page-FOSS-for-Python.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "5375476542f0d59b72c88ad4c5d7b4d64f828fd3b92b64277e903b4f6ea9d43f",
+      "bytes": 950066
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-pdf-foss__Aspose-PDF-FOSS-for-Go.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "41b5f97a34f6c0e98469588caa73b29108266dd11f6715ba4dc61e92a0cc38b7",
+      "bytes": 279021
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-pdf-foss__Aspose-PDF-FOSS-for-Python.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "d09e790b8e642ef20590cd875c61c643594043e034bfe7a514d851d773fddabd",
+      "bytes": 154450
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-pdf-foss__Aspose.PDF-FOSS-for-.NET.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "623927e72565c375ec715df31291641e9c93c4f289cc852f247afc9f8819f2b6",
+      "bytes": 267886
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-pdf-foss__Aspose.PDF-FOSS-for-Cpp.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "79e1f75bcc2a7adcf3b889921844a1955ffad4e8b0ff2e51c83ecf4c24179da4",
+      "bytes": 577680
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-pdf-foss__Aspose.PDF-FOSS-for-Java.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "165f33f849aeb44c9e36caf9cda5e4dec98431f2d35e5c1f899fad4559e2d034",
+      "bytes": 530931
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-psd-foss__Aspose.PSD-FOSS-for-.NET.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "429a7c74d2330fa1667de3d29e052baa63f7c92d37e4200d214b5b2c1e84f4eb",
+      "bytes": 15201
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-psd-foss__Aspose.PSD-FOSS-for-Python.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "d094a1da0da3375747182c50594c7cfc5871464d0621a590c322588a623e6bfa",
+      "bytes": 15309
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-slides-foss__Aspose.Slides-FOSS-for-.NET.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "12791275e658020baa6ad3fd04178bb76349c9c3f747f2c7646d837875824a25",
+      "bytes": 182636
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-slides-foss__Aspose.Slides-FOSS-for-Cpp.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "a607175b3245669c685e56530a385a8b3687210f2714fa0eb641507e0c97bfe1",
+      "bytes": 200827
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-slides-foss__Aspose.Slides-FOSS-for-Java.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "9168c5f0f95ff1d26e5256c2b80d07f1760d3a629bc168814db04a286dddb8c1",
+      "bytes": 186903
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-slides-foss__Aspose.Slides-FOSS-for-Python.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "e3c72f7a58c84ac31f62645950a47ae6be1894c6aff2a7ec3a48af92919c8d28",
+      "bytes": 241795
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-tex-foss__Aspose.TeX-FOSS-for-Python.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "d1c04e3a2753f9afbf9a138019b78ee5bc9d1d3d253c2782fc78cce221a61b19",
+      "bytes": 131997
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-words-foss__Aspose.Words-FOSS-for-.NET.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "c544f2ebc32fc8bbad9e440a55414a8862b62f847cf71eb803db820a5d24c2af",
+      "bytes": 5824371
+    },
+    {
+      "path": "plans/investigations/owner_audit/execution-2026-08-20/repository-processability/raw/aspose-words-foss__Aspose.Words-FOSS-for-Python.json",
+      "lane": "repository-processability",
+      "source_staging_dir": "runs/owner_audit_staging/repository-processability-aa9981021",
+      "sha256": "ce459ccb3136f4b9340c1106997d01f83ce2f0b3323b0f37a8655b2fc14ee072",
+      "bytes": 74852
+    }
+  ]
+}

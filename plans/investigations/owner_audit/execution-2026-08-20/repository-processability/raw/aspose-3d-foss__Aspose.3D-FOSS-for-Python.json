@@ -1,0 +1,3669 @@
+{
+  "branch": {
+    "_links": {
+      "html": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/tree/master",
+      "self": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/branches/master"
+    },
+    "commit": {
+      "author": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1225645?v=4",
+        "events_url": "https://api.github.com/users/babar-raza/events{/privacy}",
+        "followers_url": "https://api.github.com/users/babar-raza/followers",
+        "following_url": "https://api.github.com/users/babar-raza/following{/other_user}",
+        "gists_url": "https://api.github.com/users/babar-raza/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/babar-raza",
+        "id": 1225645,
+        "login": "babar-raza",
+        "node_id": "MDQ6VXNlcjEyMjU2NDU=",
+        "organizations_url": "https://api.github.com/users/babar-raza/orgs",
+        "received_events_url": "https://api.github.com/users/babar-raza/received_events",
+        "repos_url": "https://api.github.com/users/babar-raza/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/babar-raza/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/babar-raza/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/babar-raza",
+        "user_view_type": "public"
+      },
+      "comments_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/commits/ee05c1ba9153ef5916b7a108406c794f2e464d01/comments",
+      "commit": {
+        "author": {
+          "date": "2026-08-14T09:56:03Z",
+          "email": "babar.raza@aspose.com",
+          "name": "Babar Raza"
+        },
+        "comment_count": 0,
+        "committer": {
+          "date": "2026-08-14T09:56:03Z",
+          "email": "noreply@github.com",
+          "name": "GitHub"
+        },
+        "message": "fix: eliminate Mermaid node-text clipping in the At a Glance diagram\n\n- Restructured the At a Glance diagram from the individually-wired\n  Input/Capability/Output edge model to the flat, unwired\n  Starting Points -> Product -> Core Capabilities -> Outputs container\n  chain (2 balanced Core Capabilities columns for the 7 real\n  capabilities).\n- The prior model's converging/crossing edges triggered a real, confirmed\n  rendering inconsistency in GitHub's Mermaid renderer: the \"Outputs and\n  accessible content\" container title rendered cut off (\"Outputs and\n  accessible c...\") and the \"Keyframe animation data\" output node\n  rendered cut off (\"Keyframe an...\") on the live page.\n- No capability, input, or output was added, removed, or reworded --\n  every one of the 6 Starting Points, 7 Core Capabilities, and 6 Outputs\n  labels is byte-identical to the prior version, only the diagram's\n  topology changed.\n\nVerification: the corrected diagram was independently re-rendered against\na real Mermaid renderer before this push, confirming every label is now\nfully visible with no clipping, truncation, or overlap.\n\nCo-authored-by: Claude Sonnet 5 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "418a4746ab9d3ec30226f2bd8f743154a0f0d246",
+          "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/418a4746ab9d3ec30226f2bd8f743154a0f0d246"
+        },
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/commits/ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "verification": {
+          "payload": "tree 418a4746ab9d3ec30226f2bd8f743154a0f0d246\nparent 62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba\nauthor Babar Raza <babar.raza@aspose.com> 1786701363 +0500\ncommitter GitHub <noreply@github.com> 1786701363 +0500\n\nfix: eliminate Mermaid node-text clipping in the At a Glance diagram\n\n- Restructured the At a Glance diagram from the individually-wired\n  Input/Capability/Output edge model to the flat, unwired\n  Starting Points -> Product -> Core Capabilities -> Outputs container\n  chain (2 balanced Core Capabilities columns for the 7 real\n  capabilities).\n- The prior model's converging/crossing edges triggered a real, confirmed\n  rendering inconsistency in GitHub's Mermaid renderer: the \"Outputs and\n  accessible content\" container title rendered cut off (\"Outputs and\n  accessible c...\") and the \"Keyframe animation data\" output node\n  rendered cut off (\"Keyframe an...\") on the live page.\n- No capability, input, or output was added, removed, or reworded --\n  every one of the 6 Starting Points, 7 Core Capabilities, and 6 Outputs\n  labels is byte-identical to the prior version, only the diagram's\n  topology changed.\n\nVerification: the corrected diagram was independently re-rendered against\na real Mermaid renderer before this push, confirming every label is now\nfully visible with no clipping, truncation, or overlap.\n\nCo-authored-by: Claude Sonnet 5 <noreply@anthropic.com>",
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqfuYzCRC1aQ7uu5UhlAAAdYMQAK713dnl7cCFOksheqrfF0Ja\nfLosHzF1JwxG2er3ApNrOrbfKDKSMnQME0xZW6UbNSkboS4QQqODDko7EFW0NMlB\nbbJp7FhqwmmgSVvwzGGcBxwR4HJ3Evol0k6ZSBEeJAKxPWiNm+Q9vDOj0tErQWkV\n15uVNIImxpa8GOVpQK8VaJa/SeyfvZvZlFCRnIAvHnzWMb53lSeTiiZhgyjvOt8d\nTSxX9IFWAtswXIV0KYEBF4tH2O0vI68i5076dSE+7cFsVG4RPqZclvQNAzWZmQva\nrG6ghy8fJoVSl5Cg0WUliP0PLgkTRwMdGqxpRBs3Cuwod7YMprdO8LKcs1kFEgkk\nyT8PXhhEMOc5+e5rVYfK8DMNuyc1ppIDVIwJnBb4r8m6VzF7AES3PnGagBHDhoY5\n1Ox4o0kGHQMLzt9PHmNSbMPScnusyHPZm10KDs5d+P6lxVkpAGi02lwa0y1Nkyar\nPBobLQnlePltjKVs26hvlS7YOQmkTCLJ7MRyT33KxzOMaiGU2Y6RRGtBzkzufqHs\nDT4iP1oFIX6GpsgXJsVc0+EOdlpOD9HKQzuDAzZiCC/i6LX8O8Nrbc19/90tr/+e\nsMYbd4GoudOVeLMtELkrDVfmH0tvoFP8yTC1+eIFC7M6oerfqbZIqIqrWCT6Qxnm\nL+96MBPw8ADBS963jitT\n=nq65\n-----END PGP SIGNATURE-----\n",
+          "verified": true,
+          "verified_at": "2026-08-14T09:56:16Z"
+        }
+      },
+      "committer": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/web-flow",
+        "id": 19864447,
+        "login": "web-flow",
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/web-flow",
+        "user_view_type": "public"
+      },
+      "html_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/commit/ee05c1ba9153ef5916b7a108406c794f2e464d01",
+      "node_id": "C_kwDOQ9n2hdoAKGVlMDVjMWJhOTE1M2VmNTkxNmI3YTEwODQwNmM3OTRmMmU0NjRkMDE",
+      "parents": [
+        {
+          "html_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python/commit/62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+          "sha": "62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba",
+          "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/commits/62fb89f3ca76dc0afa9b2dfb983b9a1fa3f74fba"
+        }
+      ],
+      "sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+      "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/commits/ee05c1ba9153ef5916b7a108406c794f2e464d01"
+    },
+    "name": "master",
+    "protected": false,
+    "protection": {
+      "enabled": false,
+      "required_status_checks": {
+        "checks": [],
+        "contexts": [],
+        "enforcement_level": "off"
+      }
+    },
+    "protection_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/branches/master/protection"
+  },
+  "repo": {
+    "allow_auto_merge": false,
+    "allow_forking": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "archive_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/branches{/branch}",
+    "clone_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git",
+    "collaborators_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/comments{/number}",
+    "commits_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/contributors",
+    "created_at": "2026-01-20T15:15:16Z",
+    "custom_properties": {},
+    "default_branch": "master",
+    "delete_branch_on_merge": false,
+    "deployments_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/deployments",
+    "description": "Aspose.3D FOSS for Python is a MIT-licensed, pure-Python library for working with 3D file formats. Install it with a single pip command and immediately start reading, constructing, and writing 3D scenes without installing any native runtime, external SDK, or third-party renderer.",
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/downloads",
+    "events_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/events",
+    "fork": false,
+    "forks": 0,
+    "forks_count": 0,
+    "forks_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/forks",
+    "full_name": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "git_commits_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/tags{/sha}",
+    "git_url": "git://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git",
+    "has_discussions": false,
+    "has_downloads": false,
+    "has_issues": true,
+    "has_pages": false,
+    "has_projects": true,
+    "has_pull_requests": true,
+    "has_wiki": false,
+    "homepage": "https://products.aspose.org/3d/python/",
+    "hooks_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/hooks",
+    "html_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "id": 1138357893,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/issues{/number}",
+    "keys_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/labels{/name}",
+    "language": "Python",
+    "languages_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/languages",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "node_id": "MDc6TGljZW5zZTEz",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit"
+    },
+    "merge_commit_message": "PR_TITLE",
+    "merge_commit_title": "MERGE_MESSAGE",
+    "merges_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/merges",
+    "milestones_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/milestones{/number}",
+    "mirror_url": null,
+    "name": "Aspose.3D-FOSS-for-Python",
+    "network_count": 0,
+    "node_id": "R_kgDOQ9n2hQ",
+    "notifications_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/notifications{?since,all,participating}",
+    "open_issues": 0,
+    "open_issues_count": 0,
+    "organization": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224595356?v=4",
+      "events_url": "https://api.github.com/users/aspose-3d-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-3d-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-3d-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-3d-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-3d-foss",
+      "id": 224595356,
+      "login": "aspose-3d-foss",
+      "node_id": "O_kgDODWMNnA",
+      "organizations_url": "https://api.github.com/users/aspose-3d-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-3d-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-3d-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-3d-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-3d-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-3d-foss",
+      "user_view_type": "public"
+    },
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224595356?v=4",
+      "events_url": "https://api.github.com/users/aspose-3d-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-3d-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-3d-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-3d-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-3d-foss",
+      "id": 224595356,
+      "login": "aspose-3d-foss",
+      "node_id": "O_kgDODWMNnA",
+      "organizations_url": "https://api.github.com/users/aspose-3d-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-3d-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-3d-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-3d-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-3d-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-3d-foss",
+      "user_view_type": "public"
+    },
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "private": false,
+    "pull_request_creation_policy": "all",
+    "pulls_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/pulls{/number}",
+    "pushed_at": "2026-08-14T09:56:04Z",
+    "releases_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/releases{/id}",
+    "security_and_analysis": {
+      "dependabot_security_updates": {
+        "status": "disabled"
+      },
+      "secret_scanning": {
+        "status": "disabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    },
+    "size": 360,
+    "squash_merge_commit_message": "COMMIT_MESSAGES",
+    "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+    "ssh_url": "git@github.com:aspose-3d-foss/Aspose.3D-FOSS-for-Python.git",
+    "stargazers_count": 1,
+    "stargazers_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/stargazers",
+    "statuses_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/statuses/{sha}",
+    "subscribers_count": 0,
+    "subscribers_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/subscribers",
+    "subscription_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/subscription",
+    "svn_url": "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "tags_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/tags",
+    "teams_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/teams",
+    "temp_clone_token": "",
+    "topics": [],
+    "trees_url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees{/sha}",
+    "updated_at": "2026-08-14T09:56:15Z",
+    "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+    "use_squash_pr_title_as_default": false,
+    "visibility": "public",
+    "watchers": 1,
+    "watchers_count": 1,
+    "web_commit_signoff_required": false
+  },
+  "tree": {
+    "sha": "418a4746ab9d3ec30226f2bd8f743154a0f0d246",
+    "tree": [
+      {
+        "mode": "100644",
+        "path": ".gitignore",
+        "sha": "641bd1c81a2442d7326109619db32312cebd3f0b",
+        "size": 184,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/641bd1c81a2442d7326109619db32312cebd3f0b"
+      },
+      {
+        "mode": "100644",
+        "path": "AGENTS.md",
+        "sha": "831078d0b6ede3a10f574f1e7cf72ee1d37ea73d",
+        "size": 5282,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/831078d0b6ede3a10f574f1e7cf72ee1d37ea73d"
+      },
+      {
+        "mode": "100644",
+        "path": "LICENSE",
+        "sha": "8a3cc8208d0264d4a0d448c1e173a064f4f547a7",
+        "size": 1068,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/8a3cc8208d0264d4a0d448c1e173a064f4f547a7"
+      },
+      {
+        "mode": "100644",
+        "path": "MANIFEST.in",
+        "sha": "30feab9130b98711a0485386330f5b6fa4142608",
+        "size": 250,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/30feab9130b98711a0485386330f5b6fa4142608"
+      },
+      {
+        "mode": "100644",
+        "path": "README.md",
+        "sha": "4e4a264298dcf5099919d314834672653d1fed4f",
+        "size": 17983,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/4e4a264298dcf5099919d314834672653d1fed4f"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose",
+        "sha": "c502bb988d0551feb6e546d4edf74c8a48a005a8",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/c502bb988d0551feb6e546d4edf74c8a48a005a8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/__init__.py",
+        "sha": "2e5a69a550e1e510c86127978b861db312dbf361",
+        "size": 43,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/2e5a69a550e1e510c86127978b861db312dbf361"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/pydrawing",
+        "sha": "1a496f02b57efbd7c4364a30143e623aaa98a46e",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/1a496f02b57efbd7c4364a30143e623aaa98a46e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/pydrawing/__init__.py",
+        "sha": "f108a9508a30457df8eae19e38106e6f66414ebf",
+        "size": 183,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f108a9508a30457df8eae19e38106e6f66414ebf"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/pydrawing/design",
+        "sha": "0cdf305d21b774a3645e54c0fcb54e6d6a75ace8",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/0cdf305d21b774a3645e54c0fcb54e6d6a75ace8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/pydrawing/design/__init__.py",
+        "sha": "43c2acba09eaadc56f3b0a615eabe8ece7c3d7a0",
+        "size": 190,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/43c2acba09eaadc56f3b0a615eabe8ece7c3d7a0"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/pydrawing/drawing2d",
+        "sha": "f4b8a240f8c4baa5f0cb812066ece228b54bc37b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/f4b8a240f8c4baa5f0cb812066ece228b54bc37b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/pydrawing/drawing2d/__init__.py",
+        "sha": "0bbef6eb75081389a62694399748de27beb430ee",
+        "size": 193,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/0bbef6eb75081389a62694399748de27beb430ee"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/pydrawing/imaging",
+        "sha": "cda893ced2389a777fe44911efa4702049091e82",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/cda893ced2389a777fe44911efa4702049091e82"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/pydrawing/imaging/__init__.py",
+        "sha": "1e46cfc7f6ab92751a93526ee0e08672d4b95287",
+        "size": 191,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/1e46cfc7f6ab92751a93526ee0e08672d4b95287"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/pydrawing/printing",
+        "sha": "985deeabd1785888edc8a5d457a3e393707ad20b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/985deeabd1785888edc8a5d457a3e393707ad20b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/pydrawing/printing/__init__.py",
+        "sha": "c725cbe49bb62c336bb91cc8e0ad027bec996065",
+        "size": 192,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/c725cbe49bb62c336bb91cc8e0ad027bec996065"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/pydrawing/text",
+        "sha": "0eb1038ed573310138094795b82127af1f51720a",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/0eb1038ed573310138094795b82127af1f51720a"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/pydrawing/text/__init__.py",
+        "sha": "59b7d3a1603095a73e067d89fece08a0b3a5486c",
+        "size": 188,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/59b7d3a1603095a73e067d89fece08a0b3a5486c"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/threed",
+        "sha": "2f3adcd3829401ed1090d8a2230100ed582594f6",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/2f3adcd3829401ed1090d8a2230100ed582594f6"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/A3DObject.py",
+        "sha": "07077045ab1fd4c1983de7e853d29de25946f799",
+        "size": 1222,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/07077045ab1fd4c1983de7e853d29de25946f799"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/AssetInfo.py",
+        "sha": "077ba90384da2c5c605404d9ff7a17537ebc47ab",
+        "size": 4150,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/077ba90384da2c5c605404d9ff7a17537ebc47ab"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/Axis.py",
+        "sha": "944d74090120493b0759a84c5a1a8eb9bfe881d4",
+        "size": 476,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/944d74090120493b0759a84c5a1a8eb9bfe881d4"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/AxisSystem.py",
+        "sha": "d10ad825d5a1ff6948556c65220114453d00ae52",
+        "size": 1409,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d10ad825d5a1ff6948556c65220114453d00ae52"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/BonePose.py",
+        "sha": "cd26adcb8d29b1dd2f3f58f7216dfb0b6e457ac8",
+        "size": 758,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/cd26adcb8d29b1dd2f3f58f7216dfb0b6e457ac8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/CoordinateSystem.py",
+        "sha": "d3f9516ac5ac360bc05e1d03e9c4d57be2be5912",
+        "size": 295,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d3f9516ac5ac360bc05e1d03e9c4d57be2be5912"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/CustomObject.py",
+        "sha": "ac1e422472ec5a9e83741e3df63b73c7419a02b0",
+        "size": 139,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/ac1e422472ec5a9e83741e3df63b73c7419a02b0"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/Entity.py",
+        "sha": "a6fc432ec8d7c53abca1f4d89f30427edc0a7ca2",
+        "size": 1438,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a6fc432ec8d7c53abca1f4d89f30427edc0a7ca2"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/ExportException.py",
+        "sha": "224a11b8e97a9e991899213df80fd032eaf18229",
+        "size": 171,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/224a11b8e97a9e991899213df80fd032eaf18229"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/FileContentType.py",
+        "sha": "709e4a4f882c731ca42434ee2eeaf7779adab6bc",
+        "size": 450,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/709e4a4f882c731ca42434ee2eeaf7779adab6bc"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/FileFormat.py",
+        "sha": "e0dd08aa08e10739ba83558c437fec187daf2d18",
+        "size": 5251,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e0dd08aa08e10739ba83558c437fec187daf2d18"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/FileFormatType.py",
+        "sha": "218541650dbd49f88b22c9c87e1df0f7aeedef9b",
+        "size": 1645,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/218541650dbd49f88b22c9c87e1df0f7aeedef9b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/GlobalTransform.py",
+        "sha": "86cc6aecca4f6f0dc520540f1c2e447e9c56af68",
+        "size": 946,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/86cc6aecca4f6f0dc520540f1c2e447e9c56af68"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/Group.py",
+        "sha": "ab466d3af0deae4605e00096febf0af34575c141",
+        "size": 778,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/ab466d3af0deae4605e00096febf0af34575c141"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/INamedObject.py",
+        "sha": "c9fff3d5a5b0060f5c44d416650546fb32896993",
+        "size": 186,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/c9fff3d5a5b0060f5c44d416650546fb32896993"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/ImageRenderOptions.py",
+        "sha": "2ae9e1170b0d5c924f34ee17dd99ff6c569999fb",
+        "size": 946,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/2ae9e1170b0d5c924f34ee17dd99ff6c569999fb"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/ImportException.py",
+        "sha": "8971784f5da9119c14965510ae295960dcb432fd",
+        "size": 171,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/8971784f5da9119c14965510ae295960dcb432fd"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/Node.py",
+        "sha": "7c28a802bcbd82bff130d6aaf874813cc39aa4f8",
+        "size": 6267,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/7c28a802bcbd82bff130d6aaf874813cc39aa4f8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/Pose.py",
+        "sha": "28900645a3f2c6a8be65a3aa5cd9a7c9119aa418",
+        "size": 920,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/28900645a3f2c6a8be65a3aa5cd9a7c9119aa418"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/PoseType.py",
+        "sha": "1ca062511029b5baec1b45639807778e9220b89c",
+        "size": 99,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/1ca062511029b5baec1b45639807778e9220b89c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/Property.py",
+        "sha": "9db3606c49aa4c382330d133ee90198840644713",
+        "size": 1061,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/9db3606c49aa4c382330d133ee90198840644713"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/PropertyCollection.py",
+        "sha": "8178177e48bb731f5d94e6a253a7daa4953690a4",
+        "size": 1249,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/8178177e48bb731f5d94e6a253a7daa4953690a4"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/PropertyFlags.py",
+        "sha": "95bcd52b6e307bb5da93b38b43f40674d8f77f37",
+        "size": 457,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/95bcd52b6e307bb5da93b38b43f40674d8f77f37"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/Scene.py",
+        "sha": "bc26336687e6ca295b349da4a5ee37f9e0055877",
+        "size": 6950,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/bc26336687e6ca295b349da4a5ee37f9e0055877"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/SceneObject.py",
+        "sha": "b14976e4ae59217b294871b6356108845921ec89",
+        "size": 303,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/b14976e4ae59217b294871b6356108845921ec89"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/Transform.py",
+        "sha": "07ac16a3ba71900b66ec2376378f76dbfc41cb5f",
+        "size": 8551,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/07ac16a3ba71900b66ec2376378f76dbfc41cb5f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/TrialException.py",
+        "sha": "600bfcbe3d5ce319b2429ba81245e712c0f9c886",
+        "size": 763,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/600bfcbe3d5ce319b2429ba81245e712c0f9c886"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/__init__.py",
+        "sha": "117b1649581e4b8861c3b2ae71b2ea815907a14f",
+        "size": 3160,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/117b1649581e4b8861c3b2ae71b2ea815907a14f"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/threed/animation",
+        "sha": "7239fa737ad1dfbd76e9df6b725843352ccaf171",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/7239fa737ad1dfbd76e9df6b725843352ccaf171"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/animation/AnimationChannel.py",
+        "sha": "38bcabea140744140f97b9d3cebb352a262443f6",
+        "size": 971,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/38bcabea140744140f97b9d3cebb352a262443f6"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/animation/AnimationClip.py",
+        "sha": "1b41de0874e9a677af09b76aca11e65b0b7818e9",
+        "size": 1410,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/1b41de0874e9a677af09b76aca11e65b0b7818e9"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/animation/AnimationNode.py",
+        "sha": "f0904d43f8063b754cf942f9576f4057fbbb2832",
+        "size": 2727,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f0904d43f8063b754cf942f9576f4057fbbb2832"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/animation/BindPoint.py",
+        "sha": "e02a2904c16ac5c5ddaab7057210d09514fb36d4",
+        "size": 2273,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e02a2904c16ac5c5ddaab7057210d09514fb36d4"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/animation/Extrapolation.py",
+        "sha": "508c2e687f9d78d97d7e0b769c4f67189bdf0e97",
+        "size": 566,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/508c2e687f9d78d97d7e0b769c4f67189bdf0e97"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/animation/ExtrapolationType.py",
+        "sha": "5280616cd87735e9c714efd59750f58868225277",
+        "size": 144,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/5280616cd87735e9c714efd59750f58868225277"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/animation/Interpolation.py",
+        "sha": "a4d66615dcaa84d50bc17c71c581e63a045c7464",
+        "size": 158,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a4d66615dcaa84d50bc17c71c581e63a045c7464"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/animation/KeyFrame.py",
+        "sha": "dee589d0537557832cf0735a4b0d150a4ac2e622",
+        "size": 3737,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/dee589d0537557832cf0735a4b0d150a4ac2e622"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/animation/KeyframeSequence.py",
+        "sha": "c6b5e58146a005bd95ef2eebf0b96c1981ae0e74",
+        "size": 1591,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/c6b5e58146a005bd95ef2eebf0b96c1981ae0e74"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/animation/StepMode.py",
+        "sha": "c22dbf9bb79763e92d9c7850b75a31fa14a1874b",
+        "size": 88,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/c22dbf9bb79763e92d9c7850b75a31fa14a1874b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/animation/WeightedMode.py",
+        "sha": "6d42852efd89d007c9c90146e15c9604ff89a2e9",
+        "size": 118,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/6d42852efd89d007c9c90146e15c9604ff89a2e9"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/animation/__init__.py",
+        "sha": "12a8f3d6702a5cde6933340862606146ddeeb642",
+        "size": 683,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/12a8f3d6702a5cde6933340862606146ddeeb642"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/threed/deformers",
+        "sha": "d99724977bb79e632297cb9c204fb2d7ba075ca7",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/d99724977bb79e632297cb9c204fb2d7ba075ca7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/deformers/Bone.py",
+        "sha": "a08bd4a49b45bb797e4813ccdbed34df0e6c8024",
+        "size": 1852,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a08bd4a49b45bb797e4813ccdbed34df0e6c8024"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/deformers/BoneLinkMode.py",
+        "sha": "4587b90279ea8a87bd2675bd48c38c58126859d1",
+        "size": 203,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/4587b90279ea8a87bd2675bd48c38c58126859d1"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/deformers/Deformer.py",
+        "sha": "e547562df55ae9bac7c0f6e7e328b1ce8f6f42aa",
+        "size": 421,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e547562df55ae9bac7c0f6e7e328b1ce8f6f42aa"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/deformers/MorphTargetChannel.py",
+        "sha": "7309310476bea7e6fee046764dc7164bddd82703",
+        "size": 1830,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/7309310476bea7e6fee046764dc7164bddd82703"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/deformers/MorphTargetDeformer.py",
+        "sha": "619a212e5695373a833f1a5f373cb0f7b48f6402",
+        "size": 803,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/619a212e5695373a833f1a5f373cb0f7b48f6402"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/deformers/SkinDeformer.py",
+        "sha": "d05e8d2d63315951a4c810ffac220e857cf3e00b",
+        "size": 379,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d05e8d2d63315951a4c810ffac220e857cf3e00b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/deformers/__init__.py",
+        "sha": "f84b2c173c89732d6828c4648fce84aba1e2306c",
+        "size": 345,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f84b2c173c89732d6828c4648fce84aba1e2306c"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/threed/entities",
+        "sha": "d98d3f0ee638e56b6d3f21de01aa5a3c0e5ca189",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/d98d3f0ee638e56b6d3f21de01aa5a3c0e5ca189"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/ApertureMode.py",
+        "sha": "ae8e44907cfb96c72406558d285fee4015d99a37",
+        "size": 626,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/ae8e44907cfb96c72406558d285fee4015d99a37"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/BooleanOperand.py",
+        "sha": "29c89a8a6a149c1b944f169dd6640a6d0091d415",
+        "size": 607,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/29c89a8a6a149c1b944f169dd6640a6d0091d415"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/BooleanOperation.py",
+        "sha": "89c93b3457895cc740fed4deb013f457932edee7",
+        "size": 209,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/89c93b3457895cc740fed4deb013f457932edee7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/BooleanOperator.py",
+        "sha": "3c4ffeafefcb5bde565cf4d1c744637d27410385",
+        "size": 1275,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/3c4ffeafefcb5bde565cf4d1c744637d27410385"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Box.py",
+        "sha": "4f65a3539c33672e2f3fc01cc0e0a9c6a8202064",
+        "size": 2949,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/4f65a3539c33672e2f3fc01cc0e0a9c6a8202064"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Camera.py",
+        "sha": "a5eb64b435170e5ddc9ef81ef43d8fa557fcf636",
+        "size": 4002,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a5eb64b435170e5ddc9ef81ef43d8fa557fcf636"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Circle.py",
+        "sha": "8a31371a36a5972e76fa5b1394df31641989095d",
+        "size": 2013,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/8a31371a36a5972e76fa5b1394df31641989095d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/CompositeCurve.py",
+        "sha": "e795aecb84240c963d5b204036fb593a130d9f40",
+        "size": 735,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e795aecb84240c963d5b204036fb593a130d9f40"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Curve.py",
+        "sha": "d41744d65314cfe3099b0211d3b1b7f57f52f152",
+        "size": 574,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d41744d65314cfe3099b0211d3b1b7f57f52f152"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/CurveDimension.py",
+        "sha": "f1991097f889cba2e2de4e5ddb72dfd04cd75381",
+        "size": 182,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f1991097f889cba2e2de4e5ddb72dfd04cd75381"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Cylinder.py",
+        "sha": "bc77e1ea255c548e18534c29d1a42d6afd323c8c",
+        "size": 6484,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/bc77e1ea255c548e18534c29d1a42d6afd323c8c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Dish.py",
+        "sha": "b70862bfa5d6e52911c5988c1d7e4f92e0434e87",
+        "size": 2653,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/b70862bfa5d6e52911c5988c1d7e4f92e0434e87"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Ellipse.py",
+        "sha": "d69403542384ce0d1e3aad04a60143555933bceb",
+        "size": 2299,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d69403542384ce0d1e3aad04a60143555933bceb"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/EndPoint.py",
+        "sha": "e6b4cb8f3045c16f2e6393dd4aea0964c5b7568f",
+        "size": 1199,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e6b4cb8f3045c16f2e6393dd4aea0964c5b7568f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Frustum.py",
+        "sha": "db8aa80954748144cd4bf7fa66f3676b74e1ec14",
+        "size": 3392,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/db8aa80954748144cd4bf7fa66f3676b74e1ec14"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Geometry.py",
+        "sha": "c053e71a23bb01fb6e1041eca585618f6a353a73",
+        "size": 4729,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/c053e71a23bb01fb6e1041eca585618f6a353a73"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/HalfSpace.py",
+        "sha": "033c3d44e46cb72b3d3a997d59e8ea4d032c60bf",
+        "size": 3747,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/033c3d44e46cb72b3d3a997d59e8ea4d032c60bf"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/IIndexedVertexElement.py",
+        "sha": "073d8516bc2e6f9121d49265deb0c5bc224eb698",
+        "size": 141,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/073d8516bc2e6f9121d49265deb0c5bc224eb698"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/IMeshConvertible.py",
+        "sha": "4dfb3c68225556e78cfdb051e9d1547d5b8a8504",
+        "size": 329,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/4dfb3c68225556e78cfdb051e9d1547d5b8a8504"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/IOrientable.py",
+        "sha": "dd7a1e87d660d17a74203b55a822fe6508ad618b",
+        "size": 829,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/dd7a1e87d660d17a74203b55a822fe6508ad618b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Light.py",
+        "sha": "f1aef3491ab1d6abad5f54eae6eb2089808f30fb",
+        "size": 333,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f1aef3491ab1d6abad5f54eae6eb2089808f30fb"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/LightType.py",
+        "sha": "80aa03a842f0ecc4d949262e2d8d31d1a2c65dc6",
+        "size": 356,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/80aa03a842f0ecc4d949262e2d8d31d1a2c65dc6"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Line.py",
+        "sha": "374aa207d8c27c048a02220a2453899136dbc279",
+        "size": 1009,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/374aa207d8c27c048a02220a2453899136dbc279"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/LinearExtrusion.py",
+        "sha": "184fb9eed07efc0f4d5791514d06506b42563101",
+        "size": 2174,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/184fb9eed07efc0f4d5791514d06506b42563101"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/MappingMode.py",
+        "sha": "f8293b30c542922528426f8d5fb3bf640d63680e",
+        "size": 318,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f8293b30c542922528426f8d5fb3bf640d63680e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Mesh.py",
+        "sha": "9e18b20c1fba510520e8557e1bd99c7ab6995b3d",
+        "size": 4797,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/9e18b20c1fba510520e8557e1bd99c7ab6995b3d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/NurbsCurve.py",
+        "sha": "8894f8d95238f7dde3003eb2f91f7c3f810a3a1f",
+        "size": 2171,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/8894f8d95238f7dde3003eb2f91f7c3f810a3a1f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/NurbsDirection.py",
+        "sha": "db9e0550b96d4a500fdf8cde0bb2aa6451a9ad31",
+        "size": 1269,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/db9e0550b96d4a500fdf8cde0bb2aa6451a9ad31"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/NurbsSurface.py",
+        "sha": "962dbaa77eb61fd25789c4367b2e5bdcfa593cd1",
+        "size": 679,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/962dbaa77eb61fd25789c4367b2e5bdcfa593cd1"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/NurbsType.py",
+        "sha": "204dfd58b7f777dc36c6139aeb325802d2ad186f",
+        "size": 166,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/204dfd58b7f777dc36c6139aeb325802d2ad186f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Patch.py",
+        "sha": "baa6e8a13993268522c26dacb49950a4e78c2bbb",
+        "size": 552,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/baa6e8a13993268522c26dacb49950a4e78c2bbb"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/PatchDirection.py",
+        "sha": "a0a68ef25feb50140ab3e837ef8eaaed302aa4a7",
+        "size": 863,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a0a68ef25feb50140ab3e837ef8eaaed302aa4a7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/PatchDirectionType.py",
+        "sha": "94858cb434f2e67bc3e131e7b06293f80786e48b",
+        "size": 413,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/94858cb434f2e67bc3e131e7b06293f80786e48b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Plane.py",
+        "sha": "c79f074dc6b70d048cbba0e4697a1fd3c89372ed",
+        "size": 1590,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/c79f074dc6b70d048cbba0e4697a1fd3c89372ed"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/PointCloud.py",
+        "sha": "506396518cc0456301b1264aa91876bfceb21d03",
+        "size": 1120,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/506396518cc0456301b1264aa91876bfceb21d03"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/PolygonBuilder.py",
+        "sha": "b11b5eea9d508dea1053082e32a9d5de1181c72f",
+        "size": 785,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/b11b5eea9d508dea1053082e32a9d5de1181c72f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/PolygonModifier.py",
+        "sha": "548ef5e352fd237f4ab086e2f43ce7a54cfc647b",
+        "size": 10412,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/548ef5e352fd237f4ab086e2f43ce7a54cfc647b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Primitive.py",
+        "sha": "b86c19935e5eac35b4d8515c56f55bc8dbb19577",
+        "size": 926,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/b86c19935e5eac35b4d8515c56f55bc8dbb19577"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/ProjectionType.py",
+        "sha": "94a15d625b1dc78a4215c636f41e738a087b8cbe",
+        "size": 300,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/94a15d625b1dc78a4215c636f41e738a087b8cbe"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Pyramid.py",
+        "sha": "465969638ea280f9f2353315b0be13cd575c11ad",
+        "size": 3588,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/465969638ea280f9f2353315b0be13cd575c11ad"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/RectangularTorus.py",
+        "sha": "24b8b9a75d32b6fec19ae9cccda4999faa009468",
+        "size": 5605,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/24b8b9a75d32b6fec19ae9cccda4999faa009468"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/ReferenceMode.py",
+        "sha": "a03c002b6aa743128195ddf01282ede5479a4417",
+        "size": 210,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a03c002b6aa743128195ddf01282ede5479a4417"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/RevolvedAreaSolid.py",
+        "sha": "21751bf7cd294bd9f77000e6ce6de9f8214dc22b",
+        "size": 1596,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/21751bf7cd294bd9f77000e6ce6de9f8214dc22b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/RotationMode.py",
+        "sha": "1b918337ff40cdd38c8254572f9746e9435ef5ac",
+        "size": 300,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/1b918337ff40cdd38c8254572f9746e9435ef5ac"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Shape.py",
+        "sha": "9f33727034a591b4665a40120bd481489143936e",
+        "size": 530,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/9f33727034a591b4665a40120bd481489143936e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Skeleton.py",
+        "sha": "419315f6707f0e1b587e11085b92c8f03d9d2168",
+        "size": 1739,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/419315f6707f0e1b587e11085b92c8f03d9d2168"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/SkeletonType.py",
+        "sha": "7d0be20a77f6b4d17e9a79ecc711946ac42ec333",
+        "size": 213,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/7d0be20a77f6b4d17e9a79ecc711946ac42ec333"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Sphere.py",
+        "sha": "aafcb79db77d10eb4adfafe81f3935a9076b8504",
+        "size": 3285,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/aafcb79db77d10eb4adfafe81f3935a9076b8504"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/SplitMeshPolicy.py",
+        "sha": "59765be433a891483f26d73b03f4cc9399e03cb6",
+        "size": 372,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/59765be433a891483f26d73b03f4cc9399e03cb6"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/SweptAreaSolid.py",
+        "sha": "709337fdbdccd08869258bac6ada0662dfbc1f99",
+        "size": 970,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/709337fdbdccd08869258bac6ada0662dfbc1f99"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/TextureMapping.py",
+        "sha": "1c6ebca581bcef4a1bf18f89497b7222cf678d4a",
+        "size": 764,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/1c6ebca581bcef4a1bf18f89497b7222cf678d4a"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/Torus.py",
+        "sha": "862f4b70242a474d3f4ce8f91377a5c830080b75",
+        "size": 3953,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/862f4b70242a474d3f4ce8f91377a5c830080b75"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/TransformedCurve.py",
+        "sha": "358929255cd84cda184da6bcf9f7c3a82fb07e74",
+        "size": 999,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/358929255cd84cda184da6bcf9f7c3a82fb07e74"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/TriMesh.py",
+        "sha": "6582edeee8962609681ffc5b8b63512826a1c78d",
+        "size": 775,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/6582edeee8962609681ffc5b8b63512826a1c78d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/TrimmedCurve.py",
+        "sha": "dbd1b4494a456ee8a142e581eae89914d44be84d",
+        "size": 1346,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/dbd1b4494a456ee8a142e581eae89914d44be84d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElement.py",
+        "sha": "aa1196eb2228a0fd136b68c87524a8f7044eb899",
+        "size": 1539,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/aa1196eb2228a0fd136b68c87524a8f7044eb899"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementBinormal.py",
+        "sha": "932aabadae32da8ac8d9300f42934e3605271307",
+        "size": 480,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/932aabadae32da8ac8d9300f42934e3605271307"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementDoublesTemplate.py",
+        "sha": "d3300d426408a23e04404bf0cb7567da8b4a7c8c",
+        "size": 1434,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d3300d426408a23e04404bf0cb7567da8b4a7c8c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementEdgeCrease.py",
+        "sha": "62dc6a6c2e0a92997a6dcc9e1ee915923d191087",
+        "size": 726,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/62dc6a6c2e0a92997a6dcc9e1ee915923d191087"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementFVector.py",
+        "sha": "44240f100e289a7af1c8034cb8d3f80d391238a7",
+        "size": 2313,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/44240f100e289a7af1c8034cb8d3f80d391238a7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementHole.py",
+        "sha": "7a863c350e4b41c97941e52d724082f4ff3b12a0",
+        "size": 718,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/7a863c350e4b41c97941e52d724082f4ff3b12a0"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementIntsTemplate.py",
+        "sha": "726502ebfc22e79784fd838821bd04c566af4a2f",
+        "size": 1547,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/726502ebfc22e79784fd838821bd04c566af4a2f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementMaterial.py",
+        "sha": "9b06a5e5db8fe82bba33d718b263fc559aa7bf9d",
+        "size": 714,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/9b06a5e5db8fe82bba33d718b263fc559aa7bf9d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementNormal.py",
+        "sha": "56ed6e03999ee02ade91d62182d063d326dbb02c",
+        "size": 476,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/56ed6e03999ee02ade91d62182d063d326dbb02c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementPolygonGroup.py",
+        "sha": "ecb8ac05a9eba3a8640527f49fff41c7c0904cdc",
+        "size": 723,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/ecb8ac05a9eba3a8640527f49fff41c7c0904cdc"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementSmoothingGroup.py",
+        "sha": "c901530c05deb195aa7ee6c9969cf7460278f0f2",
+        "size": 529,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/c901530c05deb195aa7ee6c9969cf7460278f0f2"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementSpecular.py",
+        "sha": "8fd35b45c3dcfe1adeae047ccbeb3545dca7d33a",
+        "size": 720,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/8fd35b45c3dcfe1adeae047ccbeb3545dca7d33a"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementTangent.py",
+        "sha": "a1e7c21b03d09fcbb986a717d6e75c0c2d930f94",
+        "size": 478,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a1e7c21b03d09fcbb986a717d6e75c0c2d930f94"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementTemplate.py",
+        "sha": "a9f5f745be786a6f505ee1549ac1160c74061dad",
+        "size": 1586,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a9f5f745be786a6f505ee1549ac1160c74061dad"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementType.py",
+        "sha": "62b36ebd703fd61d2c445c95a7e74401ce7c95ac",
+        "size": 1086,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/62b36ebd703fd61d2c445c95a7e74401ce7c95ac"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementUV.py",
+        "sha": "e3304df7261169cfe8946b7122ae0f0c0645b2ad",
+        "size": 2034,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e3304df7261169cfe8946b7122ae0f0c0645b2ad"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementUserData.py",
+        "sha": "e6372f42a44c788d9343af4601a8ef3cef7455ff",
+        "size": 715,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e6372f42a44c788d9343af4601a8ef3cef7455ff"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementVector4.py",
+        "sha": "f60e4090fdedb1ba2b422ba21d9580538d4495d1",
+        "size": 934,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f60e4090fdedb1ba2b422ba21d9580538d4495d1"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementVertexColor.py",
+        "sha": "a94b6444ff7ee1d5233ae4157b49575474e32eff",
+        "size": 487,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a94b6444ff7ee1d5233ae4157b49575474e32eff"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementVertexCrease.py",
+        "sha": "498f01055972b08c0215766a2141745ab87382a3",
+        "size": 730,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/498f01055972b08c0215766a2141745ab87382a3"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementVisibility.py",
+        "sha": "9281bc4b61950e2180fae4012f7ed1ea4817e5ea",
+        "size": 718,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/9281bc4b61950e2180fae4012f7ed1ea4817e5ea"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/VertexElementWeight.py",
+        "sha": "60c35aa685d4fcdf35f9d9bfa8cff139b71afe88",
+        "size": 710,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/60c35aa685d4fcdf35f9d9bfa8cff139b71afe88"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/entities/__init__.py",
+        "sha": "4e2c9bc7d8a3b25e6910f23d8efab27896177b3c",
+        "size": 4684,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/4e2c9bc7d8a3b25e6910f23d8efab27896177b3c"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/threed/formats",
+        "sha": "e848eb7cb952c3d9d7bfe784162e33628c17dd75",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/e848eb7cb952c3d9d7bfe784162e33628c17dd75"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/A3dwSaveOptions.py",
+        "sha": "148bec7a0f6e68a05cd56a9a198dd83dda33e673",
+        "size": 55,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/148bec7a0f6e68a05cd56a9a198dd83dda33e673"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/AmfSaveOptions.py",
+        "sha": "637c65f46c1376a8e984c9d4fa811a0b30b65edc",
+        "size": 53,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/637c65f46c1376a8e984c9d4fa811a0b30b65edc"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/BasicLoadOptions.py",
+        "sha": "de7dc82411d04831f53ae8308488dbcb0e6df5ce",
+        "size": 264,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/de7dc82411d04831f53ae8308488dbcb0e6df5ce"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/ColladaLoadOptions.py",
+        "sha": "3fabd1b771c923ffaed7d75a310cab42a5c1a573",
+        "size": 625,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/3fabd1b771c923ffaed7d75a310cab42a5c1a573"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/ColladaSaveOptions.py",
+        "sha": "f8a7d7acda3acb2f8e584e6d26bdc6432678c3d0",
+        "size": 1053,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f8a7d7acda3acb2f8e584e6d26bdc6432678c3d0"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/ColladaTransformStyle.py",
+        "sha": "ab026f78c105ffcd1bac7c2f279ea518f925280a",
+        "size": 235,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/ab026f78c105ffcd1bac7c2f279ea518f925280a"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/Discreet3dsLoadOptions.py",
+        "sha": "e48409678a01d9e5a761078c72d195f6d6809c62",
+        "size": 70,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e48409678a01d9e5a761078c72d195f6d6809c62"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/Discreet3dsSaveOptions.py",
+        "sha": "7af89513f3ab33d3bfbf5b0bda24665e48b6fbad",
+        "size": 70,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/7af89513f3ab33d3bfbf5b0bda24665e48b6fbad"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/DracoCompressionLevel.py",
+        "sha": "5513bc35919fa1805eaac43e634d3469e3587c94",
+        "size": 384,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/5513bc35919fa1805eaac43e634d3469e3587c94"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/DracoFormat.py",
+        "sha": "4eaf07ddd4cc34bbeb84e9f49bfed8003adc1cd0",
+        "size": 49,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/4eaf07ddd4cc34bbeb84e9f49bfed8003adc1cd0"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/DracoSaveOptions.py",
+        "sha": "632dd2e23e0622d8998fb00537b7eb3cf9999b25",
+        "size": 57,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/632dd2e23e0622d8998fb00537b7eb3cf9999b25"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/Exporter.py",
+        "sha": "7d1cd33e0ffb55d761731b5c5314c299f0e2f986",
+        "size": 507,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/7d1cd33e0ffb55d761731b5c5314c299f0e2f986"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/FbxLoadOptions.py",
+        "sha": "8a052b83a35119fb077afea0a88e6e32ffd44b2b",
+        "size": 53,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/8a052b83a35119fb077afea0a88e6e32ffd44b2b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/FbxSaveOptions.py",
+        "sha": "615021893b7abe0d7a3b034e58f513a80b555ac1",
+        "size": 2129,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/615021893b7abe0d7a3b034e58f513a80b555ac1"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/FormatDetector.py",
+        "sha": "b7083fe9957ce56eba974364ede785171d865ab7",
+        "size": 280,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/b7083fe9957ce56eba974364ede785171d865ab7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/GltfEmbeddedImageFormat.py",
+        "sha": "4d47161d7b4185a2478cc295eb059f52e8ef51fa",
+        "size": 72,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/4d47161d7b4185a2478cc295eb059f52e8ef51fa"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/GltfLoadOptions.py",
+        "sha": "9a3a89b39ef2906550b3460c4a7a95e71011c3bc",
+        "size": 55,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/9a3a89b39ef2906550b3460c4a7a95e71011c3bc"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/GltfSaveOptions.py",
+        "sha": "f0a7334b29323d5d59f911d7e011d07c5fb69849",
+        "size": 55,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f0a7334b29323d5d59f911d7e011d07c5fb69849"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/Html5SaveOptions.py",
+        "sha": "2ad44fed481c1a1dfb2d87691b189e842400b656",
+        "size": 57,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/2ad44fed481c1a1dfb2d87691b189e842400b656"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/IOConfig.py",
+        "sha": "094fda27b18ee77934d5786ec475b2881461d1f0",
+        "size": 1223,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/094fda27b18ee77934d5786ec475b2881461d1f0"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/IOService.py",
+        "sha": "52b7d05c1a6ade75c4583d01c3c064aa8f2b0b57",
+        "size": 2693,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/52b7d05c1a6ade75c4583d01c3c064aa8f2b0b57"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/Importer.py",
+        "sha": "68767d1acff1c3cf31ced2c0e8b427be448b7dc1",
+        "size": 519,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/68767d1acff1c3cf31ced2c0e8b427be448b7dc1"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/JtLoadOptions.py",
+        "sha": "55fe8985c63fe6721c110a3154f8cdd1219b7a25",
+        "size": 51,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/55fe8985c63fe6721c110a3154f8cdd1219b7a25"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/LoadOptions.py",
+        "sha": "2bde8ebe5310b267f961f9e842b40835a2714c6f",
+        "size": 247,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/2bde8ebe5310b267f961f9e842b40835a2714c6f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/Microsoft3MFFormat.py",
+        "sha": "00bd52bec83d604dc8011d3c8ad1ed10d88d4f94",
+        "size": 57,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/00bd52bec83d604dc8011d3c8ad1ed10d88d4f94"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/Microsoft3MFSaveOptions.py",
+        "sha": "70122e9b553fc791e9b401dee9edef0ffc0d365a",
+        "size": 72,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/70122e9b553fc791e9b401dee9edef0ffc0d365a"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/ObjLoadOptions.py",
+        "sha": "63dcde81b58eadc44ad4674315e5a8b926792d91",
+        "size": 53,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/63dcde81b58eadc44ad4674315e5a8b926792d91"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/ObjSaveOptions.py",
+        "sha": "98f0484a2dd07b2e6fb4e8c26b4a8ee354449866",
+        "size": 53,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/98f0484a2dd07b2e6fb4e8c26b4a8ee354449866"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/PdfFormat.py",
+        "sha": "f4a97bd356b3adc1cd34fdcf7c8c6ffb372cd8d2",
+        "size": 60,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f4a97bd356b3adc1cd34fdcf7c8c6ffb372cd8d2"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/PdfLightingScheme.py",
+        "sha": "f8056e0eef44c3e283b9d6a0a1c95a4485e14241",
+        "size": 66,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f8056e0eef44c3e283b9d6a0a1c95a4485e14241"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/PdfLoadOptions.py",
+        "sha": "9e11ec7e730a076259be10708f6ca1cec0687223",
+        "size": 53,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/9e11ec7e730a076259be10708f6ca1cec0687223"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/PdfRenderMode.py",
+        "sha": "a4786272bca70f7f1b3bb0244656f34313accbb7",
+        "size": 58,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a4786272bca70f7f1b3bb0244656f34313accbb7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/PdfSaveOptions.py",
+        "sha": "0fb45ec9ff58751e94f68a7ef352a2c5c6e93208",
+        "size": 504,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/0fb45ec9ff58751e94f68a7ef352a2c5c6e93208"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/Plugin.py",
+        "sha": "0f0577cf6902764c6fcbb5923263bdec8756d89b",
+        "size": 862,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/0f0577cf6902764c6fcbb5923263bdec8756d89b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/PlyFormat.py",
+        "sha": "7870823d5c7771f2fad87592a44bac8b06ea5821",
+        "size": 38,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/7870823d5c7771f2fad87592a44bac8b06ea5821"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/PlyLoadOptions.py",
+        "sha": "5f5b5a2c526f03f89878e96856133b569087eade",
+        "size": 53,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/5f5b5a2c526f03f89878e96856133b569087eade"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/PlySaveOptions.py",
+        "sha": "82cfc45f26944359a3dcee656288dd104c9bd569",
+        "size": 53,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/82cfc45f26944359a3dcee656288dd104c9bd569"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/RvmFormat.py",
+        "sha": "9a9122f0d1f34c0911bead499a2974577dea0ae4",
+        "size": 38,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/9a9122f0d1f34c0911bead499a2974577dea0ae4"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/RvmLoadOptions.py",
+        "sha": "c6ec54912b6c5bb22ee6942c0d42be06382cacba",
+        "size": 53,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/c6ec54912b6c5bb22ee6942c0d42be06382cacba"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/RvmSaveOptions.py",
+        "sha": "04c2426bb1655a2face701c1b3d3e4f82e4b4c3b",
+        "size": 53,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/04c2426bb1655a2face701c1b3d3e4f82e4b4c3b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/SaveOptions.py",
+        "sha": "fd2943f2fb8439541d14cd4ebe6d574ea25308d8",
+        "size": 447,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/fd2943f2fb8439541d14cd4ebe6d574ea25308d8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/StlLoadOptions.py",
+        "sha": "5d45f9c8fb7155f09b430192a3be7d6dd34e63ef",
+        "size": 53,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/5d45f9c8fb7155f09b430192a3be7d6dd34e63ef"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/StlSaveOptions.py",
+        "sha": "5e90b69167848cb65787d27c2ce7aa91f3af7259",
+        "size": 53,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/5e90b69167848cb65787d27c2ce7aa91f3af7259"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/U3dLoadOptions.py",
+        "sha": "9d70324fe66642a23a600508f17be88e5d3e126b",
+        "size": 53,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/9d70324fe66642a23a600508f17be88e5d3e126b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/U3dSaveOptions.py",
+        "sha": "3659c3e793c24f0ceb3728874add298c2bd53c3b",
+        "size": 53,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/3659c3e793c24f0ceb3728874add298c2bd53c3b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/UsdSaveOptions.py",
+        "sha": "32f070c6f9f56c88e9b0c6e2fa7ec0a04a97db0e",
+        "size": 53,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/32f070c6f9f56c88e9b0c6e2fa7ec0a04a97db0e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/XLoadOptions.py",
+        "sha": "f810505744a14bea1fb0a4bdd64dfeec474ae9f6",
+        "size": 56,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f810505744a14bea1fb0a4bdd64dfeec474ae9f6"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/__init__.py",
+        "sha": "337e1ec36189b0c47e4c6c29eec3a11a494767dc",
+        "size": 4486,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/337e1ec36189b0c47e4c6c29eec3a11a494767dc"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/threed/formats/collada",
+        "sha": "45fdad1afff567080ee8976ccf96e510aeffe011",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/45fdad1afff567080ee8976ccf96e510aeffe011"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/collada/ColladaExporter.py",
+        "sha": "f23291c7058b0d6a7c1222e1d3c881b0f58e18df",
+        "size": 20137,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f23291c7058b0d6a7c1222e1d3c881b0f58e18df"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/collada/ColladaFormat.py",
+        "sha": "1cd6fff5cc786478eefc31e3f1f3c289f869a5b2",
+        "size": 1085,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/1cd6fff5cc786478eefc31e3f1f3c289f869a5b2"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/collada/ColladaFormatDetector.py",
+        "sha": "72747b3e491600ad0b4b1e01d392a54dcba35370",
+        "size": 1134,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/72747b3e491600ad0b4b1e01d392a54dcba35370"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/collada/ColladaImporter.py",
+        "sha": "cd0960c26aa485735c80737c5f9f63d6ede94581",
+        "size": 18502,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/cd0960c26aa485735c80737c5f9f63d6ede94581"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/collada/ColladaLoadOptions.py",
+        "sha": "e799e9767e137aa03e142572f0a4d696b001aa3f",
+        "size": 418,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e799e9767e137aa03e142572f0a4d696b001aa3f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/collada/ColladaPlugin.py",
+        "sha": "2674a1080eeb52740f8a53e936e5c8b6863125ad",
+        "size": 1579,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/2674a1080eeb52740f8a53e936e5c8b6863125ad"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/collada/ColladaSaveOptions.py",
+        "sha": "99bcdd7f7e01f22faf9cd4d4dcbac8f4cecdea82",
+        "size": 991,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/99bcdd7f7e01f22faf9cd4d4dcbac8f4cecdea82"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/collada/ColladaTransformStyle.py",
+        "sha": "359d40279b8315e59872beb52748cdde62b0a9d6",
+        "size": 1373,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/359d40279b8315e59872beb52748cdde62b0a9d6"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/threed/formats/fbx",
+        "sha": "72608da39fc80fb580669d0333fcb5063cf68d7e",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/72608da39fc80fb580669d0333fcb5063cf68d7e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/fbx/FbxExporter.py",
+        "sha": "76ee93774607b6c765e11e970706fcfb74ccd2c7",
+        "size": 528,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/76ee93774607b6c765e11e970706fcfb74ccd2c7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/fbx/FbxFormat.py",
+        "sha": "cfa3518e54770f79b45f3cd4b93f3d6e56677f05",
+        "size": 1060,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/cfa3518e54770f79b45f3cd4b93f3d6e56677f05"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/fbx/FbxFormatDetector.py",
+        "sha": "102dbad48cecc9b6ced64f939fb31c29b16fa5b0",
+        "size": 614,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/102dbad48cecc9b6ced64f939fb31c29b16fa5b0"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/fbx/FbxImporter.py",
+        "sha": "d08b0ee578f8cc14ef5bb3acfb6d55659cfaeab1",
+        "size": 11381,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d08b0ee578f8cc14ef5bb3acfb6d55659cfaeab1"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/fbx/FbxLoadOptions.py",
+        "sha": "78257375d74f11b96708ca4afabb1e86fe1e7349",
+        "size": 873,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/78257375d74f11b96708ca4afabb1e86fe1e7349"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/fbx/FbxPlugin.py",
+        "sha": "880b60e619aad58611aec018ef223b140212fc4c",
+        "size": 1422,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/880b60e619aad58611aec018ef223b140212fc4c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/fbx/FbxSaveOptions.py",
+        "sha": "b2d14b9a30fe7667b871c4b9dc55a246ea5e7658",
+        "size": 2566,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/b2d14b9a30fe7667b871c4b9dc55a246ea5e7658"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/fbx/__init__.py",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/fbx/binary_tokenizer.py",
+        "sha": "9bf57ee3585d8f2d1a9b13b12736f7156cf6fa11",
+        "size": 9367,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/9bf57ee3585d8f2d1a9b13b12736f7156cf6fa11"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/fbx/parser.py",
+        "sha": "99fb717ec076631b78e6ffd30f1b0bd04eb73011",
+        "size": 5536,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/99fb717ec076631b78e6ffd30f1b0bd04eb73011"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/fbx/tokenizer.py",
+        "sha": "d9c400c0dbca6aa344af5e4f122a0db6b11a5e5f",
+        "size": 5529,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d9c400c0dbca6aa344af5e4f122a0db6b11a5e5f"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/threed/formats/gltf",
+        "sha": "87716264158fbfe5bad15a54207099adb8c9c166",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/87716264158fbfe5bad15a54207099adb8c9c166"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/gltf/GltfExporter.py",
+        "sha": "b9c167c54a173798a443d46a88a3a0b4e2d9f701",
+        "size": 14550,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/b9c167c54a173798a443d46a88a3a0b4e2d9f701"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/gltf/GltfFormat.py",
+        "sha": "7f48c89db44526c0a93810a56e4f3b683b3fbc27",
+        "size": 1016,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/7f48c89db44526c0a93810a56e4f3b683b3fbc27"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/gltf/GltfFormatDetector.py",
+        "sha": "8ca06b3bda66d356ed7e05d37112e9b6ddb1a62b",
+        "size": 1008,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/8ca06b3bda66d356ed7e05d37112e9b6ddb1a62b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/gltf/GltfImporter.py",
+        "sha": "557593feef1e202c4f49049a83da112a24aa1e93",
+        "size": 17596,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/557593feef1e202c4f49049a83da112a24aa1e93"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/gltf/GltfLoadOptions.py",
+        "sha": "e2b8f33f5f24b3ca8520232cb116556672baaad1",
+        "size": 440,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e2b8f33f5f24b3ca8520232cb116556672baaad1"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/gltf/GltfPlugin.py",
+        "sha": "92f5d58df8721238cdbd60359915b3997e57432b",
+        "size": 1557,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/92f5d58df8721238cdbd60359915b3997e57432b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/gltf/GltfSaveOptions.py",
+        "sha": "f79f688c70e1ec3c9b7ec111082165ae0055e81d",
+        "size": 899,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f79f688c70e1ec3c9b7ec111082165ae0055e81d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/gltf/__init__.py",
+        "sha": "09d31d6ccfecb3338a8bd487d286543386c7a032",
+        "size": 451,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/09d31d6ccfecb3338a8bd487d286543386c7a032"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/threed/formats/obj",
+        "sha": "17be78da4fbb0887d88fbce3983ea49542d18360",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/17be78da4fbb0887d88fbce3983ea49542d18360"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/obj/ObjExporter.py",
+        "sha": "38af8f1bac4cbaf689ad8dc980630e373f7cbd8a",
+        "size": 4251,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/38af8f1bac4cbaf689ad8dc980630e373f7cbd8a"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/obj/ObjFormat.py",
+        "sha": "0832a24ea92b5f7ceb00de07d48627c0f4e3aa79",
+        "size": 1041,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/0832a24ea92b5f7ceb00de07d48627c0f4e3aa79"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/obj/ObjFormatDetector.py",
+        "sha": "ec88923af80cd67b0f6db3eeef1d1a7beb589d75",
+        "size": 1150,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/ec88923af80cd67b0f6db3eeef1d1a7beb589d75"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/obj/ObjImporter.py",
+        "sha": "f6ade54e58f5edd2c50ab2b7e544886c40dce8a9",
+        "size": 6337,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f6ade54e58f5edd2c50ab2b7e544886c40dce8a9"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/obj/ObjLoadOptions.py",
+        "sha": "6d49ec31fe87f423e45a1b02b5f7d09c3159dfc7",
+        "size": 1165,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/6d49ec31fe87f423e45a1b02b5f7d09c3159dfc7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/obj/ObjPlugin.py",
+        "sha": "a354201a4d13eeda41067d3ac897ebddf78c6407",
+        "size": 1569,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a354201a4d13eeda41067d3ac897ebddf78c6407"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/obj/ObjSaveOptions.py",
+        "sha": "44fa2fce5ae758f5e6350960a704ba9d4567b22f",
+        "size": 1883,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/44fa2fce5ae758f5e6350960a704ba9d4567b22f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/obj/__init__.py",
+        "sha": "d5082d99a1b8666fcfc28e1cfcda265371d6a40e",
+        "size": 242,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d5082d99a1b8666fcfc28e1cfcda265371d6a40e"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/threed/formats/stl",
+        "sha": "13663651d2039da372e086306d690303a6ff25e0",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/13663651d2039da372e086306d690303a6ff25e0"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/stl/StlExporter.py",
+        "sha": "ed4c44b4e7858ed3de227a0933ef7c6e1161d1d8",
+        "size": 7131,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/ed4c44b4e7858ed3de227a0933ef7c6e1161d1d8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/stl/StlFormat.py",
+        "sha": "cb16e26e82a73e123bde82b2b83c5ce37c3925b9",
+        "size": 995,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/cb16e26e82a73e123bde82b2b83c5ce37c3925b9"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/stl/StlFormatDetector.py",
+        "sha": "3b960de1e9f7fd4023d4271d5d796d1a5d185726",
+        "size": 1666,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/3b960de1e9f7fd4023d4271d5d796d1a5d185726"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/stl/StlImporter.py",
+        "sha": "7086a9c3a97979a5c32e696ba222e0ea3ee0115d",
+        "size": 5796,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/7086a9c3a97979a5c32e696ba222e0ea3ee0115d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/stl/StlLoadOptions.py",
+        "sha": "db85a12eb60acd36dd43fbd6f6f0d3513d98ec86",
+        "size": 663,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/db85a12eb60acd36dd43fbd6f6f0d3513d98ec86"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/stl/StlPlugin.py",
+        "sha": "7399dc2f68ca64e204c194277070e8631ff16092",
+        "size": 1569,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/7399dc2f68ca64e204c194277070e8631ff16092"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/stl/StlSaveOptions.py",
+        "sha": "d77ae01102b624cef6ed841f14d53ff65cdea62b",
+        "size": 1031,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d77ae01102b624cef6ed841f14d53ff65cdea62b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/stl/__init__.py",
+        "sha": "ddad476f895d9cdd31a69edd2f66ccc074db0be4",
+        "size": 284,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/ddad476f895d9cdd31a69edd2f66ccc074db0be4"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/threed/formats/threemf",
+        "sha": "1a74db783fe03c42fe09347baf31d83c6df7a9e7",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/1a74db783fe03c42fe09347baf31d83c6df7a9e7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/threemf/ThreeMfExporter.py",
+        "sha": "93c5dcf20c59fb2517b10932344ef49a8609454d",
+        "size": 10229,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/93c5dcf20c59fb2517b10932344ef49a8609454d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/threemf/ThreeMfFormat.py",
+        "sha": "2d11dc04e5f779665273d8b2f16ee37bb2dbf216",
+        "size": 2742,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/2d11dc04e5f779665273d8b2f16ee37bb2dbf216"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/threemf/ThreeMfFormatDetector.py",
+        "sha": "be5f11f41deca72433089c771ce14a5071470a6e",
+        "size": 1156,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/be5f11f41deca72433089c771ce14a5071470a6e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/threemf/ThreeMfImporter.py",
+        "sha": "dbf56396c48da771d6516986cd753d02004dc22c",
+        "size": 13865,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/dbf56396c48da771d6516986cd753d02004dc22c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/threemf/ThreeMfLoadOptions.py",
+        "sha": "8d5610f92eba48a598e21b18e51cfc9bf775a5c7",
+        "size": 480,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/8d5610f92eba48a598e21b18e51cfc9bf775a5c7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/threemf/ThreeMfPlugin.py",
+        "sha": "774ad17dc0798de3671d9f52155a6fb3e8ff486d",
+        "size": 1681,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/774ad17dc0798de3671d9f52155a6fb3e8ff486d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/threemf/ThreeMfSaveOptions.py",
+        "sha": "a99df0bbb087f4ac99556ee7d93486d6b1aba817",
+        "size": 1652,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a99df0bbb087f4ac99556ee7d93486d6b1aba817"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/formats/threemf/__init__.py",
+        "sha": "253d4ae2a1c21bbedcedea034be6d72ccc742344",
+        "size": 240,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/253d4ae2a1c21bbedcedea034be6d72ccc742344"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/threed/profiles",
+        "sha": "35ba5486947760592b2963fd6075aaff910007d3",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/35ba5486947760592b2963fd6075aaff910007d3"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/ArbitraryProfile.py",
+        "sha": "61aae5aac7e95fb60aa0f95f337c4c929548bcc3",
+        "size": 719,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/61aae5aac7e95fb60aa0f95f337c4c929548bcc3"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/CShape.py",
+        "sha": "04d8919901f92ca972398db941ebb46ea196d892",
+        "size": 1765,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/04d8919901f92ca972398db941ebb46ea196d892"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/CenterLineProfile.py",
+        "sha": "4fc06607c68e4c6a3e482a60afb79b82191d7d8d",
+        "size": 737,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/4fc06607c68e4c6a3e482a60afb79b82191d7d8d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/CircleShape.py",
+        "sha": "8c807ccb2274d76b3af74588acb3c467217f24b6",
+        "size": 766,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/8c807ccb2274d76b3af74588acb3c467217f24b6"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/EllipseShape.py",
+        "sha": "c68b1586596fa588615f9b9acf0aaa8509e09bba",
+        "size": 1065,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/c68b1586596fa588615f9b9acf0aaa8509e09bba"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/FontFile.py",
+        "sha": "95058fb0171c09f3e4952932bd97dd4d9d3bb932",
+        "size": 627,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/95058fb0171c09f3e4952932bd97dd4d9d3bb932"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/HShape.py",
+        "sha": "7ae2277a6950ef889ace79a491782173165e2215",
+        "size": 1549,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/7ae2277a6950ef889ace79a491782173165e2215"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/HollowCircleShape.py",
+        "sha": "eb6653814e4d2bd34c73e6eaea73033db6103eee",
+        "size": 774,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/eb6653814e4d2bd34c73e6eaea73033db6103eee"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/HollowRectangleShape.py",
+        "sha": "0dd8d227a4a61c0837f8c00437b2ba46d2c37b28",
+        "size": 1412,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/0dd8d227a4a61c0837f8c00437b2ba46d2c37b28"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/LShape.py",
+        "sha": "fe748b006aec3f7072ab00df81b226c0a849e1dc",
+        "size": 1639,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/fe748b006aec3f7072ab00df81b226c0a849e1dc"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/MirroredProfile.py",
+        "sha": "69d9dde9281628cc5d9c4bf54a3d0efdea619e28",
+        "size": 636,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/69d9dde9281628cc5d9c4bf54a3d0efdea619e28"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/ParameterizedProfile.py",
+        "sha": "49566cb9833f12669d5735c26f41805aa1154d47",
+        "size": 496,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/49566cb9833f12669d5735c26f41805aa1154d47"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/Profile.py",
+        "sha": "26d1f50e1551023714835ec9dbb14b9b8660a709",
+        "size": 382,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/26d1f50e1551023714835ec9dbb14b9b8660a709"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/RectangleShape.py",
+        "sha": "3e2da77ddda5c918818c14d671f82963bb25a3a7",
+        "size": 973,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/3e2da77ddda5c918818c14d671f82963bb25a3a7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/TShape.py",
+        "sha": "fba8768cee3a92f7ffcaf64cbddea93f9675070b",
+        "size": 2002,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/fba8768cee3a92f7ffcaf64cbddea93f9675070b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/Text.py",
+        "sha": "d93f169ec5a5838add6770e96ec0626936286d33",
+        "size": 827,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d93f169ec5a5838add6770e96ec0626936286d33"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/TrapeziumShape.py",
+        "sha": "065cd09ce567e673c1ca498c8ce4665e46600a7c",
+        "size": 1454,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/065cd09ce567e673c1ca498c8ce4665e46600a7c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/UShape.py",
+        "sha": "071af7770c27a126c80696988071fb8bc176281b",
+        "size": 1960,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/071af7770c27a126c80696988071fb8bc176281b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/ZShape.py",
+        "sha": "2101161a0cd05642f60309612b273ebdd1f5c4cf",
+        "size": 1973,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/2101161a0cd05642f60309612b273ebdd1f5c4cf"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/profiles/__init__.py",
+        "sha": "a7369c5790915120fe3cb625860ad30b3bf41c37",
+        "size": 1085,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a7369c5790915120fe3cb625860ad30b3bf41c37"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/threed/render",
+        "sha": "8be89ebbaaa42cdbb5dba109577b8202e783eed5",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/8be89ebbaaa42cdbb5dba109577b8202e783eed5"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/BlendFactor.py",
+        "sha": "100302694b3ccc445e5d47d42807d47afbb091e5",
+        "size": 1141,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/100302694b3ccc445e5d47d42807d47afbb091e5"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/CompareFunction.py",
+        "sha": "62e3fc1c5d254e20e3aadb6d837014f5b9b5930c",
+        "size": 619,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/62e3fc1c5d254e20e3aadb6d837014f5b9b5930c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/CubeFace.py",
+        "sha": "e99d79c2ebe315f8b1c2e79ccd4ac8b60f0da989",
+        "size": 411,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e99d79c2ebe315f8b1c2e79ccd4ac8b60f0da989"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/CullFaceMode.py",
+        "sha": "83969dd83399b2dfaad86da2baac8e9b22c57e55",
+        "size": 321,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/83969dd83399b2dfaad86da2baac8e9b22c57e55"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/DescriptorSetUpdater.py",
+        "sha": "eabfd9db75887df71caf32eb4f9e2c9578ad94d5",
+        "size": 189,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/eabfd9db75887df71caf32eb4f9e2c9578ad94d5"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/DrawOperation.py",
+        "sha": "730c427436ca16b6ea9ecd12cc0564b1fa2def7e",
+        "size": 490,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/730c427436ca16b6ea9ecd12cc0564b1fa2def7e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/DriverException.py",
+        "sha": "6b1f4f0cd4157b217ffa88a6d7630cf98fe2343c",
+        "size": 99,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/6b1f4f0cd4157b217ffa88a6d7630cf98fe2343c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/EntityRenderer.py",
+        "sha": "48910e72687351cc64235ce5c29cba6d6dbe53bc",
+        "size": 606,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/48910e72687351cc64235ce5c29cba6d6dbe53bc"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/EntityRendererFeatures.py",
+        "sha": "615cb772189cf9c51fcc4253833289536c6339d4",
+        "size": 190,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/615cb772189cf9c51fcc4253833289536c6339d4"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/EntityRendererKey.py",
+        "sha": "f8c0b757ca808676d555490bb54c35c32bb5af98",
+        "size": 485,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f8c0b757ca808676d555490bb54c35c32bb5af98"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/FrontFace.py",
+        "sha": "68c644097fb755edeced9caa156e5a0cf49be51f",
+        "size": 211,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/68c644097fb755edeced9caa156e5a0cf49be51f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/GLSLSource.py",
+        "sha": "5a874c530492ba1f866bb5a12250fbb9677493d8",
+        "size": 152,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/5a874c530492ba1f866bb5a12250fbb9677493d8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/IBuffer.py",
+        "sha": "2f4cc14eac955848c9a62940468dee15e78a63a8",
+        "size": 457,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/2f4cc14eac955848c9a62940468dee15e78a63a8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/ICommandList.py",
+        "sha": "be134f8c1405ac0fc026fc3a2da26d97c4fe6a0c",
+        "size": 793,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/be134f8c1405ac0fc026fc3a2da26d97c4fe6a0c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/IDescriptorSet.py",
+        "sha": "fd84afce230b12f33eddd3d13f19498717163ba3",
+        "size": 425,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/fd84afce230b12f33eddd3d13f19498717163ba3"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/IIndexBuffer.py",
+        "sha": "bc4c658a1f6623357e82d4244fb688cd68a88fcf",
+        "size": 156,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/bc4c658a1f6623357e82d4244fb688cd68a88fcf"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/IPipeline.py",
+        "sha": "1be91524f2c722c2477513b619724a09f03d1004",
+        "size": 155,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/1be91524f2c722c2477513b619724a09f03d1004"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/IRenderQueue.py",
+        "sha": "e9a62b0ed438d59ab7689774e0011ea95b6fef19",
+        "size": 390,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e9a62b0ed438d59ab7689774e0011ea95b6fef19"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/IRenderTarget.py",
+        "sha": "1d512cf479095abb3af7069c07bc0296b1c0cd00",
+        "size": 393,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/1d512cf479095abb3af7069c07bc0296b1c0cd00"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/IRenderTexture.py",
+        "sha": "be218647b7c1cf3e4d7e1a49cc4d9283210420d4",
+        "size": 162,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/be218647b7c1cf3e4d7e1a49cc4d9283210420d4"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/IRenderWindow.py",
+        "sha": "d38ae83bd936dbea4915fcf517ca38f91d357e19",
+        "size": 361,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d38ae83bd936dbea4915fcf517ca38f91d357e19"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/ITexture1D.py",
+        "sha": "f580974b4146e9040bcf86bc08de2e223dd33a18",
+        "size": 150,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f580974b4146e9040bcf86bc08de2e223dd33a18"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/ITexture2D.py",
+        "sha": "6c5d3f2373cc9785896b058dd4843c7294cc63d2",
+        "size": 150,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/6c5d3f2373cc9785896b058dd4843c7294cc63d2"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/ITextureCodec.py",
+        "sha": "54e520b547bb0c6cd8b1f2eed6b103f3820e5056",
+        "size": 159,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/54e520b547bb0c6cd8b1f2eed6b103f3820e5056"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/ITextureCubemap.py",
+        "sha": "c429c94b7d9a1db89984e8429f9ece0909c2c29d",
+        "size": 165,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/c429c94b7d9a1db89984e8429f9ece0909c2c29d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/ITextureDecoder.py",
+        "sha": "8644b1b03489e4af10638fe2748e078a3b2bd9fa",
+        "size": 165,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/8644b1b03489e4af10638fe2748e078a3b2bd9fa"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/ITextureEncoder.py",
+        "sha": "196230bbe0d8e89a86ca15a4ee3780b6ae2c59a5",
+        "size": 165,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/196230bbe0d8e89a86ca15a4ee3780b6ae2c59a5"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/ITextureUnit.py",
+        "sha": "bbe6e362102c4e481af14eac94fce2371012eed8",
+        "size": 156,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/bbe6e362102c4e481af14eac94fce2371012eed8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/IVertexBuffer.py",
+        "sha": "ceefd80eb9d41af5d9fd69197b9d59a998429e4b",
+        "size": 159,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/ceefd80eb9d41af5d9fd69197b9d59a998429e4b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/IndexDataType.py",
+        "sha": "e6894f7eefc1fc345e8a8bfa7ad16737276409b8",
+        "size": 200,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e6894f7eefc1fc345e8a8bfa7ad16737276409b8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/InitializationException.py",
+        "sha": "4dc81a01c9fa92abf4e64fcecbdbfb6b266a914f",
+        "size": 115,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/4dc81a01c9fa92abf4e64fcecbdbfb6b266a914f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/PixelFormat.py",
+        "sha": "60fd6adeecfbfe44d4580154f60c5f22567c8a41",
+        "size": 436,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/60fd6adeecfbfe44d4580154f60c5f22567c8a41"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/PixelMapMode.py",
+        "sha": "683827e7361c3ee05a9beaad3eedc18e8e60d52e",
+        "size": 245,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/683827e7361c3ee05a9beaad3eedc18e8e60d52e"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/PixelMapping.py",
+        "sha": "d3d5de897e5c52fe9b57d9dbf1970ad689344a8c",
+        "size": 157,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d3d5de897e5c52fe9b57d9dbf1970ad689344a8c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/PolygonMode.py",
+        "sha": "64d88371715396dfceed9317e797dfccd26e3592",
+        "size": 234,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/64d88371715396dfceed9317e797dfccd26e3592"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/PostProcessing.py",
+        "sha": "69bf4a0fe88cb72388d8a321957ffefcd6c50887",
+        "size": 156,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/69bf4a0fe88cb72388d8a321957ffefcd6c50887"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/PresetShaders.py",
+        "sha": "94c3b1a5ea0f42957769c30b3d137f563beb7aee",
+        "size": 150,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/94c3b1a5ea0f42957769c30b3d137f563beb7aee"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/PushConstant.py",
+        "sha": "383645c11342fa9cbec10e597f287828fdeeaaeb",
+        "size": 155,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/383645c11342fa9cbec10e597f287828fdeeaaeb"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/RenderFactory.py",
+        "sha": "d9ec1a348b2f0394781dcb01e3e119cd16dbd2cf",
+        "size": 2460,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d9ec1a348b2f0394781dcb01e3e119cd16dbd2cf"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/RenderParameters.py",
+        "sha": "246aed2fb96ebdb3e333dc3876ac71a86b91a8df",
+        "size": 162,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/246aed2fb96ebdb3e333dc3876ac71a86b91a8df"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/RenderQueueGroupId.py",
+        "sha": "5ba155b14c2e896313415cd1091f334fd18cdde6",
+        "size": 310,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/5ba155b14c2e896313415cd1091f334fd18cdde6"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/RenderResource.py",
+        "sha": "c1208867cc38bbe22acbe08d1e1e760d66692c21",
+        "size": 165,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/c1208867cc38bbe22acbe08d1e1e760d66692c21"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/RenderStage.py",
+        "sha": "09ae1611ffff29f1ba458a9a2d1ed4e63ec2a871",
+        "size": 156,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/09ae1611ffff29f1ba458a9a2d1ed4e63ec2a871"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/RenderState.py",
+        "sha": "5d44e01583336cd561d8a78519c30ea3f4a604c2",
+        "size": 154,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/5d44e01583336cd561d8a78519c30ea3f4a604c2"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/Renderer.py",
+        "sha": "fc5d9c44c816772cb2fa9f0d271d1bcfd282460f",
+        "size": 4831,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/fc5d9c44c816772cb2fa9f0d271d1bcfd282460f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/RendererVariableManager.py",
+        "sha": "897f9c107a6428b30986c980cc8a6e8f2ef0c768",
+        "size": 178,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/897f9c107a6428b30986c980cc8a6e8f2ef0c768"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/SPIRVSource.py",
+        "sha": "fb831326c5bc98b8a94c65ff5b2f4f0fefce07e8",
+        "size": 147,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/fb831326c5bc98b8a94c65ff5b2f4f0fefce07e8"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/ShaderException.py",
+        "sha": "b0941d6de62579bf76604f7153abf140f3a96d8c",
+        "size": 109,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/b0941d6de62579bf76604f7153abf140f3a96d8c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/ShaderProgram.py",
+        "sha": "be92f018916eae26062488b0b5cdc0964d19226b",
+        "size": 146,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/be92f018916eae26062488b0b5cdc0964d19226b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/ShaderSet.py",
+        "sha": "a853559a4ddf14c4cfc6203873092cd5e45c3182",
+        "size": 152,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a853559a4ddf14c4cfc6203873092cd5e45c3182"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/ShaderSource.py",
+        "sha": "14735c3b0fba92aa2e917c17d08b8b294347a79a",
+        "size": 148,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/14735c3b0fba92aa2e917c17d08b8b294347a79a"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/ShaderStage.py",
+        "sha": "04eec61c9a1248150c19b65aeba5a0a7b60d3f89",
+        "size": 465,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/04eec61c9a1248150c19b65aeba5a0a7b60d3f89"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/ShaderVariable.py",
+        "sha": "77ec51de72bf3cab1a54648884e3fb82e7d4ef44",
+        "size": 149,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/77ec51de72bf3cab1a54648884e3fb82e7d4ef44"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/StencilAction.py",
+        "sha": "e726bdcb0c46c7d0626ff7278b720cd24a1f43a4",
+        "size": 573,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e726bdcb0c46c7d0626ff7278b720cd24a1f43a4"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/StencilState.py",
+        "sha": "73b0263ce8c0c162b4117d3c8a4c84b44da2dd3a",
+        "size": 157,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/73b0263ce8c0c162b4117d3c8a4c84b44da2dd3a"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/TextureCodec.py",
+        "sha": "e0d16b38b3542dd66ab22821e55d10719275b7d9",
+        "size": 143,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e0d16b38b3542dd66ab22821e55d10719275b7d9"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/TextureData.py",
+        "sha": "2fa6ee5681add6659a5e6d06bd68ade4893d56d0",
+        "size": 140,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/2fa6ee5681add6659a5e6d06bd68ade4893d56d0"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/TextureType.py",
+        "sha": "cb6b3b8e19cdacd0ca7342c5d01b084a29a950ae",
+        "size": 291,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/cb6b3b8e19cdacd0ca7342c5d01b084a29a950ae"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/Viewport.py",
+        "sha": "09c5a44c77b9a3b62fbf011eb00cd3e4a40e72cd",
+        "size": 195,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/09c5a44c77b9a3b62fbf011eb00cd3e4a40e72cd"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/WindowHandle.py",
+        "sha": "55de6dd92962d057214f76df3b703c09f2c04c46",
+        "size": 161,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/55de6dd92962d057214f76df3b703c09f2c04c46"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/render/__init__.py",
+        "sha": "dcf14356b791a38ce258f6d46d7cbe7681008c90",
+        "size": 3717,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/dcf14356b791a38ce258f6d46d7cbe7681008c90"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/threed/shading",
+        "sha": "9afdf521987fbdf3577a03fba3b5e95fb5947336",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/9afdf521987fbdf3577a03fba3b5e95fb5947336"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/shading/AlphaSource.py",
+        "sha": "adc1d95e5b08f8263db42464d184a5f6a8a7990d",
+        "size": 268,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/adc1d95e5b08f8263db42464d184a5f6a8a7990d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/shading/LambertMaterial.py",
+        "sha": "c7cff2c168f33807aaffd125b16c36fb379950dd",
+        "size": 1598,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/c7cff2c168f33807aaffd125b16c36fb379950dd"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/shading/Material.py",
+        "sha": "b410502a2ee7cb6d0a432bb92bc224699ffc761c",
+        "size": 512,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/b410502a2ee7cb6d0a432bb92bc224699ffc761c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/shading/PbrMaterial.py",
+        "sha": "dff770f975a957af387288dce895ba873f27fdd0",
+        "size": 2966,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/dff770f975a957af387288dce895ba873f27fdd0"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/shading/PbrSpecularMaterial.py",
+        "sha": "7be0a3a9b835ae559ed5e4d6873d906de4ae7934",
+        "size": 4868,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/7be0a3a9b835ae559ed5e4d6873d906de4ae7934"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/shading/PhongMaterial.py",
+        "sha": "e7015f0e5c68c9d9f759f582a5cf880aa6f93525",
+        "size": 1462,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e7015f0e5c68c9d9f759f582a5cf880aa6f93525"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/shading/ShaderMaterial.py",
+        "sha": "ad6bd789a2fa1d9857a793a1be2215485e66f14c",
+        "size": 1832,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/ad6bd789a2fa1d9857a793a1be2215485e66f14c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/shading/ShaderTechnique.py",
+        "sha": "a6a845a3490c191c8909842c58c9f26882055c8c",
+        "size": 456,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a6a845a3490c191c8909842c58c9f26882055c8c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/shading/Texture.py",
+        "sha": "3513cba41ecfbf2073756e7e19e3c3c834145e2d",
+        "size": 5137,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/3513cba41ecfbf2073756e7e19e3c3c834145e2d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/shading/TextureBase.py",
+        "sha": "604ccf13e262557eb0a4f5ca5832d7d23d8f08c7",
+        "size": 401,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/604ccf13e262557eb0a4f5ca5832d7d23d8f08c7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/shading/TextureFilter.py",
+        "sha": "783bc17ea9945113c4b1acb0dda4206016fcf110",
+        "size": 267,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/783bc17ea9945113c4b1acb0dda4206016fcf110"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/shading/TextureSlot.py",
+        "sha": "23809355c952a72de6a1c576fea76ec50bde837a",
+        "size": 800,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/23809355c952a72de6a1c576fea76ec50bde837a"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/shading/WrapMode.py",
+        "sha": "52ebf41601661d3aa9089dcf987c55efa08ee9ee",
+        "size": 232,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/52ebf41601661d3aa9089dcf987c55efa08ee9ee"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/shading/__init__.py",
+        "sha": "767a4dd72eb671abafe977cb27e52634f7a7b0b0",
+        "size": 782,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/767a4dd72eb671abafe977cb27e52634f7a7b0b0"
+      },
+      {
+        "mode": "040000",
+        "path": "aspose/threed/utilities",
+        "sha": "f9ffd9f4e4a6cf0597ceaa03c7a5de3a6a038d9d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/f9ffd9f4e4a6cf0597ceaa03c7a5de3a6a038d9d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/ArrayList.py",
+        "sha": "f12ecb3881d334cf5477f32b96905e8c473ac27f",
+        "size": 1867,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f12ecb3881d334cf5477f32b96905e8c473ac27f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/ArrayListAdapter.py",
+        "sha": "2ad02d90287b2c4d54ed1bcb7a6a751311e9b03a",
+        "size": 2227,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/2ad02d90287b2c4d54ed1bcb7a6a751311e9b03a"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/BoundingBox.py",
+        "sha": "621a745a45ed1d82662c7bceb1d2b4f12f76b93d",
+        "size": 7925,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/621a745a45ed1d82662c7bceb1d2b4f12f76b93d"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/BoundingBox2D.py",
+        "sha": "1df4f926fe59527f4cf3f0f44bbdcd0465f1a301",
+        "size": 2700,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/1df4f926fe59527f4cf3f0f44bbdcd0465f1a301"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/BoundingBoxExtent.py",
+        "sha": "a2d794e5cc2ef45d69b440c872d4cf0ec4d70ac1",
+        "size": 288,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a2d794e5cc2ef45d69b440c872d4cf0ec4d70ac1"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/ComposeOrder.py",
+        "sha": "01c813ef5b504b2bb19fe26f8789ce9e96e87ffe",
+        "size": 207,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/01c813ef5b504b2bb19fe26f8789ce9e96e87ffe"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/FMatrix4.py",
+        "sha": "b3021afb4a2fc4818be31b7c08aa710ce9eee919",
+        "size": 7574,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/b3021afb4a2fc4818be31b7c08aa710ce9eee919"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/FVector2.py",
+        "sha": "5efc75716a7e5ef4d68bd13f4db6999a524a1618",
+        "size": 2394,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/5efc75716a7e5ef4d68bd13f4db6999a524a1618"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/FVector3.py",
+        "sha": "063610ad2d46c5da5eed8bf34981d012ed30a808",
+        "size": 3282,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/063610ad2d46c5da5eed8bf34981d012ed30a808"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/FVector4.py",
+        "sha": "224cdac46d891abb57c31a8dafdaad47f3f685d6",
+        "size": 3219,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/224cdac46d891abb57c31a8dafdaad47f3f685d6"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/FileSystem.py",
+        "sha": "25565a9a94984739241e348f82aa29fcdb88aa8c",
+        "size": 1120,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/25565a9a94984739241e348f82aa29fcdb88aa8c"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/IOExtension.py",
+        "sha": "2398e81817fed37fdae1f7ff3ece8a8417dc98ad",
+        "size": 1031,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/2398e81817fed37fdae1f7ff3ece8a8417dc98ad"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/MathUtils.py",
+        "sha": "79206e945a54dcb7246e051e0d1ff0ececdefff5",
+        "size": 67,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/79206e945a54dcb7246e051e0d1ff0ececdefff5"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/Matrix4.py",
+        "sha": "17183f48441646c103d0a82e502b85b71702a8cd",
+        "size": 15004,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/17183f48441646c103d0a82e502b85b71702a8cd"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/ParseException.py",
+        "sha": "3ae23ed089fc568be1603c7b08218d1b787efab5",
+        "size": 160,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/3ae23ed089fc568be1603c7b08218d1b787efab5"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/Quaternion.py",
+        "sha": "553cea504eb88f0493c147e138ff512ba6073e6a",
+        "size": 8741,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/553cea504eb88f0493c147e138ff512ba6073e6a"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/Rect.py",
+        "sha": "b3e94b906403b02acd6755b154f09abb35188d19",
+        "size": 1256,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/b3e94b906403b02acd6755b154f09abb35188d19"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/RelativeRectangle.py",
+        "sha": "067377d3280bc0d84610a6789233950a55bd0d59",
+        "size": 2532,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/067377d3280bc0d84610a6789233950a55bd0d59"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/RotationOrder.py",
+        "sha": "d88220a6d7349a9dc62d01246edb294a1967bbef",
+        "size": 440,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d88220a6d7349a9dc62d01246edb294a1967bbef"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/SemanticAttribute.py",
+        "sha": "3986c3bf901fece97a7113e525268c836c2d1eec",
+        "size": 449,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/3986c3bf901fece97a7113e525268c836c2d1eec"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/TransformBuilder.py",
+        "sha": "1dc4aae277b7452f473f9dc56bc33fd6afc893d7",
+        "size": 3235,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/1dc4aae277b7452f473f9dc56bc33fd6afc893d7"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/Vector2.py",
+        "sha": "91c2c18d9906a69f70a964a77584bf76f9fe3bc2",
+        "size": 1665,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/91c2c18d9906a69f70a964a77584bf76f9fe3bc2"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/Vector3.py",
+        "sha": "54d2acda581a99df851c74f5391494ec8d8b989f",
+        "size": 4650,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/54d2acda581a99df851c74f5391494ec8d8b989f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/Vector4.py",
+        "sha": "22858d82ed6f638c2a14cb82e3ee3fe80b0f3077",
+        "size": 3139,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/22858d82ed6f638c2a14cb82e3ee3fe80b0f3077"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/Vertex.py",
+        "sha": "6afcd5a46f9bbf73e091c7725c02bfc2f57520b2",
+        "size": 1267,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/6afcd5a46f9bbf73e091c7725c02bfc2f57520b2"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/VertexDeclaration.py",
+        "sha": "6daf792ef7687c32e2cb63a784c2fbca475d699f",
+        "size": 1206,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/6daf792ef7687c32e2cb63a784c2fbca475d699f"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/VertexField.py",
+        "sha": "4dec1f308016f9a3aacda232f25a7b8eb92f2108",
+        "size": 874,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/4dec1f308016f9a3aacda232f25a7b8eb92f2108"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/VertexFieldDataType.py",
+        "sha": "c331ac13298d98df903d63287fa18a998158ea73",
+        "size": 1010,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/c331ac13298d98df903d63287fa18a998158ea73"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/VertexFieldSemantic.py",
+        "sha": "c16a5a3b7a1234857c39cb6cbffbf5930c8e9442",
+        "size": 1147,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/c16a5a3b7a1234857c39cb6cbffbf5930c8e9442"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/Watermark.py",
+        "sha": "84b50aa2a9c908d8239508c03b73b49a2b19fb7b",
+        "size": 888,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/84b50aa2a9c908d8239508c03b73b49a2b19fb7b"
+      },
+      {
+        "mode": "100644",
+        "path": "aspose/threed/utilities/__init__.py",
+        "sha": "87e6bbd20663afe557bfba8e31d8f6ee301c3b20",
+        "size": 1579,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/87e6bbd20663afe557bfba8e31d8f6ee301c3b20"
+      },
+      {
+        "mode": "040000",
+        "path": "docs",
+        "sha": "07e87863d7b933756f703893ccb369674c150f5a",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/07e87863d7b933756f703893ccb369674c150f5a"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/FBX_IMPLEMENTATION_SUMMARY.md",
+        "sha": "1376da40aa546329a935d85a06f912bd8fd0fcc6",
+        "size": 1735,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/1376da40aa546329a935d85a06f912bd8fd0fcc6"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/IMPLEMENTATION_SUMMARY.md",
+        "sha": "a876d8d3fe1a113650a83cbb02bbca23f2a3a9cf",
+        "size": 9055,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/a876d8d3fe1a113650a83cbb02bbca23f2a3a9cf"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/OBJ_IMPORTER_IMPLEMENTATION.md",
+        "sha": "bcf0d38f8f64ffdfa5f26740114e418bc666705e",
+        "size": 6246,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/bcf0d38f8f64ffdfa5f26740114e418bc666705e"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/PYPI_READINESS.md",
+        "sha": "93c8af52691fa7d2595ee2ec9c7a8cdff8e95c61",
+        "size": 5930,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/93c8af52691fa7d2595ee2ec9c7a8cdff8e95c61"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/STL_IMPORT_IMPLEMENTATION.md",
+        "sha": "6c8f90fb1f6ed8cd792688fbcd6fabe1b47efcc3",
+        "size": 7780,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/6c8f90fb1f6ed8cd792688fbcd6fabe1b47efcc3"
+      },
+      {
+        "mode": "100644",
+        "path": "docs/foss-python-progress.md",
+        "sha": "cd442813be83b2c23ffa64ddf232ad5dd73756d2",
+        "size": 7424,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/cd442813be83b2c23ffa64ddf232ad5dd73756d2"
+      },
+      {
+        "mode": "100644",
+        "path": "setup.py",
+        "sha": "b84ee318e5f60d192d3c86c6294ff3e062c77edc",
+        "size": 1154,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/b84ee318e5f60d192d3c86c6294ff3e062c77edc"
+      },
+      {
+        "mode": "040000",
+        "path": "tests",
+        "sha": "4320549ff02f99233822c090c70d571c3f572b3d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/4320549ff02f99233822c090c70d571c3f572b3d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_3mf_exporter.py",
+        "sha": "593e6e673bedd393af68f369d395e34d8902f1a4",
+        "size": 4275,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/593e6e673bedd393af68f369d395e34d8902f1a4"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_3mf_importer.py",
+        "sha": "3423f9f6b508d5347d14258a5320f893dc0ff32f",
+        "size": 2909,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/3423f9f6b508d5347d14258a5320f893dc0ff32f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_3mf_material_export.py",
+        "sha": "abf4ccce24634a4d6fc080e8afee11ab9deabbc2",
+        "size": 5977,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/abf4ccce24634a4d6fc080e8afee11ab9deabbc2"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_3mf_materials.py",
+        "sha": "8a9f06b3f764a6c9cf9a48cfae9b3f6944226702",
+        "size": 7165,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/8a9f06b3f764a6c9cf9a48cfae9b3f6944226702"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_3mf_roundtrip.py",
+        "sha": "0623d8c44d94146403d5c59c5c31d3e19500c232",
+        "size": 2336,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/0623d8c44d94146403d5c59c5c31d3e19500c232"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_array_list_adapter.py",
+        "sha": "3b22c170c8790ee3d1d97f2c2e4723ef11470dfe",
+        "size": 5104,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/3b22c170c8790ee3d1d97f2c2e4723ef11470dfe"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_collada_exporter.py",
+        "sha": "3fd93aa6bf8e17ccbcc6687ba35f16fc3ba3e57b",
+        "size": 5518,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/3fd93aa6bf8e17ccbcc6687ba35f16fc3ba3e57b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_collada_importer.py",
+        "sha": "33650063df7303824d5d50acaf5828643e96e4f2",
+        "size": 1036,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/33650063df7303824d5d50acaf5828643e96e4f2"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_collada_materials.py",
+        "sha": "02a41a289b6c7f63c704fc28f260e99c3f60f327",
+        "size": 3608,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/02a41a289b6c7f63c704fc28f260e99c3f60f327"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_collada_multiple_files.py",
+        "sha": "3d7671a713fbc677b82261028dabb80e475b04b9",
+        "size": 1319,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/3d7671a713fbc677b82261028dabb80e475b04b9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_ear_clipping.py",
+        "sha": "2a27327b849648a34b24b127b7db9cd03d7713c7",
+        "size": 3217,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/2a27327b849648a34b24b127b7db9cd03d7713c7"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_fbx_simple.py",
+        "sha": "0e302c5278ec0686522b88bc314092e52e512aa9",
+        "size": 438,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/0e302c5278ec0686522b88bc314092e52e512aa9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_fbx_tokenizer.py",
+        "sha": "7e4d90ad805e79d0989515cb0f6fc21f27e0251a",
+        "size": 976,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/7e4d90ad805e79d0989515cb0f6fc21f27e0251a"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_formats.py",
+        "sha": "7fe3131a0eeb0b4b6473b44daf135bb3befeed43",
+        "size": 2740,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/7fe3131a0eeb0b4b6473b44daf135bb3befeed43"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_geometry_to_mesh.py",
+        "sha": "050d105b8c3427a806b9f47d13f89cae28664774",
+        "size": 2290,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/050d105b8c3427a806b9f47d13f89cae28664774"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_gltf_attributes.py",
+        "sha": "4fb97a21ec22ce2b1d17af53fe8ba4bf7e2fe488",
+        "size": 5722,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/4fb97a21ec22ce2b1d17af53fe8ba4bf7e2fe488"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_gltf_exporter.py",
+        "sha": "7182d51fbeaee43485b691eaca081e82c8a4092b",
+        "size": 13595,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/7182d51fbeaee43485b691eaca081e82c8a4092b"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_gltf_import.py",
+        "sha": "f5a94802f6ea507130d3b786af3d9f698045cafa",
+        "size": 1742,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f5a94802f6ea507130d3b786af3d9f698045cafa"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_gltf_importer.py",
+        "sha": "e4b29c279665ae56933f15f530a02553933f7ccd",
+        "size": 3692,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e4b29c279665ae56933f15f530a02553933f7ccd"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_gltf_materials.py",
+        "sha": "1d5450cad2c8f8ab14f90c513ab67ff26701c08e",
+        "size": 2981,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/1d5450cad2c8f8ab14f90c513ab67ff26701c08e"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_imports.py",
+        "sha": "c27c655f5816cae06662a491b752e55cafbcfd9c",
+        "size": 643,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/c27c655f5816cae06662a491b752e55cafbcfd9c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_material_import.py",
+        "sha": "19d4f122880265bdeef1ec16cbfacc8202230513",
+        "size": 2871,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/19d4f122880265bdeef1ec16cbfacc8202230513"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_mesh.py",
+        "sha": "f202be0f45a3da556ed62d23d1c73d6bf24d01ab",
+        "size": 1587,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/f202be0f45a3da556ed62d23d1c73d6bf24d01ab"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_mesh_triangulate.py",
+        "sha": "e61a62b7aa23fea70c63c1ab1bf259d57af5388f",
+        "size": 4165,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e61a62b7aa23fea70c63c1ab1bf259d57af5388f"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_multiple_meshes_export.py",
+        "sha": "9cf1c3a3fae54ebb7965e99198d1ec07dc784c19",
+        "size": 5113,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/9cf1c3a3fae54ebb7965e99198d1ec07dc784c19"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_obj_importer.py",
+        "sha": "d7fa69cfed27458279f09e6de04f9dab87f31725",
+        "size": 7181,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d7fa69cfed27458279f09e6de04f9dab87f31725"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_plugin_system.py",
+        "sha": "e88d7dd5bfc3ccc16618fcf384758b985036de16",
+        "size": 5343,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e88d7dd5bfc3ccc16618fcf384758b985036de16"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_polygon_modifier.py",
+        "sha": "eae00d183de336ebdc14b004a8c33fa15bc6abed",
+        "size": 4406,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/eae00d183de336ebdc14b004a8c33fa15bc6abed"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_scene_open_stl.py",
+        "sha": "d878e70938fa2a013639c9a74c1e848eeb059d25",
+        "size": 2081,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/d878e70938fa2a013639c9a74c1e848eeb059d25"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_scene_save_stl.py",
+        "sha": "e412a933f4176bbfe8ee38a38dcd9b4f6d41e587",
+        "size": 3382,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e412a933f4176bbfe8ee38a38dcd9b4f6d41e587"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_stl_exporter.py",
+        "sha": "6a128f7bd680182a61c005fae931d4a6cff83a35",
+        "size": 6457,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/6a128f7bd680182a61c005fae931d4a6cff83a35"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_stl_importer.py",
+        "sha": "12a463f04118ae3c82b99b433256cbd1e81e63a0",
+        "size": 4740,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/12a463f04118ae3c82b99b433256cbd1e81e63a0"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_triangulate_consistency.py",
+        "sha": "e64d01b1aeec3765f4f24521f70705eba3a93010",
+        "size": 2071,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e64d01b1aeec3765f4f24521f70705eba3a93010"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/verify_module.py",
+        "sha": "e88419319b0d445a055576c6e7e9297c3990b745",
+        "size": 776,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/blobs/e88419319b0d445a055576c6e7e9297c3990b745"
+      }
+    ],
+    "truncated": false,
+    "url": "https://api.github.com/repos/aspose-3d-foss/Aspose.3D-FOSS-for-Python/git/trees/418a4746ab9d3ec30226f2bd8f743154a0f0d246"
+  }
+}

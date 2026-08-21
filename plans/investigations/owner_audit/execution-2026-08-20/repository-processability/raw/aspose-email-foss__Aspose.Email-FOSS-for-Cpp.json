@@ -1,0 +1,968 @@
+{
+  "branch": {
+    "_links": {
+      "html": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/tree/master",
+      "self": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/branches/master"
+    },
+    "commit": {
+      "author": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1225645?v=4",
+        "events_url": "https://api.github.com/users/babar-raza/events{/privacy}",
+        "followers_url": "https://api.github.com/users/babar-raza/followers",
+        "following_url": "https://api.github.com/users/babar-raza/following{/other_user}",
+        "gists_url": "https://api.github.com/users/babar-raza/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/babar-raza",
+        "id": 1225645,
+        "login": "babar-raza",
+        "node_id": "MDQ6VXNlcjEyMjU2NDU=",
+        "organizations_url": "https://api.github.com/users/babar-raza/orgs",
+        "received_events_url": "https://api.github.com/users/babar-raza/received_events",
+        "repos_url": "https://api.github.com/users/babar-raza/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/babar-raza/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/babar-raza/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/babar-raza",
+        "user_view_type": "public"
+      },
+      "comments_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/commits/fef9c934c3ad7a207c97cc24546176e678f577af/comments",
+      "commit": {
+        "author": {
+          "date": "2026-08-15T07:27:23Z",
+          "email": "babar.raza@aspose.com",
+          "name": "Babar Raza"
+        },
+        "comment_count": 0,
+        "committer": {
+          "date": "2026-08-15T07:27:23Z",
+          "email": "noreply@github.com",
+          "name": "GitHub"
+        },
+        "message": "docs: refresh README with verified content, structure, and examples\n\n- Rewrites the README onto the standard Aspose FOSS presentation template:\n  badge row + banner, a Navigation TOC, an At-a-Glance capability diagram,\n  Key Capabilities, Installation, a dedicated Dependencies section, Quick\n  Start, and Additional Examples.\n- Adds a real Dependencies section documenting that the library has no\n  third-party package dependencies of its own, plus the real native/system\n  toolchain requirements (CMake, a C++17 compiler, Ninja).\n- Adds a module-grouped API Reference table plus curated core/internal\n  classes, collapsed behind a <details> disclosure so the page stays\n  scannable.\n- Adds a Documentation & Resources section linking the real getting-started\n  guide, how-to/FAQ articles, full API reference, and the issue tracker.\n- Adds a Scope and Limitations section naming the real, verified constraints\n  of this FOSS build, closed by a single standalone paragraph pointing to\n  the Enterprise Edition for broader functionality.\n- Adds Development and Testing instructions and a standard MIT License\n  section linking the real license file.\n\nVerification: every code example and dependency claim was checked against\nthe real, current package surface; every claim in Scope and Limitations was\nverified against source; the diagram and API Reference detail were checked\nwith this project's own automated structural/content gates before this\nchange was proposed.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "625c4faf4a424274f8fbd964673f5b127b920638",
+          "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees/625c4faf4a424274f8fbd964673f5b127b920638"
+        },
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/commits/fef9c934c3ad7a207c97cc24546176e678f577af",
+        "verification": {
+          "payload": "tree 625c4faf4a424274f8fbd964673f5b127b920638\nparent c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2\nauthor Babar Raza <babar.raza@aspose.com> 1786778843 +0500\ncommitter GitHub <noreply@github.com> 1786778843 +0500\n\ndocs: refresh README with verified content, structure, and examples\n\n- Rewrites the README onto the standard Aspose FOSS presentation template:\n  badge row + banner, a Navigation TOC, an At-a-Glance capability diagram,\n  Key Capabilities, Installation, a dedicated Dependencies section, Quick\n  Start, and Additional Examples.\n- Adds a real Dependencies section documenting that the library has no\n  third-party package dependencies of its own, plus the real native/system\n  toolchain requirements (CMake, a C++17 compiler, Ninja).\n- Adds a module-grouped API Reference table plus curated core/internal\n  classes, collapsed behind a <details> disclosure so the page stays\n  scannable.\n- Adds a Documentation & Resources section linking the real getting-started\n  guide, how-to/FAQ articles, full API reference, and the issue tracker.\n- Adds a Scope and Limitations section naming the real, verified constraints\n  of this FOSS build, closed by a single standalone paragraph pointing to\n  the Enterprise Edition for broader functionality.\n- Adds Development and Testing instructions and a standard MIT License\n  section linking the real license file.\n\nVerification: every code example and dependency claim was checked against\nthe real, current package surface; every claim in Scope and Limitations was\nverified against source; the diagram and API Reference detail were checked\nwith this project's own automated structural/content gates before this\nchange was proposed.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqgBTbCRC1aQ7uu5UhlAAAsrgQADh6fvpc4qZSB/1UX+uR35vC\nhXd7FiSk7kkJCi/JwPm/nd8K4JklP1XiXoI46xrdPTQXs+ceDsDmLf8pc7cK3fDZ\nFaYS2Mnx9NhasY0P+zmu46a4WqDAIjfx6ClDRSauwZNuVk9trMN6HYRU0fhbce6S\npApvDQRW1SFiCMGonRkj+Kh+ENTJUOA4kzsm3Gqw3l5xx7s/F5U+7eJ3qMxxzo4+\nLkcOojeg/Ha2PNgKChWtpHvDFwc8hKhBuTlMYiAiJe35BP8s7MC1vFPglmh/+hvu\nSfuLF1rRq9jeZvlzMunCtfXAi+lpWFrW7NWxeDIPiZbCpgJGxxPP3LH+cehnmoRl\nqwDh0sVX8nNAqm5fkC5EOiwZLsy5+pMvjrxGYgqr5axy8hTW+fUyKSNB52FUA0aQ\ncoO84adNOMZ8htMwoJHwEF8QFtPwHEr66E6GkmW5wfQT1yh7ApxZIkDVxbRFLBH8\nfOoD9qH8zsOoZdgao/vAbKiM+0XPW21LAZ3VC1vwX2nsaXDFCA7vPMNxUQEPkpGP\nedN9E61ZeSDxcNhUSGtoe3ERTK3IZcJIRv5fU7NRz6eReN+WBZMjjPedVWjtts2b\nzSZ1SH300/WMVTe9cS6BERfWPPsOzBhiK+keATPLPDufUV+//69ut/+jlWHpXndg\ntSFs0l/rmnnMmomZMXX0\n=/bmX\n-----END PGP SIGNATURE-----\n",
+          "verified": true,
+          "verified_at": "2026-08-15T07:27:23Z"
+        }
+      },
+      "committer": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/web-flow",
+        "id": 19864447,
+        "login": "web-flow",
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/web-flow",
+        "user_view_type": "public"
+      },
+      "html_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/commit/fef9c934c3ad7a207c97cc24546176e678f577af",
+      "node_id": "C_kwDORyjQD9oAKGZlZjljOTM0YzNhZDdhMjA3Yzk3Y2MyNDU0NjE3NmU2NzhmNTc3YWY",
+      "parents": [
+        {
+          "html_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/commit/c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+          "sha": "c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2",
+          "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/commits/c7252b3e4f6bbec4bbe5e2f50f51eb2a7384eaf2"
+        }
+      ],
+      "sha": "fef9c934c3ad7a207c97cc24546176e678f577af",
+      "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/commits/fef9c934c3ad7a207c97cc24546176e678f577af"
+    },
+    "name": "master",
+    "protected": false,
+    "protection": {
+      "enabled": false,
+      "required_status_checks": {
+        "checks": [],
+        "contexts": [],
+        "enforcement_level": "off"
+      }
+    },
+    "protection_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/branches/master/protection"
+  },
+  "repo": {
+    "allow_auto_merge": false,
+    "allow_forking": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "archive_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/branches{/branch}",
+    "clone_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Cpp.git",
+    "collaborators_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/comments{/number}",
+    "commits_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/contributors",
+    "created_at": "2026-03-27T16:47:36Z",
+    "custom_properties": {},
+    "default_branch": "master",
+    "delete_branch_on_merge": false,
+    "deployments_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/deployments",
+    "description": "The official open-source C++ library by Aspose.Email for creating, reading, and editing Microsoft Outlook files (.msg)",
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/downloads",
+    "events_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/events",
+    "fork": false,
+    "forks": 0,
+    "forks_count": 0,
+    "forks_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/forks",
+    "full_name": "aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+    "git_commits_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/tags{/sha}",
+    "git_url": "git://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Cpp.git",
+    "has_discussions": false,
+    "has_downloads": false,
+    "has_issues": true,
+    "has_pages": false,
+    "has_projects": true,
+    "has_pull_requests": true,
+    "has_wiki": true,
+    "homepage": "https://products.aspose.org/email/cpp/",
+    "hooks_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/hooks",
+    "html_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+    "id": 1193857039,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/issues{/number}",
+    "keys_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/labels{/name}",
+    "language": "C++",
+    "languages_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/languages",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "node_id": "MDc6TGljZW5zZTEz",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit"
+    },
+    "merge_commit_message": "PR_TITLE",
+    "merge_commit_title": "MERGE_MESSAGE",
+    "merges_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/merges",
+    "milestones_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/milestones{/number}",
+    "mirror_url": null,
+    "name": "Aspose.Email-FOSS-for-Cpp",
+    "network_count": 0,
+    "node_id": "R_kgDORyjQDw",
+    "notifications_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/notifications{?since,all,participating}",
+    "open_issues": 0,
+    "open_issues_count": 0,
+    "organization": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224592720?v=4",
+      "events_url": "https://api.github.com/users/aspose-email-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-email-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-email-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-email-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-email-foss",
+      "id": 224592720,
+      "login": "aspose-email-foss",
+      "node_id": "O_kgDODWMDUA",
+      "organizations_url": "https://api.github.com/users/aspose-email-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-email-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-email-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-email-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-email-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-email-foss",
+      "user_view_type": "public"
+    },
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224592720?v=4",
+      "events_url": "https://api.github.com/users/aspose-email-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-email-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-email-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-email-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-email-foss",
+      "id": 224592720,
+      "login": "aspose-email-foss",
+      "node_id": "O_kgDODWMDUA",
+      "organizations_url": "https://api.github.com/users/aspose-email-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-email-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-email-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-email-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-email-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-email-foss",
+      "user_view_type": "public"
+    },
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "private": false,
+    "pull_request_creation_policy": "all",
+    "pulls_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/pulls{/number}",
+    "pushed_at": "2026-08-15T07:27:24Z",
+    "releases_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/releases{/id}",
+    "security_and_analysis": {
+      "dependabot_security_updates": {
+        "status": "disabled"
+      },
+      "secret_scanning": {
+        "status": "disabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    },
+    "size": 61,
+    "squash_merge_commit_message": "COMMIT_MESSAGES",
+    "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+    "ssh_url": "git@github.com:aspose-email-foss/Aspose.Email-FOSS-for-Cpp.git",
+    "stargazers_count": 1,
+    "stargazers_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/stargazers",
+    "statuses_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/statuses/{sha}",
+    "subscribers_count": 0,
+    "subscribers_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/subscribers",
+    "subscription_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/subscription",
+    "svn_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+    "tags_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/tags",
+    "teams_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/teams",
+    "temp_clone_token": "",
+    "topics": [],
+    "trees_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees{/sha}",
+    "updated_at": "2026-08-15T07:27:27Z",
+    "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp",
+    "use_squash_pr_title_as_default": false,
+    "visibility": "public",
+    "watchers": 1,
+    "watchers_count": 1,
+    "web_commit_signoff_required": false
+  },
+  "tree": {
+    "sha": "625c4faf4a424274f8fbd964673f5b127b920638",
+    "tree": [
+      {
+        "mode": "100644",
+        "path": ".gitignore",
+        "sha": "722f608eb9aa58fbbc39e273d99f868dc15866a6",
+        "size": 23,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/722f608eb9aa58fbbc39e273d99f868dc15866a6"
+      },
+      {
+        "mode": "100644",
+        "path": "CHANGELOG.md",
+        "sha": "8e0feca25a7223fe7c2fe8bcc9a1a57fa324de12",
+        "size": 718,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/8e0feca25a7223fe7c2fe8bcc9a1a57fa324de12"
+      },
+      {
+        "mode": "100644",
+        "path": "CMakeLists.txt",
+        "sha": "4894667c1f186cb0a4fb0331fc7e5e87e728041a",
+        "size": 2742,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/4894667c1f186cb0a4fb0331fc7e5e87e728041a"
+      },
+      {
+        "mode": "100644",
+        "path": "CMakePresets.json",
+        "sha": "c7025b3b1377cdd00b08716ddc63fc3379c5f2ce",
+        "size": 709,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/c7025b3b1377cdd00b08716ddc63fc3379c5f2ce"
+      },
+      {
+        "mode": "100644",
+        "path": "LICENSE",
+        "sha": "b0d66f0175f748587426e54d6b4140f6b87921e4",
+        "size": 1087,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/b0d66f0175f748587426e54d6b4140f6b87921e4"
+      },
+      {
+        "mode": "100644",
+        "path": "PUBLIC_API.md",
+        "sha": "1c59dfc2063a3aa0f0f62514c1051282b2a1c26d",
+        "size": 1553,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/1c59dfc2063a3aa0f0f62514c1051282b2a1c26d"
+      },
+      {
+        "mode": "100644",
+        "path": "README.md",
+        "sha": "1207c6779c05e9caace33ab0181c4425476295c5",
+        "size": 24148,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/1207c6779c05e9caace33ab0181c4425476295c5"
+      },
+      {
+        "mode": "040000",
+        "path": "cmake",
+        "sha": "000def8bbb2d5020f285989985b6faf8c698e9c3",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees/000def8bbb2d5020f285989985b6faf8c698e9c3"
+      },
+      {
+        "mode": "100644",
+        "path": "cmake/AsposeEmailFossConfig.cmake.in",
+        "sha": "1cfb60b6f1c995cee6226c56d5ff575ebea7e7cc",
+        "size": 127,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/1cfb60b6f1c995cee6226c56d5ff575ebea7e7cc"
+      },
+      {
+        "mode": "040000",
+        "path": "examples",
+        "sha": "c63d66a85e069b39b2ac26357aa70927dfbeb4fa",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees/c63d66a85e069b39b2ac26357aa70927dfbeb4fa"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/CMakeLists.txt",
+        "sha": "fc059289198e994c57811bae9eec57111a684e37",
+        "size": 824,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/fc059289198e994c57811bae9eec57111a684e37"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/README.md",
+        "sha": "ab7883ba171cf1dbc68893b3495d330e28986868",
+        "size": 2022,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/ab7883ba171cf1dbc68893b3495d330e28986868"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/create_msg_and_eml.cpp",
+        "sha": "c5c64f2303edf249cb8c27fdf8fbe961fdc20549",
+        "size": 4001,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/c5c64f2303edf249cb8c27fdf8fbe961fdc20549"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/msg_reader.cpp",
+        "sha": "127ec3b148564e387fd133c87a7f9ef1908fe6ca",
+        "size": 7043,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/127ec3b148564e387fd133c87a7f9ef1908fe6ca"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/msg_summary.cpp",
+        "sha": "7671744d5d03b8fd9868725800b47c2c9cccceb8",
+        "size": 9730,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/7671744d5d03b8fd9868725800b47c2c9cccceb8"
+      },
+      {
+        "mode": "040000",
+        "path": "include",
+        "sha": "cbced0d5b8239937aa311a2755a8a75fffe2b4d7",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees/cbced0d5b8239937aa311a2755a8a75fffe2b4d7"
+      },
+      {
+        "mode": "040000",
+        "path": "include/aspose",
+        "sha": "7343202d427604af29d0fb9dfc5e2eeb07113587",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees/7343202d427604af29d0fb9dfc5e2eeb07113587"
+      },
+      {
+        "mode": "040000",
+        "path": "include/aspose/email",
+        "sha": "1193db864d5eb64bc859e6639d8a064c2f91ec14",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees/1193db864d5eb64bc859e6639d8a064c2f91ec14"
+      },
+      {
+        "mode": "040000",
+        "path": "include/aspose/email/foss",
+        "sha": "2caf731540d0dcb27b3b38b4c652b672228c04d2",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees/2caf731540d0dcb27b3b38b4c652b672228c04d2"
+      },
+      {
+        "mode": "040000",
+        "path": "include/aspose/email/foss/cfb",
+        "sha": "86a722e230a39d4bf2d0ad12c36260f83756b56c",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees/86a722e230a39d4bf2d0ad12c36260f83756b56c"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/cfb/cfb_constants.hpp",
+        "sha": "95ea66827576ce523ad576a32657b92b2f3076e0",
+        "size": 609,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/95ea66827576ce523ad576a32657b92b2f3076e0"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/cfb/cfb_document.hpp",
+        "sha": "77af2585d2670f1d9f59602096858b94077c3bbd",
+        "size": 1579,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/77af2585d2670f1d9f59602096858b94077c3bbd"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/cfb/cfb_exception.hpp",
+        "sha": "cf9fb651abc47c263b9c4b3cae00676ab3de69fe",
+        "size": 221,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/cf9fb651abc47c263b9c4b3cae00676ab3de69fe"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/cfb/cfb_node.hpp",
+        "sha": "88931e2880988bae0d75aa2cd904cf57f5a7aedc",
+        "size": 1646,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/88931e2880988bae0d75aa2cd904cf57f5a7aedc"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/cfb/cfb_reader.hpp",
+        "sha": "881d4a5f52ede8fbdd5f797b6023e4df9c17b058",
+        "size": 3386,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/881d4a5f52ede8fbdd5f797b6023e4df9c17b058"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/cfb/cfb_storage.hpp",
+        "sha": "92dea1880b38350999edc5f2fe8240aeb88ee5f9",
+        "size": 917,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/92dea1880b38350999edc5f2fe8240aeb88ee5f9"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/cfb/cfb_stream.hpp",
+        "sha": "bbdbe0744a742385bc5d11551210e359ca7d1623",
+        "size": 626,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/bbdbe0744a742385bc5d11551210e359ca7d1623"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/cfb/cfb_writer.hpp",
+        "sha": "14c026be044980c247fbab5d533234104a7f2930",
+        "size": 488,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/14c026be044980c247fbab5d533234104a7f2930"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/cfb/directory_color_flag.hpp",
+        "sha": "2450936b6d6461f4a0014dc12be418d7d489f658",
+        "size": 192,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/2450936b6d6461f4a0014dc12be418d7d489f658"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/cfb/directory_entry.hpp",
+        "sha": "1074c59a617b011f8909a898397cf8a90f4739e7",
+        "size": 1042,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/1074c59a617b011f8909a898397cf8a90f4739e7"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/cfb/directory_object_type.hpp",
+        "sha": "342cca85dd962ba723bdd18b86db9e48a848669c",
+        "size": 273,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/342cca85dd962ba723bdd18b86db9e48a848669c"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/cfb/header.hpp",
+        "sha": "415d2705a9bdc65d902439e6fda0ed39add8d84d",
+        "size": 1121,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/415d2705a9bdc65d902439e6fda0ed39add8d84d"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/cfb/sector_marker.hpp",
+        "sha": "3359b9586a1ad918f558e61f12516d698d999398",
+        "size": 266,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/3359b9586a1ad918f558e61f12516d698d999398"
+      },
+      {
+        "mode": "040000",
+        "path": "include/aspose/email/foss/msg",
+        "sha": "9a64676d20122c9558b075bbde13994757f6ebaa",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees/9a64676d20122c9558b075bbde13994757f6ebaa"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/msg/common_message_property_id.hpp",
+        "sha": "aaa5b57ccc2e7e60696345c92b5dd7fb65770702",
+        "size": 950,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/aaa5b57ccc2e7e60696345c92b5dd7fb65770702"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/msg/mapi_attachment.hpp",
+        "sha": "a467437c1409424bc0307803df96d829bfd38909",
+        "size": 912,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/a467437c1409424bc0307803df96d829bfd38909"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/msg/mapi_message.hpp",
+        "sha": "54e89ae45fa17aec6e6de26959b068501c7a0c88",
+        "size": 4815,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/54e89ae45fa17aec6e6de26959b068501c7a0c88"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/msg/mapi_property.hpp",
+        "sha": "4efed1b8970a6321fb3a415a5a28499cae7e1b5d",
+        "size": 828,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/4efed1b8970a6321fb3a415a5a28499cae7e1b5d"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/msg/mapi_property_collection.hpp",
+        "sha": "34bad70ffacf4888304ec298f81b216bc440cc80",
+        "size": 1025,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/34bad70ffacf4888304ec298f81b216bc440cc80"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/msg/mapi_recipient.hpp",
+        "sha": "d5536ad515134fe1a6433ed726fe6229ae62d53a",
+        "size": 378,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/d5536ad515134fe1a6433ed726fe6229ae62d53a"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/msg/msg_constants.hpp",
+        "sha": "3eb44929b62ea0e94c522bfd8fd0fc275e55b305",
+        "size": 1008,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/3eb44929b62ea0e94c522bfd8fd0fc275e55b305"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/msg/msg_document.hpp",
+        "sha": "d634b9896bfc45d70a7e67da9f4596e6cc79fd3b",
+        "size": 1431,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/d634b9896bfc45d70a7e67da9f4596e6cc79fd3b"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/msg/msg_exception.hpp",
+        "sha": "c3bc27247247a0f0e5978ea71784976c0ecd0632",
+        "size": 221,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/c3bc27247247a0f0e5978ea71784976c0ecd0632"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/msg/msg_reader.hpp",
+        "sha": "8d3477b323a0c22d421846b5fdacbcd04988e54c",
+        "size": 860,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/8d3477b323a0c22d421846b5fdacbcd04988e54c"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/msg/msg_storage.hpp",
+        "sha": "4397647e0fba9736d560b19a19e400c798ba6ae2",
+        "size": 1155,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/4397647e0fba9736d560b19a19e400c798ba6ae2"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/msg/msg_storage_role.hpp",
+        "sha": "fc34b6e8279fde51da71394a8ceefcbc73df19ca",
+        "size": 284,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/fc34b6e8279fde51da71394a8ceefcbc73df19ca"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/msg/msg_stream.hpp",
+        "sha": "3ae9df13e7b13aace4181cd563d196b76577e1f3",
+        "size": 483,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/3ae9df13e7b13aace4181cd563d196b76577e1f3"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/msg/msg_writer.hpp",
+        "sha": "3b3f163a882867d29884351d5717f454ebf18fda",
+        "size": 488,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/3b3f163a882867d29884351d5717f454ebf18fda"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/msg/property_type_code.hpp",
+        "sha": "6e260ea823f63b9378bf088f16e059bdc6bd7d04",
+        "size": 935,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/6e260ea823f63b9378bf088f16e059bdc6bd7d04"
+      },
+      {
+        "mode": "100644",
+        "path": "include/aspose/email/foss/version.hpp",
+        "sha": "20890fe91ee4027e6da2519920bd61f8c93d3624",
+        "size": 337,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/20890fe91ee4027e6da2519920bd61f8c93d3624"
+      },
+      {
+        "mode": "040000",
+        "path": "src",
+        "sha": "1eb0b1747e798140d92a6c2b888eaf7743776177",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees/1eb0b1747e798140d92a6c2b888eaf7743776177"
+      },
+      {
+        "mode": "040000",
+        "path": "src/cfb",
+        "sha": "c84ab83e7c7d18044ab6c95f838aec05f8d9fb3d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees/c84ab83e7c7d18044ab6c95f838aec05f8d9fb3d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/cfb/cfb_document.cpp",
+        "sha": "a027daa845eb311b9547a6fec86c072aa89200a6",
+        "size": 3585,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/a027daa845eb311b9547a6fec86c072aa89200a6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/cfb/cfb_node.cpp",
+        "sha": "332e608a1e2f1320f41c19fc96e79faf6785e5b8",
+        "size": 1466,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/332e608a1e2f1320f41c19fc96e79faf6785e5b8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/cfb/cfb_reader.cpp",
+        "sha": "4ef614c45393fcce2a4ccd72bd24e3b6c2f37c6f",
+        "size": 19885,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/4ef614c45393fcce2a4ccd72bd24e3b6c2f37c6f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/cfb/cfb_storage.cpp",
+        "sha": "918b1acce9e5e76768e1213b7a4adbf53a2d9c64",
+        "size": 1642,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/918b1acce9e5e76768e1213b7a4adbf53a2d9c64"
+      },
+      {
+        "mode": "100644",
+        "path": "src/cfb/cfb_stream.cpp",
+        "sha": "da69b9bc187a232eda13c1f1d562b05a4e1908c5",
+        "size": 673,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/da69b9bc187a232eda13c1f1d562b05a4e1908c5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/cfb/cfb_value_types.cpp",
+        "sha": "da72543b1d7a23c1bf9276eb07e0e4788adc99d7",
+        "size": 803,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/da72543b1d7a23c1bf9276eb07e0e4788adc99d7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/cfb/cfb_writer.cpp",
+        "sha": "2fc3047096f9698267294caee22caae57c73e10e",
+        "size": 28159,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/2fc3047096f9698267294caee22caae57c73e10e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/cfb/detail.cpp",
+        "sha": "c44236fb094bca781d576fb4396f882e9f28e597",
+        "size": 4660,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/c44236fb094bca781d576fb4396f882e9f28e597"
+      },
+      {
+        "mode": "100644",
+        "path": "src/cfb/detail.hpp",
+        "sha": "d39bced0c8d99a4845dfea2d0f296398acf95a85",
+        "size": 1184,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/d39bced0c8d99a4845dfea2d0f296398acf95a85"
+      },
+      {
+        "mode": "100644",
+        "path": "src/library.cpp",
+        "sha": "d6ed35966f1aa0c41742295764894767aea7a024",
+        "size": 185,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/d6ed35966f1aa0c41742295764894767aea7a024"
+      },
+      {
+        "mode": "040000",
+        "path": "src/msg",
+        "sha": "415a803a2c0664b2a7a9151f2ff8550283faad2b",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees/415a803a2c0664b2a7a9151f2ff8550283faad2b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/mapi_attachment.cpp",
+        "sha": "c90fe5b190c477fa4873faa6453b45425adfd71b",
+        "size": 1027,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/c90fe5b190c477fa4873faa6453b45425adfd71b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/mapi_message.cpp",
+        "sha": "e6f87403887c24812a1ec308feac0a81943a6fe4",
+        "size": 32200,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/e6f87403887c24812a1ec308feac0a81943a6fe4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/mapi_property.cpp",
+        "sha": "e2f42345a018cf4082dc043f87578d97993839d6",
+        "size": 1133,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/e2f42345a018cf4082dc043f87578d97993839d6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/mapi_property_collection.cpp",
+        "sha": "00565ba985e02a846254bd332422f09c11ab0e7f",
+        "size": 2094,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/00565ba985e02a846254bd332422f09c11ab0e7f"
+      },
+      {
+        "mode": "040000",
+        "path": "src/msg/mime",
+        "sha": "611e82a9d0cb1dc08fd204a0befd18c690442b74",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees/611e82a9d0cb1dc08fd204a0befd18c690442b74"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/mime/eml_message_mapper.cpp",
+        "sha": "0ff80add1750083a1118f0fac0b46795e91c97e2",
+        "size": 7203,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/0ff80add1750083a1118f0fac0b46795e91c97e2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/mime/eml_message_mapper.hpp",
+        "sha": "06217135de50d6df9fa4ca956127365cda864e7b",
+        "size": 396,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/06217135de50d6df9fa4ca956127365cda864e7b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/mime/mime_model.cpp",
+        "sha": "87c03f1eaa7b1d8b71e6fcc37f35db1bd2b0ff5b",
+        "size": 223,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/87c03f1eaa7b1d8b71e6fcc37f35db1bd2b0ff5b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/mime/mime_model.hpp",
+        "sha": "77baaa97703219d0f45253cb4a86393f1f0e432a",
+        "size": 755,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/77baaa97703219d0f45253cb4a86393f1f0e432a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/mime/mime_reader.cpp",
+        "sha": "6ae32e71e2403f2739e55fd638eea97b3af39c69",
+        "size": 5855,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/6ae32e71e2403f2739e55fd638eea97b3af39c69"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/mime/mime_reader.hpp",
+        "sha": "39775a049614d602747f5b8532df3db33776665d",
+        "size": 459,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/39775a049614d602747f5b8532df3db33776665d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/mime/mime_writer.cpp",
+        "sha": "5dd9cc889cbe3e0d8881483b5ad8bcca49ef1d4f",
+        "size": 2874,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/5dd9cc889cbe3e0d8881483b5ad8bcca49ef1d4f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/mime/mime_writer.hpp",
+        "sha": "35dca79590c544e3660971aa230bb3b02928ad75",
+        "size": 481,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/35dca79590c544e3660971aa230bb3b02928ad75"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/mime/transfer_encoding.cpp",
+        "sha": "e1aeb4da8fefa16f4e51341b1b43b2eabd07ce17",
+        "size": 4476,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/e1aeb4da8fefa16f4e51341b1b43b2eabd07ce17"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/mime/transfer_encoding.hpp",
+        "sha": "cdd18eb347c1b57f9d11479c765158955a66a612",
+        "size": 599,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/cdd18eb347c1b57f9d11479c765158955a66a612"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/msg_document.cpp",
+        "sha": "f736fa8eb5df31c4e29879bdd16d8c5cd7a3abff",
+        "size": 7207,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/f736fa8eb5df31c4e29879bdd16d8c5cd7a3abff"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/msg_reader.cpp",
+        "sha": "4008a07b8f9845ab3089d730881768cdc4d8559e",
+        "size": 2741,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/4008a07b8f9845ab3089d730881768cdc4d8559e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/msg_storage.cpp",
+        "sha": "0e4453650e4b428347b44d3471a0dc7934ca2502",
+        "size": 1568,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/0e4453650e4b428347b44d3471a0dc7934ca2502"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/msg_stream.cpp",
+        "sha": "bc1fe901eda5b2ab6219923b6ba3395d5254d249",
+        "size": 310,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/bc1fe901eda5b2ab6219923b6ba3395d5254d249"
+      },
+      {
+        "mode": "100644",
+        "path": "src/msg/msg_writer.cpp",
+        "sha": "78280b3cdfc00891758dc7f80099249c56464e20",
+        "size": 1075,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/78280b3cdfc00891758dc7f80099249c56464e20"
+      },
+      {
+        "mode": "040000",
+        "path": "tests",
+        "sha": "2dcd794d329aeeaa34111789c2d25a128610fa56",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees/2dcd794d329aeeaa34111789c2d25a128610fa56"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/CMakeLists.txt",
+        "sha": "398d9eb1247eeb042c964b501a6cc3e7e2ff1ba9",
+        "size": 772,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/398d9eb1247eeb042c964b501a6cc3e7e2ff1ba9"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_cfb.cpp",
+        "sha": "acb8b1f93af4326c74c5223662fecac37eed882c",
+        "size": 3789,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/acb8b1f93af4326c74c5223662fecac37eed882c"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_generated_headers.cpp",
+        "sha": "c35bb5f38138e5d09220801a2d246d4dd0860a91",
+        "size": 1451,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/c35bb5f38138e5d09220801a2d246d4dd0860a91"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/test_msg.cpp",
+        "sha": "55e7818d77b457680f7338431b18eeadc6f265a2",
+        "size": 2871,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/blobs/55e7818d77b457680f7338431b18eeadc6f265a2"
+      }
+    ],
+    "truncated": false,
+    "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-Cpp/git/trees/625c4faf4a424274f8fbd964673f5b127b920638"
+  }
+}

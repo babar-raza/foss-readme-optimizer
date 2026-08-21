@@ -1,0 +1,99 @@
+{
+  "investigation": "OPT-NOTE-LEDGER-ROOT-CAUSE",
+  "git_pin_expected": "aa998102191c530af4dca3a6895d62a4027a613e",
+  "git_pin_observed_at_start": "aa998102191c530af4dca3a6895d62a4027a613e",
+  "git_status_at_start": "clean",
+  "mode": "read-only; no file under version control was modified",
+  "source_files": {
+    "src/readme_agent/commands_poc.py": {
+      "sha256": "abcfef5ed65c13c32630d2b427837f17eb7c6921b2e8a18362ebeb2fcb4e9bdd",
+      "role": "Diagnostic poc runner. Owns build_source_disposition_ledger (L96-222) and _disposition_acceptance (L282-300), which together produce disposition_ledger_valid/disposition_ledger_errors written to runs/share/poc/<org>__<repo>/validation.json (L525-545). Also computes the deterministic accept/reject verdict via validate_readme_document_candidate (L457-472)."
+    },
+    "src/readme_agent/readme/idea_candidate.py": {
+      "sha256": "8f2d19e277537ac4ee289fde55c6ef7270ff85c77e2f00d3b40d662d45e109e7",
+      "role": "prepare_idea_fidelity_candidate (L33-154): builds the candidate via build_readme_document_candidate and returns readme_document_plan (a ReadmeDocumentPlanV1 dump) consumed by commands_poc.py's ledger builder."
+    },
+    "src/readme_agent/readme/document_renderer.py": {
+      "sha256": "72ec93c174ef827441962d46f9c270052c97b828bf0d15ee9c6b4314cb198095",
+      "role": "build_readme_document_candidate (L93-...). Gates at L149 (facts.content_assurance == \"repository_verified\" and validated_agentic_plan is not None) between the verified-template path (build_verified_template_document_candidate, populates compiled_slot_blocks) and the legacy path (finalize_legacy_document_candidate, L287, does not)."
+    },
+    "src/readme_agent/readme/document_plan_finalizer.py": {
+      "sha256": "38bbd23784bf1889110b3c2ae2a8286385f71caf0fc2125ff66c970d616b27af",
+      "role": "finalize_legacy_document_candidate (L30) constructs ReadmeDocumentPlanV1 (L49) without passing compiled_slot_blocks; defaults to {} (legacy-path fallback, not exercised for these three repos per SOURCE_INVENTORY finding -- see REPORT.md)."
+    },
+    "src/readme_agent/readme/document_plan.py": {
+      "sha256": "0625b608cf354ddf17fba0ac4f0aea9916c3556b935d6449093c0bef2177f656",
+      "role": "ReadmeDocumentPlanV1.compiled_slot_blocks: dict[str, str] = Field(default_factory=dict) (L269)."
+    },
+    "src/readme_agent/readme/document_validation.py": {
+      "sha256": "7e301d38c439012aaa25e7d11c08ea9c319c0475eab3a42d66f45c0abfe02c7c",
+      "role": "validate_readme_document_candidate. L524-548: claim_accountability_complete check; calls validate_claim_accountability_map and folds accountability.blocking_claim_ids into checks + errors. This is the sole owner of Note's deterministic_verdict: reject."
+    },
+    "src/readme_agent/readme/claim_accountability_validation.py": {
+      "sha256": "68b2322a6df98a0336d1549928e3c478f6ba1d7dd9f4eb59a31b3d50a6737eb0",
+      "role": "validate_claim_accountability_map: computes approval_eligible and blocking_claim_ids consumed by document_validation.py. Not further traced within the time-box (see REPORT.md § What's missing)."
+    },
+    "src/readme_agent/presentation/template_compiler.py": {
+      "sha256": "c068e6e5c420d169bab8ff1f994a88119acb6bbfc2e9b64a3137ee9270e3afa2",
+      "role": "compiled_slot_blocks() (L115): returns {canonical contract slot title -> exact compiled block text} for slots actually included by the template input. Keyed only at TOP-LEVEL CONTRACT SLOT granularity, never per sub-heading."
+    },
+    "src/readme_agent/presentation/verified_template_document.py": {
+      "sha256": "1938bf8a0b77c8da4c3150f2edbe2ebc771d497cb82ba49d4caccfba953797d4",
+      "role": "build_verified_template_document_candidate: threads compiled_slot_blocks=compiled.compiled_slot_blocks (L195) into its returned ReadmeDocumentPlanV1 -- the verified-template (T5-fixed) path."
+    },
+    "src/readme_agent/presentation/verified_template_runtime.py": {
+      "sha256": "36105124097492e41685a8ea2638553a66d87166de8b63fe3ca735c0bbc06c38",
+      "role": "VerifiedTemplateCompilationV1.compiled_slot_blocks field (L56); build_verified_template_compilation calls compiled_slot_blocks(template_input) at L92."
+    },
+    "src/readme_agent/readme/readme_reconciliation.py": {
+      "sha256": "5ae743247f4e36b9e28d02a22e4ef11a5321d1efd4f471852c08d5754655e6ab",
+      "role": "Separate five-bucket (preserved/corrected/relocated/...) README reconciliation report (build_readme_reconciliation_report). NOT imported by commands_poc.py (verified against its L1-54 import block) -- an independent pipeline stage from the disposition ledger, referenced in the 2026-08-19 backlog GOV-014 net-fixture entry, not in this calibration run's code path."
+    },
+    "scripts/governance/promote_working_condition_exceptions.py": {
+      "sha256": "ec9da38f4769c06d14957bd7533d4ec14ece122e45140a639f08e0cc960401d6",
+      "role": "_validate_bundle (L125-147): the ONLY consumer besides the poc runner itself that reads disposition_ledger_valid, and the only place it is BLOCKING -- raises ExceptionAcceptanceError when validation.get(\"disposition_ledger_valid\") is not True or disposition_ledger_errors is non-empty (L141-142)."
+    },
+    "tests/unit/test_template_compiler_slot_blocks.py": {
+      "sha256": "53ab19b06368bc267f99a5132892286a6e300413d62ea9ecafde2cef789c6ab1",
+      "role": "3 existing unit tests for compiled_slot_blocks(), all using a synthetic fixture whose section headings are ALREADY spelled identically to their canonical contract titles (e.g. sections keyed 'installation' -> heading 'Installation'). Does not exercise case/wording drift between a real source README's heading spelling and the contract's canonical title, nor sub-heading (H3+) lookups -- see REPORT.md and RED_TEST_PLAN.md."
+    }
+  },
+  "evidence_files": {
+    "runs/share/poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/validation.json": "3f64f5ca26bfa1a4f5e5a73489de8ce0ce963d02018af4f8bc1d643cc64405cc",
+    "runs/share/poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/validation.json": "a5373d478da6273e25046d7aa67ef340e0d6d193e82459d56c48bc8f15aed3ff",
+    "runs/share/poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/validation.json": "506323ee7dcd3a1dabd0ec7e48654b3fef28fa224b6e562b4498fcb625f09b9b",
+    "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/41de2e8ab478b5aeff3663f7f7cbf83b19fdf676/manifest.json": "ea3a0695fe70555d0d0dec66a9b4ac9995e94c028bbe162b642ccb4439927235",
+    "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/41de2e8ab478b5aeff3663f7f7cbf83b19fdf676/knowledge-application.json": "4b1597c54d60d92c41078fc4ba4b83fecfee5d700e7a2de8ffcd4f3a45b6983d",
+    "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/41de2e8ab478b5aeff3663f7f7cbf83b19fdf676/superseded/f82701b645a37e59/superseded.json": "8c527ff57d4a915a37857469afab6fad152850fd76a00b9fbc63f1ae286a16bd",
+    "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/41de2e8ab478b5aeff3663f7f7cbf83b19fdf676/superseded/f82701b645a37e59/planning/readme-document-plan.json": "7a92bd80746915aefc7b31674a62a763fa984ac1229a0afa9292c51cfd26d5a0",
+    "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/06eca5c01e13ed6d59a640f1cf330c1c5a57d151/superseded/8f9985d5f5ccdedb/planning/readme-document-plan.json": "e216872926ca556859e2e8a0629404f2171bebf4bbbd7243bdc08147fe01b7e7",
+    "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/superseded/721b58c0ff7a9355/planning/readme-document-plan.json": "3b3236a6237cf588a74501d899903978ec711489298c2a1c731b83d4cf469b17",
+    "runs/readme-poc/aspose-note-foss__Aspose.Note-FOSS-for-Python/41de2e8ab478b5aeff3663f7f7cbf83b19fdf676/source/revision.json": "92e596c3bd19792eda5312496a27f84c35022746248dd1397d578e4491230cfc",
+    "runs/readme-poc/aspose-barcode-foss__Aspose.BarCode-FOSS-for-Python/06eca5c01e13ed6d59a640f1cf330c1c5a57d151/source/revision.json": "7326867a4ab2ebc5c06b3b910c6adfafd5350646b7d5a98f7e7c225685259162",
+    "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/source/revision.json": "70a929e0b96a38901f66a282d97d60cb103c981d58c8f86c4ac707fb471653a7",
+    "plans/investigations/evidence/freshness-service-t5/closeout.md": "c1d174e56b07128b22a88c7f37f7cfade6e725a964ada1b42f46605f74e2bae8",
+    "plans/backlog-post-poc.md": "89583f5f90096de104067b9ad36d6fd922c335a522f1d364c22938c5378c6e29"
+  },
+  "identity_separation": {
+    "note": {
+      "imported_knowledge_repository_sha": "6d97a522a9ed24708687911f1aabb76e2dea2da7",
+      "sealed_pre_refresh_source_readme_sha256": "fd47d03c4579d88d906bf927cbf6002e5e99e44af15708e64268dbd0482fdb71",
+      "current_pinned_source_revision": "41de2e8ab478b5aeff3663f7f7cbf83b19fdf676",
+      "freshness_flag": "stale_revision",
+      "note": "imported_bundle_repo_sha != source_revision: the imported-knowledge corpus bundle is sealed to an older commit than the currently pinned source revision."
+    },
+    "barcode": {
+      "imported_knowledge_repository_sha": "53f2c3350b8171f2c8275e7b1a178f218695ac45",
+      "sealed_pre_refresh_source_readme_sha256": "4e311891fdb4ba0324606b78c594c0d6dd4ea912aa0034ea9cfff6bb45105c17",
+      "current_pinned_source_revision": "06eca5c01e13ed6d59a640f1cf330c1c5a57d151",
+      "freshness_flag": "stale_revision"
+    },
+    "three_d": {
+      "imported_knowledge_repository_sha": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+      "sealed_pre_refresh_source_readme_sha256": "66ceadf14240cd913756dacbd709d56ee06915f49f77f769e40e04e309a7cd01",
+      "current_pinned_source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+      "freshness_flag": "current",
+      "note": "imported_bundle_repo_sha == source_revision here -- this repo's imported-knowledge corpus IS fresh, yet it STILL shows disposition_ledger_valid: false with the identical error pattern. This is the control case that rules out import-staleness as the cause of the ledger failure (see REPORT.md)."
+    }
+  }
+}

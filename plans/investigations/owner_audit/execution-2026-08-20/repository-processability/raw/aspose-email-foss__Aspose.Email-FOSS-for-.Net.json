@@ -1,0 +1,937 @@
+{
+  "branch": {
+    "_links": {
+      "html": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-.Net/tree/main",
+      "self": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/branches/main"
+    },
+    "commit": {
+      "author": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1225645?v=4",
+        "events_url": "https://api.github.com/users/babar-raza/events{/privacy}",
+        "followers_url": "https://api.github.com/users/babar-raza/followers",
+        "following_url": "https://api.github.com/users/babar-raza/following{/other_user}",
+        "gists_url": "https://api.github.com/users/babar-raza/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/babar-raza",
+        "id": 1225645,
+        "login": "babar-raza",
+        "node_id": "MDQ6VXNlcjEyMjU2NDU=",
+        "organizations_url": "https://api.github.com/users/babar-raza/orgs",
+        "received_events_url": "https://api.github.com/users/babar-raza/received_events",
+        "repos_url": "https://api.github.com/users/babar-raza/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/babar-raza/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/babar-raza/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/babar-raza",
+        "user_view_type": "public"
+      },
+      "comments_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/commits/59125b4732df0eedbc4d4c2ab978698ed4348eb7/comments",
+      "commit": {
+        "author": {
+          "date": "2026-08-15T07:29:40Z",
+          "email": "babar.raza@aspose.com",
+          "name": "Babar Raza"
+        },
+        "comment_count": 0,
+        "committer": {
+          "date": "2026-08-15T07:29:40Z",
+          "email": "noreply@github.com",
+          "name": "GitHub"
+        },
+        "message": "docs: refresh README with verified content, structure, and examples\n\n- Rewrites the README onto the standard Aspose FOSS presentation template:\n  badge row + banner, a Navigation TOC, an At-a-Glance capability diagram,\n  Key Capabilities, Installation, a dedicated Dependencies section, Quick\n  Start, and Additional Examples.\n- Adds a real Dependencies section documenting that the main library has no\n  required third-party package dependencies, plus the real native/system\n  requirements (.NET 8.0).\n- Corrects a stale build-command path in Development and Testing (the old\n  README referenced a nonexistent csharp/src/... prefix; the real project\n  path is src/Aspose.Email.Foss/Aspose.Email.Foss.csproj).\n- Adds a module-grouped API Reference table plus curated core/internal\n  classes, collapsed behind a <details> disclosure so the page stays\n  scannable.\n- Adds a Documentation & Resources section linking the real getting-started\n  guide, how-to/FAQ articles, full API reference, and the issue tracker.\n- Adds a Scope and Limitations section naming the real, verified constraints\n  of this FOSS build, closed by a single standalone paragraph pointing to\n  the Enterprise Edition for broader functionality.\n- Adds Development and Testing instructions and a standard MIT License\n  section linking the real license file.\n\nVerification: every code example and dependency claim was checked against\nthe real, current package surface; every claim in Scope and Limitations was\nverified against source; the diagram and API Reference detail were checked\nwith this project's own automated structural/content gates before this\nchange was proposed.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "ec98479454c63827c008b67401c2da63170aaf13",
+          "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/trees/ec98479454c63827c008b67401c2da63170aaf13"
+        },
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/commits/59125b4732df0eedbc4d4c2ab978698ed4348eb7",
+        "verification": {
+          "payload": "tree ec98479454c63827c008b67401c2da63170aaf13\nparent a8999e259143a9ffc660086b34a7f39516da29f5\nauthor Babar Raza <babar.raza@aspose.com> 1786778980 +0500\ncommitter GitHub <noreply@github.com> 1786778980 +0500\n\ndocs: refresh README with verified content, structure, and examples\n\n- Rewrites the README onto the standard Aspose FOSS presentation template:\n  badge row + banner, a Navigation TOC, an At-a-Glance capability diagram,\n  Key Capabilities, Installation, a dedicated Dependencies section, Quick\n  Start, and Additional Examples.\n- Adds a real Dependencies section documenting that the main library has no\n  required third-party package dependencies, plus the real native/system\n  requirements (.NET 8.0).\n- Corrects a stale build-command path in Development and Testing (the old\n  README referenced a nonexistent csharp/src/... prefix; the real project\n  path is src/Aspose.Email.Foss/Aspose.Email.Foss.csproj).\n- Adds a module-grouped API Reference table plus curated core/internal\n  classes, collapsed behind a <details> disclosure so the page stays\n  scannable.\n- Adds a Documentation & Resources section linking the real getting-started\n  guide, how-to/FAQ articles, full API reference, and the issue tracker.\n- Adds a Scope and Limitations section naming the real, verified constraints\n  of this FOSS build, closed by a single standalone paragraph pointing to\n  the Enterprise Edition for broader functionality.\n- Adds Development and Testing instructions and a standard MIT License\n  section linking the real license file.\n\nVerification: every code example and dependency claim was checked against\nthe real, current package surface; every claim in Scope and Limitations was\nverified against source; the diagram and API Reference detail were checked\nwith this project's own automated structural/content gates before this\nchange was proposed.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>",
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqgBVkCRC1aQ7uu5UhlAAAWa4QAIOxMnuQjxV7LKfKJJxWynSy\n4IboUp3D+9Ty4KIafs1LU0VZM2XEAY6GHYI0oqMVaAQU1SZkFgHbh7rI/3f6hSKJ\nI1zSoE94DRw9gk4IzZkrCZjPwgeL3Isi05y8lqmVxAFWRSHXj7r8zpVNcx01XDa3\nkYxK63Rm9db2XqSZ7c/vyfSmhJsIPdKUFPasK+GpEpuh3XWE+JIa2KHCDLQ66Sn5\nON8VdsXh2HIX+7iCcjNiRB1b0zbJMIjiSLDPjqZ0K42XKjPvP6bUV+ctnt4mkC3r\nbXbGcyHTj7oMDv1DVCsz9YiJVA75rxabOQoqseA2FGtYBcl90M5zAqrU8Oo7pQIS\ndkviQ4Jc6b1ZpxeEWHc81fU2P6t3RYLdeaxPlk9Gs8F9zDvcV6C/tKeR1DkhnZbZ\nSrRGZqHrx/hyNWCSmZAN0uVKmwQDJHo0ZDazwj4jAR7yxs1tWzPbAAhmruMioI6N\n2Qoi1YC4i1NLCGghJTGi/pYcCTccdd/YuJ9v3dr4NKNFJriweiPGkochonbkTLk7\nNxPb14e7Uc2Rzvi+zvhsyZfR6MKryzxlpNSnZpgvANMTTidOM7Zvy9v8dD8ZEGiT\nQheKv5P6KpqOIQgIi6AL3L+rvsLGj43jthfPc1nxTnFj989/VSgLQbZNGodJZGfQ\nL2lgxOfm9ZPUvEDTZHYz\n=p60Z\n-----END PGP SIGNATURE-----\n",
+          "verified": true,
+          "verified_at": "2026-08-15T07:29:40Z"
+        }
+      },
+      "committer": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/web-flow",
+        "id": 19864447,
+        "login": "web-flow",
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/web-flow",
+        "user_view_type": "public"
+      },
+      "html_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-.Net/commit/59125b4732df0eedbc4d4c2ab978698ed4348eb7",
+      "node_id": "C_kwDORyjtMNoAKDU5MTI1YjQ3MzJkZjBlZWRiYzRkNGMyYWI5Nzg2OThlZDQzNDhlYjc",
+      "parents": [
+        {
+          "html_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-.Net/commit/a8999e259143a9ffc660086b34a7f39516da29f5",
+          "sha": "a8999e259143a9ffc660086b34a7f39516da29f5",
+          "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/commits/a8999e259143a9ffc660086b34a7f39516da29f5"
+        }
+      ],
+      "sha": "59125b4732df0eedbc4d4c2ab978698ed4348eb7",
+      "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/commits/59125b4732df0eedbc4d4c2ab978698ed4348eb7"
+    },
+    "name": "main",
+    "protected": false,
+    "protection": {
+      "enabled": false,
+      "required_status_checks": {
+        "checks": [],
+        "contexts": [],
+        "enforcement_level": "off"
+      }
+    },
+    "protection_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/branches/main/protection"
+  },
+  "repo": {
+    "allow_auto_merge": false,
+    "allow_forking": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "archive_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/branches{/branch}",
+    "clone_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-.Net.git",
+    "collaborators_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/comments{/number}",
+    "commits_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/contributors",
+    "created_at": "2026-03-27T16:57:07Z",
+    "custom_properties": {},
+    "default_branch": "main",
+    "delete_branch_on_merge": false,
+    "deployments_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/deployments",
+    "description": "The official open-source .NET library by Aspose.Email for creating, reading, and editing Microsoft Outlook files (.msg)",
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/downloads",
+    "events_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/events",
+    "fork": false,
+    "forks": 0,
+    "forks_count": 0,
+    "forks_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/forks",
+    "full_name": "aspose-email-foss/Aspose.Email-FOSS-for-.Net",
+    "git_commits_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/tags{/sha}",
+    "git_url": "git://github.com/aspose-email-foss/Aspose.Email-FOSS-for-.Net.git",
+    "has_discussions": false,
+    "has_downloads": false,
+    "has_issues": true,
+    "has_pages": false,
+    "has_projects": true,
+    "has_pull_requests": true,
+    "has_wiki": true,
+    "homepage": "https://products.aspose.org/email/net/",
+    "hooks_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/hooks",
+    "html_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-.Net",
+    "id": 1193864496,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/issues{/number}",
+    "keys_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/labels{/name}",
+    "language": "C#",
+    "languages_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/languages",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "node_id": "MDc6TGljZW5zZTEz",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit"
+    },
+    "merge_commit_message": "PR_TITLE",
+    "merge_commit_title": "MERGE_MESSAGE",
+    "merges_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/merges",
+    "milestones_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/milestones{/number}",
+    "mirror_url": null,
+    "name": "Aspose.Email-FOSS-for-.Net",
+    "network_count": 0,
+    "node_id": "R_kgDORyjtMA",
+    "notifications_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/notifications{?since,all,participating}",
+    "open_issues": 0,
+    "open_issues_count": 0,
+    "organization": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224592720?v=4",
+      "events_url": "https://api.github.com/users/aspose-email-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-email-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-email-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-email-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-email-foss",
+      "id": 224592720,
+      "login": "aspose-email-foss",
+      "node_id": "O_kgDODWMDUA",
+      "organizations_url": "https://api.github.com/users/aspose-email-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-email-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-email-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-email-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-email-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-email-foss",
+      "user_view_type": "public"
+    },
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224592720?v=4",
+      "events_url": "https://api.github.com/users/aspose-email-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-email-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-email-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-email-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-email-foss",
+      "id": 224592720,
+      "login": "aspose-email-foss",
+      "node_id": "O_kgDODWMDUA",
+      "organizations_url": "https://api.github.com/users/aspose-email-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-email-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-email-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-email-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-email-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-email-foss",
+      "user_view_type": "public"
+    },
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "private": false,
+    "pull_request_creation_policy": "all",
+    "pulls_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/pulls{/number}",
+    "pushed_at": "2026-08-15T07:29:41Z",
+    "releases_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/releases{/id}",
+    "security_and_analysis": {
+      "dependabot_security_updates": {
+        "status": "disabled"
+      },
+      "secret_scanning": {
+        "status": "disabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    },
+    "size": 67,
+    "squash_merge_commit_message": "COMMIT_MESSAGES",
+    "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+    "ssh_url": "git@github.com:aspose-email-foss/Aspose.Email-FOSS-for-.Net.git",
+    "stargazers_count": 1,
+    "stargazers_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/stargazers",
+    "statuses_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/statuses/{sha}",
+    "subscribers_count": 0,
+    "subscribers_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/subscribers",
+    "subscription_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/subscription",
+    "svn_url": "https://github.com/aspose-email-foss/Aspose.Email-FOSS-for-.Net",
+    "tags_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/tags",
+    "teams_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/teams",
+    "temp_clone_token": "",
+    "topics": [],
+    "trees_url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/trees{/sha}",
+    "updated_at": "2026-08-15T07:29:45Z",
+    "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net",
+    "use_squash_pr_title_as_default": false,
+    "visibility": "public",
+    "watchers": 1,
+    "watchers_count": 1,
+    "web_commit_signoff_required": false
+  },
+  "tree": {
+    "sha": "ec98479454c63827c008b67401c2da63170aaf13",
+    "tree": [
+      {
+        "mode": "100644",
+        "path": ".gitignore",
+        "sha": "e81397a8b2233a70a7de349e60c03376e04c03aa",
+        "size": 20,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/e81397a8b2233a70a7de349e60c03376e04c03aa"
+      },
+      {
+        "mode": "100644",
+        "path": "CHANGELOG.md",
+        "sha": "a8b8e7d910fd23a5f9dc0e5444249e6aa7e5b4ca",
+        "size": 502,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/a8b8e7d910fd23a5f9dc0e5444249e6aa7e5b4ca"
+      },
+      {
+        "mode": "100644",
+        "path": "Directory.Build.props",
+        "sha": "d43168c32ec84f2f74df88eab807b5d00c51c403",
+        "size": 333,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/d43168c32ec84f2f74df88eab807b5d00c51c403"
+      },
+      {
+        "mode": "100644",
+        "path": "LICENSE",
+        "sha": "43496321ce4b73e4418c160508b41cf1cf3cadb2",
+        "size": 1081,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/43496321ce4b73e4418c160508b41cf1cf3cadb2"
+      },
+      {
+        "mode": "100644",
+        "path": "PUBLIC_API.md",
+        "sha": "d4d66944df6d3bae7207ea87f7e29e37dc8c0725",
+        "size": 1343,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/d4d66944df6d3bae7207ea87f7e29e37dc8c0725"
+      },
+      {
+        "mode": "100644",
+        "path": "README.md",
+        "sha": "f886f24a7797e4fb7aece95d71a8ce9b3dd7666c",
+        "size": 17354,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/f886f24a7797e4fb7aece95d71a8ce9b3dd7666c"
+      },
+      {
+        "mode": "040000",
+        "path": "examples",
+        "sha": "9819e80496870c6d9de92190c8fe3f5304478ebe",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/trees/9819e80496870c6d9de92190c8fe3f5304478ebe"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/README.md",
+        "sha": "d449e29f295d6e7b9333aa4adbc826f54143fc54",
+        "size": 1849,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/d449e29f295d6e7b9333aa4adbc826f54143fc54"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/create_msg_and_eml.cs",
+        "sha": "20dcbe166af65a6a2e6a1b87574159a6bb822928",
+        "size": 2619,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/20dcbe166af65a6a2e6a1b87574159a6bb822928"
+      },
+      {
+        "mode": "040000",
+        "path": "examples/create_msg_and_eml",
+        "sha": "e2811329c3a934de1d1bd0dfd64c0aa2c0c7febd",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/trees/e2811329c3a934de1d1bd0dfd64c0aa2c0c7febd"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/create_msg_and_eml/create_msg_and_eml.csproj",
+        "sha": "8ce021246a1c5fd9349b4b5b5165157ccf6c2a9a",
+        "size": 500,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/8ce021246a1c5fd9349b4b5b5165157ccf6c2a9a"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/msg_reader.cs",
+        "sha": "2f19c778bfeec3c82bf93d40860deaf17a9fe335",
+        "size": 4162,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/2f19c778bfeec3c82bf93d40860deaf17a9fe335"
+      },
+      {
+        "mode": "040000",
+        "path": "examples/msg_reader",
+        "sha": "8380b28e46bbcbf88db66e8c9c9aba82d556f6e8",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/trees/8380b28e46bbcbf88db66e8c9c9aba82d556f6e8"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/msg_reader/msg_reader.csproj",
+        "sha": "dc749012c145a792ffc715213739d544c8f39f54",
+        "size": 480,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/dc749012c145a792ffc715213739d544c8f39f54"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/msg_summary.cs",
+        "sha": "fbc45615d554746d3be2aae7d5235de9114f5ca2",
+        "size": 5977,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/fbc45615d554746d3be2aae7d5235de9114f5ca2"
+      },
+      {
+        "mode": "040000",
+        "path": "examples/msg_summary",
+        "sha": "ca31fe3007521b563845be56e89219578eae761f",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/trees/ca31fe3007521b563845be56e89219578eae761f"
+      },
+      {
+        "mode": "100644",
+        "path": "examples/msg_summary/msg_summary.csproj",
+        "sha": "0e1692dd6d21b6a8c9af75fbe6b73cc12fb168b0",
+        "size": 483,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/0e1692dd6d21b6a8c9af75fbe6b73cc12fb168b0"
+      },
+      {
+        "mode": "040000",
+        "path": "src",
+        "sha": "1dc2f409e329d3a19f18dc9d2804737a25e2ed97",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/trees/1dc2f409e329d3a19f18dc9d2804737a25e2ed97"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Email.Foss",
+        "sha": "4ed13b001e3f8e9a69e4854e58e057befef9a7d3",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/trees/4ed13b001e3f8e9a69e4854e58e057befef9a7d3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Aspose.Email.Foss.csproj",
+        "sha": "3153bfa939a3700b7194165518572e13becd272f",
+        "size": 1124,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/3153bfa939a3700b7194165518572e13becd272f"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Email.Foss/Cfb",
+        "sha": "0ae9b9e8d6447ab46859152f41d7c720b791c5b2",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/trees/0ae9b9e8d6447ab46859152f41d7c720b791c5b2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Cfb/CfbConstants.cs",
+        "sha": "96819a651e1387d3fc36ddf12172706c0d8fa23f",
+        "size": 1045,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/96819a651e1387d3fc36ddf12172706c0d8fa23f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Cfb/CfbDocument.cs",
+        "sha": "2d3d01c9dfabea03c5c4de13ab3e02daf62fb819",
+        "size": 2441,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/2d3d01c9dfabea03c5c4de13ab3e02daf62fb819"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Cfb/CfbException.cs",
+        "sha": "e74d7393952931127d60ddacf35d34a2d19d6aec",
+        "size": 159,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/e74d7393952931127d60ddacf35d34a2d19d6aec"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Cfb/CfbNode.cs",
+        "sha": "c3f4b24ed5b2a9cbb22f5d8bd02319b153161f9f",
+        "size": 409,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/c3f4b24ed5b2a9cbb22f5d8bd02319b153161f9f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Cfb/CfbReader.cs",
+        "sha": "ee638f8d654ee2bc10f9e76cb49a465a2a7d17d6",
+        "size": 23101,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/ee638f8d654ee2bc10f9e76cb49a465a2a7d17d6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Cfb/CfbStorage.cs",
+        "sha": "77e692f98f97a45b80feeb49adb7cba14fcb2bd6",
+        "size": 537,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/77e692f98f97a45b80feeb49adb7cba14fcb2bd6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Cfb/CfbStream.cs",
+        "sha": "786d4a4e84140a388bb0926c078955d2df04b431",
+        "size": 231,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/786d4a4e84140a388bb0926c078955d2df04b431"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Cfb/CfbWriter.cs",
+        "sha": "6611981b3fecca9157763869d3cf8e58cd0c2cd2",
+        "size": 26680,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/6611981b3fecca9157763869d3cf8e58cd0c2cd2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Cfb/DirectoryColorFlag.cs",
+        "sha": "b02d20accb0e38bc9ab5e8ac1ce2fc9073a3038b",
+        "size": 377,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/b02d20accb0e38bc9ab5e8ac1ce2fc9073a3038b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Cfb/DirectoryEntry.cs",
+        "sha": "7c4fff25ccb2d1c3f48380227ddcb69517d13748",
+        "size": 708,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/7c4fff25ccb2d1c3f48380227ddcb69517d13748"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Cfb/DirectoryEntryNameComparer.cs",
+        "sha": "f92d5f5aff10377be3dfd4ab252527e90b8ed331",
+        "size": 983,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/f92d5f5aff10377be3dfd4ab252527e90b8ed331"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Cfb/DirectoryObjectType.cs",
+        "sha": "f2ed328f54555ea052ef11492c9d013682e88006",
+        "size": 700,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/f2ed328f54555ea052ef11492c9d013682e88006"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Cfb/EncodingHelper.cs",
+        "sha": "fd5fc656dd2df4356f7c6a9a9ac8edcdd7c0be18",
+        "size": 190,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/fd5fc656dd2df4356f7c6a9a9ac8edcdd7c0be18"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Cfb/Header.cs",
+        "sha": "5cb02d8139c556f3952790b126f4fdba27c06dd4",
+        "size": 692,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/5cb02d8139c556f3952790b126f4fdba27c06dd4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Cfb/SectorMarker.cs",
+        "sha": "e7c6ccaa81c5382b7bddd0caaaaf49217135d112",
+        "size": 632,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/e7c6ccaa81c5382b7bddd0caaaaf49217135d112"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Email.Foss/Msg",
+        "sha": "a9969f23f3fdeed29393613dbec9e511f2709516",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/trees/a9969f23f3fdeed29393613dbec9e511f2709516"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/CommonMessagePropertyId.cs",
+        "sha": "2c3bf1be5904173e72093f8c0ba9ffa75f00c7cc",
+        "size": 3589,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/2c3bf1be5904173e72093f8c0ba9ffa75f00c7cc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/MapiAttachment.cs",
+        "sha": "39aa1e00e96e0236b3d6bef2d7698b0c9be019a6",
+        "size": 2044,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/39aa1e00e96e0236b3d6bef2d7698b0c9be019a6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/MapiMessage.Codec.cs",
+        "sha": "546096b2234c52491d3c78ae5c76edbe6908fd22",
+        "size": 18401,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/546096b2234c52491d3c78ae5c76edbe6908fd22"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/MapiMessage.Helpers.cs",
+        "sha": "aba9e9b1aacbdc1f5c53c0cd461c295fae9bec8e",
+        "size": 15492,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/aba9e9b1aacbdc1f5c53c0cd461c295fae9bec8e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/MapiMessage.cs",
+        "sha": "e11ace7ed9b8a0ae1c4812cea49c57b395e34d85",
+        "size": 15801,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/e11ace7ed9b8a0ae1c4812cea49c57b395e34d85"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/MapiProperty.cs",
+        "sha": "293a097cb037e5651b924f7fc4f711d49c872a50",
+        "size": 896,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/293a097cb037e5651b924f7fc4f711d49c872a50"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/MapiPropertyCollection.cs",
+        "sha": "1defbeb12866e280235604b6962c846e59841026",
+        "size": 1756,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/1defbeb12866e280235604b6962c846e59841026"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/MapiRecipient.cs",
+        "sha": "f4a080e0b6773b7b7df85f36f25e4062053783db",
+        "size": 587,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/f4a080e0b6773b7b7df85f36f25e4062053783db"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Email.Foss/Msg/Mime",
+        "sha": "9b915db9576a7e325c533bc08ccfc3a2bc73fa7d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/trees/9b915db9576a7e325c533bc08ccfc3a2bc73fa7d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/Mime/AddressParser.cs",
+        "sha": "b2b9b7978867123c88eac7987f7eec8b3ff77623",
+        "size": 3294,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/b2b9b7978867123c88eac7987f7eec8b3ff77623"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/Mime/CharsetDecoder.cs",
+        "sha": "f2b128d84a8695a85e8d42a205591887203f268e",
+        "size": 857,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/f2b128d84a8695a85e8d42a205591887203f268e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/Mime/EmlMessageMapper.cs",
+        "sha": "0ee5b23c10a30d31ae9f02e7ceb31be546dd3219",
+        "size": 10289,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/0ee5b23c10a30d31ae9f02e7ceb31be546dd3219"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/Mime/HeaderParser.cs",
+        "sha": "e9b17b3ed843537edf68c074a8a85a602bcfe059",
+        "size": 5771,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/e9b17b3ed843537edf68c074a8a85a602bcfe059"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/Mime/MimeBoundaryFactory.cs",
+        "sha": "02b2e9cb00770c21863850900edf248f4b5947a5",
+        "size": 257,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/02b2e9cb00770c21863850900edf248f4b5947a5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/Mime/MimeEntity.cs",
+        "sha": "9309e7d300566e2ecda9acad57bd313dfbef36bf",
+        "size": 2436,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/9309e7d300566e2ecda9acad57bd313dfbef36bf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/Mime/MimeHeader.cs",
+        "sha": "d66f9215e6e82b36c479f9af88525f246ccb0e0c",
+        "size": 413,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/d66f9215e6e82b36c479f9af88525f246ccb0e0c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/Mime/MimeMessageModel.cs",
+        "sha": "48b03fbd4349a7d36c9795a63af1a0f95156e48c",
+        "size": 1521,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/48b03fbd4349a7d36c9795a63af1a0f95156e48c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/Mime/MimeMultipart.cs",
+        "sha": "966d727086677c021eae76981008590599005202",
+        "size": 505,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/966d727086677c021eae76981008590599005202"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/Mime/MimePart.cs",
+        "sha": "d3cc12a481bf1883cc8049d5b63a62bb62d4f002",
+        "size": 958,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/d3cc12a481bf1883cc8049d5b63a62bb62d4f002"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/Mime/MimeReader.cs",
+        "sha": "2814bc6b9beb7caf9377da005ebd6e1290d5a513",
+        "size": 2074,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/2814bc6b9beb7caf9377da005ebd6e1290d5a513"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/Mime/MimeWriter.cs",
+        "sha": "a4f11da35ca52d7929ba408969430a194256a5c7",
+        "size": 3075,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/a4f11da35ca52d7929ba408969430a194256a5c7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/Mime/MultipartParser.cs",
+        "sha": "0108b28a710a9dcccaf740084a35cfd22660f84d",
+        "size": 2511,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/0108b28a710a9dcccaf740084a35cfd22660f84d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/Mime/TransferEncodingDecoder.cs",
+        "sha": "a4b83c86892035d4238d47837ead1792d9560f9d",
+        "size": 2356,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/a4b83c86892035d4238d47837ead1792d9560f9d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/Mime/TransferEncodingEncoder.cs",
+        "sha": "11b9ab2d1f4fabd86a2aec19a79a63138c161846",
+        "size": 3114,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/11b9ab2d1f4fabd86a2aec19a79a63138c161846"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/MsgConstants.cs",
+        "sha": "f92637e59c397cbe7369e59cc88e37421fd981f5",
+        "size": 1823,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/f92637e59c397cbe7369e59cc88e37421fd981f5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/MsgDocument.cs",
+        "sha": "4124e4ad2852a84abf6764219e5b12017935e3b1",
+        "size": 9454,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/4124e4ad2852a84abf6764219e5b12017935e3b1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/MsgException.cs",
+        "sha": "5303f33e2d21284609c2b373aec630f5d896f90f",
+        "size": 159,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/5303f33e2d21284609c2b373aec630f5d896f90f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/MsgReader.cs",
+        "sha": "768df776f13d95906941f4f499bee643d8521d2b",
+        "size": 12175,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/768df776f13d95906941f4f499bee643d8521d2b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/MsgStorage.cs",
+        "sha": "2a724f036ae6cf4f8e32eb2f5e5e05407a3b902f",
+        "size": 1441,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/2a724f036ae6cf4f8e32eb2f5e5e05407a3b902f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/MsgStorageRole.cs",
+        "sha": "c795796067323f2319bd650976e9f6e43b7a7f95",
+        "size": 219,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/c795796067323f2319bd650976e9f6e43b7a7f95"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/MsgStream.cs",
+        "sha": "d2418d284495f31301f83cfeb680dba6b77cc219",
+        "size": 494,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/d2418d284495f31301f83cfeb680dba6b77cc219"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/MsgWriter.cs",
+        "sha": "207526d55ee03a388c474f0aa7a78a45a5345ea8",
+        "size": 461,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/207526d55ee03a388c474f0aa7a78a45a5345ea8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/PropertyEntryFixedLength.cs",
+        "sha": "8f11a23e844add496e6f3a51799d3e996d0f4f63",
+        "size": 371,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/8f11a23e844add496e6f3a51799d3e996d0f4f63"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/PropertyStreamHeaderSubobject.cs",
+        "sha": "4a581d16715bb35896eb1543b787d6fcff2a4eac",
+        "size": 106,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/4a581d16715bb35896eb1543b787d6fcff2a4eac"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/PropertyStreamHeaderTopLevel.cs",
+        "sha": "3f59df5b507dee66a843623a89a03c9ba1ead99d",
+        "size": 236,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/3f59df5b507dee66a843623a89a03c9ba1ead99d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/PropertyTypeCode.cs",
+        "sha": "47928fa625bbd2629d651e503e17a40e330a5901",
+        "size": 3095,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/47928fa625bbd2629d651e503e17a40e330a5901"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Msg/StorageLayout.cs",
+        "sha": "bbdb759d11f3e8759add68206e2cc706950c9cee",
+        "size": 301,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/bbdb759d11f3e8759add68206e2cc706950c9cee"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Email.Foss/Properties",
+        "sha": "0f98ca33c531138ac8a5624d719adf8b5909be66",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/trees/0f98ca33c531138ac8a5624d719adf8b5909be66"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Email.Foss/Properties/AssemblyInfo.cs",
+        "sha": "10fa8b1c8bc1fc8bc9e5330e8f1ae9b705c3b84e",
+        "size": 164,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/10fa8b1c8bc1fc8bc9e5330e8f1ae9b705c3b84e"
+      },
+      {
+        "mode": "040000",
+        "path": "tests",
+        "sha": "8dd7f46c76e1f14b4853785687cf8f15a9522408",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/trees/8dd7f46c76e1f14b4853785687cf8f15a9522408"
+      },
+      {
+        "mode": "040000",
+        "path": "tests/Aspose.Email.Foss.Tests",
+        "sha": "dc62d34028d7ed67a3ac260f0cc29a2b0127d636",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/trees/dc62d34028d7ed67a3ac260f0cc29a2b0127d636"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Email.Foss.Tests/Aspose.Email.Foss.Tests.csproj",
+        "sha": "7e53d92eb70acc0d1470caecdffcd1806072409d",
+        "size": 998,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/7e53d92eb70acc0d1470caecdffcd1806072409d"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Email.Foss.Tests/CfbRoundTripTests.cs",
+        "sha": "1cfc9f4b9f58cc724befb1a419678245fe4223fa",
+        "size": 1933,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/1cfc9f4b9f58cc724befb1a419678245fe4223fa"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Email.Foss.Tests/MapiMessageEmlTests.cs",
+        "sha": "f3af6c9137d587aa1baa28fcdc6b409a99e86417",
+        "size": 5262,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/f3af6c9137d587aa1baa28fcdc6b409a99e86417"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Email.Foss.Tests/MapiMessageTests.cs",
+        "sha": "392961a2cd7af1b473d7c9e5a05eea76fde5e029",
+        "size": 3718,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/392961a2cd7af1b473d7c9e5a05eea76fde5e029"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Email.Foss.Tests/MetadataSmokeTests.cs",
+        "sha": "446edc616d1f38f8dba3566e42454c5d9e267758",
+        "size": 855,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/446edc616d1f38f8dba3566e42454c5d9e267758"
+      },
+      {
+        "mode": "100644",
+        "path": "tests/Aspose.Email.Foss.Tests/MsgReaderTests.cs",
+        "sha": "0541e776620ed745351457ea352cf5c01de53158",
+        "size": 1957,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/blobs/0541e776620ed745351457ea352cf5c01de53158"
+      }
+    ],
+    "truncated": false,
+    "url": "https://api.github.com/repos/aspose-email-foss/Aspose.Email-FOSS-for-.Net/git/trees/ec98479454c63827c008b67401c2da63170aaf13"
+  }
+}

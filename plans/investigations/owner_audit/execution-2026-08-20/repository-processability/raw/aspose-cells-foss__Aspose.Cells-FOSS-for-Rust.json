@@ -1,0 +1,2426 @@
+{
+  "branch": {
+    "_links": {
+      "html": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/tree/master",
+      "self": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/branches/master"
+    },
+    "commit": {
+      "author": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1225645?v=4",
+        "events_url": "https://api.github.com/users/babar-raza/events{/privacy}",
+        "followers_url": "https://api.github.com/users/babar-raza/followers",
+        "following_url": "https://api.github.com/users/babar-raza/following{/other_user}",
+        "gists_url": "https://api.github.com/users/babar-raza/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/babar-raza",
+        "id": 1225645,
+        "login": "babar-raza",
+        "node_id": "MDQ6VXNlcjEyMjU2NDU=",
+        "organizations_url": "https://api.github.com/users/babar-raza/orgs",
+        "received_events_url": "https://api.github.com/users/babar-raza/received_events",
+        "repos_url": "https://api.github.com/users/babar-raza/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/babar-raza/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/babar-raza/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/babar-raza",
+        "user_view_type": "public"
+      },
+      "comments_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/commits/1a6004af47b1ef15385f9d36d381a8172428cc7e/comments",
+      "commit": {
+        "author": {
+          "date": "2026-08-14T12:32:30Z",
+          "email": "babar.raza@aspose.com",
+          "name": "Babar Raza"
+        },
+        "comment_count": 0,
+        "committer": {
+          "date": "2026-08-14T12:32:30Z",
+          "email": "noreply@github.com",
+          "name": "GitHub"
+        },
+        "message": "docs: refresh repository presentation (#1)\n\n- Restructure README to the standard Aspose FOSS repo-presentation template: banner,\n  Navigation TOC, At a Glance diagram, Key Capabilities, Installation, Dependencies,\n  Quick Start, Additional Examples, Project Structure, API Reference, Documentation &\n  Resources, Scope and Limitations, Development and Testing, License.\n- Add a real \"## Dependencies\" section listing every direct runtime crate dependency\n  (chrono, zip, sha2, base64, serde_json, roxmltree, getrandom), each verified against\n  the real Cargo.toml [dependencies] table -- and correct the prior Installation\n  sentence, which stated no external runtime dependency existed while 7 real crates\n  were declared.\n- Ground the API Reference section in the real, current class/module structure and\n  restore a verified Project Structure section.\n\nCo-authored-by: Claude Sonnet 5 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "bd69c246b6713c1f49632793c639cf1f6d81d531",
+          "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/trees/bd69c246b6713c1f49632793c639cf1f6d81d531"
+        },
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/commits/1a6004af47b1ef15385f9d36d381a8172428cc7e",
+        "verification": {
+          "payload": "tree bd69c246b6713c1f49632793c639cf1f6d81d531\nparent 0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e\nauthor Babar Raza <babar.raza@aspose.com> 1786710750 +0500\ncommitter GitHub <noreply@github.com> 1786710750 +0500\n\ndocs: refresh repository presentation (#1)\n\n- Restructure README to the standard Aspose FOSS repo-presentation template: banner,\n  Navigation TOC, At a Glance diagram, Key Capabilities, Installation, Dependencies,\n  Quick Start, Additional Examples, Project Structure, API Reference, Documentation &\n  Resources, Scope and Limitations, Development and Testing, License.\n- Add a real \"## Dependencies\" section listing every direct runtime crate dependency\n  (chrono, zip, sha2, base64, serde_json, roxmltree, getrandom), each verified against\n  the real Cargo.toml [dependencies] table -- and correct the prior Installation\n  sentence, which stated no external runtime dependency existed while 7 real crates\n  were declared.\n- Ground the API Reference section in the real, current class/module structure and\n  restore a verified Project Structure section.\n\nCo-authored-by: Claude Sonnet 5 <noreply@anthropic.com>",
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqfwreCRC1aQ7uu5UhlAAAfC4QAJcf2GoP8YR0l5EAkOzpDeLR\ntsTNf39yzrqwWTOABRlZpSyu7L+SyAkIkrkXlDNZESTA5fpuZcEAxm0HEMD42c+8\n6WEgK5YhOPeFe3oviVlswSZAM8dlEJT683X3TeJo+t/Ku1Me90TbtPuINWz9binn\nyNVEn+6HZG26eBpLSgg6mqku9+rTy6v4sZ5CmqcxRONGoZ7xkOL5Tem75woTGGue\n7FrMGnaKgtK/NSUs2YGJPiFRltAT+OOIRroVSftL3uZd3akPAwNEs68XLSr69VBK\nD7NiQy3RxoQuabdfuOejUCBG8ARTa+Kvt6H0ObKw82WY2UpUgt+2q4Fm6NIz6B8L\nLkhoJNNUU0jkqVPh5vrJk+6TA0b0kPbJ4Fo/JR5NX1xAZM5XwOMAPGnWhLelpoJa\nD3v+MmnmJFWeYq8SCZPCU31npUwyDl/kd5w2ZQcO3u+ODEI92ZMG4KDMhN5Q66v9\nb+3a5jECrXxpluxGWYyisUYtvNDmo6Sg2s8OtRjr+PRzUy6RM8nM2pnslG8QKoqW\nm9foYA8Zx08yn243vi12PAAXlgCMXKjbIDIbk8qOuN0jw7yagIS9zaPwfqMfjbis\n0g8sZBymn50IcdDZrECjYtA98F9qFy0S1OtVks8DmsO60v1tMx6bay/TjFnk9FeM\nWerEeUd4KFQPJPINh/gD\n=UJ2w\n-----END PGP SIGNATURE-----\n",
+          "verified": true,
+          "verified_at": "2026-08-14T12:32:36Z"
+        }
+      },
+      "committer": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/web-flow",
+        "id": 19864447,
+        "login": "web-flow",
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/web-flow",
+        "user_view_type": "public"
+      },
+      "html_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/commit/1a6004af47b1ef15385f9d36d381a8172428cc7e",
+      "node_id": "C_kwDOTZCIZtoAKDFhNjAwNGFmNDdiMWVmMTUzODVmOWQzNmQzODFhODE3MjQyOGNjN2U",
+      "parents": [
+        {
+          "html_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/commit/0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+          "sha": "0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e",
+          "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/commits/0339b7e7dcb65c3ac0f77ddbe0effb69c83f0e2e"
+        }
+      ],
+      "sha": "1a6004af47b1ef15385f9d36d381a8172428cc7e",
+      "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/commits/1a6004af47b1ef15385f9d36d381a8172428cc7e"
+    },
+    "name": "master",
+    "protected": false,
+    "protection": {
+      "enabled": false,
+      "required_status_checks": {
+        "checks": [],
+        "contexts": [],
+        "enforcement_level": "off"
+      }
+    },
+    "protection_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/branches/master/protection"
+  },
+  "repo": {
+    "allow_auto_merge": false,
+    "allow_forking": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "allow_update_branch": false,
+    "archive_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/branches{/branch}",
+    "clone_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust.git",
+    "collaborators_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/comments{/number}",
+    "commits_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/contributors",
+    "created_at": "2026-07-15T07:14:23Z",
+    "custom_properties": {},
+    "default_branch": "master",
+    "delete_branch_on_merge": false,
+    "deployments_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/deployments",
+    "description": "Open-source Rust library for creating, reading, modifying, and converting Excel files programmatically.",
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/downloads",
+    "events_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/events",
+    "fork": false,
+    "forks": 0,
+    "forks_count": 0,
+    "forks_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/forks",
+    "full_name": "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+    "git_commits_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/tags{/sha}",
+    "git_url": "git://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust.git",
+    "has_discussions": false,
+    "has_downloads": false,
+    "has_issues": true,
+    "has_pages": true,
+    "has_projects": true,
+    "has_pull_requests": true,
+    "has_wiki": true,
+    "homepage": "https://products.aspose.org/cells/rust/",
+    "hooks_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/hooks",
+    "html_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+    "id": 1301317734,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/issues{/number}",
+    "keys_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/labels{/name}",
+    "language": "Rust",
+    "languages_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/languages",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "node_id": "MDc6TGljZW5zZTEz",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit"
+    },
+    "merge_commit_message": "PR_TITLE",
+    "merge_commit_title": "MERGE_MESSAGE",
+    "merges_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/merges",
+    "milestones_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/milestones{/number}",
+    "mirror_url": null,
+    "name": "Aspose.Cells-FOSS-for-Rust",
+    "network_count": 0,
+    "node_id": "R_kgDOTZCIZg",
+    "notifications_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/notifications{?since,all,participating}",
+    "open_issues": 0,
+    "open_issues_count": 0,
+    "organization": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224591102?v=4",
+      "events_url": "https://api.github.com/users/aspose-cells-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-cells-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-cells-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-cells-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-cells-foss",
+      "id": 224591102,
+      "login": "aspose-cells-foss",
+      "node_id": "O_kgDODWL8_g",
+      "organizations_url": "https://api.github.com/users/aspose-cells-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-cells-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-cells-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-cells-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-cells-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-cells-foss",
+      "user_view_type": "public"
+    },
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/224591102?v=4",
+      "events_url": "https://api.github.com/users/aspose-cells-foss/events{/privacy}",
+      "followers_url": "https://api.github.com/users/aspose-cells-foss/followers",
+      "following_url": "https://api.github.com/users/aspose-cells-foss/following{/other_user}",
+      "gists_url": "https://api.github.com/users/aspose-cells-foss/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/aspose-cells-foss",
+      "id": 224591102,
+      "login": "aspose-cells-foss",
+      "node_id": "O_kgDODWL8_g",
+      "organizations_url": "https://api.github.com/users/aspose-cells-foss/orgs",
+      "received_events_url": "https://api.github.com/users/aspose-cells-foss/received_events",
+      "repos_url": "https://api.github.com/users/aspose-cells-foss/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/aspose-cells-foss/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/aspose-cells-foss/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/aspose-cells-foss",
+      "user_view_type": "public"
+    },
+    "permissions": {
+      "admin": true,
+      "maintain": true,
+      "pull": true,
+      "push": true,
+      "triage": true
+    },
+    "private": false,
+    "pull_request_creation_policy": "all",
+    "pulls_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/pulls{/number}",
+    "pushed_at": "2026-08-14T12:32:32Z",
+    "releases_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/releases{/id}",
+    "security_and_analysis": {
+      "dependabot_security_updates": {
+        "status": "disabled"
+      },
+      "secret_scanning": {
+        "status": "disabled"
+      },
+      "secret_scanning_non_provider_patterns": {
+        "status": "disabled"
+      },
+      "secret_scanning_push_protection": {
+        "status": "disabled"
+      },
+      "secret_scanning_validity_checks": {
+        "status": "disabled"
+      }
+    },
+    "size": 245,
+    "squash_merge_commit_message": "COMMIT_MESSAGES",
+    "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+    "ssh_url": "git@github.com:aspose-cells-foss/Aspose.Cells-FOSS-for-Rust.git",
+    "stargazers_count": 0,
+    "stargazers_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/stargazers",
+    "statuses_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/statuses/{sha}",
+    "subscribers_count": 0,
+    "subscribers_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/subscribers",
+    "subscription_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/subscription",
+    "svn_url": "https://github.com/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+    "tags_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/tags",
+    "teams_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/teams",
+    "temp_clone_token": "",
+    "topics": [],
+    "trees_url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/trees{/sha}",
+    "updated_at": "2026-08-14T12:32:45Z",
+    "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
+    "use_squash_pr_title_as_default": false,
+    "visibility": "public",
+    "watchers": 0,
+    "watchers_count": 0,
+    "web_commit_signoff_required": false
+  },
+  "tree": {
+    "sha": "bd69c246b6713c1f49632793c639cf1f6d81d531",
+    "tree": [
+      {
+        "mode": "040000",
+        "path": ".github",
+        "sha": "3382bbbe89d0d46d2b88407953d85274bc541cef",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/trees/3382bbbe89d0d46d2b88407953d85274bc541cef"
+      },
+      {
+        "mode": "040000",
+        "path": ".github/workflows",
+        "sha": "8c6746c2e6ba7679879c269221e7fc43c240920e",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/trees/8c6746c2e6ba7679879c269221e7fc43c240920e"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/workflows/ci.yml",
+        "sha": "5dc0a649f723128b8e48d49fe65fe90971df1a1d",
+        "size": 1652,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/5dc0a649f723128b8e48d49fe65fe90971df1a1d"
+      },
+      {
+        "mode": "100644",
+        "path": ".github/workflows/pages.yml",
+        "sha": "88625914c4caad7556648d404c84c8f89b279789",
+        "size": 1583,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/88625914c4caad7556648d404c84c8f89b279789"
+      },
+      {
+        "mode": "100644",
+        "path": "AGENTS.md",
+        "sha": "d117657e81c43f89ae8051ff33226d8c4d516a51",
+        "size": 7795,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/d117657e81c43f89ae8051ff33226d8c4d516a51"
+      },
+      {
+        "mode": "100644",
+        "path": "Cargo.toml",
+        "sha": "4249ead9cfa6d18dc96987397056e7575bfee2d3",
+        "size": 1672,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/4249ead9cfa6d18dc96987397056e7575bfee2d3"
+      },
+      {
+        "mode": "100644",
+        "path": "LICENSE.txt",
+        "sha": "cfd30602246e7500fc5f823215c499265cb50fc2",
+        "size": 1086,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/cfd30602246e7500fc5f823215c499265cb50fc2"
+      },
+      {
+        "mode": "040000",
+        "path": "License",
+        "sha": "fb70d7154092114252d8d73b460a472fc4a9cc09",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/trees/fb70d7154092114252d8d73b460a472fc4a9cc09"
+      },
+      {
+        "mode": "100644",
+        "path": "License/LICENSE.txt",
+        "sha": "0efd310a7051ba96b8fa3cd35e309a745cc4642a",
+        "size": 1087,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/0efd310a7051ba96b8fa3cd35e309a745cc4642a"
+      },
+      {
+        "mode": "100644",
+        "path": "README.md",
+        "sha": "6b6c014b69a1afeb29393d5c3a2326fbd153a91e",
+        "size": 33905,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/6b6c014b69a1afeb29393d5c3a2326fbd153a91e"
+      },
+      {
+        "mode": "040000",
+        "path": "samples",
+        "sha": "d37702ea8346578fdb8e3f427b2850d80ae4ba49",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/trees/d37702ea8346578fdb8e3f427b2850d80ae4ba49"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/README.md",
+        "sha": "3383c21e9074d1802d925f58d815a3dde38b8b87",
+        "size": 2038,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/3383c21e9074d1802d925f58d815a3dde38b8b87"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/basic.rs",
+        "sha": "3060c164e4f7b417a4e699631058b7d97d663cb8",
+        "size": 1910,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/3060c164e4f7b417a4e699631058b7d97d663cb8"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/charts.rs",
+        "sha": "ea2bab469b61cdae55c2da323c2b1afebe5fb201",
+        "size": 2616,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/ea2bab469b61cdae55c2da323c2b1afebe5fb201"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/comments.rs",
+        "sha": "0eea839800ccac674c0c5dc4e56afc81b2486372",
+        "size": 2929,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/0eea839800ccac674c0c5dc4e56afc81b2486372"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/common.rs",
+        "sha": "47af4b912b930b2583da8f7794b86959d8197616",
+        "size": 5810,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/47af4b912b930b2583da8f7794b86959d8197616"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/conditional_formatting.rs",
+        "sha": "ce2d0d91564d1810da9d2964c66b97b70d252eba",
+        "size": 6450,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/ce2d0d91564d1810da9d2964c66b97b70d252eba"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/document_properties.rs",
+        "sha": "a3e072123683bcbe5c8ec82e05f4071ed0734034",
+        "size": 2566,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/a3e072123683bcbe5c8ec82e05f4071ed0734034"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/hyperlinks_and_names.rs",
+        "sha": "a9c64c8fbed39de51bd8a58922e88fed98e99877",
+        "size": 4994,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/a9c64c8fbed39de51bd8a58922e88fed98e99877"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/list_objects.rs",
+        "sha": "596f1cdb0dd4fa4e2b9cbad5b55b3c69cb6beb19",
+        "size": 4481,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/596f1cdb0dd4fa4e2b9cbad5b55b3c69cb6beb19"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/loading.rs",
+        "sha": "f114e6db90f34fdd227967c79e669d2057755ff7",
+        "size": 1631,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f114e6db90f34fdd227967c79e669d2057755ff7"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/pagesetup.rs",
+        "sha": "186f7120f1bf83258b61a6e732d5dd3718a9bb05",
+        "size": 2670,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/186f7120f1bf83258b61a6e732d5dd3718a9bb05"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/pictures.rs",
+        "sha": "f23fb9032bd5b7abe827c1f6cd2f78676756ec7a",
+        "size": 2544,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f23fb9032bd5b7abe827c1f6cd2f78676756ec7a"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/shapes.rs",
+        "sha": "dae99ae27de2e093985c37468b80b580533f15da",
+        "size": 3164,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/dae99ae27de2e093985c37468b80b580533f15da"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/styles.rs",
+        "sha": "0f5250bea188ca6798dfd137612663a3bcedbbdc",
+        "size": 18590,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/0f5250bea188ca6798dfd137612663a3bcedbbdc"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/validations.rs",
+        "sha": "69cdc745f67e7585f12d42580cb0e95271ca2663",
+        "size": 4155,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/69cdc745f67e7585f12d42580cb0e95271ca2663"
+      },
+      {
+        "mode": "100644",
+        "path": "samples/worksheet_settings.rs",
+        "sha": "3f5579cfef039a2fa72670905851b01f7ee37abe",
+        "size": 2933,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/3f5579cfef039a2fa72670905851b01f7ee37abe"
+      },
+      {
+        "mode": "040000",
+        "path": "src",
+        "sha": "48b878b868d8666e37f137049c42b268a4c2049c",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/trees/48b878b868d8666e37f137049c42b268a4c2049c"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Cells_FOSS",
+        "sha": "8c2a09277191e17960dfaf35cbc754056440a8dc",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/trees/8c2a09277191e17960dfaf35cbc754056440a8dc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/AutoFilter.rs",
+        "sha": "bcd30e71b2706700dabe594d04ad9833e030cd1c",
+        "size": 1639,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/bcd30e71b2706700dabe594d04ad9833e030cd1c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/AutoFilterColorFilter.rs",
+        "sha": "fcb7e54623b393ddfd2cb70ed368726dde2d9dd3",
+        "size": 1055,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/fcb7e54623b393ddfd2cb70ed368726dde2d9dd3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/AutoFilterCustomFilter.rs",
+        "sha": "f7d00ddeeb404b07aa33b9a9ab6fd6e881ecb82b",
+        "size": 952,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f7d00ddeeb404b07aa33b9a9ab6fd6e881ecb82b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/AutoFilterCustomFilterCollection.rs",
+        "sha": "eaf2fb88d1ac8c93d3db940dc9c916c98ebcb3d2",
+        "size": 1444,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/eaf2fb88d1ac8c93d3db940dc9c916c98ebcb3d2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/AutoFilterDynamicFilter.rs",
+        "sha": "640f4e365ef99f8ac6414f2301fcca6780e05c76",
+        "size": 1175,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/640f4e365ef99f8ac6414f2301fcca6780e05c76"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/AutoFilterLive.rs",
+        "sha": "b149633f21e9aa310a6e6111ae6fcc792b4d5559",
+        "size": 2364,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/b149633f21e9aa310a6e6111ae6fcc792b4d5559"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/AutoFilterSortCondition.rs",
+        "sha": "1953a82b93c1e01d6f7275a87d97eba2371484cd",
+        "size": 2218,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/1953a82b93c1e01d6f7275a87d97eba2371484cd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/AutoFilterSortConditionCollection.rs",
+        "sha": "31ce6a93ac0f40a1cb61228cf0446993dfae56d7",
+        "size": 1103,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/31ce6a93ac0f40a1cb61228cf0446993dfae56d7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/AutoFilterSortState.rs",
+        "sha": "d7d771d545d3e380c427f9478ab9b0a2768b7161",
+        "size": 1483,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/d7d771d545d3e380c427f9478ab9b0a2768b7161"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/AutoFilterSupport.rs",
+        "sha": "de29b190305a6ce18a6d1037c132cf0b3e169870",
+        "size": 2441,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/de29b190305a6ce18a6d1037c132cf0b3e169870"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/AutoFilterTop10.rs",
+        "sha": "0d1dbda1f2289cea7c808279fd97d29fa0711117",
+        "size": 1409,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/0d1dbda1f2289cea7c808279fd97d29fa0711117"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/AutoShapeType.rs",
+        "sha": "17bfd1dca2be73849fbca76c3e45bdfd57c71e06",
+        "size": 735,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/17bfd1dca2be73849fbca76c3e45bdfd57c71e06"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Border.rs",
+        "sha": "eec9522632c0a97896c8bd8eac8796e5ca437144",
+        "size": 1823,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/eec9522632c0a97896c8bd8eac8796e5ca437144"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/BorderStyleType.rs",
+        "sha": "1f6eed797651fc1417357dc5ee3d5aeda9b4b49d",
+        "size": 2543,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/1f6eed797651fc1417357dc5ee3d5aeda9b4b49d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Borders.rs",
+        "sha": "335482ec924871c9adee19212d2845065e55af44",
+        "size": 3927,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/335482ec924871c9adee19212d2845065e55af44"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/CalculationProperties.rs",
+        "sha": "0c3f2432d78233eb4acc59fd09d263f9ad0013e8",
+        "size": 6634,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/0c3f2432d78233eb4acc59fd09d263f9ad0013e8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Cell.rs",
+        "sha": "4ce9627c5d068aae7374f8091815e0bf5e180ce0",
+        "size": 29050,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/4ce9627c5d068aae7374f8091815e0bf5e180ce0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/CellArea.rs",
+        "sha": "6fa22ca6ff46eb76cec906886e32adb804cb73ac",
+        "size": 3950,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/6fa22ca6ff46eb76cec906886e32adb804cb73ac"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/CellFormatValue.rs",
+        "sha": "8e06dabe3c8f558242b642144bf4acc425a0f724",
+        "size": 69,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/8e06dabe3c8f558242b642144bf4acc425a0f724"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/CellValueType.rs",
+        "sha": "01bf6008a57b1bff0e6d6d0a2c15e34b79de24e3",
+        "size": 224,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/01bf6008a57b1bff0e6d6d0a2c15e34b79de24e3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Cells.rs",
+        "sha": "307fce1fbc8e0f60b2a93ced94503acff3b510ed",
+        "size": 8635,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/307fce1fbc8e0f60b2a93ced94503acff3b510ed"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/CellsException.rs",
+        "sha": "122d5a7fc774e0a670ec2d39624e45305750049c",
+        "size": 918,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/122d5a7fc774e0a670ec2d39624e45305750049c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Chart.rs",
+        "sha": "8393f3d1f8af6d1fab1bcb0cc3eeb77f06e41454",
+        "size": 3864,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/8393f3d1f8af6d1fab1bcb0cc3eeb77f06e41454"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ChartCollection.rs",
+        "sha": "4c4ffaebadf22e43b8512ec71378f8b1d9612f90",
+        "size": 4900,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/4c4ffaebadf22e43b8512ec71378f8b1d9612f90"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Cells_FOSS/ChartDefaults",
+        "sha": "0734199220f70f534939b65e74fa6e6610653610",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/trees/0734199220f70f534939b65e74fa6e6610653610"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ChartDefaults/clustered_column_colors.xml",
+        "sha": "619e10acc86e5a147255fcc83eae6663ee8c6324",
+        "size": 879,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/619e10acc86e5a147255fcc83eae6663ee8c6324"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ChartDefaults/clustered_column_style.xml",
+        "sha": "19efb444f462c64d06c00f456269e12b67e703b6",
+        "size": 9667,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/19efb444f462c64d06c00f456269e12b67e703b6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ChartLive.rs",
+        "sha": "4eae3c9ad6903effb503e547c3a5d894261b29c8",
+        "size": 70784,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/4eae3c9ad6903effb503e547c3a5d894261b29c8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ChartType.rs",
+        "sha": "a1e3a70e66a8bc9968dcf0a83f33df7b4737c7d8",
+        "size": 1901,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/a1e3a70e66a8bc9968dcf0a83f33df7b4737c7d8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ChartXmlTemplates.rs",
+        "sha": "ce7d5898618027a69d9ff564c249c2b326505fe7",
+        "size": 18978,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/ce7d5898618027a69d9ff564c249c2b326505fe7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Color.rs",
+        "sha": "c80cb3e2f30fffe075f6e7c04685c5c79ff87d15",
+        "size": 1440,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/c80cb3e2f30fffe075f6e7c04685c5c79ff87d15"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Column.rs",
+        "sha": "c9a27f481844dd2c8c4e30514225178b6db8b00f",
+        "size": 3110,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/c9a27f481844dd2c8c4e30514225178b6db8b00f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ColumnCollection.rs",
+        "sha": "d39b179b76d60e94c128109b8e66e24a2981f9c5",
+        "size": 1605,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/d39b179b76d60e94c128109b8e66e24a2981f9c5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Comment.rs",
+        "sha": "14f7239d4c2623aa9bb3dd8acf8f2904b9552057",
+        "size": 4507,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/14f7239d4c2623aa9bb3dd8acf8f2904b9552057"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/CommentCollection.rs",
+        "sha": "7dc50bb332400c612b8e6f9a9e16938aeba99679",
+        "size": 4497,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/7dc50bb332400c612b8e6f9a9e16938aeba99679"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/CommentLive.rs",
+        "sha": "eb40c9d982c6229b8dc990165e4352c9753e38f4",
+        "size": 633,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/eb40c9d982c6229b8dc990165e4352c9753e38f4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ConditionalFormattingCollection.rs",
+        "sha": "e37e5e8c43eda3dbbf11a5af7fca89734d384cca",
+        "size": 2705,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/e37e5e8c43eda3dbbf11a5af7fca89734d384cca"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Cells_FOSS/Core",
+        "sha": "23990910e95d6d2393259c69967df95e9f911f21",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/trees/23990910e95d6d2393259c69967df95e9f911f21"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/AlignmentValue.rs",
+        "sha": "1198c4fa6da32cccb819d1143b962bc073b5bf0c",
+        "size": 259,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/1198c4fa6da32cccb819d1143b962bc073b5bf0c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/AutoFilterColorFilterModel.rs",
+        "sha": "3bff87ce0e487d9e12cfc4149a7a0b567749b139",
+        "size": 266,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/3bff87ce0e487d9e12cfc4149a7a0b567749b139"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/AutoFilterCustomFilterModel.rs",
+        "sha": "73d150c9ee6af5fce4f7b37aacfb67f49d782da6",
+        "size": 81,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/73d150c9ee6af5fce4f7b37aacfb67f49d782da6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/AutoFilterDynamicFilterModel.rs",
+        "sha": "9c3891f1cd8b4d8936f5bcf37cc19b6036416ed5",
+        "size": 327,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/9c3891f1cd8b4d8936f5bcf37cc19b6036416ed5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/AutoFilterModel.rs",
+        "sha": "d4ae282d8c93874e58072f2103b49d2f1d79319a",
+        "size": 429,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/d4ae282d8c93874e58072f2103b49d2f1d79319a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/AutoFilterSortConditionModel.rs",
+        "sha": "4a78ad4c43b15e8db4cfacb45a0221ff28c5062b",
+        "size": 82,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/4a78ad4c43b15e8db4cfacb45a0221ff28c5062b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/AutoFilterSortStateModel.rs",
+        "sha": "fd9af04810e9ff74e376f02b32f1b2633ddb6493",
+        "size": 559,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/fd9af04810e9ff74e376f02b32f1b2633ddb6493"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/AutoFilterTop10Model.rs",
+        "sha": "877f7f6334cb6a15f1ba491a00592bfbb817936a",
+        "size": 324,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/877f7f6334cb6a15f1ba491a00592bfbb817936a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/BorderSideValue.rs",
+        "sha": "388b51600a5f5db4e33fece7a525b11136d4fc94",
+        "size": 263,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/388b51600a5f5db4e33fece7a525b11136d4fc94"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/BorderStyle.rs",
+        "sha": "36af496a01a86ca16033552e89cb9fed211a647d",
+        "size": 275,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/36af496a01a86ca16033552e89cb9fed211a647d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/BordersValue.rs",
+        "sha": "012c818cec8a79c33c7b9df1fe27a5386fc44a38",
+        "size": 251,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/012c818cec8a79c33c7b9df1fe27a5386fc44a38"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/CalculationPropertiesModel.rs",
+        "sha": "f3417e8cd8fcfc92fbfdae79e517ab1d96754b64",
+        "size": 769,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f3417e8cd8fcfc92fbfdae79e517ab1d96754b64"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/CellAddress.rs",
+        "sha": "e014d82a8d81446d1e04077418f491af3d384ffe",
+        "size": 3283,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/e014d82a8d81446d1e04077418f491af3d384ffe"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/CellRecord.rs",
+        "sha": "5b1a6a8bf118742b09d1c553ccb48b6a52a4304f",
+        "size": 64,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/5b1a6a8bf118742b09d1c553ccb48b6a52a4304f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/CellValueKind.rs",
+        "sha": "e6dc586a93e09435aad47f378f7d6582759c4d91",
+        "size": 166,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/e6dc586a93e09435aad47f378f7d6582759c4d91"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/ChartCompanionFile.rs",
+        "sha": "150dcee908eb4da57d4275cea4f94ef302173a98",
+        "size": 72,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/150dcee908eb4da57d4275cea4f94ef302173a98"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/ChartModel.rs",
+        "sha": "32b29cfaab34907a16bdc5e0629ea5181ba477c4",
+        "size": 64,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/32b29cfaab34907a16bdc5e0629ea5181ba477c4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/ColorValue.rs",
+        "sha": "6b884db1b923cbe8667ee4e935829e28bccc8f71",
+        "size": 484,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/6b884db1b923cbe8667ee4e935829e28bccc8f71"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/ColumnRangeModel.rs",
+        "sha": "8d0dc3c73f1a1c871e7fdeee88f78ebde13450c8",
+        "size": 70,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/8d0dc3c73f1a1c871e7fdeee88f78ebde13450c8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/CommentModel.rs",
+        "sha": "de62f74564096dc721d406420256651d8a676ead",
+        "size": 66,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/de62f74564096dc721d406420256651d8a676ead"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/ConditionalFormattingModel.rs",
+        "sha": "c62c3a1d042589aea95006ccc9a25d889b8eac69",
+        "size": 192,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/c62c3a1d042589aea95006ccc9a25d889b8eac69"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/CoreDocumentPropertiesModel.rs",
+        "sha": "486210a8179aaccc1f1c0808dc064a691aa9722c",
+        "size": 1028,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/486210a8179aaccc1f1c0808dc064a691aa9722c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/DateSerialConverter.rs",
+        "sha": "48d2d2588136e694037d646a32fb061a5b98fbf2",
+        "size": 2567,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/48d2d2588136e694037d646a32fb061a5b98fbf2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/DateSystem.rs",
+        "sha": "8a70fe7b169ec72d2a78147a7377ff2ae720f8f6",
+        "size": 107,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/8a70fe7b169ec72d2a78147a7377ff2ae720f8f6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/DefinedNameModel.rs",
+        "sha": "92ad790ff266b9086251724b6e6f7bd2361a71e5",
+        "size": 70,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/92ad790ff266b9086251724b6e6f7bd2361a71e5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/DiagnosticBag.rs",
+        "sha": "39cac97fce6f922a2aa68c5dd1d374601e80e813",
+        "size": 310,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/39cac97fce6f922a2aa68c5dd1d374601e80e813"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/DiagnosticEntry.rs",
+        "sha": "63895dab32e6d2b0eea5a3a32ebd8e883ee294a5",
+        "size": 69,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/63895dab32e6d2b0eea5a3a32ebd8e883ee294a5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/DiagnosticSeverity.rs",
+        "sha": "681cc9df53afccb4f4aa159d4b31c55fa2628781",
+        "size": 148,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/681cc9df53afccb4f4aa159d4b31c55fa2628781"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/DocumentPropertiesModel.rs",
+        "sha": "cf888e5d88f8575e415c51477fb6933745d42f62",
+        "size": 436,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/cf888e5d88f8575e415c51477fb6933745d42f62"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/ExtendedDocumentPropertiesModel.rs",
+        "sha": "cccb15b0ccafff0b46734aa284e100fab80fcceb",
+        "size": 832,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/cccb15b0ccafff0b46734aa284e100fab80fcceb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/ExternalLinkModel.rs",
+        "sha": "f5624e22efbd80516aff414a90debf24da40ac90",
+        "size": 71,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f5624e22efbd80516aff414a90debf24da40ac90"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/FillPatternKind.rs",
+        "sha": "f87749bd87e89881f9a2108be0a72ec7a964ea95",
+        "size": 356,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f87749bd87e89881f9a2108be0a72ec7a964ea95"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/FilterColumnModel.rs",
+        "sha": "e69a162ee7f628ddc9191f4dab42b9fd5834dac9",
+        "size": 513,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/e69a162ee7f628ddc9191f4dab42b9fd5834dac9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/FontValue.rs",
+        "sha": "b8ddf464c1c90f125e7f1523b5ce9613478dcf83",
+        "size": 239,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/b8ddf464c1c90f125e7f1523b5ce9613478dcf83"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/FormatConditionModel.rs",
+        "sha": "96bcfcfc849353bad47dc1cdda00664ac24d7e64",
+        "size": 2002,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/96bcfcfc849353bad47dc1cdda00664ac24d7e64"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/HeaderFooterModel.rs",
+        "sha": "0153461862217180535f1577a2328a63653637fe",
+        "size": 358,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/0153461862217180535f1577a2328a63653637fe"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/HorizontalAlignment.rs",
+        "sha": "9d8b3b9df8534798246f0963d86a61e8b11dc709",
+        "size": 194,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/9d8b3b9df8534798246f0963d86a61e8b11dc709"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/HyperlinkModel.rs",
+        "sha": "f4c9bd7c7fb831edcb4c5d3f6b89b87bfa93d6c1",
+        "size": 68,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f4c9bd7c7fb831edcb4c5d3f6b89b87bfa93d6c1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/ListColumnModel.rs",
+        "sha": "7e1b686962659554481459c5cc51b45d83e79757",
+        "size": 69,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/7e1b686962659554481459c5cc51b45d83e79757"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/ListObjectModel.rs",
+        "sha": "b91ebcdbda66922b026e73c0a5d410c36e5e31d1",
+        "size": 69,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/b91ebcdbda66922b026e73c0a5d410c36e5e31d1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/MergeRegion.rs",
+        "sha": "1b96bd1ae6938f8cc823e21a89fbd16c7928a6d3",
+        "size": 65,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/1b96bd1ae6938f8cc823e21a89fbd16c7928a6d3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/NumberFormatValue.rs",
+        "sha": "ce2e578f8aa8195791c592fcab4e9bc83ba722cf",
+        "size": 271,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/ce2e578f8aa8195791c592fcab4e9bc83ba722cf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/PageMarginsModel.rs",
+        "sha": "73e5dd0a419f4ec1e01f585a6ff04e1c18b0046f",
+        "size": 479,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/73e5dd0a419f4ec1e01f585a6ff04e1c18b0046f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/PageOrientation.rs",
+        "sha": "32fa6712cbf3701333ef12cdde2324e792cf4b87",
+        "size": 140,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/32fa6712cbf3701333ef12cdde2324e792cf4b87"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/PageSetupModel.rs",
+        "sha": "aa65d0ea31f6bfe0eb0cd3c10e3f81fe722acdca",
+        "size": 1600,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/aa65d0ea31f6bfe0eb0cd3c10e3f81fe722acdca"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/PictureModel.rs",
+        "sha": "1bc834c7ff7f682fca4ade99b3a665f524ab82fa",
+        "size": 66,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/1bc834c7ff7f682fca4ade99b3a665f524ab82fa"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/PrintOptionsModel.rs",
+        "sha": "d3e094b9b4131708dfed74c5813e99740c76825b",
+        "size": 234,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/d3e094b9b4131708dfed74c5813e99740c76825b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/ProtectionValue.rs",
+        "sha": "a1a4d393577f2c453738aaa6c6ed85dfb9f8f18e",
+        "size": 263,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/a1a4d393577f2c453738aaa6c6ed85dfb9f8f18e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/RowModel.rs",
+        "sha": "1c85d4711954df3849b685eeb037206c665f3cdf",
+        "size": 62,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/1c85d4711954df3849b685eeb037206c665f3cdf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/ShapeImageModel.rs",
+        "sha": "077b07b045b591f40dc7a1e6e8f2c03acad2f247",
+        "size": 69,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/077b07b045b591f40dc7a1e6e8f2c03acad2f247"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/ShapeModel.rs",
+        "sha": "960cdd39f6f7035c167efbe65380007c58351145",
+        "size": 64,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/960cdd39f6f7035c167efbe65380007c58351145"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/SharedStringRepository.rs",
+        "sha": "946ca66b675f885b8da70aca74765bf4e0d636a1",
+        "size": 1228,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/946ca66b675f885b8da70aca74765bf4e0d636a1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/SheetVisibility.rs",
+        "sha": "fa589cb8ab715a4bbddc60b26d6c57a8f1d5db2a",
+        "size": 139,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/fa589cb8ab715a4bbddc60b26d6c57a8f1d5db2a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/StyleRepository.rs",
+        "sha": "5b0b688ece4b3068544ad531cdbc250303494c3b",
+        "size": 268,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/5b0b688ece4b3068544ad531cdbc250303494c3b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/StyleValue.rs",
+        "sha": "c111559f3b96b31e1844316a8bdbdb0a6d8ce44c",
+        "size": 243,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/c111559f3b96b31e1844316a8bdbdb0a6d8ce44c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/ValidationModel.rs",
+        "sha": "7e4a7f05355fd4560e9ceee337ccd3f0d37f355b",
+        "size": 1151,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/7e4a7f05355fd4560e9ceee337ccd3f0d37f355b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/VerticalAlignment.rs",
+        "sha": "7eef5a601667548a867f5c1699926313e502942c",
+        "size": 147,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/7eef5a601667548a867f5c1699926313e502942c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/WorkbookModel.rs",
+        "sha": "5a1258125b13edc6006d1cc1990fa02ee4ba893e",
+        "size": 67,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/5a1258125b13edc6006d1cc1990fa02ee4ba893e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/WorkbookPropertiesModel.rs",
+        "sha": "cf07dbcb36f83fb0f662a2ae1ea1a41d2267fbb5",
+        "size": 804,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/cf07dbcb36f83fb0f662a2ae1ea1a41d2267fbb5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/WorkbookProtectionModel.rs",
+        "sha": "99b7b6c046b0f9f1ea7800873cd48897b246a6d5",
+        "size": 592,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/99b7b6c046b0f9f1ea7800873cd48897b246a6d5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/WorkbookSettingsModel.rs",
+        "sha": "60771613acb104845c93d9240d3620fc835ef7a7",
+        "size": 75,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/60771613acb104845c93d9240d3620fc835ef7a7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/WorkbookViewModel.rs",
+        "sha": "2267bca1a11a1af31eefe23d996613f0602f32ad",
+        "size": 757,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/2267bca1a11a1af31eefe23d996613f0602f32ad"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/WorksheetModel.rs",
+        "sha": "140dd7b712d32ec1ba148df4deee1e4469cb6115",
+        "size": 68,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/140dd7b712d32ec1ba148df4deee1e4469cb6115"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/WorksheetProtectionModel.rs",
+        "sha": "8f429c60db310e839ff9f0f021d9a424785ddad0",
+        "size": 1061,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/8f429c60db310e839ff9f0f021d9a424785ddad0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Core/WorksheetViewModel.rs",
+        "sha": "8b7d64bbcbd7472725729668d96287086e80eda0",
+        "size": 72,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/8b7d64bbcbd7472725729668d96287086e80eda0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/CoreDocumentProperties.rs",
+        "sha": "66e01935bc32079b3c588904f2196e8696562d18",
+        "size": 3309,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/66e01935bc32079b3c588904f2196e8696562d18"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/DefinedName.rs",
+        "sha": "d40044a4baf5660aefc6b2eba9fff69742c01f49",
+        "size": 2509,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/d40044a4baf5660aefc6b2eba9fff69742c01f49"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/DefinedNameCollection.rs",
+        "sha": "4d569d0a29f342de48f012767026ebdde0587a99",
+        "size": 2079,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/4d569d0a29f342de48f012767026ebdde0587a99"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/DefinedNameUtility.rs",
+        "sha": "21fb019bfa171f61914115d5231aa32b9699b3ca",
+        "size": 2026,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/21fb019bfa171f61914115d5231aa32b9699b3ca"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/DiagnosticSeverity.rs",
+        "sha": "c8ddf68775354cea56d1507d11178daaab85d4c8",
+        "size": 193,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/c8ddf68775354cea56d1507d11178daaab85d4c8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/DisplayFormatSectionInfo.rs",
+        "sha": "f6d8b9a72715205694938adc70c8cc62d6caf0d3",
+        "size": 78,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f6d8b9a72715205694938adc70c8cc62d6caf0d3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/DisplayTextDateFormatSupport.rs",
+        "sha": "109fe05647b1829480c86e6cfc063cad4fde8e5d",
+        "size": 8966,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/109fe05647b1829480c86e6cfc063cad4fde8e5d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/DisplayTextFormatter.rs",
+        "sha": "aedc8a365ec483aba6b6adf83258451c42e7419c",
+        "size": 800,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/aedc8a365ec483aba6b6adf83258451c42e7419c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/DisplayTextFormatterSupport.rs",
+        "sha": "e00c7ff4d706a224cc518883d3fb1a2f4df08e95",
+        "size": 8296,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/e00c7ff4d706a224cc518883d3fb1a2f4df08e95"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/DisplayTextLocaleSupport.rs",
+        "sha": "951cf725d02485c2e4459a51cd45bf1fb4535a9e",
+        "size": 3082,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/951cf725d02485c2e4459a51cd45bf1fb4535a9e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/DisplayValueFormatter.rs",
+        "sha": "dc570a319e07e8761338297dee2a89c103521d7b",
+        "size": 47818,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/dc570a319e07e8761338297dee2a89c103521d7b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/DocumentProperties.rs",
+        "sha": "398724ba32ec75fb2a080034e48d07194acd5fa7",
+        "size": 2863,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/398724ba32ec75fb2a080034e48d07194acd5fa7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ExtendedDocumentProperties.rs",
+        "sha": "38d236b84f47a30f63193454d69f6505a756d5f6",
+        "size": 2951,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/38d236b84f47a30f63193454d69f6505a756d5f6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/FillPattern.rs",
+        "sha": "44a9a4da1ffc0a64d170db583165ae5943bb36ba",
+        "size": 402,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/44a9a4da1ffc0a64d170db583165ae5943bb36ba"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/FillValue.rs",
+        "sha": "a5197065ec7d444e22b0f9c90f6ff857b4c123fe",
+        "size": 63,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/a5197065ec7d444e22b0f9c90f6ff857b4c123fe"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/FilterColumn.rs",
+        "sha": "8f34c8d3900e913bcebd6c01624774a81180c902",
+        "size": 2900,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/8f34c8d3900e913bcebd6c01624774a81180c902"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/FilterColumnCollection.rs",
+        "sha": "365a00056b4f3d357db82b010c57d76625862fcd",
+        "size": 2511,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/365a00056b4f3d357db82b010c57d76625862fcd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/FilterOperatorType.rs",
+        "sha": "540ad43204abb7908372e1120dbccba07f96e5a7",
+        "size": 219,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/540ad43204abb7908372e1120dbccba07f96e5a7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/FilterValueCollection.rs",
+        "sha": "755e5d09ac56668dd506b1a2c8c02947b5bee623",
+        "size": 709,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/755e5d09ac56668dd506b1a2c8c02947b5bee623"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Font.rs",
+        "sha": "cb1abee1d808687418ff01b6eb39737f31caf865",
+        "size": 3611,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/cb1abee1d808687418ff01b6eb39737f31caf865"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/FontUnderlineType.rs",
+        "sha": "5142b394645327ebe2061b604c71721e85282172",
+        "size": 435,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/5142b394645327ebe2061b604c71721e85282172"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/FormatCondition.rs",
+        "sha": "ba999d76d342767df5887d672235e8e6f61cd1ee",
+        "size": 10539,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/ba999d76d342767df5887d672235e8e6f61cd1ee"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/FormatConditionCollection.rs",
+        "sha": "2cba694e237b5a0b067ef215e0e224d19da2a229",
+        "size": 12848,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/2cba694e237b5a0b067ef215e0e224d19da2a229"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/FormatConditionType.rs",
+        "sha": "14286c4c0efc421851f8e364fb7ce11db8848269",
+        "size": 391,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/14286c4c0efc421851f8e364fb7ce11db8848269"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/FormulaException.rs",
+        "sha": "93e355bc33886d20ef13a9b6068c36b0970cae2c",
+        "size": 569,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/93e355bc33886d20ef13a9b6068c36b0970cae2c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/HorizontalAlignmentType.rs",
+        "sha": "dd117561408cf219ba7e34602b58471884de0cc3",
+        "size": 233,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/dd117561408cf219ba7e34602b58471884de0cc3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Hyperlink.rs",
+        "sha": "9553c953e67a5c7f30260e0efd1fc82c771b2f39",
+        "size": 2301,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/9553c953e67a5c7f30260e0efd1fc82c771b2f39"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/HyperlinkCollection.rs",
+        "sha": "eae1851aaaf6ef09d5f9a87bf775f13206b0f264",
+        "size": 4596,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/eae1851aaaf6ef09d5f9a87bf775f13206b0f264"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/HyperlinkLive.rs",
+        "sha": "54abb05f875cde1fe50eacd0436b0e5315994898",
+        "size": 2383,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/54abb05f875cde1fe50eacd0436b0e5315994898"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/IListObjectOwner.rs",
+        "sha": "186a9182e50dae8a37d40fce8620f3e82ea99b23",
+        "size": 69,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/186a9182e50dae8a37d40fce8620f3e82ea99b23"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/IWarningCallback.rs",
+        "sha": "ebf61c77563df69365c32eee936282ca1ef46c90",
+        "size": 162,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/ebf61c77563df69365c32eee936282ca1ef46c90"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ImageType.rs",
+        "sha": "99534fe4e63839347335911a2d8c46df84796930",
+        "size": 203,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/99534fe4e63839347335911a2d8c46df84796930"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/InvalidFileFormatException.rs",
+        "sha": "f75733c063dc39371a39f711f42a4a4282aeab87",
+        "size": 980,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f75733c063dc39371a39f711f42a4a4282aeab87"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ListColumn.rs",
+        "sha": "c60213de4230cd793aa128abed6c49016f5804c8",
+        "size": 3537,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/c60213de4230cd793aa128abed6c49016f5804c8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ListColumnCollection.rs",
+        "sha": "29c2535c586136db0bdb9c0bd4c0002e0b3ce28a",
+        "size": 1067,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/29c2535c586136db0bdb9c0bd4c0002e0b3ce28a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ListObject.rs",
+        "sha": "f530b3b71c4c000b349c8ac310e7375bcf718591",
+        "size": 13585,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f530b3b71c4c000b349c8ac310e7375bcf718591"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ListObjectCollection.rs",
+        "sha": "15c927d592f9766b585cbec457bbda022fb54330",
+        "size": 8175,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/15c927d592f9766b585cbec457bbda022fb54330"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ListObjectLive.rs",
+        "sha": "711c375473df823cec380d80190c60f5f46b09cc",
+        "size": 3452,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/711c375473df823cec380d80190c60f5f46b09cc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ListObjectSupport.rs",
+        "sha": "356fc86b03f8d73d6bd4ca08b4e60056308da980",
+        "size": 4888,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/356fc86b03f8d73d6bd4ca08b4e60056308da980"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/LoadDiagnostics.rs",
+        "sha": "c677130428706e0723ade483b93811ec1ff6d6ef",
+        "size": 725,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/c677130428706e0723ade483b93811ec1ff6d6ef"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/LoadFormat.rs",
+        "sha": "56a1280e5c87ca944368b6214dfdda0b4c50dc77",
+        "size": 130,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/56a1280e5c87ca944368b6214dfdda0b4c50dc77"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/LoadIssue.rs",
+        "sha": "78828d82b44cfe74ca4acdeb841e505b3a92775a",
+        "size": 914,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/78828d82b44cfe74ca4acdeb841e505b3a92775a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/LoadOptions.rs",
+        "sha": "079ef012b34f16a44c3a3cd318805c6edc86b607",
+        "size": 584,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/079ef012b34f16a44c3a3cd318805c6edc86b607"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/NumberFormat.rs",
+        "sha": "6c6439728fa2e907c6f9d4f423e711109db0412f",
+        "size": 4045,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/6c6439728fa2e907c6f9d4f423e711109db0412f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/OperatorType.rs",
+        "sha": "928f964f83dd50a56049ad67787f23b3f6fcafdb",
+        "size": 250,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/928f964f83dd50a56049ad67787f23b3f6fcafdb"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Cells_FOSS/Packaging",
+        "sha": "542bb5e2ca9ff5f048326b9dbd1d47ce7a9b4952",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/trees/542bb5e2ca9ff5f048326b9dbd1d47ce7a9b4952"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Packaging/IPackageReader.rs",
+        "sha": "27098fbe0eb8409c020664ce4c9ffc7e05f7173a",
+        "size": 67,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/27098fbe0eb8409c020664ce4c9ffc7e05f7173a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Packaging/IPackageWriter.rs",
+        "sha": "f2522f1b0b3f01ce13122f704d193fa283d8201f",
+        "size": 67,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f2522f1b0b3f01ce13122f704d193fa283d8201f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Packaging/MissingPartException.rs",
+        "sha": "ce33f9542c77deafe1e0e5632275dde07241da93",
+        "size": 74,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/ce33f9542c77deafe1e0e5632275dde07241da93"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Packaging/PackageLoadContext.rs",
+        "sha": "19fc74390f5bebae0bbe8ef4b8bfc520a8fdf09a",
+        "size": 72,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/19fc74390f5bebae0bbe8ef4b8bfc520a8fdf09a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Packaging/PackageModel.rs",
+        "sha": "77801a627d2dc20fa1f5853f3703a1d09f4d380f",
+        "size": 66,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/77801a627d2dc20fa1f5853f3703a1d09f4d380f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Packaging/PackagePartDescriptor.rs",
+        "sha": "746e986353e1e2db4f1fd10a876a9c9862aa0e66",
+        "size": 75,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/746e986353e1e2db4f1fd10a876a9c9862aa0e66"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Packaging/PackageStructureException.rs",
+        "sha": "30cd4b45dd04dadd8cb8bf5b901d3d04ca92d107",
+        "size": 79,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/30cd4b45dd04dadd8cb8bf5b901d3d04ca92d107"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Packaging/PackagingConventions.rs",
+        "sha": "5e913a498d0627528aebd7305d8373c801477671",
+        "size": 74,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/5e913a498d0627528aebd7305d8373c801477671"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Packaging/RelationshipDescriptor.rs",
+        "sha": "66a0d7685514ac6b5715080f441152980692c3ae",
+        "size": 76,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/66a0d7685514ac6b5715080f441152980692c3ae"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Packaging/RelationshipResolutionException.rs",
+        "sha": "36e4803d6d6113a7ffa980f21e0ba300dfb7e53e",
+        "size": 85,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/36e4803d6d6113a7ffa980f21e0ba300dfb7e53e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/PageOrientationType.rs",
+        "sha": "7d19c2742ef61c7b34bf38b5d358492db4d7d272",
+        "size": 848,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/7d19c2742ef61c7b34bf38b5d358492db4d7d272"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/PageSetup.rs",
+        "sha": "c24c9d92e08c5a139285bc8bcb20dda69b05b217",
+        "size": 19427,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/c24c9d92e08c5a139285bc8bcb20dda69b05b217"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/PaperSizeType.rs",
+        "sha": "f040e59d496ebd004f51d6e8e8048cefcde30f5e",
+        "size": 915,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f040e59d496ebd004f51d6e8e8048cefcde30f5e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Picture.rs",
+        "sha": "441810a3ccac42e71dc3a0b8ab73090ccdcf25e8",
+        "size": 6235,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/441810a3ccac42e71dc3a0b8ab73090ccdcf25e8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/PictureCollection.rs",
+        "sha": "ac6fb3475b94f195d4409ea6654fd1f7f930739b",
+        "size": 6809,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/ac6fb3475b94f195d4409ea6654fd1f7f930739b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/PictureLive.rs",
+        "sha": "ad9ece34e1b2ad659b4014bb41e3bfc4f5aa8138",
+        "size": 1136,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/ad9ece34e1b2ad659b4014bb41e3bfc4f5aa8138"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Row.rs",
+        "sha": "869f084be9736e129d2ffd6809a26e43db44e46e",
+        "size": 3034,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/869f084be9736e129d2ffd6809a26e43db44e46e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/RowCollection.rs",
+        "sha": "f8fbc95e3ef1a5ddd31a77bf81c4b4fb24e385e1",
+        "size": 1527,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f8fbc95e3ef1a5ddd31a77bf81c4b4fb24e385e1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/SaveFormat.rs",
+        "sha": "a3063ebd0051e4583a6809f75be4754a8e072098",
+        "size": 120,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/a3063ebd0051e4583a6809f75be4754a8e072098"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/SaveOptions.rs",
+        "sha": "c8681c027fc9818792bc40525a3041f672e81d9b",
+        "size": 601,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/c8681c027fc9818792bc40525a3041f672e81d9b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Shape.rs",
+        "sha": "2c5386ffd93f517467b7c2445f825c3a73126de7",
+        "size": 5240,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/2c5386ffd93f517467b7c2445f825c3a73126de7"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ShapeCollection.rs",
+        "sha": "10aeb6be6843b7711647b0beda358dcf38fccaa8",
+        "size": 3116,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/10aeb6be6843b7711647b0beda358dcf38fccaa8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ShapeLive.rs",
+        "sha": "1e584dcdd667cc792c14c3b1ee162ae05aa7b59a",
+        "size": 4145,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/1e584dcdd667cc792c14c3b1ee162ae05aa7b59a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/SparklineGroup.rs",
+        "sha": "de37f780a8a9bc0faa215d26809faaa259c091d1",
+        "size": 2624,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/de37f780a8a9bc0faa215d26809faaa259c091d1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/SparklineGroupCollection.rs",
+        "sha": "adafa2afeddcbdafb5a175571a3842d5a5b778f8",
+        "size": 2498,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/adafa2afeddcbdafb5a175571a3842d5a5b778f8"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/SparklineLive.rs",
+        "sha": "0d9894b108c23e81094e6a1f69a2c475574501a4",
+        "size": 1608,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/0d9894b108c23e81094e6a1f69a2c475574501a4"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/SparklineType.rs",
+        "sha": "1c1686f35cba1d03d98fce2ae9d69ddd6623ea8c",
+        "size": 245,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/1c1686f35cba1d03d98fce2ae9d69ddd6623ea8c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Style.rs",
+        "sha": "16891a378f554da7ca9778f2dbd85bc0bf49a397",
+        "size": 13070,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/16891a378f554da7ca9778f2dbd85bc0bf49a397"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/StyleException.rs",
+        "sha": "f53deba51d45c6c3446b84e763ad9a63a66e51b3",
+        "size": 559,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f53deba51d45c6c3446b84e763ad9a63a66e51b3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/StyleFlag.rs",
+        "sha": "53dc359f612a5a72c292ed018de7e6c686b1beee",
+        "size": 7923,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/53dc359f612a5a72c292ed018de7e6c686b1beee"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/StyleValueSanitizer.rs",
+        "sha": "c68ce796a8f3c42b8a8b9210d2f4c9030ca04f84",
+        "size": 1207,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/c68ce796a8f3c42b8a8b9210d2f4c9030ca04f84"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/StylesheetLoadContext.rs",
+        "sha": "871d4d907669f5f507822d1fa2c13203f7a78267",
+        "size": 75,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/871d4d907669f5f507822d1fa2c13203f7a78267"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/StylesheetSaveContext.rs",
+        "sha": "3dd1fce2e7609ce5657166480dc0443c18406d2c",
+        "size": 1303,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/3dd1fce2e7609ce5657166480dc0443c18406d2c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/TableStyleType.rs",
+        "sha": "0a7bf29a7f97ccb6e49e8ec8051001fcb84ea58b",
+        "size": 1585,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/0a7bf29a7f97ccb6e49e8ec8051001fcb84ea58b"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/TargetModeType.rs",
+        "sha": "8b685519d31c9ffeb81f9f3d58246b33e245efff",
+        "size": 181,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/8b685519d31c9ffeb81f9f3d58246b33e245efff"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/TotalsCalculation.rs",
+        "sha": "de2da4de46233a04bea2049c9314412e72c6acdc",
+        "size": 273,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/de2da4de46233a04bea2049c9314412e72c6acdc"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/UnsupportedFeatureException.rs",
+        "sha": "a14a73f6fa62863e80108e6ee767ceb64af3f4aa",
+        "size": 625,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/a14a73f6fa62863e80108e6ee767ceb64af3f4aa"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Validation.rs",
+        "sha": "c7de76eb8f6ff478704789a584ca909cc54907b2",
+        "size": 5858,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/c7de76eb8f6ff478704789a584ca909cc54907b2"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Cells_FOSS/Validation",
+        "sha": "f36a57a05399f195deb6dec8010a22141e429a9d",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/trees/f36a57a05399f195deb6dec8010a22141e429a9d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Validation/ValidationMessage.rs",
+        "sha": "cea8d8bbb713e28d39d6d93c1beee2ab11273728",
+        "size": 71,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/cea8d8bbb713e28d39d6d93c1beee2ab11273728"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Validation/ValidationMessageSeverity.rs",
+        "sha": "63bda1a3c6acf54d15266136c0730d1b6b023c2d",
+        "size": 126,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/63bda1a3c6acf54d15266136c0730d1b6b023c2d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Validation/WorkbookValidator.rs",
+        "sha": "924a0396e76ff7e029c40ff872a8aaf0ef33e22c",
+        "size": 349,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/924a0396e76ff7e029c40ff872a8aaf0ef33e22c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ValidationAlertType.rs",
+        "sha": "153c4e5eb5e09e813c635fe79ccf795b05273cf0",
+        "size": 173,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/153c4e5eb5e09e813c635fe79ccf795b05273cf0"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ValidationCollection.rs",
+        "sha": "423bbc42deb2901c18f608a66a11e662936d1dea",
+        "size": 9928,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/423bbc42deb2901c18f608a66a11e662936d1dea"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/ValidationType.rs",
+        "sha": "abf913db1f2c903448a6ae896565dee6483924d5",
+        "size": 224,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/abf913db1f2c903448a6ae896565dee6483924d5"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/VerticalAlignmentType.rs",
+        "sha": "0e223de6673be7315b806cfedf5f58b68ef4c859",
+        "size": 184,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/0e223de6673be7315b806cfedf5f58b68ef4c859"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/VisibilityType.rs",
+        "sha": "99ef0c5bbb40349b69ff06ef0dd802b148f84c95",
+        "size": 169,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/99ef0c5bbb40349b69ff06ef0dd802b148f84c95"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/WarningInfo.rs",
+        "sha": "425316422676fb34437e0e8402a4e3f95eeefb50",
+        "size": 387,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/425316422676fb34437e0e8402a4e3f95eeefb50"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Workbook.rs",
+        "sha": "90aa3f9df20b3050d4c0d240dc5dcf1185210432",
+        "size": 26101,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/90aa3f9df20b3050d4c0d240dc5dcf1185210432"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/WorkbookLoadException.rs",
+        "sha": "60daf08dbb6635741fd8ce1b901b778b64c632e2",
+        "size": 954,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/60daf08dbb6635741fd8ce1b901b778b64c632e2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/WorkbookProperties.rs",
+        "sha": "d68081e111c31cecb93f39f1af2b36e12f6ae949",
+        "size": 6351,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/d68081e111c31cecb93f39f1af2b36e12f6ae949"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/WorkbookPropertySupport.rs",
+        "sha": "757f3265b4dee33e52a6af6fd81b632e4242d870",
+        "size": 1394,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/757f3265b4dee33e52a6af6fd81b632e4242d870"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/WorkbookProtection.rs",
+        "sha": "51584783ae030505db9c7308ba92dcc71fd31b1a",
+        "size": 9175,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/51584783ae030505db9c7308ba92dcc71fd31b1a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/WorkbookSaveException.rs",
+        "sha": "61a648157c32b31400165c7bcdba2d552e511e83",
+        "size": 954,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/61a648157c32b31400165c7bcdba2d552e511e83"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/WorkbookSettings.rs",
+        "sha": "937aed2a42c93d43f6aa860768d0fce5d42be7e6",
+        "size": 1984,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/937aed2a42c93d43f6aa860768d0fce5d42be7e6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/WorkbookView.rs",
+        "sha": "668e15f004c029dbebce64dfb2115fc7f01e1520",
+        "size": 6351,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/668e15f004c029dbebce64dfb2115fc7f01e1520"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Worksheet.rs",
+        "sha": "4deef7493f59dd4982059876182abf4aff45bdf6",
+        "size": 38341,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/4deef7493f59dd4982059876182abf4aff45bdf6"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/WorksheetCollection.rs",
+        "sha": "cddc33de8c4061db4abc09e5157557d564a50e3d",
+        "size": 8079,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/cddc33de8c4061db4abc09e5157557d564a50e3d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/WorksheetDefinedNamesState.rs",
+        "sha": "a9271dab99ee13024529a26175e4f6245cc8fc7a",
+        "size": 80,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/a9271dab99ee13024529a26175e4f6245cc8fc7a"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/WorksheetProtection.rs",
+        "sha": "08eb5d485e85c86275ee268e4ee9d46e6826766f",
+        "size": 8872,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/08eb5d485e85c86275ee268e4ee9d46e6826766f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxDocumentProperties.rs",
+        "sha": "9946d1bdc265a27aaea23f28b2de4daef6eb6133",
+        "size": 7642,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/9946d1bdc265a27aaea23f28b2de4daef6eb6133"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookArchiveHelpers.rs",
+        "sha": "a41f890248d2bcff9b3de8679291f131f7eb6407",
+        "size": 218,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/a41f890248d2bcff9b3de8679291f131f7eb6407"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookAutoFilter.rs",
+        "sha": "e7faec6d521fcbe12711dc98af244f8b1348cd1c",
+        "size": 11646,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/e7faec6d521fcbe12711dc98af244f8b1348cd1c"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookComments.rs",
+        "sha": "f1616050c30c8c1fe7ef4a334f1035d28fef47f2",
+        "size": 10356,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f1616050c30c8c1fe7ef4a334f1035d28fef47f2"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookCommentsLoader.rs",
+        "sha": "657e831074c16572118e84c5903b73f283711d0f",
+        "size": 7908,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/657e831074c16572118e84c5903b73f283711d0f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookConditionalFormatting.rs",
+        "sha": "1d5b5c9bac8b26909c42d8cde3c598438bca2a6f",
+        "size": 22238,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/1d5b5c9bac8b26909c42d8cde3c598438bca2a6f"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookDefinedNames.rs",
+        "sha": "0859ccff47a6e68877a68db8127223a2d2cf0e65",
+        "size": 4012,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/0859ccff47a6e68877a68db8127223a2d2cf0e65"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookHyperlinks.rs",
+        "sha": "5d831e31eee86c5d00b17ce8c2ed6ea6fbcfa28e",
+        "size": 4796,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/5d831e31eee86c5d00b17ce8c2ed6ea6fbcfa28e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookPageSetup.rs",
+        "sha": "549ee0a01600b10ce8847d7362925b22d4b08019",
+        "size": 26087,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/549ee0a01600b10ce8847d7362925b22d4b08019"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookPictures.rs",
+        "sha": "ce996a35fe0ed42088e37ed5d14dbddb82b17b85",
+        "size": 31028,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/ce996a35fe0ed42088e37ed5d14dbddb82b17b85"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookPicturesLoader.rs",
+        "sha": "86aacf1e7f668bf07b1e59c23782de2be720b31e",
+        "size": 28898,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/86aacf1e7f668bf07b1e59c23782de2be720b31e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookProperties.rs",
+        "sha": "f7a1121c6af51f9fb0ecf0c315d19bd5e1272d40",
+        "size": 16069,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/f7a1121c6af51f9fb0ecf0c315d19bd5e1272d40"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookSerializer.rs",
+        "sha": "b742c6134a36ad4d299f94c7d55f4a5f029f8587",
+        "size": 51905,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/b742c6134a36ad4d299f94c7d55f4a5f029f8587"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookSerializerCommon.rs",
+        "sha": "4f89951cf577ea012b3f717cdd93b537feed9922",
+        "size": 44355,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/4f89951cf577ea012b3f717cdd93b537feed9922"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookSparklines.rs",
+        "sha": "beaf58b4ffa2ca48690ed63b90100c2f752f1ba3",
+        "size": 11397,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/beaf58b4ffa2ca48690ed63b90100c2f752f1ba3"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookStyles.rs",
+        "sha": "8083837010f55da8083236f924a04ec5a1a9d8bb",
+        "size": 49717,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/8083837010f55da8083236f924a04ec5a1a9d8bb"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookStylesValueHelpers.rs",
+        "sha": "3d7b7c31b023e4f12e1157c28b416cb765622f6d",
+        "size": 2295,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/3d7b7c31b023e4f12e1157c28b416cb765622f6d"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookStylesXml.rs",
+        "sha": "ea1889f23b9041263f83e78cc6b60a3c0ac0e886",
+        "size": 18508,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/ea1889f23b9041263f83e78cc6b60a3c0ac0e886"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookTables.rs",
+        "sha": "ac6b8189b669e05a27c4b9a1e7a94620b7454788",
+        "size": 9689,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/ac6b8189b669e05a27c4b9a1e7a94620b7454788"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookValidations.rs",
+        "sha": "ab346731ead62d1a7faa63d877dd2c3519c33bdf",
+        "size": 10593,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/ab346731ead62d1a7faa63d877dd2c3519c33bdf"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookWorksheetLoader.rs",
+        "sha": "d53ab7c0bdb873fe0d270fc71800d92ab083229e",
+        "size": 17809,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/d53ab7c0bdb873fe0d270fc71800d92ab083229e"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookWorksheetProtection.rs",
+        "sha": "b57d7d285f6c9dd13cbcb463f184be1fd7da5ad1",
+        "size": 5208,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/b57d7d285f6c9dd13cbcb463f184be1fd7da5ad1"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookWorksheetViews.rs",
+        "sha": "c7b61703e73cac02370457bab9a9e60e2f0294cd",
+        "size": 7228,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/c7b61703e73cac02370457bab9a9e60e2f0294cd"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/XlsxWorkbookWorksheetWriter.rs",
+        "sha": "7cd689b070b330db4f0edd845e57ba6e9fa3c285",
+        "size": 4594,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/7cd689b070b330db4f0edd845e57ba6e9fa3c285"
+      },
+      {
+        "mode": "040000",
+        "path": "src/Aspose.Cells_FOSS/Xml",
+        "sha": "162d0ff7148b3678f3a4c9a7ba3c7ebf99118118",
+        "type": "tree",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/trees/162d0ff7148b3678f3a4c9a7ba3c7ebf99118118"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Xml/SharedStringTableXmlMapper.rs",
+        "sha": "da6c100b081d9afbad585881c2796e93291be297",
+        "size": 528,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/da6c100b081d9afbad585881c2796e93291be297"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Xml/StylesheetXmlMapper.rs",
+        "sha": "1e11c23b9fbfc0f5b631dceab579f29b0b337543",
+        "size": 518,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/1e11c23b9fbfc0f5b631dceab579f29b0b337543"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Xml/WorkbookXmlMapper.rs",
+        "sha": "ef86355a250e56bd6549006c20efd62ed60520c9",
+        "size": 578,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/ef86355a250e56bd6549006c20efd62ed60520c9"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Xml/WorksheetXmlMapper.rs",
+        "sha": "e6d65d37ad08be05bbf18e3a8bb1628172657585",
+        "size": 514,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/e6d65d37ad08be05bbf18e3a8bb1628172657585"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/Xml/XmlParsingException.rs",
+        "sha": "c07db022875366860885b337342aca35c07806ad",
+        "size": 73,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/c07db022875366860885b337342aca35c07806ad"
+      },
+      {
+        "mode": "100644",
+        "path": "src/Aspose.Cells_FOSS/api.rs",
+        "sha": "2f79e3254ee7b112d3b989c1fe6ab0593a654050",
+        "size": 30357,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/2f79e3254ee7b112d3b989c1fe6ab0593a654050"
+      },
+      {
+        "mode": "100644",
+        "path": "src/lib.rs",
+        "sha": "660da63554372828120c40592e9d8e7c4c9f8c79",
+        "size": 3401,
+        "type": "blob",
+        "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/blobs/660da63554372828120c40592e9d8e7c4c9f8c79"
+      }
+    ],
+    "truncated": false,
+    "url": "https://api.github.com/repos/aspose-cells-foss/Aspose.Cells-FOSS-for-Rust/git/trees/bd69c246b6713c1f49632793c639cf1f6d81d531"
+  }
+}

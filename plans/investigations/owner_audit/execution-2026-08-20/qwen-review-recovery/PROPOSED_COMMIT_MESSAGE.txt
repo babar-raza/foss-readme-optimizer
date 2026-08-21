@@ -1,0 +1,21 @@
+design(review-recovery): repair design for Qwen merged-review reliability
+
+Design-only artifact (no code change): maps a facet-scoped recovery
+dispatcher onto execute_merged_readme_review that detects truncation,
+malformed arguments, top-level schema failure, transport failure, and
+per-facet grounding failure around the single existing merged-review
+call, and recovers only the unresolved facet(s) through the existing
+blind/factual separated clients -- most notably wiring the factual
+fallback client that separated_readme_review.py already constructs and
+currently discards.
+
+Bounded to 1 normal call / 5 worst-case physical calls via
+max_attempts_override=2 on every recovery-path grounding retry. Adds a
+typed QwenReviewRecoveryReceiptV1 for observability; zero-call no-op
+reuse (AGENT_APPROVED -> NO_OP_PROVEN) and the MAX_REPAIR_ATTEMPTS=2
+repair-loop cap are both preserved unchanged.
+
+See runs/owner_audit_staging/qwen-review-recovery-aa9981021/REPORT.md
+for the full design, gap analysis, and requirements traceability.
+
+Pin: aa998102191c530af4dca3a6895d62a4027a613e

@@ -45,6 +45,12 @@ dependencies = [
     # the same ABI/grammar contract without corrupting retained nodes.
     "tree-sitter>=0.25.2,<0.26",
     "tree-sitter-rust>=0.24.2,<0.25",
+    # The locally vendored Aspose.org deterministic scout uses the maintained
+    # multi-language grammar pack plus the dedicated C# grammar. These are
+    # direct runtime dependencies: deployed extraction must not borrow the
+    # sibling Aspose.org checkout or its virtualenv.
+    "tree-sitter-language-pack>=0.13,<0.14",
+    "tree-sitter-c-sharp>=0.23,<0.24",
 ]
 
 [project.optional-dependencies]
@@ -93,6 +99,7 @@ target-version = "py311"
 extend-exclude = [
     "src/readme_agent/vendored_asposeorg",
     "data/imported",
+    "plans/investigations/owner_audit/execution-2026-08-20",
     "tests/fixtures/note_golden_workflow",
 ]
 
