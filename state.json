@@ -2249,7 +2249,7 @@
     "claimed_by": "codex-root",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
-    "goal_activation_graph_sha256": "05028457629e867f073a332f637b3842e0e11ce6bdeb1122a2ac86f482aa504d",
+    "goal_activation_graph_sha256": "9f8b8571ce5d0e5286837fc7de5b86e0e594b6b645e42b1d9b091d078a55734a",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -2477,14 +2477,14 @@
         "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
       }
     ],
-    "graph_sha256": "05028457629e867f073a332f637b3842e0e11ce6bdeb1122a2ac86f482aa504d",
+    "graph_sha256": "9f8b8571ce5d0e5286837fc7de5b86e0e594b6b645e42b1d9b091d078a55734a",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-21T09:42:34.998623+00:00",
+    "last_evaluated_at": "2026-08-22T01:01:59.236976+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
       "denominator": 33,
-      "derived_at": "2026-08-21T07:28:04.809486+00:00",
+      "derived_at": "2026-08-21T09:45:22.488414+00:00",
       "deterministic_validated": 0,
       "facts_ready": 0,
       "first_failing_boundary": "FACTS_READY",
@@ -2516,38 +2516,37 @@
         ],
         "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
+          "manifest_facts_hash_mismatch",
+          "product_truth_hash_mismatch"
         ],
         "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
+          "manifest_facts_hash_mismatch",
+          "product_truth_hash_mismatch"
         ],
         "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_facts_hash_mismatch",
-          "manifest_local_verification_contract_hash_mismatch",
           "product_truth_hash_mismatch"
         ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
           "manifest_facts_hash_mismatch",
-          "manifest_local_verification_contract_hash_mismatch",
           "product_truth_hash_mismatch"
         ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
+          "manifest_facts_hash_mismatch",
+          "product_truth_hash_mismatch"
         ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_facts_hash_mismatch",
-          "manifest_local_verification_contract_hash_mismatch",
           "product_truth_hash_mismatch"
         ],
         "aspose-email-foss/Aspose.Email-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_facts_hash_mismatch",
-          "manifest_local_verification_contract_hash_mismatch",
           "product_truth_hash_mismatch"
         ],
         "aspose-font-foss/Aspose.Font-FOSS-for-Python": [
@@ -2559,13 +2558,11 @@
         "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_facts_hash_mismatch",
-          "manifest_local_verification_contract_hash_mismatch",
           "product_truth_hash_mismatch"
         ],
         "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_facts_hash_mismatch",
-          "manifest_local_verification_contract_hash_mismatch",
           "product_truth_hash_mismatch"
         ],
         "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
@@ -2585,17 +2582,16 @@
         "aspose-slides-foss/Aspose.Slides-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_facts_hash_mismatch",
-          "manifest_local_verification_contract_hash_mismatch",
           "product_truth_hash_mismatch"
         ],
         "aspose-words-foss/Aspose.Words-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
+          "manifest_facts_hash_mismatch",
+          "product_truth_hash_mismatch"
         ],
         "aspose-words-foss/Aspose.Words-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_facts_hash_mismatch",
-          "manifest_local_verification_contract_hash_mismatch",
           "product_truth_hash_mismatch"
         ]
       },
@@ -12434,7 +12430,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1237,
+  "state_version": 1238,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
