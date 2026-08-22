@@ -2525,8 +2525,8 @@
       }
     ],
     "graph_sha256": "a6332e121c3ec41b5846f70a47c2c7ea9b31e5755519156a94b389236d7a0ef9",
-    "infrastructure_tasks_since_visible_delivery": 1,
-    "last_evaluated_at": "2026-08-22T20:50:51.695504+00:00",
+    "infrastructure_tasks_since_visible_delivery": 0,
+    "last_evaluated_at": "2026-08-22T20:54:22.683784+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -2650,7 +2650,25 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "campaign_id": "CAMP-FIRST-PYTHON-SLICE",
+      "core_contribution": {
+        "kind": "first_boundary_removal",
+        "summary": "Establish the first independently sealed unit of portfolio delivery."
+      },
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-AUTONOMY",
+        "GOAL-DELIVERY"
+      ],
+      "immediate_goal_id": "DELIVERY-FIRST-SEALED-NO-OP",
+      "immediate_outcome": "Seal Aspose.3D Python at 30 of 30 and prove exact zero-call no-op.",
+      "repository_scope": [
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+      ],
+      "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
+      "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP"
+    },
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
@@ -2710,7 +2728,7 @@
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
       "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
-      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "SCORED",
+      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "CLOSED",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "TODO",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "TODO",
       "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "TODO",
@@ -12630,6 +12648,20 @@
         "reason": "Independent non-authoring verifier passes every PF-02 output, acceptance check, and negative control.",
         "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/portfolio-proof-pf02-complete-candidate-seam/mission-contribution.json",
+          "plans/investigations/evidence/portfolio-proof-pf02-complete-candidate-seam/closeout-control.json",
+          "plans/investigations/evidence/portfolio-proof-pf02-complete-candidate-seam/independent-verification.json",
+          "runs/verification/pytest-full-latest.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-22T20:54:31.761737+00:00",
+        "reason": "PF-02 evidence is current, reproducible, independently verified, multi-agent-bound, and explicitly bounded before PF-03.",
+        "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -12639,7 +12671,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1272,
+  "state_version": 1273,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
