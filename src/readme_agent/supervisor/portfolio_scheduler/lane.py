@@ -19,6 +19,7 @@ from readme_agent.supervisor.portfolio_scheduler.contracts import (
     StageArtifactV1,
     StageSealV1,
     canonical_sha256,
+    semantic_stage_artifacts,
 )
 
 
@@ -102,7 +103,10 @@ def seal_stage_attempt(
     artifacts = _artifact_inventory(artifacts_root)
     if not artifacts:
         raise ValueError("cannot seal a stage attempt with no artifacts")
-    output_hash = canonical_sha256([item.model_dump(mode="json") for item in artifacts])
+    semantic_artifacts = semantic_stage_artifacts(work.target_stage, artifacts)
+    if not semantic_artifacts:
+        raise ValueError("cannot seal a stage attempt with no semantic artifacts")
+    output_hash = canonical_sha256([item.model_dump(mode="json") for item in semantic_artifacts])
     result = LaneResultV1(
         campaign_id=work.campaign_id,
         work_id=work.work_id,
@@ -183,8 +187,11 @@ def validate_sealed_stage_attempt(
         for relative, path in actual_paths.items()
     ):
         raise ValueError("sealed stage artifact inventory mismatch")
+    semantic_artifacts = semantic_stage_artifacts(work.target_stage, result.artifacts)
+    if not semantic_artifacts:
+        raise ValueError("sealed stage attempt has no semantic artifacts")
     if result.output_hash != canonical_sha256(
-        [item.model_dump(mode="json") for item in result.artifacts]
+        [item.model_dump(mode="json") for item in semantic_artifacts]
     ):
         raise ValueError("sealed stage output hash mismatch")
     return result, seal

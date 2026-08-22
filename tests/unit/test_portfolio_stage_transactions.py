@@ -178,6 +178,17 @@ def _sealed_candidate_attempt(
     return work, attempt_root, attempt
 
 
+def _write_candidate_transaction_observations(artifacts, transaction_id: str) -> None:
+    write_redacted_json(
+        artifacts / "candidate" / "current-transaction-llm-accounting.json",
+        {"transaction_id": transaction_id, "provider_calls": 1},
+    )
+    write_redacted_text(
+        artifacts / "candidate" / "current-transaction-llm-call-ledger.jsonl",
+        json.dumps({"call_id": transaction_id}) + "\n",
+    )
+
+
 def test_unsealed_or_corrupt_attempt_cannot_publish(tmp_path, monkeypatch):
     work, attempt_root, attempt = _sealed_candidate_attempt(tmp_path, monkeypatch)
 
@@ -319,6 +330,102 @@ def test_candidate_reducer_rejects_changed_stage_owned_artifact_for_same_work(
         (compatibility / "receipts" / "CANDIDATE_GENERATED.json").read_text(encoding="utf-8")
     )
     assert receipt["output_hash"] == first.output_hash
+
+
+def test_candidate_transaction_observations_do_not_change_semantic_receipt(
+    tmp_path,
+    monkeypatch,
+):
+    work, first_root, first_attempt = _sealed_candidate_attempt(tmp_path, monkeypatch)
+    _write_candidate_transaction_observations(first_root / "artifacts", "first")
+    first_result = seal_stage_attempt(
+        work,
+        first_root,
+        attempt=first_attempt,
+        worker_identity="test-worker",
+    )
+    backend = _backend()
+    compatibility = tmp_path / "compatibility"
+    first_receipt = promote_candidate_stage(
+        work,
+        first_root,
+        compatibility,
+        backend,
+        assessment_hash=ASSESSMENT_HASH,
+        presentation_plan_hash=PLAN_HASH,
+        candidate_hash=CANDIDATE_HASH,
+        reviewer_standard_hash=REVIEWER_HASH,
+    )
+
+    retry_root, retry_attempt, retry_artifacts = prepare_stage_attempt(
+        work,
+        worker_identity="retry-worker",
+    )
+    write_redacted_json(
+        retry_artifacts / "manifest.json",
+        {
+            "org_repo": ORG_REPO,
+            "source_revision": SOURCE_REVISION,
+            "lifecycle_status": "CANDIDATE_GENERATED",
+            "facts_hash": FACTS_HASH,
+            "candidate_hash": CANDIDATE_HASH,
+            "completed_stages": ["FACTS_READY", "CANDIDATE_GENERATED"],
+            "transaction_id": "retry",
+        },
+    )
+    write_redacted_text(
+        retry_artifacts / "candidate" / "README.md",
+        f"# Candidate {CANDIDATE_HASH[:8]}\n",
+    )
+    _write_candidate_transaction_observations(retry_artifacts, "retry")
+    retry_result = seal_stage_attempt(
+        work,
+        retry_root,
+        attempt=retry_attempt,
+        worker_identity="retry-worker",
+    )
+    retry_receipt = promote_candidate_stage(
+        work,
+        retry_root,
+        compatibility,
+        backend,
+        assessment_hash=ASSESSMENT_HASH,
+        presentation_plan_hash=PLAN_HASH,
+        candidate_hash=CANDIDATE_HASH,
+        reviewer_standard_hash=REVIEWER_HASH,
+    )
+
+    assert first_result.output_hash == retry_result.output_hash
+    assert first_receipt == retry_receipt
+    assert {item.path for item in retry_receipt.artifact_inventory} == {"candidate/README.md"}
+    summary = json.loads(
+        (compatibility / "candidate" / "current-transaction-llm-accounting.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert summary["transaction_id"] == "first"
+
+
+def test_candidate_transaction_observation_tampering_still_breaks_seal(
+    tmp_path,
+    monkeypatch,
+):
+    work, attempt_root, attempt = _sealed_candidate_attempt(tmp_path, monkeypatch)
+    artifacts = attempt_root / "artifacts"
+    _write_candidate_transaction_observations(artifacts, "original")
+    seal_stage_attempt(
+        work,
+        attempt_root,
+        attempt=attempt,
+        worker_identity="test-worker",
+    )
+    write_redacted_text(
+        artifacts / "candidate" / "current-transaction-llm-call-ledger.jsonl",
+        json.dumps({"call_id": "tampered"}) + "\n",
+    )
+
+    with pytest.raises(ValueError, match="inventory mismatch"):
+        validate_sealed_stage_attempt(work, attempt_root)
 
 
 def test_new_candidate_receipt_replaces_stale_completed_manifest(

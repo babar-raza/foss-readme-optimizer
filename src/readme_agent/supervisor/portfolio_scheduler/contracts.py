@@ -11,6 +11,17 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 PortfolioStageV1 = Literal["CANDIDATE_GENERATED", "DETERMINISTIC_VALIDATED"]
 
+_CONTAINER_ARTIFACT_PATHS = frozenset({"manifest.json", "sha256sums.txt"})
+_STAGE_OBSERVATION_ARTIFACT_PATHS: dict[PortfolioStageV1, frozenset[str]] = {
+    "CANDIDATE_GENERATED": frozenset(
+        {
+            "candidate/current-transaction-llm-accounting.json",
+            "candidate/current-transaction-llm-call-ledger.jsonl",
+        }
+    ),
+    "DETERMINISTIC_VALIDATED": frozenset(),
+}
+
 CANDIDATE_INPUT_MANIFEST_FIELDS = frozenset(
     {
         "schema_version",
@@ -96,6 +107,26 @@ class StageArtifactV1(_StrictFrozenModel):
         ):
             raise ValueError("artifact path must remain relative to the attempt root")
         return normalized
+
+
+def semantic_stage_artifacts(
+    target_stage: PortfolioStageV1,
+    artifacts: list[StageArtifactV1],
+) -> list[StageArtifactV1]:
+    """Return stage-owned outputs while excluding exact transaction observations."""
+
+    excluded = _CONTAINER_ARTIFACT_PATHS | _STAGE_OBSERVATION_ARTIFACT_PATHS[target_stage]
+    return [artifact for artifact in artifacts if artifact.path not in excluded]
+
+
+def stage_observation_artifacts(
+    target_stage: PortfolioStageV1,
+    artifacts: list[StageArtifactV1],
+) -> list[StageArtifactV1]:
+    """Return declared per-transaction observations, never semantic stage outputs."""
+
+    observation_paths = _STAGE_OBSERVATION_ARTIFACT_PATHS[target_stage]
+    return [artifact for artifact in artifacts if artifact.path in observation_paths]
 
 
 class LaneResultV1(_StrictFrozenModel):

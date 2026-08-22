@@ -20,7 +20,10 @@ from readme_agent.supervisor.local_poc_superseded import (
 from readme_agent.supervisor.portfolio_scheduler.contracts import (
     CANDIDATE_INPUT_MANIFEST_FIELDS,
     PortfolioStageWorkItemV1,
+    StageArtifactV1,
     StageReceiptV1,
+    semantic_stage_artifacts,
+    stage_observation_artifacts,
 )
 from readme_agent.supervisor.portfolio_scheduler.lane import (
     atomic_copy_file,
@@ -82,11 +85,7 @@ def _load_matching_receipt(
     receipt = StageReceiptV1.model_validate_json(path.read_text(encoding="utf-8"))
     if receipt.work_id != work.work_id or receipt.output_hash != output_hash:
         raise ValueError("a different result already owns this stage receipt")
-    stable_artifacts = [
-        artifact
-        for artifact in receipt.artifact_inventory
-        if artifact.path not in {"manifest.json", "sha256sums.txt"}
-    ]
+    stable_artifacts = semantic_stage_artifacts(work.target_stage, receipt.artifact_inventory)
     if stable_artifacts != receipt.artifact_inventory:
         receipt = receipt.model_copy(update={"artifact_inventory": stable_artifacts})
         write_redacted_json(path, receipt)
@@ -97,10 +96,10 @@ def _promote_artifacts(
     attempt_root: Path,
     compatibility_bundle: Path,
     receipt: StageReceiptV1,
+    *,
+    observations: list[StageArtifactV1] | None = None,
 ) -> None:
-    for artifact in receipt.artifact_inventory:
-        if artifact.path in {"manifest.json", "sha256sums.txt"}:
-            continue
+    for artifact in [*receipt.artifact_inventory, *(observations or [])]:
         atomic_copy_file(
             attempt_root / "artifacts" / artifact.path,
             compatibility_bundle / artifact.path,
@@ -209,11 +208,7 @@ def _accept_receipt(
         fence_token=work.fence.fence_token,
         output_hash=result.output_hash,
         result_sha256=seal.result_sha256,
-        artifact_inventory=[
-            artifact
-            for artifact in result.artifacts
-            if artifact.path not in {"manifest.json", "sha256sums.txt"}
-        ],
+        artifact_inventory=semantic_stage_artifacts(work.target_stage, result.artifacts),
     )
     write_redacted_json(_receipt_path(work), receipt)
     return receipt
@@ -249,7 +244,16 @@ def promote_candidate_stage(
         raise ValueError("candidate promotion arguments disagree with sealed work dependencies")
     receipt = existing or _accept_receipt(work, attempt_root)
     _reopen_candidate_boundary(work, compatibility_bundle, receipt)
-    _promote_artifacts(attempt_root, compatibility_bundle, receipt)
+    _promote_artifacts(
+        attempt_root,
+        compatibility_bundle,
+        receipt,
+        observations=(
+            stage_observation_artifacts(work.target_stage, result.artifacts)
+            if existing is None
+            else None
+        ),
+    )
     record_readme_candidate_artifacts(
         backend,
         work.fence.org_repo,
