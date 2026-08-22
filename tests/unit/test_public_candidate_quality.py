@@ -321,6 +321,50 @@ TIFF export is not supported.
     assert "contradiction_capability_phrase" not in _check_ids(report)
 
 
+def test_exception_clause_exempts_a_named_format_from_a_broader_limitation() -> None:
+    """Regression test for a real false positive found via a pilot rerun against a real
+    committed candidate: "Saving formats other than PDF ... are not implemented" was matched
+    against every unrelated PDF-positive claim in the document, because PDF is merely mentioned
+    inside the negative sentence's own exception clause -- it is explicitly exempted, not
+    limited. Reconstructing the pre-fix code and running this exact fixture against it produces
+    8 contradiction_capability_phrase findings; this asserts there are none."""
+
+    candidate = (
+        "# Format Toolkit\n\n"
+        "## Features\n\n"
+        "- PDF export via `Document.Save(..., SaveFormat.Pdf)`\n\n"
+        "## Quick Start\n\n"
+        "PDF export requires an extra dependency: install it first.\n\n"
+        "## Golden Workflow\n\n"
+        "Golden PDFs are stored under `tests/goldens/pdf/` for regression coverage.\n\n"
+        "## Current Limitations\n\n"
+        "- Saving formats other than PDF (HTML/images/legacy) are declared for compatibility "
+        "but not implemented.\n"
+    )
+    report = evaluate_public_candidate_quality(candidate)
+
+    assert "contradiction_capability_phrase" not in _check_ids(report)
+
+
+def test_conditional_dependency_prose_is_not_a_firm_capability_claim() -> None:
+    """Regression test for a real false positive found via the same pilot rerun: "If `X` is
+    installed, ... / If `X` is unavailable but `Y` is available, ..." describes an optional
+    runtime fallback, not a firm claim that `X` is both available and unavailable. Reconstructing
+    the pre-fix code and running this exact fixture against it produces a blocking
+    contradiction_capability_symbol finding; this asserts there is none."""
+
+    candidate = """# Format Toolkit
+
+## Golden Workflow
+
+If `PyMuPDF` is installed, the test suite also renders pages to PNG for visual diffing.
+If `PyMuPDF` is unavailable but `pdftoppm` is available on `PATH`, the tests fall back to it.
+"""
+    report = evaluate_public_candidate_quality(candidate)
+
+    assert "contradiction_capability_symbol" not in _check_ids(report)
+
+
 def test_phrase_contradiction_without_shared_discriminator_is_advisory_not_blocking() -> None:
     candidate = """# Mesh Toolkit
 
