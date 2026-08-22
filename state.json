@@ -2251,7 +2251,7 @@
     "claimed_by": null,
     "concurrent_goal_ids": [],
     "delivery_complete": false,
-    "goal_activation_graph_sha256": "94452b7c011a4459c2386ea5fe5206bed4e87e021a1001d5439e28c0e25a759b",
+    "goal_activation_graph_sha256": "906a2f94c059d4039fe9b4bda304b79c48e769c7ab0a12f2988f0e35e571a8a2",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -2479,9 +2479,9 @@
         "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
       }
     ],
-    "graph_sha256": "94452b7c011a4459c2386ea5fe5206bed4e87e021a1001d5439e28c0e25a759b",
+    "graph_sha256": "906a2f94c059d4039fe9b4bda304b79c48e769c7ab0a12f2988f0e35e571a8a2",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-22T01:50:06.715468+00:00",
+    "last_evaluated_at": "2026-08-22T05:12:34.886678+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -2606,22 +2606,23 @@
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "next_task": {
-      "campaign_id": "CAMP-FIRST-PYTHON-SLICE",
+      "campaign_id": "CAMP-SHARED-ACCELERATION",
       "core_contribution": {
         "kind": "first_boundary_removal",
-        "summary": "Produce the first complete current candidate through the real production seam."
+        "summary": "Turn the existing Qwen section engine from unused machinery into the bounded production authoring seam."
       },
       "goal_ids": [
         "GOAL-README",
         "GOAL-DELIVERY"
       ],
-      "immediate_goal_id": "DELIVERY-FIRST-COMPLETE-CANDIDATE",
-      "immediate_outcome": "Produce one complete current Aspose.3D Python candidate through supervise.",
+      "immediate_goal_id": "DELIVERY-QWEN-SECTION-ENGINE",
+      "immediate_outcome": "Prove canonical bounded Qwen authoring, recovery, reuse, and selective invalidation before PF-02.",
       "repository_scope": [
+        "control-repository:canonical-candidate-seam",
         "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
       ],
       "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
-      "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+      "task_id": "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION"
     },
     "parallelism_control": {
       "calibration_active": false,
@@ -2681,6 +2682,7 @@
       "L8-MISSION-GOAL-GUARD": "CLOSED",
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
+      "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "TODO",
       "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "TODO",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "TODO",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "TODO",
@@ -12476,7 +12478,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1243,
+  "state_version": 1244,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
