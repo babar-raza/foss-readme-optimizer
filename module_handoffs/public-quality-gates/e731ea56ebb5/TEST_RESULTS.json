@@ -1,0 +1,53 @@
+{
+  "environment_note": "All commands run inside $LANE_REPO with PYTHONPATH=$LANE_REPO/src prepended, using the main checkout's existing .venv interpreter (verified via import-path inspection to resolve against $LANE_REPO's src, not the editable-installed main copy) -- see WORKLOG.md.",
+  "primary_suite": {
+    "command": "pytest -q tests/unit/test_public_candidate_quality.py",
+    "collected": 22,
+    "passed": 22,
+    "failed": 0
+  },
+  "static_checks": {
+    "ruff_check": {
+      "command": "ruff check src/readme_agent/validation/public_candidate_quality.py tests/unit/test_public_candidate_quality.py",
+      "result": "All checks passed!"
+    },
+    "ruff_format_check": {
+      "command": "ruff format --check src/readme_agent/validation/public_candidate_quality.py tests/unit/test_public_candidate_quality.py",
+      "result": "2 files already formatted"
+    },
+    "mypy": {
+      "command": "mypy src/readme_agent/validation/public_candidate_quality.py",
+      "result": "Success: no issues found in 1 source file"
+    }
+  },
+  "reused_dependency_regression_suite": {
+    "command": "pytest -q tests/unit/test_readme_presentation_lint.py",
+    "result_inside_lane_repo": {
+      "passed": 35,
+      "failed": 13,
+      "caveat": "All 13 failures are FileNotFoundError reading long evidence paths (confirmed by grepping the failure output), caused by Windows' 260-char MAX_PATH limit combined with this lane's deep nested working directory (LongPathsEnabled=0 on this machine) -- NOT a regression from this module's changes. Root-caused and documented in full in WORKLOG.md and KNOWN_LIMITATIONS.md."
+    },
+    "control_result_against_main_short_path_checkout": {
+      "command": "cd $ROOT && pytest -q tests/unit/test_readme_presentation_lint.py",
+      "passed": 48,
+      "failed": 0,
+      "conclusion": "Confirms the 12 lane failures are a path-length artifact of this isolation lane, not a real regression. Codex integrating onto a normal (short-path) main checkout should see all 48 pass, as this control run demonstrates."
+    }
+  },
+  "manual_precision_dry_run": {
+    "type": "read-only validation step, not a committed automated test",
+    "candidates": [
+      "plans/investigations/evidence/level8-portfolio-readme-proposals-2026-07-25/aspose-3d-foss-for-python/candidate-readme.md",
+      "plans/investigations/evidence/level8-portfolio-readme-proposals-2026-07-25/aspose-barcode-foss-for-python/candidate-readme.md",
+      "plans/investigations/evidence/level8-portfolio-readme-proposals-2026-07-25/aspose-note-foss-for-python/candidate-readme.md"
+    ],
+    "first_pass_findings": "9 cross_section_contradiction findings on the Note candidate, all traced to two false-positive classes (exception-clause blindness on \"other than PDF\"; conditional \"if X is installed/unavailable\" prose misread as a firm claim). Fixed with generic (non-product-specific) rules; see WORKLOG.md implementation log.",
+    "final_pass_result": "cross_section_contradiction: 0 findings on all three candidates. malformed_low_information_prose (reused from presentation_lint) still correctly flags real duplication defects on the 3D and Note candidates. structural_size_outlier/structural_detail_density produced a small number of plausible advisory-only findings on all three; nothing blocking from the structural category, as designed."
+  },
+  "no_live_calls": {
+    "llm": false,
+    "docker": false,
+    "product_repository_writes": false,
+    "portfolio_runs": false
+  }
+}

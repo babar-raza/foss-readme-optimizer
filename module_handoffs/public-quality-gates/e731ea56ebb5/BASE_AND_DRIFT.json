@@ -1,0 +1,15 @@
+{
+  "base_sha": "e731ea56ebb50c6002d7fb5459e02d8b32f0cc71",
+  "base_commit_summary": "fix(authoring): harden Qwen factual recovery",
+  "short_sha": "e731ea56ebb5",
+  "branch": "claude/standalone-public-quality-gates-e731ea56ebb5",
+  "lane_root": "runs/parallel_staging/public-quality-gates/e731ea56ebb50c6002d7fb5459e02d8b32f0cc71",
+  "upstream_url": "https://github.com/babar-raza/foss-readme-optimizer.git",
+  "remote_main_tip_at_lane_creation": "e731ea56ebb50c6002d7fb5459e02d8b32f0cc71",
+  "remote_main_tip_at_final_verification": "e731ea56ebb50c6002d7fb5459e02d8b32f0cc71",
+  "drift_detected": false,
+  "drift_notes": "git ls-remote origin refs/heads/main resolved to the same SHA at lane creation and again immediately before writing this handoff -- main did not move during this lane's work. No rebase was necessary or performed.",
+  "local_main_note": "The main checkout's local HEAD at the start of this session (30acd978c..., a later commit than the pinned base) was NOT used as the base -- per protocol this lane pinned to the remote origin/main tip resolved via git ls-remote, not the local checkout's HEAD. This is expected, not an error; see WORKLOG.md.",
+  "interface_drift_since_base": "none noticed",
+  "reference_clone_note": "git clone --reference-if-able warned 'reference repository is shallow' during lane setup; non-fatal, the clone completed via a full network fetch from origin, not a degraded/partial clone."
+}
