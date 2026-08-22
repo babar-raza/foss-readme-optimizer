@@ -1,0 +1,28 @@
+Branch: claude/standalone-public-quality-gates-e731ea56ebb5
+Base:   e731ea56ebb50c6002d7fb5459e02d8b32f0cc71 (main, "fix(authoring): harden Qwen factual recovery")
+
+Commits on this branch, oldest first:
+
+85a5bbd9  feat(validation): add standalone public-candidate quality gate
+          <- CHERRY-PICK THIS ONE onto main. Adds exactly:
+             src/readme_agent/validation/public_candidate_quality.py
+             tests/unit/test_public_candidate_quality.py
+
+552eb6ab  docs(handoff): add public-quality-gates module handoff bundle
+          Adds module_handoffs/public-quality-gates/e731ea56ebb5/** (this
+          directory). Informational only -- not required on main; keep on
+          this branch or discard, Codex's call.
+
+b7ad5f52  docs(handoff): add COMMITS.txt to the handoff bundle
+          This file. Added as a small follow-up commit because it needs to
+          reference the two commits above by their real hashes, which are
+          only known after they exist -- same self-referential-avoidance
+          pattern used for PUBLIC_QUALITY_CHECKS_VERSION's source-hash
+          tripwire inside the module itself (see WORKLOG.md).
+
+Full `git log --oneline` for this branch from base to tip:
+
+b7ad5f52 docs(handoff): add COMMITS.txt to the handoff bundle
+552eb6ab docs(handoff): add public-quality-gates module handoff bundle
+85a5bbd9 feat(validation): add standalone public-candidate quality gate
+e731ea56 fix(authoring): harden Qwen factual recovery   <- base, not part of this lane's work
