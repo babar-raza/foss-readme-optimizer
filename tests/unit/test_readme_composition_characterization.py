@@ -153,6 +153,7 @@ def test_public_composition_call_signatures_are_characterized() -> None:
         # 2026-08-18: the claim-disposition fallback chain gained the
         # accepted-verdict ratchet path (threaded like the client itself).
         "disposition_ratchet_path",
+        "section_authoring_document",
     )
     assert signatures["plan"].parameters["client"].kind is inspect.Parameter.KEYWORD_ONLY
     assert signatures["render"].parameters["base_revision"].kind is inspect.Parameter.KEYWORD_ONLY

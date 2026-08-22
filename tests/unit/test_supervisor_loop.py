@@ -214,6 +214,39 @@ class _FakeCompositionForcedToolClient:
         )
 
 
+class _FakeSectionAuthorClient:
+    """Return bounded fact-disposing prose without reaching the live Qwen route."""
+
+    calls = 0
+
+    def analyze_section_cluster(self, messages, accepted_fact_ids):
+        type(self).calls += 1
+        user_content = str(messages[-1]["content"])
+        target = user_content.split("Target section: ", 1)[1].splitlines()[0]
+        text_by_target = {
+            "summary": "Use this open-source product for its documented audience and purpose.",
+            "key_capabilities": "Process supported content with the documented capabilities.",
+            "installation": "Add the product by following the installation method shown below.",
+            "quick_start": "Start with the public API example shown below.",
+            "scope_and_limitations": (
+                "Review the supported scope and documented limitations before adoption."
+            ),
+        }
+        return AnalysisResult(
+            parsed={
+                "units": [
+                    {
+                        "heading": "Process Product Content",
+                        "text": text_by_target[target],
+                        "fact_ids": list(accepted_fact_ids),
+                    }
+                ],
+                "omitted": [],
+            },
+            meta=LLMResponseMeta(model="qwen3-next"),
+        )
+
+
 class _FakeVisualAccuracyAnalysisClient:
     """Wave 8.6 (item H): `visual_preparation`'s classify step is followed
     by an additive, advisory-only vision-accuracy review -- faked here
@@ -741,6 +774,7 @@ def _fake_repo_summary(org_repo, token):
 @pytest.fixture
 def project(tmp_path, monkeypatch):
     _FakeCompositionForcedToolClient.calls = 0
+    _FakeSectionAuthorClient.calls = 0
     _FakeLiveLLMClient.calls = 0
     _FakeNonFlaggingForcedToolClient.calls = 0
     _FakeAnalysisClient.calls = 0
@@ -932,6 +966,11 @@ def project(tmp_path, monkeypatch):
         agentic_composition,
         "LiveForcedToolClient",
         _FakeCompositionForcedToolClient,
+    )
+    monkeypatch.setattr(
+        readme_presentation,
+        "build_live_section_cluster_author_client",
+        lambda *args, **kwargs: _FakeSectionAuthorClient(),
     )
     # Wave 8.6 (`VER-006` reversal): _verify_node now additionally dispatches
     # verify_prose_quality after a deterministic accept -- faked here (never

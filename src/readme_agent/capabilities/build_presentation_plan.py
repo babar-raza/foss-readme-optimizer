@@ -79,6 +79,7 @@ def execute(
     source_text: str | None = None,
     product_facts_v2: dict | None = None,
     agentic_composition_plan: dict | None = None,
+    section_authoring_document: dict | None = None,
     llm_disposition_client: ForcedToolClient | None = None,
 ) -> dict:
     """`llm_disposition_client` is accepted but deliberately NOT declared in
@@ -146,6 +147,7 @@ def execute(
                 ownership,
                 base_revision=base_revision,
                 agentic_composition_plan=agentic_composition_plan,
+                section_authoring_document=section_authoring_document,
                 link_catalogs=link_catalogs,
                 link_allocation_policy=link_allocation_policy,
                 llm_disposition_client=resolved_disposition_client,

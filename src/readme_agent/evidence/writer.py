@@ -216,6 +216,7 @@ def write_readme_proposal_bundle(
     repository_presentation_plan_v1: dict,
     document_validation: dict,
     agentic_composition_plan_v1: dict | None = None,
+    section_authoring_document_v1: dict | None = None,
 ) -> None:
     """RPOC-050/051: materialize the independent-verifier evidence
     bundle (`verification/readme_proposal_bundle.py::_REQUIRED_ARTIFACTS`)
@@ -242,6 +243,11 @@ def write_readme_proposal_bundle(
         bundle_dir / "agentic-composition-plan-v1.json",
         agentic_composition_plan_v1 or {},
     )
+    if section_authoring_document_v1 is not None:
+        _atomic_write_json(
+            bundle_dir / "section-authoring-document-v1.json",
+            section_authoring_document_v1,
+        )
     _atomic_write_json(bundle_dir / "readme-document-plan-v1.json", readme_document_plan_v1)
     _atomic_write_json(bundle_dir / "claim-map-v1.json", claim_map_v1)
     _atomic_write_json(

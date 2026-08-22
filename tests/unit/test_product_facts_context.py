@@ -59,10 +59,17 @@ def test_canonical_renderer_consumes_the_run_scoped_graph(monkeypatch):
 
     monkeypatch.setattr(render_readme_candidate, "find_entry", lambda org_repo: None)
 
-    def prepare(org_repo, product_facts, *, agentic_composition_plan=None):
+    def prepare(
+        org_repo,
+        product_facts,
+        *,
+        agentic_composition_plan=None,
+        section_authoring_document=None,
+    ):
         observed["org_repo"] = org_repo
         observed["facts"] = product_facts
         observed["agentic_composition_plan"] = agentic_composition_plan
+        observed["section_authoring_document"] = section_authoring_document
         return {"status": "GENERATED"}
 
     monkeypatch.setattr(render_readme_candidate, "prepare_idea_fidelity_candidate", prepare)
@@ -75,4 +82,5 @@ def test_canonical_renderer_consumes_the_run_scoped_graph(monkeypatch):
         "org_repo": "acme/widget",
         "facts": facts,
         "agentic_composition_plan": None,
+        "section_authoring_document": None,
     }

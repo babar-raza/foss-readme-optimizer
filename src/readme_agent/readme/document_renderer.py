@@ -2,11 +2,9 @@
 
 from __future__ import annotations
 
-import hashlib
 from dataclasses import replace
 from pathlib import Path
 
-from readme_agent.facts.protected_content import fingerprint_protected_content
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.links.allocation import code_sha256
 from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1
@@ -22,7 +20,6 @@ from readme_agent.presentation.runtime_repairs import build_density_collapse_ope
 from readme_agent.presentation.verified_template_document import (
     build_verified_template_document_candidate,
 )
-from readme_agent.readme.agentic_composition_validation import validate_readme_composition_plan
 from readme_agent.readme.agentic_operation_coverage import (
     validate_agentic_operation_coverage,
 )
@@ -83,6 +80,9 @@ from readme_agent.readme.header_visual import render_readme_header_visual
 from readme_agent.readme.markers import find_presentation_span
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 from readme_agent.readme.public_text import canonical_abbreviations_from_facts
+from readme_agent.readme.section_authoring_validation import (
+    validate_candidate_authoring_inputs,
+)
 from readme_agent.registry.models import LinkAllocationPolicyV1
 from readme_agent.specialists.section_authoring_contracts import SectionAuthoringDocumentV1
 
@@ -139,41 +139,16 @@ def build_readme_document_candidate(
     )
     if (link_catalogs is None) != (link_allocation_policy is None):
         raise ValueError("README link catalogs and allocation policy must be supplied together")
-    validated_agentic_plan = (
-        validate_readme_composition_plan(
-            agentic_composition_plan,
-            org_repo=org_repo,
-            source_text=inner_text,
-            facts=facts,
-            assessment=assessment,
-        )
-        if agentic_composition_plan
-        else None
+    validated_agentic_plan, validated_section_authoring = validate_candidate_authoring_inputs(
+        agentic_composition_plan=agentic_composition_plan,
+        section_authoring_document=section_authoring_document,
+        org_repo=org_repo,
+        composition_source_text=inner_text,
+        section_source_text=source_text,
+        base_revision=base_revision,
+        facts=facts,
+        assessment=assessment,
     )
-    validated_section_authoring = (
-        SectionAuthoringDocumentV1.model_validate(section_authoring_document)
-        if section_authoring_document is not None
-        else None
-    )
-    if validated_section_authoring is not None:
-        if not validated_section_authoring.complete:
-            raise ValueError("incomplete section authoring cannot enter candidate rendering")
-        if validated_section_authoring.org_repo != org_repo:
-            raise ValueError("section authoring document belongs to a different repository")
-        if validated_section_authoring.source_revision != base_revision:
-            raise ValueError("section authoring document source revision changed")
-        if validated_section_authoring.facts_hash != facts.canonical_hash():
-            raise ValueError("section authoring document facts changed")
-        if (
-            validated_section_authoring.source_sha256
-            != hashlib.sha256(source_text.encode("utf-8")).hexdigest()
-        ):
-            raise ValueError("section authoring document source README changed")
-        if (
-            validated_section_authoring.protected_literal_hash
-            != fingerprint_protected_content(source_text).maintainer_region_hash
-        ):
-            raise ValueError("section authoring document protected-content fingerprint changed")
     if facts.content_assurance == "repository_verified" and validated_agentic_plan is not None:
         return build_verified_template_document_candidate(
             facts,

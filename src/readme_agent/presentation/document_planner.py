@@ -31,6 +31,7 @@ from readme_agent.registry.surface_ownership import (
     SurfaceOwnershipMapV1,
     operation_allowed,
 )
+from readme_agent.specialists.section_authoring_contracts import SectionAuthoringDocumentV1
 
 
 def _claim_id(operation_id: str, field: str) -> str:
@@ -96,6 +97,7 @@ def build_document_repository_presentation_plan(
     *,
     base_revision: str,
     agentic_composition_plan: dict | None = None,
+    section_authoring_document: SectionAuthoringDocumentV1 | dict | None = None,
     link_catalogs: AsposeLinkCatalogSetV1 | None = None,
     link_allocation_policy: LinkAllocationPolicyV1 | None = None,
     llm_disposition_client: ForcedToolClient | None = None,
@@ -119,6 +121,7 @@ def build_document_repository_presentation_plan(
         facts,
         base_revision=base_revision,
         agentic_composition_plan=agentic_composition_plan,
+        section_authoring_document=section_authoring_document,
         link_catalogs=link_catalogs,
         link_allocation_policy=link_allocation_policy,
         llm_disposition_client=llm_disposition_client,
@@ -126,7 +129,29 @@ def build_document_repository_presentation_plan(
         disposition_ratchet_path=disposition_ratchet_path,
     )
     if expected_candidate != candidate_text:
-        raise ValidationFailure("README candidate differs from the independently rebuilt plan")
+        first_difference = next(
+            (
+                index
+                for index, (expected_byte, candidate_byte) in enumerate(
+                    zip(
+                        expected_candidate.encode("utf-8"),
+                        candidate_text.encode("utf-8"),
+                        strict=False,
+                    )
+                )
+                if expected_byte != candidate_byte
+            ),
+            min(len(expected_candidate.encode("utf-8")), len(candidate_text.encode("utf-8"))),
+        )
+        raise ValidationFailure(
+            "README candidate differs from the independently rebuilt plan: "
+            f"expected_sha256={sha256_text(expected_candidate)}, "
+            f"candidate_sha256={sha256_text(candidate_text)}, "
+            f"expected_bytes={len(expected_candidate.encode('utf-8'))}, "
+            f"candidate_bytes={len(candidate_text.encode('utf-8'))}, "
+            f"first_difference={first_difference}, "
+            f"section_document_supplied={section_authoring_document is not None}"
+        )
     assessment = assess_readme_document(
         org_repo,
         source_text,

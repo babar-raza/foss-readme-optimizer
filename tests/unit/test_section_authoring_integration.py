@@ -18,6 +18,9 @@ from readme_agent.presentation.verified_template_draft import build_verified_tem
 from readme_agent.presentation.verified_template_runtime import build_verified_template_compilation
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.assessment import assess_readme_document
+from readme_agent.readme.assessment_claims import assess_material_claims
+from readme_agent.readme.claim_accountability import build_readme_claim_accountability_map
+from readme_agent.readme.claim_map import ReadmeClaimMapV1
 from readme_agent.readme.section_authoring_specs import build_canonical_section_authoring_specs
 from readme_agent.specialists.section_authoring_cache import (
     default_section_authoring_cache_dir,
@@ -311,6 +314,35 @@ def test_verified_template_consumes_authored_bytes_with_fact_lineage():
         audience_id,
         capability_id,
     }
+    accountability = build_readme_claim_accountability_map(
+        org_repo=facts.org_repo,
+        source_text=SOURCE,
+        candidate_text=compiled.candidate,
+        facts=facts,
+        generated_claim_map=ReadmeClaimMapV1(
+            org_repo=facts.org_repo,
+            facts_hash=facts.canonical_hash(),
+            candidate_sha256=hashlib.sha256(compiled.candidate.encode("utf-8")).hexdigest(),
+            claims=[],
+        ),
+        candidate_content_provenance=compiled.provenance,
+    )
+    candidate_claims = assess_material_claims(compiled.candidate)
+    for outcome in outcomes:
+        expected_text = outcome.result.units[0].text
+        claim = next(
+            claim
+            for claim in candidate_claims
+            if expected_text
+            in compiled.candidate.encode("utf-8")[
+                claim.source_byte_start : claim.source_byte_end
+            ].decode("utf-8")
+        )
+        record = next(
+            item for item in accountability.claims if item.claim_id == f"candidate:{claim.claim_id}"
+        )
+        assert set(outcome.result.units[0].fact_ids) <= set(record.accepted_fact_ids)
+        assert record.currently_accountable is True
 
 
 def test_readme_specialist_passes_complete_section_document_to_canonical_renderer(

@@ -248,6 +248,7 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert set(tasks) == {
         "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION",
         "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+        "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION",
         "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
         "L8-PF-03-SEALED-CANDIDATE-NO-OP",
         "L8-PF-04-MINIMAL-GRAPH-RUNNER",
@@ -258,8 +259,11 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert tasks["L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY"].dependencies == [
         "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION"
     ]
-    assert tasks["L8-PF-02-COMPLETE-CANDIDATE-SEAM"].dependencies == [
+    assert tasks["L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION"].dependencies == [
         "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY"
+    ]
+    assert tasks["L8-PF-02-COMPLETE-CANDIDATE-SEAM"].dependencies == [
+        "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION"
     ]
     assert tasks["L8-PF-03-SEALED-CANDIDATE-NO-OP"].dependencies == [
         "L8-PF-02-COMPLETE-CANDIDATE-SEAM"

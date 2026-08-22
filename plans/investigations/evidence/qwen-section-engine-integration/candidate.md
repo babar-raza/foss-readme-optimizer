@@ -4,9 +4,13 @@
 
 ![Aspose.3D FOSS for Python](https://products.aspose.org/media/3d/python/banner-readme.png)
 
-Aspose.3D FOSS for Python is a Python library for working with 3D scenes, primitives, and file formats. It enables developers to programmatically construct 3D content using built-in primitives such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum, and to import or export scenes in widely used formats including OBJ, GLTF, STL, and 3MF.
+Aspose.3D FOSS for Python is a Python package that enables developers to create and manipulate 3D scenes using built-in primitives and industry-standard file formats.
 
-The library includes an animation system with keyframe support, allowing developers to define and manipulate time-based 3D motion within scenes. This capability supports the creation of dynamic 3D content directly from Python scripts.
+Developers can construct 3D models using a rich set of primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum, all accessible through a unified Python API.
+
+The library supports file format import and export for OBJ, GLTF, STL, and 3MF, enabling seamless integration into workflows that rely on these widely used 3D exchange formats.
+
+An integrated animation system with keyframe support allows developers to define and playback time-based transformations for 3D objects within a scene.
 
 ## Navigation
 
@@ -68,10 +72,10 @@ flowchart LR
 
 ## Key Capabilities
 
-- **Create 3D primitives** - Create standard 3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum using the API.
-- **Import and export common 3D formats** - Import and export files in OBJ, GLTF, STL, and 3MF formats, supporting interoperability across modeling and rendering tools.
-- **Build animations with keyframes** - Construct animations using the keyframe-based animation system, enabling time-based transformations and motion control.
-- **Process additional formats via dedicated importers and exporters** - Process FBX, COLLADA, and PDF files using dedicated importers and exporters such as FbxImporter, ColladaExporter, and PdfSaveOptions.
+- **Create 3D primitives** - Create standard 3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum using the library's entity classes.
+- **Import and export common 3D formats** - Import and export files in OBJ, GLTF, STL, and 3MF formats, supporting both scene loading and saving workflows.
+- **Build animations with keyframes** - Construct animations using the keyframe-based animation system, supporting interpolation and timeline control.
+- **Process additional formats via Aspose support** - Leverage Aspose-proven format support to import FBX and OBJ files, and export to GLTF, STL, 3MF, COLLADA, and PDF formats using dedicated save or import options.
 
 - Export the same `Scene` model back out to OBJ, STL, GLTF/GLB, or 3MF with `Scene.save(...)`
   (COLLADA import is supported; COLLADA export is not currently reachable through the public
@@ -79,11 +83,11 @@ flowchart LR
 
 ## Installation
 
-Install the verified package aspose-3d-foss from PyPI using pip. The package version 26.1.0 is pinned and has been verified via source build in an isolated Python environment, with public imports and example execution confirmed.
+Install the aspose-3d-foss package from PyPI. The package version 26.1.0 has been verified by source build in an isolated Python environment, and its public imports and example execution were confirmed.
 
-The package supports Python versions 3.7 through 3.12, as determined by isolated generation of metadata from setup.py and verified against a minimum runtime requirement of >=3.7.
+The package supports Python versions 3.7 through 3.12, as confirmed by isolated generation and validation of PKG-INFO metadata from setup.py.
 
-The package aspose-3d-foss is defined in setup.py at the repository root with version 26.1.0, confirming the correct project and release coordinates for acquisition.
+The package is published under the name aspose-3d-foss in the root of the repository, with version 26.1.0 declared in setup.py.
 
 Install the package directly from its source repository:
 
@@ -98,9 +102,9 @@ Use source installation for the `aspose-3d-foss` distribution.
 
 ## Quick Start
 
-The verified example demonstrates how to instantiate a new 3D scene using the public API. It imports the Scene class from the aspose.threed module and constructs an empty Scene instance, confirming that the installed package (version 26.1.0) and its public surface are fully functional.
+The verified example demonstrates how to instantiate a new 3D scene using the public API. It imports the Scene class from aspose.threed and constructs an empty Scene instance, confirming that the installed package (aspose-3d-foss version 26.1.0) exposes the expected public surface and executes correctly on Python >=3.7.
 
-The aspose.threed package exposes a comprehensive public API surface with 251 exports across 13 modules, including entities, formats, animation, rendering, and utilities. Core classes such as Scene, Camera, Node, Mesh, and FileFormat are available for 3D scene construction, manipulation, and format handling.
+The package exposes a comprehensive public API surface across nine top-level modules: aspose.threed, aspose.threed.animation, aspose.threed.deformers, aspose.threed.entities, aspose.threed.formats, aspose.threed.profiles, aspose.threed.render, aspose.threed.shading, and aspose.threed.utilities. This includes support for file format import and export for OBJ, GLTF, STL, and 3MF, as well as an animation system with keyframe support.
 
 ```python
 from aspose.threed import Scene
@@ -1488,11 +1492,9 @@ The package documents 354 public types across 13 namespaces. Package namespaces 
 
 ## Scope and Limitations
 
-The library supports loading and saving scenes in OBJ, GLTF, STL, and 3MF formats. It provides core data structures for representing geometry and scene hierarchy.
+The library supports importing and exporting OBJ, GLTF, STL, and 3MF files. Input and output support is available for each of these formats.
 
-Mesh and NURBS entities are available for inspection, but NURBS curve evaluation and surface-to-mesh conversion are not implemented. Mesh boolean operations (do_boolean, union, difference, intersect) are also unavailable.
-
-Export to GLTF, STL, and 3MF is supported, but FBX export and COLLADA export through Scene.save are not implemented.
+Mesh boolean operations (do_boolean, union, difference, and intersect) are not implemented. NURBS curve evaluation and surface-to-mesh conversion are also not implemented. Scene rendering and output generation via the Renderer class are not implemented, and COLLADA export through Scene.save is blocked due to an unimplemented FBX exporter format check. FBX export is not implemented.
 
 The library targets the workflows listed above. Five specific constraints are listed below.
 

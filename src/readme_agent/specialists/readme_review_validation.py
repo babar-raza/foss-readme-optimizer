@@ -38,6 +38,7 @@ def dispatch_verify_readme_candidate(org_repo: str, render_result: dict) -> Disp
         caller_domain=INDEPENDENT_VERIFICATION,
         extra_kwargs={
             "agentic_composition_plan": render_result.get("agentic_composition_plan"),
+            "section_authoring_document": render_result.get("section_authoring_document"),
         },
     )
 
@@ -61,6 +62,7 @@ def dispatch_build_presentation_plan(org_repo: str, render_result: dict) -> Disp
             "source_revision": render_result["source_revision"],
             "product_facts_v2": render_result.get("product_facts_v2"),
             "agentic_composition_plan": render_result.get("agentic_composition_plan"),
+            "section_authoring_document": render_result.get("section_authoring_document"),
         },
     )
 
@@ -98,6 +100,7 @@ def materialize_and_verify_bundle(
         product_facts_v2=render_result["product_facts_v2"],
         readme_assessment_v1=presentation_plan["readme_assessment"],
         agentic_composition_plan_v1=render_result.get("agentic_composition_plan"),
+        section_authoring_document_v1=render_result.get("section_authoring_document"),
         readme_document_plan_v1=presentation_plan["readme_document_plan"],
         claim_map_v1=presentation_plan["claim_map"],
         repository_presentation_plan_v1=presentation_plan.get("presentation_plan") or {},

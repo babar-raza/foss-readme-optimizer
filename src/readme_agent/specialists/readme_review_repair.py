@@ -110,6 +110,7 @@ def _dispatch_repaired_render(
     org_repo: str,
     product_facts_v2: dict,
     composition_plan: dict,
+    section_authoring_document: dict | None,
 ) -> DispatchResult:
     return dispatch_tool_call(
         {
@@ -123,6 +124,7 @@ def _dispatch_repaired_render(
         extra_kwargs={
             "product_facts_v2": product_facts_v2,
             "agentic_composition_plan": composition_plan,
+            "section_authoring_document": section_authoring_document,
         },
     )
 
@@ -150,7 +152,12 @@ def build_repaired_review_context(
     )
     if composition.outcome != "executed" or composition.result is None:
         raise RuntimeError(f"repair composition failed: {composition.outcome}:{composition.error}")
-    rendered = _dispatch_repaired_render(org_repo, product_facts_v2, composition.result)
+    rendered = _dispatch_repaired_render(
+        org_repo,
+        product_facts_v2,
+        composition.result,
+        original_render_result.get("section_authoring_document"),
+    )
     if rendered.outcome != "executed" or rendered.result is None:
         raise RuntimeError(f"repair render failed: {rendered.outcome}:{rendered.error}")
     render_result = dict(rendered.result)
@@ -182,6 +189,7 @@ def build_repaired_review_context(
         source_text=render_result.get("source_text", render_result["original_text"]),
         product_facts_v2=product_facts_v2,
         agentic_composition_plan=render_result.get("agentic_composition_plan"),
+        section_authoring_document=render_result.get("section_authoring_document"),
         llm_disposition_client=disposition_client,
         repository_root=disposition_repository_root,
         disposition_ratchet_path=disposition_ratchet_path,

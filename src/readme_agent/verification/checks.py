@@ -41,6 +41,7 @@ from readme_agent.readme.gap_detector import detect as detect_gaps
 from readme_agent.readme.markers import find_presentation_span
 from readme_agent.registry.loader import load_policy, require_listed
 from readme_agent.repository_snapshot import current_repository_snapshot
+from readme_agent.specialists.section_authoring_contracts import SectionAuthoringDocumentV1
 from readme_agent.validation import registry as validation_registry
 from readme_agent.validation.context import ValidationContext
 
@@ -93,6 +94,7 @@ def _verify_presentation_candidate(
     org_repo: str,
     final_text: str,
     agentic_composition_plan: dict | None = None,
+    section_authoring_document: dict | SectionAuthoringDocumentV1 | None = None,
     *,
     llm_disposition_client: ForcedToolClient | None = None,
     repository_root: Path | None = None,
@@ -121,12 +123,18 @@ def _verify_presentation_candidate(
         source_path = paths.baseline_dir(entry.org, entry.repo_name) / "README.md"
     source_text = source_path.read_text(encoding="utf-8") if source_path.exists() else ""
     link_catalogs, link_allocation_policy = load_runtime_link_inputs(org_repo)
+    authored_sections = (
+        SectionAuthoringDocumentV1.model_validate(section_authoring_document)
+        if section_authoring_document is not None
+        else None
+    )
     expected, plan = build_readme_document_candidate(
         org_repo,
         source_text,
         facts,
         base_revision=source_revision,
         agentic_composition_plan=agentic_composition_plan,
+        section_authoring_document=authored_sections,
         link_catalogs=link_catalogs,
         link_allocation_policy=link_allocation_policy,
         llm_disposition_client=llm_disposition_client,
@@ -171,6 +179,7 @@ def independently_verify_readme_candidate(
     needs_write: bool,
     *,
     agentic_composition_plan: dict | None = None,
+    section_authoring_document: dict | SectionAuthoringDocumentV1 | None = None,
 ) -> dict:
     """Returns `{"verdict": "accept"|"reject", "reason": str | None,
     "checks": dict[str, bool], "requirement_map": dict[str, bool]}`
@@ -232,6 +241,7 @@ def independently_verify_readme_candidate(
                 org_repo,
                 final_text,
                 agentic_composition_plan,
+                section_authoring_document,
                 llm_disposition_client=disposition_client,
                 repository_root=disposition_repository_root,
                 disposition_ratchet_path=disposition_ratchet_path,
@@ -257,6 +267,7 @@ def independently_verify_readme_candidate(
             org_repo,
             final_text,
             agentic_composition_plan,
+            section_authoring_document,
             llm_disposition_client=disposition_client,
             repository_root=disposition_repository_root,
             disposition_ratchet_path=disposition_ratchet_path,

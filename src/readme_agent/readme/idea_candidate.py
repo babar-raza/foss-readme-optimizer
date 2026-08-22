@@ -178,7 +178,7 @@ def prepare_idea_fidelity_candidate(
                     mode="json"
                 )
                 if section_authoring_document is not None
-                else {}
+                else None
             ),
             "product_facts_v2": facts.model_dump(mode="json"),
             "readme_assessment": assessment.model_dump(mode="json"),

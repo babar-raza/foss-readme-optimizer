@@ -27,17 +27,17 @@
     "reused_cluster_count": 0,
     "semantic_retry_cluster_count": 1,
     "prompt_tokens": 27844,
-    "completion_tokens": 1562,
-    "elapsed_seconds": 51.366,
+    "completion_tokens": 1688,
+    "elapsed_seconds": 56.225,
     "models": [
       "qwen3-next"
     ],
     "request_ids": [
-      "chatcmpl-9ef12899f5906472",
-      "chatcmpl-aa2ecc381ef7094c",
-      "chatcmpl-9de1110513b19a5f",
-      "chatcmpl-96946e17f469ea2b",
-      "chatcmpl-a258aef5b0ad6e4c"
+      "chatcmpl-ae890a2aa5b9609e",
+      "chatcmpl-a3fffa4fa854df37",
+      "chatcmpl-8fcbf838e5bff643",
+      "chatcmpl-9841b92b1c7190bf",
+      "chatcmpl-9e8f5e33d284a8f7"
     ]
   },
   "unchanged_rerun": {
@@ -47,7 +47,7 @@
     "semantic_retry_cluster_count": 1,
     "prompt_tokens": 0,
     "completion_tokens": 0,
-    "elapsed_seconds": 0.043,
+    "elapsed_seconds": 0.04,
     "models": [
       "qwen3-next"
     ],
@@ -59,13 +59,13 @@
     "reused_cluster_count": 4,
     "semantic_retry_cluster_count": 1,
     "prompt_tokens": 2363,
-    "completion_tokens": 237,
-    "elapsed_seconds": 7.84,
+    "completion_tokens": 240,
+    "elapsed_seconds": 8.08,
     "models": [
       "qwen3-next"
     ],
     "request_ids": [
-      "chatcmpl-bad819d775faac56"
+      "chatcmpl-b4c148f2cb98b68d"
     ]
   },
   "acceleration": {
@@ -74,8 +74,8 @@
     "selective_provider_calls_avoided": 4,
     "selective_recompute_reduction_percent": 80.0
   },
-  "candidate_sha256": "039e4e34623945ec71f60f0ef531d6e76343bcd7ba32568436ebcfc63bf6b3cc",
-  "authored_provenance_count": 14,
+  "candidate_sha256": "300c804d3ddf6dd6299a1f3fb301020b572eeb4bc22f9f140d76c2c99ec63ff2",
+  "authored_provenance_count": 15,
   "limitations": [
     "This proves the authoring portion of one real repository transaction, not PF-02.",
     "The transport client can make up to two physical attempts per logical call; the document receipt reports logical calls while the shared LLM ledger owns physical retries."

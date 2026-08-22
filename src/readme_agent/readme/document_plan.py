@@ -252,7 +252,10 @@ class ReadmeDocumentPlanV1(_StrictModel):
     org_repo: str
     immutable_base_revision: str
     facts_hash: str
-    section_authoring_document_sha256: str | None = None
+    section_authoring_document_sha256: str | None = Field(
+        default=None,
+        exclude_if=lambda value: value is None,
+    )
     template_sha256: str
     source_sha256: str
     adoption: PresentationSpanAdoptionV1

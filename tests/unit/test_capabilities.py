@@ -1135,6 +1135,7 @@ class TestVerifyReadmeCandidateCapability:
             needs_write,
             *,
             agentic_composition_plan=None,
+            section_authoring_document=None,
         ):
             captured.update(
                 org_repo=org_repo,
@@ -1142,6 +1143,7 @@ class TestVerifyReadmeCandidateCapability:
                 status=status,
                 needs_write=needs_write,
                 agentic_composition_plan=agentic_composition_plan,
+                section_authoring_document=section_authoring_document,
             )
             return {"verdict": "accept", "reason": None, "checks": {}, "requirement_map": {}}
 
@@ -1165,6 +1167,7 @@ class TestVerifyReadmeCandidateCapability:
             "status": "GENERATED",
             "needs_write": True,
             "agentic_composition_plan": None,
+            "section_authoring_document": None,
         }
 
     def test_manifest_is_scoped_to_independent_verification(self):

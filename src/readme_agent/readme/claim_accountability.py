@@ -465,11 +465,23 @@ def build_readme_claim_accountability_map(
             if facts.fact_by_id(fact_id).verification_state in {"verified", "policy_approved"}
             and not facts.fact_by_id(fact_id).has_unresolved_conflict
         }
+        exact_section_authoring_fact_ids = {
+            fact_id
+            for binding in bindings
+            if binding.provenance_id.startswith("template.section-authoring.")
+            and binding.candidate_byte_start <= claim.source_byte_start
+            and material_claim_end <= binding.candidate_byte_end <= claim.source_byte_end
+            and not candidate_bytes[binding.candidate_byte_end : claim.source_byte_end].strip()
+            for fact_id in binding.fact_ids
+            if facts.fact_by_id(fact_id).verification_state in {"verified", "policy_approved"}
+            and not facts.fact_by_id(fact_id).has_unresolved_conflict
+        }
         fact_ids = (
             accepted_literal_facts(text, facts)
             | overlapping_candidate_fact_ids(claim, candidate_text, generated_claim_map)
             | set(literal_fact_ids(text, facts, provenance_fact_ids))
             | exact_compiler_fact_ids
+            | exact_section_authoring_fact_ids
         )
         fact_ids.update(accepted_candidate_policy_fact_ids(text, facts, bindings))
         policy_source = policy_candidate_sources.get(claim.claim_id)

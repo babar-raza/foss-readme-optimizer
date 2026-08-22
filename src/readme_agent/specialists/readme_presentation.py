@@ -801,6 +801,7 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             ),
             product_facts_v2=current_render_result.get("product_facts_v2"),
             agentic_composition_plan=current_render_result.get("agentic_composition_plan"),
+            section_authoring_document=current_render_result.get("section_authoring_document"),
             llm_disposition_client=disposition_client,
             repository_root=disposition_repository_root,
             disposition_ratchet_path=disposition_ratchet_path,

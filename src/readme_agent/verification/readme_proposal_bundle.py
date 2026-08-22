@@ -33,6 +33,7 @@ from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
+from readme_agent.specialists.section_authoring_contracts import SectionAuthoringDocumentV1
 from readme_agent.verification.acquisition_ground_truth import verify_acquisition_ground_truth
 
 VERIFIER_IDENTITY = "independent-readme-proposal-bundle-verifier"
@@ -168,6 +169,14 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
             if raw_agentic_plan
             else None
         )
+        section_document_path = bundle_dir / "section-authoring-document-v1.json"
+        section_document = (
+            SectionAuthoringDocumentV1.model_validate(
+                json.loads(section_document_path.read_text(encoding="utf-8"))
+            )
+            if section_document_path.is_file()
+            else None
+        )
         claim_map = ReadmeClaimMapV1.model_validate(
             json.loads((bundle_dir / "claim-map-v1.json").read_text(encoding="utf-8"))
         )
@@ -183,6 +192,12 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
         )
     record("schemas_valid", True)
     org_repo = plan.org_repo
+    record(
+        "section_authoring_document_matches_plan",
+        (section_document.canonical_hash() if section_document is not None else None)
+        == plan.section_authoring_document_sha256,
+        "section-authoring document is absent or differs from the plan binding",
+    )
 
     record(
         "source_hash_matches_plan",
@@ -260,6 +275,7 @@ def verify_readme_proposal_bundle(bundle_dir: Path) -> ReadmeProposalBundleVerdi
         agentic_composition_plan=(
             agentic_plan.model_dump(mode="json") if agentic_plan is not None else None
         ),
+        section_authoring_document=section_document,
         link_catalogs=link_catalogs,
         link_allocation_policy=link_allocation_policy,
     )

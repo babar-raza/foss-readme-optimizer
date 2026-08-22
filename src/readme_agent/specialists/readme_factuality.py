@@ -21,6 +21,7 @@ from readme_agent.readme.claim_verification import find_claim_conflicts
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_validation import validate_readme_document_candidate
 from readme_agent.readme.markers import find_presentation_span
+from readme_agent.specialists.section_authoring_contracts import SectionAuthoringDocumentV1
 
 
 class CandidateFactualityDecisionV1(BaseModel):
@@ -42,6 +43,7 @@ def evaluate_candidate_factuality(
     source_text: str | None = None,
     product_facts_v2: dict | ProductFactsV2 | None = None,
     agentic_composition_plan: dict | None = None,
+    section_authoring_document: dict | SectionAuthoringDocumentV1 | None = None,
     llm_disposition_client: ForcedToolClient | None = None,
     repository_root: Path | None = None,
     disposition_ratchet_path: Path | None = None,
@@ -130,12 +132,18 @@ def evaluate_candidate_factuality(
                 error="product identity has no immutable source revision",
             )
         link_catalogs, link_allocation_policy = load_runtime_link_inputs(org_repo)
+        authored_sections = (
+            SectionAuthoringDocumentV1.model_validate(section_authoring_document)
+            if section_authoring_document is not None
+            else None
+        )
         expected, document_plan = build_readme_document_candidate(
             org_repo,
             immutable_source,
             current_v2,
             base_revision=source_revision,
             agentic_composition_plan=agentic_composition_plan,
+            section_authoring_document=authored_sections,
             link_catalogs=link_catalogs,
             link_allocation_policy=link_allocation_policy,
             llm_disposition_client=llm_disposition_client,

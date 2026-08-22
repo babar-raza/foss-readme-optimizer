@@ -287,6 +287,8 @@ def build_template_provenance(
                     raise ValueError("accepted authored summary unit is absent")
                 absolute_start = summary_start + relative_start
                 absolute_end = absolute_start + len(authored)
+                if absolute_end < len(candidate) and candidate[absolute_end] == "\n":
+                    absolute_end += 1
                 bindings.append(
                     CandidateContentProvenanceV1(
                         provenance_id=(
@@ -349,16 +351,22 @@ def build_template_provenance(
                                 f"accepted authored unit is absent from template slot {slot!r}"
                             )
                         relative_end = relative_start + len(authored)
+                        absolute_start = start_character + relative_start
+                        absolute_end = start_character + relative_end
+                        if candidate[absolute_end : absolute_end + 2] == "\r\n":
+                            absolute_end += 2
+                        elif candidate[absolute_end : absolute_end + 1] == "\n":
+                            absolute_end += 1
                         bindings.append(
                             CandidateContentProvenanceV1(
                                 provenance_id=(
                                     f"template.section-authoring.{slot}."
                                     f"{outcome_index:02d}.{unit_index:02d}"
                                 ),
-                                candidate_byte_start=base_byte
-                                + len(text[:relative_start].encode("utf-8")),
-                                candidate_byte_end=base_byte
-                                + len(text[:relative_end].encode("utf-8")),
+                                candidate_byte_start=len(
+                                    candidate[:absolute_start].encode("utf-8")
+                                ),
+                                candidate_byte_end=len(candidate[:absolute_end].encode("utf-8")),
                                 fact_ids=list(unit.fact_ids),
                                 rationale=(
                                     "Bind one deterministically accepted section-authoring unit "
