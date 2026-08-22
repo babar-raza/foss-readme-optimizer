@@ -51,6 +51,47 @@ def _packet(*, org_repo: str = "aspose-3d-foss/Aspose.3D-FOSS-for-Python", produ
     )
 
 
+def _installation_packet():
+    facts = build_product_facts_v2(
+        field_values={
+            "installation.verified_acquisition": {
+                "method": "source_build",
+                "outcome": "SOURCE_BUILD_VERIFIED",
+                "coordinate": {"name": "aspose-3d-foss"},
+                "truth_eligible": True,
+            },
+            "installation.coordinates": [
+                {
+                    "ecosystem": "python",
+                    "manifest_path": "setup.py",
+                    "name": "aspose-3d-foss",
+                    "version": "26.1.0",
+                }
+            ],
+            "product.compatibility": [{"runtime_label": "Python", "minimum_runtime": ">=3.7"}],
+        }
+    )
+    fact_ids = [
+        facts.selected_fact_ids[field]
+        for field in (
+            "installation.verified_acquisition",
+            "installation.coordinates",
+            "product.compatibility",
+        )
+    ]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="installation",
+        task_family="installation_framing",
+        section_objective="Frame source acquisition without spelling deterministic literals.",
+        product_facts=facts,
+        accepted_fact_ids=fact_ids,
+        protected_content=PROTECTED,
+    )
+    return packet, fact_ids
+
+
 class FakeSectionAuthorClient:
     def __init__(self, responses):
         self._responses = list(responses)
@@ -76,7 +117,7 @@ def _valid_response() -> dict:
         "units": [
             {
                 "heading": "Import and Export 3D Content",
-                "text": "Import and export OBJ and GLTF 3D content with a focused Python API.",
+                "text": "Exchange OBJ and GLTF assets through a focused Python API.",
                 "fact_ids": [CAP_1, CAP_2],
             }
         ],
@@ -94,12 +135,25 @@ def test_accepts_a_valid_response_on_the_first_attempt():
     assert outcome.reused_from_cache is False
     assert outcome.receipt.semantic_retry_used is False
     assert outcome.receipt.logical_call_count == 1
+    assert client.calls[0]["accepted_fact_ids"] == ["F1", "F2"]
     assert {fact_id for unit in outcome.result.units for fact_id in unit.fact_ids} == {
         CAP_1,
         CAP_2,
     }
     assert outcome.receipt.token_usage[0].prompt_tokens == 100
     assert outcome.receipt.latency_ms[0] == 1234.0
+
+
+def test_define_is_a_concrete_action_led_capability_heading():
+    packet = _packet()
+    response = _valid_response()
+    response["units"][0]["heading"] = "Define Animations With Keyframes"
+    client = FakeSectionAuthorClient([response])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.result.units[0].heading == "Define Animations With Keyframes"
+    assert outcome.receipt.semantic_retry_used is False
 
 
 def test_unsupported_fact_id_triggers_one_semantic_retry_then_succeeds():
@@ -132,9 +186,12 @@ def test_unsupported_fact_id_triggers_one_semantic_retry_then_succeeds():
     assert retry_messages[1]["role"] == "user"
     retry_content = retry_messages[1]["content"]
     assert "acceptance" in retry_content.casefold()
-    assert CAP_1 in retry_content
-    assert CAP_2 in retry_content
-    assert LIM_1 in retry_content  # do_not_claim context also survives the retry
+    assert '"fact_id":"F1"' in retry_content
+    assert '"fact_id":"F2"' in retry_content
+    assert '"fact_id":"N1"' in retry_content  # do_not_claim context also survives the retry
+    assert CAP_1 not in retry_content
+    assert CAP_2 not in retry_content
+    assert LIM_1 not in retry_content
 
 
 def test_internal_verification_narration_triggers_targeted_recovery():
@@ -153,6 +210,388 @@ def test_internal_verification_narration_triggers_targeted_recovery():
     assert "internal verification narration" in client.calls[1]["messages"][1]["content"]
 
 
+def test_capability_body_that_repeats_heading_triggers_targeted_recovery():
+    packet = _packet()
+    repeated = _valid_response()
+    repeated["units"][0]["heading"] = "Create 3D Primitives"
+    repeated["units"][0]["text"] = (
+        "Create standard 3D primitives including boxes and spheres for scene construction."
+    )
+    client = FakeSectionAuthorClient([repeated, _valid_response()])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    assert "repeat their headings" in client.calls[1]["messages"][1]["content"]
+
+
+def test_unsupported_quality_and_dependency_positioning_triggers_targeted_recovery():
+    packet = _packet()
+    inflated = _valid_response()
+    inflated["units"][0]["text"] = "Use a reliable and rapid API without external dependencies."
+    client = FakeSectionAuthorClient([inflated, _valid_response()])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    repair = client.calls[1]["messages"][1]["content"]
+    assert "unsupported quality, completeness, guarantee" in repair
+    assert "End each sentence immediately after the behavior" in repair
+
+
+@pytest.mark.parametrize(
+    "wording",
+    [
+        "This is the fully implemented workflow.",
+        "Use the smallest possible example.",
+        "Use the simplest possible entry point.",
+        "Build from source to ensure compatibility.",
+        "Create scenes without external assets.",
+        "This is the only supported acquisition path.",
+        "Use this runtime, requiring only a compatible environment.",
+    ],
+)
+def test_unsupported_guarantees_and_absolutes_trigger_recovery(wording):
+    packet = _packet()
+    inflated = _valid_response()
+    inflated["units"][0]["text"] = wording
+    client = FakeSectionAuthorClient([inflated, _valid_response()])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+
+
+def test_positive_format_inventory_cannot_become_a_closed_world_denial():
+    facts = build_product_facts_v2(field_values={"product.formats": ["OBJ", "GLTF", "STL", "3MF"]})
+    fact_id = facts.selected_fact_ids["product.formats"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="scope_and_limitations",
+        task_family="scope_and_limitations",
+        section_objective="State supported formats.",
+        product_facts=facts,
+        accepted_fact_ids=[fact_id],
+        protected_content=PROTECTED,
+    )
+    invalid = {
+        "units": [
+            {
+                "heading": "Use Supported Formats",
+                "text": "The library does not support other formats beyond OBJ and GLTF.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    valid = {
+        "units": [
+            {
+                "heading": "Use Supported Formats",
+                "text": "The library supports OBJ, GLTF, STL, and 3MF formats.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([invalid, valid])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    assert "closed-world denials" in client.calls[1]["messages"][1]["content"]
+
+
+def test_example_framing_cannot_invent_operations_absent_from_exact_code():
+    facts = build_product_facts_v2(
+        field_values={
+            "example.minimal": {
+                "language": "python",
+                "class_name": "Scene",
+                "code": "from aspose.threed import Scene\n\nscene = Scene()\n",
+            }
+        }
+    )
+    fact_id = facts.selected_fact_ids["example.minimal"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="quick_start",
+        task_family="verified_example_framing",
+        section_objective="Explain the introductory example.",
+        product_facts=facts,
+        accepted_fact_ids=[fact_id],
+        protected_content=PROTECTED,
+    )
+    invalid = {
+        "units": [
+            {
+                "heading": "Create a 3D Scene",
+                "text": "The example adds a shape and saves the scene to a file.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    valid = {
+        "units": [
+            {
+                "heading": "Create a 3D Scene",
+                "text": "The example instantiates one public API object.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([invalid, valid])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    repair = client.calls[1]["messages"][1]["content"]
+    assert "does not execute the claimed" in repair
+
+
+def test_product_identity_spelling_must_match_public_name_exactly():
+    facts = build_product_facts_v2(
+        field_values={
+            "product.identity": {
+                "product_name": "Aspose.3D",
+                "family": "3d",
+                "platform": "python",
+                "ecosystem": "python",
+            }
+        }
+    )
+    fact_id = facts.selected_fact_ids["product.identity"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="summary",
+        task_family="opening_summary",
+        section_objective="Introduce the product.",
+        product_facts=facts,
+        accepted_fact_ids=[fact_id],
+        protected_content=PROTECTED,
+    )
+    invalid = {
+        "units": [
+            {
+                "heading": "Process 3D Content",
+                "text": "Aspose.3D-FOSS for Python processes 3D content.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    valid = {
+        "units": [
+            {
+                "heading": "Process 3D Content",
+                "text": "Aspose.3D FOSS for Python processes 3D content.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([invalid, valid])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    assert "preserve exact public name" in client.calls[1]["messages"][1]["content"]
+    assert "Replace the product spelling" in client.calls[1]["messages"][1]["content"]
+
+
+def test_independent_sibling_capabilities_cannot_be_fused_into_one_unit():
+    facts = build_product_facts_v2(
+        field_values={
+            "product.capabilities": [
+                "3D primitives including Box and Sphere",
+                "File format import and export for OBJ, GLTF, STL, and 3MF",
+                "Animation system with keyframe support",
+            ]
+        }
+    )
+    fact_id = facts.selected_fact_ids["product.capabilities"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="key_capabilities",
+        task_family="capability_entry_cluster",
+        section_objective="Describe distinct capabilities.",
+        product_facts=facts,
+        accepted_fact_ids=[fact_id],
+        protected_content=PROTECTED,
+    )
+    conflated = {
+        "units": [
+            {
+                "heading": "Define and Export Animations",
+                "text": "Build keyframe animations and export them to GLTF, STL, and 3MF.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    separated = {
+        "units": [
+            {
+                "heading": "Create 3D Primitives",
+                "text": "Construct Box and Sphere geometry for scenes.",
+                "fact_ids": [fact_id],
+            },
+            {
+                "heading": "Import and Export 3D Files",
+                "text": "Exchange OBJ, GLTF, STL, and 3MF assets.",
+                "fact_ids": [fact_id],
+            },
+            {
+                "heading": "Define Keyframe Animations",
+                "text": "Control scene changes over time with keyframes.",
+                "fact_ids": [fact_id],
+            },
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([conflated, separated])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    assert "combines 2 independent sibling items" in client.calls[1]["messages"][1]["content"]
+
+
+def test_opening_summary_may_synthesize_multiple_verified_capabilities():
+    facts = build_product_facts_v2(
+        field_values={
+            "product.capabilities": [
+                "Create 3D primitives",
+                "Import and export 3D formats",
+                "Define keyframe animations",
+            ]
+        }
+    )
+    fact_id = facts.selected_fact_ids["product.capabilities"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="summary",
+        task_family="opening_summary",
+        section_objective="Summarize the product.",
+        product_facts=facts,
+        accepted_fact_ids=[fact_id],
+        protected_content=PROTECTED,
+    )
+    synthesized = {
+        "units": [
+            {
+                "heading": "Work With 3D Content",
+                "text": "Create primitives, exchange 3D formats, and define keyframe animations.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([synthesized])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is False
+
+
+def test_live_internal_assurance_wording_triggers_targeted_recovery():
+    packet, fact_ids = _installation_packet()
+    invalid = {
+        "units": [
+            {
+                "heading": "Install From Source",
+                "text": (
+                    "The package was verified by source build in an isolated Python "
+                    "environment, and its public imports and example execution were confirmed."
+                ),
+                "fact_ids": fact_ids,
+            }
+        ],
+        "omitted": [],
+    }
+    valid = {
+        "units": [
+            {
+                "heading": "Install From Source",
+                "text": (
+                    "Build and install the library from source for its supported Python runtime."
+                ),
+                "fact_ids": fact_ids,
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([invalid, valid])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    assert len(client.calls) == 2
+    assert "internal verification narration" in client.calls[1]["messages"][1]["content"]
+
+
+def test_source_build_cannot_authorize_pypi_publication_and_recovers_only_cluster():
+    packet, fact_ids = _installation_packet()
+    invalid = {
+        "units": [
+            {
+                "heading": "Install the Package",
+                "text": "Install the aspose-3d-foss package from PyPI.",
+                "fact_ids": fact_ids,
+            }
+        ],
+        "omitted": [],
+    }
+    valid = {
+        "units": [
+            {
+                "heading": "Install From Source",
+                "text": "Build and install the library from source for Python projects.",
+                "fact_ids": fact_ids,
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([invalid, valid])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    assert len(client.calls) == 2
+    repair = client.calls[1]["messages"][1]["content"]
+    assert "source-build acquisition cannot authorize" in repair
+    assert "belongs to deterministic rendering" in repair
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "The aspose-3d-foss package is published under this distribution name.",
+        "Use version 26.1.0 from setup.py.",
+        "The package is not published to public Python package registries.",
+    ],
+)
+def test_installation_literals_and_unproved_publication_fail_closed_after_retry(text):
+    packet, fact_ids = _installation_packet()
+    invalid = {
+        "units": [{"heading": "Install", "text": text, "fact_ids": fact_ids}],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([invalid, invalid, invalid])
+
+    with pytest.raises(SectionAuthoringAcceptanceError, match="structured fact coordinates"):
+        execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert len(client.calls) == 3
+
+
 def test_do_not_claim_fact_id_cannot_authorize_positive_prose():
     packet = _packet()
     forbidden = {
@@ -165,12 +604,12 @@ def test_do_not_claim_fact_id_cannot_authorize_positive_prose():
         ],
         "omitted": [{"fact_id": CAP_2, "reason": "not covered in this cluster"}],
     }
-    client = FakeSectionAuthorClient([forbidden, forbidden])
+    client = FakeSectionAuthorClient([forbidden, forbidden, forbidden])
 
     with pytest.raises(SectionAuthoringAcceptanceError, match="do_not_claim"):
         execute_section_cluster_authoring(packet=packet, client=client)
 
-    assert len(client.calls) == 2  # one normal attempt + one exhausted semantic retry
+    assert len(client.calls) == 3  # one normal attempt + two exhausted semantic retries
 
 
 def test_undisposed_accepted_fact_is_rejected():
@@ -179,10 +618,12 @@ def test_undisposed_accepted_fact_is_rejected():
         "units": [{"heading": "Overview", "text": "Imports OBJ files.", "fact_ids": [CAP_1]}],
         "omitted": [],  # CAP_2 neither cited nor omitted
     }
-    client = FakeSectionAuthorClient([incomplete, incomplete])
+    client = FakeSectionAuthorClient([incomplete, incomplete, incomplete])
 
     with pytest.raises(SectionAuthoringAcceptanceError, match="neither used nor omitted"):
         execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert "Do not leave any missing alias undisposed" in client.calls[1]["messages"][1]["content"]
 
 
 def test_fact_both_cited_and_omitted_is_rejected():
@@ -197,10 +638,13 @@ def test_fact_both_cited_and_omitted_is_rejected():
         ],
         "omitted": [{"fact_id": CAP_2, "reason": "also omitted, contradictorily"}],
     }
-    client = FakeSectionAuthorClient([contradictory, contradictory])
+    client = FakeSectionAuthorClient([contradictory, contradictory, contradictory])
 
     with pytest.raises(SectionAuthoringAcceptanceError, match="both cited and omitted"):
         execute_section_cluster_authoring(packet=packet, client=client)
+
+    repair = client.calls[1]["messages"][1]["content"]
+    assert "delete every omitted entry for a fact cited by any unit" in repair
 
 
 def test_authored_code_fence_is_rejected_because_deterministic_code_owns_examples():
@@ -215,7 +659,7 @@ def test_authored_code_fence_is_rejected_because_deterministic_code_owns_example
         ],
         "omitted": [],
     }
-    client = FakeSectionAuthorClient([with_code, with_code])
+    client = FakeSectionAuthorClient([with_code, with_code, with_code])
 
     with pytest.raises(SectionAuthoringAcceptanceError, match="code block or command"):
         execute_section_cluster_authoring(packet=packet, client=client)
@@ -233,24 +677,24 @@ def test_authored_command_line_is_rejected():
         ],
         "omitted": [],
     }
-    client = FakeSectionAuthorClient([with_command, with_command])
+    client = FakeSectionAuthorClient([with_command, with_command, with_command])
 
     with pytest.raises(SectionAuthoringAcceptanceError, match="code block or command"):
         execute_section_cluster_authoring(packet=packet, client=client)
 
 
-def test_exhausting_the_semantic_retry_raises_and_makes_exactly_two_calls():
+def test_exhausting_semantic_recovery_raises_after_exactly_three_calls():
     packet = _packet()
     always_bad = {
         "units": [{"heading": "Overview", "text": "x", "fact_ids": [CAP_1]}],
         "omitted": [],
     }
-    client = FakeSectionAuthorClient([always_bad, always_bad])
+    client = FakeSectionAuthorClient([always_bad, always_bad, always_bad])
 
     with pytest.raises(SectionAuthoringAcceptanceError, match="failed acceptance"):
         execute_section_cluster_authoring(packet=packet, client=client)
 
-    assert len(client.calls) == 2
+    assert len(client.calls) == 3
 
 
 def test_accepted_section_cache_hit_makes_zero_provider_calls(tmp_path):
@@ -277,7 +721,7 @@ def test_a_failed_section_retries_only_that_section_never_writes_a_cache_entry(t
         "units": [{"heading": "Overview", "text": "x", "fact_ids": [CAP_1]}],
         "omitted": [],
     }
-    client = FakeSectionAuthorClient([always_bad, always_bad])
+    client = FakeSectionAuthorClient([always_bad, always_bad, always_bad])
 
     with pytest.raises(SectionAuthoringAcceptanceError):
         execute_section_cluster_authoring(packet=packet, client=client, cache_dir=tmp_path)
@@ -323,7 +767,7 @@ def test_a_failed_cluster_never_erases_a_prior_successful_outcome_for_the_same_s
         accepted_fact_ids=[CAP_1],
         protected_content=PROTECTED,
     )
-    failing_client = FakeSectionAuthorClient([always_bad, always_bad])
+    failing_client = FakeSectionAuthorClient([always_bad, always_bad, always_bad])
     with pytest.raises(SectionAuthoringAcceptanceError):
         execute_section_cluster_authoring(
             packet=other_packet, client=failing_client, cache_dir=tmp_path
@@ -392,11 +836,11 @@ class _FakeHttpResponse:
         return self._json
 
 
-def test_worst_case_composed_bound_is_exactly_four_physical_calls_for_one_cluster(monkeypatch):
+def test_worst_case_composed_bound_is_exactly_six_physical_calls_for_one_cluster(monkeypatch):
     """Proves the documented worst case end to end through the REAL client (not a fixture
     double): logical attempt 1 needs its own transport retry (500 then success-but-invalid),
-    logical attempt 2 also needs its own transport retry (500 then success-and-valid) -- 2
-    logical attempts x 2 physical transport attempts each = 4 physical HTTP calls total, never
+    logical attempts 2 and 3 also need transport retries, with the third finally accepted -- 3
+    logical attempts x 2 physical transport attempts each = 6 physical HTTP calls total, never
     more, and the cluster still succeeds by the end of its bounded budget."""
 
     packet = _packet()
@@ -409,6 +853,8 @@ def test_worst_case_composed_bound_is_exactly_four_physical_calls_for_one_cluste
         _tool_call_response(500),  # logical attempt 1, physical attempt 1: transient failure
         _tool_call_response(200, arguments=invalid_schema_args),  # physical attempt 2: invalid
         _tool_call_response(500),  # logical attempt 2, physical attempt 1: transient failure
+        _tool_call_response(200, arguments=invalid_schema_args),  # physical attempt 2: invalid
+        _tool_call_response(500),  # logical attempt 3, physical attempt 1: transient failure
         _tool_call_response(200, arguments=valid_args),  # physical attempt 2: valid, accepted
     ]
     physical_calls = {"n": 0}
@@ -424,6 +870,6 @@ def test_worst_case_composed_bound_is_exactly_four_physical_calls_for_one_cluste
 
     outcome = execute_section_cluster_authoring(packet=packet, client=client)
 
-    assert physical_calls["n"] == 4  # the documented worst-case ceiling, exactly reached
-    assert outcome.receipt.logical_call_count == 2
+    assert physical_calls["n"] == 6  # the documented worst-case ceiling, exactly reached
+    assert outcome.receipt.logical_call_count == 3
     assert outcome.receipt.semantic_retry_used is True

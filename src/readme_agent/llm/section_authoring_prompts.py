@@ -93,6 +93,7 @@ def build_section_cluster_authoring_tool_schema(accepted_fact_ids: list[str]) ->
 def build_section_cluster_authoring_messages(
     *,
     org_repo: str,
+    public_product_name: str,
     target_section_id: str,
     task_family: str,
     section_objective: str,
@@ -111,6 +112,7 @@ def build_section_cluster_authoring_messages(
         Template(manifest.user_template)
         .substitute(
             org_repo=org_repo,
+            public_product_name=public_product_name,
             target_section_id=target_section_id,
             task_family=task_family,
             section_objective=section_objective,

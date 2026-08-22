@@ -120,6 +120,13 @@ def test_canonical_specs_cover_five_bounded_public_prose_jobs():
         "quick_start",
         "scope_and_limitations",
     ]
+    quick_start = next(spec for spec in specs if spec.section_id == "quick_start")
+    summary = next(spec for spec in specs if spec.section_id == "summary")
+    assert summary.max_facts_per_cluster == 2
+    assert all(spec.max_facts_per_cluster == 4 for spec in specs if spec.section_id != "summary")
+    assert quick_start.seo_vocabulary == ()
+    assert "verified" not in quick_start.section_objective.casefold()
+    assert "minimal" not in quick_start.section_objective.casefold()
     assert all(1 <= len(spec.accepted_fact_ids) <= 4 for spec in specs)
 
 
@@ -146,7 +153,13 @@ def test_document_reuses_unchanged_clusters_and_invalidates_only_one(tmp_path, m
         cache_dir=cache_dir,
     )
     assert first.complete
-    assert len(first_client.calls) == len(specs)
+    assert len(first_client.calls) == 4
+    assert first.expected_cluster_ids == (
+        "summary-1",
+        "summary-2",
+        "key_capabilities",
+        "installation",
+    )
 
     second_client = CountingClient()
     second = author_and_persist_readme_sections(
@@ -160,7 +173,7 @@ def test_document_reuses_unchanged_clusters_and_invalidates_only_one(tmp_path, m
         cache_dir=cache_dir,
     )
     assert second_client.calls == []
-    assert second.reused_cluster_count == len(specs)
+    assert second.reused_cluster_count == 4
 
     changed_specs = list(specs)
     changed_specs[1] = changed_specs[1].__class__(
@@ -181,7 +194,7 @@ def test_document_reuses_unchanged_clusters_and_invalidates_only_one(tmp_path, m
         cache_dir=cache_dir,
     )
     assert len(third_client.calls) == 1
-    assert third.reused_cluster_count == len(specs) - 1
+    assert third.reused_cluster_count == 3
     assert load_section_authoring_document(ORG_REPO, REVISION) == third
 
 

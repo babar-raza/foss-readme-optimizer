@@ -16,6 +16,9 @@ from readme_agent.presentation.template_schema import (
 from readme_agent.readme.capability_semantics import is_action_led_capability_title
 from readme_agent.readme.document_structure import github_anchor, parse_headings
 from readme_agent.readme.header_visual_layout import validate_capability_group_layout
+from readme_agent.readme.presentation_lint_public_contract import (
+    contains_internal_assurance_commentary,
+)
 
 _BADGE = re.compile(r"(?:!\[[^\]]+\]\([^)]+\)|\[!\[[^\]]+\]\([^)]+\)\]\([^)]+\))")
 _HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
@@ -23,13 +26,6 @@ _CODE_COMMENT = re.compile(r"(?m)^\s*(?:#(?!\s*\[)|//|/\*|\*|--)\s+\S")
 _COPYRIGHT = re.compile(r"(?im)^\s*copyright(?:\s*©|\s+\(c\)|\s+\d{4})|©")
 _MERMAID_NODE = re.compile(r'(?m)^\s{2}[A-Za-z][A-Za-z0-9_]*\(\["[^"]+"\]\)\s*$')
 _ASPOSE_FOSS_PRODUCT = re.compile(r"\bAspose\.([A-Za-z0-9]+)\s+FOSS\b")
-_INTERNAL_ASSURANCE_COMMENTARY = re.compile(
-    r"(?i)(?:inventoried at the source revision|syntax and static public API checked|"
-    r"not executed or syntax checked|checked but not executed|not executed by the evidence "
-    r"collector|verification metadata|exact source revision|immutable repository revision|"
-    r"network[- ]disabled verification|matching (?:pypi|registry) receipt|"
-    r"verification environment)"
-)
 
 
 def _contains_emoji(text: str) -> bool:
@@ -243,7 +239,7 @@ def validate_repository_presentation(
         if token.type in {"fence", "code_block"} and token.info != "mermaid"
     ):
         errors.append("candidate contains a visible or code comment")
-    if _INTERNAL_ASSURANCE_COMMENTARY.search(candidate):
+    if contains_internal_assurance_commentary(candidate):
         errors.append("candidate exposes internal verification commentary")
     if _contains_emoji(candidate):
         errors.append("candidate contains emoji")

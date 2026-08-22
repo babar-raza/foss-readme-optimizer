@@ -19,6 +19,9 @@ from readme_agent.specialists.section_authoring_contracts import (
     SectionClusterAuthoringResultV1,
 )
 from readme_agent.specialists.section_authoring_packet import build_section_authoring_packet
+from readme_agent.specialists.section_authoring_prompt_projection import (
+    authoring_fact_prompt_payload,
+)
 from readme_agent.specialists.section_cluster_authoring import (
     SectionAuthoringAcceptanceError,
     _validate_acceptance,
@@ -77,6 +80,7 @@ def test_schema_never_makes_a_do_not_claim_fact_citable():
 def test_messages_are_system_then_user_and_never_leak_the_full_fact_corpus():
     messages = build_section_cluster_authoring_messages(
         org_repo="aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        public_product_name="Aspose.3D FOSS for Python",
         target_section_id="capability-overview",
         task_family="capability_entry_cluster",
         section_objective="Introduce the primary capabilities.",
@@ -91,6 +95,7 @@ def test_messages_are_system_then_user_and_never_leak_the_full_fact_corpus():
     assert "F.CAP.01" in user_content
     assert "F.LIM.01" in user_content
     assert "capability-overview" in user_content
+    assert "Aspose.3D FOSS for Python" in user_content
     # a full claim corpus / ProductFacts dump would carry many more fact IDs than this bounded
     # packet does -- this test only proves the exact packet content round-trips, not its size.
 
@@ -98,6 +103,7 @@ def test_messages_are_system_then_user_and_never_leak_the_full_fact_corpus():
 def test_repair_hint_slot_carries_correction_text_alongside_the_full_packet():
     messages = build_section_cluster_authoring_messages(
         org_repo="aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        public_product_name="Aspose.3D FOSS for Python",
         target_section_id="capability-overview",
         task_family="capability_entry_cluster",
         section_objective="Introduce the primary capabilities.",
@@ -115,6 +121,41 @@ def test_repair_hint_slot_carries_correction_text_alongside_the_full_packet():
     assert "F.LIM.01" in user_content
     assert "capability-overview" in user_content
     assert "unsupported fact_id" in user_content
+
+
+def test_model_facing_fact_projection_keeps_semantics_but_hides_deterministic_literals():
+    facts = build_product_facts_v2(
+        field_values={
+            "installation.verified_acquisition": {
+                "method": "source_build",
+                "outcome": "SOURCE_BUILD_VERIFIED",
+                "coordinate": {"name": "aspose-3d-foss"},
+                "source_revision": "a" * 40,
+                "truth_eligible": True,
+            }
+        }
+    )
+    fact = facts.selected_fact("installation.verified_acquisition")
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="installation",
+        task_family="installation_framing",
+        section_objective="Frame source acquisition.",
+        product_facts=facts,
+        accepted_fact_ids=[fact.fact_id],
+        protected_content=fingerprint_protected_content("# Example\n"),
+    )
+
+    projected = authoring_fact_prompt_payload(packet.accepted_facts[0])
+    serialized = json.dumps(projected, sort_keys=True)
+
+    assert '"acquisition_method": "source_build"' in serialized
+    assert "registry_install_supported" not in serialized
+    assert "aspose-3d-foss" not in serialized
+    assert "a" * 40 not in serialized
+    assert "protected_literals" not in serialized
+    assert "location" not in serialized
 
 
 def test_real_recorded_probe_response_requires_v2_heading_recovery_after_schema_parse():
@@ -178,5 +219,8 @@ def test_real_recorded_probe_response_requires_v2_heading_recovery_after_schema_
         protected_content=fingerprint_protected_content("# Example\n"),
     )
 
-    with pytest.raises(SectionAuthoringAcceptanceError, match="action-led"):
+    with pytest.raises(
+        SectionAuthoringAcceptanceError,
+        match="action-led|unsupported quality, completeness, guarantee",
+    ):
         _validate_acceptance(packet, result)

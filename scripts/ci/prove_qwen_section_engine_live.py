@@ -16,10 +16,22 @@ from readme_agent import env
 from readme_agent.evidence.writer import write_redacted_json
 from readme_agent.facts.protected_content import fingerprint_protected_content
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.llm.call_ledger import (
+    bind_llm_repository_revision,
+    current_llm_call_context,
+    load_llm_call_records,
+    reset_llm_call_accounting,
+    start_llm_call_accounting,
+)
+from readme_agent.llm.prompt_registry import get as get_prompt
 from readme_agent.llm.section_author_client import build_live_section_cluster_author_client
-from readme_agent.presentation.verified_template_runtime import build_verified_template_compilation
+from readme_agent.presentation.verified_template_document import (
+    build_verified_template_document_candidate,
+)
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.assessment import assess_readme_document
+from readme_agent.readme.document_validation import validate_readme_document_candidate
+from readme_agent.readme.presentation_lint import lint_readme_presentation
 from readme_agent.readme.public_text import (
     canonical_abbreviations_from_facts,
     canonicalize_public_markdown,
@@ -51,6 +63,13 @@ def _sha256(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
+def _section_prompt_version() -> str:
+    manifest = get_prompt("section_cluster_authoring")
+    if manifest is None:
+        raise RuntimeError("section_cluster_authoring prompt is not registered")
+    return manifest.version
+
+
 def _git_status(repository_root: Path) -> str:
     result = subprocess.run(
         ["git", "status", "--porcelain=v1"],
@@ -73,8 +92,10 @@ def _metrics(document, elapsed_seconds: float) -> dict:
         "cluster_count": len(document.outcomes),
         "provider_logical_calls": document.provider_logical_calls,
         "reused_cluster_count": document.reused_cluster_count,
-        "semantic_retry_cluster_count": sum(
-            outcome.receipt.semantic_retry_used for outcome in document.outcomes
+        "executed_semantic_retry_cluster_count": sum(
+            outcome.receipt.semantic_retry_used
+            for outcome in document.outcomes
+            if not outcome.reused_from_cache
         ),
         "prompt_tokens": sum(usage.prompt_tokens or 0 for usage in usages),
         "completion_tokens": sum(usage.completion_tokens or 0 for usage in usages),
@@ -136,6 +157,13 @@ def main() -> int:
         proof_runs = Path(temp) / "runs"
         prior_runs_dir = os.environ.get("README_AGENT_RUNS_DIR")
         os.environ["README_AGENT_RUNS_DIR"] = str(proof_runs)
+        start_llm_call_accounting(
+            args.org_repo,
+            f"qwen-section-engine-live-{source_revision[:12]}",
+            campaign_id="L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION",
+            stage="SECTION_AUTHORING",
+        )
+        bind_llm_repository_revision(source_revision, stage="SECTION_AUTHORING")
         try:
             cache_dir = Path(temp) / "cache"
             start = time.perf_counter()
@@ -182,7 +210,12 @@ def main() -> int:
                 cache_dir=cache_dir,
             )
             selective_elapsed = time.perf_counter() - start
+            ledger_context = current_llm_call_context()
+            if ledger_context is None:
+                raise RuntimeError("Qwen live proof lost its LLM accounting context")
+            ledger_records = load_llm_call_records(Path(ledger_context.ledger_path))
         finally:
+            reset_llm_call_accounting()
             if prior_runs_dir is None:
                 os.environ.pop("README_AGENT_RUNS_DIR", None)
             else:
@@ -208,16 +241,30 @@ def main() -> int:
         section_decisions=[],
         overview_sentences=[],
     )
-    compiled = build_verified_template_compilation(
+    candidate, document_plan = build_verified_template_document_candidate(
         facts,
         source_text,
         source_revision,
         plan,
         section_authoring_document=first,
     )
+    validation = validate_readme_document_candidate(
+        source_text,
+        candidate,
+        document_plan,
+        facts,
+    )
+    independently_rendered, independent_plan = build_verified_template_document_candidate(
+        facts,
+        source_text,
+        source_revision,
+        plan,
+        section_authoring_document=first,
+    )
+    public_lint = lint_readme_presentation(candidate, facts)
     authored_provenance = [
         binding
-        for binding in compiled.provenance
+        for binding in document_plan.candidate_content_provenance
         if binding.provenance_id.startswith("template.section-authoring.")
     ]
     first_metrics = _metrics(first, first_elapsed)
@@ -235,32 +282,50 @@ def main() -> int:
         == [item.result for item in second.outcomes],
         "unchanged_zero_provider_calls": second_metrics["provider_logical_calls"] == 0,
         "unchanged_reused_every_cluster": second.reused_cluster_count == expected_calls,
-        "selective_one_cluster_reauthored": selective_metrics["provider_logical_calls"] == 1,
+        "selective_one_cluster_reauthored": sum(
+            not outcome.reused_from_cache for outcome in selective.outcomes
+        )
+        == 1,
+        "selective_calls_within_one_cluster_bound": 1
+        <= selective_metrics["provider_logical_calls"]
+        <= 3,
         "selective_reused_other_clusters": selective.reused_cluster_count == expected_calls - 1,
         "candidate_contains_authored_bytes": all(
-            canonicalize_public_markdown(unit.text.strip(), canonical_terms) in compiled.candidate
+            canonicalize_public_markdown(unit.text.strip(), canonical_terms) in candidate
             for outcome in first.outcomes
             for unit in outcome.result.units
         ),
         "candidate_has_authored_fact_lineage": len(authored_provenance)
         == sum(len(outcome.result.units) for outcome in first.outcomes),
+        "complete_deterministic_candidate_validation": validation.valid,
+        "public_presentation_contract_valid": public_lint.valid,
+        "independent_candidate_reconstruction_matches": independently_rendered == candidate,
+        "independent_document_plan_matches": independent_plan == document_plan,
+        "llm_call_ledger_covers_bounded_physical_attempts": (
+            first_metrics["provider_logical_calls"] + selective_metrics["provider_logical_calls"]
+            <= len(ledger_records)
+            <= 2
+            * (
+                first_metrics["provider_logical_calls"]
+                + selective_metrics["provider_logical_calls"]
+            )
+        ),
         "source_readme_unchanged": source_sha256_after == source_sha256_before,
         "baseline_git_state_unchanged": git_status_after == git_status_before,
     }
-    if not all(checks.values()):
-        failed = [name for name, passed in checks.items() if not passed]
-        raise RuntimeError(f"Qwen section-engine live proof failed: {failed}")
+    failed = [name for name, passed in checks.items() if not passed]
+    verdict = "PASS" if not failed else "FAIL"
 
     args.evidence_dir.mkdir(parents=True, exist_ok=True)
     payload = {
         "schema_version": 1,
-        "verdict": "PASS",
+        "verdict": verdict,
         "org_repo": facts.org_repo,
         "source_revision": source_revision,
         "facts_hash": facts.canonical_hash(),
         "source_sha256": source_sha256_before,
         "model_route": env.llm_model_for_job("section_cluster_authoring"),
-        "prompt_version": 2,
+        "prompt_version": _section_prompt_version(),
         "checks": checks,
         "first": first_metrics,
         "unchanged_rerun": second_metrics,
@@ -268,13 +333,25 @@ def main() -> int:
         "acceleration": {
             "unchanged_provider_calls_avoided": expected_calls,
             "unchanged_recompute_reduction_percent": 100.0,
-            "selective_provider_calls_avoided": expected_calls - 1,
-            "selective_recompute_reduction_percent": round(
+            "selective_clusters_avoided": expected_calls - 1,
+            "selective_minimum_provider_calls_avoided": max(
+                0,
+                expected_calls - selective_metrics["provider_logical_calls"],
+            ),
+            "selective_cluster_recompute_reduction_percent": round(
                 100 * (expected_calls - 1) / expected_calls, 1
             ),
         },
-        "candidate_sha256": _sha256(compiled.candidate),
+        "candidate_sha256": _sha256(candidate),
         "authored_provenance_count": len(authored_provenance),
+        "deterministic_validation": {
+            "valid": validation.valid,
+            "checks": validation.checks,
+            "errors": validation.errors,
+        },
+        "public_presentation_lint": public_lint.model_dump(mode="json"),
+        "section_authoring_document_sha256": first.canonical_hash(),
+        "llm_call_record_count": len(ledger_records),
         "limitations": [
             "This proves the authoring portion of one real repository transaction, not PF-02.",
             "The transport client can make up to two physical attempts per logical call; the "
@@ -283,10 +360,30 @@ def main() -> int:
         ],
     }
     write_redacted_json(args.evidence_dir / "live-proof.json", payload)
-    (args.evidence_dir / "candidate.md").write_text(compiled.candidate, encoding="utf-8")
+    write_redacted_json(
+        args.evidence_dir / "section-authoring-first.json",
+        first.model_dump(mode="json"),
+    )
+    write_redacted_json(
+        args.evidence_dir / "section-authoring-unchanged.json",
+        second.model_dump(mode="json"),
+    )
+    write_redacted_json(
+        args.evidence_dir / "section-authoring-selective.json",
+        selective.model_dump(mode="json"),
+    )
+    write_redacted_json(
+        args.evidence_dir / "llm-call-ledger.json",
+        [record.model_dump(mode="json") for record in ledger_records],
+    )
+    write_redacted_json(
+        args.evidence_dir / "readme-document-plan.json",
+        document_plan.model_dump(mode="json"),
+    )
+    (args.evidence_dir / "candidate.md").write_text(candidate, encoding="utf-8")
     report = (
         "# Qwen Section Engine Live Proof\n\n"
-        "Verdict: PASS\n\n"
+        f"Verdict: {verdict}\n\n"
         f"- Repository: `{facts.org_repo}`\n"
         f"- Source revision: `{source_revision}`\n"
         f"- Model: `{payload['model_route']}`\n"
@@ -294,10 +391,15 @@ def main() -> int:
         f"{expected_calls} clusters in {first_metrics['elapsed_seconds']} seconds.\n"
         f"- Unchanged rerun: 0 provider calls; {expected_calls}/{expected_calls} clusters reused "
         f"in {second_metrics['elapsed_seconds']} seconds.\n"
-        f"- One-cluster change: 1 provider call; {expected_calls - 1}/{expected_calls} clusters "
-        f"reused in {selective_metrics['elapsed_seconds']} seconds.\n"
+        f"- One-cluster change: {selective_metrics['provider_logical_calls']} logical provider "
+        f"call(s); {expected_calls - 1}/{expected_calls} clusters reused in "
+        f"{selective_metrics['elapsed_seconds']} seconds.\n"
         f"- Candidate: `{payload['candidate_sha256']}` with "
         f"{len(authored_provenance)} exact authored fact-lineage spans.\n"
+        f"- Complete deterministic document validation: {validation.valid}.\n"
+        f"- Independent deterministic reconstruction: {independently_rendered == candidate}.\n"
+        f"- Detailed section documents and {len(ledger_records)} redacted provider-call "
+        "records are checksum-bound in this evidence directory.\n"
         "- Product README and baseline git state remained unchanged.\n\n"
         "This demonstrates bounded authoring acceleration and recovery isolation. It does not "
         "claim PF-02 candidate closure or full-portfolio delivery.\n"
@@ -305,6 +407,8 @@ def main() -> int:
     (args.evidence_dir / "REPORT.md").write_text(report, encoding="utf-8")
     _inventory(args.evidence_dir)
     print(json.dumps(payload, indent=2, sort_keys=True))
+    if failed:
+        raise RuntimeError(f"Qwen section-engine live proof failed: {failed}")
     return 0
 
 

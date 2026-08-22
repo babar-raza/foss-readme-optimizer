@@ -104,11 +104,20 @@ def build_product_facts_v2(
     specific test needs) appended and left out of `selected_fact_ids`."""
 
     field_values = field_values or {}
+    default_identity = {
+        "product_name": "Aspose.3D",
+        "family": "3d",
+        "platform": "python",
+        "ecosystem": "python",
+    }
     required_facts = [
         FactRecordV2(
             fact_id=descriptive_fact_id(field, "fixture"),
             field=field,
-            value=field_values.get(field, f"{field} placeholder value"),
+            value=field_values.get(
+                field,
+                default_identity if field == "product.identity" else f"{field} placeholder value",
+            ),
             source=build_fact_source(f"repository://{org_repo}"),
             verification_state="verified",
             authoritative_owner="repository-owner",

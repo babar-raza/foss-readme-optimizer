@@ -223,8 +223,11 @@ class _FakeSectionAuthorClient:
         type(self).calls += 1
         user_content = str(messages[-1]["content"])
         target = user_content.split("Target section: ", 1)[1].splitlines()[0]
+        base_target = target.rsplit("-", 1)[0] if target.rsplit("-", 1)[-1].isdigit() else target
         text_by_target = {
             "summary": "Use this open-source product for its documented audience and purpose.",
+            "summary-1": "Use this open-source product for its documented audience and purpose.",
+            "summary-2": "Apply its documented capabilities to the supported product scope.",
             "key_capabilities": "Process supported content with the documented capabilities.",
             "installation": "Add the product by following the installation method shown below.",
             "quick_start": "Start with the public API example shown below.",
@@ -237,7 +240,7 @@ class _FakeSectionAuthorClient:
                 "units": [
                     {
                         "heading": "Process Product Content",
-                        "text": text_by_target[target],
+                        "text": text_by_target.get(target, text_by_target[base_target]),
                         "fact_ids": list(accepted_fact_ids),
                     }
                 ],

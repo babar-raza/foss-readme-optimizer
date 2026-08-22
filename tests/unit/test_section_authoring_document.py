@@ -38,16 +38,11 @@ class ScriptedClient:
 
     def analyze_section_cluster(self, messages, accepted_fact_ids):
         self.calls.append(list(accepted_fact_ids))
-        heading = (
-            "Import and Export 3D Content"
-            if any(fact_id.startswith("product.capabilities") for fact_id in accepted_fact_ids)
-            else "Install the Package"
-        )
         return AnalysisResult(
             parsed={
                 "units": [
                     {
-                        "heading": heading,
+                        "heading": "Process Repository Content",
                         "text": "A focused, specific description of this cluster's facts.",
                         "fact_ids": list(accepted_fact_ids),
                     }
@@ -167,6 +162,41 @@ def test_a_five_fact_section_is_authored_as_two_clusters():
         for fact_id in unit.fact_ids
     } | {item.fact_id for outcome in outcomes for item in outcome.result.omitted}
     assert disposed == set(fact_ids)
+
+
+def test_a_four_fact_summary_uses_two_ordered_two_fact_clusters():
+    extra = [
+        build_fact(f"product.capabilities:summary-{i}", "product.capabilities", f"Fact {i}.")
+        for i in range(1, 4)
+    ]
+    facts = build_product_facts_v2(
+        field_values={"product.capabilities": "Fact 0."}, extra_facts=extra
+    )
+    fact_ids = (
+        "product.capabilities:fixture",
+        *[f"product.capabilities:summary-{i}" for i in range(1, 4)],
+    )
+    client = ScriptedClient()
+
+    outcomes = author_readme_sections(
+        org_repo="aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        source_revision="a" * 40,
+        product_facts=facts,
+        protected_content=PROTECTED,
+        section_specs=[
+            SectionAuthoringSpecV1(
+                section_id="summary",
+                task_family="opening_summary",
+                section_objective="Introduce the product.",
+                accepted_fact_ids=fact_ids,
+                max_facts_per_cluster=2,
+            )
+        ],
+        client=client,
+    )
+
+    assert [outcome.target_section_id for outcome in outcomes] == ["summary-1", "summary-2"]
+    assert client.calls == [["F1", "F2"], ["F1", "F2"]]
 
 
 def test_a_failed_section_stops_the_document_but_preserves_earlier_outcomes():

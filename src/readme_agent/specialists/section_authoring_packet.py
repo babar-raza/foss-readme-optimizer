@@ -2,9 +2,10 @@
 
 Reuses the SAME canonical compact projection every other authoring/reviewing caller already
 uses (`readme/agentic_composition_inputs.py::composition_fact_payloads`/`do_not_claim_payloads`)
--- never a second, independent, or flattening projection. A fact's structured `value` (package
-acquisition coordinates, API visibility/reachability/implementation state, minimal-example
-metadata, ...) survives here exactly as that shared projection produces it.
+-- never a second, independent, or flattening evidence model. A fact's complete structured
+`value` survives in the checksum-bound packet exactly as that shared projection produces it.
+The later provider prompt receives an assurance-neutral view from
+`section_authoring_prompt_projection.py`; deterministic validation still retains this full fact.
 
 Every accepted fact must already be `verified`/`policy_approved` with no unresolved conflict --
 this builder is the deterministic gate that keeps unresolved or synthetic-only evidence out of
@@ -29,6 +30,9 @@ from readme_agent.readme.agentic_composition_inputs import (
 from readme_agent.specialists.section_authoring_contracts import (
     SectionAuthoringFactV1,
     SectionAuthoringPacketV1,
+)
+from readme_agent.specialists.section_authoring_prompt_projection import (
+    public_product_name_from_value,
 )
 
 _ACCEPTED_VERIFICATION_STATES = {"verified", "policy_approved"}
@@ -123,9 +127,14 @@ def build_section_authoring_packet(
         SectionAuthoringFactV1.model_validate(payloads_by_id[fact_id])
         for fact_id in sorted(all_do_not_claim_ids)
     ]
+    identity = product_facts.selected_fact("product.identity")
+    public_name = public_product_name_from_value(identity.value)
+    if public_name is None:
+        raise ValueError("product.identity must provide a public product name for authoring")
 
     return SectionAuthoringPacketV1(
         org_repo=org_repo,
+        public_product_name=public_name,
         source_revision=source_revision,
         target_section_id=target_section_id,
         task_family=task_family,

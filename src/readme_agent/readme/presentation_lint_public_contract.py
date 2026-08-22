@@ -36,9 +36,17 @@ _INTERNAL_ASSURANCE = re.compile(
     r"network[- ]disabled verification|matching (?:pypi|registry) receipt|"
     r"verification environment|inventoried at the source revision|"
     r"syntax and static public api checked|not executed or syntax checked|"
+    r"checked but not executed|not executed by the evidence collector|"
+    r"verification metadata|deterministic code|"
     r"execution_verified|provider call|evidence collector|"
     r"verified (?:export|package) namespace|additional verified members?|"
-    r"currently installed from source)"
+    r"currently installed from source|verified example|verified acquisition(?: method)?|"
+    r"verify (?:that )?(?:the )?(?:package|library|product) works(?: as intended)?|"
+    r"(?:verified|confirmed|validated|tested|exercised)\b[^.\n]{0,140}\b(?:"
+    r"isolated (?:python )?(?:environment|build|generation)|source build|pkg-info|"
+    r"public imports?|example execution|executes? correctly|metadata proof)|"
+    r"(?:isolated (?:python )?(?:environment|build|generation)|source build|pkg-info)\b"
+    r"[^.\n]{0,140}\b(?:verified|confirmed|validated|tested|exercised))"
 )
 _ENTERPRISE_LINK = re.compile(
     r"\[(?P<label>[^\]]+)\]\((?P<url>https?://(?:www\.)?products\.aspose\.com/[^)]+)\)",
@@ -177,4 +185,10 @@ def lint_public_contract(
     return findings
 
 
-__all__ = ["RULE_IDS", "lint_public_contract"]
+def contains_internal_assurance_commentary(text: str) -> bool:
+    """Return whether public prose exposes private verification methodology."""
+
+    return _INTERNAL_ASSURANCE.search(text) is not None
+
+
+__all__ = ["RULE_IDS", "contains_internal_assurance_commentary", "lint_public_contract"]

@@ -27,16 +27,14 @@ _SECTION_FIELDS: tuple[tuple[str, SectionAuthoringTaskFamily, str, tuple[str, ..
         (
             "product.capabilities",
             "aspose.feature_claims",
-            "aspose.format_support_claims",
         ),
     ),
     (
         "installation",
         "installation_framing",
-        "Briefly frame the supported acquisition path; deterministic code supplies exact commands.",
+        "Briefly frame the supported acquisition path; exact commands are supplied separately.",
         (
             "installation.verified_acquisition",
-            "installation.coordinates",
             "product.compatibility",
             "aspose.install_claims",
         ),
@@ -44,8 +42,8 @@ _SECTION_FIELDS: tuple[tuple[str, SectionAuthoringTaskFamily, str, tuple[str, ..
     (
         "quick_start",
         "verified_example_framing",
-        "Explain what the verified example demonstrates; deterministic code supplies the example.",
-        ("example.minimal", "api.public_surface"),
+        "Explain what the introductory example demonstrates; exact code is supplied separately.",
+        ("example.minimal",),
     ),
     (
         "scope_and_limitations",
@@ -108,7 +106,13 @@ def build_canonical_section_authoring_specs(
                 task_family=task_family,
                 section_objective=objective,
                 accepted_fact_ids=tuple(fact.fact_id for fact in accepted),
-                seo_vocabulary=seo_vocabulary,
+                max_facts_per_cluster=2 if section_id == "summary" else 4,
+                seo_vocabulary=(
+                    seo_vocabulary
+                    if task_family
+                    in {"opening_summary", "capability_entry_cluster", "scope_and_limitations"}
+                    else ()
+                ),
             )
         )
     return tuple(specs)

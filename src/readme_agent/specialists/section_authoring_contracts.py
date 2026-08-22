@@ -26,7 +26,7 @@ from readme_agent.llm.schema import Usage
 from readme_agent.llm.section_authoring_prompts import SectionAuthoringTaskFamily
 
 MAX_ACCEPTED_FACTS = 4
-SECTION_AUTHORING_CONTRACT_VERSION = "section-authoring-v2"
+SECTION_AUTHORING_CONTRACT_VERSION = "section-authoring-v10"
 
 
 class _StrictModel(BaseModel):
@@ -70,6 +70,7 @@ class SectionAuthoringFactV1(_StrictModel):
 class SectionAuthoringPacketV1(_StrictModel):
     schema_version: Literal[1] = 1
     org_repo: str = Field(min_length=3)
+    public_product_name: str = Field(min_length=3)
     source_revision: str = Field(min_length=1)
     target_section_id: str = Field(min_length=1)
     task_family: SectionAuthoringTaskFamily
@@ -128,8 +129,8 @@ class SectionAuthoringReceiptV1(_StrictModel):
     transport retries (bounded to `section_author_client.TRANSPORT_MAX_ATTEMPTS`, at most 2 per
     logical call) are recorded separately in the LLM call ledger (`llm/call_ledger.py`);
     `logical_call_count` here counts this specialist's own bounded semantic-correction attempts
-    (1 normal + at most 1 retry). Worst-case physical provider calls for one cluster is therefore
-    `logical_call_count(<=2) * TRANSPORT_MAX_ATTEMPTS(<=2)` = at most 4 -- see
+    (1 normal + at most 2 retries). Worst-case physical provider calls for one cluster is therefore
+    `logical_call_count(<=3) * TRANSPORT_MAX_ATTEMPTS(<=2)` = at most 6 -- see
     `section_cluster_authoring.py`'s module docstring for the full breakdown."""
 
     actor_id: str = Field(min_length=1)
@@ -140,7 +141,7 @@ class SectionAuthoringReceiptV1(_StrictModel):
     provider_request_id: str | None = None
     provider_model: str | None = None
     semantic_retry_used: bool
-    logical_call_count: int = Field(ge=1, le=2)
+    logical_call_count: int = Field(ge=1, le=3)
     token_usage: list[Usage] = Field(default_factory=list)
     latency_ms: list[float] = Field(default_factory=list)
 

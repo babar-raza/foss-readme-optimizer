@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from readme_agent.facts.evidence_polarity import EvidencePolarityAssessmentV1
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.readme.opening_summary_fallback import verified_identity_opening_summary
@@ -582,6 +584,51 @@ Useful source information.
         "generic_preservation_heading",
         "internal_assurance_commentary",
     }
+
+
+@pytest.mark.parametrize(
+    "sentence",
+    [
+        (
+            "The package version has been verified by source build in an isolated Python "
+            "environment, and its public imports and example execution were confirmed."
+        ),
+        (
+            "The supported runtime was confirmed by isolated generation and validation of "
+            "PKG-INFO metadata."
+        ),
+        "The verified example demonstrates that the installed package executes correctly.",
+        "This approach is the verified acquisition method for this distribution.",
+        "Run the example to verify the package works as intended.",
+        "Deterministic code ensures that the correct runtime is used.",
+    ],
+)
+def test_public_contract_rejects_live_qwen_internal_assurance_variants(sentence: str) -> None:
+    result = lint_readme_presentation(
+        f"# Product Toolkit\n\n## Installation\n\n{sentence}\n",
+        None,
+    )
+
+    assert any(finding.rule_id == "internal_assurance_commentary" for finding in result.findings)
+
+
+@pytest.mark.parametrize(
+    "sentence",
+    [
+        "Install the package from source.",
+        "Supports Python 3.7 through 3.12.",
+        "Run the example to create a scene.",
+    ],
+)
+def test_public_contract_allows_concise_visitor_facing_installation_prose(sentence: str) -> None:
+    result = lint_readme_presentation(
+        f"# Product Toolkit\n\n## Installation\n\n{sentence}\n",
+        None,
+    )
+
+    assert not any(
+        finding.rule_id == "internal_assurance_commentary" for finding in result.findings
+    )
 
 
 def test_public_contract_requires_natural_enterprise_edition_anchor() -> None:

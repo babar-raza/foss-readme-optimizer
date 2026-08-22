@@ -49,6 +49,7 @@ class SectionAuthoringSpecV1:
     task_family: SectionAuthoringTaskFamily
     section_objective: str
     accepted_fact_ids: tuple[str, ...]
+    max_facts_per_cluster: int = 4
     do_not_claim_fact_ids: tuple[str, ...] = ()
     seo_vocabulary: tuple[str, ...] = ()
     current_source_text: str | None = None
@@ -83,7 +84,9 @@ def author_readme_sections(
     outcomes: list[SectionAuthoringOutcomeV1] = []
     for spec in section_specs:
         clusters = plan_section_clusters(
-            section_id=spec.section_id, fact_ids=spec.accepted_fact_ids
+            section_id=spec.section_id,
+            fact_ids=spec.accepted_fact_ids,
+            max_facts_per_cluster=spec.max_facts_per_cluster,
         )
         for cluster in clusters:
             packet = build_section_authoring_packet(
@@ -132,6 +135,7 @@ def author_and_persist_readme_sections(
             "task_family": spec.task_family,
             "section_objective": spec.section_objective,
             "accepted_fact_ids": list(spec.accepted_fact_ids),
+            "max_facts_per_cluster": spec.max_facts_per_cluster,
             "do_not_claim_fact_ids": list(spec.do_not_claim_fact_ids),
             "seo_vocabulary": list(spec.seo_vocabulary),
             "current_source_text": spec.current_source_text,
@@ -144,6 +148,7 @@ def author_and_persist_readme_sections(
         for cluster in plan_section_clusters(
             section_id=spec.section_id,
             fact_ids=spec.accepted_fact_ids,
+            max_facts_per_cluster=spec.max_facts_per_cluster,
         )
     )
     if not expected_cluster_ids:

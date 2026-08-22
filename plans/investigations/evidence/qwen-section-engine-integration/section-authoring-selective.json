@@ -1,0 +1,330 @@
+{
+  "schema_version": 1,
+  "authoring_contract_version": "section-authoring-v10",
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+  "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+  "source_sha256": "66ceadf14240cd913756dacbd709d56ee06915f49f77f769e40e04e309a7cd01",
+  "facts_hash": "f67966b09d7a49f08130fab39ce5c54bae9aec9d5425e1c9f61ff76b0ed02064",
+  "protected_literal_hash": "f8e25db9f2ad35135171549db72d8b1a5f2fa92a10fc8ddec8afcbd22bb95065",
+  "specs_sha256": "fa05010fc3bd3b7ff61c6aa20bfc406a056eafb44f78e0410aed0b6f1868edde",
+  "expected_cluster_ids": [
+    "summary-1",
+    "summary-2",
+    "key_capabilities",
+    "installation",
+    "quick_start",
+    "scope_and_limitations"
+  ],
+  "outcomes": [
+    {
+      "target_section_id": "summary-1",
+      "packet_hash": "d75ad292ab65483bb8b9b0bf4e004ca6f056df696c872ae22d0f4aebb15053a9",
+      "result": {
+        "units": [
+          {
+            "heading": "Create 3D content with Aspose.3D FOSS for Python",
+            "text": "Aspose.3D FOSS for Python is a Python library for developers to import, export, and manipulate 3D scenes. It supports file format import and export for OBJ, GLTF, STL, and 3MF, and includes an animation system with keyframe support.",
+            "fact_ids": [
+              "product.identity:manifest-and-registry"
+            ]
+          },
+          {
+            "heading": "Define 3D workflows for Python developers",
+            "text": "Developers using Python can leverage Aspose.3D FOSS for Python to build applications that process 3D models, automate scene transformations, and integrate 3D data into larger workflows.",
+            "fact_ids": [
+              "product.audience:platform-derived"
+            ]
+          }
+        ],
+        "omitted": []
+      },
+      "receipt": {
+        "actor_id": "llm-route:section-cluster-authoring",
+        "prompt_id": "section_cluster_authoring",
+        "prompt_sha256": "a23b07978f23e12f42971d49ba54f721c65313745cb511d82140f46b8848bbdf",
+        "packet_hash": "d75ad292ab65483bb8b9b0bf4e004ca6f056df696c872ae22d0f4aebb15053a9",
+        "raw_output_sha256": "843385cc9dae80630a3662e150b3e4b9c18c88a2ef72a36f3079bfdd4400ff4e",
+        "provider_request_id": "chatcmpl-b4a4ac492a720513",
+        "provider_model": "qwen3-next",
+        "semantic_retry_used": false,
+        "logical_call_count": 1,
+        "token_usage": [
+          {
+            "prompt_tokens": 1398,
+            "completion_tokens": 183
+          }
+        ],
+        "latency_ms": [
+          4059.467199998835
+        ]
+      },
+      "reused_from_cache": true
+    },
+    {
+      "target_section_id": "summary-2",
+      "packet_hash": "5e3538ad4c164eade8fa2540e1e7915c2c50e9982adcc7e1fe0eb031d6783602",
+      "result": {
+        "units": [
+          {
+            "heading": "Create 3D primitives and scenes",
+            "text": "Aspose.3D FOSS for Python enables developers to construct 3D scenes using built-in primitives such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum. These primitives serve as foundational building blocks for modeling geometry programmatically.",
+            "fact_ids": [
+              "product.problems_solved:capability-derived",
+              "product.capabilities:repository-evidence"
+            ]
+          },
+          {
+            "heading": "Import and export common 3D file formats",
+            "text": "The product supports file format import and export for OBJ, GLTF, STL, and 3MF, allowing users to load existing 3D content or export generated scenes for use in downstream tools and pipelines.",
+            "fact_ids": [
+              "product.problems_solved:capability-derived",
+              "product.capabilities:repository-evidence"
+            ]
+          },
+          {
+            "heading": "Define and animate 3D scenes with keyframes",
+            "text": "Aspose.3D FOSS for Python includes an animation system with keyframe support, enabling developers to define time-based transformations and motion paths for 3D objects within a scene.",
+            "fact_ids": [
+              "product.problems_solved:capability-derived",
+              "product.capabilities:repository-evidence"
+            ]
+          }
+        ],
+        "omitted": []
+      },
+      "receipt": {
+        "actor_id": "llm-route:section-cluster-authoring",
+        "prompt_id": "section_cluster_authoring",
+        "prompt_sha256": "a23b07978f23e12f42971d49ba54f721c65313745cb511d82140f46b8848bbdf",
+        "packet_hash": "5e3538ad4c164eade8fa2540e1e7915c2c50e9982adcc7e1fe0eb031d6783602",
+        "raw_output_sha256": "f2ad2e958221532d68b7050f12a4fa41b1912019153f3bb467d4c6dfe916f233",
+        "provider_request_id": "chatcmpl-9947ea69fb1c49d7",
+        "provider_model": "qwen3-next",
+        "semantic_retry_used": false,
+        "logical_call_count": 1,
+        "token_usage": [
+          {
+            "prompt_tokens": 1465,
+            "completion_tokens": 260
+          }
+        ],
+        "latency_ms": [
+          5341.523799999777
+        ]
+      },
+      "reused_from_cache": true
+    },
+    {
+      "target_section_id": "key_capabilities",
+      "packet_hash": "630bed853727d8d2d0b14c678a78a01ff20a79d1dc54dbc36c5229e02f4f694e",
+      "result": {
+        "units": [
+          {
+            "heading": "Create 3D primitives",
+            "text": "Construct common 3D shapes such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum directly within the API.",
+            "fact_ids": [
+              "product.capabilities:repository-evidence"
+            ]
+          },
+          {
+            "heading": "Import and export multiple 3D file formats",
+            "text": "Read and write 3D scenes using OBJ, GLTF, STL, and 3MF file formats with built-in support for each.",
+            "fact_ids": [
+              "product.capabilities:repository-evidence"
+            ]
+          },
+          {
+            "heading": "Define animated sequences with keyframes",
+            "text": "Build animations by specifying keyframe data for property changes over time using the integrated animation system.",
+            "fact_ids": [
+              "product.capabilities:repository-evidence"
+            ]
+          }
+        ],
+        "omitted": []
+      },
+      "receipt": {
+        "actor_id": "llm-route:section-cluster-authoring",
+        "prompt_id": "section_cluster_authoring",
+        "prompt_sha256": "a23b07978f23e12f42971d49ba54f721c65313745cb511d82140f46b8848bbdf",
+        "packet_hash": "630bed853727d8d2d0b14c678a78a01ff20a79d1dc54dbc36c5229e02f4f694e",
+        "raw_output_sha256": "728a858127eae1771bc142ab330e4189ed51679e90815d0dd8ac80d370f3984f",
+        "provider_request_id": "chatcmpl-905891ebbcb8da1d",
+        "provider_model": "qwen3-next",
+        "semantic_retry_used": true,
+        "logical_call_count": 2,
+        "token_usage": [
+          {
+            "prompt_tokens": 1390,
+            "completion_tokens": 176
+          },
+          {
+            "prompt_tokens": 1453,
+            "completion_tokens": 185
+          }
+        ],
+        "latency_ms": [
+          4245.725400000083,
+          4522.522699999172
+        ]
+      },
+      "reused_from_cache": false
+    },
+    {
+      "target_section_id": "installation",
+      "packet_hash": "1619cba94753a0331f2818070538ca05b0ab29c3b8779911161a76df730e8610",
+      "result": {
+        "units": [
+          {
+            "heading": "Acquire Aspose.3D FOSS for Python from source",
+            "text": "Aspose.3D FOSS for Python is acquired by building from source for Python.",
+            "fact_ids": [
+              "installation.verified_acquisition:disposable-source-build"
+            ]
+          },
+          {
+            "heading": "Run Aspose.3D FOSS for Python with Python",
+            "text": "Aspose.3D FOSS for Python runs with Python as its minimum runtime.",
+            "fact_ids": [
+              "product.compatibility:isolated-generated-python-metadata"
+            ]
+          }
+        ],
+        "omitted": []
+      },
+      "receipt": {
+        "actor_id": "llm-route:section-cluster-authoring",
+        "prompt_id": "section_cluster_authoring",
+        "prompt_sha256": "a23b07978f23e12f42971d49ba54f721c65313745cb511d82140f46b8848bbdf",
+        "packet_hash": "1619cba94753a0331f2818070538ca05b0ab29c3b8779911161a76df730e8610",
+        "raw_output_sha256": "dc168fc2915bfe51dbbde414f3b562999baf1eb1c150684e1f1ca8c93d40d782",
+        "provider_request_id": "chatcmpl-bdc81c4566eb0a3e",
+        "provider_model": "qwen3-next",
+        "semantic_retry_used": true,
+        "logical_call_count": 2,
+        "token_usage": [
+          {
+            "prompt_tokens": 1339,
+            "completion_tokens": 92
+          },
+          {
+            "prompt_tokens": 1448,
+            "completion_tokens": 124
+          }
+        ],
+        "latency_ms": [
+          3080.091600000742,
+          11377.246500000183
+        ]
+      },
+      "reused_from_cache": true
+    },
+    {
+      "target_section_id": "quick_start",
+      "packet_hash": "848af596ce18650851d9cefade34cd7c8c8041c7519b5ce0a5253b991b55fce7",
+      "result": {
+        "units": [
+          {
+            "heading": "Create a new scene with the public API",
+            "text": "The introductory example demonstrates how to instantiate one public API object in Python to create a new 3D scene, providing a minimal entry point for using Aspose.3D FOSS for Python.",
+            "fact_ids": [
+              "example.minimal:compiled-salvaged-example"
+            ]
+          }
+        ],
+        "omitted": []
+      },
+      "receipt": {
+        "actor_id": "llm-route:section-cluster-authoring",
+        "prompt_id": "section_cluster_authoring",
+        "prompt_sha256": "a23b07978f23e12f42971d49ba54f721c65313745cb511d82140f46b8848bbdf",
+        "packet_hash": "848af596ce18650851d9cefade34cd7c8c8041c7519b5ce0a5253b991b55fce7",
+        "raw_output_sha256": "d5ff2deb27df07e08d0e0a9f2c1bd7dafbed2390aaca6505e9a25cc097881883",
+        "provider_request_id": "chatcmpl-990b18b637919389",
+        "provider_model": "qwen3-next",
+        "semantic_retry_used": false,
+        "logical_call_count": 1,
+        "token_usage": [
+          {
+            "prompt_tokens": 1299,
+            "completion_tokens": 87
+          }
+        ],
+        "latency_ms": [
+          2814.274899999873
+        ]
+      },
+      "reused_from_cache": true
+    },
+    {
+      "target_section_id": "scope_and_limitations",
+      "packet_hash": "0a9d50159268291686e92ad5177fcfb333b1c1d01ea713d6dcba8e3cb69fcbe0",
+      "result": {
+        "units": [
+          {
+            "heading": "Import and export supported formats",
+            "text": "Aspose.3D FOSS for Python supports importing and exporting OBJ, GLTF, STL, and 3MF files. It provides input support for OBJ, GLTF, STL, and 3MF, and output support for GLTF, STL, and 3MF.",
+            "fact_ids": [
+              "product.formats:repository-extension"
+            ]
+          },
+          {
+            "heading": "Boolean operations on meshes",
+            "text": "Boolean operations such as union, difference, intersection, and generic do_boolean are not implemented on Mesh entities.",
+            "fact_ids": [
+              "product.limitations:source-guidance"
+            ]
+          },
+          {
+            "heading": "NURBS evaluation and conversion",
+            "text": "NURBS curve evaluation and conversion of NURBS surfaces to meshes are not implemented.",
+            "fact_ids": [
+              "product.limitations:source-guidance"
+            ]
+          },
+          {
+            "heading": "Rendering and output generation",
+            "text": "Scene rendering and renderer output generation are not implemented.",
+            "fact_ids": [
+              "product.limitations:source-guidance"
+            ]
+          }
+        ],
+        "omitted": [
+          {
+            "fact_id": "relationship.commercial_foss:primary",
+            "reason": "F3 describes a commercial upgrade path and open-source scope relationship, which is not a technical limitation or scope constraint relevant to the scope_and_limitations section."
+          }
+        ]
+      },
+      "receipt": {
+        "actor_id": "llm-route:section-cluster-authoring",
+        "prompt_id": "section_cluster_authoring",
+        "prompt_sha256": "a23b07978f23e12f42971d49ba54f721c65313745cb511d82140f46b8848bbdf",
+        "packet_hash": "0a9d50159268291686e92ad5177fcfb333b1c1d01ea713d6dcba8e3cb69fcbe0",
+        "raw_output_sha256": "75c57b61479b7d9f7f5ba4296c1a60b8bcdc648b519e3f496ab8051021774d8d",
+        "provider_request_id": "chatcmpl-9b2c342a22eed52d",
+        "provider_model": "qwen3-next",
+        "semantic_retry_used": true,
+        "logical_call_count": 2,
+        "token_usage": [
+          {
+            "prompt_tokens": 6231,
+            "completion_tokens": 295
+          },
+          {
+            "prompt_tokens": 6310,
+            "completion_tokens": 288
+          }
+        ],
+        "latency_ms": [
+          7283.83550000035,
+          6392.057499999282
+        ]
+      },
+      "reused_from_cache": true
+    }
+  ],
+  "complete": true,
+  "failure": null
+}
