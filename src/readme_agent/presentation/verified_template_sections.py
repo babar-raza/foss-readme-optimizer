@@ -16,6 +16,7 @@ from readme_agent.presentation.verified_template_golden_workflow import (
 )
 from readme_agent.readme.code_fence_presentation import normalize_code_snippet
 from readme_agent.readme.document_structure import heading_identity
+from readme_agent.readme.format_role_truth import unsupported_directional_formats
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 from readme_agent.readme.python_install_target import selected_python_install_target
 
@@ -370,6 +371,9 @@ def additional_examples_markdown(
         and str(item.get("code") or "").strip()
         and str(item.get("code") or "").strip() != minimal_code
         and normalize_code_snippet(str(item.get("code") or "")) != mcp_code
+        and not unsupported_directional_formats(
+            f"{str(item.get('title') or '')}\n{str(item.get('code') or '')}", facts
+        )
     ]
     assets = fact.value.get("result_assets")
     assets = assets if isinstance(assets, list) else []

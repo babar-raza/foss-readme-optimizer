@@ -219,6 +219,16 @@ def test_api_reference_does_not_infer_format_support_from_type_names() -> None:
             "name": "A3dwSaveOptions",
             "members": [],
         },
+        {
+            "module": "aspose.threed.formats",
+            "name": "Discreet3dsLoadOptions",
+            "members": [],
+        },
+        {
+            "module": "aspose.threed.formats",
+            "name": "Html5SaveOptions",
+            "members": [],
+        },
     ]
     api_value = {
         "modules": [{"module": item["module"], "exports": [item["name"]]} for item in classes],
@@ -256,3 +266,7 @@ def test_api_reference_does_not_infer_format_support_from_type_names() -> None:
     assert "The package exposes the public `ObjSaveOptions` type" in markdown
     assert "OBJ is listed for input workflows only." in markdown
     assert "The package exposes the public `A3dwSaveOptions` type" in markdown
+    assert "The package exposes the public `Discreet3dsLoadOptions` type" in markdown
+    assert "The package exposes the public `Html5SaveOptions` type" in markdown
+    assert "Configures 3DS input" not in markdown
+    assert "Configures HTML output" not in markdown

@@ -837,7 +837,11 @@ def test_verified_template_generates_fact_backed_optional_slot_when_source_lacks
 
     api_reference = draft.sections["api_reference"]
     assert api_reference.disposition == "include"
-    assert api_reference.fact_fields == ["api.public_surface", "documentation.links"]
+    assert api_reference.fact_fields == [
+        "api.public_surface",
+        "documentation.links",
+        "product.formats",
+    ]
     assert api_reference.standard_ids == ["readme.api_reference"]
 
 
@@ -874,7 +878,11 @@ def test_verified_template_does_not_defer_optional_slot_from_heading_presence_al
 
     api_reference = draft.sections["api_reference"]
     assert api_reference.disposition == "include"
-    assert api_reference.fact_fields == ["api.public_surface", "documentation.links"]
+    assert api_reference.fact_fields == [
+        "api.public_surface",
+        "documentation.links",
+        "product.formats",
+    ]
     assert api_reference.standard_ids == ["readme.api_reference"]
 
 
@@ -2011,6 +2019,65 @@ def test_additional_examples_remove_source_comments_but_preserve_string_literals
     assert '"https://example.test/value#literal"' in rendered
     assert "# -> str" not in rendered
     assert "# -> bytes" not in rendered
+
+
+def test_additional_examples_omit_unproved_format_directions() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    source = FactSourceV2(
+        source_type="mechanical_repository",
+        location="repository://examples",
+        source_revision="a" * 40,
+    )
+    formats = facts.selected_fact("product.formats")
+    examples = FactRecordV2(
+        fact_id="repository.examples:direction-test",
+        field="repository.examples",
+        value={
+            "inline_examples": [
+                {
+                    "title": "Import a COLLADA file",
+                    "language": "python",
+                    "code": (
+                        "from aspose.threed.formats.collada import ColladaLoadOptions\n"
+                        'scene.open("model.dae", ColladaLoadOptions())'
+                    ),
+                    "static_api_verified": True,
+                },
+                {
+                    "title": "Export a scene to GLTF",
+                    "language": "python",
+                    "code": (
+                        "from aspose.threed.formats.gltf import GltfSaveOptions\n"
+                        'scene.save("model.gltf", GltfSaveOptions())'
+                    ),
+                    "static_api_verified": True,
+                },
+            ]
+        },
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": ["Input format: OBJ", "Output format: GLTF"]})
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+            + [examples],
+            "selected_fact_ids": {**facts.selected_fact_ids, examples.field: examples.fact_id},
+        }
+    )
+
+    rendered = additional_examples_markdown(facts)
+
+    assert rendered is not None
+    assert "COLLADA" not in rendered
+    assert "### Export a scene to GLTF" in rendered
 
 
 def test_additional_examples_render_one_richer_mcp_workflow_for_identical_code() -> None:

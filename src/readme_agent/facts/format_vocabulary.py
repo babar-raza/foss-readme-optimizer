@@ -6,6 +6,7 @@ import re
 
 DOCUMENT_FORMAT_ABBREVIATIONS = frozenset(
     {
+        "3DS",
         "3MF",
         "A3DW",
         "AMF",
@@ -100,6 +101,7 @@ DOCUMENT_FORMAT_ABBREVIATIONS = frozenset(
 )
 
 _ALIASES = {
+    "discreet3ds": "3DS",
     "3mf": "3MF",
     "microsoft3mf": "3MF",
     "threemf": "3MF",

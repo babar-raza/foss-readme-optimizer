@@ -20,6 +20,17 @@ _STRUCTURED_ROLE = re.compile(
 _BIDIRECTIONAL = re.compile(r"(?i)^(?:load and save|read and write)\s+(?P<formats>.+)$")
 _INPUT_OPERATIONS = frozenset({"load", "read", "import", "input"})
 _OUTPUT_OPERATIONS = frozenset({"save", "write", "export", "output"})
+_DIRECTIONAL_API_SUFFIX = re.compile(
+    r"(?i)(?:loadoptions?|saveoptions?|importer|exporter|formatdetector|format|plugin)$"
+)
+_INPUT_SEMANTICS = re.compile(
+    r"(?i)\b(?:load|open|read)s?(?:ed|ing)?\b|(?:Importer|LoadOptions?)\b|"
+    r"\.(?:open|load|read)\s*\("
+)
+_OUTPUT_SEMANTICS = re.compile(
+    r"(?i)\b(?:export|save|write)s?(?:ed|ing)?\b|(?:Exporter|SaveOptions?)\b|"
+    r"\.(?:save|write)\s*\("
+)
 
 
 def _format_tokens(value: str) -> set[str]:
@@ -100,6 +111,34 @@ def mentioned_document_formats(text: str) -> set[str]:
     }
 
 
+def formats_in_api_symbol(name: str) -> set[str]:
+    """Return governed formats encoded in a compact public API type name."""
+
+    symbol = name.rsplit(".", 1)[-1].split("(", 1)[0].strip("` ")
+    stem = _DIRECTIONAL_API_SUFFIX.sub("", symbol)
+    canonical = canonical_document_format(stem)
+    return {canonical} if canonical is not None else set()
+
+
+def unsupported_directional_formats(
+    text: str,
+    facts: ProductFactsV2 | None,
+) -> dict[FormatRole, frozenset[str]]:
+    """Return unsupported input/output claims made by one public fragment."""
+
+    formats = mentioned_document_formats(text)
+    claims: dict[FormatRole, frozenset[str]] = {}
+    if _INPUT_SEMANTICS.search(text):
+        claims["input"] = frozenset(
+            unsupported_format_directions_for_formats(formats, facts, "input")
+        )
+    if _OUTPUT_SEMANTICS.search(text):
+        claims["output"] = frozenset(
+            unsupported_format_directions_for_formats(formats, facts, "output")
+        )
+    return {role: values for role, values in claims.items() if values}
+
+
 def conflicting_explicit_formats(
     text: str,
     facts: ProductFactsV2 | None,
@@ -122,13 +161,21 @@ def unsupported_format_directions(
 ) -> set[str]:
     """Return directional format claims absent from the selected functional role fact."""
 
+    return unsupported_format_directions_for_formats(mentioned_document_formats(text), facts, role)
+
+
+def unsupported_format_directions_for_formats(
+    formats: set[str],
+    facts: ProductFactsV2 | None,
+    role: FormatRole,
+) -> set[str]:
+    """Return named formats absent from the selected functional role fact."""
+
     roles = explicit_format_roles(facts)
     if not roles:
         return set()
     return {
-        format_name
-        for format_name in mentioned_document_formats(text)
-        if role not in roles.get(format_name, frozenset())
+        format_name for format_name in formats if role not in roles.get(format_name, frozenset())
     }
 
 
@@ -136,7 +183,10 @@ __all__ = [
     "FormatRole",
     "conflicting_explicit_formats",
     "explicit_format_roles",
+    "formats_in_api_symbol",
     "mentioned_document_formats",
     "mentioned_explicit_formats",
     "unsupported_format_directions",
+    "unsupported_format_directions_for_formats",
+    "unsupported_directional_formats",
 ]

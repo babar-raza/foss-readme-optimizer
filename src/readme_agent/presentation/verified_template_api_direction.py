@@ -8,7 +8,8 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.presentation.verified_template_api_text import public_noun
 from readme_agent.readme.format_role_truth import (
     explicit_format_roles,
-    unsupported_format_directions,
+    formats_in_api_symbol,
+    unsupported_format_directions_for_formats,
 )
 
 _INPUT_SEMANTICS = re.compile(r"(?i)\b(?:importer|input|load options?|loads?|reads?)\b")
@@ -25,11 +26,14 @@ def reconcile_api_format_description(
     """Keep exact API presence while removing unproved functional direction inference."""
 
     semantic_text = f"{public_noun(name)} {description}"
+    named_formats = formats_in_api_symbol(name)
     unsupported: set[str] = set()
     if _INPUT_SEMANTICS.search(semantic_text):
-        unsupported.update(unsupported_format_directions(semantic_text, facts, "input"))
+        unsupported.update(unsupported_format_directions_for_formats(named_formats, facts, "input"))
     if _OUTPUT_SEMANTICS.search(semantic_text):
-        unsupported.update(unsupported_format_directions(semantic_text, facts, "output"))
+        unsupported.update(
+            unsupported_format_directions_for_formats(named_formats, facts, "output")
+        )
     if not unsupported:
         return description
 
