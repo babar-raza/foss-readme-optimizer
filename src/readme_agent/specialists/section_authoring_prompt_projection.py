@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
+import re
 from typing import Any
 
+from readme_agent.facts.format_vocabulary import canonical_document_format
 from readme_agent.specialists.section_authoring_contracts import SectionAuthoringFactV1
+
+_TOKEN = re.compile(r"(?<![A-Za-z0-9])\.?[A-Za-z0-9][A-Za-z0-9.+_-]{1,}(?![A-Za-z0-9])")
 
 
 def _rows(value: object) -> list[dict[str, Any]]:
@@ -41,8 +45,32 @@ def public_product_name(fact: SectionAuthoringFactV1) -> str | None:
     return public_product_name_from_value(fact.value)
 
 
-def _project_value(fact: SectionAuthoringFactV1) -> object:
+def _contains_document_format(value: str) -> bool:
+    return any(
+        canonical_document_format(match.group(0).lstrip(".")) is not None
+        for match in _TOKEN.finditer(value)
+    )
+
+
+def _project_value(
+    fact: SectionAuthoringFactV1,
+    *,
+    suppress_directionless_formats: bool,
+) -> object:
     value = fact.value
+    if suppress_directionless_formats and fact.field == "product.formats":
+        return {"reserved_for_deterministic_rendering": True}
+    if (
+        suppress_directionless_formats
+        and fact.field in {"product.capabilities", "product.problems_solved"}
+        and isinstance(value, list)
+    ):
+        retained = [
+            item
+            for item in value
+            if not isinstance(item, str) or not _contains_document_format(item)
+        ]
+        return retained or {"directional_format_details_owned_by": "product.formats"}
     if fact.field == "product.identity" and isinstance(value, dict):
         platform = str(value.get("platform") or value.get("ecosystem") or "").strip()
         return {
@@ -91,6 +119,7 @@ def authoring_fact_prompt_payload(
     fact: SectionAuthoringFactV1,
     *,
     fact_id_alias: str | None = None,
+    suppress_directionless_formats: bool = False,
 ) -> dict[str, object]:
     """Return the bounded model-facing view while preserving full facts in the packet.
 
@@ -102,7 +131,10 @@ def authoring_fact_prompt_payload(
     return {
         "fact_id": fact_id_alias or fact.fact_id,
         "field": fact.field,
-        "value": _project_value(fact),
+        "value": _project_value(
+            fact,
+            suppress_directionless_formats=suppress_directionless_formats,
+        ),
         "polarity": fact.polarity,
     }
 

@@ -6,7 +6,7 @@
   "facts_hash": "f67966b09d7a49f08130fab39ce5c54bae9aec9d5425e1c9f61ff76b0ed02064",
   "source_sha256": "66ceadf14240cd913756dacbd709d56ee06915f49f77f769e40e04e309a7cd01",
   "model_route": "qwen3-next",
-  "prompt_version": "9",
+  "prompt_version": "11",
   "checks": {
     "first_complete": true,
     "first_used_qwen3_next": true,
@@ -28,62 +28,61 @@
     "baseline_git_state_unchanged": true
   },
   "first": {
-    "cluster_count": 6,
-    "provider_logical_calls": 8,
+    "cluster_count": 5,
+    "provider_logical_calls": 6,
     "reused_cluster_count": 0,
-    "executed_semantic_retry_cluster_count": 2,
-    "prompt_tokens": 20873,
-    "completion_tokens": 1534,
-    "elapsed_seconds": 62.368,
+    "executed_semantic_retry_cluster_count": 1,
+    "prompt_tokens": 18360,
+    "completion_tokens": 1029,
+    "elapsed_seconds": 33.507,
     "models": [
       "qwen3-next"
     ],
     "request_ids": [
-      "chatcmpl-b4a4ac492a720513",
-      "chatcmpl-9947ea69fb1c49d7",
-      "chatcmpl-9d48994b81cf6865",
-      "chatcmpl-bdc81c4566eb0a3e",
-      "chatcmpl-990b18b637919389",
-      "chatcmpl-9b2c342a22eed52d"
+      "chatcmpl-a29ba2c9f1349a49",
+      "chatcmpl-8674fcacb11be466",
+      "chatcmpl-95695bd0bcf328da",
+      "chatcmpl-811f5c23cdd4439b",
+      "chatcmpl-a00174720ebf150e"
     ]
   },
   "unchanged_rerun": {
-    "cluster_count": 6,
+    "cluster_count": 5,
     "provider_logical_calls": 0,
-    "reused_cluster_count": 6,
+    "reused_cluster_count": 5,
     "executed_semantic_retry_cluster_count": 0,
     "prompt_tokens": 0,
     "completion_tokens": 0,
-    "elapsed_seconds": 0.041,
+    "elapsed_seconds": 0.024,
     "models": [
       "qwen3-next"
     ],
     "request_ids": []
   },
   "one_cluster_invalidation": {
-    "cluster_count": 6,
+    "cluster_count": 5,
     "provider_logical_calls": 2,
-    "reused_cluster_count": 5,
+    "reused_cluster_count": 4,
     "executed_semantic_retry_cluster_count": 1,
-    "prompt_tokens": 2843,
-    "completion_tokens": 361,
-    "elapsed_seconds": 13.278,
+    "prompt_tokens": 2969,
+    "completion_tokens": 256,
+    "elapsed_seconds": 15.891,
     "models": [
       "qwen3-next"
     ],
     "request_ids": [
-      "chatcmpl-905891ebbcb8da1d"
+      "chatcmpl-8590c2c4fdb3b684"
     ]
   },
   "acceleration": {
-    "unchanged_provider_calls_avoided": 6,
+    "unchanged_provider_calls_avoided": 5,
     "unchanged_recompute_reduction_percent": 100.0,
-    "selective_clusters_avoided": 5,
-    "selective_minimum_provider_calls_avoided": 4,
-    "selective_cluster_recompute_reduction_percent": 83.3
+    "selective_clusters_avoided": 4,
+    "selective_minimum_provider_calls_avoided": 3,
+    "selective_cluster_recompute_reduction_percent": 80.0
   },
-  "candidate_sha256": "ba04406d37c6fb51f061474983137e2e6c48bfd9373f5afd6a7cc99c00ccdcb6",
-  "authored_provenance_count": 15,
+  "candidate_sha256": "2305d924d442c86f6f87720b21a6c96fb6d34816a4f0ae4eb4c5f4376ff961d7",
+  "authored_provenance_count": 8,
   "deterministic_validation": {
     "valid": true,
     "checks": {
@@ -155,8 +154,8 @@
     ],
     "findings": []
   },
-  "section_authoring_document_sha256": "a944ae58ac8ed313df8e97bc400a7404ae00c67fdb1032a8279dfe0b786fe871",
-  "llm_call_record_count": 11,
+  "section_authoring_document_sha256": "e0107fb4f13c2e6897dcfef5371cd436aeed284161518e546c0229795c2ee42d",
+  "llm_call_record_count": 9,
   "limitations": [
     "This proves the authoring portion of one real repository transaction, not PF-02.",
     "The transport client can make up to two physical attempts per logical call; the document receipt reports logical calls while the shared LLM ledger owns physical retries."

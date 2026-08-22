@@ -156,6 +156,17 @@ def test_define_is_a_concrete_action_led_capability_heading():
     assert outcome.receipt.semantic_retry_used is False
 
 
+def test_animate_is_a_concrete_action_led_capability_heading():
+    packet = _packet()
+    response = _valid_response()
+    response["units"][0]["heading"] = "Animate Scenes With Keyframes"
+    client = FakeSectionAuthorClient([response])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is False
+
+
 def test_unsupported_fact_id_triggers_one_semantic_retry_then_succeeds():
     packet = _packet()
     client = FakeSectionAuthorClient(
@@ -378,7 +389,7 @@ def test_product_identity_spelling_must_match_public_name_exactly():
     invalid = {
         "units": [
             {
-                "heading": "Process 3D Content",
+                "heading": "Python Library",
                 "text": "Aspose.3D-FOSS for Python processes 3D content.",
                 "fact_ids": [fact_id],
             }
@@ -388,8 +399,8 @@ def test_product_identity_spelling_must_match_public_name_exactly():
     valid = {
         "units": [
             {
-                "heading": "Process 3D Content",
-                "text": "Aspose.3D FOSS for Python processes 3D content.",
+                "heading": "Python Library",
+                "text": "Aspose.3D FOSS for Python is a Python library.",
                 "fact_ids": [fact_id],
             }
         ],
@@ -402,6 +413,497 @@ def test_product_identity_spelling_must_match_public_name_exactly():
     assert outcome.receipt.semantic_retry_used is True
     assert "preserve exact public name" in client.calls[1]["messages"][1]["content"]
     assert "Replace the product spelling" in client.calls[1]["messages"][1]["content"]
+
+
+@pytest.mark.parametrize(
+    "invalid_text",
+    [
+        "Aspose 3D FOSS for Python processes 3D content.",
+        "The Aspose product processes 3D content.",
+        "Aspose.3D FOSS for python processes 3D content.",
+    ],
+)
+def test_every_aspose_mention_requires_the_exact_public_product_name(invalid_text):
+    facts = build_product_facts_v2(
+        field_values={
+            "product.identity": {
+                "product_name": "Aspose.3D",
+                "family": "3d",
+                "platform": "python",
+                "ecosystem": "python",
+            }
+        }
+    )
+    fact_id = facts.selected_fact_ids["product.identity"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="summary",
+        task_family="opening_summary",
+        section_objective="Introduce the product.",
+        product_facts=facts,
+        accepted_fact_ids=[fact_id],
+        protected_content=PROTECTED,
+    )
+    invalid = {
+        "units": [
+            {
+                "heading": "Python Library",
+                "text": invalid_text,
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    valid = {
+        "units": [
+            {
+                "heading": "Python Library",
+                "text": "Aspose.3D FOSS for Python is a Python library.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([invalid, valid])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    assert "preserve exact public name" in client.calls[1]["messages"][1]["content"]
+
+
+@pytest.mark.parametrize(
+    "invalid_text",
+    [
+        "Aspose.3D FOSS for Python uses corrupted punctuation\ufffd here.",
+        "Aspose.3D FOSS for Python supports meshes\u00e2\u20ac\u201dincluding primitives.",
+        "Aspose.3D FOSS for Python has an \u00c3encoded word.",
+    ],
+)
+def test_public_authoring_rejects_replacement_characters_and_mojibake(invalid_text):
+    facts = build_product_facts_v2()
+    fact_id = facts.selected_fact_ids["product.identity"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="summary",
+        task_family="opening_summary",
+        section_objective="Introduce the product.",
+        product_facts=facts,
+        accepted_fact_ids=[fact_id],
+        protected_content=PROTECTED,
+    )
+    invalid = {
+        "units": [
+            {
+                "heading": "Python Library",
+                "text": invalid_text,
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    valid = {
+        "units": [
+            {
+                "heading": "Python Library",
+                "text": "Aspose.3D FOSS for Python is a Python library.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([invalid, valid])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    repair = client.calls[1]["messages"][1]["content"]
+    assert "UTF-8 mojibake" in repair
+    assert "ordinary UTF-8 punctuation" in repair
+
+
+def test_recognized_format_absent_from_cited_facts_triggers_same_cluster_recovery():
+    facts = build_product_facts_v2(field_values={"product.formats": ["OBJ", "GLTF", "STL", "3MF"]})
+    fact_id = facts.selected_fact_ids["product.formats"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="summary",
+        task_family="opening_summary",
+        section_objective="Summarize supported formats.",
+        product_facts=facts,
+        accepted_fact_ids=[fact_id],
+        protected_content=PROTECTED,
+    )
+    invalid = {
+        "units": [
+            {
+                "heading": "Work With 3D Content",
+                "text": "Work with OBJ and PDF content.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    valid = {
+        "units": [
+            {
+                "heading": "Work With 3D Content",
+                "text": "Work with OBJ and GLTF content.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([invalid, valid])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    repair = client.calls[1]["messages"][1]["content"]
+    assert "recognized file formats are absent from cited accepted facts" in repair
+
+
+def test_identity_only_summary_cannot_authorize_capability_operations():
+    facts = build_product_facts_v2()
+    fact_id = facts.selected_fact_ids["product.identity"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="summary",
+        task_family="opening_summary",
+        section_objective="Introduce the product.",
+        product_facts=facts,
+        accepted_fact_ids=[fact_id],
+        protected_content=PROTECTED,
+    )
+    invalid = {
+        "units": [
+            {
+                "heading": "Python Library",
+                "text": ("Aspose.3D FOSS for Python imports, exports, and manipulates 3D scenes."),
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    valid = {
+        "units": [
+            {
+                "heading": "Python Library",
+                "text": "Aspose.3D FOSS for Python is a Python library.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([invalid, valid])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    repair = client.calls[1]["messages"][1]["content"]
+    assert "cited accepted facts do not authorize operations" in repair
+
+
+def test_relationship_fact_cannot_authorize_unrelated_scope_operations():
+    facts = build_product_facts_v2(
+        field_values={
+            "relationship.commercial_foss": [
+                "open_source_scope",
+                "commercial_upgrade_path",
+            ]
+        }
+    )
+    fact_id = facts.selected_fact_ids["relationship.commercial_foss"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="scope_and_limitations",
+        task_family="scope_and_limitations",
+        section_objective="State the open-source and commercial relationship.",
+        product_facts=facts,
+        accepted_fact_ids=[fact_id],
+        protected_content=PROTECTED,
+    )
+    invalid = {
+        "units": [
+            {
+                "heading": "Create and Edit 3D Scenes",
+                "text": ("Load and save scenes before choosing the commercial upgrade path."),
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    valid = {
+        "units": [
+            {
+                "heading": "Choose the Appropriate Edition",
+                "text": (
+                    "The FOSS project has an open-source scope and a separate commercial "
+                    "upgrade path."
+                ),
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([invalid, valid])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    repair = client.calls[1]["messages"][1]["content"]
+    assert "cited accepted facts do not authorize operations" in repair
+
+
+def test_directional_format_fact_blocks_unsupported_output_claim():
+    facts = build_product_facts_v2(
+        field_values={
+            "product.capabilities": ["File format import and export for OBJ, GLTF, STL, and 3MF"],
+            "product.formats": [
+                "Input format: OBJ",
+                "Input format: GLTF",
+                "Output format: GLTF",
+                "Input format: STL",
+                "Output format: STL",
+                "Input format: 3MF",
+                "Output format: 3MF",
+            ],
+        }
+    )
+    capability_id = facts.selected_fact_ids["product.capabilities"]
+    formats_id = facts.selected_fact_ids["product.formats"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="summary",
+        task_family="opening_summary",
+        section_objective="Summarize format support.",
+        product_facts=facts,
+        accepted_fact_ids=[capability_id, formats_id],
+        protected_content=PROTECTED,
+    )
+    invalid = {
+        "units": [
+            {
+                "heading": "3D File Formats",
+                "text": "Read and write OBJ, GLTF, STL, and 3MF files.",
+                "fact_ids": [capability_id, formats_id],
+            }
+        ],
+        "omitted": [],
+    }
+    valid = {
+        "units": [
+            {
+                "heading": "3D File Formats",
+                "text": ("Import OBJ, GLTF, STL, and 3MF files. Export GLTF, STL, and 3MF files."),
+                "fact_ids": [capability_id, formats_id],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([invalid, valid])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    repair = client.calls[1]["messages"][1]["content"]
+    assert "OBJ does not have cited direction support for ['output']" in repair
+    assert "separate input and output statements" in repair
+
+
+def test_reserved_directional_unit_is_removed_without_reauthoring_valid_siblings():
+    facts = build_product_facts_v2(
+        field_values={
+            "product.limitations": [
+                "Inspect mesh geometry; mesh boolean operations are not implemented."
+            ],
+            "product.formats": ["Input format: OBJ", "Output format: GLTF"],
+            "relationship.commercial_foss": [
+                "open_source_scope",
+                "commercial_upgrade_path",
+            ],
+        }
+    )
+    limitations_id = facts.selected_fact_ids["product.limitations"]
+    formats_id = facts.selected_fact_ids["product.formats"]
+    relationship_id = facts.selected_fact_ids["relationship.commercial_foss"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="scope_and_limitations",
+        task_family="scope_and_limitations",
+        section_objective="State practical limitations.",
+        product_facts=facts,
+        accepted_fact_ids=[limitations_id, relationship_id],
+        do_not_claim_fact_ids=[formats_id],
+        protected_content=PROTECTED,
+    )
+    response = {
+        "units": [
+            {
+                "heading": "Inspect Mesh Geometry",
+                "text": "Mesh boolean operations are not implemented.",
+                "fact_ids": [limitations_id],
+            },
+            {
+                "heading": "Export Scenes",
+                "text": "Export scenes to DAE files.",
+                "fact_ids": [relationship_id],
+            },
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([response])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is False
+    assert [unit.heading for unit in outcome.result.units] == ["Inspect Mesh Geometry"]
+    assert len(outcome.receipt.deterministically_rejected_unit_sha256) == 1
+    assert outcome.receipt.deterministically_omitted_fact_ids == (relationship_id,)
+    assert outcome.result.omitted[0].fact_id == relationship_id
+
+
+def test_directional_format_prose_gets_deterministic_directional_fact_provenance():
+    facts = build_product_facts_v2(
+        field_values={
+            "product.capabilities": ["File format import for OBJ and GLTF"],
+            "product.formats": ["Input format: OBJ", "Input format: GLTF"],
+        }
+    )
+    capability_id = facts.selected_fact_ids["product.capabilities"]
+    formats_id = facts.selected_fact_ids["product.formats"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="summary",
+        task_family="opening_summary",
+        section_objective="Summarize format support.",
+        product_facts=facts,
+        accepted_fact_ids=[capability_id, formats_id],
+        protected_content=PROTECTED,
+    )
+    invalid = {
+        "units": [
+            {
+                "heading": "3D File Formats",
+                "text": "Import OBJ and GLTF files.",
+                "fact_ids": [capability_id],
+            }
+        ],
+        "omitted": [{"fact_id": formats_id, "reason": "not cited"}],
+    }
+    client = FakeSectionAuthorClient([invalid])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is False
+    assert outcome.result.units[0].fact_ids == (capability_id, formats_id)
+    assert outcome.result.omitted == ()
+
+
+@pytest.mark.parametrize(
+    "invalid_text",
+    [
+        "The example opens a 3D file and converts its scene.",
+        "The example deletes nodes and renders an image.",
+    ],
+)
+def test_example_action_must_be_demonstrated_by_cited_code(invalid_text):
+    facts = build_product_facts_v2(
+        field_values={
+            "example.minimal": {
+                "language": "python",
+                "code": "scene = Scene()",
+                "class_name": "Scene",
+            }
+        }
+    )
+    fact_id = facts.selected_fact_ids["example.minimal"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="quick_start",
+        task_family="verified_example_framing",
+        section_objective="Explain the introductory example.",
+        product_facts=facts,
+        accepted_fact_ids=[fact_id],
+        protected_content=PROTECTED,
+    )
+    invalid = {
+        "units": [
+            {
+                "heading": "Start With the API",
+                "text": invalid_text,
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    valid = {
+        "units": [
+            {
+                "heading": "Start With the API",
+                "text": "The example instantiates one public API object.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([invalid, valid])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    repair = client.calls[1]["messages"][1]["content"]
+    assert "does not execute the claimed" in repair
+
+
+def test_example_editorial_predicate_is_not_mistaken_for_an_executed_operation():
+    facts = build_product_facts_v2(
+        field_values={
+            "example.minimal": {
+                "language": "python",
+                "code": "scene = Scene()",
+                "class_name": "Scene",
+            }
+        }
+    )
+    fact_id = facts.selected_fact_ids["example.minimal"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="quick_start",
+        task_family="verified_example_framing",
+        section_objective="Explain the introductory example.",
+        product_facts=facts,
+        accepted_fact_ids=[fact_id],
+        protected_content=PROTECTED,
+    )
+    response = {
+        "units": [
+            {
+                "heading": "Instantiate a Scene Object",
+                "text": (
+                    "The example instantiates one public API object and provides a concise "
+                    "starting point."
+                ),
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([response])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is False
 
 
 def test_independent_sibling_capabilities_cannot_be_fused_into_one_unit():
@@ -535,6 +1037,52 @@ def test_live_internal_assurance_wording_triggers_targeted_recovery():
     assert outcome.receipt.semantic_retry_used is True
     assert len(client.calls) == 2
     assert "internal verification narration" in client.calls[1]["messages"][1]["content"]
+
+
+def test_internal_deterministic_ownership_narration_triggers_targeted_recovery():
+    facts = build_product_facts_v2(
+        field_values={"product.limitations": ["Scene rendering is not implemented."]}
+    )
+    fact_id = facts.selected_fact_ids["product.limitations"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="scope_and_limitations",
+        task_family="scope_and_limitations",
+        section_objective="State practical limitations.",
+        product_facts=facts,
+        accepted_fact_ids=[fact_id],
+        protected_content=PROTECTED,
+    )
+    invalid = {
+        "units": [
+            {
+                "heading": "Render Scenes",
+                "text": (
+                    "Scene rendering is not implemented and is reserved for deterministic "
+                    "internal use."
+                ),
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    valid = {
+        "units": [
+            {
+                "heading": "Render Scenes",
+                "text": "Scene rendering is not implemented.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([invalid, valid])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is True
+    assert "Remove the verification method" in client.calls[1]["messages"][1]["content"]
 
 
 def test_source_build_cannot_authorize_pypi_publication_and_recovers_only_cluster():

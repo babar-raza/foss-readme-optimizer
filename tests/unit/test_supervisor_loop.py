@@ -228,18 +228,27 @@ class _FakeSectionAuthorClient:
             "summary": "Use this open-source product for its documented audience and purpose.",
             "summary-1": "Use this open-source product for its documented audience and purpose.",
             "summary-2": "Apply its documented capabilities to the supported product scope.",
-            "key_capabilities": "Process supported content with the documented capabilities.",
+            "key_capabilities": (
+                "Apply the documented capabilities to concrete repository content."
+            ),
             "installation": "Add the product by following the installation method shown below.",
             "quick_start": "Start with the public API example shown below.",
             "scope_and_limitations": (
                 "Review the supported scope and documented limitations before adoption."
             ),
         }
+        heading_by_target = {
+            "summary": "Product Overview",
+            "key_capabilities": "Process Supported Content",
+            "installation": "Install From Source",
+            "quick_start": "Start With the Public API",
+            "scope_and_limitations": "Understand Product Scope",
+        }
         return AnalysisResult(
             parsed={
                 "units": [
                     {
-                        "heading": "Process Product Content",
+                        "heading": heading_by_target.get(base_target, "Product Overview"),
                         "text": text_by_target.get(target, text_by_target[base_target]),
                         "fact_ids": list(accepted_fact_ids),
                     }

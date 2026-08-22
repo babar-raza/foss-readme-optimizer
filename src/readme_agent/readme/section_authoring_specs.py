@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import re
 from collections.abc import Iterable
 
+from readme_agent.facts.format_vocabulary import canonical_document_format
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.llm.section_authoring_prompts import SectionAuthoringTaskFamily
 from readme_agent.specialists.section_authoring_document import SectionAuthoringSpecV1
@@ -49,11 +51,7 @@ _SECTION_FIELDS: tuple[tuple[str, SectionAuthoringTaskFamily, str, tuple[str, ..
         "scope_and_limitations",
         "scope_and_limitations",
         "State practical scope and limitations without internal assurance narration.",
-        (
-            "product.limitations",
-            "product.formats",
-            "relationship.commercial_foss",
-        ),
+        ("product.limitations",),
     ),
 )
 
@@ -83,6 +81,13 @@ def _public_terms(values: Iterable[object], *, limit: int = 12) -> tuple[str, ..
     return tuple(terms)
 
 
+def _contains_format_token(value: str) -> bool:
+    return any(
+        canonical_document_format(token.lstrip(".")) is not None
+        for token in re.findall(r"(?<![A-Za-z0-9])\.?[A-Za-z0-9][A-Za-z0-9.+_-]{1,}", value)
+    )
+
+
 def build_canonical_section_authoring_specs(
     facts: ProductFactsV2,
 ) -> tuple[SectionAuthoringSpecV1, ...]:
@@ -92,7 +97,12 @@ def build_canonical_section_authoring_specs(
         _accepted_selected_fact(facts, field)
         for field in ("product.identity", "product.capabilities", "product.formats")
     ]
-    seo_vocabulary = _public_terms(fact.value for fact in seo_facts if fact is not None)
+    format_fact = _accepted_selected_fact(facts, "product.formats")
+    seo_vocabulary = tuple(
+        term
+        for term in _public_terms(fact.value for fact in seo_facts if fact is not None)
+        if format_fact is None or not _contains_format_token(term)
+    )
     specs: list[SectionAuthoringSpecV1] = []
     for section_id, task_family, objective, fields in _SECTION_FIELDS:
         accepted = [
@@ -106,7 +116,13 @@ def build_canonical_section_authoring_specs(
                 task_family=task_family,
                 section_objective=objective,
                 accepted_fact_ids=tuple(fact.fact_id for fact in accepted),
-                max_facts_per_cluster=2 if section_id == "summary" else 4,
+                do_not_claim_fact_ids=(
+                    (format_fact.fact_id,)
+                    if section_id in {"summary", "key_capabilities", "scope_and_limitations"}
+                    and format_fact is not None
+                    else ()
+                ),
+                max_facts_per_cluster=4,
                 seo_vocabulary=(
                     seo_vocabulary
                     if task_family

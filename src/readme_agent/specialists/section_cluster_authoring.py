@@ -50,6 +50,8 @@ from readme_agent.specialists.section_authoring_contracts import (
     SectionClusterAuthoringResultV1,
 )
 from readme_agent.specialists.section_authoring_fact_validation import (
+    enrich_directional_format_fact_ids,
+    remove_reserved_directional_units,
     section_authoring_fact_errors,
 )
 from readme_agent.specialists.section_authoring_prompt_projection import (
@@ -237,6 +239,10 @@ def execute_section_cluster_authoring(
             return cached.outcome.model_copy(update={"reused_from_cache": True})
 
     def build_messages(*, repair_hint: str = "") -> list[dict]:
+        has_directional_formats = any(
+            fact.field == "product.formats"
+            for fact in (*packet.accepted_facts, *packet.do_not_claim)
+        )
         return build_section_cluster_authoring_messages(
             org_repo=packet.org_repo,
             public_product_name=packet.public_product_name,
@@ -248,6 +254,7 @@ def execute_section_cluster_authoring(
                     authoring_fact_prompt_payload(
                         fact,
                         fact_id_alias=accepted_aliases[fact.fact_id],
+                        suppress_directionless_formats=has_directional_formats,
                     )
                     for fact in packet.accepted_facts
                 ]
@@ -257,6 +264,7 @@ def execute_section_cluster_authoring(
                     authoring_fact_prompt_payload(
                         fact,
                         fact_id_alias=do_not_claim_aliases[fact.fact_id],
+                        suppress_directionless_formats=has_directional_formats,
                     )
                     for fact in packet.do_not_claim
                 ]
@@ -274,6 +282,8 @@ def execute_section_cluster_authoring(
     last_error: Exception | None = None
     result: SectionClusterAuthoringResultV1 | None = None
     analysis: AnalysisResult | None = None
+    accepted_rejected_unit_hashes: tuple[str, ...] = ()
+    accepted_omitted_fact_ids: tuple[str, ...] = ()
 
     for attempt in range(1, _MAX_LOGICAL_ATTEMPTS + 1):
         analysis = client.analyze_section_cluster(messages, list(accepted_aliases.values()))
@@ -283,7 +293,13 @@ def execute_section_cluster_authoring(
             latency_ms.append(analysis.meta.latency_ms)
         try:
             provider_result = SectionClusterAuthoringResultV1.model_validate(analysis.parsed)
-            parsed = _restore_fact_ids(provider_result, alias_to_fact_id)
+            parsed = enrich_directional_format_fact_ids(
+                packet,
+                _restore_fact_ids(provider_result, alias_to_fact_id),
+            )
+            parsed, rejected_unit_hashes, omitted_fact_ids = remove_reserved_directional_units(
+                packet, parsed
+            )
             _validate_acceptance(packet, parsed)
         except (ValidationError, SectionAuthoringAcceptanceError) as exc:
             last_error = exc
@@ -306,6 +322,8 @@ def execute_section_cluster_authoring(
             )
             continue
         result = parsed
+        accepted_rejected_unit_hashes = rejected_unit_hashes
+        accepted_omitted_fact_ids = omitted_fact_ids
         break
 
     if result is None or analysis is None:
@@ -324,6 +342,8 @@ def execute_section_cluster_authoring(
         provider_model=analysis.meta.model,
         semantic_retry_used=semantic_retry_used,
         logical_call_count=attempt,
+        deterministically_rejected_unit_sha256=accepted_rejected_unit_hashes,
+        deterministically_omitted_fact_ids=accepted_omitted_fact_ids,
         token_usage=token_usage,
         latency_ms=latency_ms,
     )
@@ -402,6 +422,11 @@ def _targeted_repair_action(exc: Exception) -> str:
         return "Keep the headings and rewrite only the descriptions so they add new detail."
     if "internal verification narration" in message:
         return "Remove the verification method and state only reader-facing product behavior."
+    if "UTF-8 mojibake" in message:
+        return (
+            "Replace the corrupted characters with ordinary UTF-8 punctuation and preserve "
+            "the supported meaning of the sentence."
+        )
     if "unsupported quality, completeness, guarantee" in message:
         return (
             "Delete the unsupported adjective, guarantee, or inferred result clause. End each "
@@ -410,6 +435,23 @@ def _targeted_repair_action(exc: Exception) -> str:
         )
     if "product identity must preserve exact public name" in message:
         return "Replace the product spelling with the exact public name given in the accepted fact."
+    if "directional format prose must cite" in message:
+        return (
+            "Add the accepted product.formats fact alias to the fact_ids of every unit that "
+            "states an input or output direction. Remove that alias from any unit that does not "
+            "state its directional values."
+        )
+    if "directional format prose is reserved for deterministic rendering" in message:
+        return (
+            "Delete the entire format-direction unit and every format name from this cluster. "
+            "Deterministic rendering owns that content; keep only the other accepted facts."
+        )
+    if "does not have cited direction support" in message:
+        return (
+            "Rewrite the format unit as separate input and output statements. List a format "
+            "under input only when the accepted fact says 'Input format', and under output "
+            "only when it says 'Output format'; never describe all formats as bidirectional."
+        )
     if "structured fact coordinates" in message:
         return "Rewrite only the conflicting unit to agree literally with the structured values."
     return "Fix only the named acceptance failure."

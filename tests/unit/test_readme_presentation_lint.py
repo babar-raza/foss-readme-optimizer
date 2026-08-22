@@ -601,6 +601,7 @@ Useful source information.
         "This approach is the verified acquisition method for this distribution.",
         "Run the example to verify the package works as intended.",
         "Deterministic code ensures that the correct runtime is used.",
+        "The rendering system is reserved for deterministic internal use.",
     ],
 )
 def test_public_contract_rejects_live_qwen_internal_assurance_variants(sentence: str) -> None:

@@ -63,11 +63,16 @@ class CountingClient:
 
     def analyze_section_cluster(self, messages, accepted_fact_ids):
         self.calls.append(tuple(accepted_fact_ids))
+        is_example = "Task family: example_framing" in messages[-1]["content"]
         return AnalysisResult(
             parsed={
                 "units": [
                     {
-                        "heading": "Process Repository Content",
+                        "heading": (
+                            "Public API Introduction"
+                            if is_example
+                            else "Process Repository Content"
+                        ),
                         "text": "Professional visitor-facing prose grounded in this fact cluster.",
                         "fact_ids": list(accepted_fact_ids),
                     }
@@ -121,13 +126,28 @@ def test_canonical_specs_cover_five_bounded_public_prose_jobs():
         "scope_and_limitations",
     ]
     quick_start = next(spec for spec in specs if spec.section_id == "quick_start")
-    summary = next(spec for spec in specs if spec.section_id == "summary")
-    assert summary.max_facts_per_cluster == 2
-    assert all(spec.max_facts_per_cluster == 4 for spec in specs if spec.section_id != "summary")
+    assert all(spec.max_facts_per_cluster == 4 for spec in specs)
     assert quick_start.seo_vocabulary == ()
     assert "verified" not in quick_start.section_objective.casefold()
     assert "minimal" not in quick_start.section_objective.casefold()
     assert all(1 <= len(spec.accepted_fact_ids) <= 4 for spec in specs)
+
+
+def test_directional_format_names_do_not_leak_through_prose_job_seo_vocabulary():
+    facts = build_product_facts_v2(
+        field_values={
+            "product.capabilities": [
+                "Create document objects",
+                "File format import and export for OBJ and GLTF",
+            ],
+            "product.formats": ["Input format: OBJ", "Output format: GLTF"],
+        }
+    )
+
+    specs = build_canonical_section_authoring_specs(facts)
+
+    for spec in specs:
+        assert all("OBJ" not in term and "GLTF" not in term for term in spec.seo_vocabulary)
 
 
 def test_document_reuses_unchanged_clusters_and_invalidates_only_one(tmp_path, monkeypatch):
@@ -153,10 +173,9 @@ def test_document_reuses_unchanged_clusters_and_invalidates_only_one(tmp_path, m
         cache_dir=cache_dir,
     )
     assert first.complete
-    assert len(first_client.calls) == 4
+    assert len(first_client.calls) == 3
     assert first.expected_cluster_ids == (
-        "summary-1",
-        "summary-2",
+        "summary",
         "key_capabilities",
         "installation",
     )
@@ -173,7 +192,7 @@ def test_document_reuses_unchanged_clusters_and_invalidates_only_one(tmp_path, m
         cache_dir=cache_dir,
     )
     assert second_client.calls == []
-    assert second.reused_cluster_count == 4
+    assert second.reused_cluster_count == 3
 
     changed_specs = list(specs)
     changed_specs[1] = changed_specs[1].__class__(
@@ -194,7 +213,7 @@ def test_document_reuses_unchanged_clusters_and_invalidates_only_one(tmp_path, m
         cache_dir=cache_dir,
     )
     assert len(third_client.calls) == 1
-    assert third.reused_cluster_count == 3
+    assert third.reused_cluster_count == 2
     assert load_section_authoring_document(ORG_REPO, REVISION) == third
 
 
@@ -416,6 +435,7 @@ def test_readme_specialist_passes_complete_section_document_to_canonical_rendere
         },
     )
 
+    assert "section_authoring_document" in captured, result
     document = SectionAuthoringDocumentV1.model_validate(captured["section_authoring_document"])
     assert document.complete
     assert len(client.calls) == len(document.expected_cluster_ids)

@@ -45,7 +45,7 @@ _GENERIC_NOUNS = re.compile(
     r"(?i)\b(?:configuration|handling|lifecycle management|operations|support|validation)\b"
 )
 _ACTION_VERBS = re.compile(
-    r"(?i)\b(?:access|add|analy[sz]e|append|apply|build|compress|concatenate|configure|"
+    r"(?i)\b(?:access|add|analy[sz]e|animate|append|apply|build|compress|concatenate|configure|"
     r"convert|create|decode|decrypt|define|delete|detect|edit|encode|encrypt|export|extract|"
     r"generate|host|import|insert|inspect|load|manage|merge|modify|navigate|open|optimi[sz]e|"
     r"parse|process|read|remove|render|replace|run|save|search|sign|transform|traverse|"

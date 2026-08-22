@@ -158,6 +158,58 @@ def test_model_facing_fact_projection_keeps_semantics_but_hides_deterministic_li
     assert "location" not in serialized
 
 
+def test_directional_format_fact_suppresses_ambiguous_capability_format_projection():
+    facts = build_product_facts_v2(
+        field_values={
+            "product.capabilities": [
+                "3D primitives including Box and Sphere",
+                "File format import and export for OBJ, GLTF, STL, and 3MF",
+                "Animation system with keyframe support",
+            ]
+        }
+    )
+    fact = facts.selected_fact("product.capabilities")
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="summary",
+        task_family="opening_summary",
+        section_objective="Introduce the product.",
+        product_facts=facts,
+        accepted_fact_ids=[fact.fact_id],
+        protected_content=fingerprint_protected_content("# Example\n"),
+    )
+
+    projected = authoring_fact_prompt_payload(
+        packet.accepted_facts[0],
+        suppress_directionless_formats=True,
+    )
+
+    assert projected["value"] == [
+        "3D primitives including Box and Sphere",
+        "Animation system with keyframe support",
+    ]
+
+    directional_facts = build_product_facts_v2(
+        field_values={"product.formats": ["Input format: OBJ", "Output format: GLTF"]}
+    )
+    directional = directional_facts.selected_fact("product.formats")
+    hidden = authoring_fact_prompt_payload(
+        build_section_authoring_packet(
+            org_repo=facts.org_repo,
+            source_revision="a" * 40,
+            target_section_id="scope",
+            task_family="scope_and_limitations",
+            section_objective="State limitations.",
+            product_facts=directional_facts,
+            accepted_fact_ids=[directional.fact_id],
+            protected_content=fingerprint_protected_content("# Example\n"),
+        ).accepted_facts[0],
+        suppress_directionless_formats=True,
+    )
+    assert hidden["value"] == {"reserved_for_deterministic_rendering": True}
+
+
 def test_real_recorded_probe_response_requires_v2_heading_recovery_after_schema_parse():
     """The probe's own `section_cluster_schema` used a `sections` field with no disposition
     tracking; production's `submit_section_cluster` renames it to `units` and adds `omitted`.
@@ -221,6 +273,9 @@ def test_real_recorded_probe_response_requires_v2_heading_recovery_after_schema_
 
     with pytest.raises(
         SectionAuthoringAcceptanceError,
-        match="action-led|unsupported quality, completeness, guarantee",
+        match=(
+            "action-led|unsupported quality, completeness, guarantee|"
+            "recognized file formats are absent"
+        ),
     ):
         _validate_acceptance(packet, result)

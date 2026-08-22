@@ -26,7 +26,7 @@ from readme_agent.llm.schema import Usage
 from readme_agent.llm.section_authoring_prompts import SectionAuthoringTaskFamily
 
 MAX_ACCEPTED_FACTS = 4
-SECTION_AUTHORING_CONTRACT_VERSION = "section-authoring-v10"
+SECTION_AUTHORING_CONTRACT_VERSION = "section-authoring-v14"
 
 
 class _StrictModel(BaseModel):
@@ -142,6 +142,8 @@ class SectionAuthoringReceiptV1(_StrictModel):
     provider_model: str | None = None
     semantic_retry_used: bool
     logical_call_count: int = Field(ge=1, le=3)
+    deterministically_rejected_unit_sha256: tuple[str, ...] = ()
+    deterministically_omitted_fact_ids: tuple[str, ...] = ()
     token_usage: list[Usage] = Field(default_factory=list)
     latency_ms: list[float] = Field(default_factory=list)
 

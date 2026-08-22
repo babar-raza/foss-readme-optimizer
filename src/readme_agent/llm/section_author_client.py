@@ -4,7 +4,7 @@ Bounded to `transport_max_attempts=2` per the RELIABILITY contract: the probe ob
 transient-500 backend rate (`RESOLVED_MODEL_AND_ENDPOINT.json`), fully recoverable on one
 immediate retry with identical request bytes both times. `response_max_attempts=1` -- this
 client never retries on a schema/parse failure; that is a distinct, specialist-level bounded
-correction (one same-cluster retry with a semantic-correction turn), not a transport concern.
+correction (at most two same-cluster semantic-correction turns), not a transport concern.
 """
 
 from readme_agent import env

@@ -37,7 +37,7 @@ _INTERNAL_ASSURANCE = re.compile(
     r"verification environment|inventoried at the source revision|"
     r"syntax and static public api checked|not executed or syntax checked|"
     r"checked but not executed|not executed by the evidence collector|"
-    r"verification metadata|deterministic code|"
+    r"verification metadata|deterministic code|reserved for deterministic|deterministic internal|"
     r"execution_verified|provider call|evidence collector|"
     r"verified (?:export|package) namespace|additional verified members?|"
     r"currently installed from source|verified example|verified acquisition(?: method)?|"
