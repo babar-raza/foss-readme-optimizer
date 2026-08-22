@@ -639,7 +639,10 @@ def build_verified_template_draft(
         ),
         "api_reference": (
             api_reference_markdown(facts),
-            ("api.public_surface", *_accepted_fields(facts, "documentation.links")),
+            (
+                "api.public_surface",
+                *_accepted_fields(facts, "documentation.links", "product.formats"),
+            ),
             ("readme.api_reference",),
         ),
         "api_method_index": (

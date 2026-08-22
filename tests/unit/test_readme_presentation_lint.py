@@ -174,6 +174,39 @@ def test_format_direction_lint_allows_input_only_format_and_negative_limitation(
     }
 
 
+def test_format_direction_lint_rejects_api_name_inference_without_functional_fact() -> None:
+    facts = _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
+    formats = facts.selected_fact("product.formats")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": ["Input format: OBJ"]})
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    candidate = (
+        "# Product\n\n## API Reference\n\n"
+        "| Type | Description |\n| --- | --- |\n"
+        "| `ObjSaveOptions` | Configures OBJ output through the public API. |\n"
+        "| `A3dwSaveOptions` | Configures A3DW output through the public API. |\n"
+    )
+
+    findings = [
+        finding
+        for finding in lint_readme_presentation(candidate, facts).findings
+        if finding.rule_id == "format_direction_contradiction"
+    ]
+
+    assert len(findings) == 2
+    assert {finding.spans[0].text for finding in findings} == {
+        "| `ObjSaveOptions` | Configures OBJ output through the public API. |",
+        "| `A3dwSaveOptions` | Configures A3DW output through the public API. |",
+    }
+
+
 def test_identity_only_opening_allows_one_contextual_below_fold_enterprise_link() -> None:
     facts = _identity_only_facts()
 

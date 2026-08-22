@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.readme.format_role_truth import FormatRole, conflicting_explicit_formats
+from readme_agent.readme.format_role_truth import FormatRole, unsupported_format_directions
 from readme_agent.readme.presentation_lint_models import PresentationLintFindingV1
 from readme_agent.readme.presentation_lint_text import exact_span, make_finding
 
@@ -19,6 +19,8 @@ _DIRECTION_BOUNDARY = re.compile(
 _NEGATED_DIRECTION = re.compile(
     r"(?i)\b(?:not|cannot|can't|doesn't|does not|isn't|is not|unavailable|unsupported)\b"
 )
+_INPUT_NOUN = re.compile(r"(?i)\b(?:importer|input|load options?)\b")
+_OUTPUT_NOUN = re.compile(r"(?i)\b(?:exporter|output|save options?)\b")
 
 
 def _directional_fragments(line: str) -> list[tuple[FormatRole, str, int, int]]:
@@ -72,8 +74,13 @@ def lint_format_directions(
                 fragments.append((mermaid_role, line, 0, len(line)))
         elif fence is None:
             fragments.extend(_directional_fragments(line))
+            if not _NEGATED_DIRECTION.search(line):
+                if _INPUT_NOUN.search(line):
+                    fragments.append(("input", line, 0, len(line)))
+                if _OUTPUT_NOUN.search(line):
+                    fragments.append(("output", line, 0, len(line)))
         for role, fragment, start, end in fragments:
-            conflicts = sorted(conflicting_explicit_formats(fragment, facts, role))
+            conflicts = sorted(unsupported_format_directions(fragment, facts, role))
             if not conflicts:
                 continue
             findings.append(

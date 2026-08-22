@@ -196,3 +196,63 @@ def test_api_reference_prefers_complete_catalog_exports_for_selected_namespace()
     assert "The package documents 2 public types across 1 namespaces." in markdown
     assert "| `Node(name=None)` |" in markdown
     assert "| `Scene(file_name=None)` |" in markdown
+
+
+def test_api_reference_does_not_infer_format_support_from_type_names() -> None:
+    facts = ProductFactsV2.model_validate_json(
+        (
+            ROOT
+            / "tests/fixtures/readmes/verified_source_assurance"
+            / "aspose-3d-python-facts-ab1a2267.json"
+        ).read_text(encoding="utf-8")
+    )
+    formats = facts.selected_fact("product.formats")
+    source = facts.selected_fact("product.identity").source
+    classes = [
+        {
+            "module": "aspose.threed.formats.obj",
+            "name": "ObjSaveOptions",
+            "members": [],
+        },
+        {
+            "module": "aspose.threed.formats.a3dw",
+            "name": "A3dwSaveOptions",
+            "members": [],
+        },
+    ]
+    api_value = {
+        "modules": [{"module": item["module"], "exports": [item["name"]]} for item in classes],
+        "classes": classes,
+        "package_namespaces": [item["module"] for item in classes],
+    }
+    api = FactRecordV2(
+        fact_id="api.public_surface:direction-test",
+        field="api.public_surface",
+        value=api_value,
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme.api_reference"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": ["Input format: OBJ"]})
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+            + [api],
+            "selected_fact_ids": {**facts.selected_fact_ids, api.field: api.fact_id},
+        }
+    )
+
+    markdown = api_reference_markdown(facts)
+
+    assert markdown is not None
+    assert "Configures OBJ output" not in markdown
+    assert "Configures A3DW output" not in markdown
+    assert "The package exposes the public `ObjSaveOptions` type" in markdown
+    assert "OBJ is listed for input workflows only." in markdown
+    assert "The package exposes the public `A3dwSaveOptions` type" in markdown

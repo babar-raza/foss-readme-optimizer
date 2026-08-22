@@ -11,6 +11,9 @@ from readme_agent.presentation.verified_template_api_descriptions import (
     describe_api_export,
     namespace_display_name,
 )
+from readme_agent.presentation.verified_template_api_direction import (
+    reconcile_api_format_description,
+)
 
 
 def _accepted_api_value(facts: ProductFactsV2) -> dict[str, Any] | None:
@@ -136,6 +139,7 @@ def _namespace_table(
     classes_by_name: dict[str, list[dict[str, Any]]],
     primary_export_modules: dict[str, str],
     family: str,
+    facts: ProductFactsV2,
 ) -> tuple[list[str], int]:
     display_name = namespace_display_name(module, family)
     rows: list[str] = [
@@ -160,6 +164,12 @@ def _namespace_table(
             )
         else:
             description = describe_api_export(item, module=module, name=name, family=family)
+            description = reconcile_api_format_description(
+                name=name,
+                module=module,
+                description=description,
+                facts=facts,
+            )
         identifier = _class_surface(name, item) if item is not None else name
         rows.append(f"| `{_table_cell(identifier)}` | {description} |")
         count += 1
@@ -285,6 +295,7 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
             classes_by_name,
             primary_export_modules,
             family,
+            facts,
         )
         if count == 0:
             continue

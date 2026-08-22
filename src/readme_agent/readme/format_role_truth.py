@@ -86,6 +86,20 @@ def mentioned_explicit_formats(text: str, roles: dict[str, frozenset[FormatRole]
     }
 
 
+def mentioned_document_formats(text: str) -> set[str]:
+    """Return governed format abbreviations present as standalone public terms."""
+
+    uppercase = text.upper()
+    return {
+        format_name
+        for format_name in DOCUMENT_FORMAT_ABBREVIATIONS
+        if re.search(
+            rf"(?<![A-Z0-9_-]){re.escape(format_name)}(?![A-Z0-9_-])",
+            uppercase,
+        )
+    }
+
+
 def conflicting_explicit_formats(
     text: str,
     facts: ProductFactsV2 | None,
@@ -101,9 +115,28 @@ def conflicting_explicit_formats(
     }
 
 
+def unsupported_format_directions(
+    text: str,
+    facts: ProductFactsV2 | None,
+    role: FormatRole,
+) -> set[str]:
+    """Return directional format claims absent from the selected functional role fact."""
+
+    roles = explicit_format_roles(facts)
+    if not roles:
+        return set()
+    return {
+        format_name
+        for format_name in mentioned_document_formats(text)
+        if role not in roles.get(format_name, frozenset())
+    }
+
+
 __all__ = [
     "FormatRole",
     "conflicting_explicit_formats",
     "explicit_format_roles",
+    "mentioned_document_formats",
     "mentioned_explicit_formats",
+    "unsupported_format_directions",
 ]
