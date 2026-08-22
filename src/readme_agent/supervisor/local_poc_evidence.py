@@ -337,6 +337,23 @@ def _canonical_hash(value: dict) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
+def _candidate_product_facts(
+    snapshot: RepositorySnapshotV1,
+    render_result: dict,
+) -> ProductFactsV2:
+    """Use the typed facts already consumed by rendering, even in private attempts."""
+
+    supplied = render_result.get("product_facts_v2")
+    if isinstance(supplied, dict):
+        return ProductFactsV2.model_validate(supplied)
+    org, repo = snapshot.org_repo.split("/", maxsplit=1)
+    canonical_bundle = paths.readme_poc_repository_dir(org, repo, snapshot.source_revision)
+    facts_path = canonical_bundle / "facts" / "product-facts.json"
+    if not facts_path.is_file():
+        raise ValueError("candidate boundary requires the persisted ProductFactsV2 graph")
+    return ProductFactsV2.model_validate_json(facts_path.read_text(encoding="utf-8"))
+
+
 def _readme_reconciliation_report(
     render_result: dict,
     document_plan: ReadmeDocumentPlanV1,
@@ -461,10 +478,9 @@ def write_local_poc_readme_candidate(
     review_dir = bundle_dir / "review"
     patch_text = str(presentation_plan.get("git_patch_proof", {}).get("patch") or "")
     reconciliation_report = _readme_reconciliation_report(render_result, document_plan, snapshot)
-    facts_path = bundle_dir / "facts" / "product-facts.json"
-    if not facts_path.is_file():
-        raise ValueError("candidate boundary requires the persisted ProductFactsV2 graph")
-    persisted_facts = ProductFactsV2.model_validate_json(facts_path.read_text(encoding="utf-8"))
+    persisted_facts = _candidate_product_facts(snapshot, render_result)
+    if persisted_facts.canonical_hash() != document_plan.facts_hash:
+        raise ValueError("candidate boundary facts disagree with the document plan")
     bounded_plan, bounded_coverage, bounded_validation = build_candidate_bounded_review_evidence(
         candidate_text=candidate_text,
         document_plan=document_plan,
