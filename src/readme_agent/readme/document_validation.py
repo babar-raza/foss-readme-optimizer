@@ -60,6 +60,10 @@ from readme_agent.validation.aspose_checks_bridge import (
     load_blocking_check_names,
     run_aspose_checks,
 )
+from readme_agent.validation.public_candidate_quality import (
+    PublicQualityReportV1,
+    evaluate_public_candidate_quality,
+)
 
 _ACCEPTED_STATES = {"verified", "policy_approved"}
 _HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
@@ -75,6 +79,7 @@ class DocumentCandidateValidationV1(BaseModel):
     deferred_source_claim_ids: list[str] = Field(default_factory=list)
     presentation_findings: list[PresentationLintFindingV1] = Field(default_factory=list)
     aspose_check_findings: list[AsposeCheckFindingV1] = Field(default_factory=list)
+    public_quality_report: PublicQualityReportV1 | None = None
 
 
 def _sha256(data: bytes | str) -> str:
@@ -581,6 +586,18 @@ def validate_readme_document_candidate(
         f"{finding.finding_id}: {finding.message}" for finding in presentation_lint.findings
     )
 
+    public_quality = evaluate_public_candidate_quality(
+        candidate_inner,
+        facts=facts,
+        claim_accountability=plan.claim_accountability,
+    )
+    checks["public_candidate_quality"] = public_quality.counts.blocking == 0
+    errors.extend(
+        f"{finding.finding_id}: {finding.message}"
+        for finding in public_quality.findings
+        if finding.blocking
+    )
+
     # run_aspose_checks covers up to 45 of 89 vendored checks depending on
     # what real data a given candidate has (the rest need production inputs
     # this repo doesn't build yet -- dependency_snapshot for most ecosystems,
@@ -632,4 +649,5 @@ def validate_readme_document_candidate(
             if resolution.resolution == "deferred_verification"
         ),
         presentation_findings=presentation_lint.findings,
+        public_quality_report=public_quality,
     )

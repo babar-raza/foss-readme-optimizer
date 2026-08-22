@@ -58,6 +58,11 @@ def _start_intake_llm_accounting(
 def cmd_supervise(args: argparse.Namespace) -> int:
     """Run supervision with any workflow-scoped registry revision context."""
 
+    if getattr(args, "portfolio_worker", False):
+        from readme_agent.supervisor.portfolio_worker_runtime import run_portfolio_worker
+
+        return run_portfolio_worker(args, _cmd_supervise_impl)
+
     if getattr(args, "execution_profile", None) != "act_registry_intake":
         return _cmd_supervise_impl(args)
 
@@ -635,6 +640,12 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
             file=sys.stderr,
         )
         return 2
+    if (
+        getattr(args, "repository_concurrency", 2) < 1
+        or getattr(args, "provider_concurrency", 2) < 1
+    ):
+        print("error: portfolio concurrency limits must be at least 1", file=sys.stderr)
+        return 2
 
     from readme_agent import paths
     from readme_agent.gitsafety.clone import remote_head_sha
@@ -647,7 +658,10 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
     from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
     from readme_agent.state.recovery import recovery_sweep
     from readme_agent.supervisor.convergence import compute_control_plane_fingerprint
-    from readme_agent.supervisor.intake_cache import completed_intake_binding
+    from readme_agent.supervisor.intake_cache import (
+        completed_intake_binding,
+        latest_intake_source_revision,
+    )
     from readme_agent.supervisor.portfolio import (
         PortfolioPocSummaryV1,
         PortfolioRepositoryResultV1,
@@ -735,6 +749,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
     # lifecycle state the canonical runs actually persisted, not their
     # console exit codes.
     results: list[PortfolioRepositoryResultV1] = []
+    pending_jobs = []
     slice_started = time.monotonic()
     execution_slice_complete = True
     slice_budget = float(
@@ -762,12 +777,17 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         try:
             persisted = state_backend.load(entry.org_repo)
             lifecycle = persisted.readme_poc_lifecycle if persisted is not None else None
-            if isinstance(lifecycle, ReadmePocLifecycleStateV2) and lifecycle.source_revision:
+            cached_source_revision = (
+                lifecycle.source_revision
+                if isinstance(lifecycle, ReadmePocLifecycleStateV2)
+                else None
+            ) or latest_intake_source_revision(persisted)
+            if isinstance(lifecycle, ReadmePocLifecycleStateV2) and cached_source_revision:
                 org, repo = entry.org_repo.split("/", maxsplit=1)
                 bundle_dir = paths.readme_poc_repository_dir(
                     org,
                     repo,
-                    lifecycle.source_revision,
+                    cached_source_revision,
                 )
                 current_source_revision = remote_head_sha(entry.clone_url)
                 repository_args._portfolio_source_revision = current_source_revision
@@ -830,7 +850,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                         stage="NO_OP_PROOF",
                     )
                     bind_llm_repository_revision(
-                        lifecycle.source_revision,
+                        cached_source_revision,
                         stage="NO_OP_PROOF",
                     )
                     record_non_provider_call(
@@ -849,7 +869,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                         disposition="cache_reuse",
                         request={
                             "org_repo": entry.org_repo,
-                            "source_revision": lifecycle.source_revision,
+                            "source_revision": cached_source_revision,
                             "status": complete_status,
                             "requested_stage": readme_poc_stage_limit,
                             "cache_key": complete_cache_key,
@@ -909,7 +929,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                             stage="BLOCKED_DECISION_REUSE",
                         )
                         bind_llm_repository_revision(
-                            lifecycle.source_revision,
+                            cached_source_revision,
                             stage="BLOCKED_DECISION_REUSE",
                         )
                         record_non_provider_call(
@@ -920,7 +940,7 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                             disposition="cache_reuse",
                             request={
                                 "org_repo": entry.org_repo,
-                                "source_revision": lifecycle.source_revision,
+                                "source_revision": cached_source_revision,
                                 "status": blocked_record.status,
                                 "blocked_reason": blocked_record.blocked_reason,
                                 "consecutive_live_count": blocked_record.consecutive_count,
@@ -975,86 +995,38 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                 )
                 continue
             repository_args.resume_trigger_key = trigger_selection.resume_trigger_key
-            exit_code = cmd_supervise(repository_args)
-            terminal_result = getattr(repository_args, "_terminal_supervise_result", None)
-            persisted = state_backend.load(entry.org_repo)
-            lifecycle = persisted.readme_poc_lifecycle if persisted is not None else None
-            member_result = PortfolioRepositoryResultV1(
-                org_repo=entry.org_repo,
-                content_assurance=(
-                    lifecycle.content_assurance
-                    if isinstance(lifecycle, ReadmePocLifecycleStateV2)
-                    else "repository_verified"
-                ),
-                status=(
-                    terminal_result.processability_disposition
-                    if terminal_result is not None
-                    and terminal_result.processability_disposition is not None
-                    else terminal_result.readme_lifecycle_status
-                    if readme_poc_stage_limit is not None
-                    and terminal_result is not None
-                    and terminal_result.readme_lifecycle_status is not None
-                    else (
-                        lifecycle.status
-                        if lifecycle is not None
-                        else ("NO_POC_LIFECYCLE" if exit_code == 0 else "NON_SUCCESS_TERMINAL")
-                    )
-                ),
-                exit_code=exit_code,
-                blocked_reason=(
-                    terminal_result.blocked_reason if terminal_result is not None else None
-                ),
-                blocked_category=(
-                    terminal_result.blocked_category if terminal_result is not None else None
-                ),
-                **_current_llm_accounting(repository_args),
-            )
-            results.append(member_result)
-            # Blocked-decision bookkeeping is best-effort: a failure here may
-            # cost one needless future re-run, never the member's real result.
-            try:
-                from readme_agent.supervisor.blocked_decision_cache import (
-                    clear_blocked_decision,
-                    record_blocked_outcome,
-                )
-                from readme_agent.supervisor.local_poc_cache import (
-                    current_blocked_decision_dependencies,
+            if getattr(args, "repository_concurrency", 1) == 1:
+                from readme_agent.supervisor.portfolio_worker_runtime import (
+                    build_portfolio_terminal_result,
+                    record_portfolio_blocked_decision,
                 )
 
-                member_org, member_repo = entry.org_repo.split("/", maxsplit=1)
-                decision_path = paths.readme_poc_blocked_decision_path(member_org, member_repo)
-                pinned_revision = (
-                    lifecycle.source_revision
-                    if isinstance(lifecycle, ReadmePocLifecycleStateV2)
-                    and lifecycle.source_revision
-                    else getattr(repository_args, "_portfolio_source_revision", None)
-                )
-                if member_result.blocked_reason is not None and pinned_revision:
-                    record_blocked_outcome(
-                        decision_path,
-                        org_repo=entry.org_repo,
-                        status=member_result.status,
-                        exit_code=exit_code,
-                        blocked_reason=member_result.blocked_reason,
-                        blocked_category=member_result.blocked_category,
-                        dependencies=current_blocked_decision_dependencies(
-                            org_repo=entry.org_repo,
-                            source_revision=pinned_revision,
-                            control_plane_fingerprint=compute_control_plane_fingerprint(
-                                entry.policy_profile
-                            ),
-                            ecosystem=entry.ecosystem,
-                            family=getattr(entry, "family", None),
-                        ),
-                        run_id=getattr(repository_args, "_llm_accounting_run_id", None),
+                exit_code = cmd_supervise(repository_args)
+                member_result = build_portfolio_terminal_result(repository_args, exit_code)
+                results.append(member_result)
+                try:
+                    record_portfolio_blocked_decision(repository_args, member_result, entry=entry)
+                except Exception as bookkeeping_exc:  # noqa: BLE001 -- never fail the member
+                    print(
+                        f"{entry.org_repo}: blocked-decision bookkeeping failed "
+                        f"(non-fatal): {type(bookkeeping_exc).__name__}: {bookkeeping_exc}",
+                        file=sys.stderr,
                     )
-                else:
-                    clear_blocked_decision(decision_path)
-            except Exception as bookkeeping_exc:  # noqa: BLE001 -- never fail the member
-                print(
-                    f"{entry.org_repo}: blocked-decision bookkeeping failed "
-                    f"(non-fatal): {type(bookkeeping_exc).__name__}: {bookkeeping_exc}",
-                    file=sys.stderr,
+            else:
+                from readme_agent.supervisor.portfolio_worker_dispatch import (
+                    build_repository_worker_job,
+                )
+
+                pending_jobs.append(
+                    build_repository_worker_job(
+                        repository_args,
+                        entry,
+                        ordinal=entry_index,
+                        registry_revision_id=revision.revision_id,
+                        source_revision=getattr(
+                            repository_args, "_portfolio_source_revision", None
+                        ),
+                    )
                 )
         except Exception as exc:  # noqa: BLE001 -- portfolio failure isolation is contractual
             print(f"{entry.org_repo}: SYSTEM_FAILURE: {type(exc).__name__}: {exc}", file=sys.stderr)
@@ -1116,6 +1088,80 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
             execution_slice_complete = False
             break
 
+    if pending_jobs:
+        from readme_agent.evidence.writer import write_redacted_json
+        from readme_agent.supervisor.portfolio_proof_engine.repository_worker_pool import (
+            RepositoryWorkerPool,
+        )
+        from readme_agent.supervisor.portfolio_worker_dispatch import (
+            JDK_TOOLCHAIN_RESOURCE,
+            load_worker_receipt,
+        )
+
+        remaining_budget = max(0.001, slice_budget - (time.monotonic() - slice_started))
+        pool = RepositoryWorkerPool(
+            repository_concurrency=getattr(args, "repository_concurrency", 2),
+            provider_concurrency=getattr(args, "provider_concurrency", 2),
+            extra_resource_limits={JDK_TOOLCHAIN_RESOURCE: 1},
+        )
+        batch_report = pool.run(pending_jobs, batch_deadline_seconds=remaining_budget)
+        write_redacted_json(
+            paths.runs_dir() / "portfolio-workers" / revision.revision_id / "batch-report.json",
+            batch_report,
+        )
+        for worker_result in batch_report.results:
+            receipt = load_worker_receipt(
+                worker_result,
+                registry_revision_id=revision.revision_id,
+            )
+            if receipt is not None:
+                results.append(receipt.result)
+                print(
+                    f"{receipt.result.org_repo}: {receipt.result.status} "
+                    f"[worker={worker_result.exit_classification}]",
+                    flush=True,
+                )
+                continue
+            if worker_result.exit_classification == "NOT_STARTED_DEADLINE_EXPIRED":
+                execution_slice_complete = False
+                continue
+            failure_detail = redact(
+                "portfolio_worker_failure:"
+                f"{worker_result.exit_classification}:"
+                f"{worker_result.failure_reason or worker_result.stderr_excerpt[:512]}",
+                env.secret_values(),
+            )
+            try:
+                trigger_selection = select_portfolio_trigger(
+                    state_backend.load(worker_result.org_repo)
+                )
+                trigger_key = (
+                    trigger_selection.active_trigger_key or trigger_selection.resume_trigger_key
+                )
+                mark_failed_member_retryable(
+                    state_backend,
+                    worker_result.org_repo,
+                    trigger_key,
+                    failure_detail=failure_detail,
+                )
+            except Exception as recovery_exc:  # noqa: BLE001 -- retain worker failure
+                print(
+                    f"{worker_result.org_repo}: worker recovery failed: "
+                    f"{type(recovery_exc).__name__}: {recovery_exc}",
+                    file=sys.stderr,
+                )
+            results.append(
+                PortfolioRepositoryResultV1(
+                    org_repo=worker_result.org_repo,
+                    status="SYSTEM_FAILURE",
+                    exit_code=1,
+                    blocked_reason=failure_detail,
+                    blocked_category="agent_fixable",
+                )
+            )
+
+    result_order = {entry.org_repo: index for index, entry in enumerate(entries)}
+    results.sort(key=lambda result: result_order[result.org_repo])
     summary = PortfolioPocSummaryV1(
         registry_path=str(registry_path),
         registry_revision_id=revision.revision_id,

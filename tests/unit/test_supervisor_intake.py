@@ -8,7 +8,10 @@ from pathlib import Path
 from readme_agent.registry.models import ProductEntry
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
 from readme_agent.supervisor.intake import run_readonly_intake_preflight
-from readme_agent.supervisor.intake_cache import completed_intake_binding
+from readme_agent.supervisor.intake_cache import (
+    completed_intake_binding,
+    latest_intake_source_revision,
+)
 from tests.unit.test_readme_poc_intake import IntakeBackend
 
 
@@ -86,6 +89,7 @@ def test_second_observation_reuses_one_receipt_and_does_not_reclone(
     assert first.binding == second.binding
     assert first.binding.outcome == "READY_FULL_PIPELINE"
     assert clone_calls == ["example-org/Example"]
+    assert latest_intake_source_revision(backend.states["example-org/Example"]) == revision
     evidence = tmp_path / "runs" / "readme-poc" / "example-org__Example" / revision
     assert (evidence / "intake" / "preflight.json").is_file()
     assert (evidence / "sha256sums.txt").is_file()

@@ -17,6 +17,22 @@ from readme_agent.state.schema import RunStateV2
 _READY_OUTCOMES = {"READY_FAST_PATH", "READY_FULL_PIPELINE"}
 
 
+def latest_intake_source_revision(state: RunStateV2 | None) -> str | None:
+    """Return the newest resolved intake revision before snapshot promotion populates lifecycle."""
+
+    lifecycle = state.readme_poc_lifecycle if state is not None else None
+    if not isinstance(lifecycle, ReadmePocLifecycleStateV2):
+        return None
+    return next(
+        (
+            item.source_revision
+            for item in reversed(lifecycle.intake_preflight_history)
+            if item.source_revision_resolved and item.source_revision
+        ),
+        None,
+    )
+
+
 def completed_intake_binding(
     state: RunStateV2 | None,
     entry: ProductEntry,

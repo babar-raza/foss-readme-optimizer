@@ -207,6 +207,18 @@ def _build_parser() -> argparse.ArgumentParser:
         ),
     )
     p_supervise.add_argument(
+        "--repository-concurrency",
+        type=int,
+        default=2,
+        help="Portfolio only: process-isolated repository workers (default: 2).",
+    )
+    p_supervise.add_argument(
+        "--provider-concurrency",
+        type=int,
+        default=2,
+        help="Portfolio only: maximum concurrent provider-using workers (default: 2).",
+    )
+    p_supervise.add_argument(
         "--only",
         help=(
             "Portfolio only: comma-separated org/repo allow-list restricting --registry fan-out "
@@ -305,6 +317,10 @@ def _build_parser() -> argparse.ArgumentParser:
             "exact deterministic behavior (fixed specialist sweep, blind-retry-only repair)."
         ),
     )
+    p_supervise.add_argument("--portfolio-worker", action="store_true", help=argparse.SUPPRESS)
+    p_supervise.add_argument("--portfolio-revision-id", help=argparse.SUPPRESS)
+    p_supervise.add_argument("--portfolio-worker-receipt", help=argparse.SUPPRESS)
+    p_supervise.add_argument("--portfolio-source-revision", help=argparse.SUPPRESS)
 
     p_runtime_matrix = sub.add_parser(
         "runtime-matrix",

@@ -33,6 +33,7 @@ class SeparatedReadmeReviewResultV1(IndependentReadmeReviewResultV1):
     combined_review: CombinedReadmeReviewV1
     grounding_retry_history: list[dict]
     review_recovery_receipt: QwenReviewRecoveryReceiptV1 | None = None
+    bounded_review_receipt: dict | None = None
     review_contract_version: str = Field(default="2", frozen=True)
 
 
@@ -149,6 +150,7 @@ def build_compatibility_result(
     combined: CombinedReadmeReviewV1,
     grounding_retry_history: list[dict],
     review_recovery_receipt: QwenReviewRecoveryReceiptV1 | None = None,
+    bounded_review_receipt: dict | None = None,
 ) -> SeparatedReadmeReviewResultV1:
     """Project the separated result through the legacy independent-review seam."""
 
@@ -176,6 +178,7 @@ def build_compatibility_result(
         combined_review=combined,
         grounding_retry_history=grounding_retry_history,
         review_recovery_receipt=review_recovery_receipt,
+        bounded_review_receipt=bounded_review_receipt,
     )
 
 
