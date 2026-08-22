@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+  "verifier": "qwen_verifier",
+  "verifier_authored_implementation": false,
+  "verified_head": "980f38ac473c2c7aadef359f0e0df7f73ff829d5",
+  "verdict": "PASS",
+  "repository": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+  "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+  "candidate_sha256": "41133ea136e95536dd364f752a479d000caeccab170892023ef34e5a834e31ad",
+  "bundle_checksums_match": true,
+  "candidate_receipt_count": 1,
+  "later_stage_receipts_present": false,
+  "current_transaction_provider_calls": 1,
+  "current_transaction_cache_reuses": 5,
+  "whole_document_composition_provider_calls": 0,
+  "accounting_ledger_reference_is_bundle_relative": true,
+  "all_accounting_owners_component_bound_and_mutation_tested": true,
+  "source_reconciliation_entries": 138,
+  "source_reconciliation_bytes": 17983,
+  "factual_review_packets": 32,
+  "visitor_review_packets": 19,
+  "unpacketizable_units": 0,
+  "coverage_gaps": 0,
+  "document_validation_errors": 0,
+  "public_lint_findings": 0,
+  "benchmark_prose_used": false,
+  "runtime_dependency_on_aspose_org": false,
+  "product_remote_writes": 0,
+  "focused_results": [
+    "17 accounting component and stage-key tests passed",
+    "147 independently selected focused tests passed",
+    "240 coordinator impact-mapped tests passed",
+    "4920 complete non-live tests passed with one skip and zero leaked descendants"
+  ],
+  "limitations": [
+    "PF-02 does not claim deterministic or independent 30-of-30 acceptance.",
+    "PF-02 does not claim a complete snapshot-to-review no-op rerun; PF-03 owns that proof."
+  ]
+}
