@@ -34,6 +34,18 @@ class PortfolioWorkerReceiptV1(BaseModel):
     result: PortfolioRepositoryResultV1
 
 
+class PortfolioWorkerReceiptV2(BaseModel):
+    """Invocation-bound reducer input that cannot be reused by a later child process."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    schema_version: int = Field(default=2, ge=2, le=2)
+    registry_revision_id: str = Field(pattern=r"^[0-9a-f]{64}$")
+    worker_invocation_id: str = Field(pattern=r"^[0-9a-f]{32}$")
+    source_revision: str | None = None
+    result: PortfolioRepositoryResultV1
+
+
 class _LlmAccounting(TypedDict, total=False):
     llm_accounting_status: Literal["EXACT", "UNKNOWN_LEGACY"]
     llm_call_count: int | None
@@ -163,6 +175,8 @@ def run_portfolio_worker(
 
     if args.execution_profile != "local_poc" or not args.no_registry_heal:
         raise ValueError("portfolio workers require local_poc and --no-registry-heal")
+    if not args.portfolio_worker_invocation_id:
+        raise ValueError("portfolio workers require an invocation identity")
     revision = load_current_registry_revision()
     if revision is None or revision.revision_id != args.portfolio_revision_id:
         raise ValueError("portfolio worker registry revision is missing or drifted")
@@ -185,8 +199,10 @@ def run_portfolio_worker(
             pass
         write_redacted_json(
             _receipt_path(args),
-            PortfolioWorkerReceiptV1(
+            PortfolioWorkerReceiptV2(
                 registry_revision_id=revision.revision_id,
+                worker_invocation_id=args.portfolio_worker_invocation_id,
+                source_revision=getattr(args, "portfolio_source_revision", None),
                 result=result,
             ),
         )

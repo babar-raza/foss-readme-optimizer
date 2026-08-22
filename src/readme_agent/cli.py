@@ -320,6 +320,7 @@ def _build_parser() -> argparse.ArgumentParser:
     p_supervise.add_argument("--portfolio-worker", action="store_true", help=argparse.SUPPRESS)
     p_supervise.add_argument("--portfolio-revision-id", help=argparse.SUPPRESS)
     p_supervise.add_argument("--portfolio-worker-receipt", help=argparse.SUPPRESS)
+    p_supervise.add_argument("--portfolio-worker-invocation-id", help=argparse.SUPPRESS)
     p_supervise.add_argument("--portfolio-source-revision", help=argparse.SUPPRESS)
 
     p_runtime_matrix = sub.add_parser(

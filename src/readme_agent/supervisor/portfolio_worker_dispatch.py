@@ -6,6 +6,7 @@ import argparse
 import os
 import re
 import sys
+import uuid
 from pathlib import Path
 
 from readme_agent import paths
@@ -15,7 +16,7 @@ from readme_agent.supervisor.portfolio_proof_engine.repository_worker_pool impor
     ResourceRequirementV1,
     WorkerResultV1,
 )
-from readme_agent.supervisor.portfolio_worker_runtime import PortfolioWorkerReceiptV1
+from readme_agent.supervisor.portfolio_worker_runtime import PortfolioWorkerReceiptV2
 
 JDK_TOOLCHAIN_RESOURCE = "jdk_toolchain_provisioning"
 _SAFE_ID = re.compile(r"[^A-Za-z0-9_.-]+")
@@ -33,7 +34,10 @@ def build_repository_worker_job(
 
     safe_repo = _SAFE_ID.sub("_", entry.org_repo)
     job_id = f"{ordinal:03d}-{safe_repo}"
-    job_root = paths.runs_dir() / "portfolio-workers" / registry_revision_id / job_id
+    invocation_id = uuid.uuid4().hex
+    job_root = (
+        paths.runs_dir() / "portfolio-workers" / registry_revision_id / job_id / invocation_id
+    )
     receipt = job_root / "evidence" / "worker-receipt.json"
     argv = [
         sys.executable,
@@ -50,6 +54,8 @@ def build_repository_worker_job(
         registry_revision_id,
         "--portfolio-worker-receipt",
         str(receipt.resolve()),
+        "--portfolio-worker-invocation-id",
+        invocation_id,
     ]
     stage_limit = getattr(args, "max_readme_poc_stage", None)
     if stage_limit:
@@ -84,18 +90,24 @@ def load_worker_receipt(
     worker_result: WorkerResultV1,
     *,
     registry_revision_id: str,
-) -> PortfolioWorkerReceiptV1 | None:
+    expected_source_revision: str | None,
+) -> PortfolioWorkerReceiptV2 | None:
     """Load only an identity-matching receipt; subprocess status alone never means success."""
 
+    if not worker_result.succeeded or worker_result.exit_classification != "SUCCEEDED":
+        return None
     if worker_result.expected_receipt_path is None:
         return None
     receipt_path = Path(worker_result.expected_receipt_path)
     if not receipt_path.is_file():
         return None
-    receipt = PortfolioWorkerReceiptV1.model_validate_json(receipt_path.read_text(encoding="utf-8"))
+    receipt = PortfolioWorkerReceiptV2.model_validate_json(receipt_path.read_text(encoding="utf-8"))
+    expected_invocation_id = receipt_path.parent.parent.name
     if (
         receipt.registry_revision_id != registry_revision_id
         or receipt.result.org_repo != worker_result.org_repo
+        or receipt.worker_invocation_id != expected_invocation_id
+        or receipt.source_revision != expected_source_revision
     ):
         return None
     return receipt

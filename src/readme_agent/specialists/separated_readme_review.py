@@ -183,14 +183,18 @@ def run_separated_readme_review(
     bounded_execution = None
     document_plan = None
     facts_model = None
-    if bounded_context_chars > _BOUNDED_REVIEW_TRIGGER_CHARS:
+    canonical_bounded_contract = (
+        "readme_document_plan" in presentation_plan or "claim_accountability" in presentation_plan
+    )
+    if bounded_context_chars > _BOUNDED_REVIEW_TRIGGER_CHARS and canonical_bounded_contract:
         document_plan_payload = presentation_plan.get("readme_document_plan") or presentation_plan
         try:
             document_plan = ReadmeDocumentPlanV1.model_validate(document_plan_payload)
             facts_model = ProductFactsV2.model_validate(product_facts_v2)
-        except ValidationError:
-            document_plan = None
-            facts_model = None
+        except ValidationError as exc:
+            raise RuntimeError(
+                "oversized review requires valid typed document-plan and product-facts contracts"
+            ) from exc
         if document_plan is not None and document_plan.claim_accountability is None:
             raise RuntimeError("bounded review requires the validated claim-accountability map")
     if document_plan is not None and facts_model is not None:

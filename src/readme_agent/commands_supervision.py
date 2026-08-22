@@ -1109,10 +1109,13 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
             paths.runs_dir() / "portfolio-workers" / revision.revision_id / "batch-report.json",
             batch_report,
         )
+        pending_job_by_id = {job.job_id: job for job in pending_jobs}
         for worker_result in batch_report.results:
+            expected_job = pending_job_by_id[worker_result.job_id]
             receipt = load_worker_receipt(
                 worker_result,
                 registry_revision_id=revision.revision_id,
+                expected_source_revision=expected_job.source_revision,
             )
             if receipt is not None:
                 results.append(receipt.result)
