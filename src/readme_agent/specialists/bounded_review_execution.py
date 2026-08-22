@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
+from concurrent.futures import ThreadPoolExecutor
+from contextvars import copy_context
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
@@ -155,18 +157,19 @@ def execute_bounded_review(
     factual_client: AnalysisClientLike,
     blind_prompt_id: str,
     factual_prompt_id: str,
+    max_workers: int = 1,
 ) -> BoundedReviewExecutionV1:
     """Review every required packet, validate containment, and reduce fail closed."""
 
+    if max_workers < 1 or max_workers > 4:
+        raise ValueError("bounded review max_workers must be between 1 and 4")
     if plan.unpacketizable:
         aggregate = aggregate_packet_results(plan, coverage_ledger, {})
         raise RuntimeError(
             f"bounded review is structurally blocked: {aggregate.blocking_record_ids}"
         )
 
-    packet_results: list[BoundedPacketResultV1] = []
-    history: list[dict] = []
-    for visitor_packet in plan.visitor_packets:
+    def review_visitor(visitor_packet: BoundedVisitorPacketV1):
         packet_text = (
             visitor_packet.neighbor_context_before
             + visitor_packet.section_text
@@ -192,10 +195,10 @@ def execute_bounded_review(
         validation = validate_packet_result(plan, bounded)
         if not validation.valid:
             raise RuntimeError(f"invalid bounded visitor result: {validation.errors}")
-        packet_results.append(bounded)
-        history.extend({**item, "packet_id": visitor_packet.packet_id} for item in attempts)
+        history = tuple({**item, "packet_id": visitor_packet.packet_id} for item in attempts)
+        return bounded, history
 
-    for factual_packet in plan.factual_packets:
+    def review_factual(factual_packet: BoundedFactualPacketV1):
         fact_context = {
             "facts": list(factual_packet.facts),
             "do_not_claim": list(factual_packet.do_not_claim),
@@ -225,8 +228,26 @@ def execute_bounded_review(
         validation = validate_packet_result(plan, bounded)
         if not validation.valid:
             raise RuntimeError(f"invalid bounded factual result: {validation.errors}")
-        packet_results.append(bounded)
-        history.extend({**item, "packet_id": factual_packet.packet_id} for item in attempts)
+        history = tuple({**item, "packet_id": factual_packet.packet_id} for item in attempts)
+        return bounded, history
+
+    if max_workers == 1:
+        completed = [review_visitor(packet) for packet in plan.visitor_packets]
+        completed.extend(review_factual(packet) for packet in plan.factual_packets)
+    else:
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            visitor_futures = [
+                executor.submit(copy_context().run, review_visitor, packet)
+                for packet in plan.visitor_packets
+            ]
+            factual_futures = [
+                executor.submit(copy_context().run, review_factual, packet)
+                for packet in plan.factual_packets
+            ]
+            completed = [future.result() for future in visitor_futures]
+            completed.extend(future.result() for future in factual_futures)
+    packet_results = [result for result, _history in completed]
+    history = [item for _result, attempts in completed for item in attempts]
 
     by_id = {result.packet_id: result for result in packet_results}
     aggregate = aggregate_packet_results(plan, coverage_ledger, by_id)

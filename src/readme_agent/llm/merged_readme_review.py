@@ -21,10 +21,16 @@ from readme_agent.specialists.review_mechanical_observations import (
 MAX_MERGED_REVIEW_REQUEST_BYTES = 204_800
 
 
+def merged_review_request_size_bytes(messages: list[dict]) -> int:
+    """Return the exact UTF-8 request-content size governed by the merged ceiling."""
+
+    return sum(len(str(message.get("content", "")).encode("utf-8")) for message in messages)
+
+
 def enforce_merged_review_request_ceiling(messages: list[dict]) -> None:
     """Fail before spending the one normal merged call on a request already too large."""
 
-    size = sum(len(str(message.get("content", "")).encode("utf-8")) for message in messages)
+    size = merged_review_request_size_bytes(messages)
     if size > MAX_MERGED_REVIEW_REQUEST_BYTES:
         raise MergedReviewRequestTooLargeError(
             f"merged review request is {size} bytes, exceeds "

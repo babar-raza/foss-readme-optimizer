@@ -13,6 +13,11 @@ from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.llm import prompt_registry
+from readme_agent.llm.merged_readme_review import (
+    MAX_MERGED_REVIEW_REQUEST_BYTES,
+    build_merged_readme_review_messages,
+    merged_review_request_size_bytes,
+)
 from readme_agent.llm.reviewer_client import (
     build_live_merged_review_client,
     build_live_role_review_clients,
@@ -62,6 +67,7 @@ _FACTUAL_PROMPT_ID = "factual_readme_plan_review"
 _READ_ONLY_PERMISSIONS: set[PermissionClass] = {"read_only_local", "read_only_network"}
 _BOUNDED_REVIEW_TRIGGER_CHARS = 240_000
 _BOUNDED_PACKET_BUDGET_CHARS = 100_000
+_BOUNDED_REVIEW_MAX_WORKERS = 4
 
 
 def _role_identity(actor_id: str, role: ReviewRole, prompt_id: str) -> ReviewActorIdentityV1:
@@ -180,13 +186,25 @@ def run_separated_readme_review(
         + len(_canonical_json(factual_packet.fact_context()))
         + len(_canonical_json(factual_packet.plan_context()))
     )
+    merged_messages = build_merged_readme_review_messages(
+        org_repo,
+        candidate_readme_text,
+        _canonical_json(visitor_contract),
+        _canonical_json(factual_packet.fact_context()),
+        _canonical_json(factual_packet.plan_context()),
+    )
+    merged_request_too_large = (
+        merged_review_request_size_bytes(merged_messages) > MAX_MERGED_REVIEW_REQUEST_BYTES
+    )
     bounded_execution = None
     document_plan = None
     facts_model = None
     canonical_bounded_contract = (
         "readme_document_plan" in presentation_plan or "claim_accountability" in presentation_plan
     )
-    if bounded_context_chars > _BOUNDED_REVIEW_TRIGGER_CHARS and canonical_bounded_contract:
+    if (
+        bounded_context_chars > _BOUNDED_REVIEW_TRIGGER_CHARS or merged_request_too_large
+    ) and canonical_bounded_contract:
         document_plan_payload = presentation_plan.get("readme_document_plan") or presentation_plan
         try:
             document_plan = ReadmeDocumentPlanV1.model_validate(document_plan_payload)
@@ -231,6 +249,7 @@ def run_separated_readme_review(
             factual_client=bounded_factual_client,
             blind_prompt_id=_BLIND_PROMPT_ID,
             factual_prompt_id=_FACTUAL_PROMPT_ID,
+            max_workers=(1 if explicit_separated else _BOUNDED_REVIEW_MAX_WORKERS),
         )
 
     if bounded_execution is not None:

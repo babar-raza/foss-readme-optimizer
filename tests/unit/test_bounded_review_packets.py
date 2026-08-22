@@ -12,8 +12,10 @@ markers are preserved.
 from __future__ import annotations
 
 import json
+import threading
 
 import pytest
+from bounded_review_result_support import _accept_finding
 from bounded_review_test_support import (
     CANDIDATE_TEXT,
     DEFAULT_CLAIM_ACCOUNTABILITY,
@@ -31,10 +33,13 @@ from bounded_review_test_support import (
     _plan,
 )
 
+from readme_agent.llm.analysis_client import AnalysisResult
+from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.specialists import bounded_review_packets as brp
 from readme_agent.specialists import separated_readme_review as separated_review
 from readme_agent.specialists.bounded_review_execution import execute_bounded_review
+from readme_agent.specialists.review_candidate_anchors import build_candidate_review_anchors
 
 
 def test_synthetic_candidate_plans_successfully_within_budget() -> None:
@@ -107,7 +112,91 @@ def test_bounded_execution_reviews_every_packet_and_reduces_to_established_roles
     assert len(execution.packet_results) == len(visitor_packets) + len(factual_packets)
 
 
-def test_separated_review_routes_large_valid_contract_through_bounded_execution(
+def test_bounded_execution_parallelizes_independent_packets_deterministically() -> None:
+    class PacketMatchingClient:
+        def __init__(self, packets):
+            self._packets = tuple(packets)
+            self._barrier = threading.Barrier(2)
+            self._lock = threading.Lock()
+            self.calls = 0
+            self.thread_ids: set[int] = set()
+
+        def analyze(self, messages):
+            content = "\n".join(str(message.get("content", "")) for message in messages)
+            packet_and_anchor = next(
+                (packet, anchor)
+                for packet in self._packets
+                for anchor in build_candidate_review_anchors(
+                    (
+                        packet.neighbor_context_before
+                        + packet.section_text
+                        + packet.neighbor_context_after
+                    )
+                    if isinstance(packet, brp.BoundedVisitorPacketV1)
+                    else packet.unit_text
+                )
+                if anchor.anchor_id in content
+            )
+            packet, anchor = packet_and_anchor
+            with self._lock:
+                self.calls += 1
+                call_number = self.calls
+                self.thread_ids.add(threading.get_ident())
+            if call_number <= 2:
+                self._barrier.wait(timeout=5)
+            finding = _accept_finding(packet).model_copy(
+                update={
+                    "section": packet.section_path,
+                    "candidate_anchor_id": anchor.anchor_id,
+                }
+            )
+            return AnalysisResult(
+                parsed={
+                    "verdict": "ACCEPT",
+                    "reasoning": f"Packet {packet.packet_id} is accepted.",
+                    "failed_criteria": [],
+                    "sections_affected": [],
+                    "required_repair": "",
+                    "findings": [finding.model_dump(mode="json")],
+                },
+                meta=LLMResponseMeta(),
+            )
+
+    plan = _plan()
+    ledger = brp.build_coverage_ledger(plan, atomic_units=_atomic_units())
+    blind_client = PacketMatchingClient(plan.visitor_packets)
+    factual_client = PacketMatchingClient(plan.factual_packets)
+    headings = [
+        line.removeprefix("## ").strip()
+        for line in CANDIDATE_TEXT.splitlines()
+        if line.startswith("## ")
+    ]
+
+    execution = execute_bounded_review(
+        org_repo="acme/widget-toolkit",
+        candidate_text=CANDIDATE_TEXT,
+        product_facts=DEFAULT_FACTS.model_dump(mode="json"),
+        visitor_contract=build_presentation_visitor_contract(
+            applicable_h2_headings=headings,
+            primary_example_language="python",
+        ),
+        plan=plan,
+        coverage_ledger=ledger,
+        blind_client=blind_client,
+        factual_client=factual_client,
+        blind_prompt_id="blind_readme_quality_review",
+        factual_prompt_id="factual_readme_plan_review",
+        max_workers=4,
+    )
+
+    assert execution.aggregate.overall == "ACCEPT"
+    assert blind_client.calls == len(plan.visitor_packets)
+    assert factual_client.calls == len(plan.factual_packets)
+    assert len(blind_client.thread_ids) >= 2
+    assert len(factual_client.thread_ids) >= 2
+
+
+def test_separated_review_routes_oversized_merged_request_through_bounded_execution(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     document_plan = DEFAULT_DOCUMENT_PLAN.model_copy(
@@ -119,7 +208,8 @@ def test_separated_review_routes_large_valid_contract_through_bounded_execution(
     plan = _plan(document_plan=document_plan, budget_chars=100_000)
     blind_client = _PacketSequenceClient(list(plan.visitor_packets))
     factual_client = _PacketSequenceClient(list(plan.factual_packets))
-    monkeypatch.setattr(separated_review, "_BOUNDED_REVIEW_TRIGGER_CHARS", 1)
+    monkeypatch.setattr(separated_review, "_BOUNDED_REVIEW_TRIGGER_CHARS", 10**12)
+    monkeypatch.setattr(separated_review, "MAX_MERGED_REVIEW_REQUEST_BYTES", 1)
 
     review = separated_review.run_separated_readme_review(
         "acme/widget-toolkit",
