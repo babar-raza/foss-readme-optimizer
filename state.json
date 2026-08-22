@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
-    "active_task_id": "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION",
+    "active_task_id": null,
     "approach_control": {
       "attempts": [
         {
@@ -1306,10 +1306,14 @@
           "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "plans/investigations/evidence/qwen-section-engine-integration/live-proof.json",
+            "plans/investigations/evidence/qwen-section-engine-integration/readme-document-plan.json",
+            "src/readme_agent/specialists/readme_presentation.py"
+          ],
           "fingerprint": "5e1f75e0d03610c9224f04eba7941572f514b280d8bb37e21b25f4c66cf84c90",
-          "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "last_material_narrowing_at": "2026-08-22T17:29:00.833806+00:00",
+          "outcome": "effective",
           "started_at": "2026-08-22T05:12:59.492846+00:00",
           "task_id": "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION"
         }
@@ -2248,15 +2252,15 @@
     },
     "capacity_allocation": {
       "max_concurrent_verified_lanes": 1,
-      "policy_max_repository_lanes": 1,
+      "policy_max_repository_lanes": 2,
       "reserved_trusted_lanes": 0,
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-22T05:42:59.492846+00:00",
-    "claim_id": "ff3a4af00afc4efaa12ca20f6eed44ce",
-    "claimed_at": "2026-08-22T05:12:59.492846+00:00",
-    "claimed_by": "codex-coordinator",
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "a6332e121c3ec41b5846f70a47c2c7ea9b31e5755519156a94b389236d7a0ef9",
@@ -2489,7 +2493,7 @@
     ],
     "graph_sha256": "a6332e121c3ec41b5846f70a47c2c7ea9b31e5755519156a94b389236d7a0ef9",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-22T17:28:27.500179+00:00",
+    "last_evaluated_at": "2026-08-22T17:29:00.833806+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -2613,29 +2617,11 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "campaign_id": "CAMP-SHARED-ACCELERATION",
-      "core_contribution": {
-        "kind": "first_boundary_removal",
-        "summary": "Turn the existing Qwen section engine from unused machinery into the bounded production authoring seam."
-      },
-      "goal_ids": [
-        "GOAL-README",
-        "GOAL-DELIVERY"
-      ],
-      "immediate_goal_id": "DELIVERY-QWEN-SECTION-ENGINE",
-      "immediate_outcome": "Prove canonical bounded Qwen authoring, recovery, reuse, and selective invalidation before PF-02.",
-      "repository_scope": [
-        "control-repository:canonical-candidate-seam",
-        "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
-      ],
-      "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
-      "task_id": "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION"
-    },
+    "next_task": null,
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
-      "shared_repair_active": true,
+      "shared_repair_active": false,
       "transaction_isolation_proven": true
     },
     "task_statuses": {
@@ -2690,7 +2676,7 @@
       "L8-MISSION-GOAL-GUARD": "CLOSED",
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
-      "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "IN_PROGRESS",
+      "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "IMPLEMENTED",
       "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "TODO",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "TODO",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "TODO",
@@ -12488,6 +12474,19 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/qwen-section-engine-integration/live-proof.json",
+          "plans/investigations/evidence/qwen-section-engine-integration/readme-document-plan.json",
+          "src/readme_agent/specialists/readme_presentation.py"
+        ],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-22T17:29:00.833848+00:00",
+        "reason": "Canonical qwen3-next section authoring, cache reuse, selective invalidation, recovery, rendering, and lifecycle observation are integrated and committed.",
+        "task_id": "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION",
+        "to_status": "IMPLEMENTED"
       }
     ]
   },
@@ -12497,7 +12496,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1247,
+  "state_version": 1248,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
