@@ -433,8 +433,6 @@ def test_goal_capacity_consumes_measured_parallelism_policy(tmp_path):
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES",
         "L8-VPY-03C-PAGE-CURRENT-REFRESH",
         "L8-VPY-03D-NOTE-CURRENT-REFRESH",
-        "L8-VPY-03E-3D-CURRENT-REFRESH",
-        "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
     )
     statuses = _all_closed_statuses(graph)
     python_tasks = [
