@@ -167,6 +167,42 @@ def test_install_claims_require_exact_verified_coordinate_agreement():
     ]
 
 
+def test_feature_claim_changes_useful_capability_bytes():
+    def render(text: str) -> str:
+        facts = _facts(
+            _record(
+                "aspose.feature_claims",
+                [_item("pdf/python/feature-1", "feature", text)],
+            )
+        )
+        return knowledge_capability_items(facts)[0].markdown
+
+    converted = render("Convert PDF documents using the Document API")
+    rendered = render("Render PDF documents using the Document API")
+
+    assert converted == "- **Convert PDF documents** - Using the Document API."
+    assert rendered == "- **Render PDF documents** - Using the Document API."
+    assert converted != rendered
+
+
+def test_troubleshooting_claim_changes_public_development_bytes():
+    def render(text: str) -> tuple[str, ...]:
+        facts = _facts(
+            _record(
+                "aspose.troubleshoot_claims",
+                [_item("pdf/python/trouble-1", "troubleshoot", text)],
+            )
+        )
+        return tuple(item.markdown for item in knowledge_troubleshooting_items(facts))
+
+    path_guidance = render("Check input file paths before loading documents")
+    stream_guidance = render("Check input streams before loading documents")
+
+    assert path_guidance == ("- Check input file paths before loading documents.",)
+    assert stream_guidance == ("- Check input streams before loading documents.",)
+    assert path_guidance != stream_guidance
+
+
 def test_capability_plan_carries_the_exact_imported_item_coordinate():
     item = _item(
         "pdf/python/format-1",
