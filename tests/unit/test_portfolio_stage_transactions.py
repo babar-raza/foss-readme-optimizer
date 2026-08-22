@@ -347,6 +347,32 @@ def test_new_candidate_receipt_replaces_stale_completed_manifest(
         candidate_hash=CANDIDATE_HASH,
         reviewer_standard_hash=REVIEWER_HASH,
     )
+    write_redacted_text(
+        compatibility / "review" / "deterministic-validation.json",
+        "stale deterministic result\n",
+    )
+    write_redacted_json(
+        compatibility / "receipts" / "DETERMINISTIC_VALIDATED.json",
+        {"target_stage": "DETERMINISTIC_VALIDATED", "candidate_hash": CANDIDATE_HASH},
+    )
+    stale_manifest_path = compatibility / "manifest.json"
+    stale_manifest = json.loads(stale_manifest_path.read_text(encoding="utf-8"))
+    stale_manifest.update(
+        {
+            "lifecycle_status": "DETERMINISTIC_VALIDATED",
+            "deterministic_validation_hash": "4" * 64,
+            "completed_stages": [
+                "FACTS_READY",
+                "CANDIDATE_GENERATED",
+                "DETERMINISTIC_VALIDATED",
+            ],
+            "stage_receipts": {
+                **stale_manifest["stage_receipts"],
+                "DETERMINISTIC_VALIDATED": {"work_id": "stale"},
+            },
+        }
+    )
+    write_redacted_json(stale_manifest_path, stale_manifest)
 
     next_candidate_hash = "3" * 64
     backend = _backend()
@@ -378,6 +404,12 @@ def test_new_candidate_receipt_replaces_stale_completed_manifest(
     assert (compatibility / "candidate" / "README.md").read_text(
         encoding="utf-8"
     ) == f"# Candidate {next_candidate_hash[:8]}\n"
+    assert not (compatibility / "review" / "deterministic-validation.json").exists()
+    assert not (compatibility / "receipts" / "DETERMINISTIC_VALIDATED.json").exists()
+    assert "deterministic_validation_hash" not in manifest
+    assert "DETERMINISTIC_VALIDATED" not in manifest["completed_stages"]
+    assert set(manifest["stage_receipts"]) == {"CANDIDATE_GENERATED"}
+    assert len(list((compatibility / "superseded").iterdir())) == 1
 
 
 def test_sealed_result_waits_for_reducer_and_stale_fence_fails_closed(

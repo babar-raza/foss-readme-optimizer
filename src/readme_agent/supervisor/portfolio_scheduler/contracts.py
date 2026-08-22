@@ -11,6 +11,25 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 PortfolioStageV1 = Literal["CANDIDATE_GENERATED", "DETERMINISTIC_VALIDATED"]
 
+CANDIDATE_INPUT_MANIFEST_FIELDS = frozenset(
+    {
+        "schema_version",
+        "org_repo",
+        "source_revision",
+        "facts_hash",
+        "resolution_source",
+        "prompt_hash",
+        "local_verification_contract_hash",
+        "fact_acceptance_contract_hash",
+        "fact_acceptance_component_hashes",
+        "product_truth_policy_hash",
+        "content_assurance",
+        "prompt_registry_content_hash",
+        "prompt_hashes_by_id",
+        "prompt_dependency_hashes",
+    }
+)
+
 
 def canonical_sha256(value: object) -> str:
     """Hash canonical JSON while excluding observation-only formatting."""

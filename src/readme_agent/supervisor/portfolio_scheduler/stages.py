@@ -19,6 +19,7 @@ from readme_agent.supervisor.local_poc_evidence import (
     write_local_poc_readme_candidate,
 )
 from readme_agent.supervisor.portfolio_scheduler.contracts import (
+    CANDIDATE_INPUT_MANIFEST_FIELDS,
     build_stage_fence,
     build_stage_work_item,
     canonical_sha256,
@@ -36,22 +37,6 @@ from readme_agent.supervisor.stage_dependencies import (
 )
 
 _WORKER_IDENTITY = "serial-supervisor"
-_CANDIDATE_INPUT_MANIFEST_FIELDS = frozenset(
-    {
-        "schema_version",
-        "org_repo",
-        "source_revision",
-        "facts_hash",
-        "resolution_source",
-        "prompt_hash",
-        "local_verification_contract_hash",
-        "fact_acceptance_contract_hash",
-        "fact_acceptance_component_hashes",
-        "prompt_registry_content_hash",
-        "prompt_hashes_by_id",
-        "prompt_dependency_hashes",
-    }
-)
 
 
 def _compatibility_bundle(snapshot: RepositorySnapshotV1) -> Path:
@@ -71,9 +56,7 @@ def _candidate_input_manifest(bundle_dir: Path) -> dict:
     """Exclude reducer/review outputs from the repeatable candidate input."""
 
     manifest = _load_manifest(bundle_dir)
-    return {
-        key: value for key, value in manifest.items() if key in _CANDIDATE_INPUT_MANIFEST_FIELDS
-    }
+    return {key: value for key, value in manifest.items() if key in CANDIDATE_INPUT_MANIFEST_FIELDS}
 
 
 def _current_lifecycle(

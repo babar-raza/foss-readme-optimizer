@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.llm import prompt_registry
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.specialists.bounded_review_contracts import BoundedReviewPlanV1
 from readme_agent.specialists.bounded_review_coverage import (
@@ -17,8 +16,6 @@ from readme_agent.specialists.bounded_review_packets import (
     plan_bounded_review_packets,
 )
 
-_FACTUAL_PROMPT_ID = "factual_readme_plan_review"
-_VISITOR_PROMPT_ID = "blind_readme_quality_review"
 # Keep indivisible Markdown tables and fences atomic while still bounding every
 # reviewer input below the 240k whole-document trigger. The qualified 3D Python
 # API inventory requires 101,013 characters including its fact context.
@@ -30,6 +27,8 @@ def build_candidate_bounded_review_evidence(
     candidate_text: str,
     document_plan: ReadmeDocumentPlanV1,
     product_facts: ProductFactsV2,
+    factual_prompt_sha256: str,
+    visitor_prompt_sha256: str,
 ) -> tuple[BoundedReviewPlanV1, CoverageLedgerV1, CoverageValidationV1]:
     """Prepare exhaustive reviewer packets without making provider calls."""
 
@@ -42,8 +41,8 @@ def build_candidate_bounded_review_evidence(
         claim_accountability=accountability,
         product_facts=product_facts,
         budget_chars=_CANDIDATE_REVIEW_BUDGET_CHARS,
-        factual_prompt_sha256=prompt_registry.prompt_hash(_FACTUAL_PROMPT_ID),
-        visitor_prompt_sha256=prompt_registry.prompt_hash(_VISITOR_PROMPT_ID),
+        factual_prompt_sha256=factual_prompt_sha256,
+        visitor_prompt_sha256=visitor_prompt_sha256,
         candidate_content_provenance=document_plan.candidate_content_provenance,
     )
     units = build_atomic_units(

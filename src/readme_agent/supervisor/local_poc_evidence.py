@@ -16,6 +16,7 @@ from readme_agent.evidence.writer import (
 from readme_agent.facts.knowledge_application_evidence import KnowledgeApplicationV1
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
+from readme_agent.llm import prompt_registry
 from readme_agent.presentation.candidate_benchmark_comparison import (
     build_candidate_benchmark_comparison,
 )
@@ -485,6 +486,8 @@ def write_local_poc_readme_candidate(
         candidate_text=candidate_text,
         document_plan=document_plan,
         product_facts=persisted_facts,
+        factual_prompt_sha256=prompt_registry.prompt_hash("factual_readme_plan_review"),
+        visitor_prompt_sha256=prompt_registry.prompt_hash("blind_readme_quality_review"),
     )
 
     write_redacted_json(

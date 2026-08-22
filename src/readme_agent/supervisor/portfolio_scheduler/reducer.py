@@ -13,7 +13,12 @@ from readme_agent.state.readme_poc_lifecycle import (
     transition_readme_poc_status,
 )
 from readme_agent.supervisor.local_poc_evidence import write_local_poc_manifest
+from readme_agent.supervisor.local_poc_superseded import (
+    archive_and_prune_downstream_artifacts,
+    has_active_downstream_artifacts,
+)
 from readme_agent.supervisor.portfolio_scheduler.contracts import (
+    CANDIDATE_INPUT_MANIFEST_FIELDS,
     PortfolioStageWorkItemV1,
     StageReceiptV1,
 )
@@ -138,6 +143,55 @@ def _promote_artifacts(
     refresh_sha256sums(compatibility_bundle)
 
 
+def _reopen_candidate_boundary(
+    work: PortfolioStageWorkItemV1,
+    compatibility_bundle: Path,
+    receipt: StageReceiptV1,
+) -> None:
+    """Archive and remove a superseded candidate chain before promotion."""
+
+    manifest_path = compatibility_bundle / "manifest.json"
+    if not manifest_path.is_file():
+        return
+    current = json.loads(manifest_path.read_text(encoding="utf-8"))
+    current_receipt = (current.get("stage_receipts") or {}).get("CANDIDATE_GENERATED")
+    if (
+        isinstance(current_receipt, dict)
+        and current_receipt.get("work_id") == receipt.work_id
+        and current_receipt.get("output_hash") == receipt.output_hash
+    ):
+        return
+    if not current.get("candidate_hash") and not has_active_downstream_artifacts(
+        compatibility_bundle, current
+    ):
+        return
+    retained = archive_and_prune_downstream_artifacts(
+        compatibility_bundle,
+        current,
+        reason="candidate stage dependency or output changed before sealed promotion",
+    )
+    upstream = {
+        key: value
+        for key, value in retained.items()
+        if key in CANDIDATE_INPUT_MANIFEST_FIELDS or key.startswith("llm_")
+    }
+    completed = [
+        stage
+        for stage in current.get("completed_stages", [])
+        if stage in {"SNAPSHOTTED", "PROFILED", "FACTS_COLLECTING", "FACTS_READY"}
+    ]
+    write_local_poc_manifest(
+        compatibility_bundle,
+        {
+            **upstream,
+            "lifecycle_status": work.fence.lifecycle_status,
+            "complete": False,
+            "completed_stages": completed,
+        },
+    )
+    refresh_sha256sums(compatibility_bundle)
+
+
 def _accept_receipt(
     work: PortfolioStageWorkItemV1,
     attempt_root: Path,
@@ -194,6 +248,7 @@ def promote_candidate_stage(
     ):
         raise ValueError("candidate promotion arguments disagree with sealed work dependencies")
     receipt = existing or _accept_receipt(work, attempt_root)
+    _reopen_candidate_boundary(work, compatibility_bundle, receipt)
     _promote_artifacts(attempt_root, compatibility_bundle, receipt)
     record_readme_candidate_artifacts(
         backend,
