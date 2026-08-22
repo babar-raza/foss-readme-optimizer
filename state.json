@@ -2481,7 +2481,7 @@
     ],
     "graph_sha256": "94452b7c011a4459c2386ea5fe5206bed4e87e021a1001d5439e28c0e25a759b",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-22T01:49:39.686605+00:00",
+    "last_evaluated_at": "2026-08-22T01:50:06.715468+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -2605,7 +2605,24 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "campaign_id": "CAMP-FIRST-PYTHON-SLICE",
+      "core_contribution": {
+        "kind": "first_boundary_removal",
+        "summary": "Produce the first complete current candidate through the real production seam."
+      },
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-DELIVERY"
+      ],
+      "immediate_goal_id": "DELIVERY-FIRST-COMPLETE-CANDIDATE",
+      "immediate_outcome": "Produce one complete current Aspose.3D Python candidate through supervise.",
+      "repository_scope": [
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+      ],
+      "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
+      "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+    },
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
@@ -2663,7 +2680,7 @@
       "L8-MISSION-CONTROL-CONSUMER": "CLOSED",
       "L8-MISSION-GOAL-GUARD": "CLOSED",
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
-      "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "SCORED",
+      "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
       "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "TODO",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "TODO",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "TODO",
@@ -12437,6 +12454,19 @@
         "reason": "Independent non-authoring review accepted the complete PF01 knowledge boundary and its explicit limitations.",
         "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/mission-contribution.json",
+          "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/closeout-control.json",
+          "runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/knowledge-final-independent/receipt.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "readme-agent-supervisor",
+        "occurred_at": "2026-08-22T01:50:16.738904+00:00",
+        "reason": "PF01 knowledge acceptance is independently verified, checksum-bound, self-contained, and explicitly limited to the knowledge foundation.",
+        "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -12446,7 +12476,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1242,
+  "state_version": 1243,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
