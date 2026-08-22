@@ -6,6 +6,7 @@ import hashlib
 import re
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.presentation.section_authoring_overlay import authored_unit_markdown
 from readme_agent.presentation.template_schema import (
     BoundTemplateContentV1,
     PresentationTemplateInputV1,
@@ -50,6 +51,7 @@ from readme_agent.readme.source_claim_repository_asset_binding import (
     repository_asset_source_claim_fact_ids,
 )
 from readme_agent.readme.source_claim_risk import classify_source_claim_risk
+from readme_agent.specialists.section_authoring_contracts import SectionAuthoringDocumentV1
 
 _CLAIM_LEVEL_SLOTS = {
     "additional_examples",
@@ -167,6 +169,7 @@ def build_template_provenance(
     *,
     source_text: str | None = None,
     capability_plan: CapabilityPresentationPlanV1 | None = None,
+    section_authoring_document: SectionAuthoringDocumentV1 | None = None,
 ) -> list[CandidateContentProvenanceV1]:
     """Bind each exact compiled span to its accepted facts and standards."""
 
@@ -264,6 +267,41 @@ def build_template_provenance(
         template_input.summary.fact_ids,
         template_input.summary.standard_ids,
     )
+    if section_authoring_document is not None:
+        summary_text = template_input.summary.markdown.strip()
+        summary_start = candidate.find(summary_text)
+        if summary_start < 0:
+            raise ValueError("compiled authored summary is absent")
+        for outcome_index, outcome in enumerate(section_authoring_document.outcomes):
+            if outcome.target_section_id != "summary" and not outcome.target_section_id.startswith(
+                "summary-"
+            ):
+                continue
+            for unit_index, unit in enumerate(outcome.result.units):
+                authored = canonicalize_public_markdown(
+                    authored_unit_markdown("summary", unit),
+                    canonical_abbreviations_from_facts(facts),
+                ).strip()
+                relative_start = summary_text.find(authored)
+                if relative_start < 0:
+                    raise ValueError("accepted authored summary unit is absent")
+                absolute_start = summary_start + relative_start
+                absolute_end = absolute_start + len(authored)
+                bindings.append(
+                    CandidateContentProvenanceV1(
+                        provenance_id=(
+                            f"template.section-authoring.summary."
+                            f"{outcome_index:02d}.{unit_index:02d}"
+                        ),
+                        candidate_byte_start=len(candidate[:absolute_start].encode("utf-8")),
+                        candidate_byte_end=len(candidate[:absolute_end].encode("utf-8")),
+                        fact_ids=list(unit.fact_ids),
+                        rationale=(
+                            "Bind one deterministically accepted section-authoring summary unit "
+                            "to its closed fact set."
+                        ),
+                    )
+                )
     navigation = next(
         heading for heading in parse_headings(candidate) if heading.title.casefold() == "navigation"
     )
@@ -293,6 +331,41 @@ def build_template_provenance(
             if start_character < 0:
                 raise ValueError(f"compiled template content is absent: template.section.{slot}")
             base_byte = len(candidate[:start_character].encode("utf-8"))
+            if section_authoring_document is not None:
+                for outcome_index, outcome in enumerate(section_authoring_document.outcomes):
+                    if not (
+                        outcome.target_section_id == slot
+                        or outcome.target_section_id.startswith(f"{slot}-")
+                    ):
+                        continue
+                    for unit_index, unit in enumerate(outcome.result.units):
+                        authored = canonicalize_public_markdown(
+                            authored_unit_markdown(slot, unit),
+                            canonical_abbreviations_from_facts(facts),
+                        ).strip()
+                        relative_start = text.find(authored)
+                        if relative_start < 0:
+                            raise ValueError(
+                                f"accepted authored unit is absent from template slot {slot!r}"
+                            )
+                        relative_end = relative_start + len(authored)
+                        bindings.append(
+                            CandidateContentProvenanceV1(
+                                provenance_id=(
+                                    f"template.section-authoring.{slot}."
+                                    f"{outcome_index:02d}.{unit_index:02d}"
+                                ),
+                                candidate_byte_start=base_byte
+                                + len(text[:relative_start].encode("utf-8")),
+                                candidate_byte_end=base_byte
+                                + len(text[:relative_end].encode("utf-8")),
+                                fact_ids=list(unit.fact_ids),
+                                rationale=(
+                                    "Bind one deterministically accepted section-authoring unit "
+                                    "to its closed fact set."
+                                ),
+                            )
+                        )
             bindings.extend(
                 _structural_heading_bindings(
                     slot=slot,

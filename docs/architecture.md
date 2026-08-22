@@ -235,6 +235,33 @@ candidate file's existence is not acceptance: the exact bytes must reach
 `AGENT_ACCEPTED_30_OF_30` with zero hard disqualifiers plus immediate complete-transaction no-op
 before the artifact can enter the global human-review package (`PIL-015`).
 
+### Bounded Qwen section authoring and recovery
+
+Candidate prose is authored through a revision-addressed, fact-bound section seam rather than a
+single whole-document retry. Deterministic code first derives five public prose jobs from the
+selected `ProductFactsV2` graph: summary, key capabilities, installation framing, quick-start
+framing, and scope/limitations. Each job becomes one or more packets containing at most four
+accepted facts. Qwen (`qwen3-next`) may choose visitor-facing phrasing only inside those packets;
+it cannot invent commands, code, links, badges, Mermaid structure, or facts. The verified template
+then overlays accepted prose onto deterministic commands, examples, links, and presentation
+structure, and binds every authored unit to exact fact IDs in candidate provenance.
+
+Each cluster has one normal call and at most one targeted semantic-correction call. Transport
+retries are separately bounded. Accepted clusters are cached by source revision, packet, prompt,
+tool schema, model, sampling parameters, protected-content fingerprint, and authoring-contract
+version. An unchanged rerun therefore performs zero Qwen calls; a changed cluster recomputes only
+that cluster. A failure persists the accepted prefix but cannot produce a complete document or
+advance lifecycle state.
+
+`SectionAuthoringDocumentV1` records the complete ordered cluster set, dependency hashes, receipts,
+reuse counts, and failure state. Its durable record has an independently validated checksum.
+Lifecycle observation accepts it only when repository revision, fact hash, current prompt hash,
+model route, and authoring-contract version still match; drift reopens authoring instead of
+laundering stale prose. `ReadmeDocumentPlanV1.section_authoring_document_sha256` binds the exact
+authored document to the compiled candidate plan. This seam accelerates editorial authoring and
+repair; it does not bypass the complete candidate, deterministic validation, independent review,
+or no-op gates owned by the subsequent PF-02 work.
+
 The same supervisor also requires a typed maximum lifecycle stage (`L8-015`). Product-truth
 qualification stops at `FACTS_READY`; composition qualification stops after deterministic
 candidate validation; review, heterogeneous qualification, and full-registry Gate A advance only

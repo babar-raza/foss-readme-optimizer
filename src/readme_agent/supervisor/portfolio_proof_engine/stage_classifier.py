@@ -154,7 +154,11 @@ def classify_repository_stage(
     if status in {"SNAPSHOTTED", "PROFILED", "FACTS_COLLECTING"}:
         return _receipt(common, identity, stage="SOURCE_BOUND", status="OK")
     if status in {"FACTS_READY", "README_ASSESSED", "PLAN_READY"}:
-        section_progress = resolve_section_authoring_progress(org_repo)
+        section_progress = resolve_section_authoring_progress(
+            org_repo,
+            lifecycle.source_revision,
+            lifecycle.facts_hash,
+        )
         stage: ProofStageV1
         if section_progress is not None and section_progress.sections_authored:
             stage = "SECTIONS_AUTHORED"

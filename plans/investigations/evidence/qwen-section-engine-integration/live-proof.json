@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "verdict": "PASS",
+  "org_repo": "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+  "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+  "facts_hash": "f67966b09d7a49f08130fab39ce5c54bae9aec9d5425e1c9f61ff76b0ed02064",
+  "source_sha256": "66ceadf14240cd913756dacbd709d56ee06915f49f77f769e40e04e309a7cd01",
+  "model_route": "qwen3-next",
+  "prompt_version": 2,
+  "checks": {
+    "first_complete": true,
+    "first_used_qwen3_next": true,
+    "first_authored_every_cluster": true,
+    "unchanged_results_identical": true,
+    "unchanged_zero_provider_calls": true,
+    "unchanged_reused_every_cluster": true,
+    "selective_one_cluster_reauthored": true,
+    "selective_reused_other_clusters": true,
+    "candidate_contains_authored_bytes": true,
+    "candidate_has_authored_fact_lineage": true,
+    "source_readme_unchanged": true,
+    "baseline_git_state_unchanged": true
+  },
+  "first": {
+    "cluster_count": 5,
+    "provider_logical_calls": 6,
+    "reused_cluster_count": 0,
+    "semantic_retry_cluster_count": 1,
+    "prompt_tokens": 27844,
+    "completion_tokens": 1562,
+    "elapsed_seconds": 51.366,
+    "models": [
+      "qwen3-next"
+    ],
+    "request_ids": [
+      "chatcmpl-9ef12899f5906472",
+      "chatcmpl-aa2ecc381ef7094c",
+      "chatcmpl-9de1110513b19a5f",
+      "chatcmpl-96946e17f469ea2b",
+      "chatcmpl-a258aef5b0ad6e4c"
+    ]
+  },
+  "unchanged_rerun": {
+    "cluster_count": 5,
+    "provider_logical_calls": 0,
+    "reused_cluster_count": 5,
+    "semantic_retry_cluster_count": 1,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "elapsed_seconds": 0.043,
+    "models": [
+      "qwen3-next"
+    ],
+    "request_ids": []
+  },
+  "one_cluster_invalidation": {
+    "cluster_count": 5,
+    "provider_logical_calls": 1,
+    "reused_cluster_count": 4,
+    "semantic_retry_cluster_count": 1,
+    "prompt_tokens": 2363,
+    "completion_tokens": 237,
+    "elapsed_seconds": 7.84,
+    "models": [
+      "qwen3-next"
+    ],
+    "request_ids": [
+      "chatcmpl-bad819d775faac56"
+    ]
+  },
+  "acceleration": {
+    "unchanged_provider_calls_avoided": 5,
+    "unchanged_recompute_reduction_percent": 100.0,
+    "selective_provider_calls_avoided": 4,
+    "selective_recompute_reduction_percent": 80.0
+  },
+  "candidate_sha256": "039e4e34623945ec71f60f0ef531d6e76343bcd7ba32568436ebcfc63bf6b3cc",
+  "authored_provenance_count": 14,
+  "limitations": [
+    "This proves the authoring portion of one real repository transaction, not PF-02.",
+    "The transport client can make up to two physical attempts per logical call; the document receipt reports logical calls while the shared LLM ledger owns physical retries."
+  ]
+}

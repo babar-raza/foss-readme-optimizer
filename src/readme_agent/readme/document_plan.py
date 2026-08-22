@@ -252,6 +252,7 @@ class ReadmeDocumentPlanV1(_StrictModel):
     org_repo: str
     immutable_base_revision: str
     facts_hash: str
+    section_authoring_document_sha256: str | None = None
     template_sha256: str
     source_sha256: str
     adoption: PresentationSpanAdoptionV1
@@ -268,10 +269,16 @@ class ReadmeDocumentPlanV1(_StrictModel):
     candidate_sha256: str
     compiled_slot_blocks: dict[str, str] = Field(default_factory=dict)
 
-    @field_validator("facts_hash", "template_sha256", "source_sha256", "candidate_sha256")
+    @field_validator(
+        "facts_hash",
+        "template_sha256",
+        "source_sha256",
+        "candidate_sha256",
+        "section_authoring_document_sha256",
+    )
     @classmethod
-    def _valid_hash(cls, value: str) -> str:
-        if not _SHA256_PATTERN.fullmatch(value):
+    def _valid_hash(cls, value: str | None) -> str | None:
+        if value is not None and not _SHA256_PATTERN.fullmatch(value):
             raise ValueError("document-plan hashes must be lowercase SHA-256 values")
         return value
 

@@ -40,6 +40,7 @@ from readme_agent.readme.document_plan import (
 )
 from readme_agent.readme.source_claim_assurance import build_source_claim_assurance
 from readme_agent.readme.source_claim_policy import SourceClaimPolicyCorrectionV1
+from readme_agent.specialists.section_authoring_contracts import SectionAuthoringDocumentV1
 from readme_agent.validation.presentation_template import validate_repository_presentation
 
 
@@ -71,6 +72,7 @@ def build_verified_template_compilation(
     agentic_plan: ReadmeAgenticCompositionPlanV1,
     contextual_links: ContextualLinkPlanV1 | None = None,
     documentation_link_limit: int | None = None,
+    section_authoring_document: SectionAuthoringDocumentV1 | None = None,
 ) -> VerifiedTemplateCompilationV1:
     """Return a compiled, validated, product-neutral verified presentation."""
 
@@ -83,6 +85,7 @@ def build_verified_template_compilation(
         contextual_links,
         documentation_link_limit,
         capability_plan,
+        section_authoring_document,
     )
     template_input = bind_product_facts(facts, draft)
     candidate = compile_repository_presentation(template_input)
@@ -96,6 +99,7 @@ def build_verified_template_compilation(
         facts,
         source_text=source_text,
         capability_plan=capability_plan,
+        section_authoring_document=section_authoring_document,
     )
     assessment = assess_readme_document(
         facts.org_repo,

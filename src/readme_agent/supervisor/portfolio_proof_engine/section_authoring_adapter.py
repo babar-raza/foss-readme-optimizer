@@ -1,22 +1,18 @@
-"""Deferred integration seam for `SECTION_PACKETS_READY`/`SECTIONS_AUTHORED`.
-
-The section-authoring layer (`specialists/section_*.py`, `readme/section_cluster_planner.py`,
-`llm/section_author*.py`) is owned by another concurrent session and was still being built as of
-this module's authorship (2026-08-20). This adapter makes exactly one best-effort, defensively-
-optional read of its output evidence; it never imports or depends on that layer's internals
-directly, and `stage_classifier.py` simply does not advance a repository past
-FACTS_READY/SOURCE_BOUND for these two stages until the integration below is completed.
-
-DEFERRED INTEGRATION (one line, to complete once the section-authoring layer stabilizes): call
-`readme_agent.specialists.section_authoring_document`'s (or whatever module lands as its stable
-public surface) per-repository packet/authored-section readiness accessor here, and map its result
-to SECTION_PACKETS_READY/SECTIONS_AUTHORED the same way `intake_classification.py` maps
-`IntakePreflightOutcomeV1` today.
-"""
+"""Observe checksum-valid section packet/authoring evidence for portfolio stages."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
+
+from readme_agent import env
+from readme_agent.llm.prompt_registry import prompt_hash
+from readme_agent.specialists.section_authoring_contracts import (
+    SECTION_AUTHORING_CONTRACT_VERSION,
+)
+from readme_agent.specialists.section_authoring_store import (
+    load_section_authoring_document,
+    section_authoring_document_path,
+)
 
 
 @dataclass(frozen=True)
@@ -26,8 +22,34 @@ class SectionAuthoringProgressV1:
     evidence_ref: str | None = None
 
 
-def resolve_section_authoring_progress(org_repo: str) -> SectionAuthoringProgressV1 | None:
-    """Returns None (not yet observable) until the deferred integration above lands -- an honest,
-    documented default, never a guess at another session's in-flight schema."""
+def resolve_section_authoring_progress(
+    org_repo: str,
+    source_revision: str | None,
+    facts_hash: str | None = None,
+) -> SectionAuthoringProgressV1 | None:
+    """Return progress only from a structurally valid record for the lifecycle revision."""
 
-    return None
+    if not source_revision:
+        return None
+    document = load_section_authoring_document(
+        org_repo,
+        source_revision,
+        facts_hash=facts_hash,
+    )
+    if document is None:
+        return None
+    current_prompt_hash = prompt_hash("section_cluster_authoring")
+    current_model = env.llm_model_for_job("section_cluster_authoring")
+    if document.authoring_contract_version != SECTION_AUTHORING_CONTRACT_VERSION:
+        return None
+    if any(
+        outcome.receipt.prompt_sha256 != current_prompt_hash
+        or outcome.receipt.provider_model != current_model
+        for outcome in document.outcomes
+    ):
+        return None
+    return SectionAuthoringProgressV1(
+        packets_ready=bool(document.expected_cluster_ids),
+        sections_authored=document.complete,
+        evidence_ref=str(section_authoring_document_path(org_repo, source_revision)),
+    )

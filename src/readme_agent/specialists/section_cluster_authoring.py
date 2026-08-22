@@ -35,6 +35,8 @@ from readme_agent.llm.section_authoring_prompts import (
     build_section_cluster_authoring_messages,
     build_section_cluster_authoring_tool_schema,
 )
+from readme_agent.readme.capability_semantics import is_action_led_capability_title
+from readme_agent.readme.presentation_lint_public_contract import lint_public_contract
 from readme_agent.specialists.section_authoring_cache import (
     load_section_authoring_cache,
     section_authoring_cache_key,
@@ -129,6 +131,14 @@ def _validate_acceptance(
                 f"section cluster unit {unit.heading!r} introduced a code block or command; "
                 "deterministic code owns commands, code blocks, and package identifiers"
             )
+        if any(
+            finding.rule_id == "internal_assurance_commentary"
+            for finding in lint_public_contract(unit.text)
+        ):
+            raise SectionAuthoringAcceptanceError(
+                f"section cluster unit {unit.heading!r} introduced internal verification "
+                "narration that is forbidden in a public README"
+            )
         cited.update(unit.fact_ids)
     omitted_ids = {item.fact_id for item in result.omitted}
     unknown_omitted = omitted_ids - allowed
@@ -146,6 +156,17 @@ def _validate_acceptance(
         raise SectionAuthoringAcceptanceError(
             f"accepted fact_id(s) neither used nor omitted-with-reason: {sorted(undisposed)}"
         )
+    if packet.task_family == "capability_entry_cluster":
+        invalid_headings = [
+            unit.heading
+            for unit in result.units
+            if not is_action_led_capability_title(unit.heading)
+        ]
+        if invalid_headings:
+            raise SectionAuthoringAcceptanceError(
+                "section cluster capability headings are not action-led visitor search "
+                f"phrases: {invalid_headings}"
+            )
 
 
 def execute_section_cluster_authoring(

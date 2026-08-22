@@ -38,6 +38,7 @@ from readme_agent.readme.header_visual import (
 from readme_agent.readme.markers import find_presentation_span
 from readme_agent.readme.source_claim_assurance import build_source_claim_assurance
 from readme_agent.registry.models import LinkAllocationPolicyV1
+from readme_agent.specialists.section_authoring_contracts import SectionAuthoringDocumentV1
 
 
 def build_verified_template_document_candidate(
@@ -51,6 +52,7 @@ def build_verified_template_document_candidate(
     llm_disposition_client: ForcedToolClient | None = None,
     repository_root: Path | None = None,
     disposition_ratchet_path: Path | None = None,
+    section_authoring_document: SectionAuthoringDocumentV1 | None = None,
 ) -> tuple[str, ReadmeDocumentPlanV1]:
     """Wrap the compiled fact-slot candidate in the plan/accountability contract.
 
@@ -63,7 +65,11 @@ def build_verified_template_document_candidate(
         raise ValueError("README link catalogs and allocation policy must be supplied together")
     contextual_links: ContextualLinkPlanV1 | None = None
     compiled = build_verified_template_compilation(
-        facts, source_text, source_revision, agentic_plan
+        facts,
+        source_text,
+        source_revision,
+        agentic_plan,
+        section_authoring_document=section_authoring_document,
     )
     if link_catalogs is not None and link_allocation_policy is not None:
         example = facts.selected_fact("example.minimal")
@@ -83,6 +89,7 @@ def build_verified_template_document_candidate(
             source_revision,
             agentic_plan,
             documentation_link_limit=documentation_limit,
+            section_authoring_document=section_authoring_document,
         )
         contextual_links = select_contextual_links(
             facts,
@@ -98,6 +105,7 @@ def build_verified_template_document_candidate(
             agentic_plan,
             contextual_links,
             documentation_link_limit=documentation_limit,
+            section_authoring_document=section_authoring_document,
         )
         link_validation = validate_contextual_link_candidate(
             contextual_links,
@@ -173,6 +181,11 @@ def build_verified_template_document_candidate(
         org_repo=facts.org_repo,
         immutable_base_revision=source_revision,
         facts_hash=facts.canonical_hash(),
+        section_authoring_document_sha256=(
+            section_authoring_document.canonical_hash()
+            if section_authoring_document is not None
+            else None
+        ),
         template_sha256=document_template_hash(),
         source_sha256=sha256_hex(source_text),
         adoption=PresentationSpanAdoptionV1(

@@ -164,22 +164,18 @@ def test_unmapped_trusted_lane_status_fails_closed_never_guesses():
 
 
 # ---------------------------------------------------------------------------
-# RUNTIME-TRUTH CLOSURE item I: the section-authoring boundary is not implemented here, and the
-# engine must never report SECTION_PACKETS_READY/SECTIONS_AUTHORED/complete-candidate acceptance
-# while `section_authoring_adapter.py` returns None -- that adapter is owned by a different lane.
+# Qwen section-engine integration: lifecycle stages advance only from a valid revision-bound
+# section-authoring document, never from cache fragments or a narrative completion claim.
 # ---------------------------------------------------------------------------
 
 
-def test_section_authoring_adapter_is_still_the_deferred_stub():
-    """Guards the boundary itself: if this ever starts returning something other than `None`,
-    the two assertions below stop meaningfully proving what this test claims to prove, and this
-    test (not the candidate-integration lane's adapter) should be revisited first."""
+def test_section_authoring_adapter_without_evidence_returns_none():
 
     from readme_agent.supervisor.portfolio_proof_engine.section_authoring_adapter import (
         resolve_section_authoring_progress,
     )
 
-    assert resolve_section_authoring_progress(ORG_REPO) is None
+    assert resolve_section_authoring_progress(ORG_REPO, SOURCE_REVISION) is None
 
 
 def test_facts_ready_lifecycle_never_reports_section_packets_ready_or_sections_authored():

@@ -64,6 +64,7 @@ def task_stage_goal(task_id: str) -> tuple[str, str]:
         return "GOAL-P0-PLAN-FREEZE", "primary_only"
     if task_id in {
         "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+        "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION",
         "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
         "L8-PF-03-SEALED-CANDIDATE-NO-OP",
     }:
@@ -185,6 +186,7 @@ def task_campaign(task_id: str, stage_goal_id: str) -> str | None:
         return "CAMP-PLAN-FREEZE"
     if task_id in {
         "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+        "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION",
         "L8-PF-04-MINIMAL-GRAPH-RUNNER",
     }:
         return "CAMP-SHARED-ACCELERATION"

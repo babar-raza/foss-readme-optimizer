@@ -26,6 +26,7 @@ from readme_agent.llm.schema import Usage
 from readme_agent.llm.section_authoring_prompts import SectionAuthoringTaskFamily
 
 MAX_ACCEPTED_FACTS = 4
+SECTION_AUTHORING_CONTRACT_VERSION = "section-authoring-v2"
 
 
 class _StrictModel(BaseModel):
@@ -152,6 +153,69 @@ class SectionAuthoringOutcomeV1(_StrictModel):
     result: SectionClusterAuthoringResultV1
     receipt: SectionAuthoringReceiptV1
     reused_from_cache: bool = False
+
+
+class SectionAuthoringDocumentV1(_StrictModel):
+    """Complete, dependency-bound prose output for one README candidate transaction."""
+
+    schema_version: Literal[1] = 1
+    authoring_contract_version: str = Field(min_length=1)
+    org_repo: str = Field(min_length=3)
+    source_revision: str = Field(min_length=1)
+    source_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    facts_hash: str = Field(pattern=r"^[0-9a-f]{64}$")
+    protected_literal_hash: str = Field(pattern=r"^[0-9a-f]{64}$")
+    specs_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    expected_cluster_ids: tuple[str, ...] = Field(min_length=1)
+    outcomes: tuple[SectionAuthoringOutcomeV1, ...] = ()
+    complete: bool
+    failure: str | None = None
+
+    @model_validator(mode="after")
+    def _document_is_coherent(self) -> SectionAuthoringDocumentV1:
+        expected = list(self.expected_cluster_ids)
+        actual = [outcome.target_section_id for outcome in self.outcomes]
+        if len(expected) != len(set(expected)):
+            raise ValueError("section authoring document has duplicate expected cluster IDs")
+        if len(actual) != len(set(actual)):
+            raise ValueError("section authoring document has duplicate outcomes")
+        if actual != expected[: len(actual)]:
+            raise ValueError("section authoring outcomes are not an ordered prefix of the plan")
+        if any(outcome.packet_hash != outcome.receipt.packet_hash for outcome in self.outcomes):
+            raise ValueError("section authoring outcome and receipt packet hashes differ")
+        if self.complete and (actual != expected or self.failure is not None):
+            raise ValueError("complete section authoring requires every cluster and no failure")
+        if not self.complete and not self.failure:
+            raise ValueError("incomplete section authoring requires a failure reason")
+        return self
+
+    @property
+    def provider_logical_calls(self) -> int:
+        return sum(
+            0 if outcome.reused_from_cache else outcome.receipt.logical_call_count
+            for outcome in self.outcomes
+        )
+
+    @property
+    def reused_cluster_count(self) -> int:
+        return sum(outcome.reused_from_cache for outcome in self.outcomes)
+
+    def canonical_hash(self) -> str:
+        return _canonical_hash(self.model_dump(mode="json"))
+
+
+class SectionAuthoringDocumentRecordV1(_StrictModel):
+    """Checksum envelope for a durable section-authoring document."""
+
+    schema_version: Literal[1] = 1
+    document_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    document: SectionAuthoringDocumentV1
+
+    @model_validator(mode="after")
+    def _document_hash_matches(self) -> SectionAuthoringDocumentRecordV1:
+        if self.document.canonical_hash() != self.document_sha256:
+            raise ValueError("section authoring document checksum does not match")
+        return self
 
 
 def _canonical_hash(value: object) -> str:

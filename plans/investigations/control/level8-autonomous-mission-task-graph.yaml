@@ -645,6 +645,131 @@ taskcards:
   stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
   concurrency_class: primary_only
   campaign_id: CAMP-SHARED-ACCELERATION
+- task_id: L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
+  title: Integrate and qualify bounded Qwen section authoring and recovery
+  source_audit_finding: The bounded Qwen section-cluster authoring engine and merged-review recovery are
+    implemented and focused-tested, but the canonical verified candidate transaction does not consume
+    authored sections and the portfolio stage adapter still returns no progress. Starting PF-02 in that
+    state would preserve a monolithic authoring seam and strand the acceleration work.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: qwen-section-engine-integration
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Before PF-02 begins, wire the existing bounded Qwen section-cluster authoring and targeted
+    recovery into the canonical verified candidate path; persist source- and fact-bound document evidence;
+    make SECTION_PACKETS_READY and SECTIONS_AUTHORED observable; and prove live Qwen authoring, exact
+    cache reuse, selective invalidation, bounded retry/recovery, deterministic factual acceptance, and
+    zero remote writes.
+  why_it_matters: Section-local calls isolate failures and allow unchanged sections to be reused, but
+    they accelerate delivery only when the production transaction consumes their accepted bytes and lifecycle
+    evidence rather than leaving them as an unused test-only subsystem.
+  allowed_paths:
+  - src/readme_agent/specialists/section_*
+  - src/readme_agent/llm/section_author*
+  - src/readme_agent/readme/section_*
+  - src/readme_agent/specialists/readme_presentation.py
+  - src/readme_agent/supervisor/portfolio_proof_engine/
+  - src/readme_agent/presentation/
+  - tests/
+  - docs/architecture.md
+  - plans/investigations/evidence/qwen-section-engine-integration/
+  - plans/investigations/control/level8-autonomous-mission-task-graph.yaml
+  - plans/investigations/control/level8-requirement-taskcard-coverage.json
+  - plans/investigations/control/deferred-level8-task-catalog.json
+  - scripts/governance/build_level8_requirement_taskcard_coverage.py
+  - scripts/ci/prove_qwen_section_engine_live.py
+  - logs/
+  forbidden_paths:
+  - D:/onedrive/Documents/GitHub/aspose.org (read-only development oracle)
+  - production target repository remotes
+  - target default branches
+  dependencies:
+  - L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY
+  expected_outputs:
+  - Canonical candidate generation consumes typed, accepted section-cluster output without granting the
+    LLM authority over commands, code, links, badges, Mermaid structure, or section order
+  - Revision-addressed SectionAuthoringDocumentV1 evidence with packet, outcome, cache, call, model, prompt,
+    facts, and source identities
+  - Working SECTION_PACKETS_READY and SECTIONS_AUTHORED lifecycle observation
+  - Live Qwen proof for first authoring, unchanged zero-call reuse, and one-section selective invalidation
+  - Controlled semantic and transport recovery receipts with bounded calls and no partial promotion
+  acceptance_checks:
+  - The canonical verified candidate seam invokes qwen3-next for eligible bounded prose clusters and accepted
+    authored bytes are visible in the rendered candidate with exact fact accountability
+  - Deterministic validation rejects unknown, do-not-claim, missing, or altered fact use before render
+  - A retryable transport failure and one repairable semantic failure recover only the affected cluster
+    within the declared call budget
+  - An identical transaction performs zero provider calls and changing one packet re-authors only that
+    packet while reusing every unchanged accepted cluster
+  - Portfolio progress derives packets-ready and sections-authored from checksum-valid persisted evidence
+  - The live and controlled receipts quantify provider calls, reused clusters, invalidated clusters, elapsed
+    time, and the avoided whole-document recomputation
+  verification:
+  - focused section planner, packet, author client, cache, document, and recovery tests
+  - integration test through the canonical verified candidate rendering seam
+  - malformed response, unsupported fact, partial document, cache corruption, source drift, fact drift,
+    prompt drift, and selective invalidation negative controls
+  - live qwen3-next bounded authoring and exact rerun under push-blocking and allow-list safety
+  negative_controls:
+  - Test-only or standalone authoring output cannot satisfy integration
+  - A cached or authored section cannot survive a dependency-hash mismatch
+  - A failed cluster cannot promote the document to SECTIONS_AUTHORED
+  - Qwen cannot author or alter exact commands, code fences, URLs, badges, Mermaid, or protected literals
+  - PF-02 is not claimed or executed by this task
+  regression_checks:
+  - allow-list, push-blocking, secret-redaction, candidate-factuality, and no-effect safety
+  - existing separated-review recovery and section-authoring tests
+  - mission graph load, dependency ordering, drift reconciliation, and durable claim recovery
+  evidence_requirements:
+  - graph-bound task transition, focused and integration receipts, live Qwen call/cache/selective-invalidation
+    ledger, controlled recovery receipt, candidate byte/provenance comparison, no-write proof, and independent
+    non-authoring verdict
+  rollback_or_recovery: Resume from the last checksum-valid cluster/document record; invalidate only affected
+    clusters. Revert only the coherent control-repository integration commit if a regression is proven.
+    Never reset, clean, or mutate a product remote.
+  failure_reroute: After two equivalent ineffective attempts or fifteen minutes without narrowing, stop
+    repeating the tactic, identify the first failing causal owner, and repair or reroute it inside this
+    graph without lowering acceptance.
+  closeout_rules:
+  - All stated outputs and negative controls have current, checksum-bound evidence.
+  - Focused and impact-mapped regression proof pass on the same committed revision.
+  - A report, schema, standalone live call, or mocked test alone cannot close the task.
+  goal_ids:
+  - GOAL-README
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: first_boundary_removal
+    summary: Turn the existing Qwen section engine from unused machinery into the bounded production authoring
+      seam.
+  execution_kind: shared_repair
+  infrastructure_admission:
+    trigger: current_repository_blocker
+    evidence_refs:
+    - src/readme_agent/supervisor/portfolio_proof_engine/section_authoring_adapter.py
+    - src/readme_agent/specialists/section_authoring_document.py
+  execution_focus:
+    goal_id: DELIVERY-QWEN-SECTION-ENGINE
+    immediate_outcome: Prove canonical bounded Qwen authoring, recovery, reuse, and selective invalidation
+      before PF-02.
+    repository_scope:
+    - control-repository:canonical-candidate-seam
+    - aspose-3d-foss/Aspose.3D-FOSS-for-Python
+    allowed_change_classes:
+    - shared_code
+    - factuality
+    - presentation
+    next_goal_on_success: Compose one complete weak-input candidate through the proven native seam.
+    defer_nonblocking_findings: true
+    show_output_before_broad_regression: true
+    max_equivalent_ineffective_attempts: 2
+    max_minutes_without_narrowing: 15
+  requirement_ids: []
+  stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
+  concurrency_class: primary_only
+  campaign_id: CAMP-SHARED-ACCELERATION
 - task_id: L8-PF-02-COMPLETE-CANDIDATE-SEAM
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
@@ -675,7 +800,7 @@ taskcards:
   - production target repository remotes
   - target default branches
   dependencies:
-  - L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY
+  - L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION
   expected_outputs:
   - One current complete Aspose.3D Python candidate and native patch
   - Complete source-unit, claim, knowledge, and component provenance

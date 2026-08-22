@@ -8,6 +8,7 @@ from readme_agent.facts.curated_python_example_validation import validate_python
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.links.contextual_models import ContextualLinkPlanV1
+from readme_agent.presentation.section_authoring_overlay import authored_slot
 from readme_agent.presentation.template_schema import (
     FactFieldTemplateContentV1,
     ProductFactsTemplateDraftV1,
@@ -57,6 +58,7 @@ from readme_agent.readme.license_location import repository_license_path
 from readme_agent.readme.limitation_semantics import public_limitations_equivalent
 from readme_agent.readme.public_limitations import public_limitation_phrases
 from readme_agent.readme.source_claim_fact_binding import complete_source_claim_fact_binding
+from readme_agent.specialists.section_authoring_contracts import SectionAuthoringDocumentV1
 
 
 def _included(
@@ -447,6 +449,7 @@ def build_verified_template_draft(
     contextual_links: ContextualLinkPlanV1 | None = None,
     documentation_link_limit: int | None = None,
     capability_plan: CapabilityPresentationPlanV1 | None = None,
+    section_authoring_document: SectionAuthoringDocumentV1 | None = None,
 ) -> ProductFactsTemplateDraftV1:
     """Bind verified facts and the validated agentic plan to reusable slots."""
 
@@ -454,8 +457,12 @@ def build_verified_template_draft(
     title = visual.title
     capabilities = _phrases(facts, "product.capabilities")
     problems = _phrases(facts, "product.problems_solved")
+    authored_summary = authored_slot(section_authoring_document, facts, "summary")
     source_summary = verified_source_opening_summary(source_text, facts, title)
-    if source_summary is not None:
+    if authored_summary is not None:
+        summary = authored_summary.markdown
+        summary_fields = list(authored_summary.fact_fields)
+    elif source_summary is not None:
         summary, summary_fields = source_summary
         summary, summary_fields = _complete_source_opening_overview(
             summary,
@@ -490,6 +497,13 @@ def build_verified_template_draft(
         source_text=source_text,
         presentation_plan=capability_plan,
     )
+    authored_capabilities = authored_slot(
+        section_authoring_document,
+        facts,
+        "key_capabilities",
+    )
+    if authored_capabilities is not None:
+        capability_text = authored_capabilities.markdown
     at_a_glance = visual.mermaid_markdown
     installation = installation_text(facts, facts.org_repo, source_revision)
     if installation is None:
@@ -502,6 +516,9 @@ def build_verified_template_draft(
         installation += "\n\nPackage metadata:\n\n" + "\n".join(
             item.markdown for item in installation_knowledge
         )
+    authored_installation = authored_slot(section_authoring_document, facts, "installation")
+    if installation and authored_installation is not None:
+        installation = authored_installation.markdown + "\n\n" + installation
     scenario_dependencies = scenario_dependency_markdown(facts, source_text=source_text)
     required_dependencies = dependency_markdown(facts)
     development_dependencies = development_dependency_markdown(facts)
@@ -530,6 +547,10 @@ def build_verified_template_draft(
             example += "\n\n" + contextual_example
             example_fields.extend(_fields_for_fact_ids(facts, contextual_fact_ids))
             example_standards.append("readme.contextual_links")
+    authored_example = authored_slot(section_authoring_document, facts, "quick_start")
+    if example and authored_example is not None:
+        example = authored_example.markdown + "\n\n" + example
+        example_fields.extend(authored_example.fact_fields)
     if not installation:
         raise ValueError(
             "verified template lacks required capability, acquisition, or example facts"
@@ -540,6 +561,10 @@ def build_verified_template_draft(
         "in the upstream defect report."
     )
     scope, scope_fields, scope_standards = _scope_text(facts, contextual_links)
+    authored_scope = authored_slot(section_authoring_document, facts, "scope_and_limitations")
+    if scope and authored_scope is not None:
+        scope = authored_scope.markdown + "\n\n" + scope
+        scope_fields = list(dict.fromkeys((*authored_scope.fact_fields, *scope_fields)))
     badge_block = visual.badge_markdown
     banner = render_brand_banner(facts, product_name=title)
     if banner is not None:
@@ -680,15 +705,19 @@ def build_verified_template_draft(
             "key_capabilities": (
                 _included(
                     capability_text,
-                    *_accepted_fields(
-                        facts,
-                        "product.capabilities",
-                        "product.identity",
-                        "product.platforms",
-                        "product.formats",
-                        "api.public_surface",
-                        "aspose.feature_claims",
-                        "aspose.format_support_claims",
+                    *(
+                        authored_capabilities.fact_fields
+                        if authored_capabilities is not None
+                        else _accepted_fields(
+                            facts,
+                            "product.capabilities",
+                            "product.identity",
+                            "product.platforms",
+                            "product.formats",
+                            "api.public_surface",
+                            "aspose.feature_claims",
+                            "aspose.format_support_claims",
+                        )
                     ),
                 )
                 if capability_text

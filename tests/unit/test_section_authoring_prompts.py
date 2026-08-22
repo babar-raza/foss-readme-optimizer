@@ -5,6 +5,7 @@ probe response (`runs/owner_audit_staging/qwen3-next-editorial-probe-aa9981021/r
 import json
 from pathlib import Path
 
+import pytest
 from section_authoring_test_support import build_fact, build_product_facts_v2
 
 from readme_agent.facts.protected_content import fingerprint_protected_content
@@ -18,7 +19,10 @@ from readme_agent.specialists.section_authoring_contracts import (
     SectionClusterAuthoringResultV1,
 )
 from readme_agent.specialists.section_authoring_packet import build_section_authoring_packet
-from readme_agent.specialists.section_cluster_authoring import _validate_acceptance
+from readme_agent.specialists.section_cluster_authoring import (
+    SectionAuthoringAcceptanceError,
+    _validate_acceptance,
+)
 
 _PROBE_FIXTURE = (
     Path(__file__).resolve().parents[2]
@@ -113,11 +117,13 @@ def test_repair_hint_slot_carries_correction_text_alongside_the_full_packet():
     assert "unsupported fact_id" in user_content
 
 
-def test_real_recorded_probe_response_is_compatible_with_the_production_schema():
+def test_real_recorded_probe_response_requires_v2_heading_recovery_after_schema_parse():
     """The probe's own `section_cluster_schema` used a `sections` field with no disposition
     tracking; production's `submit_section_cluster` renames it to `units` and adds `omitted`.
     Adapting the recorded response's shape (never its content) proves a real model response at
-    this bounded scale parses and passes acceptance under the production contract."""
+    this bounded scale still parses. The tightened v2 public contract intentionally rejects its
+    generic noun headings so the bounded recovery turn can replace them with action-led visitor
+    search phrases."""
 
     payload = json.loads(_PROBE_FIXTURE.read_text(encoding="utf-8"))
     call_result = payload["call_result"]
@@ -172,4 +178,5 @@ def test_real_recorded_probe_response_is_compatible_with_the_production_schema()
         protected_content=fingerprint_protected_content("# Example\n"),
     )
 
-    _validate_acceptance(packet, result)  # raises on failure; a clean return is the assertion
+    with pytest.raises(SectionAuthoringAcceptanceError, match="action-led"):
+        _validate_acceptance(packet, result)

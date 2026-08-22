@@ -542,6 +542,11 @@ def test_specialist_uses_zero_provider_plan_before_live_composition(tmp_path, mo
         )
 
     monkeypatch.setattr(readme_presentation, "proposal_only_active", lambda: True)
+    monkeypatch.setattr(
+        readme_presentation,
+        "build_canonical_section_authoring_specs",
+        lambda _facts: (),
+    )
     monkeypatch.setattr(readme_presentation, "current_repository_snapshot", lambda _repo: snapshot)
     monkeypatch.setattr(
         readme_presentation,

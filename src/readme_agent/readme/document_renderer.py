@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import hashlib
 from dataclasses import replace
 from pathlib import Path
 
+from readme_agent.facts.protected_content import fingerprint_protected_content
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.links.allocation import code_sha256
 from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1
@@ -82,6 +84,7 @@ from readme_agent.readme.markers import find_presentation_span
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 from readme_agent.readme.public_text import canonical_abbreviations_from_facts
 from readme_agent.registry.models import LinkAllocationPolicyV1
+from readme_agent.specialists.section_authoring_contracts import SectionAuthoringDocumentV1
 
 __all__ = [
     "apply_document_operations",
@@ -102,6 +105,7 @@ def build_readme_document_candidate(
     llm_disposition_client: ForcedToolClient | None = None,
     repository_root: Path | None = None,
     disposition_ratchet_path: Path | None = None,
+    section_authoring_document: SectionAuthoringDocumentV1 | dict | None = None,
 ) -> tuple[str, ReadmeDocumentPlanV1]:
     """Return one reproducible candidate and its fine-grained source operations.
 
@@ -146,6 +150,30 @@ def build_readme_document_candidate(
         if agentic_composition_plan
         else None
     )
+    validated_section_authoring = (
+        SectionAuthoringDocumentV1.model_validate(section_authoring_document)
+        if section_authoring_document is not None
+        else None
+    )
+    if validated_section_authoring is not None:
+        if not validated_section_authoring.complete:
+            raise ValueError("incomplete section authoring cannot enter candidate rendering")
+        if validated_section_authoring.org_repo != org_repo:
+            raise ValueError("section authoring document belongs to a different repository")
+        if validated_section_authoring.source_revision != base_revision:
+            raise ValueError("section authoring document source revision changed")
+        if validated_section_authoring.facts_hash != facts.canonical_hash():
+            raise ValueError("section authoring document facts changed")
+        if (
+            validated_section_authoring.source_sha256
+            != hashlib.sha256(source_text.encode("utf-8")).hexdigest()
+        ):
+            raise ValueError("section authoring document source README changed")
+        if (
+            validated_section_authoring.protected_literal_hash
+            != fingerprint_protected_content(source_text).maintainer_region_hash
+        ):
+            raise ValueError("section authoring document protected-content fingerprint changed")
     if facts.content_assurance == "repository_verified" and validated_agentic_plan is not None:
         return build_verified_template_document_candidate(
             facts,
@@ -157,6 +185,7 @@ def build_readme_document_candidate(
             llm_disposition_client=llm_disposition_client,
             repository_root=repository_root,
             disposition_ratchet_path=disposition_ratchet_path,
+            section_authoring_document=validated_section_authoring,
         )
     header_visuals = render_readme_header_visual(facts, validated_agentic_plan)
     withheld = build_unresolved_section_operations(context, assessment)

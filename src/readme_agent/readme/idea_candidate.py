@@ -31,6 +31,7 @@ from readme_agent.repository_snapshot import (
     repository_snapshot_scope,
     verify_repository_snapshot,
 )
+from readme_agent.specialists.section_authoring_contracts import SectionAuthoringDocumentV1
 
 
 def prepare_idea_fidelity_candidate(
@@ -38,6 +39,7 @@ def prepare_idea_fidelity_candidate(
     product_facts: ProductFactsV2 | None = None,
     *,
     agentic_composition_plan: dict | None = None,
+    section_authoring_document: SectionAuthoringDocumentV1 | dict | None = None,
 ) -> dict:
     """Build a deterministic proposal; never write its candidate to the work clone."""
 
@@ -112,6 +114,7 @@ def prepare_idea_fidelity_candidate(
             llm_disposition_client=default_claim_disposition_client(),
             repository_root=paths.baseline_dir(entry.org, entry.repo_name),
             disposition_ratchet_path=claim_disposition_ratchet_path(org_repo),
+            section_authoring_document=section_authoring_document,
         )
         assessment = assess_readme_document(
             org_repo,
@@ -170,6 +173,13 @@ def prepare_idea_fidelity_candidate(
                 else []
             ),
             "agentic_composition_plan": agentic_composition_plan or {},
+            "section_authoring_document": (
+                SectionAuthoringDocumentV1.model_validate(section_authoring_document).model_dump(
+                    mode="json"
+                )
+                if section_authoring_document is not None
+                else {}
+            ),
             "product_facts_v2": facts.model_dump(mode="json"),
             "readme_assessment": assessment.model_dump(mode="json"),
             "readme_document_plan": document_plan.model_dump(mode="json"),

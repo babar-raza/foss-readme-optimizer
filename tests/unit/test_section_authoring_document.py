@@ -38,11 +38,16 @@ class ScriptedClient:
 
     def analyze_section_cluster(self, messages, accepted_fact_ids):
         self.calls.append(list(accepted_fact_ids))
+        heading = (
+            "Import and Export 3D Content"
+            if any(fact_id.startswith("product.capabilities") for fact_id in accepted_fact_ids)
+            else "Install the Package"
+        )
         return AnalysisResult(
             parsed={
                 "units": [
                     {
-                        "heading": "Section",
+                        "heading": heading,
                         "text": "A focused, specific description of this cluster's facts.",
                         "fact_ids": list(accepted_fact_ids),
                     }
@@ -64,7 +69,7 @@ class FailingSecondSectionClient:
                 parsed={
                     "units": [
                         {
-                            "heading": "Overview",
+                            "heading": "Import and Export 3D Content",
                             "text": "Imports and exports OBJ and GLTF files.",
                             "fact_ids": list(accepted_fact_ids),
                         }

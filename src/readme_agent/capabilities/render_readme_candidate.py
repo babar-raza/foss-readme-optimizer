@@ -95,6 +95,7 @@ def execute(
     prior_status: str | None = None,
     product_facts_v2: dict | None = None,
     agentic_composition_plan: dict | None = None,
+    section_authoring_document: dict | None = None,
 ) -> dict:
     entry = find_entry(org_repo)
     scoped_facts = current_product_facts(org_repo)
@@ -109,6 +110,7 @@ def execute(
             org_repo,
             facts,
             agentic_composition_plan=agentic_composition_plan,
+            section_authoring_document=section_authoring_document,
         )
     if entry is not None and entry.policy_profile is not None:
         policy = load_policy(entry.policy_profile)

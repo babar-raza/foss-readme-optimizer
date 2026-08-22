@@ -87,6 +87,7 @@ from datetime import UTC, datetime
 from langchain_core.runnables import RunnableConfig
 from langgraph.graph import END, START, StateGraph
 
+from readme_agent import env
 from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION, README_PRESENTATION
 from readme_agent.capabilities.effect_ledger import dispatch_gated_effect
@@ -94,12 +95,15 @@ from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.errors import LLMError, StateBackendError
 from readme_agent.evidence.redaction import redact
 from readme_agent.evidence.writer import generate_run_id
+from readme_agent.facts.protected_content import fingerprint_protected_content
+from readme_agent.llm.section_author_client import build_live_section_cluster_author_client
 from readme_agent.orchestrator import record_accepted_readme_state
 from readme_agent.readme.agentic_composition import validate_readme_composition_plan
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.claim_accountability_llm_disposition import (
     resolve_claim_disposition_context,
 )
+from readme_agent.readme.section_authoring_specs import build_canonical_section_authoring_specs
 from readme_agent.readme.verified_preservation_composition import (
     build_verified_preservation_composition_plan,
 )
@@ -109,6 +113,13 @@ from readme_agent.specialists.readme_presentation_review import review_candidate
 from readme_agent.specialists.readme_review_validation import (
     dispatch_build_presentation_plan,
     dispatch_verify_readme_candidate,
+)
+from readme_agent.specialists.section_authoring_cache import (
+    default_section_authoring_cache_dir,
+)
+from readme_agent.specialists.section_authoring_document import (
+    SectionAuthoringDocumentError,
+    author_and_persist_readme_sections,
 )
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.change_detection import classify_surface
@@ -143,6 +154,7 @@ _TRANSIENT_CANDIDATE_DETAIL_KEYS = frozenset(
         "presentation_plan",
         "presentation_plan_patch",
         "render_result",
+        "section_authoring_document",
         "verification",
     }
 )
@@ -455,6 +467,42 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             wiring_arguments["agentic_composition_plan"] = preservation_plan.model_dump(mode="json")
             deterministic_preservation_composed = True
 
+    section_authoring_document = None
+    if prepared is not None and snapshot is not None and source_text is not None:
+        section_specs = build_canonical_section_authoring_specs(prepared.facts)
+        if section_specs:
+            section_client = config["configurable"].get("section_authoring_client")
+            if section_client is None:
+                section_client = build_live_section_cluster_author_client(
+                    env.llm_base_url(),
+                    env.llm_api_key(),
+                    timeout=env.llm_timeout_seconds(),
+                )
+            snapshot_org, snapshot_repo = org_repo.split("/", maxsplit=1)
+            try:
+                section_authoring_document = author_and_persist_readme_sections(
+                    org_repo=org_repo,
+                    source_revision=snapshot.source_revision,
+                    source_text=source_text,
+                    product_facts=prepared.facts,
+                    protected_content=fingerprint_protected_content(source_text),
+                    section_specs=section_specs,
+                    client=section_client,
+                    cache_dir=default_section_authoring_cache_dir(
+                        snapshot_org,
+                        snapshot_repo,
+                        snapshot.source_revision,
+                    ),
+                )
+            except (LLMError, OSError, ValueError, SectionAuthoringDocumentError) as exc:
+                return {
+                    "accepted_status": f"ERROR:section_authoring:{type(exc).__name__}:{exc}",
+                    "details": _without_transient_candidate_details(state),
+                }
+            wiring_arguments["section_authoring_document"] = section_authoring_document.model_dump(
+                mode="json"
+            )
+
     if (
         ("product_facts_v2" in wiring_arguments or proposal_only_active())
         and not composition_plan_reused
@@ -515,6 +563,31 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     if deterministic_preservation_plan:
         render_result["composition_strategy"] = "deterministic_verified_preservation"
         render_result["composition_provider_calls"] = 0
+    if section_authoring_document is not None:
+        render_result["section_authoring_document"] = section_authoring_document.model_dump(
+            mode="json"
+        )
+        render_result["section_authoring_provider_calls"] = (
+            section_authoring_document.provider_logical_calls
+        )
+        render_result["section_authoring_reused_clusters"] = (
+            section_authoring_document.reused_cluster_count
+        )
+        if section_authoring_document.provider_logical_calls:
+            render_result["llm_called"] = True
+            render_result["llm_calls"] = [
+                *render_result.get("llm_calls", []),
+                *[
+                    {
+                        "job": "section_cluster_authoring",
+                        "model": outcome.receipt.provider_model,
+                        "prompt_sha256": outcome.receipt.prompt_sha256,
+                        "input_sha256": outcome.packet_hash,
+                    }
+                    for outcome in section_authoring_document.outcomes
+                    if not outcome.reused_from_cache
+                ],
+            ]
     return {"details": merge_details(state, render_result=render_result)}
 
 

@@ -19,14 +19,15 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from readme_agent import paths
 from readme_agent.evidence.writer import write_redacted_json
-from readme_agent.specialists.section_authoring_contracts import SectionAuthoringOutcomeV1
+from readme_agent.specialists.section_authoring_contracts import (
+    SECTION_AUTHORING_CONTRACT_VERSION,
+    SectionAuthoringOutcomeV1,
+)
+
 
 # Bump whenever the authoring contract, tool schema shape, or acceptance validators change --
 # invalidates every cached entry at once, the same convention as
 # trusted_fidelity_cache.py::FIDELITY_BATCH_CONTRACT_VERSION.
-SECTION_AUTHORING_CONTRACT_VERSION = "section-authoring-v1"
-
-
 class SectionAuthoringCacheV1(BaseModel):
     """One section's accepted outcome bound to every input that affects its content."""
 

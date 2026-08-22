@@ -75,7 +75,7 @@ def _valid_response() -> dict:
     return {
         "units": [
             {
-                "heading": "Overview",
+                "heading": "Import and Export 3D Content",
                 "text": "Import and export OBJ and GLTF 3D content with a focused Python API.",
                 "fact_ids": [CAP_1, CAP_2],
             }
@@ -135,6 +135,22 @@ def test_unsupported_fact_id_triggers_one_semantic_retry_then_succeeds():
     assert CAP_1 in retry_content
     assert CAP_2 in retry_content
     assert LIM_1 in retry_content  # do_not_claim context also survives the retry
+
+
+def test_internal_verification_narration_triggers_targeted_recovery():
+    packet = _packet()
+    internal = _valid_response()
+    internal["units"][0]["text"] = (
+        "This package was checked at the exact source revision in an isolated "
+        "verification environment."
+    )
+    client = FakeSectionAuthorClient([internal, _valid_response()])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert len(client.calls) == 2
+    assert outcome.receipt.semantic_retry_used is True
+    assert "internal verification narration" in client.calls[1]["messages"][1]["content"]
 
 
 def test_do_not_claim_fact_id_cannot_authorize_positive_prose():
