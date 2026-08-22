@@ -1,5 +1,12 @@
 INTEGRATION — proposed binding points, without editing anything
 
+> **Apply the fix in `PILOT_VERIFICATION_AND_KNOWN_BUG.md` first.** As committed, the factual
+> packetization path silently produces zero coverage against real `claim_accountability` data
+> (confirmed cause: `_valid_claims_and_gaps()`'s `survives_in_candidate` check, which the real
+> claim-accountability builder never populates for candidate-stage claims). Do the size-triggered
+> branch work below only after that one-line fix + its companion test are in place — otherwise
+> integration wires in a factual review path that will always see zero packets.
+
 This module makes no provider calls and is not wired into anything. Everything below is a
 proposal for Codex, the integration authority, to evaluate — nothing here was implemented.
 

@@ -1,0 +1,123 @@
+
+==============================================================================
+STEP 0 -- load the REAL committed proof candidate + real document plan
+==============================================================================
+candidate.md real byte length: 161504
+candidate.md real sha256: ba04406d37c6fb51f061474983137e2e6c48bfd9373f5afd6a7cc99c00ccdcb6
+document_plan.org_repo: aspose-3d-foss/Aspose.3D-FOSS-for-Python
+document_plan.candidate_sha256 == recomputed: True
+claim_accountability.candidate_sha256 == recomputed: True
+real claim count: 227
+real document_plan.facts_hash: f67966b09d7a49f08130fab39ce5c54bae9aec9d5425e1c9f61ff76b0ed02064
+
+==============================================================================
+STEP 1 -- FAIL-CLOSED PROOF: real candidate + real plan + best-available real facts file
+==============================================================================
+closest available real facts file: product-facts.json (from a different evidence campaign for the same repo)
+its canonical_hash(): 28333bf26de10868999258af518b45f67cfd32056bc7fc7e8e4e4135e89889f6
+does NOT equal document_plan.facts_hash -- the original facts.json behind this exact
+candidate was not preserved in committed evidence. This is real, unmodified data on
+both sides -- the mismatch itself is the real-world condition under test.
+RESULT: BoundedReviewInputMismatchError raised, as required. Message:
+  document_plan.facts_hash does not match product_facts.canonical_hash()
+
+==============================================================================
+STEP 2 -- build a real-claim-derived, self-consistent facts corpus
+==============================================================================
+distinct real fact_ids referenced across all real claims: 19
+first 5: ['api.public_surface:python-exports', 'aspose.limitation_claims:aspose-knowledge', 'development.assets:repository-inventory', 'development.commands:repository-guidance', 'documentation.links:governed-aspose-org-catalog']
+added 16 explicitly-labeled stub facts to satisfy ProductFactsV2's required-field-selection completeness rule (unrelated to the real claim-referenced fact_ids, which remain used for claim->fact linkage below)
+derived facts corpus canonical_hash(): eff871ab05dfbfb4161281bb89e0831a8d378747c41254f5eba2e3cdf8ede398
+NOTE: values are explicit placeholders, not fabricated real product claims -- only the
+fact_id/field identifiers are real (pulled from the real claim_accountability).
+rebound copies: candidate text, claim spans, claim IDs, dispositions all UNCHANGED --
+only the facts_hash field on the two copies was re-stamped to match derived_facts.
+
+==============================================================================
+STEP 3 -- HAPPY PATH: plan the REAL candidate, budget_chars=30000
+==============================================================================
+factual packets: 0
+visitor packets: 21
+unpacketizable records: 0
+factual packet text sizes: min=0 max=0
+visitor packet text sizes: min=307 max=4935
+all packets <= budget_chars (30000): True
+
+==============================================================================
+STEP 3B -- DIAGNOSTIC: real candidate-stage claim filter never matches real data
+==============================================================================
+claim stage counts: {'source': 98, 'candidate': 129}
+survives_in_candidate by stage: {'candidate': Counter({None: 129}), 'source': Counter({False: 62, True: 36})}
+claims matching the module's real filter (stage==candidate and survives_in_candidate): 0
+-> this is WHY factual packets came out as 0 above.
+candidate-stage claims with currently_accountable=True and >=1 accepted_fact_ids: 115
+(the real, populated signal -- confirmed against claim_accountability.py's
+ survives_in_candidate=None literal for every stage='candidate' claim)
+
+Diagnostic-only simulation (NOT a module edit): copy the real claim records with
+survives_in_candidate overridden to match currently_accountable, to check whether the
+packet-building logic downstream of the filter is otherwise sound once given data in
+the shape the filter expects.
+with the filter's precondition satisfied -- factual packets: 35
+visitor packets: 21
+unpacketizable: 1
+factual packet sizes: min=11 max=15814, all<=budget: True
+distinct claim_ids covered across factual packets: 128
+
+==============================================================================
+STEP 4 -- DETERMINISM: rerun identical inputs, diff canonical output
+==============================================================================
+plan1.canonical_hash(): 9b229e1547b9eb2c8ae8e161c27ce814f829b6690a8e8f1124847193611d5d94
+plan2.canonical_hash(): 9b229e1547b9eb2c8ae8e161c27ce814f829b6690a8e8f1124847193611d5d94
+byte-identical rerun: True
+
+==============================================================================
+STEP 5 -- COVERAGE LEDGER on the real candidate
+==============================================================================
+atomic units: 129
+visitor_spans covered: 101
+factual_spans covered: 0
+excluded_spans (e.g. API-inventory): 28
+  excluded section: api-method-index
+  excluded section: api-reference/aspose3d-namespace-asposethreed
+  excluded section: api-reference/aspose3danimation-namespace-asposethreedanimation
+  excluded section: api-reference/aspose3ddeformers-namespace-asposethreeddeformers
+  excluded section: api-reference/aspose3dentities-namespace-asposethreedentities
+  excluded section: api-reference/aspose3dformats-namespace-asposethreedformats
+  excluded section: api-reference/aspose3dformatsgltf-namespace-asposethreedformatsgltf
+  excluded section: api-reference/aspose3dformatsobj-namespace-asposethreedformatsobj
+  excluded section: api-reference/aspose3dformatsstl-namespace-asposethreedformatsstl
+  excluded section: api-reference/aspose3dprofiles-namespace-asposethreedprofiles
+  excluded section: api-reference/aspose3drender-namespace-asposethreedrender
+  excluded section: api-reference/aspose3dshading-namespace-asposethreedshading
+  excluded section: api-reference/aspose3dutilities-namespace-asposethreedutilities
+overlaps: 20
+coverage is_complete: True
+coverage has_blocking_gaps: False
+
+==============================================================================
+STEP 6 -- SELECTIVE INVALIDATION on the real candidate (same-length in-place edit)
+==============================================================================
+edited a claim-free 40-byte span at offset 17993 -- length unchanged, so all real claim byte spans stay structurally valid
+total packet-identities before edit: 21
+invalidated by editing ONE 40-byte claim-free span: 0
+invalidated packet_ids: []
+
+==============================================================================
+STEP 7 -- FACT-VALUE CHANGE (against the UNFIXED plan1 -- vacuous, see STEP 7B)
+==============================================================================
+changed value of fact_id: api.public_surface:python-exports
+factual packets invalidated: 0 (vacuous -- plan1 has 0)
+visitor packet set unchanged (before == after): True
+
+==============================================================================
+STEP 7B -- FACT-VALUE CHANGE re-run against the CORRECTED simulation (non-vacuous)
+==============================================================================
+changed value of fact_id: api.public_surface:python-exports
+total factual packets in plan_simulated: 35
+factual packets invalidated by this one fact change: 32
+visitor packet set unchanged (before == after): True
+
+==============================================================================
+DONE
+==============================================================================

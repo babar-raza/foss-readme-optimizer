@@ -1,5 +1,11 @@
 # REPORT — standalone bounded-review packetizer
 
+> **Read `PILOT_VERIFICATION_AND_KNOWN_BUG.md` in this directory before integrating.** A
+> real-production-data pilot rerun (after this report was written) found that factual-side
+> packetization currently produces zero coverage against every real candidate, traced to one
+> specific line in `_valid_claims_and_gaps()`, with an exact one-line fix proposed. Visitor-side
+> packetization was independently confirmed production-ready against the same real data.
+
 ## What this is
 
 A single, standalone, provider-free module —

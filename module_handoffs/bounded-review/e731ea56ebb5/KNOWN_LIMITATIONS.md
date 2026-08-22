@@ -1,5 +1,16 @@
 KNOWN_LIMITATIONS — stated plainly, not downplayed
 
+## Confirmed pre-integration blocker (found after this document was first written)
+
+See `PILOT_VERIFICATION_AND_KNOWN_BUG.md` in this directory. `_valid_claims_and_gaps()`'s claim
+filter (`claim.stage == "candidate" and claim.survives_in_candidate`) never matches any claim
+against real production `claim_accountability` data, because the real builder
+(`readme/claim_accountability.py`) unconditionally sets `survives_in_candidate=None` for every
+`stage="candidate"` claim. Result: zero factual packets, zero factual coverage, on every real
+candidate, until fixed. This is qualitatively different from the heuristic/best-effort
+limitations below — it is a confirmed functional defect with an exact one-line fix, not a
+tradeoff or an edge case. Fix before integrating the factual-review path.
+
 ## The API-inventory classifier is a heuristic, not a general solution
 
 `_classify_sections()` decides `mechanical_api_inventory` from two signals only: whether the
