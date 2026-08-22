@@ -2,9 +2,10 @@
   "environment_note": "All commands run inside $LANE_REPO with PYTHONPATH=$LANE_REPO/src prepended, using the main checkout's existing .venv interpreter (verified via import-path inspection to resolve against $LANE_REPO's src, not the editable-installed main copy) -- see WORKLOG.md.",
   "primary_suite": {
     "command": "pytest -q tests/unit/test_public_candidate_quality.py",
-    "collected": 22,
-    "passed": 22,
-    "failed": 0
+    "collected": 24,
+    "passed": 24,
+    "failed": 0,
+    "note": "Grew from 22 to 24 after the pilot rerun documented in PILOT_RERUN.md found the original 22 did not include a dedicated regression test for either false positive fixed during implementation; both new tests verified red against a reconstructed pre-fix snapshot and green against HEAD."
   },
   "static_checks": {
     "ruff_check": {
@@ -31,7 +32,7 @@
       "command": "cd $ROOT && pytest -q tests/unit/test_readme_presentation_lint.py",
       "passed": 48,
       "failed": 0,
-      "conclusion": "Confirms the 12 lane failures are a path-length artifact of this isolation lane, not a real regression. Codex integrating onto a normal (short-path) main checkout should see all 48 pass, as this control run demonstrates."
+      "conclusion": "Confirms the 13 lane failures are a path-length artifact of this isolation lane, not a real regression. Codex integrating onto a normal (short-path) main checkout should see all 48 pass, as this control run demonstrates."
     }
   },
   "manual_precision_dry_run": {
@@ -43,6 +44,17 @@
     ],
     "first_pass_findings": "9 cross_section_contradiction findings on the Note candidate, all traced to two false-positive classes (exception-clause blindness on \"other than PDF\"; conditional \"if X is installed/unavailable\" prose misread as a firm claim). Fixed with generic (non-product-specific) rules; see WORKLOG.md implementation log.",
     "final_pass_result": "cross_section_contradiction: 0 findings on all three candidates. malformed_low_information_prose (reused from presentation_lint) still correctly flags real duplication defects on the 3D and Note candidates. structural_size_outlier/structural_detail_density produced a small number of plausible advisory-only findings on all three; nothing blocking from the structural category, as designed."
+  },
+  "pilot_rerun": {
+    "type": "formal before/after comparison, see PILOT_RERUN.md for full detail",
+    "before": "current code with the two dry-run fix hunks precisely reverted (reconstructed, never itself committed)",
+    "after": "current code at pushed HEAD",
+    "note_python_cross_section_contradiction_count": {"before": 9, "after": 0},
+    "3d_python_and_barcode_python_counts": "identical before/after on every category",
+    "findings_added_anywhere": 0,
+    "findings_removed_note_python": 9,
+    "removed_findings_manually_verified_as": "false positives (9 of 9), zero true positives suppressed",
+    "test_suite_gap_found": "21 of 22 pre-pilot tests still passed against the reconstructed pre-fix code; only the generic source-hash tripwire failed. Closed by adding 2 dedicated regression tests (commit 5d46e1bf), each verified red against pre-fix code and green against HEAD."
   },
   "no_live_calls": {
     "llm": false,
