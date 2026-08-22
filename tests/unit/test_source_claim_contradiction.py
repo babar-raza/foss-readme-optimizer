@@ -86,6 +86,16 @@ def _facts(*, complete_catalog: bool = True) -> ProductFactsV2:
         confidence=1.0,
         affected_surfaces=["readme"],
     )
+    formats = FactRecordV2(
+        fact_id="product.formats:test",
+        field="product.formats",
+        value=["Input format: OBJ"],
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-owner",
+        confidence=1.0,
+        affected_surfaces=["readme"],
+    )
     limitations = FactRecordV2(
         fact_id="product.limitations:test",
         field="product.limitations",
@@ -117,9 +127,9 @@ def _facts(*, complete_catalog: bool = True) -> ProductFactsV2:
         schema_version=2,
         content_assurance="repository_verified",
         org_repo="acme/widget",
-        facts=[api, directions, limitations, shadowing],
+        facts=[api, directions, formats, limitations, shadowing],
         selected_fact_ids={
-            fact.field: fact.fact_id for fact in (api, directions, limitations, shadowing)
+            fact.field: fact.fact_id for fact in (api, directions, formats, limitations, shadowing)
         },
         package_root_roles=None,
     )
@@ -151,6 +161,9 @@ def test_proves_member_signature_public_export_relationship_and_format_contradic
     assert _contradictions(
         "# Capabilities\n\n- Import OBJ (with `.mtl` materials) into a scene.\n"
     ) == {"repository.format_directions:test"}
+    assert _contradictions(
+        "# Capabilities\n\n- Export the scene to OBJ with `Scene.save(...)`.\n"
+    ) == {"product.formats:test"}
     assert _contradictions(
         "# Product\n\nThe library moves data in and out of OBJ and COLLADA files.\n"
     ) == {"product.limitations:test"}

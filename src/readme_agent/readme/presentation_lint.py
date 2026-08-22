@@ -7,6 +7,10 @@ from readme_agent.readme.presentation_lint_api_reference import (
     RULE_IDS as API_REFERENCE_RULE_IDS,
 )
 from readme_agent.readme.presentation_lint_api_reference import lint_api_reference
+from readme_agent.readme.presentation_lint_format_directions import (
+    RULE_IDS as FORMAT_DIRECTION_RULE_IDS,
+)
+from readme_agent.readme.presentation_lint_format_directions import lint_format_directions
 from readme_agent.readme.presentation_lint_models import PresentationLintResultV1
 from readme_agent.readme.presentation_lint_public_contract import (
     RULE_IDS as PUBLIC_CONTRACT_RULE_IDS,
@@ -34,6 +38,7 @@ def lint_readme_presentation(
 
     findings = (
         lint_api_reference(candidate_text)
+        + lint_format_directions(candidate_text, facts)
         + lint_semantics(candidate_text, facts)
         + lint_structure(candidate_text, facts)
         + lint_public_contract(candidate_text, facts)
@@ -42,6 +47,7 @@ def lint_readme_presentation(
     rules_run = sorted(
         {
             *API_REFERENCE_RULE_IDS,
+            *FORMAT_DIRECTION_RULE_IDS,
             *SEMANTIC_RULE_IDS,
             *STRUCTURE_RULE_IDS,
             *PUBLIC_CONTRACT_RULE_IDS,

@@ -109,6 +109,71 @@ def test_finding_ids_and_spans_are_stable_across_identical_runs() -> None:
     )
 
 
+def test_explicit_format_roles_reject_conflicting_prose_and_mermaid_output() -> None:
+    facts = _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
+    formats = facts.selected_fact("product.formats")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={
+                        "value": [
+                            "Input format: OBJ",
+                            "Input format: GLTF",
+                            "Output format: GLTF",
+                        ]
+                    }
+                )
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    candidate = (
+        "# Aspose.3D FOSS for Java\n\n"
+        "- Export the scene to OBJ or GLTF.\n\n"
+        "```mermaid\n"
+        "flowchart LR\n"
+        '  subgraph OUTPUTS["Outputs"]\n'
+        '    O1["OBJ Format"]\n'
+        '    O2["GLTF Format"]\n'
+        "  end\n"
+        "```\n"
+    )
+
+    findings = [
+        finding
+        for finding in lint_readme_presentation(candidate, facts).findings
+        if finding.rule_id == "format_direction_contradiction"
+    ]
+
+    assert len(findings) == 2
+    assert all("OBJ" in finding.message for finding in findings)
+
+
+def test_format_direction_lint_allows_input_only_format_and_negative_limitation() -> None:
+    facts = _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
+    formats = facts.selected_fact("product.formats")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": ["Input format: OBJ"]})
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    candidate = (
+        "# Aspose.3D FOSS for Java\n\n- Import OBJ scenes.\n- OBJ export is not supported.\n"
+    )
+
+    assert "format_direction_contradiction" not in {
+        finding.rule_id for finding in lint_readme_presentation(candidate, facts).findings
+    }
+
+
 def test_identity_only_opening_allows_one_contextual_below_fold_enterprise_link() -> None:
     facts = _identity_only_facts()
 
@@ -478,6 +543,7 @@ def test_rule_inventory_is_complete_and_deterministically_ordered() -> None:
         "competing_primary_examples",
         "cross_product_leakage",
         "emoji_decoration",
+        "format_direction_contradiction",
         "generic_capability_description",
         "generic_preservation_heading",
         "heading_not_title_case",

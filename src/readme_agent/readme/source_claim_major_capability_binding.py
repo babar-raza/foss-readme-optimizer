@@ -10,6 +10,7 @@ from readme_agent.readme.claim_accountability_api_shapes import (
     coded_references,
     compatible_member_reference,
 )
+from readme_agent.readme.format_role_truth import explicit_format_roles
 
 _MAJOR_PREFIXES = (
     "- build 3d scenes programmatically with",
@@ -105,6 +106,7 @@ def _format_direction_fact_ids(text: str, facts: ProductFactsV2) -> set[str] | N
         if formats is not None and isinstance(formats.value, list)
         else set()
     )
+    explicit_roles = explicit_format_roles(facts)
     result: set[str] = set()
     mentioned = _format_names(text)
     if not mentioned:
@@ -141,7 +143,10 @@ def _format_direction_fact_ids(text: str, facts: ProductFactsV2) -> set[str] | N
                 elif examples is not None:
                     result.add(examples.fact_id)
             continue
+        canonical_name = name.upper()
         direct = any(item.startswith(f"{direction} format: {name}") for item in declared)
+        if canonical_name in explicit_roles and direction not in explicit_roles[canonical_name]:
+            return None
         repository_backed = repository_supports(name, direction)
         capability_backed = capability is not None and _capability_supports_format(
             capability,

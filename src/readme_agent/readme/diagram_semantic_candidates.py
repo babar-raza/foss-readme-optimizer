@@ -10,6 +10,7 @@ from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.agentic_composition_models import AgenticDiagramNodeV1
 from readme_agent.readme.capability_semantics import normalize_capability_phrases
+from readme_agent.readme.format_role_truth import conflicting_explicit_formats
 from readme_agent.readme.public_text import visitor_capability_phrase
 from readme_agent.readme.public_vocabulary import DOCUMENT_FORMAT_ABBREVIATIONS
 
@@ -338,13 +339,31 @@ def _merge_candidates(*groups: list[AgenticDiagramNodeV1]) -> list[AgenticDiagra
     return merged
 
 
+def _exclude_explicit_role_conflicts(
+    candidates: list[AgenticDiagramNodeV1],
+    facts: ProductFactsV2,
+    role: Literal["input", "output"],
+) -> list[AgenticDiagramNodeV1]:
+    """Let explicit format-role facts override broader capability wording."""
+
+    return [
+        candidate
+        for candidate in candidates
+        if not conflicting_explicit_formats(candidate.label, facts, role)
+    ]
+
+
 def input_node_candidates(facts: ProductFactsV2) -> list[AgenticDiagramNodeV1]:
     """Return only evidence-backed consumed artifacts or input forms."""
 
-    candidates = _merge_candidates(
-        _format_node_candidates(facts, "input"),
-        _directional_format_capability_candidates(facts, "input"),
-        _capability_flow_candidates(facts, "input"),
+    candidates = _exclude_explicit_role_conflicts(
+        _merge_candidates(
+            _format_node_candidates(facts, "input"),
+            _directional_format_capability_candidates(facts, "input"),
+            _capability_flow_candidates(facts, "input"),
+        ),
+        facts,
+        "input",
     )
     return candidates or _bidirectional_capability_candidates(facts, "input")
 
@@ -353,14 +372,18 @@ def output_node_candidates(facts: ProductFactsV2) -> list[AgenticDiagramNodeV1]:
     """Return only explicitly emitted formats or action-derived results."""
 
     format_outputs = _format_node_candidates(facts, "output")
-    candidates = _merge_candidates(
-        format_outputs,
-        _directional_format_capability_candidates(facts, "output"),
-        _capability_flow_candidates(
-            facts,
-            "output",
-            format_import_export_only=bool(format_outputs),
+    candidates = _exclude_explicit_role_conflicts(
+        _merge_candidates(
+            format_outputs,
+            _directional_format_capability_candidates(facts, "output"),
+            _capability_flow_candidates(
+                facts,
+                "output",
+                format_import_export_only=bool(format_outputs),
+            ),
         ),
+        facts,
+        "output",
     )
     return candidates or _bidirectional_capability_candidates(facts, "output")
 

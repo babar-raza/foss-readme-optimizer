@@ -1525,7 +1525,17 @@ def test_format_capabilities_require_the_exact_accepted_fact_union() -> None:
     assert bindings["Import"] is not None
     assert facts.selected_fact_ids["repository.examples"] in bindings["Import"].fact_ids
     assert bindings["Export"] is not None
-    assert facts.selected_fact_ids["product.limitations"] in bindings["Export"].fact_ids
+    assurance = build_source_claim_assurance(source, facts, assessment)
+    export_claim = next(
+        claim
+        for claim in assessment.material_claims
+        if source_bytes[claim.source_byte_start : claim.source_byte_end]
+        .decode()
+        .startswith("- Export")
+    )
+    assert (export_claim.source_byte_start, export_claim.source_byte_end) in (
+        assurance.correction_ranges
+    )
 
     unsupported = source.replace("OBJ, STL", "FBX, OBJ, STL", 1)
     assessment = assess_readme_document(facts.org_repo, unsupported, facts, base_revision=revision)

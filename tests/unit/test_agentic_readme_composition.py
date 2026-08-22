@@ -42,6 +42,10 @@ from readme_agent.readme.diagram_role_semantics import (
     normalize_diagram_role_nodes,
     validate_diagram_role_fact_semantics,
 )
+from readme_agent.readme.diagram_semantic_candidates import (
+    input_node_candidates,
+    output_node_candidates,
+)
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.readme.document_templates import document_template_hash
 from readme_agent.readme.document_validation import validate_readme_document_candidate
@@ -124,6 +128,39 @@ def _first_text(value: object) -> str:
 def _canonical_hash(value: object) -> str:
     payload = json.dumps(value, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(payload).hexdigest()
+
+
+def test_explicit_format_roles_override_broader_import_export_capability() -> None:
+    facts, _revision = _facts()
+    replacements = {
+        "product.formats": [
+            "Input format: OBJ",
+            "Input format: GLTF",
+            "Output format: GLTF",
+            "Input format: STL",
+            "Output format: STL",
+            "Input format: 3MF",
+            "Output format: 3MF",
+        ],
+        "product.capabilities": ["File format import and export for OBJ, GLTF, STL, and 3MF"],
+    }
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": replacements[fact.field]})
+                if fact.field in replacements
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    input_labels = {node.label for node in input_node_candidates(facts)}
+    output_labels = {node.label for node in output_node_candidates(facts)}
+
+    assert "OBJ files" in input_labels
+    assert "OBJ files" not in output_labels
+    assert {"GLTF files", "STL files", "3MF files"} <= output_labels
 
 
 def test_offline_knowledge_qualification_plan_does_not_require_a_finished_source_shell():
