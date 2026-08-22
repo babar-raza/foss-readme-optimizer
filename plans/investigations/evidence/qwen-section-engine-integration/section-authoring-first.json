@@ -22,7 +22,7 @@
         "units": [
           {
             "heading": "Create 3D primitives and animations in Python",
-            "text": "Aspose.3D FOSS for Python provides developers using Python with tools to create and manipulate 3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum. It also includes an Animation system with keyframe support for building dynamic 3D content.",
+            "text": "Aspose.3D FOSS for Python provides developers using Python with native support for constructing common 3D primitives—including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum—and for building animations with keyframe support.",
             "fact_ids": [
               "product.identity:manifest-and-registry",
               "product.audience:platform-derived",
@@ -38,8 +38,8 @@
         "prompt_id": "section_cluster_authoring",
         "prompt_sha256": "00d30743666052e8201f48a97f166a9cb5ba2f858eb16b00b814978c711ed393",
         "packet_hash": "7e1bbfce06c9bbfba6a98e79c04e11f0ddbf9bb331291105300917866d4d4312",
-        "raw_output_sha256": "810f0eb4c7956f1b27128ce6c9d6b1d1c1c1b69c37001cfc43a49a4c69f1e600",
-        "provider_request_id": "chatcmpl-ab244523b06d7600",
+        "raw_output_sha256": "e992d1969b73310f5369ab9c408e125bd3525a93db787d3806d1349a34e4d4c8",
+        "provider_request_id": "chatcmpl-a5304bde6428042e",
         "provider_model": "qwen3-next",
         "semantic_retry_used": false,
         "logical_call_count": 1,
@@ -48,11 +48,11 @@
         "token_usage": [
           {
             "prompt_tokens": 1596,
-            "completion_tokens": 122
+            "completion_tokens": 112
           }
         ],
         "latency_ms": [
-          4458.999700000277
+          3025.6186000005982
         ]
       },
       "reused_from_cache": false
@@ -70,8 +70,8 @@
             ]
           },
           {
-            "heading": "Define animated scenes",
-            "text": "The product supports animation with keyframe support, allowing users to define time-based transformations and motion paths for 3D objects.",
+            "heading": "Define animations with keyframes",
+            "text": "The product includes an Animation system with keyframe support, allowing users to define animated sequences by specifying key poses over time.",
             "fact_ids": [
               "product.capabilities:repository-evidence"
             ]
@@ -84,8 +84,8 @@
         "prompt_id": "section_cluster_authoring",
         "prompt_sha256": "00d30743666052e8201f48a97f166a9cb5ba2f858eb16b00b814978c711ed393",
         "packet_hash": "e21bbec41adbcfb301a4e98d196ab80f69dec9a0ba8f946bd3d9a38da0d3dfe7",
-        "raw_output_sha256": "8cbb43f06777e5d7d6c33379a9f81d2b488f0504697582bb2c7f328ad7ce3afa",
-        "provider_request_id": "chatcmpl-8cef834b249af699",
+        "raw_output_sha256": "a19866c77f3dc576e6a39d7302ee4061543dde9a3a7f0a703a20bf4462c68f07",
+        "provider_request_id": "chatcmpl-8382acf6764a2ae4",
         "provider_model": "qwen3-next",
         "semantic_retry_used": false,
         "logical_call_count": 1,
@@ -94,11 +94,11 @@
         "token_usage": [
           {
             "prompt_tokens": 1446,
-            "completion_tokens": 135
+            "completion_tokens": 136
           }
         ],
         "latency_ms": [
-          4385.10099999985
+          3295.60230000061
         ]
       },
       "reused_from_cache": false
@@ -110,7 +110,7 @@
         "units": [
           {
             "heading": "Acquire Aspose.3D FOSS for Python from source",
-            "text": "Aspose.3D FOSS for Python is acquired by building from source. The package is compatible with Python runtimes, supporting the minimum required runtime version for Python.",
+            "text": "Aspose.3D FOSS for Python is acquired by building from source. The package is compatible with Python runtimes, and the minimum supported runtime version is defined by the project.",
             "fact_ids": [
               "installation.verified_acquisition:disposable-source-build",
               "product.compatibility:isolated-generated-python-metadata"
@@ -124,8 +124,8 @@
         "prompt_id": "section_cluster_authoring",
         "prompt_sha256": "00d30743666052e8201f48a97f166a9cb5ba2f858eb16b00b814978c711ed393",
         "packet_hash": "1619cba94753a0331f2818070538ca05b0ab29c3b8779911161a76df730e8610",
-        "raw_output_sha256": "8bdc6115d7a9399d0651f42eed039f260cd5c192707fa4cc1c4fecebf714bf3e",
-        "provider_request_id": "chatcmpl-8d73eccbda1bb913",
+        "raw_output_sha256": "a405bbb03c9952a0869b9850d3ca2677d5b056fcf4bc7d18b471117fb2640a91",
+        "provider_request_id": "chatcmpl-9de316b420640c8a",
         "provider_model": "qwen3-next",
         "semantic_retry_used": false,
         "logical_call_count": 1,
@@ -134,11 +134,11 @@
         "token_usage": [
           {
             "prompt_tokens": 1447,
-            "completion_tokens": 91
+            "completion_tokens": 94
           }
         ],
         "latency_ms": [
-          2771.409600001789
+          2607.0542999987083
         ]
       },
       "reused_from_cache": false
@@ -164,7 +164,7 @@
         "prompt_sha256": "00d30743666052e8201f48a97f166a9cb5ba2f858eb16b00b814978c711ed393",
         "packet_hash": "848af596ce18650851d9cefade34cd7c8c8041c7519b5ce0a5253b991b55fce7",
         "raw_output_sha256": "f01d7ceec76dac8476ff4724d43b2dc4128f549985de47d7700c87f395a5250b",
-        "provider_request_id": "chatcmpl-bad4de73e80025c3",
+        "provider_request_id": "chatcmpl-b80db252ed5a404e",
         "provider_model": "qwen3-next",
         "semantic_retry_used": false,
         "logical_call_count": 1,
@@ -177,7 +177,7 @@
           }
         ],
         "latency_ms": [
-          2921.3861000025645
+          2917.646199999581
         ]
       },
       "reused_from_cache": false
@@ -202,8 +202,8 @@
             ]
           },
           {
-            "heading": "Render scenes without output generation",
-            "text": "The rendering API is present but does not produce rendered output; Scene.render and Renderer.execute are not implemented.",
+            "heading": "Render scenes or configure renderers",
+            "text": "Scene rendering and Renderer configuration are not implemented; output generation through the rendering pipeline is unavailable.",
             "fact_ids": [
               "product.limitations:source-guidance"
             ]
@@ -216,28 +216,28 @@
         "prompt_id": "section_cluster_authoring",
         "prompt_sha256": "00d30743666052e8201f48a97f166a9cb5ba2f858eb16b00b814978c711ed393",
         "packet_hash": "5fc63c5e28c026b47c97e414f4737d44e36da35aa4f344df7c069075e5da78da",
-        "raw_output_sha256": "3a74432bc9523ccae8060830cec2858f06502fa98cbc1047ec7cdbcd13609924",
-        "provider_request_id": "chatcmpl-bdb7fbaa9d2010f6",
+        "raw_output_sha256": "b3b0ef5b59c24929b1d247181642e7bd3c4425b21efac2754fcd249a02e337c7",
+        "provider_request_id": "chatcmpl-9aa264ccfd71ad2f",
         "provider_model": "qwen3-next",
         "semantic_retry_used": true,
         "logical_call_count": 2,
         "deterministically_rejected_unit_sha256": [
-          "2630a7c3361ef0770ff81ffbab89f38e256107f0270b5839d01cd34777298301"
+          "d8c47c5df5e136e4d0d8b920de27775d0f6e52a1b00e226f07e8f850fb6948f4"
         ],
         "deterministically_omitted_fact_ids": [],
         "token_usage": [
           {
             "prompt_tokens": 6202,
-            "completion_tokens": 307
+            "completion_tokens": 300
           },
           {
             "prompt_tokens": 6262,
-            "completion_tokens": 274
+            "completion_tokens": 264
           }
         ],
         "latency_ms": [
-          7546.0844000008365,
-          8988.168400002905
+          8060.006100000464,
+          6301.4664000002085
         ]
       },
       "reused_from_cache": false

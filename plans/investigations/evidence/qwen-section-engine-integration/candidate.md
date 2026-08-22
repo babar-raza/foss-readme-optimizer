@@ -4,7 +4,7 @@
 
 ![Aspose.3D FOSS for Python](https://products.aspose.org/media/3d/python/banner-readme.png)
 
-Aspose.3D FOSS for Python provides developers using Python with tools to create and manipulate 3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum. It also includes an Animation system with keyframe support for building dynamic 3D content.
+Aspose.3D FOSS for Python provides developers using Python with native support for constructing common 3D primitives—including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum—and for building animations with keyframe support.
 
 ## Navigation
 
@@ -66,11 +66,11 @@ flowchart LR
 ## Key Capabilities
 
 - **Create 3D primitives** - Aspose.3D FOSS for Python enables creation of standard 3D primitives such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum.
-- **Define animated scenes** - The product supports animation with keyframe support, allowing users to define time-based transformations and motion paths for 3D objects.
+- **Define animations with keyframes** - The product includes an Animation system with keyframe support, allowing users to define animated sequences by specifying key poses over time.
 
 ## Installation
 
-Aspose.3D FOSS for Python is acquired by building from source. The package is compatible with Python runtimes, supporting the minimum required runtime version for Python.
+Aspose.3D FOSS for Python is acquired by building from source. The package is compatible with Python runtimes, and the minimum supported runtime version is defined by the project.
 
 Install the package directly from its source repository:
 
@@ -1477,7 +1477,7 @@ Aspose.3D FOSS for Python allows mesh creation and manipulation, but does not su
 
 NURBS curve and surface entities can be declared, but evaluating points on a NURBS curve or converting a NURBS surface to a mesh is not implemented.
 
-The rendering API is present but does not produce rendered output; Scene.render and Renderer.execute are not implemented.
+Scene rendering and Renderer configuration are not implemented; output generation through the rendering pipeline is unavailable.
 
 The library targets the workflows listed above. Five specific constraints are listed below.
 
