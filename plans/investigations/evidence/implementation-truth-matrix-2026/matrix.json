@@ -1,112 +1,8 @@
 {
   "generated_by": "plans/investigations/tools/traceability_matrix.py",
   "requirements_source": "plans/requirements/catalog.jsonl",
-  "total_implemented_rows_checked": 166,
-  "rows_with_high_confidence_findings": [
-    {
-      "id": "KNOW-001",
-      "line": 476,
-      "catalog_line": 476,
-      "priority": "P1",
-      "cited_paths": [],
-      "cited_paths_existing": [],
-      "cited_paths_missing": [],
-      "cited_test_paths": [],
-      "concrete_test_nodes": [],
-      "invalid_test_nodes": [],
-      "evidence_artifacts": [],
-      "has_live_evidence_language": false,
-      "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ],
-      "informational_findings": [
-        "no backtick-quoted path and no live-proof language found at all"
-      ]
-    },
-    {
-      "id": "KNOW-002",
-      "line": 477,
-      "catalog_line": 477,
-      "priority": "P1",
-      "cited_paths": [],
-      "cited_paths_existing": [],
-      "cited_paths_missing": [],
-      "cited_test_paths": [],
-      "concrete_test_nodes": [],
-      "invalid_test_nodes": [],
-      "evidence_artifacts": [],
-      "has_live_evidence_language": false,
-      "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ],
-      "informational_findings": [
-        "no backtick-quoted path and no live-proof language found at all"
-      ]
-    },
-    {
-      "id": "KNOW-003",
-      "line": 478,
-      "catalog_line": 478,
-      "priority": "P1",
-      "cited_paths": [],
-      "cited_paths_existing": [],
-      "cited_paths_missing": [],
-      "cited_test_paths": [],
-      "concrete_test_nodes": [],
-      "invalid_test_nodes": [],
-      "evidence_artifacts": [],
-      "has_live_evidence_language": false,
-      "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ],
-      "informational_findings": [
-        "no backtick-quoted path and no live-proof language found at all"
-      ]
-    },
-    {
-      "id": "KNOW-005",
-      "line": 480,
-      "catalog_line": 480,
-      "priority": "P1",
-      "cited_paths": [],
-      "cited_paths_existing": [],
-      "cited_paths_missing": [],
-      "cited_test_paths": [],
-      "concrete_test_nodes": [],
-      "invalid_test_nodes": [],
-      "evidence_artifacts": [],
-      "has_live_evidence_language": false,
-      "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ],
-      "informational_findings": [
-        "no backtick-quoted path and no live-proof language found at all"
-      ]
-    },
-    {
-      "id": "KNOW-012",
-      "line": 487,
-      "catalog_line": 487,
-      "priority": "P1",
-      "cited_paths": [],
-      "cited_paths_existing": [],
-      "cited_paths_missing": [],
-      "cited_test_paths": [],
-      "concrete_test_nodes": [],
-      "invalid_test_nodes": [],
-      "evidence_artifacts": [],
-      "has_live_evidence_language": true,
-      "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ],
-      "informational_findings": []
-    }
-  ],
+  "total_implemented_rows_checked": 167,
+  "rows_with_high_confidence_findings": [],
   "rows_with_informational_findings_only": [
     {
       "id": "GOV-021",
@@ -2862,6 +2758,76 @@
       ]
     },
     {
+      "id": "KNOW-004",
+      "line": 479,
+      "catalog_line": 479,
+      "priority": "P1",
+      "cited_paths": [
+        "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json"
+      ],
+      "cited_paths_existing": [
+        "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json",
+          "bytes": 2535,
+          "sha256": "e8c0207a6a9e3eb636fc4ed252affccc88b27ba0d513c9a375cb3f5c9fca9680",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
+      "id": "KNOW-005",
+      "line": 480,
+      "catalog_line": 480,
+      "priority": "P1",
+      "cited_paths": [
+        "data/imported/aspose_org_check_battery_manifest.json",
+        "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/checkpoint.json",
+        "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json"
+      ],
+      "cited_paths_existing": [
+        "data/imported/aspose_org_check_battery_manifest.json",
+        "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/checkpoint.json",
+        "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/checkpoint.json",
+          "bytes": 2100,
+          "sha256": "1f5e34be827568eb22d61c50e12d56092ae5d30bf2895b12c4caf672870cbb7e",
+          "json_valid": true
+        },
+        {
+          "path": "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json",
+          "bytes": 2535,
+          "sha256": "e8c0207a6a9e3eb636fc4ed252affccc88b27ba0d513c9a375cb3f5c9fca9680",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
+      "informational_findings": [
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
+      ]
+    },
+    {
       "id": "KNOW-006",
       "line": 481,
       "catalog_line": 481,
@@ -2949,7 +2915,11 @@
     "L8-027",
     "L8-028",
     "L8-033",
-    "L8-037"
+    "KNOW-001",
+    "KNOW-002",
+    "KNOW-003",
+    "KNOW-012",
+    "KNOW-013"
   ],
   "all_rows": [
     {
@@ -7423,40 +7393,6 @@
       ]
     },
     {
-      "id": "L8-037",
-      "line": 711,
-      "catalog_line": 457,
-      "priority": "P0",
-      "cited_paths": [
-        "tests/integration/test_readonly_intake_portfolio.py",
-        "plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1/verification.json"
-      ],
-      "cited_paths_existing": [
-        "tests/integration/test_readonly_intake_portfolio.py",
-        "plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1/verification.json"
-      ],
-      "cited_paths_missing": [],
-      "cited_test_paths": [
-        "tests/integration/test_readonly_intake_portfolio.py"
-      ],
-      "concrete_test_nodes": [
-        "tests/integration/test_readonly_intake_portfolio.py::test_public_supervisor_admits_unseen_repository_and_runs_exactly_one_intake"
-      ],
-      "invalid_test_nodes": [],
-      "evidence_artifacts": [
-        {
-          "path": "plans/investigations/evidence/level8-intake-02-readonly-preflight-enrollment-v1/verification.json",
-          "bytes": 1460,
-          "sha256": "ce3b5f816bc76e1a82e560ed489c229aee6d6a77c3baf81a76708ffe834f44ff",
-          "json_valid": true
-        }
-      ],
-      "has_live_evidence_language": false,
-      "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [],
-      "informational_findings": []
-    },
-    {
       "id": "L8-047",
       "line": 722,
       "catalog_line": 467,
@@ -7641,62 +7577,109 @@
       "line": 476,
       "catalog_line": 476,
       "priority": "P1",
-      "cited_paths": [],
-      "cited_paths_existing": [],
+      "cited_paths": [
+        "tests/unit/test_aspose_knowledge_claims.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_aspose_knowledge_claims.py"
+      ],
       "cited_paths_missing": [],
-      "cited_test_paths": [],
-      "concrete_test_nodes": [],
+      "cited_test_paths": [
+        "tests/unit/test_aspose_knowledge_claims.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_aspose_knowledge_claims.py::test_load_knowledge_claims_real_corpus_returns_typed_claims",
+        "tests/unit/test_aspose_knowledge_claims.py::test_load_knowledge_claims_covers_every_documented_kind_somewhere_in_the_corpus"
+      ],
       "invalid_test_nodes": [],
       "evidence_artifacts": [],
       "has_live_evidence_language": false,
       "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ],
-      "informational_findings": [
-        "no backtick-quoted path and no live-proof language found at all"
-      ]
+      "high_confidence_findings": [],
+      "informational_findings": []
     },
     {
       "id": "KNOW-002",
       "line": 477,
       "catalog_line": 477,
       "priority": "P1",
-      "cited_paths": [],
-      "cited_paths_existing": [],
+      "cited_paths": [
+        "tests/unit/test_aspose_knowledge_selection.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_aspose_knowledge_selection.py"
+      ],
       "cited_paths_missing": [],
-      "cited_test_paths": [],
-      "concrete_test_nodes": [],
+      "cited_test_paths": [
+        "tests/unit/test_aspose_knowledge_selection.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_aspose_knowledge_selection.py::test_select_knowledge_claims_bounded_selection_never_exceeds_cap",
+        "tests/unit/test_aspose_knowledge_selection.py::test_select_knowledge_claims_readme_overlap_frees_cap_slot_for_new_information",
+        "tests/unit/test_aspose_knowledge_selection.py::test_select_knowledge_claims_search_intent_keyword_outranks_equal_confidence_claim"
+      ],
       "invalid_test_nodes": [],
       "evidence_artifacts": [],
       "has_live_evidence_language": false,
       "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ],
-      "informational_findings": [
-        "no backtick-quoted path and no live-proof language found at all"
-      ]
+      "high_confidence_findings": [],
+      "informational_findings": []
     },
     {
       "id": "KNOW-003",
       "line": 478,
       "catalog_line": 478,
       "priority": "P1",
-      "cited_paths": [],
-      "cited_paths_existing": [],
+      "cited_paths": [
+        "tests/unit/test_aspose_knowledge_selection.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_aspose_knowledge_selection.py"
+      ],
       "cited_paths_missing": [],
-      "cited_test_paths": [],
-      "concrete_test_nodes": [],
+      "cited_test_paths": [
+        "tests/unit/test_aspose_knowledge_selection.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_aspose_knowledge_selection.py::test_select_knowledge_claims_uncorroborated_stale_claims_are_never_output_eligible",
+        "tests/unit/test_aspose_knowledge_selection.py::test_select_knowledge_claims_current_repo_evidence_wins_on_real_license_conflict",
+        "tests/unit/test_aspose_knowledge_selection.py::test_select_knowledge_claims_fbx_positive_claim_conflicts_with_stub_implementation"
+      ],
       "invalid_test_nodes": [],
       "evidence_artifacts": [],
       "has_live_evidence_language": false,
       "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "KNOW-004",
+      "line": 479,
+      "catalog_line": 479,
+      "priority": "P1",
+      "cited_paths": [
+        "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json"
       ],
+      "cited_paths_existing": [
+        "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json",
+          "bytes": 2535,
+          "sha256": "e8c0207a6a9e3eb636fc4ed252affccc88b27ba0d513c9a375cb3f5c9fca9680",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
       "informational_findings": [
-        "no backtick-quoted path and no live-proof language found at all"
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
       ]
     },
     {
@@ -7704,20 +7687,39 @@
       "line": 480,
       "catalog_line": 480,
       "priority": "P1",
-      "cited_paths": [],
-      "cited_paths_existing": [],
+      "cited_paths": [
+        "data/imported/aspose_org_check_battery_manifest.json",
+        "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/checkpoint.json",
+        "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json"
+      ],
+      "cited_paths_existing": [
+        "data/imported/aspose_org_check_battery_manifest.json",
+        "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/checkpoint.json",
+        "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json"
+      ],
       "cited_paths_missing": [],
       "cited_test_paths": [],
       "concrete_test_nodes": [],
       "invalid_test_nodes": [],
-      "evidence_artifacts": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/checkpoint.json",
+          "bytes": 2100,
+          "sha256": "1f5e34be827568eb22d61c50e12d56092ae5d30bf2895b12c4caf672870cbb7e",
+          "json_valid": true
+        },
+        {
+          "path": "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json",
+          "bytes": 2535,
+          "sha256": "e8c0207a6a9e3eb636fc4ed252affccc88b27ba0d513c9a375cb3f5c9fca9680",
+          "json_valid": true
+        }
+      ],
       "has_live_evidence_language": false,
       "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ],
+      "high_confidence_findings": [],
       "informational_findings": [
-        "no backtick-quoted path and no live-proof language found at all"
+        "cites zero tests/ paths as evidence (may predate this project's later per-row citation convention -- not necessarily a real gap)"
       ]
     },
     {
@@ -7745,18 +7747,60 @@
       "line": 487,
       "catalog_line": 487,
       "priority": "P1",
-      "cited_paths": [],
-      "cited_paths_existing": [],
+      "cited_paths": [
+        "tests/unit/test_aspose_checks_registry.py",
+        "tests/unit/test_readme_existing_section_regressions.py"
+      ],
+      "cited_paths_existing": [
+        "tests/unit/test_aspose_checks_registry.py",
+        "tests/unit/test_readme_existing_section_regressions.py"
+      ],
       "cited_paths_missing": [],
-      "cited_test_paths": [],
-      "concrete_test_nodes": [],
+      "cited_test_paths": [
+        "tests/unit/test_aspose_checks_registry.py",
+        "tests/unit/test_readme_existing_section_regressions.py"
+      ],
+      "concrete_test_nodes": [
+        "tests/unit/test_aspose_checks_registry.py::test_check_no_excluded_domain_links_real_invocation_flags_forum_link",
+        "tests/unit/test_readme_existing_section_regressions.py::test_real_net_partial_sections_preserve_maintainer_content_without_fact_duplication"
+      ],
       "invalid_test_nodes": [],
       "evidence_artifacts": [],
       "has_live_evidence_language": true,
       "acceptance_evidence_contradicts_status": false,
-      "high_confidence_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
+      "high_confidence_findings": [],
+      "informational_findings": []
+    },
+    {
+      "id": "KNOW-013",
+      "line": 488,
+      "catalog_line": 488,
+      "priority": "P1",
+      "cited_paths": [
+        "tests/unit/test_knowledge_claim_presentation.py",
+        "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json"
       ],
+      "cited_paths_existing": [
+        "tests/unit/test_knowledge_claim_presentation.py",
+        "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json"
+      ],
+      "cited_paths_missing": [],
+      "cited_test_paths": [
+        "tests/unit/test_knowledge_claim_presentation.py"
+      ],
+      "concrete_test_nodes": [],
+      "invalid_test_nodes": [],
+      "evidence_artifacts": [
+        {
+          "path": "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json",
+          "bytes": 2535,
+          "sha256": "e8c0207a6a9e3eb636fc4ed252affccc88b27ba0d513c9a375cb3f5c9fca9680",
+          "json_valid": true
+        }
+      ],
+      "has_live_evidence_language": false,
+      "acceptance_evidence_contradicts_status": false,
+      "high_confidence_findings": [],
       "informational_findings": []
     }
   ]

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "purpose": "zero-provider knowledge and acceptance diagnostic; not Gate A",
+  "registry_denominator": 33,
+  "processable": 31,
+  "typed_non_processable": 2,
+  "knowledge": {
+    "generator_sha256": "64ee245547d30396810e716b0cb73e0ced75c1bc7bb2f70e43bf8ef7f28c366e",
+    "current_bundles": 31,
+    "total_claims": 72982,
+    "selected_claims": 407,
+    "selection_failures": 0,
+    "selection_receipt": "runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-selection/receipt.json",
+    "selection_receipt_sha256": "9dcd2db9a5a564089f318bf812218db0ae1f892c03618d5222da47092186f070"
+  },
+  "facts_ready": {
+    "processable_ready": 26,
+    "external_fact_blocks": 5,
+    "agent_fixable_failures": 0,
+    "provider_calls": 0,
+    "effects": 0
+  },
+  "qualification": {
+    "candidate_generated": 12,
+    "hard_gate_qualified": 2,
+    "status_counts": {
+      "non_processable_no_implementation": 2,
+      "plan_unavailable": 7,
+      "qualified": 2,
+      "render_failed": 12,
+      "validation_rejected": 10
+    },
+    "provider_calls": 0,
+    "effects": 0,
+    "qualified_repositories": [
+      "aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+      "aspose-html-foss/Aspose.HTML-FOSS-for-Python"
+    ],
+    "summary": "runs/knowledge-qualification-current/portfolio-summary.json",
+    "summary_sha256": "c81c3238ee242a7c9ec51aeb8d4086d62a07ac5105423afbdf13c63c01f594ce",
+    "inventory": "runs/knowledge-qualification-current/sha256sums.txt",
+    "inventory_sha256": "77c9f1ed7fff83b0d6befa319d84f56a66c524fb8a9d96d6404e1928d27edbf6"
+  },
+  "aspose_3d_python": {
+    "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+    "candidate_sha256": "4542d6141a46ecba8d15f08131acad079917203599be3d37e3eef9fc26cc6aa7",
+    "knowledge_considered": 2243,
+    "knowledge_selected": 26,
+    "knowledge_rendered": 15,
+    "knowledge_omitted": 9,
+    "check_count": 103,
+    "knowledge_application": "runs/knowledge-qualification-current/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/validation/knowledge-application.json",
+    "knowledge_application_sha256": "d37b7cee7e5e1317b963d7754e589cdf6f7a0880f6e0fca3535930913d61d4f2"
+  },
+  "limitations": [
+    "The deterministic diagnostic does not perform normal LLM authoring.",
+    "Only two candidates pass the hard gates; twenty-nine processable outcomes remain downstream work or fact-blocked.",
+    "This evidence does not prove independent review, immediate no-op, Gate A, human acceptance, or publication."
+  ]
+}

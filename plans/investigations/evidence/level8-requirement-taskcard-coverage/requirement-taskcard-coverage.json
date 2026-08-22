@@ -4,20 +4,19 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements/catalog.jsonl",
-  "source_sha256": "53b0d7624d45ea3700758491fdd3fd0482af67c074f7895a5317dec0fdd37932",
+  "source_sha256": "9ce4b9e4c2c5500bafaae88c002d3616956669147fce2da51fe879c5ffc2a681",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
   "total_requirement_rows": 489,
   "mandatory_requirement_rows": 433,
   "excluded_backlog_rows": 33,
   "excluded_deprecated_rows": 23,
-  "reopened_implemented_rows": 4,
+  "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 35,
     "excluded_backlog": 33,
     "excluded_deprecated": 23,
-    "open_mandatory": 234,
-    "preserved_verified": 160,
-    "reopened_semantic_evidence_gap": 4
+    "open_mandatory": 231,
+    "preserved_verified": 167
   },
   "taskcard_counts": {
     "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": 3,
@@ -3886,48 +3885,40 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "KNOW-002",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "KNOW-003",
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "KNOW-004",
       "priority": "P1",
-      "requirement_status": "PARTIAL",
+      "requirement_status": "IMPLEMENTED",
       "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
-      "disposition": "open_mandatory",
+      "disposition": "preserved_verified",
       "semantic_findings": []
     },
     {
       "requirement_id": "KNOW-005",
       "priority": "P1",
-      "requirement_status": "PARTIAL",
+      "requirement_status": "IMPLEMENTED",
       "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
-      "disposition": "open_mandatory",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "KNOW-006",
@@ -3982,17 +3973,15 @@
       "priority": "P1",
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
-      "disposition": "reopened_semantic_evidence_gap",
-      "semantic_findings": [
-        "P1 closure cites neither a concrete pytest node nor a committed evidence artifact"
-      ]
+      "disposition": "preserved_verified",
+      "semantic_findings": []
     },
     {
       "requirement_id": "KNOW-013",
       "priority": "P1",
-      "requirement_status": "PARTIAL",
+      "requirement_status": "IMPLEMENTED",
       "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
-      "disposition": "open_mandatory",
+      "disposition": "preserved_verified",
       "semantic_findings": []
     },
     {

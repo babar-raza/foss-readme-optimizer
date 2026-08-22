@@ -1,38 +1,55 @@
-# Portfolio Knowledge Foundation Checkpoint
+# Portfolio Knowledge Acceptance Checkpoint
 
 ## Verdict
 
-`KNOWLEDGE_FOUNDATION_READY_FOR_CANDIDATE_DISCUSSION`
+`KNOWLEDGE_ACCEPTANCE_READY_FOR_INDEPENDENT_CLOSEOUT`
 
-This is a knowledge and `FACTS_READY` checkpoint, not completion of
-`L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY`, not a README candidate, and not Gate A. The task remains
-active because final knowledge-to-output lineage, the five configured byte-changing consumers,
-post-render dispositions, independent candidate review, and full-registry no-op proof belong to the
-next execution boundary.
+This is the final coordinator checkpoint for
+`L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY`. It proves the knowledge-generation,
+selection, application, and acceptance boundary. It does **not** claim Gate A,
+portfolio README acceptance, independent 30-point review, or no-op proof.
 
-## Verified Boundary
+## Verified Knowledge Boundary
 
-- The generator is locally self-contained and bound to committed Aspose.org source commit
-  `92f213302a15797bc0bce1b8f34e45f11db02acc` through a content-addressed manifest.
-- Every current registry entry is accounted for: 31 processable repositories have current-revision
-  knowledge bundles, two source-empty PSD repositories have typed
-  `NON_PROCESSABLE_NO_IMPLEMENTATION` dispositions, and generation has zero failures.
-- The refreshed corpus contains 72,956 current claims. Every claim has one deterministic selection
-  disposition; 449 repository-corroborated claims were selected and 72,507 were rejected with a
-  typed reason.
-- Imported weak 24-bit identifiers are replaced locally with deterministic semantic identifiers
-  using a 16-hex suffix. The change was required by six observed Java/.NET collisions; all refreshed
-  claim identifiers are unique after adaptation.
-- The current Aspose.org check battery contains 103 derived checks. Fourteen are independently
-  classified as blocking; the remaining checks remain visible without silently blocking local
-  acceptance.
-- The current Aspose.org generated README corpus is frozen as a development benchmark only. Its
-  receipt records stale/incomplete members, so it has no factual, runtime, or acceptance authority.
-- A canonical bounded `local_poc` execution for Aspose.3D FOSS for Python reached exactly
-  `FACTS_READY` at source revision `ee05c1ba9153ef5916b7a108406c794f2e464d01`, made zero provider
-  calls, executed no later capability, and wrote no product effect.
-- The supported complete non-live test runner passed 4,657 tests with one skip, zero failures, zero
-  leaked processes, and no tree change during the run.
+- The generator is self-contained in this repository and content-addressed to committed Aspose.org
+  source commit `92f213302a15797bc0bce1b8f34e45f11db02acc`. Deployed knowledge generation
+  has no runtime dependency on the sibling Aspose.org checkout.
+- The frozen registry revision accounts for 33 entries: 31 processable repositories have
+  current-revision knowledge bundles and two source-empty PSD repositories have typed
+  `NON_PROCESSABLE_NO_IMPLEMENTATION` dispositions. Generation and selection have zero failures.
+- The current corpus has 72,982 uniquely identified claims. Every claim received one deterministic
+  disposition: 407 were selected and 72,575 were rejected with typed reasons.
+- The local check battery inventories all 103 committed-source Aspose.org checks. Fourteen locally
+  qualified checks are blocking; every other check remains visible with an explicit non-blocking
+  disposition. The local battery and acceptance path operate with Aspose.org unavailable.
+- Selected feature, format-support, installation, limitation, and troubleshooting knowledge now has
+  bounded byte-changing consumers and positive/negative mutation controls. Real Aspose.3D Python
+  qualification renders accepted format and limitation claims with exact spans and typed omissions.
+- The latest portfolio `FACTS_READY` sweep processed all 33 entries with zero LLM calls and zero
+  effects. It reached `FACTS_READY` for 26 of 31 processable repositories, retained two PSD
+  dispositions, and classified five source/package/example failures as narrow `infra_external`
+  fact blocks. There were zero agent-fixable or unclassified failures.
+- A zero-provider deterministic portfolio qualification produced 12 candidates. Aspose.3D Python
+  and Aspose.HTML Python passed the complete current 103-check contract; the remaining outcomes are
+  seven plan-unavailable, twelve render-failed, and ten validation-rejected. Those are precise
+  downstream authoring/acceptance queues, not evidence that the knowledge corpus is stale.
+- The supported complete non-live runner passed 4,744 tests with one skip and zero failures on clean
+  implementation commit `9562b71dd7b7fa70de2e79bd26257349a5124eb3`. It recorded no leaked
+  processes and no tree change during the run.
+
+## Diagnostic Portfolio Result
+
+The manual/deterministic qualification was deliberately run without the live professionalization
+provider. It answers two questions without pretending to replace the normal agentic authoring path:
+
+1. Current knowledge is sufficient to produce a complete, hard-gate-passing candidate for at least
+   two real repositories, including the required weak-input Aspose.3D Python canary.
+2. The next failures are now localized to fact-dependent plans, template composition, preservation,
+   and candidate validation. They must be repaired by the subsequent README transaction tasks; they
+   must not reopen knowledge freshness unless new evidence shows a knowledge-specific defect.
+
+The diagnostic result is `12/31` candidates and `2/31` hard-gate-qualified. It is **not** Gate A,
+agent approval, human acceptance, or publication authorization.
 
 ## Evidence Map
 
@@ -41,30 +58,31 @@ next execution boundary.
 | Python refresh: 12 current + one PSD disposition | `runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-refresh-python/receipt.json` |
 | .NET/Java refresh: 10 current + one PSD disposition | `runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-refresh-net-java/receipt.json` |
 | C++/Go/Rust/TypeScript refresh: nine current | `runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-refresh-other/receipt.json` |
-| All-portfolio claim disposition | `runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-selection/receipt.json` |
-| Development benchmark freeze and limitations | `runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/benchmark-snapshot/receipt.json` |
-| Canonical facts-only canary | `runs/evidence/20260821-072532-97b7/aspose-3d-foss__Aspose.3D-FOSS-for-Python/manifest.json` |
-| Complete non-live test receipt | `plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/full-test-receipt.json` |
+| All-portfolio claim dispositions | `runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-selection/receipt.json` |
+| Development-only benchmark freeze and limitations | `runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/benchmark-snapshot/receipt.json` |
+| Current `FACTS_READY` portfolio sweep | `runs/readme-poc/portfolio-summary.json` |
+| Zero-provider qualification summary | `runs/knowledge-qualification-current/portfolio-summary.json` |
+| Durable qualification digest | `plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json` |
+| Real Aspose.3D Python final knowledge dispositions | `runs/knowledge-qualification-current/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/validation/knowledge-application.json` |
+| Complete non-live gate | `runs/verification/pytest-full-latest.json` |
 | Generator provenance | `data/imported/aspose_org_knowledge_generator_manifest.json` |
 | Check-battery provenance | `data/imported/aspose_org_check_battery_manifest.json` |
 | Check classification | `data/aspose_check_classification.json` |
 
-## Explicit Remaining Boundary
+## Exact Next Boundary
 
-The next action, after operator discussion, is to continue the same active mission task and prove
-that the configured feature, format-support, installation, limitation, and troubleshooting
-knowledge families either change useful Aspose.3D Python candidate bytes or receive an exact typed
-absence or omission. That
-candidate transaction must then pass post-render accountability, deterministic validation,
-independent 30-point review, and an immediate full-transaction zero-provider no-op. No candidate
-composition was started during this checkpoint.
+After an independent non-authoring verifier accepts this checkpoint and the durable task is closed,
+stop for operator discussion. The next executable task is the actual Aspose.3D Python README
+transaction (`L8-PF-02`), not more knowledge import. It must use the normal canonical agentic path,
+pass the independent 30-point contract, and prove an immediate full-transaction zero-provider no-op.
 
 ## Reproduction
 
 ```powershell
 .venv/Scripts/python scripts/data-refresh/refresh_repository_knowledge.py --help
 .venv/Scripts/python scripts/data-refresh/audit_repository_knowledge_selection.py --help
-.venv/Scripts/readme-agent supervise --repo aspose-3d-foss/Aspose.3D-FOSS-for-Python --execution-profile local_poc --bounded-verified-canary --mission-task-id L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY --mission-observer codex-root --durable-state --max-readme-poc-stage FACTS_READY
+.venv/Scripts/python scripts/data-refresh/qualify_portfolio_knowledge.py --output-root runs/knowledge-qualification-current
+.venv/Scripts/readme-agent supervise --registry data/products.json --execution-profile local_poc --max-readme-poc-stage FACTS_READY --retry-blocked --portfolio-time-budget-seconds 7200
 .venv/Scripts/python -m ruff check .
 .venv/Scripts/python -m ruff format --check .
 .venv/Scripts/python -m mypy src

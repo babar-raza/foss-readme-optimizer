@@ -12,8 +12,8 @@ The catalog contains **489** requirements:
 - `BACKLOG`: 33
 - `DEPRECATED`: 23
 - `GOVERNANCE`: 35
-- `IMPLEMENTED`: 164
-- `PARTIAL`: 105
+- `IMPLEMENTED`: 167
+- `PARTIAL`: 102
 - `PLANNED`: 123
 - `RESEARCH-GATED`: 6
 
