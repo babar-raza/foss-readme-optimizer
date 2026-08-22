@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION",
+  "verifier": "qwen_verifier",
+  "verifier_authored_implementation": false,
+  "verified_head": "dd379ed6c6bf61878b400ed416c3b0d4d1e1d1d3",
+  "verdict": "PASS",
+  "evidence_checksums_match": true,
+  "qwen3_next_route_is_canonical": true,
+  "first_run_cluster_coverage": "5/5",
+  "unchanged_provider_calls": 0,
+  "selective_clusters_reused": "4/5",
+  "candidate_and_plan_reconstruct": true,
+  "deterministic_validation_errors": 0,
+  "true_contradiction_detection_remains_active": true,
+  "evidence_is_redacted": true,
+  "product_remote_writes": 0,
+  "focused_results": [
+    "200 authoring, candidate-quality, contradiction, and redaction tests passed",
+    "97 push-blocking, allow-list, candidate, and proposal reconstruction tests passed",
+    "15 mission-graph tests passed"
+  ],
+  "limitations": [
+    "PF01A does not establish AGENT_ACCEPTED_30_OF_30; that belongs to the downstream candidate transaction.",
+    "Live transport did not encounter a provider 500; bounded transport recovery remains controlled-test evidence."
+  ]
+}

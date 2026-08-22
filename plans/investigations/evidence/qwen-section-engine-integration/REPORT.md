@@ -11,6 +11,9 @@ Verdict: PASS
 - Candidate: `49741ca80a3ac2d18e6b769319d69b9fd7c847ed0eefab57f12960b40595a138` with 7 exact authored fact-lineage spans.
 - Complete deterministic document validation: True.
 - Independent deterministic reconstruction: True.
+- Independent non-authoring verifier: PASS (200 authoring/quality, 97 safety/reconstruction,
+  and 15 mission-graph tests).
+- Complete non-live suite: 4,904 passed, 1 skipped, zero leaked descendants at `84ef2e9a`.
 - Detailed section documents and 8 redacted provider-call records are checksum-bound in this evidence directory.
 - Product README and baseline git state remained unchanged.
 
