@@ -52,6 +52,7 @@ _EXACT_METHOD_PHRASES = {
     "Save": "saving document output",
     "SetLicense": "configuring package licensing",
     "SetMeteredKey": "configuring metered licensing keys",
+    "SupportsFormat": "checking format support",
     "ToDict": "serializing values to a dictionary",
     "ToPng": "encoding page content as PNG",
 }

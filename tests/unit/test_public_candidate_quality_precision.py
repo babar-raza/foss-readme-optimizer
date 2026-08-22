@@ -144,6 +144,21 @@ If `PyMuPDF` is unavailable but `pdftoppm` is available on `PATH`, the tests fal
     assert "contradiction_capability_symbol" not in _check_ids(report)
 
 
+def test_api_table_limitation_binds_to_member_not_owner_or_inheritance() -> None:
+    candidate = (
+        "# Mesh Toolkit\n\n## API Reference\n\n"
+        "| Type | Member | Description |\n"
+        "| --- | --- | --- |\n"
+        "| `RectangleShape` | `RectangleShape.get_bounding_box` | "
+        "Declares the operation (not yet implemented). Inherited from `Entity`. |\n"
+        "| `Sphere` | `Sphere.parent_node` | Returns the parent node. "
+        "Inherited from `Entity`. |\n"
+    )
+    report = evaluate_public_candidate_quality(candidate)
+
+    assert "contradiction_capability_symbol" not in _check_ids(report)
+
+
 def test_phrase_contradiction_without_shared_discriminator_is_advisory_not_blocking() -> None:
     candidate = """# Mesh Toolkit
 

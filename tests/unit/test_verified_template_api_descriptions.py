@@ -492,3 +492,23 @@ def test_only_proven_implemented_true_uses_capability_phrasing() -> None:
     assert "supports" not in lowered
     assert "converts" not in lowered
     assert "not yet implemented" not in lowered
+
+
+def test_supports_format_uses_a_grammatical_class_summary_phrase() -> None:
+    item = {
+        "bases": [],
+        "members": [
+            {
+                "name": "supports_format",
+                "kind": "method",
+                "declared_by": "Exporter",
+                "inherited": False,
+                "implemented": True,
+            }
+        ],
+    }
+
+    description = describe_api_export(item, module="aspose.threed", name="Exporter", family="3D")
+
+    assert description.endswith("Supports checking format support.")
+    assert "supportsing" not in description

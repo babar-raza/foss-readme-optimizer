@@ -33,6 +33,37 @@ from readme_agent.validation.public_quality_semantic_common import (
 # ---------------------------------------------------------------------------------------------
 
 
+def _symbols_governed_by_cue(line: str, cue: re.Match[str]) -> set[str]:
+    """Return code symbols governed by a polarity cue, not incidental table metadata.
+
+    API-reference rows commonly contain a short owner cell, a full member-signature cell, and a
+    prose cell that can end with an inheritance symbol. Treating every backtick span on the row
+    as the subject makes an unimplemented member look like a contradiction for its owner and base
+    class. For tables, bind the cue to symbols in its own cell or the nearest preceding cell. In
+    ordinary prose, retain all symbols in the clause before the cue.
+    """
+
+    symbols = list(_BACKTICK_SYMBOL.finditer(line))
+    if "|" not in line:
+        return {match.group(1) for match in symbols if match.start() < cue.start()}
+
+    cell_starts = [0]
+    cell_starts.extend(index + 1 for index, character in enumerate(line) if character == "|")
+    cue_cell = sum(start <= cue.start() for start in cell_starts) - 1
+    by_cell: dict[int, set[str]] = {}
+    for match in symbols:
+        if match.start() >= cue.start():
+            continue
+        cell = sum(start <= match.start() for start in cell_starts) - 1
+        by_cell.setdefault(cell, set()).add(match.group(1))
+    if by_cell.get(cue_cell):
+        return by_cell[cue_cell]
+    for cell in range(cue_cell - 1, -1, -1):
+        if by_cell.get(cell):
+            return by_cell[cell]
+    return set()
+
+
 def _check_contradiction_capability_symbol(
     text: str,
     headings: list[Heading],
@@ -42,14 +73,13 @@ def _check_contradiction_capability_symbol(
     positive: dict[str, list[VisibleLine]] = {}
     negative: dict[str, list[VisibleLine]] = {}
     for line in visible_lines(text):
-        symbols = {match.group(1) for match in _BACKTICK_SYMBOL.finditer(line.text)}
-        if not symbols:
-            continue
-        if _NEGATIVE_CUE.search(line.text):
-            for symbol in symbols:
+        negative_cue = _NEGATIVE_CUE.search(line.text)
+        positive_cue = _POSITIVE_CUE.search(line.text)
+        if negative_cue:
+            for symbol in _symbols_governed_by_cue(line.text, negative_cue):
                 negative.setdefault(symbol, []).append(line)
-        elif _POSITIVE_CUE.search(line.text):
-            for symbol in symbols:
+        elif positive_cue:
+            for symbol in _symbols_governed_by_cue(line.text, positive_cue):
                 positive.setdefault(symbol, []).append(line)
     findings: list[PublicQualityFindingV1] = []
     for symbol in sorted(set(positive) & set(negative)):
