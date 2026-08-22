@@ -1,0 +1,9 @@
+{
+  "base_sha": "e731ea56ebb50c6002d7fb5459e02d8b32f0cc71",
+  "base_source": "git ls-remote origin refs/heads/main, captured at task start",
+  "base_matched_primary_checkout_local_head_at_setup": true,
+  "origin_main_advanced_during_task": false,
+  "drift_commit_count": 0,
+  "drift_commits": [],
+  "notes": "The primary checkout's local main HEAD equaled BASE_SHA at isolation setup time, so there was no pre-existing drift to reconcile. No check for later origin/main advancement during the task was re-run at handoff time beyond the initial pin, per the task's own instruction to work against the pinned base rather than rebase onto later upstream changes; if origin/main has since moved, record that drift at merge time, not here."
+}

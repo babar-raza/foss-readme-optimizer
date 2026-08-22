@@ -1,0 +1,51 @@
+{
+  "commit": "79afee7bf51e8e16d88d7e33650da8bcf7f93d24",
+  "branch": "claude/standalone-bounded-review-e731ea56ebb5",
+  "primary_test_suite": {
+    "command": "pytest -q tests/unit/test_bounded_review_packets.py",
+    "collected": 26,
+    "passed": 26,
+    "failed": 0,
+    "notes": "25 items from the task's required-tests list are covered; item 17 (referential gap vs contract violation) was split into two focused test functions (test_referential_gap_is_localized_not_a_crash, test_contract_violation_raises_on_hash_mismatch), and item 23 (dedicated hash-mismatch raise) has both that shared coverage and its own fully separate test_plan_raises_on_mismatched_candidate_facts_plan_triple, for 26 total test functions."
+  },
+  "lint_and_type_checks": {
+    "ruff_check": {
+      "targets": [
+        "src/readme_agent/specialists/bounded_review_packets.py",
+        "tests/unit/test_bounded_review_packets.py"
+      ],
+      "status": "clean"
+    },
+    "ruff_format_check": {
+      "targets": [
+        "src/readme_agent/specialists/bounded_review_packets.py",
+        "tests/unit/test_bounded_review_packets.py"
+      ],
+      "status": "clean"
+    },
+    "mypy": {
+      "target": "src/readme_agent/specialists/bounded_review_packets.py",
+      "status": "clean",
+      "notes": "repo mypy config is files = [\"src\"], not strict mode; test file is not part of the repo's own mypy gate and was not separately mypy-checked."
+    }
+  },
+  "narrow_regression_subset": {
+    "command": "pytest -q tests/unit/test_readme_presentation_lint.py tests/unit/test_section_authoring_document.py",
+    "run_inside_isolated_lane": {
+      "collected": 53,
+      "passed": 40,
+      "failed": 13,
+      "failure_cause": "FileNotFoundError opening plans/investigations/evidence/level8-local-immutable-snapshot-and-facts-corrected-acquisition-2026-07-24/immutable-snapshot-and-product-facts-proof.json -- file is present on disk and git-tracked, but its full path under this isolation lane's nested directory structure is 298 characters, over Windows' classic 260-char MAX_PATH.",
+      "verified_file_present_and_tracked": true,
+      "verified_file_size_bytes": 145201
+    },
+    "diagnostic_run_against_primary_checkout_shorter_path": {
+      "collected": 53,
+      "passed": 53,
+      "failed": 0
+    },
+    "conclusion": "The 13 failures are a Windows long-path artifact of the isolation lane's own directory depth (runs/parallel_staging/bounded-review/<40-char-sha>/repo/...), matching the environment-dependent long-path failure mode AGENTS.md's Testing Conventions section already documents for a different file (test_trusted_transform_review.py). Neither failing test file imports, references, or depends on this module in any way. Not caused by this task's changes -- confirmed by an identical, all-passing run against the primary checkout's shorter path."
+  },
+  "no_live_or_network_verification_run": true,
+  "no_docker_or_act_run": true
+}
