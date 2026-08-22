@@ -122,6 +122,8 @@ def test_current_candidate_manifest_selects_code_prompt_and_template_without_tes
         "src/readme_agent/specialists/bounded_review_evidence.py",
         "src/readme_agent/specialists/bounded_review_packets.py",
         "src/readme_agent/llm/bundle_accounting.py",
+        "src/readme_agent/llm/call_ledger.py",
+        "src/readme_agent/llm/call_schema.py",
         "src/readme_agent/supervisor/candidate_llm_accounting.py",
         "src/readme_agent/supervisor/local_poc_snapshot_evidence.py",
         "src/readme_agent/supervisor/portfolio_scheduler/contracts.py",
@@ -184,6 +186,45 @@ def test_selected_owner_byte_change_alters_candidate_stage_key(tmp_path: Path, m
         if prior != current
     }
     assert changed_groups == {"candidate_orchestration"}
+
+
+@pytest.mark.parametrize(
+    "relative_path",
+    (
+        "src/readme_agent/llm/bundle_accounting.py",
+        "src/readme_agent/llm/call_ledger.py",
+        "src/readme_agent/llm/call_schema.py",
+    ),
+)
+def test_accounting_owner_change_alters_candidate_stage_key(
+    tmp_path: Path, monkeypatch, relative_path: str
+) -> None:
+    for _scope, _stage, relative_paths in stage_dependencies._CANDIDATE_DEPENDENCY_GROUPS.values():
+        for selected_path in relative_paths:
+            path = tmp_path / selected_path
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(f"baseline:{selected_path}\n", encoding="utf-8")
+    monkeypatch.setattr(stage_dependencies, "_REPOSITORY_ROOT", tmp_path)
+
+    before = current_candidate_stage_dependency_manifest(
+        repository="org/repo",
+        source_revision="1" * 40,
+        ecosystem="python",
+    )
+    (tmp_path / relative_path).write_text("changed accounting owner\n", encoding="utf-8")
+    after = current_candidate_stage_dependency_manifest(
+        repository="org/repo",
+        source_revision="1" * 40,
+        ecosystem="python",
+    )
+
+    assert before.stage_key != after.stage_key
+    changed_groups = {
+        current.dependency_id
+        for prior, current in zip(before.dependencies, after.dependencies, strict=True)
+        if prior != current
+    }
+    assert changed_groups == {"stage_bundle_persistence"}
 
 
 def _component_manifest(*, scope: str, digest: str, stage: str = "PLAN_READY"):

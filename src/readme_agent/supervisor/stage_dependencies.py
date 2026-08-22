@@ -204,6 +204,8 @@ _CANDIDATE_DEPENDENCY_GROUPS: dict[
             "src/readme_agent/evidence/redaction.py",
             "src/readme_agent/evidence/writer.py",
             "src/readme_agent/llm/bundle_accounting.py",
+            "src/readme_agent/llm/call_ledger.py",
+            "src/readme_agent/llm/call_schema.py",
             "src/readme_agent/readme/readme_reconciliation.py",
             "src/readme_agent/specialists/bounded_review_accountability.py",
             "src/readme_agent/specialists/bounded_review_contracts.py",
