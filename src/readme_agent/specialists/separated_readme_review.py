@@ -30,6 +30,9 @@ from readme_agent.presentation.visitor_contract import build_presentation_visito
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_structure import parse_headings
+from readme_agent.specialists.bounded_review_contracts import (
+    DEFAULT_BOUNDED_PACKET_BUDGET_CHARS,
+)
 from readme_agent.specialists.bounded_review_execution import execute_bounded_review
 from readme_agent.specialists.bounded_review_packets import (
     build_atomic_units,
@@ -66,7 +69,6 @@ _BLIND_PROMPT_ID = "blind_readme_quality_review"
 _FACTUAL_PROMPT_ID = "factual_readme_plan_review"
 _READ_ONLY_PERMISSIONS: set[PermissionClass] = {"read_only_local", "read_only_network"}
 _BOUNDED_REVIEW_TRIGGER_CHARS = 240_000
-_BOUNDED_PACKET_BUDGET_CHARS = 100_000
 _BOUNDED_REVIEW_MAX_WORKERS = 4
 
 
@@ -222,7 +224,7 @@ def run_separated_readme_review(
             document_plan=document_plan,
             claim_accountability=document_plan.claim_accountability,
             product_facts=facts_model,
-            budget_chars=_BOUNDED_PACKET_BUDGET_CHARS,
+            budget_chars=DEFAULT_BOUNDED_PACKET_BUDGET_CHARS,
             factual_prompt_sha256=prompt_registry.prompt_hash(_FACTUAL_PROMPT_ID),
             visitor_prompt_sha256=prompt_registry.prompt_hash(_BLIND_PROMPT_ID),
             candidate_content_provenance=document_plan.candidate_content_provenance,

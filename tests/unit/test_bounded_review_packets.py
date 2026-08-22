@@ -38,6 +38,9 @@ from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.specialists import bounded_review_packets as brp
 from readme_agent.specialists import separated_readme_review as separated_review
+from readme_agent.specialists.bounded_review_contracts import (
+    DEFAULT_BOUNDED_PACKET_BUDGET_CHARS,
+)
 from readme_agent.specialists.bounded_review_execution import execute_bounded_review
 from readme_agent.specialists.review_candidate_anchors import build_candidate_review_anchors
 
@@ -55,6 +58,10 @@ def test_synthetic_candidate_plans_successfully_within_budget() -> None:
         )
         size = (packet.char_end - packet.char_start) + len(facts_json)
         assert size <= plan.budget_chars
+
+
+def test_runtime_and_evidence_share_the_same_packet_budget() -> None:
+    assert DEFAULT_BOUNDED_PACKET_BUDGET_CHARS == 120_000
 
 
 def test_real_candidate_accountability_selects_current_claims_without_survival_flag() -> None:
