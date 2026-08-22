@@ -1,0 +1,26 @@
+{
+  "methodology": "6 fake jobs, each `--sleep-seconds 0.5` (the only work a fake child does), run three times with the same job set through RepositoryWorkerPool at repository_concurrency=1 (serial baseline), =2 (required default), and =3 (explicit opt-in). Measures the executor's own scheduling overhead and concurrency ceiling, NOT real repository-processing speedup -- see the caveat below.",
+  "jobs": 6,
+  "sleep_seconds_each": 0.5,
+  "ideal_serial_wall_seconds": 3.0,
+  "results": {
+    "repository_concurrency_1_serial_baseline": {
+      "wall_seconds": 3.693,
+      "observed_max_repository_concurrency": 1,
+      "all_succeeded": true
+    },
+    "repository_concurrency_2_required_default": {
+      "wall_seconds": 1.966,
+      "observed_max_repository_concurrency": 2,
+      "all_succeeded": true,
+      "speedup_vs_serial": 1.88
+    },
+    "repository_concurrency_3_explicit_opt_in": {
+      "wall_seconds": 1.289,
+      "observed_max_repository_concurrency": 3,
+      "all_succeeded": true,
+      "speedup_vs_serial": 2.86
+    }
+  },
+  "caveat": "This measures subprocess-scheduling overhead with synthetic sleeping children, not real `supervise` repository processing. It demonstrates the executor mechanism delivers the expected concurrency multiplier under ideal conditions (no shared-resource contention, no real LLM/GitHub latency). It is NOT evidence that a real portfolio run will see 1.88x/2.86x speedup, and must not be cited as such -- decision #95's own '>=1.5x speedup, <=25% coordination overhead' gate needs to be re-measured against real repository jobs before raising repository_concurrency in production. See INTEGRATION.md's required preconditions and KNOWN_LIMITATIONS.md."
+}

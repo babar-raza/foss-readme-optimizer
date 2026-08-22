@@ -1,0 +1,32 @@
+{
+  "new_test_suite": {
+    "path": "tests/unit/test_portfolio_proof_engine_repository_worker_pool.py",
+    "collected": 22,
+    "passed": 22,
+    "failed": 0,
+    "wall_seconds": 7.6,
+    "pytest_version": "9.1.1",
+    "python_version": "3.13.2",
+    "platform": "win32",
+    "command": "pytest -q tests/unit/test_portfolio_proof_engine_repository_worker_pool.py"
+  },
+  "sibling_regression_check": {
+    "paths": [
+      "tests/unit/test_portfolio_proof_engine_provider_concurrency.py",
+      "tests/unit/test_portfolio_proof_engine_deadline.py",
+      "tests/unit/test_portfolio_proof_engine_contracts.py",
+      "tests/unit/test_portfolio_proof_engine_receipt_store.py"
+    ],
+    "collected": 31,
+    "passed": 31,
+    "failed": 0,
+    "wall_seconds": 1.29,
+    "notes": "Run to confirm the new module (which imports none of these) introduced no interference. Not a claim that full-suite regression was run -- it was not; see KNOWN_LIMITATIONS.md."
+  },
+  "static_checks": {
+    "ruff_check": "passed, 0 findings",
+    "ruff_format_check": "passed after one auto-format pass (two lines exceeded the wrapped-line style ruff prefers; reformatted, re-verified clean)",
+    "mypy": "passed, 0 errors, after adding `# type: ignore[attr-defined]` on the four platform-conditional POSIX/Windows-only attribute accesses (`os.killpg`, `signal.SIGTERM`, `signal.SIGKILL`, `subprocess.CREATE_NEW_PROCESS_GROUP`) -- exactly mirroring the same pattern already used in `gitsafety/process.py` for the same reason: mypy resolves OS-specific stubs from the machine it runs on, so on any single platform one branch's stdlib attributes are genuinely unknown to the type checker even though they're real at runtime on the other OS."
+  },
+  "live_or_real_repository_runs": "none -- explicitly out of scope per the task; no Qwen, Docker, GitHub API, or product repository was used anywhere in this test suite, only the committed fake fixture script."
+}
