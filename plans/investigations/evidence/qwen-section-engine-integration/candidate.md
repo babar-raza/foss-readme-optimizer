@@ -45,7 +45,6 @@ flowchart LR
     O1["GLTF<br/>Format"]
     O2["STL<br/>Format"]
     O3["3MF<br/>Format"]
-    O4["OBJ<br/>Format"]
   end
   I1 --> PRODUCT
   PRODUCT --> CORE
@@ -57,7 +56,7 @@ flowchart LR
   class PRODUCT product;
   class I1,I2,I3,I4 input;
   class C1,C2,C3 capability;
-  class O1,O2,O3,O4 output;
+  class O1,O2,O3 output;
   style INPUTS fill:#F8FBFD,stroke:#7EA6C4,stroke-width:1.5px
   style CORE fill:#FFFFFF,stroke:#5F7791,stroke-width:2px
   style OUTPUTS fill:#F7FBF8,stroke:#78A889,stroke-width:1.5px
@@ -66,12 +65,8 @@ flowchart LR
 
 ## Key Capabilities
 
-- **Create 3D primitives** - Aspose.3D FOSS for Python provides constructors for standard 3D primitives such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum, enabling quick scene composition from basic geometric shapes.
-- **Define animated scenes with keyframes** - The product includes an Animation system with keyframe support, allowing users to define time-based transformations and motion paths for 3D objects within a scene.
-
-- Export the same `Scene` model back out to OBJ, STL, GLTF/GLB, or 3MF with `Scene.save(...)`
-  (COLLADA import is supported; COLLADA export is not currently reachable through the public
-  API — see [Scope and limitations](#scope-and-limitations)).
+- **Create 3D primitives** - Aspose.3D FOSS for Python enables creation of standard 3D primitives such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum.
+- **Define animated scenes** - The product supports animation with keyframe support, allowing users to define time-based transformations and motion paths for 3D objects.
 
 ## Installation
 
@@ -90,7 +85,7 @@ Use source installation for the `aspose-3d-foss` distribution.
 
 ## Quick Start
 
-The introductory example demonstrates how to instantiate one public API object in Python to begin working with Aspose.3D FOSS for Python. It provides the minimal, first-step usage pattern for introductory public API usage.
+The introductory example demonstrates how to instantiate one public API object in Python to begin working with Aspose.3D FOSS for Python. It provides the minimal, first-step usage pattern for initializing the core scene object, serving as the foundation for subsequent 3D modeling operations.
 
 ```python
 from aspose.threed import Scene
@@ -1482,7 +1477,7 @@ Aspose.3D FOSS for Python allows mesh creation and manipulation, but does not su
 
 NURBS curve and surface entities can be declared, but evaluating points on a NURBS curve or converting a NURBS surface to a mesh is not implemented.
 
-Scene rendering and Renderer configuration are not implemented; output generation through the rendering pipeline is unavailable.
+The rendering API is present but does not produce rendered output; Scene.render and Renderer.execute are not implemented.
 
 The library targets the workflows listed above. Five specific constraints are listed below.
 

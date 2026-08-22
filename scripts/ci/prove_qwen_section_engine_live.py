@@ -81,6 +81,17 @@ def _git_status(repository_root: Path) -> str:
     return result.stdout
 
 
+def _git_value(repository_root: Path, *arguments: str) -> str:
+    result = subprocess.run(
+        ["git", *arguments],
+        cwd=repository_root,
+        capture_output=True,
+        check=True,
+        text=True,
+    )
+    return result.stdout.strip()
+
+
 def _metrics(document, elapsed_seconds: float) -> dict:
     usages = [
         usage
@@ -143,6 +154,8 @@ def main() -> int:
     baseline_root = args.source_readme.parent
     source_sha256_before = _sha256(source_text)
     git_status_before = _git_status(baseline_root)
+    control_head = _git_value(ROOT, "rev-parse", "HEAD")
+    control_branch = _git_value(ROOT, "branch", "--show-current")
     protected = fingerprint_protected_content(source_text)
     specs = build_canonical_section_authoring_specs(facts)
     if len(specs) < 3:
@@ -324,6 +337,11 @@ def main() -> int:
         "source_revision": source_revision,
         "facts_hash": facts.canonical_hash(),
         "source_sha256": source_sha256_before,
+        "control_repository": {
+            "branch": control_branch,
+            "head": control_head,
+            "dirty_tree_sha256": _sha256(git_status_before),
+        },
         "model_route": env.llm_model_for_job("section_cluster_authoring"),
         "prompt_version": _section_prompt_version(),
         "checks": checks,

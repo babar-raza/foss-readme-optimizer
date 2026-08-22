@@ -39,7 +39,7 @@
         "prompt_sha256": "00d30743666052e8201f48a97f166a9cb5ba2f858eb16b00b814978c711ed393",
         "packet_hash": "7e1bbfce06c9bbfba6a98e79c04e11f0ddbf9bb331291105300917866d4d4312",
         "raw_output_sha256": "810f0eb4c7956f1b27128ce6c9d6b1d1c1c1b69c37001cfc43a49a4c69f1e600",
-        "provider_request_id": "chatcmpl-a29ba2c9f1349a49",
+        "provider_request_id": "chatcmpl-ab244523b06d7600",
         "provider_model": "qwen3-next",
         "semantic_retry_used": false,
         "logical_call_count": 1,
@@ -52,7 +52,7 @@
           }
         ],
         "latency_ms": [
-          3830.525500001386
+          4458.999700000277
         ]
       },
       "reused_from_cache": true
@@ -64,14 +64,14 @@
         "units": [
           {
             "heading": "Create 3D primitives",
-            "text": "Aspose.3D FOSS for Python provides constructors for standard 3D primitives such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum, enabling quick scene composition from basic geometric shapes.",
+            "text": "Aspose.3D FOSS for Python enables creation of standard 3D primitives such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum.",
             "fact_ids": [
               "product.capabilities:repository-evidence"
             ]
           },
           {
-            "heading": "Define animated scenes with keyframes",
-            "text": "The product includes an Animation system with keyframe support, allowing users to define time-based transformations and motion paths for 3D objects within a scene.",
+            "heading": "Define animated scenes",
+            "text": "The product supports animation with keyframe support, allowing users to define time-based transformations and motion paths for 3D objects.",
             "fact_ids": [
               "product.capabilities:repository-evidence"
             ]
@@ -84,8 +84,8 @@
         "prompt_id": "section_cluster_authoring",
         "prompt_sha256": "00d30743666052e8201f48a97f166a9cb5ba2f858eb16b00b814978c711ed393",
         "packet_hash": "e21bbec41adbcfb301a4e98d196ab80f69dec9a0ba8f946bd3d9a38da0d3dfe7",
-        "raw_output_sha256": "bcf2140a5935871d53fc1e87cd977b1882077e0fe2a4c8b41c01f2bb625cef2a",
-        "provider_request_id": "chatcmpl-8674fcacb11be466",
+        "raw_output_sha256": "8cbb43f06777e5d7d6c33379a9f81d2b488f0504697582bb2c7f328ad7ce3afa",
+        "provider_request_id": "chatcmpl-8cef834b249af699",
         "provider_model": "qwen3-next",
         "semantic_retry_used": false,
         "logical_call_count": 1,
@@ -94,11 +94,11 @@
         "token_usage": [
           {
             "prompt_tokens": 1446,
-            "completion_tokens": 152
+            "completion_tokens": 135
           }
         ],
         "latency_ms": [
-          4019.0375999991375
+          4385.10099999985
         ]
       },
       "reused_from_cache": true
@@ -125,7 +125,7 @@
         "prompt_sha256": "00d30743666052e8201f48a97f166a9cb5ba2f858eb16b00b814978c711ed393",
         "packet_hash": "1619cba94753a0331f2818070538ca05b0ab29c3b8779911161a76df730e8610",
         "raw_output_sha256": "8bdc6115d7a9399d0651f42eed039f260cd5c192707fa4cc1c4fecebf714bf3e",
-        "provider_request_id": "chatcmpl-95695bd0bcf328da",
+        "provider_request_id": "chatcmpl-8d73eccbda1bb913",
         "provider_model": "qwen3-next",
         "semantic_retry_used": false,
         "logical_call_count": 1,
@@ -138,7 +138,7 @@
           }
         ],
         "latency_ms": [
-          2830.0921999980346
+          2771.409600001789
         ]
       },
       "reused_from_cache": true
@@ -149,8 +149,8 @@
       "result": {
         "units": [
           {
-            "heading": "Create a basic 3D object using the public API",
-            "text": "The introductory example demonstrates how to instantiate one public API object in Python to begin working with Aspose.3D FOSS for Python. It provides the minimal, first-step usage pattern for introductory public API usage.",
+            "heading": "Create a 3D scene object",
+            "text": "The introductory example demonstrates how to instantiate one public API object in Python to begin working with Aspose.3D FOSS for Python. It provides the minimal, first-step usage pattern for initializing the core scene object, serving as the foundation for subsequent 3D modeling operations.",
             "fact_ids": [
               "example.minimal:compiled-salvaged-example"
             ]
@@ -163,8 +163,8 @@
         "prompt_id": "section_cluster_authoring",
         "prompt_sha256": "00d30743666052e8201f48a97f166a9cb5ba2f858eb16b00b814978c711ed393",
         "packet_hash": "848af596ce18650851d9cefade34cd7c8c8041c7519b5ce0a5253b991b55fce7",
-        "raw_output_sha256": "5f396311f81a367c765e18b0af81f055b82707c910d834ff8c2e8a95f0a7e29d",
-        "provider_request_id": "chatcmpl-811f5c23cdd4439b",
+        "raw_output_sha256": "f01d7ceec76dac8476ff4724d43b2dc4128f549985de47d7700c87f395a5250b",
+        "provider_request_id": "chatcmpl-bad4de73e80025c3",
         "provider_model": "qwen3-next",
         "semantic_retry_used": false,
         "logical_call_count": 1,
@@ -173,11 +173,11 @@
         "token_usage": [
           {
             "prompt_tokens": 1407,
-            "completion_tokens": 93
+            "completion_tokens": 102
           }
         ],
         "latency_ms": [
-          2687.4200999991444
+          2921.3861000025645
         ]
       },
       "reused_from_cache": true
@@ -202,8 +202,8 @@
             ]
           },
           {
-            "heading": "Render scenes or configure renderers",
-            "text": "Scene rendering and Renderer configuration are not implemented; output generation through the rendering pipeline is unavailable.",
+            "heading": "Render scenes without output generation",
+            "text": "The rendering API is present but does not produce rendered output; Scene.render and Renderer.execute are not implemented.",
             "fact_ids": [
               "product.limitations:source-guidance"
             ]
@@ -216,13 +216,13 @@
         "prompt_id": "section_cluster_authoring",
         "prompt_sha256": "00d30743666052e8201f48a97f166a9cb5ba2f858eb16b00b814978c711ed393",
         "packet_hash": "5fc63c5e28c026b47c97e414f4737d44e36da35aa4f344df7c069075e5da78da",
-        "raw_output_sha256": "b3b0ef5b59c24929b1d247181642e7bd3c4425b21efac2754fcd249a02e337c7",
-        "provider_request_id": "chatcmpl-a00174720ebf150e",
+        "raw_output_sha256": "3a74432bc9523ccae8060830cec2858f06502fa98cbc1047ec7cdbcd13609924",
+        "provider_request_id": "chatcmpl-bdb7fbaa9d2010f6",
         "provider_model": "qwen3-next",
         "semantic_retry_used": true,
         "logical_call_count": 2,
         "deterministically_rejected_unit_sha256": [
-          "d8c47c5df5e136e4d0d8b920de27775d0f6e52a1b00e226f07e8f850fb6948f4"
+          "2630a7c3361ef0770ff81ffbab89f38e256107f0270b5839d01cd34777298301"
         ],
         "deterministically_omitted_fact_ids": [],
         "token_usage": [
@@ -232,12 +232,12 @@
           },
           {
             "prompt_tokens": 6262,
-            "completion_tokens": 264
+            "completion_tokens": 274
           }
         ],
         "latency_ms": [
-          6104.287199999817,
-          5729.825900001742
+          7546.0844000008365,
+          8988.168400002905
         ]
       },
       "reused_from_cache": true

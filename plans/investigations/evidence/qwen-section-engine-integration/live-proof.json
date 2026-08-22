@@ -33,17 +33,17 @@
     "reused_cluster_count": 0,
     "executed_semantic_retry_cluster_count": 1,
     "prompt_tokens": 18360,
-    "completion_tokens": 1029,
-    "elapsed_seconds": 33.507,
+    "completion_tokens": 1031,
+    "elapsed_seconds": 39.308,
     "models": [
       "qwen3-next"
     ],
     "request_ids": [
-      "chatcmpl-a29ba2c9f1349a49",
-      "chatcmpl-8674fcacb11be466",
-      "chatcmpl-95695bd0bcf328da",
-      "chatcmpl-811f5c23cdd4439b",
-      "chatcmpl-a00174720ebf150e"
+      "chatcmpl-ab244523b06d7600",
+      "chatcmpl-8cef834b249af699",
+      "chatcmpl-8d73eccbda1bb913",
+      "chatcmpl-bad4de73e80025c3",
+      "chatcmpl-bdb7fbaa9d2010f6"
     ]
   },
   "unchanged_rerun": {
@@ -66,12 +66,12 @@
     "executed_semantic_retry_cluster_count": 1,
     "prompt_tokens": 2969,
     "completion_tokens": 256,
-    "elapsed_seconds": 15.891,
+    "elapsed_seconds": 9.674,
     "models": [
       "qwen3-next"
     ],
     "request_ids": [
-      "chatcmpl-8590c2c4fdb3b684"
+      "chatcmpl-9e710da5dabb152f"
     ]
   },
   "acceleration": {
@@ -81,7 +81,7 @@
     "selective_minimum_provider_calls_avoided": 3,
     "selective_cluster_recompute_reduction_percent": 80.0
   },
-  "candidate_sha256": "2305d924d442c86f6f87720b21a6c96fb6d34816a4f0ae4eb4c5f4376ff961d7",
+  "candidate_sha256": "cc23b9ca030a5b890b133e021227731617893817c66c11099fda9b8d5564896a",
   "authored_provenance_count": 8,
   "deterministic_validation": {
     "valid": true,
@@ -132,6 +132,7 @@
       "competing_primary_examples",
       "cross_product_leakage",
       "emoji_decoration",
+      "format_direction_contradiction",
       "generic_capability_description",
       "generic_preservation_heading",
       "heading_not_title_case",
@@ -154,8 +155,8 @@
     ],
     "findings": []
   },
-  "section_authoring_document_sha256": "e0107fb4f13c2e6897dcfef5371cd436aeed284161518e546c0229795c2ee42d",
-  "llm_call_record_count": 9,
+  "section_authoring_document_sha256": "6e910b79ce6f26d472c837cc47675581a127915f3ae3d987b375dfb19d34b61a",
+  "llm_call_record_count": 8,
   "limitations": [
     "This proves the authoring portion of one real repository transaction, not PF-02.",
     "The transport client can make up to two physical attempts per logical call; the document receipt reports logical calls while the shared LLM ledger owns physical retries."
