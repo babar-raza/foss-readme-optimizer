@@ -7,7 +7,7 @@
   "source_sha256": "66ceadf14240cd913756dacbd709d56ee06915f49f77f769e40e04e309a7cd01",
   "control_repository": {
     "branch": "main",
-    "head": "d6586b1aa5316dbfc60b73c8f08deedc7a0d014a",
+    "head": "3bf582eb8478860e31b8dc8abff40ac0abf8429e",
     "dirty_tree_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   "model_route": "qwen3-next",
@@ -37,18 +37,18 @@
     "provider_logical_calls": 6,
     "reused_cluster_count": 0,
     "executed_semantic_retry_cluster_count": 1,
-    "prompt_tokens": 18360,
-    "completion_tokens": 1008,
-    "elapsed_seconds": 34.244,
+    "prompt_tokens": 13607,
+    "completion_tokens": 803,
+    "elapsed_seconds": 31.586,
     "models": [
       "qwen3-next"
     ],
     "request_ids": [
-      "chatcmpl-a5304bde6428042e",
-      "chatcmpl-8382acf6764a2ae4",
-      "chatcmpl-9de316b420640c8a",
-      "chatcmpl-b80db252ed5a404e",
-      "chatcmpl-9aa264ccfd71ad2f"
+      "chatcmpl-a6fcfd7294441b04",
+      "chatcmpl-aa892bfff395818e",
+      "chatcmpl-82341aa0a748aae2",
+      "chatcmpl-a175456732bea57f",
+      "chatcmpl-8eb4c2e091513d9b"
     ]
   },
   "unchanged_rerun": {
@@ -58,7 +58,7 @@
     "executed_semantic_retry_cluster_count": 0,
     "prompt_tokens": 0,
     "completion_tokens": 0,
-    "elapsed_seconds": 0.023,
+    "elapsed_seconds": 0.022,
     "models": [
       "qwen3-next"
     ],
@@ -66,28 +66,28 @@
   },
   "one_cluster_invalidation": {
     "cluster_count": 5,
-    "provider_logical_calls": 1,
+    "provider_logical_calls": 2,
     "reused_cluster_count": 4,
-    "executed_semantic_retry_cluster_count": 0,
-    "prompt_tokens": 1453,
-    "completion_tokens": 127,
-    "elapsed_seconds": 4.392,
+    "executed_semantic_retry_cluster_count": 1,
+    "prompt_tokens": 2969,
+    "completion_tokens": 224,
+    "elapsed_seconds": 9.113,
     "models": [
       "qwen3-next"
     ],
     "request_ids": [
-      "chatcmpl-8e7fa3d559b3672b"
+      "chatcmpl-8e8c52f9af6b886d"
     ]
   },
   "acceleration": {
     "unchanged_provider_calls_avoided": 5,
     "unchanged_recompute_reduction_percent": 100.0,
     "selective_clusters_avoided": 4,
-    "selective_minimum_provider_calls_avoided": 4,
+    "selective_minimum_provider_calls_avoided": 3,
     "selective_cluster_recompute_reduction_percent": 80.0
   },
-  "candidate_sha256": "6d319e0ea58f5ef4a66f8fae181b17ea082401f53c6d34d885392c914b272ac0",
-  "authored_provenance_count": 8,
+  "candidate_sha256": "49741ca80a3ac2d18e6b769319d69b9fd7c847ed0eefab57f12960b40595a138",
+  "authored_provenance_count": 7,
   "deterministic_validation": {
     "valid": true,
     "checks": {
@@ -115,6 +115,7 @@
       "claim_accountability_complete": true,
       "claim_accountability_gaps_visible": true,
       "presentation_lint": true,
+      "public_candidate_quality": true,
       "aspose_checks": false,
       "aspose_checks_no_blocking_errors": true
     },
@@ -160,8 +161,8 @@
     ],
     "findings": []
   },
-  "section_authoring_document_sha256": "5e09ee90594ff287187a22b015469f07f5d4b9b81f1fe91305617ec322f557ff",
-  "llm_call_record_count": 7,
+  "section_authoring_document_sha256": "00e0fb4311b18853ff6b007b149bd9f3b046cd409421321f1f00ba6d8b788317",
+  "llm_call_record_count": 8,
   "limitations": [
     "This proves the authoring portion of one real repository transaction, not PF-02.",
     "The transport client can make up to two physical attempts per logical call; the document receipt reports logical calls while the shared LLM ledger owns physical retries."

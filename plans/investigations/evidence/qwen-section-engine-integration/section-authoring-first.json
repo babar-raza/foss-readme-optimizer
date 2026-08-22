@@ -22,7 +22,7 @@
         "units": [
           {
             "heading": "Create 3D primitives and animations in Python",
-            "text": "Aspose.3D FOSS for Python provides developers using Python with native support for constructing common 3D primitives—including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum—and for building animations with keyframe support.",
+            "text": "Aspose.3D FOSS for Python provides developers using Python with a library to create and manipulate 3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum. It also includes an Animation system with keyframe support for building dynamic 3D content.",
             "fact_ids": [
               "product.identity:manifest-and-registry",
               "product.audience:platform-derived",
@@ -38,8 +38,8 @@
         "prompt_id": "section_cluster_authoring",
         "prompt_sha256": "00d30743666052e8201f48a97f166a9cb5ba2f858eb16b00b814978c711ed393",
         "packet_hash": "7e1bbfce06c9bbfba6a98e79c04e11f0ddbf9bb331291105300917866d4d4312",
-        "raw_output_sha256": "e992d1969b73310f5369ab9c408e125bd3525a93db787d3806d1349a34e4d4c8",
-        "provider_request_id": "chatcmpl-a5304bde6428042e",
+        "raw_output_sha256": "84160895ad68226239839b21703c31235e42faa265d90a6fd1e66c6874eb309f",
+        "provider_request_id": "chatcmpl-a6fcfd7294441b04",
         "provider_model": "qwen3-next",
         "semantic_retry_used": false,
         "logical_call_count": 1,
@@ -48,11 +48,11 @@
         "token_usage": [
           {
             "prompt_tokens": 1596,
-            "completion_tokens": 112
+            "completion_tokens": 123
           }
         ],
         "latency_ms": [
-          3025.6186000005982
+          4465.991599994595
         ]
       },
       "reused_from_cache": false
@@ -64,14 +64,14 @@
         "units": [
           {
             "heading": "Create 3D primitives",
-            "text": "Aspose.3D FOSS for Python enables creation of standard 3D primitives such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum.",
+            "text": "Construct standard geometric shapes such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum directly within the API.",
             "fact_ids": [
               "product.capabilities:repository-evidence"
             ]
           },
           {
             "heading": "Define animations with keyframes",
-            "text": "The product includes an Animation system with keyframe support, allowing users to define animated sequences by specifying key poses over time.",
+            "text": "Build animated sequences by specifying keyframes to control how 3D objects transform over time, supported by the built-in animation system.",
             "fact_ids": [
               "product.capabilities:repository-evidence"
             ]
@@ -84,21 +84,26 @@
         "prompt_id": "section_cluster_authoring",
         "prompt_sha256": "00d30743666052e8201f48a97f166a9cb5ba2f858eb16b00b814978c711ed393",
         "packet_hash": "e21bbec41adbcfb301a4e98d196ab80f69dec9a0ba8f946bd3d9a38da0d3dfe7",
-        "raw_output_sha256": "a19866c77f3dc576e6a39d7302ee4061543dde9a3a7f0a703a20bf4462c68f07",
-        "provider_request_id": "chatcmpl-8382acf6764a2ae4",
+        "raw_output_sha256": "f93c9a136a4447432773b0323d9f5db26d29ddc5bf3840c04bdfad6fd641b999",
+        "provider_request_id": "chatcmpl-aa892bfff395818e",
         "provider_model": "qwen3-next",
-        "semantic_retry_used": false,
-        "logical_call_count": 1,
+        "semantic_retry_used": true,
+        "logical_call_count": 2,
         "deterministically_rejected_unit_sha256": [],
         "deterministically_omitted_fact_ids": [],
         "token_usage": [
           {
             "prompt_tokens": 1446,
-            "completion_tokens": 136
+            "completion_tokens": 134
+          },
+          {
+            "prompt_tokens": 1509,
+            "completion_tokens": 129
           }
         ],
         "latency_ms": [
-          3295.60230000061
+          3417.013799997221,
+          3330.9207999991486
         ]
       },
       "reused_from_cache": false
@@ -110,7 +115,7 @@
         "units": [
           {
             "heading": "Acquire Aspose.3D FOSS for Python from source",
-            "text": "Aspose.3D FOSS for Python is acquired by building from source. The package is compatible with Python runtimes, and the minimum supported runtime version is defined by the project.",
+            "text": "Aspose.3D FOSS for Python is acquired by building from source. The package is compatible with the Python runtime environment, and supports the minimum required runtime version for Python.",
             "fact_ids": [
               "installation.verified_acquisition:disposable-source-build",
               "product.compatibility:isolated-generated-python-metadata"
@@ -124,8 +129,8 @@
         "prompt_id": "section_cluster_authoring",
         "prompt_sha256": "00d30743666052e8201f48a97f166a9cb5ba2f858eb16b00b814978c711ed393",
         "packet_hash": "1619cba94753a0331f2818070538ca05b0ab29c3b8779911161a76df730e8610",
-        "raw_output_sha256": "a405bbb03c9952a0869b9850d3ca2677d5b056fcf4bc7d18b471117fb2640a91",
-        "provider_request_id": "chatcmpl-9de316b420640c8a",
+        "raw_output_sha256": "22290d0e1c88e0e52e1575f1b94bbfc7008e8235d84078944416f4fa07868172",
+        "provider_request_id": "chatcmpl-82341aa0a748aae2",
         "provider_model": "qwen3-next",
         "semantic_retry_used": false,
         "logical_call_count": 1,
@@ -134,11 +139,11 @@
         "token_usage": [
           {
             "prompt_tokens": 1447,
-            "completion_tokens": 94
+            "completion_tokens": 93
           }
         ],
         "latency_ms": [
-          2607.0542999987083
+          3248.1145999990986
         ]
       },
       "reused_from_cache": false
@@ -149,8 +154,8 @@
       "result": {
         "units": [
           {
-            "heading": "Create a 3D scene object",
-            "text": "The introductory example demonstrates how to instantiate one public API object in Python to begin working with Aspose.3D FOSS for Python. It provides the minimal, first-step usage pattern for initializing the core scene object, serving as the foundation for subsequent 3D modeling operations.",
+            "heading": "Create a Python instance of the public API",
+            "text": "The introductory example demonstrates how to instantiate one public API object in Python, providing a minimal first step for users to begin working with Aspose.3D FOSS for Python.",
             "fact_ids": [
               "example.minimal:compiled-salvaged-example"
             ]
@@ -163,8 +168,8 @@
         "prompt_id": "section_cluster_authoring",
         "prompt_sha256": "00d30743666052e8201f48a97f166a9cb5ba2f858eb16b00b814978c711ed393",
         "packet_hash": "848af596ce18650851d9cefade34cd7c8c8041c7519b5ce0a5253b991b55fce7",
-        "raw_output_sha256": "f01d7ceec76dac8476ff4724d43b2dc4128f549985de47d7700c87f395a5250b",
-        "provider_request_id": "chatcmpl-b80db252ed5a404e",
+        "raw_output_sha256": "9dae9640cd3dfe7cb6b1514096e086cb96728ecfbc1a1b9ee98d4544c6bdc645",
+        "provider_request_id": "chatcmpl-a175456732bea57f",
         "provider_model": "qwen3-next",
         "semantic_retry_used": false,
         "logical_call_count": 1,
@@ -173,11 +178,11 @@
         "token_usage": [
           {
             "prompt_tokens": 1407,
-            "completion_tokens": 102
+            "completion_tokens": 83
           }
         ],
         "latency_ms": [
-          2917.646199999581
+          2508.8389000011375
         ]
       },
       "reused_from_cache": false
@@ -188,22 +193,15 @@
       "result": {
         "units": [
           {
-            "heading": "Create meshes without boolean operations",
-            "text": "Aspose.3D FOSS for Python allows mesh creation and manipulation, but does not support boolean operations such as union, difference, intersection, or generic do_boolean on Mesh instances.",
+            "heading": "Boolean operations on meshes are unavailable",
+            "text": "Boolean operations such as union, difference, intersect, and do_boolean on Mesh entities are not implemented in Aspose.3D FOSS for Python.",
             "fact_ids": [
               "product.limitations:source-guidance"
             ]
           },
           {
-            "heading": "Define NURBS curves and surfaces without evaluation",
-            "text": "NURBS curve and surface entities can be declared, but evaluating points on a NURBS curve or converting a NURBS surface to a mesh is not implemented.",
-            "fact_ids": [
-              "product.limitations:source-guidance"
-            ]
-          },
-          {
-            "heading": "Render scenes or configure renderers",
-            "text": "Scene rendering and Renderer configuration are not implemented; output generation through the rendering pipeline is unavailable.",
+            "heading": "NURBS evaluation and conversion are unavailable",
+            "text": "NURBS curve evaluation and conversion of NURBS surfaces to meshes are not implemented in Aspose.3D FOSS for Python.",
             "fact_ids": [
               "product.limitations:source-guidance"
             ]
@@ -216,28 +214,24 @@
         "prompt_id": "section_cluster_authoring",
         "prompt_sha256": "00d30743666052e8201f48a97f166a9cb5ba2f858eb16b00b814978c711ed393",
         "packet_hash": "5fc63c5e28c026b47c97e414f4737d44e36da35aa4f344df7c069075e5da78da",
-        "raw_output_sha256": "b3b0ef5b59c24929b1d247181642e7bd3c4425b21efac2754fcd249a02e337c7",
-        "provider_request_id": "chatcmpl-9aa264ccfd71ad2f",
+        "raw_output_sha256": "61cb8758f1c76e2267acaa721a9d5c872e4760508c723d0bbe36fff0806afb0c",
+        "provider_request_id": "chatcmpl-8eb4c2e091513d9b",
         "provider_model": "qwen3-next",
-        "semantic_retry_used": true,
-        "logical_call_count": 2,
+        "semantic_retry_used": false,
+        "logical_call_count": 1,
         "deterministically_rejected_unit_sha256": [
-          "d8c47c5df5e136e4d0d8b920de27775d0f6e52a1b00e226f07e8f850fb6948f4"
+          "88c271acc2280a062f82f956083bf3df2f2fff5de60a0569975088a4f1dfa1aa",
+          "406c8f1525d9fa3d95b1e5d9001a021262d0a57245b2ed6327dc5f43ff415c52"
         ],
         "deterministically_omitted_fact_ids": [],
         "token_usage": [
           {
             "prompt_tokens": 6202,
-            "completion_tokens": 300
-          },
-          {
-            "prompt_tokens": 6262,
-            "completion_tokens": 264
+            "completion_tokens": 241
           }
         ],
         "latency_ms": [
-          8060.006100000464,
-          6301.4664000002085
+          6038.338799997291
         ]
       },
       "reused_from_cache": false

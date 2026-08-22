@@ -4,7 +4,7 @@
 
 ![Aspose.3D FOSS for Python](https://products.aspose.org/media/3d/python/banner-readme.png)
 
-Aspose.3D FOSS for Python provides developers using Python with native support for constructing common 3D primitives—including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum—and for building animations with keyframe support.
+Aspose.3D FOSS for Python provides developers using Python with a library to create and manipulate 3D primitives including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum. It also includes an Animation system with keyframe support for building dynamic 3D content.
 
 ## Navigation
 
@@ -65,12 +65,12 @@ flowchart LR
 
 ## Key Capabilities
 
-- **Create 3D primitives** - Aspose.3D FOSS for Python enables creation of standard 3D primitives such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum.
-- **Define animations with keyframes** - The product includes an Animation system with keyframe support, allowing users to define animated sequences by specifying key poses over time.
+- **Create 3D primitives** - Construct standard geometric shapes such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum directly within the API.
+- **Define animations with keyframes** - Build animated sequences by specifying keyframes to control how 3D objects transform over time, supported by the built-in animation system.
 
 ## Installation
 
-Aspose.3D FOSS for Python is acquired by building from source. The package is compatible with Python runtimes, and the minimum supported runtime version is defined by the project.
+Aspose.3D FOSS for Python is acquired by building from source. The package is compatible with the Python runtime environment, and supports the minimum required runtime version for Python.
 
 Install the package directly from its source repository:
 
@@ -85,7 +85,7 @@ Use source installation for the `aspose-3d-foss` distribution.
 
 ## Quick Start
 
-The introductory example demonstrates how to instantiate one public API object in Python to begin working with Aspose.3D FOSS for Python. It provides the minimal, first-step usage pattern for initializing the core scene object, serving as the foundation for subsequent 3D modeling operations.
+The introductory example demonstrates how to instantiate one public API object in Python, providing a minimal first step for users to begin working with Aspose.3D FOSS for Python.
 
 ```python
 from aspose.threed import Scene
@@ -93,9 +93,18 @@ from aspose.threed import Scene
 scene = Scene()
 ```
 
+<details>
+<summary>View Additional Quick Start Details</summary>
+
+Load an OBJ scene and inspect its meshes:
+
+Convert the same kind of scene to a binary GLTF (GLB):
+
+</details>
+
 ## Additional Examples
 
-Expand this section to view examples for exploring the scene and ObjLoadOptions APIs, assigning a PBR material and exporting to GLTF, import a COLLADA file, and converting a parametric primitive to a mesh, plus 2 more workflows.
+Expand this section to view examples for exploring the scene and ObjLoadOptions APIs, converting a parametric primitive to a mesh, and building a cube and exporting it to 3MF, plus 1 more workflow.
 
 <details>
 <summary>View additional examples and results</summary>
@@ -131,57 +140,6 @@ scene.open("mesh.stl")
 options = GltfSaveOptions()
 options.binary_mode = True
 scene.save("mesh.glb", options)
-```
-
-### Assign a PBR Material and Export to GLTF
-
-```python
-import io
-import json
-from aspose.threed import Scene, FileFormat
-from aspose.threed.entities import Mesh
-from aspose.threed.utilities import Vector3, Vector4
-from aspose.threed.formats.gltf import GltfSaveOptions
-from aspose.threed.shading import PbrMaterial
-
-scene = Scene()
-mesh = Mesh("TestMesh")
-mesh.control_points.add(Vector4(0.0, 0.0, 0.0, 1.0))
-mesh.control_points.add(Vector4(1.0, 0.0, 0.0, 1.0))
-mesh.control_points.add(Vector4(0.0, 1.0, 0.0, 1.0))
-mesh.create_polygon(0, 1, 2)
-
-albedo = Vector3(0.8, 0.2, 0.3)
-material = PbrMaterial("RedMaterial", albedo)
-material.metallic_factor = 0.5
-material.roughness_factor = 0.7
-
-node = scene.root_node.create_child_node("TestNode")
-node.entity = mesh
-node.material = material
-
-stream = io.BytesIO()
-
-options = GltfSaveOptions(FileFormat.get_format_by_extension(".gltf"))
-options.binary_mode = False
-scene.save(stream, options)
-
-stream.seek(0)
-gltf_data = json.loads(stream.read().decode("utf-8"))
-print(gltf_data["materials"][0]["pbrMetallicRoughness"])
-```
-
-### Import a COLLADA File
-
-```python
-from aspose.threed import Scene
-from aspose.threed.formats.collada.ColladaLoadOptions import ColladaLoadOptions
-
-scene = Scene()
-options = ColladaLoadOptions()
-scene.open("model.dae", options)
-
-print(f"Child nodes: {len(scene.root_node.child_nodes)}")
 ```
 
 ### Convert a Parametric Primitive to a Mesh
@@ -432,52 +390,52 @@ The package documents 354 public types across 13 namespaces. Package namespaces 
 
 | Type | Description |
 | --- | --- |
-| `A3dwSaveOptions` | Configures A3dw output through the Aspose.3D API. |
-| `AmfSaveOptions` | Configures Amf output through the Aspose.3D API. |
-| `threed.formats.collada.ColladaLoadOptions.ColladaLoadOptions()` | Configures COLLADA Load operations through the Aspose.3D API. Inherits from `LoadOptions`. |
-| `threed.formats.collada.ColladaSaveOptions.ColladaSaveOptions()` | Configures COLLADA output through the Aspose.3D API. Inherits from `SaveOptions`. |
+| `A3dwSaveOptions` | The package exposes the public `A3dwSaveOptions` type in the `aspose.threed.formats` namespace. |
+| `AmfSaveOptions` | The package exposes the public `AmfSaveOptions` type in the `aspose.threed.formats` namespace. |
+| `threed.formats.collada.ColladaLoadOptions.ColladaLoadOptions()` | The package exposes the public `ColladaLoadOptions` type in the `aspose.threed.formats` namespace. |
+| `threed.formats.collada.ColladaSaveOptions.ColladaSaveOptions()` | The package exposes the public `ColladaSaveOptions` type in the `aspose.threed.formats` namespace. |
 | `ColladaTransformStyle` | Represents a COLLADA Transform Style in the public formats API for Aspose.3D. |
-| `Discreet3dsLoadOptions` | Configures Discreet3ds Load operations through the Aspose.3D API. |
-| `Discreet3dsSaveOptions` | Configures Discreet3ds output through the Aspose.3D API. |
+| `Discreet3dsLoadOptions` | The package exposes the public `Discreet3dsLoadOptions` type in the `aspose.threed.formats` namespace. |
+| `Discreet3dsSaveOptions` | The package exposes the public `Discreet3dsSaveOptions` type in the `aspose.threed.formats` namespace. |
 | `DracoCompressionLevel` | Represents a Draco Compression Level in the public formats API for Aspose.3D. |
 | `DracoFormat` | Represents a Draco Format in the public formats API for Aspose.3D. |
-| `DracoSaveOptions` | Configures Draco output through the Aspose.3D API. |
+| `DracoSaveOptions` | The package exposes the public `DracoSaveOptions` type in the `aspose.threed.formats` namespace. |
 | `threed.formats.Exporter.Exporter()` | Represents an Exporter in the public formats API for Aspose.3D. |
-| `threed.formats.fbx.FbxLoadOptions.FbxLoadOptions(format=None)` | Configures FBX Load operations through the Aspose.3D API. Inherits from `LoadOptions`. |
-| `threed.formats.fbx.FbxSaveOptions.FbxSaveOptions(format=None)` | Configures FBX output through the Aspose.3D API. Inherits from `SaveOptions`. |
+| `threed.formats.fbx.FbxLoadOptions.FbxLoadOptions(format=None)` | The package exposes the public `FbxLoadOptions` type in the `aspose.threed.formats` namespace. |
+| `threed.formats.fbx.FbxSaveOptions.FbxSaveOptions(format=None)` | The package exposes the public `FbxSaveOptions` type in the `aspose.threed.formats` namespace. |
 | `threed.formats.FormatDetector.FormatDetector()` | Represents a Format Detector in the public formats API for Aspose.3D. |
 | `GltfEmbeddedImageFormat` | Represents a GLTF Embedded Image Format in the public formats API for Aspose.3D. |
 | `threed.formats.gltf.GltfLoadOptions.GltfLoadOptions()` | Configures GLTF Load operations through the Aspose.3D API. Inherits from `LoadOptions`. |
 | `threed.formats.gltf.GltfSaveOptions.GltfSaveOptions(file_format=None)` | Configures GLTF output through the Aspose.3D API. Inherits from `SaveOptions`. |
-| `Html5SaveOptions` | Configures Html5 output through the Aspose.3D API. |
+| `Html5SaveOptions` | The package exposes the public `Html5SaveOptions` type in the `aspose.threed.formats` namespace. |
 | `threed.formats.IOConfig.IOConfig()` | Represents an IO Config in the public formats API for Aspose.3D. |
 | `threed.formats.IOService.IOService()` | Represents an IO Service in the public formats API for Aspose.3D. Supports creating exporter, creating importer, and detecting format. |
 | `threed.formats.Importer.Importer()` | Represents an Importer in the public formats API for Aspose.3D. |
-| `JtLoadOptions` | Configures Jt Load operations through the Aspose.3D API. |
+| `JtLoadOptions` | The package exposes the public `JtLoadOptions` type in the `aspose.threed.formats` namespace. |
 | `threed.formats.LoadOptions.LoadOptions()` | Configures Load operations through the Aspose.3D API. Inherits from `IOConfig`. |
 | `Microsoft3MFFormat` | Represents a Microsoft3 MF Format in the public formats API for Aspose.3D. |
 | `Microsoft3MFSaveOptions` | Configures Microsoft3 MF output through the Aspose.3D API. |
 | `threed.formats.obj.ObjLoadOptions.ObjLoadOptions()` | Configures OBJ Load operations through the Aspose.3D API. Inherits from `LoadOptions`. |
-| `threed.formats.obj.ObjSaveOptions.ObjSaveOptions()` | Configures OBJ output through the Aspose.3D API. Inherits from `SaveOptions`. |
+| `threed.formats.obj.ObjSaveOptions.ObjSaveOptions()` | The package exposes the public `ObjSaveOptions` type in the `aspose.threed.formats` namespace. OBJ is listed for input workflows only. |
 | `PdfFormat` | Represents a PDF Format in the public formats API for Aspose.3D. |
 | `PdfLightingScheme` | Represents a PDF Lighting Scheme in the public formats API for Aspose.3D. |
-| `PdfLoadOptions` | Configures PDF Load operations through the Aspose.3D API. |
+| `PdfLoadOptions` | The package exposes the public `PdfLoadOptions` type in the `aspose.threed.formats` namespace. |
 | `PdfRenderMode` | Represents a PDF Render Mode in the public formats API for Aspose.3D. |
-| `threed.formats.PdfSaveOptions.PdfSaveOptions()` | Configures PDF output through the Aspose.3D API. |
+| `threed.formats.PdfSaveOptions.PdfSaveOptions()` | The package exposes the public `PdfSaveOptions` type in the `aspose.threed.formats` namespace. |
 | `Plugin` | Represents a Plugin in the public formats API for Aspose.3D. Supports creating load options, creating save options, and retrieving exporter. Inherits from `ABC`. |
 | `PlyFormat` | Represents a Ply Format in the public formats API for Aspose.3D. |
-| `PlyLoadOptions` | Configures Ply Load operations through the Aspose.3D API. |
-| `PlySaveOptions` | Configures Ply output through the Aspose.3D API. |
+| `PlyLoadOptions` | The package exposes the public `PlyLoadOptions` type in the `aspose.threed.formats` namespace. |
+| `PlySaveOptions` | The package exposes the public `PlySaveOptions` type in the `aspose.threed.formats` namespace. |
 | `RvmFormat` | Represents a Rvm Format in the public formats API for Aspose.3D. |
-| `RvmLoadOptions` | Configures Rvm Load operations through the Aspose.3D API. |
-| `RvmSaveOptions` | Configures Rvm output through the Aspose.3D API. |
+| `RvmLoadOptions` | The package exposes the public `RvmLoadOptions` type in the `aspose.threed.formats` namespace. |
+| `RvmSaveOptions` | The package exposes the public `RvmSaveOptions` type in the `aspose.threed.formats` namespace. |
 | `threed.formats.SaveOptions.SaveOptions()` | Configures 3D output through the Aspose.3D API. Inherits from `IOConfig`. |
 | `threed.formats.stl.StlLoadOptions.StlLoadOptions()` | Configures STL Load operations through the Aspose.3D API. Inherits from `LoadOptions`. |
 | `threed.formats.stl.StlSaveOptions.StlSaveOptions(file_format=None)` | Configures STL output through the Aspose.3D API. Inherits from `SaveOptions`. |
 | `ThreeMfFormat` | Represents a Three Mf Format in the public formats API for Aspose.3D. Supports creating load options, creating save options, and retrieving object type. |
 | `threed.formats.threemf.ThreeMfLoadOptions.ThreeMfLoadOptions()` | Configures Three Mf Load operations through the Aspose.3D API. Inherits from `LoadOptions`. |
 | `threed.formats.threemf.ThreeMfSaveOptions.ThreeMfSaveOptions()` | Configures Three Mf output through the Aspose.3D API. Inherits from `SaveOptions`. |
-| `UsdSaveOptions` | Configures Usd output through the Aspose.3D API. |
+| `UsdSaveOptions` | The package exposes the public `UsdSaveOptions` type in the `aspose.threed.formats` namespace. |
 
 ### Aspose.3D.Profiles Namespace (`aspose.threed.profiles`)
 
@@ -624,10 +582,10 @@ The package documents 354 public types across 13 namespaces. Package namespaces 
 
 | Type | Description |
 | --- | --- |
-| `threed.formats.gltf.GltfExporter.GltfExporter()` | Represents a GLTF Exporter in the public GLTF API for Aspose.3D. Supports supportsing format. Inherits from `Exporter`. |
+| `threed.formats.gltf.GltfExporter.GltfExporter()` | Represents a GLTF Exporter in the public GLTF API for Aspose.3D. Supports checking format support. Inherits from `Exporter`. |
 | `GltfFormat` | Represents a GLTF Format in the public GLTF API for Aspose.3D. Supports creating load options and creating save options. |
 | `threed.formats.gltf.GltfFormatDetector.GltfFormatDetector()` | Represents a GLTF Format Detector in the public GLTF API for Aspose.3D. Supports detecting changes. Inherits from `FormatDetector`. |
-| `threed.formats.gltf.GltfImporter.GltfImporter()` | Represents a GLTF Importer in the public GLTF API for Aspose.3D. Supports importing scene and supportsing format. Inherits from `Importer`. |
+| `threed.formats.gltf.GltfImporter.GltfImporter()` | Represents a GLTF Importer in the public GLTF API for Aspose.3D. Supports importing scene and checking format support. Inherits from `Importer`. |
 | `threed.formats.gltf.GltfLoadOptions.GltfLoadOptions()` | The `aspose.threed.formats.gltf` namespace re-exports `GltfLoadOptions` from the primary `aspose.threed.formats` namespace. |
 | `threed.formats.gltf.GltfPlugin.GltfPlugin()` | Represents a GLTF Plugin in the public GLTF API for Aspose.3D. Supports creating load options, creating save options, and retrieving exporter. Inherits from `Plugin`. |
 | `threed.formats.gltf.GltfSaveOptions.GltfSaveOptions(file_format=None)` | The `aspose.threed.formats.gltf` namespace re-exports `GltfSaveOptions` from the primary `aspose.threed.formats` namespace. |
@@ -636,10 +594,10 @@ The package documents 354 public types across 13 namespaces. Package namespaces 
 
 | Type | Description |
 | --- | --- |
-| `threed.formats.obj.ObjExporter.ObjExporter()` | Represents an OBJ Exporter in the public OBJ API for Aspose.3D. Supports supportsing format. Inherits from `Exporter`. |
-| `threed.FileFormat.FileFormat()` | Represents an OBJ Format in the public OBJ API for Aspose.3D. Supports creating load options, creating save options, and detecting changes. Inherits from `FileFormat`. |
+| `threed.formats.obj.ObjExporter.ObjExporter()` | The package exposes the public `ObjExporter` type in the `aspose.threed.formats.obj` namespace. OBJ is listed for input workflows only. |
+| `threed.FileFormat.FileFormat()` | The package exposes the public `ObjFormat` type in the `aspose.threed.formats.obj` namespace. OBJ is listed for input workflows only. |
 | `threed.formats.obj.ObjFormatDetector.ObjFormatDetector()` | Represents an OBJ Format Detector in the public OBJ API for Aspose.3D. Supports detecting changes. Inherits from `FormatDetector`. |
-| `threed.formats.obj.ObjImporter.ObjImporter()` | Represents an OBJ Importer in the public OBJ API for Aspose.3D. Supports importing scene and supportsing format. Inherits from `Importer`. |
+| `threed.formats.obj.ObjImporter.ObjImporter()` | Represents an OBJ Importer in the public OBJ API for Aspose.3D. Supports importing scene and checking format support. Inherits from `Importer`. |
 | `threed.formats.obj.ObjLoadOptions.ObjLoadOptions()` | The `aspose.threed.formats.obj` namespace re-exports `ObjLoadOptions` from the primary `aspose.threed.formats` namespace. |
 | `threed.formats.obj.ObjSaveOptions.ObjSaveOptions()` | The `aspose.threed.formats.obj` namespace re-exports `ObjSaveOptions` from the primary `aspose.threed.formats` namespace. |
 
@@ -647,9 +605,9 @@ The package documents 354 public types across 13 namespaces. Package namespaces 
 
 | Type | Description |
 | --- | --- |
-| `threed.formats.stl.StlExporter.StlExporter()` | Represents an STL Exporter in the public STL API for Aspose.3D. Supports supportsing format. Inherits from `Exporter`. |
+| `threed.formats.stl.StlExporter.StlExporter()` | Represents an STL Exporter in the public STL API for Aspose.3D. Supports checking format support. Inherits from `Exporter`. |
 | `StlFormat` | Represents an STL Format in the public STL API for Aspose.3D. Supports creating load options and creating save options. |
-| `threed.formats.stl.StlImporter.StlImporter()` | Represents an STL Importer in the public STL API for Aspose.3D. Supports importing scene and supportsing format. Inherits from `Importer`. |
+| `threed.formats.stl.StlImporter.StlImporter()` | Represents an STL Importer in the public STL API for Aspose.3D. Supports importing scene and checking format support. Inherits from `Importer`. |
 | `threed.formats.stl.StlLoadOptions.StlLoadOptions()` | The `aspose.threed.formats.stl` namespace re-exports `StlLoadOptions` from the primary `aspose.threed.formats` namespace. |
 | `threed.formats.stl.StlSaveOptions.StlSaveOptions(file_format=None)` | The `aspose.threed.formats.stl` namespace re-exports `StlSaveOptions` from the primary `aspose.threed.formats` namespace. |
 
@@ -1473,11 +1431,9 @@ The package documents 354 public types across 13 namespaces. Package namespaces 
 
 ## Scope and Limitations
 
-Aspose.3D FOSS for Python allows mesh creation and manipulation, but does not support boolean operations such as union, difference, intersection, or generic do_boolean on Mesh instances.
+Boolean operations such as union, difference, intersect, and do_boolean on Mesh entities are not implemented in Aspose.3D FOSS for Python.
 
-NURBS curve and surface entities can be declared, but evaluating points on a NURBS curve or converting a NURBS surface to a mesh is not implemented.
-
-Scene rendering and Renderer configuration are not implemented; output generation through the rendering pipeline is unavailable.
+NURBS curve evaluation and conversion of NURBS surfaces to meshes are not implemented in Aspose.3D FOSS for Python.
 
 The library targets the workflows listed above. Five specific constraints are listed below.
 
