@@ -20,9 +20,16 @@ Commits on this branch, oldest first:
           pattern used for PUBLIC_QUALITY_CHECKS_VERSION's source-hash
           tripwire inside the module itself (see WORKLOG.md).
 
-Full `git log --oneline` for this branch from base to tip:
+Full `git log --oneline` for this branch from base to tip, as of the commit that introduced this
+file (2460d997):
 
 2460d997 docs(handoff): add COMMITS.txt to the handoff bundle
 552eb6ab docs(handoff): add public-quality-gates module handoff bundle
 85a5bbd9 feat(validation): add standalone public-candidate quality gate
 e731ea56 fix(authoring): harden Qwen factual recovery   <- base, not part of this lane's work
+
+Note: this file cannot perfectly self-reference the exact commit hash of its own tip (editing it
+changes that hash). It may trail by one or two small documentation-only correction commits by the
+time you read it -- for the authoritative list, run:
+    git log --oneline e731ea56ebb50c6002d7fb5459e02d8b32f0cc71..HEAD
+The one commit that actually matters for integration, 85a5bbd9, is fixed and will not change.
