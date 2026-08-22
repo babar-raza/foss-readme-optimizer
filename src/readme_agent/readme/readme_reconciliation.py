@@ -165,6 +165,35 @@ class ReadmeReconciliationReportV1(_StrictModel):
     superseded_count: int = Field(ge=0)
     omitted_count: int = Field(ge=0)
 
+    @model_validator(mode="after")
+    def _entries_partition_source_and_counts_match(self) -> ReadmeReconciliationReportV1:
+        ordered = sorted(self.entries, key=lambda item: item.source_byte_start)
+        cursor = 0
+        counts = {name: 0 for name in _CLAIM_RESOLUTION_DISPOSITIONS.values()}
+        counts["preserved"] = 0
+        for entry in ordered:
+            if entry.source_byte_start != cursor:
+                relation = "overlap" if entry.source_byte_start < cursor else "gap"
+                raise ValueError(
+                    f"reconciliation entries contain a source {relation} at byte {cursor}"
+                )
+            if entry.source_byte_end > self.source_bytes:
+                raise ValueError("reconciliation entry extends beyond source bytes")
+            cursor = entry.source_byte_end
+            counts[entry.disposition] += 1
+        if cursor != self.source_bytes:
+            raise ValueError(f"reconciliation entries end at {cursor}, not {self.source_bytes}")
+        declared = {
+            "preserved": self.preserved_count,
+            "corrected": self.corrected_count,
+            "relocated": self.relocated_count,
+            "superseded": self.superseded_count,
+            "omitted": self.omitted_count,
+        }
+        if counts != declared:
+            raise ValueError("reconciliation disposition counts do not match entries")
+        return self
+
 
 def _source_operations(plan: ReadmeDocumentPlanV1) -> list[ReadmeDocumentOperationV1]:
     return [
@@ -306,51 +335,154 @@ def build_readme_reconciliation_report(
         int | None,
         tuple[str, ...] | None,
     ]
-    ranges: list[_Range] = []
-    for placement in ledger.source_placements:
-        disposition: ReconciliationDisposition = (
-            "relocated" if placement.placement_basis == _RELOCATED_BASIS else "preserved"
-        )
-        ranges.append(
-            (
-                placement.source_byte_start,
-                placement.source_byte_end,
-                disposition,
-                None,
-                None,
-                placement.final_byte_start,
-                placement.final_byte_end,
-                None,
-            )
-        )
-
     source_operations = _source_operations(plan)
-    for operation in source_operations:
-        if operation.protected_content_treatment == "authoritative_fact_correction":
-            change_disposition: ReconciliationDisposition = "corrected"
-        elif operation.protected_content_treatment == "presentation_policy_correction":
-            change_disposition = "superseded"
-        else:
-            continue
-        ranges.append(
-            (
-                operation.source_byte_start,
-                operation.source_byte_end,
-                change_disposition,
-                operation.operation_id,
-                operation.rationale,
-                None,
-                None,
-                None,
-            )
-        )
+    definitive_resolutions = [
+        resolution
+        for resolution in plan.source_claim_resolutions
+        if resolution.resolution in _CLAIM_RESOLUTION_DISPOSITIONS
+    ]
 
-    ranges.sort(key=lambda item: item[0])
-    for previous, current in zip(ranges, ranges[1:], strict=False):
-        if current[0] < previous[1]:
-            raise ValueError(
-                f"reconciliation source ranges overlap: [{previous[0]}, {previous[1]}) and "
-                f"[{current[0]}, {current[1]})"
+    # Exact source placements, claim-level resolutions, and document operations
+    # intentionally occupy different levels of the same accountability hierarchy.
+    # A compiled-template operation may cover the entire source while exact source
+    # bytes within it are still preserved or relocated. Partition the source at
+    # every evidence boundary and select the most specific owner for each atomic
+    # interval instead of treating that legitimate nesting as double attribution.
+    boundaries = {0, ledger.source_bytes}
+    for placement in ledger.source_placements:
+        boundaries.add(placement.source_byte_start)
+        boundaries.add(placement.source_byte_end)
+    for resolution in definitive_resolutions:
+        boundaries.add(resolution.source_byte_start)
+        boundaries.add(resolution.source_byte_end)
+    for operation in source_operations:
+        boundaries.add(operation.source_byte_start)
+        boundaries.add(operation.source_byte_end)
+
+    ranges: list[_Range] = []
+    ordered_boundaries = sorted(boundaries)
+    for start, end in zip(ordered_boundaries, ordered_boundaries[1:], strict=False):
+        placements = [
+            placement
+            for placement in ledger.source_placements
+            if placement.source_byte_start <= start and end <= placement.source_byte_end
+        ]
+        resolutions = [
+            resolution
+            for resolution in definitive_resolutions
+            if resolution.source_byte_start <= start and end <= resolution.source_byte_end
+        ]
+        operations = [
+            operation
+            for operation in source_operations
+            if operation.source_byte_start <= start and end <= operation.source_byte_end
+        ]
+
+        if len(placements) > 1:
+            raise ValueError(f"multiple exact source placements cover bytes [{start}, {end})")
+        if placements:
+            placement = placements[0]
+            source_offset = start - placement.source_byte_start
+            placement_final_start = placement.final_byte_start + source_offset
+            placement_final_end = placement_final_start + (end - start)
+            if placement_final_end > placement.final_byte_end:
+                raise ValueError("exact source placement has inconsistent source/final lengths")
+            disposition: ReconciliationDisposition = (
+                "relocated" if placement.placement_basis == _RELOCATED_BASIS else "preserved"
+            )
+            ranges.append(
+                (
+                    start,
+                    end,
+                    disposition,
+                    None,
+                    None,
+                    placement_final_start,
+                    placement_final_end,
+                    None,
+                )
+            )
+            continue
+
+        if len(resolutions) > 1:
+            resolution_kinds = {resolution.resolution for resolution in resolutions}
+            if len(resolution_kinds) > 1:
+                raise ValueError(
+                    f"conflicting source claim resolutions cover bytes [{start}, {end})"
+                )
+            resolutions.sort(
+                key=lambda resolution: (
+                    resolution.source_byte_end - resolution.source_byte_start,
+                    resolution.claim_id,
+                )
+            )
+        if resolutions:
+            resolution = resolutions[0]
+            resolution_final_start = resolution.candidate_byte_start
+            resolution_final_end = resolution.candidate_byte_end
+            is_resolution_subset = (
+                start != resolution.source_byte_start or end != resolution.source_byte_end
+            )
+            if (
+                is_resolution_subset
+                and resolution_final_start is not None
+                and resolution_final_end is not None
+            ):
+                source_length = resolution.source_byte_end - resolution.source_byte_start
+                final_length = resolution_final_end - resolution_final_start
+                if source_length != final_length:
+                    raise ValueError("cannot partition a length-changing source claim resolution")
+                source_offset = start - resolution.source_byte_start
+                resolution_final_start += source_offset
+                resolution_final_end = resolution_final_start + (end - start)
+            ranges.append(
+                (
+                    start,
+                    end,
+                    _CLAIM_RESOLUTION_DISPOSITIONS[resolution.resolution],
+                    resolution.claim_id,
+                    resolution.rationale,
+                    resolution_final_start,
+                    resolution_final_end,
+                    tuple(resolution.evidence),
+                )
+            )
+            continue
+
+        if len(operations) > 1:
+            operations.sort(
+                key=lambda operation: (
+                    operation.source_byte_end - operation.source_byte_start,
+                    operation.operation_id,
+                )
+            )
+            narrowest_width = operations[0].source_byte_end - operations[0].source_byte_start
+            narrowest = [
+                operation
+                for operation in operations
+                if operation.source_byte_end - operation.source_byte_start == narrowest_width
+            ]
+            if len({operation.protected_content_treatment for operation in narrowest}) > 1:
+                raise ValueError(f"conflicting source operations cover bytes [{start}, {end})")
+        if operations:
+            operation = operations[0]
+            if operation.protected_content_treatment == "authoritative_fact_correction":
+                change_disposition: ReconciliationDisposition = "corrected"
+            elif operation.protected_content_treatment == "presentation_policy_correction":
+                change_disposition = "superseded"
+            else:
+                change_disposition = "omitted"
+            ranges.append(
+                (
+                    start,
+                    end,
+                    change_disposition,
+                    operation.operation_id,
+                    operation.rationale,
+                    None,
+                    None,
+                    None,
+                )
             )
 
     # Any source-space operation not already placed above (a treatment
@@ -450,8 +582,8 @@ def build_readme_reconciliation_report(
         disposition,
         operation_id,
         rationale,
-        final_start,
-        final_end,
+        range_final_start,
+        range_final_end,
         evidence,
     ) in ranges:
         if start > cursor:
@@ -463,8 +595,8 @@ def build_readme_reconciliation_report(
                 disposition=disposition,
                 operation_id=operation_id,
                 rationale=rationale,
-                final_byte_start=final_start,
-                final_byte_end=final_end,
+                final_byte_start=range_final_start,
+                final_byte_end=range_final_end,
                 evidence=evidence,
             )
         )

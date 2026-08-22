@@ -906,6 +906,15 @@ def test_candidate_boundary_writes_a_real_readme_reconciliation_report(tmp_path,
     assert "candidate/readme-reconciliation.json" in (bundle / "sha256sums.txt").read_text(
         encoding="utf-8"
     )
+    bounded_plan = json.loads(
+        (bundle / "review" / "bounded-review-plan.json").read_text(encoding="utf-8")
+    )
+    bounded_validation = json.loads(
+        (bundle / "review" / "bounded-review-coverage-validation.json").read_text(encoding="utf-8")
+    )
+    assert bounded_plan["candidate_sha256"] == document_plan.candidate_sha256
+    assert bounded_validation["is_complete"] is True
+    assert bounded_validation["has_blocking_gaps"] is False
 
     coverage = json.loads(
         (bundle / "candidate" / "check-coverage.json").read_text(encoding="utf-8")

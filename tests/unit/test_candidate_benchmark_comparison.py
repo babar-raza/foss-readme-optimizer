@@ -81,3 +81,44 @@ def test_comparison_fails_closed_when_candidate_evidence_is_missing(tmp_path):
             bundle_dir=tmp_path / "missing",
             profile_path=_profile(tmp_path),
         )
+
+
+def test_inherited_content_benchmark_rejects_error_shaped_reconciliation(tmp_path):
+    profile_path = tmp_path / "profile.json"
+    profile_path.write_text(
+        json.dumps(
+            {
+                "profile_type": "BenchmarkQualityProfileV1",
+                "state": "BENCHMARK_PROFILE_FROZEN",
+                "runtime_dependency_on_aspose_org": False,
+                "snapshot_sha256": "a" * 64,
+                "dimensions": [
+                    {
+                        "dimension_id": "inherited_content_accountability",
+                        "disposition": "accepted",
+                        "obligation": "Account for every inherited source byte.",
+                    }
+                ],
+            },
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    bundle = tmp_path / "bundle"
+    for relative in (
+        "assessment/evidence-map.json",
+        "candidate/readme-reconciliation.json",
+    ):
+        path = bundle / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text('{"schema_version":1,"error":"overlap"}\n', encoding="utf-8")
+
+    with pytest.raises(ValueError):
+        build_candidate_benchmark_comparison(
+            repository="acme/widget",
+            source_revision="1" * 40,
+            candidate_sha256="2" * 64,
+            bundle_dir=bundle,
+            profile_path=profile_path,
+        )

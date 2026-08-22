@@ -90,6 +90,7 @@ def test_current_candidate_manifest_selects_code_prompt_and_template_without_tes
     assert "src/readme_agent/readme/header_visual_layout.py" in selected
     assert "src/readme_agent/readme/opening_summary_fallback.py" in selected
     assert "src/readme_agent/presentation/verified_source_claim_matching.py" in selected
+    assert "src/readme_agent/presentation/verified_source_claim_pair_resolution.py" in selected
     assert "src/readme_agent/presentation/verified_source_claim_resolution_engine.py" in selected
     assert "src/readme_agent/presentation/verified_source_detail_presentation.py" in selected
     assert "src/readme_agent/readme/source_claim_conversion_binding.py" in selected
@@ -117,6 +118,9 @@ def test_current_candidate_manifest_selects_code_prompt_and_template_without_tes
         "src/readme_agent/readme/idea_candidate.py",
         "src/readme_agent/readme/verified_preservation_composition.py",
         "src/readme_agent/supervisor/local_poc_evidence.py",
+        "src/readme_agent/readme/readme_reconciliation.py",
+        "src/readme_agent/specialists/bounded_review_evidence.py",
+        "src/readme_agent/specialists/bounded_review_packets.py",
         "src/readme_agent/supervisor/local_poc_snapshot_evidence.py",
         "src/readme_agent/supervisor/portfolio_scheduler/contracts.py",
         "src/readme_agent/supervisor/portfolio_scheduler/lane.py",

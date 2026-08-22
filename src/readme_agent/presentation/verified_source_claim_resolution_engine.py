@@ -19,7 +19,9 @@ from readme_agent.presentation.verified_source_claim_omissions import (
     deferred_withheld_source_resolution,
     exact_authorized_claim_ids,
     governed_source_omission,
-    verified_paired_example_intro_resolution,
+)
+from readme_agent.presentation.verified_source_claim_pair_resolution import (
+    resolve_paired_example_intro,
 )
 from readme_agent.presentation.verified_source_policy_resolution import source_policy_resolution
 from readme_agent.readme.assessment_claims import assess_material_claims
@@ -107,6 +109,20 @@ def resolve_source_claims(
     for claim_index, claim in enumerate(source_claims):
         claim_text = source_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
         fact_authorized_preserve = claim.claim_id in preserve_claim_ids
+        if candidate_content_provenance:
+            paired_intro = resolve_paired_example_intro(
+                claim_index=claim_index,
+                source_claims=source_claims,
+                source_text=source_text,
+                candidate_bytes=candidate_bytes,
+                equivalence_candidates=equivalence_candidates,
+                facts=facts,
+                candidate_content_provenance=candidate_content_provenance,
+                authorized_claim_ids=preserve_claim_ids | correction_claim_ids,
+            )
+            if paired_intro is not None:
+                resolutions.append(paired_intro)
+                continue
         if fact_authorized_preserve and candidate_content_provenance:
             moved_resolution = equivalent_source_claim_resolution(
                 claim,
@@ -291,43 +307,6 @@ def resolve_source_claims(
                 )
                 if deferred_example is not None:
                     resolutions.append(deferred_example)
-                    continue
-                paired_claim = (
-                    source_claims[claim_index + 1] if claim_index + 1 < len(source_claims) else None
-                )
-                paired_claim_text = (
-                    source_bytes[
-                        paired_claim.source_byte_start : paired_claim.source_byte_end
-                    ].decode("utf-8")
-                    if paired_claim is not None
-                    else None
-                )
-                paired_resolution = (
-                    equivalent_source_claim_resolution(
-                        paired_claim,
-                        paired_claim_text,
-                        candidate_bytes,
-                        equivalence_candidates,
-                        facts,
-                        candidate_content_provenance,
-                    )
-                    if paired_claim is not None and paired_claim_text is not None
-                    else None
-                )
-                paired_intro = verified_paired_example_intro_resolution(
-                    claim,
-                    claim_text,
-                    paired_claim,
-                    paired_claim_text,
-                    source_text,
-                    risk,
-                    facts,
-                    accepted_primary,
-                    paired_resolution,
-                    correction_candidate_claim_ids=correction_claim_ids,
-                )
-                if paired_intro is not None:
-                    resolutions.append(paired_intro)
                     continue
             if risk.risk_class == "optional_explicit_deferral":
                 core_evidence: list[str] = []

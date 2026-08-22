@@ -9,6 +9,7 @@ import hashlib
 import pytest
 
 from readme_agent.readme.composition_lineage import build_composition_ledger
+from readme_agent.readme.composition_lineage_models import ExactSourcePlacementV1
 from readme_agent.readme.composition_operation_origins import (
     legacy_operation_provenance,
     replay_operation_origins,
@@ -137,6 +138,62 @@ def test_policy_replaced_span_is_bucketed_as_superseded():
     assert superseded.operation_id == "readme.links.unwrap-unbound:1"
     total = sum(e.source_byte_end - e.source_byte_start for e in report.entries)
     assert total == report.source_bytes
+
+
+def test_whole_document_template_operation_defers_to_granular_exact_placements():
+    """A template compiler owns the document rewrite while exact inherited
+    bytes inside that rewrite retain their stronger placement disposition."""
+
+    source = "# Widget\n\nValuable repository detail.\n"
+    start = source.index("Valuable repository detail.")
+    end = start + len("Valuable repository detail.")
+    replacement = "# Widget\n\n## Overview\n\nValuable repository detail.\n"
+    operation = build_operation(
+        operation_id="readme.verified-template.compile",
+        operation="replace",
+        source=source.encode("utf-8"),
+        start=0,
+        end=len(source.encode("utf-8")),
+        replacement=replacement,
+        fact_ids=["product.identity:verified"],
+        treatment="presentation_policy_correction",
+        rationale="Compile the accepted presentation contract.",
+    )
+    plan = _plan(source, [operation])
+    detail_start = replacement.index("Valuable repository detail.")
+    detail_sha256 = hashlib.sha256(source.encode("utf-8")[start:end]).hexdigest()
+    granular_placement = ExactSourcePlacementV1(
+        placement_id="source.repository-detail",
+        placement_basis="composer_inserted_exact",
+        source_owner_id="source:repository-detail",
+        source_byte_start=start,
+        source_byte_end=end,
+        source_content_sha256=detail_sha256,
+        final_byte_start=detail_start,
+        final_byte_end=detail_start + (end - start),
+        final_content_sha256=detail_sha256,
+    )
+    assert plan.composition_ledger is not None
+    plan = plan.model_copy(
+        update={
+            "composition_ledger": plan.composition_ledger.model_copy(
+                update={"source_placements": (granular_placement,)}
+            )
+        }
+    )
+
+    report = build_readme_reconciliation_report(plan, source_text=source)
+
+    preserved = next(entry for entry in report.entries if entry.disposition == "preserved")
+    assert (preserved.source_byte_start, preserved.source_byte_end) == (start, end)
+    assert (preserved.final_byte_start, preserved.final_byte_end) == (
+        detail_start,
+        detail_start + (end - start),
+    )
+    assert report.superseded_count == 2
+    assert sum(entry.source_byte_end - entry.source_byte_start for entry in report.entries) == len(
+        source.encode("utf-8")
+    )
 
 
 def test_no_composition_ledger_fails_closed():

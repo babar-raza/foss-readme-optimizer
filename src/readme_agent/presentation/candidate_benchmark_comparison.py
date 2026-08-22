@@ -9,6 +9,8 @@ from typing import Literal, cast
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from readme_agent.readme.readme_reconciliation import ReadmeReconciliationReportV1
+
 BenchmarkDispositionV1 = Literal["accepted", "adapted", "quarantined", "not_applicable"]
 CandidateBenchmarkDimensionStatusV1 = Literal[
     "EVIDENCE_BOUND_PENDING_ACCEPTANCE",
@@ -120,6 +122,16 @@ def load_benchmark_quality_profile(path: Path = _PROFILE_PATH) -> tuple[dict, st
     return profile, hashlib.sha256(payload).hexdigest()
 
 
+def _validate_dimension_evidence(dimension_id: str, bundle_dir: Path) -> None:
+    """Validate semantics where mere path existence could conceal failed evidence."""
+
+    if dimension_id == "inherited_content_accountability":
+        reconciliation_path = bundle_dir / "candidate" / "readme-reconciliation.json"
+        ReadmeReconciliationReportV1.model_validate_json(
+            reconciliation_path.read_text(encoding="utf-8")
+        )
+
+
 def build_candidate_benchmark_comparison(
     *,
     repository: str,
@@ -141,6 +153,7 @@ def build_candidate_benchmark_comparison(
             raise ValueError(
                 f"benchmark dimension {dimension_id!r} lacks candidate evidence: {missing}"
             )
+        _validate_dimension_evidence(dimension_id, bundle_dir)
         applicable = disposition in {"accepted", "adapted"}
         status: CandidateBenchmarkDimensionStatusV1 = (
             "EVIDENCE_BOUND_PENDING_ACCEPTANCE"

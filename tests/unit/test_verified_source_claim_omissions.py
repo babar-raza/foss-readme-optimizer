@@ -511,7 +511,7 @@ def test_paired_example_intro_is_omitted_only_with_fact_bound_adjacent_example()
         facts,
         accepted_primary,
         paired_resolution,
-        correction_candidate_claim_ids=frozenset({intro.claim_id}),
+        authorized_claim_ids=frozenset({intro.claim_id}),
     )
 
     assert resolution is not None
@@ -538,10 +538,47 @@ def test_paired_example_intro_without_exact_pair_remains_unresolved() -> None:
             facts,
             (primary_provenance, [facts.selected_fact_ids["example.minimal"]]),
             None,
-            correction_candidate_claim_ids=frozenset({intro.claim_id}),
+            authorized_claim_ids=frozenset({intro.claim_id}),
         )
         is None
     )
+
+
+def test_fact_authorized_example_intro_is_not_preserved_without_its_paired_example() -> None:
+    facts, source_without_intro, candidate, provenance = _verified_example_case()
+    source_code = source_without_intro.split("```python\n", 1)[1].split("\n```", 1)[0]
+    source = source_without_intro.replace(
+        "```python\n",
+        "Load an OBJ scene and inspect its meshes:\n\n```python\n",
+        1,
+    )
+    example_block = f"```python\n{source_code}\n```"
+    candidate += f"\n## Additional Examples\n\n{example_block}\n"
+    example_start = candidate.rindex(example_block)
+    examples_id = facts.selected_fact_ids["repository.examples"]
+    provenance = [
+        *provenance,
+        CandidateContentProvenanceV1(
+            provenance_id="source.example.obj",
+            candidate_byte_start=len(candidate[:example_start].encode()),
+            candidate_byte_end=len(candidate[: example_start + len(example_block)].encode()),
+            fact_ids=[examples_id],
+            rationale="Exact source example is bound to the repository example inventory.",
+        ),
+    ]
+    intro, _example = assess_material_claims(source)
+
+    resolutions = resolve_source_claims(
+        source,
+        candidate,
+        facts,
+        provenance,
+        preserved_source_ranges=[(intro.source_byte_start, intro.source_byte_end)],
+    )
+
+    intro_resolution = next(item for item in resolutions if item.claim_id == intro.claim_id)
+    assert intro_resolution.resolution == "verified_omission"
+    assert "disposition:paired-example-intro-superseded-v1" in intro_resolution.evidence
 
 
 def test_execution_verified_source_example_cannot_be_deferred() -> None:

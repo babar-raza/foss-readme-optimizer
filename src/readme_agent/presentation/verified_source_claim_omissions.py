@@ -390,12 +390,12 @@ def verified_paired_example_intro_resolution(
     accepted_primary: tuple[list[CandidateContentProvenanceV1], list[str]] | None,
     paired_resolution: SourceClaimResolutionV1 | None,
     *,
-    correction_candidate_claim_ids: frozenset[str],
+    authorized_claim_ids: frozenset[str],
 ) -> SourceClaimResolutionV1 | None:
     """Omit one exact example intro only when its adjacent example remains fact-bound."""
 
     if (
-        claim.claim_id not in correction_candidate_claim_ids
+        claim.claim_id not in authorized_claim_ids
         or risk.risk_class != "mandatory_fact_resolution"
         or risk.obligation_id != "primary_example"
         or accepted_primary is None
