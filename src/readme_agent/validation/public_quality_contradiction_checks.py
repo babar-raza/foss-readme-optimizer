@@ -56,12 +56,15 @@ def _symbols_governed_by_cue(line: str, cue: re.Match[str]) -> set[str]:
             continue
         cell = sum(start <= match.start() for start in cell_starts) - 1
         by_cell.setdefault(cell, set()).add(match.group(1))
-    if by_cell.get(cue_cell):
-        return by_cell[cue_cell]
+    cue_symbols = by_cell.get(cue_cell, set())
     for cell in range(cue_cell - 1, -1, -1):
-        if by_cell.get(cell):
-            return by_cell[cell]
-    return set()
+        preceding = by_cell.get(cell, set())
+        qualified = {symbol for symbol in preceding if "." in symbol}
+        if qualified:
+            return qualified
+        if preceding:
+            return cue_symbols or preceding
+    return cue_symbols
 
 
 def _check_contradiction_capability_symbol(

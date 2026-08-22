@@ -37,7 +37,9 @@ _READ_CUE = re.compile(
 _WRITE_CUE = re.compile(
     r"(?i)\b(?:writ(?:e|es|ing)|sav(?:e|es|ing)|export(?:s|ing)?|generat(?:e|es|ing))\b"
 )
-_BACKTICK_SYMBOL = re.compile(r"`([A-Za-z_][A-Za-z0-9_.]*)(?:\(\))?`")
+_BACKTICK_SYMBOL = re.compile(
+    r"`([A-Za-z_][A-Za-z0-9_.]*)(?:\([^`\r\n]*\))?(?:\s*->\s*[^`\r\n]+)?`"
+)
 _INLINE_CODE_SPAN = re.compile(r"`[^`\r\n]+`")
 _URL = re.compile(r"https?://\S+")
 _WORD = re.compile(r"[A-Za-z]+")

@@ -159,6 +159,35 @@ def test_api_table_limitation_binds_to_member_not_owner_or_inheritance() -> None
     assert "contradiction_capability_symbol" not in _check_ids(report)
 
 
+def test_api_table_unrelated_members_on_same_owner_do_not_contradict() -> None:
+    candidate = (
+        "# Mesh Toolkit\n\n## API Reference\n\n"
+        "| Type | Member | Description |\n"
+        "| --- | --- | --- |\n"
+        "| `Mesh` | `Mesh.create_polygon(*args)` | Supports creating polygons through `Mesh`. |\n"
+        "| `Mesh` | `Mesh.union(a, b) -> 'Mesh'` | "
+        "Declares the `union` operation on `Mesh` (not yet implemented). |\n"
+    )
+    report = evaluate_public_candidate_quality(candidate)
+
+    assert "contradiction_capability_symbol" not in _check_ids(report)
+
+
+def test_api_table_short_method_mentions_remain_qualified_by_owner() -> None:
+    candidate = (
+        "# Mesh Toolkit\n\n## API Reference\n\n"
+        "| Type | Member | Description |\n"
+        "| --- | --- | --- |\n"
+        "| `NurbsSurface` | `NurbsSurface.to_mesh()` | "
+        "Declares the `to_mesh` operation (not yet implemented). |\n"
+        "| `Box` | `Box.to_mesh() -> 'Mesh'` | "
+        "Supports converting content through `to_mesh`. |\n"
+    )
+    report = evaluate_public_candidate_quality(candidate)
+
+    assert "contradiction_capability_symbol" not in _check_ids(report)
+
+
 def test_phrase_contradiction_without_shared_discriminator_is_advisory_not_blocking() -> None:
     candidate = """# Mesh Toolkit
 
