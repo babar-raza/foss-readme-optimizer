@@ -845,11 +845,14 @@ class TestExecutionProfileFlag:
         import readme_agent.supervisor.mission_execution_guard as mission_guard_module
 
         _stub_preflight_ok(monkeypatch)
-        backend = _LifecycleFakeBackend()
+        repository_backend = _LifecycleFakeBackend()
+        mission_backend = _LifecycleFakeBackend()
         captured: dict[str, object] = {}
-        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: backend)
+        monkeypatch.setattr(git_backend_module, "default_state_backend", lambda: mission_backend)
         monkeypatch.setattr(
-            local_poc_backend_module, "default_local_poc_state_backend", lambda: backend
+            local_poc_backend_module,
+            "default_local_poc_state_backend",
+            lambda: repository_backend,
         )
         monkeypatch.setattr(env, "github_run_id", lambda: None)
         monkeypatch.setattr(env, "github_run_attempt", lambda: 1)
@@ -857,7 +860,9 @@ class TestExecutionProfileFlag:
         monkeypatch.setattr(
             mission_guard_module,
             "require_visible_execution_binding",
-            lambda *args, **kwargs: "DELIVERY-PY-PDF-CURRENT",
+            lambda backend, **kwargs: (
+                captured.update(mission_backend=backend) or "DELIVERY-PY-PDF-CURRENT"
+            ),
         )
 
         def _fake_supervise_repo(repo, **kwargs):
@@ -880,6 +885,8 @@ class TestExecutionProfileFlag:
 
         assert cmd_supervise(args) == 0
         assert captured["require_independent_verification"] is True
+        assert captured["state_backend"] is repository_backend
+        assert captured["mission_backend"] is mission_backend
         assert captured["verify_local_product_facts"] is True
         assert captured["track_readme_poc_lifecycle"] is True
         assert captured["readme_poc_stage_limit"] == "FACTS_READY"

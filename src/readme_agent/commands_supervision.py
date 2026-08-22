@@ -281,14 +281,19 @@ def _cmd_supervise_impl(args: argparse.Namespace) -> int:
     )
 
     if bounded_verified_canary and readme_poc_stage_limit != "INTAKE_READY":
+        from readme_agent.state.git_backend import default_state_backend
         from readme_agent.supervisor.mission_execution_guard import (
             require_visible_execution_binding,
         )
 
         assert state_backend is not None
+        mission_backend = getattr(args, "_mission_state_backend_override", None)
+        owns_mission_backend = mission_backend is None
+        if mission_backend is None:
+            mission_backend = default_state_backend()
         try:
             immediate_goal = require_visible_execution_binding(
-                state_backend,
+                mission_backend,
                 task_id=getattr(args, "mission_task_id", None),
                 repository=args.repo,
                 observer=getattr(args, "mission_observer", "readme-agent-supervisor"),
@@ -296,6 +301,11 @@ def _cmd_supervise_impl(args: argparse.Namespace) -> int:
         except ConfigError as exc:
             print(f"error: {exc}", file=sys.stderr)
             return 2
+        finally:
+            if owns_mission_backend:
+                close = getattr(mission_backend, "close", None)
+                if callable(close):
+                    close()
         print(f"{args.repo}: MISSION_BOUND -- immediate_goal={immediate_goal}", flush=True)
 
     lifecycle_recorder = None
