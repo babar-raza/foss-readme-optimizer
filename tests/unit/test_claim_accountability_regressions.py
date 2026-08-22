@@ -49,6 +49,9 @@ from readme_agent.readme.public_limitations import (
     public_limitation_fact_coordinates,
     public_limitation_phrases,
 )
+from readme_agent.readme.source_claim_format_direction_binding import (
+    format_direction_caption_fact_ids,
+)
 from readme_agent.readme.source_claim_policy import SourceClaimPolicyCorrectionV1
 
 
@@ -105,6 +108,35 @@ def _binding(candidate: str, fact_id: str) -> list[CandidateContentProvenanceV1]
             rationale="Bind the exact additional-examples claim to repository evidence.",
         )
     ]
+
+
+def test_short_source_format_caption_requires_exact_accepted_direction() -> None:
+    facts = _facts()
+    formats = facts.selected_fact("product.formats")
+    facts = _replace_selected_value(
+        facts,
+        "product.formats",
+        ["Input format: OBJ", "Output format: GLTF"],
+    )
+
+    assert format_direction_caption_fact_ids(
+        "Convert the same kind of scene to a binary GLTF (GLB):",
+        facts,
+    ) == {formats.fact_id}
+    assert not format_direction_caption_fact_ids("Export the scene to COLLADA:", facts)
+
+
+def test_conversion_direction_binding_is_asymmetric() -> None:
+    facts = _replace_selected_value(
+        _facts(),
+        "product.formats",
+        ["Input format: DOCX", "Output format: PDF"],
+    )
+
+    assert format_direction_caption_fact_ids("Convert DOCX to PDF.", facts) == {
+        facts.selected_fact_ids["product.formats"]
+    }
+    assert not format_direction_caption_fact_ids("Convert PDF to DOCX.", facts)
 
 
 def test_barcode_keeps_every_limitation_that_names_a_public_api() -> None:

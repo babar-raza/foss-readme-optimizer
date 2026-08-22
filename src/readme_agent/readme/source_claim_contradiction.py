@@ -18,7 +18,7 @@ from readme_agent.readme.claim_accountability_api_shapes import (
     context_classes,
     member_surfaces,
 )
-from readme_agent.readme.format_role_truth import FormatRole, conflicting_explicit_formats
+from readme_agent.readme.format_role_truth import unsupported_directional_formats
 
 _LIST_ITEM = re.compile(r"(?s)^\s*[-+*]\s+(?P<body>.+?)\s*$")
 _BASE_OF = re.compile(
@@ -195,14 +195,7 @@ def _api_contradiction(
 
 def _format_contradiction(claim_text: str, facts: ProductFactsV2) -> set[str]:
     folded = " ".join(claim_text.casefold().split())
-    direction: FormatRole | None = (
-        "input"
-        if re.match(r"(?i)^\s*[-*+]?\s*(?:import|load|open|read)\b", claim_text)
-        else "output"
-        if re.match(r"(?i)^\s*[-*+]?\s*(?:export|save|write)\b", claim_text)
-        else None
-    )
-    if direction is not None and conflicting_explicit_formats(claim_text, facts, direction):
+    if unsupported_directional_formats(claim_text, facts):
         fact = _accepted_fact(facts, "product.formats")
         if fact is not None:
             return {fact.fact_id}

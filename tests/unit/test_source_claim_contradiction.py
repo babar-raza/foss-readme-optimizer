@@ -165,6 +165,13 @@ def test_proves_member_signature_public_export_relationship_and_format_contradic
         "# Capabilities\n\n- Export the scene to OBJ with `Scene.save(...)`.\n"
     ) == {"product.formats:test"}
     assert _contradictions(
+        "# Additional Examples\n\n"
+        "```python\n"
+        "from acme.formats.collada import ColladaLoadOptions\n"
+        "scene.open('model.dae', ColladaLoadOptions())\n"
+        "```\n"
+    ) == {"product.formats:test"}
+    assert _contradictions(
         "# Product\n\nThe library moves data in and out of OBJ and COLLADA files.\n"
     ) == {"product.limitations:test"}
     assert _contradictions(

@@ -2048,6 +2048,7 @@ def test_additional_examples_omit_unproved_format_directions() -> None:
                     "language": "python",
                     "code": (
                         "from aspose.threed.formats.gltf import GltfSaveOptions\n"
+                        'scene.open("model.obj")\n'
                         'scene.save("model.gltf", GltfSaveOptions())'
                     ),
                     "static_api_verified": True,

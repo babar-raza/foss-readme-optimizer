@@ -23,14 +23,16 @@ _OUTPUT_OPERATIONS = frozenset({"save", "write", "export", "output"})
 _DIRECTIONAL_API_SUFFIX = re.compile(
     r"(?i)(?:loadoptions?|saveoptions?|importer|exporter|formatdetector|format|plugin)$"
 )
-_INPUT_SEMANTICS = re.compile(
-    r"(?i)\b(?:load|open|read)s?(?:ed|ing)?\b|(?:Importer|LoadOptions?)\b|"
-    r"\.(?:open|load|read)\s*\("
+_INPUT_SEMANTICS = re.compile(r"(?i)\b(?:load|open|read)s?(?:ed|ing)?\b|\.(?:open|load|read)\s*\(")
+_OUTPUT_SEMANTICS = re.compile(r"(?i)\b(?:export|save|write)s?(?:ed|ing)?\b|\.(?:save|write)\s*\(")
+_INPUT_LINE_PREFIX = re.compile(r"(?i)^\s*(?:#+\s*)?import(?:s|ed|ing)?\b")
+_CONVERSION_LINE = re.compile(
+    r"(?i)\bconvert(?:s|ed|ing)?\b(?P<input>.*?)\b(?:to|into)\b(?P<output>.+)"
 )
-_OUTPUT_SEMANTICS = re.compile(
-    r"(?i)\b(?:export|save|write)s?(?:ed|ing)?\b|(?:Exporter|SaveOptions?)\b|"
-    r"\.(?:save|write)\s*\("
-)
+_ROLE_FORMAT_EQUIVALENTS = {
+    "DAE": "COLLADA",
+    "GLB": "GLTF",
+}
 
 
 def _format_tokens(value: str) -> set[str]:
@@ -120,22 +122,41 @@ def formats_in_api_symbol(name: str) -> set[str]:
     return {canonical} if canonical is not None else set()
 
 
+def _formats_in_line(line: str) -> set[str]:
+    formats = mentioned_document_formats(line)
+    for identifier in re.findall(r"\b[A-Za-z][A-Za-z0-9_]*\b", line):
+        formats.update(formats_in_api_symbol(identifier))
+    return formats
+
+
+def directional_format_claims(text: str) -> dict[FormatRole, frozenset[str]]:
+    """Return the explicit format roles asserted by one public fragment."""
+
+    claims: dict[FormatRole, set[str]] = {"input": set(), "output": set()}
+    for line in text.splitlines():
+        conversion = _CONVERSION_LINE.search(line)
+        if conversion is not None:
+            claims["input"].update(_formats_in_line(conversion.group("input")))
+            claims["output"].update(_formats_in_line(conversion.group("output")))
+            continue
+        formats = _formats_in_line(line)
+        if _INPUT_LINE_PREFIX.search(line) or _INPUT_SEMANTICS.search(line):
+            claims["input"].update(formats)
+        if _OUTPUT_SEMANTICS.search(line):
+            claims["output"].update(formats)
+    return {role: frozenset(values) for role, values in claims.items() if values}
+
+
 def unsupported_directional_formats(
     text: str,
     facts: ProductFactsV2 | None,
 ) -> dict[FormatRole, frozenset[str]]:
     """Return unsupported input/output claims made by one public fragment."""
 
-    formats = mentioned_document_formats(text)
-    claims: dict[FormatRole, frozenset[str]] = {}
-    if _INPUT_SEMANTICS.search(text):
-        claims["input"] = frozenset(
-            unsupported_format_directions_for_formats(formats, facts, "input")
-        )
-    if _OUTPUT_SEMANTICS.search(text):
-        claims["output"] = frozenset(
-            unsupported_format_directions_for_formats(formats, facts, "output")
-        )
+    claims = {
+        role: frozenset(unsupported_format_directions_for_formats(set(formats), facts, role))
+        for role, formats in directional_format_claims(text).items()
+    }
     return {role: values for role, values in claims.items() if values}
 
 
@@ -175,13 +196,17 @@ def unsupported_format_directions_for_formats(
     if not roles:
         return set()
     return {
-        format_name for format_name in formats if role not in roles.get(format_name, frozenset())
+        format_name
+        for format_name in formats
+        if role
+        not in roles.get(_ROLE_FORMAT_EQUIVALENTS.get(format_name, format_name), frozenset())
     }
 
 
 __all__ = [
     "FormatRole",
     "conflicting_explicit_formats",
+    "directional_format_claims",
     "explicit_format_roles",
     "formats_in_api_symbol",
     "mentioned_document_formats",

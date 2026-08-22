@@ -12,6 +12,9 @@ from readme_agent.readme.source_claim_conversion_binding import (
     conversion_source_claim_fact_ids,
 )
 from readme_agent.readme.source_claim_exact_structured_binding import exact_structured_fact_ids
+from readme_agent.readme.source_claim_format_direction_binding import (
+    format_direction_caption_fact_ids,
+)
 from readme_agent.readme.source_claim_major_capability_binding import (
     api_overview_fact_ids,
     major_capability_fact_ids,
@@ -69,6 +72,7 @@ def structured_source_claim_fact_ids(
         | python_product_architecture_fact_ids(text, facts)
         | product_positioning_overview_fact_ids(text, facts)
         | conversion_source_claim_fact_ids(text, facts)
+        | format_direction_caption_fact_ids(text, facts)
         | mcp_source_claim_fact_ids(text, facts)
         | repository_asset_source_claim_fact_ids(text, facts)
         | portfolio_source_claim_fact_ids(document, claim, text, facts)
