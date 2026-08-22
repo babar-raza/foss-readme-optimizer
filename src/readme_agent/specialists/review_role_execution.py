@@ -381,6 +381,35 @@ def _unique_whitespace_insensitive_span(quote: str, candidate_text: str) -> str 
     return candidate_text[source_start:source_end]
 
 
+def _clear_irrelevant_mechanical_references(
+    parsed: BlindQualityReviewResultV1 | FactualPlanReviewResultV1,
+    errors: list[str],
+) -> tuple[BlindQualityReviewResultV1 | FactualPlanReviewResultV1, tuple[str, ...]]:
+    """Clear only mechanical fields that the deterministic premise parser proved irrelevant."""
+
+    if not isinstance(parsed, BlindQualityReviewResultV1):
+        return parsed, ()
+    irrelevant_ids = {
+        error.split(":", maxsplit=1)[0]
+        for error in errors
+        if ":mechanical premise cites unrelated check " in error
+    }
+    if not irrelevant_ids:
+        return parsed, ()
+    findings = [
+        finding.model_copy(update={"mechanical_check_id": None, "reported_observed_value": None})
+        if finding.finding_id in irrelevant_ids
+        else finding
+        for finding in parsed.findings
+    ]
+    return (
+        BlindQualityReviewResultV1.model_validate(
+            {**parsed.model_dump(mode="json"), "findings": findings}
+        ),
+        tuple(sorted(irrelevant_ids)),
+    )
+
+
 def run_grounded_role(
     *,
     role: str,
@@ -413,6 +442,7 @@ def run_grounded_role(
         dismissed_finding_ids: tuple[str, ...] = ()
         reconciled_candidate_span_ids: tuple[str, ...] = ()
         reconciled_factual_polarity_ids: tuple[str, ...] = ()
+        reconciled_irrelevant_mechanical_ids: tuple[str, ...] = ()
         original_errors: list[str] = []
         try:
             parsed = _parse_role_result(
@@ -436,6 +466,17 @@ def run_grounded_role(
             )
             errors = grounding.errors
             original_errors = list(errors)
+            parsed, reconciled_irrelevant_mechanical_ids = _clear_irrelevant_mechanical_references(
+                parsed, errors
+            )
+            if reconciled_irrelevant_mechanical_ids:
+                grounding = validate_review_findings(
+                    candidate_text=candidate_text,
+                    product_facts=product_facts,
+                    findings=parsed.findings,
+                    visitor_contract=visitor_contract,
+                )
+                errors = grounding.errors
             if errors:
                 parsed, dismissed_finding_ids = _drop_ungrounded_blind_sibling_findings(
                     parsed,
@@ -467,6 +508,9 @@ def run_grounded_role(
                 "deterministically_dismissed_finding_ids": list(dismissed_finding_ids),
                 "reconciled_candidate_span_ids": list(reconciled_candidate_span_ids),
                 "reconciled_factual_polarity_ids": list(reconciled_factual_polarity_ids),
+                "reconciled_irrelevant_mechanical_finding_ids": list(
+                    reconciled_irrelevant_mechanical_ids
+                ),
                 "pre_normalization_errors": original_errors,
                 "invalid_findings": [
                     {

@@ -235,6 +235,47 @@ def test_separated_review_routes_oversized_merged_request_through_bounded_execut
     assert factual_client.calls == len(plan.factual_packets)
 
 
+def test_separated_review_reuses_explicit_live_client_packet_cache(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path,
+) -> None:
+    document_plan = DEFAULT_DOCUMENT_PLAN.model_copy(
+        update={
+            "claim_accountability": DEFAULT_CLAIM_ACCOUNTABILITY,
+            "candidate_content_provenance": DEFAULT_PROVENANCE,
+        }
+    )
+    plan = _plan(document_plan=document_plan, budget_chars=100_000)
+    monkeypatch.setattr(separated_review, "_BOUNDED_REVIEW_TRIGGER_CHARS", 10**12)
+    monkeypatch.setattr(separated_review, "MAX_MERGED_REVIEW_REQUEST_BYTES", 1)
+    common = {
+        "org_repo": "acme/widget-toolkit",
+        "original_readme_text": "# Widget Toolkit\n",
+        "candidate_readme_text": CANDIDATE_TEXT,
+        "presentation_plan": document_plan.model_dump(mode="json"),
+        "product_facts_v2": DEFAULT_FACTS.model_dump(mode="json"),
+        "bounded_cache_dir": tmp_path / "packet-cache",
+        "bounded_cache_source_revision": "a" * 40,
+    }
+
+    first = separated_review.run_separated_readme_review(
+        **common,
+        blind_client=_PacketSequenceClient(list(plan.visitor_packets)),
+        factual_client=_PacketSequenceClient(list(plan.factual_packets)),
+    )
+    second = separated_review.run_separated_readme_review(
+        **common,
+        blind_client=_FailIfCalledClient(),
+        factual_client=_FailIfCalledClient(),
+    )
+
+    assert first.verdict == "ACCEPT"
+    assert second.verdict == "ACCEPT"
+    assert len(list((tmp_path / "packet-cache").glob("*.json"))) == (
+        len(plan.visitor_packets) + len(plan.factual_packets)
+    )
+
+
 def test_oversized_invalid_contract_fails_closed_instead_of_using_merged_review(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

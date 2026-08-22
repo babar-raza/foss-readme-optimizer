@@ -260,7 +260,7 @@ def run_separated_readme_review(
             blind_prompt_id=_BLIND_PROMPT_ID,
             factual_prompt_id=_FACTUAL_PROMPT_ID,
             max_workers=(1 if explicit_separated else _BOUNDED_REVIEW_MAX_WORKERS),
-            cache_dir=bounded_cache_dir if not explicit_separated else None,
+            cache_dir=bounded_cache_dir,
             cache_context=(
                 BoundedReviewCacheContextV1(
                     source_revision=bounded_cache_source_revision,
@@ -280,7 +280,7 @@ def run_separated_readme_review(
                     blind_sampling_parameters={"temperature": 0.0, "max_tokens": 3000},
                     factual_sampling_parameters={"temperature": 0.0, "max_tokens": 6000},
                 )
-                if bounded_cache_source_revision is not None and not explicit_separated
+                if bounded_cache_source_revision is not None
                 else None
             ),
         )

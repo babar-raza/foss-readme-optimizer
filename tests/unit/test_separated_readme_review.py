@@ -2166,6 +2166,53 @@ def test_whitespace_equivalent_candidate_quote_is_reconciled_without_retry() -> 
     assert history[0]["reconciled_candidate_span_ids"] == ["quality.generic-opening"]
 
 
+def test_irrelevant_mechanical_reference_is_cleared_without_retry() -> None:
+    parsed = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The opening is generic.",
+        "failed_criteria": ["product_specificity"],
+        "sections_affected": ["overview"],
+        "required_repair": "Name the concrete product purpose.",
+        "findings": [
+            {
+                "finding_id": "quality.generic-opening",
+                "kind": "quality",
+                "criterion": "product_specificity",
+                "section": "overview",
+                "claim": "The opening is generic.",
+                "quoted_candidate_span": "Specific, useful candidate.",
+                "disposition": "requires_repair",
+                "fact_id": None,
+                "evidence_excerpt": None,
+                "evidence_location": None,
+                "expected_polarity": None,
+                "observed_polarity": None,
+                "polarity_result": "not_applicable",
+                "mechanical_check_id": "document.required_h2_prefix",
+                "reported_observed_value": True,
+                "required_repair": "Name the concrete product purpose.",
+            }
+        ],
+    }
+    client = SequenceClient([parsed])
+
+    result, history, grounding = run_grounded_role(
+        role="blind_quality",
+        prompt_id="blind_readme_quality_review",
+        client=client,
+        messages=[],
+        candidate_text=CANDIDATE,
+        product_facts=None,
+    )
+
+    assert result.verdict == "REJECT_REPAIRABLE"
+    assert result.findings[0].mechanical_check_id is None
+    assert result.findings[0].reported_observed_value is None
+    assert grounding.valid is True
+    assert len(client.messages_seen) == 1
+    assert history[0]["reconciled_irrelevant_mechanical_finding_ids"] == ["quality.generic-opening"]
+
+
 def test_uniquely_fused_markdown_quote_is_reconciled_without_retry() -> None:
     candidate = "# Example\n\n## Installation\n\nUse pip.\n"
     parsed = {
