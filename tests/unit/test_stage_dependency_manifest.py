@@ -194,6 +194,7 @@ def test_selected_owner_byte_change_alters_candidate_stage_key(tmp_path: Path, m
         "src/readme_agent/llm/bundle_accounting.py",
         "src/readme_agent/llm/call_ledger.py",
         "src/readme_agent/llm/call_schema.py",
+        "src/readme_agent/supervisor/candidate_llm_accounting.py",
     ),
 )
 def test_accounting_owner_change_alters_candidate_stage_key(
