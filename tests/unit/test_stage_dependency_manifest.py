@@ -121,6 +121,8 @@ def test_current_candidate_manifest_selects_code_prompt_and_template_without_tes
         "src/readme_agent/readme/readme_reconciliation.py",
         "src/readme_agent/specialists/bounded_review_evidence.py",
         "src/readme_agent/specialists/bounded_review_packets.py",
+        "src/readme_agent/llm/bundle_accounting.py",
+        "src/readme_agent/supervisor/candidate_llm_accounting.py",
         "src/readme_agent/supervisor/local_poc_snapshot_evidence.py",
         "src/readme_agent/supervisor/portfolio_scheduler/contracts.py",
         "src/readme_agent/supervisor/portfolio_scheduler/lane.py",

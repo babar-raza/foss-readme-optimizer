@@ -35,6 +35,8 @@ def write_candidate_transaction_llm_accounting(bundle_dir: Path) -> dict:
         ),
     )
     summary = summarize_llm_call_records(records, ledger_path=ledger_path)
+    portable_summary = summary.model_dump(mode="json")
+    portable_summary["ledger_path"] = "candidate/current-transaction-llm-call-ledger.jsonl"
     summary_payload = {
         "schema_version": 1,
         "scope": "current_candidate_transaction",
@@ -43,7 +45,7 @@ def write_candidate_transaction_llm_accounting(bundle_dir: Path) -> dict:
         "run_id": context.run_id,
         "campaign_id": context.campaign_id,
         "stage": context.stage,
-        "summary": summary.model_dump(mode="json"),
+        "summary": portable_summary,
     }
     write_redacted_json(
         bundle_dir / "candidate" / "current-transaction-llm-accounting.json",

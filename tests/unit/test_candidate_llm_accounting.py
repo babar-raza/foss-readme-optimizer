@@ -1,5 +1,7 @@
 """Current candidate LLM accounting is distinct from revision history."""
 
+import json
+
 from readme_agent.llm.call_ledger import (
     bind_llm_repository_revision,
     record_non_provider_call,
@@ -42,6 +44,11 @@ def test_current_candidate_accounting_records_exact_cache_reuse(tmp_path, monkey
     summary = tmp_path / "bundle" / "candidate" / "current-transaction-llm-accounting.json"
     assert ledger.is_file() and ledger.read_text(encoding="utf-8").count("\n") == 1
     assert summary.is_file()
+    summary_payload = json.loads(summary.read_text(encoding="utf-8"))
+    assert summary_payload["summary"]["ledger_path"] == (
+        "candidate/current-transaction-llm-call-ledger.jsonl"
+    )
+    assert str(tmp_path) not in summary.read_text(encoding="utf-8")
 
 
 def test_candidate_accounting_without_run_context_is_explicit(tmp_path):
