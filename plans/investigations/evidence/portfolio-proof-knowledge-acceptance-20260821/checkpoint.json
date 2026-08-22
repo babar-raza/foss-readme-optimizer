@@ -1,10 +1,10 @@
 {
   "schema_version": 2,
-  "verdict": "KNOWLEDGE_ACCEPTANCE_READY_FOR_INDEPENDENT_CLOSEOUT",
+  "verdict": "KNOWLEDGE_ACCEPTANCE_CLOSED_INDEPENDENTLY_VERIFIED",
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
-  "task_status": "IN_PROGRESS",
-  "durable_state_version": 1239,
+  "task_status": "CLOSED",
+  "durable_state_version": 1243,
   "graph_sha256": "94452b7c011a4459c2386ea5fe5206bed4e87e021a1001d5439e28c0e25a759b",
   "tested_implementation_head": "ed9bf27d96d97d321b6d99ef86883be7d4d090dd",
   "generator_sha256": "64ee245547d30396810e716b0cb73e0ced75c1bc7bb2f70e43bf8ef7f28c366e",
@@ -60,8 +60,8 @@
     "receipt": "runs/verification/pytest-full-latest.json",
     "receipt_sha256": "d1fb000266086ed8b20ef6d98e474f7247ee154bd1383f50845a6eeca0fc711b"
   },
-  "next_boundary": "independent closeout, then operator discussion before L8-PF-02",
-  "task_closed": false,
+  "next_boundary": "operator discussion before L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+  "task_closed": true,
   "gate_a": false,
   "product_remote_writes": 0
 }

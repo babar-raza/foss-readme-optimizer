@@ -2,12 +2,13 @@
 
 ## Verdict
 
-`KNOWLEDGE_ACCEPTANCE_READY_FOR_INDEPENDENT_CLOSEOUT`
+`KNOWLEDGE_ACCEPTANCE_CLOSED_INDEPENDENTLY_VERIFIED`
 
-This is the final coordinator checkpoint for
-`L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY`. It proves the knowledge-generation,
-selection, application, and acceptance boundary. It does **not** claim Gate A,
-portfolio README acceptance, independent 30-point review, or no-op proof.
+This is the independently verified closed checkpoint for
+`L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY`. Durable mission state version 1243 records the task as
+`CLOSED`. It proves the knowledge-generation, selection, application, and acceptance boundary. It
+does **not** claim Gate A, portfolio README acceptance, independent 30-point README review, or
+no-op proof.
 
 ## Verified Knowledge Boundary
 
@@ -70,16 +71,19 @@ agent approval, human acceptance, or publication authorization.
 | Durable qualification digest | `plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json` |
 | Real Aspose.3D Python final knowledge dispositions | `runs/knowledge-qualification-current/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/validation/knowledge-application.json` |
 | Complete non-live gate | `runs/verification/pytest-full-latest.json` |
+| Independent PF01 closeout | `runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/knowledge-final-independent/receipt.json` |
+| Machine contribution and closeout controls | `plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/mission-contribution.json`, `plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/closeout-control.json` |
 | Generator provenance | `data/imported/aspose_org_knowledge_generator_manifest.json` |
 | Check-battery provenance | `data/imported/aspose_org_check_battery_manifest.json` |
 | Check classification | `data/aspose_check_classification.json` |
 
 ## Exact Next Boundary
 
-After an independent non-authoring verifier accepts this checkpoint and the durable task is closed,
-stop for operator discussion. The next executable task is the actual Aspose.3D Python README
-transaction (`L8-PF-02`), not more knowledge import. It must use the normal canonical agentic path,
-pass the independent 30-point contract, and prove an immediate full-transaction zero-provider no-op.
+The independent verifier accepted this checkpoint and durable PF01 is closed. Execution is now
+stopped for operator discussion as requested. The next eligible task is the actual Aspose.3D Python
+README transaction (`L8-PF-02-COMPLETE-CANDIDATE-SEAM`), not more knowledge import. It must use the
+normal canonical agentic path, pass the independent 30-point contract, and prove an immediate
+full-transaction zero-provider no-op.
 
 ## Reproduction
 
