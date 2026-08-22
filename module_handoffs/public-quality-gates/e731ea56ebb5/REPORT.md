@@ -85,9 +85,11 @@ be both, findings are tiered by evidence strength and only the higher tiers bloc
 
 ## Tests and results
 
-22 tests in `tests/unit/test_public_candidate_quality.py`, covering every required red test from the
-brief plus an adversarial/false-positive set and two regression-control tests (reused-rule-id
-tripwire, heuristic-version tripwire). See `TEST_RESULTS.json` for exact counts.
+24 tests in `tests/unit/test_public_candidate_quality.py` (22 from the initial implementation,
+covering every required red test from the brief plus an adversarial/false-positive set and two
+regression-control tests — reused-rule-id tripwire, heuristic-version tripwire — plus 2 more added
+after a pilot rerun found a coverage gap, see `PILOT_RERUN.md`). See `TEST_RESULTS.json` for exact
+counts.
 
 **Manual precision dry-run** (not a committed test — a validation step against real data): ran the
 evaluator, read-only, against the three real committed candidates named in the brief
@@ -100,6 +102,14 @@ real candidates produce zero `cross_section_contradiction` findings, while the r
 `malformed_low_information_prose` check still correctly catches real, legitimate duplication
 defects on two of the three (matching the audit's documented "API surface documented three
 separate, overlapping times" finding).
+
+**Follow-up pilot rerun** (`PILOT_RERUN.md`): formalized the above into a rigorous before/after
+comparison against a precisely reconstructed pre-fix code snapshot, diffed by each finding's
+unique `finding_id`. Confirmed 9→0 `cross_section_contradiction` findings on the Note candidate
+with 0 findings added anywhere and all 9 removed findings manually verified as false positives —
+and, separately, found that the original 22 tests would not have caught either bug on their own
+(21/22 still passed against the reconstructed pre-fix code). Closed with two dedicated regression
+tests, each verified red against the pre-fix reconstruction and green against the fix.
 
 ## What was deliberately not integrated
 

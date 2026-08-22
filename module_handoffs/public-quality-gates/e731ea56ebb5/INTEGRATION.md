@@ -3,17 +3,22 @@
 ## Exact commit(s) to cherry-pick
 
 Two commits on `claude/standalone-public-quality-gates-e731ea56ebb5`, based on `main`
-@ `e731ea56ebb50c6002d7fb5459e02d8b32f0cc71`:
+@ `e731ea56ebb50c6002d7fb5459e02d8b32f0cc71` — **cherry-pick both, in this order**:
 
-1. `85a5bbd9` — `feat(validation): add standalone public-candidate quality gate`
-   (the only commit that needs cherry-picking to get the module + tests; adds exactly
+1. `85a5bbd9` — `feat(validation): add standalone public-candidate quality gate`. Adds exactly
    `src/readme_agent/validation/public_candidate_quality.py` and
-   `tests/unit/test_public_candidate_quality.py`, nothing else).
-2. A final handoff-docs commit (see `COMMITS.txt` for its hash) adding
-   `module_handoffs/public-quality-gates/e731ea56ebb5/**` — informational only, not meant to be
-   cherry-picked into `main`; keep it on this branch or discard it, your call.
+   `tests/unit/test_public_candidate_quality.py` (22 tests).
+2. `5d46e1bf` — `test(validation): add regression tests for the two dry-run-found false
+   positives`. Adds two more tests to the same test file (24 total), closing a gap a pilot rerun
+   found: none of the original 22 tests would have caught either false-positive bug fixed during
+   implementation on its own (see `PILOT_RERUN.md`). Touches only the test file — module
+   unchanged, so `PUBLIC_QUALITY_CHECKS_VERSION`/its recorded hash do not need updating.
 
-Cherry-picking commit 1 alone onto current `main` should apply cleanly as long as
+Everything else on this branch (`552eb6ab`, `2460d997`, `ecf9186b`, `b2540da4`, `560a01a1`) is
+handoff documentation only — `module_handoffs/public-quality-gates/e731ea56ebb5/**` — informational,
+not meant to be cherry-picked into `main`; keep on this branch or discard, your call.
+
+Cherry-picking commits 1 and 2 onto current `main` should apply cleanly as long as
 `readme/presentation_lint.py`, `readme/capability_semantics.py`, `readme/claim_accountability_models.py`,
 `facts/schema_v2.py`, and `readme/document_structure.py` haven't changed their public signatures
 since `e731ea56ebb5` (see "Interface drift" below for what to re-check if they have).

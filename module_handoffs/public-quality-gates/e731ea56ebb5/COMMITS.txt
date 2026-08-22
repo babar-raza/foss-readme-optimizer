@@ -15,21 +15,41 @@ Commits on this branch, oldest first:
 
 2460d997  docs(handoff): add COMMITS.txt to the handoff bundle
           This file. Added as a small follow-up commit because it needs to
-          reference the two commits above by their real hashes, which are
-          only known after they exist -- same self-referential-avoidance
+          reference the other commits by their real hashes, which are only
+          known after they exist -- same self-referential-avoidance
           pattern used for PUBLIC_QUALITY_CHECKS_VERSION's source-hash
           tripwire inside the module itself (see WORKLOG.md).
 
-Full `git log --oneline` for this branch from base to tip, as of the commit that introduced this
-file (2460d997):
+ecf9186b, b2540da4  docs(handoff): small COMMITS.txt self-reference corrections
+          Same self-reference issue as above, corrected in two follow-ups.
 
+5d46e1bf  test(validation): add regression tests for the two dry-run-found false positives
+          <- CHERRY-PICK THIS ONE TOO, alongside 85a5bbd9, onto main.
+          Adds two tests to tests/unit/test_public_candidate_quality.py
+          (no other file touched). A pilot rerun (see PILOT_RERUN.md) found
+          the original 22 tests from 85a5bbd9 did not include a dedicated
+          regression test for either false-positive bug fixed during
+          implementation -- these two close that gap. Suite is 24 tests
+          total after both commits are applied.
+
+560a01a1  docs(handoff): add pilot-rerun before/after proof
+          Adds module_handoffs/public-quality-gates/e731ea56ebb5/PILOT_RERUN.md
+          and updates TEST_RESULTS.json. Informational only.
+
+Full `git log --oneline` for this branch from base to tip, as of the commit that introduced this
+file (2460d997) plus the commits added after it:
+
+560a01a1 docs(handoff): add pilot-rerun before/after proof
+5d46e1bf test(validation): add regression tests for the two dry-run-found false positives
+b2540da4 docs(handoff): note COMMITS.txt cannot self-reference its own tip hash
+ecf9186b fix(handoff): correct COMMITS.txt hash reference to itself
 2460d997 docs(handoff): add COMMITS.txt to the handoff bundle
 552eb6ab docs(handoff): add public-quality-gates module handoff bundle
 85a5bbd9 feat(validation): add standalone public-candidate quality gate
 e731ea56 fix(authoring): harden Qwen factual recovery   <- base, not part of this lane's work
 
 Note: this file cannot perfectly self-reference the exact commit hash of its own tip (editing it
-changes that hash). It may trail by one or two small documentation-only correction commits by the
-time you read it -- for the authoritative list, run:
+changes that hash) -- for the authoritative, current list, run:
     git log --oneline e731ea56ebb50c6002d7fb5459e02d8b32f0cc71..HEAD
-The one commit that actually matters for integration, 85a5bbd9, is fixed and will not change.
+The two commits that actually matter for integration, 85a5bbd9 and 5d46e1bf, are fixed and will
+not change. Cherry-pick both, in that order.
