@@ -239,6 +239,7 @@ def test_candidate_reducer_promotes_once_and_materializes_receipt_view(
     assert lifecycle.candidate_hash == CANDIDATE_HASH
     assert len(lifecycle.history) == history_after_first
     assert first == second
+    assert {item.path for item in first.artifact_inventory} == {"candidate/README.md"}
     assert (compatibility / "candidate" / "README.md").is_file()
     receipt_path = compatibility / "receipts" / "CANDIDATE_GENERATED.json"
     assert receipt_path.is_file()

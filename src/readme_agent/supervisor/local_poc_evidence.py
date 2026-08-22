@@ -16,6 +16,9 @@ from readme_agent.evidence.writer import (
 from readme_agent.facts.knowledge_application_evidence import KnowledgeApplicationV1
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.facts.trusted_readme_schema import TrustedReadmeFactGraphV1
+from readme_agent.presentation.candidate_benchmark_comparison import (
+    build_candidate_benchmark_comparison,
+)
 from readme_agent.readme.agentic_composition import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.readme.claim_map import ReadmeClaimMapV1
@@ -535,6 +538,16 @@ def write_local_poc_readme_candidate(
         bundle_dir / "knowledge-application.json",
         _knowledge_application_report_or_error(render_result),
     )
+    benchmark_comparison = build_candidate_benchmark_comparison(
+        repository=snapshot.org_repo,
+        source_revision=snapshot.source_revision,
+        candidate_sha256=candidate_hash,
+        bundle_dir=bundle_dir,
+    )
+    write_redacted_json(
+        planning_dir / "candidate-benchmark-comparison.json",
+        benchmark_comparison.model_dump(mode="json"),
+    )
 
     assessment_hash = assessment.canonical_hash()
     presentation_plan_hash = _canonical_hash(presentation_plan.get("presentation_plan") or {})
@@ -594,6 +607,9 @@ def write_local_poc_readme_candidate(
                 agentic_plan.canonical_hash() if agentic_plan is not None else None
             ),
             "candidate_hash": candidate_hash,
+            "candidate_benchmark_comparison_hash": _canonical_hash(
+                benchmark_comparison.model_dump(mode="json")
+            ),
             "candidate_stage_dependency_key": candidate_component_manifest.stage_key,
             "candidate_stage_dependency_manifest": candidate_component_manifest.model_dump(
                 mode="json"

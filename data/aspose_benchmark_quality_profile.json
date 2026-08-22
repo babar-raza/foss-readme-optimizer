@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "profile_type": "BenchmarkQualityProfileV1",
+  "state": "BENCHMARK_PROFILE_FROZEN",
+  "development_only": true,
+  "runtime_dependency_on_aspose_org": false,
+  "snapshot_sha256": "0f4571f698b3fb9d49003bb8e16b44776e64dc6e1a5571c94c53e5cc59ae058d",
+  "audit_summary": {
+    "total": 31,
+    "clean_count": 26,
+    "dirty_count": 5,
+    "disposition_verified_count": 21
+  },
+  "disposition_counts": {
+    "accepted": 6,
+    "adapted": 8,
+    "quarantined": 2,
+    "not_applicable": 1
+  },
+  "dimensions": [
+    {
+      "dimension_id": "information_coverage",
+      "disposition": "accepted",
+      "obligation": "Cover the material visitor questions that have repository-verified answers."
+    },
+    {
+      "dimension_id": "product_specificity",
+      "disposition": "accepted",
+      "obligation": "Use repository-specific identity, audience, capabilities, formats, and constraints."
+    },
+    {
+      "dimension_id": "structure_and_navigation",
+      "disposition": "adapted",
+      "obligation": "Retain the useful benchmark section coverage through the local template contract."
+    },
+    {
+      "dimension_id": "branding_and_visuals",
+      "disposition": "adapted",
+      "obligation": "Use the locally approved header and Mermaid contracts rather than copying benchmark bytes."
+    },
+    {
+      "dimension_id": "capability_depth",
+      "disposition": "adapted",
+      "obligation": "Require visible, non-duplicated capabilities backed by current ProductFactsV2 evidence."
+    },
+    {
+      "dimension_id": "installation_and_dependencies",
+      "disposition": "adapted",
+      "obligation": "Render only repository-declared and independently verified acquisition routes."
+    },
+    {
+      "dimension_id": "source_derived_examples",
+      "disposition": "adapted",
+      "obligation": "Use benchmark coverage as a hint while requiring isolated verification of exact local examples."
+    },
+    {
+      "dimension_id": "api_reference_depth",
+      "disposition": "adapted",
+      "obligation": "Select useful public APIs from current local source evidence and avoid benchmark-only names."
+    },
+    {
+      "dimension_id": "documentation_and_resources",
+      "disposition": "accepted",
+      "obligation": "Provide useful verified documentation, support, contribution, and reference routes."
+    },
+    {
+      "dimension_id": "limitations",
+      "disposition": "accepted",
+      "obligation": "Keep material constraints visible, specific, and non-duplicated."
+    },
+    {
+      "dimension_id": "development_and_testing",
+      "disposition": "adapted",
+      "obligation": "Present relevant repository development guidance without exposing internal verification prose."
+    },
+    {
+      "dimension_id": "licensing",
+      "disposition": "accepted",
+      "obligation": "Explain the verified repository license and link the repository-owned license artifacts."
+    },
+    {
+      "dimension_id": "inherited_content_accountability",
+      "disposition": "adapted",
+      "obligation": "Account for valuable source README material, but verify it before reuse and normalize its tone."
+    },
+    {
+      "dimension_id": "public_tone_and_process_hygiene",
+      "disposition": "accepted",
+      "obligation": "Use professional public prose and prohibit internal validation, evidence, or workflow narration."
+    },
+    {
+      "dimension_id": "benchmark_claim_authority",
+      "disposition": "quarantined",
+      "obligation": "Benchmark claims and examples are discovery hints only and never become product truth."
+    },
+    {
+      "dimension_id": "benchmark_item_verdicts",
+      "disposition": "quarantined",
+      "obligation": "Upstream clean, dirty, skipped, and published labels do not satisfy local acceptance."
+    },
+    {
+      "dimension_id": "upstream_site_workflow_metadata",
+      "disposition": "not_applicable",
+      "obligation": "Hugo, content-site, publication, and upstream task-state metadata do not enter README runtime inputs."
+    }
+  ],
+  "authority": {
+    "facts": "current immutable product repositories through ProductFactsV2",
+    "benchmark": "visitor-quality calibration and gap discovery only",
+    "acceptance": "local deterministic gates plus independent 30-point review"
+  }
+}

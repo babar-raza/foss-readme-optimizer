@@ -77,6 +77,14 @@ def _load_matching_receipt(
     receipt = StageReceiptV1.model_validate_json(path.read_text(encoding="utf-8"))
     if receipt.work_id != work.work_id or receipt.output_hash != output_hash:
         raise ValueError("a different result already owns this stage receipt")
+    stable_artifacts = [
+        artifact
+        for artifact in receipt.artifact_inventory
+        if artifact.path not in {"manifest.json", "sha256sums.txt"}
+    ]
+    if stable_artifacts != receipt.artifact_inventory:
+        receipt = receipt.model_copy(update={"artifact_inventory": stable_artifacts})
+        write_redacted_json(path, receipt)
     return receipt
 
 
@@ -147,7 +155,11 @@ def _accept_receipt(
         fence_token=work.fence.fence_token,
         output_hash=result.output_hash,
         result_sha256=seal.result_sha256,
-        artifact_inventory=result.artifacts,
+        artifact_inventory=[
+            artifact
+            for artifact in result.artifacts
+            if artifact.path not in {"manifest.json", "sha256sums.txt"}
+        ],
     )
     write_redacted_json(_receipt_path(work), receipt)
     return receipt

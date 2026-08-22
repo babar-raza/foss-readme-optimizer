@@ -189,6 +189,8 @@ _CANDIDATE_DEPENDENCY_GROUPS: dict[
             "src/readme_agent/evidence/writer.py",
             "src/readme_agent/supervisor/local_poc_evidence.py",
             "src/readme_agent/supervisor/local_poc_snapshot_evidence.py",
+            "src/readme_agent/presentation/candidate_benchmark_comparison.py",
+            "data/aspose_benchmark_quality_profile.json",
             "src/readme_agent/supervisor/portfolio_scheduler/contracts.py",
             "src/readme_agent/supervisor/portfolio_scheduler/lane.py",
             "src/readme_agent/supervisor/portfolio_scheduler/reducer.py",
