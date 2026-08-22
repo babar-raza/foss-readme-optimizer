@@ -160,6 +160,9 @@ _TRANSIENT_CANDIDATE_DETAIL_KEYS = frozenset(
         "verification",
     }
 )
+_TRANSACTION_STAGE_BOUNDARY_DETAIL_KEYS = frozenset(
+    {"stage_boundary_pending", "stage_boundary_stop"}
+)
 
 
 def _without_transient_candidate_details(state: DomainStateV1) -> dict:
@@ -170,6 +173,20 @@ def _without_transient_candidate_details(state: DomainStateV1) -> dict:
         for key, value in state.details.items()
         if key not in _TRANSIENT_CANDIDATE_DETAIL_KEYS
     }
+
+
+def _without_prior_stage_boundary(state: DomainStateV1) -> DomainStateV1:
+    """Start each graph transaction without a ceiling inherited from an earlier run."""
+
+    return state.model_copy(
+        update={
+            "details": {
+                key: value
+                for key, value in state.details.items()
+                if key not in _TRANSACTION_STAGE_BOUNDARY_DETAIL_KEYS
+            }
+        }
+    )
 
 
 def _persist_blocked_plan_diagnostics(
@@ -1207,7 +1224,9 @@ def run(
         if prior is not None:
             prior_domain_state = prior.domain_states.get(DOMAIN)
 
-    initial_state = prior_domain_state or DomainStateV1(domain=DOMAIN)
+    initial_state = _without_prior_stage_boundary(
+        prior_domain_state or DomainStateV1(domain=DOMAIN)
+    )
     result = _GRAPH.invoke(
         initial_state,
         config={

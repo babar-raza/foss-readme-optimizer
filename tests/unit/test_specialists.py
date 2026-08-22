@@ -1243,6 +1243,39 @@ class TestReadmePresentationSpecialist:
         )
         assert readme_presentation._composition_plan_reusable({"model": "fixture-author"})
 
+    def test_run_does_not_inherit_a_prior_stage_ceiling(self, monkeypatch):
+        """A capped PF02 transaction must not cap the later unbounded PF03 transaction."""
+
+        from readme_agent.specialists import readme_presentation
+
+        prior_state = DomainStateV1(
+            domain="readme_presentation",
+            accepted_status="NO_CHANGE",
+            details={
+                "candidate_hash": "a" * 64,
+                "stage_boundary_pending": "DETERMINISTIC_VALIDATED",
+                "stage_boundary_stop": "CANDIDATE_GENERATED",
+            },
+        )
+        backend = _FakeStateBackend()
+        backend._states[ORG_REPO] = RunStateV1(
+            org_repo=ORG_REPO,
+            domain_states={"readme_presentation": prior_state},
+        )
+        captured: dict[str, DomainStateV1] = {}
+
+        def invoke(initial_state, config):
+            captured["initial_state"] = initial_state
+            assert config["configurable"]["org_repo"] == ORG_REPO
+            return initial_state.model_dump(mode="python")
+
+        monkeypatch.setattr(readme_presentation, "_GRAPH", SimpleNamespace(invoke=invoke))
+
+        result = readme_presentation.run(ORG_REPO, backend)
+
+        assert result.details == {"candidate_hash": "a" * 64}
+        assert captured["initial_state"].details == result.details
+
     def test_failed_composition_clears_prior_candidate_details(self, monkeypatch):
         from readme_agent.specialists import readme_presentation
 
