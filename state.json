@@ -2492,8 +2492,8 @@
       }
     ],
     "graph_sha256": "a6332e121c3ec41b5846f70a47c2c7ea9b31e5755519156a94b389236d7a0ef9",
-    "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-22T17:29:54.358890+00:00",
+    "infrastructure_tasks_since_visible_delivery": 1,
+    "last_evaluated_at": "2026-08-22T17:37:10.738107+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -2617,7 +2617,24 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "campaign_id": "CAMP-FIRST-PYTHON-SLICE",
+      "core_contribution": {
+        "kind": "first_boundary_removal",
+        "summary": "Produce the first complete current candidate through the real production seam."
+      },
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-DELIVERY"
+      ],
+      "immediate_goal_id": "DELIVERY-FIRST-COMPLETE-CANDIDATE",
+      "immediate_outcome": "Produce one complete current Aspose.3D Python candidate through supervise.",
+      "repository_scope": [
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+      ],
+      "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
+      "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+    },
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
@@ -2676,7 +2693,7 @@
       "L8-MISSION-GOAL-GUARD": "CLOSED",
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
-      "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "SCORED",
+      "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
       "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "TODO",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "TODO",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "TODO",
@@ -12513,6 +12530,21 @@
         "reason": "Acceptance is scored PASS: every declared PF01A check is true, deterministic validation has zero errors, unchanged replay makes zero calls, and selective replay reuses four of five clusters.",
         "task_id": "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/qwen-section-engine-integration/mission-contribution.json",
+          "plans/investigations/evidence/qwen-section-engine-integration/closeout-control.json",
+          "plans/investigations/evidence/qwen-section-engine-integration/REPORT.md",
+          "plans/investigations/evidence/qwen-section-engine-integration/SHA256SUMS",
+          "runs/verification/pytest-full-latest.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-22T17:37:20.262577+00:00",
+        "reason": "PF01A outputs, recovery controls, exact cache semantics, live Qwen proof, safety regressions, complete official suite, and independent review are all satisfied; PF02 remains explicitly unclaimed by this closure.",
+        "task_id": "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -12522,7 +12554,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1250,
+  "state_version": 1251,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
