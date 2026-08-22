@@ -449,6 +449,46 @@ class TestSaveDomainWithFailureTracking:
         assert stored.accepted_facts_hash == "new-hash"
         assert stored.consecutive_failure_count == 0
         assert stored.last_failure_reason is None
+        assert "last_failure_envelope" not in stored.details
+
+    def test_success_removes_inherited_failure_only_details(self):
+        backend = _FakeBackendWithLock()
+        backend._states["acme/widget"] = RunStateV1(
+            org_repo="acme/widget",
+            domain_states={
+                "readme_presentation": DomainStateV1(
+                    domain="readme_presentation",
+                    accepted_status="CHANGED",
+                    consecutive_failure_count=1,
+                    last_failure_reason="independent_review_exception",
+                    details={
+                        "last_failure_envelope": {"failure_reason": "old"},
+                        "current_failure_artifacts": {"candidate": "stale"},
+                        "superseded_baseline": {"disposition": "stale"},
+                    },
+                )
+            },
+        )
+
+        save_domain_with_failure_tracking(
+            backend,
+            "acme/widget",
+            "readme_presentation",
+            DomainStateV1(
+                domain="readme_presentation",
+                accepted_status="CHANGED",
+                details={
+                    "outcome": "accepted",
+                    "last_failure_envelope": {"failure_reason": "inherited"},
+                    "failure_envelope": {"failure_reason": "transient"},
+                },
+            ),
+        )
+
+        stored = backend.load("acme/widget").domain_states["readme_presentation"]
+        assert stored.consecutive_failure_count == 0
+        assert stored.last_failure_reason is None
+        assert stored.details == {"outcome": "accepted"}
 
 
 class TestSaveDomainRevisionStamping:

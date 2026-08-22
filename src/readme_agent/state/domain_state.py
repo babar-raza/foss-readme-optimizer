@@ -52,6 +52,15 @@ NON_ESCALATING_FAILURE_REASONS: frozenset[str] = frozenset(
     {"missing_policy_profile", "disabled_mode"}
 )
 
+_FAILURE_ONLY_DETAIL_KEYS = frozenset(
+    {
+        "current_failure_artifacts",
+        "failure_envelope",
+        "last_failure_envelope",
+        "superseded_baseline",
+    }
+)
+
 
 def merge_details(state: DomainStateV1, **updates: object) -> dict:
     """Every specialist node that returns a `details` update MUST build it
@@ -268,7 +277,18 @@ def _next_domain_state_with_failure_tracking(
         if current_revision is not None
         else {}
     )
-    return domain_state.model_copy(update={**escalation_update, **stamp_update})
+    successful_details = {
+        key: value
+        for key, value in domain_state.details.items()
+        if key not in _FAILURE_ONLY_DETAIL_KEYS
+    }
+    return domain_state.model_copy(
+        update={
+            **escalation_update,
+            **stamp_update,
+            "details": successful_details,
+        }
+    )
 
 
 def save_domain_with_failure_tracking(
