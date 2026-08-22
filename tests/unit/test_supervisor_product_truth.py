@@ -353,7 +353,7 @@ def test_supported_ecosystem_draft_becomes_the_persisted_run_graph(
         "require_listed",
         lambda org_repo: SimpleNamespace(
             ecosystem=ecosystem,
-            family={"net": "3d", "python": "pdf"}.get(ecosystem),
+            family={"net": "3d", "python": "pdf", "cpp": "email"}.get(ecosystem),
         ),
     )
 

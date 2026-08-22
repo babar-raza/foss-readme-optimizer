@@ -244,7 +244,7 @@ def test_ecosystem_contract_excludes_unrelated_fact_adapters():
     assert "curated_python_evidence.py" not in net_roots
 
 
-@pytest.mark.parametrize("ecosystem", ["python", "net"])
+@pytest.mark.parametrize("ecosystem", ["python", "net", "cpp"])
 def test_family_owned_contract_requires_family_context(ecosystem):
     with pytest.raises(ValueError, match="family is required"):
         current_fact_acceptance_contract(ecosystem)
