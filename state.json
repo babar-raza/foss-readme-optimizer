@@ -2493,7 +2493,7 @@
     ],
     "graph_sha256": "a6332e121c3ec41b5846f70a47c2c7ea9b31e5755519156a94b389236d7a0ef9",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-22T17:29:00.833806+00:00",
+    "last_evaluated_at": "2026-08-22T17:29:27.896290+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -2676,7 +2676,7 @@
       "L8-MISSION-GOAL-GUARD": "CLOSED",
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
-      "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "IMPLEMENTED",
+      "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "VERIFIED",
       "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "TODO",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "TODO",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "TODO",
@@ -12487,6 +12487,20 @@
         "reason": "Canonical qwen3-next section authoring, cache reuse, selective invalidation, recovery, rendering, and lifecycle observation are integrated and committed.",
         "task_id": "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/qwen-section-engine-integration/SHA256SUMS",
+          "plans/investigations/evidence/qwen-section-engine-integration/REPORT.md",
+          "runs/verification/pytest-full-latest.json",
+          "independent-verifier:qwen_verifier:PASS@dd379ed6"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-22T17:29:27.896311+00:00",
+        "reason": "Live proof, checksum verification, focused regressions, safety checks, and independent non-authoring review passed on the committed integration.",
+        "task_id": "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -12496,7 +12510,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1248,
+  "state_version": 1249,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
