@@ -1,4 +1,4 @@
-"""Bounded section-cluster authoring: acceptance gates, one semantic retry, zero-call cache."""
+"""Bounded authoring: acceptance gates, up to two semantic repairs, and zero-call cache."""
 
 import json
 
