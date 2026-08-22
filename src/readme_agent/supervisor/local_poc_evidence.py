@@ -31,6 +31,9 @@ from readme_agent.specialists.bounded_review_evidence import (
     build_candidate_bounded_review_evidence,
 )
 from readme_agent.state.readme_poc_lifecycle import candidate_generation_origin_hash
+from readme_agent.supervisor.candidate_llm_accounting import (
+    write_candidate_transaction_llm_accounting,
+)
 from readme_agent.supervisor.local_poc_snapshot_evidence import (
     load_existing_local_poc_manifest,
     write_local_poc_manifest,
@@ -637,6 +640,7 @@ def write_local_poc_readme_candidate(
         if same_candidate
         else "CANDIDATE_GENERATED"
     )
+    candidate_llm_accounting = write_candidate_transaction_llm_accounting(bundle_dir)
     write_local_poc_manifest(
         bundle_dir,
         {
@@ -660,6 +664,7 @@ def write_local_poc_readme_candidate(
                 mode="json"
             ),
             "repair_budget_origin_hash": repair_budget_origin_hash,
+            **candidate_llm_accounting,
             "complete": bool(prior_manifest.get("complete", False)) if same_candidate else False,
             "completed_stages": completed_stages,
         },

@@ -29,6 +29,7 @@ from pydantic import ValidationError
 from readme_agent import env
 from readme_agent.errors import LLMError
 from readme_agent.llm.analysis_client import AnalysisResult
+from readme_agent.llm.call_ledger import record_non_provider_call
 from readme_agent.llm.prompt_registry import prompt_hash
 from readme_agent.llm.schema import Usage
 from readme_agent.llm.section_authoring_prompts import (
@@ -236,6 +237,18 @@ def execute_section_cluster_authoring(
     if cache_dir is not None:
         cached = load_section_authoring_cache(cache_dir, packet.target_section_id, cache_key)
         if cached is not None:
+            record_non_provider_call(
+                job=_PROMPT_ID,
+                prompt_id=_PROMPT_ID,
+                prompt_sha256=prompt_sha256,
+                model=model,
+                disposition="cache_reuse",
+                request={
+                    "cache_key": cache_key,
+                    "packet_hash": packet_hash,
+                    "target_section_id": packet.target_section_id,
+                },
+            )
             return cached.outcome.model_copy(update={"reused_from_cache": True})
 
     def build_messages(*, repair_hint: str = "") -> list[dict]:

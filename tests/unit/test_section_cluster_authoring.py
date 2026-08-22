@@ -1,6 +1,7 @@
 """Bounded authoring: acceptance gates, up to two semantic repairs, and zero-call cache."""
 
 import json
+from pathlib import Path
 
 import pytest
 from section_authoring_test_support import build_fact, build_product_facts_v2
@@ -8,6 +9,13 @@ from section_authoring_test_support import build_fact, build_product_facts_v2
 from readme_agent.facts.protected_content import fingerprint_protected_content
 from readme_agent.llm import verifier_client
 from readme_agent.llm.analysis_client import AnalysisResult
+from readme_agent.llm.call_ledger import (
+    bind_llm_repository_revision,
+    current_llm_call_context,
+    load_llm_call_records,
+    reset_llm_call_accounting,
+    start_llm_call_accounting,
+)
 from readme_agent.llm.schema import LLMResponseMeta, Usage
 from readme_agent.llm.section_author_client import LiveSectionClusterAuthorClient
 from readme_agent.specialists.section_authoring_packet import build_section_authoring_packet
@@ -1261,6 +1269,34 @@ def test_accepted_section_cache_hit_makes_zero_provider_calls(tmp_path):
     assert exhausting_client.calls == []
     assert second.reused_from_cache is True
     assert second.result == first.result
+
+
+def test_accepted_section_cache_hit_is_recorded_in_central_ledger(tmp_path, monkeypatch):
+    monkeypatch.setenv("README_AGENT_RUNS_DIR", str(tmp_path / "runs"))
+    packet = _packet()
+    execute_section_cluster_authoring(
+        packet=packet,
+        client=FakeSectionAuthorClient([_valid_response()]),
+        cache_dir=tmp_path / "cache",
+    )
+    start_llm_call_accounting(packet.org_repo, "cache-reuse-test")
+    bind_llm_repository_revision(packet.source_revision, stage="README_PROCESSING")
+    try:
+        execute_section_cluster_authoring(
+            packet=packet,
+            client=FakeSectionAuthorClient([]),
+            cache_dir=tmp_path / "cache",
+        )
+        context = current_llm_call_context()
+        assert context is not None
+        records = load_llm_call_records(Path(context.ledger_path))
+    finally:
+        reset_llm_call_accounting()
+
+    assert len(records) == 1
+    assert records[0].job == "section_cluster_authoring"
+    assert records[0].disposition == "cache_reuse"
+    assert records[0].outcome == "cache_reuse"
 
 
 def test_a_failed_section_retries_only_that_section_never_writes_a_cache_entry(tmp_path):

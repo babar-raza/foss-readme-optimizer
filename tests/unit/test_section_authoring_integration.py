@@ -395,12 +395,14 @@ def test_readme_specialist_passes_complete_section_document_to_canonical_rendere
     )
     prepared = SimpleNamespace(facts=facts, lifecycle_status="FACTS_READY")
     deterministic_plan = SimpleNamespace(
-        model="deterministic-verified-preservation-v1",
-        model_dump=lambda **_kwargs: {"model": "deterministic-verified-preservation-v1"},
+        model="deterministic-verified-section-authoring-v1",
+        model_dump=lambda **_kwargs: {"model": "deterministic-verified-section-authoring-v1"},
     )
     captured: dict = {}
+    dispatched_tools: list[str] = []
 
-    def dispatch(_tool_call, *_args, **kwargs):
+    def dispatch(tool_call, *_args, **kwargs):
+        dispatched_tools.append(tool_call["function"]["name"])
         captured.update(kwargs["extra_kwargs"])
         return SimpleNamespace(
             outcome="executed",
@@ -418,6 +420,11 @@ def test_readme_specialist_passes_complete_section_document_to_canonical_rendere
     monkeypatch.setattr(
         readme_presentation,
         "build_verified_preservation_composition_plan",
+        lambda *_args, **_kwargs: None,
+    )
+    monkeypatch.setattr(
+        readme_presentation,
+        "build_verified_section_authoring_composition_plan",
         lambda *_args, **_kwargs: deterministic_plan,
     )
     monkeypatch.setattr(readme_presentation, "dispatch_tool_call", dispatch)
@@ -439,6 +446,9 @@ def test_readme_specialist_passes_complete_section_document_to_canonical_rendere
     document = SectionAuthoringDocumentV1.model_validate(captured["section_authoring_document"])
     assert document.complete
     assert len(client.calls) == len(document.expected_cluster_ids)
+    assert dispatched_tools == ["render_readme_candidate"]
     render_result = result["details"]["render_result"]
     assert render_result["section_authoring_provider_calls"] == len(client.calls)
     assert render_result["llm_called"] is True
+    assert render_result["composition_provider_calls"] == 0
+    assert render_result["composition_strategy"] == "deterministic_verified_section_authoring"

@@ -1527,7 +1527,7 @@ class TestBasicLoop:
         assert second_terminal_manifest["readme_poc_status"] == "NO_OP_PROVEN"
         assert first_readme_llm_calls == {
             "relationship": 0,
-            "composition": 1,
+            "composition": 0,
             "prose_quality": 0,
             "independent_review": 1,
         }
@@ -1688,7 +1688,7 @@ class TestBasicLoop:
         assert "AGENT_REVIEW_REJECTED" in statuses
         assert "REPAIRING" in statuses
         assert statuses[-1] == "AGENT_APPROVED"
-        assert _RepairAwareCompositionForcedToolClient.calls == 2
+        assert _RepairAwareCompositionForcedToolClient.calls == 1
         assert _RepairAwareCompositionForcedToolClient.saw_repair_hint is True
         assert _RejectThenAcceptMergedReviewClient.calls == 2
 
@@ -1742,7 +1742,7 @@ class TestBasicLoop:
         assert second.status == "CONVERGED_NO_TRACKED_CHANGE"
         assert backend.load(ORG_REPO).readme_poc_lifecycle.status == "NO_OP_PROVEN"
         assert _RejectThenAcceptMergedReviewClient.calls == 2
-        assert _RepairAwareCompositionForcedToolClient.calls == 2
+        assert _RepairAwareCompositionForcedToolClient.calls == 1
 
     def test_local_poc_byte_identical_repair_reroutes_before_rereview(
         self,
@@ -1785,7 +1785,7 @@ class TestBasicLoop:
         assert result.blocked_category == "agent_fixable"
         assert lifecycle.status == "README_ASSESSED"
         assert _RejectThenAcceptMergedReviewClient.calls == 1
-        assert _FakeCompositionForcedToolClient.calls == 2
+        assert _FakeCompositionForcedToolClient.calls == 1
         lifecycle_bundle = (
             project
             / "runs"

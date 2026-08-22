@@ -106,6 +106,7 @@ from readme_agent.readme.claim_accountability_llm_disposition import (
 from readme_agent.readme.section_authoring_specs import build_canonical_section_authoring_specs
 from readme_agent.readme.verified_preservation_composition import (
     build_verified_preservation_composition_plan,
+    build_verified_section_authoring_composition_plan,
 )
 from readme_agent.repository_snapshot import current_repository_snapshot
 from readme_agent.specialists.readme_factuality import evaluate_candidate_factuality
@@ -119,6 +120,7 @@ from readme_agent.specialists.section_authoring_cache import (
 )
 from readme_agent.specialists.section_authoring_document import (
     SectionAuthoringDocumentError,
+    SectionAuthoringSpecV1,
     author_and_persist_readme_sections,
 )
 from readme_agent.state.backend import StateBackend
@@ -377,10 +379,16 @@ def _failed_transaction_view(
 
 
 def _composition_plan_reusable(plan: dict | None) -> bool:
-    """Reuse live plans, but rebuild deterministic plans after stage invalidation."""
+    """Reuse validated live/bounded plans, but rebuild source-preservation plans."""
 
     return bool(plan) and not str((plan or {}).get("model", "")).startswith(
         "deterministic-verified-preservation-"
+    )
+
+
+def _bounded_section_plan(plan: dict | None) -> bool:
+    return str((plan or {}).get("model", "")).startswith(
+        "deterministic-verified-section-authoring-"
     )
 
 
@@ -416,9 +424,11 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
 
     composition_plan_reused = False
     deterministic_preservation_composed = False
+    deterministic_section_composed = False
     snapshot = None
     source_text = None
     assessment = None
+    section_specs: tuple[SectionAuthoringSpecV1, ...] = ()
     if "product_facts_v2" in wiring_arguments or proposal_only_active():
         prior_plan = state.details.get("agentic_composition_plan")
         snapshot = current_repository_snapshot(org_repo)
@@ -431,7 +441,10 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 prepared.facts,
                 base_revision=snapshot.source_revision,
             )
-            if _composition_plan_reusable(prior_plan):
+            section_specs = build_canonical_section_authoring_specs(prepared.facts)
+            if _composition_plan_reusable(prior_plan) and (
+                not section_specs or _bounded_section_plan(prior_plan)
+            ):
                 assert isinstance(prior_plan, dict)
                 try:
                     reusable_plan = validate_readme_composition_plan(
@@ -469,7 +482,6 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
 
     section_authoring_document = None
     if prepared is not None and snapshot is not None and source_text is not None:
-        section_specs = build_canonical_section_authoring_specs(prepared.facts)
         if section_specs:
             section_client = config["configurable"].get("section_authoring_client")
             if section_client is None:
@@ -504,9 +516,30 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             )
 
     if (
+        not composition_plan_reused
+        and not deterministic_preservation_composed
+        and prepared is not None
+        and source_text is not None
+        and assessment is not None
+        and section_authoring_document is not None
+    ):
+        section_plan = build_verified_section_authoring_composition_plan(
+            org_repo,
+            source_text,
+            prepared.facts,
+            assessment,
+            lifecycle_status=prepared.lifecycle_status,
+            section_authoring_complete=section_authoring_document.complete,
+        )
+        if section_plan is not None:
+            wiring_arguments["agentic_composition_plan"] = section_plan.model_dump(mode="json")
+            deterministic_section_composed = True
+
+    if (
         ("product_facts_v2" in wiring_arguments or proposal_only_active())
         and not composition_plan_reused
         and not deterministic_preservation_composed
+        and not deterministic_section_composed
     ):
         composition_call = {
             "function": {
@@ -552,16 +585,18 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     assert dispatch.result is not None
     render_result = dict(dispatch.result)
     supplied_plan = wiring_arguments.get("agentic_composition_plan") or {}
-    deterministic_preservation_plan = str(supplied_plan.get("model", "")).startswith(
-        "deterministic-verified-preservation-"
-    )
-    if composition_plan_reused or deterministic_preservation_composed:
+    deterministic_plan = str(supplied_plan.get("model", "")).startswith("deterministic-verified-")
+    if composition_plan_reused or deterministic_plan:
         render_result["llm_called"] = False
         render_result["llm_calls"] = []
     if composition_plan_reused:
         render_result["agentic_composition_reused"] = True
-    if deterministic_preservation_plan:
-        render_result["composition_strategy"] = "deterministic_verified_preservation"
+    if deterministic_plan:
+        render_result["composition_strategy"] = (
+            "deterministic_verified_section_authoring"
+            if deterministic_section_composed
+            else "deterministic_verified_preservation"
+        )
         render_result["composition_provider_calls"] = 0
     if section_authoring_document is not None:
         render_result["section_authoring_document"] = section_authoring_document.model_dump(

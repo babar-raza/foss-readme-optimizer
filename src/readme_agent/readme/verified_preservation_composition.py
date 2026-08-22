@@ -61,6 +61,7 @@ from readme_agent.state.lifecycle_schema import ReadmePocStatusV2
 
 _JOB = "plan_readme_composition"
 _MODEL = "deterministic-verified-preservation-v1"
+_SECTION_AUTHORING_MODEL = "deterministic-verified-section-authoring-v1"
 _QUALIFICATION_MODEL = "deterministic-knowledge-qualification-v1"
 _AUTHORING_HINTS = (
     "Deterministic verified-preservation composition from accepted repository facts; "
@@ -69,6 +70,10 @@ _AUTHORING_HINTS = (
 _QUALIFICATION_HINTS = (
     "Offline deterministic qualification from accepted repository facts and the source-bound "
     "assessment; zero authoring-provider calls and no runtime acceptance authority."
+)
+_SECTION_AUTHORING_HINTS = (
+    "Deterministic composition structure from accepted repository facts with bounded section "
+    "authoring; zero whole-document authoring-provider calls."
 )
 _MINIMUM_SOURCE_BYTES = 512
 _MINIMUM_H2_SECTIONS = 3
@@ -463,6 +468,39 @@ def build_offline_knowledge_qualification_plan(
         ),
         model=_QUALIFICATION_MODEL,
         authoring_hints=_QUALIFICATION_HINTS,
+    )
+
+
+def build_verified_section_authoring_composition_plan(
+    org_repo: str,
+    source_text: str,
+    facts: ProductFactsV2,
+    assessment: ReadmeAssessmentV1,
+    *,
+    lifecycle_status: ReadmePocStatusV2,
+    section_authoring_complete: bool,
+) -> ReadmeAgenticCompositionPlanV1 | None:
+    """Build the production structure around a complete bounded-authoring document."""
+
+    if not section_authoring_complete or offline_knowledge_qualification_blockers(
+        org_repo,
+        source_text,
+        facts,
+        assessment,
+        lifecycle_status=lifecycle_status,
+    ):
+        return None
+    return _build_deterministic_composition_plan(
+        org_repo,
+        source_text,
+        facts,
+        assessment,
+        repository_summary=(
+            "Assemble a complete verified candidate from accepted facts and independently "
+            "bounded section-authoring units."
+        ),
+        model=_SECTION_AUTHORING_MODEL,
+        authoring_hints=_SECTION_AUTHORING_HINTS,
     )
 
 

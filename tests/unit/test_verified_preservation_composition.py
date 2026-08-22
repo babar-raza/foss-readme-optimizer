@@ -23,6 +23,7 @@ from readme_agent.readme.presentation_lint_structure import lint_structure
 from readme_agent.readme.presentation_report import product_explanation_offset
 from readme_agent.readme.verified_preservation_composition import (
     build_verified_preservation_composition_plan,
+    build_verified_section_authoring_composition_plan,
 )
 from readme_agent.state.domain_state import DomainStateV1
 
@@ -247,6 +248,43 @@ def test_runtime_route_defers_noncompliant_source_shell_to_agentic_composition()
     )
 
     assert plan is None
+
+
+def test_bounded_section_authoring_builds_zero_whole_document_call_plan():
+    facts = _facts(converter=True)
+    source = _source_readme("Aspose.3D").replace("## At a glance", "## Architecture overview")
+    assessment = assess_readme_document(ORG_REPO, source, facts, base_revision=REVISION)
+
+    plan = build_verified_section_authoring_composition_plan(
+        ORG_REPO,
+        source,
+        facts,
+        assessment,
+        lifecycle_status="FACTS_READY",
+        section_authoring_complete=True,
+    )
+
+    assert plan is not None
+    assert plan.model == "deterministic-verified-section-authoring-v1"
+    assert "zero whole-document authoring-provider calls" in plan.authoring_hints
+
+
+def test_incomplete_bounded_section_authoring_cannot_build_production_plan():
+    facts = _facts(converter=True)
+    source = _source_readme("Aspose.3D")
+    assessment = assess_readme_document(ORG_REPO, source, facts, base_revision=REVISION)
+
+    assert (
+        build_verified_section_authoring_composition_plan(
+            ORG_REPO,
+            source,
+            facts,
+            assessment,
+            lifecycle_status="FACTS_READY",
+            section_authoring_complete=False,
+        )
+        is None
+    )
 
 
 @pytest.mark.parametrize(

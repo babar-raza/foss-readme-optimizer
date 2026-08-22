@@ -85,6 +85,7 @@ def local_bundle_llm_accounting_fields(
     )
     return {
         "llm_accounting_status": summary.status,
+        "llm_accounting_scope": "revision_history",
         "llm_call_count": summary.provider_call_count,
         "llm_call_ids": summary.call_ids,
         "llm_calls_by_job": summary.calls_by_job,
