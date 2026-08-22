@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY",
+  "verification_plan_sha256": "dfd6dbfe3cdbadda9b3978a47d39c16951a9e2062d430eaa0183e2b5e83307e7",
+  "completed_tiers": [
+    "touched_static",
+    "focused",
+    "impacted_integration"
+  ],
+  "promotion_boundary": "runtime_only",
+  "canonical_evidence_promoted": false,
+  "transaction_isolation_proven": false,
+  "proof_refs": [
+    "plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/checkpoint.json",
+    "runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/knowledge-final-independent/receipt.json",
+    "runs/verification/pytest-full-latest.json"
+  ],
+  "independently_verified": true,
+  "multi_agent_execution_plan_sha256": "891dd419a9729ce48ae7e49ac9678068cda9112f6ff8ea24adeb139de7aa3813",
+  "multi_agent_admission_decision_sha256": "b10425911af06b3c31969ad5381f899e03992d2d57f41deeb3b2510522bb5023"
+}
