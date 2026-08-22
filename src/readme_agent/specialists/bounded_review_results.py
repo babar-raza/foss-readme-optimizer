@@ -115,7 +115,7 @@ def _find_packet(plan: BoundedReviewPlanV1, packet_id: str) -> BoundedPacketV1 |
 def _packet_text(packet: BoundedPacketV1) -> str:
     if isinstance(packet, BoundedFactualPacketV1):
         return packet.unit_text
-    return packet.neighbor_context_before + packet.section_text + packet.neighbor_context_after
+    return packet.section_text
 
 
 def validate_packet_result(

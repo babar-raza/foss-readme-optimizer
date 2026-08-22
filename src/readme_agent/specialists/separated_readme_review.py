@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 from typing import cast
 
 from pydantic import ValidationError
@@ -23,6 +24,8 @@ from readme_agent.llm.reviewer_client import (
     build_live_role_review_clients,
 )
 from readme_agent.llm.verification_prompts import (
+    BLIND_QUALITY_REVIEW_TOOL_SCHEMA,
+    FACTUAL_PLAN_REVIEW_TOOL_SCHEMA,
     build_blind_quality_review_messages,
     build_factual_plan_review_messages,
 )
@@ -30,6 +33,7 @@ from readme_agent.presentation.visitor_contract import build_presentation_visito
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.readme.document_plan import ReadmeDocumentPlanV1
 from readme_agent.readme.document_structure import parse_headings
+from readme_agent.specialists.bounded_review_cache import BoundedReviewCacheContextV1
 from readme_agent.specialists.bounded_review_contracts import (
     DEFAULT_BOUNDED_PACKET_BUDGET_CHARS,
 )
@@ -111,6 +115,8 @@ def run_separated_readme_review(
     backend: StateBackend | None = None,
     repair_attempt: int = 0,
     author_identity: ReviewActorIdentityV1 | None = None,
+    bounded_cache_dir: Path | None = None,
+    bounded_cache_source_revision: str | None = None,
 ) -> SeparatedReadmeReviewResultV1:
     """Run one merged review by default, retaining explicit separated compatibility."""
 
@@ -123,6 +129,8 @@ def run_separated_readme_review(
         blind_fallback_client is not None or factual_fallback_client is not None
     ):
         raise ValueError("a review fallback client is only valid with the merged reviewer")
+    if (bounded_cache_dir is None) != (bounded_cache_source_revision is None):
+        raise ValueError("bounded cache directory and source revision must be supplied together")
     if not explicit_separated and merged_client is None:
         merged_client = build_live_merged_review_client(env.llm_base_url(), env.llm_api_key())
         blind_fallback_client, factual_fallback_client = build_live_role_review_clients(
@@ -252,6 +260,29 @@ def run_separated_readme_review(
             blind_prompt_id=_BLIND_PROMPT_ID,
             factual_prompt_id=_FACTUAL_PROMPT_ID,
             max_workers=(1 if explicit_separated else _BOUNDED_REVIEW_MAX_WORKERS),
+            cache_dir=bounded_cache_dir if not explicit_separated else None,
+            cache_context=(
+                BoundedReviewCacheContextV1(
+                    source_revision=bounded_cache_source_revision,
+                    blind_model=env.llm_model_for_job(_BLIND_PROMPT_ID),
+                    factual_model=env.llm_model_for_job(_FACTUAL_PROMPT_ID),
+                    blind_schema_sha256=json_hash(BLIND_QUALITY_REVIEW_TOOL_SCHEMA),
+                    factual_schema_sha256=json_hash(FACTUAL_PLAN_REVIEW_TOOL_SCHEMA),
+                    facts_hash=factual_input.product_facts_sha256,
+                    provenance_hash=json_hash(
+                        {
+                            "candidate_content_provenance": [
+                                item.model_dump(mode="json")
+                                for item in document_plan.candidate_content_provenance
+                            ]
+                        }
+                    ),
+                    blind_sampling_parameters={"temperature": 0.0, "max_tokens": 3000},
+                    factual_sampling_parameters={"temperature": 0.0, "max_tokens": 6000},
+                )
+                if bounded_cache_source_revision is not None and not explicit_separated
+                else None
+            ),
         )
 
     if bounded_execution is not None:

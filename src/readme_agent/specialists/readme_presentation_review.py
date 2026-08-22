@@ -315,6 +315,16 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             factual_client=config["configurable"].get("factual_plan_review_client"),
             backend=lifecycle_backend,
             repair_attempt=attempt,
+            bounded_cache_dir=(
+                local_bundle_dir / "review" / "bounded-packet-cache"
+                if local_bundle_dir is not None
+                else None
+            ),
+            bounded_cache_source_revision=(
+                snapshot.source_revision
+                if local_bundle_dir is not None and snapshot is not None
+                else None
+            ),
         )
 
     reviewer_standard_hash = separated_reviewer_standard_hash()

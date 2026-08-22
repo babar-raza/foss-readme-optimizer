@@ -494,6 +494,7 @@ def build_blind_quality_review_messages(
     original_readme_text: str,
     candidate_readme_text: str,
     visitor_contract_json: str = "{}",
+    bounded_scope_json: str = "{}",
 ) -> list[dict]:
     """Build one exact-block visitor view without duplicated source/candidate documents."""
 
@@ -522,6 +523,7 @@ def build_blind_quality_review_messages(
                 sort_keys=True,
             ),
             visitor_contract_json=visitor_contract_json,
+            bounded_scope_json=bounded_scope_json,
         )
         .strip()
     )

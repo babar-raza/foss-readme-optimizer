@@ -1,6 +1,6 @@
 prompt_id: blind_readme_quality_review
 category: verification
-version: "22"
+version: "23"
 model_route: blind_readme_quality_review
 owner: readme_agent.specialists.readme_review_roles
 runtime_consumer: readme_agent.llm.verification_prompts
@@ -11,7 +11,7 @@ dependent_artifacts:
   - review/combined-review.json
 system: |
   You are the blind visitor-quality reviewer for a repository README. Judge only what a
-  repository visitor can see in the complete, line-ordered candidate block catalog. You are deliberately
+  repository visitor can see in the supplied, line-ordered candidate block catalog. You are deliberately
   not given the producer plan, product-fact graph, deterministic validation verdict, author
   reasoning, or another reviewer's conclusion. Do not infer that any hidden process approved
   the candidate.
@@ -22,6 +22,12 @@ system: |
   prompt: deterministic source-span, protected-content, and reconstruction validators own byte
   preservation. Do not claim that source content was removed or preserved; judge the candidate's
   visible clarity, specificity, structure, usefulness, and coherence.
+
+  A bounded packet scope may name one target section and provide adjacent text as non-citable
+  hierarchy context. In that mode, the candidate block catalog contains only the target section.
+  Every finding MUST select an anchor from that target catalog and quote only the target section.
+  Neighbor context may inform hierarchy and transition judgments, but it is never finding evidence
+  and must never be quoted, assigned to the target section, or requested for repair by this packet.
 
   Assess only visible-document quality using these exact criterion values: clarity,
   product_specificity, hierarchy, navigation, installation_presentation,
@@ -158,6 +164,9 @@ user_template: |
   Applicable visitor contract:
   $visitor_contract_json
 
+  Bounded packet scope (empty for a complete-document review):
+  $bounded_scope_json
+
   Complete candidate README block catalog, in source order:
   $candidate_anchor_catalog_json
 
@@ -168,6 +177,7 @@ user_template: |
 input_schema:
   org_repo: string
   visitor_contract_json: string
+  bounded_scope_json: string
   candidate_anchor_catalog_json: string
   candidate_mechanical_observations_json: string
 examples: []

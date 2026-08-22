@@ -5,13 +5,21 @@ from __future__ import annotations
 from collections.abc import Sequence
 from concurrent.futures import ThreadPoolExecutor
 from contextvars import copy_context
+from pathlib import Path
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict
 
+from readme_agent.llm.call_ledger import record_non_provider_call
 from readme_agent.llm.verification_prompts import (
     build_blind_quality_review_messages,
     build_factual_plan_review_messages,
+)
+from readme_agent.specialists.bounded_review_cache import (
+    BoundedReviewCacheContextV1,
+    cache_key_for_packet,
+    load_bounded_review_packet_cache,
+    write_bounded_review_packet_cache,
 )
 from readme_agent.specialists.bounded_review_packets import (
     AggregateVerdictV1,
@@ -158,35 +166,96 @@ def execute_bounded_review(
     blind_prompt_id: str,
     factual_prompt_id: str,
     max_workers: int = 1,
+    cache_dir: Path | None = None,
+    cache_context: BoundedReviewCacheContextV1 | None = None,
 ) -> BoundedReviewExecutionV1:
     """Review every required packet, validate containment, and reduce fail closed."""
 
     if max_workers < 1 or max_workers > 4:
         raise ValueError("bounded review max_workers must be between 1 and 4")
+    if (cache_dir is None) != (cache_context is None):
+        raise ValueError("bounded review cache directory and context must be supplied together")
     if plan.unpacketizable:
         aggregate = aggregate_packet_results(plan, coverage_ledger, {})
         raise RuntimeError(
             f"bounded review is structurally blocked: {aggregate.blocking_record_ids}"
         )
 
-    def review_visitor(visitor_packet: BoundedVisitorPacketV1):
-        packet_text = (
-            visitor_packet.neighbor_context_before
-            + visitor_packet.section_text
-            + visitor_packet.neighbor_context_after
+    def load_cached(packet):
+        if cache_dir is None or cache_context is None:
+            return None
+        cache_key = cache_key_for_packet(packet, cache_context)
+        cached = load_bounded_review_packet_cache(
+            cache_dir,
+            cache_key=cache_key,
+            org_repo=org_repo,
+            context=cache_context,
+            packet=packet,
+            plan=plan,
         )
+        if cached is None:
+            return None
+        model, _schema_hash, _sampling = cache_context.identity_for(packet)
+        prompt_id = blind_prompt_id if packet.facet == "visitor" else factual_prompt_id
+        record_non_provider_call(
+            job=prompt_id,
+            prompt_id=prompt_id,
+            prompt_sha256=packet.prompt_contract_hash,
+            model=model,
+            disposition="cache_reuse",
+            request={"cache_key": cache_key, "packet_id": packet.packet_id},
+        )
+        history = (
+            *cached.grounding_history,
+            {
+                "role": "blind_quality" if packet.facet == "visitor" else "factual_plan",
+                "attempt": 0,
+                "context_mode": "bounded_packet_cache_reuse",
+                "valid": True,
+                "errors": [],
+                "packet_id": packet.packet_id,
+                "cache_key": cache_key,
+            },
+        )
+        return cached.result, history
+
+    def persist(packet, result, history):
+        if cache_dir is None or cache_context is None:
+            return
+        write_bounded_review_packet_cache(
+            cache_dir,
+            cache_key=cache_key_for_packet(packet, cache_context),
+            org_repo=org_repo,
+            context=cache_context,
+            packet=packet,
+            result=result,
+            grounding_history=history,
+        )
+
+    def review_visitor(visitor_packet: BoundedVisitorPacketV1):
+        cached = load_cached(visitor_packet)
+        if cached is not None:
+            return cached
+        bounded_scope = {
+            "mode": "target_section_only",
+            "target_section_path": visitor_packet.section_path,
+            "finding_evidence_scope": "target_section_anchors_only",
+            "neighbor_context_before": visitor_packet.neighbor_context_before,
+            "neighbor_context_after": visitor_packet.neighbor_context_after,
+        }
         messages = build_blind_quality_review_messages(
             org_repo,
             "",
-            packet_text,
+            visitor_packet.section_text,
             _canonical_json(visitor_contract),
+            _canonical_json(bounded_scope),
         )
         result, attempts, _grounding = run_grounded_role(
             role="blind_quality",
             prompt_id=blind_prompt_id,
             client=blind_client,
             messages=messages,
-            candidate_text=packet_text,
+            candidate_text=visitor_packet.section_text,
             product_facts=None,
             visitor_contract=visitor_contract,
         )
@@ -196,9 +265,13 @@ def execute_bounded_review(
         if not validation.valid:
             raise RuntimeError(f"invalid bounded visitor result: {validation.errors}")
         history = tuple({**item, "packet_id": visitor_packet.packet_id} for item in attempts)
+        persist(visitor_packet, bounded, history)
         return bounded, history
 
     def review_factual(factual_packet: BoundedFactualPacketV1):
+        cached = load_cached(factual_packet)
+        if cached is not None:
+            return cached
         fact_context = {
             "facts": list(factual_packet.facts),
             "do_not_claim": list(factual_packet.do_not_claim),
@@ -229,6 +302,7 @@ def execute_bounded_review(
         if not validation.valid:
             raise RuntimeError(f"invalid bounded factual result: {validation.errors}")
         history = tuple({**item, "packet_id": factual_packet.packet_id} for item in attempts)
+        persist(factual_packet, bounded, history)
         return bounded, history
 
     if max_workers == 1:

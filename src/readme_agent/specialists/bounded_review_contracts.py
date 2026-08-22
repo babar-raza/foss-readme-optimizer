@@ -9,7 +9,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from readme_agent.specialists.bounded_review_hashing import _canonical_hash
 from readme_agent.specialists.readme_review_roles import FactualPlanVerdict
 
-_ALGORITHM_CONTRACT_VERSION = "bounded-review-packets-v1"
+_ALGORITHM_CONTRACT_VERSION = "bounded-review-packets-v2-target-scoped-visitor-evidence"
 DEFAULT_BOUNDED_PACKET_BUDGET_CHARS = 120_000
 _SHA256_PATTERN = r"^[0-9a-f]{64}$"
 DEFAULT_API_INVENTORY_HEADING_KEYWORDS: frozenset[str] = frozenset(
