@@ -91,6 +91,7 @@ def load_worker_receipt(
     *,
     registry_revision_id: str,
     expected_source_revision: str | None,
+    persisted_source_revision: str | None,
 ) -> PortfolioWorkerReceiptV2 | None:
     """Load only an identity-matching receipt; subprocess status alone never means success."""
 
@@ -107,7 +108,12 @@ def load_worker_receipt(
         receipt.registry_revision_id != registry_revision_id
         or receipt.result.org_repo != worker_result.org_repo
         or receipt.worker_invocation_id != expected_invocation_id
-        or receipt.source_revision != expected_source_revision
+        or persisted_source_revision is None
+        or receipt.source_revision != persisted_source_revision
+        or (
+            expected_source_revision is not None
+            and receipt.source_revision != expected_source_revision
+        )
     ):
         return None
     return receipt

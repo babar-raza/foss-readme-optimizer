@@ -21,6 +21,8 @@ from readme_agent.registry.revision_store import (
 )
 from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.local_poc_backend import default_local_poc_state_backend
+from readme_agent.state.schema import RunStateV2
+from readme_agent.supervisor.intake_cache import latest_intake_source_revision
 from readme_agent.supervisor.portfolio import PortfolioRepositoryResultV1
 
 
@@ -42,7 +44,7 @@ class PortfolioWorkerReceiptV2(BaseModel):
     schema_version: int = Field(default=2, ge=2, le=2)
     registry_revision_id: str = Field(pattern=r"^[0-9a-f]{64}$")
     worker_invocation_id: str = Field(pattern=r"^[0-9a-f]{32}$")
-    source_revision: str | None = None
+    source_revision: str = Field(pattern=r"^[0-9a-f]{40,64}$")
     result: PortfolioRepositoryResultV1
 
 
@@ -121,6 +123,15 @@ def build_portfolio_terminal_result(
     )
 
 
+def persisted_portfolio_source_revision(state: RunStateV2 | None) -> str | None:
+    """Resolve the immutable revision the canonical child actually persisted."""
+
+    lifecycle = state.readme_poc_lifecycle if state is not None else None
+    if isinstance(lifecycle, ReadmePocLifecycleStateV2) and lifecycle.source_revision:
+        return lifecycle.source_revision
+    return latest_intake_source_revision(state)
+
+
 def record_portfolio_blocked_decision(
     args: argparse.Namespace,
     result: PortfolioRepositoryResultV1,
@@ -192,6 +203,16 @@ def run_portfolio_worker(
     try:
         exit_code = invoke(args)
         result = build_portfolio_terminal_result(args, exit_code)
+        persisted = args._state_backend_override.load(args.repo)
+        observed_source_revision = persisted_portfolio_source_revision(persisted)
+        expected_source_revision = getattr(args, "portfolio_source_revision", None)
+        if observed_source_revision is None:
+            raise RuntimeError("portfolio worker did not persist an immutable source revision")
+        if (
+            expected_source_revision is not None
+            and observed_source_revision != expected_source_revision
+        ):
+            raise RuntimeError("portfolio worker source revision drifted from its parent contract")
         try:
             record_portfolio_blocked_decision(args, result)
         except Exception:
@@ -202,7 +223,7 @@ def run_portfolio_worker(
             PortfolioWorkerReceiptV2(
                 registry_revision_id=revision.revision_id,
                 worker_invocation_id=args.portfolio_worker_invocation_id,
-                source_revision=getattr(args, "portfolio_source_revision", None),
+                source_revision=observed_source_revision,
                 result=result,
             ),
         )

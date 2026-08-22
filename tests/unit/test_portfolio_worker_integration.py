@@ -4,6 +4,8 @@ import argparse
 from pathlib import Path
 from types import SimpleNamespace
 
+from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+from readme_agent.state.schema import RunStateV2
 from readme_agent.supervisor.portfolio import PortfolioRepositoryResultV1
 from readme_agent.supervisor.portfolio_proof_engine.repository_worker_pool import WorkerResultV1
 from readme_agent.supervisor.portfolio_worker_dispatch import (
@@ -107,7 +109,14 @@ def test_worker_binds_exact_revision_and_writes_terminal_receipt(
         revision_id="a" * 64,
         admitted_repositories=["aspose-note-foss/Aspose.Note-FOSS-for-Python"],
     )
-    backend = SimpleNamespace(load=lambda org_repo: None)
+    persisted = RunStateV2(
+        org_repo="aspose-note-foss/Aspose.Note-FOSS-for-Python",
+        readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+            status="FACTS_READY",
+            source_revision="b" * 40,
+        ),
+    )
+    backend = SimpleNamespace(load=lambda org_repo: persisted)
     monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
     monkeypatch.setattr(runtime, "load_current_registry_revision", lambda: revision)
     monkeypatch.setattr(
@@ -116,7 +125,15 @@ def test_worker_binds_exact_revision_and_writes_terminal_receipt(
         lambda revision, products: SimpleNamespace(eligible=True),
     )
     monkeypatch.setattr(runtime, "default_local_poc_state_backend", lambda: backend)
-    receipt_path = tmp_path / "runs" / "portfolio-workers" / "worker-receipt.json"
+    receipt_path = (
+        tmp_path
+        / "runs"
+        / "portfolio-workers"
+        / "job"
+        / ("c" * 32)
+        / "evidence"
+        / "worker-receipt.json"
+    )
     args = argparse.Namespace(
         repo="aspose-note-foss/Aspose.Note-FOSS-for-Python",
         execution_profile="local_poc",
@@ -196,6 +213,97 @@ def test_failed_current_worker_cannot_reuse_a_stale_success_receipt(
             failed,
             registry_revision_id="a" * 64,
             expected_source_revision="b" * 40,
+            persisted_source_revision="b" * 40,
+        )
+        is None
+    )
+
+
+def test_first_run_receipt_uses_and_reconciles_child_persisted_revision(
+    monkeypatch, tmp_path: Path
+) -> None:
+    import readme_agent.paths as paths
+    import readme_agent.supervisor.portfolio_worker_runtime as runtime
+
+    revision = SimpleNamespace(revision_id="a" * 64, admitted_repositories=["org/repo"])
+    state_holder: dict[str, RunStateV2 | None] = {"state": None}
+    backend = SimpleNamespace(load=lambda org_repo: state_holder["state"])
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    monkeypatch.setattr(runtime, "load_current_registry_revision", lambda: revision)
+    monkeypatch.setattr(
+        runtime,
+        "evaluate_registry_revision",
+        lambda revision, products: SimpleNamespace(eligible=True),
+    )
+    monkeypatch.setattr(runtime, "default_local_poc_state_backend", lambda: backend)
+    receipt_path = (
+        tmp_path
+        / "runs"
+        / "portfolio-workers"
+        / "job"
+        / ("c" * 32)
+        / "evidence"
+        / "worker-receipt.json"
+    )
+    args = argparse.Namespace(
+        repo="org/repo",
+        execution_profile="local_poc",
+        no_registry_heal=True,
+        portfolio_revision_id="a" * 64,
+        portfolio_worker_receipt=str(receipt_path),
+        portfolio_worker_invocation_id="c" * 32,
+        portfolio_source_revision=None,
+        max_readme_poc_stage="INTAKE_READY",
+    )
+
+    def _invoke(member_args: argparse.Namespace) -> int:
+        state_holder["state"] = RunStateV2(
+            org_repo="org/repo",
+            readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+                status="INTAKE_READY",
+                source_revision="d" * 40,
+            ),
+        )
+        member_args._terminal_supervise_result = SimpleNamespace(
+            processability_disposition=None,
+            readme_lifecycle_status="INTAKE_READY",
+            blocked_reason=None,
+            blocked_category=None,
+        )
+        return 0
+
+    assert run_portfolio_worker(args, _invoke) == 0
+    receipt = PortfolioWorkerReceiptV2.model_validate_json(receipt_path.read_text(encoding="utf-8"))
+    assert receipt.source_revision == "d" * 40
+    succeeded = WorkerResultV1(
+        job_id="000-org_repo",
+        input_ordinal=0,
+        org_repo="org/repo",
+        contract_hash="a" * 64,
+        exit_classification="SUCCEEDED",
+        succeeded=True,
+        return_code=0,
+        duration_seconds=0.1,
+        output_dir=str(receipt_path.parent.parent / "output"),
+        evidence_dir=str(receipt_path.parent),
+        expected_receipt_path=str(receipt_path),
+        receipt_observed=True,
+    )
+    assert (
+        load_worker_receipt(
+            succeeded,
+            registry_revision_id="a" * 64,
+            expected_source_revision=None,
+            persisted_source_revision="d" * 40,
+        )
+        == receipt
+    )
+    assert (
+        load_worker_receipt(
+            succeeded,
+            registry_revision_id="a" * 64,
+            expected_source_revision=None,
+            persisted_source_revision="e" * 40,
         )
         is None
     )

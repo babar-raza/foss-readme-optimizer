@@ -1097,6 +1097,9 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
             JDK_TOOLCHAIN_RESOURCE,
             load_worker_receipt,
         )
+        from readme_agent.supervisor.portfolio_worker_runtime import (
+            persisted_portfolio_source_revision,
+        )
 
         remaining_budget = max(0.001, slice_budget - (time.monotonic() - slice_started))
         pool = RepositoryWorkerPool(
@@ -1112,10 +1115,14 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
         pending_job_by_id = {job.job_id: job for job in pending_jobs}
         for worker_result in batch_report.results:
             expected_job = pending_job_by_id[worker_result.job_id]
+            persisted_after_worker = state_backend.load(worker_result.org_repo)
             receipt = load_worker_receipt(
                 worker_result,
                 registry_revision_id=revision.revision_id,
                 expected_source_revision=expected_job.source_revision,
+                persisted_source_revision=persisted_portfolio_source_revision(
+                    persisted_after_worker
+                ),
             )
             if receipt is not None:
                 results.append(receipt.result)
