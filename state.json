@@ -2259,7 +2259,7 @@
     "claimed_by": "codex-coordinator",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
-    "goal_activation_graph_sha256": "312a6b6a31c243f237ce3404031d53ca6e22281ee6f918a048d03af9a9494e84",
+    "goal_activation_graph_sha256": "a6332e121c3ec41b5846f70a47c2c7ea9b31e5755519156a94b389236d7a0ef9",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -2487,9 +2487,9 @@
         "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
       }
     ],
-    "graph_sha256": "312a6b6a31c243f237ce3404031d53ca6e22281ee6f918a048d03af9a9494e84",
+    "graph_sha256": "a6332e121c3ec41b5846f70a47c2c7ea9b31e5755519156a94b389236d7a0ef9",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-22T05:35:47.028345+00:00",
+    "last_evaluated_at": "2026-08-22T17:28:27.500179+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -2695,6 +2695,8 @@
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "TODO",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "TODO",
       "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "TODO",
+      "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP": "TODO",
+      "L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS": "TODO",
       "L8-PLAN-RECONCILIATION-ACCELERATION": "CLOSED",
       "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY": "REGRESSED",
       "L8-PREPRODUCTION-IDEA-FIDELITY-GATE": "REROUTED",
@@ -12495,7 +12497,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1246,
+  "state_version": 1247,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
