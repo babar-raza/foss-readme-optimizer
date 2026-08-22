@@ -1,0 +1,27 @@
+{
+  "fixture": "candidate.md",
+  "origin": "synthetic",
+  "purpose": "Comparable-scale stand-in for the real ~162KB proof candidate at plans/investigations/evidence/qwen-section-engine-integration/candidate.md (163,049 bytes), built specifically for tests/unit/test_bounded_review_packets.py. Contains no real product, repository, or customer data of any kind -- every product name, capability, API method, and configuration key is invented for this fixture.",
+  "generation_method": "Assembled programmatically from a small set of literal Markdown section strings (front matter, Overview, Key Capabilities, Installation, Quick Start, Additional Examples, API Reference intro) plus two generated bulk blocks: a large API-reference table (repeating rotated class/method rows) that dominates the API Reference section's character share to exercise the mechanical-API-inventory heuristic, and a large fenced YAML configuration block sized specifically to exceed a small test budget_chars value and exercise the oversized_unit unpacketizable path. Tail sections (Scope and Limitations, Development and Testing, License) close the document. The generation script was run once, ad hoc, to produce this file and was not committed -- this file and this provenance record are the durable record of what it produced.",
+  "byte_length": 161975,
+  "sha256": "6b0aab034685ded6ad91d9293f599edb83930284b9908af7f3a82a0ea4b13b17",
+  "sections": [
+    "front-matter (H1 + badges + tagline)",
+    "Overview",
+    "Key Capabilities",
+    "Installation",
+    "Quick Start",
+    "Additional Examples",
+    "API Reference (mechanical-API-inventory heuristic target; ~1257-row generated table)",
+    "Bundled Default Configuration (oversized fenced block, ~26KB, no claims)",
+    "Scope and Limitations",
+    "Development and Testing",
+    "License"
+  ],
+  "notes": [
+    "Pure ASCII by construction, so UTF-8 byte offsets and Python character offsets coincide for every span in this fixture -- the module's own byte<->char conversion logic is still implemented for correctness on real (non-ASCII) candidates, but is not separately exercised by this fixture.",
+    "tests/unit/test_bounded_review_packets.py locates claim/provenance spans by searching for exact literal marker sentences in the loaded fixture text at test time (str.index), rather than hardcoding byte offsets, so this file can be regenerated/edited without hand-recomputing offsets as long as the marker sentences are preserved verbatim.",
+    "The API Reference table intentionally carries no claim IDs, so it is excluded from visitor coverage (mechanical-API-inventory classification) and never enters factual packing either (no claims/provenance) -- it is recorded in the coverage ledger's excluded_spans only.",
+    "The Bundled Default Configuration block intentionally carries no claim IDs either; it exists solely to be larger than the small budget_chars used in oversized-unit tests."
+  ]
+}
