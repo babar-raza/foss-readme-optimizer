@@ -21,7 +21,10 @@ from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
 from readme_agent.state.schema import DomainStateV1, RunStateV1
 from readme_agent.supervisor import specialist_selection
 from readme_agent.supervisor.models import DecisionSummary
-from readme_agent.supervisor.stage_limit import ReadmePocStageLimitV1
+from readme_agent.supervisor.stage_limit import (
+    ReadmePocStageLimitV1,
+    lifecycle_stage_reaches_limit,
+)
 
 
 @dataclass
@@ -39,38 +42,37 @@ def _is_retryable_execution_failure(result: DomainStateV1) -> bool:
     return (result.accepted_status or "").startswith("ERROR:execution_error:")
 
 
-_PRE_CANDIDATE_LIFECYCLE_STATUSES = frozenset(
+_UNBOUNDED_VERIFIED_COMPLETION_STATUSES = frozenset(
     {
-        "DISCOVERED",
-        "INTAKE_PREFLIGHTING",
-        "INTAKE_READY",
-        "SNAPSHOTTED",
-        "PROFILED",
-        "FACTS_COLLECTING",
-        "FACTS_READY",
-        "README_ASSESSED",
-        "PLAN_READY",
-        "BLOCKED_FACT_CONFLICT",
-        "BLOCKED_MISSING_EVIDENCE",
-        "SYSTEM_FAILURE",
+        "NO_OP_PROVEN",
+        "HUMAN_REVIEW_READY",
+        "HUMAN_ACCEPTED",
+        "PR_ELIGIBLE",
+        "PR_PROOF_COMPLETE",
     }
 )
 
 
-def _force_candidate_rebuild_after_lifecycle_invalidation(
+def _force_incomplete_readme_lifecycle_execution(
     skip_plan: specialist_selection.SkipPlan,
     prior_full_state: RunStateV1 | None,
+    requested_stage: ReadmePocStageLimitV1 | None,
 ) -> None:
-    """Prevent a same-revision domain baseline from hiding a reopened candidate stage."""
+    """Prevent same-revision specialist skipping before the requested README boundary."""
 
     lifecycle = prior_full_state.readme_poc_lifecycle if prior_full_state is not None else None
-    if (
-        not isinstance(lifecycle, ReadmePocLifecycleStateV2)
-        or lifecycle.status not in _PRE_CANDIDATE_LIFECYCLE_STATUSES
-    ):
+    if not isinstance(lifecycle, ReadmePocLifecycleStateV2):
+        return
+    boundary_reached = (
+        lifecycle_stage_reaches_limit(requested_stage, lifecycle.status)
+        if requested_stage is not None
+        else lifecycle.status in _UNBOUNDED_VERIFIED_COMPLETION_STATUSES
+    )
+    if boundary_reached:
         return
     skip_plan.forced_run_domains[README_PRESENTATION] = (
-        "lifecycle_pre_candidate_requires_reexecution"
+        f"lifecycle_{lifecycle.status.lower()}_has_not_reached_"
+        f"{(requested_stage or 'NO_OP_PROVEN').lower()}"
     )
     if README_PRESENTATION not in skip_plan.skip_domains:
         return
@@ -112,7 +114,11 @@ def run_specialist_tier(
             current_revision=current_revision,
             specialist_selection_client=specialist_selection_client,
         )
-        _force_candidate_rebuild_after_lifecycle_invalidation(skip_plan, prior_full_state)
+        _force_incomplete_readme_lifecycle_execution(
+            skip_plan,
+            prior_full_state,
+            readme_poc_stage_limit,
+        )
 
     domains = (
         [README_PRESENTATION]

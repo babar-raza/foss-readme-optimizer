@@ -3138,7 +3138,47 @@ class TestLifecycleInvalidatedSpecialistSkip:
         assert calls == ["readme_presentation"]
         assert result.results["readme_presentation"].skipped_this_run is False
 
-    def test_current_candidate_lifecycle_preserves_safe_skip(self, tmp_path, monkeypatch):
+    def test_current_candidate_lifecycle_forces_unbounded_no_op_progress(
+        self, tmp_path, monkeypatch
+    ):
+        from readme_agent.supervisor import specialist_selection
+        from readme_agent.supervisor.specialist_tier import run_specialist_tier
+
+        backend = self._backend_with_lifecycle("CANDIDATE_GENERATED")
+        calls = []
+        monkeypatch.setattr(
+            specialist_selection,
+            "decide_skips",
+            lambda **_kwargs: specialist_selection.SkipPlan(
+                skip_domains=frozenset({"readme_presentation"}),
+                reasons={"readme_presentation": "llm_selected"},
+            ),
+        )
+        monkeypatch.setattr(specialists_registry, "all_domains", lambda: ["readme_presentation"])
+        monkeypatch.setattr(
+            specialists_registry,
+            "run_domain",
+            lambda domain, *_args, **_kwargs: (
+                calls.append(domain) or DomainStateV1(domain=domain, accepted_status="NO_CHANGE")
+            ),
+        )
+
+        result = run_specialist_tier(
+            org_repo=ORG_REPO,
+            baseline_path=tmp_path,
+            state_backend=backend,
+            current_revision="a" * 40,
+            enable_specialist_skip=True,
+            specialist_selection_client=object(),
+            escalation_alert_threshold=3,
+        )
+
+        assert calls == ["readme_presentation"]
+        assert result.results["readme_presentation"].skipped_this_run is False
+
+    def test_current_candidate_lifecycle_preserves_skip_at_candidate_ceiling(
+        self, tmp_path, monkeypatch
+    ):
         from readme_agent.supervisor import specialist_selection
         from readme_agent.supervisor.specialist_tier import run_specialist_tier
 
@@ -3167,6 +3207,7 @@ class TestLifecycleInvalidatedSpecialistSkip:
             enable_specialist_skip=True,
             specialist_selection_client=object(),
             escalation_alert_threshold=3,
+            readme_poc_stage_limit="CANDIDATE_GENERATED",
         )
 
         assert calls == []
