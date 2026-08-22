@@ -13,6 +13,23 @@
     "selection_receipt": "runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-selection/receipt.json",
     "selection_receipt_sha256": "9dcd2db9a5a564089f318bf812218db0ae1f892c03618d5222da47092186f070"
   },
+  "development_benchmark": {
+    "producer_head": "309ba30ad9846b8b0d31737445ae7be2281b981b",
+    "candidate_count": 31,
+    "fresh_audit_clean": 26,
+    "fresh_audit_dirty_diagnostic": 5,
+    "audit_skipped": 0,
+    "profile_state": "BENCHMARK_PROFILE_FROZEN",
+    "profile_dispositions": {
+      "accepted": 6,
+      "adapted": 8,
+      "quarantined": 2,
+      "not_applicable": 1
+    },
+    "runtime_dependency_on_aspose_org": false,
+    "receipt": "runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/benchmark-snapshot/receipt.json",
+    "receipt_sha256": "09264659f92511b4726a927689d87fcacc4d194a577777a2740c624cfe8799f8"
+  },
   "facts_ready": {
     "processable_ready": 26,
     "external_fact_blocks": 5,
@@ -54,6 +71,7 @@
   },
   "limitations": [
     "The deterministic diagnostic does not perform normal LLM authoring.",
+    "Five Aspose.org benchmark candidates retain diagnostic hard-gate findings; they cannot lower local acceptance.",
     "Only two candidates pass the hard gates; twenty-nine processable outcomes remain downstream work or fact-blocked.",
     "This evidence does not prove independent review, immediate no-op, Gate A, human acceptance, or publication."
   ]

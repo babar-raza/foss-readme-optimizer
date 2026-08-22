@@ -6,7 +6,7 @@
   "task_status": "IN_PROGRESS",
   "durable_state_version": 1238,
   "graph_sha256": "9f8b8571ce5d0e5286837fc7de5b86e0e594b6b645e42b1d9b091d078a55734a",
-  "tested_implementation_head": "9562b71dd7b7fa70de2e79bd26257349a5124eb3",
+  "tested_implementation_head": "ed9bf27d96d97d321b6d99ef86883be7d4d090dd",
   "generator_sha256": "64ee245547d30396810e716b0cb73e0ced75c1bc7bb2f70e43bf8ef7f28c366e",
   "upstream_source_commit": "92f213302a15797bc0bce1b8f34e45f11db02acc",
   "registry_denominator": 33,
@@ -17,6 +17,17 @@
   "selected_claims": 407,
   "check_count": 103,
   "blocking_check_count": 14,
+  "development_benchmark": {
+    "producer_head": "309ba30ad9846b8b0d31737445ae7be2281b981b",
+    "candidate_count": 31,
+    "fresh_audit_clean": 26,
+    "fresh_audit_dirty_diagnostic": 5,
+    "audit_skipped": 0,
+    "profile_state": "BENCHMARK_PROFILE_FROZEN",
+    "runtime_dependency_on_aspose_org": false,
+    "receipt": "runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/benchmark-snapshot/receipt.json",
+    "receipt_sha256": "09264659f92511b4726a927689d87fcacc4d194a577777a2740c624cfe8799f8"
+  },
   "facts_ready_sweep": {
     "processed": 33,
     "processable_facts_ready": 26,
@@ -39,15 +50,15 @@
     "summary_sha256": "c81c3238ee242a7c9ec51aeb8d4086d62a07ac5105423afbdf13c63c01f594ce"
   },
   "complete_non_live_gate": {
-    "passed": 4744,
+    "passed": 4747,
     "skipped": 1,
     "failed": 0,
-    "inventory": 4745,
+    "inventory": 4748,
     "tree_changed_during_run": false,
     "leaked_process_ids": [],
-    "tested_head": "9562b71dd7b7fa70de2e79bd26257349a5124eb3",
+    "tested_head": "ed9bf27d96d97d321b6d99ef86883be7d4d090dd",
     "receipt": "runs/verification/pytest-full-latest.json",
-    "receipt_sha256": "fef41a063f457b5a4a2ae7f5aeb86eb77055adc21e0693a8e2563f4520662628"
+    "receipt_sha256": "d1fb000266086ed8b20ef6d98e474f7247ee154bd1383f50845a6eeca0fc711b"
   },
   "next_boundary": "independent closeout, then operator discussion before L8-PF-02",
   "task_closed": false,

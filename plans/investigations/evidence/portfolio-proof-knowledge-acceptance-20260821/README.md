@@ -22,6 +22,11 @@ portfolio README acceptance, independent 30-point review, or no-op proof.
 - The local check battery inventories all 103 committed-source Aspose.org checks. Fourteen locally
   qualified checks are blocking; every other check remains visible with an explicit non-blocking
   disposition. The local battery and acceptance path operate with Aspose.org unavailable.
+- The latest Aspose.org visitor-quality benchmark was frozen from a stable triple read at producer
+  HEAD `309ba30ad9846b8b0d31737445ae7be2281b981b`. Its current check battery was run against an
+  isolated copy of all 31 candidates: 26 are clean and five retain item-level diagnostic failures.
+  The resulting profile has six accepted, eight adapted, two quarantined, and one non-applicable
+  dimensions; its claims and verdicts have no factual or deployed runtime authority.
 - Selected feature, format-support, installation, limitation, and troubleshooting knowledge now has
   bounded byte-changing consumers and positive/negative mutation controls. Real Aspose.3D Python
   qualification renders accepted format and limitation claims with exact spans and typed omissions.
@@ -33,8 +38,8 @@ portfolio README acceptance, independent 30-point review, or no-op proof.
   and Aspose.HTML Python passed the complete current 103-check contract; the remaining outcomes are
   seven plan-unavailable, twelve render-failed, and ten validation-rejected. Those are precise
   downstream authoring/acceptance queues, not evidence that the knowledge corpus is stale.
-- The supported complete non-live runner passed 4,744 tests with one skip and zero failures on clean
-  implementation commit `9562b71dd7b7fa70de2e79bd26257349a5124eb3`. It recorded no leaked
+- The supported complete non-live runner passed 4,747 tests with one skip and zero failures on clean
+  implementation commit `ed9bf27d96d97d321b6d99ef86883be7d4d090dd`. It recorded no leaked
   processes and no tree change during the run.
 
 ## Diagnostic Portfolio Result
@@ -59,7 +64,7 @@ agent approval, human acceptance, or publication authorization.
 | .NET/Java refresh: 10 current + one PSD disposition | `runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-refresh-net-java/receipt.json` |
 | C++/Go/Rust/TypeScript refresh: nine current | `runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-refresh-other/receipt.json` |
 | All-portfolio claim dispositions | `runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/portfolio-selection/receipt.json` |
-| Development-only benchmark freeze and limitations | `runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/benchmark-snapshot/receipt.json` |
+| Fresh, complete development benchmark snapshot and profile | `runs/multi-agent/L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY/benchmark-snapshot/receipt.json` |
 | Current `FACTS_READY` portfolio sweep | `runs/readme-poc/portfolio-summary.json` |
 | Zero-provider qualification summary | `runs/knowledge-qualification-current/portfolio-summary.json` |
 | Durable qualification digest | `plans/investigations/evidence/portfolio-proof-knowledge-acceptance-20260821/qualification-summary.json` |
@@ -81,6 +86,7 @@ pass the independent 30-point contract, and prove an immediate full-transaction 
 ```powershell
 .venv/Scripts/python scripts/data-refresh/refresh_repository_knowledge.py --help
 .venv/Scripts/python scripts/data-refresh/audit_repository_knowledge_selection.py --help
+.venv/Scripts/python scripts/data-refresh/refresh_aspose_benchmark_profile.py
 .venv/Scripts/python scripts/data-refresh/qualify_portfolio_knowledge.py --output-root runs/knowledge-qualification-current
 .venv/Scripts/readme-agent supervise --registry data/products.json --execution-profile local_poc --max-readme-poc-stage FACTS_READY --retry-blocked --portfolio-time-budget-seconds 7200
 .venv/Scripts/python -m ruff check .
