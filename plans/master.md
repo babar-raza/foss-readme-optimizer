@@ -10,8 +10,10 @@ that means 31/31 substantive repositories plus two evidence-bound PSD
 registry revisions.
 
 Every processable candidate must reach candidate-bound 30/30 acceptance with zero hard
-disqualifiers and immediate complete-transaction no-op before global human review. The campaign
-produces no product effect. Level 5 and deployable Level 6 remain later delivery milestones; Level
+disqualifiers and immediate complete-transaction no-op, pass the portfolio adversarial audit, remain
+source-fresh, and receive a validated proposal payload before becoming `PR_ELIGIBLE`. Human content
+review is not required. The campaign stops at effect authorization and produces no product effect.
+Level 5 and deployable Level 6 remain later delivery milestones; Level
 7 and Level 8 remain post-deployment background certifications.
 
 `delivery_complete` means every executable stage through deployable Level 6 is closed.
@@ -104,15 +106,17 @@ Binding current decisions:
 - **#78/#85/#88/#108 — Verified portfolio POC.** Trusted execution is historical. The immediate
   campaign seals one complete weak-input candidate, automates only that proven transaction, qualifies
   seven ecosystem canaries, and then completes every processable repository. Independent 30/30
-  approval and immediate complete-transaction no-op precede global human review.
+  approval and immediate complete-transaction no-op precede autonomous publication-readiness
+  reconciliation.
 - **#89 — Dependencies.** Required toolchains are provisioned autonomously in disposable isolated
   environments from pinned, verified inputs.
 - **#90 — Agile presentation.** Repository transactions pin component versions; later changes
   invalidate only semantic dependants. Non-critical improvements become `VALID_UPDATE_AVAILABLE`.
-- **#91 — Staged platform acceptance.** Facts, presentation, independent review, human acceptance,
-  transport qualification, and publication eligibility are separate states. A complete platform
-  cohort may enter separately authorized draft-PR operation after every repository in that platform
-  is accepted; this does not satisfy full-registry Gate A/B or authorize another platform.
+- **#91 — Staged autonomous acceptance.** Facts, presentation, independent review, no-op, source
+  freshness, publication eligibility, effect authorization, and effect execution are separate states.
+  Human content review is optional and never gates candidate readiness. A complete portfolio may enter
+  separately authorized draft-PR operation only after every processable repository is `PR_ELIGIBLE`;
+  readiness never grants effect authority.
 - **#92 — Just-in-time infrastructure.** Infrastructure enters the critical path only when the next
   visible vertical slice exercises or demonstrably needs it.
 - **#93 — Compact authority.** Active authority is query-scoped: no more than 15 active tasks, five
@@ -132,8 +136,9 @@ Binding current decisions:
   first-principles replan changes the causal approach.
 - **#98 — Candidate-first portfolio sequence.** A contract defect reopens only dependent stages.
   Aspose.3D Python is the first weak-input transaction; one accepted candidate per ecosystem follows
-  before processable-portfolio fan-out. Production transport remains later than global human review
-  and is never a prerequisite for local candidates in another ecosystem.
+  before processable-portfolio fan-out. Read-only registry/fact warmup may overlap the final canary.
+  Production transport remains later than autonomous portfolio readiness and is never a prerequisite
+  for local candidates in another ecosystem.
 - **#99 — Working-condition presentation, generate-verify split.** Every admitted repository gets a
   visible candidate or an evidence-backed blocker. A candidate is not delivered or qualified until
   deterministic validation and independent review both accept it. Unsupported public content is
@@ -292,7 +297,8 @@ authorized discovery -> RegistryRevisionV1 -> immutable snapshot -> processabili
   -> candidate + native patch -> deterministic validation
   -> 30-point criterion evidence + independent factual/visitor review
   -> immediate complete-transaction no-op -> portfolio adversarial audit
-  -> global human acceptance -> separately authorized proposal effect
+  -> read-only freshness reconciliation -> PR_ELIGIBLE proposal payload
+  -> separately authorized proposal effect
   -> hosted observation and background maturity certification
 ```
 
@@ -376,8 +382,12 @@ The current bounded small-goal catalog is:
 4. `DELIVERY-FIRST-SEALED-NO-OP` — independently seal it at 30/30 and prove immediate no-op.
 5. `DELIVERY-PROVEN-TRANSACTION-RUNNER` — automate only that accepted transaction.
 6. `DELIVERY-SEVEN-ECOSYSTEM-CANARIES` — qualify one complete candidate per supported ecosystem.
-7. `DELIVERY-README-PORTFOLIO-PROOF` — reach 31/31 accepted and no-op-proven candidates and prepare
-   the one global human-review package.
+7. `DELIVERY-REGISTRY-FACT-WARMUP` — overlap the final canary with source-complete discovery and
+   current-contract fact preparation.
+8. `DELIVERY-README-PORTFOLIO-PROOF` — reach 31/31 accepted and no-op-proven candidates and pass one
+   independently reconstructed portfolio adversarial audit.
+9. `DELIVERY-PORTFOLIO-PUBLICATION-READY` — refetch sources, rebuild only drifted repositories, derive
+   `PR_ELIGIBLE`, and prepare exact proposal/rollback/authorization payloads with zero product effects.
 
 The exact current goal and repository scope are printed only by mission `status`. Mission
 `evaluate` first reconciles closed-task freshness; if an accepted repository becomes stale and no
@@ -467,9 +477,14 @@ the sibling repository, its reports, skills, scripts, or caches.
   durable checkpoints, recovery, and effect-null safety.
 - [ ] **Seven ecosystem canaries:** qualify and no-op-prove one current processable representative per
   Python, .NET, Java, C++, TypeScript, Rust, and Go.
+- [ ] **Registry and fact warmup:** reconcile authenticated all-visibility discovery, freeze the current
+  RegistryRevision, and prepare current-contract facts without advancing candidate states.
 - [ ] **Portfolio proof:** execute failed-only repair and reach 31/31 processable accepted/no-op bundles,
-  retain two typed PSD dispositions, and independently reconstruct one global review package.
-- [ ] **Global human review:** record acceptance only after the complete portfolio package exists.
+  retain two typed PSD dispositions, pass adversarial audit, and independently reconstruct one portfolio
+  acceptance package.
+- [ ] **Autonomous publication readiness:** refetch every target read-only, heal source/registry drift,
+  derive `PR_ELIGIBLE` for every processable repository, and validate the complete proposal/rollback/
+  authorization package without a product effect.
 - [ ] **Workflow/staging/Gate C:** prove `act`, disposable GitHub staging, and authorized draft proposals.
 - [ ] **Hosted system:** GitHub App token isolation, recovery, health, backlog, alerts, and dead-man monitor.
 - [ ] **Level 5 and deployable Level 6:** complete presentation surfaces and autonomous portfolio operation.
@@ -497,6 +512,9 @@ the sibling repository, its reports, skills, scripts, or caches.
   of the shared transaction is required for `TRANSACTION_NO_OP_PROVEN`.
 - [ ] Acceptance and deployed runs succeed with the Aspose.org checkout unavailable; no sibling
   report, raw knowledge record, skill, script, or cache is a runtime input or factual proof.
+- [ ] After the bounded local retry/replan budget is exhausted, development may consult the current
+  Aspose.org README-refresh skill, associated scripts, knowledge producer, and matching generated
+  candidate; every adopted lesson is independently qualified and ported locally before use.
 - [ ] The Aspose.org import manifest binds committed upstream commit/blob hashes and accounts for all
   discovered knowledge generators, artifacts, and checks; every imported behavior has an explicit
   local disposition, applicable hard gates pass negative controls without unresolved false positives,
@@ -509,9 +527,8 @@ the sibling repository, its reports, skills, scripts, or caches.
   merged source unit without one non-empty canonical destination.
 - [ ] No general runner precedes one complete 30/30 candidate and immediate complete-transaction no-op;
   no fleet fan-out precedes one accepted current candidate per supported ecosystem.
-- [ ] Every product effect is limited to a complete, independently approved, explicitly human-accepted
-  platform cohort under fresh what/why/where authorization; platform publication cannot promote
-  another platform or satisfy full-registry Gate A/B.
+- [ ] Every product effect is limited to a complete, independently approved, no-op-proven, source-fresh,
+  `PR_ELIGIBLE` portfolio under fresh exact authorization; readiness cannot itself execute an effect.
 - [ ] A concurrent repository-local-write lane is admitted only after transaction isolation, under
   disjoint paths, with no shared-state, aggregate, transition, commit, or effect authority.
 - [ ] No local/`act` run writes a product remote and no effect writes a default branch.

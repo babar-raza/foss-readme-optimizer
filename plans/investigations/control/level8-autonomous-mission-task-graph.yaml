@@ -15,7 +15,9 @@ autonomous_execution_contract:
   resume_strategy: Reload this graph and durable mission state, reconcile drift and leases, then claim
     the highest-priority dependency-ready task. Prove one knowledge-complete 30-of-30 candidate and immediate
     full-transaction no-op before automating the transaction, then qualify seven ecosystem canaries and
-    fan out to all processable repositories.
+    fan out to all processable repositories. Adversarially audit the complete fleet, autonomously repair
+    every agent-fixable rejection, recheck source freshness, and prepare publication payloads before stopping
+    at effect authorization.
   rejected_alternative: repository autonomous cycling mechanism
   mechanism_locked: true
   multi_agent_model: adaptive_coordinator_led
@@ -41,30 +43,48 @@ autonomous_execution_contract:
   - The coordinator serializes shared-file reconciliation, integrated tests, official checks, task transitions,
     commits, and final evidence after all active implementation lanes report.
   - Independent verification starts only after integration evidence exists, uses no implementation paths,
-    and must accept before human review, approval, effect authorization, or task closure.
+    and must accept before autonomous publication readiness, effect authorization, or task closure.
   - A failed or incomplete lane returns to repair or a governed resolver; it does not lower acceptance
     criteria or stop unrelated dependency-ready work.
+  failure_recovery_protocol:
+  - Classify every failure at its first causal boundary as transient, evidence-stale, source-drift, validation-rejected,
+    review-rejected, state-corrupt, agent-fixable, or external-authority.
+  - Retry transient provider, GitHub-read, registry, and state-CAS failures with their bounded typed policy;
+    never restart an already checksum-valid upstream stage.
+  - 'Invalidate only semantic dependants: source drift reopens SNAPSHOTTED, fact drift reopens FACTS_COLLECTING,
+    presentation drift reopens README_ASSESSED, validation drift reopens deterministic validation, and
+    reviewer drift reopens independent review.'
+  - Route deterministic or independent-review rejection into finding-scoped repair and rerun every downstream
+    gate; two equivalent ineffective attempts or fifteen minutes without narrowing force a first-principles
+    causal replan instead of another equivalent retry.
+  - When local evidence and two bounded approaches remain insufficient, consult the current read-only
+    D:/onedrive/Documents/GitHub/aspose.org/skills/readme-refresh.md, its associated scripts, and the
+    current reports/repo-presenter-regen-full candidate for that product. Independently qualify and port
+    only a general mechanism or evidence-locating lesson; never copy unverified claims and never create
+    a runtime dependency on the sibling checkout.
+  - Recover expired claims through the existing lease/CAS mechanism, quarantine corrupt artifacts, and
+    reconstruct them from immutable inputs; never steal a live claim or promote partial evidence.
+  - Only unavailable effect authorization, credentials, organization authority, or genuinely inaccessible
+    upstream evidence is external. Candidate production continues for every unrelated repository, and
+    the campaign stops before product effects rather than treating missing effect authorization as a candidate
+    blocker.
 mission_authority:
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
-  mission_summary: 'Deliver the safest, repeatable, fastest complete README proof for every processable
+  mission_summary: 'Deliver the safest, repeatable, fastest ship-ready README proof for every processable
     repository in the current RegistryRevision: 31 of 31 at the reviewed baseline, with two source-empty
     PSD repositories held as typed non-processable dispositions. Close imported-knowledge use and acceptance
     identity, seal one complete weak-input 30-of-30 candidate and immediate no-op, automate only that
-    proven transaction, qualify seven ecosystems, then execute the fleet. Aspose.org remains development
-    input only; this campaign performs no product effect.'
+    proven transaction, qualify seven ecosystems, execute and adversarially audit the fleet, then derive
+    autonomous publication readiness from current independent acceptance and freshness. Aspose.org remains
+    qualified development help only; this campaign performs no product effect.'
   governing_plan_path: plans/master.md
   current_phase: Derived from durable state; candidate-first portfolio proof begins with campaign authority
     reconciliation and imported-knowledge-to-bytes closure.
   in_scope_outcomes:
   - 'IMMEDIATE PORTFOLIO OUTCOME: complete 31/31 processable README candidates at candidate-bound 30/30
     acceptance and immediate complete-transaction no-op; retain two evidence-bound NON_PROCESSABLE_NO_IMPLEMENTATION
-    dispositions. No product effect is in scope.'
-  - 'CANDIDATE-FIRST ORDER: close imported-knowledge and acceptance identity, seal one weak-input candidate,
-    then build the minimal runner, seven ecosystem canaries, and the full fleet. Do not generalize machinery
-    before its transaction is proven.'
-  - 'IMMEDIATE PORTFOLIO OUTCOME: complete 31/31 processable README candidates at candidate-bound 30/30
-    acceptance and immediate complete-transaction no-op; retain two evidence-bound NON_PROCESSABLE_NO_IMPLEMENTATION
-    dispositions. No product effect is in scope.'
+    dispositions; adversarially audit the complete fleet; then derive PR_ELIGIBLE and a validated proposal
+    payload for each processable repository. No product effect is in scope.'
   - 'CANDIDATE-FIRST ORDER: close imported-knowledge and acceptance identity, seal one weak-input candidate,
     then build the minimal runner, seven ecosystem canaries, and the full fleet. Do not generalize machinery
     before its transaction is proven.'
@@ -238,11 +258,10 @@ mission_authority:
     reserved_trusted_lanes: 0
   - goal_id: GOAL-V0B-POST-PYTHON-SLICES
     order: 14
-    summary: Obtain complete Python human acceptance and prove Python workflow, act, staging, hosted App,
-      recovery, authorization, and production admission before enabling .NET, then Java.
-    acceptance_boundary: Python is independently approved, fresh-transaction-no-op-proven, human accepted,
-      and production-admitted through the canonical workflow without an unauthorized product effect before
-      .NET becomes eligible. .NET then reuses the proven transport before the zero-effect Java slice.
+    summary: Automate the sealed transaction and qualify one current candidate per supported ecosystem
+      before portfolio fan-out.
+    acceptance_boundary: The minimal graph runner and seven ecosystem canaries reproduce independent 30-of-30
+      acceptance, recovery, and immediate no-op without a product effect.
     concurrent_when_earlier_primary: false
     max_concurrent_verified_lanes: 1
   - goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
@@ -292,9 +311,10 @@ mission_authority:
     max_concurrent_verified_lanes: 4
   - goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
     order: 70
-    summary: Record Gate-B acceptance and prove verified Java proposals through qualified delivery machinery.
-    acceptance_boundary: Human acceptance is complete and the governed verified Java proposal set passes
-      Gate C.
+    summary: Derive autonomous portfolio publication readiness, then prove separately authorized Java
+      proposals through qualified delivery machinery.
+    acceptance_boundary: Every processable candidate is current, independently accepted, no-op-proven,
+      PR_ELIGIBLE, and packaged for an exact effect authorization before any Gate-C proposal executes.
     product_effects_allowed: true
   - goal_id: GOAL-L5-PRESENTATION-PILOT
     order: 80
@@ -376,9 +396,10 @@ campaign_catalog:
   full_suite_policy: Run the optimized complete non-live suite once at Gate-A closure.
 - campaign_id: CAMP-GATE-B-AND-LATER
   order: 60
-  summary: Execute Gate B, Gate C, hosted operation, presentation surfaces, and Levels 5 through 8.
-  acceptance_boundary: Each governed later gate closes in dependency order with its required independent
-    proof.
+  summary: Derive autonomous publication readiness, then execute separately authorized Gate C, hosted
+    operation, presentation surfaces, and Levels 5 through 8.
+  acceptance_boundary: Candidate readiness closes without human content review or product effects; every
+    later effect gate closes separately with exact authorization and independent proof.
   full_suite_policy: Run a full suite only for a declared later gate with repository-wide acceptance scope.
 taskcards:
 - task_id: L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION
@@ -950,7 +971,6 @@ taskcards:
     max_minutes_without_narrowing: 15
   requirement_ids:
   - L8-046
-  - L8-048
   stage_goal_id: GOAL-V0A-FIRST-VERIFIED-README
   concurrency_class: primary_only
   campaign_id: CAMP-FIRST-PYTHON-SLICE
@@ -1141,6 +1161,98 @@ taskcards:
   stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
   concurrency_class: repository_local_write_isolated
   campaign_id: CAMP-GATE-A-PORTFOLIO
+- task_id: L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
+  title: Freeze the current portfolio and warm verified facts
+  source_audit_finding: Fleet execution cannot be complete against a stale checked-in denominator, and
+    serial snapshot/fact work would leave the authoring lanes idle after the seven canaries.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: registry-freeze-fact-warmup
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Perform authenticated all-visibility discovery, reconcile every observation by stable provider
+    identity, freeze RegistryRevisionV1, and populate current-contract immutable snapshots and verified
+    facts for every processable entry without generating or approving candidates early.
+  why_it_matters: Read-only work can overlap the final canary safely and removes discovery and fact latency
+    from the fleet critical path without weakening candidate acceptance.
+  allowed_paths:
+  - src/readme_agent/registry/
+  - src/readme_agent/facts/
+  - src/readme_agent/supervisor/
+  - data/products.json
+  - runs/discovery/
+  - runs/readme-poc/
+  - plans/investigations/evidence/readme-portfolio-*
+  - tests/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - target default branches
+  dependencies:
+  - L8-PF-04-MINIMAL-GRAPH-RUNNER
+  expected_outputs:
+  - One source-complete RegistryRevisionV1 with every observation dispositioned
+  - Current immutable snapshot and ProductFactsV2 cache for every processable repository
+  - Two current source-empty PSD dispositions or evidence-backed replacements if their source changed
+  - A cache-warmup receipt proving no candidate acceptance or product effect occurred
+  acceptance_checks:
+  - Discovery has zero unexplained observations, failed sources, stale scans, or pending intake
+  - Every matching new product enters disabled/read-only preflight before joining the denominator
+  - Every processable repository is FACTS_READY or has a typed, narrowly scoped evidence block
+  - A stale historical fact bundle cannot satisfy the current contract
+  verification:
+  - pagination, identity reconciliation, rename/transfer, exclusion, and inaccessible-source tests
+  - current registry and processability reconstruction
+  - fact-cache reuse, invalidation, corruption, and zero-effect controls
+  negative_controls:
+  - Registry order or write mode cannot change inclusion or priority
+  - A failed discovery source cannot be interpreted as an empty source
+  - Fact warmup cannot create CANDIDATE_GENERATED or later lifecycle evidence
+  regression_checks:
+  - allow-list, push-blocking, secret redaction, state CAS, and immutable snapshot safety
+  evidence_requirements:
+  - discovery observation ledger, RegistryRevisionV1, processability matrix, fact readiness summary, zero-effect
+    receipt, and checksum inventory
+  rollback_or_recovery: Retry transient reads from the last page/checkpoint, reconcile renamed identities,
+    and regenerate only corrupt or stale fact bundles. Continue unrelated sources and repositories. Treat
+    unavailable organization visibility as external only after public and existing authorized sources
+    are exhausted and the missing scope is recorded precisely.
+  failure_reroute: Agent-fixable discovery, parser, identity, or fact-contract defects reopen their owning
+    boundary. After two equivalent failures, inspect the current Aspose.org readme-refresh skill, knowledge
+    producer, and matching candidate as read-only development evidence, then port only an independently
+    qualified general repair.
+  closeout_rules:
+  - The frozen denominator and every fact/disposition output are checksum-complete and current.
+  - No candidate, acceptance, proposal, or product effect is produced by this task.
+  goal_ids:
+  - GOAL-TRUTH
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: first_boundary_removal
+    summary: Move source-complete discovery and verified fact latency ahead of fleet authoring safely.
+  execution_kind: auto
+  execution_focus:
+    goal_id: DELIVERY-REGISTRY-FACT-WARMUP
+    immediate_outcome: Freeze the exact current denominator and make every processable repository fact-ready.
+    repository_scope:
+    - portfolio:authorized-sources
+    allowed_change_classes:
+    - repository_runtime
+    - factuality
+    - governance
+    next_goal_on_success: Execute the proven transaction over the complete frozen processable fleet.
+    defer_nonblocking_findings: true
+    show_output_before_broad_regression: false
+    max_equivalent_ineffective_attempts: 2
+    max_minutes_without_narrowing: 15
+  requirement_ids:
+  - FACT-014
+  - PIL-011
+  stage_goal_id: GOAL-C0-AUTHORIZED-PORTFOLIO
+  concurrency_class: read_only_assurance_isolated
+  campaign_id: CAMP-GATE-A-PORTFOLIO
 - task_id: L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
   mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
   parent_task_id: null
@@ -1171,12 +1283,13 @@ taskcards:
   - target default branches
   dependencies:
   - L8-PF-05-SEVEN-ECOSYSTEM-CANARIES
+  - L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP
   expected_outputs:
   - Thirty-one complete current README candidates and native patches
   - Thirty-one 30-of-30 independent acceptance records and immediate no-op receipts
   - Thirty-one candidate-bound benchmark-parity records against the frozen qualified profile
   - Two checksum-bound NON_PROCESSABLE_NO_IMPLEMENTATION dispositions
-  - One reconstructable portfolio summary and global human-review package
+  - One reconstructable portfolio summary and autonomous acceptance package
   acceptance_checks:
   - accepted_processable == processable_denominator == 31 for the frozen baseline
   - hard_disqualifiers == 0, system_failures == 0, and manifest_failures == 0
@@ -1190,7 +1303,8 @@ taskcards:
   negative_controls:
   - No typed disposition may hide an agent-fixable repository or pipeline defect
   - No average quality score, historical candidate, or renderer-only no-op counts
-  - No product repository write or publication occurs before later human acceptance and authorization
+  - No product repository write or publication occurs before later autonomous readiness and exact effect
+    authorization
   regression_checks:
   - mission graph load and dependency resolution (active and deferred)
   - existing README contract, T3/T4 aspose.org check and fact wiring, and validator suite
@@ -1200,13 +1314,16 @@ taskcards:
     inventory
   rollback_or_recovery: This task only ever writes to this repository's own working tree and runs/readme-poc/;
     a bad change reverts by discarding the specific governed commit that applied it.
-  failure_reroute: A defect in shared supervisor/validator/composition machinery discovered while reconciling
-    against the proven Aspose.org contract is fixed surgically at its own layer with regression tests,
-    not patched inline inside this task.
+  failure_reroute: A defect in shared supervisor/validator/composition machinery is fixed surgically at
+    its causal layer with regression tests, not patched inline. Rejected repositories enter failed-only
+    repair while accepted repositories remain cached. After two equivalent ineffective approaches, consult
+    the current Aspose.org readme-refresh skill, associated scripts, knowledge producer, and matching
+    current generated candidate; independently qualify and port only a general mechanism or evidence-locating
+    lesson. The sibling output never overrides repository truth or becomes a runtime dependency.
   closeout_rules:
   - Every processable repository is AGENT_ACCEPTED_30_OF_30 and immediate NO_OP_PROVEN.
   - Both non-processable dispositions bind immutable source evidence and a resume predicate.
-  - The portfolio terminal state is PORTFOLIO_AGENT_ACCEPTED_AWAITING_GLOBAL_HUMAN_REVIEW.
+  - The Gate-A terminal state is PORTFOLIO_AGENT_ACCEPTED.
   goal_ids:
   - GOAL-README
   - GOAL-DELIVERY
@@ -1223,7 +1340,7 @@ taskcards:
     - repository_runtime
     - factuality
     - presentation
-    next_goal_on_success: Present the complete portfolio once for global human review.
+    next_goal_on_success: Reconcile freshness and prepare every accepted candidate for authorized publication.
     defer_nonblocking_findings: true
     show_output_before_broad_regression: true
     max_equivalent_ineffective_attempts: 2
@@ -1234,6 +1351,118 @@ taskcards:
   stage_goal_id: GOAL-V0B-POST-PYTHON-SLICES
   concurrency_class: repository_local_write_isolated
   campaign_id: CAMP-GATE-A-PORTFOLIO
+- task_id: L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS
+  mission_id: LEVEL8-CENTRAL-REPOSITORY-PRESENTATION
+  parent_task_id: null
+  title: Make every accepted candidate publication-ready without an effect
+  source_audit_finding: Agent-accepted local candidates are not yet ready to ship until source freshness,
+    exact candidate identity, registry completeness, proposal payloads, and effect-independent rollback
+    instructions are reconciled. Human content review is not part of this campaign.
+  audit_classification: final_outcome_blocker
+  priority: P0
+  lane: autonomous-publication-readiness
+  owner: readme-agent-supervisor
+  status: TODO
+  objective: Refetch every target read-only, rebuild only drifted repositories through the canonical transaction,
+    independently reseal every affected candidate, derive PR_ELIGIBLE for the complete current portfolio,
+    and prepare validated VerifiedProposalV1 payloads plus exact what/why/where authorization packets
+    without creating a branch, commit, PR, setting change, or other product effect.
+  why_it_matters: Publication readiness must be a current autonomous proof boundary, not an assumption
+    derived from an older candidate or a hidden human-review dependency.
+  allowed_paths:
+  - src/readme_agent/state/
+  - src/readme_agent/effects/
+  - src/readme_agent/supervisor/
+  - src/readme_agent/capabilities/
+  - src/readme_agent/verification/readme_proposal_bundle.py
+  - tests/
+  - runs/readme-poc/
+  - runs/proposal-readiness/
+  - plans/investigations/evidence/readme-portfolio-publication-ready-*
+  - docs/
+  - logs/
+  forbidden_paths:
+  - production target repository remotes
+  - target default branches
+  dependencies:
+  - L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY
+  expected_outputs:
+  - Current read-only source-freshness receipt for every processable repository
+  - PR_ELIGIBLE lifecycle and publication-eligibility binding for every processable repository
+  - Validated VerifiedProposalV1 payload, native patch, rollback, PR title/body, and exact what/why/where
+    authorization packet for every processable repository
+  - Portfolio terminal state PORTFOLIO_PUBLICATION_READY_AWAITING_EFFECT_AUTHORIZATION
+  - Zero-effect proof demonstrating no product branch, commit, PR, merge, settings change, or default-branch
+    write occurred
+  acceptance_checks:
+  - Every publication payload binds the frozen registry revision, current target revision, exact accepted
+    candidate hash, facts hash, plan hash, validator/reviewer identities, and expiry
+  - Source or registry drift automatically reopens the earliest affected repository or discovery boundary
+    and cannot leave stale eligibility in place
+  - Independent non-authoring acceptance and immediate no-op remain current after every automatic repair
+  - Human content review is neither requested nor inferred; fresh product-effect authorization remains
+    a separate later boundary
+  verification:
+  - current-source drift, renamed repository, registry growth, candidate drift, stale acceptance, expired
+    payload, duplicate payload, and corrupt evidence controls
+  - zero-effect proposal dry run and deterministic PR-body/rollback reconstruction
+  - independent portfolio readiness reduction and checksum reconstruction
+  negative_controls:
+  - AGENT_APPROVED without NO_OP_PROVEN cannot become PR_ELIGIBLE
+  - One eligible repository cannot open the portfolio gate
+  - Missing human review cannot block autonomous candidate readiness
+  - PR_ELIGIBLE or a proposal payload cannot authorize or execute a product write
+  regression_checks:
+  - allow-list, push-blocking, authorization, effect-ledger, token isolation, secret redaction, and default-branch
+    protection
+  - lifecycle reopening, publication eligibility, portfolio reducer, no-op, and evidence integrity
+  evidence_requirements:
+  - per-repository freshness, eligibility, proposal-payload, rollback, zero-effect, and checksum receipts;
+    one independently reconstructed portfolio readiness manifest
+  rollback_or_recovery: On source drift, invalidate from SNAPSHOTTED and run the canonical transaction
+    only for that repository. On registry drift, reopen discovery and admit new matching repositories
+    read-only. On candidate/reviewer/prompt drift, reopen only the dependent stage. On transient reads
+    or CAS conflicts, resume from the last checksum-valid checkpoint. On corrupt evidence, quarantine
+    and reconstruct it from immutable inputs. Never lower acceptance or execute an effect to escape a
+    readiness failure.
+  failure_reroute: Agent-fixable payload, lifecycle, freshness, or validation defects reopen a bounded
+    resolver at their causal owner. After two equivalent ineffective attempts, perform a first-principles
+    replan and consult current Aspose.org skill/candidate evidence only for independently qualified development
+    help. Unavailable product-effect authorization is the expected terminal condition, not a task failure.
+  closeout_rules:
+  - Every current processable repository is PR_ELIGIBLE with a valid proposal payload and current 30-of-30/no-op
+    proof; both PSD dispositions remain current.
+  - The portfolio reports PORTFOLIO_PUBLICATION_READY_AWAITING_EFFECT_AUTHORIZATION and zero product effects.
+  - A candidate file, historical acceptance, or partial proposal package cannot close the task.
+  goal_ids:
+  - GOAL-README
+  - GOAL-AUTONOMY
+  - GOAL-DELIVERY
+  core_contribution:
+    kind: visible_deliverable
+    summary: Turn the complete independently accepted portfolio into current effect-neutral ship-ready
+      packages.
+  execution_kind: acceptance
+  execution_focus:
+    goal_id: DELIVERY-PORTFOLIO-PUBLICATION-READY
+    immediate_outcome: Make every accepted README current, PR_ELIGIBLE, and packaged for exact authorization.
+    repository_scope:
+    - portfolio:processable-registry
+    allowed_change_classes:
+    - repository_runtime
+    - governance
+    - presentation
+    - effect
+    next_goal_on_success: Await fresh exact product-effect authorization without starting Gate C automatically.
+    defer_nonblocking_findings: true
+    show_output_before_broad_regression: true
+    max_equivalent_ineffective_attempts: 2
+    max_minutes_without_narrowing: 15
+  requirement_ids:
+  - L8-048
+  stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
+  concurrency_class: primary_only
+  campaign_id: CAMP-GATE-B-AND-LATER
 bootstrap_state:
   initialization: task status fields are bootstrap defaults only
   selection: derive the earliest dependency-ready task through mission evaluate
@@ -1241,17 +1470,17 @@ bootstrap_state:
   stop_reason: durable supervisor state owns live execution
 requirement_coverage:
   path: plans/investigations/evidence/level8-requirement-taskcard-coverage/requirement-taskcard-coverage.json
-  sha256: 52f40c9da3f24b9a45f8d30632655eb84feed3686b40d4fd682b6df83715c8ec
+  sha256: be6c3cf45683d20741bc91946c23cbafa635dc5b1377c9bc8ae73b5a63abfa4b
   record_count: 489
   mandatory_requirement_rows: 433
   reopened_implemented_rows: 0
 requirement_catalog:
   path: plans/requirements/catalog.jsonl
-  sha256: 09630db7b12b709d034165cd6dae19aa1534a75848ec0612d548bd2870ea4a9b
+  sha256: b846ae9fbdb823c167ad40df89329ced4fd5f53dbc1efba7016609dd621b7176
   record_count: 489
 deferred_task_catalog:
   path: plans/investigations/control/level8-deferred-task-catalog.jsonl
-  sha256: 6a5b8d275e182040d31ac39d44054115adabc1c97574820a1809382d967ac604
+  sha256: 3f0b9aee8345dc1794b5109c6996143b389d16775e92b758538b4feb4bee7f7a
   record_count: 141
 deferred_task_index:
 - task_id: L8-ACCEL-00-PYTHON-READINESS
@@ -1823,7 +2052,7 @@ deferred_task_index:
   status: TODO
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   activation_group: verified-gate-a
-  record_sha256: a7b9f79a11662d967652e0eb66398216fb003b79ad10e2906741009fe6a294c3
+  record_sha256: bac8c662f4805aa9f017216bb91e7abb4a4e2c27643f34a0531801ecb93c5815
 - task_id: L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION
   status: TODO
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
@@ -1843,7 +2072,7 @@ deferred_task_index:
   status: TODO
   stage_goal_id: GOAL-L5-PRESENTATION-PILOT
   activation_group: deployment
-  record_sha256: 761890e90ee83c7227256f4131562c4406f63f9208bf5ed55b8d1b6c768e4894
+  record_sha256: 6d47adf8ef8b19a90dd38f898f016a95dd622732815fa5a9bf8f8e15e4db34dc
 - task_id: L8-WAVE7-HETEROGENEOUS-PORTFOLIO
   status: TODO
   stage_goal_id: GOAL-L7-HETEROGENEOUS-30D
@@ -1962,7 +2191,7 @@ deferred_task_index:
 portfolio_proof_contract:
   contract_id: ASPOSE-README-PORTFOLIO-PROOF-V1
   supporting_contract_path: plans/investigations/control/portfolio-readme-proof-contract.md
-  supporting_contract_sha256: 88dafaeec84e893a83fe4b929f6a9cba7605efb63abb1e37c32c42e9cfdd92b4
+  supporting_contract_sha256: 51083afc6c39ddee18352dbcfb9303a30e56cbfd3379e233489ec7b79b5fb9a5
   baseline_optimizer_revision: df864ffd189167ef7e3cd458fb092c704769babe
   registry_path: data/products.json
   registry_sha256: eb526af1d1c70b700a89e4445d399e1131170e5ecfb7359147bc671be6da8479
@@ -1972,7 +2201,7 @@ portfolio_proof_contract:
   baseline_non_processable: 2
   delivery_numerator: processable_repositories
   candidate_acceptance_state: AGENT_ACCEPTED_30_OF_30
-  campaign_terminal_state: PORTFOLIO_AGENT_ACCEPTED_AWAITING_GLOBAL_HUMAN_REVIEW
+  campaign_terminal_state: PORTFOLIO_AGENT_ACCEPTED
   rubric_path: plans/investigations/owner_audit/aspose_candidate_rubric/RUBRIC_30.md
   rubric_sha256: 5b016891000c320218a762c0289ae44d6820636a66ab54f3410e87f12e876268
   required_score: 30

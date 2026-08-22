@@ -39,7 +39,8 @@ evidence; `mode: "full"` alone never grants authority. The capability ran once b
 ordering was established (`aspose-cells-foss/Aspose.Cells-FOSS-for-Java#1`). That is historical
 evidence only, not Gate-C acceptance or permission to run it again. No remote-write path may be
 exercised until every current registry entry has an agent-approved/no-op-proven local candidate
-and a subsequent recorded human acceptance.
+that is source-fresh and `PR_ELIGIBLE`. Human content review is optional; readiness itself never
+grants effect authority, and every real product effect still requires fresh exact authorization.
 
 ## 2. The allow-list
 

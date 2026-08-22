@@ -170,11 +170,10 @@ The Level-8 mission graph owns the stable repository-focus chain. Durable missio
 which member is current. Narrative documents may describe stage order but must never override or
 duplicate that cursor.
 
-At each boundary, terminology is fail-closed: one finalized repository is the **first verified
-README**; one accepted candidate per ecosystem is the **cross-ecosystem canary gate**; and every
-processable repository in the frozen registry revision is the **portfolio README proof**. Its
-terminal state is `PORTFOLIO_AGENT_ACCEPTED_AWAITING_GLOBAL_HUMAN_REVIEW`, not human acceptance,
-publication eligibility, production readiness, or umbrella-mission closure.
+At each boundary, terminology is fail-closed: one finalized repository is the **first verified README**; one accepted
+candidate per ecosystem is the **cross-ecosystem canary gate**; and every processable repository in the frozen registry
+revision is the **portfolio README proof**. Its Gate-A terminal state is `PORTFOLIO_AGENT_ACCEPTED`, not publication eligibility, production readiness, or umbrella-mission closure. The autonomous readiness stage that follows may reach
+`PORTFOLIO_PUBLICATION_READY_AWAITING_EFFECT_AUTHORIZATION`; that still grants no product effect.
 
 ### Agile operating model
 
@@ -186,16 +185,12 @@ community, license, Enterprise Edition relationship, contextual links, and densi
 structural, prose-policy, fact-slot, factuality/safety, and major-document changes have distinct
 invalidation scopes. A non-critical later template version leaves an accepted README
 `VALID_UPDATE_AVAILABLE`; only factual, safety, protected-content, or severe acceptance defects
-make it invalid. Portfolio reporting separates fact-valid, presentation-valid, latest-version,
-human-accepted, and publication-eligible counts.
+make it invalid. Portfolio reporting separates fact-valid, presentation-valid, independently
+accepted, no-op-proven, source-fresh, publication-eligible, and effect-authorized counts.
 
-Human acceptance is staged. Comparative Aspose.Note FOSS for Python is the first calibration output
-and accepted-structure reference; Aspose.3D follows, then Page/PDF complete the representative
-Python cohort. Human feedback may revise the component
-contract without erasing unrelated facts or accepted work. Remaining repositories continue
-autonomously after representative-cohort acceptance. No product-repository proposal is eligible
-until every admitted repository is locally valid and explicitly human-accepted in the indexed
-portfolio Gate B.
+Calibration is autonomous and evidence-bound. Comparative Aspose.Note FOSS for Python remains the accepted-structure reference; Aspose.3D follows, then the seven-ecosystem cohort proves portability.
+Independent non-authoring reviewers and deterministic public-quality/factuality gates own candidate acceptance. A presentation-contract change versions only the affected component and reopens semantic dependants without erasing unrelated facts or accepted work.
+Human content review is optional and never blocks candidate readiness. No product effect is eligible until every admitted processable repository is locally valid, independently accepted, immediate-no-op-proven, source-fresh, and bound to a validated proposal payload; the later effect still requires its separate exact authorization.
 
 Infrastructure is just-in-time. A task enters the active path only when it unblocks the current
 repository, will be exercised by the next bounded cohort, fixes a demonstrated safety/factuality/
@@ -289,19 +284,21 @@ on is actually accepted, not merely attempted:
 4. **Independent agentic approval completes the system portion of Gate A.** Every candidate passes
    deterministic factuality, claim-accountability, preservation, structure, links, safety, and
    golden-contract gates, then one independent non-authoring evidence-grounded reviewer. A second
-   reviewer runs only for a typed risk trigger proven by the regression corpus. The system is ready
-   for POC human review only when every entry in the current complete registry revision has an
-   agent-approved, no-op-proven local candidate and intake is fully reconciled. A candidate file
+   reviewer runs only for a typed risk trigger proven by the regression corpus. Gate A is complete
+   only when every entry in the current complete registry revision has an agent-approved, no-op-proven local candidate and
+   intake is fully reconciled. A candidate file
    merely existing is not approval. A strong existing README may take a fast path, but still needs
    verified inherited claims, deterministic assessment, an empty-patch candidate, independent
    approval, and no-op proof.
-5. **Gate B — verified human review follows agent approval.** Humans review only candidates that already
-   passed independent agentic review. Human acceptance is recorded separately; it is not inferred
-   from an agent verdict. Every registry candidate must be human-accepted before Gate C begins.
-6. **Gate C — verified Java proposal proof follows full local and human acceptance.** Historical
+5. **Gate B — autonomous publication readiness follows Gate A.** Refetch every source read-only, reopen only drifted repositories at their earliest affected boundary, independently reseal every changed candidate, and derive
+   `PR_ELIGIBLE` only when every processable repository remains 30/30, no-op-proven, source-fresh, and bound to a validated proposal/rollback/authorization payload. Human content review is not required. Gate B stops at
+   `PORTFOLIO_PUBLICATION_READY_AWAITING_EFFECT_AUTHORIZATION` and performs no product write.
+6. **Gate C — verified Java proposal proof follows autonomous Gate-B readiness and fresh effect
+   authorization.** Historical
    trusted PRs do not satisfy this gate. Creating or updating verified proposals against the designated
    Java repositories is attempted only after every current registry repository has passed Gates A
-   and B, not before. Gate C reuses the already qualified App/workflow/effect machinery and proves
+   and B and the exact effect has fresh authorization, not before. Gate C reuses the already qualified
+   App/workflow/effect machinery and proves
    that repository-verified candidates, authorization, and proposal semantics work at the higher
    assurance. Prior transport proof is reusable only when its exact dependencies remain current.
 

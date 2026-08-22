@@ -487,7 +487,7 @@ def _update_graph() -> None:
         "baseline_non_processable": 2,
         "delivery_numerator": "processable_repositories",
         "candidate_acceptance_state": "AGENT_ACCEPTED_30_OF_30",
-        "campaign_terminal_state": "PORTFOLIO_AGENT_ACCEPTED_AWAITING_GLOBAL_HUMAN_REVIEW",
+        "campaign_terminal_state": "PORTFOLIO_AGENT_ACCEPTED",
         "rubric_path": "plans/investigations/owner_audit/aspose_candidate_rubric/RUBRIC_30.md",
         "rubric_sha256": "5b016891000c320218a762c0289ae44d6820636a66ab54f3410e87f12e876268",
         "required_score": 30,
@@ -610,7 +610,7 @@ def _update_graph() -> None:
             "closeout_rules": [
                 "Every processable repository is AGENT_ACCEPTED_30_OF_30 and immediate NO_OP_PROVEN.",
                 "Both non-processable dispositions bind immutable source evidence and a resume predicate.",
-                "The portfolio terminal state is PORTFOLIO_AGENT_ACCEPTED_AWAITING_GLOBAL_HUMAN_REVIEW.",
+                "The Gate-A terminal state is PORTFOLIO_AGENT_ACCEPTED.",
             ],
             "execution_focus": _focus(
                 "DELIVERY-README-PORTFOLIO-PROOF",
@@ -755,6 +755,21 @@ def _update_requirements() -> None:
         traceability="Decision 108; RDM-026; L8-037/038/046/048; L8-PORT-01",
     )
     _update_requirement(
+        by_id["PIL-016"],
+        requirement=(
+            "Verified product proposal effects MAY proceed one complete platform at a time only after every "
+            "current repository in that platform is repository-verified, independently accepted, fresh-"
+            "transaction-no-op-proven, source-fresh, PR_ELIGIBLE, transport-qualified, and separately "
+            "authorized for the exact effect. Human content acceptance is not a prerequisite. Platform "
+            "publication MUST NOT promote another platform or satisfy full-registry Gate A/B."
+        ),
+        evidence=(
+            "The readiness reducer now excludes human content review while retaining separate fresh effect "
+            "authorization. Full platform transport/effect proof remains open after autonomous Gate B."
+        ),
+        traceability="Decisions 78/85/91/108; AUTH-008; L8-PF-07",
+    )
+    _update_requirement(
         by_id["L8-016"],
         requirement=(
             "The candidate campaign MUST bind a clean PlanFreezeV1, immutable PipelineContractSnapshotV1, "
@@ -804,49 +819,20 @@ def _update_requirements() -> None:
         by_id["L8-048"],
         requirement=(
             "Factual validity, presentation validity/version, AGENT_ACCEPTED_30_OF_30, immediate no-op, "
-            "campaign terminal state, global human acceptance, transport qualification, and publication "
-            "eligibility MUST remain separate. The current campaign stops at "
-            "PORTFOLIO_AGENT_ACCEPTED_AWAITING_GLOBAL_HUMAN_REVIEW and performs no product effect."
+            "source freshness, campaign terminal state, publication eligibility, effect authorization, and "
+            "effect execution MUST remain separate. Human content review is optional and MUST NOT block "
+            "candidate readiness. The current campaign stops at "
+            "PORTFOLIO_PUBLICATION_READY_AWAITING_EFFECT_AUTHORIZATION and performs no product effect."
         ),
         evidence=(
-            "Some state separation exists, but the candidate-bound 30-of-30 and portfolio terminal states are "
-            "not yet implemented and proven through the sole mission graph."
+            "The aggregate reducer and per-repository transition contract now separate agent acceptance, no-op, "
+            "publication readiness, and effect authority without requiring human content review. Full current "
+            "31-of-31 and zero-effect publication-readiness proof remains open in the sole mission graph."
         ),
-        traceability="Decision 91/108; PIL-015; L8-PF-03; L8-PORT-01",
-    )
-    _update_requirement(
-        by_id["KNOW-003"],
-        evidence=(
-            "Current code now performs item-level, polarity-aware evidence-content verification and splits "
-            "verified from unverified siblings (`d11ac3800`, `dc335bdf2`), with focused stub/conflict controls. "
-            "Real candidate-bound proof is still required under L8-PF-01/02; the older file-existence-only "
-            "owner-audit finding is superseded in code, not yet in portfolio evidence."
+        traceability=(
+            "Decision 91/108; PIL-015; L8-PF-03; L8-PORT-01; "
+            "L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS"
         ),
-        traceability="Decision 106/108; L8-PF-01; KGAP-002 repaired in d11ac3800/dc335bdf2",
-    )
-    _update_requirement(
-        by_id["KNOW-004"],
-        evidence=(
-            "Schema-v3 final post-render accountability, candidate/provenance joins, acceptance binding, and "
-            "focused tests landed in `0eadaa622`. A current real candidate must still prove every selected item "
-            "binds output spans or a typed omission reason before this requirement becomes IMPLEMENTED."
-        ),
-        traceability="Decision 106/108; L8-PF-01/02; commit 0eadaa622",
-    )
-    _update_requirement(
-        by_id["KNOW-013"],
-        requirement=(
-            "Every selected imported knowledge field MUST have a bounded, deduplicated, current-source-safe "
-            "renderer or structured-composition consumer that can change useful candidate bytes when applicable, "
-            "and every selected item MUST have final span lineage or an explicit omission reason."
-        ),
-        evidence=(
-            "PARTIAL: relevant_seo_keywords changes bytes; item-level polarity (K1) and final post-render "
-            "accountability (K3) are implemented. feature_claims, format_support_claims, install_claims, "
-            "limitation_claims, and troubleshoot_claims still have no byte-changing consumers. L8-PF-01 owns "
-            "the five field consumers and a real Aspose.3D Python knowledge-to-bytes proof."
-        ),
-        traceability="Decision 106/108; KNOW-003/004; L8-PF-01",
     )
     _update_requirement(
         by_id["RDM-026"],
@@ -877,12 +863,14 @@ def _update_decision() -> None:
             "Full-registry verified local README proof uses the dynamic processable denominator.",
             "78. **Full-registry verified local README proof uses the dynamic processable denominator.** "
             "Every PROCESSABLE repository in the frozen RegistryRevision must reach candidate-bound 30/30 "
-            "independent acceptance and immediate complete-transaction no-op before global human review. "
+            "independent acceptance and immediate complete-transaction no-op before autonomous publication "
+            "readiness. "
             "A repository with no implementation may use only a typed, evidence-bound "
             "NON_PROCESSABLE_NO_IMPLEMENTATION disposition with a resume predicate; it remains inside revision "
             "accountability but outside the delivery numerator. Partial cohorts and historical candidates are "
-            "development evidence, never portfolio closure. Gate C and product effects remain later, separately "
-            "authorized work. (Revised in place by Decision 108.)",
+            "development evidence, never portfolio closure. Human content review is optional. Autonomous Gate B "
+            "must make the full processable portfolio source-fresh and PR_ELIGIBLE before any separately authorized "
+            "Gate-C effect. (Revised in place by Decision 108.)",
         ),
         88: (
             "Suspend trusted execution and make a sealed verified transaction the immediate critical path.",
@@ -891,8 +879,27 @@ def _update_decision() -> None:
             "knowledge use and acceptance identity, then complete one current weak-input candidate at 30/30 "
             "with zero hard disqualifiers and immediate zero-provider transaction no-op. Only after that proof "
             "may the system automate the transaction, qualify ecosystem canaries, and fan out across the "
-            "processable portfolio. Platform transport is later than the complete local portfolio and global "
-            "human review. (Revised in place by Decision 108.)",
+            "processable portfolio. Platform transport is later than complete autonomous portfolio publication "
+            "readiness. (Revised in place by Decision 108.)",
+        ),
+        90: (
+            "Presentation versions freeze; presentation design remains agile.",
+            "90. **Presentation versions freeze; presentation design remains agile.** Each repository pins "
+            "component versions for reproducibility. Later cosmetic, structural, prose-policy, fact-slot, "
+            "factuality/safety, or major-document changes invalidate only their semantic dependants. A non-critical "
+            "new version yields VALID_UPDATE_AVAILABLE; it does not erase factual validity, independent acceptance, "
+            "or the completed numerator. Only factual, safety, protected-content, or severe acceptance defects "
+            "invalidate an accepted README.",
+        ),
+        91: (
+            "Acceptance is staged, autonomous, and multi-dimensional.",
+            "91. **Acceptance is staged, autonomous, and multi-dimensional.** Facts, presentation validity/version, "
+            "independent review, no-op proof, source freshness, publication eligibility, effect authorization, and "
+            "effect execution are recorded independently. Human content review is optional and never blocks candidate "
+            "readiness. The complete processable portfolio may become PR_ELIGIBLE only after every repository is "
+            "current, independently accepted, fresh-transaction-no-op-proven, and bound to a validated effect-neutral "
+            "proposal payload. No readiness state grants effect authority; every product effect still requires its "
+            "own fresh exact authorization.",
         ),
         95: (
             "Adaptive parallelism begins only after one complete transaction proves isolation.",
@@ -910,24 +917,9 @@ def _update_decision() -> None:
             "Aspose.3D Python is the first weak-input transaction because it exercises rich factual and editorial "
             "risk. After it seals, one current candidate per supported ecosystem qualifies the same transaction "
             "before portfolio fan-out. Local candidates in another ecosystem do not wait for Python publication "
-            "or production admission. Product effects remain later than complete portfolio agent acceptance, "
-            "global human review, transport qualification, and fresh exact authorization. (Revised in place by "
+            "or production admission. Product effects remain later than complete autonomous portfolio publication "
+            "readiness, transport qualification, and fresh exact authorization. (Revised in place by "
             "Decision 108.)",
-        ),
-        106: (
-            "Native knowledge application is current-source-qualified, candidate-accountable, and incomplete until selected claims affect useful bytes.",
-            "106. **Native knowledge application is current-source-qualified, candidate-accountable, and "
-            "incomplete until selected claims affect useful bytes.** The complete imported Aspose.org corpus "
-            "(12 claim kinds, 31 bundles, 97,303 claims) is checksum-bound and selected into small relevant "
-            "packets. Item-level polarity-aware content verification makes current repository evidence win, "
-            "rejects positive claims backed by stubs, and prevents a verified item from laundering unverified "
-            "siblings. Final post-render knowledge accountability binds exact candidate bytes and records exact "
-            "output spans or typed reasons for every selected claim. The current vendored check registry is "
-            "introspected from 89 functions and its applicable blocking subset is independently versioned. "
-            "Aspose.org remains development input only. This decision remains PARTIAL in delivery terms until "
-            "feature, format-support, install, limitation, and troubleshooting knowledge have bounded, "
-            "deduplicated, current-source-safe useful-byte consumers and one real candidate proves the complete "
-            "knowledge-to-bytes chain. (Revised in place by Decision 108.)",
         ),
     }
     for decision_id, (title, markdown) in amendments.items():
@@ -944,8 +936,11 @@ def _update_decision() -> None:
         "knowledge is a development-only corpus: current-source corroboration, post-render accountability, and "
         "useful-byte consumers must close before one weak-input candidate is sealed at 30/30 with zero hard "
         "disqualifiers and immediate complete-transaction no-op. Only then may a minimal typed allow-listed "
-        "runner automate the proven transaction, followed by seven ecosystem canaries and fleet fan-out. The "
-        "runner never authors, commits, pushes, or publishes code/content; the campaign has no product effect. "
+        "runner automate the proven transaction, followed by seven ecosystem canaries, overlapping source-complete "
+        "discovery/fact warmup, and fleet fan-out. After adversarial portfolio audit, the same graph refetches "
+        "sources, heals drift, derives PR_ELIGIBLE, and prepares validated effect-neutral proposal payloads. Human "
+        "content review is not required. The runner never authors, commits, pushes, or publishes code/content; the "
+        "campaign stops at PORTFOLIO_PUBLICATION_READY_AWAITING_EFFECT_AUTHORIZATION with no product effect. "
         "Qwen3 Next and Aspose.org comparison are versioned development inputs, not immutable mission identity "
         "or deployed runtime dependencies."
     )

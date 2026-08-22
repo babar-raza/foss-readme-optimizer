@@ -32,10 +32,10 @@ def test_one_approved_product_cannot_open_the_global_gate():
         )
     )
 
-    assert matrix.portfolio_status() == "BLOCKED_PORTFOLIO"
+    assert matrix.portfolio_status() == "PORTFOLIO_GENERATING"
 
 
-def test_an_unreviewed_product_blocks_all_remote_writes():
+def test_agent_accepted_rows_do_not_enable_publication_without_eligibility():
     matrix = PortfolioAccountabilityMatrixV1(
         rows=(
             _row("org/a", "HUMAN_APPROVED"),
@@ -44,7 +44,7 @@ def test_an_unreviewed_product_blocks_all_remote_writes():
         )
     )
 
-    assert matrix.portfolio_status() == "BLOCKED_PORTFOLIO"
+    assert matrix.portfolio_status() == "PORTFOLIO_AGENT_ACCEPTED"
 
 
 def test_a_quarantined_product_blocks_the_whole_portfolio():
@@ -58,7 +58,7 @@ def test_a_quarantined_product_blocks_the_whole_portfolio():
     assert matrix.portfolio_status() == "BLOCKED_PORTFOLIO"
 
 
-def test_a_stale_or_failed_product_blocks_review_readiness():
+def test_a_stale_product_keeps_the_portfolio_generating():
     matrix = PortfolioAccountabilityMatrixV1(
         rows=(
             _row("org/a", "HUMAN_APPROVED"),
@@ -66,10 +66,10 @@ def test_a_stale_or_failed_product_blocks_review_readiness():
         )
     )
 
-    assert matrix.portfolio_status() == "BLOCKED_PORTFOLIO"
+    assert matrix.portfolio_status() == "PORTFOLIO_GENERATING"
 
 
-def test_fully_approved_unchanged_portfolio_reaches_awaiting_review():
+def test_fully_agent_accepted_portfolio_reaches_agent_acceptance():
     matrix = PortfolioAccountabilityMatrixV1(
         rows=(
             _row("org/a", "HUMAN_APPROVED"),
@@ -77,10 +77,10 @@ def test_fully_approved_unchanged_portfolio_reaches_awaiting_review():
         )
     )
 
-    assert matrix.portfolio_status() == "AWAITING_GLOBAL_HUMAN_REVIEW"
+    assert matrix.portfolio_status() == "PORTFOLIO_AGENT_ACCEPTED"
 
 
-def test_all_remote_eligible_reaches_remote_writes_enabled():
+def test_all_remote_eligible_reaches_publication_ready_without_effect_authority():
     matrix = PortfolioAccountabilityMatrixV1(
         rows=(
             _row("org/a", "REMOTE_ELIGIBLE"),
@@ -88,7 +88,18 @@ def test_all_remote_eligible_reaches_remote_writes_enabled():
         )
     )
 
-    assert matrix.portfolio_status() == "REMOTE_WRITES_ENABLED"
+    assert matrix.portfolio_status() == "PORTFOLIO_PUBLICATION_READY_AWAITING_EFFECT_AUTHORIZATION"
+
+
+def test_agent_accepted_portfolio_reaches_agent_acceptance():
+    matrix = PortfolioAccountabilityMatrixV1(
+        rows=(
+            _row("org/a", "READY_FOR_PORTFOLIO_REVIEW"),
+            _row("org/b", "READY_FOR_PORTFOLIO_REVIEW"),
+        )
+    )
+
+    assert matrix.portfolio_status() == "PORTFOLIO_AGENT_ACCEPTED"
 
 
 def test_authoritative_exclusion_is_not_counted_against_approval():
@@ -103,7 +114,7 @@ def test_authoritative_exclusion_is_not_counted_against_approval():
         )
     )
 
-    assert matrix.portfolio_status() == "AWAITING_GLOBAL_HUMAN_REVIEW"
+    assert matrix.portfolio_status() == "PORTFOLIO_AGENT_ACCEPTED"
 
 
 def test_exclusion_without_a_reason_is_treated_as_blocking_not_a_silent_pass():
@@ -125,7 +136,7 @@ def test_inactive_registry_entries_are_not_counted_at_all():
         )
     )
 
-    assert matrix.portfolio_status() == "AWAITING_GLOBAL_HUMAN_REVIEW"
+    assert matrix.portfolio_status() == "PORTFOLIO_AGENT_ACCEPTED"
 
 
 def test_row_rejects_unknown_fields():

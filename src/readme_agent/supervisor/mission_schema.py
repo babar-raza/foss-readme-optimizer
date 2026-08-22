@@ -51,6 +51,7 @@ class AutonomousExecutionContractV1(_StrictModel):
     task_lane_plan_required_when_delegating: bool
     task_lane_plan_path_template: str
     task_lane_plan_protocol: list[str]
+    failure_recovery_protocol: list[str] = Field(min_length=1)
 
 
 class MissionAuthorityV1(_StrictModel):
@@ -106,7 +107,7 @@ class PortfolioProofContractV1(_StrictModel):
     baseline_non_processable: int = Field(ge=0)
     delivery_numerator: Literal["processable_repositories"]
     candidate_acceptance_state: Literal["AGENT_ACCEPTED_30_OF_30"]
-    campaign_terminal_state: Literal["PORTFOLIO_AGENT_ACCEPTED_AWAITING_GLOBAL_HUMAN_REVIEW"]
+    campaign_terminal_state: Literal["PORTFOLIO_AGENT_ACCEPTED"]
     rubric_path: str
     rubric_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     required_score: int = Field(ge=1)

@@ -34,9 +34,8 @@ PortfolioReviewStatus = Literal[
     "PORTFOLIO_GENERATING",
     "PORTFOLIO_LOCALLY_VALIDATED",
     "PORTFOLIO_E2E_VERIFIED",
-    "AWAITING_GLOBAL_HUMAN_REVIEW",
-    "GLOBALLY_APPROVED",
-    "REMOTE_WRITES_ENABLED",
+    "PORTFOLIO_AGENT_ACCEPTED",
+    "PORTFOLIO_PUBLICATION_READY_AWAITING_EFFECT_AUTHORIZATION",
     "BLOCKED_PORTFOLIO",
 ]
 
@@ -93,22 +92,25 @@ class PortfolioAccountabilityMatrixV1(BaseModel):
     rows: tuple[PortfolioProductRowV1, ...]
 
     def portfolio_status(self) -> PortfolioReviewStatus:
-        """Compute the aggregate status. `REMOTE_WRITES_ENABLED`/
-        `AWAITING_GLOBAL_HUMAN_REVIEW` are reachable ONLY when every active,
-        non-excluded row is at least `HUMAN_APPROVED` -- one approved product
-        never opens the gate alone, and any quarantined/unreviewed row blocks
-        the whole portfolio (`BLOCKED_PORTFOLIO`), per this plan's binding
-        amendment. Excluded rows require an authoritative reason to be
-        skipped from that requirement -- an exclusion with no reason is
-        itself treated as blocking, never a silent pass.
+        """Derive review and publication readiness without granting effect authority.
+
+        Agent acceptance, publication readiness, and an authorized remote effect
+        are separate boundaries. This reducer stops at publication readiness; no
+        returned status enables a product write or requires a human content-review
+        step.
         """
 
         active_rows = [row for row in self.rows if row.active]
         if not active_rows:
             return "PORTFOLIO_DISCOVERED"
 
-        blocking = [row for row in active_rows if not row.is_approvable()]
-        if blocking:
+        invalid_exclusions = [
+            row
+            for row in active_rows
+            if row.review_status == "EXCLUDED" and row.exclusion_reason is None
+        ]
+        quarantined = [row for row in active_rows if row.review_status == "QUARANTINED"]
+        if invalid_exclusions or quarantined:
             return "BLOCKED_PORTFOLIO"
 
         # A valid EXCLUDED row already passed `is_approvable()` above (it has an
@@ -123,13 +125,15 @@ class PortfolioAccountabilityMatrixV1(BaseModel):
 
         all_remote_eligible = all(row.review_status == "REMOTE_ELIGIBLE" for row in reviewable_rows)
         if all_remote_eligible:
-            return "REMOTE_WRITES_ENABLED"
+            return "PORTFOLIO_PUBLICATION_READY_AWAITING_EFFECT_AUTHORIZATION"
 
-        all_human_approved = all(
-            row.review_status in ("HUMAN_APPROVED", "REMOTE_ELIGIBLE") for row in reviewable_rows
+        all_ready_for_review = all(
+            _PRODUCT_ORDER.index(row.review_status)
+            >= _PRODUCT_ORDER.index("READY_FOR_PORTFOLIO_REVIEW")
+            for row in reviewable_rows
         )
-        if all_human_approved:
-            return "AWAITING_GLOBAL_HUMAN_REVIEW"
+        if all_ready_for_review:
+            return "PORTFOLIO_AGENT_ACCEPTED"
 
         all_e2e_verified = all(
             _PRODUCT_ORDER.index(row.review_status) >= _PRODUCT_ORDER.index("LOCALLY_E2E_VERIFIED")

@@ -54,7 +54,10 @@ The current bounded dependency horizon is candidate-first: campaign authority; c
 Aspose.org mechanism refresh plus a twice-stable, denominator-reconciled snapshot of its evolving
 generated visitor-quality benchmark; independent import/profile qualification;
 imported-knowledge-to-bytes and acceptance identity; one complete Aspose.3D Python candidate; 30-point acceptance plus
-immediate no-op; minimal graph runner; seven ecosystem canaries; then the 31/31 processable fleet.
+immediate no-op; minimal graph runner; seven ecosystem canaries; overlapping registry/fact warmup;
+the 31/31 processable fleet and adversarial audit; then autonomous source-fresh `PR_ELIGIBLE`
+proposal packages for every processable repository. Human content review is not a prerequisite and
+the campaign stops before any product effect.
 The graph owns the exact task IDs and durable state owns the current cursor.
 
 ## Status and history

@@ -1,4 +1,4 @@
-"""Staged human acceptance and portfolio-wide publication eligibility."""
+"""Optional human decisions and autonomous portfolio publication readiness."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ from readme_agent.state.lifecycle_schema import (
 )
 from readme_agent.state.schema import RunStateV2
 
-_HUMAN_REVIEWABLE_STATUSES = {
+_LOCAL_PROOF_COMPLETE_STATUSES = {
     "NO_OP_PROVEN",
     "HUMAN_REVIEW_READY",
     "HUMAN_ACCEPTED",
@@ -51,7 +51,7 @@ def record_human_acceptance(
 
     def patch(state: RunStateV2) -> RunStateV2:
         lifecycle = _lifecycle(state, org_repo)
-        if lifecycle.status not in _HUMAN_REVIEWABLE_STATUSES:
+        if lifecycle.status not in _LOCAL_PROOF_COMPLETE_STATUSES:
             raise StateBackendError("human acceptance requires completed independent local proof")
         presentation = lifecycle.presentation_validity
         if (
@@ -112,11 +112,13 @@ def portfolio_publication_rejection_reasons(
     backend: StateBackend,
     admitted_repositories: list[str],
 ) -> list[str]:
-    """Recompute every current Gate-B prerequisite for an effect-time guard."""
+    """Recompute autonomous publication-readiness prerequisites.
+
+    Human review is an optional recorded axis, not an eligibility prerequisite.
+    A later product effect still requires its separate fresh authorization.
+    """
 
     reasons: list[str] = []
-    calibration_accepted = False
-    representative_cohort_accepted = False
     for repository in admitted_repositories:
         state = backend.load(repository)
         lifecycle = state.readme_poc_lifecycle if state is not None else None
@@ -125,7 +127,7 @@ def portfolio_publication_rejection_reasons(
             continue
         factual = lifecycle.factual_validity
         presentation = lifecycle.presentation_validity
-        if lifecycle.status not in _HUMAN_REVIEWABLE_STATUSES:
+        if lifecycle.status not in _LOCAL_PROOF_COMPLETE_STATUSES:
             reasons.append(f"{repository}:local_acceptance_stage_incomplete")
         if (
             factual.status != "VALID"
@@ -139,19 +141,6 @@ def portfolio_publication_rejection_reasons(
             or presentation.candidate_hash != lifecycle.candidate_hash
         ):
             reasons.append(f"{repository}:presentation_validity_missing_or_stale")
-        calibration_accepted = calibration_accepted or _current_human_acceptance(
-            lifecycle, "calibration"
-        )
-        representative_cohort_accepted = (
-            representative_cohort_accepted
-            or _current_human_acceptance(lifecycle, "representative_cohort")
-        )
-        if not _current_human_acceptance(lifecycle, "final_portfolio"):
-            reasons.append(f"{repository}:final_human_acceptance_missing_or_stale")
-    if not calibration_accepted:
-        reasons.append("portfolio:calibration_acceptance_missing_or_stale")
-    if not representative_cohort_accepted:
-        reasons.append("portfolio:representative_cohort_acceptance_missing_or_stale")
     return reasons
 
 
@@ -165,7 +154,7 @@ def record_publication_eligibility(
     observed_by: str,
     max_retries: int = 5,
 ) -> ReadmePocLifecycleStateV2:
-    """Persist eligibility only after every dynamic registry member has final acceptance."""
+    """Persist readiness after every registry member has current autonomous acceptance."""
 
     if not admitted_repositories or len(set(admitted_repositories)) != len(admitted_repositories):
         raise StateBackendError("admitted repository denominator must be nonempty and unique")

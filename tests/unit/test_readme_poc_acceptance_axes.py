@@ -127,7 +127,7 @@ class TestIndependentAcceptanceAxes:
             "final_portfolio",
         ]
 
-    def test_new_presentation_version_makes_prior_human_acceptance_stale(self):
+    def test_new_independently_validated_presentation_does_not_require_human_reacceptance(self):
         backend = _Backend()
         self._seed(backend, "org/repo", "a")
         self._validate_and_accept(backend, "org/repo", "a", "1" * 64)
@@ -157,15 +157,11 @@ class TestIndependentAcceptanceAxes:
             observed_by="gate-c-guard",
         )
 
-        assert ineligible.publication_eligibility.status == "INELIGIBLE"
-        assert ineligible.publication_eligibility.rejection_reasons == [
-            "org/repo:final_human_acceptance_missing_or_stale",
-            "portfolio:calibration_acceptance_missing_or_stale",
-            "portfolio:representative_cohort_acceptance_missing_or_stale",
-        ]
+        assert ineligible.publication_eligibility.status == "ELIGIBLE"
+        assert ineligible.publication_eligibility.rejection_reasons == []
         assert len(ineligible.human_acceptance_history) == 3
 
-    def test_agent_only_or_missing_repository_acceptance_fails_closed(self):
+    def test_missing_repository_acceptance_fails_closed_but_agent_acceptance_is_sufficient(self):
         backend = _Backend()
         self._seed(backend, "org/agent-only", "a")
         state = backend.load("org/agent-only")
@@ -206,14 +202,14 @@ class TestIndependentAcceptanceAxes:
         )
 
         assert ineligible.publication_eligibility.status == "INELIGIBLE"
-        assert "org/agent-only:final_human_acceptance_missing_or_stale" in (
+        assert "org/agent-only:final_human_acceptance_missing_or_stale" not in (
             ineligible.publication_eligibility.rejection_reasons
         )
         assert "org/missing:missing_current_lifecycle" in (
             ineligible.publication_eligibility.rejection_reasons
         )
 
-    def test_final_acceptance_alone_cannot_skip_calibration_and_cohort_boundaries(self):
+    def test_optional_human_history_does_not_gate_autonomous_publication_readiness(self):
         backend = _Backend()
         self._seed(backend, "org/repo", "a")
         state = backend.load("org/repo")
@@ -264,11 +260,8 @@ class TestIndependentAcceptanceAxes:
             observed_by="gate-c-guard",
         )
 
-        assert ineligible.publication_eligibility.status == "INELIGIBLE"
-        assert ineligible.publication_eligibility.rejection_reasons == [
-            "portfolio:calibration_acceptance_missing_or_stale",
-            "portfolio:representative_cohort_acceptance_missing_or_stale",
-        ]
+        assert ineligible.publication_eligibility.status == "ELIGIBLE"
+        assert ineligible.publication_eligibility.rejection_reasons == []
 
     def test_agent_approval_without_no_op_cannot_receive_human_acceptance(self):
         backend = _Backend()

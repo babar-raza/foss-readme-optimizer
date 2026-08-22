@@ -35,9 +35,12 @@ A processable repository is complete only when one exact candidate passes all of
    zero new provider work, and no duplicate lifecycle effect;
 8. checksum-complete reconstruction from authorized immutable artifacts.
 
-The state `AGENT_ACCEPTED_30_OF_30` is distinct from human acceptance and publication eligibility.
-The campaign terminates at `PORTFOLIO_AGENT_ACCEPTED_AWAITING_GLOBAL_HUMAN_REVIEW`; it does not
-authorize a product write or claim the complete `plans/idea.md` mission.
+The state `AGENT_ACCEPTED_30_OF_30` is distinct from publication eligibility and effect authority.
+Human content review is not a campaign prerequisite. Gate A reaches `PORTFOLIO_AGENT_ACCEPTED`;
+the follow-on autonomous readiness task rechecks source freshness, repairs any reopened repository,
+derives `PR_ELIGIBLE`, and terminates at
+`PORTFOLIO_PUBLICATION_READY_AWAITING_EFFECT_AUTHORIZATION`. Neither state authorizes a product write
+or claims the complete `plans/idea.md` mission.
 
 ## Processability
 
@@ -139,6 +142,12 @@ never wording comparison. A discovered gap is repaired at its native causal owne
 knowledge selection, structured composition, deterministic rendering, validation, or review. The
 comparison does not enter acceptance or deployed inputs.
 
+After two equivalent local approaches fail or fifteen minutes produce no narrower cause, the agent
+must consult the current read-only `skills/readme-refresh.md`, its associated scripts and knowledge
+producer, and the matching current `reports/repo-presenter-regen-full` candidate. It may adopt only an
+independently qualified general mechanism or evidence-locating lesson. It may not copy an unverified
+claim, inherit an upstream verdict, or create a deployed/runtime dependency on the sibling checkout.
+
 ## Refreshable Visitor-Quality Benchmark
 
 The development benchmark is the latest complete, stably synchronized canonical Aspose.org
@@ -205,9 +214,12 @@ The near-term graph executes in this order:
 4. prove one sealed weak-input candidate at 30/30 plus immediate complete-transaction no-op;
 5. encode that proven transaction behind typed allow-listed graph actions and predicates;
 6. prove one complete candidate per supported ecosystem;
-7. run the dynamic processable portfolio with per-repository isolation and failed-only repair;
-8. reconstruct without new provider work, reproduce on a clean bounded runner, and perform an
-   independent adversarial audit.
+7. overlap the final canary with source-complete registry discovery and read-only snapshot/fact warmup;
+8. run the frozen dynamic processable portfolio with per-repository isolation and failed-only repair;
+9. reconstruct without new provider work, reproduce on a clean bounded runner, and perform an
+   independent adversarial audit; and
+10. refetch every source read-only, rebuild only drifted repositories, derive `PR_ELIGIBLE`, and prepare
+    exact proposal/rollback/authorization payloads without creating a product effect.
 
 The general mission runner is deliberately after the first sealed candidate. It automates a
 proven transaction rather than becoming a prerequisite for discovering what that transaction
@@ -220,6 +232,10 @@ must do. Later canary, fleet, hosted, and audit tasks enter the active horizon j
 - Graph actions may invoke only typed allow-listed Python handlers; arbitrary shell is forbidden.
 - A repairable failure creates a durable causal obligation and reopens only dependent stages.
 - Two equivalent ineffective attempts require a first-principles replan before another attempt.
+- Transient provider, source-read, registry, and CAS failures resume from the last checksum-valid stage;
+  corrupt evidence is quarantined and reconstructed from immutable inputs.
+- Missing human content review never blocks candidate readiness. Missing product-effect authorization is
+  the expected final boundary and cannot be bypassed or mislabeled as a candidate failure.
 - No initial drift baseline may bless unknown state; it must derive from a verified plan freeze.
 - Product repositories, product branches, draft PRs, and default branches are untouched during this
   campaign.

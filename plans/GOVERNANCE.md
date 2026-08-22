@@ -296,9 +296,10 @@ state. This file also defines machinery-artifact naming and organization.
     `VALID_UPDATE_AVAILABLE`; it does not revoke an otherwise valid candidate. Factuality, safety,
     corruption, or acceptance-contract defects reopen the earliest affected stage. Acceptance is
     recorded separately for facts, deterministic validation, independent presentation review,
-    human review, and publication eligibility. Human calibration covers the first candidate and a
-    representative cohort; autonomous portfolio work then continues, followed by final all-registry
-    human acceptance before any product pull request.
+    no-op proof, source freshness, publication eligibility, and effect authorization. Human content
+    review is optional and never blocks candidate readiness. Autonomous portfolio work continues until
+    every processable repository is `PR_ELIGIBLE` with a validated effect-neutral proposal package;
+    the later product effect still requires the repository's separate fresh authorization.
 
 23. **Agents challenge tactics while preserving the approved outcome.** Classify a new instruction
     as outcome, acceptance, preference, tactic, or external authority before changing work. Accept

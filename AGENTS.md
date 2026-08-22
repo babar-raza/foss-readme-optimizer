@@ -370,12 +370,12 @@ Per `plans/idea.md`'s "README POC Readiness and Ordered Delivery Gates" section 
 - **The system makes product/platform decisions.** Detect the product, ecosystem, repository
   shape, and evidence, then select capabilities, sections, examples, and validators automatically.
   A normal run must not ask a human to choose a template, capability, skill, or command sequence.
-- **Human review never replaces independent approval.** The current campaign presents one global
-  review package only after every processable repository is independently `AGENT_ACCEPTED_30_OF_30`
-  and immediate-no-op-proven. Human acceptance is a separate recorded state and is never inferred
-  from agent approval. No product PR is created during the portfolio-proof campaign; later platform
-  effects still require complete applicable human acceptance, transport qualification, and fresh
-  exact what/why/where authorization.
+- **Autonomous acceptance never grants effect authority.** The current campaign continues after every
+  processable repository is independently `AGENT_ACCEPTED_30_OF_30` and immediate-no-op-proven: it
+  adversarially audits the fleet, refetches source freshness, repairs only reopened repositories, and
+  derives `PR_ELIGIBLE` plus effect-neutral proposal payloads. Human content review is optional and
+  never blocks candidate readiness. No product PR is created during this campaign; every later effect
+  still requires transport qualification and fresh exact what/why/where authorization.
 - **Package resolution follows declared, sprint-bounded routes.** The active verified POC may use
   pip/PyPI for repository-declared Python packages, NuGet, Maven, npm, Go modules/proxy, and
   Cargo/crates.io. Conan and vcpkg remain inactive and non-blocking even if dormant resolver code

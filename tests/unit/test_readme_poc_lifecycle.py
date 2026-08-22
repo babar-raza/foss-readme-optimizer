@@ -522,6 +522,7 @@ class TestInvalidTransitions:
         assert legal_next_readme_poc_statuses("PR_PROOF_COMPLETE") == frozenset(
             {"SNAPSHOTTED", "FACTS_COLLECTING", "README_ASSESSED"}
         )
+        assert "PR_ELIGIBLE" in legal_next_readme_poc_statuses("NO_OP_PROVEN")
         reopened = transition_readme_poc_status(
             backend,
             org_repo,

@@ -3870,9 +3870,104 @@
       "id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
       "destination": "plans/investigations/control/level8-deferred-task-catalog.jsonl",
       "source_task_sha256": "ba7737cf04b5c190ea6e6c962b73d008eeec4b68cc230f20081ae222e9fe4e91",
-      "destination_task_sha256": "ba7737cf04b5c190ea6e6c962b73d008eeec4b68cc230f20081ae222e9fe4e91",
-      "transformation": "preserved_exactly",
-      "changed_fields": []
+      "destination_task_sha256": "99137b6d2fb172653582887cc0e06acac2c243412296fcc940da916063ca8c4d",
+      "transformation": "resequenced_active_horizon",
+      "changed_fields": [
+        {
+          "field": "requirement_ids",
+          "before": [
+            "OWN-001",
+            "OWN-002",
+            "OWN-003",
+            "OWN-004",
+            "OWN-005",
+            "OWN-006",
+            "OWN-007",
+            "OWN-008",
+            "OWN-009",
+            "OWN-010",
+            "OWN-011",
+            "OWN-012",
+            "OWN-013",
+            "OWN-014",
+            "OWN-015",
+            "FACT-001",
+            "FACT-002",
+            "FACT-003",
+            "FACT-004",
+            "FACT-005",
+            "FACT-006",
+            "FACT-007",
+            "FACT-008",
+            "FACT-009",
+            "FACT-010",
+            "FACT-011",
+            "FACT-012",
+            "FACT-013",
+            "FACT-015",
+            "FACT-014",
+            "ECO-001",
+            "ECO-002",
+            "ECO-003",
+            "ECO-004",
+            "ECO-005",
+            "PKG-001",
+            "PKG-002",
+            "PKG-003",
+            "PKG-004",
+            "PKG-005",
+            "PKG-006",
+            "FACT-016",
+            "FACT-017",
+            "L8-006"
+          ],
+          "after": [
+            "OWN-001",
+            "OWN-002",
+            "OWN-003",
+            "OWN-004",
+            "OWN-005",
+            "OWN-006",
+            "OWN-007",
+            "OWN-008",
+            "OWN-009",
+            "OWN-010",
+            "OWN-011",
+            "OWN-012",
+            "OWN-013",
+            "OWN-014",
+            "OWN-015",
+            "FACT-001",
+            "FACT-002",
+            "FACT-003",
+            "FACT-004",
+            "FACT-005",
+            "FACT-006",
+            "FACT-007",
+            "FACT-008",
+            "FACT-009",
+            "FACT-010",
+            "FACT-011",
+            "FACT-012",
+            "FACT-013",
+            "FACT-015",
+            "ECO-001",
+            "ECO-002",
+            "ECO-003",
+            "ECO-004",
+            "ECO-005",
+            "PKG-001",
+            "PKG-002",
+            "PKG-003",
+            "PKG-004",
+            "PKG-005",
+            "PKG-006",
+            "FACT-016",
+            "FACT-017",
+            "L8-006"
+          ]
+        }
+      ]
     },
     {
       "id": "L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION",
@@ -4874,7 +4969,7 @@
       "id": "L8-WAVE6-CONTROLLED-JAVA-PILOT",
       "destination": "plans/investigations/control/level8-deferred-task-catalog.jsonl",
       "source_task_sha256": "a52065ccb1de2b56af9982bba488a144849f9200b4b23acbe949a075ccb70932",
-      "destination_task_sha256": "5f50b3b6ef68a1e31749068c76a4d1738ef6b38206a1fdd225f882d70d654ceb",
+      "destination_task_sha256": "2a40d101ef043c252ad3cc01b4efce07fd57bc35a5b35271e73794d50cc2c9ef",
       "transformation": "resequenced_active_horizon",
       "changed_fields": [
         {
@@ -4907,7 +5002,6 @@
             "PIL-008",
             "PIL-009",
             "PIL-010",
-            "PIL-011",
             "PIL-012",
             "PIL-013",
             "PIL-014"
@@ -5022,15 +5116,21 @@
       "reason": "bounded activation boundary for the next deferred execution horizon"
     },
     {
+      "id": "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION",
+      "destination": "active_graph",
+      "destination_task_sha256": "0f7ff65d79a276a9d843f30fe8adbd99bcd99b34e3b0d7b35224c813aedaa643",
+      "reason": "bounded activation boundary for the next deferred execution horizon"
+    },
+    {
       "id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
       "destination": "active_graph",
-      "destination_task_sha256": "a6cb6708570bb1619e3ae8f5c20f2b6fcdf4d8c91f2303b5e5d41d80322458ba",
+      "destination_task_sha256": "1216e6881574b200c57d53acef56cfbc77d92a2d0d613092aae4682f0bf55af9",
       "reason": "bounded activation boundary for the next deferred execution horizon"
     },
     {
       "id": "L8-PF-03-SEALED-CANDIDATE-NO-OP",
       "destination": "active_graph",
-      "destination_task_sha256": "edc16e4ca5dcbc5651a3061a766e62f43624dbacc029cffe21fe9b5ffa8859bf",
+      "destination_task_sha256": "1aedeae65122a3d39e6ae134593a584c96664b6f110a7f38ef7d446be5553838",
       "reason": "bounded activation boundary for the next deferred execution horizon"
     },
     {
@@ -5046,9 +5146,21 @@
       "reason": "bounded activation boundary for the next deferred execution horizon"
     },
     {
+      "id": "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP",
+      "destination": "active_graph",
+      "destination_task_sha256": "88f027b0f28efed6706f0f5b72012a812c62473f7a1e787f710dc0115d489420",
+      "reason": "bounded activation boundary for the next deferred execution horizon"
+    },
+    {
       "id": "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY",
       "destination": "active_graph",
-      "destination_task_sha256": "34fbc5dca1c80c473d1abddd0132bfe0b800397a9ba88a4e26af9cf2ea011b7f",
+      "destination_task_sha256": "455d8016a4e36b7d67ee0206d6ab854897c990453de053e57e6421e44e084059",
+      "reason": "bounded activation boundary for the next deferred execution horizon"
+    },
+    {
+      "id": "L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS",
+      "destination": "active_graph",
+      "destination_task_sha256": "e49d699962623ae68abfbf54e2db7aac418c746277c9306af2fca206950b989d",
       "reason": "bounded activation boundary for the next deferred execution horizon"
     }
   ]

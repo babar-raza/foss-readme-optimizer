@@ -200,6 +200,17 @@ def _graph_with_tasks_reactivated(tmp_path, *task_ids):
     missing = wanted - {task["task_id"] for task in reactivated_tasks}
     assert not missing, f"tasks not found in deferred catalog: {missing}"
 
+    # These historical-reactivation tests predate the autonomous publication-readiness
+    # successor. It is unrelated to their dependency scenarios, so omit that already
+    # closed leaf from the synthetic graph instead of exceeding the production graph's
+    # fifteen-task compact-authority limit.
+    if len(raw["taskcards"]) + len(reactivated_tasks) > 15:
+        raw["taskcards"] = [
+            task
+            for task in raw["taskcards"]
+            if task["task_id"] != "L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS"
+        ]
+
     normalized_lines = []
     normalized_index = []
     for line, index_entry in zip(kept_lines, kept_index, strict=True):
@@ -253,7 +264,9 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
         "L8-PF-03-SEALED-CANDIDATE-NO-OP",
         "L8-PF-04-MINIMAL-GRAPH-RUNNER",
         "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
+        "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP",
         "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY",
+        "L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS",
     }
     assert tasks["L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION"].dependencies == []
     assert tasks["L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY"].dependencies == [
@@ -274,8 +287,15 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert tasks["L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"].dependencies == [
         "L8-PF-04-MINIMAL-GRAPH-RUNNER"
     ]
+    assert tasks["L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP"].dependencies == [
+        "L8-PF-04-MINIMAL-GRAPH-RUNNER"
+    ]
     assert tasks["L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY"].dependencies == [
-        "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
+        "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
+        "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP",
+    ]
+    assert tasks["L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS"].dependencies == [
+        "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY"
     ]
     # These tasks are durably CLOSED in production and retired to the deferred
     # catalog (see l8-horizon-01-deferral-2026-08-13/findings.md, Finding 3);

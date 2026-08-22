@@ -222,7 +222,8 @@ inventory every authorized source and freeze a complete RegistryRevisionV1
   -> bounded repair until accepted or honestly blocked
   -> immediate fresh-process complete-transaction no-op proof with zero provider work
   -> portfolio manifest may reach 31/31 only when every processable entry passes
-  -> one global human review/acceptance package
+  -> adversarial fleet audit and read-only source-freshness reconciliation
+  -> PR_ELIGIBLE effect-neutral proposal packages
   -> controlled Java PR proof (Gate C)
   -> broad GitHub App integration (Gate D)
 ```
@@ -233,7 +234,8 @@ unconditionally for that profile. `--enable-dynamic-planning` remains an explici
 opt-in for other profiles; it is not required by the canonical local command (`ORC-009`). A
 candidate file's existence is not acceptance: the exact bytes must reach
 `AGENT_ACCEPTED_30_OF_30` with zero hard disqualifiers plus immediate complete-transaction no-op
-before the artifact can enter the global human-review package (`PIL-015`).
+before autonomous publication-readiness reconciliation (`PIL-015`). Human content review is not a
+candidate-readiness prerequisite; a later product effect still requires fresh exact authorization.
 
 ### Bounded Qwen section authoring and recovery
 
