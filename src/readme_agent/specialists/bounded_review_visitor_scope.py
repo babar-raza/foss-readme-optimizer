@@ -44,8 +44,10 @@ _STANDARD_IDS_BY_ROOT = {
     "front-matter": _COMMON_STANDARD_IDS | {"readme.header", "readme.badges"},
     "navigation": _COMMON_STANDARD_IDS | {"readme.navigation"},
     "at-a-glance": _COMMON_STANDARD_IDS | {"readme.at_a_glance_mermaid"},
+    "key-capabilities": _COMMON_STANDARD_IDS | {"readme.key_capabilities"},
     "quick-start": _COMMON_STANDARD_IDS | {"readme.primary_example"},
     "additional-examples": _COMMON_STANDARD_IDS | {"readme.primary_example"},
+    "api-reference": _COMMON_STANDARD_IDS | {"readme.api_reference"},
     "scope-and-limitations": _COMMON_STANDARD_IDS | {"readme.enterprise_edition_terminology"},
     "license": _COMMON_STANDARD_IDS | {"readme.license"},
 }

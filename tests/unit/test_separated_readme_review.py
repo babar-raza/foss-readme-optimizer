@@ -1158,6 +1158,58 @@ def test_blind_role_drops_disproven_sibling_and_keeps_grounded_repair() -> None:
     assert any("link-budget premise" in error for error in history[0]["pre_normalization_errors"])
 
 
+def test_blind_role_accepts_when_every_proposed_defect_is_deterministically_disproven() -> None:
+    candidate = (
+        "# Product\n\n## Key Capabilities\n\n- **Create scenes** - Build scenes in Python.\n"
+    )
+    parsed = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The capability is a bare label.",
+        "failed_criteria": ["clarity"],
+        "sections_affected": ["key-capabilities"],
+        "required_repair": "Rewrite the capability.",
+        "findings": [
+            {
+                "finding_id": "bare-label",
+                "kind": "quality",
+                "criterion": "clarity",
+                "section": "key-capabilities",
+                "claim": "The bullet is a bare feature label.",
+                "quoted_candidate_span": "- **Create scenes** - Build scenes in Python.",
+                "disposition": "requires_repair",
+                "polarity_result": "not_applicable",
+                "required_repair": "Rewrite to start with a strong action verb.",
+            }
+        ],
+    }
+    client = SequenceClient([parsed])
+
+    result, history, grounding = run_grounded_role(
+        role="blind_quality",
+        prompt_id="blind_readme_quality_review",
+        client=client,
+        messages=[],
+        candidate_text=candidate,
+        product_facts=None,
+        visitor_contract={
+            "configured_standards": [
+                {
+                    "standard_id": "readme.key_capabilities",
+                    "parameters": {"action_led_same_line_rows": True},
+                }
+            ]
+        },
+    )
+
+    assert result.verdict == "ACCEPT"
+    assert len(result.findings) == 1
+    assert result.findings[0].disposition == "supports_acceptance"
+    assert result.findings[0].required_repair == ""
+    assert grounding.valid is True
+    assert len(client.messages_seen) == 1
+    assert history[0]["deterministically_dismissed_finding_ids"] == ["bare-label"]
+
+
 def test_blind_rejection_derives_redundant_summary_from_detailed_findings() -> None:
     result = normalize_redundant_role_fields(
         "blind_quality",
@@ -1362,6 +1414,31 @@ def test_factual_block_derives_redundant_summary_from_blocking_findings() -> Non
     assert result.required_repair == ""
 
 
+def test_factual_missing_polarity_is_canonicalized_to_a_blocking_disposition() -> None:
+    parsed = _factual_accept("The candidate namespace lacks repository evidence.")
+    parsed["verdict"] = "BLOCKED_MISSING_EVIDENCE"
+    finding = parsed["findings"][0]
+    finding.update(
+        {
+            "disposition": "requires_repair",
+            "fact_id": None,
+            "evidence_excerpt": None,
+            "evidence_location": None,
+            "expected_polarity": None,
+            "observed_polarity": None,
+            "polarity_result": "missing",
+            "required_repair": "Invent supporting evidence.",
+        }
+    )
+
+    normalized = normalize_redundant_role_fields("factual_plan", parsed)
+    result = FactualPlanReviewResultV1.model_validate(normalized)
+
+    assert result.verdict == "BLOCKED_MISSING_EVIDENCE"
+    assert result.findings[0].disposition == "blocks"
+    assert result.findings[0].required_repair == ""
+
+
 def test_two_accepts_produce_hash_bound_separate_records():
     blind = CapturingClient(_blind_accept("visitor-ready"))
     factual = CapturingClient(_factual_accept("facts and plan agree"))
@@ -1532,7 +1609,7 @@ def test_merged_top_level_failure_without_both_fallback_clients_fails_closed_wit
     assert blind_fallback.messages_seen == []
 
 
-def test_merged_factual_grounding_failure_recovers_only_factual_facet():
+def test_merged_false_missing_premise_requires_bounded_factual_recovery():
     false_missing = _factual_accept("The accepted identity is missing evidence.")
     false_missing["verdict"] = "BLOCKED_MISSING_EVIDENCE"
     false_missing["findings"][0].update(
@@ -1563,20 +1640,14 @@ def test_merged_factual_grounding_failure_recovers_only_factual_facet():
     assert result.verdict == "ACCEPT"
     assert len(merged.messages_seen) == 1
     assert len(factual_fallback.messages_seen) == 1
-    receipt = result.review_recovery_receipt
-    assert receipt is not None
-    assert receipt.merged_call_outcome == "success"
-    assert receipt.blind_facet_recovery is None
-    assert receipt.factual_facet_recovery is not None
-    assert receipt.factual_facet_recovery.triggered is True
-    assert receipt.factual_facet_recovery.reason == "grounding_failure"
-    assert receipt.total_physical_calls == 2
+    assert result.review_recovery_receipt is not None
+    assert result.review_recovery_receipt.total_physical_calls == 2
     assert result.blind_quality_review.identity.prompt_id == "merged_readme_review"
     assert result.factual_plan_review.identity.prompt_id == "factual_readme_plan_review"
     assert result.combined_review.merged_call_receipt is None
 
 
-def test_recovery_exhaustion_surfaces_system_failure_not_reject_repairable():
+def test_repeated_false_missing_premise_fails_closed_after_bounded_recovery():
     false_missing = _factual_accept("The accepted identity is missing evidence.")
     false_missing["verdict"] = "BLOCKED_MISSING_EVIDENCE"
     false_missing["findings"][0].update(
@@ -1606,12 +1677,8 @@ def test_recovery_exhaustion_surfaces_system_failure_not_reject_repairable():
 
     assert result.verdict == "SYSTEM_FAILURE"
     assert len(factual_fallback.messages_seen) == 2
-    receipt = result.review_recovery_receipt
-    assert receipt is not None
-    assert receipt.final_disposition == "system_failure"
-    assert receipt.factual_facet_recovery is not None
-    assert receipt.factual_facet_recovery.resolved is False
-    assert receipt.total_physical_calls == 3
+    assert result.review_recovery_receipt is not None
+    assert result.review_recovery_receipt.total_physical_calls == 3
 
 
 def test_oversized_merged_request_skips_normal_call_and_recovers_both_facets():
@@ -1714,7 +1781,7 @@ def test_merged_cross_role_quality_leakage_uses_one_isolated_blind_fallback():
     assert event["merged_raw_output_sha256"]
 
 
-def test_merged_false_missing_premise_fails_closed_without_repeating_call():
+def test_merged_false_missing_premise_without_recovery_fails_closed():
     false_missing = _factual_accept("The accepted identity is missing evidence.")
     false_missing["verdict"] = "BLOCKED_MISSING_EVIDENCE"
     false_missing["findings"][0].update(
@@ -1740,11 +1807,10 @@ def test_merged_false_missing_premise_fails_closed_without_repeating_call():
             FACTS,
             merged_client=merged,
         )
-
     assert len(merged.messages_seen) == 1
 
 
-def test_worst_case_five_calls_when_both_facets_need_a_compact_retry():
+def test_false_missing_premise_uses_bounded_five_call_worst_case():
     merged = RaisingClient(LLMError("forced tool call arguments were not valid JSON: boom"))
     leaked_quality = _blind_accept("visitor-ready")
     leaked_quality["findings"][0].update(
@@ -2105,6 +2171,8 @@ def test_reviewer_standard_binds_visible_grounding_and_both_role_prompts(monkeyp
     from readme_agent.llm import prompt_registry, verification_prompts
 
     standard = separated_reviewer_standard_hash()
+    grounding_version = verification_prompts.BLIND_GROUNDING_CONTRACT_VERSION
+    premise_version = verification_prompts.REVIEW_STANDARD_PREMISE_CONTRACT_VERSION
 
     assert len(standard) == 64
     assert standard != prompt_registry.prompt_hash("independent_readme_review")
@@ -2112,6 +2180,18 @@ def test_reviewer_standard_binds_visible_grounding_and_both_role_prompts(monkeyp
         verification_prompts,
         "BLIND_GROUNDING_CONTRACT_VERSION",
         "different-visible-grounding-contract",
+    )
+    assert separated_reviewer_standard_hash() != standard
+
+    monkeypatch.setattr(
+        verification_prompts,
+        "BLIND_GROUNDING_CONTRACT_VERSION",
+        grounding_version,
+    )
+    monkeypatch.setattr(
+        verification_prompts,
+        "REVIEW_STANDARD_PREMISE_CONTRACT_VERSION",
+        premise_version + 1,
     )
     assert separated_reviewer_standard_hash() != standard
 
@@ -2456,6 +2536,30 @@ def test_factual_finding_uses_stable_candidate_anchor_instead_of_freehand_quote(
     assert history[0]["reconciled_factual_polarity_ids"] == ["factual.identity-supported"]
 
 
+def test_factual_finding_recovers_stale_anchor_from_unique_exact_quote() -> None:
+    parsed = _factual_accept("The product identity is supported.")
+    parsed["findings"][0]["quoted_candidate_span"] = "# Example"
+    parsed["findings"][0]["candidate_anchor_id"] = "candidate.anchor.00000000000000000000.9"
+    client = SequenceClient([parsed])
+
+    result, history, grounding = run_grounded_role(
+        role="factual_plan",
+        prompt_id="factual_readme_plan_review",
+        client=client,
+        messages=[],
+        candidate_text=CANDIDATE,
+        product_facts=FACTS,
+    )
+
+    expected = next(
+        item for item in build_candidate_review_anchors(CANDIDATE) if item.text == "# Example"
+    )
+    assert result.findings[0].candidate_anchor_id == expected.anchor_id
+    assert grounding.valid is True
+    assert len(client.messages_seen) == 1
+    assert history[0]["reconciled_candidate_anchor_ids"] == ["factual.identity-supported"]
+
+
 def test_duplicate_model_finding_ids_are_made_unique_before_grounding() -> None:
     parsed = _factual_accept("Two premises cite the same accepted fact.")
     parsed["findings"].append(dict(parsed["findings"][0]))
@@ -2562,7 +2666,7 @@ def test_free_form_acceptance_without_grounded_spans_fails_closed():
         )
 
 
-def test_literal_accepted_fact_false_block_gets_bounded_correction():
+def test_literal_accepted_fact_false_block_requires_corrective_review_call():
     false_missing = {
         "verdict": "BLOCKED_MISSING_EVIDENCE",
         "reasoning": "The Example identity lacks evidence.",
@@ -2588,7 +2692,7 @@ def test_literal_accepted_fact_false_block_gets_bounded_correction():
             }
         ],
     }
-    factual = SequenceClient([false_missing, _factual_accept("accepted fact is present")])
+    factual = SequenceClient([false_missing, _factual_accept("grounded after correction")])
 
     result = run_separated_readme_review(
         ORG_REPO,
@@ -2606,22 +2710,11 @@ def test_literal_accepted_fact_false_block_gets_bounded_correction():
     ]
     assert factual_history[0]["valid"] is False
     assert "contradicts accepted facts" in factual_history[0]["errors"][0]
+    assert factual_history[0]["reconciled_factual_missing_ids"] == []
     assert factual_history[0]["context_mode"] == "full_review_packet"
+    assert factual_history[1]["valid"] is True
     assert factual_history[1]["context_mode"] == "compact_grounding_retry"
-    assert factual_history[1]["input_character_count"] < factual_history[0]["input_character_count"]
-    assert factual_history[1]["validation_result"]["valid"] is True
-    assert '"evidence_location": "README.md"' in factual.messages_seen[1][-1]["content"]
-    retry = json.loads(factual.messages_seen[1][-1]["content"].split("\n\n", maxsplit=1)[1])
-    assert retry["invalid_findings"] == [
-        {
-            "claim": "The Example identity lacks evidence.",
-            "contradicted_by_fact_ids": ["fact-1"],
-            "disposition": "deterministically_disproven",
-            "finding_id": "factual.false-missing",
-            "quoted_candidate_span": "Example",
-        }
-    ]
-    assert retry["required_correction"]["do_not_repeat_finding_ids"] == ["factual.false-missing"]
+    assert len(factual.messages_seen) == 2
 
 
 def test_false_missing_retry_omits_unrelated_accepted_facts():

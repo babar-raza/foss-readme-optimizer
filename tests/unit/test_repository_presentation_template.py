@@ -2426,6 +2426,13 @@ def test_capability_examples_and_api_style_regressions_fail() -> None:
     assert "API reference contains duplicated descriptions" in validate_repository_presentation(
         invalid_api, extended
     )
+    mislabeled_count = extended_candidate.replace(
+        "Two public exports.",
+        "The package documents 2 public types across 1 namespaces.",
+    )
+    assert "API reference table-row count must not be labelled as public types" in (
+        validate_repository_presentation(mislabeled_count, extended)
+    )
 
 
 def test_third_party_notice_link_uses_normal_markdown_link_text() -> None:
@@ -2506,10 +2513,16 @@ def test_blind_visitor_contract_is_derived_from_the_accepted_template() -> None:
     assert standards["readme.at_a_glance_mermaid"]["minimum_capabilities"] == 1
     assert standards["readme.at_a_glance_mermaid"]["target_capabilities"] == 6
     assert standards["readme.at_a_glance_mermaid"]["capability_coverage"] == "all_selected_verified"
+    assert standards["readme.at_a_glance_mermaid"]["output_coverage"] == "all_selected_verified"
     assert standards["readme.at_a_glance_mermaid"]["maximum_capabilities_per_group"] == 6
     assert standards["readme.at_a_glance_mermaid"]["target_outputs"] == 5
     assert standards["readme.at_a_glance_mermaid"]["directional_workflow"] is True
     assert standards["readme.at_a_glance_mermaid"]["internal_capability_connectors"] == "none"
+    assert (
+        standards["readme.at_a_glance_mermaid"]["rendered_internal_capability_connectors"] == "none"
+    )
+    assert standards["readme.at_a_glance_mermaid"]["invisible_layout_constraints"] == "allowed"
+    assert standards["readme.at_a_glance_mermaid"]["styling_directives"] == "allowed"
     assert (
         standards["readme.at_a_glance_mermaid"]["capability_layout"] == "adaptive_vertical_columns"
     )
@@ -2517,6 +2530,16 @@ def test_blind_visitor_contract_is_derived_from_the_accepted_template() -> None:
     assert (
         standards["readme.at_a_glance_mermaid"]["topology"] == "inputs-product-capabilities-outputs"
     )
+    assert standards["readme.key_capabilities"] == {
+        "action_led_same_line_rows": True,
+        "developer_value_explanation": "required",
+        "content_density": "bounded_by_verified_facts",
+    }
+    assert standards["readme.api_reference"] == {
+        "collapsed_namespace_tables": "allowed",
+        "complete_namespace_tables": True,
+        "mechanical_inventory_may_be_excluded_from_packet": True,
+    }
     assert standards["readme.primary_example"] == {
         "heading": "Quick Start",
         "maximum_fenced_blocks": 1,

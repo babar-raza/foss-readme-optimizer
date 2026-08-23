@@ -204,6 +204,17 @@ def _source_operations(plan: ReadmeDocumentPlanV1) -> list[ReadmeDocumentOperati
     ]
 
 
+def _operation_evidence(operation: ReadmeDocumentOperationV1) -> tuple[str, ...]:
+    """Bind an operation-owned disposition to inspectable source, result, and gates."""
+
+    return (
+        f"source-content-sha256:{operation.expected_sha256}",
+        f"replacement-content-sha256:{operation.replacement_sha256}",
+        *(f"fact:{fact_id}" for fact_id in operation.fact_ids),
+        *(f"validator:{validator}" for validator in operation.validators),
+    )
+
+
 def _reconstructed_final_candidate_text(ledger: ReadmeCompositionLedgerV1) -> str:
     """Rebuild the exact final candidate text from the ledger's own segments,
     which fully partition `[0, candidate_bytes)` by construction -- never a
@@ -481,7 +492,7 @@ def build_readme_reconciliation_report(
                     operation.rationale,
                     None,
                     None,
-                    None,
+                    _operation_evidence(operation),
                 )
             )
 
@@ -547,6 +558,7 @@ def build_readme_reconciliation_report(
                 disposition="omitted",
                 operation_id=gap_operation.operation_id,
                 rationale=gap_operation.rationale,
+                evidence=_operation_evidence(gap_operation),
             )
         relocated = _relocated_gap_match(
             start, end, source_text, final_candidate_text, move_operations

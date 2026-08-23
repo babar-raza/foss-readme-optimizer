@@ -138,6 +138,11 @@ class RubricAcceptanceOutcome(BaseModel):
     score: int = Field(ge=0, le=30)
     hard_disqualifier_count: int = Field(ge=0)
     missing_evidence_criteria: tuple[int, ...] = Field(default_factory=tuple)
+    benchmark_acceptance_proven: bool | None = None
+    benchmark_acceptance_hash: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+    replay_attestation_proven: bool | None = None
+    replay_attestation_hash: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+    acceptance_contract_hash: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
 
     def bounded_summary(self) -> str:
         if self.accepted:
@@ -150,4 +155,8 @@ class RubricAcceptanceOutcome(BaseModel):
                 "missing evidence for criteria "
                 + ",".join(str(i) for i in self.missing_evidence_criteria)
             )
+        if self.benchmark_acceptance_proven is False:
+            parts.append("benchmark acceptance not proven")
+        if self.replay_attestation_proven is False:
+            parts.append("complete-transaction replay not proven")
         return "; ".join(parts)[:500]

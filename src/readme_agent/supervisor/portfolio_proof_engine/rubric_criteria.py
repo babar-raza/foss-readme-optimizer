@@ -13,6 +13,23 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.supervisor.portfolio_proof_engine.evidence_bundle import EvidenceBundleV1
+from readme_agent.supervisor.portfolio_proof_engine.rubric_evidence import (
+    accepted_fact,
+    accepted_facts,
+    api_truth,
+    checks_complete,
+    claim_map_complete,
+    current_check,
+    deterministic_accepts,
+    exact_byte_binding,
+    example_truth,
+    reconciliation_complete,
+    reconciliation_integrity,
+    repeatable_acceptance,
+    review_accepts,
+    review_supports,
+    sealed_inputs,
+)
 
 EvaluatorType = Literal[
     "deterministic_check",
@@ -47,17 +64,11 @@ def _checks(bundle: EvidenceBundleV1) -> dict:
 
 
 def _deterministic_valid(bundle: EvidenceBundleV1) -> bool:
-    validation = bundle.deterministic_validation
-    if validation is None:
-        return False
-    return validation.get("valid") is True and not validation.get("errors")
+    return deterministic_accepts(bundle)
 
 
 def _rule_check(bundle: EvidenceBundleV1, rule_name: str) -> bool | None:
-    checks = _checks(bundle)
-    if rule_name not in checks:
-        return None
-    return bool(checks[rule_name]) and _deterministic_valid(bundle)
+    return current_check(bundle, rule_name)
 
 
 def _review_result(record: dict | None) -> dict | None:
@@ -71,10 +82,7 @@ def _review_result(record: dict | None) -> dict | None:
 
 
 def _review_accepts(record: dict | None) -> bool | None:
-    result = _review_result(record)
-    if result is None or "verdict" not in result:
-        return None
-    return result.get("verdict") == "ACCEPT"
+    return review_accepts(record)
 
 
 def _first_present(source: dict, *keys: str) -> object | None:
@@ -89,14 +97,7 @@ def _first_present(source: dict, *keys: str) -> object | None:
 
 
 def _reconciliation_clean(bundle: EvidenceBundleV1) -> bool | None:
-    reconciliation = bundle.reconciliation
-    if reconciliation is None:
-        return None
-    unresolved = _first_present(reconciliation, "unresolved", "unresolved_count")
-    errors = _first_present(reconciliation, "errors", "error_count")
-    if unresolved is None and errors is None:
-        return None
-    return not unresolved and not errors
+    return reconciliation_integrity(bundle)
 
 
 def knowledge_application_final(bundle: EvidenceBundleV1) -> bool | None:
@@ -169,236 +170,287 @@ def _both_reviews_accept(bundle: EvidenceBundleV1) -> bool | None:
     return factual and visitor
 
 
+def _all_known(*outcomes: bool | None) -> bool | None:
+    if any(outcome is None for outcome in outcomes):
+        return None
+    return all(outcomes)
+
+
 _CRITERIA: tuple[_CriterionSpec, ...] = (
     (
         1,
         "A",
         "source_claim_accountability",
         _CLAIM_MAP,
-        "claim_map present + deterministic valid",
-        lambda b: (
-            (bool(b.claim_map) and _deterministic_valid(b)) if b.claim_map is not None else None
-        ),
+        "all candidate claims bind to accepted selected facts and exact candidate spans",
+        claim_map_complete,
     ),
     (
         2,
         "A",
         "package_dependency_example_verification",
         "facts/product-facts.json",
-        "facts present (installation truth)",
-        lambda b: bool(b.facts) if b.facts is not None else None,
+        "accepted installation coordinates and verified acquisition receipt",
+        lambda b: accepted_facts(
+            b, ("installation.coordinates", "installation.verified_acquisition")
+        ),
     ),
     (
         3,
         "A",
         "package_dependency_example_verification",
         "facts/product-facts.json",
-        "facts present (dependency truth)",
-        lambda b: bool(b.facts) if b.facts is not None else None,
+        "accepted dependency snapshot",
+        lambda b: accepted_fact(b, "aspose.dependency_snapshot"),
     ),
     (
         4,
         "A",
         "deterministic_check",
         _DET,
-        "checks.referential_integrity (API surface truth)",
-        lambda b: _rule_check(b, "referential_integrity"),
+        "accepted API inventory + implementation-evidence and accountability checks",
+        api_truth,
     ),
     (
         5,
         "A",
         "package_dependency_example_verification",
         "candidate/check-coverage.json",
-        "check_coverage present",
-        lambda b: bool(b.check_coverage) if b.check_coverage is not None else None,
+        "verified example fact + example assurance checks",
+        example_truth,
     ),
     (
         6,
         "A",
         "deterministic_check",
         _DET,
-        "checks.referential_integrity (API-reference integrity)",
-        lambda b: _rule_check(b, "referential_integrity"),
+        "accepted API inventory + factual API-reference review",
+        lambda b: _all_known(
+            api_truth(b), review_supports(b.factual_review, sections=("api-reference",))
+        ),
     ),
     (
         7,
         "A",
         "deterministic_check",
         _DET,
-        "valid + no errors (limitations honesty)",
-        lambda b: _deterministic_valid(b) if b.deterministic_validation is not None else None,
+        "accepted limitations fact + visible limitations + factual review",
+        lambda b: _all_known(
+            accepted_fact(b, "product.limitations"),
+            current_check(b, "verified_limitations_present"),
+            review_supports(b.factual_review, sections=("scope-and-limitations",)),
+        ),
     ),
     (
         8,
         "A",
         "link_format_structure",
         _DET,
-        "checks.link_whitelist",
-        lambda b: _rule_check(b, "link_whitelist"),
+        "accepted links/formats/license + contextual-link and presentation checks",
+        lambda b: _all_known(
+            accepted_facts(b, ("documentation.links", "product.formats", "product.license")),
+            current_check(b, "contextual_links"),
+            current_check(b, "presentation_lint"),
+        ),
     ),
     (
         9,
         "B",
         "reconciliation",
         _RECON,
-        "unresolved/errors == 0 (content-unit accounting)",
-        _reconciliation_clean,
+        "complete byte-bound content-unit reconciliation",
+        lambda b: reconciliation_complete(b, "content"),
     ),
     (
         10,
         "B",
         "reconciliation",
         _RECON,
-        "unresolved/errors == 0 (structural accounting)",
-        _reconciliation_clean,
+        "complete byte-bound structural-unit reconciliation",
+        lambda b: reconciliation_complete(b, "structure"),
     ),
     (
         11,
         "B",
         "reconciliation",
         _RECON,
-        "unresolved/errors == 0 (code-example accounting)",
-        _reconciliation_clean,
+        "complete byte-bound code-fence reconciliation",
+        lambda b: reconciliation_complete(b, "code"),
     ),
     (
         12,
         "B",
         "reconciliation",
         _RECON,
-        "unresolved/errors == 0 (badge/media accounting)",
-        _reconciliation_clean,
+        "complete byte-bound badge/media reconciliation",
+        lambda b: reconciliation_complete(b, "media"),
     ),
     (
         13,
         "B",
         "reconciliation",
         _RECON,
-        "unresolved/errors == 0 (reconciliation integrity)",
-        _reconciliation_clean,
+        "complete source partition + destinations/evidence for every disposition",
+        reconciliation_integrity,
     ),
     (
         14,
         "C",
         "visitor_quality_review",
         _VISITOR,
-        "verdict == ACCEPT (immediate orientation)",
-        lambda b: _review_accepts(b.visitor_review),
+        "visitor ACCEPT with opening-span support",
+        lambda b: review_supports(b.visitor_review, sections=("front-matter",)),
     ),
     (
         15,
         "C",
         "visitor_quality_review",
         _VISITOR,
-        "verdict == ACCEPT (capability overview)",
-        lambda b: _review_accepts(b.visitor_review),
+        "visitor ACCEPT with at-a-glance support",
+        lambda b: review_supports(b.visitor_review, sections=("at-a-glance",)),
     ),
     (
         16,
         "C",
         "visitor_quality_review",
         _VISITOR,
-        "verdict == ACCEPT (concrete capabilities)",
-        lambda b: _review_accepts(b.visitor_review),
+        "visitor ACCEPT with key-capabilities support",
+        lambda b: review_supports(b.visitor_review, sections=("key-capabilities",)),
     ),
     (
         17,
         "C",
         "deterministic_check",
         _DET,
-        "checks.product_first_opening (actionable installation)",
-        lambda b: _rule_check(b, "product_first_opening"),
+        "installation truth + visitor installation support",
+        lambda b: _all_known(
+            accepted_facts(b, ("installation.coordinates", "installation.verified_acquisition")),
+            review_supports(b.visitor_review, sections=("installation",)),
+        ),
     ),
     (
         18,
         "C",
         "visitor_quality_review",
         _VISITOR,
-        "verdict == ACCEPT (minimal successful start)",
-        lambda b: _review_accepts(b.visitor_review),
+        "verified example + visitor quick-start support",
+        lambda b: _all_known(
+            example_truth(b), review_supports(b.visitor_review, sections=("quick-start",))
+        ),
     ),
     (
         19,
         "C",
         "visitor_quality_review",
         _VISITOR,
-        "verdict == ACCEPT (proportionate examples)",
-        lambda b: _review_accepts(b.visitor_review),
+        "visitor ACCEPT with additional-example support",
+        lambda b: review_supports(b.visitor_review, sections=("additional-examples",)),
     ),
     (
         20,
         "C",
         "deterministic_check",
         _DET,
-        "valid + no errors (navigable reference/resources)",
-        lambda b: _deterministic_valid(b) if b.deterministic_validation is not None else None,
+        "visitor support across navigation, API, resources, development, and license",
+        lambda b: review_supports(
+            b.visitor_review,
+            sections=(
+                "navigation",
+                "api-reference",
+                "documentation-resources",
+                "development-and-testing",
+                "license",
+            ),
+        ),
     ),
     (
         21,
         "D",
         "visitor_quality_review",
         _VISITOR,
-        "verdict == ACCEPT (information architecture)",
-        lambda b: _review_accepts(b.visitor_review),
+        "visitor ACCEPT with navigation and section hierarchy support",
+        lambda b: review_supports(b.visitor_review, sections=("navigation", "front-matter")),
     ),
     (
         22,
         "D",
         "deterministic_check",
         _DET,
-        "checks.prohibited_terms (clear public prose)",
-        lambda b: _rule_check(b, "prohibited_terms"),
+        "no comments + presentation/public-quality checks + visitor prose support",
+        lambda b: _all_known(
+            current_check(b, "candidate_has_no_comments"),
+            current_check(b, "presentation_lint"),
+            current_check(b, "public_candidate_quality"),
+            review_supports(b.visitor_review, sections=("front-matter",)),
+        ),
     ),
     (
         23,
         "D",
         "deterministic_check",
         _DET,
-        "checks.commercial_mention_discipline (verified trust signals)",
-        lambda b: _rule_check(b, "commercial_mention_discipline"),
+        "accepted license + verified header visuals + visitor license support",
+        lambda b: _all_known(
+            accepted_fact(b, "product.license"),
+            current_check(b, "header_visuals"),
+            review_supports(b.visitor_review, sections=("license",)),
+        ),
     ),
     (
         24,
         "D",
         "link_format_structure",
         _DET,
-        "checks.link_whitelist (render/link integrity)",
-        lambda b: _rule_check(b, "link_whitelist"),
+        "official Mermaid/render result + link/presentation checks + visitor integrity support",
+        lambda b: _all_known(
+            current_check(b, "header_visuals"),
+            current_check(b, "contextual_links"),
+            current_check(b, "presentation_lint"),
+            review_supports(b.visitor_review, sections=("at-a-glance",)),
+        ),
     ),
     (
         25,
         "D",
         "deterministic_check",
         _DET,
-        "checks.word_count (proportionate depth)",
-        lambda b: _rule_check(b, "word_count"),
+        "visitor ACCEPT with product-specific coverage across the reader path",
+        lambda b: review_supports(
+            b.visitor_review,
+            sections=(
+                "front-matter",
+                "key-capabilities",
+                "installation",
+                "quick-start",
+                "api-reference",
+                "documentation-resources",
+                "scope-and-limitations",
+            ),
+        ),
     ),
     (
         26,
         "E",
         "noop_reproducibility",
         "manifest.json",
-        "facts_hash + source_revision present (sealed inputs)",
-        lambda b: (
-            bool(b.manifest and b.manifest.get("facts_hash") and b.source_revision)
-            if b.manifest is not None
-            else None
-        ),
+        "snapshot, README, facts, prompts, and component contract hashes agree",
+        sealed_inputs,
     ),
     (
         27,
         "E",
         "noop_reproducibility",
         "manifest.json / candidate hash",
-        "candidate_hash bound and non-empty",
-        lambda b: bool(b.candidate_hash) if b.manifest is not None else None,
+        "candidate bytes equal manifest, claim-map, and both review hashes",
+        exact_byte_binding,
     ),
     (
         28,
         "E",
         "deterministic_check",
         _DET,
-        "valid + no errors (complete fail-closed checks)",
-        lambda b: _deterministic_valid(b) if b.deterministic_validation is not None else None,
+        "deterministic accept + every classified blocking check ran and passed",
+        lambda b: _all_known(deterministic_accepts(b), checks_complete(b)),
     ),
     (
         29,
@@ -406,15 +458,15 @@ _CRITERIA: tuple[_CriterionSpec, ...] = (
         "factual_review",
         f"{_FACTUAL} + {_VISITOR}",
         "both verdicts == ACCEPT",
-        _both_reviews_accept,
+        lambda b: _all_known(_both_reviews_accept(b), claim_map_complete(b)),
     ),
     (
         30,
         "E",
         "noop_reproducibility",
         "review/no-op-proof.json",
-        "no_op_proof present",
-        lambda b: bool(b.no_op_proof) if b.no_op_proof is not None else None,
+        "full no-op proof with exact zero-provider accounting and acceptance binding",
+        repeatable_acceptance,
     ),
 )
 
@@ -440,8 +492,10 @@ def evaluate_hard_disqualifiers(bundle: EvidenceBundleV1) -> tuple[str, ...]:
         disqualifiers.append(
             "a blocking check failed/errored (deterministic-validation.json carries errors)"
         )
-    if validation is not None and validation.get("valid") is not True:
+    if validation is not None and not deterministic_accepts(bundle):
         disqualifiers.append("deterministic validation did not accept the candidate")
+    if bundle.check_coverage is not None and checks_complete(bundle) is not True:
+        disqualifiers.append("a classified blocking check failed, skipped, or errored")
     if bundle.manifest is not None and bundle.candidate_hash:
         manifest_candidate_hash = bundle.manifest.get("candidate_hash")
         if manifest_candidate_hash and manifest_candidate_hash != bundle.candidate_hash:
@@ -449,6 +503,10 @@ def evaluate_hard_disqualifiers(bundle: EvidenceBundleV1) -> tuple[str, ...]:
                 "candidate bytes do not match the reviewed SHA "
                 "(manifest.json candidate_hash mismatch)"
             )
+    if bundle.candidate_readme is not None and exact_byte_binding(bundle) is not True:
+        disqualifiers.append("candidate bytes do not match all candidate-bound review artifacts")
+    if bundle.reconciliation is not None and reconciliation_integrity(bundle) is not True:
+        disqualifiers.append("source README reconciliation is incomplete or lacks evidence")
     if knowledge_application_final(bundle) is False:
         disqualifiers.append("K3 knowledge-application report is not yet final for this candidate")
     if _review_accepts(bundle.factual_review) is False:

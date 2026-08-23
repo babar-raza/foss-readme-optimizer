@@ -57,6 +57,44 @@ def test_python_manifest_missing_is_not_applicable_with_a_real_reason(tmp_path):
     assert snapshot.applicable is False
     assert snapshot.not_applicable_reason is not None
     assert "pyproject.toml" in snapshot.not_applicable_reason
+    assert "setup.py" in snapshot.not_applicable_reason
+    assert snapshot.required == ()
+
+
+def test_python_setup_py_literal_dependencies_are_parsed_without_execution(tmp_path):
+    _write(
+        tmp_path / "setup.py",
+        """
+from setuptools import setup
+
+setup(
+    name="widget",
+    install_requires=["requests>=2", "pillow"],
+    extras_require={"dev": ["pytest>=8"], "images": ["numpy>=2"]},
+)
+""",
+    )
+
+    snapshot = build_dependency_snapshot(tmp_path, "python")
+
+    assert snapshot.applicable is True
+    assert snapshot.source_manifest_path == "setup.py"
+    assert snapshot.parse_errors == ()
+    assert [entry.name for entry in snapshot.required] == ["pillow", "requests"]
+    assert [entry.name for entry in snapshot.optional] == ["numpy"]
+    assert [entry.name for entry in snapshot.development] == ["pytest"]
+
+
+def test_python_setup_py_dynamic_dependency_expression_fails_closed(tmp_path):
+    _write(
+        tmp_path / "setup.py",
+        "from setuptools import setup\ndeps = ['requests']\nsetup(install_requires=deps)\n",
+    )
+
+    snapshot = build_dependency_snapshot(tmp_path, "python")
+
+    assert snapshot.applicable is True
+    assert snapshot.parse_errors
     assert snapshot.required == ()
 
 

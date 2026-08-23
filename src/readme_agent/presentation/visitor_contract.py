@@ -6,6 +6,7 @@ from readme_agent.presentation.template_schema import (
     RepositoryPresentationTemplateV1,
     load_repository_presentation_template,
 )
+from readme_agent.readme.header_visual_layout import CAPABILITY_GROUP_LABEL
 from readme_agent.readme.public_text import title_case_heading
 
 
@@ -105,6 +106,8 @@ def build_presentation_visitor_contract(
                     "capability_layout_constraint": (
                         contract.invariants.mermaid_capability_layout_constraint
                     ),
+                    "capability_group_label": CAPABILITY_GROUP_LABEL,
+                    "internal_direction_directives": "layout_only",
                     "topology": contract.invariants.mermaid_topology,
                     "minimum_inputs": contract.invariants.minimum_mermaid_inputs,
                     "minimum_capabilities": contract.invariants.minimum_mermaid_capabilities,
@@ -113,13 +116,34 @@ def build_presentation_visitor_contract(
                     "target_capabilities": contract.invariants.target_mermaid_capabilities,
                     "target_outputs": contract.invariants.target_mermaid_outputs,
                     "capability_coverage": "all_selected_verified",
+                    "output_coverage": "all_selected_verified",
                     "maximum_capabilities_per_group": (
                         contract.invariants.target_mermaid_capabilities
                     ),
                     "directional_workflow": True,
                     "internal_capability_connectors": "none",
+                    "rendered_internal_capability_connectors": "none",
+                    "invisible_layout_constraints": "allowed",
+                    "styling_directives": "allowed",
+                    "input_to_product_edges": 1,
                     "product_to_capabilities_edges": 1,
                     "capabilities_to_outputs_edges": 1,
+                },
+            },
+            {
+                "standard_id": "readme.key_capabilities",
+                "parameters": {
+                    "action_led_same_line_rows": True,
+                    "developer_value_explanation": "required",
+                    "content_density": "bounded_by_verified_facts",
+                },
+            },
+            {
+                "standard_id": "readme.api_reference",
+                "parameters": {
+                    "collapsed_namespace_tables": "allowed",
+                    "complete_namespace_tables": True,
+                    "mechanical_inventory_may_be_excluded_from_packet": True,
                 },
             },
             {

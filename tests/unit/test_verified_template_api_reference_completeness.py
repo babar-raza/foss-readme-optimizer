@@ -209,7 +209,7 @@ def test_api_reference_prefers_complete_catalog_exports_for_selected_namespace()
     markdown = api_reference_markdown(facts)
 
     assert markdown is not None
-    assert "The package documents 2 public types across 1 namespaces." in markdown
+    assert "The package reference presents 2 API table entries across 1 namespaces." in markdown
     assert "| `Node(name=None)` |" in markdown
     assert "| `Scene(file_name=None)` |" in markdown
 

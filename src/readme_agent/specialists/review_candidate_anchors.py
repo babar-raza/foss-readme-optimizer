@@ -20,6 +20,7 @@ _ANCHOR_TOKEN_TYPES = frozenset(
     }
 )
 _MAX_ANCHOR_CHARACTERS = 12_000
+CANDIDATE_REVIEW_ANCHOR_BINDING_CONTRACT_VERSION = "2"
 
 
 class CandidateReviewAnchorV1(BaseModel):
@@ -151,6 +152,44 @@ def bind_candidate_review_anchors(
             continue
         findings.append({**item, "quoted_candidate_span": anchor.text})
     return {**value, "findings": findings}
+
+
+def reconcile_unknown_candidate_review_anchors(
+    value: object,
+    anchors: tuple[CandidateReviewAnchorV1, ...],
+    candidate_text: str,
+) -> tuple[object, tuple[str, ...]]:
+    """Replace a stale redundant anchor only when its exact quote is unique."""
+
+    if not isinstance(value, dict) or not isinstance(value.get("findings"), list):
+        return value, ()
+    known = {anchor.anchor_id for anchor in anchors}
+    by_text: dict[str, list[CandidateReviewAnchorV1]] = {}
+    for anchor in anchors:
+        by_text.setdefault(anchor.text, []).append(anchor)
+    findings: list[object] = []
+    reconciled_ids: list[str] = []
+    for item in value["findings"]:
+        if not isinstance(item, dict):
+            findings.append(item)
+            continue
+        anchor_id = item.get("candidate_anchor_id")
+        if anchor_id is None or str(anchor_id) in known:
+            findings.append(item)
+            continue
+        quote = item.get("quoted_candidate_span")
+        if not isinstance(quote, str) or not quote or candidate_text.count(quote) != 1:
+            findings.append(item)
+            continue
+        exact_anchors = by_text.get(quote, [])
+        replacement_id = exact_anchors[0].anchor_id if len(exact_anchors) == 1 else None
+        findings.append({**item, "candidate_anchor_id": replacement_id})
+        finding_id = item.get("finding_id")
+        if isinstance(finding_id, str) and finding_id:
+            reconciled_ids.append(finding_id)
+    if not reconciled_ids:
+        return value, ()
+    return {**value, "findings": findings}, tuple(reconciled_ids)
 
 
 def unknown_candidate_review_anchor_ids(

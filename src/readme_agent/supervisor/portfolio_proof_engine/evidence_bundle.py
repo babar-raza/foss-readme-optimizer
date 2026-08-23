@@ -24,10 +24,36 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Literal, TypeVar
 
 from pydantic import BaseModel, ConfigDict
 
 from readme_agent import paths
+from readme_agent.evidence.writer import verify_sha256sums
+from readme_agent.presentation.candidate_benchmark_acceptance import (
+    CandidateBenchmarkAcceptanceV1,
+)
+from readme_agent.presentation.candidate_benchmark_comparison import (
+    CandidateBenchmarkComparisonV1,
+)
+from readme_agent.verification.sealed_transaction_replay import (
+    CompleteTransactionNoOpProofV1,
+    ReplayAttestationContractV1,
+)
+
+
+class CompleteTransactionReplayAttestationV1(BaseModel):
+    """Typed envelope persisted by the local-POC replay gate."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    attestation_type: Literal["CompleteTransactionReplayAttestationV1"]
+    first_bundle_root: str
+    replay_bundle_root: str
+    proof: CompleteTransactionNoOpProofV1
+
+
+_ModelT = TypeVar("_ModelT", bound=BaseModel)
 
 
 class EvidenceBundleV1(BaseModel):
@@ -51,6 +77,15 @@ class EvidenceBundleV1(BaseModel):
     no_op_proof: dict | None = None
     check_coverage: dict | None = None
     facts: dict | None = None
+    snapshot_revision: dict | None = None
+    document_plan: dict | None = None
+    benchmark_acceptance: CandidateBenchmarkAcceptanceV1 | None = None
+    benchmark_comparison: CandidateBenchmarkComparisonV1 | None = None
+    replay_contract: ReplayAttestationContractV1 | None = None
+    replay_attestation: CompleteTransactionReplayAttestationV1 | None = None
+    rubric_evaluation: dict | None = None
+    source_readme: str | None = None
+    candidate_readme: str | None = None
 
 
 def _read_json(path: Path) -> dict | None:
@@ -59,6 +94,51 @@ def _read_json(path: Path) -> dict | None:
     except (OSError, UnicodeError, json.JSONDecodeError):
         return None
     return loaded if isinstance(loaded, dict) else None
+
+
+def _read_text(path: Path) -> str | None:
+    try:
+        return path.read_text(encoding="utf-8")
+    except (OSError, UnicodeError):
+        return None
+
+
+def _read_model(path: Path, model_type: type[_ModelT]) -> _ModelT | None:
+    value = _read_json(path)
+    if value is None:
+        return None
+    try:
+        return model_type.model_validate(value)
+    except ValueError:
+        return None
+
+
+def comparison_evidence_paths_are_bound(
+    bundle_dir: Path, comparison: CandidateBenchmarkComparisonV1
+) -> bool:
+    """Require every applicable benchmark path inside a checksum-complete bundle."""
+
+    resolved_root = bundle_dir.resolve()
+    evidence_paths = {
+        relative
+        for dimension in comparison.dimensions
+        if dimension.applicable
+        for relative in dimension.evidence_paths
+    }
+    if not evidence_paths or not verify_sha256sums(resolved_root):
+        return False
+    for relative in evidence_paths:
+        path = Path(relative)
+        if path.is_absolute() or ".." in path.parts:
+            return False
+        resolved = (resolved_root / path).resolve()
+        try:
+            resolved.relative_to(resolved_root)
+        except ValueError:
+            return False
+        if not resolved.is_file():
+            return False
+    return True
 
 
 def load_evidence_bundle(
@@ -94,4 +174,25 @@ def load_evidence_bundle(
         no_op_proof=_read_json(bundle_dir / "review" / "no-op-proof.json"),
         check_coverage=_read_json(bundle_dir / "candidate" / "check-coverage.json"),
         facts=_read_json(bundle_dir / "facts" / "product-facts.json"),
+        snapshot_revision=_read_json(bundle_dir / "source" / "revision.json"),
+        document_plan=_read_json(bundle_dir / "planning" / "readme-document-plan.json"),
+        benchmark_acceptance=_read_model(
+            bundle_dir / "review" / "benchmark-acceptance.json",
+            CandidateBenchmarkAcceptanceV1,
+        ),
+        benchmark_comparison=_read_model(
+            bundle_dir / "planning" / "candidate-benchmark-comparison.json",
+            CandidateBenchmarkComparisonV1,
+        ),
+        replay_contract=_read_model(
+            bundle_dir / "review" / "complete-transaction-replay-contract.json",
+            ReplayAttestationContractV1,
+        ),
+        replay_attestation=_read_model(
+            bundle_dir / "review" / "complete-transaction-replay-attestation.json",
+            CompleteTransactionReplayAttestationV1,
+        ),
+        rubric_evaluation=_read_json(bundle_dir / "review" / "rubric-evaluation.json"),
+        source_readme=_read_text(bundle_dir / "source" / "README.md"),
+        candidate_readme=_read_text(bundle_dir / "candidate" / "README.md"),
     )

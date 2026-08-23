@@ -1,0 +1,28 @@
+--- a/README.md
++++ b/README.md
+@@ -2,6 +2,13 @@
+ 
+ A small, synthetic library used only as fixture content for the sealed transaction replay
+ attestor's tests. It is never installed, imported, or executed.
++
++## Architecture
++
++```mermaid
++flowchart LR
++    Input --> Widget --> Output
++```
+ 
+ ## Installation
+ 
+@@ -18,6 +25,11 @@
+ widget.render()
+ ```
+ 
++## Links
++
++- Homepage: https://example-foss.example.org
++- Documentation: https://example-foss.example.org/docs
++
+ ## License
+ 
+ MIT

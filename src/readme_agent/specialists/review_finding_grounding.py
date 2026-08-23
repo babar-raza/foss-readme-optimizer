@@ -53,7 +53,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v31-partial-mechanical-pair-normalization"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v32-exact-fact-field-alignment"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -158,12 +158,47 @@ def _fact_evidence_strings(fact: dict) -> set[str]:
 
 
 def _accepted_literal_fact_ids(finding: GroundedReviewFindingV1, product_facts: dict) -> list[str]:
-    text = f"{finding.claim}\n{finding.quoted_candidate_span}".casefold()
+    def normalized(value: object) -> str:
+        return " ".join(re.sub(r"[`*_#|]", " ", str(value or "")).casefold().split()).strip(
+            " .,:;!?()[]{}"
+        )
+
+    claim = normalized(finding.claim)
+    quote = normalized(finding.quoted_candidate_span)
+    section = normalized(finding.section)
+    context = f"{section} {claim}"
     by_fact_id = {
         str(fact.get("fact_id")): fact
         for fact in product_facts.get("facts", [])
         if isinstance(fact, dict) and fact.get("fact_id")
     }
+    field_by_fact_id = {
+        str(fact_id): str(field)
+        for field, fact_id in product_facts.get("selected_fact_ids", {}).items()
+    }
+
+    def field_aligned(field: str, phrase: str) -> bool:
+        exact_quote = quote == normalized(phrase)
+        if field in {"product.identity", "identity", "product.name"}:
+            return exact_quote and any(
+                token in context for token in ("identity", "name", "title", "product")
+            )
+        if field == "installation.coordinates" or field.startswith("installation."):
+            return phrase.casefold() in finding.quoted_candidate_span.casefold() and any(
+                token in context
+                for token in ("install", "package", "coordinate", "pypi", "nuget", "maven")
+            )
+        if field == "api.public_surface" or field.startswith("api."):
+            return phrase.casefold() in finding.quoted_candidate_span.casefold() and any(
+                token in context for token in ("api", "type", "class", "namespace", "module")
+            )
+        field_terms = {
+            term
+            for term in re.split(r"[^a-z0-9]+", field.casefold())
+            if len(term) >= 4 and term not in {"product"}
+        }
+        return exact_quote and bool(field_terms) and any(term in context for term in field_terms)
+
     matches: list[str] = []
     for fact_id in set(product_facts.get("selected_fact_ids", {}).values()):
         fact = by_fact_id.get(fact_id)
@@ -173,8 +208,9 @@ def _accepted_literal_fact_ids(finding: GroundedReviewFindingV1, product_facts: 
             continue
         if any(conflict.get("status") == "unresolved" for conflict in fact.get("conflicts", [])):
             continue
+        field = str(fact.get("field") or field_by_fact_id.get(str(fact_id), ""))
         if any(
-            len(phrase.strip()) >= 4 and phrase.strip().casefold() in text
+            len(phrase.strip()) >= 4 and field_aligned(field, phrase.strip())
             for phrase in fact_strings(fact.get("value"))
         ):
             matches.append(fact_id)

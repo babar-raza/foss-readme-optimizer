@@ -100,10 +100,10 @@ CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
     # same bytes as source text, but its explicit presentation-policy
     # resolution remains authoritative; identical bytes no longer silently
     # reclassify that resolved claim as inherited.
-    "4b9bc050a6daeb979e8169bd1ce26d593c208de7371a7d7e76edc1fc8526fc5b"
+    "9d40f48e638a7deddfe70af70f2a09e7ee315391dda445874f4bc634b9ee8205"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
-    "5a21f2b9c38a0b0e63d3c41b24acbeef4c8cf4ec83a0f025a486d8a5ac057826"
+    "48acd4b33fedaf91ac1e8e7c69e3adb2bf09db542abcc92cde9db75ed7432636"
 )
 
 

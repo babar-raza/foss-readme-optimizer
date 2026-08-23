@@ -18,13 +18,19 @@ from readme_agent.supervisor.blocked_decision_cache import record_blocked_outcom
 from readme_agent.supervisor.convergence import compute_control_plane_fingerprint
 from readme_agent.supervisor.local_poc_cache import current_blocked_decision_dependencies
 from readme_agent.supervisor.portfolio_proof_engine import registry_cohort
+from readme_agent.supervisor.portfolio_proof_engine.acceptance_contract import (
+    portfolio_acceptance_contract_hash,
+)
 from readme_agent.supervisor.portfolio_proof_engine.contracts import RubricAcceptanceOutcome
 from readme_agent.supervisor.portfolio_proof_engine.full_pipeline_modes import (
     run_canaries,
     run_failed_only,
     run_fleet,
 )
-from readme_agent.supervisor.portfolio_proof_engine.receipt_store import write_receipt
+from readme_agent.supervisor.portfolio_proof_engine.receipt_store import (
+    read_receipt,
+    write_receipt,
+)
 from tests.unit.portfolio_proof_engine_fixtures import make_entry, make_receipt
 from tests.unit.test_state_backend import FakeStateBackend
 
@@ -97,6 +103,12 @@ def test_run_canaries_dispatches_one_full_pipeline_call_per_canary(tmp_path, mon
     assert all(call.max_readme_poc_stage is None for call in calls)
     assert all(call.execution_profile == "local_poc" for call in calls)
     assert all(receipt.stage == "ACCEPTED" for receipt in result.receipts)
+    first = result.receipts[0]
+    predecessor = read_receipt(
+        tmp_path / "proof", result.campaign_id, first.org_repo, "VISITOR_REVIEWED"
+    )
+    assert predecessor is not None
+    assert first.predecessor_receipt_hash == predecessor.canonical_hash()
 
 
 def test_run_canaries_rubric_rejection_reports_rubric_scored(tmp_path, monkeypatch):
@@ -147,7 +159,13 @@ def test_run_fleet_never_redispatches_an_already_accepted_repository(tmp_path, m
     write_receipt(
         output_root,
         campaign_id_for_mode("canaries"),
-        make_receipt(org_repo="acme/accepted", stage="ACCEPTED", source_revision=SOURCE_REVISION),
+        make_receipt(
+            org_repo="acme/accepted",
+            stage="ACCEPTED",
+            source_revision=SOURCE_REVISION,
+            facts_hash="c" * 64,
+            version_hash=portfolio_acceptance_contract_hash(),
+        ),
     )
 
     calls: list[argparse.Namespace] = []
@@ -162,6 +180,52 @@ def test_run_fleet_never_redispatches_an_already_accepted_repository(tmp_path, m
     assert result.campaign_id == campaign_id_for_mode("fleet")
     assert {call.only for call in calls} == {"acme/pending"}
     assert all(receipt.org_repo != "acme/accepted" for receipt in result.receipts)
+
+
+def test_run_fleet_redispatches_stale_accepted_contract(tmp_path, monkeypatch):
+    monkeypatch.setenv("README_AGENT_RUNS_DIR", str(tmp_path / "runs"))
+    entry = make_entry(org_repo="acme/stale", repository_id=1)
+    monkeypatch.setattr(registry_cohort, "load_products", lambda *a, **k: (entry,))
+    backend = FakeStateBackend()
+    backend.save(
+        entry.org_repo,
+        RunStateV2(
+            org_repo=entry.org_repo,
+            readme_poc_lifecycle=ReadmePocLifecycleStateV2(
+                status="AGENT_APPROVED",
+                source_revision=SOURCE_REVISION,
+                facts_hash="c" * 64,
+            ),
+        ),
+        None,
+    )
+    from readme_agent.supervisor.portfolio_proof_engine.contracts import campaign_id_for_mode
+
+    output_root = tmp_path / "proof"
+    write_receipt(
+        output_root,
+        campaign_id_for_mode("canaries"),
+        make_receipt(
+            org_repo=entry.org_repo,
+            stage="ACCEPTED",
+            source_revision=SOURCE_REVISION,
+            facts_hash="c" * 64,
+            version_hash="0" * 64,
+        ),
+    )
+    calls: list[argparse.Namespace] = []
+
+    result = run_fleet(
+        output_root=output_root,
+        state_backend=backend,
+        supervise_call=_review_ready_supervise(backend, calls),
+        rubric_evaluator=lambda org_repo, _b: RubricAcceptanceOutcome(
+            org_repo=org_repo, accepted=True, score=30, hard_disqualifier_count=0
+        ),
+    )
+
+    assert [call.only for call in calls] == [entry.org_repo]
+    assert any(receipt.stage == "ACCEPTED" for receipt in result.receipts)
 
 
 def test_run_failed_only_refuses_retry_without_a_fingerprint_change(tmp_path, monkeypatch):

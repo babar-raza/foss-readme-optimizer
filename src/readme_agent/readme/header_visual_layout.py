@@ -9,6 +9,7 @@ from typing import TypeVar
 from readme_agent.readme.header_visual_models import MermaidNodeV1
 
 CAPABILITY_COLUMN_THRESHOLD = 5
+CAPABILITY_GROUP_LABEL = "Core Capabilities"
 _T = TypeVar("_T")
 _CAPABILITY_NODE = re.compile(r'^\s+C\d+\["[^"]+"\]$')
 
@@ -46,7 +47,7 @@ def render_capability_group(
 
     labels = labels or {node.node_id: node.label for node in nodes}
     columns = split_capability_columns(nodes)
-    lines = ['  subgraph CORE["Core Capabilities"]']
+    lines = [f'  subgraph CORE["{CAPABILITY_GROUP_LABEL}"]']
     if len(columns) == 1:
         lines.append("    direction TB")
         lines.extend(_render_column(columns[0], labels, "    "))
@@ -80,7 +81,7 @@ def validate_capability_group_layout(source: str, node_ids: list[str]) -> bool:
 
 def _capability_block(lines: list[str]) -> list[str] | None:
     try:
-        start = lines.index('  subgraph CORE["Core Capabilities"]')
+        start = lines.index(f'  subgraph CORE["{CAPABILITY_GROUP_LABEL}"]')
     except ValueError:
         return None
     depth = 0

@@ -149,6 +149,11 @@ def _verify_presentation_candidate(
         link_catalogs=link_catalogs,
     )
     checks = {"candidate_matches_independent_render": expected == final_text, **validation.checks}
+    public_quality_report = (
+        validation.public_quality_report.model_dump(mode="json")
+        if validation.public_quality_report is not None
+        else None
+    )
     if expected != final_text or not validation.valid:
         return {
             "verdict": "reject",
@@ -158,11 +163,13 @@ def _verify_presentation_candidate(
             ),
             "checks": checks,
             "requirement_map": {},
+            "public_quality_report": public_quality_report,
         }
     return {
         "verdict": "accept",
         "reason": None,
         "checks": checks,
+        "public_quality_report": public_quality_report,
         "requirement_map": {
             "immutable_snapshot": True,
             "fact_backed_document_plan": True,

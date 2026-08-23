@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+
 import pytest
 from bounded_review_result_support import _accept_finding
 from bounded_review_test_support import (
@@ -22,6 +24,7 @@ from readme_agent.specialists.bounded_review_cache import (
     cache_key_for_packet,
 )
 from readme_agent.specialists.bounded_review_execution import execute_bounded_review
+from readme_agent.specialists.bounded_review_hashing import _canonical_hash
 from readme_agent.specialists.bounded_review_visitor_scope import (
     bounded_visitor_contract,
     bounded_visitor_scope,
@@ -196,6 +199,27 @@ def test_additional_example_packet_receives_only_section_applicable_standards() 
     assert "readme.at_a_glance_mermaid" not in standard_ids
 
 
+def test_section_packets_receive_complete_candidate_structural_standards() -> None:
+    contract = build_presentation_visitor_contract(
+        applicable_h2_headings=_headings(),
+        primary_example_language="python",
+    )
+
+    capabilities = bounded_visitor_contract(contract, "key-capabilities")
+    api_reference = bounded_visitor_contract(contract, "api-reference")
+
+    assert {item["standard_id"] for item in capabilities["configured_standards"]} == {
+        "readme.key_capabilities",
+        "readme.no_comments",
+        "readme.public_language",
+    }
+    assert {item["standard_id"] for item in api_reference["configured_standards"]} == {
+        "readme.api_reference",
+        "readme.no_comments",
+        "readme.public_language",
+    }
+
+
 def test_development_commands_may_be_assessed_for_example_presentation() -> None:
     scope = bounded_visitor_scope(
         "development-and-testing/focused-commands-and-repository-scripts",
@@ -206,7 +230,7 @@ def test_development_commands_may_be_assessed_for_example_presentation() -> None
     assert "example_presentation" in scope["applicable_criteria"]
 
 
-def test_runtime_authority_invalidates_only_visitor_packet_cache_identity() -> None:
+def test_runtime_authority_invalidates_visitor_and_factual_packet_cache_identity() -> None:
     plan = _plan()
     context = _cache_context()
     visitor = plan.visitor_packets[0]
@@ -222,11 +246,71 @@ def test_runtime_authority_invalidates_only_visitor_packet_cache_identity() -> N
         context,
         runtime_contract_hash="2" * 64,
     )
-    factual_before = cache_key_for_packet(factual, context)
-    factual_after = cache_key_for_packet(factual, context, runtime_contract_hash=None)
+    factual_before = cache_key_for_packet(
+        factual,
+        context,
+        runtime_contract_hash="1" * 64,
+    )
+    factual_after = cache_key_for_packet(
+        factual,
+        context,
+        runtime_contract_hash="2" * 64,
+    )
 
     assert visitor_before != visitor_after
-    assert factual_before == factual_after
+    assert factual_before != factual_after
+
+
+def test_factual_cache_hit_is_regrounded_before_reuse(tmp_path) -> None:
+    plan = _plan()
+    ledger = brp.build_coverage_ledger(plan, atomic_units=_atomic_units())
+    cache_dir = tmp_path / "packet-cache"
+    arguments = {
+        "org_repo": "acme/widget-toolkit",
+        "candidate_text": CANDIDATE_TEXT,
+        "product_facts": DEFAULT_FACTS.model_dump(mode="json"),
+        "visitor_contract": build_presentation_visitor_contract(
+            applicable_h2_headings=_headings(),
+            primary_example_language="python",
+        ),
+        "plan": plan,
+        "coverage_ledger": ledger,
+        "blind_prompt_id": "blind_readme_quality_review",
+        "factual_prompt_id": "factual_readme_plan_review",
+        "cache_dir": cache_dir,
+        "cache_context": _cache_context(),
+    }
+    execute_bounded_review(
+        **arguments,
+        blind_client=_PacketSequenceClient(list(plan.visitor_packets)),
+        factual_client=_PacketSequenceClient(list(plan.factual_packets)),
+    )
+    factual_cache = next(
+        path
+        for path in cache_dir.glob("*.json")
+        if (
+            (loaded := json.loads(path.read_text(encoding="utf-8")))["facet"] == "factual"
+            and all(
+                item.get("context_mode") != "deterministic_structural_heading_grounding"
+                for item in loaded["grounding_history"]
+            )
+        )
+    )
+    payload = json.loads(factual_cache.read_text(encoding="utf-8"))
+    payload["result"]["findings"][0]["fact_id"] = "fact.not-selected"
+    payload["result_sha256"] = _canonical_hash(payload["result"])
+    factual_cache.write_text(json.dumps(payload), encoding="utf-8")
+
+    packet = next(item for item in plan.factual_packets if item.packet_id == payload["packet_id"])
+    factual_client = _PacketSequenceClient([packet])
+    result = execute_bounded_review(
+        **arguments,
+        blind_client=_FailIfCalledClient(),
+        factual_client=factual_client,
+    )
+
+    assert result.aggregate.overall == "ACCEPT"
+    assert factual_client.calls == 1
 
 
 def test_successful_packets_survive_one_parallel_packet_failure(tmp_path) -> None:

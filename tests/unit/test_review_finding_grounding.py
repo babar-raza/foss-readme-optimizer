@@ -177,6 +177,45 @@ def test_missing_evidence_cannot_deny_literal_selected_fact():
     assert "missing-evidence premise contradicts accepted facts" in result.errors[0]
 
 
+def test_identity_literal_cannot_disprove_a_broader_unsupported_capability_claim():
+    facts = {
+        "selected_fact_ids": {"product.identity": "fact.identity"},
+        "facts": [
+            {
+                "fact_id": "fact.identity",
+                "field": "product.identity",
+                "verification_state": "verified",
+                "value": "Widget",
+                "source": {"location": "pyproject.toml"},
+                "conflicts": [],
+            }
+        ],
+    }
+    broad_claim = {
+        "finding_id": "factual.unsupported-export",
+        "kind": "factual",
+        "criterion": "factuality",
+        "section": "Capabilities",
+        "claim": "Widget exports PDF but the capability lacks accepted evidence.",
+        "disposition": "blocks",
+        "polarity_result": "missing",
+        "required_repair": "",
+    }
+
+    for quote in ("Widget exports PDF", "Widget"):
+        finding = GroundedReviewFindingV1.model_validate(
+            {**broad_claim, "quoted_candidate_span": quote}
+        )
+        candidate = f"# Widget\n\n{quote}\n"
+        result = validate_review_findings(
+            candidate_text=candidate,
+            product_facts=facts,
+            findings=[finding],
+        )
+
+        assert result.valid
+
+
 def test_api_false_missing_retry_projects_every_symbol_in_the_bounded_unit():
     candidate = (
         "| `BoundingBox` | Supports retrieving infinite and retrieving null. |\n"

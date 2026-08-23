@@ -3,6 +3,7 @@
 from readme_agent.specialists.review_candidate_anchors import (
     bind_candidate_review_anchors,
     build_candidate_review_anchors,
+    reconcile_unknown_candidate_review_anchors,
 )
 
 
@@ -56,6 +57,45 @@ def test_candidate_review_anchor_binding_replaces_only_a_known_selected_block() 
     bound = bind_candidate_review_anchors(value, anchors)
 
     assert bound["findings"][0]["quoted_candidate_span"] == paragraph.text
+
+
+def test_unknown_anchor_is_rebound_from_one_unique_exact_block() -> None:
+    candidate = "# Widget\n\nA focused library.\n"
+    anchors = build_candidate_review_anchors(candidate)
+    paragraph = next(item for item in anchors if item.text == "A focused library.")
+    value = {
+        "findings": [
+            {
+                "finding_id": "factual.identity",
+                "candidate_anchor_id": "candidate.anchor.00000000000000000000.9",
+                "quoted_candidate_span": paragraph.text,
+            }
+        ]
+    }
+
+    reconciled, finding_ids = reconcile_unknown_candidate_review_anchors(value, anchors, candidate)
+
+    assert reconciled["findings"][0]["candidate_anchor_id"] == paragraph.anchor_id
+    assert finding_ids == ("factual.identity",)
+
+
+def test_unknown_anchor_remains_invalid_when_quote_is_ambiguous() -> None:
+    candidate = "# Widget\n\nRepeated.\n\nRepeated.\n"
+    anchors = build_candidate_review_anchors(candidate)
+    value = {
+        "findings": [
+            {
+                "finding_id": "quality.repeated",
+                "candidate_anchor_id": "candidate.anchor.00000000000000000000.9",
+                "quoted_candidate_span": "Repeated.",
+            }
+        ]
+    }
+
+    reconciled, finding_ids = reconcile_unknown_candidate_review_anchors(value, anchors, candidate)
+
+    assert reconciled == value
+    assert finding_ids == ()
 
 
 def test_oversized_api_table_is_split_without_omission_or_unbounded_anchor() -> None:

@@ -4,6 +4,13 @@ from __future__ import annotations
 
 import re
 
+from readme_agent.readme.capability_semantics import is_action_led_capability_title
+from readme_agent.specialists.review_standard_mermaid_premises import (
+    validate_mermaid_standard_premise,
+)
+
+REVIEW_STANDARD_PREMISE_CONTRACT_VERSION = 7
+
 
 def _configured_standards(visitor_contract: dict) -> dict[str, dict]:
     return {
@@ -13,6 +20,10 @@ def _configured_standards(visitor_contract: dict) -> dict[str, dict]:
     }
 
 
+def _section_slug(section: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", section.casefold()).strip("-")
+
+
 def _h2_body(candidate_text: str, title: str) -> str:
     heading = re.search(rf"(?mi)^##[ \t]+{re.escape(title)}[ \t]*$", candidate_text)
     if heading is None:
@@ -20,25 +31,6 @@ def _h2_body(candidate_text: str, title: str) -> str:
     next_h2 = re.search(r"(?m)^##[ \t]+", candidate_text[heading.end() :])
     end = len(candidate_text) if next_h2 is None else heading.end() + next_h2.start()
     return candidate_text[heading.end() : end]
-
-
-def _mermaid_source(candidate_text: str) -> str:
-    blocks = re.findall(r"(?ms)^```mermaid[ \t]*\r?\n(.*?)^```[ \t]*$", candidate_text)
-    return blocks[0] if len(blocks) == 1 else ""
-
-
-def _mermaid_role_count(source: str, role: str) -> int:
-    prefix = {"input": "I", "capability": "C", "output": "O"}[role]
-    return len(
-        re.findall(
-            rf'(?m)^[ \t]*(?:{re.escape(role)}_\d+|{prefix}\d+)\["',
-            source,
-        )
-    )
-
-
-def _has_directional_connector(source: str) -> bool:
-    return bool(re.search(r"(?:-->|<-->|==>|-.->)", source))
 
 
 def _enterprise_scope_context_is_configured(
@@ -77,12 +69,52 @@ def _api_reference_is_structurally_complete(candidate_text: str) -> bool:
     )
 
 
-def _capabilities_are_action_led(candidate_text: str) -> bool:
+def _details_are_balanced(body: str) -> bool:
+    return body.casefold().count("<details>") == body.casefold().count("</details>") > 0
+
+
+def _secondary_examples_contract_is_satisfied(candidate_text: str) -> bool:
+    quick_start = _h2_body(candidate_text, "Quick Start")
+    additional = _h2_body(candidate_text, "Additional Examples")
+    return bool(
+        re.search(r"(?ms)^```[^\r\n]*\r?\n.+?^```[ \t]*$", quick_start)
+        and _details_are_balanced(additional)
+        and re.search(r"(?mi)^<summary>[^\r\n]*additional examples[^\r\n]*</summary>$", additional)
+    )
+
+
+def _secondary_examples_intro_is_workflow_preview(candidate_text: str) -> bool:
+    additional = _h2_body(candidate_text, "Additional Examples")
+    intro = additional.split("<details>", maxsplit=1)[0].strip()
+    words = re.findall(r"[A-Za-z0-9]+", intro)
+    return bool(
+        len(words) >= 12
+        and "example" in intro.casefold()
+        and re.search(r"(?i)\b(?:demonstrate|show|cover|include|explore)\b", intro)
+    )
+
+
+def _capability_rows_meet_value_contract(candidate_text: str) -> bool:
     body = _h2_body(candidate_text, "Key Capabilities")
     rows = [line.strip() for line in body.splitlines() if line.strip().startswith("- **")]
-    return bool(rows) and all(
-        re.fullmatch(r"- \*\*[A-Z][^*]+\*\* - [A-Z][^\r\n]+\.", row) is not None for row in rows
-    )
+    if not rows:
+        return False
+    pattern = re.compile(r"^- \*\*(?P<title>[^*]+)\*\* - (?P<explanation>.+[.!?])$")
+    for row in rows:
+        match = pattern.fullmatch(row)
+        if match is None:
+            return False
+        title_words = re.findall(r"[A-Za-z0-9]+", match.group("title"))
+        explanation_words = re.findall(r"[A-Za-z0-9]+", match.group("explanation"))
+        if len(title_words) < 2 or len(explanation_words) < 10:
+            return False
+    return True
+
+
+def _capability_rows_are_action_led(candidate_text: str) -> bool:
+    body = _h2_body(candidate_text, "Key Capabilities")
+    titles = re.findall(r"(?m)^- \*\*(?P<title>[^*]+)\*\*\s+-\s+.+$", body)
+    return bool(titles) and all(is_action_led_capability_title(title) for title in titles)
 
 
 def validate_configured_standard_premise(
@@ -97,33 +129,33 @@ def validate_configured_standard_premise(
 
     standards = _configured_standards(visitor_contract)
     errors: list[str] = []
+    premise = premise.casefold()
 
-    api_reference_premise = section.strip().casefold() == "api-reference" and any(
+    section_slug = _section_slug(section)
+    api_reference_premise = section_slug == "api-reference" and any(
         phrase in premise
         for phrase in (
-            "does not provide visible, usable content",
             "contains no visible content",
             "collapsed <details> block that contains no",
-            "does not clearly describe the product",
-            "replace the generic namespace list",
+            "placeholder `<details>` block without content",
+            "without populating the table",
+            "do not leave an empty `<details>` block",
+            "incomplete and unclosed details block",
+            "contains no actual namespace table content",
+            "replace the incomplete `<details>` block",
+            "placeholder reference to 'documentation & resources'",
+            "actual namespace table or direct api listing",
+            "lacks a structured navigable listing",
         )
     )
-    if api_reference_premise and _api_reference_is_structurally_complete(candidate_text):
+    api_standard = standards.get("readme.api_reference") or {}
+    if (
+        api_reference_premise
+        and api_standard.get("complete_namespace_tables") is True
+        and _api_reference_is_structurally_complete(candidate_text)
+    ):
         errors.append(
             f"{finding_id}:API-reference premise contradicts complete collapsed namespace tables"
-        )
-
-    capability_premise = section.strip().casefold() == "key-capabilities" and any(
-        phrase in premise
-        for phrase in (
-            "inventory fragments",
-            "lacks a clear developer-facing outcome",
-            "rewrite to state a concrete developer task",
-        )
-    )
-    if capability_premise and _capabilities_are_action_led(candidate_text):
-        errors.append(
-            f"{finding_id}:capability premise contradicts action-led same-line behavior rows"
         )
 
     example_standard = standards.get("readme.primary_example") or {}
@@ -136,54 +168,123 @@ def validate_configured_standard_premise(
         and "<details>" in _h2_body(candidate_text, section).casefold()
     ):
         errors.append(f"{finding_id}:collapsed-example premise contradicts configured presentation")
-
-    mermaid_standard = standards.get("readme.at_a_glance_mermaid") or {}
-    mermaid = _mermaid_source(candidate_text)
-    claims_directional = "directional arrow" in premise or "directional workflow" in premise
-    if (
-        claims_directional
-        and mermaid_standard.get("directional_workflow") is False
-        and mermaid
-        and not _has_directional_connector(mermaid)
-    ):
-        errors.append(f"{finding_id}:Mermaid-direction premise contradicts parsed connectors")
-    if (
-        claims_directional
-        and mermaid_standard.get("directional_workflow") is True
-        and mermaid
-        and _has_directional_connector(mermaid)
-    ):
-        errors.append(
-            f"{finding_id}:Mermaid-direction premise contradicts configured outer workflow"
+    claims_secondary_structure_missing = (
+        any(
+            term in premise
+            for term in ("without", "lacks", "not collapsed", "uncollapsed", "remove")
         )
-    claims_internal_capability_connectors = "capabilit" in premise and any(
+        and any(
+            term in premise
+            for term in ("primary", "secondary", "workflow-preview", "<details>", "collapsed")
+        )
+    ) or any(
         phrase in premise
-        for phrase in ("internal capability", "bidirectional tilde", "tildes between")
+        for phrase in (
+            "secondary examples are not collapsed",
+            "uncollapsed <details> block",
+            "lacks a primary example",
+            "has no workflow preview",
+            "without a workflow-preview intro",
+            "html <details> block, which violates markdown integrity",
+            "markdown-only collapsible structure",
+        )
     )
     if (
-        claims_internal_capability_connectors
-        and mermaid_standard.get("internal_capability_connectors") == "none"
-        and not re.search(r"(?m)^\s*C\d+\s+(?:~~~|---|-->|<-->|==>|-.->)\s+C\d+\s*$", mermaid)
+        claims_secondary_structure_missing
+        and example_standard.get("secondary_examples") == "collapsed_below_primary"
+        and example_standard.get("secondary_examples_intro") == "workflow_preview"
+        and _secondary_examples_contract_is_satisfied(candidate_text)
     ):
         errors.append(
-            f"{finding_id}:internal-connector premise contradicts connector-free capability block"
+            f"{finding_id}:secondary-example premise contradicts parsed full-document contract"
+        )
+    claims_workflow_preview_is_raw = any(
+        phrase in premise
+        for phrase in (
+            "lacks a natural, developer-facing overview",
+            "reads like a raw task list",
+            "rather than a task list",
+            "lacks a workflow preview",
+        )
+    )
+    if (
+        section_slug == "additional-examples"
+        and claims_workflow_preview_is_raw
+        and example_standard.get("secondary_examples_intro") == "workflow_preview"
+        and _secondary_examples_intro_is_workflow_preview(candidate_text)
+    ):
+        errors.append(
+            f"{finding_id}:secondary-example intro premise contradicts parsed workflow preview"
         )
 
-    claims_missing_roles = (
-        any(phrase in premise for phrase in ("does not show", "fewer than"))
-        and "capabilit" in premise
-        and ("input" in premise or "output" in premise)
-    )
-    if mermaid and claims_missing_roles:
-        role_counts_satisfy = (
-            _mermaid_role_count(mermaid, "input") >= int(mermaid_standard.get("minimum_inputs", 1))
-            and _mermaid_role_count(mermaid, "capability")
-            >= int(mermaid_standard.get("minimum_capabilities", 1))
-            and _mermaid_role_count(mermaid, "output")
-            >= int(mermaid_standard.get("minimum_outputs", 1))
+    capability_standard = standards.get("readme.key_capabilities") or {}
+    claims_bare_capability_labels = any(
+        phrase in premise
+        for phrase in (
+            "bare feature label",
+            "bare capability label",
+            "not action-led",
+            "does not start with a strong action verb",
         )
-        if role_counts_satisfy:
-            errors.append(f"{finding_id}:Mermaid-role-count premise contradicts parsed candidate")
+    )
+    claims_capability_value_defect = any(
+        term in premise
+        for term in (
+            "value",
+            "outcome",
+            "explanation",
+            "implementation",
+            "terminology",
+            "raw inventory",
+            "fragment",
+        )
+    )
+    if (
+        section_slug == "key-capabilities"
+        and claims_bare_capability_labels
+        and not claims_capability_value_defect
+        and capability_standard.get("action_led_same_line_rows") is True
+        and _capability_rows_are_action_led(candidate_text)
+    ):
+        errors.append(
+            f"{finding_id}:bare-label premise contradicts parsed action-led capability rows"
+        )
+    claims_capability_rows_lack_value = (
+        any(term in premise for term in ("lack", "vague", "fragment", "raw inventory", "internal"))
+        and any(
+            term in premise
+            for term in ("value", "outcome", "capabilit", "implementation", "terminology")
+        )
+    ) or any(
+        phrase in premise
+        for phrase in (
+            "incomplete sentence fragments",
+            "omit the developer-facing outcome",
+            "raw inventory list",
+            "not just a description of api usage",
+            "uses internal terminology",
+            "instead of verified product vocabulary",
+        )
+    )
+    if (
+        section_slug == "key-capabilities"
+        and claims_capability_rows_lack_value
+        and capability_standard.get("action_led_same_line_rows") is True
+        and capability_standard.get("developer_value_explanation") == "required"
+        and _capability_rows_meet_value_contract(candidate_text)
+    ):
+        errors.append(
+            f"{finding_id}:capability-value premise contradicts parsed complete same-line rows"
+        )
+
+    errors.extend(
+        validate_mermaid_standard_premise(
+            finding_id=finding_id,
+            premise=premise,
+            candidate_text=candidate_text,
+            standard=standards.get("readme.at_a_glance_mermaid") or {},
+        )
+    )
 
     enterprise_standard = standards.get("readme.enterprise_edition_terminology") or {}
     claims_promotional_instead_of_scope = (
@@ -200,3 +301,6 @@ def validate_configured_standard_premise(
             f"{finding_id}:Enterprise-scope premise contradicts configured candidate context"
         )
     return errors
+
+
+__all__ = ["REVIEW_STANDARD_PREMISE_CONTRACT_VERSION", "validate_configured_standard_premise"]

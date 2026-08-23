@@ -14,6 +14,10 @@ from pathlib import Path
 
 from readme_agent.registry.models import ProductEntry
 from readme_agent.state.backend import StateBackend
+from readme_agent.state.lifecycle_schema import ReadmePocLifecycleStateV2
+from readme_agent.supervisor.portfolio_proof_engine.acceptance_contract import (
+    portfolio_acceptance_contract_hash,
+)
 from readme_agent.supervisor.portfolio_proof_engine.contracts import (
     ProofModeV1,
     ProofStageReceiptV1,
@@ -99,15 +103,22 @@ def _run_full_pipeline_cohort(
                 rubric_result = rubric_evaluator(entry.org_repo, state_backend)
             except Exception:  # noqa: BLE001 -- missing evidence scores 0, never crashes the pass
                 rubric_result = None
-        final_receipt = classify_repository_stage(
-            entry.org_repo,
-            state_backend,
-            predecessor=provisional,
-            ecosystem=entry.ecosystem,
-            elapsed_seconds=elapsed,
-            provider_call_count=call_count,
-            rubric_result=rubric_result,
-        )
+        if rubric_result is None:
+            final_receipt = provisional
+        else:
+            # The final receipt names the review-stage receipt as its predecessor. Persist that
+            # exact predecessor before the final write so dashboard/replay readers can resolve a
+            # complete chain rather than dropping a valid acceptance as an orphan.
+            write_receipt(output_root, campaign_id, provisional)
+            final_receipt = classify_repository_stage(
+                entry.org_repo,
+                state_backend,
+                predecessor=provisional,
+                ecosystem=entry.ecosystem,
+                elapsed_seconds=elapsed,
+                provider_call_count=call_count,
+                rubric_result=rubric_result,
+            )
         write_receipt(output_root, campaign_id, final_receipt)
         receipts.append(final_receipt)
     return receipts
@@ -196,7 +207,10 @@ def run_fleet(
     accepted = {
         entry.org_repo
         for entry in entries
-        if find_accepted_receipt(resolved_output_root, entry.org_repo) is not None
+        if _accepted_receipt_is_current(
+            find_accepted_receipt(resolved_output_root, entry.org_repo),
+            state_backend=backend,
+        )
     }
     remaining = resolve_fleet_remaining(entries, accepted)
     intake_receipts = [classify_intake(entry, backend) for entry in remaining]
@@ -233,6 +247,27 @@ def run_fleet(
         pending_count=len(pending),
         failed_count=failed,
         pending_org_repos=pending,
+    )
+
+
+def _accepted_receipt_is_current(
+    receipt: ProofStageReceiptV1 | None,
+    *,
+    state_backend: StateBackend,
+) -> bool:
+    """Require an accepted receipt to match live lifecycle and acceptance contracts."""
+
+    if receipt is None or receipt.status != "OK" or receipt.stage != "ACCEPTED":
+        return False
+    state = state_backend.load(receipt.org_repo)
+    lifecycle = state.readme_poc_lifecycle if state is not None else None
+    if not isinstance(lifecycle, ReadmePocLifecycleStateV2):
+        return False
+    return bool(
+        receipt.source_revision == lifecycle.source_revision
+        and receipt.facts_hash == lifecycle.facts_hash
+        and receipt.candidate_hash == lifecycle.candidate_hash
+        and receipt.version_hash == portfolio_acceptance_contract_hash()
     )
 
 

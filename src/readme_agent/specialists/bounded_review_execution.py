@@ -1,164 +1,35 @@
-"""Execute bounded README review packets through the existing grounded role clients."""
+"""Orchestrate bounded README review packet execution and aggregation."""
 
 from __future__ import annotations
 
-from collections.abc import Sequence
 from concurrent.futures import ThreadPoolExecutor
 from contextvars import copy_context
 from pathlib import Path
-from typing import Literal
-
-from pydantic import BaseModel, ConfigDict
 
 from readme_agent.llm.call_ledger import record_non_provider_call
 from readme_agent.llm.verification_prompts import (
     build_blind_quality_review_messages,
     build_factual_plan_review_messages,
 )
-from readme_agent.specialists.bounded_review_cache import (
-    BoundedReviewCacheContextV1,
-    cache_key_for_packet,
-    load_bounded_review_packet_cache,
-    write_bounded_review_packet_cache,
+from readme_agent.specialists.bounded_review_cache import BoundedReviewCacheContextV1
+from readme_agent.specialists.bounded_review_execution_cache import BoundedReviewPacketCache
+from readme_agent.specialists.bounded_review_execution_contracts import (
+    BoundedReviewExecutionV1,
+    project_bounded_role_result,
 )
-from readme_agent.specialists.bounded_review_hashing import _canonical_hash
+from readme_agent.specialists.bounded_review_execution_factual import execute_factual_packet
+from readme_agent.specialists.bounded_review_execution_visitor import execute_visitor_packet
 from readme_agent.specialists.bounded_review_packets import (
-    AggregateVerdictV1,
-    BoundedFactualPacketV1,
-    BoundedPacketResultV1,
     BoundedReviewPlanV1,
-    BoundedVisitorPacketV1,
     CoverageLedgerV1,
     aggregate_packet_results,
-    validate_packet_result,
-)
-from readme_agent.specialists.bounded_review_visitor_scope import (
-    bounded_visitor_contract,
-    bounded_visitor_scope,
 )
 from readme_agent.specialists.readme_review_roles import (
     BlindQualityReviewResultV1,
     FactualPlanReviewResultV1,
 )
-from readme_agent.specialists.review_finding_grounding import (
-    BLIND_GROUNDING_CONTRACT_VERSION,
-    FindingGroundingResultV1,
-    GroundedReviewFindingV1,
-    validate_review_findings,
-)
-from readme_agent.specialists.review_role_execution import (
-    AnalysisClientLike,
-    normalize_redundant_role_fields,
-    run_grounded_role,
-)
-
-_BOUNDED_FACTUAL_GROUNDING_ATTEMPTS = 3
-
-
-class BoundedReviewExecutionV1(BaseModel):
-    """Complete packet execution and its projection into the established role contracts."""
-
-    model_config = ConfigDict(extra="forbid", frozen=True)
-
-    plan: BoundedReviewPlanV1
-    coverage_ledger: CoverageLedgerV1
-    packet_results: tuple[BoundedPacketResultV1, ...]
-    aggregate: AggregateVerdictV1
-    blind_result: BlindQualityReviewResultV1
-    factual_result: FactualPlanReviewResultV1
-    blind_grounding: FindingGroundingResultV1
-    factual_grounding: FindingGroundingResultV1
-    grounding_history: tuple[dict, ...] = ()
-
-
-def _normalized_findings(
-    packet_id: str,
-    section_path: str,
-    findings: Sequence[GroundedReviewFindingV1],
-) -> list[GroundedReviewFindingV1]:
-    prefix = packet_id.replace("-", ".")
-    return [
-        finding.model_copy(
-            update={
-                "finding_id": f"{prefix}.{finding.finding_id}",
-                "section": section_path,
-                "candidate_anchor_id": None,
-            }
-        )
-        for finding in findings
-    ]
-
-
-def _bounded_result(
-    packet: BoundedFactualPacketV1 | BoundedVisitorPacketV1,
-    result: BlindQualityReviewResultV1 | FactualPlanReviewResultV1,
-) -> BoundedPacketResultV1:
-    findings = _normalized_findings(packet.packet_id, packet.section_path, result.findings)
-    bounded = BoundedPacketResultV1(
-        packet_id=packet.packet_id,
-        facet=packet.facet,
-        candidate_sha256=packet.candidate_sha256,
-        packet_sha256=packet.packet_sha256,
-        prompt_contract_hash=packet.prompt_contract_hash,
-        input_contract_hash=packet.input_contract_hash,
-        verdict=result.verdict,
-        reasoning=result.reasoning,
-        failed_criteria=tuple(result.failed_criteria),
-        required_repair=result.required_repair,
-        findings=tuple(findings),
-    )
-    return bounded
-
-
-def _winning_verdict(
-    results: Sequence[BoundedPacketResultV1],
-    *,
-    facet: Literal["visitor", "factual"],
-) -> str:
-    precedence = (
-        "SYSTEM_FAILURE",
-        "BLOCKED_FACT_CONFLICT",
-        "BLOCKED_MISSING_EVIDENCE",
-        "REJECT_REPAIRABLE",
-        "ACCEPT",
-    )
-    allowed = {"SYSTEM_FAILURE", "REJECT_REPAIRABLE", "ACCEPT"}
-    verdicts = {result.verdict for result in results}
-    verdict = next(item for item in precedence if item in verdicts)
-    if facet == "visitor" and verdict not in allowed:
-        return "SYSTEM_FAILURE"
-    return verdict
-
-
-def _project_role_result(
-    results: Sequence[BoundedPacketResultV1],
-    *,
-    facet: Literal["visitor", "factual"],
-) -> BlindQualityReviewResultV1 | FactualPlanReviewResultV1:
-    verdict = _winning_verdict(results, facet=facet)
-    selected = [result for result in results if result.verdict == verdict]
-    findings = [finding for result in selected for finding in result.findings]
-    payload = normalize_redundant_role_fields(
-        "blind_quality" if facet == "visitor" else "factual_plan",
-        {
-            "verdict": verdict,
-            "reasoning": (
-                f"Bounded {facet} review reduced {len(results)} packet result(s): "
-                + "; ".join(result.reasoning for result in selected)
-            ),
-            "failed_criteria": [
-                criterion for result in selected for criterion in result.failed_criteria
-            ],
-            "sections_affected": [finding.section for finding in findings],
-            "required_repair": " ".join(
-                result.required_repair for result in selected if result.required_repair.strip()
-            ),
-            "findings": [finding.model_dump(mode="json") for finding in findings],
-        },
-    )
-    if facet == "visitor":
-        return BlindQualityReviewResultV1.model_validate(payload)
-    return FactualPlanReviewResultV1.model_validate(payload)
+from readme_agent.specialists.review_finding_grounding import validate_review_findings
+from readme_agent.specialists.review_role_execution import AnalysisClientLike, run_grounded_role
 
 
 def execute_bounded_review(
@@ -189,174 +60,42 @@ def execute_bounded_review(
             f"bounded review is structurally blocked: {aggregate.blocking_record_ids}"
         )
 
-    def visitor_authority(visitor_packet: BoundedVisitorPacketV1) -> tuple[dict, dict, str]:
-        bounded_scope = bounded_visitor_scope(
-            visitor_packet.section_path,
-            neighbor_context_before=visitor_packet.neighbor_context_before,
-            neighbor_context_after=visitor_packet.neighbor_context_after,
-        )
-        scoped_visitor_contract = bounded_visitor_contract(
-            visitor_contract,
-            visitor_packet.section_path,
-        )
-        authority_hash = _canonical_hash(
-            {
-                "blind_grounding_contract_version": BLIND_GROUNDING_CONTRACT_VERSION,
-                "bounded_scope": bounded_scope,
-                "scoped_visitor_contract": scoped_visitor_contract,
-            }
-        )
-        return bounded_scope, scoped_visitor_contract, authority_hash
+    cache = BoundedReviewPacketCache(
+        org_repo=org_repo,
+        plan=plan,
+        cache_dir=cache_dir,
+        context=cache_context,
+        blind_prompt_id=blind_prompt_id,
+        factual_prompt_id=factual_prompt_id,
+        record_cache_reuse=record_non_provider_call,
+    )
 
-    def load_cached(packet, *, runtime_contract_hash: str | None = None):
-        if cache_dir is None or cache_context is None:
-            return None
-        cache_key = cache_key_for_packet(
-            packet,
-            cache_context,
-            runtime_contract_hash=runtime_contract_hash,
-        )
-        cached = load_bounded_review_packet_cache(
-            cache_dir,
-            cache_key=cache_key,
+    def review_visitor(packet):
+        return execute_visitor_packet(
             org_repo=org_repo,
-            context=cache_context,
-            packet=packet,
+            candidate_text=candidate_text,
+            visitor_contract=visitor_contract,
             plan=plan,
-        )
-        if cached is None:
-            return None
-        model, _schema_hash, _sampling = cache_context.identity_for(packet)
-        prompt_id = blind_prompt_id if packet.facet == "visitor" else factual_prompt_id
-        record_non_provider_call(
-            job=prompt_id,
-            prompt_id=prompt_id,
-            prompt_sha256=packet.prompt_contract_hash,
-            model=model,
-            disposition="cache_reuse",
-            request={"cache_key": cache_key, "packet_id": packet.packet_id},
-        )
-        history = (
-            *cached.grounding_history,
-            {
-                "role": "blind_quality" if packet.facet == "visitor" else "factual_plan",
-                "attempt": 0,
-                "context_mode": "bounded_packet_cache_reuse",
-                "valid": True,
-                "errors": [],
-                "packet_id": packet.packet_id,
-                "cache_key": cache_key,
-            },
-        )
-        return cached.result, history
-
-    def persist(packet, result, history, *, runtime_contract_hash: str | None = None):
-        if cache_dir is None or cache_context is None:
-            return
-        write_bounded_review_packet_cache(
-            cache_dir,
-            cache_key=cache_key_for_packet(
-                packet,
-                cache_context,
-                runtime_contract_hash=runtime_contract_hash,
-            ),
-            org_repo=org_repo,
-            context=cache_context,
             packet=packet,
-            result=result,
-            grounding_history=history,
-        )
-
-    def review_visitor(visitor_packet: BoundedVisitorPacketV1):
-        bounded_scope, scoped_visitor_contract, authority_hash = visitor_authority(visitor_packet)
-        cached = load_cached(visitor_packet, runtime_contract_hash=authority_hash)
-        if cached is not None:
-            return cached
-        allowed_mechanical_check_ids = frozenset(bounded_scope["applicable_mechanical_check_ids"])
-        messages = build_blind_quality_review_messages(
-            org_repo,
-            "",
-            visitor_packet.section_text,
-            _canonical_json(scoped_visitor_contract),
-            _canonical_json(bounded_scope),
-            mechanical_candidate_text=candidate_text,
-            allowed_mechanical_check_ids=allowed_mechanical_check_ids,
-        )
-        result, attempts, _grounding = run_grounded_role(
-            role="blind_quality",
-            prompt_id=blind_prompt_id,
             client=blind_client,
-            messages=messages,
-            candidate_text=visitor_packet.section_text,
-            product_facts=None,
-            visitor_contract=scoped_visitor_contract,
-            allowed_quality_criteria=frozenset(bounded_scope["applicable_criteria"]),
-            allowed_mechanical_check_ids=allowed_mechanical_check_ids,
-            failure_context=visitor_packet.packet_id,
-            mechanical_candidate_text=candidate_text,
-            mechanical_visitor_contract=visitor_contract,
+            prompt_id=blind_prompt_id,
+            cache=cache,
+            build_messages=build_blind_quality_review_messages,
+            run_role=run_grounded_role,
         )
-        assert isinstance(result, BlindQualityReviewResultV1)
-        bounded = _bounded_result(visitor_packet, result)
-        validation = validate_packet_result(plan, bounded)
-        if not validation.valid:
-            raise RuntimeError(f"invalid bounded visitor result: {validation.errors}")
-        history = tuple({**item, "packet_id": visitor_packet.packet_id} for item in attempts)
-        persist(visitor_packet, bounded, history, runtime_contract_hash=authority_hash)
-        return bounded, history
 
-    def review_factual(factual_packet: BoundedFactualPacketV1):
-        cached = load_cached(factual_packet)
-        if cached is not None:
-            return cached
-        fact_context = {
-            "facts": list(factual_packet.facts),
-            "do_not_claim": list(factual_packet.do_not_claim),
-            "accepted_fact_ids": list(factual_packet.accepted_fact_ids),
-        }
-        plan_context = {
-            "section_path": factual_packet.section_path,
-            "claim_ids": list(factual_packet.claim_ids),
-            "provenance_ids": list(factual_packet.provenance_ids),
-        }
-        messages = build_factual_plan_review_messages(
-            org_repo,
-            factual_packet.unit_text,
-            _canonical_json(fact_context),
-            _canonical_json(plan_context),
-        )
-        packet_fact_ids = set(factual_packet.accepted_fact_ids)
-        packet_product_facts = {
-            **product_facts,
-            "selected_fact_ids": {
-                field: fact_id
-                for field, fact_id in product_facts.get("selected_fact_ids", {}).items()
-                if fact_id in packet_fact_ids
-            },
-            "facts": [
-                fact
-                for fact in product_facts.get("facts", [])
-                if isinstance(fact, dict) and fact.get("fact_id") in packet_fact_ids
-            ],
-        }
-        result, attempts, _grounding = run_grounded_role(
-            role="factual_plan",
-            prompt_id=factual_prompt_id,
+    def review_factual(packet):
+        return execute_factual_packet(
+            org_repo=org_repo,
+            product_facts=product_facts,
+            plan=plan,
+            packet=packet,
             client=factual_client,
-            messages=messages,
-            candidate_text=factual_packet.unit_text,
-            product_facts=packet_product_facts,
-            max_attempts_override=_BOUNDED_FACTUAL_GROUNDING_ATTEMPTS,
-            failure_context=factual_packet.packet_id,
+            prompt_id=factual_prompt_id,
+            cache=cache,
+            build_messages=build_factual_plan_review_messages,
+            run_role=run_grounded_role,
         )
-        assert isinstance(result, FactualPlanReviewResultV1)
-        bounded = _bounded_result(factual_packet, result)
-        validation = validate_packet_result(plan, bounded)
-        if not validation.valid:
-            raise RuntimeError(f"invalid bounded factual result: {validation.errors}")
-        history = tuple({**item, "packet_id": factual_packet.packet_id} for item in attempts)
-        persist(factual_packet, bounded, history)
-        return bounded, history
 
     if max_workers == 1:
         completed = [review_visitor(packet) for packet in plan.visitor_packets]
@@ -373,18 +112,25 @@ def execute_bounded_review(
             ]
             completed = [future.result() for future in visitor_futures]
             completed.extend(future.result() for future in factual_futures)
+
     packet_results = [result for result, _history in completed]
     history = [item for _result, attempts in completed for item in attempts]
-
-    by_id = {result.packet_id: result for result in packet_results}
-    aggregate = aggregate_packet_results(plan, coverage_ledger, by_id)
+    aggregate = aggregate_packet_results(
+        plan,
+        coverage_ledger,
+        {result.packet_id: result for result in packet_results},
+    )
     if aggregate.overall not in {"ACCEPT", "REJECTED"}:
         raise RuntimeError(f"bounded review did not converge: {aggregate.overall}")
 
-    visitor_results = [result for result in packet_results if result.facet == "visitor"]
-    factual_results = [result for result in packet_results if result.facet == "factual"]
-    blind = _project_role_result(visitor_results, facet="visitor")
-    factual = _project_role_result(factual_results, facet="factual")
+    blind = project_bounded_role_result(
+        [result for result in packet_results if result.facet == "visitor"],
+        facet="visitor",
+    )
+    factual = project_bounded_role_result(
+        [result for result in packet_results if result.facet == "factual"],
+        facet="factual",
+    )
     assert isinstance(blind, BlindQualityReviewResultV1)
     assert isinstance(factual, FactualPlanReviewResultV1)
     blind_grounding = validate_review_findings(
@@ -414,12 +160,6 @@ def execute_bounded_review(
         factual_grounding=factual_grounding,
         grounding_history=tuple(history),
     )
-
-
-def _canonical_json(value: dict) -> str:
-    import json
-
-    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
 
 
 __all__ = ["BoundedReviewExecutionV1", "execute_bounded_review"]

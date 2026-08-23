@@ -25,7 +25,9 @@ _SECTION_FIELDS: tuple[tuple[str, SectionAuthoringTaskFamily, str, tuple[str, ..
     (
         "key_capabilities",
         "capability_entry_cluster",
-        "Write direct, action-led capability headings and concise same-line explanations. Avoid "
+        "Write direct, action-led capability headings and concise same-line explanations. Each "
+        "explanation must state a concrete developer outcome using product-specific objects or "
+        "workflows from the accepted facts; do not merely rename an internal mechanism. Avoid "
         "product-inventory phrasing, filler, installation, and verification prose.",
         (
             "product.capabilities",

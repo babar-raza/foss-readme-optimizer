@@ -33,6 +33,7 @@ from readme_agent.supervisor.local_poc_manifest_recovery import (
     reconcile_completed_manifest_from_evidence,
 )
 from readme_agent.supervisor.local_poc_review_evidence import (
+    assert_local_poc_no_op_transaction_eligible,
     write_local_poc_no_op_evidence,
 )
 from readme_agent.supervisor.models import DecisionSummary, SuperviseResult
@@ -136,6 +137,10 @@ def promote_approved_local_poc_noop(
             "cache_key": decision.cache_key,
         },
     )
+    # This assertion belongs at the complete pre-clone transaction boundary,
+    # before durable lifecycle state can claim NO_OP_PROVEN. The review node
+    # cannot make this assertion because provider calls may precede it.
+    assert_local_poc_no_op_transaction_eligible()
     transition_readme_poc_status(
         backend,
         state.org_repo,

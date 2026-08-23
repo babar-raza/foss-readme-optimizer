@@ -408,7 +408,12 @@ _CLASSIFICATION_PATH = (
 )
 
 
-def _check_coverage_report_or_error(candidate_text: str, bundle_dir: Path) -> dict:
+def _check_coverage_report_or_error(
+    candidate_text: str,
+    bundle_dir: Path,
+    *,
+    facts: ProductFactsV2 | None = None,
+) -> dict:
     """Best-effort `check-coverage.json` evidence: every one of the 89+
     vendored checks' real run/pass/fail/skip/error outcome for this exact
     candidate (Gate R7) -- degrades to an explicit error record rather than
@@ -419,12 +424,13 @@ def _check_coverage_report_or_error(candidate_text: str, bundle_dir: Path) -> di
     was built from."""
 
     try:
-        facts_path = bundle_dir / "facts" / "product-facts.json"
-        facts = (
-            ProductFactsV2.model_validate_json(facts_path.read_text(encoding="utf-8"))
-            if facts_path.is_file()
-            else None
-        )
+        if facts is None:
+            facts_path = bundle_dir / "facts" / "product-facts.json"
+            facts = (
+                ProductFactsV2.model_validate_json(facts_path.read_text(encoding="utf-8"))
+                if facts_path.is_file()
+                else None
+            )
         classification = json.loads(_CLASSIFICATION_PATH.read_text(encoding="utf-8"))
         result = run_aspose_checks(candidate_text, facts)
         report = build_check_coverage_report(result, classification)
@@ -568,7 +574,7 @@ def write_local_poc_readme_candidate(
     )
     write_redacted_json(
         candidate_dir / "check-coverage.json",
-        _check_coverage_report_or_error(candidate_text, bundle_dir),
+        _check_coverage_report_or_error(candidate_text, bundle_dir, facts=persisted_facts),
     )
     write_redacted_json(
         bundle_dir / "knowledge-application.json",

@@ -41,6 +41,12 @@ from readme_agent.supervisor.portfolio_proof_engine.rubric import RubricScoreV1,
 from readme_agent.supervisor.portfolio_proof_engine.rubric_criteria import (
     knowledge_application_final,
 )
+from readme_agent.supervisor.portfolio_proof_engine.rubric_evidence import (
+    benchmark_acceptance_proven,
+    reconciliation_integrity,
+    replay_attestation_proven,
+    rubric_acceptance_binding_current,
+)
 
 DashboardStateV1 = Literal[
     "SKIPPED_NON_SUBSTANTIVE",
@@ -220,6 +226,9 @@ def _deterministic_ok(bundle: EvidenceBundleV1) -> bool:
     validation = bundle.deterministic_validation
     if validation is None:
         return False
+    verdict = validation.get("verdict")
+    if isinstance(verdict, str):
+        return verdict.casefold() == "accept" and not validation.get("reason")
     return validation.get("valid") is True and not validation.get("errors")
 
 
@@ -279,15 +288,7 @@ def _disposition_ledger_clean(bundle: EvidenceBundleV1) -> bool | None:
     artifact the B-category rubric criteria already use (see `rubric_criteria.py`'s own note that
     the canonical `local_poc` bundle carries this inside `reconciliation`, not a second ledger)."""
 
-    reconciliation = bundle.reconciliation
-    if reconciliation is None:
-        return None
-    unexplained = _first_present(
-        reconciliation, "unexplained_drops", "unresolved", "unresolved_count"
-    )
-    if unexplained is None:
-        return None
-    return not unexplained
+    return reconciliation_integrity(bundle)
 
 
 def _blocking_checks_clean(bundle: EvidenceBundleV1) -> bool | None:
@@ -350,6 +351,9 @@ def _extra_acceptance_checks(bundle: EvidenceBundleV1) -> dict[str, bool | None]
         "deterministic_verdict_accepts": (
             None if bundle.deterministic_validation is None else _deterministic_ok(bundle)
         ),
+        "benchmark_acceptance_proven_and_current": benchmark_acceptance_proven(bundle),
+        "complete_transaction_replay_proven_and_current": replay_attestation_proven(bundle),
+        "terminal_rubric_acceptance_binding_current": rubric_acceptance_binding_current(bundle),
     }
 
 

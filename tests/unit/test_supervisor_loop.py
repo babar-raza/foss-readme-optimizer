@@ -1730,6 +1730,14 @@ class TestBasicLoop:
         )
         assert final_candidate_hash == repair_history[-1]["candidate_sha256"]
 
+        from readme_agent.llm.call_ledger import start_llm_call_accounting
+
+        start_llm_call_accounting(
+            ORG_REPO,
+            "repair-noop-replay",
+            campaign_id="repair-noop-replay",
+            stage="SUPERVISING",
+        )
         second = supervise_repo(
             ORG_REPO,
             planner_client=FixturePlannerClient(

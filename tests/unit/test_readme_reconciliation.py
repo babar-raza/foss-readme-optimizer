@@ -136,6 +136,10 @@ def test_policy_replaced_span_is_bucketed_as_superseded():
     assert report.superseded_count == 1
     superseded = next(e for e in report.entries if e.disposition == "superseded")
     assert superseded.operation_id == "readme.links.unwrap-unbound:1"
+    assert superseded.evidence is not None
+    assert any(item.startswith("source-content-sha256:") for item in superseded.evidence)
+    assert any(item.startswith("replacement-content-sha256:") for item in superseded.evidence)
+    assert any(item.startswith("validator:") for item in superseded.evidence)
     total = sum(e.source_byte_end - e.source_byte_start for e in report.entries)
     assert total == report.source_bytes
 

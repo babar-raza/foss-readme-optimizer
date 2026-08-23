@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.claim_accountability_models import ReadmeClaimAccountabilityMapV1
 from readme_agent.readme.document_structure import Heading
@@ -11,6 +13,20 @@ from readme_agent.validation.public_quality_contracts import (
     _make_finding,
 )
 from readme_agent.validation.public_quality_semantic_common import _IDENTIFIER_TOKEN, _WORD
+
+_COUNTED_LIST_CLAIM = re.compile(
+    r"\b(?:the\s+following\s+)?(?P<count>\d+)\s+"
+    r"(?P<kind>capabilities|features|formats|examples|operations|outputs|inputs|packages)\b",
+    re.IGNORECASE,
+)
+_LIST_ITEM = re.compile(r"^[ \t]{0,3}(?:[-+*]|\d+[.)])[ \t]+\S", re.MULTILINE)
+_API_TABLE_SUMMARY = re.compile(
+    r"The package (?P<verb>reference presents|documents) (?P<count>\d+) "
+    r"(?P<kind>API table entries|public types) across (?P<namespaces>\d+) namespaces\.",
+    re.IGNORECASE,
+)
+_API_TABLE_ROW = re.compile(r"(?m)^\| `[^`]+` \| [^|]+ \|$")
+_API_NAMESPACE_HEADING = re.compile(r"(?m)^### [^\r\n]+ Namespace \(`[^`]+`\)\s*$")
 
 # ---------------------------------------------------------------------------------------------
 # Structural quality (always advisory) -- relative outliers, never a fixed length limit
@@ -120,4 +136,125 @@ def _check_structural_detail_density(
                 ),
             )
         )
+    return findings
+
+
+def _check_numeric_list_consistency(
+    text: str,
+    headings: list[Heading],
+    facts: ProductFactsV2 | None,
+    claim_accountability: ReadmeClaimAccountabilityMapV1 | None,
+) -> list[PublicQualityFindingV1]:
+    """Reject an explicit item count when its immediately following list disagrees.
+
+    The check is intentionally narrow: it does not infer counts from arbitrary prose. It only
+    evaluates an explicit ``N capabilities/features/...`` claim followed, before any intervening
+    paragraph or heading, by one Markdown list. This makes the signal deterministic and avoids
+    treating version numbers, format names, or unrelated lists as count promises.
+    """
+
+    findings: list[PublicQualityFindingV1] = []
+    for match in _COUNTED_LIST_CLAIM.finditer(text):
+        claim_line_end = text.find("\n", match.end())
+        if claim_line_end < 0:
+            continue
+        tail_start = claim_line_end + 1
+        tail = text[tail_start:]
+        lines = tail.splitlines(keepends=True)
+        list_lines: list[tuple[int, str]] = []
+        offset = tail_start
+        list_started = False
+        for line in lines:
+            stripped = line.strip()
+            if not stripped:
+                if list_started:
+                    break
+                offset += len(line)
+                continue
+            if stripped.startswith("#") or stripped.startswith("```"):
+                break
+            if _LIST_ITEM.match(line):
+                list_started = True
+                list_lines.append((offset, line))
+                offset += len(line)
+                continue
+            break
+        if not list_lines:
+            continue
+        expected = int(match.group("count"))
+        actual = len(list_lines)
+        if expected == actual:
+            continue
+        claim_location = _location(headings, text, match.start(), match.end())
+        first_offset, first_line = list_lines[0]
+        list_location = _location(
+            headings,
+            text,
+            first_offset,
+            first_offset + len(first_line.rstrip("\r\n")),
+        )
+        findings.append(
+            _make_finding(
+                "numeric_list_consistency",
+                "structural_quality",
+                "critical",
+                "exact_symbol",
+                True,
+                (claim_location, list_location),
+                message=(
+                    f"The public count promises {expected} {match.group('kind').lower()}, "
+                    f"but the immediately following Markdown list contains {actual}."
+                ),
+                repair_target=(
+                    f"{claim_location.section_path}: align the explicit count with the list"
+                ),
+            )
+        )
+    api_reference = next(
+        (heading for heading in headings if heading.title.casefold() == "api reference"),
+        None,
+    )
+    if api_reference is None:
+        return findings
+    api_body = text[api_reference.heading_end : api_reference.section_end]
+    metric = _API_TABLE_SUMMARY.search(api_body)
+    if metric is None:
+        return findings
+    actual_entries = len(_API_TABLE_ROW.findall(api_body))
+    actual_namespaces = len(_API_NAMESPACE_HEADING.findall(api_body))
+    declared_entries = int(metric.group("count"))
+    declared_namespaces = int(metric.group("namespaces"))
+    mislabeled = metric.group("kind").casefold() != "api table entries"
+    mismatched = declared_entries != actual_entries or declared_namespaces != actual_namespaces
+    if not mislabeled and not mismatched:
+        return findings
+    metric_start = api_reference.heading_end + metric.start()
+    metric_location = _location(
+        headings,
+        text,
+        metric_start,
+        api_reference.heading_end + metric.end(),
+    )
+    reasons: list[str] = []
+    if mislabeled:
+        reasons.append("table rows are labelled as distinct public types")
+    if mismatched:
+        reasons.append(
+            f"declared {declared_entries}/{declared_namespaces} but rendered "
+            f"{actual_entries}/{actual_namespaces} entries/namespaces"
+        )
+    findings.append(
+        _make_finding(
+            "numeric_list_consistency",
+            "structural_quality",
+            "critical",
+            "exact_symbol",
+            True,
+            (metric_location,),
+            message="API reference summary is inconsistent: " + "; ".join(reasons) + ".",
+            repair_target=(
+                f"{metric_location.section_path}: label and count the rendered API table exactly"
+            ),
+        )
+    )
     return findings

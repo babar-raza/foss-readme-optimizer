@@ -86,6 +86,57 @@ def test_symbol_contradiction_catches_two_different_phrasings_of_the_same_defect
     assert any(f.check_id == "contradiction_capability_symbol" for f in second.findings)
 
 
+def test_explicit_count_must_match_the_immediately_following_markdown_list() -> None:
+    report = evaluate_public_candidate_quality(
+        "# Product\n\n## Capabilities\n\nThe following 3 capabilities are available:\n\n"
+        "- Read files\n- Write files\n"
+    )
+
+    finding = next(item for item in report.findings if item.check_id == "numeric_list_consistency")
+    assert finding.blocking is True
+    assert finding.category == "structural_quality"
+    assert "promises 3" in finding.message
+    assert "contains 2" in finding.message
+
+
+def test_numeric_versions_and_matching_explicit_lists_do_not_trigger_count_finding() -> None:
+    report = evaluate_public_candidate_quality(
+        "# Product 3D\n\n## Formats\n\nSupports versions 1-40 and the following 2 formats:\n\n"
+        "- FBX\n- OBJ\n"
+    )
+
+    assert "numeric_list_consistency" in report.checks_run
+    assert all(item.check_id != "numeric_list_consistency" for item in report.findings)
+
+
+def test_api_table_rows_cannot_be_mislabeled_as_distinct_public_types() -> None:
+    report = evaluate_public_candidate_quality(
+        "# Product\n\n## API Reference\n\n"
+        "The package documents 2 public types across 1 namespaces.\n\n"
+        "### Product Namespace (`product`)\n\n"
+        "| Type | Description |\n| --- | --- |\n"
+        "| `Scene` | Represents a scene and loads content. |\n"
+        "| `Scene` | Re-exported scene entry in this namespace. |\n"
+    )
+
+    finding = next(item for item in report.findings if item.check_id == "numeric_list_consistency")
+    assert finding.blocking is True
+    assert "labelled as distinct public types" in finding.message
+
+
+def test_api_table_entry_summary_must_match_rendered_rows_and_namespaces() -> None:
+    report = evaluate_public_candidate_quality(
+        "# Product\n\n## API Reference\n\n"
+        "The package reference presents 3 API table entries across 2 namespaces.\n\n"
+        "### Product Namespace (`product`)\n\n"
+        "| Type | Description |\n| --- | --- |\n"
+        "| `Scene` | Represents a scene and loads content. |\n"
+    )
+
+    finding = next(item for item in report.findings if item.check_id == "numeric_list_consistency")
+    assert "declared 3/2 but rendered 1/1" in finding.message
+
+
 # --- regression controls -------------------------------------------------------------------
 
 
@@ -104,4 +155,4 @@ def test_checks_source_hash_matches_recorded_version() -> None:
     """
 
     assert compute_checks_source_hash() == _CHECKS_SOURCE_HASH_AT_VERSION
-    assert PUBLIC_QUALITY_CHECKS_VERSION == 7
+    assert PUBLIC_QUALITY_CHECKS_VERSION == 9

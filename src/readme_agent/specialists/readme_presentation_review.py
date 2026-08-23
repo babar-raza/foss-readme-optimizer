@@ -36,7 +36,6 @@ from readme_agent.state.schema import DomainStateV1
 from readme_agent.supervisor.execution_context import readme_poc_stage_limit_active
 from readme_agent.supervisor.local_poc_review_evidence import (
     seal_partial_local_poc_review_evidence,
-    write_local_poc_no_op_evidence,
     write_local_poc_review_evidence,
 )
 from readme_agent.supervisor.portfolio_scheduler.stages import (
@@ -90,10 +89,12 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
     # facts, prompts, reviewer standard, and protected content; this final
     # candidate hash check binds the exact rendered bytes before reuse.
     #
-    # NO_OP_PROVEN and its later human/PR states are already beyond this
-    # review boundary. A resumed portfolio pass can still enter this node
-    # because the source README continues to differ from the candidate. It
-    # must reuse the proven result, not invoke the reviewer again and attempt
+    # This review node deliberately never promotes AGENT_APPROVED to
+    # NO_OP_PROVEN. A complete specialist transaction can already have made
+    # provider calls before reaching this node (for example dynamic specialist
+    # selection), so a node-local zero-call observation cannot prove a
+    # complete-transaction no-op. Only the pre-clone approved-bundle fast path
+    # owns that promotion. Later statuses are likewise reused without trying
     # the illegal NO_OP_PROVEN -> AGENT_APPROVED regression.
     if (
         lifecycle_backend is not None
@@ -120,22 +121,6 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         if local_bundle_dir is None or not (local_bundle_dir / "manifest.json").is_file():
             raise StateBackendError(
                 "approved README lifecycle has no revision-addressed evidence bundle"
-            )
-        if lifecycle.status == "AGENT_APPROVED":
-            transition_readme_poc_status(
-                lifecycle_backend,
-                org_repo,
-                "NO_OP_PROVEN",
-                observed_by=INDEPENDENT_VERIFICATION,
-                reason=(
-                    "unchanged approved candidate reused without another bundle or agentic review"
-                ),
-                evidence_refs=[str(local_bundle_dir)],
-            )
-            write_local_poc_no_op_evidence(
-                local_bundle_dir,
-                candidate_hash=candidate_hash,
-                agentic_review_reused=True,
             )
         return {
             "details": merge_details(

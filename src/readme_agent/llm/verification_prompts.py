@@ -20,6 +20,9 @@ from readme_agent.llm import prompt_registry
 from readme_agent.presentation.template_schema import repository_presentation_template_hash
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.specialists.factual_review_projection import compact_candidate_anchor_catalog
+from readme_agent.specialists.review_candidate_anchors import (
+    CANDIDATE_REVIEW_ANCHOR_BINDING_CONTRACT_VERSION,
+)
 from readme_agent.specialists.review_finding_grounding import (
     BLIND_GROUNDING_CONTRACT_VERSION,
     BLIND_QUALITY_CRITERIA,
@@ -27,6 +30,9 @@ from readme_agent.specialists.review_finding_grounding import (
 from readme_agent.specialists.review_mechanical_observations import (
     MECHANICAL_CHECK_IDS,
     render_candidate_mechanical_observations,
+)
+from readme_agent.specialists.review_standard_premises import (
+    REVIEW_STANDARD_PREMISE_CONTRACT_VERSION,
 )
 from readme_agent.specialists.trusted_fidelity_cache import FIDELITY_BATCH_CONTRACT_VERSION
 
@@ -377,6 +383,8 @@ def separated_reviewer_standard_hash() -> str:
     components = [
         "merged-readme-review-v1-two-grounded-facets",
         BLIND_GROUNDING_CONTRACT_VERSION,
+        CANDIDATE_REVIEW_ANCHOR_BINDING_CONTRACT_VERSION,
+        str(REVIEW_STANDARD_PREMISE_CONTRACT_VERSION),
         repository_presentation_template_hash(),
         hashlib.sha256(
             json.dumps(

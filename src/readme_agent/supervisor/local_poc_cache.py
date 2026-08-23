@@ -641,7 +641,9 @@ def _earliest_affected_stage(reasons: list[str]) -> str | None:
             affected.append("PLAN_READY")
         elif reason.startswith("manifest_candidate_") or reason in {
             "artifact_inventory_invalid",
+            "manifest_lifecycle_status_mismatch",
             "manifest_no_op_stage_missing",
+            "manifest_not_complete",
             "manifest_repair_budget_origin_hash_mismatch",
         }:
             affected.append("CANDIDATE_GENERATED")
@@ -654,6 +656,7 @@ def _earliest_affected_stage(reasons: list[str]) -> str | None:
             "deterministic_manifest_dependency_key_mismatch",
             "mermaid_render_binding_mismatch",
             "manifest_deterministic_validation_hash_mismatch",
+            "manifest_reviewer_standard_hash_mismatch",
             "independent_review_missing_or_invalid",
             "independent_review_acceptance_binding_mismatch",
             "final_verdict_acceptance_binding_mismatch",

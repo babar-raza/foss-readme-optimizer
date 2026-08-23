@@ -44,6 +44,7 @@ MANIFEST = CapabilityManifest(
         "reason": "string",
         "checks": "object",
         "requirement_map": "object",
+        "public_quality_report": "object",
     },
     preconditions=[
         "org_repo must be listed in data/products.json with a policy_profile configured",

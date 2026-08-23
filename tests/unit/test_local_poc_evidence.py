@@ -900,6 +900,22 @@ def test_candidate_boundary_writes_a_real_readme_reconciliation_report(tmp_path,
         )
         for field in REQUIRED_PRODUCT_FIELDS
     ]
+    records.append(
+        FactRecordV2(
+            fact_id="aspose.archetype:private-attempt-check-input",
+            field="aspose.archetype",
+            value="transform",
+            source=FactSourceV2(
+                source_type="mechanical_repository",
+                location="data/imported:cells/java",
+                source_revision=snapshot.source_revision,
+            ),
+            verification_state="verified",
+            authoritative_owner="repository-owner",
+            confidence=1.0,
+            affected_surfaces=["readme"],
+        )
+    )
     facts = ProductFactsV2(
         org_repo=snapshot.org_repo,
         facts=records,
@@ -978,6 +994,9 @@ def test_candidate_boundary_writes_a_real_readme_reconciliation_report(tmp_path,
     )
     assert "error" not in coverage
     assert coverage["check_count"] > 0
+    outcomes = {entry["check_name"]: entry["outcome"] for entry in coverage["entries"]}
+    assert outcomes["check_banner_present"] != "skip"
+    assert outcomes["check_no_cross_product_citation"] != "skip"
     assert (
         coverage["pass_count"]
         + coverage["fail_count"]

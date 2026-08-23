@@ -89,10 +89,37 @@ def evaluate_repository(org_repo: str, backend: StateBackend) -> RubricAcceptanc
     )
     bundle = load_evidence_bundle(org_repo, source_revision, candidate_hash=candidate_hash)
     score = score_candidate(bundle)
-    return RubricAcceptanceOutcome(
+    provisional = RubricAcceptanceOutcome(
         org_repo=org_repo,
         accepted=acceptance_verdict(score),
         score=score.total_score,
         hard_disqualifier_count=len(score.hard_disqualifiers),
         missing_evidence_criteria=score.missing_evidence_criteria,
+    )
+    if not provisional.accepted:
+        return provisional
+    from readme_agent.supervisor.portfolio_proof_engine.benchmark_gate import (
+        evaluate_and_persist_benchmark_gate,
+    )
+
+    benchmark_outcome = evaluate_and_persist_benchmark_gate(bundle, score)
+    if not benchmark_outcome.accepted or bundle.bundle_dir is None:
+        return benchmark_outcome
+
+    from pathlib import Path
+
+    from readme_agent.supervisor.portfolio_proof_engine.replay_gate import (
+        attest_and_persist_replay_gate,
+    )
+
+    replay_proof = attest_and_persist_replay_gate(Path(bundle.bundle_dir))
+    return benchmark_outcome.model_copy(
+        update={
+            "accepted": benchmark_outcome.accepted and replay_proof.passed,
+            "hard_disqualifier_count": (
+                benchmark_outcome.hard_disqualifier_count + (0 if replay_proof.passed else 1)
+            ),
+            "replay_attestation_proven": replay_proof.passed,
+            "replay_attestation_hash": replay_proof.proof_hash,
+        }
     )

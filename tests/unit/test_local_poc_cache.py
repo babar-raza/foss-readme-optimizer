@@ -760,6 +760,11 @@ def test_approved_no_op_promotion_records_cache_before_state_and_evidence(
     )
     monkeypatch.setattr(
         local_poc_noop_reuse,
+        "assert_local_poc_no_op_transaction_eligible",
+        lambda: events.append("zero-call-guard"),
+    )
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
         "transition_readme_poc_status",
         lambda *args, **kwargs: events.append("transition"),
     )
@@ -784,7 +789,59 @@ def test_approved_no_op_promotion_records_cache_before_state_and_evidence(
     )
 
     assert result.promoted is True
-    assert events == ["bind", "cache", "transition", "evidence"]
+    assert events == ["bind", "cache", "zero-call-guard", "transition", "evidence"]
+
+
+def test_approved_no_op_promotion_fails_before_state_transition_on_provider_call(
+    monkeypatch,
+    tmp_path,
+):
+    state, bundle = _approved_cache(tmp_path)
+    decision = local_poc_cache.evaluate_approved_local_poc_cache(
+        state,
+        bundle,
+        current_source_revision=SOURCE_REVISION,
+        current_control_plane_fingerprint=CONTROL_FINGERPRINT,
+    )
+    events: list[str] = []
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "evaluate_approved_local_poc_cache",
+        lambda *args, **kwargs: decision,
+    )
+    monkeypatch.setattr(local_poc_noop_reuse, "bind_llm_repository_revision", lambda *a, **k: None)
+    monkeypatch.setattr(local_poc_noop_reuse, "record_non_provider_call", lambda *a, **k: None)
+
+    def reject_nonzero_transaction() -> None:
+        events.append("guard")
+        raise RuntimeError("unchanged README no-op made one or more new provider calls")
+
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "assert_local_poc_no_op_transaction_eligible",
+        reject_nonzero_transaction,
+    )
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "transition_readme_poc_status",
+        lambda *args, **kwargs: events.append("transition"),
+    )
+    monkeypatch.setattr(
+        local_poc_noop_reuse,
+        "write_local_poc_no_op_evidence",
+        lambda *args, **kwargs: events.append("evidence"),
+    )
+
+    with pytest.raises(RuntimeError, match="one or more new provider calls"):
+        local_poc_noop_reuse.promote_approved_local_poc_noop(
+            backend=SimpleNamespace(load=lambda org_repo: state),
+            state=state,
+            bundle_dir=bundle,
+            current_source_revision=SOURCE_REVISION,
+            current_control_plane_fingerprint=CONTROL_FINGERPRINT,
+        )
+
+    assert events == ["guard"]
 
 
 @pytest.mark.parametrize(
@@ -1047,6 +1104,45 @@ def test_checksum_valid_but_semantically_invalid_acceptance_evidence_denies_reus
     assert "artifact_inventory_invalid" not in decision.mismatch_reasons
     assert "no_op_proof_invalid" in decision.mismatch_reasons
     assert decision.earliest_affected_stage == "AGENT_REVIEWING"
+
+
+def test_incomplete_manifest_cannot_leave_completed_lifecycle_at_snapshot_boundary(tmp_path):
+    state, bundle = _valid_cache(tmp_path)
+    manifest_path = bundle / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest.update(
+        {
+            "lifecycle_status": "CANDIDATE_GENERATED",
+            "complete": False,
+            "completed_stages": [
+                stage
+                for stage in manifest["completed_stages"]
+                if stage
+                not in {
+                    "DETERMINISTIC_VALIDATED",
+                    "AGENT_REVIEWING",
+                    "AGENT_APPROVED",
+                    "NO_OP_PROVEN",
+                }
+            ],
+            "reviewer_standard_hash": None,
+        }
+    )
+    write_redacted_json(manifest_path, manifest)
+    for name in (
+        "deterministic-validation.json",
+        "independent-agent-review.json",
+        "final-verdict.json",
+        "no-op-proof.json",
+    ):
+        (bundle / "review" / name).unlink(missing_ok=True)
+    refresh_sha256sums(bundle)
+
+    decision = _decision(state, bundle)
+
+    assert decision.reusable is False
+    assert "manifest_lifecycle_status_mismatch" in decision.mismatch_reasons
+    assert decision.earliest_affected_stage == "CANDIDATE_GENERATED"
 
 
 def test_checksum_valid_but_blocked_product_truth_denies_reuse(tmp_path):

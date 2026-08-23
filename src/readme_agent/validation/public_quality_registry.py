@@ -40,6 +40,7 @@ from readme_agent.validation.public_quality_lint_checks import (
     _check_process_leakage,
 )
 from readme_agent.validation.public_quality_structure_checks import (
+    _check_numeric_list_consistency,
     _check_structural_detail_density,
     _check_structural_size_outlier,
 )
@@ -96,6 +97,7 @@ _CHECKS: tuple[tuple[str, PublicQualityCategory, bool, _CheckFn], ...] = (
     ("empty_or_placeholder_section", "malformed_prose", False, _check_empty_or_placeholder_section),
     ("structural_size_outlier", "structural_quality", False, _check_structural_size_outlier),
     ("structural_detail_density", "structural_quality", False, _check_structural_detail_density),
+    ("numeric_list_consistency", "structural_quality", False, _check_numeric_list_consistency),
 )
 
 # Forget-proofing tripwire (mirrors validation/registry.py's VALIDATION_RULESET_VERSION /
@@ -103,7 +105,7 @@ _CHECKS: tuple[tuple[str, PublicQualityCategory, bool, _CheckFn], ...] = (
 # recomputes the live hash of every check function's source and fails loudly if it no longer
 # matches this recorded value, forcing a conscious "does PUBLIC_QUALITY_CHECKS_VERSION need to
 # move" decision on every detection-logic edit instead of a silent, unreviewed drift.
-_CHECKS_SOURCE_HASH_AT_VERSION = "a6aa53f6810388f11e0d5f7607c8ca25ed40a4c8901ea153bd25910c32dd5d09"
+_CHECKS_SOURCE_HASH_AT_VERSION = "5858dee9d89230dd8a423db54ea94290d6dd84b007065b3a22b52dd31b6cc052"
 
 
 def compute_checks_source_hash() -> str:

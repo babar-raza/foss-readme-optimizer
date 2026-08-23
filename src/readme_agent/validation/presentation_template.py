@@ -112,6 +112,11 @@ def validate_repository_presentation(
         namespace_headings = re.findall(r"(?m)^### [^\r\n]+ Namespace \(`[^`]+`\)\s*$", api_body)
         api_rows = re.findall(r"(?m)^\| `([^`]+)` \| ([^|]+) \|$", api_body)
         descriptions = [" ".join(description.split()).casefold() for _name, description in api_rows]
+        metric = re.search(
+            r"The package (?:reference presents|documents) (\d+) "
+            r"(API table entries|public types) across (\d+) namespaces\.",
+            api_body,
+        )
         if (
             "<details>" not in api_body
             or "<summary>View public API by namespace</summary>" not in api_body
@@ -136,6 +141,13 @@ def validate_repository_presentation(
             errors.append("API reference contains an incomplete generic description")
         if len(descriptions) != len(set(descriptions)):
             errors.append("API reference contains duplicated descriptions")
+        if metric is not None:
+            declared_entries = int(metric.group(1))
+            declared_namespaces = int(metric.group(3))
+            if metric.group(2) != "API table entries":
+                errors.append("API reference table-row count must not be labelled as public types")
+            if declared_entries != len(api_rows) or declared_namespaces != len(namespace_headings):
+                errors.append("API reference summary counts disagree with rendered tables")
 
     capabilities = next(
         (heading for heading in h2s if heading.title.casefold() == "key capabilities"),

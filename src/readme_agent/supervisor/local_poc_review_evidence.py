@@ -152,6 +152,12 @@ def write_local_poc_review_evidence(
     )
     write_local_poc_manifest(bundle_dir, manifest)
     refresh_sha256sums(bundle_dir)
+    if agent_approved and manifest.get("org_repo") and manifest.get("source_revision"):
+        from readme_agent.supervisor.local_poc_replay_snapshots import (
+            materialize_transaction_snapshot,
+        )
+
+        materialize_transaction_snapshot(bundle_dir, label="first")
 
 
 def write_local_poc_no_op_evidence(
@@ -199,3 +205,15 @@ def write_local_poc_no_op_evidence(
     )
     write_local_poc_manifest(bundle_dir, manifest)
     refresh_sha256sums(bundle_dir)
+
+
+def assert_local_poc_no_op_transaction_eligible() -> None:
+    """Fail before lifecycle promotion unless this whole transaction is zero-call."""
+
+    from readme_agent.llm.call_ledger import current_llm_accounting_summary
+
+    llm_summary = current_llm_accounting_summary()
+    if llm_summary.status != "EXACT":
+        raise RuntimeError("unchanged README no-op lacks exact LLM accounting")
+    if llm_summary.provider_call_count != 0:
+        raise RuntimeError("unchanged README no-op made one or more new provider calls")

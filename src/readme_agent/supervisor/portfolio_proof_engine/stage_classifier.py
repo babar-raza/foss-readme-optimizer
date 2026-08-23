@@ -180,6 +180,8 @@ def classify_repository_stage(
             bundle_dir and (bundle_dir / "review" / "blind-quality-review.json").is_file()
         )
         if rubric_result is not None:
+            if rubric_result.acceptance_contract_hash is not None:
+                identity["version_hash"] = rubric_result.acceptance_contract_hash
             if rubric_result.accepted:
                 return _receipt(common, identity, stage="ACCEPTED", status="OK")
             return _receipt(
