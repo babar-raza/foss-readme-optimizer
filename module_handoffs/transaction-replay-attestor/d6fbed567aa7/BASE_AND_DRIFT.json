@@ -1,0 +1,13 @@
+{
+  "base_sha": "d6fbed567aa7d99dd0e065944e3694cb6ebd5ced",
+  "short_sha": "d6fbed567aa7",
+  "branch": "claude/standalone-transaction-replay-attestor-d6fbed567aa7",
+  "lane_root": "runs/parallel_staging/transaction-replay-attestor/d6fbed567aa7d99dd0e065944e3694cb6ebd5ced",
+  "bootstrap_source": "git ls-remote origin refs/heads/main, captured before any lane work began",
+  "upstream_main_at_bootstrap": "d6fbed567aa7d99dd0e065944e3694cb6ebd5ced",
+  "upstream_main_at_handoff_time": "8252bfe648c4bf79fd7b736069f7fd503fb5b74e",
+  "drift_observed": true,
+  "drift_detail": "Upstream origin/main advanced past BASE_SHA while this lane was in progress (a concurrent session was observed modifying local_poc_review_evidence.py, local_poc_snapshot_evidence.py, local_poc_superseded.py, and adding local_poc_failure_recovery.py in the shared working directory outside this lane -- none of those paths were touched here). Per the task's isolation directive ('record drift but stay pinned'), this lane's clone was never fetched/rebased/merged against the new upstream tip; it remains checked out at BASE_SHA plus exactly the two commits listed in COMMITS.txt. The new upstream commits' objects are not present in this clone's local object database (git log BASE_SHA..8252bfe6 returns nothing locally) since --no-checkout clone only fetched objects reachable from BASE_SHA at bootstrap time.",
+  "action_taken": "none -- recorded only, per instruction not to merge/rebase/pull",
+  "recommended_next_step": "Codex (or whoever integrates this branch) should rebase/merge in the normal course of integration, at which point any real conflicts with the concurrent local_poc_* edits can be resolved -- this lane's owned paths do not intersect those files, so no conflict is expected, but this has not been verified against the new tip."
+}
