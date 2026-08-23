@@ -35,6 +35,7 @@ from readme_agent.state.readme_poc_lifecycle import (
 from readme_agent.state.schema import DomainStateV1
 from readme_agent.supervisor.execution_context import readme_poc_stage_limit_active
 from readme_agent.supervisor.local_poc_review_evidence import (
+    seal_partial_local_poc_review_evidence,
     write_local_poc_no_op_evidence,
     write_local_poc_review_evidence,
 )
@@ -364,6 +365,8 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                     observed_by=INDEPENDENT_VERIFICATION,
                     reason=f"independent review wiring failed: {type(exc).__name__}: {exc}",
                 )
+        if local_bundle_dir is not None:
+            seal_partial_local_poc_review_evidence(local_bundle_dir)
         return {
             "accepted_status": f"ERROR:independent_review_exception:{type(exc).__name__}: {exc}",
             "details": merge_details(

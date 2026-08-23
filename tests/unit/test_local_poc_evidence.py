@@ -32,6 +32,9 @@ from readme_agent.supervisor.local_poc_evidence import (
     write_local_poc_readme_candidate,
     write_local_poc_snapshot,
 )
+from readme_agent.supervisor.local_poc_review_evidence import (
+    seal_partial_local_poc_review_evidence,
+)
 from readme_agent.supervisor.presentation_component_versions import SelectedDependencyV1
 from readme_agent.supervisor.stage_dependencies import (
     build_stage_dependency_manifest,
@@ -72,6 +75,25 @@ def test_private_stage_manifest_omits_retry_local_runtime_accounting(
         (compatibility / "manifest.json").read_text(encoding="utf-8")
     )
     assert compatibility_manifest["llm_call_ids"] == ["retry-local-call"]
+
+
+def test_partial_review_cache_is_sealed_for_checksum_valid_resume(tmp_path: Path) -> None:
+    bundle_dir = tmp_path / "bundle"
+    (bundle_dir / "source").mkdir(parents=True)
+    (bundle_dir / "source" / "revision.json").write_text("{}\n", encoding="utf-8")
+    refresh_sha256sums(bundle_dir)
+    cache_file = bundle_dir / "review" / "bounded-packet-cache" / f"{'a' * 64}.json"
+    cache_file.parent.mkdir(parents=True)
+    cache_file.write_text('{"verdict":"ACCEPT"}\n', encoding="utf-8")
+
+    assert verify_sha256sums(bundle_dir) is False
+
+    seal_partial_local_poc_review_evidence(bundle_dir)
+
+    assert verify_sha256sums(bundle_dir) is True
+    assert "review/bounded-packet-cache" in (bundle_dir / "sha256sums.txt").read_text(
+        encoding="utf-8"
+    )
 
 
 def _snapshot(

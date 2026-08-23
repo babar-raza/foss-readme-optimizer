@@ -46,6 +46,12 @@ def _repair_attempt_count(repair_history: list[dict]) -> int:
     return max(attempts, default=0)
 
 
+def seal_partial_local_poc_review_evidence(bundle_dir: Path) -> None:
+    """Bind completed packet caches after a fail-closed review interruption."""
+
+    refresh_sha256sums(bundle_dir)
+
+
 def write_local_poc_review_evidence(
     bundle_dir: Path,
     *,
