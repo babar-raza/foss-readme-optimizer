@@ -129,12 +129,13 @@ def test_mermaid_is_a_connected_corporate_capability_landscape():
     assert "  PRODUCT --> C1" not in visual.mermaid_source
     assert "  PRODUCT --> O1" not in visual.mermaid_source
     assert "linkStyle default" not in visual.mermaid_source
+    invisible_edges = visual.mermaid_source.count("~~~")
     assert (
         "  linkStyle "
-        + ",".join(str(index) for index in range(3))
+        + ",".join(str(index) for index in range(invisible_edges, invisible_edges + 3))
         + " stroke:#526D82,stroke-width:2px"
     ) in visual.mermaid_source
-    assert "~~~" not in visual.mermaid_source
+    assert not re.search(r"(?m)^\s*C\d+\s+(?:---|-->)\s+C\d+\s*$", visual.mermaid_source)
     assert "" not in visual.mermaid_source.splitlines()
 
 
@@ -317,8 +318,8 @@ def test_mermaid_columns_stay_short_and_balanced(count: int):
     else:
         assert '    subgraph CORE_LEFT[" "]' in source
         assert '    subgraph CORE_RIGHT[" "]' in source
-        assert "    CORE_LEFT ~~~ CORE_RIGHT" not in source
-    assert not re.search(r"(?m)^\s*C\d+\s+(?:~~~|---|-->)\s+C\d+\s*$", source)
+        assert "    CORE_LEFT ~~~ CORE_RIGHT" in source
+    assert not re.search(r"(?m)^\s*C\d+\s+(?:---|-->)\s+C\d+\s*$", source)
     assert validate_capability_group_layout(source, [node.node_id for node in nodes])
 
 

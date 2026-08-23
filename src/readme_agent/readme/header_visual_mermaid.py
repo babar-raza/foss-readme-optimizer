@@ -6,7 +6,10 @@ import re
 import textwrap
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
-from readme_agent.readme.header_visual_layout import render_capability_group
+from readme_agent.readme.header_visual_layout import (
+    render_capability_group,
+    split_capability_columns,
+)
 from readme_agent.readme.header_visual_models import MermaidNodeV1
 from readme_agent.readme.presentation_contract import PRESENTATION_MERMAID_MAX_LABEL_CHARACTERS
 
@@ -207,7 +210,13 @@ def render_capability_landscape(nodes: list[MermaidNodeV1]) -> str:
         )
     if grouped["output"]:
         lines.append("  style OUTPUTS fill:#F7FBF8,stroke:#78A889,stroke-width:1.5px")
+    columns = split_capability_columns(grouped["capability"])
+    invisible_edges = sum(max(len(column) - 1, 0) for column in columns)
+    if len(columns) == 2:
+        invisible_edges += 1
     visible_edges = 1 + bool(grouped["input"]) + bool(grouped["output"])
-    visible_edge_indexes = ",".join(str(index) for index in range(visible_edges))
+    visible_edge_indexes = ",".join(
+        str(index) for index in range(invisible_edges, invisible_edges + visible_edges)
+    )
     lines.append(f"  linkStyle {visible_edge_indexes} stroke:#526D82,stroke-width:2px")
     return "\n".join(lines)
