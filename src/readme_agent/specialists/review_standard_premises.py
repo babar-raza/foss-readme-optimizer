@@ -65,6 +65,26 @@ def _enterprise_scope_context_is_configured(
     )
 
 
+def _api_reference_is_structurally_complete(candidate_text: str) -> bool:
+    body = _h2_body(candidate_text, "API Reference")
+    return bool(
+        re.search(
+            r"(?ms)<details>\s*<summary>View public API by namespace</summary>.*?"
+            r"^### [^\r\n]+ Namespace \(`[^`]+`\)\s*$.*?"
+            r"^\| Type \| Description \|\s*$.*?</details>",
+            body,
+        )
+    )
+
+
+def _capabilities_are_action_led(candidate_text: str) -> bool:
+    body = _h2_body(candidate_text, "Key Capabilities")
+    rows = [line.strip() for line in body.splitlines() if line.strip().startswith("- **")]
+    return bool(rows) and all(
+        re.fullmatch(r"- \*\*[A-Z][^*]+\*\* - [A-Z][^\r\n]+\.", row) is not None for row in rows
+    )
+
+
 def validate_configured_standard_premise(
     *,
     finding_id: str,
@@ -77,6 +97,34 @@ def validate_configured_standard_premise(
 
     standards = _configured_standards(visitor_contract)
     errors: list[str] = []
+
+    api_reference_premise = section.strip().casefold() == "api-reference" and any(
+        phrase in premise
+        for phrase in (
+            "does not provide visible, usable content",
+            "contains no visible content",
+            "collapsed <details> block that contains no",
+            "does not clearly describe the product",
+            "replace the generic namespace list",
+        )
+    )
+    if api_reference_premise and _api_reference_is_structurally_complete(candidate_text):
+        errors.append(
+            f"{finding_id}:API-reference premise contradicts complete collapsed namespace tables"
+        )
+
+    capability_premise = section.strip().casefold() == "key-capabilities" and any(
+        phrase in premise
+        for phrase in (
+            "inventory fragments",
+            "lacks a clear developer-facing outcome",
+            "rewrite to state a concrete developer task",
+        )
+    )
+    if capability_premise and _capabilities_are_action_led(candidate_text):
+        errors.append(
+            f"{finding_id}:capability premise contradicts action-led same-line behavior rows"
+        )
 
     example_standard = standards.get("readme.primary_example") or {}
     claims_collapsed_examples_are_wrong = "secondary examples" in premise and (

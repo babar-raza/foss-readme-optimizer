@@ -303,6 +303,7 @@ def validate_review_findings(
                         candidate_text,
                         visitor_contract or {},
                         mechanical_observations,
+                        complete_candidate_text=mechanical_candidate_text,
                     )
                 )
             continue
@@ -373,6 +374,8 @@ def _validate_quality_finding(
     candidate_text: str,
     visitor_contract: dict,
     mechanical_observations: dict,
+    *,
+    complete_candidate_text: str | None = None,
 ) -> list[str]:
     """Reject visible-quality premises contradicted by their quote or configured contract."""
 
@@ -385,7 +388,7 @@ def _validate_quality_finding(
             finding_id=finding.finding_id,
             section=finding.section,
             premise=premise,
-            candidate_text=candidate_text,
+            candidate_text=complete_candidate_text or candidate_text,
             visitor_contract=visitor_contract,
         )
     )

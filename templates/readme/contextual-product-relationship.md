@@ -1,1 +1,1 @@
-This repository contains [{foss_product_name}]({foss_url}). For requirements beyond the FOSS scope described above, see [{enterprise_product_name} Enterprise Edition]({enterprise_url}). It is a separate product, so features and APIs may differ.
+This repository contains [{foss_product_name}]({foss_url}). For broader feature coverage beyond the documented FOSS scope, see [{enterprise_product_name} Enterprise Edition]({enterprise_url}). It is a separate product, so features and APIs may differ.
