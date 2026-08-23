@@ -232,6 +232,8 @@ def aggregate_packet_results(
 
     conflicting_ids: set[str] = set()
     for overlap in coverage_ledger.overlaps:
+        if overlap.subject.startswith("visitor-neighbor-context:"):
+            continue
         involved = [packet_id for packet_id in overlap.packet_ids if packet_id in results]
         if len(involved) < 2:
             continue

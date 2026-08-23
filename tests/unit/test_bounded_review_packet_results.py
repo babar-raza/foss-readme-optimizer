@@ -61,11 +61,11 @@ def test_stale_candidate_hash_in_result_fails_closed() -> None:
 
 
 # --------------------------------------------------------------------------------------------
-# 15. Conflicting overlapping packets -> CONFLICT
+# 15. Context overlap is non-authoritative; authoritative overlap may conflict
 # --------------------------------------------------------------------------------------------
 
 
-def test_conflicting_overlapping_packets_yield_conflict() -> None:
+def test_neighbor_context_disagreement_routes_repair_instead_of_conflict() -> None:
     plan = _plan()
     units = _atomic_units()
     ledger = brp.build_coverage_ledger(plan, atomic_units=units)
@@ -79,8 +79,29 @@ def test_conflicting_overlapping_packets_yield_conflict() -> None:
     )
 
     aggregate = brp.aggregate_packet_results(plan, ledger, results)
+    assert aggregate.overall == "REJECTED"
+    assert aggregate.rejected_packet_ids == (rejected_id,)
+
+
+def test_conflicting_authoritative_overlap_yields_conflict() -> None:
+    plan = _plan()
+    units = _atomic_units()
+    ledger = brp.build_coverage_ledger(plan, atomic_units=units)
+    packets = list(plan.visitor_packets[:2])
+    authoritative_overlap = brp.CoverageOverlapV1(
+        subject="authoritative-target-overlap:synthetic",
+        packet_ids=(packets[0].packet_id, packets[1].packet_id),
+        reason="synthetic authoritative overlap for reducer coverage",
+    )
+    ledger = ledger.model_copy(update={"overlaps": (*ledger.overlaps, authoritative_overlap)})
+    results = _all_accept_results(
+        plan,
+        overrides={packets[1].packet_id: _reject_result_for(packets[1])},
+    )
+
+    aggregate = brp.aggregate_packet_results(plan, ledger, results)
     assert aggregate.overall == "CONFLICT"
-    assert set(overlap.packet_ids) <= set(aggregate.conflicting_packet_ids)
+    assert set(authoritative_overlap.packet_ids) <= set(aggregate.conflicting_packet_ids)
 
 
 # --------------------------------------------------------------------------------------------
