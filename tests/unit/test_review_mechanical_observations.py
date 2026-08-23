@@ -345,6 +345,42 @@ def test_quality_quote_must_belong_to_its_named_visible_section() -> None:
     assert any("outside the named candidate section" in error for error in result.errors)
 
 
+def test_quality_quote_accepts_stable_section_slug_for_visible_heading() -> None:
+    candidate = """# Product
+
+## At a Glance
+
+```mermaid
+flowchart LR
+  PRODUCT[\"Product\"]
+```
+
+## Key Capabilities
+
+- Read documents
+"""
+    finding = GroundedReviewFindingV1(
+        finding_id="slug-bound-at-a-glance",
+        kind="quality",
+        criterion="clarity",
+        section="at-a-glance",
+        claim="The diagram needs a clearer product label.",
+        quoted_candidate_span='PRODUCT["Product"]',
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair="Replace the product label with its full product name.",
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=_visitor_contract(),
+    )
+
+    assert result.valid, result.errors
+
+
 def test_heading_only_quote_cannot_prove_another_sections_order() -> None:
     candidate = """# Product
 

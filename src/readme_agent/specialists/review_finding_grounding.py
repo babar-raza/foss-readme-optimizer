@@ -12,7 +12,7 @@ from markdown_it import MarkdownIt
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from readme_agent.readme.agentic_composition_inputs import compact_prompt_fact_value
-from readme_agent.readme.document_structure import parse_headings
+from readme_agent.readme.document_structure import heading_identity, parse_headings
 from readme_agent.readme.fact_grounding import fact_strings
 from readme_agent.readme.presentation_contract import PRESENTATION_ENTERPRISE_LINK_SECTION
 from readme_agent.specialists.factual_review_projection import (
@@ -997,13 +997,13 @@ def _quality_quote_matches_named_section(
 ) -> bool:
     """Require a quality quote to occur inside the H2 it claims to describe."""
 
-    normalized = section.strip().casefold()
+    normalized = heading_identity(section)
     if normalized in {"", "header", "overview", "readme", "document"}:
         return True
     headings = [
         heading
         for heading in parse_headings(candidate_text)
-        if heading.level == 2 and heading.title.strip().casefold() == normalized
+        if heading.level == 2 and heading_identity(heading.title) == normalized
     ]
     if not headings:
         return False
