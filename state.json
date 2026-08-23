@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
-    "active_task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP",
+    "active_task_id": null,
     "approach_control": {
       "attempts": [
         {
@@ -1476,10 +1476,12 @@
           "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "claim lease expired"
+          ],
           "fingerprint": "78a93f584bba22fd005feb362d728c3acfde70808069c9a362b7c40f89b1bcd4",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-23T03:21:13.235360+00:00",
           "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP"
         }
@@ -2510,10 +2512,10 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-23T03:51:13.235360+00:00",
-    "claim_id": "55712f7996ba499080f5e7b6fb94e6bc",
-    "claimed_at": "2026-08-23T03:21:13.235360+00:00",
-    "claimed_by": "codex",
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "a6332e121c3ec41b5846f70a47c2c7ea9b31e5755519156a94b389236d7a0ef9",
@@ -2746,7 +2748,7 @@
     ],
     "graph_sha256": "a6332e121c3ec41b5846f70a47c2c7ea9b31e5755519156a94b389236d7a0ef9",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-23T03:52:13.198987+00:00",
+    "last_evaluated_at": "2026-08-23T03:52:32.501984+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -2870,25 +2872,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "campaign_id": "CAMP-FIRST-PYTHON-SLICE",
-      "core_contribution": {
-        "kind": "first_boundary_removal",
-        "summary": "Establish the first independently sealed unit of portfolio delivery."
-      },
-      "goal_ids": [
-        "GOAL-README",
-        "GOAL-AUTONOMY",
-        "GOAL-DELIVERY"
-      ],
-      "immediate_goal_id": "DELIVERY-FIRST-SEALED-NO-OP",
-      "immediate_outcome": "Seal Aspose.3D Python at 30 of 30 and prove exact zero-call no-op.",
-      "repository_scope": [
-        "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
-      ],
-      "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
-      "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP"
-    },
+    "next_task": null,
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
@@ -2949,7 +2933,7 @@
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
       "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
       "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "CLOSED",
-      "L8-PF-03-SEALED-CANDIDATE-NO-OP": "IN_PROGRESS",
+      "L8-PF-03-SEALED-CANDIDATE-NO-OP": "REGRESSED",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "TODO",
       "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "TODO",
       "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP": "TODO",
@@ -13035,6 +13019,15 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-23T03:52:32.502009+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -13044,7 +13037,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1306,
+  "state_version": 1307,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
