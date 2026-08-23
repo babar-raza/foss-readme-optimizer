@@ -31,6 +31,14 @@ def _visitor_contract() -> dict:
                     "maximum_nonblank_code_lines": 8,
                 },
             },
+            {
+                "standard_id": "readme.at_a_glance_mermaid",
+                "parameters": {
+                    "directional_workflow": True,
+                    "minimum_capabilities": 1,
+                    "capability_column_threshold": 5,
+                },
+            },
         ]
     }
 
@@ -379,6 +387,69 @@ flowchart LR
     )
 
     assert result.valid, result.errors
+
+
+def test_quality_findings_cannot_invert_outer_mermaid_or_evidence_scaled_counts() -> None:
+    candidate = """# Product
+
+## At a Glance
+
+```mermaid
+flowchart LR
+  I1["Input"]
+  PRODUCT["Product"]
+  subgraph CORE["Core Capabilities"]
+    C1["Create content"]
+    C2["Read content"]
+  end
+  O1["Output"]
+  I1 --> PRODUCT
+  PRODUCT --> CORE
+  CORE --> O1
+```
+
+## Key Capabilities
+
+- **Create content** - Build product content.
+- **Read content** - Inspect product content.
+"""
+    diagram_start = candidate.index("```mermaid")
+    diagram = candidate[diagram_start : candidate.index("```", diagram_start + 3) + 3]
+    findings = [
+        GroundedReviewFindingV1(
+            finding_id="wrong-direction",
+            kind="quality",
+            criterion="hierarchy",
+            section="at-a-glance",
+            claim="Directional workflow arrows violate the configured topology.",
+            quoted_candidate_span=diagram,
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Replace directional arrows with undirected connectors.",
+        ),
+        GroundedReviewFindingV1(
+            finding_id="wrong-capability-minimum",
+            kind="quality",
+            criterion="template_genericity",
+            section="key-capabilities",
+            claim="The section contains only two items, which is insufficient.",
+            quoted_candidate_span="## Key Capabilities",
+            disposition="requires_repair",
+            polarity_result="not_applicable",
+            required_repair="Add at least three capability statements.",
+        ),
+    ]
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=findings,
+        visitor_contract=_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert any("configured outer workflow" in error for error in result.errors)
+    assert any("exceeds configured minimum" in error for error in result.errors)
 
 
 def test_heading_only_quote_cannot_prove_another_sections_order() -> None:

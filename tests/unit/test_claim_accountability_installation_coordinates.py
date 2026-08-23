@@ -14,7 +14,9 @@ from readme_agent.readme.document_templates import installation_text
 _REVISION = "a" * 40
 _ORG_REPO = "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
 _DISTRIBUTION = "aspose-3d-foss"
-_SOURCE_BUILD_CLAIM = f"Use source installation for the `{_DISTRIBUTION}` distribution."
+_SOURCE_BUILD_CLAIM = (
+    f"This builds and installs the `{_DISTRIBUTION}` Python distribution from source."
+)
 
 
 def _source_build_facts() -> ProductFactsV2:
@@ -157,7 +159,7 @@ def test_partial_or_spoofed_generated_claim_is_not_a_structured_coordinate() -> 
     exact_text = rendered.encode("utf-8")[exact.source_byte_start : exact.source_byte_end].decode()
     for document in (
         f"The `{_DISTRIBUTION}` distribution is available.\n",
-        exact_text.replace("source installation", "PyPI installation") + "\n",
+        exact_text.replace("from source", "from PyPI") + "\n",
     ):
         claim = _claim_containing(document, _DISTRIBUTION)
         assert "installation.coordinates" not in _coordinate_fields(document, claim, facts)

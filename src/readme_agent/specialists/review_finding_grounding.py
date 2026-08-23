@@ -330,6 +330,7 @@ def _validate_quality_finding(
             "appears after",
             "contains enterprise edition",
             "duplicate",
+            "duplication",
             "duplicated",
             "must be placed",
             "not in the license section",
@@ -349,6 +350,30 @@ def _validate_quality_finding(
         errors.append(
             f"{finding.finding_id}:heading-only quote cannot prove the claimed section content"
         )
+    if "more than five" in premise or "for more than five" in premise:
+        mermaid = next(
+            iter(re.findall(r"(?ms)^```mermaid[ \t]*\r?\n(.*?)^```[ \t]*$", quote)),
+            "",
+        )
+        if mermaid and len(re.findall(r'(?m)^[ \t]*C\d+\["', mermaid)) <= 5:
+            errors.append(
+                f"{finding.finding_id}:capability-column premise contradicts parsed node count"
+            )
+    if "only two items" in premise and "insufficient" in premise:
+        minimum = int(
+            next(
+                (
+                    item.get("parameters", {}).get("minimum_capabilities", 1)
+                    for item in visitor_contract.get("configured_standards", [])
+                    if item.get("standard_id") == "readme.at_a_glance_mermaid"
+                ),
+                1,
+            )
+        )
+        if minimum <= 2:
+            errors.append(
+                f"{finding.finding_id}:capability-count premise exceeds configured minimum"
+            )
     if removes_prose_block and re.match(r"^#{1,6}[ \t]+", first_quoted_line):
         errors.append(
             f"{finding.finding_id}:repair quote identifies a heading instead of the prose to remove"

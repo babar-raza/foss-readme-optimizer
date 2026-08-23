@@ -2380,8 +2380,9 @@ def test_capability_examples_and_api_style_regressions_fail() -> None:
         validate_repository_presentation(invalid_seo_title, template_input)
     )
     invalid_layout = candidate.replace(
-        "    C1 ~~~ C2\n",
-        "",
+        '    C1["',
+        "    C1 ~~~ C2\n" + '    C1["',
+        1,
     )
     assert "Mermaid capability nodes must use the adaptive column layout" in (
         validate_repository_presentation(invalid_layout, template_input)
@@ -2390,7 +2391,7 @@ def test_capability_examples_and_api_style_regressions_fail() -> None:
     sections = {
         **template_input.sections,
         "additional_examples": _fact(
-            "Expand this section to view examples for inspecting a page.\n\n"
+            "Explore workflows for inspecting a page.\n\n"
             "<details>\n<summary>View additional examples and results</summary>\n\n"
             "### Inspect a page\n\n```python\nprint('page')\n```\n\n</details>",
             "examples:page",
@@ -2407,7 +2408,7 @@ def test_capability_examples_and_api_style_regressions_fail() -> None:
     extended = template_input.model_copy(update={"sections": sections})
     extended_candidate = compile_repository_presentation(extended)
     invalid_examples = extended_candidate.replace(
-        "Expand this section to view examples for inspecting a page.",
+        "Explore workflows for inspecting a page.",
         "The inline workflows below were checked but not executed.",
     )
     invalid_api = extended_candidate.replace(
@@ -2507,7 +2508,11 @@ def test_blind_visitor_contract_is_derived_from_the_accepted_template() -> None:
     assert standards["readme.at_a_glance_mermaid"]["capability_coverage"] == "all_selected_verified"
     assert standards["readme.at_a_glance_mermaid"]["maximum_capabilities_per_group"] == 6
     assert standards["readme.at_a_glance_mermaid"]["target_outputs"] == 5
-    assert standards["readme.at_a_glance_mermaid"]["directional_workflow"] is False
+    assert standards["readme.at_a_glance_mermaid"]["directional_workflow"] is True
+    assert (
+        standards["readme.at_a_glance_mermaid"]["internal_capability_connectors"]
+        == "transparent_layout_only"
+    )
     assert (
         standards["readme.at_a_glance_mermaid"]["capability_layout"] == "adaptive_vertical_columns"
     )

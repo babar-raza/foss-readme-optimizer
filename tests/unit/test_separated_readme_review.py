@@ -246,9 +246,9 @@ flowchart LR
   subgraph Outputs["Outputs"]
     O1["Text and PDF"]
   end
-  I1 --- PRODUCT
-  PRODUCT --- Capabilities
-  Capabilities --- Outputs
+  I1 --> PRODUCT
+  PRODUCT --> Capabilities
+  Capabilities --> Outputs
 ```
 
 ## Quick start
@@ -414,9 +414,9 @@ def test_blind_grounding_uses_visible_counts_and_scope_placement() -> None:
         '  subgraph Outputs["Outputs and accessible content"]\n'
         '    output_1["Document model"]\n'
         "  end\n"
-        "  input_1 --- product\n"
-        "  product --- capability_1\n"
-        "  capability_1 --- output_1\n"
+        "  input_1 --> product\n"
+        "  product --> capability_1\n"
+        "  capability_1 --> output_1\n"
         "```\n\n"
         "## Quick start\n\n"
         "```python\nfrom example import Document\n\nprint(Document('input.example'))\n```\n\n"
@@ -582,9 +582,9 @@ flowchart LR
   subgraph Outputs["Outputs and accessible content"]
     output_1["PDF output"]
   end
-  input_1 --- product
-  product --- capability_1
-  product --- output_1
+  input_1 --> product
+  product --> capability_1
+  product --> output_1
 ```
 """
     finding = GroundedReviewFindingV1.model_validate(
@@ -639,9 +639,9 @@ flowchart LR
     output_1["Document object model"]
     output_2["PDF documents"]
   end
-  input_1 --- product
-  product --- capability_1
-  product --- output_1
+  input_1 --> product
+  product --> capability_1
+  product --> output_1
 ```"""
     details = "<details>\n<summary>Show additional examples</summary>\n\nExample.\n</details>"
     relationship = (
@@ -726,7 +726,7 @@ flowchart LR
     assert result.valid is False
     assert result.errors == [
         "collapsed-examples:collapsed-example premise contradicts configured presentation",
-        "directional-mermaid:Mermaid-direction premise contradicts parsed connectors",
+        "directional-mermaid:Mermaid-direction premise contradicts configured outer workflow",
         "thin-mermaid:Mermaid-role-count premise contradicts parsed candidate",
         "promotional-scope:Enterprise-scope premise contradicts configured candidate context",
     ]

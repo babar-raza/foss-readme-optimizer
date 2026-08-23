@@ -116,7 +116,8 @@ def build_presentation_visitor_contract(
                     "maximum_capabilities_per_group": (
                         contract.invariants.target_mermaid_capabilities
                     ),
-                    "directional_workflow": False,
+                    "directional_workflow": True,
+                    "internal_capability_connectors": "transparent_layout_only",
                     "product_to_capabilities_edges": 1,
                     "capabilities_to_outputs_edges": 1,
                 },

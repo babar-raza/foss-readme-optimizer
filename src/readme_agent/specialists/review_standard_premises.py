@@ -99,6 +99,27 @@ def validate_configured_standard_premise(
         and not _has_directional_connector(mermaid)
     ):
         errors.append(f"{finding_id}:Mermaid-direction premise contradicts parsed connectors")
+    if (
+        claims_directional
+        and mermaid_standard.get("directional_workflow") is True
+        and mermaid
+        and _has_directional_connector(mermaid)
+    ):
+        errors.append(
+            f"{finding_id}:Mermaid-direction premise contradicts configured outer workflow"
+        )
+    claims_internal_capability_connectors = "capabilit" in premise and any(
+        phrase in premise
+        for phrase in ("internal capability", "bidirectional tilde", "tildes between")
+    )
+    if (
+        claims_internal_capability_connectors
+        and mermaid_standard.get("internal_capability_connectors") == "transparent_layout_only"
+        and "stroke:transparent" in mermaid
+    ):
+        errors.append(
+            f"{finding_id}:internal-connector premise contradicts transparent layout edges"
+        )
 
     claims_missing_roles = (
         any(phrase in premise for phrase in ("does not show", "fewer than"))

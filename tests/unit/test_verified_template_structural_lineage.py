@@ -382,7 +382,7 @@ def test_additional_examples_preview_public_workflows_without_internal_assurance
     examples = additional_examples_markdown(_facts())
 
     assert examples is not None
-    assert examples.startswith("Expand this section to view examples for ")
+    assert examples.startswith("Explore workflows for ")
     assert "| Example source | Verification |" not in examples
     assert "source revision" not in examples
     assert "not executed" not in examples

@@ -208,6 +208,12 @@ def render_capability_landscape(nodes: list[MermaidNodeV1]) -> str:
     if grouped["output"]:
         lines.append("  style OUTPUTS fill:#F7FBF8,stroke:#78A889,stroke-width:1.5px")
     hidden_layout_edges = max(0, len(grouped["capability"]) - 1)
+    if hidden_layout_edges:
+        lines.append(
+            "  linkStyle "
+            + ",".join(str(index) for index in range(hidden_layout_edges))
+            + " stroke:transparent,fill:none;"
+        )
     visible_edges = 1 + bool(grouped["input"]) + bool(grouped["output"])
     visible_edge_indexes = ",".join(
         str(index) for index in range(hidden_layout_edges, hidden_layout_edges + visible_edges)

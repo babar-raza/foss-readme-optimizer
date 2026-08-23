@@ -35,7 +35,7 @@ _OPENING_SUMMARY_FACT_FIELDS = {
     "product.problems_solved",
 }
 _PUBLIC_EXAMPLE_INTRO = re.compile(
-    r"\AExpand this section to (?:view examples for|browse) .+\.\Z",
+    r"\A(?:Explore workflows for|Expand this section to (?:view examples for|browse)) .+\.\Z",
     re.DOTALL,
 )
 _API_REFERENCE_TABLE = re.compile(

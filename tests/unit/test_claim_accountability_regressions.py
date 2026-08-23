@@ -296,7 +296,7 @@ def test_verified_inline_examples_support_scoped_assurance_and_unique_headings()
     assert "Quick Start (" not in rendered
     assert "🚀" not in rendered
     assert introduced_duplicate_headings("", "## Quick start\n\n" + rendered) == []
-    assert rendered.startswith("Expand this section to view examples for ")
+    assert rendered.startswith("Explore workflows for ")
     assert "| Example source | Verification |" not in rendered
     assert "Syntax and static public API checked" not in rendered
     fact_id = facts.selected_fact_ids["repository.examples"]
@@ -380,7 +380,7 @@ def test_canonical_public_example_preview_binds_its_repository_fact() -> None:
             ]
         },
     )
-    claim = "Expand this section to view examples for converting a file."
+    claim = "Explore workflows for converting a file."
     fact_id = facts.selected_fact_ids["repository.examples"]
     binding = _binding(claim, fact_id)[0].model_copy(
         update={"configured_standard_ids": ["readme.additional_examples"]}

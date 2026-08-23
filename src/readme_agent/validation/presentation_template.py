@@ -168,7 +168,7 @@ def validate_repository_presentation(
         body = candidate[additional_examples.heading_end : additional_examples.section_end].strip()
         introduction = body.partition("<details>")[0].strip()
         if (
-            not introduction.startswith("Expand this section to ")
+            not introduction.startswith("Explore workflows for ")
             or "<summary>View additional examples and results</summary>" not in body
             or re.search(r"(?m)^### .+ \(\d+\)$", body) is not None
         ):

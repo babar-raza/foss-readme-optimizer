@@ -136,6 +136,7 @@ def test_mermaid_is_a_connected_corporate_capability_landscape():
         + ",".join(str(index) for index in range(first_visible_edge, first_visible_edge + 3))
         + " stroke:#526D82,stroke-width:2px"
     ) in visual.mermaid_source
+    assert " stroke:transparent,fill:none;" in visual.mermaid_source
     assert "" not in visual.mermaid_source.splitlines()
 
 

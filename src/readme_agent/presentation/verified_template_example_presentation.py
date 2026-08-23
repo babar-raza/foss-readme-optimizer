@@ -48,6 +48,10 @@ def _imported_python_types(code: str) -> list[str]:
 
 def _semantic_title(code: str, language: str) -> str:
     normalized = " ".join(code.split())
+    if language.casefold() == "python" and "ObjLoadOptions" in code:
+        return "Load OBJ Files With Materials"
+    if language.casefold() == "python" and "GltfSaveOptions" in code:
+        return "Export a Scene to Binary GLTF"
     if "DisplayName" in code and re.search(r"\.Title\b|TitleText", code):
         return "Inspect document metadata and page titles"
     if re.search(r"(?i)Save\s*\([^)]*\.pdf|SaveFormat\.Pdf|PdfSaveOptions", code):
@@ -195,7 +199,7 @@ def public_examples_introduction(
     if has_result_assets:
         phrases.append("viewing generated example results")
     if not phrases:
-        return "Expand this section to browse additional repository examples."
+        return "Explore additional repository workflows."
     if len(phrases) == 1:
         rendered = phrases[0]
     else:
@@ -203,7 +207,7 @@ def public_examples_introduction(
     suffix = (
         f", plus {extras} more {'workflow' if extras == 1 else 'workflows'}" if extras > 0 else ""
     )
-    return f"Expand this section to view examples for {rendered}{suffix}."
+    return f"Explore workflows for {rendered}{suffix}."
 
 
 __all__ = ["public_example_title", "public_examples_introduction"]

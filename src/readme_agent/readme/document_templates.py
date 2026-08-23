@@ -263,14 +263,15 @@ def installation_text(
             return None
         repository_name = org_repo.split("/", 1)[1]
         return (
-            "Install the package directly from its source repository:\n\n"
+            f"Install `{package_name}` directly from the repository source. The detached "
+            "checkout pins these instructions to the documented source revision.\n\n"
             "```bash\n"
             f"git clone https://github.com/{org_repo}.git\n"
             f"cd {repository_name}\n"
             f"git checkout --detach {source_revision}\n"
             "python -m pip install .\n"
             "```\n\n"
-            f"Use source installation for the `{package_name}` distribution."
+            f"This builds and installs the `{package_name}` Python distribution from source."
         )
     if method == "source_tree" and ecosystem == "python":
         try:

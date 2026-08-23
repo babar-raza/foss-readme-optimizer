@@ -25,7 +25,8 @@ _SECTION_FIELDS: tuple[tuple[str, SectionAuthoringTaskFamily, str, tuple[str, ..
     (
         "key_capabilities",
         "capability_entry_cluster",
-        "Describe concrete visitor-facing capabilities without installation or verification prose.",
+        "Write direct, action-led capability headings and concise same-line explanations. Avoid "
+        "product-inventory phrasing, filler, installation, and verification prose.",
         (
             "product.capabilities",
             "aspose.feature_claims",
@@ -34,7 +35,8 @@ _SECTION_FIELDS: tuple[tuple[str, SectionAuthoringTaskFamily, str, tuple[str, ..
     (
         "installation",
         "installation_framing",
-        "Briefly frame the supported acquisition path; exact commands are supplied separately.",
+        "Briefly explain the visitor-facing acquisition path and when it is useful. Exact commands "
+        "are supplied separately; do not narrate internal verification.",
         (
             "installation.verified_acquisition",
             "product.compatibility",

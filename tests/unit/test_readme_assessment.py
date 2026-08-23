@@ -661,7 +661,10 @@ def test_verified_python_source_build_renders_pinned_local_checkout_without_fals
     assert f"git checkout --detach {revision}" in rendered
     assert "python -m pip install ." in rendered
     assert "pip install aspose-page-foss" not in rendered
-    assert "Use source installation for the `aspose-page-foss-for-python` distribution" in rendered
+    assert (
+        "This builds and installs the `aspose-page-foss-for-python` Python distribution from source"
+        in rendered
+    )
     assert [badge.badge_id for badge in render_readme_badges(python_facts)] == [
         "version",
         "platform",
@@ -686,9 +689,10 @@ def test_verified_python_source_build_renders_pinned_local_checkout_without_fals
             marker
             in candidate_bytes[record.source_byte_start : record.source_byte_end].decode("utf-8")
             for marker in (
-                "Install the package directly from its source repository",
+                "Install `aspose-page-foss-for-python` directly from the repository source",
                 "git clone https://github.com/example/page-python.git",
-                "Use source installation for the `aspose-page-foss-for-python` distribution",
+                "This builds and installs the `aspose-page-foss-for-python` Python distribution "
+                "from source.",
             )
         )
     ]

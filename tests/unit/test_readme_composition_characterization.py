@@ -34,10 +34,10 @@ DOCUMENT_CASES = (
     (
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
         "# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n",
-        "cbc79611b94171d705a5861ec405079390e503e65985ca86f05fafee59f19af1",
+        "0371d712141aea95257463e843cb59ee5852bfa5fed4373f2c7200f28ed6b1a2",
         # 2026-08-19: hashed with `template_sha256` excluded -- see the
         # module-level note above `test_document_composition_bytes_and_plan_are_characterized`.
-        "498bca9ff3f1fc51c7a73fd944ac84740943682f1ae272216ba5c3c661c59694",
+        "41e0d5d180c31a661696577e4923b3abef5b5e005155ac1b3c61fa63915b3880",
         [
             "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
@@ -57,9 +57,9 @@ DOCUMENT_CASES = (
             "[commercial](https://products.aspose.com/3d/)\n\n"
             '## Usage\n\n```java\nSystem.out.println("legacy");\n```\n'
         ),
-        "676e0d9a81b82427aa62ee9a12640032af24d079b68a63a3604265a3966b0d13",
+        "df8fcbfe7a64b6b0ba82ff0c145ac26d032c3caae3b20c5c9c050272ebbc44ab",
         # 2026-08-19: hashed with `template_sha256` excluded; see cells-Java's note above.
-        "9887dd65e861dc16d233106b4c04badfef946cfa5c06a922457c4dd4d35ebf1a",
+        "e83c899f168ef8525ec6569fb6c2029101cabd4f27349486e79a1520f2017dbd",
         [
             "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
@@ -79,9 +79,9 @@ DOCUMENT_CASES = (
             "**Version 0.0.1**\n\n"
             "## Installation\n\nExisting instructions.\n"
         ),
-        "617605150e13217cd25813d5238ac37da0f1182a080c26a144636c3e2102a3b3",
+        "b76e802829c91422f7b6efe8014b3fa195c95ca888a6ee3b15474f1ec9eed802",
         # 2026-08-19: hashed with `template_sha256` excluded; see cells-Java's note above.
-        "c487777018a0f511cb6b1fe0c1fcec234ade1decffe52e0366340f9a483df7aa",
+        "324d1fd1117ebba543f98bdd2c3f6b9fefe2375e5a33b3f697f298f8e58ee341",
         [
             "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
