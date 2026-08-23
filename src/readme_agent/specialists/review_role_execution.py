@@ -11,6 +11,9 @@ from readme_agent.errors import LLMError
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.verification_prompts import build_role_grounding_retry_message
 from readme_agent.readme.fact_grounding import fact_strings
+from readme_agent.specialists.bounded_review_visitor_scope import (
+    bounded_visitor_scope_errors,
+)
 from readme_agent.specialists.readme_review_roles import (
     BlindQualityReviewResultV1,
     FactualPlanReviewResultV1,
@@ -420,6 +423,8 @@ def run_grounded_role(
     product_facts: dict | None,
     visitor_contract: dict | None = None,
     max_attempts_override: int | None = None,
+    allowed_quality_criteria: frozenset[str] | None = None,
+    allowed_mechanical_check_ids: frozenset[str] | None = None,
 ) -> tuple[
     BlindQualityReviewResultV1 | FactualPlanReviewResultV1,
     list[dict],
@@ -464,7 +469,17 @@ def run_grounded_role(
                 findings=parsed.findings,
                 visitor_contract=visitor_contract,
             )
-            errors = grounding.errors
+            errors = list(grounding.errors)
+            if allowed_quality_criteria is not None:
+                errors.extend(
+                    bounded_visitor_scope_errors(
+                        parsed.findings,
+                        applicable_criteria=allowed_quality_criteria,
+                        applicable_mechanical_check_ids=(
+                            allowed_mechanical_check_ids or frozenset()
+                        ),
+                    )
+                )
             original_errors = list(errors)
             parsed, reconciled_irrelevant_mechanical_ids = _clear_irrelevant_mechanical_references(
                 parsed, errors
@@ -476,7 +491,17 @@ def run_grounded_role(
                     findings=parsed.findings,
                     visitor_contract=visitor_contract,
                 )
-                errors = grounding.errors
+                errors = list(grounding.errors)
+                if allowed_quality_criteria is not None:
+                    errors.extend(
+                        bounded_visitor_scope_errors(
+                            parsed.findings,
+                            applicable_criteria=allowed_quality_criteria,
+                            applicable_mechanical_check_ids=(
+                                allowed_mechanical_check_ids or frozenset()
+                            ),
+                        )
+                    )
             if errors:
                 parsed, dismissed_finding_ids = _drop_ungrounded_blind_sibling_findings(
                     parsed,
@@ -489,7 +514,17 @@ def run_grounded_role(
                         findings=parsed.findings,
                         visitor_contract=visitor_contract,
                     )
-                    errors = grounding.errors
+                    errors = list(grounding.errors)
+                    if allowed_quality_criteria is not None:
+                        errors.extend(
+                            bounded_visitor_scope_errors(
+                                parsed.findings,
+                                applicable_criteria=allowed_quality_criteria,
+                                applicable_mechanical_check_ids=(
+                                    allowed_mechanical_check_ids or frozenset()
+                                ),
+                            )
+                        )
         except LLMError as exc:
             parsed = None
             errors = [str(exc)]

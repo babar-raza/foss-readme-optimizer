@@ -2213,6 +2213,47 @@ def test_irrelevant_mechanical_reference_is_cleared_without_retry() -> None:
     assert history[0]["reconciled_irrelevant_mechanical_finding_ids"] == ["quality.generic-opening"]
 
 
+def test_bounded_scope_retries_a_global_finding_then_accepts_target_quality() -> None:
+    invalid = {
+        **_blind_accept("The packet needs global navigation."),
+        "verdict": "REJECT_REPAIRABLE",
+        "findings": [
+            {
+                **_blind_accept("unused")["findings"][0],
+                "finding_id": "quality.global-navigation",
+                "criterion": "navigation",
+                "claim": "The document navigation is incomplete.",
+                "disposition": "requires_repair",
+                "mechanical_check_id": "document.required_h2_prefix",
+                "reported_observed_value": False,
+                "required_repair": "Add missing document sections to Navigation.",
+            }
+        ],
+    }
+    client = SequenceClient([invalid, _blind_accept("The target section is clear.")])
+
+    result, history, grounding = run_grounded_role(
+        role="blind_quality",
+        prompt_id="blind_readme_quality_review",
+        client=client,
+        messages=[],
+        candidate_text=CANDIDATE,
+        product_facts=None,
+        allowed_quality_criteria=frozenset({"clarity"}),
+        allowed_mechanical_check_ids=frozenset(),
+    )
+
+    assert result.verdict == "ACCEPT"
+    assert grounding.valid is True
+    assert len(client.messages_seen) == 2
+    assert any(
+        "criterion navigation is outside bounded scope" in error for error in history[0]["errors"]
+    )
+    assert history[0]["reconciled_irrelevant_mechanical_finding_ids"] == [
+        "quality.global-navigation"
+    ]
+
+
 def test_uniquely_fused_markdown_quote_is_reconciled_without_retry() -> None:
     candidate = "# Example\n\n## Installation\n\nUse pip.\n"
     parsed = {

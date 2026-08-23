@@ -31,6 +31,7 @@ from readme_agent.specialists.bounded_review_packets import (
     aggregate_packet_results,
     validate_packet_result,
 )
+from readme_agent.specialists.bounded_review_visitor_scope import bounded_visitor_scope
 from readme_agent.specialists.readme_review_roles import (
     BlindQualityReviewResultV1,
     FactualPlanReviewResultV1,
@@ -236,19 +237,18 @@ def execute_bounded_review(
         cached = load_cached(visitor_packet)
         if cached is not None:
             return cached
-        bounded_scope = {
-            "mode": "target_section_only",
-            "target_section_path": visitor_packet.section_path,
-            "finding_evidence_scope": "target_section_anchors_only",
-            "neighbor_context_before": visitor_packet.neighbor_context_before,
-            "neighbor_context_after": visitor_packet.neighbor_context_after,
-        }
+        bounded_scope = bounded_visitor_scope(
+            visitor_packet.section_path,
+            neighbor_context_before=visitor_packet.neighbor_context_before,
+            neighbor_context_after=visitor_packet.neighbor_context_after,
+        )
         messages = build_blind_quality_review_messages(
             org_repo,
             "",
             visitor_packet.section_text,
             _canonical_json(visitor_contract),
             _canonical_json(bounded_scope),
+            mechanical_candidate_text=candidate_text,
         )
         result, attempts, _grounding = run_grounded_role(
             role="blind_quality",
@@ -258,6 +258,10 @@ def execute_bounded_review(
             candidate_text=visitor_packet.section_text,
             product_facts=None,
             visitor_contract=visitor_contract,
+            allowed_quality_criteria=frozenset(bounded_scope["applicable_criteria"]),
+            allowed_mechanical_check_ids=frozenset(
+                bounded_scope["applicable_mechanical_check_ids"]
+            ),
         )
         assert isinstance(result, BlindQualityReviewResultV1)
         bounded = _bounded_result(visitor_packet, result)

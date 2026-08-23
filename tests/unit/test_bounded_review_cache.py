@@ -19,6 +19,10 @@ from readme_agent.presentation.visitor_contract import build_presentation_visito
 from readme_agent.specialists import bounded_review_packets as brp
 from readme_agent.specialists.bounded_review_cache import BoundedReviewCacheContextV1
 from readme_agent.specialists.bounded_review_execution import execute_bounded_review
+from readme_agent.specialists.bounded_review_visitor_scope import (
+    bounded_visitor_scope,
+    bounded_visitor_scope_errors,
+)
 from readme_agent.specialists.review_candidate_anchors import build_candidate_review_anchors
 
 
@@ -104,6 +108,8 @@ def test_visitor_packets_expose_only_target_anchors_as_finding_evidence() -> Non
             )
             assert not any(anchor in content for anchor in neighbor_anchor_ids - target_anchor_ids)
             assert '"mode":"target_section_only"' in content
+            assert '"applicable_criteria"' in content
+            assert '"applicable_mechanical_check_ids"' in content
             return super().analyze(messages)
 
     plan = _plan()
@@ -126,6 +132,31 @@ def test_visitor_packets_expose_only_target_anchors_as_finding_evidence() -> Non
     )
 
     assert execution.aggregate.overall == "ACCEPT"
+
+
+def test_additional_example_packet_cannot_review_global_navigation_or_header_checks() -> None:
+    scope = bounded_visitor_scope(
+        "additional-examples/convert-a-model",
+        neighbor_context_before="## Additional Examples\n",
+        neighbor_context_after="## API Reference\n",
+    )
+    packet = _plan().visitor_packets[0]
+    finding = _accept_finding(packet).model_copy(
+        update={
+            "criterion": "navigation",
+            "mechanical_check_id": "header.badge_rows",
+            "reported_observed_value": 0,
+        }
+    )
+
+    errors = bounded_visitor_scope_errors(
+        [finding],
+        applicable_criteria=frozenset(scope["applicable_criteria"]),
+        applicable_mechanical_check_ids=frozenset(scope["applicable_mechanical_check_ids"]),
+    )
+
+    assert "navigation is outside bounded scope" in errors[0]
+    assert "header.badge_rows is outside bounded scope" in errors[1]
 
 
 def test_successful_packets_survive_one_parallel_packet_failure(tmp_path) -> None:

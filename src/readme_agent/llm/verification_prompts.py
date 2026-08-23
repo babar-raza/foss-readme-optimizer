@@ -495,6 +495,8 @@ def build_blind_quality_review_messages(
     candidate_readme_text: str,
     visitor_contract_json: str = "{}",
     bounded_scope_json: str = "{}",
+    *,
+    mechanical_candidate_text: str | None = None,
 ) -> list[dict]:
     """Build one exact-block visitor view without duplicated source/candidate documents."""
 
@@ -516,7 +518,7 @@ def build_blind_quality_review_messages(
             ),
             candidate_mechanical_observations_json=json.dumps(
                 render_candidate_mechanical_observations(
-                    candidate_readme_text,
+                    mechanical_candidate_text or candidate_readme_text,
                     visitor_contract,
                 ),
                 ensure_ascii=False,

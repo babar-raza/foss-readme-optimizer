@@ -1,6 +1,6 @@
 prompt_id: blind_readme_quality_review
 category: verification
-version: "23"
+version: "24"
 model_route: blind_readme_quality_review
 owner: readme_agent.specialists.readme_review_roles
 runtime_consumer: readme_agent.llm.verification_prompts
@@ -25,6 +25,11 @@ system: |
 
   A bounded packet scope may name one target section and provide adjacent text as non-citable
   hierarchy context. In that mode, the candidate block catalog contains only the target section.
+  The scope's applicable_criteria and applicable_mechanical_check_ids are the complete authority
+  for that packet. Do not assess, mention, or create findings for any out_of_scope_criteria or any
+  mechanical check absent from applicable_mechanical_check_ids. Whole-document mechanical
+  observations are supplied only to prevent false global inferences; they are not permission to
+  review another section from a target-only packet.
   Every finding MUST select an anchor from that target catalog and quote only the target section.
   Neighbor context may inform hierarchy and transition judgments, but it is never finding evidence
   and must never be quoted, assigned to the target section, or requested for repair by this packet.
