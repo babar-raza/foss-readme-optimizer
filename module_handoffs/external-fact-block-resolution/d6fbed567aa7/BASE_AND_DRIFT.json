@@ -3,15 +3,17 @@
   "short_sha": "d6fbed567aa7",
   "branch": "claude/standalone-external-fact-block-resolution-d6fbed567aa7",
   "upstream_url": "https://github.com/babar-raza/foss-readme-optimizer.git",
-  "upstream_main_at_handoff_time": "16113ac6f1ca50615cd1890ff84eaf8acffafe35",
-  "drift_commit_count": 1,
-  "drift_commits": [
-    {
-      "sha": "16113ac6f1ca50615cd1890ff84eaf8acffafe35",
-      "subject": "fix(evidence): recover interrupted candidate supersession"
-    }
+  "upstream_main_at_original_handoff_time": "16113ac6f1ca50615cd1890ff84eaf8acffafe35",
+  "upstream_main_at_mission_audit_time": "83f12d8e82bdabd8fa40efde8a563152a2b22126",
+  "drift_commit_count_at_original_handoff_time": 1,
+  "drift_commit_count_at_mission_audit_time": 4,
+  "drift_commits_at_mission_audit_time": [
+    { "sha": "16113ac6f1ca50615cd1890ff84eaf8acffafe35", "subject": "fix(evidence): recover interrupted candidate supersession" },
+    { "sha": "8252bfe64", "subject": "fix(evidence): ignore nested checksum inventories" },
+    { "sha": "95a2a739e", "subject": "fix(review): scope bounded factual recovery" },
+    { "sha": "83f12d8e8", "subject": "fix(presentation): resolve sealed canary findings" }
   ],
   "drift_touches_owned_paths": false,
   "rebase_or_merge_performed": false,
-  "note": "One unrelated upstream commit landed on main after this lane's base SHA was captured, before this handoff was written. It does not touch src/readme_agent/facts/external_fact_block_resolution.py, tests/unit/test_external_fact_block_resolution.py, or module_handoffs/external-fact-block-resolution/**. Recorded only, per the isolation contract -- no merge or rebase was performed."
+  "note": "Upstream main is actively advancing under a separate concurrent process (expected, documented pattern in this repo -- see memory 'Concurrent session doc edits'). Drift grew from 1 to 4 commits between the original handoff and this PLAN-THEN-EXECUTE mission audit; re-verified at audit time that none of the 4 touch src/readme_agent/facts/external_fact_block_resolution.py, tests/unit/test_external_fact_block_resolution.py, or module_handoffs/external-fact-block-resolution/**. Recorded only, per the isolation contract -- no merge or rebase was performed at any point."
 }
