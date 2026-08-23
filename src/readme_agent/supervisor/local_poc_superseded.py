@@ -3,11 +3,19 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
+import stat
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
-from readme_agent.evidence.writer import refresh_sha256sums, sha256_file, write_redacted_json
+from readme_agent.evidence.file_inventory import filesystem_path
+from readme_agent.evidence.writer import (
+    refresh_sha256sums,
+    sha256_file,
+    verify_sha256sums,
+    write_redacted_json,
+)
 
 _EVIDENCE_DIRECTORIES = ("facts", "assessment", "planning", "candidate", "review", "receipts")
 _DOWNSTREAM_DIRECTORIES = ("assessment", "planning", "candidate", "review")
@@ -32,6 +40,7 @@ _DOWNSTREAM_RECEIPT_STAGES = frozenset(
 _DIRECTORY_HASH_LENGTH = 16
 _PACKET_CACHE_DIRECTORY = "bounded-packet-cache"
 _PACKET_CACHE_ARCHIVE = "bounded-packet-cache.zip"
+_RECOVERABLE_PREPROMOTION_MUTATIONS = frozenset({"assurance/section_authoring/document.json"})
 
 
 def _write_deterministic_packet_cache_archive(source: Path, destination: Path) -> None:
@@ -149,6 +158,118 @@ def preserve_superseded_candidate(
     )
     refresh_sha256sums(destination)
     return candidate_hash
+
+
+def _load_checksum_inventory(bundle_dir: Path) -> dict[str, str] | None:
+    inventory_path = bundle_dir / "sha256sums.txt"
+    if not inventory_path.is_file():
+        return None
+    try:
+        inventory: dict[str, str] = {}
+        for line in inventory_path.read_text(encoding="utf-8").splitlines():
+            digest, relative = line.split("  ", maxsplit=1)
+            relative_path = Path(relative)
+            if (
+                len(digest) != 64
+                or any(character not in "0123456789abcdef" for character in digest)
+                or not relative
+                or relative in inventory
+                or relative_path.is_absolute()
+                or ".." in relative_path.parts
+                or relative_path.as_posix() != relative
+            ):
+                return None
+            inventory[relative] = digest
+        return inventory
+    except (OSError, UnicodeError, ValueError):
+        return None
+
+
+def _files_outside_interrupted_destination(
+    bundle_dir: Path,
+    destination: Path,
+) -> dict[str, Path]:
+    """Enumerate the sealed tree without descending into one known partial copy."""
+
+    physical_root = filesystem_path(bundle_dir)
+    excluded = destination.relative_to(bundle_dir)
+    files: dict[str, Path] = {}
+
+    def raise_walk_error(error: OSError) -> None:
+        raise error
+
+    for current_root, directories, filenames in os.walk(
+        physical_root,
+        topdown=True,
+        onerror=raise_walk_error,
+    ):
+        current = Path(current_root)
+        current_relative = current.relative_to(physical_root)
+        directories.sort()
+        if current_relative == excluded.parent and excluded.name in directories:
+            directories.remove(excluded.name)
+        for filename in sorted(filenames):
+            physical = current / filename
+            if not stat.S_ISREG(physical.stat().st_mode):
+                raise OSError(f"unsupported non-regular evidence artifact: {physical}")
+            relative = physical.relative_to(physical_root).as_posix()
+            if relative != "sha256sums.txt":
+                files[relative] = physical
+    return files
+
+
+def recover_interrupted_candidate_supersession(bundle_dir: Path) -> bool:
+    """Finish one narrowly recognized candidate supersession, otherwise fail closed."""
+
+    try:
+        manifest_path = bundle_dir / "manifest.json"
+        candidate_path = bundle_dir / "candidate" / "README.md"
+        if not manifest_path.is_file() or not candidate_path.is_file():
+            return False
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if not isinstance(manifest, dict):
+            return False
+        candidate_hash = sha256_file(candidate_path)[0]
+        if manifest.get("candidate_hash") != candidate_hash:
+            return False
+
+        destination = bundle_dir / "superseded" / candidate_hash[:_DIRECTORY_HASH_LENGTH]
+        if not destination.is_dir():
+            return False
+        preserved_candidate = destination / "candidate" / "README.md"
+        if preserved_candidate.is_file() and sha256_file(preserved_candidate)[0] != candidate_hash:
+            return False
+
+        inventory = _load_checksum_inventory(bundle_dir)
+        if inventory is None:
+            return False
+        destination_prefix = destination.relative_to(bundle_dir).as_posix() + "/"
+        if any(relative.startswith(destination_prefix) for relative in inventory):
+            return False
+
+        actual = _files_outside_interrupted_destination(bundle_dir, destination)
+        if set(actual) != set(inventory):
+            return False
+        mismatches = {
+            relative
+            for relative, digest in inventory.items()
+            if sha256_file(actual[relative])[0] != digest
+        }
+        if not mismatches <= _RECOVERABLE_PREPROMOTION_MUTATIONS:
+            return False
+
+        record_path = destination / "superseded.json"
+        if record_path.is_file() and not verify_sha256sums(destination):
+            return False
+        preserve_superseded_candidate(
+            bundle_dir,
+            manifest,
+            reason="resume interrupted candidate supersession",
+        )
+        refresh_sha256sums(bundle_dir)
+        return verify_sha256sums(bundle_dir)
+    except (OSError, UnicodeError, ValueError, RuntimeError, json.JSONDecodeError):
+        return False
 
 
 def archive_and_prune_downstream_artifacts(

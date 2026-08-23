@@ -87,7 +87,7 @@ from datetime import UTC, datetime
 from langchain_core.runnables import RunnableConfig
 from langgraph.graph import END, START, StateGraph
 
-from readme_agent import env
+from readme_agent import env, paths
 from readme_agent.capabilities.dispatcher import dispatch_tool_call
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION, README_PRESENTATION
 from readme_agent.capabilities.effect_ledger import dispatch_gated_effect
@@ -131,6 +131,7 @@ from readme_agent.supervisor.execution_context import (
     proposal_only_active,
     readme_poc_stage_limit_active,
 )
+from readme_agent.supervisor.local_poc_failure_recovery import seal_partial_local_poc_evidence
 from readme_agent.supervisor.portfolio_scheduler.stages import (
     prepare_and_promote_candidate_stage,
 )
@@ -801,9 +802,24 @@ def _verify_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                     backend,
                 )
             except Exception as exc:  # noqa: BLE001 -- fail closed before review/effect
+                evidence_reseal_error: str | None = None
+                org, repo = snapshot.org_repo.split("/", maxsplit=1)
+                partial_bundle = paths.readme_poc_repository_dir(
+                    org,
+                    repo,
+                    snapshot.source_revision,
+                )
+                if partial_bundle.is_dir():
+                    try:
+                        seal_partial_local_poc_evidence(partial_bundle)
+                    except Exception as reseal_exc:  # noqa: BLE001 -- retain the first failure
+                        evidence_reseal_error = (
+                            f":evidence_reseal_failed:{type(reseal_exc).__name__}:{reseal_exc}"
+                        )
                 return {
                     "accepted_status": (
                         f"ERROR:local_poc_candidate_persistence:{type(exc).__name__}:{exc}"
+                        f"{evidence_reseal_error or ''}"
                     )
                 }
             if readme_poc_stage_limit_active() == "CANDIDATE_GENERATED":

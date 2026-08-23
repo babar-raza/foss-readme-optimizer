@@ -21,6 +21,9 @@ from readme_agent.llm import prompt_registry
 from readme_agent.llm.bundle_accounting import local_bundle_llm_accounting_fields
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.assurance import ContentAssuranceV1
+from readme_agent.supervisor.local_poc_superseded import (
+    recover_interrupted_candidate_supersession,
+)
 
 
 def load_existing_local_poc_manifest(bundle_dir: Path, source_revision: str) -> dict:
@@ -136,7 +139,9 @@ def _validate_sealed_snapshot(
     snapshot: RepositorySnapshotV1,
     expected_readme: str | None,
 ) -> None:
-    if not verify_sha256sums(bundle_dir):
+    if not verify_sha256sums(bundle_dir) and not recover_interrupted_candidate_supersession(
+        bundle_dir
+    ):
         raise _fail(f"checksum inventory is missing, incomplete, or corrupt: {bundle_dir}")
 
     source_dir = bundle_dir / "source"

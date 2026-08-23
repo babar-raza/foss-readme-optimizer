@@ -15,6 +15,7 @@ from readme_agent.supervisor.local_poc_acceptance_binding import (
     build_review_acceptance_binding,
 )
 from readme_agent.supervisor.local_poc_evidence import write_local_poc_manifest
+from readme_agent.supervisor.local_poc_failure_recovery import seal_partial_local_poc_evidence
 from readme_agent.supervisor.portfolio_scheduler.contracts import canonical_sha256
 
 
@@ -49,7 +50,7 @@ def _repair_attempt_count(repair_history: list[dict]) -> int:
 def seal_partial_local_poc_review_evidence(bundle_dir: Path) -> None:
     """Bind completed packet caches after a fail-closed review interruption."""
 
-    refresh_sha256sums(bundle_dir)
+    seal_partial_local_poc_evidence(bundle_dir)
 
 
 def write_local_poc_review_evidence(

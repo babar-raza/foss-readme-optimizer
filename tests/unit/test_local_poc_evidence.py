@@ -247,6 +247,41 @@ def test_checksum_corruption_fails_without_repair_or_overwrite(tmp_path, monkeyp
     assert not verify_sha256sums(bundle)
 
 
+def test_snapshot_resumes_only_a_recognized_interrupted_candidate_supersession(
+    tmp_path, monkeypatch
+):
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    snapshot = _snapshot(tmp_path)
+    bundle = write_local_poc_snapshot(snapshot)
+    candidate = "# Candidate\n"
+    candidate_hash = hashlib.sha256(candidate.encode()).hexdigest()
+    candidate_path = bundle / "candidate" / "README.md"
+    candidate_path.parent.mkdir(parents=True)
+    candidate_path.write_text(candidate, encoding="utf-8")
+    section_document = bundle / "assurance" / "section_authoring" / "document.json"
+    section_document.parent.mkdir(parents=True)
+    section_document.write_text('{"state":"before"}\n', encoding="utf-8")
+    manifest_path = bundle / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest.update(
+        {
+            "candidate_hash": candidate_hash,
+            "lifecycle_status": "DETERMINISTIC_VALIDATED",
+        }
+    )
+    manifest_path.write_text(json.dumps(manifest) + "\n", encoding="utf-8")
+    refresh_sha256sums(bundle)
+
+    section_document.write_text('{"state":"after"}\n', encoding="utf-8")
+    partial = bundle / "superseded" / candidate_hash[:16] / "candidate" / "README.md"
+    partial.parent.mkdir(parents=True)
+    partial.write_text(candidate, encoding="utf-8")
+
+    assert write_local_poc_snapshot(snapshot) == bundle
+    assert verify_sha256sums(bundle)
+    assert (partial.parents[1] / "superseded.json").is_file()
+
+
 @pytest.mark.parametrize("failure", ["missing", "malformed"])
 def test_invalid_revision_with_self_consistent_inventory_fails_closed(
     tmp_path, monkeypatch, failure

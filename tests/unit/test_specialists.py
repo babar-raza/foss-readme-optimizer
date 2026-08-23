@@ -1429,6 +1429,78 @@ class TestReadmePresentationSpecialist:
         assert stored.consecutive_failure_count == 1
         assert stored.last_failure_reason == "presentation_plan"
 
+    def test_candidate_persistence_failure_seals_partial_bundle(self, tmp_path, monkeypatch):
+        from readme_agent import paths
+        from readme_agent.evidence.writer import refresh_sha256sums, verify_sha256sums
+        from readme_agent.specialists import readme_presentation
+
+        monkeypatch.setenv("README_AGENT_RUNS_DIR", str(tmp_path / "runs"))
+        source_revision = "a" * 40
+        snapshot = SimpleNamespace(
+            org_repo=ORG_REPO,
+            source_revision=source_revision,
+        )
+        org, repo = ORG_REPO.split("/", maxsplit=1)
+        bundle = paths.readme_poc_repository_dir(org, repo, source_revision)
+        seed = bundle / "source" / "revision.json"
+        seed.parent.mkdir(parents=True)
+        seed.write_text("{}\n", encoding="utf-8")
+        refresh_sha256sums(bundle)
+
+        def fail_after_partial_write(*_args, **_kwargs):
+            partial = bundle / "candidate" / "README.md"
+            partial.parent.mkdir(parents=True)
+            partial.write_text("# Partial\n", encoding="utf-8")
+            raise OSError("controlled persistence interruption")
+
+        monkeypatch.setattr(readme_presentation, "proposal_only_active", lambda: True)
+        monkeypatch.setattr(
+            readme_presentation,
+            "current_repository_snapshot",
+            lambda _repo: snapshot,
+        )
+        monkeypatch.setattr(
+            readme_presentation,
+            "dispatch_build_presentation_plan",
+            lambda *_args, **_kwargs: SimpleNamespace(
+                outcome="executed",
+                error=None,
+                result={
+                    "executable": True,
+                    "git_patch_proof": {"patch": ""},
+                },
+            ),
+        )
+        monkeypatch.setattr(
+            readme_presentation,
+            "prepare_and_promote_candidate_stage",
+            fail_after_partial_write,
+        )
+        result = readme_presentation._verify_node(
+            DomainStateV1(
+                domain="readme_presentation",
+                details={
+                    "render_result": {
+                        "needs_write": True,
+                        "facts_hash": "b" * 64,
+                        "original_text": "# Original\n",
+                        "final_text": "# Candidate\n",
+                    }
+                },
+            ),
+            {
+                "configurable": {
+                    "org_repo": ORG_REPO,
+                    "backend": object(),
+                    "current_revision": source_revision,
+                }
+            },
+        )
+
+        assert result["accepted_status"].startswith("ERROR:local_poc_candidate_persistence:")
+        assert verify_sha256sums(bundle)
+        assert "candidate/README.md" in (bundle / "sha256sums.txt").read_text(encoding="utf-8")
+
     def test_a_genuinely_invalid_render_is_rejected_and_never_committed(
         self, tmp_path, monkeypatch
     ):
