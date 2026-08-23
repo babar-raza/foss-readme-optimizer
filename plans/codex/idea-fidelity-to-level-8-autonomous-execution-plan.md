@@ -112,6 +112,22 @@ controller. At each mission transition, `mission evaluate` derives and persists 
 stage goal; the umbrella outcome remains stable while the primary goal advances automatically. A
 narrative handover or chat goal never overrides durable state.
 
+Current integration disposition must be re-read from the worktree and durable mission state after
+every transition; it is not inferred from a standalone branch or its report:
+
+| Module | Current disposition | Exact condition for advancement |
+| --- | --- | --- |
+| Candidate benchmark acceptance | `PARTIAL`: adapted into the active FP03 candidate tree and exercised on the current Aspose.3D Python candidate, but not yet a committed, officially verified task closure | Commit the coherent FP03 slice, pass focused/impact/official checks on that revision, retain `BENCHMARK_ACCEPTANCE_PROVEN` for the current candidate, and close FP03 through durable state. |
+| Complete transaction replay attestation | `PARTIAL`: adapted into the active FP03 candidate tree with a passing real first/replay attestation, but not yet a committed, officially verified task closure | On the same committed FP03 revision, independently reproduce distinct first/replay roots, exact zero-provider accounting, cache preservation, and the complete receipt chain before durable closure. |
+| External fact-block resolution | `QUALIFIED_STANDALONE_NOT_INTEGRATED`: only the pushed standalone branch and handoff are qualified | Open FP04 by adapting the smallest public seam to current real diagnostics, split the oversized concern before extension, and pass the five-current-receipt plus canonical-supervisor recovery proof. |
+| Fleet causal failure reduction | `QUALIFIED_STANDALONE_NOT_INTEGRATED`: only the pushed standalone branch and handoff are qualified | Open PF05 by adapting canonical first-boundary receipts, hardening opaque tiers four through six, and proving complete accounting plus shared-once/failed-only repair scheduling on current fleet evidence. |
+
+The current aggregate dashboard and durable denominator still expose 33 repositories as processable,
+whereas the reviewed campaign contract expects 31 processable targets plus two source-empty PSD
+dispositions. This is an unresolved registry/processability reconciliation boundary, not permission
+to redefine either numerator. FP06 must bind the authenticated `RegistryRevisionV1`, classify both
+PSD entries from immutable source inventories, and migrate aggregate state before Gate A can close.
+
 ## Compatibility task identity
 
 The durable ID `L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES` is retained solely for state compatibility.
