@@ -125,7 +125,7 @@ def _is_single_type_wrapper_namespace(
 
 def _class_surface(name: str, item: dict[str, Any]) -> str:
     constructor = item.get("constructor")
-    if isinstance(constructor, dict):
+    if isinstance(constructor, dict) and not constructor.get("inherited"):
         surface = " ".join(str(constructor.get("surface") or "").split())
         if surface:
             return surface

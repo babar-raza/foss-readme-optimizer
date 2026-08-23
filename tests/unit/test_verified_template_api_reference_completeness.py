@@ -28,7 +28,10 @@ def test_api_reference_uses_complete_catalog_without_dumping_every_member_row() 
             "coordinate_catalog": {
                 "modules": [
                     {"module": "aspose", "exports": ["threed"]},
-                    {"module": "aspose.threed", "exports": ["FileFormat", "Scene"]},
+                    {
+                        "module": "aspose.threed",
+                        "exports": ["FileFormat", "InheritedThing", "Scene"],
+                    },
                 ],
                 "classes": [
                     {
@@ -78,6 +81,17 @@ def test_api_reference_uses_complete_catalog_without_dumping_every_member_row() 
                             },
                         ],
                     },
+                    {
+                        "module": "aspose.threed",
+                        "name": "InheritedThing",
+                        "bases": ["BaseThing"],
+                        "constructor": {
+                            "surface": "BaseThing(name=None)",
+                            "declared_by": "BaseThing",
+                            "inherited": True,
+                        },
+                        "members": [],
+                    },
                 ],
                 "functions": [],
                 "presentation_exclusions": [
@@ -111,6 +125,8 @@ def test_api_reference_uses_complete_catalog_without_dumping_every_member_row() 
     assert "| `Scene(file_name=None)` |" in markdown
     assert "Supports opening content" in markdown
     assert "| `FileFormat` | Enumerates file format values. |" in markdown
+    assert "| `InheritedThing` |" in markdown
+    assert "| `BaseThing(name=None)` |" not in markdown
     assert "Scene.open" not in markdown
     assert "Scene.root_node" not in markdown
     assert "FileFormat.MS_ONE_NOTE" not in markdown
