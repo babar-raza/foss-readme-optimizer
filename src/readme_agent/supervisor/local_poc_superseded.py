@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import shutil
 from pathlib import Path
+from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 from readme_agent.evidence.writer import refresh_sha256sums, sha256_file, write_redacted_json
 
@@ -29,6 +30,49 @@ _DOWNSTREAM_RECEIPT_STAGES = frozenset(
     }
 )
 _DIRECTORY_HASH_LENGTH = 16
+_PACKET_CACHE_DIRECTORY = "bounded-packet-cache"
+_PACKET_CACHE_ARCHIVE = "bounded-packet-cache.zip"
+
+
+def _write_deterministic_packet_cache_archive(source: Path, destination: Path) -> None:
+    """Compact hash-named packet receipts without lengthening Windows paths."""
+
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    with ZipFile(destination, "w", compression=ZIP_DEFLATED, compresslevel=9) as archive:
+        for source_path in sorted(path for path in source.rglob("*") if path.is_file()):
+            relative = source_path.relative_to(source).as_posix()
+            entry = ZipInfo(relative, date_time=(1980, 1, 1, 0, 0, 0))
+            entry.compress_type = ZIP_DEFLATED
+            entry.external_attr = 0o644 << 16
+            archive.writestr(entry, source_path.read_bytes(), compresslevel=9)
+
+
+def _copy_evidence_directory(source: Path, destination: Path, *, name: str) -> None:
+    """Resume one evidence copy while compacting the long packet-cache subtree."""
+
+    if name != "review":
+        shutil.copytree(source, destination, dirs_exist_ok=True)
+        return
+
+    packet_cache = source / _PACKET_CACHE_DIRECTORY
+
+    def ignore(current: str, names: list[str]) -> set[str]:
+        return (
+            {_PACKET_CACHE_DIRECTORY}
+            if Path(current) == source and _PACKET_CACHE_DIRECTORY in names
+            else set()
+        )
+
+    shutil.copytree(source, destination, dirs_exist_ok=True, ignore=ignore)
+    if not packet_cache.is_dir():
+        return
+    _write_deterministic_packet_cache_archive(
+        packet_cache,
+        destination / _PACKET_CACHE_ARCHIVE,
+    )
+    partial_cache_copy = destination / _PACKET_CACHE_DIRECTORY
+    if partial_cache_copy.is_dir():
+        shutil.rmtree(partial_cache_copy)
 
 
 def has_active_downstream_artifacts(bundle_dir: Path, manifest: dict) -> bool:
@@ -61,22 +105,22 @@ def preserve_superseded_candidate(
     candidate_hash = sha256_file(candidate_path)[0]
     destination = bundle_dir / "superseded" / candidate_hash[:_DIRECTORY_HASH_LENGTH]
     preserved_candidate = destination / "candidate" / "README.md"
-    if preserved_candidate.is_file():
+    if preserved_candidate.is_file() and (destination / "superseded.json").is_file():
         if sha256_file(preserved_candidate)[0] != candidate_hash:
             raise RuntimeError(f"superseded candidate hash collision in {destination}")
         record_path = destination / "superseded.json"
-        if not record_path.is_file():
-            raise RuntimeError(f"superseded candidate record is missing in {destination}")
         record = json.loads(record_path.read_text(encoding="utf-8"))
         if record.get("candidate_hash") != candidate_hash:
             raise RuntimeError(f"superseded candidate identity collision in {destination}")
         return candidate_hash
 
-    destination.mkdir(parents=True, exist_ok=False)
+    if preserved_candidate.is_file() and sha256_file(preserved_candidate)[0] != candidate_hash:
+        raise RuntimeError(f"superseded candidate hash collision in {destination}")
+    destination.mkdir(parents=True, exist_ok=True)
     for name in _EVIDENCE_DIRECTORIES:
         source = bundle_dir / name
         if source.is_dir():
-            shutil.copytree(source, destination / name)
+            _copy_evidence_directory(source, destination / name, name=name)
     for name in ("manifest.json", "sha256sums.txt"):
         source = bundle_dir / name
         if source.is_file():
@@ -94,6 +138,11 @@ def preserve_superseded_candidate(
                 "manifest_bound"
                 if manifest_candidate_hash == candidate_hash
                 else "retained_artifact_without_current_manifest_binding"
+            ),
+            "packet_cache_archive": (
+                f"review/{_PACKET_CACHE_ARCHIVE}"
+                if (destination / "review" / _PACKET_CACHE_ARCHIVE).is_file()
+                else None
             ),
             "reason": reason,
         },
