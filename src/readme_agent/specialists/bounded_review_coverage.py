@@ -130,7 +130,7 @@ def build_coverage_ledger(
     )
 
     factual_covering: dict[str, list[str]] = {
-        unit.unit_id: [] for unit in atomic_units if unit.claim_ids
+        unit.unit_id: [] for unit in atomic_units if unit.requires_factual_review
     }
     for factual_packet in plan.factual_packets:
         for unit_id in factual_packet.covered_unit_ids:

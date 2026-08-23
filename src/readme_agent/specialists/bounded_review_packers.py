@@ -89,10 +89,6 @@ def _build_factual_packets(
                 and provenance_char_spans[entry.provenance_id][0] < unit.char_end
             ]
 
-        factual_units = [unit for unit in group if unit.claim_ids or overlapping_provenance(unit)]
-        if not factual_units:
-            continue
-
         def unit_fact_ids(unit: _MutableUnit) -> set[str]:
             ids: set[str] = set()
             for claim_id in unit.claim_ids:
@@ -100,6 +96,10 @@ def _build_factual_packets(
             for entry in overlapping_provenance(unit):
                 ids.update(entry.fact_ids)
             return ids
+
+        factual_units = [unit for unit in group if unit_fact_ids(unit)]
+        if not factual_units:
+            continue
 
         def group_size(units: list[_MutableUnit]) -> int:
             text_len = units[-1].char_end - units[0].char_start

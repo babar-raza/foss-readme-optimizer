@@ -11,6 +11,7 @@ markers are preserved.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import threading
 
@@ -79,6 +80,35 @@ def test_real_candidate_accountability_selects_current_claims_without_survival_f
         claim_id for packet in plan.factual_packets for claim_id in packet.claim_ids
     }
     assert covered_claim_ids == {claim.claim_id for claim in claims}
+
+
+def test_configured_standard_claim_is_visitor_reviewed_without_empty_factual_packet() -> None:
+    marker = "# Widget Toolkit"
+    standard_claim = DEFAULT_CLAIM_ACCOUNTABILITY.claims[0].model_copy(
+        update={
+            "claim_id": "claim-structural-title",
+            "source_byte_start": 0,
+            "source_byte_end": len(marker.encode("utf-8")),
+            "content_sha256": hashlib.sha256(marker.encode("utf-8")).hexdigest(),
+            "accepted_fact_ids": [],
+            "configured_standard_ids": ["readme.header"],
+            "expected_disposition": "configured_standard",
+            "rationale": "The title is governed structural presentation content.",
+        }
+    )
+    accountability = DEFAULT_CLAIM_ACCOUNTABILITY.model_copy(
+        update={"claims": [*DEFAULT_CLAIM_ACCOUNTABILITY.claims, standard_claim]}
+    )
+
+    plan = _plan(claim_accountability=accountability)
+    units = _atomic_units(claim_accountability=accountability)
+    ledger = brp.build_coverage_ledger(plan, atomic_units=units)
+
+    assert not any(standard_claim.claim_id in packet.claim_ids for packet in plan.factual_packets)
+    standard_unit = next(unit for unit in units if standard_claim.claim_id in unit.claim_ids)
+    assert not standard_unit.requires_factual_review
+    assert any(standard_unit.unit_id in packet.covered_unit_ids for packet in plan.visitor_packets)
+    assert brp.validate_coverage_ledger(ledger).is_complete
 
 
 def test_bounded_execution_reviews_every_packet_and_reduces_to_established_roles() -> None:

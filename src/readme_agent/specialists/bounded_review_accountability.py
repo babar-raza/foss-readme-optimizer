@@ -279,6 +279,10 @@ def build_atomic_units(
     raw_units = _build_raw_units(candidate_text)
     byte_offsets = _byte_offset_table(candidate_text)
     valid_claims, _claim_gaps = _valid_claims_and_gaps(claim_accountability, product_facts)
+    valid_provenance, _provenance_gaps = _valid_provenance_and_gaps(
+        candidate_content_provenance,
+        product_facts,
+    )
     claim_char_spans = _claim_char_spans(byte_offsets, valid_claims)
     merged = _merge_units_for_claim_spans(raw_units, claim_char_spans)
     _attach_claim_ids(merged, claim_char_spans)
@@ -288,6 +292,8 @@ def build_atomic_units(
     _dedupe_section_paths(sections)
     for index, unit in enumerate(merged):
         unit.unit_id = f"unit-{index:04d}-{unit.kind}"
+    factual_claim_ids = {claim.claim_id for claim in valid_claims if claim.accepted_fact_ids}
+    factual_provenance_ids = {entry.provenance_id for entry in valid_provenance if entry.fact_ids}
     return tuple(
         AtomicUnitV1(
             unit_id=unit.unit_id,
@@ -299,6 +305,10 @@ def build_atomic_units(
             line_end=unit.line_end,
             claim_ids=tuple(sorted(set(unit.claim_ids))),
             provenance_ids=tuple(sorted(set(unit.provenance_ids))),
+            requires_factual_review=(
+                bool(set(unit.claim_ids) & factual_claim_ids)
+                or bool(set(unit.provenance_ids) & factual_provenance_ids)
+            ),
         )
         for unit in merged
     )

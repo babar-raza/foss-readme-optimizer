@@ -55,6 +55,7 @@ class AtomicUnitV1(_StrictModel):
     line_end: int = Field(ge=1)
     claim_ids: tuple[str, ...] = ()
     provenance_ids: tuple[str, ...] = ()
+    requires_factual_review: bool = False
 
     @model_validator(mode="after")
     def _valid_span(self) -> AtomicUnitV1:
