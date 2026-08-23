@@ -41,6 +41,7 @@ from readme_agent.specialists.readme_review_roles import (
     FactualPlanReviewResultV1,
 )
 from readme_agent.specialists.review_finding_grounding import (
+    BLIND_GROUNDING_CONTRACT_VERSION,
     FindingGroundingResultV1,
     GroundedReviewFindingV1,
     validate_review_findings,
@@ -198,6 +199,7 @@ def execute_bounded_review(
         )
         authority_hash = _canonical_hash(
             {
+                "blind_grounding_contract_version": BLIND_GROUNDING_CONTRACT_VERSION,
                 "bounded_scope": bounded_scope,
                 "scoped_visitor_contract": scoped_visitor_contract,
             }

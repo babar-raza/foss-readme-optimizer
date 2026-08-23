@@ -53,7 +53,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v30-mechanical-premise-specificity"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v31-partial-mechanical-pair-normalization"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
