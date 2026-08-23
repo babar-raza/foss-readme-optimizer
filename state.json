@@ -1515,10 +1515,12 @@
             "commit:f95014aa31bfe016c726ebeaffe7b360a1c8ac87",
             "runs/evidence/20260823-053135-c8af",
             "commit:b83096bcf",
-            "runs/evidence/20260823-054754-e788"
+            "runs/evidence/20260823-054754-e788",
+            "commit:87eb8d4e86bb355af1936bc7377fe72a1d0456ea",
+            "command:.venv/Scripts/python scripts/governance/run_full_pytest.py => 4947 passed, 1 skipped"
           ],
           "fingerprint": "0dd4b5bb706d8aea24c3e727ba45f38ee85b57727d78313be13d2f8148530abd",
-          "last_material_narrowing_at": "2026-08-23T06:00:57.166237+00:00",
+          "last_material_narrowing_at": "2026-08-23T06:28:00.676742+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-23T05:15:20.085086+00:00",
           "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP"
@@ -2815,7 +2817,7 @@
     ],
     "graph_sha256": "a6332e121c3ec41b5846f70a47c2c7ea9b31e5755519156a94b389236d7a0ef9",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-23T06:01:20.985466+00:00",
+    "last_evaluated_at": "2026-08-23T06:28:00.676777+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -13167,7 +13169,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1320,
+  "state_version": 1321,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
