@@ -2599,8 +2599,7 @@ def test_page_reviewer_cannot_invent_duplicate_license_from_one_heading() -> Non
     assert not result.valid
     assert any("heading-only quote" in error for error in result.errors)
     assert any(
-        "lacks required typed check document.duplicate_h2_headings" in error
-        for error in result.errors
+        "contradicts compliant document.duplicate_h2_headings" in error for error in result.errors
     )
 
 

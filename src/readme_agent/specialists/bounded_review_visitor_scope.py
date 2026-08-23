@@ -38,6 +38,16 @@ _MECHANICAL_CHECKS_BY_ROOT = {
     "navigation": frozenset({"document.duplicate_h2_headings", "document.required_h2_prefix"}),
     "quick-start": frozenset({"quick_start.fenced_blocks", "quick_start.max_nonblank_code_lines"}),
 }
+_COMMON_STANDARD_IDS = frozenset({"readme.no_comments", "readme.public_language"})
+_STANDARD_IDS_BY_ROOT = {
+    "front-matter": _COMMON_STANDARD_IDS | {"readme.header", "readme.badges"},
+    "navigation": _COMMON_STANDARD_IDS | {"readme.navigation"},
+    "at-a-glance": _COMMON_STANDARD_IDS | {"readme.at_a_glance_mermaid"},
+    "quick-start": _COMMON_STANDARD_IDS | {"readme.primary_example"},
+    "additional-examples": _COMMON_STANDARD_IDS | {"readme.primary_example"},
+    "scope-and-limitations": _COMMON_STANDARD_IDS | {"readme.enterprise_edition_terminology"},
+    "license": _COMMON_STANDARD_IDS | {"readme.license"},
+}
 
 
 def bounded_visitor_scope(
@@ -61,6 +71,23 @@ def bounded_visitor_scope(
         "mechanical_observation_scope": "complete_candidate_context_only",
         "neighbor_context_before": neighbor_context_before,
         "neighbor_context_after": neighbor_context_after,
+    }
+
+
+def bounded_visitor_contract(visitor_contract: dict, section_path: str) -> dict:
+    """Project the global visitor contract onto one packet's section authority."""
+
+    root = section_path.split("/", maxsplit=1)[0]
+    allowed_standard_ids = _STANDARD_IDS_BY_ROOT.get(root, _COMMON_STANDARD_IDS)
+    standards = visitor_contract.get("configured_standards", [])
+    return {
+        key: value for key, value in visitor_contract.items() if key != "configured_standards"
+    } | {
+        "configured_standards": [
+            item
+            for item in standards
+            if isinstance(item, dict) and item.get("standard_id") in allowed_standard_ids
+        ]
     }
 
 
@@ -89,4 +116,8 @@ def bounded_visitor_scope_errors(
     return errors
 
 
-__all__ = ["bounded_visitor_scope", "bounded_visitor_scope_errors"]
+__all__ = [
+    "bounded_visitor_contract",
+    "bounded_visitor_scope",
+    "bounded_visitor_scope_errors",
+]

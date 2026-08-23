@@ -128,7 +128,10 @@ print(Product())
     )
 
     assert not result.valid
-    assert any("contradicts parser value 1" in error for error in result.errors)
+    assert result.errors == [
+        "example-presentation-1:mechanical repair premise contradicts compliant "
+        "quick_start.fenced_blocks observation"
+    ]
 
 
 def test_mechanical_repair_finding_cannot_omit_typed_check() -> None:
@@ -150,15 +153,72 @@ print(Product())
         required_repair="Consolidate the two Quick start code blocks.",
     )
 
+    visitor_contract = _visitor_contract()
+    visitor_contract["configured_standards"][2]["parameters"]["maximum_fenced_blocks"] = 0
     result = validate_review_findings(
         candidate_text=_candidate(),
         product_facts=None,
         findings=[finding],
-        visitor_contract=_visitor_contract(),
+        visitor_contract=visitor_contract,
     )
 
     assert not result.valid
     assert any("lacks required typed check" in error for error in result.errors)
+
+
+def test_bounded_navigation_missing_section_claim_uses_full_candidate_observation() -> None:
+    candidate = """# Product
+
+## Navigation
+
+- [Quick Start](#quick-start)
+
+## Quick Start
+
+Run the example.
+"""
+    navigation = """## Navigation
+
+- [Quick Start](#quick-start)
+"""
+    contract = {
+        "configured_standards": [
+            {
+                "standard_id": "readme.header",
+                "parameters": {
+                    "brand_contract_version": "v1",
+                    "required_h2_prefix": ["Navigation", "Quick Start"],
+                },
+            }
+        ]
+    }
+    finding = GroundedReviewFindingV1(
+        finding_id="navigation.false-missing",
+        kind="quality",
+        criterion="hierarchy",
+        section="Navigation",
+        claim="The required H2 sections are absent from the document.",
+        quoted_candidate_span=navigation.strip(),
+        candidate_anchor_id=None,
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair="Add the missing required H2 sections.",
+    )
+
+    result = validate_review_findings(
+        candidate_text=navigation,
+        mechanical_candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract={"configured_standards": []},
+        mechanical_visitor_contract=contract,
+    )
+
+    assert result.valid is False
+    assert result.errors == [
+        "navigation.false-missing:mechanical repair premise contradicts compliant "
+        "document.required_h2_prefix observation"
+    ]
 
 
 def test_quick_start_line_count_premise_uses_line_metric_despite_describing_fence() -> None:
@@ -224,7 +284,7 @@ def test_quick_start_fence_count_premise_cannot_cite_line_metric() -> None:
     ]
 
 
-def test_duplicate_h2_claim_requires_and_obeys_parser_count() -> None:
+def test_false_duplicate_h2_claim_is_disproved_by_parser_count() -> None:
     finding = GroundedReviewFindingV1(
         finding_id="license-duplicate",
         kind="quality",
@@ -247,8 +307,7 @@ def test_duplicate_h2_claim_requires_and_obeys_parser_count() -> None:
 
     assert not result.valid
     assert any(
-        "lacks required typed check document.duplicate_h2_headings" in error
-        for error in result.errors
+        "contradicts compliant document.duplicate_h2_headings" in error for error in result.errors
     )
 
 

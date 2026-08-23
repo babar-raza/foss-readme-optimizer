@@ -31,7 +31,10 @@ from readme_agent.specialists.bounded_review_packets import (
     aggregate_packet_results,
     validate_packet_result,
 )
-from readme_agent.specialists.bounded_review_visitor_scope import bounded_visitor_scope
+from readme_agent.specialists.bounded_review_visitor_scope import (
+    bounded_visitor_contract,
+    bounded_visitor_scope,
+)
 from readme_agent.specialists.readme_review_roles import (
     BlindQualityReviewResultV1,
     FactualPlanReviewResultV1,
@@ -242,13 +245,19 @@ def execute_bounded_review(
             neighbor_context_before=visitor_packet.neighbor_context_before,
             neighbor_context_after=visitor_packet.neighbor_context_after,
         )
+        scoped_visitor_contract = bounded_visitor_contract(
+            visitor_contract,
+            visitor_packet.section_path,
+        )
+        allowed_mechanical_check_ids = frozenset(bounded_scope["applicable_mechanical_check_ids"])
         messages = build_blind_quality_review_messages(
             org_repo,
             "",
             visitor_packet.section_text,
-            _canonical_json(visitor_contract),
+            _canonical_json(scoped_visitor_contract),
             _canonical_json(bounded_scope),
             mechanical_candidate_text=candidate_text,
+            allowed_mechanical_check_ids=allowed_mechanical_check_ids,
         )
         result, attempts, _grounding = run_grounded_role(
             role="blind_quality",
@@ -257,11 +266,12 @@ def execute_bounded_review(
             messages=messages,
             candidate_text=visitor_packet.section_text,
             product_facts=None,
-            visitor_contract=visitor_contract,
+            visitor_contract=scoped_visitor_contract,
             allowed_quality_criteria=frozenset(bounded_scope["applicable_criteria"]),
-            allowed_mechanical_check_ids=frozenset(
-                bounded_scope["applicable_mechanical_check_ids"]
-            ),
+            allowed_mechanical_check_ids=allowed_mechanical_check_ids,
+            failure_context=visitor_packet.packet_id,
+            mechanical_candidate_text=candidate_text,
+            mechanical_visitor_contract=visitor_contract,
         )
         assert isinstance(result, BlindQualityReviewResultV1)
         bounded = _bounded_result(visitor_packet, result)
@@ -299,6 +309,7 @@ def execute_bounded_review(
             messages=messages,
             candidate_text=factual_packet.unit_text,
             product_facts=product_facts,
+            failure_context=factual_packet.packet_id,
         )
         assert isinstance(result, FactualPlanReviewResultV1)
         bounded = _bounded_result(factual_packet, result)

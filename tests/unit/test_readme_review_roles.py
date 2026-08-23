@@ -1,6 +1,7 @@
 """Contracts and negative controls for separated independent README review roles."""
 
 import hashlib
+import json
 
 import pytest
 from pydantic import ValidationError
@@ -12,6 +13,7 @@ from readme_agent.llm.verification_prompts import (
     build_blind_quality_review_messages,
     build_factual_plan_review_messages,
 )
+from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.readme.document_hashing import sha256_hex
 from readme_agent.specialists.readme_review_reducer import combine_review_verdicts
 from readme_agent.specialists.readme_review_roles import (
@@ -129,6 +131,27 @@ def test_blind_context_uses_one_complete_candidate_block_view_without_source_dup
     assert "deterministic validation result" not in serialized.casefold()
     assert "presentation plan used to produce" not in serialized.casefold()
     assert '"verdict": "accept"' not in serialized.casefold()
+
+
+def test_bounded_blind_context_omits_unrelated_mechanical_observations() -> None:
+    visitor_contract = build_presentation_visitor_contract(
+        applicable_h2_headings=["Navigation", "Quick Start"],
+        primary_example_language="python",
+    )
+    messages = build_blind_quality_review_messages(
+        ORG_REPO,
+        ORIGINAL,
+        "## Additional Examples\n\nUse the focused workflows.\n",
+        json.dumps(visitor_contract),
+        '{"mode":"target_section_only"}',
+        mechanical_candidate_text=CANDIDATE,
+        allowed_mechanical_check_ids=frozenset(),
+    )
+
+    user_content = str(messages[-1]["content"])
+    assert "Authoritative parser-derived mechanical observations:\n[]" in user_content
+    assert '"check_id": "document.h1_blocks"' not in user_content
+    assert '"check_id": "quick_start.fenced_blocks"' not in user_content
 
 
 def test_factual_plan_context_has_no_deterministic_or_producer_verdict() -> None:

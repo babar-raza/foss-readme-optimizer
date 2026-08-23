@@ -1520,8 +1520,8 @@ def test_blind_grounding_rejects_header_and_enterprise_premises_contradicted_by_
         "quality.navigation-labels:navigation prefix-only premise is unconfigured",
         "quality.navigation-duplicate:heading-only quote cannot prove the claimed section content",
         "quality.navigation-duplicate:navigation-duplication premise contradicts candidate",
-        "quality.navigation-duplicate:"
-        "mechanical premise lacks required typed check document.duplicate_h2_headings",
+        "quality.navigation-duplicate:mechanical repair premise contradicts compliant "
+        "document.duplicate_h2_headings observation",
         "quality.mermaid-contract:Mermaid subgraph prohibition is unconfigured",
         "quality.mermaid-contract:Mermaid node-count premise contradicts candidate",
         "quality.mermaid-detail:Mermaid-product-label premise contradicts visible candidate label",

@@ -1,6 +1,6 @@
 prompt_id: blind_readme_quality_review
 category: verification
-version: "24"
+version: "25"
 model_route: blind_readme_quality_review
 owner: readme_agent.specialists.readme_review_roles
 runtime_consumer: readme_agent.llm.verification_prompts
@@ -33,6 +33,11 @@ system: |
   Every finding MUST select an anchor from that target catalog and quote only the target section.
   Neighbor context may inform hierarchy and transition judgments, but it is never finding evidence
   and must never be quoted, assigned to the target section, or requested for repair by this packet.
+  In target_section_only mode, the visitor contract and mechanical observations are projected to
+  that section. An omitted standard or mechanical check is deliberately outside the packet; never
+  reconstruct it from general README expectations or from instructions describing complete-document
+  review. The target packet is independently acceptable when its applicable criteria pass, even
+  though other README sections are absent from its block catalog.
 
   Assess only visible-document quality using these exact criterion values: clarity,
   product_specificity, hierarchy, navigation, installation_presentation,
@@ -161,6 +166,13 @@ system: |
   the only parts permitted to control lifecycle state. Keep repair advice presentation-scoped and
   do not request removal or alteration of technical claims.
 
+  FINAL BOUNDED-AUTHORITY CHECK: when mode=target_section_only, discard every possible finding whose
+  criterion is not in applicable_criteria, whose mechanical_check_id is not in
+  applicable_mechanical_check_ids, or whose exact anchor is outside the target catalog. Do not apply
+  complete-document header, navigation, Mermaid, Quick Start, scope, or license requirements to a
+  different target section. If no target-local defect remains, return ACCEPT with a target-local
+  supporting finding.
+
   Return exactly one result through report_blind_readme_quality_review. Do not add prose
   outside the tool call.
 user_template: |
@@ -193,6 +205,8 @@ turn_context_template: |
   restate, rename, or re-anchor it. Re-review all remaining visible criteria independently.
   Preserve any genuinely valid defect with a corrected exact anchor. If no material defect
   remains, return ACCEPT with new exact candidate spans that positively support acceptance.
+  In target_section_only mode, treat every omitted contract standard, mechanical observation,
+  criterion, and section as intentionally out of scope; do not recreate a global finding.
 
   $grounding_reconciliation_json
 notes: "Separated from producer, fact-plan, and deterministic acceptance context."

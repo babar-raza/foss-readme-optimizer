@@ -20,6 +20,7 @@ from readme_agent.specialists import bounded_review_packets as brp
 from readme_agent.specialists.bounded_review_cache import BoundedReviewCacheContextV1
 from readme_agent.specialists.bounded_review_execution import execute_bounded_review
 from readme_agent.specialists.bounded_review_visitor_scope import (
+    bounded_visitor_contract,
     bounded_visitor_scope,
     bounded_visitor_scope_errors,
 )
@@ -157,6 +158,28 @@ def test_additional_example_packet_cannot_review_global_navigation_or_header_che
 
     assert "navigation is outside bounded scope" in errors[0]
     assert "header.badge_rows is outside bounded scope" in errors[1]
+
+
+def test_additional_example_packet_receives_only_section_applicable_standards() -> None:
+    contract = build_presentation_visitor_contract(
+        applicable_h2_headings=_headings(),
+        primary_example_language="python",
+    )
+
+    projected = bounded_visitor_contract(
+        contract,
+        "additional-examples/convert-a-model",
+    )
+
+    standard_ids = {item["standard_id"] for item in projected["configured_standards"]}
+    assert standard_ids == {
+        "readme.no_comments",
+        "readme.primary_example",
+        "readme.public_language",
+    }
+    assert "readme.header" not in standard_ids
+    assert "readme.navigation" not in standard_ids
+    assert "readme.at_a_glance_mermaid" not in standard_ids
 
 
 def test_successful_packets_survive_one_parallel_packet_failure(tmp_path) -> None:

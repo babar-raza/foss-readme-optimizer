@@ -425,6 +425,9 @@ def run_grounded_role(
     max_attempts_override: int | None = None,
     allowed_quality_criteria: frozenset[str] | None = None,
     allowed_mechanical_check_ids: frozenset[str] | None = None,
+    failure_context: str | None = None,
+    mechanical_candidate_text: str | None = None,
+    mechanical_visitor_contract: dict | None = None,
 ) -> tuple[
     BlindQualityReviewResultV1 | FactualPlanReviewResultV1,
     list[dict],
@@ -468,6 +471,8 @@ def run_grounded_role(
                 product_facts=product_facts,
                 findings=parsed.findings,
                 visitor_contract=visitor_contract,
+                mechanical_candidate_text=mechanical_candidate_text,
+                mechanical_visitor_contract=mechanical_visitor_contract,
             )
             errors = list(grounding.errors)
             if allowed_quality_criteria is not None:
@@ -490,6 +495,8 @@ def run_grounded_role(
                     product_facts=product_facts,
                     findings=parsed.findings,
                     visitor_contract=visitor_contract,
+                    mechanical_candidate_text=mechanical_candidate_text,
+                    mechanical_visitor_contract=mechanical_visitor_contract,
                 )
                 errors = list(grounding.errors)
                 if allowed_quality_criteria is not None:
@@ -513,6 +520,8 @@ def run_grounded_role(
                         product_facts=product_facts,
                         findings=parsed.findings,
                         visitor_contract=visitor_contract,
+                        mechanical_candidate_text=mechanical_candidate_text,
+                        mechanical_visitor_contract=mechanical_visitor_contract,
                     )
                     errors = list(grounding.errors)
                     if allowed_quality_criteria is not None:
@@ -574,8 +583,10 @@ def run_grounded_role(
         if parsed is not None and grounding is not None and not errors:
             return parsed, history, grounding
         if attempt == max_attempts:
+            context_prefix = f"{failure_context}: " if failure_context else ""
             raise GroundedRoleFailure(
-                f"{role} reviewer repeatedly returned ungrounded findings: {errors}",
+                f"{context_prefix}{role} reviewer repeatedly returned ungrounded findings: "
+                f"{errors}",
                 retry_history=tuple(history),
             )
         retry_message = build_role_grounding_retry_message(

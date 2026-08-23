@@ -187,6 +187,8 @@ def validate_review_findings(
     product_facts: dict | None,
     findings: list[GroundedReviewFindingV1],
     visitor_contract: dict | None = None,
+    mechanical_candidate_text: str | None = None,
+    mechanical_visitor_contract: dict | None = None,
 ) -> FindingGroundingResultV1:
     """Reject invented spans, unknown facts, evidence mismatch, and wrong polarity."""
 
@@ -200,8 +202,8 @@ def validate_review_findings(
     mechanical_observations = {
         observation.check_id: observation
         for observation in build_candidate_mechanical_observations(
-            candidate_text,
-            visitor_contract or {},
+            mechanical_candidate_text or candidate_text,
+            mechanical_visitor_contract or visitor_contract or {},
         )
     }
     seen: set[str] = set()
@@ -1021,6 +1023,17 @@ def _validate_typed_mechanical_finding(
     """Require parser ownership only when no earlier contract rule already disproves a finding."""
 
     expected_check = _mechanical_check_for_premise(finding, premise)
+    expected_observation = mechanical_observations.get(expected_check)
+    if (
+        expected_check is not None
+        and finding.disposition == "requires_repair"
+        and expected_observation is not None
+        and expected_observation.compliant
+    ):
+        return [
+            f"{finding.finding_id}:mechanical repair premise contradicts compliant "
+            f"{expected_check} observation"
+        ]
     if expected_check is not None and finding.mechanical_check_id is None:
         return [
             f"{finding.finding_id}:mechanical premise lacks required typed check {expected_check}"
@@ -1143,6 +1156,10 @@ def _mechanical_check_for_premise(
             "required h2 prefix",
             "required prefix order",
         )
+    ):
+        return "document.required_h2_prefix"
+    if "required h2" in premise and any(
+        term in premise for term in ("absent", "missing", "not present", "not found", "lacks")
     ):
         return "document.required_h2_prefix"
     if finding.section.casefold() == "quick start" or "quick start" in premise:

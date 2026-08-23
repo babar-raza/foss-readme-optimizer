@@ -497,6 +497,7 @@ def build_blind_quality_review_messages(
     bounded_scope_json: str = "{}",
     *,
     mechanical_candidate_text: str | None = None,
+    allowed_mechanical_check_ids: frozenset[str] | None = None,
 ) -> list[dict]:
     """Build one exact-block visitor view without duplicated source/candidate documents."""
 
@@ -507,6 +508,16 @@ def build_blind_quality_review_messages(
         visitor_contract = json.loads(visitor_contract_json)
     except json.JSONDecodeError:
         visitor_contract = {}
+    mechanical_observations = render_candidate_mechanical_observations(
+        mechanical_candidate_text or candidate_readme_text,
+        visitor_contract,
+    )
+    if allowed_mechanical_check_ids is not None:
+        mechanical_observations = [
+            item
+            for item in mechanical_observations
+            if item["check_id"] in allowed_mechanical_check_ids
+        ]
     user_content = (
         Template(manifest.user_template)
         .substitute(
@@ -517,10 +528,7 @@ def build_blind_quality_review_messages(
                 separators=(",", ":"),
             ),
             candidate_mechanical_observations_json=json.dumps(
-                render_candidate_mechanical_observations(
-                    mechanical_candidate_text or candidate_readme_text,
-                    visitor_contract,
-                ),
+                mechanical_observations,
                 ensure_ascii=False,
                 sort_keys=True,
             ),
