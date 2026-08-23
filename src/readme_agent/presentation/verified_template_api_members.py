@@ -178,6 +178,25 @@ def _member_rows(item: dict[str, Any]) -> list[tuple[int, dict[str, Any]]]:
     return sorted(rows, key=lambda row: (row[0], str(row[1]["name"]).casefold()))
 
 
+def select_summary_api_members(item: dict[str, Any], *, limit: int = 3) -> list[dict[str, Any]]:
+    """Return the exact implemented methods used to summarize one public API type."""
+
+    selected: list[dict[str, Any]] = []
+    phrases: set[str] = set()
+    for _score, member in _member_rows(item):
+        if str(member.get("kind") or "") != "method":
+            continue
+        if member.get("implemented") is not True:
+            continue
+        phrase = method_phrase(str(member.get("name") or "").strip())
+        if phrase and phrase not in phrases:
+            selected.append(member)
+            phrases.add(phrase)
+        if len(selected) == limit:
+            break
+    return selected
+
+
 def summarize_api_members(item: dict[str, Any], *, limit: int = 3) -> list[str]:
     """Return a bounded class overview; full details remain in member table rows.
 
@@ -190,16 +209,10 @@ def summarize_api_members(item: dict[str, Any], *, limit: int = 3) -> list[str]:
     never optimistic."""
 
     actions: list[str] = []
-    for _score, member in _member_rows(item):
-        if str(member.get("kind") or "") != "method":
-            continue
-        if member.get("implemented") is not True:
-            continue
+    for member in select_summary_api_members(item, limit=limit):
         phrase = method_phrase(str(member.get("name") or "").strip())
-        if phrase and phrase not in actions:
+        if phrase:
             actions.append(phrase)
-        if len(actions) == limit:
-            break
     return actions
 
 
@@ -275,5 +288,6 @@ __all__ = [
     "describe_api_member",
     "member_api_identifier",
     "method_phrase",
+    "select_summary_api_members",
     "summarize_api_members",
 ]

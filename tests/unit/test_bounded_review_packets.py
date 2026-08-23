@@ -82,7 +82,27 @@ def test_api_packet_receives_complete_exact_namespace_evidence() -> None:
                         {"module": "widget.formats", "exports": ["Loader"]},
                     ],
                     "classes": [
-                        {"module": "widget.entities", "name": "Box", "members": []},
+                        {
+                            "module": "widget.entities",
+                            "name": "Box",
+                            "members": [
+                                {
+                                    "name": "width",
+                                    "kind": "property",
+                                    "surface": "width",
+                                    "implemented": True,
+                                    "inherited": False,
+                                },
+                                {
+                                    "name": "find_property",
+                                    "kind": "method",
+                                    "surface": "find_property(name)",
+                                    "implemented": True,
+                                    "declared_by": "Entity",
+                                    "inherited": True,
+                                },
+                            ],
+                        },
                         {"module": "widget.entities", "name": "Sphere", "members": []},
                         {"module": "widget.formats", "name": "Loader", "members": []},
                     ],
@@ -110,6 +130,18 @@ def test_api_packet_receives_complete_exact_namespace_evidence() -> None:
     assert payload["projection_complete_for_namespace"] is True
     assert [item["name"] for item in payload["classes"]] == ["Box", "Sphere"]
     assert [item["module"] for item in payload["modules"]] == ["widget.entities"]
+    assert payload["classes"][0]["public_members"] == [
+        {
+            "name": "find_property",
+            "kind": "method",
+            "surface": "find_property(name)",
+            "implemented": True,
+            "declared_by": "Entity",
+            "inherited": True,
+            "return_annotation": None,
+            "writable": None,
+        }
+    ]
 
 
 def test_visitor_packet_preserves_complete_nested_section_context() -> None:

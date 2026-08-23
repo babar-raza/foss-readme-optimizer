@@ -8,6 +8,7 @@ from collections.abc import Callable, Sequence
 from typing import Any
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.presentation.verified_template_api_members import select_summary_api_members
 from readme_agent.readme.agentic_composition_inputs import composition_fact_payloads
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.specialists.bounded_review_contracts import (
@@ -56,17 +57,47 @@ def _bounded_fact_payloads(
             if not isinstance(item, dict) or str(item.get("name")) not in exported_names:
                 continue
             constructor = item.get("constructor")
+            summary_member_keys = {
+                (
+                    member.get("name"),
+                    member.get("surface"),
+                    member.get("declared_by"),
+                    member.get("inherited"),
+                )
+                for member in select_summary_api_members(item)
+                if isinstance(member, dict)
+            }
             members = [
                 {
                     "name": member.get("name"),
                     "kind": member.get("kind"),
                     "surface": member.get("surface"),
                     "implemented": member.get("implemented"),
+                    "declared_by": member.get("declared_by"),
+                    "inherited": member.get("inherited"),
+                    "return_annotation": member.get("return_annotation"),
+                    "writable": member.get("writable"),
                 }
                 for member in item.get("members") or []
                 if isinstance(member, dict)
-                and member.get("implemented") is not False
-                and not member.get("inherited")
+                and (
+                    (
+                        member.get("name"),
+                        member.get("surface"),
+                        member.get("declared_by"),
+                        member.get("inherited"),
+                    )
+                    in summary_member_keys
+                    or (
+                        bool(str(member.get("name") or "").strip())
+                        and re.search(
+                            rf"(?<![A-Za-z0-9_]){re.escape(str(member.get('name')))}"
+                            r"(?![A-Za-z0-9_])",
+                            unit_text,
+                        )
+                        is not None
+                    )
+                )
             ]
             classes.append(
                 {
@@ -77,7 +108,7 @@ def _bounded_fact_payloads(
                     "constructor_surface": (
                         constructor.get("surface") if isinstance(constructor, dict) else None
                     ),
-                    "public_members": members[:5],
+                    "public_members": members,
                     "source_path": item.get("source_path"),
                     "source_sha256": item.get("source_sha256"),
                 }
