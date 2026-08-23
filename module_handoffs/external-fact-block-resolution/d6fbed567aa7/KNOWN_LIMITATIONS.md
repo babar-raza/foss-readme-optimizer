@@ -37,7 +37,19 @@
    established style. If a future integration needs sanitized real-world fixtures (once
    the five real receipts become available), they would need to be added fresh.
 
-6. **`module_handoffs/` is a new top-level directory** (did not previously exist in this
+6. **The module's line count exceeded the plan's own 300-360-line estimate** (actual:
+   597 lines after a subsequent audit-driven DRY fix, up from an initial 588). A
+   PLAN-THEN-EXECUTE mission audit pass (commit `fadc997e`) re-read the full module
+   looking specifically for genuine redundancy (not line-count-driven trimming, which
+   the plan explicitly rejected in favor of one-entry-per-line constant tables) and
+   found and fixed exactly one real duplication (two near-identical tier-7
+   terminal-block `FactAssertionAuthorityV1` constructions, now unified in
+   `_terminal_block_authority()`). No further redundancy was found. The size overshoot
+   is judged an inaccurate estimate, not evidence of an undiscovered second concern --
+   the module remains one cohesive responsibility (resolving one external fact block),
+   consistent with the plan's explicit choice to keep it in one file rather than split.
+
+7. **`module_handoffs/` is a new top-level directory** (did not previously exist in this
    repository). It was created only because the task brief named it as the required
    handoff destination; it is not registered anywhere in `docs/architecture.md`'s
    directory map, since `docs/**` is a prohibited path for this lane. Whoever integrates

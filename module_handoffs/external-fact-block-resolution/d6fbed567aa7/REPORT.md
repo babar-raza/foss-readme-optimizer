@@ -26,9 +26,14 @@ with all 52 tests passing, (3) this handoff documentation.
 
 ## Files changed
 
-See `CHANGED_FILES.txt`. Exactly two files, both new, both inside the owned-paths list:
-`src/readme_agent/facts/external_fact_block_resolution.py` (588 lines) and
-`tests/unit/test_external_fact_block_resolution.py` (794 lines).
+See `CHANGED_FILES.txt`. Exactly two owned source/test files, both new:
+`src/readme_agent/facts/external_fact_block_resolution.py` (597 lines) and
+`tests/unit/test_external_fact_block_resolution.py` (794 lines). A subsequent
+PLAN-THEN-EXECUTE audit pass (commit `fadc997e`) found and fixed one real code
+duplication (two near-identical tier-7 terminal-block constructions), which is why the
+line count differs slightly from the original 588 recorded when this report was first
+drafted -- see `COMMITS.txt` for the full 4-commit history and `KNOWN_LIMITATIONS.md`
+for the corrected note on the plan's original 300-360-line estimate.
 
 ## Interface
 
@@ -65,6 +70,21 @@ See `KNOWN_LIMITATIONS.md`.
 ## Security / redaction
 
 See `SECURITY_AND_REDACTION.md`.
+
+## PLAN-THEN-EXECUTE mission audit (post-handoff)
+
+A separate mission bound this session plan file as sole authority (scope explicitly
+confined to this module -- integration remains out of scope) and independently
+re-verified every plan claim against live repository/lane state rather than trusting
+this report: reran all 5 plan-declared verification commands fresh (all pass), confirmed
+all 16 changed files are exactly the owned paths and no prohibited path was touched,
+confirmed `facts/__init__.py` is still empty, confirmed nothing anywhere imports the new
+module, and reconciled all 26 mandatory test items against the real test file
+(26/26 mapped to passing tests, plus 2 bonus structural-validator tests). One real
+finding: the module's actual line count (588) exceeded the plan's own 300-360 estimate.
+Investigation found one genuine code duplication (not mere verbosity) and fixed it
+(commit `fadc997e`); no other redundancy was found on full re-read. See
+`KNOWN_LIMITATIONS.md` item 6 for the full account.
 
 ## Integration
 
