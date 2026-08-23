@@ -164,6 +164,7 @@ def packet_cache_key(
     facts_hash: str,
     provenance_hash: str,
     sampling_parameters: Mapping[str, Any] | None = None,
+    runtime_contract_hash: str | None = None,
 ) -> str:
     """Deterministic cache identity for one packet's reviewer call.
 
@@ -171,18 +172,19 @@ def packet_cache_key(
     change invalidates through the key without needing a separate version field here.
     """
 
-    return _canonical_hash(
-        {
-            "packet_id": packet.packet_id,
-            "packet_sha256": packet.packet_sha256,
-            "facet": packet.facet,
-            "model": model,
-            "schema_sha256": schema_sha256,
-            "facts_hash": facts_hash,
-            "provenance_hash": provenance_hash,
-            "sampling_parameters": dict(sampling_parameters or {}),
-        }
-    )
+    identity = {
+        "packet_id": packet.packet_id,
+        "packet_sha256": packet.packet_sha256,
+        "facet": packet.facet,
+        "model": model,
+        "schema_sha256": schema_sha256,
+        "facts_hash": facts_hash,
+        "provenance_hash": provenance_hash,
+        "sampling_parameters": dict(sampling_parameters or {}),
+    }
+    if runtime_contract_hash is not None:
+        identity["runtime_contract_hash"] = runtime_contract_hash
+    return _canonical_hash(identity)
 
 
 def is_reusable_cache_entry(result: BoundedPacketResultV1) -> bool:

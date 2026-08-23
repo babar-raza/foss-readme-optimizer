@@ -21,6 +21,7 @@ from readme_agent.specialists.bounded_review_cache import (
     load_bounded_review_packet_cache,
     write_bounded_review_packet_cache,
 )
+from readme_agent.specialists.bounded_review_hashing import _canonical_hash
 from readme_agent.specialists.bounded_review_packets import (
     AggregateVerdictV1,
     BoundedFactualPacketV1,
@@ -185,10 +186,32 @@ def execute_bounded_review(
             f"bounded review is structurally blocked: {aggregate.blocking_record_ids}"
         )
 
-    def load_cached(packet):
+    def visitor_authority(visitor_packet: BoundedVisitorPacketV1) -> tuple[dict, dict, str]:
+        bounded_scope = bounded_visitor_scope(
+            visitor_packet.section_path,
+            neighbor_context_before=visitor_packet.neighbor_context_before,
+            neighbor_context_after=visitor_packet.neighbor_context_after,
+        )
+        scoped_visitor_contract = bounded_visitor_contract(
+            visitor_contract,
+            visitor_packet.section_path,
+        )
+        authority_hash = _canonical_hash(
+            {
+                "bounded_scope": bounded_scope,
+                "scoped_visitor_contract": scoped_visitor_contract,
+            }
+        )
+        return bounded_scope, scoped_visitor_contract, authority_hash
+
+    def load_cached(packet, *, runtime_contract_hash: str | None = None):
         if cache_dir is None or cache_context is None:
             return None
-        cache_key = cache_key_for_packet(packet, cache_context)
+        cache_key = cache_key_for_packet(
+            packet,
+            cache_context,
+            runtime_contract_hash=runtime_contract_hash,
+        )
         cached = load_bounded_review_packet_cache(
             cache_dir,
             cache_key=cache_key,
@@ -223,12 +246,16 @@ def execute_bounded_review(
         )
         return cached.result, history
 
-    def persist(packet, result, history):
+    def persist(packet, result, history, *, runtime_contract_hash: str | None = None):
         if cache_dir is None or cache_context is None:
             return
         write_bounded_review_packet_cache(
             cache_dir,
-            cache_key=cache_key_for_packet(packet, cache_context),
+            cache_key=cache_key_for_packet(
+                packet,
+                cache_context,
+                runtime_contract_hash=runtime_contract_hash,
+            ),
             org_repo=org_repo,
             context=cache_context,
             packet=packet,
@@ -237,18 +264,10 @@ def execute_bounded_review(
         )
 
     def review_visitor(visitor_packet: BoundedVisitorPacketV1):
-        cached = load_cached(visitor_packet)
+        bounded_scope, scoped_visitor_contract, authority_hash = visitor_authority(visitor_packet)
+        cached = load_cached(visitor_packet, runtime_contract_hash=authority_hash)
         if cached is not None:
             return cached
-        bounded_scope = bounded_visitor_scope(
-            visitor_packet.section_path,
-            neighbor_context_before=visitor_packet.neighbor_context_before,
-            neighbor_context_after=visitor_packet.neighbor_context_after,
-        )
-        scoped_visitor_contract = bounded_visitor_contract(
-            visitor_contract,
-            visitor_packet.section_path,
-        )
         allowed_mechanical_check_ids = frozenset(bounded_scope["applicable_mechanical_check_ids"])
         messages = build_blind_quality_review_messages(
             org_repo,
@@ -279,7 +298,7 @@ def execute_bounded_review(
         if not validation.valid:
             raise RuntimeError(f"invalid bounded visitor result: {validation.errors}")
         history = tuple({**item, "packet_id": visitor_packet.packet_id} for item in attempts)
-        persist(visitor_packet, bounded, history)
+        persist(visitor_packet, bounded, history, runtime_contract_hash=authority_hash)
         return bounded, history
 
     def review_factual(factual_packet: BoundedFactualPacketV1):

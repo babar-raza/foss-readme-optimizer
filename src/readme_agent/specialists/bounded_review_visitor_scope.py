@@ -26,6 +26,7 @@ _CRITERIA_BY_ROOT = {
     "installation": _COMMON_CRITERIA | {"installation_presentation"},
     "quick-start": _COMMON_CRITERIA | {"example_presentation", "visible_duplication"},
     "additional-examples": _COMMON_CRITERIA | {"example_presentation", "visible_duplication"},
+    "development-and-testing": _COMMON_CRITERIA | {"example_presentation"},
     "scope-and-limitations": _COMMON_CRITERIA | {"promotional_balance", "visible_duplication"},
 }
 _DEFAULT_CRITERIA = _COMMON_CRITERIA | {

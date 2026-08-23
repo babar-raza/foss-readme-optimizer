@@ -17,7 +17,10 @@ from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.specialists import bounded_review_packets as brp
-from readme_agent.specialists.bounded_review_cache import BoundedReviewCacheContextV1
+from readme_agent.specialists.bounded_review_cache import (
+    BoundedReviewCacheContextV1,
+    cache_key_for_packet,
+)
 from readme_agent.specialists.bounded_review_execution import execute_bounded_review
 from readme_agent.specialists.bounded_review_visitor_scope import (
     bounded_visitor_contract,
@@ -180,6 +183,39 @@ def test_additional_example_packet_receives_only_section_applicable_standards() 
     assert "readme.header" not in standard_ids
     assert "readme.navigation" not in standard_ids
     assert "readme.at_a_glance_mermaid" not in standard_ids
+
+
+def test_development_commands_may_be_assessed_for_example_presentation() -> None:
+    scope = bounded_visitor_scope(
+        "development-and-testing/focused-commands-and-repository-scripts",
+        neighbor_context_before="### Tests\n",
+        neighbor_context_after="## License\n",
+    )
+
+    assert "example_presentation" in scope["applicable_criteria"]
+
+
+def test_runtime_authority_invalidates_only_visitor_packet_cache_identity() -> None:
+    plan = _plan()
+    context = _cache_context()
+    visitor = plan.visitor_packets[0]
+    factual = plan.factual_packets[0]
+
+    visitor_before = cache_key_for_packet(
+        visitor,
+        context,
+        runtime_contract_hash="1" * 64,
+    )
+    visitor_after = cache_key_for_packet(
+        visitor,
+        context,
+        runtime_contract_hash="2" * 64,
+    )
+    factual_before = cache_key_for_packet(factual, context)
+    factual_after = cache_key_for_packet(factual, context, runtime_contract_hash=None)
+
+    assert visitor_before != visitor_after
+    assert factual_before == factual_after
 
 
 def test_successful_packets_survive_one_parallel_packet_failure(tmp_path) -> None:

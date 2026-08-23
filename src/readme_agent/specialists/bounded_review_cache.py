@@ -81,6 +81,8 @@ class BoundedReviewPacketCacheV1(BaseModel):
 def cache_key_for_packet(
     packet: BoundedPacketV1,
     context: BoundedReviewCacheContextV1,
+    *,
+    runtime_contract_hash: str | None = None,
 ) -> str:
     """Build one exact cache key from the packet and facet-specific client contract."""
 
@@ -92,6 +94,7 @@ def cache_key_for_packet(
         facts_hash=context.facts_hash,
         provenance_hash=context.provenance_hash,
         sampling_parameters=sampling_parameters,
+        runtime_contract_hash=runtime_contract_hash,
     )
 
 
