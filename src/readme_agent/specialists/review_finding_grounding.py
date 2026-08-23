@@ -1418,6 +1418,21 @@ def grounding_retry_context(
 ) -> str:
     """Return bounded reconciliation evidence without another producer verdict."""
 
+    output_contract_rules: list[str] = []
+    joined_errors = "\n".join(errors)
+    if "missing-evidence verdict requires a missing factual finding" in joined_errors:
+        output_contract_rules.append(
+            "BLOCKED_MISSING_EVIDENCE requires at least one factual blocks finding with "
+            "polarity_result=missing and null fact/evidence fields. If no such unsupported "
+            "claim exists, choose the verdict supported by the corrected findings."
+        )
+    if "fact-conflict verdict requires a contradicted factual finding" in joined_errors:
+        output_contract_rules.append(
+            "BLOCKED_FACT_CONFLICT requires at least one factual blocks finding with "
+            "polarity_result=contradicts and exact accepted-fact evidence. If no contradiction "
+            "exists, choose the verdict supported by the corrected findings."
+        )
+
     disproven_ids = deterministically_disproven_finding_ids(errors)
     selected_fact_ids = (product_facts or {}).get("selected_fact_ids", {})
     selected_ids = set(selected_fact_ids.values())
@@ -1508,6 +1523,7 @@ def grounding_retry_context(
         "accepted_fact_evidence": accepted_fact_evidence,
         "required_correction": {
             "do_not_repeat_finding_ids": sorted(disproven_ids),
+            "output_contract_rules": output_contract_rules,
             "instruction": (
                 "Do not repeat a deterministically disproven premise. Replace it only with a "
                 "different grounded finding, or return grounded supports_acceptance findings "

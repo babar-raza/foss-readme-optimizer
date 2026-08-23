@@ -2626,6 +2626,25 @@ def test_false_missing_retry_omits_unrelated_accepted_facts():
     assert [fact["fact_id"] for fact in retry["accepted_fact_evidence"]] == ["fact-1"]
 
 
+def test_retry_names_missing_evidence_verdict_finding_contract() -> None:
+    retry = json.loads(
+        grounding_retry_context(
+            errors=[
+                "factual README plan review violated its output contract: "
+                "missing-evidence verdict requires a missing factual finding"
+            ],
+            candidate_text=CANDIDATE,
+            product_facts=FACTS,
+        )
+    )
+
+    rules = retry["required_correction"]["output_contract_rules"]
+    assert len(rules) == 1
+    assert "BLOCKED_MISSING_EVIDENCE" in rules[0]
+    assert "polarity_result=missing" in rules[0]
+    assert "null fact/evidence fields" in rules[0]
+
+
 def test_page_reviewer_cannot_remove_real_h2_sections_as_non_required() -> None:
     navigation = (
         "- [At a glance](#at-a-glance)\n"
