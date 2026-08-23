@@ -8,6 +8,7 @@ from zipfile import ZipFile
 
 from readme_agent.evidence.writer import refresh_sha256sums, verify_sha256sums
 from readme_agent.supervisor.local_poc_superseded import (
+    archive_and_prune_downstream_artifacts,
     preserve_superseded_candidate,
     recover_interrupted_candidate_supersession,
 )
@@ -134,3 +135,33 @@ def test_interrupted_supersession_recovery_rejects_unrelated_corruption(tmp_path
 
     assert (bundle / "sha256sums.txt").read_bytes() == inventory_before
     assert not verify_sha256sums(bundle)
+
+
+def test_downstream_prune_preserves_exact_key_packet_cache(tmp_path) -> None:
+    bundle = tmp_path / "bundle"
+    candidate = "# Candidate\n"
+    candidate_hash = hashlib.sha256(candidate.encode()).hexdigest()
+    (bundle / "candidate").mkdir(parents=True)
+    (bundle / "candidate" / "README.md").write_text(candidate, encoding="utf-8")
+    cache_file = bundle / "review" / "bounded-packet-cache" / ("a" * 64 + ".json")
+    cache_file.parent.mkdir(parents=True)
+    cache_file.write_text('{"verdict":"ACCEPT"}\n', encoding="utf-8")
+    (bundle / "review" / "transient-result.json").write_text("{}\n", encoding="utf-8")
+    manifest = {
+        "source_revision": "b" * 40,
+        "candidate_hash": candidate_hash,
+        "lifecycle_status": "AGENT_REVIEWING",
+        "stage_receipts": {"AGENT_REVIEWING": {"receipt": "stale"}},
+    }
+
+    retained = archive_and_prune_downstream_artifacts(
+        bundle,
+        manifest,
+        reason="candidate review restarted",
+    )
+
+    assert cache_file.read_text(encoding="utf-8") == '{"verdict":"ACCEPT"}\n'
+    assert not (bundle / "review" / "transient-result.json").exists()
+    assert "stage_receipts" not in retained
+    superseded = bundle / "superseded" / candidate_hash[:16]
+    assert (superseded / "review" / "bounded-packet-cache.zip").is_file()

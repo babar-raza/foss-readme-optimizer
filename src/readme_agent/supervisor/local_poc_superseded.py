@@ -16,6 +16,10 @@ from readme_agent.evidence.writer import (
     verify_sha256sums,
     write_redacted_json,
 )
+from readme_agent.supervisor.local_poc_review_cache_preservation import (
+    PACKET_CACHE_DIRECTORY,
+    preserve_bounded_review_cache,
+)
 
 _EVIDENCE_DIRECTORIES = ("facts", "assessment", "planning", "candidate", "review", "receipts")
 _DOWNSTREAM_DIRECTORIES = ("assessment", "planning", "candidate", "review")
@@ -38,7 +42,6 @@ _DOWNSTREAM_RECEIPT_STAGES = frozenset(
     }
 )
 _DIRECTORY_HASH_LENGTH = 16
-_PACKET_CACHE_DIRECTORY = "bounded-packet-cache"
 _PACKET_CACHE_ARCHIVE = "bounded-packet-cache.zip"
 _RECOVERABLE_PREPROMOTION_MUTATIONS = frozenset({"assurance/section_authoring/document.json"})
 
@@ -63,12 +66,12 @@ def _copy_evidence_directory(source: Path, destination: Path, *, name: str) -> N
         shutil.copytree(source, destination, dirs_exist_ok=True)
         return
 
-    packet_cache = source / _PACKET_CACHE_DIRECTORY
+    packet_cache = source / PACKET_CACHE_DIRECTORY
 
     def ignore(current: str, names: list[str]) -> set[str]:
         return (
-            {_PACKET_CACHE_DIRECTORY}
-            if Path(current) == source and _PACKET_CACHE_DIRECTORY in names
+            {PACKET_CACHE_DIRECTORY}
+            if Path(current) == source and PACKET_CACHE_DIRECTORY in names
             else set()
         )
 
@@ -79,7 +82,7 @@ def _copy_evidence_directory(source: Path, destination: Path, *, name: str) -> N
         packet_cache,
         destination / _PACKET_CACHE_ARCHIVE,
     )
-    partial_cache_copy = destination / _PACKET_CACHE_DIRECTORY
+    partial_cache_copy = destination / PACKET_CACHE_DIRECTORY
     if partial_cache_copy.is_dir():
         shutil.rmtree(partial_cache_copy)
 
@@ -283,10 +286,11 @@ def archive_and_prune_downstream_artifacts(
     """Archive a physical candidate, then remove artifacts invalid below product truth."""
 
     preserve_superseded_candidate(bundle_dir, prior_manifest, reason=reason)
-    for name in _DOWNSTREAM_DIRECTORIES:
-        path = bundle_dir / name
-        if path.is_dir():
-            shutil.rmtree(path)
+    with preserve_bounded_review_cache(bundle_dir):
+        for name in _DOWNSTREAM_DIRECTORIES:
+            path = bundle_dir / name
+            if path.is_dir():
+                shutil.rmtree(path)
 
     receipts_dir = bundle_dir / "receipts"
     if receipts_dir.is_dir():
