@@ -403,6 +403,23 @@ def _resume_predicate(
     return f"first resolution recorded; retry becomes worthwhile if any of {fields_text} change"
 
 
+def _terminal_block_authority(
+    *, claim_kind: FactClaimKindV1, rationale: str
+) -> FactAssertionAuthorityV1:
+    """Tier-7 authority for a resolution that remains blocked -- shared by the
+    identity-conflict path and the no-competent-evidence path, which differ only in
+    their rationale text."""
+
+    return FactAssertionAuthorityV1(
+        ladder_tier=7,
+        evidence_kind=None,
+        claim_kind=claim_kind,
+        competent=False,
+        citation_evidence_ids=(),
+        rationale=redact_secret_like_values(rationale),
+    )
+
+
 def _select_ladder_authority(
     block: ExternalFactBlockV1, available_evidence: AvailableFactEvidenceCatalogV1
 ) -> tuple[WordingModeV1, FactAssertionAuthorityV1 | None]:
@@ -491,13 +508,9 @@ def resolve_external_fact_block(
     resolved_authority: FactAssertionAuthorityV1 | None
     if conflicting:
         wording_mode = "block"
-        resolved_authority = FactAssertionAuthorityV1(
-            ladder_tier=7,
-            evidence_kind=None,
+        resolved_authority = _terminal_block_authority(
             claim_kind=block.claim_kind,
-            competent=False,
-            citation_evidence_ids=(),
-            rationale=redact_secret_like_values(
+            rationale=(
                 "identity conflict between block and available evidence; failing closed: "
                 f"{block.detail}"
             ),
@@ -506,13 +519,9 @@ def resolve_external_fact_block(
         wording_mode, resolved_authority = _select_ladder_authority(block, available_evidence)
 
     if resolved_authority is None:
-        resolved_authority = FactAssertionAuthorityV1(
-            ladder_tier=7,
-            evidence_kind=None,
+        resolved_authority = _terminal_block_authority(
             claim_kind=block.claim_kind,
-            competent=False,
-            citation_evidence_ids=(),
-            rationale=redact_secret_like_values(
+            rationale=(
                 f"no competent evidence resolves {block.claim_kind} for this block: {block.detail}"
             ),
         )
