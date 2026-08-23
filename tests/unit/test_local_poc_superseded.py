@@ -85,6 +85,12 @@ def _interrupted_bundle(tmp_path):
     (bundle / "review" / "bounded-packet-cache" / ("a" * 64 + ".json")).write_text(
         '{"verdict":"ACCEPT"}\n', encoding="utf-8"
     )
+    prior_superseded = bundle / "superseded" / "prior-candidate"
+    prior_superseded.mkdir(parents=True)
+    (prior_superseded / "superseded.json").write_text(
+        '{"candidate_hash":"prior"}\n', encoding="utf-8"
+    )
+    refresh_sha256sums(prior_superseded)
     manifest = {
         "source_revision": "b" * 40,
         "candidate_hash": candidate_hash,

@@ -213,7 +213,9 @@ def _files_outside_interrupted_destination(
             if not stat.S_ISREG(physical.stat().st_mode):
                 raise OSError(f"unsupported non-regular evidence artifact: {physical}")
             relative = physical.relative_to(physical_root).as_posix()
-            if relative != "sha256sums.txt":
+            # The canonical evidence inventory omits checksum inventories at
+            # every nesting depth, not only the bundle root.
+            if physical.name != "sha256sums.txt":
                 files[relative] = physical
     return files
 
