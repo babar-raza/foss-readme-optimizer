@@ -98,6 +98,18 @@ def normalize_redundant_role_fields(role: str, value: object) -> object:
                     isinstance(polarity_result, str) and not polarity_result.strip()
                 ):
                     normalized_item["polarity_result"] = "not_applicable"
+                mechanical_check_id = normalized_item.get("mechanical_check_id")
+                reported_value = normalized_item.get("reported_observed_value")
+                has_mechanical_check = isinstance(mechanical_check_id, str) and bool(
+                    mechanical_check_id.strip()
+                )
+                has_reported_value = reported_value is not None
+                if has_mechanical_check != has_reported_value:
+                    # A half-populated optional pair cannot identify a typed parser premise.
+                    # Clear it before shape validation; premise analysis below still requires
+                    # a complete pair whenever the finding text makes a mechanical claim.
+                    normalized_item["mechanical_check_id"] = None
+                    normalized_item["reported_observed_value"] = None
             if normalized_item.get("disposition") != "requires_repair":
                 normalized_item["required_repair"] = ""
             normalized_items.append(normalized_item)

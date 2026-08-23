@@ -2213,6 +2213,32 @@ def test_irrelevant_mechanical_reference_is_cleared_without_retry() -> None:
     assert history[0]["reconciled_irrelevant_mechanical_finding_ids"] == ["quality.generic-opening"]
 
 
+@pytest.mark.parametrize(
+    ("mechanical_check_id", "reported_observed_value"),
+    [(None, False), ("document.required_h2_prefix", None)],
+)
+def test_half_populated_optional_mechanical_pair_is_cleared_before_validation(
+    mechanical_check_id,
+    reported_observed_value,
+) -> None:
+    parsed = {
+        **_blind_accept("The target explanation is clear."),
+        "findings": [
+            {
+                **_blind_accept("The target explanation is clear.")["findings"][0],
+                "mechanical_check_id": mechanical_check_id,
+                "reported_observed_value": reported_observed_value,
+            }
+        ],
+    }
+
+    normalized = normalize_redundant_role_fields("blind_quality", parsed)
+    result = BlindQualityReviewResultV1.model_validate(normalized)
+
+    assert result.findings[0].mechanical_check_id is None
+    assert result.findings[0].reported_observed_value is None
+
+
 def test_bounded_scope_retries_a_global_finding_then_accepts_target_quality() -> None:
     invalid = {
         **_blind_accept("The packet needs global navigation."),
