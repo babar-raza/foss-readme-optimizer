@@ -45,11 +45,43 @@ def _bounded_fact_payloads(
             for item in catalog.get("modules") or []
             if isinstance(item, dict) and item.get("module") == namespace
         ]
-        classes = [
-            item
-            for item in catalog.get("classes") or []
-            if isinstance(item, dict) and item.get("module") == namespace
-        ]
+        exported_names = {
+            str(export)
+            for module in modules
+            for export in module.get("exports") or []
+            if str(export).strip()
+        }
+        classes = []
+        for item in catalog.get("classes") or []:
+            if not isinstance(item, dict) or str(item.get("name")) not in exported_names:
+                continue
+            constructor = item.get("constructor")
+            members = [
+                {
+                    "name": member.get("name"),
+                    "kind": member.get("kind"),
+                    "surface": member.get("surface"),
+                    "implemented": member.get("implemented"),
+                }
+                for member in item.get("members") or []
+                if isinstance(member, dict)
+                and member.get("implemented") is not False
+                and not member.get("inherited")
+            ]
+            classes.append(
+                {
+                    "name": item.get("name"),
+                    "module": item.get("module"),
+                    "qualified_name": item.get("qualified_name"),
+                    "bases": item.get("bases") or [],
+                    "constructor_surface": (
+                        constructor.get("surface") if isinstance(constructor, dict) else None
+                    ),
+                    "public_members": members[:5],
+                    "source_path": item.get("source_path"),
+                    "source_sha256": item.get("source_sha256"),
+                }
+            )
         functions = [
             item
             for item in catalog.get("functions") or []
