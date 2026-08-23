@@ -11,12 +11,11 @@ from readme_agent.readme.agentic_composition_inputs import composition_fact_payl
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.specialists.bounded_review_contracts import (
     BoundedFactualPacketV1,
-    BoundedVisitorPacketV1,
-    SectionClassificationV1,
     UnpacketizableRecordV1,
 )
 from readme_agent.specialists.bounded_review_hashing import _packet_id_slug, _packet_sha256
 from readme_agent.specialists.bounded_review_structure import _MutableUnit
+from readme_agent.specialists.bounded_review_visitor_packers import build_visitor_packets
 
 
 def _greedy_group_units(
@@ -200,102 +199,4 @@ def _build_factual_packets(
     return packets, unpacketizable
 
 
-def _build_visitor_packets(
-    *,
-    sections: list[list[_MutableUnit]],
-    section_classifications: dict[str, SectionClassificationV1],
-    candidate_text: str,
-    candidate_sha256: str,
-    budget_chars: int,
-    neighbor_context_chars: int,
-    visitor_prompt_sha256: str,
-    input_contract_hash: str,
-    algorithm_contract_version: str,
-) -> tuple[list[BoundedVisitorPacketV1], list[UnpacketizableRecordV1]]:
-    unpacketizable: list[UnpacketizableRecordV1] = []
-    eligible: list[dict[str, Any]] = []
-
-    for group in sections:
-        section_path = group[0].section_path
-        if section_classifications[section_path].classification == "mechanical_api_inventory":
-            continue
-
-        def size_fn(units: list[_MutableUnit]) -> int:
-            return units[-1].char_end - units[0].char_start
-
-        groups_of_units, oversized = _greedy_group_units(
-            group, budget_chars=budget_chars, size_fn=size_fn
-        )
-        for unit in oversized:
-            unpacketizable.append(
-                UnpacketizableRecordV1(
-                    record_id=f"unpacketizable-oversized-visitor-{unit.unit_id}",
-                    reason="oversized_unit",
-                    section_path=section_path,
-                    char_start=unit.char_start,
-                    char_end=unit.char_end,
-                    unit_kind=unit.kind,
-                    required_min_budget=unit.char_end - unit.char_start,
-                    detail=(
-                        f"unit {unit.unit_id!r} in section {section_path!r} exceeds budget_chars "
-                        "for visitor packing even alone"
-                    ),
-                )
-            )
-        if groups_of_units:
-            eligible.append({"section_path": section_path, "subgroups": groups_of_units})
-
-    packets: list[BoundedVisitorPacketV1] = []
-    order = 0
-    for section_index, spec in enumerate(eligible):
-        subgroups = spec["subgroups"]
-        for local_index, group_units in enumerate(subgroups):
-            section_text = candidate_text[group_units[0].char_start : group_units[-1].char_end]
-            before = ""
-            after = ""
-            if local_index == 0 and section_index > 0:
-                prev_group = eligible[section_index - 1]["subgroups"][-1]
-                prev_text = candidate_text[prev_group[0].char_start : prev_group[-1].char_end]
-                before = prev_text[-neighbor_context_chars:] if neighbor_context_chars > 0 else ""
-            if local_index == len(subgroups) - 1 and section_index < len(eligible) - 1:
-                next_group = eligible[section_index + 1]["subgroups"][0]
-                next_text = candidate_text[next_group[0].char_start : next_group[-1].char_end]
-                after = next_text[:neighbor_context_chars] if neighbor_context_chars > 0 else ""
-            covered_unit_ids = tuple(unit.unit_id for unit in group_units)
-            # See the matching note in _build_factual_packets: candidate_sha256 and absolute
-            # position are deliberately excluded from the hashed payload so an unrelated edit
-            # elsewhere cannot invalidate this packet; both are still stored as ordinary fields
-            # on the packet itself below.
-            substantive: dict[str, Any] = {
-                "facet": "visitor",
-                "section_path": spec["section_path"],
-                "section_text": section_text,
-                "neighbor_context_before": before,
-                "neighbor_context_after": after,
-                "covered_unit_ids": covered_unit_ids,
-                "prompt_contract_hash": visitor_prompt_sha256,
-                "input_contract_hash": input_contract_hash,
-            }
-            packet_sha256 = _packet_sha256(
-                substantive, algorithm_contract_version=algorithm_contract_version
-            )
-            slug = _packet_id_slug(spec["section_path"])
-            packet_id = f"pkt-visitor-{order:04d}-{slug}-{packet_sha256[:12]}"
-            stable_slot_id = f"visitor:{spec['section_path']}:{local_index:02d}"
-            packets.append(
-                BoundedVisitorPacketV1(
-                    packet_id=packet_id,
-                    stable_slot_id=stable_slot_id,
-                    order=order,
-                    candidate_sha256=candidate_sha256,
-                    char_start=group_units[0].char_start,
-                    char_end=group_units[-1].char_end,
-                    line_start=group_units[0].line_start,
-                    line_end=group_units[-1].line_end,
-                    packet_sha256=packet_sha256,
-                    **substantive,
-                )
-            )
-            order += 1
-
-    return packets, unpacketizable
+_build_visitor_packets = build_visitor_packets

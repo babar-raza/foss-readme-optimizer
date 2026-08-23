@@ -81,14 +81,36 @@ def bounded_visitor_contract(visitor_contract: dict, section_path: str) -> dict:
     root = section_path.split("/", maxsplit=1)[0]
     allowed_standard_ids = _STANDARD_IDS_BY_ROOT.get(root, _COMMON_STANDARD_IDS)
     standards = visitor_contract.get("configured_standards", [])
+    projected_standards = [
+        item
+        for item in standards
+        if isinstance(item, dict) and item.get("standard_id") in allowed_standard_ids
+    ]
+    if root == "additional-examples":
+        projected_standards = [
+            _secondary_example_standard(item)
+            if item.get("standard_id") == "readme.primary_example"
+            else item
+            for item in projected_standards
+        ]
     return {
         key: value for key, value in visitor_contract.items() if key != "configured_standards"
-    } | {
-        "configured_standards": [
-            item
-            for item in standards
-            if isinstance(item, dict) and item.get("standard_id") in allowed_standard_ids
-        ]
+    } | {"configured_standards": projected_standards}
+
+
+def _secondary_example_standard(item: dict) -> dict:
+    """Keep only the primary-example fields that govern secondary examples."""
+
+    parameters = item.get("parameters") or {}
+    allowed = {
+        "secondary_examples",
+        "secondary_examples_intro",
+        "public_internal_assurance",
+        "duplicate_generic_headings",
+    }
+    return {
+        **item,
+        "parameters": {key: value for key, value in parameters.items() if key in allowed},
     }
 
 

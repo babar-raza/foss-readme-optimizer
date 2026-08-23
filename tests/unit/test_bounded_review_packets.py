@@ -27,6 +27,8 @@ from bounded_review_test_support import (
     FIXTURE_DIR,
     _atomic_units,
     _build_claim_accountability,
+    _build_document_plan,
+    _build_product_facts,
     _claim_span,
     _default_claim_specs,
     _FailIfCalledClient,
@@ -63,6 +65,54 @@ def test_synthetic_candidate_plans_successfully_within_budget() -> None:
 
 def test_runtime_and_evidence_share_the_same_packet_budget() -> None:
     assert DEFAULT_BOUNDED_PACKET_BUDGET_CHARS == 120_000
+
+
+def test_visitor_packet_preserves_complete_nested_section_context() -> None:
+    candidate = """# Widget Toolkit
+
+## Additional Examples
+
+<details>
+<summary>View examples</summary>
+
+### Convert a Model
+
+```python
+convert_model()
+```
+
+### Inspect a Model
+
+```python
+inspect_model()
+```
+
+</details>
+
+## License
+
+MIT licensed.
+"""
+    facts = _build_product_facts()
+    plan = _plan(
+        candidate_text=candidate,
+        document_plan=_build_document_plan(candidate, facts),
+        claim_accountability=_build_claim_accountability(candidate, facts, []),
+        product_facts=facts,
+        do_not_claim=[],
+        candidate_content_provenance=[],
+    )
+
+    example_packets = [
+        packet for packet in plan.visitor_packets if packet.section_path == "additional-examples"
+    ]
+
+    assert len(example_packets) == 1
+    assert "## Additional Examples" in example_packets[0].section_text
+    assert "### Convert a Model" in example_packets[0].section_text
+    assert "### Inspect a Model" in example_packets[0].section_text
+    assert example_packets[0].section_text.count("<details>") == 1
+    assert example_packets[0].section_text.count("</details>") == 1
 
 
 def test_real_candidate_accountability_selects_current_claims_without_survival_flag() -> None:

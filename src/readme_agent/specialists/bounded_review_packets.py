@@ -247,6 +247,8 @@ def plan_bounded_review_packets(
             ),
             "budget_chars": budget_chars,
             "neighbor_context_chars": neighbor_context_chars,
+            "factual_packet_sha256s": [packet.packet_sha256 for packet in factual_packets],
+            "visitor_packet_sha256s": [packet.packet_sha256 for packet in visitor_packets],
         }
     )
 

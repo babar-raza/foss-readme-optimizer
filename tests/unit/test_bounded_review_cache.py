@@ -180,6 +180,17 @@ def test_additional_example_packet_receives_only_section_applicable_standards() 
         "readme.primary_example",
         "readme.public_language",
     }
+    primary_example = next(
+        item
+        for item in projected["configured_standards"]
+        if item["standard_id"] == "readme.primary_example"
+    )
+    assert set(primary_example["parameters"]) == {
+        "secondary_examples",
+        "secondary_examples_intro",
+        "public_internal_assurance",
+        "duplicate_generic_headings",
+    }
     assert "readme.header" not in standard_ids
     assert "readme.navigation" not in standard_ids
     assert "readme.at_a_glance_mermaid" not in standard_ids
