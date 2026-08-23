@@ -290,10 +290,7 @@ For a broader feature set, see the [commercial On-Premise edition](https://produ
         "https://products.aspose.org/3d/python/",
         "https://products.aspose.com/3d/python-net/",
     }
-    assert (
-        "[full-featured Aspose.3D Enterprise Edition]"
-        "(https://products.aspose.com/3d/python-net/)" in candidate
-    )
+    assert "[Aspose.3D Enterprise Edition](https://products.aspose.com/3d/python-net/)" in candidate
     assert "Aspose.3D FOSS for Python" in candidate
     assert "FOSS for python" not in candidate
     assert "## Scope and Limitations" in candidate

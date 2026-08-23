@@ -1,1 +1,1 @@
-For requirements beyond the FOSS scope described above, explore the [full-featured {enterprise_product_name} Enterprise Edition]({enterprise_url}). It is a separate product, so features and APIs may differ.
+For requirements beyond the FOSS scope described above, see [{enterprise_product_name} Enterprise Edition]({enterprise_url}). It is a separate product, so features and APIs may differ.

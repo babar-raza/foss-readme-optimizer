@@ -734,12 +734,12 @@ def test_public_contract_allows_concise_visitor_facing_installation_prose(senten
 def test_public_contract_requires_natural_enterprise_edition_anchor() -> None:
     weak = (
         "# Page Converter\n\n## Scope and Limitations\n\n"
-        "See [Aspose.Page Enterprise Edition](https://products.aspose.com/page/).\n"
+        "See [the commercial product](https://products.aspose.com/page/).\n"
     )
     natural = (
         "# Page Converter\n\n## Scope and Limitations\n\n"
-        "For broader requirements, explore the "
-        "[full-featured Aspose.Page Enterprise Edition](https://products.aspose.com/page/).\n"
+        "For broader requirements, see "
+        "[Aspose.Page Enterprise Edition](https://products.aspose.com/page/).\n"
     )
 
     assert any(

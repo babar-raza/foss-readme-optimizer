@@ -199,7 +199,7 @@ def public_examples_introduction(
     if has_result_assets:
         phrases.append("viewing generated example results")
     if not phrases:
-        return "Explore additional repository workflows."
+        return "The examples below demonstrate additional repository workflows."
     if len(phrases) == 1:
         rendered = phrases[0]
     else:
@@ -207,7 +207,7 @@ def public_examples_introduction(
     suffix = (
         f", plus {extras} more {'workflow' if extras == 1 else 'workflows'}" if extras > 0 else ""
     )
-    return f"Explore workflows for {rendered}{suffix}."
+    return f"The examples below demonstrate {rendered}{suffix}."
 
 
 __all__ = ["public_example_title", "public_examples_introduction"]

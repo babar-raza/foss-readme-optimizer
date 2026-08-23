@@ -83,7 +83,7 @@ def enterprise_product_name_from_facts(facts: ProductFactsV2) -> str | None:
 def enterprise_product_link_label(enterprise_product_name: str) -> str:
     """Return the required informative, visitor-facing Enterprise link label."""
 
-    return f"full-featured {enterprise_product_name.strip()} Enterprise Edition"
+    return f"{enterprise_product_name.strip()} Enterprise Edition"
 
 
 def _visitor_ranges(markdown: str) -> list[tuple[int, int]]:

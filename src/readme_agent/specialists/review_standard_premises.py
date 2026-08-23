@@ -114,11 +114,11 @@ def validate_configured_standard_premise(
     )
     if (
         claims_internal_capability_connectors
-        and mermaid_standard.get("internal_capability_connectors") == "transparent_layout_only"
-        and "stroke:transparent" in mermaid
+        and mermaid_standard.get("internal_capability_connectors") == "none"
+        and not re.search(r"(?m)^\s*C\d+\s+(?:~~~|---|-->|<-->|==>|-.->)\s+C\d+\s*$", mermaid)
     ):
         errors.append(
-            f"{finding_id}:internal-connector premise contradicts transparent layout edges"
+            f"{finding_id}:internal-connector premise contradicts connector-free capability block"
         )
 
     claims_missing_roles = (

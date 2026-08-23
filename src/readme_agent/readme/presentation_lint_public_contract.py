@@ -157,7 +157,7 @@ def lint_public_contract(
             )
         for match in _ENTERPRISE_LINK.finditer(line.text):
             label = match.group("label").casefold()
-            if "enterprise edition" not in label or "full-featured" not in label:
+            if "enterprise edition" not in label or "full-featured" in label:
                 findings.append(
                     make_finding(
                         "unnatural_enterprise_link",

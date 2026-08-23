@@ -296,7 +296,7 @@ def test_verified_inline_examples_support_scoped_assurance_and_unique_headings()
     assert "Quick Start (" not in rendered
     assert "🚀" not in rendered
     assert introduced_duplicate_headings("", "## Quick start\n\n" + rendered) == []
-    assert rendered.startswith("Explore workflows for ")
+    assert rendered.startswith("The examples below demonstrate ")
     assert "| Example source | Verification |" not in rendered
     assert "Syntax and static public API checked" not in rendered
     fact_id = facts.selected_fact_ids["repository.examples"]

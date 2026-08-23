@@ -253,6 +253,22 @@ def _scope_limitations_brief(facts: ProductFactsV2, limitations: list[str]) -> s
     return f"{opening}. {spelled} specific {noun} listed below."
 
 
+def _novel_authored_scope(markdown: str, limitations: list[str]) -> str:
+    """Keep authored scope prose only when the canonical limitation list does not repeat it."""
+
+    paragraphs = [paragraph.strip() for paragraph in re.split(r"\n\s*\n", markdown)]
+    retained = [
+        paragraph
+        for paragraph in paragraphs
+        if paragraph
+        and not any(
+            public_limitations_equivalent(paragraph.removeprefix("- "), limitation)
+            for limitation in limitations
+        )
+    ]
+    return "\n\n".join(retained)
+
+
 _EXAMPLE_ENTRY_MEMBERS = ("parse", "from_file", "load", "open", "create")
 _EXAMPLE_ENTRY_ARGUMENTS = {
     "parse": '"<p>Hello, world!</p>"',
@@ -563,8 +579,13 @@ def build_verified_template_draft(
     scope, scope_fields, scope_standards = _scope_text(facts, contextual_links)
     authored_scope = authored_slot(section_authoring_document, facts, "scope_and_limitations")
     if scope and authored_scope is not None:
-        scope = authored_scope.markdown + "\n\n" + scope
-        scope_fields = list(dict.fromkeys((*authored_scope.fact_fields, *scope_fields)))
+        authored_markdown = _novel_authored_scope(
+            authored_scope.markdown,
+            public_limitation_phrases(facts),
+        )
+        if authored_markdown:
+            scope = authored_markdown + "\n\n" + scope
+            scope_fields = list(dict.fromkeys((*authored_scope.fact_fields, *scope_fields)))
     badge_block = visual.badge_markdown
     banner = render_brand_banner(facts, product_name=title)
     if banner is not None:

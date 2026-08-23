@@ -216,6 +216,7 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
     exact_classes, classes_by_name = _class_indexes(complete)
     family = _product_family(facts)
     body: list[str] = []
+    summary_rows: list[tuple[str, int]] = []
     entry_count = 0
     namespace_count = 0
     namespace_exports: dict[str, list[object]] = {}
@@ -304,19 +305,28 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
         body.extend(table)
         entry_count += count
         namespace_count += 1
+        summary_rows.append((name, count))
     if not body:
         return None
+    summary = "\n".join(
+        [
+            "| Namespace | Public Types |",
+            "| --- | ---: |",
+            *(f"| {_table_cell(namespace)} | {count} |" for namespace, count in summary_rows),
+        ]
+    )
     namespace_inventory = (
         [str(namespace).strip() for namespace in package_namespaces if str(namespace).strip()]
         if isinstance(package_namespaces, list)
         else []
     )
-    namespace_context = ""
+    inventory_note = ""
     if namespace_inventory:
-        rendered_namespaces = ", ".join(
-            f"`{_table_cell(namespace)}`" for namespace in namespace_inventory
+        inventory_note = (
+            "\n\nCatalogued package namespaces: "
+            + ", ".join(f"`{_table_cell(namespace)}`" for namespace in namespace_inventory)
+            + "."
         )
-        namespace_context = f" Package namespaces include {rendered_namespaces}."
     details = "\n".join(
         [
             "<details>",
@@ -329,8 +339,9 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
     )
     return (
         f"The package documents {entry_count} public types across "
-        f"{namespace_count} namespaces.{namespace_context} See the complete API reference under "
-        f"Documentation & Resources for members, signatures, and inherited APIs.\n\n{details}"
+        f"{namespace_count} namespaces. The namespace summary below shows where the public types "
+        f"are exposed. See the complete API reference under Documentation & Resources for "
+        f"members, signatures, and inherited APIs.\n\n{summary}{inventory_note}\n\n{details}"
     )
 
 

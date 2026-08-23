@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import re
-from itertools import pairwise
 from typing import TypeVar
 
 from readme_agent.readme.header_visual_models import MermaidNodeV1
@@ -31,9 +30,7 @@ def _render_node(node: MermaidNodeV1, label: str) -> str:
 def _render_column(
     nodes: tuple[MermaidNodeV1, ...], labels: dict[str, str], indent: str
 ) -> list[str]:
-    lines = [f"{indent}{_render_node(node, labels[node.node_id])}" for node in nodes]
-    lines.extend(f"{indent}{left.node_id} ~~~ {right.node_id}" for left, right in pairwise(nodes))
-    return lines
+    return [f"{indent}{_render_node(node, labels[node.node_id])}" for node in nodes]
 
 
 def render_capability_group(
@@ -53,7 +50,7 @@ def render_capability_group(
         lines.extend(_render_column(columns[0], labels, "      "))
         lines.extend(("    end", '    subgraph CORE_RIGHT[" "]', "      direction TB"))
         lines.extend(_render_column(columns[1], labels, "      "))
-        lines.extend(("    end", "    CORE_LEFT ~~~ CORE_RIGHT"))
+        lines.append("    end")
     lines.append("  end")
     return lines
 

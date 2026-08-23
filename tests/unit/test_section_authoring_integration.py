@@ -21,6 +21,7 @@ from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.claim_accountability import build_readme_claim_accountability_map
 from readme_agent.readme.claim_map import ReadmeClaimMapV1
+from readme_agent.readme.public_limitations import public_limitation_phrases
 from readme_agent.readme.section_authoring_specs import build_canonical_section_authoring_specs
 from readme_agent.specialists.section_authoring_cache import (
     default_section_authoring_cache_dir,
@@ -375,6 +376,62 @@ def test_verified_template_consumes_authored_bytes_with_fact_lineage():
         )
         assert set(outcome.result.units[0].fact_ids) <= set(record.accepted_fact_ids)
         assert record.currently_accountable is True
+
+
+def test_verified_template_deduplicates_authored_limitation_against_canonical_list():
+    expected_limitation = "Mesh boolean operations are not implemented."
+    facts = build_product_facts_v2(field_values={"product.limitations": [expected_limitation]})
+    source_revision = facts.selected_fact("product.identity").source.source_revision
+    assert source_revision is not None
+    limitation = public_limitation_phrases(facts)[0]
+    assert limitation == expected_limitation
+    assessment = assess_readme_document(
+        facts.org_repo,
+        SOURCE,
+        facts,
+        base_revision=source_revision,
+    )
+    plan = ReadmeAgenticCompositionPlanV1(
+        org_repo=facts.org_repo,
+        source_sha256=hashlib.sha256(SOURCE.encode()).hexdigest(),
+        facts_hash=facts.canonical_hash(),
+        assessment_hash=assessment.canonical_hash(),
+        prompt_sha256="d" * 64,
+        tool_schema_sha256="e" * 64,
+        input_sha256="f" * 64,
+        model="qwen3-next",
+        attempt_count=1,
+        repository_summary="Bounded scope deduplication fixture.",
+        section_decisions=[],
+        overview_sentences=[],
+    )
+    outcome = _outcome(
+        "scope_and_limitations",
+        limitation,
+        (facts.selected_fact("product.limitations").fact_id,),
+    )
+    document = SectionAuthoringDocumentV1(
+        authoring_contract_version=SECTION_AUTHORING_CONTRACT_VERSION,
+        org_repo=facts.org_repo,
+        source_revision=source_revision,
+        source_sha256=hashlib.sha256(SOURCE.encode()).hexdigest(),
+        facts_hash=facts.canonical_hash(),
+        protected_literal_hash=fingerprint_protected_content(SOURCE).maintainer_region_hash,
+        specs_sha256="1" * 64,
+        expected_cluster_ids=("scope_and_limitations",),
+        outcomes=(outcome,),
+        complete=True,
+    )
+
+    draft = build_verified_template_draft(
+        facts,
+        SOURCE,
+        source_revision,
+        plan,
+        section_authoring_document=document,
+    )
+
+    assert draft.sections["scope_and_limitations"].markdown.count(limitation) == 1
 
 
 def test_readme_specialist_passes_complete_section_document_to_canonical_renderer(
