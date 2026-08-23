@@ -1898,6 +1898,51 @@ def test_supported_factual_polarity_is_derived_from_the_accepted_fact():
     assert history[0]["reconciled_factual_polarity_ids"] == ["factual.identity-supported"]
 
 
+def test_repair_factual_evidence_is_bound_to_the_accepted_fact() -> None:
+    factual_payload = _factual_accept("The candidate needs one fact-backed correction.")
+    factual_payload.update(
+        {
+            "verdict": "REJECT_REPAIRABLE",
+            "failed_criteria": ["factuality"],
+            "sections_affected": ["title"],
+            "required_repair": "Use the accepted product identity.",
+        }
+    )
+    factual_payload["findings"][0].update(
+        {
+            "disposition": "requires_repair",
+            "evidence_excerpt": "Approximate evidence",
+            "evidence_location": "invented://location",
+            "expected_polarity": "ambiguous_occurrence",
+            "observed_polarity": "ambiguous_occurrence",
+            "polarity_result": "supports",
+            "required_repair": "Use the accepted product identity.",
+        }
+    )
+    client = SequenceClient([factual_payload])
+
+    result, history, grounding = run_grounded_role(
+        role="factual_plan",
+        prompt_id="factual_readme_plan_review",
+        client=client,
+        messages=[],
+        candidate_text=CANDIDATE,
+        product_facts=FACTS,
+    )
+
+    finding = result.findings[0]
+    assert result.verdict == "REJECT_REPAIRABLE"
+    assert finding.disposition == "requires_repair"
+    assert finding.evidence_excerpt == "Example"
+    assert finding.evidence_location == "README.md"
+    assert finding.expected_polarity == "positive_implementation"
+    assert finding.observed_polarity == "positive_implementation"
+    assert finding.polarity_result == "supports"
+    assert grounding.valid is True
+    assert len(client.messages_seen) == 1
+    assert history[0]["reconciled_factual_polarity_ids"] == ["factual.identity-supported"]
+
+
 def test_wrong_quick_start_metric_retries_once_and_preserves_attempt_history() -> None:
     quote = "```python\nfirst()\n```\n\n```python\nsecond()\n```"
     candidate = f"# Product\n\n## Quick start\n\n{quote}\n"

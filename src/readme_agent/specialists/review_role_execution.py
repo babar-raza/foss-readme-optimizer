@@ -294,7 +294,7 @@ def _reconcile_supported_factual_evidence(
     for finding in parsed.findings:
         fact = by_fact_id.get(str(finding.fact_id))
         if (
-            finding.disposition != "supports_acceptance"
+            finding.disposition not in {"supports_acceptance", "requires_repair"}
             or fact is None
             or finding.fact_id not in selected
             or fact.get("verification_state") not in {"verified", "policy_approved"}
