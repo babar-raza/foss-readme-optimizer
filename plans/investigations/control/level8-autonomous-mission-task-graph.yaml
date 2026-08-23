@@ -12,12 +12,14 @@ autonomous_execution_contract:
   continuation_source: dependency-ready taskcards in this graph
   continuation_consumer: readme-agent supervisor mission controller
   stop_evaluator: mission-aware supervisor task-graph evaluator
-  resume_strategy: Reload this graph and durable mission state, reconcile drift and leases, then claim
-    the highest-priority dependency-ready task. Prove one knowledge-complete 30-of-30 candidate and immediate
-    full-transaction no-op before automating the transaction, then qualify seven ecosystem canaries and
-    fan out to all processable repositories. Adversarially audit the complete fleet, autonomously repair
-    every agent-fixable rejection, recheck source freshness, and prepare publication payloads before stopping
-    at effect authorization.
+  resume_strategy: Reload this graph and durable mission state, reconcile drift and leases, then derive
+    the earliest incomplete stage goal and claim the highest-priority dependency-ready task. Finish the
+    active FP03 boundary with qualified benchmark acceptance and independent replay attestation, integrate
+    external fact-block resolution before the minimal runner, integrate fleet causal reduction before
+    ecosystem fan-out, then qualify seven ecosystem canaries and fan out to all processable repositories.
+    Adversarially audit the complete fleet, autonomously repair every agent-fixable rejection, recheck source
+    freshness, and prepare publication payloads before stopping at effect authorization. Re-evaluate and
+    persist the primary goal after every transition, regression, graph migration, coherent commit, and restart.
   rejected_alternative: repository autonomous cycling mechanism
   mechanism_locked: true
   multi_agent_model: adaptive_coordinator_led
@@ -86,8 +88,9 @@ mission_authority:
     dispositions; adversarially audit the complete fleet; then derive PR_ELIGIBLE and a validated proposal
     payload for each processable repository. No product effect is in scope.'
   - 'CANDIDATE-FIRST ORDER: close imported-knowledge and acceptance identity, seal one weak-input candidate,
-    then build the minimal runner, seven ecosystem canaries, and the full fleet. Do not generalize machinery
-    before its transaction is proven.'
+    including qualified benchmark comparison and replay attestation, then integrate typed external fact-block
+    resolution, build the minimal runner, integrate canonical fleet causal reduction, qualify seven ecosystem
+    canaries, and execute the full fleet. Do not generalize machinery before its transaction is proven.'
   - 'MISSION OUTCOME: verified_repository_presentation is the immutable closure standard, not a universal
     active runtime goal. The executable delivery path is V0, C0, V1, V2, V3, L5, and L6. L7/L8 are background
     certification states after deployment.'
@@ -131,14 +134,6 @@ mission_authority:
   - Writes to GitHub-generated surfaces.
   - Unreviewed onboarding into write-enabled operation.
   mandatory_acceptance_criteria:
-  - The current campaign numerator is every PROCESSABLE repository in its frozen RegistryRevision; NON_PROCESSABLE_NO_IMPLEMENTATION
-    dispositions require immutable source/inventory evidence and a resume predicate and cannot be fabricated
-    candidates.
-  - Imported knowledge is complete only when every selected item is current-source corroborated and has
-    final candidate-span lineage or a typed omission reason; five remaining field consumers must change
-    useful bytes safely before the first candidate seals.
-  - One complete 30-of-30 candidate and immediate zero-provider full-transaction no-op must precede the
-    general runner and fleet fan-out.
   - The current campaign numerator is every PROCESSABLE repository in its frozen RegistryRevision; NON_PROCESSABLE_NO_IMPLEMENTATION
     dispositions require immutable source/inventory evidence and a resume predicate and cannot be fabricated
     candidates.
@@ -219,11 +214,12 @@ mission_authority:
     max_concurrent_verified_lanes: 0
   - goal_id: GOAL-V0A-FIRST-VERIFIED-README
     order: 5
-    summary: Correct and freeze the global public presentation contract on Aspose.Note FOSS for Python,
-      then requalify it through one complete verified lifecycle before portfolio fan-out.
-    acceptance_boundary: One current Aspose.Note Python README satisfies the corrected visibility, code,
-      Mermaid, semantic-uniqueness, and source-information contract; it is independently approved, unchanged-no-op-proven,
-      promoted, shown, and independently reconstructed. This is one verified README, not a platform POC.
+    summary: Seal the current weak-input Aspose.3D FOSS for Python candidate through candidate-bound benchmark
+      acceptance and an independently attested complete-transaction no-op before any general runner or fan-out.
+    acceptance_boundary: One current Aspose.3D Python README satisfies all 30 criterion-specific obligations,
+      every applicable qualified benchmark dimension, zero hard disqualifiers, and an immediate fresh-process
+      zero-provider replay; it is promoted and independently reconstructed. This is one verified README,
+      not a platform POC.
     max_concurrent_verified_lanes: 1
   - goal_id: GOAL-T0-TRUSTED-QUALIFICATION
     order: 10
@@ -920,24 +916,42 @@ taskcards:
   - Complete-transaction NO_OP_PROVEN receipt
   - Checksum-complete independently reconstructed evidence inventory
   - Independent benchmark-parity verdict bound to the exact candidate and frozen profile
+  - Integrated CandidateBenchmarkAcceptanceV1 evidence produced by the qualified standalone comparator
+  - Independent CompleteTransactionReplayAttestationV1 comparing separately materialized first and replay
+    bundle roots
   acceptance_checks:
   - Every rubric criterion carries criterion-specific evidence and no average score hides a hard failure
   - Author and independent reviewer contexts and identities are separate
   - The unchanged rerun performs zero new author/reviewer calls and returns byte-identical artifacts
   - All accepted applicable benchmark dimensions pass without using sibling bytes at runtime
+  - The benchmark comparator is calibrated against the current candidate and qualified profile, binds the
+    candidate, rubric, public-quality, factual-review, visitor-review, and predecessor hashes, and contributes
+    evidence to the existing 30 criteria rather than creating a weaker or additional scoring system
+  - The replay attestor reads immutable first/replay roots, uses a contract derived from the real bundle shape,
+    reports certain zero-provider accounting, and preserves validated review-packet caches whose complete
+    dependency keys did not change
   verification:
   - 30-point deterministic and independent review
   - full transaction rerun under the same dependency key
   - artifact corruption, source drift, prompt/route drift, validator drift, and reviewer drift controls
+  - real-candidate calibration of benchmark dimension/category mapping, including fail-closed UNKNOWN for
+    applicable numeric or list evidence not covered by a qualified deterministic check
+  - standalone replay-attestor regressions plus one current first/replay bundle-pair proof through the canonical
+    supervisor transaction
   negative_controls:
   - Same-process renderer recomposition is not complete-transaction no-op proof
   - An accepted review detached from the current candidate or component hashes fails closed
+  - Standalone module tests, synthetic forward-looking bundle paths, an unenforced predecessor hash, or an
+    uncertain provider ledger cannot satisfy FP03
+  - Lifecycle reopening may invalidate dependent verdicts but cannot delete a dependency-valid validated
+    packet cache or repeat an identical review call
   regression_checks:
   - allow-list and push-blocking safety
   - candidate dependency fingerprints and no-op invalidation
   - mission graph load, dependency ordering, and durable claim recovery
   evidence_requirements:
-  - criterion matrix, reviewer records, final verdict, no-op receipt, LLM ledger, and SHA-256 inventory
+  - criterion matrix, benchmark-acceptance record, reviewer records, first/replay roots, replay attestation,
+    final verdict, no-op receipt, LLM ledger, packet-cache reuse ledger, and SHA-256 inventory
   rollback_or_recovery: Resume from the last checksum-valid stage; revert only the specific coherent control-repository
     commit if a regression is proven. Never reset, clean, or mutate a product remote.
   failure_reroute: After two equivalent ineffective attempts or fifteen minutes without narrowing, stop
@@ -1009,23 +1023,33 @@ taskcards:
   - Typed action registry, predicates, checkpoint resume, and evidence-bound transitions
   - One runner replay of the sealed candidate and its zero-call no-op
   - Cancellation, retry, duplicate-delivery, and stale-checkpoint controls
+  - Split, typed external-fact resolver adapted from standalone branch 63c0bdea5cd69e136b27803e1a5b0f0af60ceead,
+    with real truth-salvage, acquisition, local-verification, evidence-catalog, and dependency-fingerprint adapters
   acceptance_checks:
   - Only registered actions with typed inputs/outputs and declared side effects can run
   - Durable state, leases, and terminal classification remain authoritative
   - No product write capability is reachable in this campaign
+  - Every applicable external-fact decision is bound to current source/fact/verifier/evidence hashes; local
+    recovery schedules the narrowest deterministic action, only nonessential unsupported claims may be
+    omitted, and a genuine external dependency records exact owner, scope, missing evidence, and resume predicate
   verification:
   - focused mission runner and registry tests
   - kill/resume and duplicate/no-op integration proof
   - push-blocking, allow-list, evidence redaction, and effect-null safety regression
+  - standalone resolver regressions rebased onto current contracts, all applicable class controls, five current
+    receipt replays, and one canonical supervisor recovery proof
   negative_controls:
   - No arbitrary shell task, placeholder handler, or success-without-artifact transition
   - No automation may create or commit its own implementation changes
+  - No README prose, historical verdict, sibling output, unknown diagnostic, or monolithic branch import may
+    fabricate a fact or silently become resolved/omitted/external
   regression_checks:
   - allow-list and push-blocking safety
   - candidate dependency fingerprints and no-op invalidation
   - mission graph load, dependency ordering, and durable claim recovery
   evidence_requirements:
-  - runner action manifest, transition trace, recovery receipt, and sealed-candidate replay binding
+  - runner action manifest, external-fact source branch/head and adaptation diff, diagnostic mapping, five-case
+    matrix, transition trace, recovery receipt, and sealed-candidate replay binding
   rollback_or_recovery: Resume from the last checksum-valid stage; revert only the specific coherent control-repository
     commit if a regression is proven. Never reset, clean, or mutate a product remote.
   failure_reroute: After two equivalent ineffective attempts or fifteen minutes without narrowing, stop
@@ -1034,6 +1058,7 @@ taskcards:
   closeout_rules:
   - All stated outputs and negative controls have current, checksum-bound evidence.
   - Focused and impact-mapped regression proof pass on the same committed revision.
+  - The canonical supervisor consumes real external-fact decisions and preserves unrelated fact-ready stages.
   - A report, schema, candidate file, or mocked test alone cannot close the task.
   goal_ids:
   - GOAL-AUTONOMY
@@ -1100,25 +1125,35 @@ taskcards:
   - Shared ecosystem adapters or precise evidence-backed processability dispositions
   - A measured safe repository-isolation and bounded-parallelism receipt
   - Seven candidate-bound benchmark-parity verdicts across the supported ecosystem set
+  - Canonical fleet causal reduction adapted from standalone branch 0658f732450df7d506b72a8d03758ebcaefa0fbe,
+    with complete first-boundary accounting and shared-once/failed-only repair scheduling
   acceptance_checks:
   - Each canary uses only declared package routes and repository-specific source evidence
   - No ecosystem can silently omit unsupported verification and still accept
   - Shared repairs invalidate only affected stages and candidates
   - Each canary meets or exceeds its accepted applicable benchmark dimensions; a missing or failing sibling
     exemplar cannot waive a local obligation
+  - Every failed canary is represented exactly once in a deterministic canonical-receipt cluster or typed
+    UNKNOWN; opaque bulk inputs at tiers four through six are rejected, and the reducer cannot transition
+    lifecycle, retry work, or classify terminal success
   verification:
   - per-ecosystem focused and real-repository transaction proof
   - cross-product leakage, dependency, API, format, example, limitation, and Mermaid controls
   - serial baseline followed by at most two disjoint workers only after isolation proof
+  - standalone reducer regressions rebased onto current schemas, current 29-failure diagnostic replay from
+    canonicalized stage receipts, and incomplete/duplicate/wrong-source/opaque/determinism controls
   negative_controls:
   - A canary cannot use an Aspose.org checkout at runtime
   - A platform-specific patch cannot masquerade as an ecosystem-general solution
+  - Message similarity or aggregate validation labels cannot establish a shared causal owner, hide a repository,
+    lower acceptance, or replace graph dependencies
   regression_checks:
   - allow-list and push-blocking safety
   - candidate dependency fingerprints and no-op invalidation
   - mission graph load, dependency ordering, and durable claim recovery
   evidence_requirements:
-  - seven candidate bundles, acceptance/no-op receipts, isolation metrics, and shared-repair map
+  - seven candidate bundles, acceptance/no-op receipts, fleet-reducer source branch/head and adaptation diff,
+    canonical input inventory, cluster ledger, failed-only repair schedule, isolation metrics, and shared-repair map
   rollback_or_recovery: Resume from the last checksum-valid stage; revert only the specific coherent control-repository
     commit if a regression is proven. Never reset, clean, or mutate a product remote.
   failure_reroute: After two equivalent ineffective attempts or fifteen minutes without narrowing, stop
@@ -1127,6 +1162,7 @@ taskcards:
   closeout_rules:
   - All stated outputs and negative controls have current, checksum-bound evidence.
   - Focused and impact-mapped regression proof pass on the same committed revision.
+  - Shared repair selection consumes the qualified causal reduction and preserves unaffected repository caches.
   - A report, schema, candidate file, or mocked test alone cannot close the task.
   goal_ids:
   - GOAL-README

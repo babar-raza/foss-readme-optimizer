@@ -24,11 +24,13 @@ Never use this document to override the graph or durable state.
 ## Mission
 
 Deliver `verified_repository_presentation` for every dynamically discovered and admitted Aspose
-FOSS repository. Python is the first complete platform; then proceed through .NET, Java, C++,
-TypeScript, Rust, and Go. Store finalized Python README artifacts and proof in the control
-repository. Continue through verified Gates A/B/C, hosted GitHub App operation, all presentation
-surfaces, Level 5, and deployable heterogeneous autonomous operation. Accumulate the 30-day
-Level-7 and 90-day Level-8 evidence windows in the background after deployment; they certify
+FOSS repository. Seal one weak-input Python transaction first, qualify the same transaction on one
+processable representative per supported ecosystem, then fan it across the complete frozen
+portfolio. Platform priority breaks ties among otherwise-ready repairs; it does not serialize the
+whole portfolio behind completion of one platform. Store finalized README artifacts and proof in
+the control repository. Continue through verified Gates A/B/C, hosted GitHub App operation, all
+presentation surfaces, Level 5, and deployable heterogeneous autonomous operation. Accumulate the
+30-day Level-7 and 90-day Level-8 evidence windows in the background after deployment; they certify
 maturity but do not block earlier usable delivery.
 
 The local path never writes a product remote. No product effect is authorized by this guide.
@@ -65,23 +67,50 @@ This sequence appears once and is binding as derived guidance:
 5. Pin—not permanently freeze—the shared template, fact-acceptance, validator, reviewer,
    prompt/model-route, protected-content, and runtime component versions for the transaction.
 6. Complete the current Aspose.3D FOSS for Python `FACTS_READY` revision through composition,
-   deterministic validation, independent review/repair, unchanged no-op, committed promotion,
-   and independent reconstruction. Use one repository lane and do not start speculative machinery
-   or portfolio fan-out before this closes.
-7. Rebuild Note under the sealed verified path; then process Page and PDF.
-8. Complete every remaining runtime-loaded Python repository and run the official complete suite
-   at Python-platform closure.
-9. Only after Python closes, execute one current readiness-selected .NET and one current Java
-   verified vertical slice.
-10. Continue candidates in .NET, Java, C++, TypeScript, Rust, and Go order.
-11. Close the full dynamic verified Gate A.
+   deterministic validation, candidate-bound benchmark acceptance, independent review/repair,
+   fresh-process replay attestation, unchanged no-op, committed promotion, and independent
+   reconstruction. Use one repository lane and do not start speculative machinery or portfolio
+   fan-out before this closes.
+7. Integrate the qualified external-fact resolver, then automate only the sealed transaction with
+   the minimal graph runner.
+8. Integrate the qualified fleet causal reducer and qualify one current processable representative
+   from Python, .NET, Java, C++, TypeScript, Rust, and Go. Repair shared causal seams once.
+9. In parallel where isolation permits, freeze the authenticated registry and warm immutable
+   snapshots and verified facts using the external-fact resolver.
+10. Fan the sealed transaction across every processable repository in the frozen RegistryRevision;
+    use Python, .NET, Java, C++, TypeScript, Rust, and Go only to break ties among ready repairs.
+11. Close the full dynamic verified Gate A at 31/31 processable candidates for the reviewed
+    baseline, with the two PSD dispositions retained outside the numerator.
 12. Present Gate B only after complete independent approval and no-op proof.
 13. Continue Gate C, Level 5, and deployable Level 6; then certify Level 7 and Level 8 in the
     background without blocking repository delivery.
 
-Python-first means the first current end-to-end repository and first complete platform are both
-Python. Later-platform research may use otherwise idle capacity only after the first repository
-closes, and it cannot delay or invalidate Python delivery.
+Python-first means the first sealed end-to-end transaction is Python. It does not require the whole
+Python platform to close before the seven-ecosystem qualification that prevents fleet-wide repeated
+repairs. Platform priority remains Python, .NET, Java, C++, TypeScript, Rust, and Go after dependency,
+claim, and isolation constraints.
+
+## Qualified standalone accelerator intake
+
+The following branches are development inputs. Integration means independently adapting their
+smallest useful public seam into the existing transaction, repairing the named limitations, proving
+it against current real artifacts, and keeping the supervisor, mission graph, lifecycle, rubric,
+and evidence store authoritative. It never means merging a branch wholesale or accepting its
+standalone tests as portfolio proof.
+
+| Module | Qualified source | Owning execution boundary | Mandatory integration repair and proof |
+| --- | --- | --- | --- |
+| Candidate benchmark acceptance | `origin/claude/standalone-benchmark-acceptance-8252bfe648c4` at `1d57ac86f28dc10fa106c775a1e8f75bd04eda33` | `L8-PF-03-SEALED-CANDIDATE-NO-OP` | Wire `evaluate_candidate_benchmark_acceptance(...)` after deterministic, factual, and visitor review; bind real candidate/profile/predecessor hashes; calibrate the dimension-to-category map on the current canary; make missing numeric/list evidence `UNKNOWN` and therefore non-accepting when applicable; contribute evidence to the existing 30 criteria rather than inventing a thirty-first criterion. |
+| Complete transaction replay attestation | `origin/claude/standalone-transaction-replay-attestor-d6fbed567aa7` at `8c845e01b0c5707628eb26de14eb2c582b52a29d` | `L8-PF-03-SEALED-CANDIDATE-NO-OP` | Snapshot the first complete bundle before replay, derive the real `ReplayAttestationContractV1`, compare independently materialized first/replay roots, require certain zero-provider accounting and stable proof identity, and keep the attestor read-only and independent of supervisor/LLM implementations. Synthetic forward-looking paths cannot satisfy closure. |
+| External fact-block resolution | `origin/claude/standalone-external-fact-block-resolution-d6fbed567aa7` at `63c0bdea5cd69e136b27803e1a5b0f0af60ceead` | mandatory opening sub-boundary of `L8-PF-04-MINIMAL-GRAPH-RUNNER` | Split the 597-line standalone concern before extension; map real diagnostics from truth salvage, acquisition, and local verification; construct actual evidence catalogs and dependency fingerprints; qualify all applicable classes plus the five current receipts; fail closed on ambiguity; never fabricate a fact or turn unavailable evidence into prose. |
+| Fleet causal failure reduction | `origin/claude/standalone-fleet-causal-reducer-a020a753bbb4` at `0658f732450df7d506b72a8d03758ebcaefa0fbe` | mandatory opening sub-boundary of `L8-PF-05-SEVEN-ECOSYSTEM-CANARIES` | Adapt real stage receipts instead of opaque aggregate `validation.json`; harden opaque-bulk rejection for tiers 4 and 5 as well as tier 6; require complete repository accounting and exact pipeline-source identity; schedule one shared repair per proven cluster and failed-only repository reruns; never replace lifecycle retry, task dependencies, or terminal classification. |
+
+The benchmark and replay modules are part of the already-active FP03 acceptance boundary. External
+fact resolution is the mandatory first sub-boundary of FP04, and fleet reduction is the mandatory
+first sub-boundary of FP05. They do not consume extra top-level task slots or create a competing
+controller. At each mission transition, `mission evaluate` derives and persists the earliest incomplete
+stage goal; the umbrella outcome remains stable while the primary goal advances automatically. A
+narrative handover or chat goal never overrides durable state.
 
 ## Compatibility task identity
 
@@ -138,46 +167,47 @@ authority or input. A useful observation must be generalized into this repositor
 versioned implementation or regression fixtures. Acceptance must reproduce with the Aspose.org
 checkout unavailable, and generated sibling prose is never copied into a runtime candidate.
 
-### Campaign 3: comparative Note regression and first current verified README
+### Campaign 3: first sealed weak-input verified README
 
-- Run the pending current-HEAD complete non-live receipt once.
-- Bind the already compared immutable Note revision and classify every useful Aspose.org difference
-  as a missing native fact, selection, composition, semantic-graph, or review capability.
-- Implement the smallest reusable native corrections, remove the sibling checkout, then complete
-  Note's plan, candidate, patch, deterministic validation, independent non-authoring review,
-  targeted repair, unchanged no-op, committed promotion, and independent reconstruction.
-- Freeze the successful vertical path. Do not call this a Python POC and do not fan out before it
-  closes.
+- Use the current Aspose.3D FOSS for Python immutable revision already advanced through candidate,
+  deterministic validation, and independent approval; do not restart valid upstream stages.
+- Integrate the candidate benchmark comparator and complete-transaction replay attestor at their
+  exact acceptance boundaries, including the qualified repairs in the accelerator-intake table.
+- Complete the criterion matrix, zero-hard-disqualifier verdict, first-bundle snapshot, independent
+  fresh-process replay, zero-provider no-op, committed promotion, and manifest reconstruction.
+- Preserve validated bounded-review packet caches when their full dependency keys remain unchanged;
+  lifecycle reopening may invalidate dependent verdicts but must not delete reusable validated packet
+  evidence or repeat identical provider calls.
+- Freeze the successful vertical path. Do not call this a Python POC and do not fan out before it closes.
 
-### Campaign 4: complete Python
+### Campaign 4: automate the sealed transaction
 
-Run Aspose.3D, Page, and PDF first, then every remaining runtime-loaded Python repository. Reuse sealed stages,
-repair the earliest shared boundary once, and store every independently approved/no-op-proven
-README in the committed finalized-artifact root. Store durable co-located copies of its original,
-facts/provenance, document plan, patch, claim map, deterministic validation, independent review,
-final verdict, no-op proof, LLM ledger, and runtime manifest. Promotion reads the authoritative
-durable backend by default, re-evaluates the current acceptance/cache contract, visibly excludes
-stale raw terminal records, removes superseded aggregate acceptance pointers, and never lets an
-explicit offline state snapshot masquerade as live authority.
+After FP03 closes, integrate real external fact-block resolution, then wrap only the sealed
+transaction in the minimal typed graph runner. Prove checkpoint recovery, cancellation,
+deduplication, cache preservation, and effect-null safety. Do not add a second renderer, reviewer,
+queue, lifecycle, or mission controller.
 
-Current execution boundary: the project remains pre-POC. Existing Note facts, package/example
-receipts, candidate, review, and no-op records are reusable only where their dependency hashes remain
-valid; the comparative findings invalidate the composition, semantic-graph, editorial-review, and
-dependent no-op/promotion boundaries. Durable mission state and the dynamic registry own current
-counts. Historical approvals remain invalid until native replay, approval, no-op, promotion, and
-reconstruction succeed without an Aspose.org runtime dependency.
+Current execution boundary: the project remains pre-POC until FP03 has a current replay-attested
+complete-transaction no-op. Durable mission state and the dynamic registry own current counts.
+Historical approvals, same-process recomposition, standalone module tests, and cached verdicts whose
+dependency hashes changed remain non-terminal evidence.
 
-### Campaign 5: post-Python cross-platform slices
+### Campaign 5: seven-ecosystem qualification
 
-After Python closes, run one current readiness-selected .NET and one current Java repository
-through the frozen verified lifecycle. Repair only defects proven by those slices and preserve
-unaffected Python evidence.
+Integrate the fleet causal reducer after the minimal runner, then run one current processable
+representative from Python, .NET, Java, C++, TypeScript, Rust, and Go through the frozen verified
+lifecycle. Reduce complete first-boundary receipts into deterministic clusters, repair each shared
+owner once, and rerun only affected repositories. Preserve unaffected accepted stages and packet
+caches.
 
 ### Campaign 6: remaining verified Gate A
 
-Complete .NET, Java, C++, TypeScript, Rust, and Go in priority order using two to four isolated
-repository lanes after first-slice, Python-platform, and post-Python cross-platform proof. Keep aggregation serialized. Complete discovery and
-the dynamic denominator. A partial prefix is never Gate A.
+Complete the frozen processable portfolio using two to four isolated repository lanes after the
+first sealed transaction and seven-ecosystem qualification. Overlap authenticated discovery and
+fact warmup after the minimal runner. Use external-block resolution before declaring a fact block
+and causal clustering before scheduling shared repairs. Keep aggregation serialized, preserve valid
+repository caches, and use Python, .NET, Java, C++, TypeScript, Rust, and Go only to break ties among
+otherwise-ready work. A partial prefix is never Gate A.
 
 ### Campaign 7: Gate B and governed later gates
 

@@ -277,7 +277,14 @@ Binding current decisions:
   non-processable dispositions outside that numerator. The existing portfolio task remains the
   parent; a bounded child horizon first closes acceptance identity, then one complete sealed 30/30
   candidate and immediate no-op, and only then implements a minimal allow-listed mission runner
-  around the proven transaction. Canaries, fleet, hosted reconstruction, and adversarial audit are
+  around the proven transaction. Four independently built accelerators enter only at their causal
+  boundaries: candidate benchmark acceptance and complete-transaction replay attestation are
+  mandatory parts of the first sealed candidate; typed external fact-block resolution is adapted
+  before the general runner; and canonical fleet causal reduction is adapted before ecosystem
+  fan-out. Standalone branches, tests, reports, or schemas never satisfy their owning task. Each
+  module is rebased onto current contracts, its known limitations are repaired, and it is proven on
+  current real artifacts without creating another controller, lifecycle, rubric, fact authority,
+  or terminal-status path. Canaries, fleet, hosted reconstruction, and adversarial audit are
   promoted just in time. Current `qwen3-next` routing and Aspose.org comparison are versioned
   development inputs, not immutable mission or deployed dependencies. The runner initially
   executes existing handlers only and never authors, commits, pushes, or publishes code/content.
@@ -472,9 +479,17 @@ the sibling repository, its reports, skills, scripts, or caches.
 - [ ] **First complete candidate:** generate Aspose.3D Python through the canonical supervisor with
   complete source, fact, knowledge, claim, component, review, and patch lineage.
 - [ ] **First sealed transaction:** independently accept the exact candidate at 30/30 with zero hard
-  disqualifiers and prove immediate fresh-process zero-provider no-op.
+  disqualifiers, integrate and real-candidate-calibrate the qualified benchmark comparator, and prove
+  an independently attested immediate fresh-process zero-provider no-op from separate first/replay
+  bundle roots. Lifecycle reopening preserves dependency-valid review-packet caches.
+- [ ] **External fact-block resolver:** adapt the qualified standalone decision seam to real truth-salvage,
+  acquisition, and local-verification diagnostics; split its monolith; bind current evidence/dependency
+  fingerprints; and prove all applicable classes plus the five current receipts before the general runner.
 - [ ] **Minimal graph runner:** automate only the proven transaction through typed allow-listed actions,
   durable checkpoints, recovery, and effect-null safety.
+- [ ] **Fleet causal reducer:** adapt the qualified standalone reducer to canonical first-boundary receipts,
+  harden opaque-data guards through tiers four to six, and prove complete deterministic cluster accounting
+  plus shared-once/failed-only repair scheduling before ecosystem fan-out.
 - [ ] **Seven ecosystem canaries:** qualify and no-op-prove one current processable representative per
   Python, .NET, Java, C++, TypeScript, Rust, and Go.
 - [ ] **Registry and fact warmup:** reconcile authenticated all-visibility discovery, freeze the current
@@ -510,6 +525,16 @@ the sibling repository, its reports, skills, scripts, or caches.
   reproducibility, and complete-transaction no-op are reported as separate lifecycle facts.
 - [ ] A same-process `_compose()` replay can satisfy only `RENDER_REPRODUCIBLE`; fresh-process replay
   of the shared transaction is required for `TRANSACTION_NO_OP_PROVEN`.
+- [ ] Candidate benchmark acceptance is bound to current candidate/profile/review/predecessor hashes,
+  contributes evidence to the existing 30 criteria, and fails closed on an applicable unsupported
+  dimension; it does not create an alternate score or factual authority.
+- [ ] Complete-transaction replay compares separately materialized immutable bundle roots, proves certain
+  zero-provider accounting, and never deletes or recomputes a validated review-packet cache whose complete
+  dependency key is unchanged.
+- [ ] External fact-block resolution consumes real pipeline diagnostics and fingerprints, never fabricates
+  facts, omits only nonessential unsupported claims, and records exact external owner/resume predicates.
+- [ ] Fleet causal reduction consumes canonical first-boundary receipts, accounts for every failed repository,
+  rejects opaque bulk clusters at tiers four through six, and cannot transition lifecycle or terminal state.
 - [ ] Acceptance and deployed runs succeed with the Aspose.org checkout unavailable; no sibling
   report, raw knowledge record, skill, script, or cache is a runtime input or factual proof.
 - [ ] After the bounded local retry/replan budget is exhausted, development may consult the current
