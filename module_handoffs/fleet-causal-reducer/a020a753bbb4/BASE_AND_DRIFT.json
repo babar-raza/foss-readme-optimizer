@@ -1,0 +1,16 @@
+{
+  "base_sha": "a020a753bbb408fbef7675c8562cf677e14cbab4",
+  "branch": "claude/standalone-fleet-causal-reducer-a020a753bbb4",
+  "bootstrapped_at": "2026-08-23T13:12:23+05:00",
+  "current_upstream_main_sha_at_handoff_time": "d6fbed567aa7d99dd0e065944e3694cb6ebd5ced",
+  "drift_commit_count": 1,
+  "drift_commits": [
+    {
+      "sha": "d6fbed567aa7d99dd0e065944e3694cb6ebd5ced",
+      "subject": "fix(evidence): resume long-path supersession"
+    }
+  ],
+  "drift_relationship_to_this_module": "unrelated -- touches evidence/long-path handling, not portfolio_proof_engine, presentation, or any file this lane owns or reads from",
+  "action_taken_on_drift": "recorded only, never fetched into or merged onto this lane's branch; this lane finished pinned to base_sha as instructed",
+  "note": "Given the demonstrated fleet churn documented in this module's own KNOWN_LIMITATIONS.md (60%+ qualification-bucket membership change observed in an 11-hour window during this module's research phase), further drift between this handoff and Codex's eventual integration pass should be expected and is not itself a sign of anything wrong with this module."
+}

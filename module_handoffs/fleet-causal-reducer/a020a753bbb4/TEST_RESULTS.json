@@ -1,0 +1,62 @@
+{
+  "test_file": "tests/unit/test_portfolio_proof_engine_failure_causal_reducer.py",
+  "invocation": "PYTHONPATH=<lane_repo>/src <lane_venv_python> -m pytest tests/unit/test_portfolio_proof_engine_failure_causal_reducer.py -q --basetemp=<short_path>",
+  "result": "32 passed in 0.30s",
+  "note_on_basetemp": "A short --basetemp is required on Windows to avoid a MAX_PATH (260-char) artifact; this lane's own directory nesting (runs/parallel_staging/fleet-causal-reducer/<40-char-sha>/...) exceeds it. This is a pytest-invocation detail, not a module defect -- see WORKLOG.md for the live confirmation that a deep basetemp inside this lane produces the identical spurious failure on two PRE-EXISTING, unrelated stage_classifier tests that don't import this module at all.",
+  "tests": [
+    "test_tier1_error_code_wins_over_ecosystem_args_pipeline_differences",
+    "test_similar_prose_different_codes_stay_separate",
+    "test_same_code_different_stage_stays_separate",
+    "test_volatile_ids_paths_do_not_fragment_tier6_cluster",
+    "test_ecosystem_adapter_defect_stays_scoped",
+    "test_shared_code_defect_crosses_ecosystems",
+    "test_repository_evidence_defect_stays_repo_scoped",
+    "test_candidate_rejection_distinct_from_factual_conflict",
+    "test_transient_provider_differs_from_deterministic_rejection",
+    "test_infra_external_recommends_no_retry_when_dependency_unchanged",
+    "test_changed_dependency_permits_reevaluation",
+    "test_corrupt_evidence_fails_closed",
+    "test_unknown_remains_possible",
+    "test_secrets_are_redacted_in_normalized_diagnostic",
+    "test_duplicate_observations_preserve_attempt_accounting",
+    "test_input_ordering_does_not_affect_output",
+    "test_one_failure_never_lost",
+    "test_minimal_cohort_stable_independent_of_order",
+    "test_avoided_retry_arithmetic_is_correct",
+    "test_pf01_like_fixture_reduces_to_meaningful_clusters",
+    "test_pf03_like_fixture_distinguishes_four_categories",
+    "test_no_state_write_or_io_occurs",
+    "test_confidence_is_tier_derived",
+    "test_opaque_bulk_cluster_forces_unknown_low_confidence",
+    "test_small_opaque_cluster_gets_best_effort_classification",
+    "test_pipeline_source_prevents_weak_tier_cross_pipeline_merge",
+    "test_known_reproducibility_verdict_affects_representative_not_fingerprint",
+    "test_required_closure_evidence_demands_zero_call_replay",
+    "test_non_failed_receipt_rejected_at_construction",
+    "test_evidence_ref_path_traversal_rejected_at_construction",
+    "test_evidence_ref_absolute_path_rejected_at_construction",
+    "test_structured_error_args_must_be_sorted_and_unique"
+  ],
+  "test_count": 32,
+  "mapping_to_task_mandated_scenarios": "tests 1-22 (by list position above, 1-indexed) correspond 1:1 to the task's 22 mandated scenarios; tests 23-28 are the deeper-pass production-hardening additions (test_confidence_is_tier_derived through test_required_closure_evidence_demands_zero_call_replay); the final 4 are construction-validation/security-property tests for the evidence_ref path-traversal guard and structured_error_args ordering guard named in the task's SECURITY AND HONESTY section",
+  "static_checks": {
+    "ruff_check": "All checks passed! (src module + test file)",
+    "ruff_format_check": "2 files already formatted",
+    "mypy": "Success: no issues found in 1 source file (src module only, per task's VERIFICATION section)",
+    "git_diff_check": "no output (clean)"
+  },
+  "narrow_regression_suite": {
+    "files": [
+      "tests/unit/test_portfolio_proof_engine_contracts.py",
+      "tests/unit/test_portfolio_proof_engine_retry_policy.py",
+      "tests/unit/test_portfolio_proof_engine_stage_classifier.py"
+    ],
+    "result": "33 passed in 2.82s (with a short --basetemp; see note_on_basetemp above -- an earlier run against this lane's own deep basetemp path produced 2 spurious Windows MAX_PATH failures in stage_classifier tests unrelated to this module, re-run and confirmed as a path-length artifact, not a regression)"
+  },
+  "not_run_per_task_instruction": [
+    "full test suite (Codex owns integration validation)",
+    "fleet execution",
+    "provider/Qwen calls",
+    "product repository operations"
+  ]
+}
