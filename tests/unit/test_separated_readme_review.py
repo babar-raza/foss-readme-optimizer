@@ -214,7 +214,10 @@ def test_blind_grounding_rejects_findings_that_contradict_configured_presentatio
     assert {item["disposition"] for item in retry["invalid_findings"]} == {
         "deterministically_disproven"
     }
-    assert all("claim" not in item for item in retry["invalid_findings"])
+    assert all("claim" in item for item in retry["invalid_findings"])
+    assert retry["required_correction"]["do_not_repeat_finding_ids"] == sorted(
+        finding.finding_id for finding in findings
+    )
 
 
 def test_visible_structure_disproves_three_live_reviewer_false_premises() -> None:
@@ -2563,6 +2566,64 @@ def test_literal_accepted_fact_false_block_gets_bounded_correction():
     assert factual_history[1]["input_character_count"] < factual_history[0]["input_character_count"]
     assert factual_history[1]["validation_result"]["valid"] is True
     assert '"evidence_location": "README.md"' in factual.messages_seen[1][-1]["content"]
+    retry = json.loads(factual.messages_seen[1][-1]["content"].split("\n\n", maxsplit=1)[1])
+    assert retry["invalid_findings"] == [
+        {
+            "claim": "The Example identity lacks evidence.",
+            "contradicted_by_fact_ids": ["fact-1"],
+            "disposition": "deterministically_disproven",
+            "finding_id": "factual.false-missing",
+            "quoted_candidate_span": "Example",
+        }
+    ]
+    assert retry["required_correction"]["do_not_repeat_finding_ids"] == ["factual.false-missing"]
+
+
+def test_false_missing_retry_omits_unrelated_accepted_facts():
+    facts = {
+        **FACTS,
+        "selected_fact_ids": {
+            **FACTS["selected_fact_ids"],
+            "product.license": "fact-unrelated",
+        },
+        "facts": [
+            *FACTS["facts"],
+            {
+                "fact_id": "fact-unrelated",
+                "field": "product.license",
+                "value": "MIT",
+                "verification_state": "verified",
+                "source": {"location": "LICENSE"},
+                "conflicts": [],
+            },
+        ],
+    }
+    finding = GroundedReviewFindingV1(
+        finding_id="factual.false-missing",
+        kind="factual",
+        criterion="factuality",
+        section="title",
+        claim="The Example identity lacks evidence.",
+        quoted_candidate_span="Example",
+        disposition="blocks",
+        polarity_result="missing",
+        required_repair="",
+    )
+
+    retry = json.loads(
+        grounding_retry_context(
+            errors=[
+                "factual.false-missing:missing-evidence premise contradicts accepted facts "
+                "['fact-1']"
+            ],
+            candidate_text=CANDIDATE,
+            product_facts=facts,
+            findings=(finding,),
+        )
+    )
+
+    assert retry["selected_fact_ids"] == {"product.identity": "fact-1"}
+    assert [fact["fact_id"] for fact in retry["accepted_fact_evidence"]] == ["fact-1"]
 
 
 def test_page_reviewer_cannot_remove_real_h2_sections_as_non_required() -> None:

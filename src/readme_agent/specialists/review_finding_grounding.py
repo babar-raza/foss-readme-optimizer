@@ -181,6 +181,84 @@ def _accepted_literal_fact_ids(finding: GroundedReviewFindingV1, product_facts: 
     return sorted(matches)
 
 
+def _contextual_api_review_value(value: object, candidate_text: str) -> object:
+    """Expose exact API symbols used by one bounded candidate unit on correction."""
+
+    if not isinstance(value, dict):
+        return value
+
+    def mentioned(raw: object) -> bool:
+        name = str(raw or "").strip()
+        if not name:
+            return False
+        return (
+            re.search(rf"(?<![A-Za-z0-9_]){re.escape(name)}(?![A-Za-z0-9_])", candidate_text)
+            is not None
+        )
+
+    modules = []
+    for module in value.get("modules") or []:
+        if not isinstance(module, dict):
+            continue
+        exports = [str(item) for item in module.get("exports") or [] if mentioned(item)]
+        module_name = str(module.get("module") or "")
+        if not exports and module_name not in candidate_text:
+            continue
+        modules.append(
+            {
+                "module": module_name,
+                "exports": exports,
+                "source_path": module.get("source_path"),
+            }
+        )
+
+    classes = []
+    for item in value.get("classes") or []:
+        if not isinstance(item, dict) or not mentioned(item.get("name")):
+            continue
+        constructor = item.get("constructor")
+        members = [
+            {
+                "name": member.get("name"),
+                "surface": member.get("surface"),
+                "implemented": member.get("implemented"),
+            }
+            for member in item.get("members") or []
+            if isinstance(member, dict) and member.get("implemented") is not False
+        ]
+        classes.append(
+            {
+                "name": item.get("name"),
+                "module": item.get("module"),
+                "qualified_name": item.get("qualified_name"),
+                "constructor_surface": (
+                    constructor.get("surface") if isinstance(constructor, dict) else None
+                ),
+                "public_members": members,
+                "source_path": item.get("source_path"),
+            }
+        )
+
+    functions = [
+        {
+            "name": item.get("name"),
+            "module": item.get("module"),
+            "surface": item.get("surface"),
+            "source_path": item.get("source_path"),
+        }
+        for item in value.get("functions") or []
+        if isinstance(item, dict) and mentioned(item.get("name"))
+    ]
+    if not modules and not classes and not functions:
+        return compact_prompt_fact_value("api.public_surface", value)
+    return {
+        "module_exports": modules,
+        "classes": classes,
+        "functions": functions,
+        "projection_contextual": True,
+    }
+
+
 def validate_review_findings(
     *,
     candidate_text: str,
@@ -1341,7 +1419,17 @@ def grounding_retry_context(
     selected_fact_ids = (product_facts or {}).get("selected_fact_ids", {})
     selected_ids = set(selected_fact_ids.values())
     finding_fact_ids = {finding.fact_id for finding in findings if finding.fact_id}
-    relevant_fact_ids = finding_fact_ids or selected_ids
+    contradicted_fact_ids_by_finding = {
+        finding.finding_id: _accepted_literal_fact_ids(finding, product_facts or {})
+        for finding in findings
+        if finding.finding_id in disproven_ids and finding.polarity_result == "missing"
+    }
+    contradicted_fact_ids = {
+        fact_id for fact_ids in contradicted_fact_ids_by_finding.values() for fact_id in fact_ids
+    }
+    relevant_fact_ids = finding_fact_ids | contradicted_fact_ids
+    if not relevant_fact_ids and any(finding.kind == "factual" for finding in findings):
+        relevant_fact_ids = selected_ids
     accepted_fact_evidence = []
     for fact in (product_facts or {}).get("facts", []):
         if (
@@ -1350,14 +1438,19 @@ def grounding_retry_context(
             or fact.get("fact_id") not in relevant_fact_ids
         ):
             continue
+        field = str(fact.get("field", ""))
+        value = fact.get("value")
+        compacted_value = (
+            _contextual_api_review_value(value, candidate_text)
+            if field == "api.public_surface"
+            else compact_prompt_fact_value(field, value)
+        )
         accepted_fact_evidence.append(
             compact_review_fact(
                 {
                     "fact_id": fact.get("fact_id"),
-                    "field": fact.get("field"),
-                    "value": compact_prompt_fact_value(
-                        str(fact.get("field", "")), fact.get("value")
-                    ),
+                    "field": field,
+                    "value": compacted_value,
                     "verification_state": fact.get("verification_state"),
                     "evidence_location": (fact.get("source") or {}).get("location"),
                     "evidence_assessments": fact.get("evidence_assessments") or [],
@@ -1378,7 +1471,12 @@ def grounding_retry_context(
             (
                 {
                     "finding_id": finding.finding_id,
+                    "claim": finding.claim,
+                    "quoted_candidate_span": finding.quoted_candidate_span,
                     "disposition": "deterministically_disproven",
+                    "contradicted_by_fact_ids": contradicted_fact_ids_by_finding.get(
+                        finding.finding_id, []
+                    ),
                 }
                 if finding.finding_id in disproven_ids
                 else {
@@ -1405,6 +1503,14 @@ def grounding_retry_context(
             if fact_id in relevant_fact_ids
         },
         "accepted_fact_evidence": accepted_fact_evidence,
+        "required_correction": {
+            "do_not_repeat_finding_ids": sorted(disproven_ids),
+            "instruction": (
+                "Do not repeat a deterministically disproven premise. Replace it only with a "
+                "different grounded finding, or return grounded supports_acceptance findings "
+                "and ACCEPT when no valid blocker remains."
+            ),
+        },
     }
     return json.dumps(payload, ensure_ascii=False, sort_keys=True)
 

@@ -39,6 +39,7 @@ from bounded_review_test_support import (
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
+from readme_agent.specialists import bounded_review_execution as bounded_execution
 from readme_agent.specialists import bounded_review_packets as brp
 from readme_agent.specialists import separated_readme_review as separated_review
 from readme_agent.specialists.bounded_review_contracts import (
@@ -197,6 +198,40 @@ def test_bounded_execution_reviews_every_packet_and_reduces_to_established_roles
     assert blind_client.calls == len(visitor_packets)
     assert factual_client.calls == len(factual_packets)
     assert len(execution.packet_results) == len(visitor_packets) + len(factual_packets)
+
+
+def test_bounded_factual_packets_receive_three_grounding_attempts(monkeypatch) -> None:
+    plan = _plan()
+    ledger = brp.build_coverage_ledger(plan, atomic_units=_atomic_units())
+    blind_client = _PacketSequenceClient(plan.visitor_packets)
+    factual_client = _PacketSequenceClient(plan.factual_packets)
+    observed: list[tuple[str, int | None]] = []
+    original = bounded_execution.run_grounded_role
+
+    def capture_grounding_attempts(**kwargs):
+        observed.append((kwargs["role"], kwargs.get("max_attempts_override")))
+        return original(**kwargs)
+
+    monkeypatch.setattr(bounded_execution, "run_grounded_role", capture_grounding_attempts)
+
+    execute_bounded_review(
+        org_repo="acme/widget-toolkit",
+        candidate_text=CANDIDATE_TEXT,
+        product_facts=DEFAULT_FACTS.model_dump(mode="json"),
+        visitor_contract=build_presentation_visitor_contract(
+            applicable_h2_headings=["Overview", "Installation", "Usage"],
+            primary_example_language="python",
+        ),
+        plan=plan,
+        coverage_ledger=ledger,
+        blind_client=blind_client,
+        factual_client=factual_client,
+        blind_prompt_id="blind_readme_quality_review",
+        factual_prompt_id="factual_readme_plan_review",
+    )
+
+    assert all(attempts is None for role, attempts in observed if role == "blind_quality")
+    assert all(attempts == 3 for role, attempts in observed if role == "factual_plan")
 
 
 def test_bounded_execution_parallelizes_independent_packets_deterministically() -> None:

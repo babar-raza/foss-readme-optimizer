@@ -1,7 +1,10 @@
 """Deterministic grounding controls for fallible reviewer findings."""
 
+import json
+
 from readme_agent.specialists.review_finding_grounding import (
     GroundedReviewFindingV1,
+    grounding_retry_context,
     validate_review_findings,
 )
 
@@ -172,6 +175,102 @@ def test_missing_evidence_cannot_deny_literal_selected_fact():
 
     assert not result.valid
     assert "missing-evidence premise contradicts accepted facts" in result.errors[0]
+
+
+def test_api_false_missing_retry_projects_every_symbol_in_the_bounded_unit():
+    candidate = (
+        "| `BoundingBox` | Supports retrieving infinite and retrieving null. |\n"
+        "| `Vector3` | Supports angling between. |"
+    )
+    finding = GroundedReviewFindingV1(
+        finding_id="factual.api-missing",
+        kind="factual",
+        criterion="factuality",
+        section="API Reference",
+        claim="The BoundingBox and Vector3 rows lack accepted evidence.",
+        quoted_candidate_span="`BoundingBox`",
+        disposition="blocks",
+        polarity_result="missing",
+        required_repair="",
+    )
+    facts = {
+        "selected_fact_ids": {"api.public_surface": "fact.api"},
+        "facts": [
+            {
+                "fact_id": "fact.api",
+                "field": "api.public_surface",
+                "verification_state": "verified",
+                "value": {
+                    "modules": [
+                        {
+                            "module": "example.utilities",
+                            "exports": ["BoundingBox", "Vector3", "Unmentioned"],
+                            "source_path": "example/utilities/__init__.py",
+                        }
+                    ],
+                    "classes": [
+                        {
+                            "name": "BoundingBox",
+                            "module": "example.utilities",
+                            "qualified_name": "example.utilities.BoundingBox",
+                            "constructor": {"surface": "BoundingBox()"},
+                            "members": [
+                                {
+                                    "name": "get_infinite",
+                                    "surface": "get_infinite()",
+                                    "implemented": True,
+                                },
+                                {
+                                    "name": "get_null",
+                                    "surface": "get_null()",
+                                    "implemented": True,
+                                },
+                            ],
+                            "source_path": "example/utilities/BoundingBox.py",
+                        },
+                        {
+                            "name": "Vector3",
+                            "module": "example.utilities",
+                            "qualified_name": "example.utilities.Vector3",
+                            "constructor": {"surface": "Vector3()"},
+                            "members": [
+                                {
+                                    "name": "angle_between",
+                                    "surface": "angle_between(a, b)",
+                                    "implemented": True,
+                                }
+                            ],
+                            "source_path": "example/utilities/Vector3.py",
+                        },
+                        {"name": "Unmentioned", "module": "example.utilities"},
+                    ],
+                },
+                "source": {"location": "repository://example/utilities"},
+                "conflicts": [],
+            }
+        ],
+    }
+
+    retry = json.loads(
+        grounding_retry_context(
+            errors=[
+                "factual.api-missing:missing-evidence premise contradicts accepted facts "
+                "['fact.api']"
+            ],
+            candidate_text=candidate,
+            product_facts=facts,
+            findings=(finding,),
+        )
+    )
+
+    value = retry["accepted_fact_evidence"][0]["value"]
+    assert value["projection_contextual"] is True
+    assert value["module_exports"][0]["exports"] == ["BoundingBox", "Vector3"]
+    assert [item["name"] for item in value["classes"]] == ["BoundingBox", "Vector3"]
+    assert [item["name"] for item in value["classes"][0]["public_members"]] == [
+        "get_infinite",
+        "get_null",
+    ]
 
 
 def test_supported_finding_requires_exact_fact_location():

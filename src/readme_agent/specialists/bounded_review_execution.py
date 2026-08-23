@@ -52,6 +52,8 @@ from readme_agent.specialists.review_role_execution import (
     run_grounded_role,
 )
 
+_BOUNDED_FACTUAL_GROUNDING_ATTEMPTS = 3
+
 
 class BoundedReviewExecutionV1(BaseModel):
     """Complete packet execution and its projection into the established role contracts."""
@@ -323,13 +325,28 @@ def execute_bounded_review(
             _canonical_json(fact_context),
             _canonical_json(plan_context),
         )
+        packet_fact_ids = set(factual_packet.accepted_fact_ids)
+        packet_product_facts = {
+            **product_facts,
+            "selected_fact_ids": {
+                field: fact_id
+                for field, fact_id in product_facts.get("selected_fact_ids", {}).items()
+                if fact_id in packet_fact_ids
+            },
+            "facts": [
+                fact
+                for fact in product_facts.get("facts", [])
+                if isinstance(fact, dict) and fact.get("fact_id") in packet_fact_ids
+            ],
+        }
         result, attempts, _grounding = run_grounded_role(
             role="factual_plan",
             prompt_id=factual_prompt_id,
             client=factual_client,
             messages=messages,
             candidate_text=factual_packet.unit_text,
-            product_facts=product_facts,
+            product_facts=packet_product_facts,
+            max_attempts_override=_BOUNDED_FACTUAL_GROUNDING_ATTEMPTS,
             failure_context=factual_packet.packet_id,
         )
         assert isinstance(result, FactualPlanReviewResultV1)
