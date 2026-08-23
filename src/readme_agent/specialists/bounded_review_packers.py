@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from collections.abc import Callable, Sequence
 from typing import Any
 
@@ -16,6 +17,53 @@ from readme_agent.specialists.bounded_review_contracts import (
 from readme_agent.specialists.bounded_review_hashing import _packet_id_slug, _packet_sha256
 from readme_agent.specialists.bounded_review_structure import _MutableUnit
 from readme_agent.specialists.bounded_review_visitor_packers import build_visitor_packets
+
+_API_NAMESPACE = re.compile(r"Namespace \(`([^`]+)`\)")
+
+
+def _bounded_fact_payloads(
+    product_facts: ProductFactsV2, fact_ids: set[str], unit_text: str
+) -> list[dict[str, Any]]:
+    """Keep exact API evidence for the namespace rendered in one bounded packet."""
+
+    payloads = composition_fact_payloads(product_facts, fact_ids)
+    namespace_match = _API_NAMESPACE.search(unit_text)
+    if namespace_match is None:
+        return payloads
+    namespace = namespace_match.group(1)
+    by_id = {fact.fact_id: fact for fact in product_facts.facts}
+    for payload in payloads:
+        if payload.get("field") != "api.public_surface":
+            continue
+        fact = by_id.get(str(payload.get("fact_id")))
+        value = fact.value if fact is not None and isinstance(fact.value, dict) else {}
+        catalog = value.get("coordinate_catalog")
+        if not isinstance(catalog, dict):
+            catalog = value
+        modules = [
+            item
+            for item in catalog.get("modules") or []
+            if isinstance(item, dict) and item.get("module") == namespace
+        ]
+        classes = [
+            item
+            for item in catalog.get("classes") or []
+            if isinstance(item, dict) and item.get("module") == namespace
+        ]
+        functions = [
+            item
+            for item in catalog.get("functions") or []
+            if isinstance(item, dict) and item.get("module") == namespace
+        ]
+        payload["value"] = {
+            "namespace": namespace,
+            "modules": modules,
+            "classes": classes,
+            "functions": functions,
+            "projection_contextual": True,
+            "projection_complete_for_namespace": True,
+        }
+    return payloads
 
 
 def _greedy_group_units(
@@ -105,7 +153,8 @@ def _build_factual_packets(
             fact_ids: set[str] = set()
             for unit in units:
                 fact_ids.update(unit_fact_ids(unit))
-            facts_payload = composition_fact_payloads(product_facts, fact_ids)
+            unit_text = candidate_text[units[0].char_start : units[-1].char_end]
+            facts_payload = _bounded_fact_payloads(product_facts, fact_ids, unit_text)
             return text_len + len(
                 json.dumps(facts_payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
             )
@@ -138,7 +187,11 @@ def _build_factual_packets(
                 fact_ids.update(unit_fact_ids(unit))
             facts_payload = tuple(
                 sorted(
-                    composition_fact_payloads(product_facts, fact_ids),
+                    _bounded_fact_payloads(
+                        product_facts,
+                        fact_ids,
+                        candidate_text[group_units[0].char_start : group_units[-1].char_end],
+                    ),
                     key=lambda item: str(item.get("fact_id", "")),
                 )
             )

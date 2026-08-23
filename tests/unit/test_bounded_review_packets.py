@@ -46,6 +46,7 @@ from readme_agent.specialists.bounded_review_contracts import (
     DEFAULT_BOUNDED_PACKET_BUDGET_CHARS,
 )
 from readme_agent.specialists.bounded_review_execution import execute_bounded_review
+from readme_agent.specialists.bounded_review_packers import _bounded_fact_payloads
 from readme_agent.specialists.review_candidate_anchors import build_candidate_review_anchors
 
 
@@ -66,6 +67,49 @@ def test_synthetic_candidate_plans_successfully_within_budget() -> None:
 
 def test_runtime_and_evidence_share_the_same_packet_budget() -> None:
     assert DEFAULT_BOUNDED_PACKET_BUDGET_CHARS == 120_000
+
+
+def test_api_packet_receives_complete_exact_namespace_evidence() -> None:
+    api_fact = DEFAULT_FACTS.facts[0].model_copy(
+        update={
+            "fact_id": "api.public_surface:test-catalog",
+            "field": "api.public_surface",
+            "value": {
+                "modules": [{"module": "widget.entities", "exports": ["Box"]}],
+                "coordinate_catalog": {
+                    "modules": [
+                        {"module": "widget.entities", "exports": ["Box", "Sphere"]},
+                        {"module": "widget.formats", "exports": ["Loader"]},
+                    ],
+                    "classes": [
+                        {"module": "widget.entities", "name": "Box", "members": []},
+                        {"module": "widget.entities", "name": "Sphere", "members": []},
+                        {"module": "widget.formats", "name": "Loader", "members": []},
+                    ],
+                    "functions": [],
+                },
+            },
+        }
+    )
+    facts = DEFAULT_FACTS.model_copy(
+        update={
+            "facts": [*DEFAULT_FACTS.facts, api_fact],
+            "selected_fact_ids": {
+                **DEFAULT_FACTS.selected_fact_ids,
+                "api.public_surface": api_fact.fact_id,
+            },
+        }
+    )
+
+    payload = _bounded_fact_payloads(
+        facts,
+        {api_fact.fact_id},
+        "### Widget.Entities Namespace (`widget.entities`)\n\n| `Box` | A box. |",
+    )[0]["value"]
+
+    assert payload["projection_complete_for_namespace"] is True
+    assert [item["name"] for item in payload["classes"]] == ["Box", "Sphere"]
+    assert [item["module"] for item in payload["modules"]] == ["widget.entities"]
 
 
 def test_visitor_packet_preserves_complete_nested_section_context() -> None:
