@@ -982,6 +982,44 @@ def reduce_fleet_failures(
     clusters. Never writes a receipt, never retries, never transitions lifecycle state, never
     schedules anything -- read-only end to end."""
 
-    raise NotImplementedError(
-        "reduce_fleet_failures: contracts committed, reduction algorithm not yet implemented"
+    deduped = _deduplicate(observations)
+    input_org_repo_count = len({obs.org_repo for obs in deduped})
+
+    groups: dict[str, list[tuple[FailureObservationV1, CausalFailureFingerprintV1]]] = {}
+    for obs in deduped:
+        fingerprint = _build_fingerprint(obs, dependency_snapshot)
+        groups.setdefault(fingerprint.fingerprint_hash, []).append((obs, fingerprint))
+
+    built = [_build_cluster(pairs, dependency_snapshot) for pairs in groups.values()]
+    clusters = [cluster for cluster, _cohort in built]
+    cohort_by_cluster_id = {cluster.cluster_id: cohort for cluster, cohort in built}
+
+    clusters.sort(key=_sort_key)
+    ranked = tuple(
+        cluster.model_copy(update={"priority_rank": index + 1})
+        for index, cluster in enumerate(clusters)
+    )
+
+    minimal_cohort: list[RepresentativeProofCaseV1] = []
+    for cluster in ranked:
+        minimal_cohort.extend(cohort_by_cluster_id[cluster.cluster_id])
+
+    covered = {repo for cluster in ranked for repo in cluster.member_org_repos}
+    unresolved = tuple(sorted({obs.org_repo for obs in deduped} - covered))
+
+    classification_counts: dict[str, int] = dict.fromkeys(get_args(FailureClassificationV1), 0)
+    for cluster in ranked:
+        classification_counts[cluster.classification] += cluster.member_count
+
+    total_estimated_retries_avoided = sum(cluster.estimated_retries_avoided for cluster in ranked)
+
+    return FleetCausalReductionV1(
+        generated_at=utc_now_iso(),
+        input_observation_count=len(deduped),
+        input_org_repo_count=input_org_repo_count,
+        clusters=ranked,
+        minimal_proof_cohort=tuple(minimal_cohort),
+        unresolved_org_repos=unresolved,
+        classification_counts=classification_counts,
+        total_estimated_retries_avoided=total_estimated_retries_avoided,
     )
