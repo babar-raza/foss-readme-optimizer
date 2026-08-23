@@ -1,5 +1,6 @@
 import json
 import re
+from concurrent.futures import ThreadPoolExecutor
 from types import SimpleNamespace
 
 import pytest
@@ -12,6 +13,7 @@ from readme_agent.evidence.writer import (
     unified_diff,
     verify_sha256sums,
     write_evidence,
+    write_redacted_json,
     write_run_manifest_v2,
 )
 from readme_agent.state.schema import SurfaceFreshnessContractV1
@@ -117,6 +119,24 @@ class TestChecksumInventory:
         with pytest.raises(OSError, match="artifact stat failed"):
             refresh_sha256sums(evidence_dir)
         assert verify_sha256sums(evidence_dir) is False
+
+
+class TestAtomicWrites:
+    def test_parallel_same_target_writes_remain_complete_and_leave_no_temporary_files(
+        self, tmp_path
+    ):
+        target = tmp_path / "packet-cache.json"
+        payloads = [{"packet": index, "body": "x" * 4096} for index in range(32)]
+
+        with ThreadPoolExecutor(max_workers=8) as executor:
+            futures = [
+                executor.submit(write_redacted_json, target, payload) for payload in payloads
+            ]
+            for future in futures:
+                future.result()
+
+        assert json.loads(target.read_text(encoding="utf-8")) in payloads
+        assert list(tmp_path.glob(".w-*.tmp")) == []
 
 
 class TestUnifiedDiff:

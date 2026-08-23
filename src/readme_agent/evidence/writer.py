@@ -9,6 +9,8 @@ import hashlib
 import json
 import os
 import secrets
+import tempfile
+import threading
 from dataclasses import asdict, is_dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -20,6 +22,9 @@ from readme_agent.evidence.manifest_v2 import RunManifestV2
 from readme_agent.evidence.manifest_v3 import RunManifestV3
 from readme_agent.evidence.redaction import redact
 from readme_agent.readme.document_hashing import sha256_hex
+
+_ATOMIC_WRITE_LOCKS: dict[str, tuple[threading.Lock, int]] = {}
+_ATOMIC_WRITE_LOCKS_GUARD = threading.Lock()
 
 
 def generate_run_id() -> str:
@@ -58,11 +63,52 @@ def _to_jsonable(value: Any) -> Any:
     return value
 
 
+def _acquire_atomic_write_lock(path: Path) -> tuple[str, threading.Lock]:
+    key = str(path.resolve())
+    with _ATOMIC_WRITE_LOCKS_GUARD:
+        lock, users = _ATOMIC_WRITE_LOCKS.get(key, (threading.Lock(), 0))
+        _ATOMIC_WRITE_LOCKS[key] = (lock, users + 1)
+    lock.acquire()
+    return key, lock
+
+
+def _release_atomic_write_lock(key: str, lock: threading.Lock) -> None:
+    lock.release()
+    with _ATOMIC_WRITE_LOCKS_GUARD:
+        current_lock, users = _ATOMIC_WRITE_LOCKS[key]
+        if current_lock is not lock:
+            raise RuntimeError("atomic-write target lock identity changed")
+        if users == 1:
+            del _ATOMIC_WRITE_LOCKS[key]
+        else:
+            _ATOMIC_WRITE_LOCKS[key] = (lock, users - 1)
+
+
 def _atomic_write_text(path: Path, text: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    tmp.write_text(text, encoding="utf-8", newline="\n")
-    os.replace(tmp, path)
+    key, path_lock = _acquire_atomic_write_lock(path)
+    temporary_path: Path | None = None
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            newline="\n",
+            dir=path.parent,
+            prefix=".w-",
+            suffix=".tmp",
+            delete=False,
+        ) as temporary:
+            temporary.write(text)
+            temporary.flush()
+            os.fsync(temporary.fileno())
+            temporary_path = Path(temporary.name)
+        os.replace(temporary_path, path)
+    except BaseException:
+        if temporary_path is not None:
+            temporary_path.unlink(missing_ok=True)
+        raise
+    finally:
+        _release_atomic_write_lock(key, path_lock)
 
 
 def _atomic_write_json(path: Path, data: Any) -> None:
