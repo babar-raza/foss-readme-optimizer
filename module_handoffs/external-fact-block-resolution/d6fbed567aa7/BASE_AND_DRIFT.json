@@ -1,0 +1,17 @@
+{
+  "base_sha": "d6fbed567aa7d99dd0e065944e3694cb6ebd5ced",
+  "short_sha": "d6fbed567aa7",
+  "branch": "claude/standalone-external-fact-block-resolution-d6fbed567aa7",
+  "upstream_url": "https://github.com/babar-raza/foss-readme-optimizer.git",
+  "upstream_main_at_handoff_time": "16113ac6f1ca50615cd1890ff84eaf8acffafe35",
+  "drift_commit_count": 1,
+  "drift_commits": [
+    {
+      "sha": "16113ac6f1ca50615cd1890ff84eaf8acffafe35",
+      "subject": "fix(evidence): recover interrupted candidate supersession"
+    }
+  ],
+  "drift_touches_owned_paths": false,
+  "rebase_or_merge_performed": false,
+  "note": "One unrelated upstream commit landed on main after this lane's base SHA was captured, before this handoff was written. It does not touch src/readme_agent/facts/external_fact_block_resolution.py, tests/unit/test_external_fact_block_resolution.py, or module_handoffs/external-fact-block-resolution/**. Recorded only, per the isolation contract -- no merge or rebase was performed."
+}
