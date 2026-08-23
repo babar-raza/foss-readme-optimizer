@@ -1,0 +1,10 @@
+{
+  "base_sha": "8252bfe648c4bf79fd7b736069f7fd503fb5b74e",
+  "base_sha_short": "8252bfe648c4",
+  "lane_branch": "claude/standalone-benchmark-acceptance-8252bfe648c4",
+  "origin_main_sha_checked_at_bootstrap": "8252bfe648c4bf79fd7b736069f7fd503fb5b74e",
+  "origin_main_sha_checked_at_handoff": "8252bfe648c4bf79fd7b736069f7fd503fb5b74e",
+  "drift_detected": false,
+  "drift_note": "origin/main had not advanced past the pinned base SHA at any point this lane checked it. This lane never fetched or absorbed later main regardless.",
+  "bootstrap_deviation": "ROOT is a shallow local clone, so 'git clone --reference-if-able ROOT --no-checkout UPSTREAM_URL LANE_REPO' silently degraded (reference repository is shallow) and fell back to a full network clone that did not complete inside a 2-minute tool timeout. ROOT was confirmed to already have base_sha reachable locally with a clean working tree, so the bootstrap instead ran 'git clone --no-checkout ROOT LANE_REPO' (fast, local, no network) followed by 'git remote set-url origin UPSTREAM_URL' so the lane's remote identity is still the real upstream, not ROOT. Content at base_sha is byte-identical either way. Recorded in $LANE_ROOT/WORKLOG.md."
+}

@@ -1,0 +1,57 @@
+{
+  "commands": {
+    "pytest": "python -m pytest tests/unit/test_candidate_benchmark_acceptance.py -q",
+    "ruff_check": "python -m ruff check src/readme_agent/presentation/candidate_benchmark_acceptance.py tests/unit/test_candidate_benchmark_acceptance.py",
+    "ruff_format_check": "python -m ruff format --check src/readme_agent/presentation/candidate_benchmark_acceptance.py tests/unit/test_candidate_benchmark_acceptance.py",
+    "mypy": "python -m mypy src/readme_agent/presentation/candidate_benchmark_acceptance.py",
+    "git_diff_check": "git diff --check"
+  },
+  "results": {
+    "pytest": { "passed": 28, "failed": 0, "skipped": 0 },
+    "ruff_check": "All checks passed!",
+    "ruff_format_check": "2 files already formatted",
+    "mypy": "Success: no issues found in 1 source file",
+    "git_diff_check": "clean"
+  },
+  "test_names": [
+    "test_fully_evidenced_shorter_candidate_passes",
+    "test_long_repetitive_candidate_fails_relevant_dimension",
+    "test_missing_evidence_fails_closed",
+    "test_candidate_hash_mismatch_fails",
+    "test_comparison_profile_mismatch_fails",
+    "test_changing_comparison_invalidates_previous_result",
+    "test_factual_review_from_another_candidate_fails",
+    "test_visitor_review_from_another_candidate_fails",
+    "test_rubric_evidence_from_another_candidate_fails",
+    "test_quarantined_dimension_never_passes_regardless_of_evidence",
+    "test_obligation_text_alone_cannot_grant_a_pass",
+    "test_disposition_semantics_differ",
+    "test_unrecognized_dimension_status_fails_closed_and_blocks_overall_acceptance",
+    "test_suspicious_copied_prose_disqualifies_but_never_grants_credit",
+    "test_unrelated_reference_excerpt_does_not_disqualify",
+    "test_missing_dimension_fails_via_profile_fence",
+    "test_duplicate_dimension_id_fails_closed",
+    "test_internally_conflicting_rubric_evidence_fails_closed",
+    "test_reordered_equivalent_dimensions_produce_identical_semantic_output",
+    "test_canonical_hash_is_deterministic",
+    "test_canonical_hash_golden_vector",
+    "test_no_live_or_network_call_in_module_source",
+    "test_no_publication_or_lifecycle_authority_emitted",
+    "test_evidence_drift_is_visible_not_hidden",
+    "test_role_swap_is_rejected",
+    "test_factual_review_not_accept_fails_globally",
+    "test_visitor_review_not_accept_fails_globally",
+    "test_rubric_hard_disqualifier_fails_globally"
+  ],
+  "red_green_history": {
+    "commit_1_267e6e39": { "pytest_passed": 2, "pytest_failed": 26, "note": "entry point stubbed with NotImplementedError" },
+    "commit_2_6a61663f": { "pytest_passed": 28, "pytest_failed": 0, "note": "full implementation" }
+  },
+  "narrowest_existing_regression_tests": {
+    "command": "python -m pytest tests/unit/test_aspose_benchmark_profile.py tests/unit/test_candidate_benchmark_comparison.py tests/unit/test_readme_review_roles.py tests/unit/test_public_candidate_quality.py tests/unit/test_public_candidate_quality_precision.py tests/unit/test_public_candidate_quality_registry.py tests/unit/test_portfolio_proof_engine_contracts.py -q",
+    "passed": 61,
+    "failed": 0,
+    "note": "full suite not run -- another lane may hold the test lease, per instruction"
+  },
+  "pinned_base_failures": "none -- BASE_SHA checked out clean, all commands above ran without any pre-existing failure"
+}
