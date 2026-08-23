@@ -1488,7 +1488,7 @@
       ],
       "proposed_fingerprints": {
         "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "bb73427bbbbf602bdbbccd13b7bf93a7ff63fe1425d1343786e4d84e9afd437d",
-        "L8-PF-03-SEALED-CANDIDATE-NO-OP": "78a93f584bba22fd005feb362d728c3acfde70808069c9a362b7c40f89b1bcd4",
+        "L8-PF-03-SEALED-CANDIDATE-NO-OP": "0dd4b5bb706d8aea24c3e727ba45f38ee85b57727d78313be13d2f8148530abd",
         "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "9d8091b625ebf675542727bfa42e720a03906a4d5b9ca7bfa0a7b171f1668ee0",
         "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "7eab48b74512b28f340785e99422bc0b0a88419dcf7f91a2ae403ef898dd2186",
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "bf6d148aeae3f3e33e2b35911a5594270cc97525ebb8a9d1fe20e511b1a5f392",
@@ -2502,6 +2502,35 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-23T03:55:00Z",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "src/readme_agent/specialists/bounded_review_accountability.py",
+            "src/readme_agent/specialists/bounded_review_packers.py",
+            "src/readme_agent/specialists/bounded_review_coverage.py",
+            "tests/unit/test_bounded_review_packets.py",
+            "runs/verification/pytest-full-latest.json",
+            "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/bounded-review-plan.json"
+          ],
+          "input_classification": "tactic",
+          "mechanism_changed": true,
+          "new_fingerprint": "0dd4b5bb706d8aea24c3e727ba45f38ee85b57727d78313be13d2f8148530abd",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "78a93f584bba22fd005feb362d728c3acfde70808069c9a362b7c40f89b1bcd4",
+          "rationale": "The target-scoped visitor repair completed its real packet set, but the next failure exposed a different causal boundary: the factual packetizer sent template-owned Navigation labels to the factual reviewer with eleven configured-standard claims, zero accepted facts, and zero factual payload. Qwen correctly selected missing evidence, but no grounded factual finding can exist for presentation-only structure. Retrying or normalizing that response would either waste calls or fabricate factual authority. Route configured-standard-only units exclusively through the visitor reviewer and mark factual coverage explicitly on atomic units only when accepted fact or fact-bound provenance authority exists. Preserve the candidate, ProductFactsV2, deterministic validation, existing visitor receipts, all unchanged fact-bound packet identities, independent thresholds, and no-write controls. The exact canary bundle now plans with zero Navigation factual packets, 31 fact-bearing factual packets, 19 visitor packets, complete coverage, zero unassigned factual spans, and no blocking gaps; the complete non-live inventory passes 4,942 with one skip and no leaked processes.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP"
         }
       ]
     },
@@ -2748,7 +2777,7 @@
     ],
     "graph_sha256": "a6332e121c3ec41b5846f70a47c2c7ea9b31e5755519156a94b389236d7a0ef9",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-23T03:52:32.501984+00:00",
+    "last_evaluated_at": "2026-08-23T03:53:08.997097+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -2872,7 +2901,25 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "campaign_id": "CAMP-FIRST-PYTHON-SLICE",
+      "core_contribution": {
+        "kind": "first_boundary_removal",
+        "summary": "Establish the first independently sealed unit of portfolio delivery."
+      },
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-AUTONOMY",
+        "GOAL-DELIVERY"
+      ],
+      "immediate_goal_id": "DELIVERY-FIRST-SEALED-NO-OP",
+      "immediate_outcome": "Seal Aspose.3D Python at 30 of 30 and prove exact zero-call no-op.",
+      "repository_scope": [
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+      ],
+      "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
+      "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP"
+    },
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
@@ -13037,7 +13084,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1307,
+  "state_version": 1308,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
