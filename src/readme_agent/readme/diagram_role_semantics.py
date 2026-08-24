@@ -20,11 +20,9 @@ from readme_agent.readme.diagram_semantic_candidates import (
     selected_verified_capability_nodes,
 )
 
-_ROLE_FACT_FIELDS = {
-    "input": frozenset({"product.formats", "product.capabilities"}),
-    "capability": frozenset({"product.capabilities", "product.problems_solved", "product.formats"}),
-    "output": frozenset({"product.formats", "product.capabilities"}),
-}
+_CAPABILITY_FACT_FIELDS = frozenset(
+    {"product.capabilities", "product.problems_solved", "product.formats"}
+)
 
 
 def _node_has_literal_fact_grounding(node: AgenticDiagramNodeV1, facts: ProductFactsV2) -> bool:
@@ -66,21 +64,30 @@ def _node_semantic_error(node: AgenticDiagramNodeV1, facts: ProductFactsV2) -> s
         )
     except KeyError:
         return f"{node.role}:{node.label!r} cites an unknown fact"
-    disallowed = [field for field in cited_fields if field not in _ROLE_FACT_FIELDS[node.role]]
-    if disallowed:
-        return f"{node.role}:{node.label!r} cites {disallowed}"
     if label_has_forbidden_role_semantics(node.label):
         return f"{node.role}:{node.label!r} describes infrastructure instead of product behavior"
     if node.role in {"input", "output"}:
-        allowed = {
-            diagram_role_identity(candidate.role, candidate.label)
+        identity = diagram_role_identity(node.role, node.label)
+        matching = [
+            candidate
             for candidate in _allowed_role_candidates(node.role, facts)
-        }
-        if diagram_role_identity(node.role, node.label) not in allowed:
+            if diagram_role_identity(candidate.role, candidate.label) == identity
+        ]
+        if not matching:
             return (
                 f"{node.role}:{node.label!r} is not an explicitly verified "
                 f"{'consumed input' if node.role == 'input' else 'emitted result'}"
             )
+        allowed_fact_ids = {
+            fact_id for candidate in matching for fact_id in candidate.supporting_fact_ids
+        }
+        unexpected_fact_ids = sorted(set(node.supporting_fact_ids) - allowed_fact_ids)
+        if unexpected_fact_ids:
+            return f"{node.role}:{node.label!r} cites non-authoritative facts {unexpected_fact_ids}"
+    else:
+        disallowed = [field for field in cited_fields if field not in _CAPABILITY_FACT_FIELDS]
+        if disallowed:
+            return f"{node.role}:{node.label!r} cites {disallowed}"
     if not _node_has_literal_fact_grounding(node, facts):
         return f"{node.role}:{node.label!r} is not grounded in its cited fact text"
     return None

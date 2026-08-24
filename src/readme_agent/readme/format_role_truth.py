@@ -33,6 +33,23 @@ _ROLE_FORMAT_EQUIVALENTS = {
     "DAE": "COLLADA",
     "GLB": "GLTF",
 }
+_AMBIGUOUS_LOWERCASE_FORMAT_WORDS = frozenset({"ONE"})
+
+
+def _explicit_format_mention(text: str, format_name: str) -> bool:
+    """Recognize a format term without treating an ordinary lowercase word as a format."""
+
+    pattern = re.compile(
+        rf"(?<![A-Z0-9_-]){re.escape(format_name)}(?![A-Z0-9_-])",
+        re.IGNORECASE,
+    )
+    for match in pattern.finditer(text):
+        if format_name not in _AMBIGUOUS_LOWERCASE_FORMAT_WORDS:
+            return True
+        token = match.group(0)
+        if token == format_name or (match.start() > 0 and text[match.start() - 1] == "."):
+            return True
+    return False
 
 
 def _format_tokens(value: str) -> set[str]:
@@ -87,29 +104,21 @@ def explicit_format_roles(facts: ProductFactsV2 | None) -> dict[str, frozenset[F
 def mentioned_explicit_formats(text: str, roles: dict[str, frozenset[FormatRole]]) -> set[str]:
     """Return explicitly governed formats mentioned in one visitor-facing fragment."""
 
-    uppercase = text.upper()
     return {
         format_name
         for format_name in roles
         if format_name in DOCUMENT_FORMAT_ABBREVIATIONS
-        and re.search(
-            rf"(?<![A-Z0-9_-]){re.escape(format_name)}(?![A-Z0-9_-])",
-            uppercase,
-        )
+        and _explicit_format_mention(text, format_name)
     }
 
 
 def mentioned_document_formats(text: str) -> set[str]:
     """Return governed format abbreviations present as standalone public terms."""
 
-    uppercase = text.upper()
     return {
         format_name
         for format_name in DOCUMENT_FORMAT_ABBREVIATIONS
-        if re.search(
-            rf"(?<![A-Z0-9_-]){re.escape(format_name)}(?![A-Z0-9_-])",
-            uppercase,
-        )
+        if _explicit_format_mention(text, format_name)
     }
 
 

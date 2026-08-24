@@ -39,6 +39,10 @@ _NOT_IMPLEMENTED = re.compile(
     r"(?i)^not implemented:\s*(?P<symbol>[A-Za-z_][A-Za-z0-9_.]*)"
     r"(?:\s+in\s+.+:\d+)?$"
 )
+_UNIMPLEMENTED_STUB = re.compile(
+    r"(?i)^unimplemented stub \(empty body\):\s*(?P<symbol>[A-Za-z_][A-Za-z0-9_.]*)"
+    r"\s+in\s+.+:\d+$"
+)
 _INSTALL_NAME = re.compile(r"(?i)^package name is (?P<value>\S+)$")
 _INSTALL_VERSION = re.compile(r"(?i)^current version is (?P<value>[A-Za-z0-9_.+-]+)$")
 _ACTION_LED = re.compile(
@@ -168,7 +172,9 @@ def knowledge_limitation_items(facts: ProductFactsV2) -> tuple[KnowledgePresenta
     rendered: list[KnowledgePresentationItem] = []
     for fact, item in _source_items(facts, "aspose.limitation_claims"):
         text = str(item["text"])
-        match = _NOT_IMPLEMENTED.fullmatch(text.strip())
+        match = _NOT_IMPLEMENTED.fullmatch(text.strip()) or _UNIMPLEMENTED_STUB.fullmatch(
+            text.strip()
+        )
         if match is not None and not match.group("symbol").endswith("."):
             public = f"- `{match.group('symbol')}` is not implemented in this FOSS package."
         else:

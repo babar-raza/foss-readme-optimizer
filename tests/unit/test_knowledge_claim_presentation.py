@@ -118,6 +118,28 @@ def test_format_and_limitation_claims_become_public_content_without_internal_pat
     assert ":32" not in limitations[0].markdown
 
 
+def test_cpp_empty_body_limitation_becomes_public_content_without_source_location() -> None:
+    facts = _facts(
+        _record(
+            "aspose.limitation_claims",
+            [
+                _item(
+                    "cells/cpp/limit-1",
+                    "limitation",
+                    "Unimplemented stub (empty body): CellValue in "
+                    "Aspose.Cells.Foss.Cpp/include/aspose/cells_foss/CellValue.h:19",
+                )
+            ],
+        )
+    )
+
+    limitations = knowledge_limitation_items(facts)
+
+    assert [item.markdown for item in limitations] == [
+        "- `CellValue` is not implemented in this FOSS package."
+    ]
+
+
 def test_unverified_and_internal_assurance_claims_never_render():
     facts = _facts(
         _record(

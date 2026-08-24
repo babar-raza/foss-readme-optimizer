@@ -49,7 +49,8 @@ _ACTION_VERBS = re.compile(
     r"configure|construct|"
     r"convert|create|decode|decrypt|define|delete|detect|edit|encode|encrypt|export|extract|"
     r"generate|host|import|insert|inspect|load|manage|merge|modify|navigate|open|optimi[sz]e|"
-    r"parse|perform|process|read|remove|render|replace|run|save|search|sign|transform|traverse|"
+    r"parse|perform|process|read|remove|render|reorder|replace|rotate|run|save|search|sign|split|"
+    r"transform|traverse|"
     r"update|validate|verify|work|write)\b"
 )
 _DISCRIMINATOR_TOKEN = re.compile(r"\b(?:[A-Z]{2,}[A-Z0-9.+-]*|[A-Za-z]*\d[A-Za-z0-9.+-]*)\b")

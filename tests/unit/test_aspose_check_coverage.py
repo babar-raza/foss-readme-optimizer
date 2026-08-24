@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 from readme_agent.validation.aspose_check_coverage import build_check_coverage_report
 from readme_agent.validation.aspose_checks import load_check_registry
@@ -142,6 +143,28 @@ def test_real_end_to_end_report_against_the_real_registry_and_classification():
     assert report.pass_count + report.fail_count == len(result.checks_run)
     assert report.skip_count + report.not_applicable_count == len(result.checks_skipped)
     assert report.error_count == len(result.checks_errored)
+
+
+def test_cross_product_check_uses_current_family_registry_and_ignores_own_namespace_alias():
+    class _Facts:
+        selected_fact_ids = {"aspose.archetype": "fact-1"}
+
+        def selected_fact(self, field):
+            assert field == "aspose.archetype"
+            return SimpleNamespace(
+                value="library",
+                source=SimpleNamespace(location="data/imported:3d/net"),
+            )
+
+    result = run_aspose_checks(
+        "# Aspose.3D FOSS for .NET\n\nUse `Aspose.ThreeD.Scene` to load a model.\n",
+        _Facts(),
+    )
+
+    assert "check_no_cross_product_citation" in result.checks_run
+    assert not any(
+        finding.check_name == "check_no_cross_product_citation" for finding in result.findings
+    )
 
 
 def test_blocking_check_gaps_synthesizes_a_finding_for_a_skipped_blocking_check():

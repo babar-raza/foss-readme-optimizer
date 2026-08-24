@@ -11,7 +11,10 @@ from readme_agent.presentation.verified_source_detail_routing import route_sourc
 from readme_agent.presentation.verified_template_capabilities import capability_highlights_markdown
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.assessment_claims import assess_material_claims
-from readme_agent.readme.capability_semantics import normalize_capability_phrases
+from readme_agent.readme.capability_semantics import (
+    is_action_led_capability_title,
+    normalize_capability_phrases,
+)
 from readme_agent.readme.claim_accountability_coordinates import structured_list_item_coordinate
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
 from readme_agent.readme.limitation_semantics import public_limitations_equivalent
@@ -49,6 +52,11 @@ def test_capability_normalization_keeps_distinct_pdf_domains() -> None:
     normalized = normalize_capability_phrases(values)
 
     assert normalized == values[:-1]
+
+
+def test_action_led_titles_include_document_page_operations() -> None:
+    assert is_action_led_capability_title("Split a PDF into per-page documents")
+    assert is_action_led_capability_title("Rotate or reorder pages")
 
 
 def test_capability_renderer_keeps_document_lifecycle_and_signatures_distinct() -> None:

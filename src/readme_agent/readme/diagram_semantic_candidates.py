@@ -10,9 +10,11 @@ from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.agentic_composition_models import AgenticDiagramNodeV1
 from readme_agent.readme.capability_semantics import normalize_capability_phrases
-from readme_agent.readme.format_role_truth import conflicting_explicit_formats
+from readme_agent.readme.format_role_truth import (
+    conflicting_explicit_formats,
+    mentioned_document_formats,
+)
 from readme_agent.readme.public_text import visitor_capability_phrase
-from readme_agent.readme.public_vocabulary import DOCUMENT_FORMAT_ABBREVIATIONS
 
 _TOKEN = re.compile(r"[a-z0-9]+")
 _GENERIC_TOKENS = frozenset(
@@ -292,12 +294,7 @@ def _directional_format_capability_candidates(
     for phrase in normalize_capability_phrases(view.phrases):
         if direction.search(phrase) is None:
             continue
-        uppercase = phrase.upper()
-        formats = [
-            item
-            for item in DOCUMENT_FORMAT_ABBREVIATIONS
-            if re.search(rf"(?<![A-Z0-9_-]){re.escape(item)}(?![A-Z0-9_-])", uppercase)
-        ]
+        formats = sorted(mentioned_document_formats(phrase))
         candidates.extend(
             AgenticDiagramNodeV1(
                 role=role,

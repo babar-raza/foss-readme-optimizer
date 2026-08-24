@@ -34,6 +34,7 @@ from readme_agent.validation.aspose_checks import load_check_registry
 _CLASSIFICATION_PATH = (
     Path(__file__).resolve().parents[3] / "data" / "aspose_check_classification.json"
 )
+_FAMILIES_PATH = Path(__file__).resolve().parents[3] / "data" / "families.json"
 
 # Every fact field provider.py's aspose_fact_records() may inject; used only
 # to recover the family/platform this candidate is for (see _real_kwargs).
@@ -88,6 +89,7 @@ def _real_kwargs(candidate_text: str, facts: ProductFactsV2 | None) -> dict[str,
     kwargs: dict[str, Any] = {
         "readme_text": candidate_text,
         "markdown_text": candidate_text,
+        "known_family_display_names": _known_family_display_names(),
     }
     for field, param in (
         ("aspose.archetype", "archetype"),
@@ -114,6 +116,23 @@ def _real_kwargs(candidate_text: str, facts: ProductFactsV2 | None) -> dict[str,
                 kwargs["platform"] = platform
 
     return kwargs
+
+
+def _known_family_display_names() -> set[str]:
+    """Load current product-family names for the cross-product citation check."""
+
+    raw = json.loads(_FAMILIES_PATH.read_text(encoding="utf-8"))
+    if isinstance(raw, dict):
+        names = list(raw.values())
+    elif isinstance(raw, list):
+        names = [item.get("name") for item in raw if isinstance(item, dict)]
+    else:
+        raise ValueError(f"unsupported family registry shape in {_FAMILIES_PATH}")
+    return {
+        name.split(".", 1)[1]
+        for name in names
+        if isinstance(name, str) and name.startswith("Aspose.")
+    }
 
 
 def _dependency_snapshot_applicable(value: Any) -> bool:

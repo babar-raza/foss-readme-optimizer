@@ -892,6 +892,44 @@ def test_generic_endpoint_requires_an_exact_cited_fact_phrase():
         )
 
 
+def test_projected_imported_format_citations_are_authoritative_for_diagram_roles() -> None:
+    facts, _revision = _facts()
+    formats = facts.selected_fact("product.formats")
+    knowledge = formats.model_copy(
+        update={
+            "fact_id": "aspose.format_support_claims:test",
+            "field": "aspose.format_support_claims",
+            "value": [
+                {
+                    "claim_id": "3d/typescript/format-1",
+                    "kind": "format_support",
+                    "text": "import support for OBJ via Scene.fromFile",
+                    "confidence": 1.0,
+                }
+            ],
+            "supporting_fact_ids": [],
+        }
+    )
+    projected = formats.model_copy(
+        update={
+            "value": ["Input format: OBJ"],
+            "supporting_fact_ids": [knowledge.fact_id],
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                projected if fact.fact_id == formats.fact_id else fact for fact in facts.facts
+            ]
+            + [knowledge]
+        }
+    )
+    node = next(node for node in input_node_candidates(facts) if node.label == "OBJ files")
+
+    assert knowledge.fact_id in node.supporting_fact_ids
+    validate_diagram_role_fact_semantics([node], facts)
+
+
 def test_passive_content_capabilities_are_not_reclassified_as_outputs():
     facts, _revision = _facts()
     replacements = {

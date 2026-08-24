@@ -48,7 +48,7 @@ _OBLIGATION_FACT_FIELDS: dict[SourceClaimObligation, frozenset[str]] = {
     "api_structure": frozenset(),
     "documentation_resources": frozenset({"documentation.links"}),
     "support_routes": frozenset(),
-    "scope_and_limitations": frozenset({"product.limitations"}),
+    "scope_and_limitations": frozenset(),
     "development_commands": frozenset({"development.commands"}),
     "golden_workflow": frozenset({"development.golden_workflow"}),
     "repository_map": frozenset(),
@@ -74,6 +74,7 @@ _OBLIGATION_ANY_FACT_FIELDS: dict[SourceClaimObligation, frozenset[str]] = {
         }
     ),
     "support_routes": frozenset({"product.identity", "support.routes"}),
+    "scope_and_limitations": frozenset({"product.limitations", "aspose.limitation_claims"}),
     "repository_map": frozenset(
         {
             "api.public_surface",
