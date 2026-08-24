@@ -120042,6 +120042,20 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): blind_quality:REJECT_REPAIRABLE:pkt.visitor.0002.at.a.glance.14a23610abb3.f4@at-a-glance:internal_terminology,pkt.visitor.0003.key.capabilities.f3dafc4aaa5a.f1@key-capabilities:clarity,pkt.visitor.0003.key.capabilities.f3dafc4aaa5a.f2@key-capabilities:product_specificity,pkt.visitor.0006.additional.examples.1bdfae9e5461.f1@additional-examples:clarity,pkt.visitor.0006.additional.examples.1bdfae9e5461.f3@additional-examples:product_specificity,pkt.visitor.0010.scope.and.limitations.76c81962b379.f1@scope-and-limitations:promotional_balance,pkt.visitor.0010.scope.and.limitations.76c81962b379.f2@scope-and-limitations:internal_terminology; factual_plan:ACCEPT",
         "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "clarity",
+          "internal_terminology",
+          "product_specificity",
+          "promotional_balance"
+        ],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-24T01:47:35.841960+00:00",
+        "reason": "entering repair attempt 1/2: Revise at-a-glance for internal_terminology around exact span: ```mermaid\nflowchart LR\n  subgraph INPUTS[\"Inputs & Formats\"]\n    direction TB\n    I1[\"OBJ<br/>Format\"]\n    I2[\"GLTF<br/>Format\"]\n    I3[\"STL<br/>Format\"]\n    I4[\"3MF<br/>Format\"]\n  end\n  PRODUCT[\"Aspose.3D FOSS<br/>for Python\"]\n  subgraph CORE[\"Core Capabilities\"]\n    direction TB\n    C1[\"3D primitives<br/>including Box\"]\n    C2[\"File format import and<br/>export\"]\n    C3[\"Animation system with<br/>keyframe\"]\n    C1 ~~~ C2\n    C2 ~~~ C3\n  end\n  subgraph OUTPUTS[\"Outputs\"]\n    direction TB\n    O1[\"GLTF<br/>Format\"]\n    O2[\"STL<br/>Format\"]\n    O3[\"3MF<br/>Format\"]\n  end\n  I1 --> PRODUCT\n  PRODUCT --> CORE\n  CORE --> O1\n  classDef product fill:#1F4E79,color:#FFFFFF,stroke:#163A5B,stroke-width:2px,font-weight:bold;\n  classDef input fill:#EAF2F8,color:#17324D,stroke:#7EA6C4,stroke-width:1.5px;\n  classDef capability fill:#F7F9FC,color:#243447,stroke:#AAB7C4,stroke-width:1.25px;\n  classDef output fill:#EAF6EF,color:#244A32,stroke:#78A889,stroke-width:1.5px,font-weight:bold;\n  class PRODUCT product;\n  class I1,I2,I3,I4 input;\n  class C1,C2,C3 capability;\n  class O1,O2,O3 output;\n  style INPUTS fill:#F8FBFD,stroke:#7EA6C4,stroke-width:1.5px\n  style CORE fill:#FFFFFF,stroke:#5F7791,stroke-width:2px\n  style OUTPUTS fill:#F7FBF8,stroke:#78A889,stroke-width:1.5px\n  linkStyle 2,3,4 stroke:#526D82,stroke-width:2px\n```\nRevise key-capabilities for clarity around exact span: - **Create 3D primitives** - Construct standard geometric shapes such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum using dedicated constructors provided by Aspose.3D FOSS for Python.\n- **Define animated sequences** - Build animation timelines using keyframe support to control property changes over time for 3D entities in Aspose.3D FOSS for Python.\nRevise key-capabilities for product_specificity around exact span: - **Create 3D primitives** - Construct standard geometric shapes such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum using dedicated constructors provided by Aspose.3D FOSS for Python.\n- **Define animated sequences** - Build animation timelines using keyframe support to control property changes over time for 3D entities in Aspose.3D FOSS for Python.\nRevise additional-examples for clarity around exact span: The examples below demonstrate loading OBJ files with materials, exporting a scene to binary GLTF, converting a parametric primitive to a mesh, and building a cube and exporting it to 3MF.\nRevise additional-examples for product_specificity around exact span: The examples below demonstrate loading OBJ files with materials, exporting a scene to binary GLTF, converting a parametric primitive to a mesh, and building a cube and exporting it to 3MF.\nRevise scope-and-limitations for promotional_balance around exact span: This repository contains [Aspose.3D FOSS for Python](https://products.aspose.org/3d/python/). For broader feature coverage beyond the documented FOSS scope, see [Aspose.3D Enterprise Edition](https://products.aspose.com/3d/python-net/). It is a separate product, so features and APIs may differ.\nRevise scope-and-limitations for internal_terminology around exact span: This repository contains [Aspose.3D FOSS for Python](https://products.aspose.org/3d/python/). For broader feature coverage beyond the documented FOSS scope, see [Aspose.3D Enterprise Edition](https://products.aspose.com/3d/python-net/). It is a separate product, so features and APIs may differ.",
+        "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "to_status": "REPAIRING"
       }
     ],
     "human_acceptance_history": [],
@@ -120138,16 +120152,16 @@
       "status": "INELIGIBLE"
     },
     "publication_eligibility_history": [],
-    "repair_attempts_for_revision": 0,
+    "repair_attempts_for_revision": 1,
     "repair_budget_origin_hash": "365809282da6811e32ce91cdb1d0f415aad9dfbd00df257a8421e88759528495",
     "reviewer_standard_hash": "8048bf7071331c29dde4ab15e979e94636714c63b3c6b11a72d6a021f8dc381e",
     "schema_version": 2,
     "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-08-24T01:47:27.108364+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-08-24T01:47:35.841960+00:00"
   },
   "schema_version": 2,
-  "state_version": 2615,
+  "state_version": 2616,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "62fab1e9beb334e4524efd5d2d2903c22977cc17365b03d38d4c2f6b6c9225e0",
