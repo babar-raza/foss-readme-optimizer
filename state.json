@@ -12711,7 +12711,7 @@
     "readme_presentation": {
       "accepted_facts_hash": "65604399d1567143ace3f1edf4d57f45ef34d0ed7ce07ea7915153136344955c",
       "accepted_status": "CHANGED",
-      "consecutive_failure_count": 1,
+      "consecutive_failure_count": 2,
       "consecutive_skip_count": 0,
       "details": {
         "agentic_composition_plan": {
@@ -13780,12 +13780,12 @@
           "review_call_count": 1
         },
         "last_failure_envelope": {
-          "attempt": 1,
+          "attempt": 2,
           "domain": "readme_presentation",
-          "error_type": "LLMInfrastructureError",
+          "error_type": "SectionAuthoringDocumentError",
           "failure_reason": "independent_review_exception",
-          "message": " forced tool call failed after retries: network error: HTTPSConnectionPool(host='llm.professionalize.com', port=443): Read timed out. (read timeout=90)",
-          "occurred_at": "2026-08-24T01:31:33.968854+00:00",
+          "message": " document authoring stopped at section 'scope_and_limitations': section cluster 'scope_and_limitations' failed acceptance after 3 attempt(s): fact_id(s) both cited and omitted: ['product.limitations:source-guidance']",
+          "occurred_at": "2026-08-24T01:49:21.894267+00:00",
           "schema_version": 1,
           "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
           "stage": null
@@ -112492,7 +112492,7 @@
       "domain": "readme_presentation",
       "last_failure_reason": "independent_review_exception",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-24T01:31:33.968854+00:00",
+      "last_run_timestamp": "2026-08-24T01:49:21.894267+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ee05c1ba9153ef5916b7a108406c794f2e464d01"
@@ -120170,7 +120170,7 @@
     "updated_at": "2026-08-24T01:49:13.769856+00:00"
   },
   "schema_version": 2,
-  "state_version": 2617,
+  "state_version": 2618,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "62fab1e9beb334e4524efd5d2d2903c22977cc17365b03d38d4c2f6b6c9225e0",
