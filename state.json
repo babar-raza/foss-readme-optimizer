@@ -3353,8 +3353,8 @@
       }
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
-    "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-24T15:23:19.745247+00:00",
+    "infrastructure_tasks_since_visible_delivery": 1,
+    "last_evaluated_at": "2026-08-24T15:24:00.460349+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -3492,7 +3492,31 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "campaign_id": "CAMP-GATE-A-PORTFOLIO",
+      "core_contribution": {
+        "kind": "first_boundary_removal",
+        "summary": "Prove the complete transaction is portable before fleet execution."
+      },
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-AUTONOMY",
+        "GOAL-DELIVERY"
+      ],
+      "immediate_goal_id": "DELIVERY-SEVEN-ECOSYSTEM-CANARIES",
+      "immediate_outcome": "Accept and no-op-prove one current repository per supported ecosystem.",
+      "repository_scope": [
+        "platform:python",
+        "platform:net",
+        "platform:java",
+        "platform:cpp",
+        "platform:typescript",
+        "platform:rust",
+        "platform:go"
+      ],
+      "stage_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
+      "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
+    },
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
@@ -3554,7 +3578,7 @@
       "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
       "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "CLOSED",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
-      "L8-PF-04-MINIMAL-GRAPH-RUNNER": "SCORED",
+      "L8-PF-04-MINIMAL-GRAPH-RUNNER": "CLOSED",
       "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "TODO",
       "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP": "TODO",
       "L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS": "TODO",
@@ -14501,6 +14525,20 @@
         "reason": "PF04 satisfies all graph outputs, acceptance checks, negative controls, verification tiers, and no-effect constraints",
         "task_id": "L8-PF-04-MINIMAL-GRAPH-RUNNER",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "runs/pf04-proven-transaction/d5eded12df396e5d64197cbff1676d25a822d124d9299d858101861d7b51adf8/mission-contribution-evidence.json",
+          "runs/pf04-proven-transaction/d5eded12df396e5d64197cbff1676d25a822d124d9299d858101861d7b51adf8/task-closeout-control-evidence.json",
+          "runs/pf04-proven-transaction/d5eded12df396e5d64197cbff1676d25a822d124d9299d858101861d7b51adf8/current-independent-verification.json",
+          "runs/pf04-proven-transaction/d5eded12df396e5d64197cbff1676d25a822d124d9299d858101861d7b51adf8/current-state-reconciliation.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-24T15:24:14.594332+00:00",
+        "reason": "PF04 restored from current independently accepted evidence after correcting mission lifecycle authority; no replay, regeneration, provider call, or product effect",
+        "task_id": "L8-PF-04-MINIMAL-GRAPH-RUNNER",
+        "to_status": "CLOSED"
       }
     ]
   },
@@ -14510,7 +14548,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1473,
+  "state_version": 1474,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
