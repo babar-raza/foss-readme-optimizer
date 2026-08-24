@@ -2250,17 +2250,30 @@
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "src/readme_agent/specialists/bounded_review_execution.py",
+            "src/readme_agent/specialists/bounded_review_execution_factual.py",
+            "tests/unit/test_bounded_review_cache.py",
+            "runs/llm-calls/aspose-3d-foss__Aspose.3D-FOSS-for-Python/20260824-205801-ef40.jsonl"
+          ],
           "fingerprint": "3cb09dd769b2a81dd635e7a7a19f0c7de77978d965dd3859cbe33ef492402fd5",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-24T20:57:43.260773+00:00",
+          "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "a8da9604dffa256099d3f1a8049924e1beffa924726614f0687ba3ba8f823bd3",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-24T21:10:40.377921+00:00",
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         }
       ],
       "proposed_fingerprints": {
         "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "bb73427bbbbf602bdbbccd13b7bf93a7ff63fe1425d1343786e4d84e9afd437d",
-        "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "3cb09dd769b2a81dd635e7a7a19f0c7de77978d965dd3859cbe33ef492402fd5",
+        "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "a8da9604dffa256099d3f1a8049924e1beffa924726614f0687ba3ba8f823bd3",
         "L8-PF-03-SEALED-CANDIDATE-NO-OP": "f202c0fb1ea5b08e2f7fcde9befb92bc3bbb96a89feaec97499e10230fdc7f23",
         "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "e1b980836cc43d097a55e758959cefd8e15dbfded4e9ecf1e2b127e7c50e992a",
         "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "9d8091b625ebf675542727bfa42e720a03906a4d5b9ca7bfa0a7b171f1668ee0",
@@ -3659,6 +3672,33 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+        },
+        {
+          "causal_owner_changed": false,
+          "created_at": "2026-08-25T02:09:41.4569775+05:00",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "src/readme_agent/specialists/bounded_review_execution.py",
+            "src/readme_agent/specialists/bounded_review_execution_factual.py",
+            "tests/unit/test_bounded_review_cache.py",
+            "runs/llm-calls/aspose-3d-foss__Aspose.3D-FOSS-for-Python/20260824-205801-ef40.jsonl"
+          ],
+          "input_classification": "tactic",
+          "mechanism_changed": true,
+          "new_fingerprint": "a8da9604dffa256099d3f1a8049924e1beffa924726614f0687ba3ba8f823bd3",
+          "pipeline_boundary_changed": false,
+          "prior_fingerprint": "3cb09dd769b2a81dd635e7a7a19f0c7de77978d965dd3859cbe33ef492402fd5",
+          "rationale": "The two replacement factual packets converged, exposing that the aggregate grounding pass compared checksum-bound packet evidence aliases against the original long ProductFacts source-location strings. Project each fact's unique packet evidence identity into the aggregate fact view, fail closed if packets disagree, and retain the complete ProductFacts artifact unchanged. This changes no packet input or cached verdict and requires no provider call; it only makes final grounding use the same verified evidence identity already enforced within every packet.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         }
       ]
     },
@@ -3941,20 +3981,21 @@
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-24T20:57:43.260773+00:00",
+    "last_evaluated_at": "2026-08-24T21:10:40.377977+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
       "denominator": 33,
-      "derived_at": "2026-08-24T20:48:26.147710+00:00",
+      "derived_at": "2026-08-24T21:05:08.636152+00:00",
       "deterministic_validated": 0,
       "facts_ready": 4,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
-        "BLOCKED_MISSING_EVIDENCE": 7,
+        "BLOCKED_MISSING_EVIDENCE": 6,
         "FACTS_READY": 25,
-        "INTAKE_READY": 1
+        "INTAKE_READY": 1,
+        "SYSTEM_FAILURE": 1
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 0,
@@ -15273,7 +15314,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1508,
+  "state_version": 1509,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
