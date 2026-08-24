@@ -387,6 +387,10 @@ The umbrella mission never directly authorizes implementation. The controller se
 one task, and one `TaskExecutionFocusV1`. Visible work is admitted only when the repository matches
 that focus, the named observer owns an unexpired durable claim, the graph hash is current, and the
 approach budget remains open. Nonblocking discoveries become backlog; they cannot enlarge the task.
+Model findings remain allegations until exact evidence adjudicates them; documentation, evidence promotion,
+commit, and push occur once per closed causal repair cluster rather than per phrase-level correction. Parallel
+repository workers remain disabled whenever the multi-process same-ref CAS proof is unstable in clean CI,
+even if a single local rerun passes.
 
 The current bounded small-goal catalog is:
 
@@ -529,6 +533,12 @@ the sibling repository, its reports, skills, scripts, or caches.
 - [ ] Every model finding is adjudicated against its exact candidate span, facts, deterministic contract,
   and document plan before repair; unsupported findings change no candidate bytes and have an offline
   regression.
+- [ ] The current FP03 finding ledger preserves the supported limitations grouping repair, rejects the
+  unsupported additional-examples raw-list allegation, and admits no additional repair without exact evidence.
+- [ ] Narrative documentation, evidence promotion, commit, and push occur once per closed causal repair
+  cluster rather than once per reviewer phrase or micro-fix.
+- [ ] Parallel repository lanes remain disabled until clean-Linux multi-process CAS and a bounded two-worker
+  proof each produce exactly one saved writer and one stale writer with no lost update.
 - [ ] The portfolio registry contract uses canonical JSON identity so CRLF and LF checkouts load the same
   frozen graph, while CI fetches the history required by compact-authority verification.
 - [ ] Accepted README output is shown before a deferred broad regression boundary begins.

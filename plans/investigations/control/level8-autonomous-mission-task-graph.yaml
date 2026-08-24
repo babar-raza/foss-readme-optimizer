@@ -950,6 +950,9 @@ taskcards:
     complete dependency keys did not change
   - Every current reviewer finding has an exact candidate span and a supported, unsupported, or ambiguous
     disposition before a provider-backed rerun; only supported findings enter the repair set
+  - For candidate d283b94dbe1db4fd236d990088e056a4686c2fa6bab4af1cef2e42270e6a9f3d, preserve the supported
+    scope-and-limitations grouping repair and reject the unsupported additional-examples raw-list finding;
+    no other finding enters the batch without exact-evidence adjudication
   verification:
   - 30-point deterministic and independent review
   - full transaction rerun under the same dependency key
@@ -967,6 +970,8 @@ taskcards:
     packet cache or repeat an identical review call
   - A commit, passing focused test, new evidence reference, proposal bundle, provider call, or elapsed
     effort cannot by itself count as material progress or authorize another equivalent transaction
+  - Narrative documentation, evidence promotion, commit, and push occur once for the closed causal repair
+    cluster, not once per reviewer phrase or micro-fix
   regression_checks:
   - allow-list and push-blocking safety
   - candidate dependency fingerprints and no-op invalidation
@@ -1181,6 +1186,8 @@ taskcards:
   - per-ecosystem focused and real-repository transaction proof
   - cross-product leakage, dependency, API, format, example, limitation, and Mermaid controls
   - serial baseline followed by at most two disjoint workers only after isolation proof
+  - the same-ref multi-process CAS regression passes in clean Linux CI and a bounded two-worker proof
+    produces exactly one saved writer and one stale writer before any parallel repository lane is enabled
   - standalone reducer regressions rebased onto current schemas, current 29-failure diagnostic replay
     from canonicalized stage receipts, and incomplete/duplicate/wrong-source/opaque/determinism controls
   negative_controls:
@@ -1188,6 +1195,7 @@ taskcards:
   - A platform-specific patch cannot masquerade as an ecosystem-general solution
   - Message similarity or aggregate validation labels cannot establish a shared causal owner, hide a repository,
     lower acceptance, or replace graph dependencies
+  - A local one-off CAS pass cannot waive a clean-Linux saved/saved lost-update signal or authorize workers
   regression_checks:
   - allow-list and push-blocking safety
   - candidate dependency fingerprints and no-op invalidation
@@ -1552,13 +1560,13 @@ bootstrap_state:
   stop_reason: durable supervisor state owns live execution
 requirement_coverage:
   path: plans/investigations/evidence/level8-requirement-taskcard-coverage/requirement-taskcard-coverage.json
-  sha256: a82bf1d9cb47aa86fd6179d509677fb618109d86c23d506b66cabdb715b61f2d
+  sha256: 29160ef2404350f4778a11ea0e665e84bec094206a113861da53f3f9af1559dc
   record_count: 489
   mandatory_requirement_rows: 433
   reopened_implemented_rows: 0
 requirement_catalog:
   path: plans/requirements/catalog.jsonl
-  sha256: 40eb5e063b37670893829da00f898ab2d07b02c6a3a1d2edd15f9cdb35b598c1
+  sha256: 9a8af7409e1867a1ec16c73ceb5d3b0561b00774ec3b9915b5e396b4f89389f3
   record_count: 489
 deferred_task_catalog:
   path: plans/investigations/control/level8-deferred-task-catalog.jsonl

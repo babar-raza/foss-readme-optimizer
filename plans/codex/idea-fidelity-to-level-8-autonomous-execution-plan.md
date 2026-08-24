@@ -97,6 +97,17 @@ publication, or Level 5-8 certification. Freeze the current Aspose.3D Python sou
 accepted facts, document plan, template, prompt/model route, reviewer contract, rubric, validators,
 and dependency-valid caches until FP03 closes. Do not start an exploratory provider-backed transaction.
 
+The frozen FP03 finding ledger is not generic reviewer input. For candidate
+`d283b94dbe1db4fd236d990088e056a4686c2fa6bab4af1cef2e42270e6a9f3d` it contains exactly:
+
+- `pkt.visitor.0010.scope.and.limitations.76c81962b379.f1`: `SUPPORTED`; preserve the already-made
+  separation of product-level limitations from low-level API-member gaps;
+- `pkt.visitor.0006.additional.examples.1bdfae9e5461.f1`: `UNSUPPORTED`; the quoted sentence is
+  already a developer-facing workflow preview, so it authorizes no candidate change and requires
+  an offline grounding regression before the canonical rerun.
+
+No other stored finding enters the FP03 repair batch without the same exact-evidence adjudication.
+
 Before one admitted provider-backed rerun:
 
 1. adjudicate every stored finding against its exact candidate span, accepted or do-not-claim facts,
@@ -121,7 +132,10 @@ No new schema, controller, cache, reviewer, prompt, template, rubric, dashboard,
 machinery enters this sprint. Only a surgical correctness or clean-reconstruction defect blocking the
 existing transaction may be repaired. Use focused tests after each causal batch; run the complete non-live
 suite only at FP03 closure, after an impact-mapped shared fleet repair when required, and at final portfolio
-closure.
+closure. Do not update narrative documentation, promote evidence, commit, or push per micro-fix. Accumulate
+one coherent causal repair cluster, verify it offline, then perform one task-boundary state/evidence/document
+sync and one coherent commit. A clean-clone or CI defect may receive a separate minimal portability commit
+only when it prevents that boundary from being reproducible.
 
 ## Qualified standalone accelerator intake
 
@@ -258,6 +272,11 @@ fact warmup after the minimal runner. Use external-block resolution before decla
 and causal clustering before scheduling shared repairs. Keep aggregation serialized, preserve valid
 repository caches, and use Python, .NET, Java, C++, TypeScript, Rust, and Go only to break ties among
 otherwise-ready work. A partial prefix is never Gate A.
+
+Parallel execution remains disabled until the same-ref multi-process CAS contract is stable in clean Linux
+CI and a bounded two-worker repository proof demonstrates one winner/one stale writer with no lost update.
+CI run `32692104994` produced `saved/saved` instead of `saved/stale` while the identical focused test passed
+locally once; that is an unresolved concurrency-safety signal, not permission to dismiss the test as flaky.
 
 ### Campaign 7: Gate B and governed later gates
 
