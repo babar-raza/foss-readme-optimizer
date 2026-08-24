@@ -1847,10 +1847,12 @@
           "evidence_refs": [
             "5ed54b197",
             "98 standard-premise and review regressions passed",
-            "current candidate's two remaining quality findings are deterministically contradicted by the configured contract"
+            "current candidate's two remaining quality findings are deterministically contradicted by the configured contract",
+            "commit:7eb8de9628e9dcb3cfc953d93517b6800f110dcf",
+            "pytest:99-passed-review-premise-grounding-separated-review"
           ],
           "fingerprint": "f202c0fb1ea5b08e2f7fcde9befb92bc3bbb96a89feaec97499e10230fdc7f23",
-          "last_material_narrowing_at": "2026-08-24T02:55:11.976559+00:00",
+          "last_material_narrowing_at": "2026-08-24T03:22:36.172787+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-24T02:35:12.455288+00:00",
           "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP"
@@ -3174,7 +3176,7 @@
     ],
     "graph_sha256": "5c818ebd4709ca4ebb388bfc58f86e94a90a205b595585ab0d3b830abda5fd24",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-24T03:21:46.154259+00:00",
+    "last_evaluated_at": "2026-08-24T03:22:36.172820+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 1,
@@ -13936,7 +13938,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1409,
+  "state_version": 1410,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
