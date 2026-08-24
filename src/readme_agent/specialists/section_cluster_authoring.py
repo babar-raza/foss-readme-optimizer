@@ -482,6 +482,13 @@ def _targeted_repair_action(exc: Exception) -> str:
             "under input only when the accepted fact says 'Input format', and under output "
             "only when it says 'Output format'; never describe all formats as bidirectional."
         )
+    if "combines" in message and "independent sibling items" in message:
+        return (
+            "Split the conflicting capability into separate units. Each unit must describe "
+            "exactly one sibling item from the accepted list; do not join two sibling items "
+            "with 'and', 'or', a slash, or an inferred relationship. The separate units may "
+            "cite the same list fact alias."
+        )
     if "structured fact coordinates" in message:
         return "Rewrite only the conflicting unit to agree literally with the structured values."
     return "Fix only the named acceptance failure."

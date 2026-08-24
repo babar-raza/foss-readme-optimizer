@@ -571,3 +571,58 @@ def test_readme_specialist_passes_complete_section_document_to_canonical_rendere
     assert render_result["composition_strategy"] == "deterministic_verified_section_authoring"
     bundle_dir = section_authoring_document_path(facts.org_repo, source_revision).parents[2]
     assert verify_sha256sums(bundle_dir)
+
+
+def test_readme_specialist_reseals_partial_authoring_evidence_on_failure(tmp_path, monkeypatch):
+    from readme_agent import paths
+    from readme_agent.evidence.writer import write_redacted_json
+    from readme_agent.specialists import readme_presentation
+    from readme_agent.specialists.section_authoring_document import SectionAuthoringDocumentError
+
+    monkeypatch.setenv("README_AGENT_RUNS_DIR", str(tmp_path / "runs"))
+    facts = ProductFactsV2.model_validate_json(FACTS_FIXTURE.read_text(encoding="utf-8"))
+    source_revision = facts.selected_fact("product.identity").source.source_revision
+    assert source_revision is not None
+    readme_path = tmp_path / "README.md"
+    readme_path.write_text(SOURCE, encoding="utf-8")
+    snapshot = SimpleNamespace(
+        root_path=tmp_path,
+        readme_path="README.md",
+        source_revision=source_revision,
+    )
+    prepared = SimpleNamespace(facts=facts, lifecycle_status="FACTS_READY")
+
+    def fail_after_partial_write(**_kwargs):
+        org, repo = facts.org_repo.split("/", maxsplit=1)
+        bundle = paths.readme_poc_repository_dir(org, repo, source_revision)
+        write_redacted_json(bundle / "assurance" / "section_authoring" / "partial.json", {})
+        raise SectionAuthoringDocumentError("controlled failure", outcomes=[])
+
+    monkeypatch.setattr(readme_presentation, "proposal_only_active", lambda: True)
+    monkeypatch.setattr(readme_presentation, "current_repository_snapshot", lambda _repo: snapshot)
+    monkeypatch.setattr(
+        readme_presentation,
+        "load_prepared_product_truth",
+        lambda *_args, **_kwargs: prepared,
+    )
+    monkeypatch.setattr(
+        readme_presentation,
+        "author_and_persist_readme_sections",
+        fail_after_partial_write,
+    )
+
+    result = readme_presentation._render_node(
+        DomainStateV1(domain="readme_presentation"),
+        {
+            "configurable": {
+                "org_repo": facts.org_repo,
+                "backend": object(),
+                "current_revision": source_revision,
+                "section_authoring_client": CountingClient(),
+            }
+        },
+    )
+
+    assert result["accepted_status"].startswith("ERROR:section_authoring")
+    bundle = section_authoring_document_path(facts.org_repo, source_revision).parents[2]
+    assert verify_sha256sums(bundle)

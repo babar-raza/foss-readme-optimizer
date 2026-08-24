@@ -531,8 +531,24 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 )
                 seal_partial_local_poc_evidence(local_bundle_dir)
             except (LLMError, OSError, ValueError, SectionAuthoringDocumentError) as exc:
+                evidence_reseal_error: str | None = None
+                local_bundle_dir = paths.readme_poc_repository_dir(
+                    snapshot_org,
+                    snapshot_repo,
+                    snapshot.source_revision,
+                )
+                if local_bundle_dir.is_dir():
+                    try:
+                        seal_partial_local_poc_evidence(local_bundle_dir)
+                    except Exception as reseal_exc:  # noqa: BLE001 -- retain first failure
+                        evidence_reseal_error = (
+                            f":evidence_reseal_failed:{type(reseal_exc).__name__}:{reseal_exc}"
+                        )
                 return {
-                    "accepted_status": f"ERROR:section_authoring:{type(exc).__name__}:{exc}",
+                    "accepted_status": (
+                        f"ERROR:section_authoring:{type(exc).__name__}:{exc}"
+                        f"{evidence_reseal_error or ''}"
+                    ),
                     "details": _without_transient_candidate_details(state),
                 }
             wiring_arguments["section_authoring_document"] = section_authoring_document.model_dump(

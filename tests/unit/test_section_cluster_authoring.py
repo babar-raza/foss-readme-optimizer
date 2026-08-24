@@ -971,6 +971,10 @@ def test_independent_sibling_capabilities_cannot_be_fused_into_one_unit():
 
     assert outcome.receipt.semantic_retry_used is True
     assert "combines 2 independent sibling items" in client.calls[1]["messages"][1]["content"]
+    assert (
+        "Each unit must describe exactly one sibling item"
+        in client.calls[1]["messages"][1]["content"]
+    )
 
 
 def test_opening_summary_may_synthesize_multiple_verified_capabilities():
