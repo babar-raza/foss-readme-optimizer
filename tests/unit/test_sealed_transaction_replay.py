@@ -1511,3 +1511,32 @@ def test_30c_derived_contract_accepts_post_first_snapshot_acceptance_artifacts(
     scopes = {artifact.relative_path: artifact.scope for artifact in contract.artifacts}
     assert scopes["review/benchmark-acceptance.json"] == "replay_only"
     assert scopes["review/rubric-evaluation.json"] == "replay_only"
+
+
+def test_30d_derived_contract_scales_limit_for_large_valid_review_evidence(
+    tmp_path: Path,
+) -> None:
+    first, replay = _build_real_shape_contract_pair(tmp_path)
+    large_review = json.dumps([{"evidence": "x" * 8_388_608}])
+    for root in (first, replay):
+        (root / "review" / "repair-history.json").write_text(
+            large_review,
+            encoding="utf-8",
+            newline="\n",
+        )
+        _write_inventory(root)
+
+    contract = derive_local_poc_replay_contract(first_root=first, replay_root=replay)
+    repair_history = next(
+        artifact
+        for artifact in contract.artifacts
+        if artifact.relative_path == "review/repair-history.json"
+    )
+    proof = attest_complete_transaction_noop(
+        first_bundle_root=first,
+        replay_bundle_root=replay,
+        expected_contract=contract,
+    )
+
+    assert repair_history.max_bytes == 16_777_216
+    assert proof.passed is True, proof.model_dump_json(indent=2)

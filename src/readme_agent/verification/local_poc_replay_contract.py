@@ -18,12 +18,23 @@ from readme_agent.verification.sealed_transaction_replay import (
 )
 
 _SAFE_ID = re.compile(r"[^a-z0-9_]+")
+_MIN_ARTIFACT_LIMIT = 8_388_608
+_MAX_ARTIFACT_LIMIT = 33_554_432
 
 
 def _artifact_id(relative_path: str) -> str:
     stem = _SAFE_ID.sub("_", relative_path.casefold()).strip("_")[:90]
     suffix = hashlib.sha256(relative_path.encode("utf-8")).hexdigest()[:12]
     return f"{stem}_{suffix}"
+
+
+def _artifact_limit(*paths: Path) -> int:
+    """Return bounded headroom for the largest sealed copy of an artifact."""
+
+    largest = max(path.stat().st_size for path in paths)
+    required = max(_MIN_ARTIFACT_LIMIT, largest)
+    rounded = 1 << (required - 1).bit_length()
+    return min(rounded, _MAX_ARTIFACT_LIMIT)
 
 
 def _kind(
@@ -134,6 +145,13 @@ def derive_local_poc_replay_contract(
                 stage=_stage(relative),
                 scope=scope,
                 compare_for_delta=scope == "both" and not mutable_bookkeeping,
+                max_bytes=_artifact_limit(
+                    *(
+                        candidate
+                        for candidate in (first.get(relative), replay.get(relative))
+                        if candidate
+                    )
+                ),
             )
         )
         if scope == "both" and not mutable_bookkeeping:
