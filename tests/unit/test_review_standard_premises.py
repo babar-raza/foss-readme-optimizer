@@ -265,6 +265,90 @@ flowchart LR
     ]
 
 
+def test_verified_output_coverage_disproves_observed_expects_wording() -> None:
+    candidate = """# Product
+
+## At a Glance
+
+```mermaid
+flowchart LR
+  I1["Input"] --> PRODUCT["Product"]
+  PRODUCT --> CORE["Core Capabilities"]
+  CORE --> O1["First output"]
+  O2["Second output"]
+  O3["Third output"]
+```
+"""
+
+    errors = validate_configured_standard_premise(
+        finding_id="visitor.mermaid.outputs-observed",
+        section="at-a-glance",
+        premise=(
+            "The output group has only three outputs while the contract expects five verified "
+            "outputs. Add two outputs to meet the target_outputs=5 requirement."
+        ),
+        candidate_text=candidate,
+        visitor_contract={
+            "configured_standards": [
+                {
+                    "standard_id": "readme.at_a_glance_mermaid",
+                    "parameters": {
+                        "minimum_outputs": 1,
+                        "target_outputs": 5,
+                        "output_coverage": "all_selected_verified",
+                    },
+                }
+            ]
+        },
+    )
+
+    assert errors == [
+        "visitor.mermaid.outputs-observed:Mermaid target-output premise contradicts "
+        "verified-coverage contract"
+    ]
+
+
+def test_allowed_corporate_styling_disproves_speculative_alignment_finding() -> None:
+    candidate = """# Product
+
+## At a Glance
+
+```mermaid
+flowchart LR
+  I1["Input"] --> PRODUCT["Product"]
+  PRODUCT --> CORE["Core Capabilities"]
+  CORE --> O1["Output"]
+  classDef product fill:#1F4E79,color:#FFFFFF;
+  class PRODUCT product;
+```
+"""
+
+    errors = validate_configured_standard_premise(
+        finding_id="visitor.mermaid.styling-observed",
+        section="at-a-glance",
+        premise=(
+            "The styling directives may not align with the corporate-capability-landscape "
+            "visual grammar."
+        ),
+        candidate_text=candidate,
+        visitor_contract={
+            "configured_standards": [
+                {
+                    "standard_id": "readme.at_a_glance_mermaid",
+                    "parameters": {
+                        "visual_grammar": "corporate-capability-landscape",
+                        "styling_directives": "allowed",
+                    },
+                }
+            ]
+        },
+    )
+
+    assert errors == [
+        "visitor.mermaid.styling-observed:Mermaid-style premise contradicts configured presentation"
+    ]
+
+
 def test_complete_api_tables_do_not_overrule_qualitative_grouping_review() -> None:
     candidate = """# Product
 
@@ -406,6 +490,45 @@ def test_product_bound_action_led_rows_disprove_generic_inventory_premise() -> N
 
     assert errors == [
         "visitor.capabilities.generic:generic-capability premise contradicts product-bound "
+        "action-led rows"
+    ]
+
+
+def test_product_bound_rows_disprove_observed_internal_inventory_wording() -> None:
+    candidate = (
+        "# Aspose.3D FOSS for Python\n\n"
+        "## Key Capabilities\n\n"
+        "- **Create 3D primitives** - Construct common 3D shapes such as Box, Cylinder, "
+        "Sphere, Plane, Dish, Circle, Ellipse, and Frustum using dedicated primitive classes "
+        "provided by Aspose.3D FOSS for Python.\n"
+        "- **Define animated sequences** - Build animation sequences using the built-in "
+        "keyframe support in Aspose.3D FOSS for Python to control how 3D objects transform "
+        "over time.\n"
+    )
+
+    errors = validate_configured_standard_premise(
+        finding_id="visitor.capabilities.observed",
+        section="key-capabilities",
+        premise=(
+            "Bullets read as internal class/library inventory rather than developer-facing "
+            "tasks. Rewrite to express concrete, action-led developer tasks."
+        ),
+        candidate_text=candidate,
+        visitor_contract={
+            "configured_standards": [
+                {
+                    "standard_id": "readme.key_capabilities",
+                    "parameters": {
+                        "action_led_same_line_rows": True,
+                        "developer_value_explanation": "required",
+                    },
+                }
+            ]
+        },
+    )
+
+    assert errors == [
+        "visitor.capabilities.observed:generic-capability premise contradicts product-bound "
         "action-led rows"
     ]
 

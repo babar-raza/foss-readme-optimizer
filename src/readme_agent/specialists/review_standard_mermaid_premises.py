@@ -69,8 +69,12 @@ def validate_mermaid_standard_premise(
             f"{finding_id}:Mermaid-layout-direction premise contradicts configured presentation"
         )
     claims_styling_forbidden = any(
-        term in premise for term in ("classdef", "style directive", "class directive")
-    ) and any(term in premise for term in ("not permitted", "forbidden", "remove all"))
+        term in premise
+        for term in ("classdef", "style directive", "styling directive", "class directive")
+    ) and any(
+        term in premise
+        for term in ("not permitted", "forbidden", "remove all", "not align", "may not align")
+    )
     if (
         claims_styling_forbidden
         and standard.get("styling_directives") == "allowed"
@@ -134,7 +138,18 @@ def validate_mermaid_standard_premise(
         )
     claims_target_outputs_are_required = bool(
         re.search(r"\btarget[_ -]?outputs\b", premise)
-    ) and any(term in premise for term in ("requires", "required", "noncompliant", "incomplete"))
+    ) and any(
+        term in premise
+        for term in (
+            "requires",
+            "required",
+            "requirement",
+            "expects",
+            "expected",
+            "noncompliant",
+            "incomplete",
+        )
+    )
     if (
         claims_target_outputs_are_required
         and standard.get("output_coverage") == "all_selected_verified"

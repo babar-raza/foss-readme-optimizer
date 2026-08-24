@@ -9,7 +9,7 @@ from readme_agent.specialists.review_standard_mermaid_premises import (
     validate_mermaid_standard_premise,
 )
 
-REVIEW_STANDARD_PREMISE_CONTRACT_VERSION = 9
+REVIEW_STANDARD_PREMISE_CONTRACT_VERSION = 10
 
 
 def _configured_standards(visitor_contract: dict) -> dict[str, dict]:
@@ -382,6 +382,8 @@ def validate_configured_standard_premise(
             "generic class inventory",
             "generic inventory",
             "class inventory fragment",
+            "internal class/library inventory",
+            "internal class inventory",
             "instead of concrete developer-facing",
             "using verified product vocabulary",
             "lacks product-specific",
