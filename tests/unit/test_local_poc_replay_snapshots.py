@@ -23,7 +23,13 @@ def _bundle(tmp_path):
             {
                 "org_repo": "example-org/example-repo",
                 "source_revision": "a" * 40,
+                "facts_hash": "d" * 64,
+                "fact_acceptance_contract_hash": "e" * 64,
                 "candidate_hash": "b" * 64,
+                "candidate_stage_dependency_key": "f" * 64,
+                "prompt_registry_content_hash": "1" * 64,
+                "prompt_dependency_hashes": {"author": "2" * 64},
+                "deterministic_validation_hash": "3" * 64,
                 "reviewer_standard_hash": "c" * 64,
             }
         ),
@@ -58,6 +64,21 @@ def test_existing_snapshot_corruption_fails_instead_of_overwriting(tmp_path) -> 
 
     with pytest.raises(ReplaySnapshotError, match="checksum validation"):
         materialize_transaction_snapshot(bundle, label="first")
+
+
+def test_changed_fact_contract_uses_a_distinct_transaction_root(tmp_path) -> None:
+    bundle = _bundle(tmp_path)
+    first = materialize_transaction_snapshot(bundle, label="first")
+    manifest_path = bundle / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["fact_acceptance_contract_hash"] = "4" * 64
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    refresh_sha256sums(bundle)
+
+    changed = materialize_transaction_snapshot(bundle, label="first")
+
+    assert changed != first
+    assert changed.parent != first.parent
 
 
 def test_snapshot_copies_hash_named_packet_cache_through_short_windows_path(tmp_path) -> None:

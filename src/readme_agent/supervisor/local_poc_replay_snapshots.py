@@ -31,25 +31,50 @@ def _manifest(bundle_dir: Path) -> dict:
 
 
 def transaction_snapshot_root(bundle_dir: Path) -> Path:
-    """Return the short candidate/reviewer-bound root for immutable transaction views."""
+    """Return the short complete-transaction-bound root for immutable transaction views."""
 
     manifest = _manifest(bundle_dir)
-    candidate_hash = manifest.get("candidate_hash")
-    reviewer_hash = manifest.get("reviewer_standard_hash")
-    source_revision = manifest.get("source_revision")
-    if not all(isinstance(item, str) and item for item in (candidate_hash, reviewer_hash)):
-        raise ReplaySnapshotError("transaction snapshots require candidate and reviewer identities")
-    if not isinstance(source_revision, str) or not source_revision:
-        raise ReplaySnapshotError("transaction snapshot requires a source revision")
-    assert isinstance(candidate_hash, str)
-    assert isinstance(reviewer_hash, str)
     identity = hashlib.sha256(
-        f"{source_revision}\0{candidate_hash}\0{reviewer_hash}".encode()
+        json.dumps(
+            _transaction_identity(manifest),
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
     ).hexdigest()
     # Keep the snapshot path comfortably below Windows MAX_PATH. Packet-cache filenames are
     # already 64-byte hashes, so descriptive parent names made an otherwise valid bundle
     # impossible to seal on default Windows installations.
     return bundle_dir.parent / "_tx" / identity[:16]
+
+
+def _transaction_identity(manifest: dict) -> dict:
+    """Bind snapshots to every dependency that may change a sealed transaction."""
+
+    required = (
+        "org_repo",
+        "source_revision",
+        "facts_hash",
+        "fact_acceptance_contract_hash",
+        "candidate_hash",
+        "candidate_stage_dependency_key",
+        "prompt_registry_content_hash",
+        "deterministic_validation_hash",
+        "reviewer_standard_hash",
+    )
+    missing = [
+        key for key in required if not isinstance(manifest.get(key), str) or not manifest[key]
+    ]
+    prompt_dependencies = manifest.get("prompt_dependency_hashes")
+    if not isinstance(prompt_dependencies, dict):
+        missing.append("prompt_dependency_hashes")
+    if missing:
+        raise ReplaySnapshotError(
+            "transaction snapshot is missing complete identity: " + ", ".join(sorted(missing))
+        )
+    return {
+        **{key: manifest[key] for key in required},
+        "prompt_dependency_hashes": prompt_dependencies,
+    }
 
 
 def first_snapshot_path(bundle_dir: Path) -> Path:
@@ -74,9 +99,8 @@ def _verify_existing(path: Path, expected_manifest: dict) -> Path:
             f"existing transaction snapshot fails checksum validation: {path}"
         )
     actual = _manifest(path)
-    for key in ("org_repo", "source_revision", "candidate_hash", "reviewer_standard_hash"):
-        if actual.get(key) != expected_manifest.get(key):
-            raise ReplaySnapshotError(f"existing transaction snapshot has stale {key}: {path}")
+    if _transaction_identity(actual) != _transaction_identity(expected_manifest):
+        raise ReplaySnapshotError(f"existing transaction snapshot has stale identity: {path}")
     return path
 
 

@@ -92,7 +92,7 @@ def test_sealed_replay_promotes_then_accepts_before_zero_call_replay(tmp_path: P
     assert len(calls) == 2
     assert calls[0] == calls[1]
     assert output["candidate_hash"] == candidate_hash
-    assert output["first_provider_call_count"] == 1
+    assert output["promotion_provider_call_counts"] == [1]
     assert output["no_op_provider_call_count"] == 0
     assert output["rubric_score"] == 30
     assert output["benchmark_acceptance_proven"] is True

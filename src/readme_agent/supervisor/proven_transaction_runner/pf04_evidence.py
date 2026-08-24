@@ -82,12 +82,27 @@ def _sealed_replay() -> dict:
         "--mission-observer",
         "codex",
     ]
-    first_exit_code = cli_main(argv)
-    first_accounting = current_llm_accounting_summary()
-    if first_exit_code != 0:
-        raise RuntimeError(f"sealed canonical supervisor promotion exited {first_exit_code}")
-    if first_accounting.status != "EXACT":
-        raise RuntimeError("sealed canonical supervisor promotion has inexact call accounting")
+    promotion_accounting = []
+    for _attempt in range(2):
+        exit_code = cli_main(argv)
+        accounting = current_llm_accounting_summary()
+        promotion_accounting.append(accounting)
+        if exit_code != 0:
+            raise RuntimeError(f"sealed canonical supervisor promotion exited {exit_code}")
+        if accounting.status != "EXACT":
+            raise RuntimeError("sealed canonical supervisor promotion has inexact call accounting")
+        lifecycle_status = json.loads((bundle / "manifest.json").read_text(encoding="utf-8")).get(
+            "lifecycle_status"
+        )
+        if lifecycle_status == "NO_OP_PROVEN":
+            break
+        if lifecycle_status != "AGENT_APPROVED":
+            raise RuntimeError(
+                "sealed canonical supervisor stopped before approval: "
+                f"{lifecycle_status or 'missing'}"
+            )
+    else:
+        raise RuntimeError("sealed canonical supervisor did not promote the approved candidate")
 
     from readme_agent.state.local_poc_backend import default_local_poc_state_backend
     from readme_agent.supervisor.portfolio_proof_engine.rubric import evaluate_repository
@@ -137,7 +152,9 @@ def _sealed_replay() -> dict:
         "lifecycle_status": manifest["lifecycle_status"],
         "rubric_score": rubric["score"],
         "hard_disqualifier_count": rubric["hard_disqualifier_count"],
-        "first_provider_call_count": first_accounting.provider_call_count,
+        "promotion_provider_call_counts": [
+            accounting.provider_call_count for accounting in promotion_accounting
+        ],
         "no_op_provider_call_count": no_op_accounting.provider_call_count,
         "no_op_fixture_call_count": no_op_accounting.fixture_call_count,
         "benchmark_acceptance_proven": rubric["benchmark_acceptance_proven"],
