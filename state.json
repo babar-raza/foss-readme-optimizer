@@ -120257,6 +120257,15 @@
         "reason": "independent README review started after deterministic validation",
         "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "independent_verification",
+        "occurred_at": "2026-08-24T02:24:11.320082+00:00",
+        "reason": "independent review wiring failed: GroundedRoleFailure: pkt-factual-0020-api-reference-aspose3dutilities-namespace-asposethreedutilities-da1097b0e244: factual_plan reviewer repeatedly returned ungrounded findings: ['f1:evidence location disagrees with cited fact', 'f1:evidence excerpt is not bound to cited fact', 'f1:accepted evidence without an assessment must support', 'f2:evidence location disagrees with cited fact', 'f2:evidence excerpt is not bound to cited fact', 'f2:accepted evidence without an assessment must support', 'f3:evidence location disagrees with cited fact', 'f3:evidence excerpt is not bound to cited fact', 'f3:accepted evidence without an assessment must support', 'f4:evidence location disagrees with cited fact', 'f4:evidence excerpt is not bound to cited fact', 'f4:accepted evidence without an assessment must support', 'f5:evidence location disagrees with cited fact', 'f5:evidence excerpt is not bound to cited fact', 'f5:accepted evidence without an assessment must support', 'f6:evidence location disagrees with cited fact', 'f6:evidence excerpt is not bound to cited fact', 'f6:accepted evidence without an assessment must support', 'f7:evidence location disagrees with cited fact', 'f7:evidence excerpt is not bound to cited fact', 'f7:accepted evidence without an assessment must support', 'f8:evidence location disagrees with cited fact', 'f8:evidence excerpt is not bound to cited fact', 'f8:accepted evidence without an assessment must support']",
+        "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "to_status": "SYSTEM_FAILURE"
       }
     ],
     "human_acceptance_history": [],
@@ -120358,11 +120367,11 @@
     "reviewer_standard_hash": "8048bf7071331c29dde4ab15e979e94636714c63b3c6b11a72d6a021f8dc381e",
     "schema_version": 2,
     "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-08-24T02:12:44.550586+00:00"
+    "status": "SYSTEM_FAILURE",
+    "updated_at": "2026-08-24T02:24:11.320082+00:00"
   },
   "schema_version": 2,
-  "state_version": 2645,
+  "state_version": 2646,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "62fab1e9beb334e4524efd5d2d2903c22977cc17365b03d38d4c2f6b6c9225e0",
