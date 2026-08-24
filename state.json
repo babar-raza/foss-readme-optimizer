@@ -2131,17 +2131,32 @@
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "src/readme_agent/env.py",
+            "src/readme_agent/llm/reviewer_client.py",
+            ".env.example",
+            "tests/unit/test_env.py",
+            "tests/unit/test_reviewer_client.py",
+            "runs/llm-calls/aspose-3d-foss__Aspose.3D-FOSS-for-Python/20260824-190737-1cf7.jsonl"
+          ],
           "fingerprint": "789402b1eca6cc8219c7b4a65e9203dd98ef2ae46cc606320678664d783029e8",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-24T19:06:48.885937+00:00",
+          "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "dee2f821eca5841988dd4bd18a1601c1bf9698e3052d315e79056bb4ba00e47e",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-24T19:22:00.376420+00:00",
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         }
       ],
       "proposed_fingerprints": {
         "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "bb73427bbbbf602bdbbccd13b7bf93a7ff63fe1425d1343786e4d84e9afd437d",
-        "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "789402b1eca6cc8219c7b4a65e9203dd98ef2ae46cc606320678664d783029e8",
+        "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "dee2f821eca5841988dd4bd18a1601c1bf9698e3052d315e79056bb4ba00e47e",
         "L8-PF-03-SEALED-CANDIDATE-NO-OP": "f202c0fb1ea5b08e2f7fcde9befb92bc3bbb96a89feaec97499e10230fdc7f23",
         "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "e1b980836cc43d097a55e758959cefd8e15dbfded4e9ecf1e2b127e7c50e992a",
         "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "9d8091b625ebf675542727bfa42e720a03906a4d5b9ca7bfa0a7b171f1668ee0",
@@ -3367,6 +3382,35 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-24T19:21:03.5947364Z",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "src/readme_agent/env.py",
+            "src/readme_agent/llm/reviewer_client.py",
+            ".env.example",
+            "tests/unit/test_env.py",
+            "tests/unit/test_reviewer_client.py",
+            "runs/llm-calls/aspose-3d-foss__Aspose.3D-FOSS-for-Python/20260824-190737-1cf7.jsonl"
+          ],
+          "input_classification": "tactic",
+          "mechanism_changed": true,
+          "new_fingerprint": "dee2f821eca5841988dd4bd18a1601c1bf9698e3052d315e79056bb4ba00e47e",
+          "pipeline_boundary_changed": false,
+          "prior_fingerprint": "789402b1eca6cc8219c7b4a65e9203dd98ef2ae46cc606320678664d783029e8",
+          "rationale": "The 12,000-token factual-review envelope removed the prior truncation ceiling, but the same unresolved packet reached the old 180-second transport limit before completing. Its earlier 6,000-token response required 122 seconds, so the configured timeout was inconsistent with the larger governed output envelope. Cancel identical automatic retries, preserve all accepted caches, and raise the default configured gateway timeout to 360 seconds. This is the smallest measured mechanism correction and does not reduce packet coverage, factuality, isolation, safety, no-op, or 30-of-30 acceptance requirements.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         }
       ]
     },
@@ -3649,28 +3693,28 @@
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-24T19:07:16.916499+00:00",
+    "last_evaluated_at": "2026-08-24T19:22:00.376539+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
-      "candidate_generated": 0,
+      "candidate_generated": 1,
       "denominator": 33,
-      "derived_at": "2026-08-24T19:02:27.724331+00:00",
-      "deterministic_validated": 0,
-      "facts_ready": 4,
+      "derived_at": "2026-08-24T19:13:42.201904+00:00",
+      "deterministic_validated": 1,
+      "facts_ready": 5,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
+        "AGENT_REVIEWING": 1,
         "BLOCKED_MISSING_EVIDENCE": 6,
         "FACTS_READY": 25,
-        "INTAKE_READY": 1,
-        "SYSTEM_FAILURE": 1
+        "INTAKE_READY": 1
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 0,
       "raw_agent_approved": 0,
-      "raw_candidate_generated": 0,
-      "raw_deterministic_validated": 0,
-      "raw_facts_ready": 25,
+      "raw_candidate_generated": 1,
+      "raw_deterministic_validated": 1,
+      "raw_facts_ready": 26,
       "raw_human_accepted": 0,
       "raw_no_op_proven": 0,
       "registry_path": "data/products.json",
@@ -14928,7 +14972,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1498,
+  "state_version": 1499,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
