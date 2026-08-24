@@ -23,6 +23,8 @@ from readme_agent.specialists.bounded_review_cache import (
     BoundedReviewCacheContextV1,
     cache_key_for_packet,
     legacy_cache_key_for_packet,
+    legacy_packet_identity_cache_key_for_packet,
+    load_bounded_review_packet_cache,
     write_bounded_review_packet_cache,
 )
 from readme_agent.specialists.bounded_review_execution import execute_bounded_review
@@ -149,14 +151,87 @@ def test_legacy_global_fact_cache_key_is_distinct_and_migratable() -> None:
     context = _cache_context()
 
     stable = cache_key_for_packet(packet, context, runtime_contract_hash="1" * 64)
+    packet_identity = legacy_packet_identity_cache_key_for_packet(
+        packet, context, runtime_contract_hash="1" * 64
+    )
     legacy = legacy_cache_key_for_packet(packet, context, runtime_contract_hash="1" * 64)
 
+    assert stable != packet_identity
+    assert packet_identity != legacy
     assert stable != legacy
     assert stable == cache_key_for_packet(
         packet,
         context.model_copy(update={"facts_hash": "3" * 64, "provenance_hash": "4" * 64}),
         runtime_contract_hash="1" * 64,
     )
+
+
+def test_stable_cache_identity_ignores_packet_order_id() -> None:
+    packet = _plan().visitor_packets[0]
+    reordered = packet.model_copy(update={"packet_id": f"pkt-visitor-9999-{packet.packet_sha256}"})
+    context = _cache_context()
+
+    assert cache_key_for_packet(packet, context) == cache_key_for_packet(reordered, context)
+    assert legacy_packet_identity_cache_key_for_packet(
+        packet, context
+    ) != legacy_packet_identity_cache_key_for_packet(reordered, context)
+
+
+def test_stable_cache_receipt_rebinds_changed_packet_id_without_provider_call(tmp_path) -> None:
+    plan = _plan()
+    packet = plan.visitor_packets[0]
+    context = _cache_context()
+    cache_dir = tmp_path / "packet-cache"
+    execution = execute_bounded_review(
+        org_repo="acme/widget-toolkit",
+        candidate_text=CANDIDATE_TEXT,
+        product_facts=DEFAULT_FACTS.model_dump(mode="json"),
+        visitor_contract=build_presentation_visitor_contract(
+            applicable_h2_headings=_headings(),
+            primary_example_language="python",
+        ),
+        plan=plan,
+        coverage_ledger=brp.build_coverage_ledger(plan, atomic_units=_atomic_units()),
+        blind_client=_PacketSequenceClient(list(plan.visitor_packets)),
+        factual_client=_PacketSequenceClient(list(plan.factual_packets)),
+        blind_prompt_id="blind_readme_quality_review",
+        factual_prompt_id="factual_readme_plan_review",
+    )
+    result = next(item for item in execution.packet_results if item.packet_id == packet.packet_id)
+    cache_key = cache_key_for_packet(packet, context)
+    write_bounded_review_packet_cache(
+        cache_dir,
+        cache_key=cache_key,
+        org_repo="acme/widget-toolkit",
+        context=context,
+        packet=packet,
+        result=result,
+        grounding_history=(),
+    )
+    reordered = packet.model_copy(
+        update={"packet_id": f"pkt-visitor-9999-{packet.packet_sha256[:12]}"}
+    )
+    rebound_plan = plan.model_copy(
+        update={
+            "visitor_packets": (reordered, *plan.visitor_packets[1:]),
+            "plan_hash": "8" * 64,
+        }
+    )
+
+    loaded = load_bounded_review_packet_cache(
+        cache_dir,
+        cache_key=cache_key,
+        org_repo="acme/widget-toolkit",
+        context=context,
+        packet=reordered,
+        plan=rebound_plan,
+    )
+
+    assert loaded is not None
+    assert loaded.packet_id == reordered.packet_id
+    assert loaded.result.packet_id == reordered.packet_id
+    assert loaded.grounding_history[-1]["reviewed_packet_id"] == packet.packet_id
+    assert loaded.grounding_history[-1]["current_packet_id"] == reordered.packet_id
 
 
 def test_legacy_global_fact_cache_receipt_migrates_without_provider_call(tmp_path) -> None:

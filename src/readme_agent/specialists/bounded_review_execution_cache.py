@@ -10,6 +10,7 @@ from readme_agent.specialists.bounded_review_cache import (
     BoundedReviewCacheContextV1,
     cache_key_for_packet,
     legacy_cache_key_for_packet,
+    legacy_packet_identity_cache_key_for_packet,
     load_bounded_review_packet_cache,
     write_bounded_review_packet_cache,
 )
@@ -61,9 +62,16 @@ class BoundedReviewPacketCache:
             self.context,
             runtime_contract_hash=runtime_contract_hash,
         )
+        legacy_packet_identity_cache_key = legacy_packet_identity_cache_key_for_packet(
+            packet,
+            self.context,
+            runtime_contract_hash=runtime_contract_hash,
+        )
         cached = None
         loaded_cache_key = cache_key
-        for candidate_cache_key in dict.fromkeys((cache_key, legacy_cache_key)):
+        for candidate_cache_key in dict.fromkeys(
+            (cache_key, legacy_packet_identity_cache_key, legacy_cache_key)
+        ):
             cached = load_bounded_review_packet_cache(
                 self.cache_dir,
                 cache_key=candidate_cache_key,

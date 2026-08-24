@@ -84,6 +84,7 @@ def cache_key_for_packet(
     *,
     runtime_contract_hash: str | None = None,
     include_global_fact_identity: bool = False,
+    include_packet_id: bool = False,
 ) -> str:
     """Build one exact cache key from the packet and facet-specific client contract."""
 
@@ -97,6 +98,7 @@ def cache_key_for_packet(
         sampling_parameters=sampling_parameters,
         runtime_contract_hash=runtime_contract_hash,
         include_global_fact_identity=include_global_fact_identity,
+        include_packet_id=include_packet_id,
     )
 
 
@@ -113,6 +115,28 @@ def legacy_cache_key_for_packet(
         context,
         runtime_contract_hash=runtime_contract_hash,
         include_global_fact_identity=True,
+        include_packet_id=True,
+    )
+
+
+def legacy_packet_identity_cache_key_for_packet(
+    packet: BoundedPacketV1,
+    context: BoundedReviewCacheContextV1,
+    *,
+    runtime_contract_hash: str | None = None,
+) -> str:
+    """Return the former packet-ID-bound key for one-time cache migration."""
+
+    model, schema_sha256, sampling_parameters = context.identity_for(packet)
+    return packet_cache_key(
+        packet,
+        model=model,
+        schema_sha256=schema_sha256,
+        facts_hash=context.facts_hash,
+        provenance_hash=context.provenance_hash,
+        sampling_parameters=sampling_parameters,
+        runtime_contract_hash=runtime_contract_hash,
+        include_packet_id=True,
     )
 
 
@@ -138,7 +162,6 @@ def load_bounded_review_packet_cache(
         cached.cache_key != cache_key
         or cached.org_repo != org_repo
         or cached.source_revision != context.source_revision
-        or cached.packet_id != packet.packet_id
         or cached.packet_sha256 != packet.packet_sha256
         or not is_reusable_cache_entry(cached.result)
     ):
@@ -151,17 +174,26 @@ def load_bounded_review_packet_cache(
     # runtime contract, and source identity above have all matched, then validate the rebound
     # result against the current plan. The persisted historical receipt remains immutable.
     reviewed_candidate_sha256 = cached.result.candidate_sha256
-    rebound_result = cached.result.model_copy(update={"candidate_sha256": packet.candidate_sha256})
+    reviewed_packet_id = cached.result.packet_id
+    rebound_result = cached.result.model_copy(
+        update={
+            "candidate_sha256": packet.candidate_sha256,
+            "packet_id": packet.packet_id,
+        }
+    )
     if not validate_packet_result(plan, rebound_result).valid:
         return None
-    if reviewed_candidate_sha256 == packet.candidate_sha256:
+    if (
+        reviewed_candidate_sha256 == packet.candidate_sha256
+        and reviewed_packet_id == packet.packet_id
+    ):
         return cached
     return BoundedReviewPacketCacheV1(
         cache_key=cached.cache_key,
         result_sha256=_canonical_hash(rebound_result.model_dump(mode="json")),
         org_repo=cached.org_repo,
         source_revision=cached.source_revision,
-        packet_id=cached.packet_id,
+        packet_id=packet.packet_id,
         packet_sha256=cached.packet_sha256,
         facet=cached.facet,
         result=rebound_result,
@@ -177,6 +209,8 @@ def load_bounded_review_packet_cache(
                 "cache_key": cache_key,
                 "reviewed_candidate_sha256": reviewed_candidate_sha256,
                 "current_candidate_sha256": packet.candidate_sha256,
+                "reviewed_packet_id": reviewed_packet_id,
+                "current_packet_id": packet.packet_id,
             },
         ),
     )
@@ -216,6 +250,7 @@ __all__ = [
     "BoundedReviewPacketCacheV1",
     "cache_key_for_packet",
     "legacy_cache_key_for_packet",
+    "legacy_packet_identity_cache_key_for_packet",
     "load_bounded_review_packet_cache",
     "write_bounded_review_packet_cache",
 ]

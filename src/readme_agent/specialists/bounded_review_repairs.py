@@ -166,6 +166,7 @@ def packet_cache_key(
     sampling_parameters: Mapping[str, Any] | None = None,
     runtime_contract_hash: str | None = None,
     include_global_fact_identity: bool = False,
+    include_packet_id: bool = False,
 ) -> str:
     """Deterministic cache identity for one packet's reviewer call.
 
@@ -178,13 +179,14 @@ def packet_cache_key(
     """
 
     identity = {
-        "packet_id": packet.packet_id,
         "packet_sha256": packet.packet_sha256,
         "facet": packet.facet,
         "model": model,
         "schema_sha256": schema_sha256,
         "sampling_parameters": dict(sampling_parameters or {}),
     }
+    if include_packet_id:
+        identity["packet_id"] = packet.packet_id
     if include_global_fact_identity:
         identity["facts_hash"] = facts_hash
         identity["provenance_hash"] = provenance_hash
