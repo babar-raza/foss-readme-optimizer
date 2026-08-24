@@ -69,22 +69,41 @@ def _sealed_replay() -> dict:
     candidate_hash_path = bundle / "candidate" / "candidate-hash.txt"
     before_candidate_sha256 = _sha256(candidate_path)
     expected_candidate_hash = candidate_hash_path.read_text(encoding="utf-8").strip()
-    exit_code = cli_main(
-        [
-            "supervise",
-            "--repo",
-            SEALED_REPOSITORY,
-            "--execution-profile",
-            "local_poc",
-            "--bounded-verified-canary",
-            "--no-registry-heal",
-            "--mission-task-id",
-            TASK_ID,
-            "--mission-observer",
-            "codex",
-        ]
-    )
-    accounting = current_llm_accounting_summary()
+    argv = [
+        "supervise",
+        "--repo",
+        SEALED_REPOSITORY,
+        "--execution-profile",
+        "local_poc",
+        "--bounded-verified-canary",
+        "--no-registry-heal",
+        "--mission-task-id",
+        TASK_ID,
+        "--mission-observer",
+        "codex",
+    ]
+    first_exit_code = cli_main(argv)
+    first_accounting = current_llm_accounting_summary()
+    if first_exit_code != 0:
+        raise RuntimeError(f"sealed canonical supervisor promotion exited {first_exit_code}")
+    if first_accounting.status != "EXACT":
+        raise RuntimeError("sealed canonical supervisor promotion has inexact call accounting")
+
+    from readme_agent.state.local_poc_backend import default_local_poc_state_backend
+    from readme_agent.supervisor.portfolio_proof_engine.rubric import evaluate_repository
+
+    acceptance = evaluate_repository(SEALED_REPOSITORY, default_local_poc_state_backend())
+    if not acceptance.accepted or acceptance.score != 30:
+        raise RuntimeError("sealed canonical transaction did not reach 30/30 acceptance")
+    if acceptance.hard_disqualifier_count != 0:
+        raise RuntimeError("sealed canonical transaction has a hard disqualifier")
+    if not acceptance.benchmark_acceptance_proven:
+        raise RuntimeError("sealed canonical transaction lacks benchmark acceptance")
+    if not acceptance.replay_attestation_proven:
+        raise RuntimeError("sealed canonical transaction lacks replay attestation")
+
+    second_exit_code = cli_main(argv)
+    no_op_accounting = current_llm_accounting_summary()
     manifest = json.loads((bundle / "manifest.json").read_text(encoding="utf-8"))
     no_op = json.loads((bundle / "review" / "no-op-proof.json").read_text(encoding="utf-8"))
     rubric = json.loads((bundle / "review" / "rubric-evaluation.json").read_text(encoding="utf-8"))[
@@ -92,9 +111,9 @@ def _sealed_replay() -> dict:
     ]
     after_candidate_sha256 = _sha256(candidate_path)
     observed_candidate_hash = candidate_hash_path.read_text(encoding="utf-8").strip()
-    if exit_code != 0:
-        raise RuntimeError(f"sealed canonical supervisor replay exited {exit_code}")
-    if accounting.status != "EXACT" or accounting.provider_call_count != 0:
+    if second_exit_code != 0:
+        raise RuntimeError(f"sealed canonical supervisor replay exited {second_exit_code}")
+    if no_op_accounting.status != "EXACT" or no_op_accounting.provider_call_count != 0:
         raise RuntimeError(
             "sealed canonical supervisor replay did not prove exact zero provider calls"
         )
@@ -118,8 +137,11 @@ def _sealed_replay() -> dict:
         "lifecycle_status": manifest["lifecycle_status"],
         "rubric_score": rubric["score"],
         "hard_disqualifier_count": rubric["hard_disqualifier_count"],
-        "provider_call_count": accounting.provider_call_count,
-        "fixture_call_count": accounting.fixture_call_count,
+        "first_provider_call_count": first_accounting.provider_call_count,
+        "no_op_provider_call_count": no_op_accounting.provider_call_count,
+        "no_op_fixture_call_count": no_op_accounting.fixture_call_count,
+        "benchmark_acceptance_proven": rubric["benchmark_acceptance_proven"],
+        "replay_attestation_proven": rubric["replay_attestation_proven"],
         "patch_created": no_op["patch_created"],
         "duplicate_bundle_created": no_op["duplicate_bundle_created"],
         "no_op_receipt_sha256": _sha256(bundle / "review" / "no-op-proof.json"),
@@ -136,9 +158,13 @@ def main() -> int:
         "sealed_candidate": (bundle / "candidate" / "candidate-hash.txt")
         .read_text(encoding="utf-8")
         .strip(),
-        "sealed_no_op_receipt": _sha256(bundle / "review" / "no-op-proof.json"),
+        "sealed_final_verdict": _sha256(bundle / "review" / "final-verdict.json"),
         "resolver_adapter": _sha256(Path("src/readme_agent/facts/external_fact_block_adapters.py")),
         "runner": _sha256(Path("src/readme_agent/supervisor/proven_transaction_runner/runner.py")),
+        "pf04_handlers": _sha256(
+            Path("src/readme_agent/supervisor/proven_transaction_runner/pf04_handlers.py")
+        ),
+        "pf04_evidence": _sha256(Path(__file__)),
     }
     context = ProvenTransactionContextV1(
         task_id=TASK_ID,
