@@ -1875,9 +1875,13 @@
           "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "commit:fcc3b2c7f",
+            "pytest:tests/unit/test_review_standard_premises.py+tests/unit/test_separated_readme_review.py:92_passed",
+            "pytest:bounded_review_regressions:50_passed"
+          ],
           "fingerprint": "f202c0fb1ea5b08e2f7fcde9befb92bc3bbb96a89feaec97499e10230fdc7f23",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-24T08:16:17.547586+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-24T07:45:40.036962+00:00",
           "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP"
@@ -3201,7 +3205,7 @@
     ],
     "graph_sha256": "33a34e8e2cd3c2d9247f894eb37eba6999051c64370148ce5287c1dd9abf7441",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-24T07:45:40.036962+00:00",
+    "last_evaluated_at": "2026-08-24T08:16:17.547622+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -14003,7 +14007,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1419,
+  "state_version": 1420,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
