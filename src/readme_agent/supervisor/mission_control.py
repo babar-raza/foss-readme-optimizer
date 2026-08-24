@@ -565,7 +565,7 @@ def _regress_stale_closed_repository_deliverables(
     task_scopes = {
         task.task_id: set(task.execution_focus.repository_scope)
         for task in graph.taskcards
-        if task.execution_focus is not None
+        if task.execution_focus is not None and task_execution_kind(task) == "visible_delivery"
     }
     for org_repo in sorted(stale):
         scoped_tasks = [
@@ -603,6 +603,39 @@ def _regress_stale_closed_repository_deliverables(
     )
 
 
+def _reconcile_infrastructure_delivery_budget(
+    graph: MissionTaskGraphV1,
+    state: MissionExecutionStateV1,
+) -> MissionExecutionStateV1:
+    """Derive the budget from currently closed work instead of stale counters."""
+
+    tasks = {task.task_id: task for task in graph.taskcards}
+    last_visible_delivery = -1
+    for index, transition in enumerate(state.transition_history):
+        task = tasks.get(transition.task_id)
+        if (
+            task is not None
+            and transition.to_status == "CLOSED"
+            and state.task_statuses.get(task.task_id) == "CLOSED"
+            and task_execution_kind(task) == "visible_delivery"
+        ):
+            last_visible_delivery = index
+
+    closed_infrastructure = {
+        transition.task_id
+        for index, transition in enumerate(state.transition_history)
+        if index > last_visible_delivery
+        and transition.to_status == "CLOSED"
+        and state.task_statuses.get(transition.task_id) == "CLOSED"
+        and transition.task_id in tasks
+        and task_execution_kind(tasks[transition.task_id]) in {"infrastructure", "shared_repair"}
+    }
+    count = len(closed_infrastructure)
+    if count == state.infrastructure_tasks_since_visible_delivery:
+        return state
+    return state.model_copy(update={"infrastructure_tasks_since_visible_delivery": count})
+
+
 def _refresh_goal_state(
     backend: StateBackend,
     graph: MissionTaskGraphV1,
@@ -616,6 +649,7 @@ def _refresh_goal_state(
         state.model_copy(update={"lifecycle_scoreboard": scoreboard}),
         scoreboard,
     )
+    with_scoreboard = _reconcile_infrastructure_delivery_budget(graph, with_scoreboard)
     evaluation = evaluate_mission(graph, with_scoreboard)
     goal_changed = (
         state.active_goal_id != evaluation.active_goal_id

@@ -1335,6 +1335,114 @@ def test_evaluate_reopens_a_stale_closed_repository_before_its_dependent(monkeyp
     assert claimed.mission_execution.active_task_id == ("L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES")
 
 
+def test_evaluate_does_not_regress_repository_scoped_infrastructure(monkeypatch):
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    backend = _MemoryStateBackend()
+    statuses = _all_closed_statuses(graph)
+    statuses.update(
+        {
+            "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "TODO",
+            "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP": "TODO",
+            "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY": "TODO",
+        }
+    )
+    mission_key = mission_state_key(graph.mission_authority.mission_id)
+    backend.records[mission_key] = RunStateV1(
+        org_repo=mission_key,
+        state_version=8,
+        mission_execution=MissionExecutionStateV1(
+            mission_id=graph.mission_authority.mission_id,
+            graph_sha256=graph_hash,
+            task_statuses=statuses,
+        ),
+    )
+    scoreboard = derive_lifecycle_scoreboard(backend).model_copy(
+        update={
+            "stale_fact_contract_repositories": {
+                "aspose-3d-foss/Aspose.3D-FOSS-for-Python": ["manifest_facts_hash_mismatch"]
+            }
+        }
+    )
+    monkeypatch.setattr(
+        "readme_agent.supervisor.mission_control.derive_lifecycle_scoreboard",
+        lambda _backend: scoreboard,
+    )
+
+    record = persist_evaluation(backend, graph, graph_hash)
+
+    assert record.mission_execution is not None
+    state = record.mission_execution
+    assert state.task_statuses["L8-PF-04-MINIMAL-GRAPH-RUNNER"] == "CLOSED"
+    assert not any(
+        transition.task_id == "L8-PF-04-MINIMAL-GRAPH-RUNNER"
+        and transition.observed_by == "mission-lifecycle-freshness"
+        for transition in state.transition_history
+    )
+
+
+def test_evaluate_reconciles_budget_after_infrastructure_regression(monkeypatch):
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    backend = _MemoryStateBackend()
+    statuses = _all_closed_statuses(graph)
+    statuses.update(
+        {
+            "L8-PF-04-MINIMAL-GRAPH-RUNNER": "REGRESSED",
+            "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "TODO",
+            "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP": "TODO",
+            "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY": "TODO",
+        }
+    )
+    history = [
+        MissionTransitionV1(
+            task_id="L8-PF-04-MINIMAL-GRAPH-RUNNER",
+            from_status="SCORED",
+            to_status="CLOSED",
+            observed_by="test",
+            reason="closed before freshness reconciliation",
+        ),
+        MissionTransitionV1(
+            task_id="L8-PF-04-MINIMAL-GRAPH-RUNNER",
+            from_status="CLOSED",
+            to_status="REGRESSED",
+            observed_by="mission-lifecycle-freshness",
+            reason="stale repository facts",
+        ),
+    ]
+    mission_key = mission_state_key(graph.mission_authority.mission_id)
+    backend.records[mission_key] = RunStateV1(
+        org_repo=mission_key,
+        state_version=8,
+        mission_execution=MissionExecutionStateV1(
+            mission_id=graph.mission_authority.mission_id,
+            graph_sha256=graph_hash,
+            task_statuses=statuses,
+            transition_history=history,
+            infrastructure_tasks_since_visible_delivery=1,
+        ),
+    )
+    scoreboard = derive_lifecycle_scoreboard(backend).model_copy(
+        update={"stale_fact_contract_repositories": {}}
+    )
+    monkeypatch.setattr(
+        "readme_agent.supervisor.mission_control.derive_lifecycle_scoreboard",
+        lambda _backend: scoreboard,
+    )
+
+    evaluated = persist_evaluation(backend, graph, graph_hash)
+
+    assert evaluated.mission_execution is not None
+    assert evaluated.mission_execution.infrastructure_tasks_since_visible_delivery == 0
+    claimed = claim_next_task(
+        backend,
+        graph,
+        graph_hash,
+        claimed_by="recovery-worker",
+        expected_task_id="L8-PF-04-MINIMAL-GRAPH-RUNNER",
+    )
+    assert claimed.mission_execution is not None
+    assert claimed.mission_execution.active_task_id == "L8-PF-04-MINIMAL-GRAPH-RUNNER"
+
+
 def test_evaluate_migrates_historical_work_to_a_durable_non_executable_disposition():
     graph, graph_hash = load_mission_graph(REAL_GRAPH)
     backend = _MemoryStateBackend()
