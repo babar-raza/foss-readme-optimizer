@@ -845,6 +845,79 @@ def test_verified_template_generates_fact_backed_optional_slot_when_source_lacks
     assert api_reference.standard_ids == ["readme.api_reference"]
 
 
+def test_scope_groups_feature_boundaries_and_api_member_gaps() -> None:
+    source, facts, revision, _ = _verified_3d_inputs()
+    payload = facts.model_dump(mode="json")
+    limitations_id = payload["selected_fact_ids"]["product.limitations"]
+    for record in payload["facts"]:
+        if record["fact_id"] == limitations_id:
+            record["value"] = [
+                {
+                    "kind": "mesh_boolean_unimplemented",
+                    "statement": "Mesh boolean operations are not implemented.",
+                    "path": "aspose/threed/entities/Mesh.py",
+                    "line": 101,
+                    "source_sha256": "a" * 64,
+                }
+            ]
+    facts = ProductFactsV2.model_validate(payload)
+    knowledge = FactRecordV2(
+        fact_id="aspose.limitation_claims:template-test",
+        field="aspose.limitation_claims",
+        value=[
+            {
+                "claim_id": "3d/python/renderer-execute",
+                "kind": "limitation",
+                "text": "Not implemented: Renderer.execute",
+                "confidence": 1.0,
+            }
+        ],
+        source=FactSourceV2(
+            source_type="mechanical_repository",
+            location="repository://aspose/threed/render/Renderer.py",
+            source_revision=revision,
+        ),
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme.limitations"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [*facts.facts, knowledge],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                knowledge.field: knowledge.fact_id,
+            },
+        }
+    )
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    plan = build_verified_preservation_composition_plan(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        lifecycle_status="FACTS_READY",
+    )
+    assert plan is not None
+
+    scope = (
+        build_verified_template_draft(facts, source, revision, plan)
+        .sections["scope_and_limitations"]
+        .markdown
+    )
+
+    assert "### Feature and Workflow Boundaries" in scope
+    assert "### API Member Gaps" in scope
+    assert scope.index("### Feature and Workflow Boundaries") < scope.index("### API Member Gaps")
+    assert "- `Renderer.execute` is not implemented in this FOSS package." in scope
+
+
 def test_verified_template_omits_license_when_repository_has_no_accepted_license_fact() -> None:
     source, facts, revision, plan = _verified_3d_inputs()
     license_id = facts.selected_fact_ids["product.license"]

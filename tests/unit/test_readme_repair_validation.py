@@ -134,6 +134,24 @@ def test_byte_identical_or_unbound_change_denies_rereview():
     assert unbound.unresolved_finding_ids == ["quality.generic-overview"]
 
 
+def test_change_elsewhere_in_section_does_not_resolve_unchanged_quoted_defect():
+    review = _grounded_review()
+    after = BEFORE.replace("## Overview\n\n", "## Overview\n\nA new introduction.\n\n")
+    receipt = build_repair_attempt_receipt(
+        prior_context=_context(BEFORE, "Generic overview."),
+        repaired_context=_context(after, "A new introduction.\n\nGeneric overview."),
+        review=review,
+        repair_attempt=1,
+        reviewer_call_count=1,
+    )
+
+    assert receipt.candidate_changed is True
+    assert receipt.finding_resolutions[0].section_changed is True
+    assert receipt.finding_resolutions[0].repaired_span_occurrences == 1
+    assert receipt.rereview_authorized is False
+    assert receipt.unresolved_finding_ids == ["quality.generic-overview"]
+
+
 def test_candidate_change_without_source_operations_denies_rereview():
     receipt = build_repair_attempt_receipt(
         prior_context={"final_text": BEFORE, "presentation_plan": {}},

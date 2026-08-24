@@ -129,10 +129,13 @@ def test_canonical_specs_cover_five_bounded_public_prose_jobs():
         "scope_and_limitations",
     ]
     quick_start = next(spec for spec in specs if spec.section_id == "quick_start")
+    limitations = next(spec for spec in specs if spec.section_id == "scope_and_limitations")
     assert all(spec.max_facts_per_cluster == 4 for spec in specs)
     assert quick_start.seo_vocabulary == ()
     assert "verified" not in quick_start.section_objective.casefold()
     assert "minimal" not in quick_start.section_objective.casefold()
+    assert "do not enumerate" in limitations.section_objective.casefold()
+    assert "supplied separately" in limitations.section_objective.casefold()
     assert all(1 <= len(spec.accepted_fact_ids) <= 4 for spec in specs)
 
 
@@ -487,6 +490,7 @@ def test_verified_template_deduplicates_authored_limitation_against_canonical_li
     )
 
     assert draft.sections["scope_and_limitations"].markdown.count(limitation) == 1
+    assert "### Feature and Workflow Boundaries" in draft.sections["scope_and_limitations"].markdown
 
 
 def test_readme_specialist_passes_complete_section_document_to_canonical_renderer(

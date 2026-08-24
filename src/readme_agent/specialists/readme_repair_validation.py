@@ -108,21 +108,27 @@ def build_repair_attempt_receipt(
         section_changed = _section_text(before, finding.section) != _section_text(
             after, finding.section
         )
-        addressed = before_hash != after_hash and section_changed and bool(changed_bound)
+        prior_occurrences = (
+            before.count(finding.quoted_candidate_span) if finding.quoted_candidate_span else 0
+        )
+        repaired_occurrences = (
+            after.count(finding.quoted_candidate_span) if finding.quoted_candidate_span else 0
+        )
+        quoted_span_changed = not finding.quoted_candidate_span or (
+            repaired_occurrences < prior_occurrences
+        )
+        addressed = (
+            before_hash != after_hash
+            and section_changed
+            and bool(changed_bound)
+            and quoted_span_changed
+        )
         resolutions.append(
             RepairFindingResolutionV1(
                 finding_id=finding.finding_id,
                 section=finding.section,
-                prior_span_occurrences=(
-                    before.count(finding.quoted_candidate_span)
-                    if finding.quoted_candidate_span
-                    else 0
-                ),
-                repaired_span_occurrences=(
-                    after.count(finding.quoted_candidate_span)
-                    if finding.quoted_candidate_span
-                    else 0
-                ),
+                prior_span_occurrences=prior_occurrences,
+                repaired_span_occurrences=repaired_occurrences,
                 section_changed=section_changed,
                 bound_operation_ids=bound,
                 changed_bound_operation_ids=changed_bound,

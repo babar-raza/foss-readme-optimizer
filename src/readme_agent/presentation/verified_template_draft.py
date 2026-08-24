@@ -396,14 +396,15 @@ def _scope_text(
     paragraphs = (
         [
             _scope_limitations_brief(facts, limitations),
-            "\n".join(f"- {item}" for item in limitations),
+            "### Feature and Workflow Boundaries\n\n"
+            + "\n".join(f"- {item}" for item in limitations),
         ]
         if limitations
         else []
     )
     fields = ["product.limitations"] if limitations else []
     if knowledge_limitations:
-        paragraphs.append("\n".join(knowledge_limitations))
+        paragraphs.append("### API Member Gaps\n\n" + "\n".join(knowledge_limitations))
         fields.append("aspose.limitation_claims")
     package_status = package_status_markdown(facts)
     if package_status:

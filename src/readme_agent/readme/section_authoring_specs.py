@@ -54,7 +54,10 @@ _SECTION_FIELDS: tuple[tuple[str, SectionAuthoringTaskFamily, str, tuple[str, ..
     (
         "scope_and_limitations",
         "scope_and_limitations",
-        "State practical scope and limitations without internal assurance narration.",
+        "Write one concise visitor-facing orientation sentence for the scope section. Do not "
+        "enumerate, summarize, rename, or repeat individual constraints; deterministic "
+        "fact-bound lists with descriptive subheadings are supplied separately. Do not include "
+        "internal assurance narration.",
         ("product.limitations",),
     ),
 )
