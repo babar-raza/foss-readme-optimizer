@@ -1459,6 +1459,8 @@ def test_30_real_shape_contract_factory_passes_the_complete_pair(tmp_path: Path)
     assert proof.passed is True, proof.model_dump_json(indent=2)
     assert proof.provider_delta.accounting_certain is True
     assert proof.provider_delta.replay_authoring_calls == 0
+    assert proof.effect_delta.target_revision_first == SOURCE_REVISION
+    assert proof.effect_delta.target_revision_replay == SOURCE_REVISION
 
 
 def test_30a_derived_contract_cannot_launder_replay_only_semantic_addition(

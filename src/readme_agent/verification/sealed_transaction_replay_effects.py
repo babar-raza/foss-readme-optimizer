@@ -109,6 +109,23 @@ def _build_effect_delta(
     tree_change = next(
         (e for e in contract.product_effects if e.effect == "target_tree_change"), None
     )
+    revision_binding = next(
+        (
+            binding
+            for binding in contract.identity_bindings
+            if binding.component == "source_revision"
+        ),
+        None,
+    )
+
+    def _target_revision(parsed: dict[str, Any]) -> str | None:
+        if revision_binding is None:
+            return None
+        document = parsed.get(revision_binding.artifact_id)
+        if document is None:
+            return None
+        found, value = _resolve_pointer(document, revision_binding.json_pointer)
+        return value if found and isinstance(value, str) else None
 
     return ProductEffectDeltaV1(
         checked_effects=tuple(sorted(set(checked))),
@@ -135,6 +152,8 @@ def _build_effect_delta(
             if tree_change is not None
             else None
         ),
+        target_revision_first=_target_revision(first_parsed),
+        target_revision_replay=_target_revision(replay_parsed),
         duplicate_lifecycle_paths=tuple(sorted(set(duplicate_lifecycle_paths))),
         delta_digest=canonical_json_sha256(
             {
