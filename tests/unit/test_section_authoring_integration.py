@@ -23,6 +23,7 @@ from readme_agent.readme.claim_accountability import build_readme_claim_accounta
 from readme_agent.readme.claim_map import ReadmeClaimMapV1
 from readme_agent.readme.public_limitations import public_limitation_phrases
 from readme_agent.readme.section_authoring_specs import build_canonical_section_authoring_specs
+from readme_agent.specialists.independent_readme_review import IndependentReadmeReviewResultV1
 from readme_agent.specialists.section_authoring_cache import (
     default_section_authoring_cache_dir,
 )
@@ -37,6 +38,7 @@ from readme_agent.specialists.section_authoring_contracts import (
 from readme_agent.specialists.section_authoring_document import (
     author_and_persist_readme_sections,
 )
+from readme_agent.specialists.section_authoring_repair import reauthor_rejected_sections
 from readme_agent.specialists.section_authoring_store import (
     load_section_authoring_document,
     section_authoring_document_path,
@@ -216,6 +218,59 @@ def test_document_reuses_unchanged_clusters_and_invalidates_only_one(tmp_path, m
     assert len(third_client.calls) == 1
     assert third.reused_cluster_count == 2
     assert load_section_authoring_document(ORG_REPO, REVISION) == third
+
+
+def test_review_repair_reauthors_only_the_rejected_prose_slot(tmp_path, monkeypatch):
+    monkeypatch.setenv("README_AGENT_RUNS_DIR", str(tmp_path / "runs"))
+    facts = build_product_facts_v2()
+    specs = build_canonical_section_authoring_specs(facts)
+    cache_dir = default_section_authoring_cache_dir(
+        "aspose-3d-foss", ORG_REPO.split("/")[1], REVISION
+    )
+    first_client = CountingClient()
+    first = author_and_persist_readme_sections(
+        org_repo=ORG_REPO,
+        source_revision=REVISION,
+        source_text=SOURCE,
+        product_facts=facts,
+        protected_content=fingerprint_protected_content(SOURCE),
+        section_specs=specs,
+        client=first_client,
+        cache_dir=cache_dir,
+    )
+    review = IndependentReadmeReviewResultV1(
+        verdict="REJECT_REPAIRABLE",
+        reasoning="The capability wording is not visitor-facing.",
+        failed_criteria=["clarity"],
+        sections_affected=["key-capabilities"],
+        required_repair="Describe the concrete developer outcome instead of the mechanism.",
+    )
+    repair_client = CountingClient()
+
+    repaired = reauthor_rejected_sections(
+        org_repo=ORG_REPO,
+        source_revision=REVISION,
+        source_text=SOURCE,
+        product_facts_v2=facts.model_dump(mode="json"),
+        prior_document=first.model_dump(mode="json"),
+        review=review,
+        client=repair_client,
+    )
+
+    assert repaired is not None
+    assert len(repair_client.calls) == 1
+    assert repaired.provider_logical_calls == 1
+    assert repaired.reused_cluster_count == len(first.outcomes) - 1
+    assert (
+        next(
+            outcome
+            for outcome in repaired.outcomes
+            if outcome.target_section_id == "key_capabilities"
+        ).packet_hash
+        != next(
+            outcome for outcome in first.outcomes if outcome.target_section_id == "key_capabilities"
+        ).packet_hash
+    )
 
 
 def test_complete_document_is_visible_to_stage_adapter(tmp_path, monkeypatch):

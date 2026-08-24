@@ -53,7 +53,7 @@ BLIND_QUALITY_CRITERIA = (
     "markdown_integrity",
     "template_genericity",
 )
-BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v32-exact-fact-field-alignment"
+BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v33-quoted-literal-alignment"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -429,6 +429,17 @@ def _validate_quality_finding(
         )
     )
     quote = finding.quoted_candidate_span
+    claimed_literals = {
+        literal.strip()
+        for literal in re.findall(r"['\"`]([^'\"`\r\n]{8,})['\"`]", finding.claim)
+        if literal.strip()
+    }
+    for literal in sorted(claimed_literals):
+        if literal in candidate_text and literal not in quote:
+            errors.append(
+                f"{finding.finding_id}:quoted span does not contain the exact literal named "
+                "by the claim"
+            )
     removes_prose_block = bool(
         re.search(r"\b(?:remove|delete|omit)\b[^\n.]*\b(?:paragraph|prose|sentence)\b", premise)
     )

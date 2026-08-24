@@ -7,10 +7,11 @@ from pathlib import Path
 
 from langchain_core.runnables import RunnableConfig
 
-from readme_agent import paths
+from readme_agent import env, paths
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
 from readme_agent.errors import StateBackendError
 from readme_agent.evidence.writer import generate_run_id
+from readme_agent.llm.section_author_client import build_live_section_cluster_author_client
 from readme_agent.llm.verification_prompts import separated_reviewer_standard_hash
 from readme_agent.registry.loader import require_listed
 from readme_agent.repository_snapshot import current_repository_snapshot
@@ -319,6 +320,13 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
         prior_render_result = prior_context.get("render_result")
         if not isinstance(prior_render_result, dict):
             raise StateBackendError("README repair lost its current render-result binding")
+        section_authoring_client = config["configurable"].get("section_authoring_client")
+        if section_authoring_client is None:
+            section_authoring_client = build_live_section_cluster_author_client(
+                env.llm_base_url(),
+                env.llm_api_key(),
+                timeout=env.llm_timeout_seconds(),
+            )
         return build_repaired_review_context(
             org_repo,
             lifecycle_backend,
@@ -326,6 +334,7 @@ def review_candidate_node(state: DomainStateV1, config: RunnableConfig) -> dict:
             review,
             attempt,
             composition_client=config["configurable"].get("composition_client"),
+            section_authoring_client=section_authoring_client,
         )
 
     try:

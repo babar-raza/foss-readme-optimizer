@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from readme_agent.facts.example_branding import full_product_display_name
 from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.presentation.verified_template_api_descriptions import (
@@ -327,10 +328,13 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
             "</details>",
         ]
     )
+    product_name = full_product_display_name(facts)
     return (
-        f"The package reference presents {entry_count} API table entries across "
-        f"{namespace_count} namespaces.{namespace_context} See the complete API reference under "
-        f"Documentation & Resources for members, signatures, and inherited APIs.\n\n{details}"
+        f"Use the namespace tables below to locate the public types behind the {product_name} "
+        f"capabilities and workflows described in this README. The package reference presents "
+        f"{entry_count} API table entries across {namespace_count} namespaces.{namespace_context} "
+        "See the complete API reference under Documentation & Resources for members, signatures, "
+        f"and inherited APIs.\n\n{details}"
     )
 
 

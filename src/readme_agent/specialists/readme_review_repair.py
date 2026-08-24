@@ -29,6 +29,11 @@ from readme_agent.specialists.readme_review_validation import (
     materialize_and_verify_bundle,
     presentation_plan_record,
 )
+from readme_agent.specialists.section_authoring_repair import (
+    bind_section_authoring_to_render,
+    reauthor_rejected_sections,
+)
+from readme_agent.specialists.section_cluster_authoring import SectionClusterAuthorClientLike
 from readme_agent.state.backend import StateBackend
 from readme_agent.state.readme_poc_lifecycle import record_readme_candidate_artifacts
 from readme_agent.supervisor.local_poc_evidence import write_local_poc_readme_candidate
@@ -137,6 +142,7 @@ def build_repaired_review_context(
     attempt: int,
     *,
     composition_client: object | None,
+    section_authoring_client: SectionClusterAuthorClientLike | None = None,
 ) -> dict:
     """Regenerate from reviewer instructions and repeat every deterministic gate."""
 
@@ -152,15 +158,35 @@ def build_repaired_review_context(
     )
     if composition.outcome != "executed" or composition.result is None:
         raise RuntimeError(f"repair composition failed: {composition.outcome}:{composition.error}")
+    snapshot = current_repository_snapshot(org_repo)
+    if snapshot is None:
+        raise StateBackendError("immutable repository snapshot disappeared during README repair")
+    source_text = str(
+        original_render_result.get("source_text") or original_render_result["original_text"]
+    )
+    repaired_section_document = reauthor_rejected_sections(
+        org_repo=org_repo,
+        source_revision=snapshot.source_revision,
+        source_text=source_text,
+        product_facts_v2=product_facts_v2,
+        prior_document=original_render_result.get("section_authoring_document"),
+        review=review,
+        client=section_authoring_client,
+    )
     rendered = _dispatch_repaired_render(
         org_repo,
         product_facts_v2,
         composition.result,
-        original_render_result.get("section_authoring_document"),
+        (
+            repaired_section_document.model_dump(mode="json")
+            if repaired_section_document is not None
+            else original_render_result.get("section_authoring_document")
+        ),
     )
     if rendered.outcome != "executed" or rendered.result is None:
         raise RuntimeError(f"repair render failed: {rendered.outcome}:{rendered.error}")
     render_result = dict(rendered.result)
+    bind_section_authoring_to_render(render_result, repaired_section_document)
 
     plan_dispatch = dispatch_build_presentation_plan(org_repo, render_result)
     if plan_dispatch.outcome != "executed" or plan_dispatch.result is None:

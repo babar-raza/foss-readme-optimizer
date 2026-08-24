@@ -121,6 +121,34 @@ def test_genuinely_unsupported_claim_remains_valid_missing_evidence():
     assert result.valid
 
 
+def test_quality_claim_cannot_name_a_literal_outside_its_supporting_quote():
+    candidate = (
+        "# Example\n\n## Additional Examples\n\n"
+        "The examples cover loading models and exporting scenes.\n\n"
+        "<details>\n<summary>View additional examples and results</summary>\n</details>\n"
+    )
+    finding = GroundedReviewFindingV1(
+        finding_id="quality.misaligned-summary",
+        kind="quality",
+        criterion="clarity",
+        section="additional-examples",
+        claim="The summary 'View additional examples and results' is generic.",
+        quoted_candidate_span="The examples cover loading models and exporting scenes.",
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair="Replace the summary with a workflow preview.",
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+    )
+
+    assert not result.valid
+    assert any("exact literal named by the claim" in error for error in result.errors)
+
+
 def test_blind_factual_accuracy_criterion_cannot_control_review():
     finding = GroundedReviewFindingV1(
         finding_id="quality.package-availability",
