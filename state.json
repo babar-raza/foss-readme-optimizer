@@ -1816,9 +1816,12 @@
           "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/bounded-packet-cache",
+            "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/manifest.json"
+          ],
           "fingerprint": "f202c0fb1ea5b08e2f7fcde9befb92bc3bbb96a89feaec97499e10230fdc7f23",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-24T01:35:06.606233+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-24T01:12:15.294844+00:00",
           "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP"
@@ -3142,14 +3145,14 @@
     ],
     "graph_sha256": "5c818ebd4709ca4ebb388bfc58f86e94a90a205b595585ab0d3b830abda5fd24",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-24T01:12:15.294844+00:00",
+    "last_evaluated_at": "2026-08-24T01:35:06.606263+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
       "denominator": 33,
-      "derived_at": "2026-08-24T00:44:54.202775+00:00",
+      "derived_at": "2026-08-24T01:31:25.489496+00:00",
       "deterministic_validated": 0,
-      "facts_ready": 1,
+      "facts_ready": 0,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -3157,14 +3160,14 @@
         "BLOCKED_MISSING_EVIDENCE": 15,
         "FACTS_READY": 15,
         "PROFILED": 1,
-        "README_ASSESSED": 1
+        "SYSTEM_FAILURE": 1
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 0,
       "raw_agent_approved": 1,
       "raw_candidate_generated": 1,
       "raw_deterministic_validated": 1,
-      "raw_facts_ready": 17,
+      "raw_facts_ready": 16,
       "raw_human_accepted": 0,
       "raw_no_op_proven": 0,
       "registry_path": "data/products.json",
@@ -13868,7 +13871,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1401,
+  "state_version": 1402,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
