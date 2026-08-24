@@ -63,6 +63,50 @@ def test_every_profile_keeps_the_central_mission_state(monkeypatch, profile_name
     assert backend is sentinel
 
 
+def test_runtime_backend_routes_mission_authority_and_lifecycle_reads(monkeypatch):
+    import readme_agent.state.local_poc_backend as local_poc_backend_module
+    import readme_agent.supervisor.mission_command as mission_command_module
+
+    class _Backend:
+        def __init__(self, label):
+            self.label = label
+            self.loads = []
+            self.saves = []
+
+        def load(self, key):
+            self.loads.append(key)
+            return f"{self.label}:{key}"
+
+        def load_many(self, keys):
+            self.loads.extend(keys)
+            return {key: f"{self.label}:{key}" for key in keys}
+
+        def save(self, key, state, expected_version):
+            self.saves.append((key, state, expected_version))
+            return "saved"
+
+    central = _Backend("central")
+    lifecycle = _Backend("lifecycle")
+    monkeypatch.setattr(mission_command_module, "default_state_backend", lambda: central)
+    monkeypatch.setattr(
+        local_poc_backend_module,
+        "default_local_poc_state_backend",
+        lambda: lifecycle,
+    )
+
+    backend = mission_command_module._mission_runtime_backend_for_args(_args())
+
+    assert backend.load("mission/LEVEL8") == "central:mission/LEVEL8"
+    assert backend.load("org/repo") == "lifecycle:org/repo"
+    assert backend.load_many(["mission/LEVEL8", "org/repo"]) == {
+        "mission/LEVEL8": "central:mission/LEVEL8",
+        "org/repo": "lifecycle:org/repo",
+    }
+    backend.save("mission/LEVEL8", "state", 2)
+    assert central.saves == [("mission/LEVEL8", "state", 2)]
+    assert lifecycle.saves == []
+
+
 def test_a_local_poc_mission_command_writes_the_central_backend(monkeypatch, tmp_path):
     """An explicit remote may isolate mission proof without profile forking."""
 

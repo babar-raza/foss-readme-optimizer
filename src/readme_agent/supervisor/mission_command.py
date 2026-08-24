@@ -41,9 +41,21 @@ def _mission_state_backend_for_args(args: argparse.Namespace):
     return default_state_backend()
 
 
+def _mission_runtime_backend_for_args(args: argparse.Namespace):
+    """Bind central mission authority to the lifecycle backend used by local POC runs."""
+
+    from readme_agent.state.local_poc_backend import default_local_poc_state_backend
+    from readme_agent.state.mission_routing_backend import MissionRoutingBackend
+
+    return MissionRoutingBackend(
+        _mission_state_backend_for_args(args),
+        default_local_poc_state_backend(),
+    )
+
+
 def run_mission_command(args: argparse.Namespace) -> int:
     graph, graph_sha256 = load_mission_graph(Path(args.mission_task_graph))
-    backend = _mission_state_backend_for_args(args)
+    backend = _mission_runtime_backend_for_args(args)
     action = args.mission_action
 
     if action in {"status", "evaluate"}:
