@@ -156,6 +156,22 @@ def validate_mermaid_standard_premise(
         errors.append(
             f"{finding_id}:Mermaid input-edge premise contradicts configured grouped topology"
         )
+    claims_group_output_edge_required = (
+        "individual output" in premise
+        and "output" in premise
+        and any(term in premise for term in ("group", "topology", "connect"))
+    ) or ("core --> o1" in premise and "outputs" in premise)
+    if (
+        claims_group_output_edge_required
+        and standard.get("directional_workflow") is True
+        and standard.get("capabilities_to_outputs_edges") == 1
+        and mermaid
+        and re.search(r"(?m)^\s*CORE\s+-->\s+O1\s*$", mermaid)
+    ):
+        errors.append(
+            f"{finding_id}:Mermaid capabilities-to-outputs premise contradicts configured "
+            "grouped topology"
+        )
     claims_missing_roles = (
         any(phrase in premise for phrase in ("does not show", "fewer than"))
         and "capabilit" in premise

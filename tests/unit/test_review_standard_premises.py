@@ -279,6 +279,93 @@ def test_action_led_capability_rows_do_not_disprove_bare_label_value_finding() -
     assert errors == []
 
 
+def test_product_bound_action_led_rows_disprove_generic_inventory_premise() -> None:
+    candidate = (
+        "# Aspose.3D FOSS for Python\n\n"
+        "## Key Capabilities\n\n"
+        "- **Create 3D primitives** - Construct Box, Cylinder, and Sphere shapes with "
+        "Aspose.3D FOSS for Python in application workflows.\n"
+        "- **Define animated sequences** - Build keyframe sequences with Aspose.3D FOSS "
+        "for Python to control object transformations over time.\n"
+    )
+
+    errors = validate_configured_standard_premise(
+        finding_id="visitor.capabilities.generic",
+        section="key-capabilities",
+        premise=(
+            "Bullet items read like generic class inventory fragments instead of concrete "
+            "developer-facing tasks using verified product vocabulary."
+        ),
+        candidate_text=candidate,
+        visitor_contract={
+            "configured_standards": [
+                {
+                    "standard_id": "readme.key_capabilities",
+                    "parameters": {
+                        "action_led_same_line_rows": True,
+                        "developer_value_explanation": "required",
+                    },
+                }
+            ]
+        },
+    )
+
+    assert errors == [
+        "visitor.capabilities.generic:generic-capability premise contradicts product-bound "
+        "action-led rows"
+    ]
+
+
+def test_configured_core_to_first_output_edge_disproves_group_rewire_premise() -> None:
+    candidate = """# Aspose.3D FOSS for Python
+
+## At a Glance
+
+```mermaid
+flowchart LR
+  subgraph INPUTS["Inputs & Formats"]
+    I1["OBJ Format"]
+  end
+  PRODUCT["Aspose.3D FOSS for Python"]
+  subgraph CORE["Core Capabilities"]
+    C1["Create primitives"]
+  end
+  subgraph OUTPUTS["Outputs"]
+    O1["GLTF Format"]
+  end
+  I1 --> PRODUCT
+  PRODUCT --> CORE
+  CORE --> O1
+```
+"""
+
+    errors = validate_configured_standard_premise(
+        finding_id="visitor.mermaid.output-group",
+        section="at-a-glance",
+        premise=(
+            "The Mermaid diagram connects individual output O1 instead of the OUTPUTS group, "
+            "violating group-level topology. Replace CORE --> O1 with CORE ~~~ OUTPUTS."
+        ),
+        candidate_text=candidate,
+        visitor_contract={
+            "configured_standards": [
+                {
+                    "standard_id": "readme.at_a_glance_mermaid",
+                    "parameters": {
+                        "directional_workflow": True,
+                        "capabilities_to_outputs_edges": 1,
+                    },
+                }
+            ]
+        },
+    )
+
+    assert errors == [
+        "visitor.mermaid.output-group:Mermaid capabilities-to-outputs premise contradicts "
+        "configured grouped topology"
+    ]
+
+
 def test_action_led_capability_rows_disprove_bare_label_only_finding() -> None:
     candidate = """# Product
 

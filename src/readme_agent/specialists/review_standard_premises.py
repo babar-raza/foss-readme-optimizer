@@ -9,7 +9,7 @@ from readme_agent.specialists.review_standard_mermaid_premises import (
     validate_mermaid_standard_premise,
 )
 
-REVIEW_STANDARD_PREMISE_CONTRACT_VERSION = 7
+REVIEW_STANDARD_PREMISE_CONTRACT_VERSION = 8
 
 
 def _configured_standards(visitor_contract: dict) -> dict[str, dict]:
@@ -115,6 +115,18 @@ def _capability_rows_are_action_led(candidate_text: str) -> bool:
     body = _h2_body(candidate_text, "Key Capabilities")
     titles = re.findall(r"(?m)^- \*\*(?P<title>[^*]+)\*\*\s+-\s+.+$", body)
     return bool(titles) and all(is_action_led_capability_title(title) for title in titles)
+
+
+def _capability_rows_name_the_public_product(candidate_text: str) -> bool:
+    """Confirm every capability explanation is explicitly bound to the H1 product."""
+
+    title_match = re.search(r"(?m)^# (?P<title>[^\r\n]+)$", candidate_text)
+    if title_match is None:
+        return False
+    product_name = re.sub(r"\s+\[!\[.*$", "", title_match.group("title")).strip()
+    body = _h2_body(candidate_text, "Key Capabilities")
+    rows = [line.strip() for line in body.splitlines() if line.strip().startswith("- **")]
+    return bool(product_name and rows) and all(product_name in row for row in rows)
 
 
 def validate_configured_standard_premise(
@@ -275,6 +287,29 @@ def validate_configured_standard_premise(
     ):
         errors.append(
             f"{finding_id}:capability-value premise contradicts parsed complete same-line rows"
+        )
+    claims_capability_rows_are_generic = any(
+        phrase in premise
+        for phrase in (
+            "generic class inventory",
+            "generic inventory",
+            "class inventory fragment",
+            "instead of concrete developer-facing",
+            "using verified product vocabulary",
+            "lacks product-specific",
+        )
+    )
+    if (
+        section_slug == "key-capabilities"
+        and claims_capability_rows_are_generic
+        and capability_standard.get("action_led_same_line_rows") is True
+        and capability_standard.get("developer_value_explanation") == "required"
+        and _capability_rows_are_action_led(candidate_text)
+        and _capability_rows_meet_value_contract(candidate_text)
+        and _capability_rows_name_the_public_product(candidate_text)
+    ):
+        errors.append(
+            f"{finding_id}:generic-capability premise contradicts product-bound action-led rows"
         )
 
     errors.extend(
