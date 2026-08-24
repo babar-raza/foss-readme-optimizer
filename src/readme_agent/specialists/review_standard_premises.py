@@ -293,6 +293,14 @@ def validate_configured_standard_premise(
             "reads like a raw task list",
             "rather than a task list",
             "lacks a workflow preview",
+            "missing workflow preview",
+            "generic list summary, not a configured workflow preview",
+        )
+    ) or bool(
+        re.search(
+            r"\b(?:lack(?:s|ing)?|miss(?:es|ing)?)\b[^.\n]{0,100}"
+            r"\bworkflow[- ]preview\b",
+            premise,
         )
     )
     if (
@@ -348,7 +356,9 @@ def validate_configured_standard_premise(
         for phrase in (
             "incomplete sentence fragments",
             "omit the developer-facing outcome",
+            "omits what developers can achieve",
             "without developer-facing value",
+            "rather than developer-facing value statements",
             "raw inventory list",
             "not just a description of api usage",
             "uses internal terminology",

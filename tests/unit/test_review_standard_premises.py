@@ -977,3 +977,63 @@ print("ready")
     assert errors == [
         "visitor.examples.intro:secondary-example intro premise contradicts parsed workflow preview"
     ]
+
+
+def test_real_fp03_preview_and_capability_findings_are_disproved() -> None:
+    candidate = (
+        "# Aspose.3D FOSS for Python\n\n## Key Capabilities\n\n"
+        "- **Create 3D primitives** - Construct common 3D shapes such as Box, Cylinder, "
+        "Sphere, Plane, Dish, Circle, Ellipse, and Frustum using built-in primitive classes.\n"
+        "- **Define animated scenes** - Build animations using the built-in animation system "
+        "with keyframe support to control object properties over time.\n\n"
+        "## Additional Examples\n\n"
+        "The examples below demonstrate loading OBJ files with materials, exporting a scene to "
+        "binary GLTF, converting a parametric primitive to a mesh, and building a cube and "
+        "exporting it to 3MF.\n\n"
+        "<details>\n<summary>View additional examples and results</summary>\n\n"
+        '### Export a Scene\n\n```python\nprint("ready")\n```\n\n</details>\n'
+    )
+    contract = {
+        "configured_standards": [
+            {
+                "standard_id": "readme.key_capabilities",
+                "parameters": {
+                    "action_led_same_line_rows": True,
+                    "developer_value_explanation": "required",
+                },
+            },
+            {
+                "standard_id": "readme.primary_example",
+                "parameters": {"secondary_examples_intro": "workflow_preview"},
+            },
+        ]
+    }
+
+    premises = (
+        (
+            "key-capabilities",
+            "Capabilities read like a class inventory rather than developer-facing value "
+            "statements.",
+            "capability-value premise contradicts parsed complete same-line rows",
+        ),
+        (
+            "key-capabilities",
+            "The second capability omits what developers can achieve with keyframe animation.",
+            "capability-value premise contradicts parsed complete same-line rows",
+        ),
+        (
+            "additional-examples",
+            "Missing workflow preview intro before secondary examples; current paragraph is a "
+            "generic list summary, not a configured workflow preview.",
+            "secondary-example intro premise contradicts parsed workflow preview",
+        ),
+    )
+    for index, (section, premise, expected) in enumerate(premises):
+        finding_id = f"visitor.fp03.{index}"
+        assert validate_configured_standard_premise(
+            finding_id=finding_id,
+            section=section,
+            premise=premise,
+            candidate_text=candidate,
+            visitor_contract=contract,
+        ) == [f"{finding_id}:{expected}"]
