@@ -1197,6 +1197,36 @@ def test_lifecycle_scoreboard_registry_hash_is_line_ending_independent(tmp_path:
     )
 
 
+def test_portfolio_contract_registry_hash_is_line_ending_independent(tmp_path: Path):
+    raw_graph = yaml.safe_load(REAL_GRAPH.read_text(encoding="utf-8"))
+    source = (REPO_ROOT / "data" / "products.json").read_text(encoding="utf-8")
+    canonical = source.replace("\r\n", "\n").replace("\r", "\n")
+    registry_path = tmp_path / "products.json"
+    graph_path = tmp_path / "mission-graph.yaml"
+
+    registry_value = json.loads(canonical)
+    semantic_bytes = json.dumps(
+        registry_value,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+    ).encode("utf-8")
+    raw_graph["portfolio_proof_contract"]["registry_path"] = str(registry_path)
+    raw_graph["portfolio_proof_contract"]["registry_sha256"] = hashlib.sha256(
+        semantic_bytes
+    ).hexdigest()
+    graph_path.write_text(yaml.safe_dump(raw_graph, sort_keys=False), encoding="utf-8")
+
+    registry_path.write_bytes(canonical.encode("utf-8"))
+    lf_graph, _ = load_mission_graph(graph_path)
+    registry_path.write_bytes(canonical.replace("\n", "\r\n").encode("utf-8"))
+    crlf_graph, _ = load_mission_graph(graph_path)
+
+    assert lf_graph.portfolio_proof_contract.registry_sha256 == (
+        crlf_graph.portfolio_proof_contract.registry_sha256
+    )
+
+
 def test_requirement_coverage_classifier_handles_every_extractor_status():
     extractor = _load_tool_module(
         "extract_requirements_for_status_contract",

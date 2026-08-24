@@ -23,15 +23,16 @@ Level 8, or full umbrella-mission closure.
 
 ## Status
 
-**Current-contract portfolio proof: 0/31 processable repositories accepted (2026-08-20).** The
+**Current-contract portfolio proof: 0/31 processable repositories accepted (2026-08-24).** The
 dynamic baseline contains 33 admitted repositories: 31 processable README targets and two
-source-empty PSD dispositions pending production-state wiring. Current durable projection reports
-0/33 freshness-valid facts, candidates, deterministic accepts, agent accepts, and no-op proofs;
-16 historical fact records are stale against the current fact contract. The owner audit confirms
-useful machinery and section canaries but no complete current candidate satisfying the 30-point
-contract. The manifest-bound `plans/investigations/owner_audit/execution-2026-08-20/` bundle is
-checksum-verified supporting evidence; its findings remain diagnostic and do not override current
-source, contracts, or durable mission state.
+source-empty PSD dispositions pending production-state wiring. Durable state version 1411 has
+`L8-PF-03-SEALED-CANDIDATE-NO-OP` active with 1/33 current facts-ready, zero current candidates,
+deterministic accepts, agent accepts, or no-op proofs. Raw lifecycle history contains 17 facts-ready
+records and one candidate/deterministic/agent-approval record, but changed contracts prevent those
+historical records from satisfying current acceptance. The current first failing boundary is
+`FACTS_READY`; Aspose.3D Python remains the single FP03 repository scope. Supporting audits and
+historical candidates remain diagnostic and do not override current source, contracts, or durable
+mission state.
 
 The following is a **historical 2026-08-19 snapshot**, retained for traceability and not current
 closure evidence: **3/33 Python repositories were then reported `NO_OP_PROVEN`** — 3D, barcode,
@@ -131,9 +132,15 @@ Binding current decisions:
   delivery tasks.
 - **#97 — Enforced execution focus.** Every visible-delivery task declares one small immediate goal,
   repository scope, permitted change classes, retry/stall budget, next goal, and visible-output
-  boundary. A bounded canary must bind to the current durable claim. Two equivalent failures or
-  15 minutes without narrowing mechanically reject another equivalent execution until a recorded
-  first-principles replan changes the causal approach.
+  boundary. A bounded canary must bind to the current durable claim. Material progress is only a
+  current-hash lifecycle advance, valid finding adjudication, strictly narrower evidenced first
+  boundary, proven shared-blocker removal, or accepted/no-op repository; commits, tests, reports,
+  provider calls, bundles, evidence references, and elapsed effort do not qualify alone. Every model
+  finding is an allegation adjudicated against the exact candidate, accepted facts, deterministic
+  contract, and plan before repair. Two equivalent failures or 15 minutes without typed material
+  progress reject another equivalent execution until a recorded first-principles replan changes the
+  causal approach. One initial transaction, one targeted repair, and one zero-provider replay are
+  the normal repository budget.
 - **#98 — Candidate-first portfolio sequence.** A contract defect reopens only dependent stages.
   Aspose.3D Python is the first weak-input transaction; one accepted candidate per ecosystem follows
   before processable-portfolio fan-out. Read-only registry/fact warmup may overlap the final canary.
@@ -483,8 +490,10 @@ the sibling repository, its reports, skills, scripts, or caches.
   an independently attested immediate fresh-process zero-provider no-op from separate first/replay
   bundle roots. Lifecycle reopening preserves dependency-valid review-packet caches.
 - [ ] **External fact-block resolver:** adapt the qualified standalone decision seam to real truth-salvage,
-  acquisition, and local-verification diagnostics; split its monolith; bind current evidence/dependency
-  fingerprints; and prove all applicable classes plus the five current receipts before the general runner.
+  acquisition, and local-verification diagnostics through its smallest safe public seam; bind current
+  evidence/dependency fingerprints; and prove all applicable classes plus the five current receipts before
+  the general runner. Defer unrelated refactoring unless focused safety or correctness proof shows the seam
+  cannot be integrated safely.
 - [ ] **Minimal graph runner:** automate only the proven transaction through typed allow-listed actions,
   durable checkpoints, recovery, and effect-null safety.
 - [ ] **Fleet causal reducer:** adapt the qualified standalone reducer to canonical first-boundary receipts,
@@ -514,6 +523,14 @@ the sibling repository, its reports, skills, scripts, or caches.
   graph hash, or approach budget does not match the current execution focus.
 - [ ] Two equivalent ineffective attempts or 15 minutes without material narrowing prevent another
   equivalent run until a recorded first-principles replan changes the approach fingerprint.
+- [ ] Only a current-hash lifecycle advance, valid finding adjudication, strictly narrower evidenced first
+  boundary, proven shared-blocker removal, or accepted/no-op repository qualifies as material progress;
+  activity artifacts cannot reset the budget.
+- [ ] Every model finding is adjudicated against its exact candidate span, facts, deterministic contract,
+  and document plan before repair; unsupported findings change no candidate bytes and have an offline
+  regression.
+- [ ] The portfolio registry contract uses canonical JSON identity so CRLF and LF checkouts load the same
+  frozen graph, while CI fetches the history required by compact-authority verification.
 - [ ] Accepted README output is shown before a deferred broad regression boundary begins.
 - [ ] Every original requirement, decision, task, dependency, status, and evidence pointer is preserved
   in a typed active or deferred record with verified hashes.

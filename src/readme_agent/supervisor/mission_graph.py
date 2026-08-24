@@ -83,6 +83,22 @@ _VAGUE_CONTRIBUTIONS = {
 _COMPLETED_DEFERRED_DEPENDENCY_STATUSES = {"CLOSED"}
 
 
+def _canonical_json_sha256(path: Path) -> str:
+    """Hash JSON semantics independently of checkout line endings and formatting."""
+
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise ConfigError(f"portfolio proof registry cannot be loaded: {exc}") from exc
+    payload = json.dumps(
+        value,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+    ).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
 def load_mission_graph(path: Path) -> tuple[MissionTaskGraphV1, str]:
     """Load one escape-safe YAML graph and return it with its byte hash."""
     try:
@@ -130,7 +146,7 @@ def _validate_graph(graph: MissionTaskGraphV1, *, graph_path: Path) -> None:
     if supporting_contract_sha256 != portfolio.supporting_contract_sha256:
         raise ConfigError("portfolio proof supporting contract hash does not match")
     registry_path = _resolve_reference(graph_path, portfolio.registry_path)
-    registry_sha256 = hashlib.sha256(registry_path.read_bytes()).hexdigest()
+    registry_sha256 = _canonical_json_sha256(registry_path)
     if registry_sha256 != portfolio.registry_sha256:
         raise ConfigError("portfolio proof registry hash does not match the frozen baseline")
     try:

@@ -90,6 +90,39 @@ Python platform to close before the seven-ecosystem qualification that prevents 
 repairs. Platform priority remains Python, .NET, Java, C++, TypeScript, Rust, and Go after dependency,
 claim, and isolation constraints.
 
+## Current delivery-sprint anti-churn contract
+
+The current sprint is the local 31/31 processable-candidate campaign, not hosted deployment,
+publication, or Level 5-8 certification. Freeze the current Aspose.3D Python source, candidate,
+accepted facts, document plan, template, prompt/model route, reviewer contract, rubric, validators,
+and dependency-valid caches until FP03 closes. Do not start an exploratory provider-backed transaction.
+
+Before one admitted provider-backed rerun:
+
+1. adjudicate every stored finding against its exact candidate span, accepted or do-not-claim facts,
+   deterministic presentation contract, and document plan;
+2. classify it as `SUPPORTED`, `UNSUPPORTED`, or `AMBIGUOUS`; only supported findings may change the
+   candidate, unsupported findings receive an offline regression, and ambiguous findings route to
+   evidence qualification, constrained wording, omission, or an explicit block;
+3. batch all supported findings into one causal repair, pass focused offline reproduction, and name the
+   exact sections or review packets expected to invalidate;
+4. confirm the causal signature differs from the last ineffective attempt, then run one canonical
+   transaction and, on acceptance, its immediate fresh-process zero-provider replay.
+
+Material progress means a current-hash lifecycle advance, valid finding adjudication, a strictly narrower
+evidenced first failing boundary, one proven shared-blocker removal affecting multiple repositories, or
+repository acceptance plus immediate no-op. Commits, changed files, passing tests, reports, provider calls,
+proposal bundles, evidence references, and elapsed effort are useful diagnostics but never independently
+reset the retry/stall budget. The normal per-repository budget is one initial transaction, one targeted
+repair, and one zero-provider replay. A repeated causal signature forces first-principles reassessment;
+it never authorizes a third equivalent attempt.
+
+No new schema, controller, cache, reviewer, prompt, template, rubric, dashboard, hosted-runtime, or effect
+machinery enters this sprint. Only a surgical correctness or clean-reconstruction defect blocking the
+existing transaction may be repaired. Use focused tests after each causal batch; run the complete non-live
+suite only at FP03 closure, after an impact-mapped shared fleet repair when required, and at final portfolio
+closure.
+
 ## Qualified standalone accelerator intake
 
 The following branches are development inputs. Integration means independently adapting their
@@ -102,7 +135,7 @@ standalone tests as portfolio proof.
 | --- | --- | --- | --- |
 | Candidate benchmark acceptance | `origin/claude/standalone-benchmark-acceptance-8252bfe648c4` at `1d57ac86f28dc10fa106c775a1e8f75bd04eda33` | `L8-PF-03-SEALED-CANDIDATE-NO-OP` | Wire `evaluate_candidate_benchmark_acceptance(...)` after deterministic, factual, and visitor review; bind real candidate/profile/predecessor hashes; calibrate the dimension-to-category map on the current canary; make missing numeric/list evidence `UNKNOWN` and therefore non-accepting when applicable; contribute evidence to the existing 30 criteria rather than inventing a thirty-first criterion. |
 | Complete transaction replay attestation | `origin/claude/standalone-transaction-replay-attestor-d6fbed567aa7` at `8c845e01b0c5707628eb26de14eb2c582b52a29d` | `L8-PF-03-SEALED-CANDIDATE-NO-OP` | Snapshot the first complete bundle before replay, derive the real `ReplayAttestationContractV1`, compare independently materialized first/replay roots, require certain zero-provider accounting and stable proof identity, and keep the attestor read-only and independent of supervisor/LLM implementations. Synthetic forward-looking paths cannot satisfy closure. |
-| External fact-block resolution | `origin/claude/standalone-external-fact-block-resolution-d6fbed567aa7` at `63c0bdea5cd69e136b27803e1a5b0f0af60ceead` | mandatory opening sub-boundary of `L8-PF-04-MINIMAL-GRAPH-RUNNER` | Split the 597-line standalone concern before extension; map real diagnostics from truth salvage, acquisition, and local verification; construct actual evidence catalogs and dependency fingerprints; qualify all applicable classes plus the five current receipts; fail closed on ambiguity; never fabricate a fact or turn unavailable evidence into prose. |
+| External fact-block resolution | `origin/claude/standalone-external-fact-block-resolution-d6fbed567aa7` at `63c0bdea5cd69e136b27803e1a5b0f0af60ceead` | mandatory opening sub-boundary of `L8-PF-04-MINIMAL-GRAPH-RUNNER` | Adapt only the smallest safe public seam; map real diagnostics from truth salvage, acquisition, and local verification; construct actual evidence catalogs and dependency fingerprints; qualify all applicable classes plus the five current receipts; fail closed on ambiguity; never fabricate a fact or turn unavailable evidence into prose. Defer unrelated module splitting/refactoring unless focused safety or correctness proof shows the seam cannot be integrated safely. |
 | Fleet causal failure reduction | `origin/claude/standalone-fleet-causal-reducer-a020a753bbb4` at `0658f732450df7d506b72a8d03758ebcaefa0fbe` | mandatory opening sub-boundary of `L8-PF-05-SEVEN-ECOSYSTEM-CANARIES` | Adapt real stage receipts instead of opaque aggregate `validation.json`; harden opaque-bulk rejection for tiers 4 and 5 as well as tier 6; require complete repository accounting and exact pipeline-source identity; schedule one shared repair per proven cluster and failed-only repository reruns; never replace lifecycle retry, task dependencies, or terminal classification. |
 
 The benchmark and replay modules are part of the already-active FP03 acceptance boundary. External
@@ -117,9 +150,9 @@ every transition; it is not inferred from a standalone branch or its report:
 
 | Module | Current disposition | Exact condition for advancement |
 | --- | --- | --- |
-| Candidate benchmark acceptance | `PARTIAL`: adapted into the active FP03 candidate tree and exercised on the current Aspose.3D Python candidate, but not yet a committed, officially verified task closure | Commit the coherent FP03 slice, pass focused/impact/official checks on that revision, retain `BENCHMARK_ACCEPTANCE_PROVEN` for the current candidate, and close FP03 through durable state. |
-| Complete transaction replay attestation | `PARTIAL`: adapted into the active FP03 candidate tree with a passing real first/replay attestation, but not yet a committed, officially verified task closure | On the same committed FP03 revision, independently reproduce distinct first/replay roots, exact zero-provider accounting, cache preservation, and the complete receipt chain before durable closure. |
-| External fact-block resolution | `QUALIFIED_STANDALONE_NOT_INTEGRATED`: only the pushed standalone branch and handoff are qualified | Open FP04 by adapting the smallest public seam to current real diagnostics, split the oversized concern before extension, and pass the five-current-receipt plus canonical-supervisor recovery proof. |
+| Candidate benchmark acceptance | `INTEGRATED_NOT_CLOSED`: committed on `main` and exercised on the current Aspose.3D Python transaction; FP03 remains open because the current candidate has not completed current 30/30 acceptance and immediate no-op | Preserve the integrated seam, adjudicate the remaining stored findings offline, run one admitted canonical transaction, and retain candidate-bound `BENCHMARK_ACCEPTANCE_PROVEN` evidence through FP03 closeout. |
+| Complete transaction replay attestation | `INTEGRATED_NOT_CLOSED`: committed on `main`; the attestor is available, but no current accepted first bundle exists from which an immediate zero-provider replay can close FP03 | After the current candidate reaches 30/30, independently reproduce distinct immutable first/replay roots, exact zero-provider accounting, cache preservation, and the complete receipt chain before durable closure. |
+| External fact-block resolution | `QUALIFIED_STANDALONE_NOT_INTEGRATED`: only the pushed standalone branch and handoff are qualified | Open FP04 by adapting the smallest safe public seam to current real diagnostics and pass the five-current-receipt plus canonical-supervisor recovery proof; do not spend the delivery sprint on unrelated refactoring. |
 | Fleet causal failure reduction | `QUALIFIED_STANDALONE_NOT_INTEGRATED`: only the pushed standalone branch and handoff are qualified | Open PF05 by adapting canonical first-boundary receipts, hardening opaque tiers four through six, and proving complete accounting plus shared-once/failed-only repair scheduling on current fleet evidence. |
 
 The current aggregate dashboard and durable denominator still expose 33 repositories as processable,
@@ -218,8 +251,9 @@ caches.
 
 ### Campaign 6: remaining verified Gate A
 
-Complete the frozen processable portfolio using two to four isolated repository lanes after the
-first sealed transaction and seven-ecosystem qualification. Overlap authenticated discovery and
+Complete the frozen processable portfolio using two isolated repository lanes initially and at most three
+after isolation and measured speedup are proven by the first sealed transaction and seven-ecosystem
+qualification. Overlap authenticated discovery and
 fact warmup after the minimal runner. Use external-block resolution before declaring a fact block
 and causal clustering before scheduling shared repairs. Keep aggregation serialized, preserve valid
 repository caches, and use Python, .NET, Java, C++, TypeScript, Rust, and Go only to break ties among

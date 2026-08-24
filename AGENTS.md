@@ -491,7 +491,13 @@ numerators are partial only.
 Two ineffective attempts with one approach fingerprint or
 15 minutes without material narrowing prohibit another equivalent attempt. Before a third
 approach, record a first-principles review and change the causal owner, pipeline boundary,
-mechanism, or dependency-ready sequence. Presentation versions are immutable per transaction but
+mechanism, or dependency-ready sequence. Material narrowing is only a current-hash lifecycle
+advance, valid finding adjudication, strictly narrower evidenced first boundary, proven
+multi-repository blocker removal, or accepted/no-op repository. Commits, changed files, passing
+tests, reports, provider calls, proposal bundles, evidence references, and elapsed effort do not
+qualify alone. Treat every model finding as an allegation: adjudicate it against the exact candidate
+span, accepted facts, deterministic contract, and document plan before candidate repair. Presentation
+versions are immutable per transaction but
 the design remains agile: a typed component delta invalidates only affected sections/facts/review;
 non-critical newer presentation versions leave prior accepted READMEs valid with
 `VALID_UPDATE_AVAILABLE`.

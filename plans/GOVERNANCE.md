@@ -308,7 +308,12 @@ state. This file also defines machinery-artifact naming and organization.
     when it would slow or weaken the mission. Two ineffective attempts with the same approach
     fingerprint, or 15 minutes without material narrowing, require a first-principles review and a
     changed causal owner, pipeline boundary, mechanism, or sequence before another attempt. Evidence
-    is promoted once per repository or campaign boundary instead of per micro-fix. Infrastructure is
+    counts as material narrowing only when it proves a current-hash lifecycle advance, valid finding
+    adjudication, strictly narrower first boundary, shared-blocker removal, or accepted/no-op repository;
+    commits, tests, reports, provider calls, bundles, references, and elapsed effort do not qualify alone.
+    A model finding is an allegation until exact candidate, fact, deterministic-contract, and plan evidence
+    supports it; unsupported findings cannot authorize candidate changes. Evidence is promoted once per
+    repository or campaign boundary instead of per micro-fix. Infrastructure is
     implemented just in time at the first vertical slice that exercises it, never as an unrelated
     prerequisite and never after the dependent slice needs it.
 24. **Continuous progress: no agent sits idle while a dependency is in flight and safe eligible
