@@ -4,9 +4,9 @@ import os
 
 DEFAULT_LLM_BASE_URL = "https://llm.professionalize.com/v1"
 DEFAULT_LLM_MODEL = "qwen3-next"
-# Live trusted-review responses have reached 115 seconds at the characterized gateway.
-# Keep enough headroom to avoid turning normal tail latency into three slower retries.
-DEFAULT_LLM_TIMEOUT_SECONDS = 180
+# Evidence-rich factual-review responses have exceeded 180 seconds at the characterized gateway.
+# Keep enough headroom to avoid turning a valid long forced-tool response into slower retries.
+DEFAULT_LLM_TIMEOUT_SECONDS = 360
 # Wave 8.6 (item I, `LLM-017`): the one embedding model this gateway hosts,
 # characterized live (plans/investigations/llm-gateway-characterization.md
 # L4) -- 4096-dim, showed real separation between a known same-template
