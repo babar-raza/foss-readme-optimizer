@@ -25,6 +25,7 @@ from readme_agent.supervisor.proven_transaction_runner.registry import (
 )
 
 ActionHandler = Callable[[ProvenTransactionActionInputV1], ProvenTransactionActionResultV1]
+AdmissionGuard = Callable[[], None]
 
 
 def _receipt_path(output_root: Path, context: ProvenTransactionContextV1) -> Path:
@@ -129,9 +130,12 @@ def run_proven_transaction(
     *,
     handlers: Mapping[ProvenTransactionActionV1, ActionHandler],
     output_root: Path,
+    admission_guard: AdmissionGuard | None = None,
 ) -> ProvenTransactionReceiptV1:
     """Resume at the first incomplete phase; never dispatch an unregistered action."""
 
+    if admission_guard is not None:
+        admission_guard()
     unknown = set(handlers) - set(registered_action_ids())
     if unknown:
         raise ValueError(f"unregistered proven-transaction handlers: {sorted(unknown)}")
@@ -154,9 +158,13 @@ def run_proven_transaction(
             attempt=_attempt_for(receipt, phase),
             prior_output_hashes=dict(completed),
         )
+        if admission_guard is not None:
+            admission_guard()
         started_at = utc_now_iso()
         try:
             result = handler(action_input)
+            if admission_guard is not None:
+                admission_guard()
         except BaseException as exc:
             status = "INTERRUPTED" if isinstance(exc, (KeyboardInterrupt, SystemExit)) else "FAILED"
             checkpoint = _checkpoint(
@@ -202,4 +210,4 @@ def run_proven_transaction(
     return receipt
 
 
-__all__ = ["ActionHandler", "run_proven_transaction"]
+__all__ = ["ActionHandler", "AdmissionGuard", "run_proven_transaction"]

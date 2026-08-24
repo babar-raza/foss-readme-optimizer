@@ -81,6 +81,9 @@ def _decision_record(decision: ExternalFactResolutionDecisionV1) -> dict:
         "retry_recommended": decision.resolution.retry_recommended,
         "recovery_action": decision.recovery_action,
         "blocked_category": decision.blocked_category,
+        "responsible_owner": decision.responsible_owner,
+        "affected_scope": decision.affected_scope,
+        "missing_evidence": decision.missing_evidence,
         "resume_predicate": decision.resolution.resume_predicate,
     }
 

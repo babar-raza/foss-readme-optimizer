@@ -16,6 +16,39 @@ def _write_json(path: Path, value: dict) -> None:
     path.write_text(json.dumps(value), encoding="utf-8")
 
 
+def test_mission_guard_uses_the_supplied_observer_and_closes_its_backend(monkeypatch):
+    calls: list[dict] = []
+
+    class Backend:
+        closed = False
+
+        def close(self) -> None:
+            self.closed = True
+
+    backend = Backend()
+    monkeypatch.setattr(
+        "readme_agent.state.git_backend.default_state_backend",
+        lambda: backend,
+    )
+    monkeypatch.setattr(
+        pf04_evidence,
+        "require_visible_execution_binding",
+        lambda _backend, **kwargs: calls.append(kwargs),
+    )
+
+    pf04_evidence._mission_admission_guard("coordinator-7")()
+
+    assert backend.closed is True
+    assert calls == [
+        {
+            "task_id": pf04_evidence.TASK_ID,
+            "repository": pf04_evidence.SEALED_REPOSITORY,
+            "observer": "coordinator-7",
+            "graph_path": pf04_evidence.MISSION_GRAPH,
+        }
+    ]
+
+
 def test_sealed_replay_promotes_then_accepts_before_zero_call_replay(tmp_path: Path, monkeypatch):
     bundle = tmp_path / "bundle"
     candidate = bundle / "candidate" / "README.md"

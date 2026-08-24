@@ -64,6 +64,35 @@ def test_runner_executes_all_phases_once_and_reuses_complete_receipt(tmp_path: P
     assert verify_sha256sums(tmp_path / context.context_hash)
 
 
+def test_admission_guard_wraps_every_phase_and_prevents_unowned_dispatch(tmp_path: Path):
+    calls: list[str] = []
+    guard_calls: list[str] = []
+
+    run_proven_transaction(
+        _context(),
+        handlers=_handlers(calls),
+        output_root=tmp_path,
+        admission_guard=lambda: guard_calls.append("checked"),
+    )
+
+    assert calls == list(registered_action_ids())
+    assert len(guard_calls) == 1 + (2 * len(PHASE_ORDER))
+
+    blocked_calls: list[str] = []
+
+    def reject() -> None:
+        raise RuntimeError("expired mission claim")
+
+    with pytest.raises(RuntimeError, match="expired mission claim"):
+        run_proven_transaction(
+            _context(source_revision="d" * 40),
+            handlers=_handlers(blocked_calls),
+            output_root=tmp_path,
+            admission_guard=reject,
+        )
+    assert blocked_calls == []
+
+
 def test_interruption_resumes_at_first_incomplete_phase(tmp_path: Path):
     calls: list[str] = []
     handlers = _handlers(calls)

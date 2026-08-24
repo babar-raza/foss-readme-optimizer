@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.facts.acceptance_contract import FactAcceptanceContractV1
 from readme_agent.facts.external_fact_block_contracts import (
@@ -46,6 +46,9 @@ class ExternalFactResolutionDecisionV1(BaseModel):
     resolution: ExternalFactBlockResolutionV1
     recovery_action: ExternalFactRecoveryActionV1
     blocked_category: Literal["agent_fixable", "infra_external"]
+    responsible_owner: str = Field(min_length=1)
+    affected_scope: str = Field(min_length=1)
+    missing_evidence: tuple[str, ...] = Field(min_length=1)
 
 
 _CLAIM_KIND_BY_FIELD: dict[str, FactClaimKindV1] = {
@@ -146,6 +149,53 @@ def _recovery_action(
     return "TRIAGE_UNKNOWN_DIAGNOSTIC", "agent_fixable"
 
 
+def _recovery_accountability(
+    fact: FactRecordV2,
+    block: ExternalFactBlockV1,
+    resolution: ExternalFactBlockResolutionV1,
+    category: Literal["agent_fixable", "infra_external"],
+) -> tuple[str, str, tuple[str, ...]]:
+    """Name the causal owner, bounded scope, and exact evidence needed to resume."""
+
+    block_class = resolution.block_class
+    owner_by_external_class = {
+        "repository_clone_failure": "repository-host-owner",
+        "git_lfs_object_unavailable": "repository-owner",
+        "package_registry_unavailable": "package-registry-operator",
+        "network_rate_limited": "network-infrastructure-owner",
+        "external_authentication_unavailable": "external-access-authority",
+        "product_source_failure": fact.authoritative_owner,
+    }
+    owner = (
+        owner_by_external_class.get(block_class, fact.authoritative_owner)
+        if category == "infra_external"
+        else "readme-agent"
+    )
+    missing_by_class = {
+        "repository_clone_failure": "a complete immutable repository snapshot",
+        "git_lfs_object_unavailable": "the referenced Git LFS object at this source revision",
+        "package_registry_unavailable": (
+            "a successful package-registry receipt"
+            + (f" for {block.package_identity}" if block.package_identity else "")
+        ),
+        "network_rate_limited": "a successful external read after the rate-limit reset",
+        "external_authentication_unavailable": "an authorized credential for the cited read",
+        "product_source_failure": (
+            "a source revision where the cited product verification succeeds"
+        ),
+        "source_package_mismatch": "a repository example that uses the declared public package",
+        "dependency_resolution_failure": "a successful declared-dependency verification receipt",
+        "toolchain_unavailable": "the declared ecosystem toolchain fingerprint and executable",
+        "unsupported_platform_verifier": "a qualified verifier for this ecosystem and fact surface",
+        "corrupt_local_cache": "a checksum-valid local evidence cache entry",
+    }
+    missing = missing_by_class.get(
+        block_class,
+        f"competent current-revision evidence for {block.fact_surface}",
+    )
+    return owner, f"{block.org_repo}:{block.fact_surface}", (missing,)
+
+
 def resolve_fact_record_block(
     fact: FactRecordV2,
     *,
@@ -191,6 +241,12 @@ def resolve_fact_record_block(
         previous_resolution=previous_resolution,
     )
     action, category = _recovery_action(resolution)
+    responsible_owner, affected_scope, missing_evidence = _recovery_accountability(
+        fact,
+        block,
+        resolution,
+        category,
+    )
     return ExternalFactResolutionDecisionV1(
         fact_id=fact.fact_id,
         block=block,
@@ -199,6 +255,9 @@ def resolve_fact_record_block(
         resolution=resolution,
         recovery_action=action,
         blocked_category=category,
+        responsible_owner=responsible_owner,
+        affected_scope=affected_scope,
+        missing_evidence=missing_evidence,
     )
 
 

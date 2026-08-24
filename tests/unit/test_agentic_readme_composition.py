@@ -100,10 +100,15 @@ CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
     # same bytes as source text, but its explicit presentation-policy
     # resolution remains authoritative; identical bytes no longer silently
     # reclassify that resolved claim as inherited.
-    "9d40f48e638a7deddfe70af70f2a09e7ee315391dda445874f4bc634b9ee8205"
+    #
+    # 2026-08-24: the visitor-facing Feature and Workflow Boundaries heading is
+    # now an explicit, limitation-fact-bound operation. The candidate change is
+    # intentional; the document-plan change additionally records its exact H3
+    # provenance instead of leaving the structural heading unaccounted for.
+    "3facd1de1c875949d51bfc47b4b0c7a45c4d7a2c6639400ba2e89baf5f1a6ad7"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
-    "48acd4b33fedaf91ac1e8e7c69e3adb2bf09db542abcc92cde9db75ed7432636"
+    "52df4cfa6d4f8a5eb4b7ddc1a33abd2fdc10961254972bb9f46e483b624ec0ad"
 )
 
 

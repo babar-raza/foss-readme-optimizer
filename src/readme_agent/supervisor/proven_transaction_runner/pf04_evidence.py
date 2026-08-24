@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -10,6 +11,7 @@ from typing import Literal
 from readme_agent import paths
 from readme_agent.cli import main as cli_main
 from readme_agent.llm.call_ledger import current_llm_accounting_summary
+from readme_agent.supervisor.mission_execution_guard import require_visible_execution_binding
 from readme_agent.supervisor.mission_graph import load_mission_graph
 from readme_agent.supervisor.proven_transaction_runner.contracts import (
     ProvenTransactionContextV1,
@@ -56,6 +58,27 @@ CASES = (
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _mission_admission_guard(observer: str):
+    """Return a fresh durable claim/lease check for every PF04 dispatch boundary."""
+
+    def require_current_claim() -> None:
+        from readme_agent.state.git_backend import default_state_backend
+
+        backend = default_state_backend()
+        try:
+            require_visible_execution_binding(
+                backend,
+                task_id=TASK_ID,
+                repository=SEALED_REPOSITORY,
+                observer=observer,
+                graph_path=MISSION_GRAPH,
+            )
+        finally:
+            backend.close()
+
+    return require_current_claim
 
 
 def _sealed_bundle() -> Path:
@@ -165,9 +188,16 @@ def _sealed_replay() -> dict:
     }
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     """Run or resume the checksum-bound PF04 transaction."""
 
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--mission-observer", required=True)
+    args = parser.parse_args(argv)
+    admission_guard = _mission_admission_guard(args.mission_observer)
+    # Fail before loading any case or constructing a handler when PF04 does not
+    # own the current unexpired durable claim.
+    admission_guard()
     _graph, graph_sha256 = load_mission_graph(MISSION_GRAPH)
     bundle = _sealed_bundle()
     dependencies = {
@@ -197,6 +227,7 @@ def main() -> int:
             CASES, runs_root=paths.runs_dir(), sealed_replay=_sealed_replay
         ),
         output_root=output_root,
+        admission_guard=admission_guard,
     )
     print(output_root / receipt.transaction_id / "receipt.json")
     return 0 if receipt.terminal_status == "COMPLETED" else 1

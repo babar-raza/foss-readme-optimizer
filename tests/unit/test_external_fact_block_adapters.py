@@ -144,6 +144,11 @@ def test_product_source_failure_records_external_resume_boundary():
     assert decision.resolution.block_class == "product_source_failure"
     assert decision.recovery_action == "WAIT_FOR_SOURCE_REVISION"
     assert decision.blocked_category == "infra_external"
+    assert decision.responsible_owner == "repository-owner"
+    assert decision.affected_scope == f"{_REPO}:example.minimal"
+    assert decision.missing_evidence == (
+        "a source revision where the cited product verification succeeds",
+    )
 
 
 def test_unchanged_dependency_fingerprint_suppresses_duplicate_retry():
