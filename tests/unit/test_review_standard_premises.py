@@ -316,6 +316,43 @@ def test_product_bound_action_led_rows_disprove_generic_inventory_premise() -> N
     ]
 
 
+def test_complete_capability_rows_disprove_missing_developer_value_premise() -> None:
+    candidate = (
+        "# Aspose.3D FOSS for Python\n\n"
+        "## Key Capabilities\n\n"
+        "- **Create 3D primitives** - Construct standard geometric shapes such as Box, "
+        "Cylinder, and Sphere using built-in primitive classes to build scene geometry quickly.\n"
+        "- **Define animated sequences** - Build animation timelines using keyframe support "
+        "to control how 3D objects transform over time, enabling dynamic scene behavior.\n"
+    )
+
+    errors = validate_configured_standard_premise(
+        finding_id="visitor.capabilities.value",
+        section="key-capabilities",
+        premise=(
+            "Key capabilities are phrased as bare feature labels without developer-facing "
+            "value explanations."
+        ),
+        candidate_text=candidate,
+        visitor_contract={
+            "configured_standards": [
+                {
+                    "standard_id": "readme.key_capabilities",
+                    "parameters": {
+                        "action_led_same_line_rows": True,
+                        "developer_value_explanation": "required",
+                    },
+                }
+            ]
+        },
+    )
+
+    assert errors == [
+        "visitor.capabilities.value:capability-value premise contradicts parsed complete "
+        "same-line rows"
+    ]
+
+
 def test_configured_core_to_first_output_edge_disproves_group_rewire_premise() -> None:
     candidate = """# Aspose.3D FOSS for Python
 

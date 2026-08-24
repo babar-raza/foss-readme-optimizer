@@ -9,7 +9,7 @@ from readme_agent.specialists.review_standard_mermaid_premises import (
     validate_mermaid_standard_premise,
 )
 
-REVIEW_STANDARD_PREMISE_CONTRACT_VERSION = 8
+REVIEW_STANDARD_PREMISE_CONTRACT_VERSION = 9
 
 
 def _configured_standards(visitor_contract: dict) -> dict[str, dict]:
@@ -272,6 +272,7 @@ def validate_configured_standard_premise(
         for phrase in (
             "incomplete sentence fragments",
             "omit the developer-facing outcome",
+            "without developer-facing value",
             "raw inventory list",
             "not just a description of api usage",
             "uses internal terminology",
