@@ -10,6 +10,7 @@ from readme_agent.llm.verification_prompts import (
     FACTUAL_PLAN_REVIEW_TOOL_SCHEMA,
     INDEPENDENT_README_REVIEW_TOOL_SCHEMA,
     TRUSTED_FIDELITY_REVIEW_TOOL_SCHEMA,
+    build_blind_quality_review_tool_schema,
     build_trusted_fidelity_review_tool_schema,
 )
 from readme_agent.llm.verifier_client import LiveForcedToolClient
@@ -70,6 +71,19 @@ class LiveBlindQualityReviewClient:
 
     def analyze(self, messages: list[dict]) -> AnalysisResult:
         result = self._client.call(messages, BLIND_QUALITY_REVIEW_TOOL_SCHEMA)
+        return AnalysisResult(parsed=result.arguments, meta=result.meta)
+
+    def analyze_bounded(
+        self,
+        messages: list[dict],
+        allowed_quality_criteria: frozenset[str],
+    ) -> AnalysisResult:
+        """Constrain a bounded packet at generation time to its section-local authority."""
+
+        result = self._client.call(
+            messages,
+            build_blind_quality_review_tool_schema(list(allowed_quality_criteria)),
+        )
         return AnalysisResult(parsed=result.arguments, meta=result.meta)
 
 

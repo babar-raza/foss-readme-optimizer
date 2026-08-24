@@ -48,6 +48,31 @@ class AnalysisClientLike(Protocol):
     def analyze(self, messages: list[dict]) -> AnalysisResult: ...
 
 
+class BoundedBlindAnalysisClientLike(Protocol):
+    """Optional client seam that enforces bounded criteria in the provider schema."""
+
+    def analyze_bounded(
+        self,
+        messages: list[dict],
+        allowed_quality_criteria: frozenset[str],
+    ) -> AnalysisResult: ...
+
+
+def _analyze_with_bounded_authority(
+    *,
+    role: str,
+    client: AnalysisClientLike,
+    messages: list[dict],
+    allowed_quality_criteria: frozenset[str] | None,
+) -> AnalysisResult:
+    """Use a narrowed provider schema when the live blind client exposes it."""
+
+    bounded_analyze = getattr(client, "analyze_bounded", None)
+    if role == "blind_quality" and allowed_quality_criteria is not None and bounded_analyze:
+        return bounded_analyze(messages, allowed_quality_criteria)
+    return client.analyze(messages)
+
+
 class GroundedRoleFailure(LLMError):
     """Reviewer failure that preserves every bounded grounding attempt."""
 
@@ -115,7 +140,12 @@ def run_grounded_role(
         _MAX_BLIND_GROUNDING_ATTEMPTS if role == "blind_quality" else _MAX_GROUNDING_ATTEMPTS
     )
     for attempt in range(1, max_attempts + 1):
-        analysis = client.analyze(current_messages)
+        analysis = _analyze_with_bounded_authority(
+            role=role,
+            client=client,
+            messages=current_messages,
+            allowed_quality_criteria=allowed_quality_criteria,
+        )
         grounding: FindingGroundingResultV1 | None = None
         dismissed_finding_ids: tuple[str, ...] = ()
         reconciled_candidate_span_ids: tuple[str, ...] = ()

@@ -137,6 +137,57 @@ def test_separated_role_clients_force_distinct_governed_tools(monkeypatch):
     ]
 
 
+def test_bounded_blind_client_narrows_the_provider_criterion_enum(monkeypatch):
+    captured = {}
+
+    def fake_post(url, json, headers, timeout):
+        captured.update(json)
+        tool_name = json["tool_choice"]["function"]["name"]
+
+        class RoleResponse(FakeResponse):
+            def json(self):
+                return {
+                    "id": f"{tool_name}-1",
+                    "choices": [
+                        {
+                            "message": {
+                                "tool_calls": [
+                                    {
+                                        "function": {
+                                            "name": tool_name,
+                                            "arguments": json_module.dumps(
+                                                {
+                                                    "verdict": "ACCEPT",
+                                                    "reasoning": "Grounded acceptance.",
+                                                    "failed_criteria": [],
+                                                    "sections_affected": [],
+                                                    "required_repair": "",
+                                                    "findings": [],
+                                                }
+                                            ),
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                }
+
+        return RoleResponse()
+
+    monkeypatch.setattr(verifier_client.requests, "post", fake_post)
+
+    LiveBlindQualityReviewClient("https://example/v1", "key", "model").analyze_bounded(
+        [], frozenset({"clarity", "product_specificity"})
+    )
+
+    criterion_schema = captured["tools"][0]["function"]["parameters"]["properties"]["findings"][
+        "items"
+    ]["properties"]["criterion"]
+    assert criterion_schema["enum"] == ["clarity", "product_specificity"]
+    assert "preservation" not in criterion_schema["enum"]
+
+
 def test_role_client_builder_uses_configured_llm_timeout(monkeypatch):
     captured_timeouts = []
 

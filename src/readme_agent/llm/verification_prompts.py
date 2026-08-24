@@ -262,12 +262,26 @@ def _role_review_tool_schema(
     }
 
 
-BLIND_QUALITY_REVIEW_TOOL_SCHEMA = _role_review_tool_schema(
-    "report_blind_readme_quality_review",
-    ["ACCEPT", "REJECT_REPAIRABLE", "SYSTEM_FAILURE"],
-    finding_kind="quality",
-    criteria=list(BLIND_QUALITY_CRITERIA),
-    max_findings=8,
+def build_blind_quality_review_tool_schema(criteria: list[str]) -> dict:
+    """Bind one blind-review call to its exact allowed quality criteria."""
+
+    normalized = [criterion for criterion in BLIND_QUALITY_CRITERIA if criterion in set(criteria)]
+    if not normalized:
+        raise ValueError("blind-quality review requires at least one allowed criterion")
+    unknown = sorted(set(criteria) - set(BLIND_QUALITY_CRITERIA))
+    if unknown:
+        raise ValueError(f"unknown blind-quality criteria: {unknown}")
+    return _role_review_tool_schema(
+        "report_blind_readme_quality_review",
+        ["ACCEPT", "REJECT_REPAIRABLE", "SYSTEM_FAILURE"],
+        finding_kind="quality",
+        criteria=normalized,
+        max_findings=8,
+    )
+
+
+BLIND_QUALITY_REVIEW_TOOL_SCHEMA = build_blind_quality_review_tool_schema(
+    list(BLIND_QUALITY_CRITERIA)
 )
 FACTUAL_PLAN_REVIEW_TOOL_SCHEMA = _role_review_tool_schema(
     "report_factual_readme_plan_review",

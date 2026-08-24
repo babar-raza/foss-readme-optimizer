@@ -80,6 +80,16 @@ class SequenceClient(CapturingClient):
         )
 
 
+class BoundedSequenceClient(SequenceClient):
+    def __init__(self, parsed_items):
+        super().__init__(parsed_items)
+        self.allowed_criteria_seen = []
+
+    def analyze_bounded(self, messages, allowed_quality_criteria):
+        self.allowed_criteria_seen.append(allowed_quality_criteria)
+        return self.analyze(messages)
+
+
 class RaisingClient:
     """Raises a fixed exception on every call; simulates the normal merged call
     failing before any recovery client ever sees a message."""
@@ -2517,6 +2527,26 @@ def test_bounded_scope_retries_a_global_finding_then_accepts_target_quality() ->
     assert history[0]["reconciled_irrelevant_mechanical_finding_ids"] == [
         "quality.global-navigation"
     ]
+
+
+def test_bounded_scope_is_bound_to_the_provider_schema_on_every_attempt() -> None:
+    client = BoundedSequenceClient([_blind_accept("The target section is clear.")])
+
+    result, history, grounding = run_grounded_role(
+        role="blind_quality",
+        prompt_id="blind_readme_quality_review",
+        client=client,
+        messages=[],
+        candidate_text=CANDIDATE,
+        product_facts=None,
+        allowed_quality_criteria=frozenset({"clarity", "product_specificity"}),
+        allowed_mechanical_check_ids=frozenset(),
+    )
+
+    assert result.verdict == "ACCEPT"
+    assert grounding.valid is True
+    assert len(history) == 1
+    assert client.allowed_criteria_seen == [frozenset({"clarity", "product_specificity"})]
 
 
 def test_uniquely_fused_markdown_quote_is_reconciled_without_retry() -> None:
