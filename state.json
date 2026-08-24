@@ -3315,7 +3315,7 @@
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-24T14:40:12.854412+00:00",
+    "last_evaluated_at": "2026-08-24T14:40:48.004911+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -3512,7 +3512,7 @@
       "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
       "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "CLOSED",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
-      "L8-PF-04-MINIMAL-GRAPH-RUNNER": "VERIFIED",
+      "L8-PF-04-MINIMAL-GRAPH-RUNNER": "SCORED",
       "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "TODO",
       "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP": "TODO",
       "L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS": "TODO",
@@ -14314,6 +14314,18 @@
         "reason": "PF04 focused impact safety full-suite recovery replay and no-op proofs independently verified",
         "task_id": "L8-PF-04-MINIMAL-GRAPH-RUNNER",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "runs/pf04-proven-transaction/d5eded12df396e5d64197cbff1676d25a822d124d9299d858101861d7b51adf8/mission-contribution-evidence.json",
+          "runs/pf04-proven-transaction/d5eded12df396e5d64197cbff1676d25a822d124d9299d858101861d7b51adf8/task-closeout-control-evidence.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-24T14:40:48.004930+00:00",
+        "reason": "PF04 satisfies every taskcard acceptance check negative control verification tier and closeout rule",
+        "task_id": "L8-PF-04-MINIMAL-GRAPH-RUNNER",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -14323,7 +14335,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1460,
+  "state_version": 1461,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
