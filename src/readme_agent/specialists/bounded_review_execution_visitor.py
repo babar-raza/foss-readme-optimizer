@@ -66,7 +66,37 @@ def execute_visitor_packet(
             "scoped_visitor_contract": scoped_contract,
         }
     )
-    cached = cache.load(packet, runtime_contract_hash=authority_hash)
+
+    def cached_result_is_grounded_or_reconcilable(result) -> bool:
+        projected = project_bounded_role_result([result], facet="visitor")
+        assert isinstance(projected, BlindQualityReviewResultV1)
+        grounding = validate_review_findings(
+            candidate_text=candidate_text,
+            product_facts=None,
+            findings=projected.findings,
+            visitor_contract=scoped_contract,
+        )
+        if grounding.valid:
+            return True
+        normalized, dismissed = reconcile_deterministically_disproven_blind_findings(
+            projected,
+            list(grounding.errors),
+        )
+        if not dismissed:
+            return False
+        normalized_grounding = validate_review_findings(
+            candidate_text=candidate_text,
+            product_facts=None,
+            findings=normalized.findings,
+            visitor_contract=scoped_contract,
+        )
+        return normalized_grounding.valid
+
+    cached = cache.load(
+        packet,
+        runtime_contract_hash=authority_hash,
+        validate_result=cached_result_is_grounded_or_reconcilable,
+    )
     if cached is not None:
         cached_result, cached_history = cached
         role_result = project_bounded_role_result([cached_result], facet="visitor")

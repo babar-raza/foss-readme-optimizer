@@ -123,10 +123,45 @@ def load_bounded_review_packet_cache(
         or cached.packet_id != packet.packet_id
         or cached.packet_sha256 != packet.packet_sha256
         or not is_reusable_cache_entry(cached.result)
-        or not validate_packet_result(plan, cached.result).valid
     ):
         return None
-    return cached
+
+    # Packet identity intentionally excludes the whole-document candidate hash: an unrelated
+    # edit must not force an identical bounded packet through the reviewer again. The result
+    # nevertheless echoes the candidate hash so aggregate evidence cannot be attached to the
+    # wrong document. Rebind that echo only after the cache key, packet hash, stored checksum,
+    # runtime contract, and source identity above have all matched, then validate the rebound
+    # result against the current plan. The persisted historical receipt remains immutable.
+    reviewed_candidate_sha256 = cached.result.candidate_sha256
+    rebound_result = cached.result.model_copy(update={"candidate_sha256": packet.candidate_sha256})
+    if not validate_packet_result(plan, rebound_result).valid:
+        return None
+    if reviewed_candidate_sha256 == packet.candidate_sha256:
+        return cached
+    return BoundedReviewPacketCacheV1(
+        cache_key=cached.cache_key,
+        result_sha256=_canonical_hash(rebound_result.model_dump(mode="json")),
+        org_repo=cached.org_repo,
+        source_revision=cached.source_revision,
+        packet_id=cached.packet_id,
+        packet_sha256=cached.packet_sha256,
+        facet=cached.facet,
+        result=rebound_result,
+        grounding_history=(
+            *cached.grounding_history,
+            {
+                "role": "blind_quality" if packet.facet == "visitor" else "factual_plan",
+                "attempt": 0,
+                "context_mode": "bounded_packet_candidate_rebind",
+                "valid": True,
+                "errors": [],
+                "packet_id": packet.packet_id,
+                "cache_key": cache_key,
+                "reviewed_candidate_sha256": reviewed_candidate_sha256,
+                "current_candidate_sha256": packet.candidate_sha256,
+            },
+        ),
+    )
 
 
 def write_bounded_review_packet_cache(

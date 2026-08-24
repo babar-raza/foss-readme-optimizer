@@ -97,6 +97,75 @@ def test_exact_packet_results_are_reused_without_provider_calls(tmp_path) -> Non
     assert len(cache_events) == len(visitor_packets) + len(factual_packets)
 
 
+def test_exact_packets_rebind_to_current_candidate_without_provider_calls(tmp_path) -> None:
+    plan = _plan()
+    ledger = brp.build_coverage_ledger(plan, atomic_units=_atomic_units())
+    cache_dir = tmp_path / "packet-cache"
+    context = _cache_context()
+    common = {
+        "org_repo": "acme/widget-toolkit",
+        "candidate_text": CANDIDATE_TEXT,
+        "product_facts": DEFAULT_FACTS.model_dump(mode="json"),
+        "visitor_contract": build_presentation_visitor_contract(
+            applicable_h2_headings=_headings(),
+            primary_example_language="python",
+        ),
+        "blind_prompt_id": "blind_readme_quality_review",
+        "factual_prompt_id": "factual_readme_plan_review",
+        "cache_dir": cache_dir,
+        "cache_context": context,
+    }
+    execute_bounded_review(
+        **common,
+        plan=plan,
+        coverage_ledger=ledger,
+        blind_client=_PacketSequenceClient(list(plan.visitor_packets)),
+        factual_client=_PacketSequenceClient(list(plan.factual_packets)),
+    )
+    stored_before = {path.name: path.read_bytes() for path in cache_dir.glob("*.json")}
+
+    current_candidate_sha256 = "9" * 64
+    rebound_plan = plan.model_copy(
+        update={
+            "candidate_sha256": current_candidate_sha256,
+            "plan_hash": "8" * 64,
+            "visitor_packets": tuple(
+                packet.model_copy(update={"candidate_sha256": current_candidate_sha256})
+                for packet in plan.visitor_packets
+            ),
+            "factual_packets": tuple(
+                packet.model_copy(update={"candidate_sha256": current_candidate_sha256})
+                for packet in plan.factual_packets
+            ),
+        }
+    )
+    rebound_ledger = ledger.model_copy(update={"plan_hash": rebound_plan.plan_hash})
+    execution = execute_bounded_review(
+        **common,
+        plan=rebound_plan,
+        coverage_ledger=rebound_ledger,
+        blind_client=_FailIfCalledClient(),
+        factual_client=_FailIfCalledClient(),
+    )
+
+    assert execution.aggregate.overall == "ACCEPT"
+    assert {result.candidate_sha256 for result in execution.packet_results} == {
+        current_candidate_sha256
+    }
+    rebound_events = [
+        item
+        for item in execution.grounding_history
+        if item.get("context_mode") == "bounded_packet_candidate_rebind"
+    ]
+    assert len(rebound_events) == len(plan.visitor_packets) + len(plan.factual_packets)
+    assert all(
+        item["reviewed_candidate_sha256"] == plan.candidate_sha256
+        and item["current_candidate_sha256"] == current_candidate_sha256
+        for item in rebound_events
+    )
+    assert stored_before == {path.name: path.read_bytes() for path in cache_dir.glob("*.json")}
+
+
 def test_visitor_packets_expose_only_target_anchors_as_finding_evidence() -> None:
     class InspectingClient(_PacketSequenceClient):
         def analyze(self, messages):
