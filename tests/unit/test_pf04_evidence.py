@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 from readme_agent.llm.call_schema import LlmAccountingSummaryV1
 from readme_agent.supervisor.portfolio_proof_engine.contracts import RubricAcceptanceOutcome
@@ -120,13 +121,60 @@ def test_sealed_replay_promotes_then_accepts_before_zero_call_replay(tmp_path: P
         fake_evaluate,
     )
 
-    output = pf04_evidence._sealed_replay()
+    output = pf04_evidence._sealed_replay("coordinator-7")
 
     assert len(calls) == 2
     assert calls[0] == calls[1]
+    assert calls[0][-1] == "coordinator-7"
     assert output["candidate_hash"] == candidate_hash
     assert output["promotion_provider_call_counts"] == [1]
     assert output["no_op_provider_call_count"] == 0
     assert output["rubric_score"] == 30
     assert output["benchmark_acceptance_proven"] is True
     assert output["replay_attestation_proven"] is True
+
+
+def test_main_binds_current_case_and_recovery_evidence_into_transaction_identity(
+    tmp_path: Path,
+    monkeypatch,
+):
+    bundle = tmp_path / "sealed"
+    (bundle / "candidate").mkdir(parents=True)
+    (bundle / "review").mkdir()
+    (bundle / "candidate" / "candidate-hash.txt").write_text("c" * 64, encoding="utf-8")
+    _write_json(bundle / "review" / "final-verdict.json", {"accepted": True})
+    contexts = []
+    current_binding = {"acme/widget": {"manifest_sha256": "d" * 64}}
+
+    monkeypatch.setattr(pf04_evidence, "_sealed_bundle", lambda: bundle)
+    monkeypatch.setattr(pf04_evidence, "_mission_admission_guard", lambda _observer: lambda: None)
+    monkeypatch.setattr(
+        pf04_evidence,
+        "load_mission_graph",
+        lambda _path: (object(), "a" * 64),
+    )
+    monkeypatch.setattr(
+        pf04_evidence,
+        "build_pf04_case_bindings",
+        lambda _cases, runs_root: current_binding,
+    )
+    monkeypatch.setattr(
+        pf04_evidence,
+        "build_recovery_proof",
+        lambda *_args, **_kwargs: {"proof_sha": "e" * 64},
+    )
+    monkeypatch.setattr(pf04_evidence, "write_recovery_proof", lambda *_args: None)
+    monkeypatch.setattr(pf04_evidence, "build_pf04_handlers", lambda *_args, **_kwargs: {})
+
+    def fake_run(context, **_kwargs):
+        contexts.append(context)
+        return SimpleNamespace(terminal_status="COMPLETED", transaction_id=context.context_hash)
+
+    monkeypatch.setattr(pf04_evidence, "run_proven_transaction", fake_run)
+
+    assert pf04_evidence.main(["--mission-observer", "coordinator"]) == 0
+    first_hash = contexts[-1].context_hash
+    current_binding["acme/widget"]["manifest_sha256"] = "f" * 64
+    assert pf04_evidence.main(["--mission-observer", "coordinator"]) == 0
+
+    assert contexts[-1].context_hash != first_hash

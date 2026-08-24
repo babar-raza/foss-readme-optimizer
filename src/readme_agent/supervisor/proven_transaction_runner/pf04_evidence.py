@@ -17,9 +17,16 @@ from readme_agent.supervisor.proven_transaction_runner.contracts import (
     ProvenTransactionContextV1,
     canonical_sha256,
 )
-from readme_agent.supervisor.proven_transaction_runner.pf04_handlers import (
+from readme_agent.supervisor.proven_transaction_runner.pf04_case_evidence import (
     ExternalFactReplayCaseV1,
+    build_pf04_case_bindings,
+)
+from readme_agent.supervisor.proven_transaction_runner.pf04_handlers import (
     build_pf04_handlers,
+)
+from readme_agent.supervisor.proven_transaction_runner.pf04_recovery_proof import (
+    build_recovery_proof,
+    write_recovery_proof,
 )
 from readme_agent.supervisor.proven_transaction_runner.runner import run_proven_transaction
 
@@ -27,6 +34,8 @@ TASK_ID: Literal["L8-PF-04-MINIMAL-GRAPH-RUNNER"] = "L8-PF-04-MINIMAL-GRAPH-RUNN
 SEALED_REPOSITORY = "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
 SEALED_REVISION = "ee05c1ba9153ef5916b7a108406c794f2e464d01"
 MISSION_GRAPH = Path("plans/investigations/control/level8-autonomous-mission-task-graph.yaml")
+RECOVERY_EVIDENCE_ID = "f9da88055"
+RECOVERY_WITNESS = "aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript"
 CASES = (
     ExternalFactReplayCaseV1(
         org_repo="aspose-cells-foss/Aspose.Cells-FOSS-for-TypeScript",
@@ -86,7 +95,7 @@ def _sealed_bundle() -> Path:
     return paths.readme_poc_repository_dir(org, repo, SEALED_REVISION)
 
 
-def _sealed_replay() -> dict:
+def _sealed_replay(observer: str) -> dict:
     bundle = _sealed_bundle()
     candidate_path = bundle / "candidate" / "README.md"
     candidate_hash_path = bundle / "candidate" / "candidate-hash.txt"
@@ -103,7 +112,7 @@ def _sealed_replay() -> dict:
         "--mission-task-id",
         TASK_ID,
         "--mission-observer",
-        "codex",
+        observer,
     ]
     promotion_accounting = []
     for _attempt in range(2):
@@ -200,16 +209,38 @@ def main(argv: list[str] | None = None) -> int:
     admission_guard()
     _graph, graph_sha256 = load_mission_graph(MISSION_GRAPH)
     bundle = _sealed_bundle()
+    case_bindings = build_pf04_case_bindings(CASES, runs_root=paths.runs_dir())
+    recovery_root = paths.runs_dir() / "pf04-canonical-recovery" / RECOVERY_EVIDENCE_ID
+    recovery_proof = build_recovery_proof(
+        CASES,
+        recovery_root=recovery_root,
+        current_runs_root=paths.runs_dir(),
+        preservation_witness=RECOVERY_WITNESS,
+    )
+    recovery_proof_path = recovery_root / "recovery-proof.json"
+    write_recovery_proof(recovery_proof_path, recovery_proof)
     dependencies = {
         "external_case_matrix": canonical_sha256([case.model_dump(mode="json") for case in CASES]),
+        "external_case_receipts": canonical_sha256(case_bindings),
+        "canonical_recovery_proof": canonical_sha256(recovery_proof),
         "sealed_candidate": (bundle / "candidate" / "candidate-hash.txt")
         .read_text(encoding="utf-8")
         .strip(),
         "sealed_final_verdict": _sha256(bundle / "review" / "final-verdict.json"),
         "resolver_adapter": _sha256(Path("src/readme_agent/facts/external_fact_block_adapters.py")),
+        "resolver_contracts": _sha256(
+            Path("src/readme_agent/facts/external_fact_block_contracts.py")
+        ),
+        "resolver_core": _sha256(Path("src/readme_agent/facts/external_fact_block_resolution.py")),
         "runner": _sha256(Path("src/readme_agent/supervisor/proven_transaction_runner/runner.py")),
+        "pf04_case_evidence": _sha256(
+            Path("src/readme_agent/supervisor/proven_transaction_runner/pf04_case_evidence.py")
+        ),
         "pf04_handlers": _sha256(
             Path("src/readme_agent/supervisor/proven_transaction_runner/pf04_handlers.py")
+        ),
+        "pf04_recovery_proof": _sha256(
+            Path("src/readme_agent/supervisor/proven_transaction_runner/pf04_recovery_proof.py")
         ),
         "pf04_evidence": _sha256(Path(__file__)),
     }
@@ -224,7 +255,12 @@ def main(argv: list[str] | None = None) -> int:
     receipt = run_proven_transaction(
         context,
         handlers=build_pf04_handlers(
-            CASES, runs_root=paths.runs_dir(), sealed_replay=_sealed_replay
+            CASES,
+            runs_root=paths.runs_dir(),
+            sealed_replay=lambda: _sealed_replay(args.mission_observer),
+            case_bindings=case_bindings,
+            recovery_proof=recovery_proof,
+            recovery_proof_path=recovery_proof_path,
         ),
         output_root=output_root,
         admission_guard=admission_guard,

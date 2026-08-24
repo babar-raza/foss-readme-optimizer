@@ -5,67 +5,28 @@ from __future__ import annotations
 from collections.abc import Callable, Mapping
 from pathlib import Path
 
-from pydantic import BaseModel, ConfigDict, Field
-
 from readme_agent.facts.acceptance_contract import current_fact_acceptance_contract
 from readme_agent.facts.external_fact_block_adapters import (
     ExternalFactResolutionDecisionV1,
     resolve_fact_record_block,
-    resolve_selected_external_fact_blocks,
 )
 from readme_agent.facts.external_fact_block_contracts import ExternalFactBlockResolutionV1
-from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.registry.loader import require_listed
-from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.supervisor.proven_transaction_runner.contracts import (
     ProvenTransactionActionInputV1,
     ProvenTransactionActionResultV1,
     ProvenTransactionActionV1,
     canonical_sha256,
 )
+from readme_agent.supervisor.proven_transaction_runner.pf04_case_evidence import (
+    ExternalFactReplayCaseV1,
+    build_pf04_case_bindings,
+    load_pf04_case,
+    resolve_current_case,
+)
 
 ActionHandler = Callable[[ProvenTransactionActionInputV1], ProvenTransactionActionResultV1]
 SealedReplay = Callable[[], dict]
-
-
-class ExternalFactReplayCaseV1(BaseModel):
-    """One immutable real-repository receipt selected for PF04 replay."""
-
-    model_config = ConfigDict(extra="forbid", frozen=True)
-
-    org_repo: str
-    source_revision: str = Field(pattern=r"^[0-9a-f]{40,64}$")
-    expected_surfaces: tuple[str, ...] = Field(min_length=1)
-
-
-class _LoadedCase(BaseModel):
-    model_config = ConfigDict(arbitrary_types_allowed=True, frozen=True)
-
-    case: ExternalFactReplayCaseV1
-    bundle_dir: Path
-    snapshot: RepositorySnapshotV1
-    facts: ProductFactsV2
-
-
-def _load_case(case: ExternalFactReplayCaseV1, runs_root: Path) -> _LoadedCase:
-    org, repo = case.org_repo.split("/", maxsplit=1)
-    bundle = runs_root / "readme-poc" / f"{org}__{repo}" / case.source_revision
-    snapshot_path = bundle / "source" / "revision.json"
-    facts_path = bundle / "facts" / "product-facts.json"
-    if not snapshot_path.is_file() or not facts_path.is_file():
-        raise FileNotFoundError(f"PF04 source/fact evidence is missing for {case.org_repo}")
-    snapshot = RepositorySnapshotV1.model_validate_json(snapshot_path.read_text(encoding="utf-8"))
-    facts = ProductFactsV2.model_validate_json(facts_path.read_text(encoding="utf-8"))
-    if snapshot.org_repo != case.org_repo or facts.org_repo != case.org_repo:
-        raise ValueError(f"PF04 evidence identity mismatch for {case.org_repo}")
-    if snapshot.source_revision != case.source_revision:
-        raise ValueError(f"PF04 evidence revision mismatch for {case.org_repo}")
-    return _LoadedCase(
-        case=case,
-        bundle_dir=bundle,
-        snapshot=snapshot,
-        facts=facts,
-    )
 
 
 def _decision_record(decision: ExternalFactResolutionDecisionV1) -> dict:
@@ -88,62 +49,53 @@ def _decision_record(decision: ExternalFactResolutionDecisionV1) -> dict:
     }
 
 
-def _resolve_case(loaded: _LoadedCase) -> tuple[ExternalFactResolutionDecisionV1, ...]:
-    entry = require_listed(loaded.case.org_repo)
-    contract = current_fact_acceptance_contract(entry.ecosystem, getattr(entry, "family", None))
-    for surface in loaded.case.expected_surfaces:
-        if loaded.facts.selected_fact(surface).verification_state != "blocked":
-            raise ValueError(
-                f"PF04 expected a still-blocked selected fact for {loaded.case.org_repo}:{surface}"
-            )
-    decisions = resolve_selected_external_fact_blocks(
-        loaded.facts,
-        snapshot=loaded.snapshot,
-        contract=contract,
-    )
-    actual = tuple(sorted(decision.block.fact_surface for decision in decisions))
-    expected = tuple(sorted(loaded.case.expected_surfaces))
-    if actual != expected:
-        raise ValueError(
-            f"PF04 external surfaces drifted for {loaded.case.org_repo}: "
-            f"expected {expected}, found {actual}"
-        )
-    return decisions
-
-
 def build_pf04_handlers(
     cases: tuple[ExternalFactReplayCaseV1, ...],
     *,
     runs_root: Path,
     sealed_replay: SealedReplay,
+    case_bindings: dict[str, dict] | None = None,
+    recovery_proof: dict | None = None,
+    recovery_proof_path: Path | None = None,
 ) -> Mapping[ProvenTransactionActionV1, ActionHandler]:
     """Return the four exact PF04 handlers; no arbitrary command handler is accepted."""
 
-    loaded_cases = tuple(_load_case(case, runs_root) for case in cases)
+    loaded_cases = tuple(load_pf04_case(case, runs_root) for case in cases)
+    current_bindings = case_bindings or build_pf04_case_bindings(cases, runs_root=runs_root)
     first_decisions: dict[str, ExternalFactResolutionDecisionV1] = {}
 
     def observe(_action_input: ProvenTransactionActionInputV1) -> ProvenTransactionActionResultV1:
         blocks: list[dict] = []
         evidence_refs: list[str] = []
         for loaded in loaded_cases:
-            decisions = _resolve_case(loaded)
+            decisions = resolve_current_case(loaded)
             blocks.extend(_decision_record(decision) for decision in decisions)
             evidence_refs.extend(
                 (
                     str(loaded.bundle_dir / "source" / "revision.json"),
                     str(loaded.bundle_dir / "facts" / "product-facts.json"),
+                    str(loaded.bundle_dir / "facts" / "findings.json"),
+                    str(loaded.bundle_dir / "manifest.json"),
                 )
             )
+        if recovery_proof_path is not None:
+            evidence_refs.append(str(recovery_proof_path))
         return ProvenTransactionActionResultV1(
             status="COMPLETED",
-            output={"case_count": len(loaded_cases), "block_count": len(blocks), "blocks": blocks},
+            output={
+                "case_count": len(loaded_cases),
+                "block_count": len(blocks),
+                "blocks": blocks,
+                "case_receipt_bindings": current_bindings,
+                "canonical_recovery_proof": recovery_proof,
+            },
             evidence_refs=tuple(evidence_refs),
         )
 
     def adapt(_action_input: ProvenTransactionActionInputV1) -> ProvenTransactionActionResultV1:
         records = []
         for loaded in loaded_cases:
-            for decision in _resolve_case(loaded):
+            for decision in resolve_current_case(loaded):
                 if decision.resolution.wording_mode in {"assert", "omit", "not_applicable"}:
                     raise ValueError(
                         "PF04 must not assert or silently omit a currently blocked external fact"
@@ -164,7 +116,7 @@ def build_pf04_handlers(
         records = []
         for loaded in loaded_cases:
             current_by_block = {
-                decision.block.block_id: decision for decision in _resolve_case(loaded)
+                decision.block.block_id: decision for decision in resolve_current_case(loaded)
             }
             entry = require_listed(loaded.case.org_repo)
             contract = current_fact_acceptance_contract(
@@ -214,4 +166,7 @@ def build_pf04_handlers(
     }
 
 
-__all__ = ["ExternalFactReplayCaseV1", "build_pf04_handlers"]
+__all__ = [
+    "ExternalFactReplayCaseV1",
+    "build_pf04_handlers",
+]
