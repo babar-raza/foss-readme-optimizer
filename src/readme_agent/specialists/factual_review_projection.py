@@ -43,7 +43,7 @@ def compact_review_fact(fact: dict[str, Any]) -> dict[str, Any]:
 
     value = fact.get("value")
     if fact.get("field") == "repository.examples" and isinstance(value, dict):
-        value = _compact_repository_examples(value)
+        value = compact_repository_examples_for_review(value)
     accepted_evidence = []
     for assessment in fact.get("evidence_assessments") or []:
         if not isinstance(assessment, dict) or not assessment.get("accepted"):
@@ -76,7 +76,7 @@ def compact_review_fact(fact: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _compact_repository_examples(value: dict[str, Any]) -> dict[str, Any]:
+def compact_repository_examples_for_review(value: dict[str, Any]) -> dict[str, Any]:
     """Keep reviewable examples while omitting duplicated asset checksums."""
 
     inline_examples = [

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from collections.abc import Callable, Sequence
@@ -11,6 +12,7 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.presentation.verified_template_api_members import select_summary_api_members
 from readme_agent.readme.agentic_composition_inputs import composition_fact_payloads
 from readme_agent.readme.document_plan import CandidateContentProvenanceV1
+from readme_agent.readme.fact_grounding_views import fact_strings
 from readme_agent.specialists.bounded_review_contracts import (
     BoundedFactualPacketV1,
     UnpacketizableRecordV1,
@@ -18,8 +20,51 @@ from readme_agent.specialists.bounded_review_contracts import (
 from readme_agent.specialists.bounded_review_hashing import _packet_id_slug, _packet_sha256
 from readme_agent.specialists.bounded_review_structure import _MutableUnit
 from readme_agent.specialists.bounded_review_visitor_packers import build_visitor_packets
+from readme_agent.specialists.factual_review_projection import (
+    compact_repository_examples_for_review,
+)
 
 _API_NAMESPACE = re.compile(r"Namespace \(`([^`]+)`\)")
+_BOUNDED_FACT_PROJECTION_CONTRACT_VERSION = "bounded-fact-projection-v1"
+_MAX_REVIEW_SOURCE_LOCATION_CHARS = 512
+_MAX_REVIEW_PROTECTED_LITERALS = 24
+
+
+def _compact_bounded_review_fact(payload: dict[str, Any]) -> dict[str, Any]:
+    """Remove verifier-only bulk while retaining a hash-bound evidence identity."""
+
+    projected = dict(payload)
+    changed = False
+    value = projected.get("value")
+    if projected.get("field") == "repository.examples" and isinstance(value, dict):
+        compacted_value = compact_repository_examples_for_review(value)
+        projected["value"] = compacted_value
+        projected["protected_literals"] = fact_strings(compacted_value)[
+            :_MAX_REVIEW_PROTECTED_LITERALS
+        ]
+        changed = compacted_value != value
+
+    source = projected.get("source")
+    if isinstance(source, dict):
+        location = str(source.get("location") or "")
+        if len(location) > _MAX_REVIEW_SOURCE_LOCATION_CHARS:
+            location_sha256 = hashlib.sha256(location.encode("utf-8")).hexdigest()
+            compacted_source = dict(source)
+            compacted_source["location"] = (
+                f"fact-source://{projected.get('fact_id')}/{location_sha256}"
+            )
+            compacted_source["full_location_sha256"] = location_sha256
+            compacted_source["location_entry_count"] = (
+                len(location.removeprefix("repository://").split(","))
+                if location.startswith("repository://")
+                else 1
+            )
+            projected["source"] = compacted_source
+            changed = True
+
+    if changed:
+        projected["review_projection_contract_version"] = _BOUNDED_FACT_PROJECTION_CONTRACT_VERSION
+    return projected
 
 
 def _bounded_fact_payloads(
@@ -30,7 +75,7 @@ def _bounded_fact_payloads(
     payloads = composition_fact_payloads(product_facts, fact_ids)
     namespace_match = _API_NAMESPACE.search(unit_text)
     if namespace_match is None:
-        return payloads
+        return [_compact_bounded_review_fact(payload) for payload in payloads]
     namespace = namespace_match.group(1)
     by_id = {fact.fact_id: fact for fact in product_facts.facts}
     for payload in payloads:
@@ -126,7 +171,7 @@ def _bounded_fact_payloads(
             "projection_contextual": True,
             "projection_complete_for_namespace": True,
         }
-    return payloads
+    return [_compact_bounded_review_fact(payload) for payload in payloads]
 
 
 def _greedy_group_units(

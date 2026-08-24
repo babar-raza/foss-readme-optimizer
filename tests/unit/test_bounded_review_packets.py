@@ -144,6 +144,70 @@ def test_api_packet_receives_complete_exact_namespace_evidence() -> None:
     ]
 
 
+def test_repository_example_packet_omits_verifier_bulk_and_hashes_long_source_location() -> None:
+    examples_fact = DEFAULT_FACTS.facts[0].model_copy(
+        update={
+            "fact_id": "repository.examples:test-inventory",
+            "field": "repository.examples",
+            "value": {
+                "files": ["examples/one.py"],
+                "execution_policy": "inventory_only",
+                "inline_examples": [
+                    {
+                        "title": "Convert a model",
+                        "language": "python",
+                        "code": "convert_model()",
+                        "static_api_verified": True,
+                        "execution_verified": False,
+                        "runtime_verified": False,
+                        "evidence_modules": ["widget"],
+                        "validation_context_imports": ["from widget import convert_model"],
+                    }
+                ],
+                "withheld_inline_examples": [
+                    {"title": "Rejected draft", "code": "unsupported_call()"}
+                ],
+                "fixture_inventory": {"tracked_file_count": 400},
+                "result_assets": [],
+                "readme_sha256": "a" * 64,
+            },
+            "source": DEFAULT_FACTS.facts[0].source.model_copy(
+                update={
+                    "location": "repository://" + ",".join(f"src/file-{i}.py" for i in range(80))
+                }
+            ),
+        }
+    )
+    facts = DEFAULT_FACTS.model_copy(
+        update={
+            "facts": [*DEFAULT_FACTS.facts, examples_fact],
+            "selected_fact_ids": {
+                **DEFAULT_FACTS.selected_fact_ids,
+                "repository.examples": examples_fact.fact_id,
+            },
+        }
+    )
+
+    payload = _bounded_fact_payloads(
+        facts,
+        {examples_fact.fact_id},
+        "The example converts a model.",
+    )[0]
+
+    assert payload["review_projection_contract_version"] == "bounded-fact-projection-v1"
+    assert "withheld_inline_examples" not in payload["value"]
+    assert "fixture_inventory" not in payload["value"]
+    assert payload["value"]["inline_examples"][0]["code"] == "convert_model()"
+    assert payload["source"]["location"].startswith(f"fact-source://{examples_fact.fact_id}/")
+    assert (
+        payload["source"]["full_location_sha256"]
+        == hashlib.sha256(examples_fact.source.location.encode("utf-8")).hexdigest()
+    )
+    assert payload["source"]["location_entry_count"] == 80
+    assert "unsupported_call()" not in json.dumps(payload, ensure_ascii=False)
+    assert "withheld_inline_examples" in examples_fact.value
+
+
 def test_visitor_packet_preserves_complete_nested_section_context() -> None:
     candidate = """# Widget Toolkit
 

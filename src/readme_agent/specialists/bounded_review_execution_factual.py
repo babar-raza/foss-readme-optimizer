@@ -52,6 +52,20 @@ def execute_factual_packet(
     """Execute or safely reuse one factual packet under fact-scoped authority."""
 
     packet_fact_ids = set(packet.accepted_fact_ids)
+    packet_facts_by_id = {
+        str(fact.get("fact_id")): fact for fact in packet.facts if isinstance(fact, dict)
+    }
+
+    def fact_with_packet_evidence_location(fact: dict) -> dict:
+        packet_fact = packet_facts_by_id.get(str(fact.get("fact_id"))) or {}
+        packet_source = packet_fact.get("source")
+        if not isinstance(packet_source, dict) or not packet_source.get("location"):
+            return fact
+        source = fact.get("source")
+        source = dict(source) if isinstance(source, dict) else {}
+        source["location"] = packet_source["location"]
+        return {**fact, "source": source}
+
     packet_product_facts = {
         **product_facts,
         "selected_fact_ids": {
@@ -60,7 +74,7 @@ def execute_factual_packet(
             if fact_id in packet_fact_ids
         },
         "facts": [
-            fact
+            fact_with_packet_evidence_location(fact)
             for fact in product_facts.get("facts", [])
             if isinstance(fact, dict) and fact.get("fact_id") in packet_fact_ids
         ],
