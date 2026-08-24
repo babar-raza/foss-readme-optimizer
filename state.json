@@ -1801,9 +1801,12 @@
           "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/final-verdict.json",
+            "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/combined-review.json"
+          ],
           "fingerprint": "f202c0fb1ea5b08e2f7fcde9befb92bc3bbb96a89feaec97499e10230fdc7f23",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-24T00:29:34.029017+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-24T00:00:16.105928+00:00",
           "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP"
@@ -3127,21 +3130,22 @@
     ],
     "graph_sha256": "5c818ebd4709ca4ebb388bfc58f86e94a90a205b595585ab0d3b830abda5fd24",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-24T00:00:16.105928+00:00",
+    "last_evaluated_at": "2026-08-24T00:29:34.029041+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
       "denominator": 33,
-      "derived_at": "2026-08-21T09:45:22.488414+00:00",
+      "derived_at": "2026-08-24T00:24:25.979498+00:00",
       "deterministic_validated": 0,
-      "facts_ready": 0,
+      "facts_ready": 1,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
         "AGENT_APPROVED": 1,
         "BLOCKED_MISSING_EVIDENCE": 15,
-        "FACTS_READY": 16,
-        "PROFILED": 1
+        "FACTS_READY": 15,
+        "PROFILED": 1,
+        "README_ASSESSED": 1
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 0,
@@ -3163,11 +3167,6 @@
           "product_truth_hash_mismatch"
         ],
         "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_facts_hash_mismatch",
-          "product_truth_hash_mismatch"
-        ],
-        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_facts_hash_mismatch",
           "product_truth_hash_mismatch"
@@ -13839,7 +13838,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1398,
+  "state_version": 1399,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
