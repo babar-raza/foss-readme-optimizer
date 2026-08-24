@@ -276,6 +276,21 @@ def test_review_repair_reauthors_only_the_rejected_prose_slot(tmp_path, monkeypa
         ).packet_hash
     )
 
+    canonical_replay_client = CountingClient()
+    canonical_replay = author_and_persist_readme_sections(
+        org_repo=ORG_REPO,
+        source_revision=REVISION,
+        source_text=SOURCE,
+        product_facts=facts,
+        protected_content=fingerprint_protected_content(SOURCE),
+        section_specs=specs,
+        client=canonical_replay_client,
+        cache_dir=cache_dir,
+    )
+
+    assert canonical_replay_client.calls == []
+    assert canonical_replay.reused_cluster_count == len(specs)
+
 
 def test_complete_document_is_visible_to_stage_adapter(tmp_path, monkeypatch):
     monkeypatch.setenv("README_AGENT_RUNS_DIR", str(tmp_path / "runs"))

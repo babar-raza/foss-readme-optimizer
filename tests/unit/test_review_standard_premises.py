@@ -360,7 +360,8 @@ def test_allowed_corporate_styling_disproves_speculative_alignment_finding() -> 
 flowchart LR
   I1["Input"] --> PRODUCT["Product"]
   PRODUCT --> CORE["Core Capabilities"]
-  CORE --> O1["Output"]
+  O1["Output"]
+  CORE --> O1
   classDef product fill:#1F4E79,color:#FFFFFF;
   class PRODUCT product;
 ```
@@ -1102,6 +1103,47 @@ flowchart LR
     ]
 
 
+def test_directional_mermaid_topology_disproves_undirected_core_output_finding() -> None:
+    candidate = """# Product
+
+## At a Glance
+
+```mermaid
+flowchart LR
+  I1["Input"] --> PRODUCT["Product"]
+  PRODUCT --> CORE["Core Capabilities"]
+  O1["Output"]
+  CORE --> O1
+```
+"""
+
+    errors = validate_configured_standard_premise(
+        finding_id="visitor.mermaid.core-output",
+        section="at-a-glance",
+        premise=(
+            "The diagram lacks an explicit undirected connector between the CORE group and the "
+            "OUTPUTS group. Add exactly one undirected connector (~~~) between them."
+        ),
+        candidate_text=candidate,
+        visitor_contract={
+            "configured_standards": [
+                {
+                    "standard_id": "readme.at_a_glance_mermaid",
+                    "parameters": {
+                        "directional_workflow": True,
+                        "capabilities_to_outputs_edges": 1,
+                    },
+                }
+            ]
+        },
+    )
+
+    assert errors == [
+        "visitor.mermaid.core-output:Mermaid capabilities-to-outputs premise contradicts "
+        "configured topology"
+    ]
+
+
 def test_workflow_preview_disproves_raw_task_list_premise() -> None:
     candidate = """# Product
 
@@ -1206,6 +1248,12 @@ def test_real_fp03_preview_and_capability_findings_are_disproved() -> None:
             "The section is incomplete. Add at least three additional capability bullets that "
             "describe concrete developer-facing tasks.",
             "capability-count premise exceeds verified-fact-bounded density",
+        ),
+        (
+            "key-capabilities",
+            "The second bullet describes animation mechanics without clarifying the "
+            "developer-facing outcome or use case.",
+            "capability-value premise contradicts parsed complete same-line rows",
         ),
     )
     for index, (section, premise, expected) in enumerate(premises):

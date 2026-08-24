@@ -1470,8 +1470,9 @@ def test_a_failed_cluster_never_erases_a_prior_successful_outcome_for_the_same_s
     packet = _packet()
     client = FakeSectionAuthorClient([_valid_response()])
     first = execute_section_cluster_authoring(packet=packet, client=client, cache_dir=tmp_path)
-    cache_path = tmp_path / f"{packet.target_section_id}.json"
-    assert cache_path.exists()
+    cache_paths = list(tmp_path.glob("*.json"))
+    assert len(cache_paths) == 1
+    cache_path = cache_paths[0]
     original_bytes = cache_path.read_bytes()
 
     # A second packet for a *different* section must never touch this section's cache file --

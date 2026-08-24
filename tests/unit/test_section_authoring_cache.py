@@ -96,6 +96,40 @@ def test_wrong_cache_key_is_a_miss_not_a_stale_hit(tmp_path):
     assert stale is None
 
 
+def test_multiple_keys_for_one_section_remain_independently_reusable(tmp_path):
+    canonical_key = _key()
+    repair_key = _key(packet_hash="f" * 64)
+    outcome = _outcome()
+
+    for key in (canonical_key, repair_key):
+        write_section_authoring_cache(
+            tmp_path,
+            cache_key=key,
+            org_repo="aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+            source_revision="a" * 40,
+            outcome=outcome,
+        )
+
+    assert load_section_authoring_cache(tmp_path, "capability-overview", canonical_key) is not None
+    assert load_section_authoring_cache(tmp_path, "capability-overview", repair_key) is not None
+    assert len(list(tmp_path.glob("[0-9a-f]*.json"))) == 2
+
+
+def test_legacy_one_file_per_section_cache_remains_readable(tmp_path):
+    key = _key()
+    write_section_authoring_cache(
+        tmp_path,
+        cache_key=key,
+        org_repo="aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+        source_revision="a" * 40,
+        outcome=_outcome(),
+    )
+    generated = next(tmp_path.glob("[0-9a-f]*.json"))
+    generated.replace(tmp_path / "capability-overview.json")
+
+    assert load_section_authoring_cache(tmp_path, "capability-overview", key) is not None
+
+
 def test_corrupt_cache_file_is_a_miss_not_a_crash(tmp_path):
     (tmp_path / "capability-overview.json").write_text("not json", encoding="utf-8")
 

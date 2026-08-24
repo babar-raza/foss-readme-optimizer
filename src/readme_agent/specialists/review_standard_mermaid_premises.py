@@ -122,6 +122,22 @@ def validate_mermaid_standard_premise(
         errors.append(
             f"{finding_id}:Mermaid product-to-capabilities premise contradicts configured topology"
         )
+    claims_core_output_edge_should_be_undirected = (
+        ("undirected connector" in premise or "~~~" in premise)
+        and "core" in premise
+        and "output" in premise
+        and "individual output" not in premise
+    )
+    if (
+        claims_core_output_edge_should_be_undirected
+        and standard.get("directional_workflow") is True
+        and standard.get("capabilities_to_outputs_edges") == 1
+        and mermaid
+        and re.search(r"(?m)^\s*CORE\s+-->\s+O1\s*$", mermaid)
+    ):
+        errors.append(
+            f"{finding_id}:Mermaid capabilities-to-outputs premise contradicts configured topology"
+        )
     claims_internal_capability_connectors = "capabilit" in premise and any(
         phrase in premise
         for phrase in ("internal capability", "bidirectional tilde", "tildes between")

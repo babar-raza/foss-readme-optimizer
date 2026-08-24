@@ -1,11 +1,8 @@
 """Persist accepted section-cluster authoring outcomes for zero-call reuse.
 
-Mirrors `trusted_fidelity_cache.py`'s exact shape: one JSON file per section under a
-revision-scoped directory, a cache key hashing every input that could change the output, and a
-strict `load` that returns `None` on any mismatch (fail-open to recompute, never fail-closed on
-a stale hit). A successful, unchanged section reuses with zero Qwen calls; a failed section
-retries only that section -- callers key their per-section cache lookup on `target_section_id`
-alone, never on the whole README.
+Each exact cache key gets its own file under the revision-scoped directory. Canonical and repair
+variants of one section therefore remain independently reusable instead of evicting each other.
+The loader retains compatibility with the former one-file-per-section layout.
 """
 
 from __future__ import annotations
@@ -103,16 +100,20 @@ def load_section_authoring_cache(
 ) -> SectionAuthoringCacheV1 | None:
     """Load only an exact, structurally valid checkpoint for this exact section and key."""
 
-    path = cache_dir / f"{target_section_id}.json"
-    if not path.is_file():
-        return None
-    try:
-        cached = SectionAuthoringCacheV1.model_validate_json(path.read_text(encoding="utf-8"))
-    except (OSError, UnicodeError, ValueError):
-        return None
-    if cached.cache_key != cache_key or cached.target_section_id != target_section_id:
-        return None
-    return cached
+    paths = (
+        _cache_path(cache_dir, target_section_id, cache_key),
+        cache_dir / f"{target_section_id}.json",
+    )
+    for path in paths:
+        if not path.is_file():
+            continue
+        try:
+            cached = SectionAuthoringCacheV1.model_validate_json(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, ValueError):
+            continue
+        if cached.cache_key == cache_key and cached.target_section_id == target_section_id:
+            return cached
+    return None
 
 
 def write_section_authoring_cache(
@@ -133,8 +134,18 @@ def write_section_authoring_cache(
         target_section_id=outcome.target_section_id,
         outcome=outcome,
     )
-    write_redacted_json(cache_dir / f"{outcome.target_section_id}.json", cache)
+    write_redacted_json(
+        _cache_path(cache_dir, outcome.target_section_id, cache_key),
+        cache,
+    )
     return cache
+
+
+def _cache_path(cache_dir: Path, target_section_id: str, cache_key: str) -> Path:
+    del target_section_id
+    # The complete key remains inside the validated record. A short prefix keeps real Windows
+    # revision-scoped paths below MAX_PATH; a theoretical prefix collision safely becomes a miss.
+    return cache_dir / f"{cache_key[:12]}.json"
 
 
 def _canonical_hash(value: object) -> str:

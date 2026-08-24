@@ -348,24 +348,36 @@ def validate_configured_standard_premise(
             f"{finding_id}:bare-label premise contradicts parsed action-led capability rows"
         )
     claims_capability_rows_lack_value = (
-        any(term in premise for term in ("lack", "vague", "fragment", "raw inventory", "internal"))
-        and any(
-            term in premise
-            for term in ("value", "outcome", "capabilit", "implementation", "terminology")
+        (
+            any(
+                term in premise
+                for term in ("lack", "vague", "fragment", "raw inventory", "internal")
+            )
+            and any(
+                term in premise
+                for term in ("value", "outcome", "capabilit", "implementation", "terminology")
+            )
         )
-    ) or any(
-        phrase in premise
-        for phrase in (
-            "incomplete sentence fragments",
-            "omit the developer-facing outcome",
-            "omits what developers can achieve",
-            "without developer-facing value",
-            "rather than developer-facing value statements",
-            "raw inventory list",
-            "not just a description of api usage",
-            "uses internal terminology",
-            "instead of verified product vocabulary",
-            "without specifying what the user can achieve",
+        or any(
+            phrase in premise
+            for phrase in (
+                "incomplete sentence fragments",
+                "omit the developer-facing outcome",
+                "omits what developers can achieve",
+                "without developer-facing value",
+                "rather than developer-facing value statements",
+                "raw inventory list",
+                "not just a description of api usage",
+                "uses internal terminology",
+                "instead of verified product vocabulary",
+                "without specifying what the user can achieve",
+            )
+        )
+        or bool(
+            re.search(
+                r"\bwithout\b[^.\n]{0,100}\b(?:developer-facing|outcome|use case)\b",
+                premise,
+            )
         )
     )
     if (
