@@ -2160,11 +2160,21 @@
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         },
         {
+          "evidence_refs": [
+            "claim lease expired"
+          ],
+          "fingerprint": "0ecabc5af9e0d61eec58748e69c5628085e5514c849f6039aa25c07dabf2662d",
+          "last_material_narrowing_at": null,
+          "outcome": "ineffective",
+          "started_at": "2026-08-24T19:39:57.009163+00:00",
+          "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+        },
+        {
           "evidence_refs": [],
           "fingerprint": "0ecabc5af9e0d61eec58748e69c5628085e5514c849f6039aa25c07dabf2662d",
           "last_material_narrowing_at": null,
           "outcome": "in_progress",
-          "started_at": "2026-08-24T19:39:57.009163+00:00",
+          "started_at": "2026-08-24T19:40:57.379776+00:00",
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         }
       ],
@@ -3463,9 +3473,9 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-24T19:37:16.916499+00:00",
-    "claim_id": "cd2042d525f74b39841ad428784fa124",
-    "claimed_at": "2026-08-24T19:07:16.916499+00:00",
+    "claim_expires_at": "2026-08-24T20:10:57.379776+00:00",
+    "claim_id": "36ac204381a94660b5b24d676433aca5",
+    "claimed_at": "2026-08-24T19:40:57.379776+00:00",
     "claimed_by": "codex",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
@@ -3735,7 +3745,7 @@
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-24T19:40:38.034154+00:00",
+    "last_evaluated_at": "2026-08-24T19:40:57.379776+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -15005,6 +15015,24 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-24T19:40:57.379833+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-24T19:40:57.380951+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -15014,7 +15042,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1501,
+  "state_version": 1502,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
