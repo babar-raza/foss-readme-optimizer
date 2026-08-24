@@ -202,6 +202,20 @@ def _validate_acceptance(
             )
 
 
+def _reconcile_duplicate_fact_dispositions(
+    result: SectionClusterAuthoringResultV1,
+) -> SectionClusterAuthoringResultV1:
+    """Discard redundant omissions for facts already used by an authored unit."""
+
+    cited = {fact_id for unit in result.units for fact_id in unit.fact_ids}
+    if not cited:
+        return result
+    reconciled_omissions = tuple(item for item in result.omitted if item.fact_id not in cited)
+    if len(reconciled_omissions) == len(result.omitted):
+        return result
+    return result.model_copy(update={"omitted": reconciled_omissions})
+
+
 def execute_section_cluster_authoring(
     *,
     packet: SectionAuthoringPacketV1,
@@ -313,6 +327,11 @@ def execute_section_cluster_authoring(
             parsed, rejected_unit_hashes, omitted_fact_ids = remove_reserved_directional_units(
                 packet, parsed
             )
+            # A fact that survives all structured unit checks is used. Qwen occasionally also
+            # emits a stale omission for that same fact; keeping the validated use and dropping
+            # only the redundant omission avoids an identical semantic retry without weakening
+            # unknown-ID, unsupported-claim, or complete-disposition enforcement.
+            parsed = _reconcile_duplicate_fact_dispositions(parsed)
             _validate_acceptance(packet, parsed)
         except (ValidationError, SectionAuthoringAcceptanceError) as exc:
             last_error = exc
@@ -423,8 +442,6 @@ def _targeted_repair_action(exc: Exception) -> str:
     """Turn a deterministic failure class into one unambiguous correction action."""
 
     message = str(exc)
-    if "both cited and omitted" in message:
-        return "Keep the cited units, and delete every omitted entry for a fact cited by any unit."
     if "neither used nor omitted-with-reason" in message:
         return (
             "For every missing fact alias, either cite it in exactly one supported unit or add "

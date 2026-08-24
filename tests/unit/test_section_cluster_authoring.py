@@ -1182,25 +1182,45 @@ def test_undisposed_accepted_fact_is_rejected():
     assert "Do not leave any missing alias undisposed" in client.calls[1]["messages"][1]["content"]
 
 
-def test_fact_both_cited_and_omitted_is_rejected():
+def test_fact_both_cited_and_omitted_keeps_validated_use_without_retry():
     packet = _packet()
     contradictory = {
         "units": [
             {
-                "heading": "Overview",
-                "text": "Imports OBJ and GLTF files.",
+                "heading": "Import and Export 3D Content",
+                "text": "Exchange OBJ and GLTF assets through a focused Python API.",
                 "fact_ids": [CAP_1, CAP_2],
             }
         ],
         "omitted": [{"fact_id": CAP_2, "reason": "also omitted, contradictorily"}],
     }
-    client = FakeSectionAuthorClient([contradictory, contradictory, contradictory])
+    client = FakeSectionAuthorClient([contradictory])
 
-    with pytest.raises(SectionAuthoringAcceptanceError, match="both cited and omitted"):
-        execute_section_cluster_authoring(packet=packet, client=client)
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
 
-    repair = client.calls[1]["messages"][1]["content"]
-    assert "delete every omitted entry for a fact cited by any unit" in repair
+    assert len(client.calls) == 1
+    assert outcome.result.units[0].fact_ids == (CAP_1, CAP_2)
+    assert outcome.result.omitted == ()
+
+
+def test_uncited_omission_is_preserved_during_fact_disposition_reconciliation():
+    packet = _packet()
+    result = {
+        "units": [
+            {
+                "heading": "Import OBJ Content",
+                "text": "Open OBJ assets through the Python API.",
+                "fact_ids": [CAP_1],
+            }
+        ],
+        "omitted": [{"fact_id": CAP_2, "reason": "not relevant to this section"}],
+    }
+    client = FakeSectionAuthorClient([result])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert len(client.calls) == 1
+    assert outcome.result.omitted[0].fact_id == CAP_2
 
 
 def test_authored_code_fence_is_rejected_because_deterministic_code_owns_examples():
