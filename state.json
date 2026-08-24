@@ -13527,10 +13527,10 @@
         "last_failure_envelope": {
           "attempt": 1,
           "domain": "readme_presentation",
-          "error_type": "LLMError",
-          "failure_reason": "independent_review_exception",
-          "message": " forced tool call returned an invalid structured response after 1 attempts: forced tool call arguments were not valid JSON: Unterminated string starting at: line 84 column 30 (char 7128); finish_reason='length'; completion_tokens=4000",
-          "occurred_at": "2026-08-17T16:38:20.930900+00:00",
+          "error_type": "REJECT_REPAIRABLE",
+          "failure_reason": "independent_review_repair_rerouted",
+          "message": "REJECT_REPAIRABLE",
+          "occurred_at": "2026-08-24T00:24:38.214234+00:00",
           "schema_version": 1,
           "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
           "stage": null
@@ -112235,9 +112235,9 @@
         "written": false
       },
       "domain": "readme_presentation",
-      "last_failure_reason": "independent_review_exception",
+      "last_failure_reason": "independent_review_repair_rerouted",
       "last_run_id": null,
-      "last_run_timestamp": "2026-08-17T16:38:20.930900+00:00",
+      "last_run_timestamp": "2026-08-24T00:24:38.214234+00:00",
       "owned_span_present_at_accept": false,
       "skipped_this_run": false,
       "upstream_revision_at_accept": "ee05c1ba9153ef5916b7a108406c794f2e464d01"
@@ -119712,7 +119712,7 @@
     "updated_at": "2026-08-24T00:24:25.979498+00:00"
   },
   "schema_version": 2,
-  "state_version": 2540,
+  "state_version": 2541,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
