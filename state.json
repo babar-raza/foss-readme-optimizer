@@ -1936,9 +1936,12 @@
           "task_id": "L8-PF-04-MINIMAL-GRAPH-RUNNER"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "src/readme_agent/supervisor/proven_transaction_runner/pf04_evidence.py",
+            "tests/unit/test_pf04_evidence.py"
+          ],
           "fingerprint": "a9c028ee7f43e280502915618337a48ef1b325718d7185f2d24fd6d7ceb21400",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-24T12:11:39.360548+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-24T11:47:58.149563+00:00",
           "task_id": "L8-PF-04-MINIMAL-GRAPH-RUNNER"
@@ -3271,7 +3274,7 @@
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-24T11:47:58.149563+00:00",
+    "last_evaluated_at": "2026-08-24T12:11:39.360571+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -3315,7 +3318,6 @@
         ],
         "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
           "manifest_facts_hash_mismatch",
-          "manifest_local_verification_contract_hash_mismatch",
           "product_truth_hash_mismatch"
         ],
         "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": [
@@ -14219,7 +14221,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1442,
+  "state_version": 1443,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
