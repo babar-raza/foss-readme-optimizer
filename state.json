@@ -120757,6 +120757,17 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): blind_quality:REJECT_REPAIRABLE:pkt.visitor.0006.additional.examples.1bdfae9e5461.f1@additional-examples:clarity,pkt.visitor.0010.scope.and.limitations.76c81962b379.f1@scope-and-limitations:clarity; factual_plan:ACCEPT",
         "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "clarity"
+        ],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-24T03:40:16.593061+00:00",
+        "reason": "entering repair attempt 1/2: Revise additional-examples for clarity around exact span: The examples below demonstrate loading OBJ files with materials, exporting a scene to binary GLTF, converting a parametric primitive to a mesh, and building a cube and exporting it to 3MF.\nRevise scope-and-limitations for clarity around exact span: - Mesh boolean operations do_boolean, union, difference, and intersect are not implemented.\n- NURBS curve evaluation and surface-to-mesh conversion are not implemented.\n- COLLADA export through Scene.save is blocked because an earlier FBX exporter format check is not implemented.\n- FBX export is not implemented.\n- Scene and renderer output generation are not implemented.\n\n- `Line.make_default_indices` is not implemented in this FOSS package.\n- `EndPoint.is_cartesian_point` is not implemented in this FOSS package.\n- `Texture.uv_scale` is not implemented in this FOSS package.\n- `EndPoint.as_value` is not implemented in this FOSS package.\n- `Texture.content` is not implemented in this FOSS package.\n- `TransformBuilder.compose_order` is not implemented in this FOSS package.\n- `VertexElementEdgeCrease.set_data` is not implemented in this FOSS package.\n- `Renderer.execute` is not implemented in this FOSS package.",
+        "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "to_status": "REPAIRING"
       }
     ],
     "human_acceptance_history": [],
@@ -120853,16 +120864,16 @@
       "status": "INELIGIBLE"
     },
     "publication_eligibility_history": [],
-    "repair_attempts_for_revision": 0,
+    "repair_attempts_for_revision": 1,
     "repair_budget_origin_hash": "60b8d03f3bc3a81a2e831c164db4f718f6353ffb4df9c3f1226ef7a8b2d02950",
     "reviewer_standard_hash": "eadf421710494f9ddd84f67c07a477b2ec54ef358da0c1a498b13bc255573976",
     "schema_version": 2,
     "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-08-24T03:40:07.220501+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-08-24T03:40:16.593061+00:00"
   },
   "schema_version": 2,
-  "state_version": 2720,
+  "state_version": 2721,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "62fab1e9beb334e4524efd5d2d2903c22977cc17365b03d38d4c2f6b6c9225e0",
