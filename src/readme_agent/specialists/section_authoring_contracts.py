@@ -119,7 +119,12 @@ class OmittedFactV1(_StrictModel):
 
 
 class SectionClusterAuthoringResultV1(_StrictModel):
-    units: tuple[SectionClusterUnitV1, ...] = Field(min_length=1)
+    # The provider tool contract still requires at least one proposed unit. Deterministic
+    # post-call validation may reject every proposed unit, however, when each crosses a
+    # protected rendering boundary. In that case an empty accepted unit set plus explicit
+    # omission dispositions is the truthful result and lets the deterministic template own
+    # the section without another identical provider call.
+    units: tuple[SectionClusterUnitV1, ...] = ()
     omitted: tuple[OmittedFactV1, ...] = ()
 
 

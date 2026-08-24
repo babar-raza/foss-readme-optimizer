@@ -797,6 +797,50 @@ def test_reserved_directional_unit_is_removed_without_reauthoring_valid_siblings
     assert outcome.result.omitted[0].fact_id == relationship_id
 
 
+def test_all_reserved_directional_units_are_omitted_without_provider_retry():
+    facts = build_product_facts_v2(
+        field_values={
+            "product.formats": ["Input format: OBJ", "Output format: GLTF"],
+            "relationship.commercial_foss": [
+                "open_source_scope",
+                "commercial_upgrade_path",
+            ],
+        }
+    )
+    formats_id = facts.selected_fact_ids["product.formats"]
+    relationship_id = facts.selected_fact_ids["relationship.commercial_foss"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="scope_and_limitations",
+        task_family="scope_and_limitations",
+        section_objective="State the open-source and commercial relationship.",
+        product_facts=facts,
+        accepted_fact_ids=[relationship_id],
+        do_not_claim_fact_ids=[formats_id],
+        protected_content=PROTECTED,
+    )
+    response = {
+        "units": [
+            {
+                "heading": "Export Scenes",
+                "text": "Export scenes to DAE files.",
+                "fact_ids": [relationship_id],
+            }
+        ],
+        "omitted": [],
+    }
+    client = FakeSectionAuthorClient([response])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is False
+    assert outcome.result.units == ()
+    assert outcome.receipt.deterministically_omitted_fact_ids == (relationship_id,)
+    assert outcome.result.omitted[0].fact_id == relationship_id
+    assert len(client.calls) == 1
+
+
 def test_directional_format_prose_gets_deterministic_directional_fact_provenance():
     facts = build_product_facts_v2(
         field_values={

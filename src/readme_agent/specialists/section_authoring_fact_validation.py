@@ -379,8 +379,6 @@ def remove_reserved_directional_units(
             rejected_fact_ids.update(unit.fact_ids)
             continue
         retained.append(unit)
-    if not retained:
-        return result, (), ()
     retained_fact_ids = {fact_id for unit in retained for fact_id in unit.fact_ids}
     existing_omitted_ids = {item.fact_id for item in result.omitted}
     omitted_fact_ids = tuple(sorted(rejected_fact_ids - retained_fact_ids - existing_omitted_ids))
