@@ -1040,6 +1040,11 @@ taskcards:
   allowed_paths:
   - src/readme_agent/supervisor/
   - src/readme_agent/capabilities/
+  - src/readme_agent/facts/external_fact_block_adapters.py
+  - src/readme_agent/facts/external_fact_block_classification.py
+  - src/readme_agent/facts/external_fact_block_contracts.py
+  - src/readme_agent/facts/external_fact_block_resolution.py
+  - src/readme_agent/facts/external_fact_evidence_adapters.py
   - tests/unit/
   - tests/integration/
   - tests/security/

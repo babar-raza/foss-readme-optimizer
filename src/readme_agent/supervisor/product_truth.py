@@ -19,6 +19,10 @@ from readme_agent.facts.deterministic_truth_salvage import (
     load_salvage_candidate,
     salvage_product_truth_candidate,
 )
+from readme_agent.facts.external_fact_block_adapters import (
+    ExternalFactResolutionDecisionV1,
+    resolve_selected_external_fact_blocks,
+)
 from readme_agent.facts.knowledge_application_evidence import (
     build_knowledge_application_report,
 )
@@ -92,6 +96,47 @@ _FACTS_READY_OR_LATER_STATES = _CACHEABLE_LIFECYCLE_STATES - {
     "BLOCKED_FACT_CONFLICT",
     "BLOCKED_MISSING_EVIDENCE",
 }
+
+
+def _bind_external_fact_decisions(
+    findings: list[dict],
+    decisions: tuple[ExternalFactResolutionDecisionV1, ...],
+) -> list[dict]:
+    """Attach typed causal recovery to findings without promoting blocked facts."""
+
+    by_surface = {decision.block.fact_surface: decision for decision in decisions}
+    bound: list[dict] = []
+    seen: set[str] = set()
+    for finding in findings:
+        surface = str(finding.get("field") or "")
+        decision = by_surface.get(surface)
+        if decision is None:
+            bound.append(finding)
+            continue
+        seen.add(surface)
+        bound.append(
+            {
+                **finding,
+                "blocked_category": decision.blocked_category,
+                "required_action": decision.recovery_action,
+                "external_fact_resolution": decision.model_dump(mode="json"),
+            }
+        )
+    for surface, decision in by_surface.items():
+        if surface in seen:
+            continue
+        bound.append(
+            {
+                "finding_id": f"external-fact-resolution:{decision.fact_id}",
+                "classification": "BLOCKED_MISSING_EVIDENCE",
+                "blocked_category": decision.blocked_category,
+                "field": surface,
+                "detail": decision.block.detail,
+                "required_action": decision.recovery_action,
+                "external_fact_resolution": decision.model_dump(mode="json"),
+            }
+        )
+    return bound
 
 
 class PreparedProductTruthV1(BaseModel):
@@ -510,6 +555,12 @@ def prepare_local_product_truth(
         entry.ecosystem,
         getattr(entry, "family", None),
     )
+    external_fact_decisions = resolve_selected_external_fact_blocks(
+        facts,
+        snapshot=snapshot,
+        contract=fact_acceptance_contract,
+    )
+    findings = _bind_external_fact_decisions(findings, external_fact_decisions)
     fact_acceptance_contract_hash = fact_acceptance_contract.canonical_hash()
     lifecycle_status = classify_product_truth(facts, fact_acceptance_contract)
     bundle_dir = write_local_poc_product_facts(

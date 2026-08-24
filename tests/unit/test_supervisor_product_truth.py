@@ -56,6 +56,40 @@ def test_product_truth_block_category_is_external_only_when_every_finding_is_ext
     assert product_truth.product_truth_blocked_category([]) == "agent_fixable"
 
 
+def test_external_fact_decisions_replace_generic_recovery_without_promoting_facts():
+    decision = SimpleNamespace(
+        fact_id="example.minimal:blocked",
+        block=SimpleNamespace(
+            fact_surface="example.minimal",
+            detail="fatal error: pugixml.hpp: No such file or directory",
+        ),
+        blocked_category="agent_fixable",
+        recovery_action="RETRY_DECLARED_DEPENDENCY_VERIFICATION",
+        model_dump=lambda **kwargs: {"resolution": {"wording_mode": "block"}},
+    )
+
+    findings = product_truth._bind_external_fact_decisions(
+        [
+            {
+                "field": "example.minimal",
+                "classification": "BLOCKED_MISSING_EVIDENCE",
+                "required_action": "generic recovery",
+            }
+        ],
+        (decision,),
+    )
+
+    assert findings == [
+        {
+            "field": "example.minimal",
+            "classification": "BLOCKED_MISSING_EVIDENCE",
+            "required_action": "RETRY_DECLARED_DEPENDENCY_VERIFICATION",
+            "blocked_category": "agent_fixable",
+            "external_fact_resolution": {"resolution": {"wording_mode": "block"}},
+        }
+    ]
+
+
 def test_failed_product_compile_finding_is_not_mislabeled_as_dependency_absence():
     fact = FactRecordV2(
         fact_id="example.minimal:compiled-repository-example",
@@ -387,6 +421,35 @@ def test_supported_ecosystem_draft_becomes_the_persisted_run_graph(
         client=object(),
     )
     assert cached.resolution_source == "durable_revision_cache"
+
+
+def test_canonical_product_truth_path_resolves_external_blocks_before_persistence(
+    tmp_path, monkeypatch
+):
+    snapshot = _snapshot(tmp_path)
+    backend = _ready_backend(snapshot)
+    base = _facts(draftable_missing=True)
+    observed: dict[str, object] = {}
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    monkeypatch.setattr(
+        product_truth, "collect_product_facts", lambda org_repo: {"product_facts_v2": base}
+    )
+    monkeypatch.setattr(product_truth, "load_salvage_candidate", lambda *args, **kwargs: None)
+
+    def resolve(facts, *, snapshot, contract):
+        observed.update(facts=facts, snapshot=snapshot, contract=contract)
+        return ()
+
+    monkeypatch.setattr(product_truth, "resolve_selected_external_fact_blocks", resolve)
+
+    product_truth.prepare_local_product_truth(ORG_REPO, snapshot, backend)
+
+    assert observed["facts"] == base
+    assert observed["snapshot"] == snapshot
+    assert (
+        observed["contract"].canonical_hash()
+        == product_truth.current_fact_acceptance_contract("java").canonical_hash()
+    )
 
 
 def test_dotnet_fact_acceptance_contract_fails_closed_without_family() -> None:
