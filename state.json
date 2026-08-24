@@ -3314,8 +3314,8 @@
       }
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
-    "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-24T14:40:48.004911+00:00",
+    "infrastructure_tasks_since_visible_delivery": 1,
+    "last_evaluated_at": "2026-08-24T14:41:27.874744+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -3512,7 +3512,7 @@
       "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
       "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "CLOSED",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
-      "L8-PF-04-MINIMAL-GRAPH-RUNNER": "SCORED",
+      "L8-PF-04-MINIMAL-GRAPH-RUNNER": "REGRESSED",
       "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "TODO",
       "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP": "TODO",
       "L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS": "TODO",
@@ -14326,6 +14326,27 @@
         "reason": "PF04 satisfies every taskcard acceptance check negative control verification tier and closeout rule",
         "task_id": "L8-PF-04-MINIMAL-GRAPH-RUNNER",
         "to_status": "SCORED"
+      },
+      {
+        "evidence_refs": [
+          "runs/pf04-proven-transaction/d5eded12df396e5d64197cbff1676d25a822d124d9299d858101861d7b51adf8/mission-contribution-evidence.json",
+          "runs/pf04-proven-transaction/d5eded12df396e5d64197cbff1676d25a822d124d9299d858101861d7b51adf8/task-closeout-control-evidence.json"
+        ],
+        "from_status": "SCORED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-24T14:41:38.794156+00:00",
+        "reason": "PF04 independently accepted at committed HEAD with complete current transaction recovery replay regression and zero-effect evidence",
+        "task_id": "L8-PF-04-MINIMAL-GRAPH-RUNNER",
+        "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "CLOSED",
+        "observed_by": "mission-lifecycle-freshness",
+        "occurred_at": "2026-08-24T14:41:38.794710+00:00",
+        "reason": "repository deliverable became stale for aspose-3d-foss/Aspose.3D-FOSS-for-Python: manifest_facts_hash_mismatch,product_truth_hash_mismatch",
+        "task_id": "L8-PF-04-MINIMAL-GRAPH-RUNNER",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -14335,7 +14356,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1461,
+  "state_version": 1462,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
