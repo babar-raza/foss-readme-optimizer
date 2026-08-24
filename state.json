@@ -120551,6 +120551,17 @@
         "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): blind_quality:REJECT_REPAIRABLE:pkt.visitor.0003.key.capabilities.720b1d291672.f1@key-capabilities:clarity; factual_plan:ACCEPT",
         "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
         "to_status": "AGENT_REVIEW_REJECTED"
+      },
+      {
+        "evidence_refs": [
+          "clarity"
+        ],
+        "from_status": "AGENT_REVIEW_REJECTED",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-24T03:14:44.372473+00:00",
+        "reason": "entering repair attempt 1/2: Revise key-capabilities for clarity around exact span: - **Create 3D primitives** - Construct standard geometric shapes such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum using built-in primitive classes to build scene geometry quickly.\n- **Define animated sequences** - Build animation timelines using keyframe support to control how 3D objects transform over time, enabling dynamic scene behavior.",
+        "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "to_status": "REPAIRING"
       }
     ],
     "human_acceptance_history": [],
@@ -120647,16 +120658,16 @@
       "status": "INELIGIBLE"
     },
     "publication_eligibility_history": [],
-    "repair_attempts_for_revision": 0,
+    "repair_attempts_for_revision": 1,
     "repair_budget_origin_hash": "3c09e5cf3794ded78d5356c8e4b92569b78c59ba072b3d9bebc8d8f5bba7d1ea",
     "reviewer_standard_hash": "fcebee21126ba613119505c3af29cb0ea6d412ec638cf2cce47b57986e7efe8c",
     "schema_version": 2,
     "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
-    "status": "AGENT_REVIEW_REJECTED",
-    "updated_at": "2026-08-24T03:14:36.970906+00:00"
+    "status": "REPAIRING",
+    "updated_at": "2026-08-24T03:14:44.372473+00:00"
   },
   "schema_version": 2,
-  "state_version": 2696,
+  "state_version": 2697,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "62fab1e9beb334e4524efd5d2d2903c22977cc17365b03d38d4c2f6b6c9225e0",
