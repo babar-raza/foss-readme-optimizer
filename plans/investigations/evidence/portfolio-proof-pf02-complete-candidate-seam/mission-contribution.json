@@ -1,6 +1,8 @@
 {
   "schema_version": 1,
   "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+  "control_head": "3763b5ca66983805d75a06d3eb2aadeb15e6c8b3",
+  "mission_state_version": 1514,
   "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
   "campaign_id": "CAMP-FIRST-PYTHON-SLICE",
   "goal_ids": [
@@ -26,8 +28,14 @@
     "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/manifest.json",
     "runs/verification/pytest-full-latest.json"
   ],
-  "scoreboard_before_sha256": "fb88e018838c07ae309739f4f158f93057b7b82abe7f417ff1f8b19ea7d94557",
-  "scoreboard_after_sha256": "eb8eeaea69d43905a43816136fc7e5dab4b5c96b89c5869d7ae2583945b36822",
+  "scoreboard_after": {
+    "portfolio_denominator": 33,
+    "facts_ready": 5,
+    "candidate_generated": 1,
+    "deterministic_validated": 1,
+    "agent_approved": 1,
+    "no_op_proven": 0
+  },
   "first_failing_boundary_before": "FACTS_READY",
   "first_failing_boundary_after": "FACTS_READY",
   "contribution_boundary_before": "candidate_transaction_incomplete_or_unbounded",
