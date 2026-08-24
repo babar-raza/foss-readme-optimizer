@@ -119592,6 +119592,21 @@
         "reason": "entering repair attempt 1/2: Revise key-capabilities for clarity around exact span: - **Create 3D primitives** - Construct standard geometric shapes such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum using dedicated constructors provided by Aspose.3D FOSS for Python.\n- **Define animated sequences** - Build animation timelines using keyframe support to control property changes over time for 3D entities in Aspose.3D FOSS for Python.\nRevise key-capabilities for internal_terminology around exact span: - **Create 3D primitives** - Construct standard geometric shapes such as Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum using dedicated constructors provided by Aspose.3D FOSS for Python.\n- **Define animated sequences** - Build animation timelines using keyframe support to control property changes over time for 3D entities in Aspose.3D FOSS for Python.\nRevise additional-examples for clarity around exact span: The examples below demonstrate loading OBJ files with materials, exporting a scene to binary GLTF, converting a parametric primitive to a mesh, and building a cube and exporting it to 3MF.\nRevise api-reference for clarity around exact span: The package reference presents 354 API table entries across 13 namespaces. Package namespaces include `aspose.threed`, `aspose.threed.animation`, `aspose.threed.deformers`, `aspose.threed.entities`, `aspose.threed.formats`, `aspose.threed.formats.gltf`, `aspose.threed.formats.obj`, `aspose.threed.formats.stl`, `aspose.threed.formats.threemf`, `aspose.threed.profiles`, `aspose.threed.render`, `aspose.threed.shading`, `aspose.threed.utilities`. See the complete API reference under Documentation & Resources for members, signatures, and inherited APIs.\nRevise api-reference for product_specificity around exact span: The package reference presents 354 API table entries across 13 namespaces. Package namespaces include `aspose.threed`, `aspose.threed.animation`, `aspose.threed.deformers`, `aspose.threed.entities`, `aspose.threed.formats`, `aspose.threed.formats.gltf`, `aspose.threed.formats.obj`, `aspose.threed.formats.stl`, `aspose.threed.formats.threemf`, `aspose.threed.profiles`, `aspose.threed.render`, `aspose.threed.shading`, `aspose.threed.utilities`. See the complete API reference under Documentation & Resources for members, signatures, and inherited APIs.",
         "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
         "to_status": "REPAIRING"
+      },
+      {
+        "evidence_refs": [
+          "pkt.visitor.0003.key.capabilities.f3dafc4aaa5a.f1",
+          "pkt.visitor.0003.key.capabilities.f3dafc4aaa5a.f3",
+          "pkt.visitor.0006.additional.examples.5635e55902cd.f2",
+          "pkt.visitor.0007.api.reference.9936308e36d1.f1",
+          "pkt.visitor.0007.api.reference.9936308e36d1.f2"
+        ],
+        "from_status": "REPAIRING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-24T00:24:25.979498+00:00",
+        "reason": "agent_fixable: reviewer-directed repair did not materially change every responsible span/operation; before=705137cd18e6053e5576e65f9c6990b7011918a03a22ac3c3b041bf0493aac85 after=705137cd18e6053e5576e65f9c6990b7011918a03a22ac3c3b041bf0493aac85; unresolved=pkt.visitor.0003.key.capabilities.f3dafc4aaa5a.f1,pkt.visitor.0003.key.capabilities.f3dafc4aaa5a.f3,pkt.visitor.0006.additional.examples.5635e55902cd.f2,pkt.visitor.0007.api.reference.9936308e36d1.f1,pkt.visitor.0007.api.reference.9936308e36d1.f2",
+        "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "to_status": "README_ASSESSED"
       }
     ],
     "human_acceptance_history": [],
@@ -119693,11 +119708,11 @@
     "reviewer_standard_hash": "082fe580bda86111a3562e97a0280b26dca5d1f8ea3d114833c518fd082c083c",
     "schema_version": 2,
     "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
-    "status": "REPAIRING",
-    "updated_at": "2026-08-24T00:20:17.620453+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-24T00:24:25.979498+00:00"
   },
   "schema_version": 2,
-  "state_version": 2539,
+  "state_version": 2540,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "5d2aba1068b6738baf75fbb440129e843d61fe8f791ec2290a718dfda4cfe422",
