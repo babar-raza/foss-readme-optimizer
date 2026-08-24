@@ -32,6 +32,7 @@ from readme_agent.specialists.review_factual_reconciliation import (
     reconcile_supported_factual_evidence,
 )
 from readme_agent.specialists.review_finding_grounding import (
+    GROUNDING_RETRY_CONTEXT_CONTRACT_VERSION,
     FindingGroundingResultV1,
     grounding_retry_context,
     validate_review_findings,
@@ -254,6 +255,11 @@ def run_grounded_role(
                 "role": role,
                 "attempt": attempt,
                 "context_mode": context_mode,
+                "grounding_retry_context_contract_version": (
+                    GROUNDING_RETRY_CONTEXT_CONTRACT_VERSION
+                    if context_mode == "compact_grounding_retry"
+                    else None
+                ),
                 "input_character_count": sum(
                     len(str(message.get("content", ""))) for message in current_messages
                 ),

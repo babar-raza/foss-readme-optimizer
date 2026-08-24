@@ -54,6 +54,7 @@ BLIND_QUALITY_CRITERIA = (
     "template_genericity",
 )
 BLIND_GROUNDING_CONTRACT_VERSION = "blind-grounding-v33-quoted-literal-alignment"
+GROUNDING_RETRY_CONTEXT_CONTRACT_VERSION = "grounding-retry-v2-retain-selected-facts"
 _MARKDOWN_LINK = re.compile(r"(?<!!)\[(?P<label>[^\]]+)\]\((?P<url>https?://[^)\s]+)")
 
 
@@ -1506,6 +1507,11 @@ def grounding_retry_context(
     )
     if any(marker in joined_errors for marker in evidence_choice_errors):
         relevant_fact_ids |= selected_ids
+    # Schema validation can reject the provider response before typed findings exist. A retry
+    # without the packet's accepted facts then cannot construct the grounded supporting findings
+    # the output contract requires. Retain the already-bounded selected set only in that case.
+    if not findings:
+        relevant_fact_ids = selected_ids
     if not relevant_fact_ids and any(finding.kind == "factual" for finding in findings):
         relevant_fact_ids = selected_ids
     accepted_fact_evidence = []

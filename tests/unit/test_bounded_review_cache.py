@@ -302,6 +302,65 @@ def test_legacy_global_fact_cache_receipt_migrates_without_provider_call(tmp_pat
     )
 
 
+def test_cache_entry_validator_can_selectively_reject_stale_retry_evidence(tmp_path) -> None:
+    plan = _plan()
+    packet = plan.visitor_packets[0]
+    context = _cache_context()
+    cache_dir = tmp_path / "packet-cache"
+    execution = execute_bounded_review(
+        org_repo="acme/widget-toolkit",
+        candidate_text=CANDIDATE_TEXT,
+        product_facts=DEFAULT_FACTS.model_dump(mode="json"),
+        visitor_contract=build_presentation_visitor_contract(
+            applicable_h2_headings=_headings(),
+            primary_example_language="python",
+        ),
+        plan=plan,
+        coverage_ledger=brp.build_coverage_ledger(plan, atomic_units=_atomic_units()),
+        blind_client=_PacketSequenceClient(list(plan.visitor_packets)),
+        factual_client=_PacketSequenceClient(list(plan.factual_packets)),
+        blind_prompt_id="blind_readme_quality_review",
+        factual_prompt_id="factual_readme_plan_review",
+    )
+    result = next(item for item in execution.packet_results if item.packet_id == packet.packet_id)
+    runtime_contract_hash = "7" * 64
+    cache_key = cache_key_for_packet(
+        packet,
+        context,
+        runtime_contract_hash=runtime_contract_hash,
+    )
+    write_bounded_review_packet_cache(
+        cache_dir,
+        cache_key=cache_key,
+        org_repo="acme/widget-toolkit",
+        context=context,
+        packet=packet,
+        result=result,
+        grounding_history=({"context_mode": "compact_grounding_retry"},),
+    )
+    reuse_events: list[dict] = []
+    cache = BoundedReviewPacketCache(
+        org_repo="acme/widget-toolkit",
+        plan=plan,
+        cache_dir=cache_dir,
+        context=context,
+        blind_prompt_id="blind_readme_quality_review",
+        factual_prompt_id="factual_readme_plan_review",
+        record_cache_reuse=lambda **event: reuse_events.append(event),
+    )
+
+    loaded = cache.load(
+        packet,
+        runtime_contract_hash=runtime_contract_hash,
+        validate_cache_entry=lambda entry: bool(
+            entry.grounding_history[0].get("grounding_retry_context_contract_version")
+        ),
+    )
+
+    assert loaded is None
+    assert reuse_events == []
+
+
 def test_exact_packets_rebind_to_current_candidate_without_provider_calls(tmp_path) -> None:
     plan = _plan()
     ledger = brp.build_coverage_ledger(plan, atomic_units=_atomic_units())

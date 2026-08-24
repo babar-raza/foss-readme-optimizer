@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 
+from readme_agent.specialists.bounded_review_cache import BoundedReviewPacketCacheV1
 from readme_agent.specialists.bounded_review_execution_cache import (
     BoundedReviewPacketCache,
     PacketExecution,
@@ -30,6 +31,7 @@ from readme_agent.specialists.review_factual_reconciliation import (
 )
 from readme_agent.specialists.review_finding_grounding import (
     BLIND_GROUNDING_CONTRACT_VERSION,
+    GROUNDING_RETRY_CONTEXT_CONTRACT_VERSION,
     validate_review_findings,
 )
 from readme_agent.specialists.review_role_execution import AnalysisClientLike
@@ -80,17 +82,25 @@ def execute_factual_packet(
         ],
     }
     mechanical_result = mechanical_factual_heading_review(packet, packet_product_facts)
-    runtime_contract_hash = _canonical_hash(
+    descendant_section_paths = sorted(
         {
-            "finding_grounding_contract_version": BLIND_GROUNDING_CONTRACT_VERSION,
-            "factual_reconciliation_contract_version": FACTUAL_RECONCILIATION_CONTRACT_VERSION,
-            "mechanical_contract_version": (
-                MECHANICAL_FACTUAL_HEADING_CONTRACT_VERSION
-                if mechanical_result is not None
-                else None
-            ),
+            candidate.section_path
+            for candidate in plan.factual_packets
+            if candidate.section_path.startswith(f"{packet.section_path}/")
         }
     )
+    runtime_contract = {
+        "finding_grounding_contract_version": BLIND_GROUNDING_CONTRACT_VERSION,
+        "factual_reconciliation_contract_version": FACTUAL_RECONCILIATION_CONTRACT_VERSION,
+        "mechanical_contract_version": (
+            MECHANICAL_FACTUAL_HEADING_CONTRACT_VERSION if mechanical_result is not None else None
+        ),
+    }
+    if descendant_section_paths:
+        runtime_contract["included_descendant_sections_sha256"] = _canonical_hash(
+            descendant_section_paths
+        )
+    runtime_contract_hash = _canonical_hash(runtime_contract)
 
     def cached_result_is_grounded(result: BoundedPacketResultV1) -> bool:
         projected = project_bounded_role_result([result], facet="factual")
@@ -102,10 +112,25 @@ def execute_factual_packet(
         )
         return grounding.valid
 
+    def cached_retry_context_is_current(cached: BoundedReviewPacketCacheV1) -> bool:
+        if cached.result.verdict != "BLOCKED_MISSING_EVIDENCE":
+            return True
+        compact_retries = [
+            item
+            for item in cached.grounding_history
+            if item.get("context_mode") == "compact_grounding_retry"
+        ]
+        return not compact_retries or all(
+            item.get("grounding_retry_context_contract_version")
+            == GROUNDING_RETRY_CONTEXT_CONTRACT_VERSION
+            for item in compact_retries
+        )
+
     cached = cache.load(
         packet,
         runtime_contract_hash=runtime_contract_hash,
         validate_result=cached_result_is_grounded,
+        validate_cache_entry=cached_retry_context_is_current,
     )
     if cached is not None:
         return cached
@@ -150,6 +175,7 @@ def execute_factual_packet(
         "section_path": packet.section_path,
         "claim_ids": list(packet.claim_ids),
         "provenance_ids": list(packet.provenance_ids),
+        "included_descendant_section_paths": descendant_section_paths,
     }
     messages = build_messages(
         org_repo,

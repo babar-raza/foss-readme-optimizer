@@ -2975,6 +2975,23 @@ def test_retry_names_missing_evidence_verdict_finding_contract() -> None:
     assert "null fact/evidence fields" in rules[0]
 
 
+def test_schema_failure_retry_retains_the_bounded_selected_fact_set() -> None:
+    retry = json.loads(
+        grounding_retry_context(
+            errors=[
+                "factual README plan review violated its output contract: "
+                "factual-plan ACCEPT requires grounded supporting findings"
+            ],
+            candidate_text=CANDIDATE,
+            product_facts=FACTS,
+            findings=(),
+        )
+    )
+
+    assert retry["selected_fact_ids"] == {"product.identity": "fact-1"}
+    assert [fact["fact_id"] for fact in retry["accepted_fact_evidence"]] == ["fact-1"]
+
+
 def test_page_reviewer_cannot_remove_real_h2_sections_as_non_required() -> None:
     navigation = (
         "- [At a glance](#at-a-glance)\n"

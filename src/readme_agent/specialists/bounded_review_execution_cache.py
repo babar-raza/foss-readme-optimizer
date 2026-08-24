@@ -8,6 +8,7 @@ from pathlib import Path
 
 from readme_agent.specialists.bounded_review_cache import (
     BoundedReviewCacheContextV1,
+    BoundedReviewPacketCacheV1,
     cache_key_for_packet,
     legacy_cache_key_for_packet,
     legacy_packet_identity_cache_key_for_packet,
@@ -47,6 +48,7 @@ class BoundedReviewPacketCache:
         *,
         runtime_contract_hash: str | None = None,
         validate_result: Callable[[BoundedPacketResultV1], bool] | None = None,
+        validate_cache_entry: Callable[[BoundedReviewPacketCacheV1], bool] | None = None,
     ) -> PacketExecution | None:
         """Load one matching packet and revalidate it when the caller supplies a gate."""
 
@@ -84,6 +86,8 @@ class BoundedReviewPacketCache:
                 loaded_cache_key = candidate_cache_key
                 break
         if cached is None:
+            return None
+        if validate_cache_entry is not None and not validate_cache_entry(cached):
             return None
         if validate_result is not None and not validate_result(cached.result):
             return None
