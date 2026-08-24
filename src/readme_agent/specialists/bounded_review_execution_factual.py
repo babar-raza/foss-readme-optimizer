@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 
 from readme_agent.specialists.bounded_review_cache import BoundedReviewPacketCacheV1
 from readme_agent.specialists.bounded_review_execution_cache import (
@@ -39,6 +39,44 @@ from readme_agent.specialists.review_role_execution import AnalysisClientLike
 BOUNDED_FACTUAL_GROUNDING_ATTEMPTS = 3
 
 
+def product_facts_with_packet_evidence_locations(
+    product_facts: dict,
+    packets: Iterable[BoundedFactualPacketV1],
+) -> dict:
+    """Use each fact's checksum-bound packet location consistently across review stages."""
+
+    locations_by_fact_id: dict[str, str] = {}
+    for candidate_packet in packets:
+        for fact in candidate_packet.facts:
+            if not isinstance(fact, dict) or not fact.get("fact_id"):
+                continue
+            source = fact.get("source")
+            location = source.get("location") if isinstance(source, dict) else None
+            if not isinstance(location, str) or not location:
+                continue
+            fact_id = str(fact["fact_id"])
+            prior = locations_by_fact_id.setdefault(fact_id, location)
+            if prior != location:
+                raise RuntimeError(
+                    f"bounded factual packets disagree on evidence location for {fact_id}"
+                )
+
+    projected_facts = []
+    for fact in product_facts.get("facts", []):
+        if not isinstance(fact, dict):
+            projected_facts.append(fact)
+            continue
+        location = locations_by_fact_id.get(str(fact.get("fact_id")))
+        if location is None:
+            projected_facts.append(fact)
+            continue
+        source = fact.get("source")
+        projected_source = dict(source) if isinstance(source, dict) else {}
+        projected_source["location"] = location
+        projected_facts.append({**fact, "source": projected_source})
+    return {**product_facts, "facts": projected_facts}
+
+
 def execute_factual_packet(
     *,
     org_repo: str,
@@ -54,33 +92,22 @@ def execute_factual_packet(
     """Execute or safely reuse one factual packet under fact-scoped authority."""
 
     packet_fact_ids = set(packet.accepted_fact_ids)
-    packet_facts_by_id = {
-        str(fact.get("fact_id")): fact for fact in packet.facts if isinstance(fact, dict)
-    }
-
-    def fact_with_packet_evidence_location(fact: dict) -> dict:
-        packet_fact = packet_facts_by_id.get(str(fact.get("fact_id"))) or {}
-        packet_source = packet_fact.get("source")
-        if not isinstance(packet_source, dict) or not packet_source.get("location"):
-            return fact
-        source = fact.get("source")
-        source = dict(source) if isinstance(source, dict) else {}
-        source["location"] = packet_source["location"]
-        return {**fact, "source": source}
-
-    packet_product_facts = {
-        **product_facts,
-        "selected_fact_ids": {
-            field: fact_id
-            for field, fact_id in product_facts.get("selected_fact_ids", {}).items()
-            if fact_id in packet_fact_ids
+    packet_product_facts = product_facts_with_packet_evidence_locations(
+        {
+            **product_facts,
+            "selected_fact_ids": {
+                field: fact_id
+                for field, fact_id in product_facts.get("selected_fact_ids", {}).items()
+                if fact_id in packet_fact_ids
+            },
+            "facts": [
+                fact
+                for fact in product_facts.get("facts", [])
+                if isinstance(fact, dict) and fact.get("fact_id") in packet_fact_ids
+            ],
         },
-        "facts": [
-            fact_with_packet_evidence_location(fact)
-            for fact in product_facts.get("facts", [])
-            if isinstance(fact, dict) and fact.get("fact_id") in packet_fact_ids
-        ],
-    }
+        (packet,),
+    )
     mechanical_result = mechanical_factual_heading_review(packet, packet_product_facts)
     descendant_section_paths = sorted(
         {
@@ -203,4 +230,8 @@ def execute_factual_packet(
     return bounded, history
 
 
-__all__ = ["BOUNDED_FACTUAL_GROUNDING_ATTEMPTS", "execute_factual_packet"]
+__all__ = [
+    "BOUNDED_FACTUAL_GROUNDING_ATTEMPTS",
+    "execute_factual_packet",
+    "product_facts_with_packet_evidence_locations",
+]

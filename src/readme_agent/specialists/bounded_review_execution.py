@@ -17,7 +17,10 @@ from readme_agent.specialists.bounded_review_execution_contracts import (
     BoundedReviewExecutionV1,
     project_bounded_role_result,
 )
-from readme_agent.specialists.bounded_review_execution_factual import execute_factual_packet
+from readme_agent.specialists.bounded_review_execution_factual import (
+    execute_factual_packet,
+    product_facts_with_packet_evidence_locations,
+)
 from readme_agent.specialists.bounded_review_execution_visitor import execute_visitor_packet
 from readme_agent.specialists.bounded_review_packets import (
     BoundedReviewPlanV1,
@@ -139,9 +142,13 @@ def execute_bounded_review(
         findings=blind.findings,
         visitor_contract=visitor_contract,
     )
+    aggregate_product_facts = product_facts_with_packet_evidence_locations(
+        product_facts,
+        plan.factual_packets,
+    )
     factual_grounding = validate_review_findings(
         candidate_text=candidate_text,
-        product_facts=product_facts,
+        product_facts=aggregate_product_facts,
         findings=factual.findings,
     )
     if not blind_grounding.valid or not factual_grounding.valid:

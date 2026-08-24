@@ -10,6 +10,9 @@ from bounded_review_test_support import (
     CANDIDATE_TEXT,
     DEFAULT_FACTS,
     _atomic_units,
+    _build_claim_accountability,
+    _build_document_plan,
+    _default_claim_specs,
     _FailIfCalledClient,
     _PacketSequenceClient,
     _plan,
@@ -100,6 +103,54 @@ def test_exact_packet_results_are_reused_without_provider_calls(tmp_path) -> Non
         if item.get("context_mode") == "bounded_packet_cache_reuse"
     ]
     assert len(cache_events) == len(visitor_packets) + len(factual_packets)
+
+
+def test_aggregate_grounding_uses_packet_source_identity_for_long_locations() -> None:
+    long_location = ";".join(f"repository/path/{index}.py" for index in range(80))
+    facts = DEFAULT_FACTS.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(
+                    update={"source": fact.source.model_copy(update={"location": long_location})}
+                )
+                for fact in DEFAULT_FACTS.facts
+            ]
+        }
+    )
+    plan = _plan(
+        product_facts=facts,
+        document_plan=_build_document_plan(CANDIDATE_TEXT, facts),
+        claim_accountability=_build_claim_accountability(
+            CANDIDATE_TEXT,
+            facts,
+            _default_claim_specs(),
+        ),
+    )
+
+    execution = execute_bounded_review(
+        org_repo="acme/widget-toolkit",
+        candidate_text=CANDIDATE_TEXT,
+        product_facts=facts.model_dump(mode="json"),
+        visitor_contract=build_presentation_visitor_contract(
+            applicable_h2_headings=_headings(),
+            primary_example_language="python",
+        ),
+        plan=plan,
+        coverage_ledger=brp.build_coverage_ledger(
+            plan,
+            atomic_units=_atomic_units(product_facts=facts),
+        ),
+        blind_client=_PacketSequenceClient(list(plan.visitor_packets)),
+        factual_client=_PacketSequenceClient(list(plan.factual_packets)),
+        blind_prompt_id="blind_readme_quality_review",
+        factual_prompt_id="factual_readme_plan_review",
+    )
+
+    assert execution.aggregate.overall == "ACCEPT"
+    assert execution.factual_grounding.valid is True
+    factual_locations = {finding.evidence_location for finding in execution.factual_result.findings}
+    assert factual_locations
+    assert all(location.startswith("fact-source://") for location in factual_locations)
 
 
 def test_unrelated_global_fact_hash_change_reuses_exact_packets_without_provider_calls(
