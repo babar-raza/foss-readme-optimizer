@@ -170,24 +170,25 @@ def build_live_role_review_clients(
     base_url: str,
     api_key: str | None,
     *,
-    timeout: float = 90,
+    timeout: float | None = None,
     max_tokens: int = FACTUAL_REVIEW_MAX_TOKENS,
 ) -> tuple[LiveBlindQualityReviewClient, LiveFactualPlanReviewClient]:
     """Construct the two governed role clients from their distinct model routes."""
 
+    effective_timeout = env.llm_timeout_seconds() if timeout is None else timeout
     return (
         LiveBlindQualityReviewClient(
             base_url,
             api_key,
             env.llm_model_for_job("blind_readme_quality_review"),
-            timeout=timeout,
+            timeout=effective_timeout,
             max_tokens=min(max_tokens, BLIND_REVIEW_MAX_TOKENS),
         ),
         LiveFactualPlanReviewClient(
             base_url,
             api_key,
             env.llm_model_for_job("factual_readme_plan_review"),
-            timeout=timeout,
+            timeout=effective_timeout,
             max_tokens=max_tokens,
         ),
     )
@@ -197,7 +198,7 @@ def build_live_merged_review_client(
     base_url: str,
     api_key: str | None,
     *,
-    timeout: float = 90,
+    timeout: float | None = None,
     max_tokens: int = MERGED_REVIEW_MAX_TOKENS,
 ) -> LiveMergedReadmeReviewClient:
     """Construct the canonical one-call reviewer from its governed route."""
@@ -206,7 +207,7 @@ def build_live_merged_review_client(
         base_url,
         api_key,
         env.llm_model_for_job("merged_readme_review"),
-        timeout=timeout,
+        timeout=env.llm_timeout_seconds() if timeout is None else timeout,
         max_tokens=max_tokens,
     )
 
@@ -215,24 +216,25 @@ def build_live_trusted_review_clients(
     base_url: str,
     api_key: str | None,
     *,
-    timeout: float = 90,
+    timeout: float | None = None,
     max_tokens: int = TRUSTED_REVIEW_MAX_TOKENS,
 ) -> tuple[LiveBlindQualityReviewClient, LiveTrustedFidelityReviewClient]:
     """Construct disjoint blind-quality and inheritance-fidelity clients."""
 
+    effective_timeout = env.llm_timeout_seconds() if timeout is None else timeout
     return (
         LiveBlindQualityReviewClient(
             base_url,
             api_key,
             env.llm_model_for_job("blind_readme_quality_review"),
-            timeout=timeout,
+            timeout=effective_timeout,
             max_tokens=min(max_tokens, BLIND_REVIEW_MAX_TOKENS),
         ),
         LiveTrustedFidelityReviewClient(
             base_url,
             api_key,
             env.llm_model_for_job("trusted_readme_fidelity_review"),
-            timeout=timeout,
+            timeout=effective_timeout,
             max_tokens=max_tokens,
         ),
     )

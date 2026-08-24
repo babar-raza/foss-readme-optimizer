@@ -15,6 +15,7 @@ from readme_agent.llm.reviewer_client import (
     LiveIndependentReviewClient,
     LiveMergedReadmeReviewClient,
     LiveTrustedFidelityReviewClient,
+    build_live_role_review_clients,
 )
 from readme_agent.llm.verification_prompts import (
     BLIND_QUALITY_REVIEW_TOOL_SCHEMA,
@@ -134,6 +135,54 @@ def test_separated_role_clients_force_distinct_governed_tools(monkeypatch):
         ("report_blind_readme_quality_review", 2400),
         ("report_factual_readme_plan_review", FACTUAL_REVIEW_MAX_TOKENS),
     ]
+
+
+def test_role_client_builder_uses_configured_llm_timeout(monkeypatch):
+    captured_timeouts = []
+
+    def fake_post(url, json, headers, timeout):
+        captured_timeouts.append(timeout)
+        tool_name = json["tool_choice"]["function"]["name"]
+
+        class RoleResponse(FakeResponse):
+            def json(self):
+                return {
+                    "id": f"{tool_name}-1",
+                    "choices": [
+                        {
+                            "message": {
+                                "tool_calls": [
+                                    {
+                                        "function": {
+                                            "name": tool_name,
+                                            "arguments": json_module.dumps(
+                                                {
+                                                    "verdict": "ACCEPT",
+                                                    "reasoning": "Grounded acceptance.",
+                                                    "failed_criteria": [],
+                                                    "sections_affected": [],
+                                                    "required_repair": "",
+                                                    "findings": [],
+                                                }
+                                            ),
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                }
+
+        return RoleResponse()
+
+    monkeypatch.setenv("LLM_TIMEOUT_SECONDS", "180")
+    monkeypatch.setattr(verifier_client.requests, "post", fake_post)
+    blind, factual = build_live_role_review_clients("https://example/v1", "key")
+
+    blind.analyze([])
+    factual.analyze([])
+
+    assert captured_timeouts == [180.0, 180.0]
 
 
 def test_merged_reviewer_forces_one_tool_with_two_required_facets(monkeypatch):
