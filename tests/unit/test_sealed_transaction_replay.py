@@ -25,6 +25,9 @@ import pytest
 from readme_agent.evidence.writer import sha256_file, verify_sha256sums
 from readme_agent.llm.call_ledger import load_llm_call_records, summarize_llm_call_records
 from readme_agent.readme.document_hashing import sha256_hex
+from readme_agent.supervisor.portfolio_proof_engine.acceptance_contract import (
+    replay_attestation_contract_hash,
+)
 from readme_agent.verification import sealed_transaction_replay as attestor
 from readme_agent.verification.local_poc_replay_contract import (
     derive_local_poc_replay_contract,
@@ -1540,3 +1543,13 @@ def test_30d_derived_contract_scales_limit_for_large_valid_review_evidence(
 
     assert repair_history.max_bytes == 16_777_216
     assert proof.passed is True, proof.model_dump_json(indent=2)
+
+
+def test_30e_derived_contract_hash_survives_json_round_trip(tmp_path: Path) -> None:
+    first, replay = _build_real_shape_contract_pair(tmp_path)
+
+    contract = derive_local_poc_replay_contract(first_root=first, replay_root=replay)
+    restored = ReplayAttestationContractV1.model_validate_json(contract.model_dump_json())
+
+    assert contract.lifecycle_effect_directories == restored.lifecycle_effect_directories
+    assert replay_attestation_contract_hash(contract) == replay_attestation_contract_hash(restored)

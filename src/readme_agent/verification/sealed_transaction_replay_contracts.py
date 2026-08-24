@@ -165,7 +165,9 @@ class ReplayAttestationContractV1(_Frozen):
     non_semantic_basenames: tuple[str, ...] = tuple(sorted(DEFAULT_NON_SEMANTIC_BASENAMES))
     non_semantic_suffixes: tuple[str, ...] = tuple(sorted(DEFAULT_NON_SEMANTIC_SUFFIXES))
     non_semantic_directories: tuple[str, ...] = tuple(sorted(DEFAULT_NON_SEMANTIC_DIRECTORIES))
-    lifecycle_effect_directories: tuple[str, ...] = DEFAULT_LIFECYCLE_EFFECT_DIRECTORIES
+    lifecycle_effect_directories: tuple[str, ...] = tuple(
+        sorted(DEFAULT_LIFECYCLE_EFFECT_DIRECTORIES)
+    )
 
     max_inventory_files: int = Field(default=5_000, ge=1, le=200_000)
     max_inventory_bytes: int = Field(default=1_073_741_824, ge=1)
