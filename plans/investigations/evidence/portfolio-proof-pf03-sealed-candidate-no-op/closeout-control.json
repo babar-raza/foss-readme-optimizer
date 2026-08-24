@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-PF-03-SEALED-CANDIDATE-NO-OP",
+  "verification_plan_sha256": "f52a358d4705f45093ee1c342624cec9a6da94766788b912982a35a7502c4e6d",
+  "completed_tiers": [
+    "touched_static",
+    "focused",
+    "impacted_integration"
+  ],
+  "promotion_boundary": "runtime_only",
+  "canonical_evidence_promoted": false,
+  "transaction_isolation_proven": false,
+  "proof_refs": [
+    "plans/investigations/evidence/portfolio-proof-pf03-sealed-candidate-no-op/REPORT.md",
+    "plans/investigations/evidence/portfolio-proof-pf03-sealed-candidate-no-op/independent-verification.json",
+    "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/sha256sums.txt",
+    "runs/portfolio_proof/f97d4cc1aa9c0de9843cd8e8f495e9367635bf59c8a56e6f84d5d1cf45901df7/aspose-3d-foss__Aspose.3D-FOSS-for-Python/receipts/sha256sums.txt"
+  ],
+  "independently_verified": true,
+  "multi_agent_execution_plan_sha256": "9d36010aed6cf3b99f6f5ae19b577f3aef96b27c1f354eb44f42d7128a3f0cd5",
+  "multi_agent_admission_decision_sha256": "a7a178a0579e6230ed72a27eca01b62d4e8c0b70e563f266e371a78bb7a90a74"
+}
