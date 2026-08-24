@@ -1,6 +1,4 @@
-"""Section-cluster authoring tool schema/messages, and compatibility with a real recorded
-probe response (`runs/owner_audit_staging/qwen3-next-editorial-probe-aa9981021/raw_results/`).
-"""
+"""Section-cluster authoring schema, messages, and recorded-response compatibility."""
 
 import json
 from pathlib import Path
@@ -29,11 +27,10 @@ from readme_agent.specialists.section_cluster_authoring import (
 
 _PROBE_FIXTURE = (
     Path(__file__).resolve().parents[2]
-    / "runs"
-    / "owner_audit_staging"
-    / "qwen3-next-editorial-probe-aa9981021"
-    / "raw_results"
-    / "STAGE3-CLUSTER-overview-capabilities-3d-python.json"
+    / "tests"
+    / "fixtures"
+    / "section_authoring"
+    / "qwen3-next-overview-capabilities-3d-python.json"
 )
 
 

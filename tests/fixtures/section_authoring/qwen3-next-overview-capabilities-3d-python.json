@@ -1,0 +1,103 @@
+{
+  "case_id": "STAGE3-CLUSTER-overview-capabilities-3d-python",
+  "stage": "STAGE3",
+  "task_letter": "CLUSTER",
+  "packet_id": "3D-PYTHON-CAPABILITY-LIMITATION-CONFLICT",
+  "model": "qwen3-next",
+  "max_tokens_configured": 1024,
+  "call_result": {
+    "case_id": "STAGE3-CLUSTER-overview-capabilities-3d-python",
+    "stage": "STAGE3",
+    "resolved_model": "qwen3-next",
+    "prompt_sha256": "7fcffc3cc812c8e7208ddd1f5d8a85ea44ae3b0c4607373f03bb0ff6201b99d7",
+    "schema_sha256": "32c44e35d513e2cad6f78f8a0240159223ba4edb9040c136399f87604b022da4",
+    "template_sha256": "1beaa248222d8f425301cf3683410a940227f6ac8b31e8c5d7e2319c55d1e692",
+    "redacted_input_hash": "20a5fda3911450ab4780df5392b733421211e9d1f08661bd04c212268b4cfca9",
+    "evidence_packet_sha256": "ab6f9926b133bb373f8042bdb7581d80ba9a68e5bae83c5489b362d5593d526d",
+    "sampling": {
+      "temperature": 0.0,
+      "max_tokens": 1024
+    },
+    "authorized_fact_ids": [
+      "F.3D.CAP.01",
+      "F.3D.CAP.02",
+      "F.3D.CAP.03",
+      "F.3D.LIM.01",
+      "F.3D.LIM.02",
+      "F.3D.LIM.03",
+      "F.3D.LIM.04",
+      "F.3D.LIM.05"
+    ],
+    "transport_attempts": [
+      {
+        "attempt": 1,
+        "global_call_index": 11,
+        "request_sha256": "3fc3fc34522651af31cd99f5f53aece2aaf224b6ce520f0991b4eb8f722564fd",
+        "latency_ms": 10620,
+        "http_status": 200,
+        "outcome": "success",
+        "provider_request_id": "chatcmpl-96e6e5d1622ff2e8",
+        "response_sha256": "128cdd184e6158727621b4bcdf30be62cbfaa2c5a1dcfb814e9a81705164bc94"
+      }
+    ],
+    "outcome": "success",
+    "finish_reason": "tool_calls",
+    "input_tokens": 1382,
+    "output_tokens": 370,
+    "latency_ms_last_attempt": 10620,
+    "parsed_arguments": {
+      "sections": [
+        {
+          "heading": "Overview and Capabilities",
+          "text": "Aspose.3D FOSS for Python is a Python library for working with 3D content. It enables developers to create, manipulate, and convert 3D scenes and objects using a high-level, object-oriented API. The library supports common 3D primitives, file format import and export, and animation workflows.",
+          "fact_ids": [
+            "F.3D.CAP.01",
+            "F.3D.CAP.02",
+            "F.3D.CAP.03"
+          ]
+        },
+        {
+          "heading": "3D Primitives",
+          "text": "The library provides built-in support for a range of standard 3D geometric primitives, including Box, Cylinder, Sphere, Plane, Dish, Circle, Ellipse, and Frustum. These primitives can be used as building blocks for more complex 3D scenes.",
+          "fact_ids": [
+            "F.3D.CAP.01"
+          ]
+        },
+        {
+          "heading": "File Format Support",
+          "text": "Aspose.3D FOSS for Python supports importing and exporting 3D scenes and models in widely used formats such as OBJ, GLTF, STL, and 3MF. This enables interoperability with other tools and pipelines that rely on these formats.",
+          "fact_ids": [
+            "F.3D.CAP.02"
+          ]
+        },
+        {
+          "heading": "Animation Support",
+          "text": "The library includes an animation system that supports keyframe-based animation, allowing developers to define and manipulate time-based transformations for 3D objects within a scene.",
+          "fact_ids": [
+            "F.3D.CAP.03"
+          ]
+        }
+      ]
+    },
+    "parse_result": "schema_call_ok"
+  },
+  "evaluation": {
+    "schema_valid": true,
+    "fact_ids_used": [
+      "F.3D.CAP.01",
+      "F.3D.CAP.02",
+      "F.3D.CAP.03"
+    ],
+    "unsupported_fact_ids": [],
+    "omissions": [],
+    "forbidden_hits": [
+      {
+        "forbidden_assertion": "Do not claim glTF/OBJ/STL/3MF import+export beyond what F.3D.CAP.02 states (no format outside that list).",
+        "matched_sentence": "F.3D.CAP.01 File Format Support Aspose.3D FOSS for Python supports importing and exporting 3D scenes and models in widely used formats such as OBJ, GLTF, STL, and 3MF.",
+        "overlap": 0.62
+      }
+    ],
+    "deterministic_score": 0.6,
+    "failure_classification": "forbidden_assertion_keyword_hit"
+  }
+}
