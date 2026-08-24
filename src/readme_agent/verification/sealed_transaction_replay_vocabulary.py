@@ -24,7 +24,9 @@ BundleScopeV1 = Literal["both", "first_only", "replay_only"]
 EXPECTED_LIFECYCLE_DELTA_SCOPES: Final[dict[str, BundleScopeV1]] = {
     "effects/product-effect-ledger.json": "replay_only",
     "receipts/NO_OP_PROVEN.json": "replay_only",
+    "review/benchmark-acceptance.json": "replay_only",
     "review/no-op-proof.json": "replay_only",
+    "review/rubric-evaluation.json": "replay_only",
 }
 
 # ---- vocabulary: identity components, stages, provider job axes ----

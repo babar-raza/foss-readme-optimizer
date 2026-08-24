@@ -1485,3 +1485,29 @@ def test_30b_derived_contract_cannot_launder_first_only_semantic_deletion(
         match="artifact scope is not an explicitly allowed lifecycle delta",
     ):
         derive_local_poc_replay_contract(first_root=first, replay_root=replay)
+
+
+def test_30c_derived_contract_accepts_post_first_snapshot_acceptance_artifacts(
+    tmp_path: Path,
+) -> None:
+    first, replay = _build_real_shape_contract_pair(tmp_path)
+    (first / "review" / "rubric-evaluation.json").unlink()
+    (replay / "review" / "benchmark-acceptance.json").write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "candidate_sha256": "a" * 64,
+                "acceptance_status": "BENCHMARK_ACCEPTANCE_PROVEN",
+            }
+        ),
+        encoding="utf-8",
+        newline="\n",
+    )
+    _write_inventory(first)
+    _write_inventory(replay)
+
+    contract = derive_local_poc_replay_contract(first_root=first, replay_root=replay)
+
+    scopes = {artifact.relative_path: artifact.scope for artifact in contract.artifacts}
+    assert scopes["review/benchmark-acceptance.json"] == "replay_only"
+    assert scopes["review/rubric-evaluation.json"] == "replay_only"
