@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+  "branch": "main",
+  "head": "535fa021b9b4ae0eb96bee097c30a8884d12a373",
+  "dirty_tree_at_start": false,
+  "command": ".venv/Scripts/python -m pytest -q tests/unit/test_stage_dependency_manifest.py tests/unit/test_local_poc_cache.py tests/unit/test_local_poc_evidence.py tests/unit/test_local_poc_review_evidence.py tests/unit/test_readme_reconciliation.py tests/unit/test_claim_accountability_regressions.py tests/unit/test_bounded_review_packets.py tests/unit/test_candidate_benchmark_acceptance.py tests/unit/test_mission_command_state_backend.py tests/unit/test_mission_control.py tests/unit/test_gitsafety.py tests/security/test_no_secrets_in_evidence.py --basetemp=%TEMP%/ra-pf02-current",
+  "passed": 320,
+  "failed": 0,
+  "errors": 0,
+  "exit_code": 0,
+  "duration_seconds": 141.78,
+  "scope": [
+    "candidate dependency identity",
+    "local_poc cache and evidence integrity",
+    "README reconciliation and claim accountability",
+    "bounded review packetization",
+    "benchmark acceptance",
+    "mission lifecycle routing and recovery",
+    "push blocking",
+    "evidence secret redaction"
+  ]
+}
