@@ -9,6 +9,7 @@ from types import SimpleNamespace
 
 from section_authoring_test_support import build_product_facts_v2
 
+from readme_agent.evidence.writer import verify_sha256sums
 from readme_agent.facts.protected_content import fingerprint_protected_content
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.llm.analysis_client import AnalysisResult
@@ -568,3 +569,5 @@ def test_readme_specialist_passes_complete_section_document_to_canonical_rendere
     assert render_result["llm_called"] is True
     assert render_result["composition_provider_calls"] == 0
     assert render_result["composition_strategy"] == "deterministic_verified_section_authoring"
+    bundle_dir = section_authoring_document_path(facts.org_repo, source_revision).parents[2]
+    assert verify_sha256sums(bundle_dir)

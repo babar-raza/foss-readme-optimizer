@@ -524,6 +524,12 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                         snapshot.source_revision,
                     ),
                 )
+                local_bundle_dir = paths.readme_poc_repository_dir(
+                    snapshot_org,
+                    snapshot_repo,
+                    snapshot.source_revision,
+                )
+                seal_partial_local_poc_evidence(local_bundle_dir)
             except (LLMError, OSError, ValueError, SectionAuthoringDocumentError) as exc:
                 return {
                     "accepted_status": f"ERROR:section_authoring:{type(exc).__name__}:{exc}",
