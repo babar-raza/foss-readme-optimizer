@@ -120187,7 +120187,7 @@
     "updated_at": "2026-08-24T01:49:13.769856+00:00"
   },
   "schema_version": 2,
-  "state_version": 2623,
+  "state_version": 2624,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "62fab1e9beb334e4524efd5d2d2903c22977cc17365b03d38d4c2f6b6c9225e0",
@@ -122932,13 +122932,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:SectionAuthoringDocumentError: document authoring stopped at section 'scope_and_limitations': section cluster 'scope_and_limitations' failed acceptance after 3 attempt(s): fact_id(s) both cited and omitted: ['product.limitations:source-guidance']",
       "last_checkpoint_id": "8d70c7492ca3e29a14f58225d4eb11205fe6c1d4bc12dbfbb04d54b60ef86071",
-      "lease_expires_at": "2026-08-24T01:50:51.457248+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-24T01:51:35.997020+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-24T01:52:09.837748+00:00"
     }
   },
   "trigger_records": {},
