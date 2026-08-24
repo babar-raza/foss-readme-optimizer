@@ -3223,6 +3223,49 @@ class TestLifecycleInvalidatedSpecialistSkip:
         assert skipped.skipped_this_run is True
         assert skipped.details["skip_reason"] == "llm_selected"
 
+    def test_candidate_only_scope_runs_readme_and_independent_verifier(self, tmp_path, monkeypatch):
+        from readme_agent.supervisor import specialist_selection
+        from readme_agent.supervisor.specialist_tier import run_specialist_tier
+
+        backend = self._backend_with_lifecycle("FACTS_READY")
+        calls = []
+        monkeypatch.setattr(
+            specialist_selection,
+            "decide_skips",
+            lambda **_kwargs: specialist_selection.SkipPlan(
+                skip_domains=frozenset(
+                    {"metadata_presentation", "readme_presentation", "independent_verification"}
+                ),
+                reasons={
+                    "metadata_presentation": "llm_selected",
+                    "readme_presentation": "llm_selected",
+                    "independent_verification": "llm_selected",
+                },
+            ),
+        )
+        monkeypatch.setattr(
+            specialists_registry,
+            "run_domain",
+            lambda domain, *_args, **_kwargs: (
+                calls.append(domain) or DomainStateV1(domain=domain, accepted_status="NO_CHANGE")
+            ),
+        )
+
+        result = run_specialist_tier(
+            org_repo=ORG_REPO,
+            baseline_path=tmp_path,
+            state_backend=backend,
+            current_revision="a" * 40,
+            enable_specialist_skip=True,
+            specialist_selection_client=object(),
+            escalation_alert_threshold=3,
+            readme_candidate_only=True,
+        )
+
+        assert calls == ["readme_presentation", "independent_verification"]
+        assert result.domains == ["readme_presentation", "independent_verification"]
+        assert "metadata_presentation" not in result.results
+
 
 class TestSpecialistFailureIsolation:
     """Wave 7 root-cause fix: an unhandled exception in one specialist must

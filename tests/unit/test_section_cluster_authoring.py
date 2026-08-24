@@ -161,6 +161,25 @@ def test_define_is_a_concrete_action_led_capability_heading():
     outcome = execute_section_cluster_authoring(packet=packet, client=client)
 
     assert outcome.result.units[0].heading == "Define Animations With Keyframes"
+
+
+@pytest.mark.parametrize(
+    "heading",
+    [
+        "Construct Mesh Geometry Primitives",
+        "Perform Vector Math Operations",
+        "Assign Materials to 3D Objects",
+    ],
+)
+def test_concrete_developer_actions_are_action_led_capability_headings(heading):
+    packet = _packet()
+    response = _valid_response()
+    response["units"][0]["heading"] = heading
+    client = FakeSectionAuthorClient([response])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.result.units[0].heading == heading
     assert outcome.receipt.semantic_retry_used is False
 
 
@@ -950,17 +969,17 @@ def test_independent_sibling_capabilities_cannot_be_fused_into_one_unit():
             {
                 "heading": "Create 3D Primitives",
                 "text": "Construct Box and Sphere geometry for scenes.",
-                "fact_ids": [fact_id],
+                "fact_ids": ["F1"],
             },
             {
                 "heading": "Import and Export 3D Files",
                 "text": "Exchange OBJ, GLTF, STL, and 3MF assets.",
-                "fact_ids": [fact_id],
+                "fact_ids": ["F2"],
             },
             {
                 "heading": "Define Keyframe Animations",
                 "text": "Control scene changes over time with keyframes.",
-                "fact_ids": [fact_id],
+                "fact_ids": ["F3"],
             },
         ],
         "omitted": [],
@@ -970,11 +989,64 @@ def test_independent_sibling_capabilities_cannot_be_fused_into_one_unit():
     outcome = execute_section_cluster_authoring(packet=packet, client=client)
 
     assert outcome.receipt.semantic_retry_used is True
+    assert client.calls[1]["accepted_fact_ids"] == ["F1", "F2", "F3"]
+    assert all(unit.fact_ids == (fact_id,) for unit in outcome.result.units)
     assert "combines 2 independent sibling items" in client.calls[1]["messages"][1]["content"]
     assert (
         "Each unit must describe exactly one sibling item"
         in client.calls[1]["messages"][1]["content"]
     )
+
+
+def test_itemized_capability_recovery_accepts_explicit_editorial_omission():
+    facts = build_product_facts_v2(
+        field_values={"product.capabilities": ["Create meshes", "Animate scenes", "Add lights"]}
+    )
+    fact_id = facts.selected_fact_ids["product.capabilities"]
+    packet = build_section_authoring_packet(
+        org_repo=facts.org_repo,
+        source_revision="a" * 40,
+        target_section_id="key_capabilities",
+        task_family="capability_entry_cluster",
+        section_objective="Describe selected capabilities.",
+        product_facts=facts,
+        accepted_fact_ids=[fact_id],
+        protected_content=PROTECTED,
+    )
+    conflated = {
+        "units": [
+            {
+                "heading": "Create and Animate Scenes",
+                "text": "Build meshes and animate them over time.",
+                "fact_ids": [fact_id],
+            }
+        ],
+        "omitted": [],
+    }
+    curated = {
+        "units": [
+            {
+                "heading": "Create Mesh Geometry",
+                "text": "Build mesh objects for a scene graph.",
+                "fact_ids": ["F1"],
+            },
+            {
+                "heading": "Animate Scene Content",
+                "text": "Control scene changes over time.",
+                "fact_ids": ["F2"],
+            },
+        ],
+        "omitted": [{"fact_id": "F3", "reason": "Lower-priority supporting capability."}],
+    }
+
+    outcome = execute_section_cluster_authoring(
+        packet=packet,
+        client=FakeSectionAuthorClient([conflated, curated]),
+    )
+
+    assert len(outcome.result.units) == 2
+    assert outcome.result.omitted == ()
+    assert all(unit.fact_ids == (fact_id,) for unit in outcome.result.units)
 
 
 def test_opening_summary_may_synthesize_multiple_verified_capabilities():

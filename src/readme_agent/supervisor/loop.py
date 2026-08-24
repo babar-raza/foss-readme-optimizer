@@ -210,6 +210,7 @@ def supervise_repo(
     trusted_fidelity_review_client: Any | None = None,
     trusted_repair_client: Any | None = None,
     readme_poc_stage_limit: ReadmePocStageLimitV1 | None = None,
+    readme_candidate_only: bool = False,
 ) -> SuperviseResult:
     # require_listed(), not require_permitted() (decision #40): most of a
     # supervised run is read-only planning/observation, so mode is not
@@ -922,6 +923,7 @@ def supervise_repo(
                 escalation_alert_threshold=ESCALATION_ALERT_THRESHOLD,
                 fail_closed_on_state_failure=fail_closed_on_state_failure,
                 readme_poc_stage_limit=readme_poc_stage_limit,
+                readme_candidate_only=readme_candidate_only,
             )
         specialist_domains = tier.domains
         specialist_results = tier.results

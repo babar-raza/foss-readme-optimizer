@@ -93,8 +93,9 @@ def run_specialist_tier(
     escalation_alert_threshold: int,
     fail_closed_on_state_failure: bool = False,
     readme_poc_stage_limit: ReadmePocStageLimitV1 | None = None,
+    readme_candidate_only: bool = False,
 ) -> SpecialistTierResult:
-    """Run every registered domain while one domain's failure remains isolated."""
+    """Run the admitted specialist scope while one domain's failure remains isolated."""
 
     skip_plan = specialist_selection.SkipPlan()
     prior_full_state = None
@@ -120,11 +121,26 @@ def run_specialist_tier(
             readme_poc_stage_limit,
         )
 
-    domains = (
-        [README_PRESENTATION]
-        if readme_poc_stage_limit in {"CANDIDATE_GENERATED", "DETERMINISTIC_VALIDATED"}
-        else specialists_registry.all_domains()
-    )
+    if readme_candidate_only:
+        required_domains = {README_PRESENTATION, INDEPENDENT_VERIFICATION}
+        skip_plan.skip_domains = frozenset(
+            domain for domain in skip_plan.skip_domains if domain not in required_domains
+        )
+        for domain in required_domains:
+            skip_plan.reasons.pop(domain, None)
+
+    if readme_poc_stage_limit in {"CANDIDATE_GENERATED", "DETERMINISTIC_VALIDATED"}:
+        domains = [README_PRESENTATION]
+    elif readme_candidate_only:
+        # Candidate-first Gate A has a deliberately narrower acceptance surface
+        # than the later complete repository-presentation campaign. The README
+        # specialist owns deterministic, factual, visitor, benchmark, and blind
+        # review; the post-hoc independent verifier proves that evidence. Running
+        # metadata/community/package/visual specialists here re-collects facts and
+        # executes ecosystem builds that cannot affect README acceptance.
+        domains = [README_PRESENTATION, INDEPENDENT_VERIFICATION]
+    else:
+        domains = specialists_registry.all_domains()
     results: dict[str, DomainStateV1] = {}
     if state_backend is not None:
         mark_specialist_tier_started(

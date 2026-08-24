@@ -45,10 +45,11 @@ _GENERIC_NOUNS = re.compile(
     r"(?i)\b(?:configuration|handling|lifecycle management|operations|support|validation)\b"
 )
 _ACTION_VERBS = re.compile(
-    r"(?i)\b(?:access|add|analy[sz]e|animate|append|apply|build|compress|concatenate|configure|"
+    r"(?i)\b(?:access|add|analy[sz]e|animate|append|apply|assign|build|compress|concatenate|"
+    r"configure|construct|"
     r"convert|create|decode|decrypt|define|delete|detect|edit|encode|encrypt|export|extract|"
     r"generate|host|import|insert|inspect|load|manage|merge|modify|navigate|open|optimi[sz]e|"
-    r"parse|process|read|remove|render|replace|run|save|search|sign|transform|traverse|"
+    r"parse|perform|process|read|remove|render|replace|run|save|search|sign|transform|traverse|"
     r"update|validate|verify|work|write)\b"
 )
 _DISCRIMINATOR_TOKEN = re.compile(r"\b(?:[A-Z]{2,}[A-Z0-9.+-]*|[A-Za-z]*\d[A-Za-z0-9.+-]*)\b")

@@ -429,6 +429,8 @@ def _sibling_item_conflation_errors(
 def section_authoring_fact_errors(
     packet: SectionAuthoringPacketV1,
     unit: SectionClusterUnitV1,
+    *,
+    enforce_sibling_separation: bool = True,
 ) -> list[str]:
     """Return contradictions and deterministic-literal ownership violations.
 
@@ -466,7 +468,7 @@ def section_authoring_fact_errors(
     # items changes their meaning (for example, animation becomes an export format). An opening
     # summary intentionally synthesizes several verified purposes/capabilities and must not be
     # forced into one sentence per list item.
-    if packet.task_family == "capability_entry_cluster":
+    if packet.task_family == "capability_entry_cluster" and enforce_sibling_separation:
         errors.extend(_sibling_item_conflation_errors(unit, cited_facts))
     cited_values = json.dumps(
         [fact.value for fact in cited_facts],

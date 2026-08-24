@@ -597,6 +597,13 @@ def _cmd_supervise_impl(args: argparse.Namespace) -> int:
                     verify_local_product_facts=profile.verify_local_product_facts,
                     track_readme_poc_lifecycle=profile.name in poc_profile_names,
                     readme_poc_stage_limit=readme_poc_stage_limit,
+                    readme_candidate_only=(
+                        profile.name == "local_poc"
+                        and (
+                            bounded_verified_canary
+                            or bool(getattr(args, "_portfolio_member", False))
+                        )
+                    ),
                     **dynamic_planning_kwargs,
                 )
     except Exception as exc:

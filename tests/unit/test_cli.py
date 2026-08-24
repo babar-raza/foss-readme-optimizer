@@ -890,6 +890,7 @@ class TestExecutionProfileFlag:
         assert captured["verify_local_product_facts"] is True
         assert captured["track_readme_poc_lifecycle"] is True
         assert captured["readme_poc_stage_limit"] == "FACTS_READY"
+        assert captured["readme_candidate_only"] is True
         assert "does not satisfy full-registry Gate A" in capsys.readouterr().out
 
     def test_bounded_verified_canary_rejects_other_profiles(self, capsys):
@@ -947,6 +948,7 @@ class TestExecutionProfileFlag:
         assert captured["require_independent_verification"] is True
         assert captured["verify_local_product_facts"] is True
         assert captured["readme_poc_stage_limit"] == "FACTS_READY"
+        assert captured["readme_candidate_only"] is True
         assert captured["allowed_permission_classes"] == {
             "read_only_local",
             "read_only_network",

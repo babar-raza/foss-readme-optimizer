@@ -45,6 +45,7 @@ from readme_agent.specialists.section_authoring_cache import (
     write_section_authoring_cache,
 )
 from readme_agent.specialists.section_authoring_contracts import (
+    SectionAuthoringFactV1,
     SectionAuthoringOutcomeV1,
     SectionAuthoringPacketV1,
     SectionAuthoringReceiptV1,
@@ -118,7 +119,10 @@ def _introduces_protected_content(text: str) -> bool:
 
 
 def _validate_acceptance(
-    packet: SectionAuthoringPacketV1, result: SectionClusterAuthoringResultV1
+    packet: SectionAuthoringPacketV1,
+    result: SectionClusterAuthoringResultV1,
+    *,
+    enforce_sibling_separation: bool = True,
 ) -> None:
     allowed = set(packet.allowed_fact_ids)
     do_not_claim_ids = {fact.fact_id for fact in packet.do_not_claim}
@@ -152,7 +156,11 @@ def _validate_acceptance(
                 f"section cluster unit {unit.heading!r} introduced internal verification "
                 "narration that is forbidden in a public README"
             )
-        fact_errors = section_authoring_fact_errors(packet, unit)
+        fact_errors = section_authoring_fact_errors(
+            packet,
+            unit,
+            enforce_sibling_separation=enforce_sibling_separation,
+        )
         if fact_errors:
             raise SectionAuthoringAcceptanceError(
                 f"section cluster unit {unit.heading!r} contradicts its structured fact "
@@ -216,6 +224,69 @@ def _reconcile_duplicate_fact_dispositions(
     return result.model_copy(update={"omitted": reconciled_omissions})
 
 
+def _itemized_capability_prompt_facts(
+    packet: SectionAuthoringPacketV1,
+) -> tuple[tuple[SectionAuthoringFactV1, str], ...]:
+    """Expose list-valued capabilities as separate opaque aliases on recovery.
+
+    The durable provenance ID remains the parent ProductFactsV2 fact. The aliases are
+    provider-local coordinates only, allowing one bounded Qwen call to distinguish sibling
+    entries without inventing a second fact graph or weakening post-call validation.
+    """
+
+    if packet.task_family != "capability_entry_cluster":
+        return ()
+    prompt_facts: list[SectionAuthoringFactV1] = []
+    expanded = False
+    for fact in packet.accepted_facts:
+        items = (
+            [item.strip() for item in fact.value if isinstance(item, str) and item.strip()]
+            if isinstance(fact.value, list)
+            else []
+        )
+        if len(items) < 2:
+            prompt_facts.append(fact)
+            continue
+        expanded = True
+        prompt_facts.extend(fact.model_copy(update={"value": item}) for item in items)
+    if not expanded:
+        return ()
+    return tuple((fact, f"F{index}") for index, fact in enumerate(prompt_facts, start=1))
+
+
+def _reconcile_itemized_alias_coverage(
+    result: SectionClusterAuthoringResultV1,
+    allowed_aliases: set[str],
+) -> SectionClusterAuthoringResultV1:
+    """Require an explicit item disposition before aliases collapse to parent facts."""
+
+    cited = {fact_id for unit in result.units for fact_id in unit.fact_ids}
+    omitted = {item.fact_id for item in result.omitted}
+    unknown = (cited | omitted) - allowed_aliases
+    if unknown:
+        raise SectionAuthoringAcceptanceError(
+            f"itemized capability recovery cited unsupported alias(es): {sorted(unknown)}"
+        )
+    fused_units = [
+        unit.heading for unit in result.units if len(set(unit.fact_ids) & allowed_aliases) > 1
+    ]
+    if fused_units:
+        raise SectionAuthoringAcceptanceError(
+            "itemized capability recovery combined multiple sibling aliases in unit(s): "
+            f"{fused_units}"
+        )
+    missing = allowed_aliases - cited - omitted
+    if missing:
+        raise SectionAuthoringAcceptanceError(
+            f"itemized capability recovery left sibling alias(es) undisposed: {sorted(missing)}"
+        )
+    # Item aliases are provider-local recovery coordinates, not durable ProductFactsV2 IDs.
+    # A cited sibling keeps the parent fact accountable; mapping an omitted sibling to that
+    # same parent would falsely mark the complete parent fact both cited and omitted. The raw
+    # response hash still binds the exact provider disposition.
+    return result.model_copy(update={"omitted": ()})
+
+
 def execute_section_cluster_authoring(
     *,
     packet: SectionAuthoringPacketV1,
@@ -233,8 +304,24 @@ def execute_section_cluster_authoring(
     }
     all_aliases = {**accepted_aliases, **do_not_claim_aliases}
     alias_to_fact_id = {alias: fact_id for fact_id, alias in all_aliases.items()}
+    standard_prompt_facts = tuple(
+        (fact, accepted_aliases[fact.fact_id]) for fact in packet.accepted_facts
+    )
+    itemized_prompt_facts = _itemized_capability_prompt_facts(packet)
+    itemized_alias_to_fact_id = {alias: fact.fact_id for fact, alias in itemized_prompt_facts}
     schema = build_section_cluster_authoring_tool_schema(list(accepted_aliases.values()))
-    schema_sha256 = _canonical_hash(schema)
+    schema_sha256 = (
+        _canonical_hash(
+            {
+                "standard": schema,
+                "itemized_capability_recovery": build_section_cluster_authoring_tool_schema(
+                    [alias for _fact, alias in itemized_prompt_facts]
+                ),
+            }
+        )
+        if itemized_prompt_facts
+        else _canonical_hash(schema)
+    )
     prompt_sha256 = prompt_hash(_PROMPT_ID)
     model = env.llm_model_for_job(_PROMPT_ID)
     cache_key = section_authoring_cache_key(
@@ -265,7 +352,11 @@ def execute_section_cluster_authoring(
             )
             return cached.outcome.model_copy(update={"reused_from_cache": True})
 
-    def build_messages(*, repair_hint: str = "") -> list[dict]:
+    def build_messages(
+        *,
+        repair_hint: str = "",
+        prompt_facts: tuple[tuple[SectionAuthoringFactV1, str], ...] = standard_prompt_facts,
+    ) -> list[dict]:
         has_directional_formats = any(
             fact.field == "product.formats"
             for fact in (*packet.accepted_facts, *packet.do_not_claim)
@@ -280,10 +371,10 @@ def execute_section_cluster_authoring(
                 [
                     authoring_fact_prompt_payload(
                         fact,
-                        fact_id_alias=accepted_aliases[fact.fact_id],
+                        fact_id_alias=alias,
                         suppress_directionless_formats=has_directional_formats,
                     )
-                    for fact in packet.accepted_facts
+                    for fact, alias in prompt_facts
                 ]
             ),
             do_not_claim_json=_canonical_json(
@@ -311,18 +402,26 @@ def execute_section_cluster_authoring(
     analysis: AnalysisResult | None = None
     accepted_rejected_unit_hashes: tuple[str, ...] = ()
     accepted_omitted_fact_ids: tuple[str, ...] = ()
+    active_prompt_facts = standard_prompt_facts
+    active_alias_to_fact_id = alias_to_fact_id
+    itemized_recovery_active = False
 
     for attempt in range(1, _MAX_LOGICAL_ATTEMPTS + 1):
-        analysis = client.analyze_section_cluster(messages, list(accepted_aliases.values()))
+        active_aliases = [alias for _fact, alias in active_prompt_facts]
+        analysis = client.analyze_section_cluster(messages, active_aliases)
         if analysis.meta.usage is not None:
             token_usage.append(analysis.meta.usage)
         if analysis.meta.latency_ms is not None:
             latency_ms.append(analysis.meta.latency_ms)
         try:
             provider_result = SectionClusterAuthoringResultV1.model_validate(analysis.parsed)
+            if itemized_recovery_active:
+                provider_result = _reconcile_itemized_alias_coverage(
+                    provider_result, set(active_aliases)
+                )
             parsed = enrich_directional_format_fact_ids(
                 packet,
-                _restore_fact_ids(provider_result, alias_to_fact_id),
+                _restore_fact_ids(provider_result, active_alias_to_fact_id),
             )
             parsed, rejected_unit_hashes, omitted_fact_ids = remove_reserved_directional_units(
                 packet, parsed
@@ -332,12 +431,21 @@ def execute_section_cluster_authoring(
             # only the redundant omission avoids an identical semantic retry without weakening
             # unknown-ID, unsupported-claim, or complete-disposition enforcement.
             parsed = _reconcile_duplicate_fact_dispositions(parsed)
-            _validate_acceptance(packet, parsed)
+            _validate_acceptance(
+                packet,
+                parsed,
+                enforce_sibling_separation=not itemized_recovery_active,
+            )
         except (ValidationError, SectionAuthoringAcceptanceError) as exc:
             last_error = exc
             if attempt == _MAX_LOGICAL_ATTEMPTS:
                 break
             semantic_retry_used = True
+            sibling_conflation = "combines" in str(exc) and "independent sibling items" in str(exc)
+            if sibling_conflation and itemized_prompt_facts and not itemized_recovery_active:
+                active_prompt_facts = itemized_prompt_facts
+                active_alias_to_fact_id = itemized_alias_to_fact_id
+                itemized_recovery_active = True
             # Rebuilds the FULL packet context (accepted facts, do_not_claim, source text,
             # SEO vocabulary) plus the correction instruction -- never a bare error message
             # with the original facts dropped, which would leave the model unable to fix
@@ -349,8 +457,15 @@ def execute_section_cluster_authoring(
                     "acceptance check and was rejected before reaching any reader: "
                     f"{_provider_safe_error(exc, all_aliases)}. "
                     f"{_targeted_repair_action(exc)} "
-                    "Keep every unaffected unit and disposition unchanged."
-                )
+                    + (
+                        "Each accepted capability item now has its own opaque alias. Cite each "
+                        "alias in a separate unit and do not omit any alias. "
+                        if itemized_recovery_active
+                        else ""
+                    )
+                    + "Keep every unaffected unit and disposition unchanged."
+                ),
+                prompt_facts=active_prompt_facts,
             )
             continue
         result = parsed
