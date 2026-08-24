@@ -120687,6 +120687,18 @@
         "reason": "repaired candidate passed all deterministic validation gates",
         "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
         "to_status": "DETERMINISTIC_VALIDATED"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\1755c2a2e87f82d4c01d\\r\\fcc4d08dc8909ad0\\s\\ee05c1ba9153\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ee05c1ba9153ef5916b7a108406c794f2e464d01\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "DETERMINISTIC_VALIDATED",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-24T03:28:43.549183+00:00",
+        "reason": "source-bound README assessment completed",
+        "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "to_status": "README_ASSESSED"
       }
     ],
     "human_acceptance_history": [],
@@ -120783,16 +120795,16 @@
       "status": "INELIGIBLE"
     },
     "publication_eligibility_history": [],
-    "repair_attempts_for_revision": 1,
-    "repair_budget_origin_hash": "3c09e5cf3794ded78d5356c8e4b92569b78c59ba072b3d9bebc8d8f5bba7d1ea",
-    "reviewer_standard_hash": "fcebee21126ba613119505c3af29cb0ea6d412ec638cf2cce47b57986e7efe8c",
+    "repair_attempts_for_revision": 0,
+    "repair_budget_origin_hash": "60b8d03f3bc3a81a2e831c164db4f718f6353ffb4df9c3f1226ef7a8b2d02950",
+    "reviewer_standard_hash": "eadf421710494f9ddd84f67c07a477b2ec54ef358da0c1a498b13bc255573976",
     "schema_version": 2,
     "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
-    "status": "DETERMINISTIC_VALIDATED",
-    "updated_at": "2026-08-24T03:19:35.825491+00:00"
+    "status": "README_ASSESSED",
+    "updated_at": "2026-08-24T03:28:43.549183+00:00"
   },
   "schema_version": 2,
-  "state_version": 2714,
+  "state_version": 2715,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "62fab1e9beb334e4524efd5d2d2903c22977cc17365b03d38d4c2f6b6c9225e0",
