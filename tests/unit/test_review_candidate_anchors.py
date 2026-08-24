@@ -79,6 +79,27 @@ def test_unknown_anchor_is_rebound_from_one_unique_exact_block() -> None:
     assert finding_ids == ("factual.identity",)
 
 
+def test_unknown_occurrence_is_rebound_from_unique_content_identity() -> None:
+    candidate = "# Widget\n\n| Type | Description |\n| --- | --- |\n| `Thing` | A thing. |\n"
+    anchors = build_candidate_review_anchors(candidate)
+    table = next(item for item in anchors if item.text.startswith("| Type |"))
+    content_identity, _occurrence = table.anchor_id.rsplit(".", maxsplit=1)
+    value = {
+        "findings": [
+            {
+                "finding_id": "factual.table-row",
+                "candidate_anchor_id": f"{content_identity}.13",
+                "quoted_candidate_span": "A model-authored row excerpt.",
+            }
+        ]
+    }
+
+    reconciled, finding_ids = reconcile_unknown_candidate_review_anchors(value, anchors, candidate)
+
+    assert reconciled["findings"][0]["candidate_anchor_id"] == table.anchor_id
+    assert finding_ids == ("factual.table-row",)
+
+
 def test_unknown_anchor_remains_invalid_when_quote_is_ambiguous() -> None:
     candidate = "# Widget\n\nRepeated.\n\nRepeated.\n"
     anchors = build_candidate_review_anchors(candidate)
@@ -87,6 +108,28 @@ def test_unknown_anchor_remains_invalid_when_quote_is_ambiguous() -> None:
             {
                 "finding_id": "quality.repeated",
                 "candidate_anchor_id": "candidate.anchor.00000000000000000000.9",
+                "quoted_candidate_span": "Repeated.",
+            }
+        ]
+    }
+
+    reconciled, finding_ids = reconcile_unknown_candidate_review_anchors(value, anchors, candidate)
+
+    assert reconciled == value
+    assert finding_ids == ()
+
+
+def test_unknown_occurrence_remains_invalid_for_duplicate_content_identity() -> None:
+    candidate = "# Widget\n\nRepeated.\n\nRepeated.\n"
+    anchors = build_candidate_review_anchors(candidate)
+    repeated = [item for item in anchors if item.text == "Repeated."]
+    assert len(repeated) == 2
+    content_identity, _occurrence = repeated[0].anchor_id.rsplit(".", maxsplit=1)
+    value = {
+        "findings": [
+            {
+                "finding_id": "quality.repeated",
+                "candidate_anchor_id": f"{content_identity}.9",
                 "quoted_candidate_span": "Repeated.",
             }
         ]

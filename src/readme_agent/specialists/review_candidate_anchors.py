@@ -164,8 +164,11 @@ def reconcile_unknown_candidate_review_anchors(
     if not isinstance(value, dict) or not isinstance(value.get("findings"), list):
         return value, ()
     known = {anchor.anchor_id for anchor in anchors}
+    by_content_identity: dict[str, list[CandidateReviewAnchorV1]] = {}
     by_text: dict[str, list[CandidateReviewAnchorV1]] = {}
     for anchor in anchors:
+        content_identity, _occurrence = anchor.anchor_id.rsplit(".", maxsplit=1)
+        by_content_identity.setdefault(content_identity, []).append(anchor)
         by_text.setdefault(anchor.text, []).append(anchor)
     findings: list[object] = []
     reconciled_ids: list[str] = []
@@ -176,6 +179,14 @@ def reconcile_unknown_candidate_review_anchors(
         anchor_id = item.get("candidate_anchor_id")
         if anchor_id is None or str(anchor_id) in known:
             findings.append(item)
+            continue
+        content_identity, separator, _occurrence = str(anchor_id).rpartition(".")
+        identity_matches = by_content_identity.get(content_identity, []) if separator else []
+        if len(identity_matches) == 1:
+            findings.append({**item, "candidate_anchor_id": identity_matches[0].anchor_id})
+            finding_id = item.get("finding_id")
+            if isinstance(finding_id, str) and finding_id:
+                reconciled_ids.append(finding_id)
             continue
         quote = item.get("quoted_candidate_span")
         if not isinstance(quote, str) or not quote or candidate_text.count(quote) != 1:
