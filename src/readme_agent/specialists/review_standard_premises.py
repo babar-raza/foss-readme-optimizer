@@ -129,6 +129,21 @@ def _capability_rows_name_the_public_product(candidate_text: str) -> bool:
     return bool(product_name and rows) and all(product_name in row for row in rows)
 
 
+def _source_revision_installation_is_explicit(candidate_text: str) -> bool:
+    """Recognize complete visible source-installation guidance without hidden fact access."""
+
+    body = _h2_body(candidate_text, "Installation").casefold()
+    return all(
+        fragment in body
+        for fragment in (
+            "git clone ",
+            "git checkout --detach ",
+            "source revision",
+            "pip install .",
+        )
+    )
+
+
 def validate_configured_standard_premise(
     *,
     finding_id: str,
@@ -144,6 +159,64 @@ def validate_configured_standard_premise(
     premise = premise.casefold()
 
     section_slug = _section_slug(section)
+    if section_slug == "installation" and _source_revision_installation_is_explicit(candidate_text):
+        demands_unstated_acquisition_fact = any(
+            phrase in premise
+            for phrase in (
+                "only acquisition method",
+                "one of multiple options",
+                "mention alternatives",
+                "alternatives (e.g., pypi)",
+                "alternatives such as pypi",
+            )
+        )
+        if demands_unstated_acquisition_fact:
+            errors.append(
+                f"{finding_id}:installation alternative premise conflicts with blind-review "
+                "visible-fact authority"
+            )
+
+        demands_unstated_revision_outcome = any(
+            phrase in premise
+            for phrase in (
+                "version stability",
+                "reproducibility",
+                "why a specific source revision is used",
+                "why the specific source revision is used",
+            )
+        )
+        if demands_unstated_revision_outcome:
+            errors.append(
+                f"{finding_id}:installation revision-outcome premise conflicts with blind-review "
+                "visible-fact authority"
+            )
+
+        misclassifies_visible_git_operation = (
+            "internal terminology" in premise
+            and "detached checkout" in premise
+            and "pins" in premise
+        )
+        if misclassifies_visible_git_operation:
+            errors.append(
+                f"{finding_id}:Git-terminology premise contradicts visible source-installation "
+                "command"
+            )
+
+        claims_revision_context_is_absent = any(
+            phrase in premise
+            for phrase in (
+                "no explanation of the checkout hash",
+                "no explanation of what the checkout hash represents",
+                "code block lacks context",
+                "no explanation of the specific commit hash",
+            )
+        )
+        if claims_revision_context_is_absent:
+            errors.append(
+                f"{finding_id}:installation revision-context premise contradicts visible "
+                "source-revision guidance"
+            )
+
     api_reference_premise = section_slug == "api-reference" and any(
         phrase in premise
         for phrase in (

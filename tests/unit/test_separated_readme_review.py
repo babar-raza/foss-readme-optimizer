@@ -1210,6 +1210,117 @@ def test_blind_role_accepts_when_every_proposed_defect_is_deterministically_disp
     assert history[0]["deterministically_dismissed_finding_ids"] == ["bare-label"]
 
 
+def test_blind_role_dismisses_installation_repairs_that_require_unseen_facts() -> None:
+    candidate = """# Aspose.3D FOSS for Python
+
+## Installation
+
+Aspose.3D FOSS for Python is acquired by building from source. This approach is useful when you
+need to integrate the library directly into a custom build pipeline or work with a specific source
+revision.
+
+Install `aspose-3d-foss` directly from the repository source. The detached checkout pins these
+instructions to the documented source revision.
+
+```bash
+git clone https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git
+cd Aspose.3D-FOSS-for-Python
+git checkout --detach ee05c1ba9153ef5916b7a108406c794f2e464d01
+python -m pip install .
+```
+"""
+    findings = [
+        {
+            "finding_id": "install-alternatives",
+            "kind": "quality",
+            "criterion": "clarity",
+            "section": "installation",
+            "claim": (
+                "The section does not state whether building from source is the only acquisition "
+                "method."
+            ),
+            "quoted_candidate_span": (
+                "Aspose.3D FOSS for Python is acquired by building from source. This approach "
+                "is useful when you\nneed to integrate the library directly into a custom build "
+                "pipeline or work with a specific source\nrevision."
+            ),
+            "disposition": "requires_repair",
+            "polarity_result": "not_applicable",
+            "required_repair": (
+                "Clarify whether it is one of multiple options and mention alternatives such as "
+                "PyPI."
+            ),
+        },
+        {
+            "finding_id": "install-terminology",
+            "kind": "quality",
+            "criterion": "internal_terminology",
+            "section": "installation",
+            "claim": "Uses internal terminology 'detached checkout' and 'pins'.",
+            "quoted_candidate_span": (
+                "Install `aspose-3d-foss` directly from the repository source. The detached "
+                "checkout pins these\ninstructions to the documented source revision."
+            ),
+            "disposition": "requires_repair",
+            "polarity_result": "not_applicable",
+            "required_repair": (
+                "Use plain language explaining why a specific source revision is used."
+            ),
+        },
+        {
+            "finding_id": "install-revision",
+            "kind": "quality",
+            "criterion": "installation_presentation",
+            "section": "installation",
+            "claim": "The code block lacks context: no explanation of the checkout hash.",
+            "quoted_candidate_span": (
+                "```bash\ngit clone "
+                "https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git\n"
+                "cd Aspose.3D-FOSS-for-Python\n"
+                "git checkout --detach ee05c1ba9153ef5916b7a108406c794f2e464d01\n"
+                "python -m pip install .\n```"
+            ),
+            "disposition": "requires_repair",
+            "polarity_result": "not_applicable",
+            "required_repair": (
+                "Explain how the commit hash relates to version stability or reproducibility."
+            ),
+        },
+    ]
+    parsed = {
+        "verdict": "REJECT_REPAIRABLE",
+        "reasoning": "The installation presentation requires more factual context.",
+        "failed_criteria": [
+            "clarity",
+            "internal_terminology",
+            "installation_presentation",
+        ],
+        "sections_affected": ["installation"],
+        "required_repair": "Add acquisition alternatives and revision guarantees.",
+        "findings": findings,
+    }
+    client = SequenceClient([parsed])
+
+    result, history, grounding = run_grounded_role(
+        role="blind_quality",
+        prompt_id="blind_readme_quality_review",
+        client=client,
+        messages=[],
+        candidate_text=candidate,
+        product_facts=None,
+        visitor_contract={},
+    )
+
+    assert result.verdict == "ACCEPT"
+    assert grounding.valid is True
+    assert len(client.messages_seen) == 1
+    assert history[0]["deterministically_dismissed_finding_ids"] == [
+        "install-alternatives",
+        "install-revision",
+        "install-terminology",
+    ]
+
+
 def test_blind_rejection_derives_redundant_summary_from_detailed_findings() -> None:
     result = normalize_redundant_role_fields(
         "blind_quality",

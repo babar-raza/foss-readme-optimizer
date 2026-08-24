@@ -44,6 +44,100 @@ The package documents one public type.
     ]
 
 
+def test_source_installation_disproves_blind_requests_for_unstated_acquisition_facts() -> None:
+    candidate = """# Aspose.3D FOSS for Python
+
+## Installation
+
+Aspose.3D FOSS for Python is acquired by building from source. This approach is useful when you
+need to integrate the library directly into a custom build pipeline or work with a specific source
+revision.
+
+Install `aspose-3d-foss` directly from the repository source. The detached checkout pins these
+instructions to the documented source revision.
+
+```bash
+git clone https://github.com/aspose-3d-foss/Aspose.3D-FOSS-for-Python.git
+cd Aspose.3D-FOSS-for-Python
+git checkout --detach ee05c1ba9153ef5916b7a108406c794f2e464d01
+python -m pip install .
+```
+"""
+
+    premises = {
+        "visitor.install.alternatives": (
+            "The section does not clarify whether building from source is the only acquisition "
+            "method. Clarify whether it is one of multiple options and mention alternatives "
+            "such as PyPI."
+        ),
+        "visitor.install.terminology": (
+            "Uses internal terminology 'detached checkout' and 'pins'. Replace it with plain "
+            "language explaining why a specific source revision is used."
+        ),
+        "visitor.install.revision": (
+            "The code block lacks context: no explanation of the checkout hash. Add a sentence "
+            "explaining the specific commit hash and how it relates to version stability or "
+            "reproducibility."
+        ),
+    }
+
+    errors = {
+        finding_id: validate_configured_standard_premise(
+            finding_id=finding_id,
+            section="installation",
+            premise=premise,
+            candidate_text=candidate,
+            visitor_contract={},
+        )
+        for finding_id, premise in premises.items()
+    }
+
+    assert any(
+        "conflicts with blind-review visible-fact authority" in error
+        for error in errors["visitor.install.alternatives"]
+    )
+    assert any(
+        "Git-terminology premise contradicts" in error
+        for error in errors["visitor.install.terminology"]
+    )
+    assert any(
+        "revision-context premise contradicts" in error
+        for error in errors["visitor.install.revision"]
+    )
+    assert any(
+        "revision-outcome premise conflicts with" in error
+        for error in errors["visitor.install.revision"]
+    )
+
+
+def test_source_installation_allows_visible_prose_clarity_finding_without_new_facts() -> None:
+    candidate = """# Product
+
+## Installation
+
+Install from the repository source at a documented source revision.
+
+```bash
+git clone https://github.com/example/product.git
+git checkout --detach 0123456789abcdef
+python -m pip install .
+```
+"""
+
+    errors = validate_configured_standard_premise(
+        finding_id="visitor.install.wording",
+        section="installation",
+        premise=(
+            "The introductory sentence repeats the word source. Rewrite the visible sentence "
+            "more concisely without adding technical claims."
+        ),
+        candidate_text=candidate,
+        visitor_contract={},
+    )
+
+    assert errors == []
+
+
 def test_action_led_capability_rows_do_not_overrule_qualitative_value_review() -> None:
     candidate = """# Product
 
