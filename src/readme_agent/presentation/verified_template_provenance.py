@@ -27,6 +27,7 @@ from readme_agent.presentation.verified_template_draft import (
     generated_minimal_example,
     source_tree_installation_text,
 )
+from readme_agent.presentation.verified_template_limitations import verified_limitation_groups
 from readme_agent.presentation.verified_template_sections import (
     additional_examples_markdown,
     dependency_markdown,
@@ -156,6 +157,58 @@ def _structural_heading_bindings(
                 rationale=(
                     "Bind one exact canonical fact-renderer H3 to its accepted facts and "
                     "configured section standard."
+                ),
+            )
+        )
+    return bindings
+
+
+def _scope_limitation_heading_bindings(
+    *,
+    slot: TemplateSlot,
+    content: BoundTemplateContentV1,
+    section_text: str,
+    section_base_byte: int,
+    facts: ProductFactsV2,
+) -> list[CandidateContentProvenanceV1]:
+    """Bind only exact deterministic limitation-group H3 bytes to their own facts."""
+
+    if slot != "scope_and_limitations" or content.source_kind != (
+        "repository_fact_and_configured_standard"
+    ):
+        return []
+    bindings = []
+    for index, group in enumerate(verified_limitation_groups(facts)):
+        fact_id = facts.selected_fact_ids.get(group.fact_field)
+        if (
+            fact_id is None
+            or fact_id not in content.fact_ids
+            or section_text.count(group.markdown) != 1
+        ):
+            continue
+        group_start = section_text.index(group.markdown)
+        heading = next(
+            (
+                item
+                for item in parse_headings(group.markdown)
+                if item.level == 3 and item.title == group.heading
+            ),
+            None,
+        )
+        if heading is None:
+            continue
+        bindings.append(
+            CandidateContentProvenanceV1(
+                provenance_id=f"template.structure.h3.scope_and_limitations.{index:04d}",
+                candidate_byte_start=section_base_byte
+                + len(section_text[: group_start + heading.start].encode("utf-8")),
+                candidate_byte_end=section_base_byte
+                + len(section_text[: group_start + heading.heading_end].encode("utf-8")),
+                fact_ids=[fact_id],
+                configured_standard_ids=[_MECHANICAL_STRUCTURE_STANDARD],
+                rationale=(
+                    "Bind one exact deterministic limitation-group heading to its corresponding "
+                    "accepted fact and mechanical presentation standard."
                 ),
             )
         )
@@ -383,6 +436,15 @@ def build_template_provenance(
                     template_input=template_input,
                     facts=facts,
                     source_text=source_text,
+                )
+            )
+            bindings.extend(
+                _scope_limitation_heading_bindings(
+                    slot=slot,
+                    content=content,
+                    section_text=text,
+                    section_base_byte=base_byte,
+                    facts=facts,
                 )
             )
             verified_installation_range: tuple[int, int] | None = None

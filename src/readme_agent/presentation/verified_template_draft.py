@@ -26,6 +26,7 @@ from readme_agent.presentation.verified_template_capabilities import (
 from readme_agent.presentation.verified_template_documentation import (
     documentation_resources_markdown,
 )
+from readme_agent.presentation.verified_template_limitations import verified_limitation_groups
 from readme_agent.presentation.verified_template_sections import (
     additional_examples_markdown,
     contributing_markdown,
@@ -51,7 +52,6 @@ from readme_agent.readme.header_badges import render_brand_banner
 from readme_agent.readme.header_visual import render_readme_header_visual
 from readme_agent.readme.knowledge_claim_presentation import (
     knowledge_installation_items,
-    knowledge_limitation_items,
     knowledge_troubleshooting_items,
 )
 from readme_agent.readme.license_location import repository_license_path
@@ -382,30 +382,10 @@ def _scope_text(
     contextual_links: ContextualLinkPlanV1 | None,
 ) -> tuple[str, list[str], tuple[str, ...]]:
     limitations = public_limitation_phrases(facts)
-    knowledge_limitations: list[str] = []
-    for item in knowledge_limitation_items(facts):
-        public_text = item.markdown.removeprefix("- ")
-        if any(public_limitations_equivalent(public_text, existing) for existing in limitations):
-            continue
-        if any(
-            public_limitations_equivalent(public_text, existing.removeprefix("- "))
-            for existing in knowledge_limitations
-        ):
-            continue
-        knowledge_limitations.append(item.markdown)
-    paragraphs = (
-        [
-            _scope_limitations_brief(facts, limitations),
-            "### Feature and Workflow Boundaries\n\n"
-            + "\n".join(f"- {item}" for item in limitations),
-        ]
-        if limitations
-        else []
-    )
-    fields = ["product.limitations"] if limitations else []
-    if knowledge_limitations:
-        paragraphs.append("### API Member Gaps\n\n" + "\n".join(knowledge_limitations))
-        fields.append("aspose.limitation_claims")
+    groups = verified_limitation_groups(facts)
+    paragraphs = [_scope_limitations_brief(facts, limitations)] if limitations else []
+    paragraphs.extend(group.markdown for group in groups)
+    fields = [group.fact_field for group in groups]
     package_status = package_status_markdown(facts)
     if package_status:
         paragraphs.append(package_status)

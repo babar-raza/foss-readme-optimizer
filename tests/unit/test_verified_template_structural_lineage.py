@@ -15,6 +15,7 @@ from readme_agent.presentation.verified_template_api_reference import api_refere
 from readme_agent.presentation.verified_template_capabilities import (
     capability_highlights_markdown,
 )
+from readme_agent.presentation.verified_template_limitations import verified_limitation_groups
 from readme_agent.presentation.verified_template_provenance import build_template_provenance
 from readme_agent.presentation.verified_template_sections import (
     additional_examples_markdown,
@@ -614,6 +615,104 @@ def test_modified_fact_section_cannot_inherit_canonical_h3_authority() -> None:
     )
     assert not any(
         item.provenance_id.startswith("template.structure.h3.api_reference") for item in provenance
+    )
+
+
+def test_mixed_authored_scope_binds_only_exact_deterministic_limitation_heading() -> None:
+    facts = _facts()
+    payload = facts.model_dump(mode="json")
+    limitation_id = payload["selected_fact_ids"]["product.limitations"]
+    for record in payload["facts"]:
+        if record["fact_id"] == limitation_id:
+            record["value"] = [
+                {
+                    "kind": "mesh_boolean_unimplemented",
+                    "statement": "Mesh boolean operations are not implemented.",
+                    "path": "aspose/threed/entities/Mesh.py",
+                    "line": 101,
+                    "source_sha256": "a" * 64,
+                }
+            ]
+    facts = ProductFactsV2.model_validate(payload)
+    knowledge = FactRecordV2(
+        fact_id="aspose.limitation_claims:structural-lineage-test",
+        field="aspose.limitation_claims",
+        value=[
+            {
+                "claim_id": "3d/python/renderer-execute",
+                "kind": "limitation",
+                "text": "Not implemented: Renderer.execute",
+                "confidence": 1.0,
+            }
+        ],
+        source=facts.selected_fact("product.identity").source,
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme.limitations"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [*facts.facts, knowledge],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                knowledge.field: knowledge.fact_id,
+            },
+        }
+    )
+    groups = verified_limitation_groups(facts)
+    assert len(groups) == 2
+    scope = (
+        "This concise orientation sentence was accepted by bounded section authoring.\n\n"
+        "### Unrelated Authored Heading\n\n"
+        "This authored subsection must not inherit deterministic structure authority.\n\n"
+        + "\n\n".join(group.markdown for group in groups)
+    )
+    template_input = _template_input(facts)
+    template_input = template_input.model_copy(
+        update={
+            "sections": {
+                **template_input.sections,
+                "scope_and_limitations": _bound(
+                    facts,
+                    scope,
+                    *(group.fact_field for group in groups),
+                    standards=("readme.enterprise_edition_terminology",),
+                ),
+            }
+        }
+    )
+    candidate = compile_repository_presentation(template_input)
+    provenance = build_template_provenance(candidate, template_input, facts)
+    headings = {
+        item.title: item
+        for item in parse_headings(candidate)
+        if item.level == 3
+        and item.title in {*(group.heading for group in groups), "Unrelated Authored Heading"}
+    }
+
+    for group in groups:
+        deterministic = headings[group.heading]
+        deterministic_start = len(candidate[: deterministic.start].encode("utf-8"))
+        deterministic_end = len(candidate[: deterministic.heading_end].encode("utf-8"))
+        exact = [
+            item
+            for item in provenance
+            if item.candidate_byte_start == deterministic_start
+            and item.candidate_byte_end == deterministic_end
+        ]
+        assert len(exact) == 1
+        assert exact[0].fact_ids == [facts.selected_fact_ids[group.fact_field]]
+        assert exact[0].configured_standard_ids == ["readme.composition.mechanical-markdown-v1"]
+
+    authored = headings["Unrelated Authored Heading"]
+    authored_start = len(candidate[: authored.start].encode("utf-8"))
+    authored_end = len(candidate[: authored.heading_end].encode("utf-8"))
+    assert not any(
+        item.candidate_byte_start <= authored_start
+        and authored_end <= item.candidate_byte_end
+        and item.configured_standard_ids
+        for item in provenance
     )
 
 
