@@ -9,6 +9,7 @@ from pathlib import Path
 from readme_agent.specialists.bounded_review_cache import (
     BoundedReviewCacheContextV1,
     cache_key_for_packet,
+    legacy_cache_key_for_packet,
     load_bounded_review_packet_cache,
     write_bounded_review_packet_cache,
 )
@@ -55,18 +56,52 @@ class BoundedReviewPacketCache:
             self.context,
             runtime_contract_hash=runtime_contract_hash,
         )
-        cached = load_bounded_review_packet_cache(
-            self.cache_dir,
-            cache_key=cache_key,
-            org_repo=self.org_repo,
-            context=self.context,
-            packet=packet,
-            plan=self.plan,
+        legacy_cache_key = legacy_cache_key_for_packet(
+            packet,
+            self.context,
+            runtime_contract_hash=runtime_contract_hash,
         )
+        cached = None
+        loaded_cache_key = cache_key
+        for candidate_cache_key in dict.fromkeys((cache_key, legacy_cache_key)):
+            cached = load_bounded_review_packet_cache(
+                self.cache_dir,
+                cache_key=candidate_cache_key,
+                org_repo=self.org_repo,
+                context=self.context,
+                packet=packet,
+                plan=self.plan,
+            )
+            if cached is not None:
+                loaded_cache_key = candidate_cache_key
+                break
         if cached is None:
             return None
         if validate_result is not None and not validate_result(cached.result):
             return None
+        if loaded_cache_key != cache_key:
+            migration_history = (
+                *cached.grounding_history,
+                {
+                    "role": "blind_quality" if packet.facet == "visitor" else "factual_plan",
+                    "attempt": 0,
+                    "context_mode": "bounded_packet_cache_identity_migration",
+                    "valid": True,
+                    "errors": [],
+                    "packet_id": packet.packet_id,
+                    "legacy_cache_key": loaded_cache_key,
+                    "cache_key": cache_key,
+                },
+            )
+            cached = write_bounded_review_packet_cache(
+                self.cache_dir,
+                cache_key=cache_key,
+                org_repo=self.org_repo,
+                context=self.context,
+                packet=packet,
+                result=cached.result,
+                grounding_history=migration_history,
+            )
         model, _schema_hash, _sampling = self.context.identity_for(packet)
         prompt_id = self.blind_prompt_id if packet.facet == "visitor" else self.factual_prompt_id
         self.record_cache_reuse(

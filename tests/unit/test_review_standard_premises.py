@@ -609,6 +609,7 @@ print("export")
     for premise in (
         "Secondary examples are not collapsed below a primary example and it lacks a primary "
         "example.",
+        "Secondary examples lack a required workflow-preview intro before the collapsed block.",
         "The HTML <details> block, which violates Markdown integrity, needs a Markdown-only "
         "collapsible structure.",
         "The section has no workflow preview.",
@@ -647,6 +648,7 @@ def test_complete_product_specific_capability_rows_disprove_fragment_premises() 
 
     for premise in (
         "Bullets are incomplete sentence fragments that omit the developer-facing outcome.",
+        "The animation row uses generic terms without specifying what the user can achieve.",
         "The section reads like a raw inventory list and not just a description of API usage.",
         "It uses internal terminology instead of verified product vocabulary.",
     ):

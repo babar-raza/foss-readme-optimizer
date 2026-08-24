@@ -262,17 +262,20 @@ def validate_configured_standard_premise(
             term in premise
             for term in ("primary", "secondary", "workflow-preview", "<details>", "collapsed")
         )
-    ) or any(
-        phrase in premise
-        for phrase in (
-            "secondary examples are not collapsed",
-            "uncollapsed <details> block",
-            "lacks a primary example",
-            "has no workflow preview",
-            "without a workflow-preview intro",
-            "html <details> block, which violates markdown integrity",
-            "markdown-only collapsible structure",
+    ) or (
+        any(
+            phrase in premise
+            for phrase in (
+                "secondary examples are not collapsed",
+                "uncollapsed <details> block",
+                "lacks a primary example",
+                "has no workflow preview",
+                "without a workflow-preview intro",
+                "html <details> block, which violates markdown integrity",
+                "markdown-only collapsible structure",
+            )
         )
+        or bool(re.search(r"\black(?:s|ing)?\b[^.\n]{0,100}\bworkflow[- ]preview\b", premise))
     )
     if (
         claims_secondary_structure_missing
@@ -350,6 +353,7 @@ def validate_configured_standard_premise(
             "not just a description of api usage",
             "uses internal terminology",
             "instead of verified product vocabulary",
+            "without specifying what the user can achieve",
         )
     )
     if (

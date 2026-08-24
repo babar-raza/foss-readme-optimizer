@@ -22,8 +22,11 @@ from readme_agent.specialists import bounded_review_packets as brp
 from readme_agent.specialists.bounded_review_cache import (
     BoundedReviewCacheContextV1,
     cache_key_for_packet,
+    legacy_cache_key_for_packet,
+    write_bounded_review_packet_cache,
 )
 from readme_agent.specialists.bounded_review_execution import execute_bounded_review
+from readme_agent.specialists.bounded_review_execution_cache import BoundedReviewPacketCache
 from readme_agent.specialists.bounded_review_hashing import _canonical_hash
 from readme_agent.specialists.bounded_review_visitor_scope import (
     bounded_visitor_contract,
@@ -95,6 +98,133 @@ def test_exact_packet_results_are_reused_without_provider_calls(tmp_path) -> Non
         if item.get("context_mode") == "bounded_packet_cache_reuse"
     ]
     assert len(cache_events) == len(visitor_packets) + len(factual_packets)
+
+
+def test_unrelated_global_fact_hash_change_reuses_exact_packets_without_provider_calls(
+    tmp_path,
+) -> None:
+    plan = _plan()
+    ledger = brp.build_coverage_ledger(plan, atomic_units=_atomic_units())
+    first_context = _cache_context()
+    changed_context = first_context.model_copy(
+        update={"facts_hash": "1" * 64, "provenance_hash": "2" * 64}
+    )
+    common = {
+        "org_repo": "acme/widget-toolkit",
+        "candidate_text": CANDIDATE_TEXT,
+        "product_facts": DEFAULT_FACTS.model_dump(mode="json"),
+        "visitor_contract": build_presentation_visitor_contract(
+            applicable_h2_headings=_headings(),
+            primary_example_language="python",
+        ),
+        "plan": plan,
+        "coverage_ledger": ledger,
+        "blind_prompt_id": "blind_readme_quality_review",
+        "factual_prompt_id": "factual_readme_plan_review",
+        "cache_dir": tmp_path / "packet-cache",
+    }
+
+    execute_bounded_review(
+        **common,
+        cache_context=first_context,
+        blind_client=_PacketSequenceClient(list(plan.visitor_packets)),
+        factual_client=_PacketSequenceClient(list(plan.factual_packets)),
+    )
+    reused = execute_bounded_review(
+        **common,
+        cache_context=changed_context,
+        blind_client=_FailIfCalledClient(),
+        factual_client=_FailIfCalledClient(),
+    )
+
+    assert reused.aggregate.overall == "ACCEPT"
+    assert sum(
+        item.get("context_mode") == "bounded_packet_cache_reuse"
+        for item in reused.grounding_history
+    ) == len(plan.visitor_packets) + len(plan.factual_packets)
+
+
+def test_legacy_global_fact_cache_key_is_distinct_and_migratable() -> None:
+    packet = _plan().visitor_packets[0]
+    context = _cache_context()
+
+    stable = cache_key_for_packet(packet, context, runtime_contract_hash="1" * 64)
+    legacy = legacy_cache_key_for_packet(packet, context, runtime_contract_hash="1" * 64)
+
+    assert stable != legacy
+    assert stable == cache_key_for_packet(
+        packet,
+        context.model_copy(update={"facts_hash": "3" * 64, "provenance_hash": "4" * 64}),
+        runtime_contract_hash="1" * 64,
+    )
+
+
+def test_legacy_global_fact_cache_receipt_migrates_without_provider_call(tmp_path) -> None:
+    plan = _plan()
+    packet = plan.visitor_packets[0]
+    context = _cache_context()
+    runtime_contract_hash = "1" * 64
+    cache_dir = tmp_path / "packet-cache"
+    execution = execute_bounded_review(
+        org_repo="acme/widget-toolkit",
+        candidate_text=CANDIDATE_TEXT,
+        product_facts=DEFAULT_FACTS.model_dump(mode="json"),
+        visitor_contract=build_presentation_visitor_contract(
+            applicable_h2_headings=_headings(),
+            primary_example_language="python",
+        ),
+        plan=plan,
+        coverage_ledger=brp.build_coverage_ledger(plan, atomic_units=_atomic_units()),
+        blind_client=_PacketSequenceClient(list(plan.visitor_packets)),
+        factual_client=_PacketSequenceClient(list(plan.factual_packets)),
+        blind_prompt_id="blind_readme_quality_review",
+        factual_prompt_id="factual_readme_plan_review",
+    )
+    result = next(item for item in execution.packet_results if item.packet_id == packet.packet_id)
+    legacy_key = legacy_cache_key_for_packet(
+        packet,
+        context,
+        runtime_contract_hash=runtime_contract_hash,
+    )
+    write_bounded_review_packet_cache(
+        cache_dir,
+        cache_key=legacy_key,
+        org_repo="acme/widget-toolkit",
+        context=context,
+        packet=packet,
+        result=result,
+        grounding_history=(),
+    )
+    reuse_events: list[dict] = []
+    cache = BoundedReviewPacketCache(
+        org_repo="acme/widget-toolkit",
+        plan=plan,
+        cache_dir=cache_dir,
+        context=context,
+        blind_prompt_id="blind_readme_quality_review",
+        factual_prompt_id="factual_readme_plan_review",
+        record_cache_reuse=lambda **event: reuse_events.append(event),
+    )
+
+    loaded = cache.load(
+        packet,
+        runtime_contract_hash=runtime_contract_hash,
+        validate_result=lambda _result: True,
+    )
+
+    stable_key = cache_key_for_packet(
+        packet,
+        context,
+        runtime_contract_hash=runtime_contract_hash,
+    )
+    assert loaded is not None
+    assert loaded[0] == result
+    assert reuse_events
+    assert (cache_dir / f"{legacy_key}.json").is_file()
+    assert (cache_dir / f"{stable_key}.json").is_file()
+    assert any(
+        item.get("context_mode") == "bounded_packet_cache_identity_migration" for item in loaded[1]
+    )
 
 
 def test_exact_packets_rebind_to_current_candidate_without_provider_calls(tmp_path) -> None:

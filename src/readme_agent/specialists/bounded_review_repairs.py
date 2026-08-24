@@ -165,11 +165,16 @@ def packet_cache_key(
     provenance_hash: str,
     sampling_parameters: Mapping[str, Any] | None = None,
     runtime_contract_hash: str | None = None,
+    include_global_fact_identity: bool = False,
 ) -> str:
     """Deterministic cache identity for one packet's reviewer call.
 
     ``packet.packet_sha256`` already embeds ``_ALGORITHM_CONTRACT_VERSION``, so an algorithm
-    change invalidates through the key without needing a separate version field here.
+    change invalidates through the key without needing a separate version field here. Factual
+    packets also embed their exact accepted fact subset, do-not-claim records, and provenance IDs;
+    visitor packets have no fact input. Whole-document fact and provenance hashes therefore must
+    not invalidate unchanged packet calls. ``include_global_fact_identity`` exists only to locate
+    and migrate cache entries written by the former over-broad identity.
     """
 
     identity = {
@@ -178,10 +183,11 @@ def packet_cache_key(
         "facet": packet.facet,
         "model": model,
         "schema_sha256": schema_sha256,
-        "facts_hash": facts_hash,
-        "provenance_hash": provenance_hash,
         "sampling_parameters": dict(sampling_parameters or {}),
     }
+    if include_global_fact_identity:
+        identity["facts_hash"] = facts_hash
+        identity["provenance_hash"] = provenance_hash
     if runtime_contract_hash is not None:
         identity["runtime_contract_hash"] = runtime_contract_hash
     return _canonical_hash(identity)

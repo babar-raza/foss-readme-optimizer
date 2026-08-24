@@ -83,6 +83,7 @@ def cache_key_for_packet(
     context: BoundedReviewCacheContextV1,
     *,
     runtime_contract_hash: str | None = None,
+    include_global_fact_identity: bool = False,
 ) -> str:
     """Build one exact cache key from the packet and facet-specific client contract."""
 
@@ -95,6 +96,23 @@ def cache_key_for_packet(
         provenance_hash=context.provenance_hash,
         sampling_parameters=sampling_parameters,
         runtime_contract_hash=runtime_contract_hash,
+        include_global_fact_identity=include_global_fact_identity,
+    )
+
+
+def legacy_cache_key_for_packet(
+    packet: BoundedPacketV1,
+    context: BoundedReviewCacheContextV1,
+    *,
+    runtime_contract_hash: str | None = None,
+) -> str:
+    """Return the former globally invalidating key for one-time cache migration."""
+
+    return cache_key_for_packet(
+        packet,
+        context,
+        runtime_contract_hash=runtime_contract_hash,
+        include_global_fact_identity=True,
     )
 
 
@@ -197,6 +215,7 @@ __all__ = [
     "BoundedReviewCacheContextV1",
     "BoundedReviewPacketCacheV1",
     "cache_key_for_packet",
+    "legacy_cache_key_for_packet",
     "load_bounded_review_packet_cache",
     "write_bounded_review_packet_cache",
 ]
