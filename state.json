@@ -120028,6 +120028,20 @@
         "reason": "independent README review started after deterministic validation",
         "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
         "to_status": "AGENT_REVIEWING"
+      },
+      {
+        "evidence_refs": [
+          "clarity",
+          "internal_terminology",
+          "product_specificity",
+          "promotional_balance"
+        ],
+        "from_status": "AGENT_REVIEWING",
+        "observed_by": "separated_readme_review",
+        "occurred_at": "2026-08-24T01:47:27.108364+00:00",
+        "reason": "verdict=REJECT_REPAIRABLE (repairable), review pass 1 (max repair attempts 2): blind_quality:REJECT_REPAIRABLE:pkt.visitor.0002.at.a.glance.14a23610abb3.f4@at-a-glance:internal_terminology,pkt.visitor.0003.key.capabilities.f3dafc4aaa5a.f1@key-capabilities:clarity,pkt.visitor.0003.key.capabilities.f3dafc4aaa5a.f2@key-capabilities:product_specificity,pkt.visitor.0006.additional.examples.1bdfae9e5461.f1@additional-examples:clarity,pkt.visitor.0006.additional.examples.1bdfae9e5461.f3@additional-examples:product_specificity,pkt.visitor.0010.scope.and.limitations.76c81962b379.f1@scope-and-limitations:promotional_balance,pkt.visitor.0010.scope.and.limitations.76c81962b379.f2@scope-and-limitations:internal_terminology; factual_plan:ACCEPT",
+        "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "to_status": "AGENT_REVIEW_REJECTED"
       }
     ],
     "human_acceptance_history": [],
@@ -120129,11 +120143,11 @@
     "reviewer_standard_hash": "8048bf7071331c29dde4ab15e979e94636714c63b3c6b11a72d6a021f8dc381e",
     "schema_version": 2,
     "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
-    "status": "AGENT_REVIEWING",
-    "updated_at": "2026-08-24T01:45:44.590703+00:00"
+    "status": "AGENT_REVIEW_REJECTED",
+    "updated_at": "2026-08-24T01:47:27.108364+00:00"
   },
   "schema_version": 2,
-  "state_version": 2614,
+  "state_version": 2615,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "62fab1e9beb334e4524efd5d2d2903c22977cc17365b03d38d4c2f6b6c9225e0",
