@@ -94,6 +94,52 @@ def test_unknown_or_unselected_fact_cannot_control_review():
     assert any("unknown fact ID" in error for error in unknown.errors)
 
 
+def test_evidence_binding_retry_exposes_every_bounded_packet_fact():
+    facts = {
+        "selected_fact_ids": {
+            "installation.coordinates": "fact.install",
+            "documentation.links": "fact.docs",
+        },
+        "facts": [
+            *FACTS["facts"],
+            {
+                "fact_id": "fact.docs",
+                "field": "documentation.links",
+                "value": "https://docs.example.test/",
+                "verification_state": "verified",
+                "source": {"location": "data/links.json"},
+                "conflicts": [],
+            },
+        ],
+    }
+    wrong_choice = _finding(
+        fact_id="fact.docs",
+        evidence_excerpt="https://docs.example.test/",
+        evidence_location="data/links.json",
+    )
+
+    retry = json.loads(
+        grounding_retry_context(
+            errors=[
+                "factual.install:evidence location disagrees with cited fact",
+                "factual.install:evidence excerpt is not bound to cited fact",
+            ],
+            candidate_text=CANDIDATE,
+            product_facts=facts,
+            findings=(wrong_choice,),
+        )
+    )
+
+    assert retry["selected_fact_ids"] == {
+        "documentation.links": "fact.docs",
+        "installation.coordinates": "fact.install",
+    }
+    assert {fact["fact_id"] for fact in retry["accepted_fact_evidence"]} == {
+        "fact.docs",
+        "fact.install",
+    }
+
+
 def test_genuinely_unsupported_claim_remains_valid_missing_evidence():
     finding = GroundedReviewFindingV1(
         finding_id="factual.unsupported-throughput",

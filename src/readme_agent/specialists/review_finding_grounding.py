@@ -1493,6 +1493,19 @@ def grounding_retry_context(
         fact_id for fact_ids in contradicted_fact_ids_by_finding.values() for fact_id in fact_ids
     }
     relevant_fact_ids = finding_fact_ids | contradicted_fact_ids
+    # A reviewer that chose the wrong packet fact cannot repair its evidence binding if the
+    # compact retry repeats only that mistaken choice. Bounded factual packets already expose a
+    # closed, small accepted-fact set, so make every packet fact available only for errors that
+    # require choosing evidence again. Other retries stay narrowed to the facts they actually
+    # cited (or that deterministically contradicted a missing-evidence premise).
+    evidence_choice_errors = (
+        "unknown fact ID",
+        "fact ID is not selected",
+        "evidence location disagrees",
+        "evidence excerpt is not bound",
+    )
+    if any(marker in joined_errors for marker in evidence_choice_errors):
+        relevant_fact_ids |= selected_ids
     if not relevant_fact_ids and any(finding.kind == "factual" for finding in findings):
         relevant_fact_ids = selected_ids
     accepted_fact_evidence = []

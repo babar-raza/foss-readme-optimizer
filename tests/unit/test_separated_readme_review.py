@@ -2717,6 +2717,57 @@ def test_literal_accepted_fact_false_block_requires_corrective_review_call():
     assert len(factual.messages_seen) == 2
 
 
+def test_wrong_selected_fact_retry_can_reselect_from_full_bounded_fact_set():
+    facts = {
+        **FACTS,
+        "selected_fact_ids": {
+            **FACTS["selected_fact_ids"],
+            "documentation.links": "fact-docs",
+        },
+        "facts": [
+            *FACTS["facts"],
+            {
+                "fact_id": "fact-docs",
+                "field": "documentation.links",
+                "value": "https://docs.example.test/",
+                "verification_state": "verified",
+                "source": {"location": "data/links.json"},
+                "conflicts": [],
+            },
+        ],
+    }
+    wrong_fact = _factual_accept("The candidate identity conflicts with documentation evidence.")
+    wrong_fact["verdict"] = "BLOCKED_FACT_CONFLICT"
+    wrong_fact["findings"][0].update(
+        {
+            "disposition": "blocks",
+            "fact_id": "fact-docs",
+            "evidence_excerpt": "Example",
+            "evidence_location": "README.md",
+            "observed_polarity": "explicit_constraint",
+            "polarity_result": "contradicts",
+        }
+    )
+    client = SequenceClient([wrong_fact, _factual_accept("Grounded after fact reselection.")])
+
+    result, history, grounding = run_grounded_role(
+        role="factual_plan",
+        prompt_id="factual_readme_plan_review",
+        client=client,
+        messages=[],
+        candidate_text=CANDIDATE,
+        product_facts=facts,
+    )
+
+    assert result.verdict == "ACCEPT"
+    assert grounding.valid is True
+    assert history[0]["valid"] is False
+    assert history[1]["context_mode"] == "compact_grounding_retry"
+    retry_content = client.messages_seen[1][-1]["content"]
+    assert '"fact_id": "fact-1"' in retry_content
+    assert '"fact_id": "fact-docs"' in retry_content
+
+
 def test_false_missing_retry_omits_unrelated_accepted_facts():
     facts = {
         **FACTS,
