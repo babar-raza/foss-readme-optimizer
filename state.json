@@ -112497,7 +112497,7 @@
         "to_status": "PROFILED"
       }
     ],
-    "candidate_hash": "705137cd18e6053e5576e65f9c6990b7011918a03a22ac3c3b041bf0493aac85",
+    "candidate_hash": "80fa7486425334733cbe9a653c4fad920815a54f7f1fb3dd42de51903672446f",
     "content_assurance": "repository_verified",
     "details": {},
     "fact_acceptance_component_hashes": {
@@ -119877,6 +119877,18 @@
         "reason": "fact-cited source-span presentation plan completed",
         "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
         "to_status": "PLAN_READY"
+      },
+      {
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\c\\ab746f9c4b165d2cd61c\\r\\fcc4d08dc8909ad0\\s\\ee05c1ba9153\\receipts\\CANDIDATE_GENERATED.json",
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-3d-foss__Aspose.3D-FOSS-for-Python\\ee05c1ba9153ef5916b7a108406c794f2e464d01\\receipts\\CANDIDATE_GENERATED.json"
+        ],
+        "from_status": "PLAN_READY",
+        "observed_by": "readme-presentation-composition",
+        "occurred_at": "2026-08-24T01:19:13.478507+00:00",
+        "reason": "revision-addressed README candidate and native patch materialized",
+        "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
+        "to_status": "CANDIDATE_GENERATED"
       }
     ],
     "human_acceptance_history": [],
@@ -119978,11 +119990,11 @@
     "reviewer_standard_hash": "082fe580bda86111a3562e97a0280b26dca5d1f8ea3d114833c518fd082c083c",
     "schema_version": 2,
     "source_revision": "ee05c1ba9153ef5916b7a108406c794f2e464d01",
-    "status": "PLAN_READY",
-    "updated_at": "2026-08-24T01:19:05.515003+00:00"
+    "status": "CANDIDATE_GENERATED",
+    "updated_at": "2026-08-24T01:19:13.478507+00:00"
   },
   "schema_version": 2,
-  "state_version": 2588,
+  "state_version": 2589,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "62fab1e9beb334e4524efd5d2d2903c22977cc17365b03d38d4c2f6b6c9225e0",
