@@ -120043,7 +120043,7 @@
     "updated_at": "2026-08-24T01:31:25.489496+00:00"
   },
   "schema_version": 2,
-  "state_version": 2598,
+  "state_version": 2599,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "62fab1e9beb334e4524efd5d2d2903c22977cc17365b03d38d4c2f6b6c9225e0",
@@ -122766,13 +122766,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:LLMInfrastructureError: forced tool call failed after retries: network error: HTTPSConnectionPool(host='llm.professionalize.com', port=443): Read timed out. (read timeout=90)",
       "last_checkpoint_id": "48447776521224d08632075b70371d12d7d9ccff0e757ba124dbfce4875b38fb",
-      "lease_expires_at": "2026-08-24T01:28:02.559753+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-24T01:33:47.806851+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-24T01:34:19.057185+00:00"
     }
   },
   "trigger_records": {},
