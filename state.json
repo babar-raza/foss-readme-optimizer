@@ -120388,7 +120388,7 @@
     "updated_at": "2026-08-24T02:24:11.320082+00:00"
   },
   "schema_version": 2,
-  "state_version": 2652,
+  "state_version": 2653,
   "supervisor_state": {
     "capability_gaps": [],
     "control_plane_fingerprint": "62fab1e9beb334e4524efd5d2d2903c22977cc17365b03d38d4c2f6b6c9225e0",
@@ -123155,13 +123155,13 @@
         "source_revision": null,
         "workflow_run_id": null
       },
-      "failure_classification": null,
-      "failure_detail": null,
+      "failure_classification": "validation_failed",
+      "failure_detail": "specialist_failed:readme_presentation:ERROR:independent_review_exception:GroundedRoleFailure: pkt-factual-0020-api-reference-aspose3dutilities-namespace-asposethreedutilities-da1097b0e244: factual_plan reviewer repeatedly returned ungrounded findings: ['f1:evidence location disagrees with cited fact', 'f1:evidence excerpt is not bound to cited fact', 'f1:accepted evidence without an assessment must support', 'f2:evidence location disagrees with cited fact', 'f2:evidence excerpt is not bound to cited fact', 'f2:accepted evidence without an assessment must support', 'f3:evidence location disagrees with cited fact', 'f3:evidence excerpt is not bound to cited fact', 'f3:accepted evidence without an assessment must support', 'f4:evidence location disagrees with cited fact', 'f4:evidence excerpt is not bound to cited fact', 'f4:accepted evidence without an assessment must support', 'f5:evidence location disagrees with cited fact', 'f5:evidence excerpt is not bound to cited fact', 'f5:accepted evidence without an assessment must support', 'f6:evidence location disagrees with cited fact', 'f6:evidence excerpt is not bound to cited fact', 'f6:accepted evidence without an assessment must support', 'f7:evidence location disagrees with cited fact', 'f7:evidence excerpt is not bound to cited fact', 'f7:accepted evidence without an assessment must support', 'f8:evidence location disagrees with cited fact', 'f8:evidence excerpt is not bound to cited fact', 'f8:accepted evidence without an assessment must support']",
       "last_checkpoint_id": "66b110a55ee16a4e9eee8d107cd560a16e535427dff8ac5d8559aba6af2567a6",
-      "lease_expires_at": "2026-08-24T02:15:02.925017+00:00",
+      "lease_expires_at": null,
       "recovery_count": 0,
-      "status": "processing",
-      "updated_at": "2026-08-24T02:26:31.184456+00:00"
+      "status": "retryable",
+      "updated_at": "2026-08-24T02:26:59.692802+00:00"
     }
   },
   "trigger_records": {},
