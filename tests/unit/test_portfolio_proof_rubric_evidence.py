@@ -181,3 +181,73 @@ def test_replay_gate_rewrites_the_persisted_rubric_with_terminal_evidence(
     assert persisted["outcome"]["accepted"] is True
     assert persisted["outcome"]["replay_attestation_proven"] is True
     assert persisted["outcome"]["replay_attestation_hash"] == attestation.proof.proof_hash
+
+
+def test_replay_gate_recovers_missing_first_view_only_from_complete_no_op(
+    tmp_path, monkeypatch
+) -> None:
+    artifacts, manifest_bindings = _terminal_acceptance_artifacts(
+        "acme/widget", _REV, _CANDIDATE_HASH
+    )
+    attestation = CompleteTransactionReplayAttestationV1.model_validate(
+        artifacts["replay_attestation"]
+    )
+    contract = ReplayAttestationContractV1.model_validate(artifacts["replay_contract"])
+    bundle_dir = tmp_path / "bundle"
+    review_dir = bundle_dir / "review"
+    review_dir.mkdir(parents=True)
+    rubric = artifacts["rubric_evaluation"]
+    rubric["outcome"]["replay_attestation_proven"] = None
+    rubric["outcome"]["replay_attestation_hash"] = None
+    (review_dir / "rubric-evaluation.json").write_text(json.dumps(rubric), encoding="utf-8")
+    (review_dir / "no-op-proof.json").write_text(
+        json.dumps(
+            {
+                "verdict": "NO_OP_PROVEN",
+                "candidate_hash": _CANDIDATE_HASH,
+                "new_provider_call_count": 0,
+                "patch_created": False,
+                "duplicate_bundle_created": False,
+                "acceptance_binding": {"candidate_hash": _CANDIDATE_HASH},
+            }
+        ),
+        encoding="utf-8",
+    )
+    (bundle_dir / "manifest.json").write_text(
+        json.dumps(
+            {
+                **manifest_bindings,
+                "candidate_hash": _CANDIDATE_HASH,
+                "lifecycle_status": "NO_OP_PROVEN",
+                "candidate_stage_dependency_key": "d" * 64,
+                "completed_stages": ["NO_OP_PROVEN", "RUBRIC_SCORED", "BENCHMARK_ACCEPTED"],
+            }
+        ),
+        encoding="utf-8",
+    )
+    missing = tmp_path / "missing-first"
+    first = tmp_path / "first"
+    replay = tmp_path / "replay"
+    first.mkdir()
+    replay.mkdir()
+    labels: list[str] = []
+
+    def materialize(_bundle, *, label):
+        labels.append(label)
+        return first if label == "first" else replay
+
+    monkeypatch.setattr(replay_gate, "first_snapshot_path", lambda _: missing)
+    monkeypatch.setattr(replay_gate, "materialize_transaction_snapshot", materialize)
+    monkeypatch.setattr(replay_gate, "derive_local_poc_replay_contract", lambda **_k: contract)
+    monkeypatch.setattr(
+        replay_gate, "attest_complete_transaction_noop", lambda **_k: attestation.proof
+    )
+    monkeypatch.setattr(replay_gate, "refresh_sha256sums", lambda _path: None)
+
+    replay_gate.attest_and_persist_replay_gate(bundle_dir)
+
+    assert labels == ["first", "replay"]
+    recovery = json.loads(
+        (review_dir / "first-transaction-snapshot-recovery.json").read_text(encoding="utf-8")
+    )
+    assert recovery["recovery_basis"] == "checksum_complete_zero_call_no_op"
