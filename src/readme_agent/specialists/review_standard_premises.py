@@ -291,10 +291,12 @@ def validate_configured_standard_premise(
         for phrase in (
             "lacks a natural, developer-facing overview",
             "reads like a raw task list",
+            "reads like a raw fact list",
             "rather than a task list",
             "lacks a workflow preview",
             "missing workflow preview",
             "generic list summary, not a configured workflow preview",
+            "generic summary line instead of natural workflow preview",
         )
     ) or bool(
         re.search(
@@ -400,6 +402,24 @@ def validate_configured_standard_premise(
     ):
         errors.append(
             f"{finding_id}:generic-capability premise contradicts product-bound action-led rows"
+        )
+    claims_arbitrary_capability_count = bool(
+        re.search(
+            r"\b(?:add|include|provide)\b[^.\n]{0,80}"
+            r"\b(?:one|two|three|four|five|six|\d+)\b[^.\n]{0,80}"
+            r"\bcapabilit(?:y|ies)\b",
+            premise,
+        )
+    )
+    if (
+        section_slug == "key-capabilities"
+        and claims_arbitrary_capability_count
+        and capability_standard.get("content_density") == "bounded_by_verified_facts"
+        and _capability_rows_are_action_led(candidate_text)
+        and _capability_rows_meet_value_contract(candidate_text)
+    ):
+        errors.append(
+            f"{finding_id}:capability-count premise exceeds verified-fact-bounded density"
         )
 
     errors.extend(

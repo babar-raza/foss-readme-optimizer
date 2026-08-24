@@ -308,6 +308,49 @@ flowchart LR
     ]
 
 
+def test_verified_output_coverage_disproves_specified_missing_target_wording() -> None:
+    candidate = """# Product
+
+## At a Glance
+
+```mermaid
+flowchart LR
+  I1["Input"] --> PRODUCT["Product"]
+  PRODUCT --> CORE["Core Capabilities"]
+  CORE --> O1["First output"]
+  O2["Second output"]
+  O3["Third output"]
+```
+"""
+
+    errors = validate_configured_standard_premise(
+        finding_id="visitor.mermaid.outputs-specified",
+        section="at-a-glance",
+        premise=(
+            "The contract specifies target_outputs=5, so O4 and O5 are missing. "
+            "Add two missing output nodes to match the configured target_outputs=5."
+        ),
+        candidate_text=candidate,
+        visitor_contract={
+            "configured_standards": [
+                {
+                    "standard_id": "readme.at_a_glance_mermaid",
+                    "parameters": {
+                        "minimum_outputs": 0,
+                        "target_outputs": 5,
+                        "output_coverage": "all_selected_verified",
+                    },
+                }
+            ]
+        },
+    )
+
+    assert errors == [
+        "visitor.mermaid.outputs-specified:Mermaid target-output premise contradicts "
+        "verified-coverage contract"
+    ]
+
+
 def test_allowed_corporate_styling_disproves_speculative_alignment_finding() -> None:
     candidate = """# Product
 
@@ -1123,6 +1166,7 @@ def test_real_fp03_preview_and_capability_findings_are_disproved() -> None:
                 "parameters": {
                     "action_led_same_line_rows": True,
                     "developer_value_explanation": "required",
+                    "content_density": "bounded_by_verified_facts",
                 },
             },
             {
@@ -1149,6 +1193,19 @@ def test_real_fp03_preview_and_capability_findings_are_disproved() -> None:
             "Missing workflow preview intro before secondary examples; current paragraph is a "
             "generic list summary, not a configured workflow preview.",
             "secondary-example intro premise contradicts parsed workflow preview",
+        ),
+        (
+            "additional-examples",
+            "The current introduction reads like a raw fact list rather than a natural, "
+            "developer-facing workflow preview. Replace the generic summary line instead of "
+            "the natural workflow preview.",
+            "secondary-example intro premise contradicts parsed workflow preview",
+        ),
+        (
+            "key-capabilities",
+            "The section is incomplete. Add at least three additional capability bullets that "
+            "describe concrete developer-facing tasks.",
+            "capability-count premise exceeds verified-fact-bounded density",
         ),
     )
     for index, (section, premise, expected) in enumerate(premises):

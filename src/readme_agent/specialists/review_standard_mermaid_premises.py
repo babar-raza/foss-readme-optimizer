@@ -148,6 +148,8 @@ def validate_mermaid_standard_premise(
             "expected",
             "noncompliant",
             "incomplete",
+            "specifies",
+            "missing",
         )
     )
     if (
