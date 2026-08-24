@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
-    "active_task_id": null,
+    "active_task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
     "approach_control": {
       "attempts": [
         {
@@ -2071,6 +2071,14 @@
           "outcome": "ineffective",
           "started_at": "2026-08-24T17:33:54.450358+00:00",
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "31f8231390a0b8a4b2a97e9f36090aaa3875a6c3b6d8484bda4941603d610c02",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-24T17:53:37.899772+00:00",
+          "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         }
       ],
       "proposed_fingerprints": {
@@ -3231,10 +3239,10 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "claim_expires_at": "2026-08-24T18:23:37.899772+00:00",
+    "claim_id": "b64e348369b84a3dbecbe9760368ae4c",
+    "claimed_at": "2026-08-24T17:53:37.899772+00:00",
+    "claimed_by": "codex",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
@@ -3503,7 +3511,7 @@
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-24T17:53:02.021743+00:00",
+    "last_evaluated_at": "2026-08-24T17:53:37.899772+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 1,
@@ -3707,7 +3715,7 @@
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
       "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
-      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "REGRESSED",
+      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "IN_PROGRESS",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "CLOSED",
       "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "REGRESSED",
@@ -14733,6 +14741,15 @@
         "reason": "claim lease expired before a terminal verification state",
         "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
         "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-24T17:53:37.900449+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -14742,7 +14759,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1488,
+  "state_version": 1489,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
