@@ -2186,17 +2186,32 @@
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "src/readme_agent/specialists/bounded_review_packers.py",
+            "src/readme_agent/specialists/bounded_review_execution_factual.py",
+            "src/readme_agent/specialists/factual_review_projection.py",
+            "tests/unit/test_bounded_review_packets.py",
+            "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/bounded-review-plan.json",
+            "runs/llm-calls/aspose-3d-foss__Aspose.3D-FOSS-for-Python/20260824-200508-584c.jsonl"
+          ],
           "fingerprint": "a8cfa3c3a92f883fa650e341fa9489c11a99f8cbfdaf52a763001d9f9b8b7c37",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-24T20:04:03.732221+00:00",
+          "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "07857c48d43c5894a96a440a0cc869d29fd6cba9a001002cf8d9d1ba2dfa43da",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-24T20:22:53.360563+00:00",
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         }
       ],
       "proposed_fingerprints": {
         "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "bb73427bbbbf602bdbbccd13b7bf93a7ff63fe1425d1343786e4d84e9afd437d",
-        "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "a8cfa3c3a92f883fa650e341fa9489c11a99f8cbfdaf52a763001d9f9b8b7c37",
+        "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "07857c48d43c5894a96a440a0cc869d29fd6cba9a001002cf8d9d1ba2dfa43da",
         "L8-PF-03-SEALED-CANDIDATE-NO-OP": "f202c0fb1ea5b08e2f7fcde9befb92bc3bbb96a89feaec97499e10230fdc7f23",
         "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "e1b980836cc43d097a55e758959cefd8e15dbfded4e9ecf1e2b127e7c50e992a",
         "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "9d8091b625ebf675542727bfa42e720a03906a4d5b9ca7bfa0a7b171f1668ee0",
@@ -3509,6 +3524,35 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-25T01:20:00+05:00",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "src/readme_agent/specialists/bounded_review_packers.py",
+            "src/readme_agent/specialists/bounded_review_execution_factual.py",
+            "src/readme_agent/specialists/factual_review_projection.py",
+            "tests/unit/test_bounded_review_packets.py",
+            "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/bounded-review-plan.json",
+            "runs/llm-calls/aspose-3d-foss__Aspose.3D-FOSS-for-Python/20260824-200508-584c.jsonl"
+          ],
+          "input_classification": "tactic",
+          "mechanism_changed": true,
+          "new_fingerprint": "07857c48d43c5894a96a440a0cc869d29fd6cba9a001002cf8d9d1ba2dfa43da",
+          "pipeline_boundary_changed": false,
+          "prior_fingerprint": "a8cfa3c3a92f883fa650e341fa9489c11a99f8cbfdaf52a763001d9f9b8b7c37",
+          "rationale": "The bounded visitor schema repair succeeded and reused 45 accepted review packets, but the sole unresolved factual packet, pkt-factual-0005-additional-examples-5a96b4cef5c1, again terminated at exactly 12,000 completion tokens after 227 seconds. Its candidate unit is only 256 characters. The actual cause is a 25 KB repository.examples prompt fact containing unrelated withheld examples, verifier-only fixture inventory, and a 12,260-character 317-path source location that the output contract asks the model to echo. Project only reviewable accepted examples, omit verifier-only bulk, replace oversized source lists with a SHA-256-bound fact-source identity, and ground the bounded result against that identity while retaining the complete ProductFactsV2 artifact unchanged. This selectively invalidates only packets whose projected fact bytes change, preserves all unrelated packet and section caches, and does not reduce factual coverage or acceptance requirements.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         }
       ]
     },
@@ -3791,12 +3835,12 @@
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-24T20:04:03.732276+00:00",
+    "last_evaluated_at": "2026-08-24T20:22:53.360618+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
       "denominator": 33,
-      "derived_at": "2026-08-24T19:55:20.738948+00:00",
+      "derived_at": "2026-08-24T20:14:32.290267+00:00",
       "deterministic_validated": 0,
       "facts_ready": 4,
       "first_failing_boundary": "FACTS_READY",
@@ -15088,7 +15132,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1503,
+  "state_version": 1504,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
