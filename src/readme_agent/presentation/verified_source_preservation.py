@@ -19,6 +19,9 @@ from readme_agent.presentation.verified_preservation_segments import (
     rebase_source_placements,
 )
 from readme_agent.presentation.verified_source_density import apply_verified_source_density
+from readme_agent.presentation.verified_source_detail_deduplication import (
+    drop_already_presented_blocks,
+)
 from readme_agent.presentation.verified_source_detail_presentation import (
     source_detail_presentation,
 )
@@ -214,6 +217,15 @@ def compose_verified_source_preservation(
             composed_provenance,
         )
         for (target_title, summary), blocks in sorted(routed.items(), reverse=True):
+            # idea.md: competing sections may not repeat the same capability
+            # inventory. When the composed section already presents a bullet's
+            # capability (the authored cluster owns wording and organization),
+            # splicing the inherited bullet in as well renders the same
+            # inventory twice. Dropping it here lets it take the ordinary
+            # source-claim disposition path instead of a duplicate placement.
+            blocks = drop_already_presented_blocks(composed, target_title, blocks)
+            if not blocks:
+                continue
             headings = [heading for heading in parse_headings(composed) if heading.level == 2]
             target = next(
                 (
