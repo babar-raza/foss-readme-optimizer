@@ -7,7 +7,7 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
+    "active_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
     "active_task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
     "approach_control": {
       "attempts": [
@@ -2604,11 +2604,23 @@
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp/diagnostics/blocked-presentation-plan.json",
+            "src/readme_agent/facts/cpp_repository_fragments.py",
+            "tests/unit/test_cpp_repository_fragments.py"
+          ],
           "fingerprint": "a2f36da42b4b69099f464bfcb3d5b969e3098aac52b209504af7181181c5ba4e",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-25T11:44:38.903605+00:00",
+          "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "667ae74bc33d53555b35455b4ac7be0d95f3e99b8d3612ce303ec664aedaa2a4",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-25T12:05:31.437691+00:00",
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
         }
       ],
@@ -2616,7 +2628,7 @@
         "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "bb73427bbbbf602bdbbccd13b7bf93a7ff63fe1425d1343786e4d84e9afd437d",
         "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "d1f834d08611285516264b0572a7d543b1bb63c0deddf5a6197a2fefb8c57865",
         "L8-PF-03-SEALED-CANDIDATE-NO-OP": "f202c0fb1ea5b08e2f7fcde9befb92bc3bbb96a89feaec97499e10230fdc7f23",
-        "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "a2f36da42b4b69099f464bfcb3d5b969e3098aac52b209504af7181181c5ba4e",
+        "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "667ae74bc33d53555b35455b4ac7be0d95f3e99b8d3612ce303ec664aedaa2a4",
         "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "9d8091b625ebf675542727bfa42e720a03906a4d5b9ca7bfa0a7b171f1668ee0",
         "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "7eab48b74512b28f340785e99422bc0b0a88419dcf7f91a2ae403ef898dd2186",
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "bf6d148aeae3f3e33e2b35911a5594270cc97525ebb8a9d1fe20e511b1a5f392",
@@ -4200,6 +4212,32 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-25T12:02:21.2716409Z",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp/diagnostics/blocked-presentation-plan.json",
+            "src/readme_agent/facts/cpp_repository_fragments.py",
+            "tests/unit/test_cpp_repository_fragments.py"
+          ],
+          "input_classification": "tactic",
+          "mechanism_changed": false,
+          "new_fingerprint": "667ae74bc33d53555b35455b4ac7be0d95f3e99b8d3612ce303ec664aedaa2a4",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "a2f36da42b4b69099f464bfcb3d5b969e3098aac52b209504af7181181c5ba4e",
+          "rationale": "The current C++ replay reproduced seven source-accountability gaps after facts refresh, so another unchanged authoring retry cannot narrow the boundary. Fleet reduction shows that five gaps are exact inherited C++ fragments absent from the accepted repository.examples projection even though an isolated contextual consumer compiles all five against the immutable source revision. Change the tactic to promote only exact fragments covered by that compiled harness, retain all existing snapshots and caches, and rerun the C++ canary once. Development-detail, duplication, and contradiction findings remain separate downstream clusters and will not be hidden or weakened.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
         }
       ]
     },
@@ -4649,18 +4687,27 @@
         "reason": "derived from earliest incomplete stage and dependency-ready concurrency",
         "to_concurrent_goal_ids": [],
         "to_primary_goal_id": "GOAL-V0B-POST-PYTHON-SLICES"
+      },
+      {
+        "from_concurrent_goal_ids": [],
+        "from_primary_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
+        "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
+        "occurred_at": "2026-08-25T12:05:31.437627+00:00",
+        "reason": "derived from earliest incomplete stage and dependency-ready concurrency",
+        "to_concurrent_goal_ids": [],
+        "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
       }
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
-    "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-25T11:44:38.903605+00:00",
+    "infrastructure_tasks_since_visible_delivery": 2,
+    "last_evaluated_at": "2026-08-25T12:05:31.437774+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 1,
-      "candidate_generated": 1,
+      "agent_approved": 0,
+      "candidate_generated": 0,
       "denominator": 33,
-      "derived_at": "2026-08-25T11:35:16.643958+00:00",
-      "deterministic_validated": 1,
-      "facts_ready": 1,
+      "derived_at": "2026-08-25T11:46:01.363682+00:00",
+      "deterministic_validated": 0,
+      "facts_ready": 0,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -4670,7 +4717,7 @@
         "NO_OP_PROVEN": 3
       },
       "missing_lifecycle_repositories": [],
-      "no_op_proven": 1,
+      "no_op_proven": 0,
       "raw_agent_approved": 3,
       "raw_candidate_generated": 3,
       "raw_deterministic_validated": 3,
@@ -4687,6 +4734,10 @@
           "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
+          "fact_acceptance_recollection_component_changed",
+          "manifest_local_verification_contract_hash_mismatch"
+        ],
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ],
@@ -4875,7 +4926,7 @@
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
       "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
-      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "CLOSED",
+      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "REGRESSED",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "CLOSED",
       "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "IN_PROGRESS",
@@ -16977,6 +17028,15 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "CLOSED",
+        "observed_by": "mission-lifecycle-freshness",
+        "occurred_at": "2026-08-25T12:05:31.436756+00:00",
+        "reason": "repository deliverable became stale for aspose-3d-foss/Aspose.3D-FOSS-for-Python: fact_acceptance_recollection_component_changed,manifest_local_verification_contract_hash_mismatch",
+        "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -16986,7 +17046,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1628,
+  "state_version": 1629,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
