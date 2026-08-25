@@ -9,6 +9,7 @@ from urllib.parse import urlparse
 from pydantic import BaseModel, ConfigDict, Field
 
 from readme_agent.links.catalog import normalize_target_url
+from readme_agent.links.code_spans import overlaps_protected_span, protected_code_spans
 
 AsposeUrlForm = Literal["markdown", "image", "autolink", "html", "raw"]
 CountedSurface = Literal["products", "docs", "kb", "blog", "reference", "other"]
@@ -66,8 +67,15 @@ def _form(markdown: str, start: int, end: int) -> AsposeUrlForm:
 
 
 def find_aspose_link_occurrences(markdown: str) -> list[AsposeLinkOccurrenceV1]:
-    """Find each literal occurrence once, irrespective of Markdown/HTML form."""
+    """Find each literal occurrence once, irrespective of Markdown/HTML form.
 
+    A match fully inside a fenced or inline code span (see
+    ``readme_agent.links.code_spans``) is excluded: it is sample data such
+    as a URL literal passed as an argument in a verified code example, not
+    a visitor-facing navigational link governed by the link budget.
+    """
+
+    protected = protected_code_spans(markdown)
     occurrences: list[AsposeLinkOccurrenceV1] = []
     for match in _ASPOSE_URL.finditer(markdown):
         url = match.group(0).rstrip(".,;:")
@@ -76,6 +84,8 @@ def find_aspose_link_occurrences(markdown: str) -> list[AsposeLinkOccurrenceV1]:
             # not a contextual product link governed by the link budget.
             continue
         end = match.start() + len(url)
+        if overlaps_protected_span(match.start(), end, protected):
+            continue
         hostname = (urlparse(url).hostname or "").casefold()
         parent: Literal["aspose.org", "aspose.com"] = (
             "aspose.org" if hostname.endswith("aspose.org") else "aspose.com"

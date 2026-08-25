@@ -312,3 +312,42 @@ def test_unbound_new_aspose_link_fails_final_validation() -> None:
 
     assert not verdict.valid
     assert any("occurrence delta" in error for error in verdict.errors)
+
+
+def test_aspose_url_inside_code_fence_is_not_a_governed_link() -> None:
+    """PF05-CXX-LINK-001: an inherited, source-bound URL used as sample data
+    inside a verified code example (e.g. a Hyperlinks.Add() argument) is not
+    a visitor-facing navigational link and must not be rejected as a
+    non-linkable Aspose target, even when the catalog has no record for it."""
+
+    code = (
+        "auto& hyperlinks = sheet.GetHyperlinks();\n"
+        'auto link = hyperlinks[hyperlinks.Add("A1", 1, 1, '
+        '"https://docs.aspose.org/cells/cpp/")];'
+    )
+    facts = _facts("cpp", code=code)
+    catalogs = _catalogs("cpp", ["workbook"])
+    candidate = _markdown(code)
+
+    plan = select_contextual_links(facts, candidate, catalogs, LinkAllocationPolicyV1())
+    verdict = validate_contextual_link_candidate(plan, catalogs, candidate, facts)
+
+    assert verdict.valid
+    assert not any("non-linkable Aspose target" in error for error in verdict.errors)
+
+
+def test_same_unbound_url_in_prose_still_fails_final_validation() -> None:
+    """Negative control for the code-span exclusion above: the identical
+    uncataloged target still fails validation when it appears as a real,
+    visitor-facing prose link outside any code span."""
+
+    code = 'Workbook book;\nbook.Save("out.xlsx");'
+    facts = _facts("cpp", code=code)
+    catalogs = _catalogs("cpp", ["workbook"])
+    plan = select_contextual_links(facts, _markdown(code), catalogs, LinkAllocationPolicyV1())
+    candidate = _markdown(code) + "\n[Docs](https://docs.aspose.org/cells/cpp/)\n"
+
+    verdict = validate_contextual_link_candidate(plan, catalogs, candidate, facts)
+
+    assert not verdict.valid
+    assert any("non-linkable Aspose target" in error for error in verdict.errors)

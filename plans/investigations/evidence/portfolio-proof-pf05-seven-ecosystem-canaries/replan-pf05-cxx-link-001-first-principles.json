@@ -1,0 +1,26 @@
+{
+  "causal_owner_changed": false,
+  "created_at": "2026-08-25T14:59:03.441523+00:00",
+  "dependency_sequence_changed": false,
+  "evidence_refs": [
+    "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp/9f852d0ff1cfdad2d661556d6b87a8eff8c063a2/facts/product-facts.json",
+    "data/aspose_org_links.json",
+    "plans/codex/handover/HANDOVER.md"
+  ],
+  "input_classification": "tactic",
+  "mechanism_changed": true,
+  "new_fingerprint": "0756b892b4afa86a574289fc093741d765af2a5d47c7ceed14df4c4c2a589e02",
+  "pipeline_boundary_changed": false,
+  "prior_fingerprint": "8ed60a7d037bd707be81c320c175d1f0944d13a7450ba20f212a0af9c22592e8",
+  "rationale": "The prior fingerprint (8ed60a7d...) covers the C++ contextual-fragment harness tactic, which is now proven effective and committed at 40529bab4 (43 focused tests, 5/5 fragments SOURCE_BUILD_VERIFIED). Its two recorded ineffective attempts were both procedural session-boundary interruptions (claim lease expired), not evidence the tactic itself was wrong, but they still exhaust the two-equivalent-ineffective-attempt budget and correctly require a first-principles replan before further work on this task per the mission anti-stall doctrine. The current first failing boundary is a distinct, newly surfaced defect (PF05-CXX-LINK-001): contextual_validation.py rejects the inherited, source-bound docs.aspose.org/cells/cpp/ link even though it is present in the checked-in data/aspose_org_links.json catalog. New tactic: reconcile the validator linkability projection against the checked-in link catalogs (aspose_org_links.json and the canonical route in aspose_com_links.json) so catalog-backed, source-bound targets are admitted while unknown, commercial-only, malformed, or non-contextual URLs stay rejected, add direct positive and negative regression tests, then rerun only the bounded C++ canary -- never disabling validation or guessing an equivalent replacement URL.",
+  "route_change_assessments": [
+    "reuse",
+    "invalidation",
+    "critical_path",
+    "infrastructure_timing",
+    "factuality",
+    "safety",
+    "smaller_alternatives"
+  ],
+  "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
+}

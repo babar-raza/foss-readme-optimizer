@@ -10,6 +10,7 @@ from pydantic import BaseModel, ConfigDict
 from readme_agent.links.allocation import code_sha256, resolve_link_budget
 from readme_agent.links.catalog import lookup_verified_target, normalize_target_url
 from readme_agent.links.catalog_models import AsposeLinkCatalogSetV1
+from readme_agent.links.code_spans import protected_code_spans
 from readme_agent.links.terminology import enterprise_product_name_from_facts
 from readme_agent.readme.document_operations import build_operation
 from readme_agent.readme.document_plan import ReadmeDocumentOperationV1
@@ -27,10 +28,6 @@ AsposeLinkForm = Literal["image", "markdown", "html", "autolink", "raw"]
 # forum.aspose.com link already is (also present in the catalog zero times)
 # and is never restored.
 _URL = r"https?://(?:[a-z0-9-]+\.)*aspose\.(?:com|org|app)(?:/[^\s<>)\"']*)?"
-_FENCED_CODE = re.compile(
-    r"(?ms)^(?P<fence>`{3,}|~{3,})[^\r\n]*\r?\n.*?^(?P=fence)[ \t]*(?:\r?\n|$)"
-)
-_INLINE_CODE = re.compile(r"`+[^`\r\n]+`+")
 _PATTERNS: tuple[tuple[AsposeLinkForm, re.Pattern[str], int | None], ...] = (
     (
         "image",
@@ -69,11 +66,7 @@ def remove_unbound_aspose_links(markdown: str) -> tuple[str, list[AsposeLinkRewr
 
     rewrites: list[AsposeLinkRewriteV1] = []
     occupied: list[tuple[int, int]] = []
-    protected = [
-        match.span()
-        for pattern in (_FENCED_CODE, _INLINE_CODE)
-        for match in pattern.finditer(markdown)
-    ]
+    protected = protected_code_spans(markdown)
     for form, pattern, label_group in _PATTERNS:
         for match in pattern.finditer(markdown):
             start, end = match.span()
