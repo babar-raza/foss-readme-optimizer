@@ -105,10 +105,16 @@ CHARACTERIZATION_DOCUMENT_PLAN_SHA256 = (
     # now an explicit, limitation-fact-bound operation. The candidate change is
     # intentional; the document-plan change additionally records its exact H3
     # provenance instead of leaving the structural heading unaccounted for.
-    "3facd1de1c875949d51bfc47b4b0c7a45c4d7a2c6639400ba2e89baf5f1a6ad7"
+    #
+    # 2026-08-25: image equivalence now records only facts literally expressed
+    # by the image claim, rather than every fact used by the surrounding header
+    # renderer. Candidate bytes are unchanged; claim accountability is narrower.
+    "a3f310c250ab2c725f48ddeec84a5684fc98e8c504112907d6a6b4336bf7ac98"
 )
 CHARACTERIZATION_CANDIDATE_SHA256 = (
-    "52df4cfa6d4f8a5eb4b7ddc1a33abd2fdc10961254972bb9f46e483b624ec0ad"
+    # 2026-08-25: diagram role normalization no longer promotes capability
+    # results such as metadata extraction into the output-format column.
+    "4fe994cf89431ee6412c879a860aacd836aba246fd43a7d0fceb76017da1a6ea"
 )
 
 
@@ -842,13 +848,15 @@ def test_conversion_capabilities_complete_mermaid_input_and_output_roles():
         target_counts={"input": 4, "capability": 6, "output": 5},
     )
     inputs = {node.label for node in nodes if node.role == "input"}
+    capabilities = {node.label for node in nodes if node.role == "capability"}
     outputs = {node.label for node in nodes if node.role == "output"}
 
     assert any("PS/EPS" in label for label in inputs)
     assert "XPS files" in inputs
+    assert "EPS metadata extraction" in capabilities
     assert "PDF files" in outputs
     assert "image files" in outputs
-    assert "EPS metadata" in outputs
+    assert "EPS metadata" not in outputs
     output_labels = [
         " ".join(node.label.casefold().split()) for node in nodes if node.role == "output"
     ]

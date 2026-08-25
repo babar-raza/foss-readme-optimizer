@@ -789,6 +789,48 @@ def test_static_verified_java_fragment_binds_to_exact_consumer_wrapper() -> None
     assert resolution.fact_ids == [fact_id]
 
 
+def test_generic_equivalence_does_not_inherit_unexpressed_candidate_provenance() -> None:
+    facts = _facts()
+    identity_id = facts.selected_fact_ids["product.identity"]
+    api_id = facts.selected_fact_ids["api.public_surface"]
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": "AcmePDF Python"})
+                if fact.fact_id == identity_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    image = "![AcmePDF Python](https://example.test/banner-readme.png)\n"
+    source_claim = assess_material_claims(image)[0]
+    candidate = f"# AcmePDF Python\n\n{image}"
+    candidate_claim = assess_material_claims(candidate)[0]
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.badges",
+        candidate_byte_start=candidate_claim.source_byte_start,
+        candidate_byte_end=candidate_claim.source_byte_end,
+        fact_ids=[identity_id, api_id],
+        rationale=(
+            "The header renderer uses multiple facts, but this image expresses identity only."
+        ),
+    )
+
+    resolution = equivalent_source_claim_resolution(
+        source_claim,
+        image,
+        candidate.encode(),
+        index_equivalent_candidate_claims(candidate.encode(), [candidate_claim]),
+        facts,
+        [provenance],
+    )
+
+    assert resolution is not None
+    assert resolution.resolution == "verified_equivalence"
+    assert resolution.fact_ids == [identity_id]
+
+
 def test_exact_structured_api_claim_is_preservation_eligible() -> None:
     source = "# Product\n\n## API reference\n\n- `Matrix4` — `translate()`, `inverse()`\n"
 

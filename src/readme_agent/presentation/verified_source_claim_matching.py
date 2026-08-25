@@ -17,6 +17,7 @@ from readme_agent.readme.document_plan import (
     CandidateContentProvenanceV1,
     SourceClaimResolutionV1,
 )
+from readme_agent.readme.fact_grounding import literal_fact_ids
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 from readme_agent.readme.presentation_similarity import (
     capability_discriminators,
@@ -42,6 +43,7 @@ _SINGLE_COMMAND_FENCE = re.compile(
     re.IGNORECASE,
 )
 _INLINE_CODE = re.compile(r"(?<!`)`([^`\n]+)`(?!`)")
+_MARKDOWN_IMAGE = re.compile(r"!\[[^\]\n]+\]\([^\n)]+\)\s*")
 _KEY_CAPABILITY_PROVENANCE = "template.section.key_capabilities.claim:"
 _CAPABILITY_COORDINATE_FIELDS = {
     "api.public_surface",
@@ -431,10 +433,14 @@ def equivalent_source_claim_resolution(
     # attributing those extras back to the narrower source claim makes a valid
     # merge fail its own source-subset check.
     fact_ids = sorted(
-        required_source_fact_ids
+        literal_fact_ids(source_claim_text, facts, sorted(candidate_fact_ids))
+        if _MARKDOWN_IMAGE.fullmatch(source_claim_text)
+        else required_source_fact_ids
         if capability_reformatted or limitation_reformatted
         else candidate_fact_ids
     )
+    if not fact_ids:
+        return None
     return SourceClaimResolutionV1(
         claim_id=source_claim.claim_id,
         source_byte_start=source_claim.source_byte_start,
