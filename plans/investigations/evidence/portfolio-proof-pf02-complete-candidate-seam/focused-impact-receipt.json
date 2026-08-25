@@ -2,29 +2,25 @@
   "schema_version": 1,
   "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
   "branch": "main",
-  "head": "3763b5ca66983805d75a06d3eb2aadeb15e6c8b3",
-  "dirty_tree_at_start": false,
-  "command": ".venv/Scripts/python -m pytest -q tests/unit/test_section_authoring_cache.py tests/unit/test_section_authoring_integration.py tests/unit/test_section_cluster_authoring.py tests/unit/test_review_standard_premises.py --basetemp=%TEMP%/ra-pf02",
-  "passed": 116,
+  "head": "b6902d7653db87e231cc1ce0280f82191874d168",
+  "dirty_tree_at_test_start": false,
+  "command": ".venv/Scripts/python -m pytest -q tests/unit/test_readme_poc_lifecycle.py tests/unit/test_local_poc_cache.py tests/unit/test_local_poc_evidence.py tests/unit/test_section_authoring_cache.py tests/unit/test_source_claim_assurance.py tests/unit/test_verified_source_detail_routing.py tests/unit/test_verified_template_structural_lineage.py tests/unit/test_readme_assessment.py tests/unit/test_composition_lineage_replay.py",
+  "passed": 226,
   "failed": 0,
   "errors": 0,
   "exit_code": 0,
-  "duration_seconds": 10.40,
+  "duration_seconds": 66.68,
   "scope": [
-    "canonical and repair section-cache variant retention",
-    "section-authoring production integration",
-    "bounded section acceptance and cache reuse",
-    "deterministic reviewer-premise grounding"
+    "lifecycle reopening and assessment-hash rebinding",
+    "approved and completed local-POC cache decisions",
+    "interrupted section-authoring cache recovery",
+    "source-claim coordinates and preservation",
+    "template provenance and structural lineage"
   ],
   "static_gates": {
     "ruff_check": "pass",
     "ruff_format_check": "pass",
     "mypy_src": "pass",
     "git_diff_check": "pass"
-  },
-  "complete_non_live_receipt": "runs/verification/pytest-full-latest.json",
-  "complete_non_live_passed": 5245,
-  "complete_non_live_skipped": 1,
-  "complete_non_live_failed": 0,
-  "complete_non_live_leaked_process_ids": []
+  }
 }
