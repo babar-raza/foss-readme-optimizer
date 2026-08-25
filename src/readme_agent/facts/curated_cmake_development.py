@@ -82,11 +82,17 @@ def _project_entry(root: Path, manifest: Path) -> dict[str, object] | None:
     commands = ["cmake -S . -B build", "cmake --build build"]
     if runs_tests:
         commands.append("ctest --test-dir build --output-on-failure")
+    # `command` is the complete runnable sequence, not just the final step:
+    # consumers render this single field verbatim in one shell block, and a
+    # bare `ctest --test-dir build` would not work from the repository root
+    # when the project lives in a subdirectory.
+    at_repository_root = relative_dir in {"", "."}
+    runnable = commands if at_repository_root else [f"cd {relative_dir}", *commands]
     entry: dict[str, object] = {
         "kind": "cmake_test_project" if runs_tests else "cmake_build_project",
-        "working_directory": relative_dir or ".",
+        "working_directory": "." if at_repository_root else relative_dir,
         "commands": commands,
-        "command": commands[-1],
+        "command": "\n".join(runnable),
         "sources": [_source_record(root, manifest)],
         "evidence_kind": "source_derived",
         "execution_verified": False,

@@ -169,3 +169,30 @@ def test_guidance_seam_still_prefers_an_existing_python_layout(tmp_path: Path) -
     kinds = {entry["kind"] for entry in value["entries"]}
     assert "cmake_test_project" not in kinds
     assert "editable_install" in kinds
+
+
+def test_command_is_a_complete_runnable_sequence(tmp_path: Path) -> None:
+    """The rendered `command` is emitted verbatim as one shell block, so it
+    must include the working directory and configure step -- a bare
+    `ctest --test-dir build` does not work from the repository root."""
+
+    _write(tmp_path, "Aspose.Cells.Foss.Cpp.Tests/CMakeLists.txt", _TEST_PROJECT)
+
+    value, _locations = repository_cmake_development_commands(tmp_path)
+
+    assert value["entries"][0]["command"] == (
+        "cd Aspose.Cells.Foss.Cpp.Tests\n"
+        "cmake -S . -B build\n"
+        "cmake --build build\n"
+        "ctest --test-dir build --output-on-failure"
+    )
+
+
+def test_root_level_project_needs_no_directory_change(tmp_path: Path) -> None:
+    _write(tmp_path, "CMakeLists.txt", _TEST_PROJECT)
+
+    value, _locations = repository_cmake_development_commands(tmp_path)
+    entry = value["entries"][0]
+
+    assert entry["working_directory"] == "."
+    assert not entry["command"].startswith("cd ")
