@@ -79,3 +79,55 @@ def test_current_canonical_import_is_preserved(tmp_path) -> None:
     )
 
     assert normalize_typescript_package_consumer(tmp_path, example) == example
+
+
+def test_public_barrel_wins_over_executable_root_entry(tmp_path) -> None:
+    (tmp_path / "aspose_cells").mkdir()
+    (tmp_path / "package.json").write_text(
+        json.dumps({"name": "excel-cells", "main": "index.ts"}),
+        encoding="utf-8",
+    )
+    (tmp_path / "tsconfig.json").write_text(
+        json.dumps({"compilerOptions": {"outDir": "dist"}}),
+        encoding="utf-8",
+    )
+    (tmp_path / "index.ts").write_text(
+        "import { Workbook } from './aspose_cells';\nnew Workbook();\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "aspose_cells" / "index.ts").write_text(
+        "export { Workbook } from './workbook';\nexport { Style } from './style';\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "aspose_cells" / "workbook.ts").write_text(
+        "export class Workbook {}\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "aspose_cells" / "style.ts").write_text(
+        "export class Style {}\n",
+        encoding="utf-8",
+    )
+    example = MinimalExamplePolicy(
+        language="typescript",
+        class_name="Workbook",
+        code=(
+            "import { Workbook, Style } from './aspose_cells';\n"
+            "const workbook = new Workbook();\n"
+            "const style = new Style();\n"
+        ),
+        evidence_paths=["README.md"],
+        required_symbols=["Workbook", "Style"],
+    )
+
+    normalized = normalize_typescript_package_consumer(tmp_path, example)
+
+    assert normalized.code == (
+        "import { Workbook } from 'excel-cells/dist/aspose_cells';\n\n"
+        "const workbook = new Workbook();\n"
+        "console.log(workbook);\n"
+    )
+    assert normalized.required_symbols == ["Workbook"]
+    assert normalized.evidence_paths == [
+        "aspose_cells/index.ts",
+        "aspose_cells/workbook.ts",
+    ]

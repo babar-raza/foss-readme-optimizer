@@ -138,6 +138,50 @@ def test_all_failed_candidates_retain_the_last_bounded_verification(tmp_path, mo
     )
 
 
+def test_typescript_candidates_are_normalized_before_verification(tmp_path, monkeypatch) -> None:
+    candidate = MinimalExamplePolicy(
+        language="typescript",
+        class_name="Workbook",
+        code="import { Workbook } from './aspose_cells';\nnew Workbook();\n",
+        evidence_paths=["README.md"],
+        required_symbols=["Workbook"],
+    )
+    normalized = candidate.model_copy(
+        update={
+            "code": "import { Workbook } from 'excel-cells/dist/aspose_cells';\nnew Workbook();\n",
+            "evidence_paths": ["aspose_cells/index.ts", "aspose_cells/workbook.ts"],
+        }
+    )
+    monkeypatch.setattr(subject, "_revision_matches", lambda *_args: True)
+    monkeypatch.setattr(
+        subject,
+        "repository_readme_example_candidates",
+        lambda *_args, **_kwargs: [candidate],
+    )
+    monkeypatch.setattr(subject, "repository_source_example_candidates", lambda *_args: [])
+    monkeypatch.setattr(subject, "_precheck_failures", lambda *_args: [])
+    monkeypatch.setattr(
+        subject,
+        "normalize_typescript_package_consumer",
+        lambda _root, _candidate: normalized,
+    )
+    observed = []
+
+    selection = subject.select_verified_repository_example(
+        tmp_path,
+        source_revision="a" * 40,
+        requested=candidate,
+        verify_example_fn=lambda example: (
+            observed.append(example)
+            or _verification(return_code=0, truth_eligible=True, ecosystem="typescript")
+        ),
+    )
+
+    assert selection.outcome == "VERIFIED"
+    assert selection.example == normalized
+    assert observed == [normalized]
+
+
 def test_dotnet_product_source_failure_stops_after_first_candidate(tmp_path, monkeypatch) -> None:
     first = _example("First", "README.md")
     second = _example("Second", "examples/use.py")

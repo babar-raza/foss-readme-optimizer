@@ -66,42 +66,46 @@ def normalize_typescript_package_consumer(
     except (OSError, UnicodeError, ValueError):
         return example
     canonical_import = layout.canonical_import
-    canonical_entry = next(
-        (
-            entry
-            for entry in layout.entry_points
-            if entry.import_specifier == canonical_import and entry.source_entry_path
-        ),
-        None,
-    )
     specifiers = {match.group("specifier") for match in _NAMED_IMPORT.finditer(example.code)}
-    if (
-        canonical_import is None
-        or canonical_entry is None
-        or (specifiers == {canonical_import} and len(specifiers) == 1)
-    ):
+    if canonical_import is None or (specifiers == {canonical_import} and len(specifiers) == 1):
         return example
-
-    source_entry_path = canonical_entry.source_entry_path
-    if source_entry_path is None:
-        return example
-    entry_path = root / source_entry_path
-    try:
-        entry_source = entry_path.read_text(encoding="utf-8", errors="strict")
-    except (OSError, UnicodeError):
-        return example
-    reexports: dict[str, tuple[str, Path]] = {}
-    for match in _REEXPORT.finditer(entry_source):
-        module = match.group("module")
-        module_path = (entry_path.parent / module).with_suffix(".ts")
-        if not module_path.is_file():
-            module_path = entry_path.parent / module / "index.ts"
-        for item in match.group("names").split(","):
-            source_name, _, exported_name = item.strip().partition(" as ")
-            if source_name:
-                reexports[exported_name or source_name] = (source_name, module_path)
-
     preferred_names = _imported_names(example.code)
+    entry_candidates: list[tuple[int, int, str, Path, dict[str, tuple[str, Path]]]] = []
+    for entry in layout.entry_points:
+        if entry.source_entry_path is None:
+            continue
+        entry_path = root / entry.source_entry_path
+        try:
+            entry_source = entry_path.read_text(encoding="utf-8", errors="strict")
+        except (OSError, UnicodeError):
+            continue
+        reexports: dict[str, tuple[str, Path]] = {}
+        for match in _REEXPORT.finditer(entry_source):
+            module = match.group("module")
+            module_path = (entry_path.parent / module).with_suffix(".ts")
+            if not module_path.is_file():
+                module_path = entry_path.parent / module / "index.ts"
+            for item in match.group("names").split(","):
+                source_name, _, exported_name = item.strip().partition(" as ")
+                if source_name:
+                    reexports[exported_name or source_name] = (source_name, module_path)
+        preferred_matches = len(set(preferred_names) & set(reexports))
+        if reexports:
+            entry_candidates.append(
+                (
+                    preferred_matches,
+                    -entry.import_specifier.count("/"),
+                    entry.import_specifier,
+                    entry_path,
+                    reexports,
+                )
+            )
+    if not entry_candidates:
+        return example
+    _, _, selected_import, entry_path, reexports = max(
+        entry_candidates,
+        key=lambda item: (item[0], item[1], item[2]),
+    )
     ordered_names = [*preferred_names, *sorted(set(reexports) - set(preferred_names))]
     for exported_name in ordered_names:
         declaration = reexports.get(exported_name)
@@ -116,7 +120,7 @@ def normalize_typescript_package_consumer(
             continue
         variable = _variable_name(exported_name)
         code = (
-            f"import {{ {exported_name} }} from '{canonical_import}';\n\n"
+            f"import {{ {exported_name} }} from '{selected_import}';\n\n"
             f"const {variable} = new {exported_name}();\n"
             f"console.log({variable});\n"
         )
@@ -125,7 +129,7 @@ def normalize_typescript_package_consumer(
                 "class_name": exported_name,
                 "code": code,
                 "evidence_paths": [
-                    source_entry_path,
+                    entry_path.relative_to(root).as_posix(),
                     declaration_path.relative_to(root).as_posix(),
                 ],
                 "required_symbols": [exported_name],

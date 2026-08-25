@@ -18,11 +18,26 @@ from readme_agent.facts.repository_examples import (
     repository_readme_example_candidates,
     repository_source_example_candidates,
 )
+from readme_agent.facts.rust_example_normalization import normalize_rust_public_consumer
+from readme_agent.facts.typescript_example_normalization import (
+    normalize_typescript_package_consumer,
+)
 from readme_agent.registry.models import MinimalExamplePolicy
 
 _REVISION = re.compile(r"[0-9a-f]{40}")
 MAX_VERIFIED_REPOSITORY_EXAMPLE_ATTEMPTS = 8
 VerifyExampleFn = Callable[[MinimalExamplePolicy], LocalProductVerificationV1 | None]
+
+
+def _normalize_public_consumer(
+    repository_root: Path,
+    candidate: MinimalExamplePolicy,
+) -> MinimalExamplePolicy:
+    if candidate.language == "typescript":
+        return normalize_typescript_package_consumer(repository_root, candidate)
+    if candidate.language == "rust":
+        return normalize_rust_public_consumer(repository_root, candidate)
+    return candidate
 
 
 class RepositoryExampleSelectionV2(BaseModel):
@@ -113,7 +128,14 @@ def select_verified_repository_example(
         supporting_paths=requested.evidence_paths,
     )
     source_examples = repository_source_example_candidates(repository_root, requested.language)
-    indexed = list(enumerate([*readme_examples, *source_examples]))
+    indexed = list(
+        enumerate(
+            [
+                _normalize_public_consumer(repository_root, candidate)
+                for candidate in [*readme_examples, *source_examples]
+            ]
+        )
+    )
     indexed.sort(key=lambda item: _preference(item[1], requested, item[0]))
     attempted = 0
     last_attempted_example: MinimalExamplePolicy | None = None
