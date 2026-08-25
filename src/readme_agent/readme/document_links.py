@@ -37,6 +37,15 @@ def _foss_product_name(enterprise_product_name: str, platform: str) -> str:
     return f"{enterprise_product_name} FOSS for {ecosystem_display_label(platform)}"
 
 
+def _enterprise_link_name(plan: ContextualLinkPlanV1, target_record_id: str) -> str:
+    """Name a platform page precisely while keeping family-page anchors platform-neutral."""
+
+    name = plan.enterprise_product_name
+    if " for " in name or ":all:" in target_record_id:
+        return name
+    return f"{name} for {ecosystem_display_label(plan.platform)}"
+
+
 def render_contextual_relationship_markdown(
     plan: ContextualLinkPlanV1,
 ) -> tuple[str, list[str]]:
@@ -56,22 +65,24 @@ def render_contextual_relationship_markdown(
     )
     if enterprise is not None and foss is not None:
         foss_product_name = _foss_product_name(plan.enterprise_product_name, plan.platform)
+        enterprise_product_name = _enterprise_link_name(plan, enterprise.target_record_id)
         return (
             load_template("contextual-product-relationship.md")
             .format(
                 foss_product_name=foss_product_name,
                 foss_url=foss.target_url,
-                enterprise_product_name=plan.enterprise_product_name,
+                enterprise_product_name=enterprise_product_name,
                 enterprise_url=enterprise.target_url,
             )
             .strip(),
             fact_ids,
         )
     if enterprise is not None:
+        enterprise_product_name = _enterprise_link_name(plan, enterprise.target_record_id)
         return (
             load_template("contextual-enterprise-relationship.md")
             .format(
-                enterprise_product_name=plan.enterprise_product_name,
+                enterprise_product_name=enterprise_product_name,
                 enterprise_url=enterprise.target_url,
             )
             .strip(),

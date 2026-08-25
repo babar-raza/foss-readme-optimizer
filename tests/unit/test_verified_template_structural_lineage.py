@@ -234,7 +234,7 @@ def test_api_reference_is_one_type_description_table_per_namespace() -> None:
     api = api_reference_markdown(_facts())
 
     assert api is not None
-    assert "<summary>View public API by namespace</summary>" in api
+    assert "<summary>View Public API by Namespace</summary>" in api
     assert api.count("### Aspose.3D Namespace (`aspose.threed`)") == 1
     assert api.count("| Type | Description |") == 1
     assert (

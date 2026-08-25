@@ -119,7 +119,7 @@ def validate_repository_presentation(
         )
         if (
             "<details>" not in api_body
-            or "<summary>View public API by namespace</summary>" not in api_body
+            or "<summary>View Public API by Namespace</summary>" not in api_body
             or "</details>" not in api_body
             or not namespace_headings
             or len(namespace_tables) != len(namespace_headings)

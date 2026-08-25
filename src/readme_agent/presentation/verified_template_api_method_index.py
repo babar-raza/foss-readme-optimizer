@@ -183,7 +183,7 @@ def api_method_index_markdown(facts: ProductFactsV2, source_text: str) -> str | 
     return "\n".join(
         [
             "<details>",
-            "<summary>View documented public members</summary>",
+            "<summary>View Documented Public Members</summary>",
             "",
             *body,
             "",

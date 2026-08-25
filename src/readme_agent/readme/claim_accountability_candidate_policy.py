@@ -44,7 +44,7 @@ _API_REFERENCE_TABLE = re.compile(
     r"(?:\| `[^`]+` \| [^\r\n|]*(?:\\\|[^\r\n|]*)* \|\r?\n?)+\Z"
 )
 _API_REFERENCE_SHELL = re.compile(
-    r"\A(?:<details>\r?\n<summary>View public API by namespace</summary>|</details>)\r?\n?\Z"
+    r"\A(?:<details>\r?\n<summary>View Public API by Namespace</summary>|</details>)\r?\n?\Z"
 )
 _API_REFERENCE_PROVENANCE = re.compile(
     r"^template\.section\.api_reference\.claim:\d+:(?P<digest>[0-9a-f]{16})$"

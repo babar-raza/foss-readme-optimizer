@@ -297,6 +297,9 @@ def validate_configured_standard_premise(
             "missing workflow preview",
             "generic list summary, not a configured workflow preview",
             "generic summary line instead of natural workflow preview",
+            "lacks a brief introductory sentence",
+            "lacks a brief introductory paragraph",
+            "add a concise, natural-language overview paragraph",
         )
     ) or bool(
         re.search(

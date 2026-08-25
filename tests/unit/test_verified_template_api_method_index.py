@@ -91,7 +91,7 @@ def test_grounds_a_method_the_source_already_named_bare():
     assert markdown is not None
     assert "| `Scene.open(file_name, options=None) -> None` |" in markdown
     assert "<details>" in markdown
-    assert "<summary>View documented public members</summary>" in markdown
+    assert "<summary>View Documented Public Members</summary>" in markdown
 
 
 def test_grounds_a_method_the_source_named_qualified():

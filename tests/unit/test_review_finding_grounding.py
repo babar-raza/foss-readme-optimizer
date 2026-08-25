@@ -2,6 +2,7 @@
 
 import json
 
+from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
 from readme_agent.specialists.review_finding_grounding import (
     GroundedReviewFindingV1,
     grounding_retry_context,
@@ -193,6 +194,85 @@ def test_quality_claim_cannot_name_a_literal_outside_its_supporting_quote():
 
     assert not result.valid
     assert any("exact literal named by the claim" in error for error in result.errors)
+
+
+def test_reviewer_cannot_require_one_edge_per_input_when_grouped_topology_is_valid():
+    mermaid = """```mermaid
+flowchart LR
+  subgraph INPUTS["Inputs & Formats"]
+    I1["OBJ"]
+    I2["GLTF"]
+  end
+  PRODUCT["Aspose.3D FOSS<br/>for Python"]
+  subgraph CORE["Core Capabilities"]
+    C1["Create scenes"]
+  end
+  subgraph OUTPUTS["Outputs"]
+    O1["GLTF"]
+  end
+  I1 --> PRODUCT
+  PRODUCT --> CORE
+  CORE --> O1
+```"""
+    candidate = f"# Product\n\n## At a Glance\n\n{mermaid}\n"
+    finding = GroundedReviewFindingV1(
+        finding_id="quality.false-mermaid-topology",
+        kind="quality",
+        criterion="markdown_integrity",
+        section="at-a-glance",
+        claim=(
+            "The Mermaid diagram omits required input-to-product edges for I2 and omits "
+            "the product-to-capabilities edge."
+        ),
+        quoted_candidate_span=mermaid,
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair="Add I2 --> PRODUCT and a group-level PRODUCT --> CORE edge.",
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert any("input-edge premise" in error for error in result.errors)
+    assert any("product-to-capabilities premise" in error for error in result.errors)
+
+
+def test_reviewer_cannot_claim_configured_workflow_preview_is_missing():
+    preview = (
+        "The examples below demonstrate loading OBJ files with materials, exporting a scene "
+        "to binary GLTF, and converting a parametric primitive to a mesh."
+    )
+    candidate = (
+        "# Product\n\n## Additional Examples\n\n"
+        f"{preview}\n\n<details>\n<summary>View additional examples and results</summary>\n\n"
+        "### Load OBJ Files with Materials\n\nExample.\n</details>\n"
+    )
+    finding = GroundedReviewFindingV1(
+        finding_id="quality.false-example-intro",
+        kind="quality",
+        criterion="example_presentation",
+        section="additional-examples",
+        claim="The section lacks a brief introductory sentence that contextualizes workflows.",
+        quoted_candidate_span="### Load OBJ Files with Materials",
+        disposition="requires_repair",
+        polarity_result="not_applicable",
+        required_repair="Add a concise, natural-language overview paragraph before the heading.",
+    )
+
+    result = validate_review_findings(
+        candidate_text=candidate,
+        product_facts=None,
+        findings=[finding],
+        visitor_contract=build_presentation_visitor_contract(),
+    )
+
+    assert not result.valid
+    assert any("intro premise contradicts" in error for error in result.errors)
 
 
 def test_blind_factual_accuracy_criterion_cannot_control_review():

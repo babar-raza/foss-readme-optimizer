@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 
 from readme_agent.facts.example_quality import strip_source_comments
+from readme_agent.facts.render_views import visitor_fact_render_view
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.presentation.template_schema import load_repository_presentation_template
 from readme_agent.presentation.verified_template_example_presentation import (
@@ -59,14 +60,7 @@ def optional_extras_markdown(facts: ProductFactsV2) -> str | None:
 
 
 def dependency_markdown(facts: ProductFactsV2) -> str | None:
-    """Render only manifest or source-bound Python dependency coordinates.
-
-    Python-only: the underlying fact this reads (``python.distribution``) is the
-    only ecosystem distribution fact this function understands. No equivalent
-    java/dotnet/etc. distribution fact is wired through this function today, so
-    this stays scoped to Python rather than guessing at other ecosystems' fact
-    shapes.
-    """
+    """Render only manifest or acquisition-bound dependency requirements."""
 
     sections: list[str] = []
     distribution = _accepted(facts, "python.distribution")
@@ -83,6 +77,18 @@ def dependency_markdown(facts: ProductFactsV2) -> str | None:
             # dependency list is confirmed to have zero entries -- not the
             # unverified/absent case, which keeps falling through to None.
             sections.append("No required third-party package dependencies.")
+    if not sections:
+        coordinate = _accepted(facts, "installation.coordinates")
+        compatibility = visitor_fact_render_view(facts, "product.compatibility")
+        if coordinate is not None:
+            sections.append(
+                "Use the repository package coordinate and package-manager command shown in "
+                "[Installation](#installation)."
+            )
+        if compatibility is not None and compatibility.phrases:
+            sections.append(
+                "Runtime requirement: " + compatibility.phrases[0].strip().rstrip(".") + "."
+            )
     return "\n\n".join(sections) or None
 
 
@@ -503,6 +509,26 @@ def development_markdown(facts: ProductFactsV2) -> str | None:
         label, lines = golden_workflow
         counts.append(label)
         body.extend(lines)
+    if not body:
+        imported = _accepted(facts, "aspose.dev_test_artifacts")
+        records = (
+            imported.value if imported is not None and isinstance(imported.value, list) else []
+        )
+        paths = [
+            str(item.get("relative_path") or "").strip()
+            for item in records
+            if isinstance(item, dict) and str(item.get("relative_path") or "").strip()
+        ]
+        if paths:
+            body.extend(
+                [
+                    "### Repository Development Resources",
+                    "",
+                    *(f"- [`{path}`]({path})" for path in paths),
+                    "",
+                ]
+            )
+            counts.append(f"{len(paths)} repository development resources")
     if not body:
         return None
     visible_body = "\n".join(body).strip()

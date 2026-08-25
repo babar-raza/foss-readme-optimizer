@@ -7,5 +7,3 @@ Install the package published for this repository:
   <version>{version}</version>
 </dependency>
 ```
-
-The coordinate was verified against Maven Central.

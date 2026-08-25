@@ -176,8 +176,18 @@ def validate_mermaid_standard_premise(
         errors.append(
             f"{finding_id}:Mermaid target-output premise contradicts verified-coverage contract"
         )
-    claims_all_input_edges_are_required = "input arrow" in premise and any(
-        term in premise for term in ("minimum_inputs", "missing", "required", "violat")
+    claims_all_input_edges_are_required = any(
+        phrase in premise
+        for phrase in (
+            "input arrow",
+            "input-to-product edge",
+            "input to product edge",
+            "all inputs must connect",
+            "i2 --> product",
+        )
+    ) and any(
+        term in premise
+        for term in ("minimum_inputs", "missing", "omit", "required", "violat", "add")
     )
     if (
         claims_all_input_edges_are_required
@@ -188,6 +198,25 @@ def validate_mermaid_standard_premise(
     ):
         errors.append(
             f"{finding_id}:Mermaid input-edge premise contradicts configured grouped topology"
+        )
+    claims_product_core_edge_missing = any(
+        phrase in premise
+        for phrase in (
+            "missing product-to-capabilities edge",
+            "omits the product-to-capabilities edge",
+            "omits product-to-capabilities edge",
+            "add a group-level product --> core edge",
+        )
+    )
+    if (
+        claims_product_core_edge_missing
+        and standard.get("product_to_capabilities_edges") == 1
+        and mermaid
+        and re.search(r"(?m)^\s*PRODUCT\s+-->\s+CORE\s*$", mermaid)
+    ):
+        errors.append(
+            f"{finding_id}:Mermaid product-to-capabilities premise contradicts configured "
+            "grouped topology"
         )
     claims_group_output_edge_required = (
         "individual output" in premise

@@ -12,7 +12,7 @@ from readme_agent.facts.format_vocabulary import DOCUMENT_FORMAT_ABBREVIATIONS
 if TYPE_CHECKING:
     from readme_agent.facts.schema_v2 import ProductFactsV2
 
-DEFAULT_TECHNICAL_ABBREVIATIONS = (
+DEFAULT_TECHNICAL_ABBREVIATIONS: tuple[str, ...] = (
     "3D",
     "3MF",
     "API",
@@ -67,6 +67,12 @@ DEFAULT_TECHNICAL_ABBREVIATIONS = (
     "XML",
     "XPS",
     "ZIP",
+)
+# File-format tokens are governed by the repository vocabulary too. Keeping a
+# shorter public-text tuple allowed valid formats such as STL and PLY to leak
+# as title-cased Mermaid labels and change the endpoint shape.
+DEFAULT_TECHNICAL_ABBREVIATIONS = tuple(
+    sorted(set(DEFAULT_TECHNICAL_ABBREVIATIONS) | DOCUMENT_FORMAT_ABBREVIATIONS)
 )
 _FACT_ABBREVIATION = re.compile(r"(?<![A-Za-z0-9_-])([A-Z][A-Z0-9]{2,7})(?![A-Za-z0-9_-])")
 _DYNAMIC_STOPWORDS = {

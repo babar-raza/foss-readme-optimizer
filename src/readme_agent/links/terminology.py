@@ -86,6 +86,17 @@ def enterprise_product_link_label(enterprise_product_name: str) -> str:
     return f"{enterprise_product_name.strip()} Enterprise Edition"
 
 
+def _valid_enterprise_link_label(label: str, enterprise_product_name: str) -> bool:
+    """Accept the family label or one platform-qualified Enterprise label."""
+
+    return label == enterprise_product_link_label(enterprise_product_name) or bool(
+        re.fullmatch(
+            rf"{re.escape(enterprise_product_name)} for .+ Enterprise Edition",
+            label,
+        )
+    )
+
+
 def _visitor_ranges(markdown: str) -> list[tuple[int, int]]:
     """Return non-fenced ranges; source code is protected rather than rewritten."""
 
@@ -130,7 +141,9 @@ def canonicalize_enterprise_edition(
         replacements: list[tuple[int, int, str]] = []
         for match in _PRODUCT_LINK.finditer(chunk):
             hostname = (urlparse(match.group(2)).hostname or "").casefold()
-            if hostname == "products.aspose.com" and match.group(1) != link_label:
+            if hostname == "products.aspose.com" and not _valid_enterprise_link_label(
+                match.group(1), enterprise_product_name
+            ):
                 replacements.append(
                     (
                         match.start(),
@@ -210,10 +223,11 @@ def find_enterprise_terminology_findings(
                 if enterprise_product_name
                 else None
             )
+            label = match.group(1)
             label_valid = (
-                match.group(1) == required_label
+                _valid_enterprise_link_label(label, enterprise_product_name or "")
                 if required_label is not None
-                else "Enterprise Edition" in match.group(1)
+                else "Enterprise Edition" in label
             )
             if hostname != "products.aspose.com" or label_valid:
                 continue

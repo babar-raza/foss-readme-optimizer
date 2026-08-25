@@ -321,7 +321,7 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
     details = "\n".join(
         [
             "<details>",
-            "<summary>View public API by namespace</summary>",
+            "<summary>View Public API by Namespace</summary>",
             "",
             *body,
             "",

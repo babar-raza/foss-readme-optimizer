@@ -29,6 +29,7 @@ from readme_agent.readme.header_visual_layout import (
 from readme_agent.readme.header_visual_mermaid import render_capability_landscape
 from readme_agent.readme.header_visual_models import MermaidNodeV1
 from readme_agent.readme.header_visual_validation import validate_readme_header_visual
+from readme_agent.readme.public_vocabulary import canonicalize_abbreviations
 from readme_agent.readme.verified_preservation_composition import (
     build_verified_preservation_composition_plan,
 )
@@ -43,6 +44,12 @@ PROOF_PATH = (
     / "immutable-snapshot-and-product-facts-proof.json"
 )
 ORG_REPO = "aspose-cells-foss/Aspose.Cells-FOSS-for-Java"
+
+
+def test_common_format_abbreviations_keep_canonical_public_casing():
+    assert canonicalize_abbreviations("Stl, Ply, Pdf, and Xlsx files") == (
+        "STL, PLY, PDF, and XLSX files"
+    )
 
 
 def _facts() -> tuple[ProductFactsV2, str]:

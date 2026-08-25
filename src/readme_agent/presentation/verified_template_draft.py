@@ -428,9 +428,10 @@ def _license_text(facts: ProductFactsV2) -> str:
     normalized = name.casefold().replace("license", "").strip(" -")
     if normalized == "mit":
         return (
-            f"This project is available under the [MIT License]({path}). It permits use, "
-            "modification, distribution, and commercial use when the license and copyright "
-            "notice are retained."
+            f"This project is licensed under the [MIT License]({path}). The MIT License permits "
+            "use, copying, modification, distribution, sublicensing, and commercial use, "
+            "provided its copyright and permission notice are retained. The software is "
+            "provided without warranty."
         )
     return (
         f"This project is available under the [{name}]({path}). The license describes the "
@@ -623,6 +624,8 @@ def build_verified_template_draft(
                 "python.distribution",
                 "installation.capability_dependencies",
                 "installation.optional_extras",
+                "installation.coordinates",
+                "product.compatibility",
             ),
             ("readme.dependencies",),
         ),
@@ -664,6 +667,7 @@ def build_verified_template_draft(
                 "development.assets",
                 "development.commands",
                 "development.golden_workflow",
+                "aspose.dev_test_artifacts",
                 "aspose.troubleshoot_claims",
             ),
             ("readme.development_and_testing",),
