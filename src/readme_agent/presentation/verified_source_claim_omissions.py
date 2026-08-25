@@ -102,7 +102,21 @@ def deferred_unverified_obligation_detail_resolution(
         claim.claim_id not in correction_candidate_claim_ids
         or risk.risk_class != "mandatory_fact_resolution"
         or risk.obligation_id
-        not in {"api_public_surface", "major_capabilities", "product_overview"}
+        not in {
+            "api_public_surface",
+            "major_capabilities",
+            "product_overview",
+            # `development_commands` is admitted only because `candidate_core_present`
+            # already proves the candidate publishes accepted `development.commands`
+            # facts for this repository. Inherited prose *about* those commands (an
+            # exact pinned test-dependency version, a build option name) is unproven
+            # wording, not a contradicted claim, so it defers alongside the other
+            # detail obligations instead of failing closed as `unjustified_loss`.
+            # Without collected command facts the guard below still rejects it, so a
+            # repository whose build system produced no evidence cannot silently drop
+            # its own build and test instructions.
+            "development_commands",
+        }
         or not candidate_core_present
     ):
         return None

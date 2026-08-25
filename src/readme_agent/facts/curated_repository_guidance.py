@@ -7,6 +7,9 @@ import hashlib
 import re
 from pathlib import Path
 
+from readme_agent.facts.curated_cmake_development import (
+    repository_cmake_development_commands as _cmake_development_commands,
+)
 from readme_agent.facts.curated_constraint_evidence import source_limitations
 from readme_agent.facts.curated_contribution_policy import (
     validated_readme_contribution_policy,
@@ -38,9 +41,20 @@ def _sha256(path: Path) -> str:
 
 
 def repository_development_commands(root: Path) -> tuple[object, list[str]] | None:
-    """Retain the repository-guidance public seam for Python command facts."""
+    """Return source-derived development commands for the repository's build system.
 
-    return _python_development_commands(root)
+    Python layouts keep their existing collector. A repository with no Python
+    package layout falls back to CMake manifests, so a C++ repository's
+    `development_commands` source claims have real manifest evidence instead
+    of none -- `classify_source_claim_risk()` treats build and test commands
+    as `mandatory_fact_resolution`, so with no evidence at all they can be
+    neither preserved nor deliberately deferred and fail closed as
+    `unjustified_loss`.
+    """
+
+    if (python := _python_development_commands(root)) is not None:
+        return python
+    return _cmake_development_commands(root)
 
 
 def repository_documentation_assets(root: Path) -> tuple[object, list[str]] | None:

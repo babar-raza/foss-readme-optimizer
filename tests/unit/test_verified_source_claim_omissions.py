@@ -898,3 +898,60 @@ def test_source_example_deferral_requires_complete_proof_of_fixture_absence(
     )
 
     assert resolutions == []
+
+
+def _development_commands_claim() -> tuple[str, ReadmeMaterialClaimAssessmentV1]:
+    source = (
+        "# Product\n\n## Development and Testing\n\n"
+        "This links the `aspose_cells_foss` library as a CMake subdirectory and uses "
+        "`FetchContent` to download GoogleTest v1.14.0 during configure.\n"
+    )
+    return source, assess_material_claims(source)[0]
+
+
+def test_development_command_detail_defers_only_with_published_command_facts() -> None:
+    """PF05: inherited prose *about* build commands is unproven wording, not a
+    contradicted claim -- but it may only be withheld once the candidate
+    actually publishes accepted `development.commands` facts of its own."""
+
+    source, claim = _development_commands_claim()
+    claim_text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+    risk = classify_source_claim_risk(source, claim)
+    assert risk.obligation_id == "development_commands"
+
+    resolution = deferred_unverified_obligation_detail_resolution(
+        claim,
+        claim_text,
+        b"# Candidate publishing verified build and test commands\n",
+        risk,
+        _facts(),
+        correction_candidate_claim_ids=frozenset({claim.claim_id}),
+        candidate_core_present=True,
+    )
+
+    assert resolution is not None
+    assert resolution.resolution == "deferred_verification"
+    assert "unverified-source-detail-for:development_commands" in resolution.evidence
+
+
+def test_development_command_detail_fails_closed_without_command_facts() -> None:
+    """Negative control: a repository whose build system produced no command
+    evidence must not be allowed to silently drop its own build/test
+    instructions."""
+
+    source, claim = _development_commands_claim()
+    claim_text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+    risk = classify_source_claim_risk(source, claim)
+
+    assert (
+        deferred_unverified_obligation_detail_resolution(
+            claim,
+            claim_text,
+            b"# Candidate with no development-command slot\n",
+            risk,
+            _facts(),
+            correction_candidate_claim_ids=frozenset({claim.claim_id}),
+            candidate_core_present=False,
+        )
+        is None
+    )

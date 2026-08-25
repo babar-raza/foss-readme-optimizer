@@ -163,6 +163,7 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
         "repository_ingestion.py",
         "curated_readme_evidence.py",
         "curated_repository_guidance.py",
+        "curated_cmake_development.py",
         "curated_constraint_evidence.py",
         "curated_python_api_ast.py",
         "curated_python_api_eligibility.py",
