@@ -2335,9 +2335,11 @@
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs\\portfolio_proof\\portfolio-dashboard.json"
+          ],
           "fingerprint": "825ef52d8d01be088707de6e8a30d87558bd3d601709fb78da5f72e38d91a7e7",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-25T02:26:08.651087+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-25T01:50:33.727699+00:00",
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
@@ -4165,14 +4167,14 @@
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-25T01:50:33.727699+00:00",
+    "last_evaluated_at": "2026-08-25T02:26:08.651124+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
       "denominator": 33,
-      "derived_at": "2026-08-25T01:20:33.982691+00:00",
+      "derived_at": "2026-08-25T02:17:34.363832+00:00",
       "deterministic_validated": 1,
-      "facts_ready": 1,
+      "facts_ready": 5,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -4194,10 +4196,6 @@
       "schema_version": 1,
       "stale_acceptance_repositories": {},
       "stale_fact_contract_repositories": {
-        "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
         "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
@@ -4214,15 +4212,7 @@
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ],
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Go": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ],
@@ -4253,9 +4243,6 @@
         "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go": [
-          "fact_acceptance_recollection_component_changed"
         ],
         "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
@@ -15683,7 +15670,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1530,
+  "state_version": 1531,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
