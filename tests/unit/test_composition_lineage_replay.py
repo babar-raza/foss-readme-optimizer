@@ -259,6 +259,35 @@ def test_dependencies_subsection_headings_are_governed_mechanical_structure() ->
         assert any("differs from exact operation-origin replay" in error for error in errors)
 
 
+def test_details_container_tags_are_governed_mechanical_structure() -> None:
+    source = "old"
+    candidate = "\n</details>\n\n"
+    operation = build_operation(
+        operation_id="readme.details-structure",
+        operation="replace",
+        source=source.encode("utf-8"),
+        start=0,
+        end=len(source.encode("utf-8")),
+        replacement=candidate,
+        fact_ids=[],
+        treatment="presentation_policy_correction",
+        rationale="Exercise a generated details closing tag and its structural whitespace.",
+    )
+    operations = [operation]
+    exact = legacy_operation_provenance(
+        replay_operation_origins(source.encode("utf-8"), operations)
+    )
+
+    ledger = build_composition_ledger(source, candidate, operations, exact)
+
+    assert composition_ledger_errors(ledger, source, candidate, operations, exact) == []
+    assert all(segment.authority != "unbound" for segment in ledger.segments)
+    assert all(
+        segment.configured_standard_ids == ["readme.composition.mechanical-markdown-v1"]
+        for segment in ledger.segments
+    )
+
+
 def test_lineage_only_rejects_real_but_wrong_operation_owner() -> None:
     source = "ab"
     candidate = "XY"

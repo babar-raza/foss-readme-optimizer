@@ -44,6 +44,8 @@ class SectionAuthoringCacheV1(BaseModel):
             raise ValueError("section authoring cache output checksum does not match")
         if self.outcome.target_section_id != self.target_section_id:
             raise ValueError("section authoring cache section identity does not match outcome")
+        if self.outcome.packet_hash != self.outcome.receipt.packet_hash:
+            raise ValueError("section authoring cache packet identity does not match receipt")
         return self
 
 

@@ -930,7 +930,12 @@ def record_readme_candidate_artifacts(
             reason="fact-cited source-span presentation plan completed",
             evidence_refs=evidence_refs,
             source_revision=source_revision,
+            # Cache invalidation can reopen at README_ASSESSED while retaining
+            # the prior assessment binding. Rebind it at the next legal
+            # transition so a new candidate cannot inherit that stale hash.
+            assessment_hash=assessment_hash,
             presentation_plan_hash=presentation_plan_hash,
+            reviewer_standard_hash=reviewer_standard_hash,
             repair_budget_origin_hash=origin_hash,
         )
     return transition_readme_poc_status(

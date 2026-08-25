@@ -449,6 +449,7 @@ def build_template_provenance(
             )
             verified_installation_range: tuple[int, int] | None = None
             verified_installation_fact_ids: list[str] = []
+            source_tree_installation_range: tuple[int, int] | None = None
             installation_slot_canonical = False
             if slot == "installation":
                 canonical_installation = installation_text(
@@ -458,6 +459,16 @@ def build_template_provenance(
                 ) or source_tree_installation_text(facts)
                 if canonical_installation is not None:
                     installation_slot_canonical = canonical_installation.strip() == text.strip()
+                source_tree_installation = source_tree_installation_text(facts)
+                if source_tree_installation is not None:
+                    exact_source_tree = source_tree_installation.strip()
+                    if text.count(exact_source_tree) == 1:
+                        source_tree_character_start = text.index(exact_source_tree)
+                        source_tree_start = len(text[:source_tree_character_start].encode("utf-8"))
+                        source_tree_installation_range = (
+                            source_tree_start,
+                            source_tree_start + len(exact_source_tree.encode("utf-8")),
+                        )
                 verified_installation = installation_text(
                     facts,
                     template_input.org_repo,
@@ -487,7 +498,13 @@ def build_template_provenance(
                         len(text[:relative_end].encode("utf-8")),
                     )
                     verified_installation_fact_ids = accepted_fact_ids
-            for claim in assess_material_claims(text):
+            # The material-claim parser treats a terminal Markdown list row as
+            # complete only when it has its line terminator. Template slots are
+            # stripped for stable lookup, while the compiler always restores a
+            # separating newline. Parse that real boundary so the final factual
+            # row cannot become the one unbound segment in an otherwise governed
+            # deterministic section.
+            for claim in assess_material_claims(text + "\n"):
                 claim_text = text.encode("utf-8")[
                     claim.source_byte_start : claim.source_byte_end
                 ].decode("utf-8")
@@ -532,6 +549,13 @@ def build_template_provenance(
                 )
                 if installation_claim:
                     fact_ids = sorted({*fact_ids, *verified_installation_fact_ids})
+                source_tree_installation_claim = bool(
+                    source_tree_installation_range is not None
+                    and source_tree_installation_range[0] <= claim.source_byte_start
+                    and claim.source_byte_end <= source_tree_installation_range[1]
+                )
+                if source_tree_installation_claim:
+                    fact_ids = sorted({*fact_ids, *content.fact_ids})
                 if slot == "installation" and not fact_ids and installation_slot_canonical:
                     # The remaining installation prose is rendered verbatim by the
                     # deterministic installation builder from these accepted facts.
@@ -543,6 +567,12 @@ def build_template_provenance(
                 ):
                     fact_ids = list(content.fact_ids)
                 if slot == "dependencies" and not fact_ids and canonical_structural_section_matches:
+                    fact_ids = list(content.fact_ids)
+                if (
+                    slot == "development_and_testing"
+                    and not fact_ids
+                    and canonical_structural_section_matches
+                ):
                     fact_ids = list(content.fact_ids)
                 if slot == "scope_and_limitations" and not fact_ids:
                     limitations_fact_id = facts.selected_fact_ids.get("product.limitations")

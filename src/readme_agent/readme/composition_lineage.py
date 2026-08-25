@@ -48,6 +48,8 @@ _GOVERNED_STRUCTURAL_LINES = {
     "No required third-party package dependencies.",
     "Install optional dependencies by scenario:",
     "No development dependencies declared in `pyproject.toml`.",
+    "<details>",
+    "</details>",
 }
 
 

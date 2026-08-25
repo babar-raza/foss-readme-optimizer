@@ -25,6 +25,13 @@ from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.claim_map import build_readme_claim_map
 from readme_agent.readme.document_renderer import build_readme_document_candidate
 from readme_agent.repository_snapshot import RepositorySnapshotV1, SnapshotProvenanceV1
+from readme_agent.specialists.section_authoring_cache import write_section_authoring_cache
+from readme_agent.specialists.section_authoring_contracts import (
+    SectionAuthoringOutcomeV1,
+    SectionAuthoringReceiptV1,
+    SectionClusterAuthoringResultV1,
+    SectionClusterUnitV1,
+)
 from readme_agent.supervisor import local_poc_evidence, local_poc_snapshot_evidence
 from readme_agent.supervisor.local_poc_evidence import (
     mark_local_poc_profiled,
@@ -245,6 +252,79 @@ def test_checksum_corruption_fails_without_repair_or_overwrite(tmp_path, monkeyp
     assert revision_path.read_bytes() == corrupt_bytes
     assert (bundle / "sha256sums.txt").read_bytes() == corrupt_inventory
     assert not verify_sha256sums(bundle)
+
+
+def _section_authoring_outcome() -> SectionAuthoringOutcomeV1:
+    return SectionAuthoringOutcomeV1(
+        target_section_id="summary",
+        packet_hash="a" * 64,
+        result=SectionClusterAuthoringResultV1(
+            units=(
+                SectionClusterUnitV1(
+                    heading="Summary",
+                    text="A fact-bound product summary.",
+                    fact_ids=("product.identity:test",),
+                ),
+            )
+        ),
+        receipt=SectionAuthoringReceiptV1(
+            actor_id="llm-route:section-cluster-authoring",
+            prompt_id="section_cluster_authoring",
+            prompt_sha256="b" * 64,
+            packet_hash="a" * 64,
+            raw_output_sha256="c" * 64,
+            semantic_retry_used=False,
+            logical_call_count=1,
+        ),
+    )
+
+
+def test_snapshot_recovers_valid_section_cache_write_interrupted_before_reseal(
+    tmp_path, monkeypatch
+) -> None:
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    snapshot = _snapshot(tmp_path)
+    bundle = write_local_poc_snapshot(snapshot)
+    cache_key = "d" * 64
+    write_section_authoring_cache(
+        bundle / "assurance" / "section_authoring" / "cache",
+        cache_key=cache_key,
+        org_repo=snapshot.org_repo,
+        source_revision=snapshot.source_revision,
+        outcome=_section_authoring_outcome(),
+    )
+
+    assert not verify_sha256sums(bundle)
+    assert write_local_poc_snapshot(snapshot) == bundle
+    assert verify_sha256sums(bundle)
+    assert f"assurance/section_authoring/cache/{cache_key[:12]}.json" in (
+        bundle / "sha256sums.txt"
+    ).read_text(encoding="utf-8")
+
+
+def test_snapshot_rejects_unrelated_extra_alongside_valid_section_cache(
+    tmp_path, monkeypatch
+) -> None:
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    snapshot = _snapshot(tmp_path)
+    bundle = write_local_poc_snapshot(snapshot)
+    write_section_authoring_cache(
+        bundle / "assurance" / "section_authoring" / "cache",
+        cache_key="d" * 64,
+        org_repo=snapshot.org_repo,
+        source_revision=snapshot.source_revision,
+        outcome=_section_authoring_outcome(),
+    )
+    unrelated = bundle / "candidate" / "unexpected.txt"
+    unrelated.parent.mkdir(parents=True)
+    unrelated.write_text("not a cache\n", encoding="utf-8")
+    inventory_before = (bundle / "sha256sums.txt").read_bytes()
+
+    with pytest.raises(RepositorySnapshotError, match="checksum inventory"):
+        write_local_poc_snapshot(snapshot)
+
+    assert (bundle / "sha256sums.txt").read_bytes() == inventory_before
+    assert unrelated.is_file()
 
 
 def test_snapshot_resumes_only_a_recognized_interrupted_candidate_supersession(

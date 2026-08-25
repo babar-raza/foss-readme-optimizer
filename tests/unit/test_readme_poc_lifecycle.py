@@ -819,6 +819,43 @@ class TestReadmeCandidateBoundary:
             "CANDIDATE_GENERATED",
         ]
 
+    def test_reopened_assessment_binds_new_hash_before_candidate(self):
+        backend = FakeReadmePocBackend()
+        org_repo = "org/repo"
+        for status in (
+            "SNAPSHOTTED",
+            "PROFILED",
+            "FACTS_COLLECTING",
+            "FACTS_READY",
+            "README_ASSESSED",
+        ):
+            transition_readme_poc_status(
+                backend,
+                org_repo,
+                status,
+                observed_by="test",
+                reason="advance",
+                source_revision="abc123",
+                assessment_hash=("assessment-old" if status == "README_ASSESSED" else None),
+            )
+
+        recorded = record_readme_candidate_artifacts(
+            backend,
+            org_repo,
+            source_revision="abc123",
+            assessment_hash="assessment-new",
+            presentation_plan_hash="plan-new",
+            candidate_hash="candidate-new",
+            reviewer_standard_hash="reviewer-new",
+            evidence_refs=["candidate-new"],
+        )
+
+        assert recorded.status == "CANDIDATE_GENERATED"
+        assert recorded.assessment_hash == "assessment-new"
+        assert recorded.presentation_plan_hash == "plan-new"
+        assert recorded.candidate_hash == "candidate-new"
+        assert recorded.reviewer_standard_hash == "reviewer-new"
+
     def test_repair_budget_tracks_initial_candidate_epoch_not_repair_outputs(self):
         backend = FakeReadmePocBackend()
         org_repo = "org/repo"

@@ -174,19 +174,25 @@ def _optional_extra_coordinates(
     ]
 
 
+def _normalized_list_item_text(value: str) -> str:
+    """Normalize Markdown presentation without changing the coordinate's source value."""
+
+    return " ".join(re.sub(r"[`*_~]", "", value).casefold().split())
+
+
 def _exact_list_coordinates(
     text: str, fact_id: str, field: str, value: object
 ) -> list[StructuredFactCoordinateV1]:
     if not isinstance(value, list):
         return []
-    normalized = " ".join(re.sub(r"[`*_~]", "", text).casefold().split())
+    normalized = _normalized_list_item_text(text)
     covered = bytearray(len(normalized))
     coordinates = []
     for item in value:
         minimum_length = 2 if field == "product.formats" else 4
         if not isinstance(item, str) or len(item.strip()) < minimum_length:
             continue
-        phrase = " ".join(item.casefold().split())
+        phrase = _normalized_list_item_text(item)
         starts = []
         cursor = 0
         while (start := normalized.find(phrase, cursor)) >= 0:
@@ -220,7 +226,7 @@ def literal_list_fact_coordinates(
 
     if not isinstance(value, list):
         return []
-    normalized = " ".join(re.sub(r"[`*_~]", "", text).casefold().split())
+    normalized = _normalized_list_item_text(text)
     coordinates = []
     for item in value:
         minimum_length = 2 if field == "product.formats" else 4
@@ -231,7 +237,7 @@ def literal_list_fact_coordinates(
             if field == "product.formats"
             else item
         )
-        item_visible = " ".join(visible_item.casefold().split()) in normalized
+        item_visible = _normalized_list_item_text(visible_item) in normalized
         if field == "product.formats":
             role_match = re.match(r"(?i)^(input|output)\s+format\s*:", item)
             if role_match is not None:

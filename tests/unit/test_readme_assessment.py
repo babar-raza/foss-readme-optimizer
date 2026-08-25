@@ -92,6 +92,27 @@ def test_material_claim_offsets_remain_exact_for_utf8_content() -> None:
     ] == ["A 🛠️ verified claim.\n", "Second claim.\n"]
 
 
+def test_material_claim_assessment_ignores_structural_details_tags() -> None:
+    source = """# Product
+
+<details>
+<summary>View Additional Examples</summary>
+
+A material description.
+
+</details>
+"""
+
+    claim_texts = [
+        source.encode()[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
+        for claim in assess_material_claims(source)
+    ]
+
+    assert "<details>\n" not in claim_texts
+    assert "</details>\n" not in claim_texts
+    assert "A material description.\n" in claim_texts
+
+
 def _java_facts() -> tuple[ProductFactsV2, str]:
     proof = json.loads(PROOF_PATH.read_text(encoding="utf-8"))
     pilot = next(

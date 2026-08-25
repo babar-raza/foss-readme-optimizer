@@ -15,6 +15,7 @@ from readme_agent.presentation.verified_template_api_reference import api_refere
 from readme_agent.presentation.verified_template_capabilities import (
     capability_highlights_markdown,
 )
+from readme_agent.presentation.verified_template_draft import source_tree_installation_text
 from readme_agent.presentation.verified_template_limitations import verified_limitation_groups
 from readme_agent.presentation.verified_template_provenance import build_template_provenance
 from readme_agent.presentation.verified_template_sections import (
@@ -483,6 +484,137 @@ def test_canonical_compiler_h2_and_fact_renderer_h3_have_exact_lineage() -> None
         segment.authority == "unbound"
         and (segment.content_text.lstrip().startswith("#") or not segment.content_text.strip())
         for segment in ledger.segments
+    )
+
+
+def test_imported_development_fallback_has_exact_fact_authority() -> None:
+    facts = _facts()
+    development = facts.selected_fact("development.assets")
+    imported = FactRecordV2(
+        fact_id="aspose.dev_test_artifacts:structural-lineage-test",
+        field="aspose.dev_test_artifacts",
+        value=[
+            {"relative_path": "AGENTS.md"},
+            {"relative_path": "docs/release.md"},
+        ],
+        source=development.source,
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme.development_and_testing"],
+    )
+    emptied = development.model_copy(update={"value": {}})
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                emptied if item.fact_id == development.fact_id else item for item in facts.facts
+            ]
+            + [imported],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                imported.field: imported.fact_id,
+            },
+        }
+    )
+    markdown = development_markdown(facts)
+    assert markdown is not None
+    template_input = _template_input(facts)
+    template_input = template_input.model_copy(
+        update={
+            "sections": {
+                **template_input.sections,
+                "development_and_testing": _bound(
+                    facts,
+                    markdown,
+                    imported.field,
+                    standards=("readme.development_and_testing",),
+                ),
+            }
+        }
+    )
+    candidate = compile_repository_presentation(template_input)
+    provenance = build_template_provenance(candidate, template_input, facts)
+    heading = next(
+        item for item in parse_headings(candidate) if item.title == "Development and Testing"
+    )
+    claims = [
+        claim
+        for claim in assess_material_claims(candidate)
+        if len(candidate[: heading.heading_end].encode("utf-8")) <= claim.source_byte_start
+        and claim.source_byte_end <= len(candidate[: heading.section_end].encode("utf-8"))
+        and any(
+            marker
+            in candidate.encode("utf-8")[claim.source_byte_start : claim.source_byte_end].decode(
+                "utf-8"
+            )
+            for marker in ("repository development resources", "AGENTS.md", "docs/release.md")
+        )
+    ]
+
+    assert claims
+    assert all(
+        any(
+            binding.candidate_byte_start <= claim.source_byte_start
+            and claim.source_byte_end <= binding.candidate_byte_end
+            and imported.fact_id in binding.fact_ids
+            for binding in provenance
+        )
+        for claim in claims
+    )
+
+
+def test_source_tree_installation_is_bound_inside_authored_orientation() -> None:
+    facts = _facts()
+    template_input = _template_input(facts)
+    acquisition = facts.selected_fact("installation.verified_acquisition")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                item.model_copy(update={"verification_state": "blocked"})
+                if item.fact_id == acquisition.fact_id
+                else item
+                for item in facts.facts
+            ]
+        }
+    )
+    source_tree = source_tree_installation_text(facts)
+    assert source_tree is not None
+    installation = (
+        "Build from source when you need direct repository integration.\n\n" + source_tree
+    )
+    template_input = template_input.model_copy(
+        update={
+            "sections": {
+                **template_input.sections,
+                "installation": _bound(
+                    facts,
+                    installation,
+                    "product.identity",
+                    "api.public_surface",
+                    standards=("readme.verified_acquisition",),
+                ),
+            }
+        }
+    )
+    candidate = compile_repository_presentation(template_input)
+    provenance = build_template_provenance(candidate, template_input, facts)
+    source_tree_start = len(candidate[: candidate.index(source_tree)].encode("utf-8"))
+    source_tree_end = source_tree_start + len(source_tree.encode("utf-8"))
+    source_tree_claims = [
+        claim
+        for claim in assess_material_claims(candidate)
+        if source_tree_start <= claim.source_byte_start and claim.source_byte_end <= source_tree_end
+    ]
+
+    assert source_tree_claims
+    assert all(
+        any(
+            binding.candidate_byte_start <= claim.source_byte_start
+            and claim.source_byte_end <= binding.candidate_byte_end
+            and bool(binding.fact_ids)
+            for binding in provenance
+        )
+        for claim in source_tree_claims
     )
 
 

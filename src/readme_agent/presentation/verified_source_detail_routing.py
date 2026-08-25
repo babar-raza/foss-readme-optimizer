@@ -7,10 +7,8 @@ from collections import defaultdict
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.presentation.verified_preservation_sections import PreservedBlock
 from readme_agent.presentation.verified_source_claim_matching import (
-    fact_bound_capability_candidate_claims,
-)
-from readme_agent.presentation.verified_source_limitation_matching import (
-    fact_bound_limitation_candidate_claims,
+    equivalent_source_claim_resolution,
+    index_equivalent_candidate_claims,
 )
 from readme_agent.readme.assessment import ReadmeAssessmentV1
 from readme_agent.readme.assessment_claims import (
@@ -227,6 +225,10 @@ def route_source_detail_blocks(
     routed: dict[tuple[str, str], list[PreservedBlock]] = defaultdict(list)
     candidate_bytes = candidate_text.encode("utf-8")
     candidate_claims = assess_material_claims(candidate_text)
+    equivalence_candidates = index_equivalent_candidate_claims(
+        candidate_bytes,
+        candidate_claims,
+    )
     for block in blocks:
         claim = claims.get(block.source_owner_id)
         if claim is None:
@@ -242,32 +244,23 @@ def route_source_detail_blocks(
                 "valuable source detail has no canonical presentation destination: "
                 f"{block.source_owner_id}:{obligation or 'unclassified'}"
             )
+        # A candidate row may share one broad fact with a valuable inherited
+        # detail without preserving the detail's actual meaning. Suppress the
+        # exact source block only when the strict equivalence resolver can bind
+        # the complete source claim to one candidate claim and its coordinates.
+        # This keeps concise canonical summaries while preventing detailed
+        # capability or limitation claims from disappearing behind a loose
+        # field-level match.
         if (
-            target == _TARGETS["major_capabilities"]
-            and len(
-                fact_bound_capability_candidate_claims(
-                    block.markdown,
-                    candidate_bytes,
-                    candidate_claims,
-                    facts,
-                    candidate_content_provenance,
-                )
+            equivalent_source_claim_resolution(
+                claim,
+                block.markdown,
+                candidate_bytes,
+                equivalence_candidates,
+                facts,
+                candidate_content_provenance,
             )
-            == 1
-        ):
-            continue
-        if (
-            target == _TARGETS["scope_and_limitations"]
-            and len(
-                fact_bound_limitation_candidate_claims(
-                    block.markdown,
-                    candidate_bytes,
-                    candidate_claims,
-                    facts,
-                    candidate_content_provenance,
-                )
-            )
-            == 1
+            is not None
         ):
             continue
         routed[target].append(block)

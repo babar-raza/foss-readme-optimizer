@@ -170,6 +170,52 @@ def test_fact_identical_capability_detail_is_not_repeated() -> None:
     assert routed == {}
 
 
+def test_broad_fact_match_does_not_drop_more_specific_source_capability() -> None:
+    facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
+    source = (
+        "# AcmePDF Python\n\n## Features\n\n"
+        "- Extract text from text-based PDF pages while preserving bounding coordinates.\n"
+    )
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision="a" * 40,
+    )
+    source_claim = assessment.material_claims[0]
+    block = PreservedBlock(
+        markdown=source.encode("utf-8")[
+            source_claim.source_byte_start : source_claim.source_byte_end
+        ].decode("utf-8"),
+        source_owner_id=source_claim.claim_id,
+        source_byte_start=source_claim.source_byte_start,
+        source_byte_end=source_claim.source_byte_end,
+    )
+    candidate = (
+        "# AcmePDF Python\n\n## Key Capabilities\n\n"
+        "- **Extract text** - Read text from text-based PDF pages.\n"
+    )
+    candidate_claim = assess_material_claims(candidate)[0]
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.key_capabilities.claim:broad",
+        candidate_byte_start=candidate_claim.source_byte_start,
+        candidate_byte_end=candidate_claim.source_byte_end,
+        fact_ids=[facts.selected_fact("product.capabilities").fact_id],
+        rationale="Bind the broad canonical capability to its accepted fact field.",
+    )
+
+    routed = route_source_detail_blocks(
+        source,
+        assessment,
+        facts,
+        [block],
+        candidate,
+        [provenance],
+    )
+
+    assert routed == {("Key Capabilities", "View Detailed Capabilities"): [block]}
+
+
 def test_directional_format_capability_is_not_repeated_as_source_detail() -> None:
     facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
     capability = facts.selected_fact("product.capabilities")

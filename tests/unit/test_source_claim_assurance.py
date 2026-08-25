@@ -1178,6 +1178,20 @@ def test_capability_equivalence_rejects_a_candidate_missing_one_structured_fact(
     assert resolution is None
 
 
+def test_literal_list_coordinates_ignore_markdown_presentation_marks_in_fact_values() -> None:
+    fact_id = "product.capabilities:markdown-coordinate"
+    item = "**Manage worksheets** through `WorksheetsMut` / `Worksheets`"
+
+    coordinates = literal_list_fact_coordinates(
+        "- Manage worksheets through `WorksheetsMut` / `Worksheets`\n",
+        fact_id,
+        "product.capabilities",
+        [item],
+    )
+
+    assert coordinates == [structured_list_item_coordinate(fact_id, "product.capabilities", item)]
+
+
 def test_capability_equivalence_accepts_complete_renderer_format_provenance() -> None:
     facts = ProductFactsV2.model_validate(build_review_facts(REVIEW_ARCHETYPES[2]))
     capability = facts.selected_fact("product.capabilities")

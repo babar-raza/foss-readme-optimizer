@@ -29,6 +29,7 @@ _PROMOTIONAL_CLAIM = re.compile(
     r"(?i)products\.[^\s)]+\.org.*products\.[^\s)]+\.com|"
     r"products\.[^\s)]+\.com.*products\.[^\s)]+\.org",
 )
+_STRUCTURAL_HTML_ONLY = re.compile(r"(?is)^\s*</?(?:details|summary)(?:\s+[^>]*)?>\s*$")
 
 
 class ReadmeMaterialClaimAssessmentV1(BaseModel):
@@ -79,7 +80,7 @@ def _assess_material_claims_cached(
         byte_start = line_byte_offsets[start_line]
         byte_end = line_byte_offsets[end_line]
         source_slice = source_text[character_start:character_end]
-        if not source_slice.strip():
+        if not source_slice.strip() or _STRUCTURAL_HTML_ONLY.fullmatch(source_slice):
             continue
         if _PROMPT_INJECTION.search(source_slice):
             disposition: ClaimDisposition = "investigate"

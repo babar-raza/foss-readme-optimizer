@@ -1,5 +1,7 @@
 """Section-level content-addressed cache: zero-call reuse, per-section resume on failure."""
 
+from pathlib import Path
+
 import pytest
 
 from readme_agent.specialists.section_authoring_cache import (
@@ -213,4 +215,19 @@ def test_cache_record_rejects_a_tampered_output_hash():
             source_revision="a" * 40,
             target_section_id="capability-overview",
             outcome=_outcome(),
+        )
+
+
+def test_cache_record_rejects_packet_identity_mismatch() -> None:
+    outcome = _outcome().model_copy(
+        update={"receipt": _outcome().receipt.model_copy(update={"packet_hash": "f" * 64})}
+    )
+
+    with pytest.raises(ValueError, match="packet identity does not match receipt"):
+        write_section_authoring_cache(
+            Path("unused"),
+            cache_key=_key(),
+            org_repo="aspose-3d-foss/Aspose.3D-FOSS-for-Python",
+            source_revision="a" * 40,
+            outcome=outcome,
         )
