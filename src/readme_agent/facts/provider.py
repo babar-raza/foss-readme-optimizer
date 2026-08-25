@@ -141,9 +141,14 @@ def _local_verification_facts(
         and snapshot is not None
         and local_fact_verification_allowed()
     ):
+        # The bounded verifier is publication-facing: inherited README examples
+        # must be attempted before the broader source-tree sample inventory.
+        # Otherwise repositories with many samples exhaust the bounded attempt
+        # budget before any README claim can acquire exact verification evidence.
+        # Keep this ordering aligned with select_verified_repository_example().
         repository_candidates = [
-            *repository_source_example_candidates(root, example_language),
             *repository_readme_example_candidates(root, example_language),
+            *repository_source_example_candidates(root, example_language),
         ]
         if repository_candidates and (local_result is None or not local_result.truth_eligible):
             selection = select_verified_repository_example(

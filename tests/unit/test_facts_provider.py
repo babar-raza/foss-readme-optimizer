@@ -345,6 +345,73 @@ def test_typescript_repository_example_is_selected_without_policy_truth(monkeypa
     assert local_verification["outcome"] == "SOURCE_BUILD_VERIFIED"
 
 
+def test_repository_example_fact_attempts_readme_examples_before_source_samples(monkeypatch):
+    readme_example = SimpleNamespace(
+        language="go",
+        class_name="readme_example",
+        code="package main\nfunc main() {}\n",
+        evidence_paths=["README.md"],
+        required_symbols=[],
+    )
+    source_example = SimpleNamespace(
+        language="go",
+        class_name="source_example",
+        code="package main\nfunc main() { println(1) }\n",
+        evidence_paths=["examples/main.go"],
+        required_symbols=[],
+    )
+    observed_candidates = []
+    verification = _VerifiedRustResult()
+    monkeypatch.setattr(provider, "current_repository_snapshot", lambda _org_repo: object())
+    monkeypatch.setattr(provider, "local_fact_verification_allowed", lambda: True)
+    monkeypatch.setattr(
+        provider,
+        "repository_readme_example_candidates",
+        lambda *_args, **_kwargs: [readme_example],
+    )
+    monkeypatch.setattr(
+        provider,
+        "repository_source_example_candidates",
+        lambda *_args, **_kwargs: [source_example],
+    )
+    monkeypatch.setattr(
+        provider,
+        "select_verified_repository_example",
+        lambda *_args, **_kwargs: SimpleNamespace(
+            outcome="VERIFIED",
+            example=readme_example,
+            verification=verification,
+        ),
+    )
+    monkeypatch.setattr(
+        provider,
+        "verify_local_product_example",
+        lambda _snapshot, _example: verification,
+    )
+
+    def capture_candidates(candidates, **_kwargs):
+        observed_candidates.extend(candidates)
+        return None
+
+    monkeypatch.setattr(provider, "compiled_repository_examples_fact", capture_candidates)
+    monkeypatch.setattr(
+        provider,
+        "collect_acquisition_fact",
+        lambda *_args, **_kwargs: _fake_registry_fact("go"),
+    )
+
+    provider._local_verification_facts(
+        "acme/widget",
+        "a" * 40,
+        None,
+        root=object(),
+        policy=SimpleNamespace(product_truth=None),
+        entry=SimpleNamespace(ecosystem="go"),
+    )
+
+    assert observed_candidates == [readme_example, source_example]
+
+
 def test_verified_rust_surface_is_preserved_in_example_product_fact(monkeypatch):
     example = SimpleNamespace(
         language="rust",
