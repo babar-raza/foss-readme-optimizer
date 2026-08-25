@@ -24,15 +24,32 @@ git log -1 --format=fuller
 
 Inspect repository-owned processes. Never overlap a live repository transaction or steal a live unexpired claim. If status reports graph drift, a stale lease, or no eligible task while a task is inconsistent, run `--mission-action evaluate`; then claim only the task printed by the controller.
 
-The intended current branch baseline is `main` at `40529bab47c830f0b07ddfcee6ff4a76312f8232`, with PF02/PF03/PF04 closed and `L8-PF-05-SEVEN-ECOSYSTEM-CANARIES` active. Treat this as historical until verified. The current accepted/no-op result is only Aspose.3D Python. Do not call historical raw lifecycle counts delivery.
+The intended current branch baseline is `main` at `8539afe6b`, with PF02/PF03/PF04 closed and `L8-PF-05-SEVEN-ECOSYSTEM-CANARIES` active. Treat this as historical until verified. The current accepted/no-op result is only Aspose.3D Python. Do not call historical raw lifecycle counts delivery.
 
-First task after safe claim: resolve `PF05-CXX-LINK-001`.
+`PF05-CXX-LINK-001` is resolved and canary-confirmed (`e2db75462`) -- do not re-fix it. The
+`development_commands` claim-accountability gap behind it is also resolved (`8cb2a6cd8`,
+`8539afe6b`): the C++ canary's blocking claims went 2 to 0 and both now resolve as
+`verified_obligation_replacement`.
+
+First task after safe claim: resolve `PF05-CXX-DUPLICATE-001`.
 
 - Canary: `aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp`, revision `9f852d0ff1cfdad2d661556d6b87a8eff8c063a2`.
-- Current terminal failure: inherited source example uses `https://docs.aspose.org/cells/cpp/`, and `contextual_validation.py` rejects it as non-linkable.
-- The URL is present in `data/aspose_org_links.json`; related documentation catalog data appears in `data/aspose_com_links.json`.
-- Reconcile the validator with the catalog and source accountability. Do not disable validation, guess a replacement, or alter a product repository.
-- Add direct positive and negative regression tests, run focused link/renderer/source-claim tests, then one C++ bounded verified canary.
+- Current terminal failure: `presentation.semantic_duplicate.7f247683b2ff` and
+  `public_quality.malformed_low_information_prose.6bec24bc9114` both report "Capability
+  information is repeated across competing visitor sections", plus a
+  `public_quality.contradiction_capability_symbol` finding on `DateTime`.
+- The `DateTime` finding is already root-caused and logged as `CORE-038`: the vendored C++
+  empty-body-stub detector does not recognize a constructor whose work lives in its
+  member-initializer list, so it emits a false "unimplemented stub" limitation claim. Verified
+  against the real upstream `Aspose.Cells.Foss.Cpp/src/DateTime.cpp:77`. Do not patch it inside
+  the byte-integrity-checked vendored tree -- see
+  `plans/investigations/evidence/portfolio-proof-pf05-seven-ecosystem-canaries/cxx-datetime-stub-false-positive-2026-08-25.md`.
+- Read the regenerated candidate and its `blocked-presentation-plan.json` before changing shared
+  composition code; the duplicate-capability findings have not yet been root-caused.
+
+Note on the approach budget: a claim that expires mid-canary is recorded as an *ineffective*
+attempt, so two lease expiries alone exhaust the budget and the controller will refuse the task
+until a first-principles replan is recorded. Long canaries should be started with a fresh claim.
 
 Then follow this exact loop:
 
