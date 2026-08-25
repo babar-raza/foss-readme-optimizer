@@ -1,165 +1,86 @@
 {
-  "schema_version": 14,
+  "schema_version": 1,
   "handover_status": "HANDOVER_READY",
-  "snapshot_time": "2026-08-12T23:07:28+05:00",
-  "snapshot_is_historical_after_any_change": true,
+  "snapshot_kind": "pre-handover-commit execution checkpoint",
   "repository": "D:/Users/prora/OneDrive/Documents/GitHub/foss-readme-optimizer",
   "branch": "main",
-  "head": "cd0dab38c6a9de0b927bb7bf673549edb7664c8c",
-  "origin_main": "dde47b0b3885253cff631c276da5f9a94edf8f5f",
-  "ahead_of_origin_main": 6,
+  "head": "40529bab47c830f0b07ddfcee6ff4a76312f8232",
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "authoritative_plan": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
-  "authoritative_plan_hash": "d40cae9163180ed9ef45aa18d15471d4b906ca751c06508bd862c8fc660ef568",
+  "authoritative_plan_hash": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
+  "goal_objective": "C:/Users/prora/.codex/attachments/a1a147bb-62fd-456b-94db-b799adcede5e/goal-objective.md",
   "document_hashes": {
-    "plans/idea.md": "8fa42dfb87fa568aa43fd99683e52b5fc45c640acf65ac2d537dd2cae200da9d",
-    "plans/master.md": "e7e2b56ce1b0686d626cf92ab6b2ecfbcae3fd107a59444910f775ed4e0510d4",
-    "plans/requirements/catalog.jsonl": "70ad633d7d180367bf3fd42ca4d2d1bce792fb165043de1709d1506ef017464d",
-    "plans/investigations/control/level8-deferred-task-catalog.jsonl": "abe4df2ea729326d71f1f930a8bb45ef1f87207d50c778f5f860b0dd4fe9e06c",
-    "data/platform_priorities.json": "8874ba61d75a319e41e1e3b77ae7a99df2cd291f2dedb4ff15242b7bfa6e66ec"
+    "plans/idea.md": "f4e9f1184227ae7d39c3edf82555edc9c541c0fbc88edb898e48d421a49de064",
+    "plans/master.md": "f4ad284aa17dbde439d9bf24dd1ec65c0d774548a7df19076726a3b2e43ba361",
+    "plans/requirements.md": "6e8b09f2b381ac544c85e5de979267f6dafd49b6979307c543df130f56ef40d8",
+    "plans/requirements/catalog.jsonl": "9a8af7409e1867a1ec16c73ceb5d3b0561b00774ec3b9915b5e396b4f89389f3",
+    "data/products.json": "eb526af1d1c70b700a89e4445d399e1131170e5ecfb7359147bc671be6da8479"
   },
-  "durable_state_version": 1188,
-  "durable_state_ref": "refs/readme-agent-state/mission__LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-  "graph_drift": false,
-  "active_goal": "GOAL-V0-VERIFIED-PYTHON-POC",
-  "active_task": "L8-VPY-03-ALL-PYTHON-VERIFIED-POC",
-  "active_claim_owner": "claude-coordinator",
-  "active_claim_expiry": "2026-08-12T15:16:38.600330+00:00",
-  "active_claim_status_at_snapshot": "EXPIRED_REQUIRES_EVALUATE_AND_RECLAIM",
-  "handoff_mission": "Expand the established verified workflow across all 19 current non-Python registry entries after existing graph dependencies admit the work.",
-  "next_action": "Verify live state, run mission evaluate, recover the expired Python parent claim, reconcile the existing ten strict promotions plus HTML/PSD/TeX dispositions without reopening Python README design, and complete graph-required Python transport/admission before claiming L8-VNET-01-ACCELERATED-LOCAL-NO-OP.",
-  "registry": {
-    "path": "data/products.json",
-    "sha256": "22b203b1a3094f40be8fae1474620eb54ce67bb70b762c7275cbaaa22383d8ee",
-    "denominator": 32,
-    "non_python_denominator": 19,
-    "platform_counts": {
-      "net": 6,
-      "java": 4,
-      "cpp": 4,
-      "typescript": 2,
-      "rust": 1,
-      "go": 2,
-      "python": 13
-    }
+  "durable_state_version": 1639,
+  "current_stage_goal": "GOAL-V0B-POST-PYTHON-SLICES",
+  "current_task": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
+  "current_task_status": "IN_PROGRESS",
+  "active_claim": {
+    "claim_id": "994eca3b46be483983e413ce85402143",
+    "owner": "codex",
+    "expires_at": "2026-08-25T13:10:20.811619+00:00",
+    "resume_rule": "Never steal an unexpired claim. Run mission status/evaluate and reclaim only the controller-printed task after expiry."
   },
-  "platform_priority": [
-    "python",
-    "net",
-    "java",
-    "cpp",
-    "typescript",
-    "rust",
-    "go"
-  ],
-  "python_reference_checkpoint": {
-    "strict_no_op_proven": 10,
-    "working_condition_exceptions": 1,
-    "deferred_no_source": [
-      "aspose-psd-foss/Aspose.PSD-FOSS-for-Python"
-    ],
-    "upstream_source_defect": [
-      "aspose-tex-foss/Aspose.TeX-FOSS-for-Python"
-    ],
-    "human_accepted_strict": 0,
-    "production_admitted": false
+  "portfolio": {
+    "admitted_denominator": 33,
+    "processable_denominator": 31,
+    "current_facts_ready": 2,
+    "current_candidate_generated": 1,
+    "current_deterministic_validated": 1,
+    "current_agent_approved": 1,
+    "current_no_op_proven": 1,
+    "current_pr_eligible": 0,
+    "current_psd_dispositions_required": 2
   },
-  "strict_scoreboard": {
-    "facts_ready": 10,
-    "candidate_generated": 10,
-    "deterministic_validated": 10,
-    "agent_approved": 10,
-    "no_op_proven": 10,
-    "human_accepted": 0,
-    "portfolio_denominator": 32,
-    "first_failing_boundary": "FACTS_READY"
+  "completed_verified": [
+    "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+    "L8-PF-03-SEALED-CANDIDATE-NO-OP",
+    "L8-PF-04-MINIMAL-GRAPH-RUNNER",
+    "aspose-3d-foss/Aspose.3D-FOSS-for-Python:AGENT_APPROVED_AND_NO_OP_PROVEN",
+    "40529bab4:CXX_CONTEXTUAL_FRAGMENT_HARNESS"
+  ],
+  "implemented_unverified": [
+    "CXX_CONTEXTUAL_FRAGMENT_HARNESS:canonical C++ canary has not completed beyond contextual-link validation"
+  ],
+  "current_failure": {
+    "id": "PF05-CXX-LINK-001",
+    "category": "agent_fixable",
+    "repository": "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp",
+    "revision": "9f852d0ff1cfdad2d661556d6b87a8eff8c063a2",
+    "message": "candidate contains non-linkable Aspose target: https://docs.aspose.org/cells/cpp/",
+    "first_failing_code": "src/readme_agent/links/contextual_validation.py",
+    "next_action": "Reconcile catalog-backed inherited docs.aspose.org link eligibility with source accountability; add focused positive/negative tests; rerun only the C++ bounded canary."
   },
-  "non_python_status": {
-    "inventory_complete": 19,
-    "diagnostic_candidates": 19,
-    "strict_no_op_proven": 0,
-    "platforms_strict_complete": 0,
-    "product_effects": 0
-  },
-  "selected_pilots": [
-    "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET",
-    "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
-    "aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp",
-    "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript",
-    "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust",
-    "aspose-cells-foss/Aspose.Cells-FOSS-for-Go"
+  "remaining_tasks": [
+    "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
+    "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP",
+    "L8-PORT-01-LOCAL-README-PORTFOLIO-ASPOSE-PARITY",
+    "L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS"
   ],
-  "ordered_execution": [
-    "reconcile L8-VPY-03-ALL-PYTHON-VERIFIED-POC from existing evidence",
-    "L8-VPY-04-PRODUCTION-TRANSPORT",
-    "L8-VPY-05-PRODUCTION-ADMISSION",
-    "L8-VNET-01-ACCELERATED-LOCAL-NO-OP",
-    "L8-VNET-02-PRODUCTION-TRANSPORT",
-    "active-graph Java vertical task currently identified as L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES",
-    "promote dependency-ready C++ work from the deferred catalog through existing governance",
-    "promote dependency-ready TypeScript work from the deferred catalog through existing governance",
-    "promote dependency-ready Rust work from the deferred catalog through existing governance",
-    "promote dependency-ready Go work from the deferred catalog through existing governance",
-    "full-registry Gate-A cohorts and independent reproduction"
-  ],
-  "known_limitations": [
-    "Latest complete non-live receipt is not green: 3697 passed and 9 failed at aea52c9fe.",
-    "Commit cd0dab38c reports 3693 unit tests passed and 10 pre-existing failures.",
-    "The active Java vertical task has a stale Python-looking identifier despite a Java title.",
-    "The active graph does not expose one executable task per C++, TypeScript, Rust, and Go platform; future records must be promoted from the hashed deferred catalog, never executed directly.",
-    "Local source snapshots for 3D Java, 3D TypeScript, and PDF Go are stale against live upstream and must be refreshed before facts are accepted.",
-    "Diagnostic non-Python POC candidates are not strict acceptance or fresh-process no-op proof."
-  ],
-  "preserve_uncommitted_paths": [
-    "plans/backlog-post-poc.md"
-  ],
+  "blockers": [],
   "critical_references": [
     "AGENTS.md",
-    "plans/GOVERNANCE.md",
     "plans/idea.md",
     "plans/master.md",
     "plans/requirements/catalog.jsonl",
     "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
-    "plans/investigations/control/level8-deferred-task-catalog.jsonl",
-    "data/products.json",
-    "data/platform_priorities.json",
-    "templates/readme/repository-presentation-v1.json",
-    "docs/architecture.md",
-    "docs/safety-model.md",
-    "plans/investigations/evidence/finalized-repository-readmes-v1/README.md",
-    "plans/investigations/evidence/finalized-repository-readmes-v1/cohort-manifest.json",
-    "plans/investigations/evidence/working-condition-presentation-exceptions-v1/README.md",
-    "report/findings/tex/python/upstream-issues.md",
-    "plans/codex/handover/HANDOVER.md"
+    "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/final-verdict.json",
+    "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/no-op-proof.json",
+    "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp/9f852d0ff1cfdad2d661556d6b87a8eff8c063a2/facts/product-facts.json",
+    "data/aspose_org_links.json",
+    "data/aspose_com_links.json"
   ],
   "resume_protocol": [
-    "Read HANDOVER.md and the authority files in its required order.",
-    "Verify Git and ensure no repository-owned process is active.",
-    "Run live mission status and evaluate against origin.",
-    "Recover only the graph-printed expired claim; do not infer a task from this snapshot.",
-    "Reconcile the existing Python checkpoint without re-auditing or redesigning Python READMEs.",
-    "Complete graph-required Python transport/admission dependencies.",
-    "Claim .NET only when mission evaluate prints it as eligible.",
-    "Pilot, freeze, cohort, independently verify, promote, transition, and continue by platform priority.",
-    "Perform no product effect without fresh exact what/why/where approval."
-  ],
-  "focused_verification": {
-    "status": "PASS",
-    "verified_at": "2026-08-12T23:16:13+05:00",
-    "json_valid": true,
-    "paths_checked": true,
-    "critical_paths_checked": 17,
-    "missing_critical_paths": 0,
-    "inventory_rows": 19,
-    "unique_inventory_repositories": 19,
-    "registry_non_python_entries": 19,
-    "artifact_agreement": true,
-    "branch_head_rechecked": true,
-    "durable_state_refreshed": true,
-    "durable_state_version_rechecked": 1188,
-    "durable_graph_hash_rechecked": true,
-    "git_diff_check": "PASS",
-    "repository_owned_processes": 0,
-    "unrelated_dirty_work_preserved": true
-  }
+    "Read AGENTS.md, HANDOVER.md, CONTINUE.md, the goal objective, and authority files.",
+    "Inspect Git status/log and repository-owned processes.",
+    "Run mission status; evaluate if drift, stale lease, or inconsistency is reported.",
+    "Claim only the durable-controller-selected task.",
+    "Repair PF05-CXX-LINK-001 before rerunning C++.",
+    "Continue PF05, PF06, portfolio fan-out, then PF07 without product effects."
+  ]
 }
