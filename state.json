@@ -2346,17 +2346,30 @@
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "src/readme_agent/specialists/review_standard_mermaid_premises.py",
+            "src/readme_agent/specialists/review_standard_premises.py",
+            "tests/unit/test_review_finding_grounding.py",
+            "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/final-verdict.json"
+          ],
           "fingerprint": "f4a3973ab82b5b1c729975e49008c1ee448cf48a74c14ba19fe30f55671ddf02",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-25T02:45:16.868450+00:00",
+          "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "ca294fcad1cabd98f4cd5c1da9bc0bc6d0be980520820d1aeb72cffb0001633b",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-25T03:10:41.125186+00:00",
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         }
       ],
       "proposed_fingerprints": {
         "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "bb73427bbbbf602bdbbccd13b7bf93a7ff63fe1425d1343786e4d84e9afd437d",
-        "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "f4a3973ab82b5b1c729975e49008c1ee448cf48a74c14ba19fe30f55671ddf02",
+        "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "ca294fcad1cabd98f4cd5c1da9bc0bc6d0be980520820d1aeb72cffb0001633b",
         "L8-PF-03-SEALED-CANDIDATE-NO-OP": "f202c0fb1ea5b08e2f7fcde9befb92bc3bbb96a89feaec97499e10230fdc7f23",
         "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "825ef52d8d01be088707de6e8a30d87558bd3d601709fb78da5f72e38d91a7e7",
         "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "9d8091b625ebf675542727bfa42e720a03906a4d5b9ca7bfa0a7b171f1668ee0",
@@ -3867,6 +3880,33 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
+        },
+        {
+          "causal_owner_changed": true,
+          "created_at": "2026-08-25T08:10:08.0209971+05:00",
+          "dependency_sequence_changed": false,
+          "evidence_refs": [
+            "src/readme_agent/specialists/review_standard_mermaid_premises.py",
+            "src/readme_agent/specialists/review_standard_premises.py",
+            "tests/unit/test_review_finding_grounding.py",
+            "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/final-verdict.json"
+          ],
+          "input_classification": "tactic",
+          "mechanism_changed": false,
+          "new_fingerprint": "ca294fcad1cabd98f4cd5c1da9bc0bc6d0be980520820d1aeb72cffb0001633b",
+          "pipeline_boundary_changed": false,
+          "prior_fingerprint": "f4a3973ab82b5b1c729975e49008c1ee448cf48a74c14ba19fe30f55671ddf02",
+          "rationale": "The complete candidate and deterministic validation passed, while independent review produced two false repair premises: it demanded one connector per input despite the configured grouped Mermaid topology, and claimed the additional-examples workflow preview was absent even though the candidate contains it. Preserve and reuse the 50 completed provider results. Move adjudication of these mechanically decidable premises to the existing deterministic standard reconciler, with focused regressions, then rerun the identical transaction from cache. This changes the causal adjudication owner without weakening factuality, safety, or independent review.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         }
       ]
     },
@@ -4185,13 +4225,13 @@
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-25T02:45:16.868450+00:00",
+    "last_evaluated_at": "2026-08-25T03:10:41.125284+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
-      "candidate_generated": 1,
+      "candidate_generated": 0,
       "denominator": 33,
-      "derived_at": "2026-08-25T02:17:34.363832+00:00",
-      "deterministic_validated": 1,
+      "derived_at": "2026-08-25T03:05:52.903297+00:00",
+      "deterministic_validated": 0,
       "facts_ready": 5,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
@@ -4199,26 +4239,20 @@
         "BLOCKED_MISSING_EVIDENCE": 6,
         "FACTS_READY": 25,
         "INTAKE_READY": 1,
-        "NO_OP_PROVEN": 1
+        "README_ASSESSED": 1
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 0,
-      "raw_agent_approved": 1,
-      "raw_candidate_generated": 1,
-      "raw_deterministic_validated": 1,
+      "raw_agent_approved": 0,
+      "raw_candidate_generated": 0,
+      "raw_deterministic_validated": 0,
       "raw_facts_ready": 26,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 1,
+      "raw_no_op_proven": 0,
       "registry_path": "data/products.json",
       "registry_sha256": "2e71e7f2c9ccbe7662ed37a5545a5f1af07363de0d6da8579e109fe4db20c1e7",
       "schema_version": 1,
-      "stale_acceptance_repositories": {
-        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
-          "presentation_component_protected_content_changed",
-          "presentation_component_severe_acceptance_changed",
-          "presentation_component_structural_changed"
-        ]
-      },
+      "stale_acceptance_repositories": {},
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed",
@@ -15714,7 +15748,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1532,
+  "state_version": 1533,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
