@@ -392,6 +392,16 @@ def test_resolve_claim_disposition_context_returns_the_standard_three_values() -
     assert ratchet_path == claim_disposition_ratchet_path(org_repo)
 
 
+def test_default_claim_disposition_client_uses_observed_non_truncating_ceiling() -> None:
+    from readme_agent.readme.claim_accountability_llm_disposition import (
+        default_claim_disposition_client,
+    )
+
+    client = default_claim_disposition_client()
+
+    assert client.max_tokens == 2400
+
+
 def test_resolve_claim_disposition_context_fails_closed_for_an_unlisted_repo() -> None:
     from readme_agent.errors import NotAllowlistedError
     from readme_agent.readme.claim_accountability_llm_disposition import (

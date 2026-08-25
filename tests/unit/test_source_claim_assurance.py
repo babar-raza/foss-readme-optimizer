@@ -719,6 +719,24 @@ def test_static_verified_example_matching_is_unaffected_by_runtime_field() -> No
     assert result == (facts.selected_fact_ids["repository.examples"], code)
 
 
+def test_runtime_verified_dotnet_repository_example_matches_exact_fence() -> None:
+    code = "using Aspose.ThreeD;\n\nvar scene = new Scene();\n"
+    facts = _repository_example_fact(
+        _facts(),
+        {
+            "title": "Quick Start",
+            "language": "dotnet",
+            "code": code,
+            "static_api_verified": False,
+            "runtime_verified": True,
+        },
+    )
+
+    result = verified_repository_example_code(f"```csharp\n{code}```", facts)
+
+    assert result == (facts.selected_fact_ids["repository.examples"], code)
+
+
 def test_exact_structured_api_claim_is_preservation_eligible() -> None:
     source = "# Product\n\n## API reference\n\n- `Matrix4` — `translate()`, `inverse()`\n"
 

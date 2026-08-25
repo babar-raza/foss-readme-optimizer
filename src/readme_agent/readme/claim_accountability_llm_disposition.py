@@ -108,11 +108,11 @@ def _persist_ratchet_entry(path: Path, content_sha256: str, verdict: dict) -> No
 # routinely longer than 300 tokens once `reasoning`/`evidence_ref` are also
 # counted. Confirmed live (2026-08-18, aspose-font-foss): the 300-token
 # default truncated mid-JSON (`finish_reason='length'`), raising an
-# uncaught LLMError. 1600 matches the exact calibration already documented
-# for this failure class on a same-shape "single-verdict" response
-# (facts/agentic_drafting.py's own DEFAULT_MAX_TOKENS journey, corrected
-# 900 -> 1600 for the identical truncated-mid-JSON confound).
-_MAX_TOKENS = 1600
+# uncaught LLMError. The initial 1,600-token calibration was later disproved by
+# the real TypeScript canary: its one-verdict response was truncated at JSON
+# character 1,929. Keep a bounded 2,400-token ceiling so the same forced-tool
+# transaction can finish without retrying identical request bytes.
+_MAX_TOKENS = 2400
 
 
 def default_claim_disposition_client() -> ForcedToolClient:

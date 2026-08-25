@@ -65,6 +65,7 @@ CLAIM_DISPOSITION_TOOL_SCHEMA = {
                 },
                 "evidence_ref": {
                     "type": "string",
+                    "maxLength": 512,
                     "description": (
                         "For candidate_section_reference: the candidate H2/H3 heading the "
                         "matching text lives under. For clone_cache_path: the exact "
@@ -84,6 +85,7 @@ CLAIM_DISPOSITION_TOOL_SCHEMA = {
                 },
                 "evidence_quote": {
                     "type": "string",
+                    "maxLength": 800,
                     "description": (
                         "A verbatim substring copied character-for-character from the "
                         "evidence location (the candidate text or the named source file) "
@@ -103,9 +105,17 @@ CLAIM_DISPOSITION_TOOL_SCHEMA = {
                         "excluded_with_reason predicates."
                     ),
                 },
-                "reasoning": {"type": "string"},
+                "reasoning": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "description": (
+                        "A concise explanation of the classification. Do not repeat the claim, "
+                        "candidate, file listing, or evidence quote."
+                    ),
+                },
             },
             "required": ["classification", "evidence_type", "evidence_ref", "reasoning"],
+            "additionalProperties": False,
         },
     },
 }

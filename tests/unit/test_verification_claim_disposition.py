@@ -6,6 +6,7 @@ actually appears, verbatim, in the exact location it claims to have read."""
 from pathlib import Path
 
 from readme_agent.errors import LLMError
+from readme_agent.llm.claim_disposition_prompts import CLAIM_DISPOSITION_TOOL_SCHEMA
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.llm.verifier_client import FixtureForcedToolClient, ForcedToolResult
 from readme_agent.verification.claim_disposition import (
@@ -13,6 +14,17 @@ from readme_agent.verification.claim_disposition import (
     corroborate_claim_disposition,
     repository_file_listing,
 )
+
+
+def test_claim_disposition_schema_bounds_free_text_output() -> None:
+    parameters = CLAIM_DISPOSITION_TOOL_SCHEMA["function"]["parameters"]
+    properties = parameters["properties"]
+
+    assert parameters["additionalProperties"] is False
+    assert properties["evidence_ref"]["maxLength"] == 512
+    assert properties["evidence_quote"]["maxLength"] == 800
+    assert properties["reasoning"]["maxLength"] == 500
+
 
 CLAIM_ID = "source:claim:100:abcdef0123456789"
 CONTENT_SHA = "a" * 64

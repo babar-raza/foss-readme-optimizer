@@ -33,9 +33,26 @@ _MARKDOWN = re.compile(r"[`*_>#\[\]()]|^\s*[-+]\s*", re.MULTILINE)
 _FACT_PREFIX = re.compile(r"^(?:input|output)\s+format\s*:\s*", re.IGNORECASE)
 _ACCEPTED_STATES = {"verified", "policy_approved"}
 _FENCE = re.compile(
-    r"^\s*```(?P<language>python|py)\s*\r?\n(?P<code>.*)\r?\n```\s*$",
+    r"^\s*```(?P<language>[A-Za-z0-9_+#.-]+)\s*\r?\n(?P<code>.*)\r?\n```\s*$",
     re.DOTALL | re.IGNORECASE,
 )
+_FENCE_LANGUAGE = {
+    "c++": "cpp",
+    "cpp": "cpp",
+    "csharp": "dotnet",
+    "cs": "dotnet",
+    "cxx": "cpp",
+    "dotnet": "dotnet",
+    "go": "go",
+    "golang": "go",
+    "java": "java",
+    "py": "python",
+    "python": "python",
+    "rs": "rust",
+    "rust": "rust",
+    "ts": "typescript",
+    "typescript": "typescript",
+}
 _EXACT_VALUE_FIELDS = {
     "product.audience",
     "product.capabilities",
@@ -95,9 +112,17 @@ def _strings(value: object) -> list[str]:
     return []
 
 
-def _python_code(value: str) -> str | None:
+def _fenced_code(value: str) -> tuple[str, str] | None:
     match = _FENCE.fullmatch(value)
-    return match.group("code") + "\n" if match is not None else None
+    if match is None:
+        return None
+    language = _FENCE_LANGUAGE.get(match.group("language").casefold())
+    return (language, match.group("code") + "\n") if language is not None else None
+
+
+def _python_code(value: str) -> str | None:
+    fenced = _fenced_code(value)
+    return fenced[1] if fenced is not None and fenced[0] == "python" else None
 
 
 def _python_ast(value: str) -> str | None:
@@ -149,14 +174,15 @@ def verified_repository_example_code(
     if fact_id is None:
         return None
     fact = facts.fact_by_id(fact_id)
-    code = _python_code(claim_text)
+    fenced = _fenced_code(claim_text)
     if (
-        code is None
+        fenced is None
         or fact.verification_state not in _ACCEPTED_STATES
         or fact.has_unresolved_conflict
         or not isinstance(fact.value, dict)
     ):
         return None
+    language, code = fenced
     inline = fact.value.get("inline_examples")
     if not isinstance(inline, list):
         return None
@@ -165,6 +191,7 @@ def verified_repository_example_code(
         for item in inline
         if isinstance(item, dict)
         and (item.get("static_api_verified") is True or item.get("runtime_verified") is True)
+        and _FENCE_LANGUAGE.get(str(item.get("language") or language).casefold()) == language
         and isinstance(item.get("code"), str)
         and item["code"].rstrip() + "\n" == code
     ]
@@ -263,8 +290,19 @@ def accepted_source_claim_fact_ids(claim_text: str, facts: ProductFactsV2) -> se
             continue
         if fact.field == "example.minimal":
             code = verified_example_code(fact.value)
-            if code is not None and verified_comment_free_python_example(claim_text, code):
-                result.add(fact_id)
+            fenced = _fenced_code(claim_text)
+            fact_language = (
+                str(fact.value.get("language") or "").casefold()
+                if isinstance(fact.value, dict)
+                else ""
+            )
+            normalized_fact_language = _FENCE_LANGUAGE.get(fact_language, fact_language)
+            if code is not None and fenced is not None and fenced[0] == normalized_fact_language:
+                if fenced[0] == "python":
+                    if verified_comment_free_python_example(claim_text, code):
+                        result.add(fact_id)
+                elif fenced[1] == code.rstrip() + "\n":
+                    result.add(fact_id)
             continue
         if fact.field in _STRUCTURED_ONLY_FIELDS:
             continue

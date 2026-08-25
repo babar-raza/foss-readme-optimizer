@@ -99,3 +99,20 @@ def semantically_repeats(left: str, right: str, *, threshold: float = 0.7) -> bo
         and right_words
         and len(left_words & right_words) / min(len(left_words), len(right_words)) >= threshold
     )
+
+
+def semantically_equivalent(left: str, right: str, *, threshold: float = 0.9) -> bool:
+    """Return whether two statements contain nearly the same semantic terms.
+
+    Unlike ``semantically_repeats``, this is deliberately symmetric. A capability
+    description that restates its heading *and then adds concrete visitor detail* is
+    acceptable; the containment-oriented duplicate detector would incorrectly reject it.
+    """
+
+    left_words = semantic_content_words(left)
+    right_words = semantic_content_words(right)
+    return bool(
+        left_words
+        and right_words
+        and len(left_words & right_words) / max(len(left_words), len(right_words)) >= threshold
+    )

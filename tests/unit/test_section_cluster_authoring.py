@@ -252,15 +252,29 @@ def test_capability_body_that_repeats_heading_triggers_targeted_recovery():
     packet = _packet()
     repeated = _valid_response()
     repeated["units"][0]["heading"] = "Create 3D Primitives"
-    repeated["units"][0]["text"] = (
-        "Create standard 3D primitives including boxes and spheres for scene construction."
-    )
+    repeated["units"][0]["text"] = "Create 3D primitives."
     client = FakeSectionAuthorClient([repeated, _valid_response()])
 
     outcome = execute_section_cluster_authoring(packet=packet, client=client)
 
     assert outcome.receipt.semantic_retry_used is True
     assert "repeat their headings" in client.calls[1]["messages"][1]["content"]
+
+
+def test_capability_body_may_repeat_heading_terms_when_it_adds_visitor_detail():
+    packet = _packet()
+    detailed = _valid_response()
+    detailed["units"][0]["heading"] = "Import and Export 3D Content"
+    detailed["units"][0]["text"] = (
+        "Import and export 3D content by exchanging OBJ and GLTF assets through a focused "
+        "Python API."
+    )
+    client = FakeSectionAuthorClient([detailed])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert outcome.receipt.semantic_retry_used is False
+    assert len(client.calls) == 1
 
 
 def test_unsupported_quality_and_dependency_positioning_triggers_targeted_recovery():
@@ -277,12 +291,26 @@ def test_unsupported_quality_and_dependency_positioning_triggers_targeted_recove
     assert "End each sentence immediately after the behavior" in repair
 
 
+@pytest.mark.parametrize("wording", ["smallest possible", "simplest possible"])
+def test_closed_list_superlative_is_removed_without_repeating_provider_call(wording):
+    packet = _packet()
+    response = _valid_response()
+    response["units"][0]["text"] = (
+        f"Exchange OBJ and GLTF assets through the {wording} focused Python API."
+    )
+    client = FakeSectionAuthorClient([response])
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert len(client.calls) == 1
+    assert wording not in outcome.result.units[0].text.casefold()
+    assert outcome.receipt.semantic_retry_used is False
+
+
 @pytest.mark.parametrize(
     "wording",
     [
         "This is the fully implemented workflow.",
-        "Use the smallest possible example.",
-        "Use the simplest possible entry point.",
         "Build from source to ensure compatibility.",
         "Create scenes without external assets.",
         "This is the only supported acquisition path.",

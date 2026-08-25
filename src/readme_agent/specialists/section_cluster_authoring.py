@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Protocol
 
@@ -38,7 +39,7 @@ from readme_agent.llm.section_authoring_prompts import (
 )
 from readme_agent.readme.capability_semantics import is_action_led_capability_title
 from readme_agent.readme.presentation_lint_public_contract import lint_public_contract
-from readme_agent.readme.presentation_similarity import semantically_repeats
+from readme_agent.readme.presentation_similarity import semantically_equivalent
 from readme_agent.specialists.section_authoring_cache import (
     load_section_authoring_cache,
     section_authoring_cache_key,
@@ -197,7 +198,7 @@ def _validate_acceptance(
         repeated_headings = [
             unit.heading
             for unit in result.units
-            if semantically_repeats(
+            if semantically_equivalent(
                 unit.heading.rstrip("."),
                 unit.text.split(". ", 1)[0].rstrip("."),
                 threshold=0.9,
@@ -222,6 +223,29 @@ def _reconcile_duplicate_fact_dispositions(
     if len(reconciled_omissions) == len(result.omitted):
         return result
     return result.model_copy(update={"omitted": reconciled_omissions})
+
+
+_REMOVABLE_UNSUPPORTED_SUPERLATIVE = re.compile(
+    r"\b(?:smallest|simplest)\s+possible\s+", re.IGNORECASE
+)
+
+
+def _remove_unsupported_superlatives(
+    result: SectionClusterAuthoringResultV1,
+) -> SectionClusterAuthoringResultV1:
+    """Delete two closed-list modifiers that add no factual content.
+
+    Qwen has repeatedly returned these exact prohibited phrases after receiving the targeted
+    correction prompt. Removing only the modifiers leaves the fact-bearing noun phrase intact;
+    the resulting unit still passes every normal structured-fact and public-contract check below.
+    Broader guarantees remain fail-closed and continue through semantic repair.
+    """
+
+    units = tuple(
+        unit.model_copy(update={"text": _REMOVABLE_UNSUPPORTED_SUPERLATIVE.sub("", unit.text)})
+        for unit in result.units
+    )
+    return result.model_copy(update={"units": units})
 
 
 def _itemized_capability_prompt_facts(
@@ -423,6 +447,7 @@ def execute_section_cluster_authoring(
                 packet,
                 _restore_fact_ids(provider_result, active_alias_to_fact_id),
             )
+            parsed = _remove_unsupported_superlatives(parsed)
             parsed, rejected_unit_hashes, omitted_fact_ids = remove_reserved_directional_units(
                 packet, parsed
             )
