@@ -2421,9 +2421,12 @@
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/final-verdict.json",
+            "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/manifest.json"
+          ],
           "fingerprint": "d1f834d08611285516264b0572a7d543b1bb63c0deddf5a6197a2fefb8c57865",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-25T05:15:24.522488+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-25T04:55:38.254810+00:00",
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
@@ -4353,12 +4356,12 @@
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-25T04:55:38.254810+00:00",
+    "last_evaluated_at": "2026-08-25T05:15:24.522517+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 0,
+      "agent_approved": 1,
       "candidate_generated": 1,
       "denominator": 33,
-      "derived_at": "2026-08-25T04:53:29.464344+00:00",
+      "derived_at": "2026-08-25T05:13:28.608978+00:00",
       "deterministic_validated": 1,
       "facts_ready": 7,
       "first_failing_boundary": "FACTS_READY",
@@ -4380,11 +4383,7 @@
       "registry_path": "data/products.json",
       "registry_sha256": "2e71e7f2c9ccbe7662ed37a5545a5f1af07363de0d6da8579e109fe4db20c1e7",
       "schema_version": 1,
-      "stale_acceptance_repositories": {
-        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
-          "manifest_assessment_hash_mismatch"
-        ]
-      },
+      "stale_acceptance_repositories": {},
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed",
@@ -15996,7 +15995,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1547,
+  "state_version": 1548,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
