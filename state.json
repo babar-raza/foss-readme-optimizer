@@ -4502,7 +4502,7 @@
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-25T08:33:05.582570+00:00",
+    "last_evaluated_at": "2026-08-25T08:33:33.192790+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 2,
@@ -4698,7 +4698,7 @@
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
       "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
-      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "VERIFIED",
+      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "SCORED",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "CLOSED",
       "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "REGRESSED",
@@ -16499,6 +16499,17 @@
         "reason": "Current canonical candidate and immediate zero-provider no-op proof independently reproduce the PF02 acceptance boundary.",
         "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/portfolio-proof-pf02-complete-candidate-seam/closeout-control.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex",
+        "occurred_at": "2026-08-25T08:33:33.192815+00:00",
+        "reason": "PF02 closeout control scores the current candidate and immediate no-op evidence as complete.",
+        "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -16508,7 +16519,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1593,
+  "state_version": 1594,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
