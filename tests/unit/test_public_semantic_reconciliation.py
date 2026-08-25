@@ -23,6 +23,7 @@ from readme_agent.readme.public_limitations import (
     public_limitation_fact_coordinates,
     public_limitation_phrases,
 )
+from readme_agent.readme.source_claim_fact_binding import accepted_source_claim_fact_ids
 
 
 def _facts_with_limitations(values: list[str]) -> ProductFactsV2:
@@ -149,6 +150,54 @@ def test_fact_bound_canonical_limitation_suppresses_only_equivalent_source_detai
     assert resolution is not None
     assert resolution.resolution == "verified_equivalence"
     assert limitation.fact_id in resolution.fact_ids
+
+
+def test_limitation_equivalence_ignores_incidental_format_fact_match() -> None:
+    limitation_text = "PDF/A conversion does not auto-fix transparency."
+    facts = _facts_with_limitations([limitation_text])
+    limitation = facts.selected_fact("product.limitations")
+    source = f"# Product\n\n## Scope and Limitations\n\n- {limitation_text}\n"
+    source_claim = assess_material_claims(source)[0]
+    source_bytes = source.encode("utf-8")
+    source_claim_text = source_bytes[
+        source_claim.source_byte_start : source_claim.source_byte_end
+    ].decode("utf-8")
+    source_fact_ids = accepted_source_claim_fact_ids(source_claim_text, facts)
+    assert limitation.fact_id in source_fact_ids
+    assert facts.selected_fact_ids["product.formats"] in source_fact_ids
+
+    candidate = (
+        "# Product\n\n## Scope and Limitations\n\n"
+        "- PDF/A conversion currently does not auto-fix transparency.\n"
+    )
+    candidate_claim = assess_material_claims(candidate)[0]
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.scope_and_limitations.claim:pdfa",
+        candidate_byte_start=candidate_claim.source_byte_start,
+        candidate_byte_end=candidate_claim.source_byte_end,
+        fact_ids=[limitation.fact_id],
+        fact_coordinates=[
+            structured_list_item_coordinate(
+                limitation.fact_id,
+                limitation.field,
+                limitation_text,
+            )
+        ],
+        rationale="Bind the canonical limitation to the accepted constraint.",
+    )
+
+    resolution = equivalent_source_claim_resolution(
+        source_claim,
+        source_claim_text,
+        candidate.encode("utf-8"),
+        index_equivalent_candidate_claims(candidate.encode("utf-8"), [candidate_claim]),
+        facts,
+        [provenance],
+    )
+
+    assert resolution is not None
+    assert resolution.resolution == "verified_equivalence"
+    assert resolution.fact_ids == [limitation.fact_id]
 
 
 def test_limitation_equivalence_rejects_distinct_constraints() -> None:

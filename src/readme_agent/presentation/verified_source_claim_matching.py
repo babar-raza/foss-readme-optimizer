@@ -62,6 +62,26 @@ def _capability_equivalence_fact_ids(
     }
 
 
+def _limitation_equivalence_fact_ids(
+    fact_ids: set[str],
+    facts: ProductFactsV2,
+) -> set[str]:
+    """Keep only the accepted constraint that authorizes a limitation rewrite.
+
+    A limitation sentence commonly contains a product or format token (for example ``PDF``),
+    so literal binding may also report identity/format facts that merely overlap its wording.
+    Those incidental matches are not obligations the canonical limitation row must replace.
+    Requiring them made routing suppress the exact source row and final resolution reject the
+    same canonical row. The limitation fact and its exact list coordinate remain mandatory.
+    """
+
+    limitation_ids = {
+        fact_id for fact_id in fact_ids if facts.fact_by_id(fact_id).field == "product.limitations"
+    }
+    selected = facts.selected_fact_ids.get("product.limitations")
+    return limitation_ids or ({selected} if selected is not None else set())
+
+
 def _complete_claim_fact_binding(
     source_claim_text: str,
     facts: ProductFactsV2,
@@ -334,6 +354,8 @@ def equivalent_source_claim_resolution(
     required_source_fact_ids = (
         _capability_equivalence_fact_ids(source_fact_ids, facts)
         if capability_reformatted
+        else _limitation_equivalence_fact_ids(source_fact_ids, facts)
+        if limitation_reformatted
         else source_fact_ids
     )
     required_source_coordinates = (
@@ -343,24 +365,40 @@ def equivalent_source_claim_resolution(
             if coordinate.fact_id in required_source_fact_ids
         }
         if capability_reformatted
+        else {
+            coordinate
+            for coordinate in source_coordinates
+            if coordinate.fact_id in required_source_fact_ids
+        }
+        if limitation_reformatted
         else source_coordinates
     )
     if not candidate_fact_ids or (
         required_source_fact_ids and not required_source_fact_ids.issubset(candidate_fact_ids)
     ):
         return None
-    if not _coordinates_complete_for_required_facts(
+    candidate_coordinate_fact_ids = {coordinate.fact_id for coordinate in candidate_coordinates}
+    if limitation_reformatted:
+        if not required_source_fact_ids.issubset(candidate_coordinate_fact_ids):
+            return None
+    elif not _coordinates_complete_for_required_facts(
         required_source_fact_ids,
         required_source_coordinates,
         facts,
-    ) or not _coordinates_cover(required_source_coordinates, candidate_coordinates):
+    ):
+        return None
+    if not _coordinates_cover(required_source_coordinates, candidate_coordinates):
         return None
     # An equivalence replaces the inherited claim, so its fact set must be the
     # exact accepted subset expressed by that source claim. The canonical row
     # may carry additional independently accountable API or audience facts;
     # attributing those extras back to the narrower source claim makes a valid
     # merge fail its own source-subset check.
-    fact_ids = sorted(required_source_fact_ids if capability_reformatted else candidate_fact_ids)
+    fact_ids = sorted(
+        required_source_fact_ids
+        if capability_reformatted or limitation_reformatted
+        else candidate_fact_ids
+    )
     return SourceClaimResolutionV1(
         claim_id=source_claim.claim_id,
         source_byte_start=source_claim.source_byte_start,
