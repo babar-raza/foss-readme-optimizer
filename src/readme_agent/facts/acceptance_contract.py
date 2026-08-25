@@ -141,6 +141,7 @@ _COMPONENT_FILES: dict[str, tuple[str, ...]] = {
         "dotnet_truth_selection.py",
         "repository_examples.py",
         "verified_repository_examples.py",
+        "verified_repository_example_facts.py",
         "../capabilities/draft_product_truth.py",
     ),
     "fact_schema": ("schema_v2.py",),

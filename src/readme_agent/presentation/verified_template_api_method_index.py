@@ -28,6 +28,7 @@ from readme_agent.presentation.verified_template_api_reference import (
     _complete_catalog,
     _excluded_exports,
 )
+from readme_agent.readme.knowledge_claim_presentation import knowledge_unimplemented_symbols
 
 _TRAILING_CALL_RE = re.compile(r"\(.*\)\s*$")
 
@@ -56,7 +57,10 @@ def _source_mentioned_bare_names(source_text: str) -> set[str]:
 
 
 def _verified_method_rows(
-    complete: dict[str, Any], excluded: set[tuple[str, str]], mentioned: set[str]
+    complete: dict[str, Any],
+    excluded: set[tuple[str, str]],
+    mentioned: set[str],
+    unimplemented_symbols: frozenset[str] = frozenset(),
 ) -> dict[str, list[tuple[str, str]]]:
     rows_by_owner: dict[str, list[tuple[str, str]]] = {}
     classes = complete.get("classes")
@@ -81,7 +85,11 @@ def _verified_method_rows(
             if not name or name.casefold() not in mentioned:
                 continue
             identifier = member_api_identifier(owner, member)
-            description = describe_api_member(owner, member)
+            description = (
+                "Declared in the public API but not implemented in this FOSS package."
+                if f"{owner}.{name}".casefold() in unimplemented_symbols
+                else describe_api_member(owner, member)
+            )
             rows_by_owner.setdefault(owner, []).append((identifier, description))
     return rows_by_owner
 
@@ -162,7 +170,12 @@ def api_method_index_markdown(facts: ProductFactsV2, source_text: str) -> str | 
     mentioned = _source_mentioned_bare_names(source_text)
     if not mentioned:
         return None
-    rows_by_owner = _verified_method_rows(complete, excluded, mentioned)
+    rows_by_owner = _verified_method_rows(
+        complete,
+        excluded,
+        mentioned,
+        knowledge_unimplemented_symbols(facts),
+    )
     if not rows_by_owner:
         return None
 

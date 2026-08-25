@@ -88,6 +88,7 @@ def test_format_adapter_split_files_are_all_verification_inputs():
     }.issubset(files)
     assert "python_html_format_functionality.py" in files
     assert "verified_repository_examples.py" in files
+    assert "verified_repository_example_facts.py" in files
     assert "deterministic_truth_salvage.py" in files
     assert "provider.py" in files
     assert "../supervisor/product_truth.py" in files

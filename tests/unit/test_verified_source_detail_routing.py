@@ -7,6 +7,7 @@ from unittest.mock import patch
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
 from readme_agent.golden_set.review_fixtures import REVIEW_ARCHETYPES, build_review_facts
 from readme_agent.presentation.verified_preservation_sections import PreservedBlock
+from readme_agent.presentation.verified_source_claim_matching import presentation_equivalence_key
 from readme_agent.presentation.verified_source_detail_routing import (
     route_source_detail_blocks,
     source_section_routes_to_canonical_contract,
@@ -45,6 +46,15 @@ def test_major_capability_detail_routes_to_key_capabilities() -> None:
     routed = route_source_detail_blocks(source, assessment, facts, [block], "", [])
 
     assert routed == {("Key Capabilities", "View Detailed Capabilities"): [block]}
+
+
+def test_fenced_source_equivalence_normalizes_only_the_language_alias() -> None:
+    source = "```csharp\nvar scene = new Scene();\n```"
+    candidate = "```dotnet\nvar scene = new Scene();\n```"
+    changed = '```dotnet\nvar scene = new Scene("different");\n```'
+
+    assert presentation_equivalence_key(source) == presentation_equivalence_key(candidate)
+    assert presentation_equivalence_key(source) != presentation_equivalence_key(changed)
 
 
 def test_multiple_source_details_share_one_parsed_heading_context() -> None:

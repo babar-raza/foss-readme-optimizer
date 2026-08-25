@@ -104,6 +104,62 @@ def test_grounds_a_method_the_source_named_qualified():
     assert "| `Scene.close() -> None` |" in markdown
 
 
+def test_describes_an_accepted_unimplemented_member_as_unavailable() -> None:
+    facts = _facts_with_api(_MEMBERS)
+    source = facts.selected_fact("product.identity").source
+    limitation = FactRecordV2(
+        fact_id="aspose.limitation_claims:scene-close",
+        field="aspose.limitation_claims",
+        value=[
+            {
+                "claim_id": "limitation:scene-close",
+                "text": "Not implemented: Scene.close",
+            }
+        ],
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme.scope_and_limitations"],
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [*facts.facts, limitation],
+            "selected_fact_ids": {
+                **facts.selected_fact_ids,
+                limitation.field: limitation.fact_id,
+            },
+        }
+    )
+
+    markdown = api_method_index_markdown(facts, "Call `Scene.close()` when finished.\n")
+
+    assert markdown is not None
+    assert "Declared in the public API but not implemented in this FOSS package." in markdown
+    assert "Closes" not in markdown
+
+
+def test_does_not_apply_an_unselected_limitation_fact() -> None:
+    facts = _facts_with_api(_MEMBERS)
+    source = facts.selected_fact("product.identity").source
+    limitation = FactRecordV2(
+        fact_id="aspose.limitation_claims:unselected",
+        field="aspose.limitation_claims",
+        value=[{"claim_id": "unselected", "text": "Not implemented: Scene.close"}],
+        source=source,
+        verification_state="verified",
+        authoritative_owner="repository-source",
+        confidence=1.0,
+        affected_surfaces=["readme.scope_and_limitations"],
+    )
+    facts = facts.model_copy(update={"facts": [*facts.facts, limitation]})
+
+    markdown = api_method_index_markdown(facts, "Call `Scene.close()` when finished.\n")
+
+    assert markdown is not None
+    assert "not implemented in this FOSS package" not in markdown
+
+
 def test_omits_slot_when_no_source_terms_are_mentioned():
     facts = _facts_with_api(_MEMBERS)
 

@@ -143,12 +143,15 @@ def test_candidate_manifest_tracks_semantic_owners_at_the_earliest_affected_stag
     assert {
         "src/readme_agent/presentation/verified_template_api_descriptions.py",
         "src/readme_agent/presentation/verified_template_api_members.py",
+        "src/readme_agent/presentation/verified_template_api_method_index.py",
         "src/readme_agent/presentation/verified_template_api_text.py",
         "src/readme_agent/presentation/verified_template_golden_workflow.py",
         "src/readme_agent/readme/public_limitations.py",
+        "src/readme_agent/readme/knowledge_claim_presentation.py",
     } <= set(groups["document_compilation"][2])
     assert {
         "src/readme_agent/readme/claim_accountability_coordinates.py",
+        "src/readme_agent/readme/source_claim_example_equivalence.py",
         "src/readme_agent/readme/source_claim_fact_binding.py",
         "src/readme_agent/readme/source_claim_obligations.py",
     } <= set(groups["source_claim_accountability"][2])
@@ -186,6 +189,57 @@ def test_selected_owner_byte_change_alters_candidate_stage_key(tmp_path: Path, m
         if prior != current
     }
     assert changed_groups == {"candidate_orchestration"}
+
+
+@pytest.mark.parametrize(
+    ("relative_path", "expected_group"),
+    (
+        (
+            "src/readme_agent/readme/source_claim_example_equivalence.py",
+            "source_claim_accountability",
+        ),
+        (
+            "src/readme_agent/presentation/verified_template_api_method_index.py",
+            "document_compilation",
+        ),
+        (
+            "src/readme_agent/readme/knowledge_claim_presentation.py",
+            "document_compilation",
+        ),
+    ),
+)
+def test_new_semantic_owner_change_invalidates_candidate_stage(
+    tmp_path: Path,
+    monkeypatch,
+    relative_path: str,
+    expected_group: str,
+) -> None:
+    for _scope, _stage, relative_paths in stage_dependencies._CANDIDATE_DEPENDENCY_GROUPS.values():
+        for selected_path in relative_paths:
+            path = tmp_path / selected_path
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(f"baseline:{selected_path}\n", encoding="utf-8")
+    monkeypatch.setattr(stage_dependencies, "_REPOSITORY_ROOT", tmp_path)
+
+    before = current_candidate_stage_dependency_manifest(
+        repository="org/repo",
+        source_revision="1" * 40,
+        ecosystem="python",
+    )
+    (tmp_path / relative_path).write_text("changed semantic owner\n", encoding="utf-8")
+    after = current_candidate_stage_dependency_manifest(
+        repository="org/repo",
+        source_revision="1" * 40,
+        ecosystem="python",
+    )
+
+    changed_groups = {
+        current.dependency_id
+        for prior, current in zip(before.dependencies, after.dependencies, strict=True)
+        if prior != current
+    }
+    assert before.stage_key != after.stage_key
+    assert changed_groups == {expected_group}
 
 
 @pytest.mark.parametrize(

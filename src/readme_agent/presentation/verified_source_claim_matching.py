@@ -23,6 +23,7 @@ from readme_agent.readme.presentation_similarity import (
     semantically_repeats,
 )
 from readme_agent.readme.source_claim_assurance import accepted_source_claim_fact_ids
+from readme_agent.readme.source_claim_example_equivalence import fenced_source_code
 from readme_agent.readme.source_claim_fact_binding import (
     complete_source_claim_fact_binding,
     source_claim_has_comments,
@@ -132,6 +133,10 @@ def _coordinates_complete_for_required_facts(
 def presentation_equivalence_key(value: str) -> str:
     """Normalize presentation-only decoration without weakening factual comparison."""
 
+    fenced = fenced_source_code(value)
+    if fenced is not None:
+        language, code = fenced
+        return f"fenced-source\0{language}\0{code}"
     without_decorations = strip_emoji_decorations(value)
     normalized = " ".join(_PRESENTATION_MARKS.sub("", without_decorations).split())
     if "\n" not in without_decorations.strip():

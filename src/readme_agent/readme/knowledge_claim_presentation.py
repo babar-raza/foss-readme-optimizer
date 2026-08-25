@@ -186,6 +186,20 @@ def knowledge_limitation_items(facts: ProductFactsV2) -> tuple[KnowledgePresenta
     return tuple(rendered)
 
 
+def knowledge_unimplemented_symbols(facts: ProductFactsV2) -> frozenset[str]:
+    """Return exact accepted API symbols whose implementation is unavailable."""
+
+    symbols: set[str] = set()
+    for _fact, item in _source_items(facts, "aspose.limitation_claims"):
+        text = str(item["text"])
+        match = _NOT_IMPLEMENTED.fullmatch(text.strip()) or _UNIMPLEMENTED_STUB.fullmatch(
+            text.strip()
+        )
+        if match is not None and "." in match.group("symbol"):
+            symbols.add(match.group("symbol").casefold())
+    return frozenset(symbols)
+
+
 def _verified_coordinate_values(facts: ProductFactsV2) -> tuple[set[str], set[str]]:
     names: set[str] = set()
     versions: set[str] = set()
@@ -278,6 +292,7 @@ __all__ = [
     "knowledge_capability_items",
     "knowledge_installation_items",
     "knowledge_limitation_items",
+    "knowledge_unimplemented_symbols",
     "knowledge_troubleshooting_items",
     "rendered_knowledge_coordinates",
 ]

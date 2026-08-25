@@ -38,6 +38,9 @@ from readme_agent.facts.root_role_schema import PackageRootRoleInventoryV1
 from readme_agent.facts.root_roles import classify_package_root_roles
 from readme_agent.facts.schema import ProductFactsV1
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, descriptive_fact_id
+from readme_agent.facts.verified_repository_example_facts import (
+    compiled_repository_examples_fact,
+)
 from readme_agent.facts.verified_repository_examples import (
     bounded_local_verification_detail,
     select_verified_repository_example,
@@ -131,17 +134,18 @@ def _local_verification_facts(
         if raw_example_language in supported_example_languages
         else None
     )
+    repository_candidates = []
     if (
         example_language is not None
+        and ecosystem in {"cpp", "go", "java", "net", "rust", "typescript"}
         and snapshot is not None
         and local_fact_verification_allowed()
-        and (local_result is None or not local_result.truth_eligible)
     ):
         repository_candidates = [
             *repository_source_example_candidates(root, example_language),
             *repository_readme_example_candidates(root, example_language),
         ]
-        if repository_candidates:
+        if repository_candidates and (local_result is None or not local_result.truth_eligible):
             selection = select_verified_repository_example(
                 root,
                 source_revision=source_revision,
@@ -221,6 +225,28 @@ def _local_verification_facts(
             "nothing to compile/run locally yet"
         )
         example_verified = False
+
+    if (
+        ecosystem != "python"
+        and snapshot is not None
+        and local_fact_verification_allowed()
+        and repository_candidates
+    ):
+        known_verifications = (
+            {example.code.rstrip() + "\n": local_result}
+            if example is not None and local_result is not None
+            else {}
+        )
+        repository_examples = compiled_repository_examples_fact(
+            repository_candidates,
+            org_repo=org_repo,
+            source_revision=source_revision,
+            observed_at=observed_at,
+            verify_example_fn=verify_example,
+            known_verifications=known_verifications,
+        )
+        if repository_examples is not None:
+            facts.append(repository_examples)
 
     # The "aspose {family} foss" rule: a genuinely published package is verified against its
     # AUTHORITATIVE registry and its install claim is kept, never stripped in favor of a

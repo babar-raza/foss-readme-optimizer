@@ -92,6 +92,9 @@ def test_contract_hash_covers_every_named_acceptance_component():
     assert "python_repository_examples.py" in _COMPONENT_FILES["drafting_and_example_selection"]
     assert "verified_repository_examples.py" in _COMPONENT_FILES["drafting_and_example_selection"]
     assert (
+        "verified_repository_example_facts.py" in _COMPONENT_FILES["drafting_and_example_selection"]
+    )
+    assert (
         "../../../data/imported/knowledge_manifest.json" in _COMPONENT_FILES["imported_knowledge"]
     )
 
