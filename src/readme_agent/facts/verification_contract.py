@@ -93,6 +93,7 @@ _ECOSYSTEM_FILES: dict[str, tuple[str, ...]] = {
     "cpp": _COMPILED_COMMON_FILES
     + (
         "cpp_example_verifier.py",
+        "cpp_repository_fragments.py",
         "example_verifiers/cpp.py",
     ),
     "go": _COMPILED_COMMON_FILES + ("go_example_verifier.py",),

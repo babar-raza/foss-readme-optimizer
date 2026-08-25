@@ -61,19 +61,26 @@ def compiled_repository_examples_fact(
     observed_at: str | None,
     verify_example_fn: VerifyExampleFn,
     known_verifications: dict[str, LocalProductVerificationV1] | None = None,
+    preverified_examples: Iterable[dict[str, object]] = (),
 ) -> FactRecordV2 | None:
     """Return all bounded examples that compile against the immutable source tree."""
 
-    verified: list[dict[str, object]] = []
+    verified: list[dict[str, object]] = [dict(item) for item in preverified_examples]
     withheld: list[dict[str, object]] = []
-    seen: set[tuple[str, str]] = set()
+    seen: set[tuple[str, str]] = {
+        (str(item.get("language")), str(item.get("code")).rstrip() + "\n")
+        for item in verified
+        if item.get("language") and item.get("code")
+    }
+    attempted = 0
     known = known_verifications or {}
     for candidate in candidates:
         identity = (candidate.language, candidate.code.rstrip() + "\n")
         if identity in seen:
             continue
         seen.add(identity)
-        if len(seen) > MAX_VERIFIED_REPOSITORY_EXAMPLE_ATTEMPTS:
+        attempted += 1
+        if attempted > MAX_VERIFIED_REPOSITORY_EXAMPLE_ATTEMPTS:
             break
         result = known.get(candidate.code.rstrip() + "\n") or verify_example_fn(candidate)
         if result is None or (

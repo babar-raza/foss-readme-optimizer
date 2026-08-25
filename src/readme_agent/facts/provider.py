@@ -15,6 +15,7 @@ from readme_agent.facts.aspose_seo_keyword_facts import relevant_seo_keyword_fac
 from readme_agent.facts.catalog_documentation import catalog_documentation_fact
 from readme_agent.facts.composer_factpack import aspose_fact_records, build_aspose_detection_bundle
 from readme_agent.facts.context import current_product_facts
+from readme_agent.facts.cpp_repository_fragments import verified_cpp_readme_fragments
 from readme_agent.facts.dependency_snapshot import dependency_snapshot_fact_record
 from readme_agent.facts.knowledge_canonical_projection import (
     augment_canonical_formats_with_knowledge,
@@ -242,6 +243,22 @@ def _local_verification_facts(
             if example is not None and local_result is not None
             else {}
         )
+        preverified_examples = (
+            verified_cpp_readme_fragments(
+                snapshot,
+                repository_candidates,
+                base_example=(
+                    example
+                    if example is not None
+                    and local_result is not None
+                    and local_result.truth_eligible
+                    else None
+                ),
+                verify_example_fn=verify_example,
+            )
+            if ecosystem == "cpp"
+            else []
+        )
         repository_examples = compiled_repository_examples_fact(
             repository_candidates,
             org_repo=org_repo,
@@ -249,6 +266,7 @@ def _local_verification_facts(
             observed_at=observed_at,
             verify_example_fn=verify_example,
             known_verifications=known_verifications,
+            preverified_examples=preverified_examples,
         )
         if repository_examples is not None:
             facts.append(repository_examples)
