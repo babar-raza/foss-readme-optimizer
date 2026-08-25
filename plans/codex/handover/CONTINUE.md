@@ -47,9 +47,21 @@ First task after safe claim: resolve `PF05-CXX-DUPLICATE-001`.
 - Read the regenerated candidate and its `blocked-presentation-plan.json` before changing shared
   composition code; the duplicate-capability findings have not yet been root-caused.
 
-Note on the approach budget: a claim that expires mid-canary is recorded as an *ineffective*
-attempt, so two lease expiries alone exhaust the budget and the controller will refuse the task
-until a first-principles replan is recorded. Long canaries should be started with a fresh claim.
+Claim/lease operating rules (each of these cost real runs before being written down):
+
+- The claim lease is 30 minutes (`mission_control._CLAIM_LEASE`). **Claim immediately before
+  starting a canary, never before a stretch of development work** -- editing, testing, and
+  committing easily exceeds 30 minutes, and the canary then refuses to start with
+  `active mission claim expired`. Chain the claim and the run in one invocation.
+- A claim that expires is recorded as an approach attempt whose outcome is
+  `effective` only if material narrowing was recorded during it
+  (`_recover_expired_claim` passes `effective=prior_narrowing is not None`).
+  So **run `--mission-action record-narrowing` after each material step**; otherwise two
+  expiries mark two *ineffective* attempts, exhaust
+  `max_equivalent_ineffective_attempts: 2`, and the controller refuses the task until a
+  first-principles replan is recorded.
+- Expiry also regresses the task and can reopen an already-closed upstream task whose
+  deliverable is stale; that is the controller working correctly, not a fault to route around.
 
 Then follow this exact loop:
 
