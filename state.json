@@ -7,7 +7,7 @@
   "last_run_id": null,
   "last_run_timestamp": null,
   "mission_execution": {
-    "active_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
+    "active_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
     "active_task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
     "approach_control": {
       "attempts": [
@@ -2679,9 +2679,12 @@
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp/diagnostics/blocked-presentation-plan.json",
+            "src/readme_agent/facts/curated_cmake_development.py"
+          ],
           "fingerprint": "0756b892b4afa86a574289fc093741d765af2a5d47c7ceed14df4c4c2a589e02",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-25T18:51:50.122396+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-25T18:36:41.037514+00:00",
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
@@ -4838,17 +4841,26 @@
         "reason": "derived from earliest incomplete stage and dependency-ready concurrency",
         "to_concurrent_goal_ids": [],
         "to_primary_goal_id": "GOAL-V0B-POST-PYTHON-SLICES"
+      },
+      {
+        "from_concurrent_goal_ids": [],
+        "from_primary_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
+        "graph_sha256": "2977e259af6a5be266d72e68f858bfb618fed4eb5ef194b10e693c471cb108eb",
+        "occurred_at": "2026-08-25T18:51:50.122319+00:00",
+        "reason": "derived from earliest incomplete stage and dependency-ready concurrency",
+        "to_concurrent_goal_ids": [],
+        "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
       }
     ],
     "graph_sha256": "2977e259af6a5be266d72e68f858bfb618fed4eb5ef194b10e693c471cb108eb",
-    "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-25T18:36:41.037514+00:00",
+    "infrastructure_tasks_since_visible_delivery": 2,
+    "last_evaluated_at": "2026-08-25T18:51:50.122425+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 1,
-      "candidate_generated": 1,
+      "agent_approved": 0,
+      "candidate_generated": 0,
       "denominator": 33,
-      "derived_at": "2026-08-25T18:27:21.043486+00:00",
-      "deterministic_validated": 1,
+      "derived_at": "2026-08-25T18:48:10.073798+00:00",
+      "deterministic_validated": 0,
       "facts_ready": 1,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
@@ -4859,7 +4871,7 @@
         "NO_OP_PROVEN": 3
       },
       "missing_lifecycle_repositories": [],
-      "no_op_proven": 1,
+      "no_op_proven": 0,
       "raw_agent_approved": 3,
       "raw_candidate_generated": 3,
       "raw_deterministic_validated": 3,
@@ -4879,6 +4891,9 @@
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ],
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
+          "fact_acceptance_recollection_component_changed"
+        ],
         "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
@@ -4890,9 +4905,6 @@
         "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp": [
-          "fact_acceptance_recollection_component_changed"
         ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Go": [
           "fact_acceptance_recollection_component_changed",
@@ -5063,7 +5075,7 @@
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
       "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
-      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "CLOSED",
+      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "REGRESSED",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "CLOSED",
       "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "IN_PROGRESS",
@@ -17351,6 +17363,15 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "CLOSED",
+        "observed_by": "mission-lifecycle-freshness",
+        "occurred_at": "2026-08-25T18:51:50.121304+00:00",
+        "reason": "repository deliverable became stale for aspose-3d-foss/Aspose.3D-FOSS-for-Python: fact_acceptance_recollection_component_changed",
+        "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -17360,7 +17381,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1656,
+  "state_version": 1657,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
