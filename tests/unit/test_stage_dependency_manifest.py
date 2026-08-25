@@ -86,6 +86,7 @@ def test_current_candidate_manifest_selects_code_prompt_and_template_without_tes
     assert "src/readme_agent/readme/capability_semantics.py" in selected
     assert "src/readme_agent/readme/diagram_role_semantics.py" in selected
     assert "src/readme_agent/readme/diagram_semantic_candidates.py" in selected
+    assert "src/readme_agent/readme/format_role_truth.py" in selected
     assert "src/readme_agent/readme/header_visual_mermaid.py" in selected
     assert "src/readme_agent/readme/header_visual_layout.py" in selected
     assert "src/readme_agent/readme/opening_summary_fallback.py" in selected
@@ -110,6 +111,7 @@ def test_current_candidate_manifest_selects_code_prompt_and_template_without_tes
     assert "templates/readme/repository-presentation-v1.json" in selected
     assert "templates/readme/verified-minimal-example.md" in selected
     assert "src/readme_agent/validation/presentation_template.py" in selected
+    assert "src/readme_agent/validation/public_quality_semantic_common.py" in selected
     required_candidate_owners = {
         "src/readme_agent/capabilities/build_presentation_plan.py",
         "src/readme_agent/capabilities/render_readme_candidate.py",
@@ -197,6 +199,11 @@ def test_selected_owner_byte_change_alters_candidate_stage_key(tmp_path: Path, m
         (
             "src/readme_agent/readme/source_claim_example_equivalence.py",
             "source_claim_accountability",
+        ),
+        ("src/readme_agent/readme/format_role_truth.py", "composition_semantics"),
+        (
+            "src/readme_agent/validation/public_quality_semantic_common.py",
+            "presentation_validation",
         ),
         (
             "src/readme_agent/presentation/verified_template_api_method_index.py",

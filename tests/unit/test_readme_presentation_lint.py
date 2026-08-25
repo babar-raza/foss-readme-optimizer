@@ -9,6 +9,7 @@ import pytest
 
 from readme_agent.facts.evidence_polarity import EvidencePolarityAssessmentV1
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
+from readme_agent.readme.format_role_truth import explicit_format_roles
 from readme_agent.readme.opening_summary_fallback import verified_identity_opening_summary
 from readme_agent.readme.presentation_lint import lint_readme_presentation
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
@@ -165,8 +166,35 @@ def test_format_direction_lint_allows_input_only_format_and_negative_limitation(
             ]
         }
     )
+    assert explicit_format_roles(facts) == {"OBJ": frozenset({"input"})}
     candidate = (
         "# Aspose.3D FOSS for Java\n\n- Import OBJ scenes.\n- OBJ export is not supported.\n"
+    )
+
+    assert "format_direction_contradiction" not in {
+        finding.rule_id for finding in lint_readme_presentation(candidate, facts).findings
+    }
+
+
+def test_format_direction_lint_accepts_explicit_import_and_export_fact() -> None:
+    facts = _facts("aspose-3d-foss/Aspose.3D-FOSS-for-Java")
+    formats = facts.selected_fact("product.formats")
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                fact.model_copy(update={"value": ["Import and export COLLADA scenes."]})
+                if fact.fact_id == formats.fact_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    assert explicit_format_roles(facts) == {"COLLADA": frozenset({"input", "output"})}
+    candidate = (
+        "# Product\n\n- Import and export COLLADA scenes.\n\n"
+        "```mermaid\nflowchart LR\n"
+        '  subgraph INPUTS["Inputs & Formats"]\n    I1["COLLADA"]\n  end\n'
+        '  subgraph OUTPUTS["Outputs"]\n    O1["COLLADA"]\n  end\n```\n'
     )
 
     assert "format_direction_contradiction" not in {
@@ -661,6 +689,20 @@ def test_public_contract_canonicalizes_api_names_and_rejects_repeated_capability
     assert any(
         finding.rule_id == "capability_description_repeats_title" for finding in result.findings
     )
+
+
+def test_public_contract_accepts_capability_description_that_adds_workflow_detail() -> None:
+    candidate = (
+        "# 3D Toolkit\n\n## Key Capabilities\n\n"
+        "- **Create 3D scenes** - Developers can create new 3D scenes from scratch using "
+        "the scene APIs, then inspect, transform, and save them to supported formats.\n"
+    )
+
+    result = lint_readme_presentation(candidate, None)
+
+    assert "capability_description_repeats_title" not in {
+        finding.rule_id for finding in result.findings
+    }
 
 
 def test_public_contract_rejects_internal_assurance_and_generic_preservation_prose() -> None:

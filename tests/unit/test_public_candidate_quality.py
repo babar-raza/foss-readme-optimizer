@@ -242,6 +242,19 @@ def test_claim_grounding_does_not_treat_a_limited_to_statement_as_positive() -> 
     assert "claim_grounding_negative_fact" not in _check_ids(report)
 
 
+def test_claim_grounding_treats_explicit_unsupported_exception_as_negative() -> None:
+    limitation = (
+        "DRACO encoding and decoding, `Scene.render`, and `Camera.moveForward` explicitly "
+        "throw `UnsupportedOperationException`."
+    )
+    candidate = f"# 3D Toolkit\n\n## Scope and Limitations\n\n- {limitation}\n"
+    facts = _facts(_fact("product.limitations", [limitation]))
+
+    report = evaluate_public_candidate_quality(candidate, facts=facts)
+
+    assert "claim_grounding_negative_fact" not in _check_ids(report)
+
+
 def test_same_input_twice_produces_a_byte_identical_report() -> None:
     candidate = """# Product
 

@@ -23,7 +23,10 @@ from readme_agent.readme.presentation_similarity import (
     semantically_repeats,
 )
 from readme_agent.readme.source_claim_assurance import accepted_source_claim_fact_ids
-from readme_agent.readme.source_claim_example_equivalence import fenced_source_code
+from readme_agent.readme.source_claim_example_equivalence import (
+    fenced_source_code,
+    verified_rewrapped_example,
+)
 from readme_agent.readme.source_claim_fact_binding import (
     complete_source_claim_fact_binding,
     source_claim_has_comments,
@@ -258,6 +261,7 @@ def equivalent_source_claim_resolution(
 
     equivalent = candidates.get(presentation_equivalence_key(source_claim_text), [])
     comment_free_example = False
+    rewrapped_example = False
     command_reformatted = False
     capability_reformatted = False
     limitation_reformatted = False
@@ -304,6 +308,21 @@ def equivalent_source_claim_resolution(
             ):
                 equivalent.append(claim)
         comment_free_example = bool(equivalent)
+    if (
+        not equivalent
+        and repository_example
+        and verified_rewrapped_example(source_claim_text, repository_example[1])
+    ):
+        candidate_pool = [claim for group in candidates.values() for claim in group]
+        equivalent = [
+            claim
+            for claim in candidate_pool
+            if verified_comment_free_example(
+                candidate_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8"),
+                repository_example[1],
+            )
+        ]
+        rewrapped_example = bool(equivalent)
     if not equivalent and candidate_content_provenance:
         candidate_pool = [claim for group in candidates.values() for claim in group]
         equivalent = fact_bound_capability_candidate_claims(
@@ -455,6 +474,11 @@ def equivalent_source_claim_resolution(
                 "example and complete candidate provenance."
             )
             if comment_free_example
+            else (
+                "Bind this exact inherited Java fragment to its mechanically verified "
+                "standalone consumer wrapper without changing executable statements."
+            )
+            if rewrapped_example
             else "Bind this exact single-line command reformatted from a fenced block to one "
             "fact-bound inline command in the candidate."
             if command_reformatted

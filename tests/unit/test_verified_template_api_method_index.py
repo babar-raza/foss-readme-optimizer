@@ -139,6 +139,89 @@ def test_describes_an_accepted_unimplemented_member_as_unavailable() -> None:
     assert "Closes" not in markdown
 
 
+def test_product_limitation_marks_exact_public_method_as_unavailable() -> None:
+    render = {
+        "name": "render",
+        "kind": "method",
+        "surface": "render(camera, file_name)",
+        "return_annotation": "None",
+        "declared_by": "Scene",
+        "inherited": False,
+    }
+    facts = _facts_with_api([render])
+    selected = facts.selected_fact("product.limitations")
+    limitation = selected.model_copy(
+        update={
+            "value": [
+                "`Scene.render` and `Camera.moveForward` explicitly throw "
+                "`UnsupportedOperationException`."
+            ],
+            "verification_state": "verified",
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                limitation if fact.fact_id == selected.fact_id else fact for fact in facts.facts
+            ]
+        }
+    )
+
+    markdown = api_method_index_markdown(facts, "Call `Scene.render()` to render a scene.\n")
+
+    assert markdown is not None
+    assert "Declared in the public API but not implemented in this FOSS package." in markdown
+    assert "Exposes the `render` operation" not in markdown
+
+
+def test_product_limitation_does_not_mark_supported_symbol_in_contrast_clause() -> None:
+    render = {
+        "name": "render",
+        "kind": "method",
+        "surface": "render(camera)",
+        "return_annotation": "None",
+        "declared_by": "Scene",
+        "inherited": False,
+    }
+    load = {
+        "name": "load",
+        "kind": "method",
+        "surface": "load(file_name)",
+        "return_annotation": "None",
+        "declared_by": "Scene",
+        "inherited": False,
+    }
+    facts = _facts_with_api([render, load])
+    selected = facts.selected_fact("product.limitations")
+    limitation = selected.model_copy(
+        update={
+            "value": [
+                "`Scene.render` throws `UnsupportedOperationException`, while `Scene.load` "
+                "remains supported."
+            ],
+            "verification_state": "verified",
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                limitation if fact.fact_id == selected.fact_id else fact for fact in facts.facts
+            ]
+        }
+    )
+
+    markdown = api_method_index_markdown(
+        facts,
+        "Call `Scene.render()` or `Scene.load()` as appropriate.\n",
+    )
+
+    assert markdown is not None
+    render_row = next(line for line in markdown.splitlines() if "Scene.render" in line)
+    load_row = next(line for line in markdown.splitlines() if "Scene.load" in line)
+    assert "not implemented in this FOSS package" in render_row
+    assert "not implemented in this FOSS package" not in load_row
+
+
 def test_does_not_apply_an_unselected_limitation_fact() -> None:
     facts = _facts_with_api(_MEMBERS)
     source = facts.selected_fact("product.identity").source

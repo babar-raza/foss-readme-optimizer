@@ -17,7 +17,9 @@ _STRUCTURED_ROLE = re.compile(
     r"(?i)^(?P<operation>load|read|import|save|write|export|supported|support|input|output)"
     r"\s+formats?\s*:\s*(?P<formats>.+)$"
 )
-_BIDIRECTIONAL = re.compile(r"(?i)^(?:load and save|read and write)\s+(?P<formats>.+)$")
+_BIDIRECTIONAL = re.compile(
+    r"(?i)^(?:load and save|read and write|import and export)\s+(?P<formats>.+)$"
+)
 _INPUT_OPERATIONS = frozenset({"load", "read", "import", "input"})
 _OUTPUT_OPERATIONS = frozenset({"save", "write", "export", "output"})
 _DIRECTIONAL_API_SUFFIX = re.compile(
@@ -59,6 +61,11 @@ def _format_tokens(value: str) -> set[str]:
         canonical = canonical_document_format(candidate)
         if canonical is not None:
             tokens.add(canonical)
+    tokens.update(
+        format_name
+        for format_name in DOCUMENT_FORMAT_ABBREVIATIONS
+        if _explicit_format_mention(value, format_name)
+    )
     return tokens
 
 

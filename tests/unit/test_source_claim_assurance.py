@@ -737,6 +737,58 @@ def test_runtime_verified_dotnet_repository_example_matches_exact_fence() -> Non
     assert result == (facts.selected_fact_ids["repository.examples"], code)
 
 
+def test_static_verified_java_fragment_binds_to_exact_consumer_wrapper() -> None:
+    fragment = (
+        'import com.example.Scene;\n\nScene scene = new Scene();\nscene.save("output.stl");\n'
+    )
+    wrapper = (
+        "import com.example.Scene;\n\n"
+        "public final class ReadmeExample {\n"
+        "    public static void main(String[] args) throws Exception {\n"
+        "        Scene scene = new Scene();\n"
+        '        scene.save("output.stl");\n'
+        "    }\n"
+        "}\n"
+    )
+    facts = _repository_example_fact(
+        _facts(),
+        {
+            "title": "ReadmeExample",
+            "language": "java",
+            "code": wrapper,
+            "static_api_verified": True,
+            "runtime_verified": False,
+        },
+    )
+    source = f"```java\n{fragment}```\n"
+    candidate = f"```java\n{wrapper}```\n"
+    source_claim = assess_material_claims(source)[0]
+    candidate_claim = assess_material_claims(candidate)[0]
+    fact_id = facts.selected_fact_ids["repository.examples"]
+    provenance = CandidateContentProvenanceV1(
+        provenance_id="template.section.additional_examples.claim:java-wrapper",
+        candidate_byte_start=candidate_claim.source_byte_start,
+        candidate_byte_end=candidate_claim.source_byte_end,
+        fact_ids=[fact_id],
+        rationale="Bind the compiled wrapper to the exact inherited Java statements.",
+    )
+
+    matched = verified_repository_example_code(source, facts)
+    resolution = equivalent_source_claim_resolution(
+        source_claim,
+        source,
+        candidate.encode(),
+        index_equivalent_candidate_claims(candidate.encode(), [candidate_claim]),
+        facts,
+        [provenance],
+    )
+
+    assert matched == (fact_id, wrapper)
+    assert resolution is not None
+    assert resolution.resolution == "verified_equivalence"
+    assert resolution.fact_ids == [fact_id]
+
+
 def test_exact_structured_api_claim_is_preservation_eligible() -> None:
     source = "# Product\n\n## API reference\n\n- `Matrix4` — `translate()`, `inverse()`\n"
 

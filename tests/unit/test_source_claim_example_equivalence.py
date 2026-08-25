@@ -3,6 +3,7 @@
 from readme_agent.readme.source_claim_example_equivalence import (
     source_claim_has_comments,
     verified_comment_free_example,
+    verified_rewrapped_example,
 )
 
 
@@ -41,3 +42,25 @@ def test_uncommented_go_example_is_recognized_without_false_comment_detection() 
 
     assert not source_claim_has_comments(fence)
     assert verified_comment_free_example(fence, code) == fence
+
+
+def test_java_fragment_matches_only_the_exact_verified_consumer_wrapper() -> None:
+    source = (
+        "```java\n"
+        "import com.example.Scene;\n\n"
+        "Scene scene = new Scene();\n"
+        'scene.save("output.stl");\n'
+        "```"
+    )
+    verified = (
+        "import com.example.Scene;\n\n"
+        "public final class ReadmeExample {\n"
+        "    public static void main(String[] args) throws Exception {\n"
+        "        Scene scene = new Scene();\n"
+        '        scene.save("output.stl");\n'
+        "    }\n"
+        "}\n"
+    )
+
+    assert verified_rewrapped_example(source, verified)
+    assert not verified_rewrapped_example(source, verified.replace("output.stl", "other.stl"))

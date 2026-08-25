@@ -21,6 +21,7 @@ _POSITIVE_CUE = re.compile(
 _NEGATIVE_CUE = re.compile(
     r"(?i)\b(?:not\s+(?:currently\s+)?(?:support(?:ed)?|implement(?:ed)?|available|reachable)|"
     r"unsupported|no\s+support\s+for|NotImplementedError|not\s+yet\s+(?:supported|implemented)|"
+    r"throw(?:s|ing)?\b.{0,80}\b(?:UnsupportedOperationException|NotImplementedError)|"
     r"unavailable|limit(?:ed)?\s+to|restrict(?:ed)?\s+to|remain(?:s)?\s+incomplete|"
     r"out\s+of\s+scope|only\b.{0,80}\bsupported)\b"
 )

@@ -43,6 +43,17 @@ _UNIMPLEMENTED_STUB = re.compile(
     r"(?i)^unimplemented stub \(empty body\):\s*(?P<symbol>[A-Za-z_][A-Za-z0-9_.]*)"
     r"\s+in\s+.+:\d+$"
 )
+_UNAVAILABLE_SYMBOL_CONTEXT = re.compile(
+    r"(?i)\b(?:not\s+(?:yet\s+)?implemented|unsupported|"
+    r"throw(?:s|ing)?\b.{0,80}\bUnsupportedOperationException)\b"
+)
+_BACKTICK_DOTTED_SYMBOL = re.compile(
+    r"`(?P<symbol>[A-Za-z_][A-Za-z0-9_]*\.[A-Za-z_][A-Za-z0-9_]*)`"
+)
+_LIMITATION_CLAUSE_BOUNDARY = re.compile(
+    r"[;.]\s+|,\s+(?=(?:but|whereas|while)\b)|\b(?:but|whereas|while)\b",
+    re.IGNORECASE,
+)
 _INSTALL_NAME = re.compile(r"(?i)^package name is (?P<value>\S+)$")
 _INSTALL_VERSION = re.compile(r"(?i)^current version is (?P<value>[A-Za-z0-9_.+-]+)$")
 _ACTION_LED = re.compile(
@@ -197,6 +208,25 @@ def knowledge_unimplemented_symbols(facts: ProductFactsV2) -> frozenset[str]:
         )
         if match is not None and "." in match.group("symbol"):
             symbols.add(match.group("symbol").casefold())
+    try:
+        limitation = facts.selected_fact("product.limitations")
+    except KeyError:
+        limitation = None
+    if (
+        limitation is not None
+        and limitation.verification_state in {"verified", "policy_approved"}
+        and not limitation.has_unresolved_conflict
+    ):
+        values = limitation.value if isinstance(limitation.value, list) else [limitation.value]
+        for value in values:
+            if not isinstance(value, str):
+                continue
+            for clause in _LIMITATION_CLAUSE_BOUNDARY.split(value):
+                if _UNAVAILABLE_SYMBOL_CONTEXT.search(clause) is not None:
+                    symbols.update(
+                        match.group("symbol").casefold()
+                        for match in _BACKTICK_DOTTED_SYMBOL.finditer(clause)
+                    )
     return frozenset(symbols)
 
 

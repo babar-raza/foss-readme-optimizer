@@ -60,6 +60,52 @@ def _compiled_code_identity(value: str) -> str:
     return "\n".join(line.rstrip() for line in value.splitlines() if line.strip())
 
 
+def _java_unwrapped_consumer_identity(value: str) -> str | None:
+    """Return the exact Java fragment wrapped by the governed consumer verifier."""
+
+    lines = value.rstrip().splitlines()
+    wrapper = next(
+        (
+            index
+            for index, line in enumerate(lines)
+            if re.fullmatch(r"public (?:final )?class ReadmeExample \{", line)
+        ),
+        None,
+    )
+    if wrapper is None or wrapper + 3 >= len(lines):
+        return None
+    if lines[wrapper + 1] != "    public static void main(String[] args) throws Exception {":
+        return None
+    if lines[-2:] != ["    }", "}"]:
+        return None
+    prefix = lines[:wrapper]
+    if any(line and not line.startswith("import ") for line in prefix):
+        return None
+    body: list[str] = []
+    for line in lines[wrapper + 2 : -2]:
+        if line and not line.startswith("        "):
+            return None
+        body.append(line[8:] if line else "")
+    return _compiled_code_identity("\n".join([*prefix, *body]))
+
+
+def verified_rewrapped_example(claim_text: str, verified_code: str) -> bool:
+    """Prove that a Java README fragment equals its verified standalone wrapper.
+
+    The repository verifier wraps inherited Java statements in one fixed ``ReadmeExample``
+    class so ``javac`` can compile them. This comparison removes only that exact wrapper; it
+    never ignores, adds, reorders, or rewrites executable statements.
+    """
+
+    fenced = fenced_source_code(claim_text)
+    if fenced is None or fenced[0] != "java":
+        return False
+    source_code = strip_source_comments("java", fenced[1]).rstrip() + "\n"
+    candidate_code = strip_source_comments("java", verified_code).rstrip() + "\n"
+    unwrapped = _java_unwrapped_consumer_identity(candidate_code)
+    return unwrapped is not None and _compiled_code_identity(source_code) == unwrapped
+
+
 def verified_comment_free_example(claim_text: str, verified_code: str) -> str | None:
     """Return a comment-free fence only when executable code remains identical.
 
@@ -99,4 +145,5 @@ __all__ = [
     "normalized_source_language",
     "source_claim_has_comments",
     "verified_comment_free_example",
+    "verified_rewrapped_example",
 ]

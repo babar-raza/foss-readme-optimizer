@@ -13,7 +13,7 @@ from readme_agent.readme.presentation_lint_text import (
     make_finding,
     visible_lines,
 )
-from readme_agent.readme.presentation_similarity import semantically_repeats
+from readme_agent.readme.presentation_similarity import semantically_equivalent
 from readme_agent.readme.public_text import (
     canonical_abbreviations_from_facts,
     heading_is_title_case,
@@ -131,7 +131,7 @@ def lint_public_contract(
         if capability_row:
             title = capability_row.group("title").strip().rstrip(".")
             first_sentence = capability_row.group("body").split(". ", 1)[0].strip().rstrip(".")
-            if semantically_repeats(title, first_sentence, threshold=0.9):
+            if semantically_equivalent(title, first_sentence, threshold=0.9):
                 findings.append(
                     make_finding(
                         "capability_description_repeats_title",

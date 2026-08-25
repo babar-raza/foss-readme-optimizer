@@ -26,6 +26,7 @@ from readme_agent.readme.source_claim_example_equivalence import (
     normalized_source_language,
     source_claim_has_comments,
     verified_comment_free_example,
+    verified_rewrapped_example,
 )
 from readme_agent.readme.source_claim_structured_matching import (
     structured_source_claim_fact_ids,
@@ -150,9 +151,12 @@ def verified_repository_example_code(
         and (item.get("static_api_verified") is True or item.get("runtime_verified") is True)
         and normalized_source_language(str(item.get("language") or language)) == language
         and isinstance(item.get("code"), str)
-        and item["code"].rstrip() + "\n" == code
+        and (
+            item["code"].rstrip() + "\n" == code
+            or verified_rewrapped_example(claim_text, item["code"])
+        )
     ]
-    return (fact_id, code) if len(exact) == 1 else None
+    return (fact_id, str(exact[0]["code"]).rstrip() + "\n") if len(exact) == 1 else None
 
 
 def _build_fact_variants(facts: ProductFactsV2, fact_id: str) -> frozenset[str]:
