@@ -11,6 +11,8 @@ _GENERIC_TITLES = {
     "additional workflow",
     "example",
     "quick start",
+    "readme example",
+    "readmeexample",
 }
 _ACTION_GERUNDS = {
     "access": "accessing",
@@ -60,6 +62,26 @@ def _semantic_title(code: str, language: str) -> str:
         return "Extract text from a document"
     if "GetChildNodes(Image" in normalized:
         return "Extract images from a document"
+    file_formats = list(
+        dict.fromkeys(
+            match.upper() for match in re.findall(r"[\"'][^\"']+\.([A-Za-z0-9]{2,8})[\"']", code)
+        )
+    )
+    if re.search(r"(?i)\b(?:catch|except)\b", code) and file_formats:
+        return f"Handle unsupported {file_formats[0]} files"
+    if len(file_formats) >= 2 and re.search(r"\.(?:Open|Save|FromFile)\s*\(", code):
+        return f"Convert {file_formats[0]} files to {file_formats[-1]}"
+    material_conversion = re.search(
+        r"new\s+([A-Z][A-Za-z0-9_]*)Material\b.*?"
+        r"([A-Z][A-Za-z0-9_]*)Material\.FromMaterial\s*\(",
+        normalized,
+    )
+    if material_conversion is not None:
+        source, target = material_conversion.groups()
+        return f"Convert {source} materials to {target.upper()}"
+    memory_format = re.search(r"new\s+([A-Z][A-Za-z0-9_]*)SaveOptions\s*\(", code)
+    if "MemoryStream" in code and memory_format is not None:
+        return f"Save {memory_format.group(1).upper()} scenes to memory"
     if language.casefold() == "python":
         names = _imported_python_types(code)[:3]
         if names:
