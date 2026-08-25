@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""One-shot: log four production-hardening findings from an independent
+"""One-shot: log production-hardening findings from an independent
 first-principles assessment of the mission controller / fact-verification
 pipeline (conducted while resuming L8-PF-05-SEVEN-ECOSYSTEM-CANARIES after
-PF05-CXX-LINK-001) as `BACKLOG` rows in `plans/requirements/catalog.jsonl`,
-per `GOV-014` -- these are non-blocking findings discovered outside the
-current task's scope, not fixed as unrequested scope creep.
+PF05-CXX-LINK-001, then again after that fix surfaced a C++ knowledge-claim
+false positive) as `BACKLOG` rows in `plans/requirements/catalog.jsonl`, per
+`GOV-014` -- these are non-blocking findings discovered outside the current
+task's scope, not fixed as unrequested scope creep.
 
 Run once from the repo root:
 `.venv/Scripts/python scripts/retrofits/log_pf05_mission_controller_hardening_backlog.py`
@@ -121,6 +122,46 @@ ROWS: list[dict] = [
             "not be allowed to look like one."
         ),
         "traceability": "L8-034; independent production assessment, 2026-08-25",
+    },
+    {
+        "requirement_id": "CORE-038",
+        "section": "9. Core engine and registry requirements",
+        "status": "BACKLOG",
+        "priority": "P1",
+        "requirement": (
+            'C++ `limitation` claims of the shape "Unimplemented stub (empty body): X in '
+            "Y:Z\" SHOULD be corroborated against real source (or filtered) at this repo's own "
+            "claim-consumption layer (`facts/aspose_knowledge_claims.py` / "
+            "`facts/aspose_knowledge_selection.py`) before becoming `ProductFactsV2` facts, "
+            "mirroring the existing LLM claim-disposition corroboration pattern -- never trust "
+            "a raw claim without independently re-checking it against real repository files."
+        ),
+        "acceptance_evidence": (
+            "Not implemented. Confirmed false positive with real evidence: "
+            "`vendored_asposeorg/scripts/pipeline/extraction/scout.py::_detect_cpp_stubs()` "
+            "flags any C++ `function_definition` whose `compound_statement` body is empty as an "
+            "unimplemented stub, without checking for a sibling `field_initializer_list` -- so "
+            "any constructor written in the idiomatic "
+            "initializer-list-does-the-work/empty-body style is misclassified. Reproduced "
+            "against `aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp`'s real "
+            "`Aspose.Cells.Foss.Cpp/src/DateTime.cpp:77` (fetched at the exact snapshotted "
+            "revision via `gh api`): the flagged constructor is fully implemented via its "
+            "member-initializer list. This directly caused a "
+            "`public_quality.contradiction_capability_symbol` false-positive blocking the C++ "
+            "canary (`DateTime` described as both available and unimplemented). Not fixed in "
+            "`scout.py` itself: that file is byte-integrity checked against a pinned "
+            "`source_commit` manifest "
+            "(`tests/unit/test_aspose_org_vendored_source.py::"
+            "test_vendored_source_rejects_changed_bytes`), and any change to it would also "
+            "shift `generator_sha256`, invalidating every already-cached C++ (and any other "
+            "native-language) knowledge-generation bundle across the portfolio -- see "
+            "`CORE-035`. Full evidence: "
+            "`plans/investigations/evidence/portfolio-proof-pf05-seven-ecosystem-canaries/"
+            "cxx-datetime-stub-false-positive-2026-08-25.md`."
+        ),
+        "traceability": (
+            "CORE-035; PF05-CXX-LINK-001 follow-on; independent production assessment, 2026-08-25"
+        ),
     },
 ]
 
