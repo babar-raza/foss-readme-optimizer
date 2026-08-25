@@ -19,6 +19,7 @@ import pytest
 from readme_agent.facts.aspose_detectors import (
     ApiPublicSurfaceDetectionV1,
     ApiSurfaceClassV1,
+    ApiSurfaceMemberV1,
     ApiSurfaceModuleV1,
     ApiSymbolStateV1,
     DependencyClaimsDetectionV1,
@@ -211,6 +212,70 @@ def test_api_public_surface_item_level_split_confirms_only_the_repo_matched_clas
     assert verified.value["modules"] == [{"module": "widget", "exports": ["RealClass"]}]
     assert supporting is not None
     assert [c["name"] for c in supporting.value["classes"]] == ["GhostClass"]
+
+
+def test_verified_non_python_api_members_enter_canonical_accountability_shape(tmp_path):
+    """Imported receiver members remain usable by the shared exact-coordinate index."""
+
+    (tmp_path / "document.go").write_text(
+        "type Document struct{}\nfunc (d *Document) SetPassword(user string) {}\n",
+        encoding="utf-8",
+    )
+    document = ApiSurfaceClassV1(
+        name="Document",
+        description="A PDF document.",
+        kind="type_spec",
+        methods=(
+            ApiSurfaceMemberV1(
+                name="SetPassword",
+                doc="Configures encryption for the next save.",
+                signature="SetPassword(user: string)",
+            ),
+        ),
+        properties=(),
+        state=_state(),
+    )
+    surface = ApiPublicSurfaceDetectionV1(
+        modules=(ApiSurfaceModuleV1(module="Core API", classes=(document,)),),
+        model_sha=None,
+    )
+    bundle = _base_bundle(tmp_path, "go").model_copy(update={"api_public_surface": surface})
+
+    facts = aspose_fact_records(bundle, family=_ABSENT_FAMILY, platform="go", clone_cache=tmp_path)
+    verified, _supporting = _verified_and_supporting(facts, "api.public_surface")
+
+    assert verified is not None
+    assert verified.value["classes"] == [
+        {
+            "name": "Document",
+            "module": "Core API",
+            "description": "A PDF document.",
+            "kind": "type_spec",
+            "members": [
+                {
+                    "name": "SetPassword",
+                    "kind": "method",
+                    "surface": "SetPassword(user: string)",
+                    "doc": "Configures encryption for the next save.",
+                    "declared_by": "Document",
+                    "inherited": False,
+                }
+            ],
+            "methods": [
+                {
+                    "name": "SetPassword",
+                    "doc": "Configures encryption for the next save.",
+                    "signature": "SetPassword(user: string)",
+                }
+            ],
+            "properties": [],
+            "state": {
+                "visibility": "public",
+                "reachable": "unknown",
+                "implemented": "unknown",
+            },
+        }
+    ]
 
 
 def test_api_public_surface_unknown_visibility_never_enters_the_verified_exports_list(tmp_path):

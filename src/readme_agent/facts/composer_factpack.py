@@ -495,11 +495,29 @@ def aspose_fact_records(
         # of being discarded.
         repository_text = _repository_source_text(clone_cache, platform=platform)
 
-        def _class_dict(item: ApiSurfaceClassV1) -> dict[str, object]:
+        def _class_dict(item: ApiSurfaceClassV1, *, module: str) -> dict[str, object]:
+            members = [
+                {
+                    "name": member.name,
+                    "kind": kind,
+                    "surface": member.signature,
+                    "doc": member.doc,
+                    "declared_by": item.name,
+                    "inherited": False,
+                }
+                for kind, group in (("method", item.methods), ("property", item.properties))
+                for member in group
+            ]
             return {
                 "name": item.name,
+                "module": module,
                 "description": item.description,
                 "kind": item.kind,
+                # The canonical claim-accountability index consumes the same
+                # `members` shape as repository-derived Python surfaces. Keep
+                # the imported split views for provenance/debugging, but never
+                # strand verified non-Python methods outside the public index.
+                "members": members,
                 "methods": [dict(member) for member in item.methods],
                 "properties": [dict(member) for member in item.properties],
                 "state": dict(item.state),
@@ -515,7 +533,7 @@ def aspose_fact_records(
                     and _symbol_present_in_repository(repository_text, item.name)
                     else unresolved_by_module
                 )
-                bucket.setdefault(module.module, []).append(_class_dict(item))
+                bucket.setdefault(module.module, []).append(_class_dict(item, module=module.module))
 
         if confirmed_by_module:
             add(
