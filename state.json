@@ -2454,10 +2454,12 @@
           "evidence_refs": [
             "commit:ec86fa891717f35ff9a2abc7958ad6d98217e7d1",
             "tests:pf05-shared-repair-157-pass",
-            "independent-review:pf05-preservation-pass"
+            "independent-review:pf05-preservation-pass",
+            "commit:dd208d26a",
+            "tests:example-title-51-pass"
           ],
           "fingerprint": "a2f36da42b4b69099f464bfcb3d5b969e3098aac52b209504af7181181c5ba4e",
-          "last_material_narrowing_at": "2026-08-25T06:19:57.038630+00:00",
+          "last_material_narrowing_at": "2026-08-25T06:28:48.863412+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-25T05:52:10.695453+00:00",
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
@@ -4405,14 +4407,14 @@
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-25T06:19:57.038650+00:00",
+    "last_evaluated_at": "2026-08-25T06:28:48.863442+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
       "denominator": 33,
-      "derived_at": "2026-08-25T05:44:50.767043+00:00",
+      "derived_at": "2026-08-25T06:23:47.551726+00:00",
       "deterministic_validated": 0,
-      "facts_ready": 0,
+      "facts_ready": 1,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -4434,10 +4436,6 @@
       "schema_version": 1,
       "stale_acceptance_repositories": {},
       "stale_fact_contract_repositories": {
-        "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
         "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
@@ -16230,7 +16228,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1566,
+  "state_version": 1567,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
