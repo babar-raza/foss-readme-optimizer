@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
-    "active_task_id": null,
+    "active_task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
     "approach_control": {
       "attempts": [
         {
@@ -2722,6 +2722,14 @@
           "outcome": "effective",
           "started_at": "2026-08-25T20:32:49.195865+00:00",
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "0756b892b4afa86a574289fc093741d765af2a5d47c7ceed14df4c4c2a589e02",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-25T20:55:59.498797+00:00",
+          "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
         }
       ],
       "proposed_fingerprints": {
@@ -4400,10 +4408,10 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": null,
-    "claim_id": null,
-    "claimed_at": null,
-    "claimed_by": null,
+    "claim_expires_at": "2026-08-25T21:25:59.498797+00:00",
+    "claim_id": "e8d2decca9654634a0cfeb77d004d225",
+    "claimed_at": "2026-08-25T20:55:59.498797+00:00",
+    "claimed_by": "claude-sonnet5-pf05-cxx-link",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "d5133ac4b044197d6c554ad824a15f17c5b88f265c035dc8a0f8660335cc69ca",
@@ -4915,7 +4923,7 @@
     ],
     "graph_sha256": "d5133ac4b044197d6c554ad824a15f17c5b88f265c035dc8a0f8660335cc69ca",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-25T20:55:22.344825+00:00",
+    "last_evaluated_at": "2026-08-25T20:55:59.498797+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -5139,7 +5147,7 @@
       "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "CLOSED",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "CLOSED",
-      "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "REGRESSED",
+      "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "IN_PROGRESS",
       "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP": "TODO",
       "L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS": "TODO",
       "L8-PLAN-RECONCILIATION-ACCELERATION": "CLOSED",
@@ -17583,6 +17591,15 @@
         "reason": "Aspose.3D Python re-established under the ecosystem-scoped fact contract: AGENT_APPROVED then NO_OP_PROVEN at zero provider calls",
         "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
         "to_status": "CLOSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "claude-sonnet5-pf05-cxx-link",
+        "occurred_at": "2026-08-25T20:55:59.499384+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -17592,7 +17609,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1672,
+  "state_version": 1673,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
