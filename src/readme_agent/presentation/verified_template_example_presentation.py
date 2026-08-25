@@ -25,6 +25,7 @@ _ACTION_GERUNDS = {
     "explore": "exploring",
     "extract": "extracting",
     "generate": "generating",
+    "handle": "handling",
     "host": "hosting",
     "inspect": "inspecting",
     "load": "loading",
@@ -36,6 +37,9 @@ _ACTION_GERUNDS = {
     "work": "working",
     "write": "writing",
 }
+_NEGATIVE_WORKFLOW = re.compile(
+    r"(?i)\b(?:error|failure|invalid|not implemented|not supported|unavailable|unsupported)\b"
+)
 
 
 def _imported_python_types(code: str) -> list[str]:
@@ -222,14 +226,21 @@ def public_examples_introduction(
         phrases.append("viewing generated example results")
     if not phrases:
         return "The examples below demonstrate additional repository workflows."
-    if len(phrases) == 1:
-        rendered = phrases[0]
-    else:
-        rendered = ", ".join(phrases[:-1]) + f", and {phrases[-1]}"
+
+    def render(items: list[str]) -> str:
+        return items[0] if len(items) == 1 else ", ".join(items[:-1]) + f", and {items[-1]}"
+
     suffix = (
         f", plus {extras} more {'workflow' if extras == 1 else 'workflows'}" if extras > 0 else ""
     )
-    return f"The examples below demonstrate {rendered}{suffix}."
+    negative_phrases = [phrase for phrase in phrases if _NEGATIVE_WORKFLOW.search(phrase)]
+    positive_phrases = [phrase for phrase in phrases if phrase not in negative_phrases]
+    if positive_phrases and negative_phrases:
+        return (
+            f"The examples below demonstrate {render(positive_phrases)}{suffix}.\n\n"
+            f"Error-handling coverage includes {render(negative_phrases)}."
+        )
+    return f"The examples below demonstrate {render(phrases)}{suffix}."
 
 
 __all__ = ["public_example_title", "public_examples_introduction"]

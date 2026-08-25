@@ -242,6 +242,23 @@ OCR, non-PDF conversion, XFA rendering, 3D annotations, and PDF/X are out of sco
     assert "contradiction_capability_phrase" not in _check_ids(report)
 
 
+def test_separate_negative_example_paragraph_does_not_taint_positive_format_summary() -> None:
+    candidate = """# Aspose.3D FOSS for .NET
+
+## Additional Examples
+
+The examples below demonstrate saving COLLADA scenes to memory.
+
+Error-handling coverage includes handling unsupported XYZ files.
+
+### Save COLLADA Scenes to Memory
+"""
+
+    report = evaluate_public_candidate_quality(candidate)
+
+    assert "contradiction_capability_phrase" not in _check_ids(report)
+
+
 def test_legitimate_phrase_repeated_across_sections_is_not_flagged() -> None:
     candidate = """# Product
 
