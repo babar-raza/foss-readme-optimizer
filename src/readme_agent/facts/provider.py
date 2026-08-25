@@ -17,6 +17,7 @@ from readme_agent.facts.composer_factpack import aspose_fact_records, build_aspo
 from readme_agent.facts.context import current_product_facts
 from readme_agent.facts.dependency_snapshot import dependency_snapshot_fact_record
 from readme_agent.facts.knowledge_canonical_projection import (
+    augment_canonical_formats_with_knowledge,
     project_knowledge_into_canonical_facts,
 )
 from readme_agent.facts.local_verification import verify_local_product_example
@@ -413,6 +414,7 @@ def collect_product_facts(
             source_revision=source_revision,
         )
         candidates.extend(knowledge_records)
+        candidates = augment_canonical_formats_with_knowledge(candidates)
         candidates.extend(project_knowledge_into_canonical_facts(candidates))
         seo_fact = relevant_seo_keyword_fact_record(
             entry.family, entry.platform, data_root=aspose_data_root

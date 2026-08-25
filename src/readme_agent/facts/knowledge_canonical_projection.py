@@ -108,6 +108,52 @@ def _project_value(source: FactRecordV2, target_field: str) -> list[str]:
     return []
 
 
+def augment_canonical_formats_with_knowledge(
+    candidates: Iterable[FactRecordV2],
+) -> list[FactRecordV2]:
+    """Merge verified directional knowledge into one accepted canonical format fact.
+
+    Native example verification often proves only the format exercised by the minimal example,
+    while the imported format detector independently verifies additional reader/writer routes in
+    the same immutable source. Treating the existing canonical fact as complete discarded that
+    verified evidence and made the final validator reject truthful format claims. This transform
+    preserves the canonical fact's identity and source, adds the selected knowledge fact as
+    provenance, and refuses ambiguous multiple-canonical inputs rather than hiding a conflict.
+    """
+
+    materialized = list(candidates)
+    canonical = [
+        fact
+        for fact in materialized
+        if fact.field == "product.formats" and _accepted_without_conflict(fact)
+    ]
+    knowledge = [
+        fact
+        for fact in materialized
+        if fact.field == "aspose.format_support_claims" and _accepted_without_conflict(fact)
+    ]
+    if len(canonical) != 1 or len(knowledge) != 1:
+        return materialized
+    current = canonical[0]
+    if not isinstance(current.value, list) or not all(
+        isinstance(item, str) for item in current.value
+    ):
+        return materialized
+    projected = _clean_formats(_claim_items(knowledge[0]))
+    merged = _deduplicate([*current.value, *projected])
+    if merged == current.value:
+        return materialized
+    replacement = current.model_copy(
+        update={
+            "value": merged,
+            "supporting_fact_ids": list(
+                dict.fromkeys([*current.supporting_fact_ids, knowledge[0].fact_id])
+            ),
+        }
+    )
+    return [replacement if fact.fact_id == current.fact_id else fact for fact in materialized]
+
+
 def project_knowledge_into_canonical_facts(
     candidates: Iterable[FactRecordV2],
 ) -> list[FactRecordV2]:
@@ -155,4 +201,7 @@ def project_knowledge_into_canonical_facts(
     return projections
 
 
-__all__ = ["project_knowledge_into_canonical_facts"]
+__all__ = [
+    "augment_canonical_formats_with_knowledge",
+    "project_knowledge_into_canonical_facts",
+]

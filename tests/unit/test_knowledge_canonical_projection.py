@@ -1,6 +1,7 @@
 """Tests for conservative imported-knowledge projection into canonical facts."""
 
 from readme_agent.facts.knowledge_canonical_projection import (
+    augment_canonical_formats_with_knowledge,
     project_knowledge_into_canonical_facts,
 )
 from readme_agent.facts.resolution import resolve_product_facts
@@ -83,6 +84,44 @@ def test_projection_never_overwrites_accepted_canonical_truth():
     canonical = _canonical("product.capabilities", ["Repository capability"])
 
     assert project_knowledge_into_canonical_facts([source, canonical]) == []
+
+
+def test_verified_format_knowledge_augments_one_canonical_format_fact():
+    source = _knowledge(
+        "aspose.format_support_claims",
+        [
+            "import support for Pdf via Document constructor",
+            "export support for SVG format (method name: WriteSVG)",
+            "export support for xlsx via XlsxSaveOptions",
+        ],
+    )
+    canonical = _canonical("product.formats", ["Input format: PDF", "Output format: PDF"])
+
+    augmented = augment_canonical_formats_with_knowledge([source, canonical])
+    selected = next(fact for fact in augmented if fact.field == "product.formats")
+
+    assert selected.fact_id == canonical.fact_id
+    assert selected.source == canonical.source
+    assert selected.value == [
+        "Input format: PDF",
+        "Output format: PDF",
+        "Output format: SVG",
+        "Output format: XLSX",
+    ]
+    assert selected.supporting_fact_ids == [source.fact_id]
+
+
+def test_format_augmentation_fails_closed_for_multiple_canonical_candidates():
+    source = _knowledge(
+        "aspose.format_support_claims",
+        ["export support for SVG format (method name: WriteSVG)"],
+    )
+    first = _canonical("product.formats", ["Input format: PDF"])
+    second = first.model_copy(update={"fact_id": "product.formats:second"})
+
+    candidates = [source, first, second]
+
+    assert augment_canonical_formats_with_knowledge(candidates) == candidates
 
 
 def test_unverified_knowledge_is_not_promoted():
