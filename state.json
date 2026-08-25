@@ -4825,7 +4825,7 @@
     ],
     "graph_sha256": "2977e259af6a5be266d72e68f858bfb618fed4eb5ef194b10e693c471cb108eb",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-25T18:30:53.203208+00:00",
+    "last_evaluated_at": "2026-08-25T18:31:40.369042+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
@@ -5022,7 +5022,7 @@
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
       "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
-      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "IMPLEMENTED",
+      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "VERIFIED",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "CLOSED",
       "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "REGRESSED",
@@ -17265,6 +17265,18 @@
         "reason": "CMake development-command evidence restored the complete current candidate; Aspose.3D Python regenerated to AGENT_APPROVED then NO_OP_PROVEN at zero provider calls under the new fact-acceptance contract",
         "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
         "to_status": "IMPLEMENTED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/portfolio-proof-pf02-complete-candidate-seam/current-independent-verification.json",
+          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/no-op-proof.json"
+        ],
+        "from_status": "IMPLEMENTED",
+        "observed_by": "claude-sonnet5-pf05-cxx-link",
+        "occurred_at": "2026-08-25T18:31:40.369069+00:00",
+        "reason": "Regenerated Aspose.3D Python candidate independently reaches AGENT_APPROVED and an immediate zero-provider-call NO_OP_PROVEN under the current fact-acceptance contract",
+        "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+        "to_status": "VERIFIED"
       }
     ]
   },
@@ -17274,7 +17286,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1652,
+  "state_version": 1653,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
