@@ -48,7 +48,7 @@ _ACTION_VERBS = re.compile(
     r"(?i)\b(?:access|add|analy[sz]e|animate|append|apply|assign|build|compress|concatenate|"
     r"configure|construct|"
     r"convert|create|decode|decrypt|define|delete|detect|edit|encode|encrypt|export|extract|"
-    r"generate|host|import|insert|inspect|load|manage|merge|modify|navigate|open|optimi[sz]e|"
+    r"generate|host|import|insert|inspect|load|manage|merge|model|modify|navigate|open|optimi[sz]e|"
     r"parse|perform|process|read|remove|render|reorder|replace|rotate|run|save|search|sign|split|"
     r"transform|traverse|"
     r"update|validate|verify|work|write)\b"

@@ -58,6 +58,8 @@ def test_capability_normalization_keeps_distinct_pdf_domains() -> None:
 def test_action_led_titles_include_document_page_operations() -> None:
     assert is_action_led_capability_title("Split a PDF into per-page documents")
     assert is_action_led_capability_title("Rotate or reorder pages")
+    assert is_action_led_capability_title("Model geometry and materials")
+    assert not is_action_led_capability_title("Models, geometry, and materials")
 
 
 def test_capability_renderer_keeps_document_lifecycle_and_signatures_distinct() -> None:

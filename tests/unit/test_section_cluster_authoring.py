@@ -167,6 +167,7 @@ def test_define_is_a_concrete_action_led_capability_heading():
     "heading",
     [
         "Construct Mesh Geometry Primitives",
+        "Model Geometry and Materials",
         "Perform Vector Math Operations",
         "Assign Materials to 3D Objects",
     ],
