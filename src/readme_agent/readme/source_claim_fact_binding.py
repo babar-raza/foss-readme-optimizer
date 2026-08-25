@@ -2,11 +2,8 @@
 
 from __future__ import annotations
 
-import ast
 import hashlib
-import io
 import re
-import tokenize
 import weakref
 from collections import OrderedDict
 from dataclasses import dataclass
@@ -24,6 +21,12 @@ from readme_agent.readme.fact_grounding import literal_fact_ids
 from readme_agent.readme.source_claim_conversion_binding import (
     conversion_source_claim_fact_coordinates,
 )
+from readme_agent.readme.source_claim_example_equivalence import (
+    fenced_source_code,
+    normalized_source_language,
+    source_claim_has_comments,
+    verified_comment_free_example,
+)
 from readme_agent.readme.source_claim_structured_matching import (
     structured_source_claim_fact_ids,
     verified_issue_route_fact_ids,
@@ -32,27 +35,6 @@ from readme_agent.readme.source_claim_structured_matching import (
 _MARKDOWN = re.compile(r"[`*_>#\[\]()]|^\s*[-+]\s*", re.MULTILINE)
 _FACT_PREFIX = re.compile(r"^(?:input|output)\s+format\s*:\s*", re.IGNORECASE)
 _ACCEPTED_STATES = {"verified", "policy_approved"}
-_FENCE = re.compile(
-    r"^\s*```(?P<language>[A-Za-z0-9_+#.-]+)\s*\r?\n(?P<code>.*)\r?\n```\s*$",
-    re.DOTALL | re.IGNORECASE,
-)
-_FENCE_LANGUAGE = {
-    "c++": "cpp",
-    "cpp": "cpp",
-    "csharp": "dotnet",
-    "cs": "dotnet",
-    "cxx": "cpp",
-    "dotnet": "dotnet",
-    "go": "go",
-    "golang": "go",
-    "java": "java",
-    "py": "python",
-    "python": "python",
-    "rs": "rust",
-    "rust": "rust",
-    "ts": "typescript",
-    "typescript": "typescript",
-}
 _EXACT_VALUE_FIELDS = {
     "product.audience",
     "product.capabilities",
@@ -113,11 +95,7 @@ def _strings(value: object) -> list[str]:
 
 
 def _fenced_code(value: str) -> tuple[str, str] | None:
-    match = _FENCE.fullmatch(value)
-    if match is None:
-        return None
-    language = _FENCE_LANGUAGE.get(match.group("language").casefold())
-    return (language, match.group("code") + "\n") if language is not None else None
+    return fenced_source_code(value)
 
 
 def _python_code(value: str) -> str | None:
@@ -125,34 +103,13 @@ def _python_code(value: str) -> str | None:
     return fenced[1] if fenced is not None and fenced[0] == "python" else None
 
 
-def _python_ast(value: str) -> str | None:
-    try:
-        return ast.dump(ast.parse(value), include_attributes=False)
-    except SyntaxError:
-        return None
-
-
-def _comment_free_python(value: str) -> str | None:
-    try:
-        tokens = tokenize.generate_tokens(io.StringIO(value).readline)
-        cleaned = tokenize.untokenize(token for token in tokens if token.type != tokenize.COMMENT)
-    except (IndentationError, tokenize.TokenError):
-        return None
-    return cleaned.rstrip() + "\n"
-
-
 def verified_comment_free_python_example(claim_text: str, verified_code: str) -> str | None:
-    """Remove Python comments only when the verified executable AST stays exact."""
+    """Compatibility wrapper for the original Python-only public seam."""
 
-    source_code = _python_code(claim_text)
-    expected_ast = _python_ast(verified_code)
-    if source_code is None or expected_ast is None or _python_ast(source_code) != expected_ast:
+    fenced = _fenced_code(claim_text)
+    if fenced is None or fenced[0] != "python":
         return None
-    cleaned = _comment_free_python(source_code)
-    if cleaned is None or _python_ast(cleaned) != expected_ast:
-        return None
-    language = _FENCE.fullmatch(claim_text).group("language")  # type: ignore[union-attr]
-    return f"```{language}\n{cleaned}```"
+    return verified_comment_free_example(claim_text, verified_code)
 
 
 def verified_example_code(value: object) -> str | None:
@@ -191,7 +148,7 @@ def verified_repository_example_code(
         for item in inline
         if isinstance(item, dict)
         and (item.get("static_api_verified") is True or item.get("runtime_verified") is True)
-        and _FENCE_LANGUAGE.get(str(item.get("language") or language).casefold()) == language
+        and normalized_source_language(str(item.get("language") or language)) == language
         and isinstance(item.get("code"), str)
         and item["code"].rstrip() + "\n" == code
     ]
@@ -296,12 +253,9 @@ def accepted_source_claim_fact_ids(claim_text: str, facts: ProductFactsV2) -> se
                 if isinstance(fact.value, dict)
                 else ""
             )
-            normalized_fact_language = _FENCE_LANGUAGE.get(fact_language, fact_language)
+            normalized_fact_language = normalized_source_language(fact_language)
             if code is not None and fenced is not None and fenced[0] == normalized_fact_language:
-                if fenced[0] == "python":
-                    if verified_comment_free_python_example(claim_text, code):
-                        result.add(fact_id)
-                elif fenced[1] == code.rstrip() + "\n":
+                if verified_comment_free_example(claim_text, code):
                     result.add(fact_id)
             continue
         if fact.field in _STRUCTURED_ONLY_FIELDS:
@@ -391,12 +345,10 @@ def complete_source_claim_fact_binding(
 
 
 def python_claim_has_comments(claim_text: str) -> bool:
-    """Return whether one exact Python fence includes comment tokens."""
+    """Compatibility wrapper for the original Python-only public seam."""
 
-    return tokenize.COMMENT in {
-        token.type
-        for token in tokenize.generate_tokens(io.StringIO(_python_code(claim_text) or "").readline)
-    }
+    fenced = _fenced_code(claim_text)
+    return bool(fenced and fenced[0] == "python" and source_claim_has_comments(claim_text))
 
 
 __all__ = [
@@ -404,6 +356,8 @@ __all__ = [
     "accepted_source_claim_fact_ids",
     "complete_source_claim_fact_binding",
     "python_claim_has_comments",
+    "source_claim_has_comments",
+    "verified_comment_free_example",
     "verified_comment_free_python_example",
     "verified_example_code",
     "verified_repository_example_code",

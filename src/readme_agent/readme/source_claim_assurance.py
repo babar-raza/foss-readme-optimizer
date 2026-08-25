@@ -10,7 +10,8 @@ from readme_agent.readme.source_claim_contradiction import contradicted_source_c
 from readme_agent.readme.source_claim_fact_binding import (
     accepted_source_claim_fact_ids,
     complete_source_claim_fact_binding,
-    python_claim_has_comments,
+    source_claim_has_comments,
+    verified_comment_free_example,
     verified_comment_free_python_example,
     verified_example_code,
     verified_repository_example_code,
@@ -47,10 +48,10 @@ def build_source_claim_assurance(
         contradiction_fact_ids = contradicted_source_claim_fact_ids(source_text, claim, facts)
         comment_correction = bool(
             (
-                (verified_code and verified_comment_free_python_example(text, verified_code))
+                (verified_code and verified_comment_free_example(text, verified_code))
                 or repository_example
             )
-            and python_claim_has_comments(text)
+            and source_claim_has_comments(text)
         )
         target = (
             preserve
@@ -70,5 +71,6 @@ __all__ = [
     "SourceClaimAssurance",
     "accepted_source_claim_fact_ids",
     "build_source_claim_assurance",
+    "verified_comment_free_example",
     "verified_comment_free_python_example",
 ]

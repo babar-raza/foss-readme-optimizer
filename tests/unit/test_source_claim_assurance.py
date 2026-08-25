@@ -921,6 +921,47 @@ def test_comment_free_repository_example_requires_exact_ast_and_complete_provena
     )
 
 
+def test_comment_only_go_minimal_example_is_fact_bound_and_requires_cleanup() -> None:
+    facts = _facts()
+    code = 'package main\n\nfunc main() {\n\tprintln("ready")\n}\n'
+    minimal_id = facts.selected_fact_ids["example.minimal"]
+    minimal = facts.fact_by_id(minimal_id).model_copy(
+        update={
+            "value": {
+                "language": "go",
+                "code": code,
+                "verification_outcome": "SOURCE_BUILD_VERIFIED",
+            }
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [minimal if fact.fact_id == minimal_id else fact for fact in facts.facts],
+        }
+    )
+    source = (
+        "# Product\n\n## Quick Start\n\n```go\npackage main\n\nfunc main() {\n"
+        "\t// Print the verified result.\n"
+        '\tprintln("ready")\n}\n```\n'
+    )
+    revision = facts.selected_fact("product.identity").source.source_revision or "a" * 40
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    claim = assessment.material_claims[0]
+
+    binding = complete_source_claim_fact_binding(source, claim, facts)
+    assurance = build_source_claim_assurance(source, facts, assessment)
+
+    assert binding is not None
+    assert minimal_id in binding.fact_ids
+    assert assurance.preserve_ranges == []
+    assert assurance.correction_ranges == [(claim.source_byte_start, claim.source_byte_end)]
+
+
 def test_source_capability_bindings_are_computed_once_per_claim(monkeypatch) -> None:
     facts = _page_mcp_facts()
     source = """# Aspose.Page FOSS for Python

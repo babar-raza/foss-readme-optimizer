@@ -25,8 +25,9 @@ from readme_agent.readme.presentation_similarity import (
 from readme_agent.readme.source_claim_assurance import accepted_source_claim_fact_ids
 from readme_agent.readme.source_claim_fact_binding import (
     complete_source_claim_fact_binding,
-    python_claim_has_comments,
-    verified_comment_free_python_example,
+    source_claim_has_comments,
+    verified_comment_free_example,
+    verified_example_code,
     verified_repository_example_code,
 )
 
@@ -257,6 +258,12 @@ def equivalent_source_claim_resolution(
     limitation_reformatted = False
     source_fact_ids, source_coordinates = _complete_claim_fact_binding(source_claim_text, facts)
     repository_example = verified_repository_example_code(source_claim_text, facts)
+    minimal_fact_id = facts.selected_fact_ids.get("example.minimal")
+    minimal_example = (
+        verified_example_code(facts.fact_by_id(minimal_fact_id).value)
+        if minimal_fact_id is not None
+        else None
+    )
     command_match = _SINGLE_COMMAND_FENCE.fullmatch(source_claim_text)
     if not equivalent and command_match is not None:
         command = command_match.group(1).strip()
@@ -273,17 +280,22 @@ def equivalent_source_claim_resolution(
             }
         ]
         command_reformatted = bool(equivalent)
-    if not equivalent and repository_example and python_claim_has_comments(source_claim_text):
-        verified_code = repository_example[1]
+    verified_source_code = repository_example[1] if repository_example else minimal_example
+    if (
+        not equivalent
+        and verified_source_code
+        and source_claim_has_comments(source_claim_text)
+        and verified_comment_free_example(source_claim_text, verified_source_code)
+    ):
         candidate_pool = [claim for group in candidates.values() for claim in group]
         equivalent = []
         for claim in candidate_pool:
             text = candidate_bytes[claim.source_byte_start : claim.source_byte_end].decode("utf-8")
-            transformed = verified_comment_free_python_example(text, verified_code)
+            transformed = verified_comment_free_example(text, verified_source_code)
             if (
                 transformed is not None
                 and transformed.strip() == text.strip()
-                and not python_claim_has_comments(text)
+                and not source_claim_has_comments(text)
             ):
                 equivalent.append(claim)
         comment_free_example = bool(equivalent)
@@ -434,8 +446,8 @@ def equivalent_source_claim_resolution(
             )
             if limitation_reformatted
             else (
-                "Bind this exact comment-only Python example cleanup to the same statically "
-                "verified repository example and complete candidate provenance."
+                "Bind this exact comment-only example cleanup to the same verified repository "
+                "example and complete candidate provenance."
             )
             if comment_free_example
             else "Bind this exact single-line command reformatted from a fenced block to one "
