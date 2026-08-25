@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 from collections.abc import Callable, Iterable
 
 from readme_agent.facts.example_verification_schema import LocalProductVerificationV1
@@ -13,6 +14,43 @@ from readme_agent.facts.verified_repository_examples import (
 from readme_agent.registry.models import MinimalExamplePolicy
 
 VerifyExampleFn = Callable[[MinimalExamplePolicy], LocalProductVerificationV1 | None]
+
+
+def _exact_compiler_failure(
+    candidate: MinimalExamplePolicy,
+    result: LocalProductVerificationV1,
+) -> dict[str, object] | None:
+    """Return bounded negative evidence only for the exact isolated compiled consumer."""
+
+    proof = getattr(result, "compiled_consumer", None)
+    execution = getattr(result, "isolated_execution", None)
+    diagnostic = getattr(result, "example_compile", None)
+    combined = "\n".join((diagnostic.stdout, diagnostic.stderr)) if diagnostic else ""
+    normalized_diagnostic = combined.replace("\\", "/").casefold()
+    if (
+        result.outcome != "BUILD_FAILED"
+        or proof is None
+        or execution is None
+        or diagnostic is None
+        or proof.accepted
+        or proof.source_revision != result.source_revision
+        or proof.org_repo != result.org_repo
+        or proof.example_sha256 != hashlib.sha256(candidate.code.encode("utf-8")).hexdigest()
+        or proof.isolated_execution != execution
+        or not execution.truth_eligible
+        or not execution.cleanup.complete
+        or execution.return_code == 0
+        or execution.timed_out
+        or execution.oom_killed
+        or diagnostic.return_code != execution.return_code
+        or ".readme-agent/" not in normalized_diagnostic
+    ):
+        return None
+    return {
+        "compiled_consumer_example_sha256": proof.example_sha256,
+        "isolated_input_sha256": execution.input_sha256,
+        "compiler_diagnostic_sha256": hashlib.sha256(combined.encode("utf-8")).hexdigest(),
+    }
 
 
 def compiled_repository_examples_fact(
@@ -27,6 +65,7 @@ def compiled_repository_examples_fact(
     """Return all bounded examples that compile against the immutable source tree."""
 
     verified: list[dict[str, object]] = []
+    withheld: list[dict[str, object]] = []
     seen: set[tuple[str, str]] = set()
     known = known_verifications or {}
     for candidate in candidates:
@@ -37,15 +76,30 @@ def compiled_repository_examples_fact(
         if len(seen) > MAX_VERIFIED_REPOSITORY_EXAMPLE_ATTEMPTS:
             break
         result = known.get(candidate.code.rstrip() + "\n") or verify_example_fn(candidate)
-        if (
-            result is None
-            or not result.truth_eligible
-            or result.outcome not in {"SOURCE_BUILD_VERIFIED", "SOURCE_TREE_VERIFIED"}
-            or (
-                source_revision is not None
-                and getattr(result, "source_revision", source_revision) != source_revision
-            )
+        if result is None or (
+            source_revision is not None
+            and getattr(result, "source_revision", source_revision) != source_revision
         ):
+            continue
+        if not result.truth_eligible or result.outcome not in {
+            "SOURCE_BUILD_VERIFIED",
+            "SOURCE_TREE_VERIFIED",
+        }:
+            negative = _exact_compiler_failure(candidate, result)
+            if negative is not None:
+                withheld.append(
+                    {
+                        "title": candidate.class_name,
+                        "language": candidate.language,
+                        "code": candidate.code.rstrip() + "\n",
+                        "evidence_paths": list(candidate.evidence_paths),
+                        "static_api_verified": False,
+                        "execution_verified": False,
+                        "verification_outcome": result.outcome,
+                        "validation_reason": result.detail,
+                        **negative,
+                    }
+                )
             continue
         verified.append(
             {
@@ -64,7 +118,7 @@ def compiled_repository_examples_fact(
     return FactRecordV2(
         fact_id=descriptive_fact_id("repository.examples", "compiled-repository-examples"),
         field="repository.examples",
-        value={"inline_examples": verified},
+        value={"inline_examples": verified, "withheld_inline_examples": withheld},
         source=FactSourceV2(
             source_type="mechanical_test",
             location=f"local-product-verification://{org_repo}/repository-examples",

@@ -8,6 +8,9 @@ from pathlib import Path
 import pytest
 
 from readme_agent.facts.schema_v2 import FactRecordV2, FactSourceV2, ProductFactsV2
+from readme_agent.presentation.verified_compiled_example_omission import (
+    compiler_rejected_source_example_resolution,
+)
 from readme_agent.presentation.verified_source_claim_omissions import (
     _capability_anchor_matches,
     deferred_unverified_obligation_detail_resolution,
@@ -476,6 +479,164 @@ def test_rejected_source_example_with_absent_fixture_is_explicitly_deferred() ->
     assert "recorded static validation decision" in resolution.rationale
 
 
+def test_compiler_rejected_source_example_is_withheld_behind_verified_replacement() -> None:
+    facts, _, candidate, primary_provenance = _verified_example_case()
+    revision = "a" * 40
+    source = "# Product\n\n## Quick Start\n\n```csharp\nScene.Render();\n```\n"
+    claim = assess_material_claims(source)[0]
+    examples_id = facts.selected_fact_ids["repository.examples"]
+    minimal_id = facts.selected_fact_ids["example.minimal"]
+    examples = facts.fact_by_id(examples_id).model_copy(
+        update={
+            "value": {
+                "inline_examples": [],
+                "withheld_inline_examples": [
+                    {
+                        "title": "ReadmeExample",
+                        "language": "dotnet",
+                        "code": "Scene.Render();\n",
+                        "static_api_verified": False,
+                        "execution_verified": False,
+                        "verification_outcome": "BUILD_FAILED",
+                        "validation_reason": "CS0117: Scene has no Render member",
+                        "compiled_consumer_example_sha256": hashlib.sha256(
+                            b"Scene.Render();\n"
+                        ).hexdigest(),
+                        "isolated_input_sha256": "e" * 64,
+                        "compiler_diagnostic_sha256": "f" * 64,
+                    }
+                ],
+            },
+            "source": facts.fact_by_id(examples_id).source.model_copy(
+                update={"source_revision": revision}
+            ),
+        }
+    )
+    minimal = facts.fact_by_id(minimal_id).model_copy(
+        update={
+            "source": facts.fact_by_id(minimal_id).source.model_copy(
+                update={"source_revision": revision}
+            )
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                examples
+                if fact.fact_id == examples_id
+                else minimal
+                if fact.fact_id == minimal_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    claim_text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+
+    resolution = compiler_rejected_source_example_resolution(
+        claim,
+        claim_text,
+        candidate.encode(),
+        classify_source_claim_risk(source, claim),
+        facts,
+        (primary_provenance, [minimal_id]),
+        correction_candidate_claim_ids=frozenset({claim.claim_id}),
+    )
+
+    assert resolution is not None
+    assert resolution.resolution == "verified_omission"
+    assert "compiler-outcome:BUILD_FAILED" in resolution.evidence
+    assert "disposition:compiler-rejected-source-example-withheld-v1" in resolution.evidence
+
+
+def test_policy_approved_replacement_cannot_authorize_compiler_rejected_omission() -> None:
+    facts, _, candidate, primary_provenance = _verified_example_case()
+    revision = "a" * 40
+    source = "# Product\n\n## Quick Start\n\n```csharp\nScene.Render();\n```\n"
+    claim = assess_material_claims(source)[0]
+    examples_id = facts.selected_fact_ids["repository.examples"]
+    minimal_id = facts.selected_fact_ids["example.minimal"]
+    examples = facts.fact_by_id(examples_id).model_copy(
+        update={
+            "value": {
+                "inline_examples": [],
+                "withheld_inline_examples": [
+                    {
+                        "title": "ReadmeExample",
+                        "language": "dotnet",
+                        "code": "Scene.Render();\n",
+                        "static_api_verified": False,
+                        "execution_verified": False,
+                        "verification_outcome": "BUILD_FAILED",
+                        "validation_reason": "CS0117",
+                        "compiled_consumer_example_sha256": hashlib.sha256(
+                            b"Scene.Render();\n"
+                        ).hexdigest(),
+                        "compiler_diagnostic_sha256": "f" * 64,
+                    }
+                ],
+            },
+            "source": facts.fact_by_id(examples_id).source.model_copy(
+                update={"source_revision": revision}
+            ),
+        }
+    )
+    minimal = facts.fact_by_id(minimal_id).model_copy(
+        update={
+            "verification_state": "policy_approved",
+            "source": facts.fact_by_id(minimal_id).source.model_copy(
+                update={"source_revision": revision}
+            ),
+        }
+    )
+    facts = facts.model_copy(
+        update={
+            "facts": [
+                examples
+                if fact.fact_id == examples_id
+                else minimal
+                if fact.fact_id == minimal_id
+                else fact
+                for fact in facts.facts
+            ]
+        }
+    )
+    claim_text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+
+    assert (
+        compiler_rejected_source_example_resolution(
+            claim,
+            claim_text,
+            candidate.encode(),
+            classify_source_claim_risk(source, claim),
+            facts,
+            (primary_provenance, [minimal_id]),
+            correction_candidate_claim_ids=frozenset({claim.claim_id}),
+        )
+        is None
+    )
+
+
+def test_unproven_compiled_failure_cannot_authorize_source_example_omission() -> None:
+    facts, _, candidate, primary_provenance = _verified_example_case()
+    source = "# Product\n\n## Quick Start\n\n```csharp\nScene.Render();\n```\n"
+    claim = assess_material_claims(source)[0]
+    claim_text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+
+    assert (
+        compiler_rejected_source_example_resolution(
+            claim,
+            claim_text,
+            candidate.encode(),
+            classify_source_claim_risk(source, claim),
+            facts,
+            (primary_provenance, [facts.selected_fact_ids["example.minimal"]]),
+            correction_candidate_claim_ids=frozenset({claim.claim_id}),
+        )
+        is None
+    )
+
+
 def test_paired_example_intro_is_omitted_only_with_fact_bound_adjacent_example() -> None:
     facts, _, _, primary_provenance = _verified_example_case()
     source = "# Product\n\n## Quick Start\n\nLoad an OBJ scene:\n\n```python\npass\n```\n"
@@ -542,6 +703,56 @@ def test_paired_example_intro_without_exact_pair_remains_unresolved() -> None:
         )
         is None
     )
+
+
+def test_additional_example_intro_is_omitted_with_its_fact_bound_compiled_pair() -> None:
+    facts, _, _, _ = _verified_example_case()
+    source = (
+        "# Product\n\n## Additional Examples\n\n"
+        "Save a scene to COLLADA through a stream:\n\n```csharp\nScene.Save(stream);\n```\n"
+    )
+    intro, example = assess_material_claims(source)
+    examples_id = facts.selected_fact_ids["repository.examples"]
+    example_text = source.encode()[example.source_byte_start : example.source_byte_end].decode()
+    paired_resolution = SourceClaimResolutionV1(
+        claim_id=example.claim_id,
+        source_byte_start=example.source_byte_start,
+        source_byte_end=example.source_byte_end,
+        content_sha256=example.content_sha256,
+        resolution="verified_equivalence",
+        fact_ids=[examples_id],
+        candidate_claim_id="claim:100:paired-dotnet",
+        candidate_byte_start=100,
+        candidate_byte_end=100 + len(example_text.encode()),
+        candidate_content_sha256=example.content_sha256,
+        evidence=["exact-paired-example"],
+        rationale="Exact paired example remains in the candidate.",
+    )
+    binding = CandidateContentProvenanceV1(
+        provenance_id="template.section.additional_examples.1",
+        candidate_byte_start=100,
+        candidate_byte_end=100 + len(example_text.encode()),
+        fact_ids=[examples_id],
+        rationale="Repository-verified additional example.",
+    )
+
+    resolution = verified_paired_example_intro_resolution(
+        intro,
+        source.encode()[intro.source_byte_start : intro.source_byte_end].decode(),
+        example,
+        example_text,
+        source,
+        classify_source_claim_risk(source, intro),
+        facts,
+        ([binding], [examples_id]),
+        paired_resolution,
+        authorized_claim_ids=frozenset({intro.claim_id}),
+    )
+
+    assert resolution is not None
+    assert resolution.resolution == "verified_omission"
+    assert resolution.obligation_id == "additional_examples"
+    assert resolution.fact_ids == [examples_id]
 
 
 def test_fact_authorized_example_intro_is_not_preserved_without_its_paired_example() -> None:

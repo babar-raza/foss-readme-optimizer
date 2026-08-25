@@ -37,10 +37,10 @@ def resolve_paired_example_intro(
     if claim.claim_id not in authorized_claim_ids:
         return None
     risk = classify_source_claim_risk(source_text, claim)
-    if risk.obligation_id != "primary_example":
+    if risk.obligation_id not in {"primary_example", "additional_examples"}:
         return None
-    accepted_primary = accepted_obligation_bindings(
-        "primary_example",
+    accepted_obligation = accepted_obligation_bindings(
+        risk.obligation_id,
         facts,
         candidate_content_provenance,
     )
@@ -68,7 +68,7 @@ def resolve_paired_example_intro(
         source_text,
         risk,
         facts,
-        accepted_primary,
+        accepted_obligation,
         paired_resolution,
         authorized_claim_ids=authorized_claim_ids,
     )

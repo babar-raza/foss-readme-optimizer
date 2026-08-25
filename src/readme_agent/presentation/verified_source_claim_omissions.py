@@ -12,6 +12,9 @@ from markdown_it import MarkdownIt
 
 from readme_agent.facts.curated_python_fixture_inventory import SnapshotFixtureInventoryV1
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.presentation.verified_compiled_example_omission import (
+    compiler_rejected_source_example_resolution,
+)
 from readme_agent.readme.assessment_claims import ReadmeMaterialClaimAssessmentV1
 from readme_agent.readme.document_plan import (
     CandidateContentProvenanceV1,
@@ -19,6 +22,7 @@ from readme_agent.readme.document_plan import (
 )
 from readme_agent.readme.presentation_lint_text import strip_emoji_decorations
 from readme_agent.readme.source_claim_capability_binding import public_api_feature_is_anchored
+from readme_agent.readme.source_claim_example_equivalence import fenced_source_code
 from readme_agent.readme.source_claim_risk import SourceClaimRiskV1
 
 
@@ -278,6 +282,17 @@ def deferred_unverified_source_example_resolution(
     claim_hash = hashlib.sha256(claim_text.encode("utf-8")).hexdigest()
     if claim_hash != claim.content_sha256:
         raise ValueError("source example bytes do not match the assessed claim hash")
+    compiled_rejection = compiler_rejected_source_example_resolution(
+        claim,
+        claim_text,
+        candidate_bytes,
+        risk,
+        facts,
+        accepted_primary,
+        correction_candidate_claim_ids=correction_candidate_claim_ids,
+    )
+    if compiled_rejection is not None:
+        return compiled_rejection
     code = _python_fence_content(claim_text)
     if code is None or code.encode("utf-8") in candidate_bytes:
         return None
@@ -387,7 +402,7 @@ def verified_paired_example_intro_resolution(
     source_text: str,
     risk: SourceClaimRiskV1,
     facts: ProductFactsV2,
-    accepted_primary: tuple[list[CandidateContentProvenanceV1], list[str]] | None,
+    accepted_obligation: tuple[list[CandidateContentProvenanceV1], list[str]] | None,
     paired_resolution: SourceClaimResolutionV1 | None,
     *,
     authorized_claim_ids: frozenset[str],
@@ -397,8 +412,8 @@ def verified_paired_example_intro_resolution(
     if (
         claim.claim_id not in authorized_claim_ids
         or risk.risk_class != "mandatory_fact_resolution"
-        or risk.obligation_id != "primary_example"
-        or accepted_primary is None
+        or risk.obligation_id not in {"primary_example", "additional_examples"}
+        or accepted_obligation is None
         or paired_claim is None
         or paired_claim_text is None
         or paired_resolution is None
@@ -411,7 +426,7 @@ def verified_paired_example_intro_resolution(
     if (
         [token.type for token in tokens] != ["paragraph_open", "inline", "paragraph_close"]
         or not claim_text.rstrip().endswith(":")
-        or _python_fence_content(paired_claim_text) is None
+        or fenced_source_code(paired_claim_text) is None
     ):
         return None
     source_bytes = source_text.encode("utf-8")
@@ -422,10 +437,14 @@ def verified_paired_example_intro_resolution(
         return None
     examples_id = facts.selected_fact_ids.get("repository.examples")
     minimal_id = facts.selected_fact_ids.get("example.minimal")
-    if examples_id is None or minimal_id is None or examples_id not in paired_resolution.fact_ids:
+    if examples_id is None or examples_id not in paired_resolution.fact_ids:
         return None
-    bindings, replacement_fact_ids = accepted_primary
-    if minimal_id not in replacement_fact_ids:
+    bindings, replacement_fact_ids = accepted_obligation
+    if risk.obligation_id == "primary_example" and (
+        minimal_id is None or minimal_id not in replacement_fact_ids
+    ):
+        return None
+    if risk.obligation_id == "additional_examples" and examples_id not in replacement_fact_ids:
         return None
     replacement_ids = sorted(binding.provenance_id for binding in bindings)
     fact_ids = sorted(replacement_fact_ids)
@@ -435,7 +454,7 @@ def verified_paired_example_intro_resolution(
         source_byte_end=claim.source_byte_end,
         content_sha256=claim.content_sha256,
         resolution="verified_omission",
-        obligation_id="primary_example",
+        obligation_id=risk.obligation_id,
         fact_ids=fact_ids,
         replacement_provenance_ids=replacement_ids,
         evidence=[
@@ -449,10 +468,10 @@ def verified_paired_example_intro_resolution(
             "disposition:paired-example-intro-superseded-v1",
         ],
         rationale=(
-            "The exact inherited sentence only introduces the immediately adjacent Python "
-            "example. That example remains independently fact-bound in the candidate, while the "
-            "primary quick start is source-build verified; omitting the redundant intro loses no "
-            "product claim."
+            "The exact inherited sentence only introduces the immediately adjacent example. "
+            "That example remains independently fact-bound in the candidate under the same "
+            f"{risk.obligation_id} obligation; omitting the redundant intro loses no product "
+            "claim."
         ),
     )
 
