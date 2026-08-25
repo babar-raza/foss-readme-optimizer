@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
-    "active_task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
+    "active_task_id": null,
     "approach_control": {
       "attempts": [
         {
@@ -2648,10 +2648,12 @@
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "claim lease expired"
+          ],
           "fingerprint": "8ed60a7d037bd707be81c320c175d1f0944d13a7450ba20f212a0af9c22592e8",
           "last_material_narrowing_at": null,
-          "outcome": "in_progress",
+          "outcome": "ineffective",
           "started_at": "2026-08-25T12:40:20.811619+00:00",
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
         }
@@ -4306,10 +4308,10 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-25T13:10:20.811619+00:00",
-    "claim_id": "994eca3b46be483983e413ce85402143",
-    "claimed_at": "2026-08-25T12:40:20.811619+00:00",
-    "claimed_by": "codex",
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
@@ -4767,14 +4769,14 @@
     ],
     "graph_sha256": "5023a23a9005f2bb57f785398171e5c6051cd4412329995da7a57ce35f77c5f4",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-25T12:40:20.811619+00:00",
+    "last_evaluated_at": "2026-08-25T14:41:34.403354+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 1,
       "denominator": 33,
-      "derived_at": "2026-08-25T12:33:42.827306+00:00",
+      "derived_at": "2026-08-25T12:42:15.837326+00:00",
       "deterministic_validated": 1,
-      "facts_ready": 1,
+      "facts_ready": 2,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -4813,10 +4815,6 @@
           "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ],
@@ -4905,31 +4903,7 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": {
-      "campaign_id": "CAMP-GATE-A-PORTFOLIO",
-      "core_contribution": {
-        "kind": "first_boundary_removal",
-        "summary": "Prove the complete transaction is portable before fleet execution."
-      },
-      "goal_ids": [
-        "GOAL-README",
-        "GOAL-AUTONOMY",
-        "GOAL-DELIVERY"
-      ],
-      "immediate_goal_id": "DELIVERY-SEVEN-ECOSYSTEM-CANARIES",
-      "immediate_outcome": "Accept and no-op-prove one current repository per supported ecosystem.",
-      "repository_scope": [
-        "platform:python",
-        "platform:net",
-        "platform:java",
-        "platform:cpp",
-        "platform:typescript",
-        "platform:rust",
-        "platform:go"
-      ],
-      "stage_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
-      "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
-    },
+    "next_task": null,
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
@@ -4992,7 +4966,7 @@
       "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "CLOSED",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "CLOSED",
-      "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "IN_PROGRESS",
+      "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "REGRESSED",
       "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP": "TODO",
       "L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS": "TODO",
       "L8-PLAN-RECONCILIATION-ACCELERATION": "CLOSED",
@@ -17176,6 +17150,15 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-25T14:41:34.403386+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -17185,7 +17168,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1639,
+  "state_version": 1640,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
