@@ -122,3 +122,49 @@ fired despite genuine narrowing across those three runs: 4 findings (link +
 claim-accountability claims going 2 → 0. Treat it as a prompt to change tactic
 on this boundary, which is what this write-up does, rather than as evidence that
 the last three runs made no progress.
+
+## Exact mechanism (traced 2026-08-26, supersedes the "candidate repair directions" above)
+
+The duplicate is produced by verified source-detail routing, not by the draft or by a
+missing disclosure wrapper:
+
+1. `verified_template_draft.py:503` replaces the deterministic capability rows with the
+   authored cluster, correctly. Block A is that cluster.
+2. `verified_source_preservation.py:239-262` then routes surviving source capability
+   blocks into their canonical destination and splices them in. The composition ledger
+   names them exactly:
+   `source.canonical-detail.key-capabilities.view-detailed-capabilities.0000..0004`
+   (`placement_basis: composer_inserted_exact`). Block B is those placements.
+3. `verified_source_detail_presentation.source_detail_presentation()` returns
+   `leading=""`/`trailing=""` for this slot because `Key Capabilities` is in
+   `contract.invariants.always_visible_slots`. That is **correct** and required by
+   idea.md l.77-83 ("all selected core capabilities ... remain visible") -- the missing
+   `<details>` is intended behaviour, not the bug.
+
+So both lists render flat and visibly in one section, which is the
+`presentation.semantic_duplicate` / `malformed_low_information_prose` finding, and
+violates idea.md l.85 "Competing sections may not repeat the same capability inventory."
+
+Note this is also why `apply_verified_source_density()` does not fold the section: its
+`_source_owned(body_start, body_end, source_placements)` guard requires the *whole* body
+to be source-owned, and this body is mixed authored + placed. Folding would be the wrong
+fix regardless -- it would hide capabilities idea.md requires to stay visible.
+
+### The repair, per idea.md
+
+Source capability blocks whose capability the authored cluster already covers must not be
+routed into the slot at all; each must instead carry exactly one disposition (idea.md
+l.86, "maps exactly once"). Source tone and prose structure are explicitly not
+preservation obligations, and the template owns organization, so the authored cluster
+keeps the section.
+
+Two hard constraints on the implementation:
+
+- **Coverage.** A capability present only in the source -- here
+  "Create or load `.xlsx` workbooks", which Block A lacks -- must still be preserved or
+  improved in the authored cluster, or carry an explicit justified omission. Silent loss
+  violates idea.md l.86.
+- **Accountability.** These source claims are currently `accepted_fact` with
+  `survives_in_candidate = True`. Ceasing to place a block flips it to not-surviving, so
+  it needs a disposition in the same change or it reappears as `unjustified_loss` -- the
+  same failure class that blocked this canary before the development-commands repair.
