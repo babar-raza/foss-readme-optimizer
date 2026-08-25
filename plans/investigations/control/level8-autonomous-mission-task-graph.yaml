@@ -1565,17 +1565,17 @@ bootstrap_state:
   stop_reason: durable supervisor state owns live execution
 requirement_coverage:
   path: plans/investigations/evidence/level8-requirement-taskcard-coverage/requirement-taskcard-coverage.json
-  sha256: a6b57ba80ae9da4eb55de348af4e4e363025c3b040ad3803b635d7470533fc98
-  record_count: 496
+  sha256: 61cf9fe3393db6edd31c6f72266f49c740c2b68943ed314b5934eb86c420df7a
+  record_count: 497
   mandatory_requirement_rows: 433
   reopened_implemented_rows: 0
 requirement_catalog:
   path: plans/requirements/catalog.jsonl
-  sha256: 0f286d5a317fcb5ff8801358e44281c483242c8a41804bb1e84b844e36546214
-  record_count: 496
+  sha256: 27e28770a26e2131e245777c4c8422cc571ce91ba28dae8efbd8edb3d0196282
+  record_count: 497
 deferred_task_catalog:
   path: plans/investigations/control/level8-deferred-task-catalog.jsonl
-  sha256: 231065d7c5b4fb953e70889a1ef56ae744c5ef259b2d7fb07f1cb50f6aa76ee0
+  sha256: df8bffba32df763a5d0b7d2063e3910c44f92df8fd41fc67e5ae6787c2dfc838
   record_count: 141
 deferred_task_index:
 - task_id: L8-ACCEL-00-PYTHON-READINESS
@@ -2157,7 +2157,7 @@ deferred_task_index:
   status: TODO
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   activation_group: verified-gate-a
-  record_sha256: bc863ae3403d8f57dccb891ba8b0c63bbf4a3b65ce41fd44ebb0f00fac6bec1d
+  record_sha256: e5e59555b62e09ef2e9ecd928cf12c650386a43804ca8b6c5e55d83bb506b122
 - task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
   status: TODO
   stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
