@@ -40,18 +40,39 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def repository_development_commands(root: Path) -> tuple[object, list[str]] | None:
-    """Return source-derived development commands for the repository's build system.
+_BUILD_SYSTEM_COMMAND_COLLECTORS = {
+    "python": _python_development_commands,
+    "cpp": _cmake_development_commands,
+}
 
-    Python layouts keep their existing collector. A repository with no Python
-    package layout falls back to CMake manifests, so a C++ repository's
-    `development_commands` source claims have real manifest evidence instead
-    of none -- `classify_source_claim_risk()` treats build and test commands
-    as `mandatory_fact_resolution`, so with no evidence at all they can be
-    neither preserved nor deliberately deferred and fail closed as
+
+def repository_development_commands(
+    root: Path,
+    *,
+    ecosystem: str | None = None,
+) -> tuple[object, list[str]] | None:
+    """Return source-derived development commands for one ecosystem's build system.
+
+    `classify_source_claim_risk()` treats build and test commands as
+    `mandatory_fact_resolution`, so an ecosystem with no command collector
+    yields no evidence at all and its `development_commands` source claims can
+    be neither preserved nor deliberately deferred -- they fail closed as
     `unjustified_loss`.
+
+    Dispatch is by declared ecosystem rather than by probing the tree, so each
+    collector is reachable only from the ecosystem that owns it and can be
+    registered in `acceptance_contract._ECOSYSTEM_FILE_OWNERS`. That keeps a
+    change to one build system's collector from invalidating every other
+    ecosystem's cached facts. An ecosystem with no collector yet (java,
+    typescript, rust, go, net) returns None, exactly as before this seam
+    existed. `ecosystem=None` means "caller did not declare one" and stays
+    conservative by trying Python then CMake, preserving the previous
+    probe-based behavior for any non-registry caller.
     """
 
+    if ecosystem is not None:
+        collector = _BUILD_SYSTEM_COMMAND_COLLECTORS.get(ecosystem.strip().casefold())
+        return collector(root) if collector is not None else None
     if (python := _python_development_commands(root)) is not None:
         return python
     return _cmake_development_commands(root)

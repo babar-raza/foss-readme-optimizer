@@ -144,7 +144,10 @@ def curated_repository_fact_candidates(
             "development.commands",
             "repository-guidance",
             "mechanical_repository",
-            repository_development_commands,
+            lambda candidate_root: repository_development_commands(
+                candidate_root,
+                ecosystem=ecosystem,
+            ),
         ),
         (
             "repository.documentation_assets",

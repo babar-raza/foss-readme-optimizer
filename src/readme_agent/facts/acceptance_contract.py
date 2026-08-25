@@ -201,6 +201,10 @@ _ECOSYSTEM_FILE_OWNERS = {
     "dotnet_project_closure.py": "net",
     "dotnet_source_generator_fallback.py": "net",
     "cpp_example_verifier.py": "cpp",
+    # Reachable only through `repository_development_commands(ecosystem="cpp")`,
+    # so a change here invalidates C++ facts and nothing else. Register each new
+    # build-system command collector the same way as it is added.
+    "curated_cmake_development.py": "cpp",
     "go_example_verifier.py": "go",
     "python_example_verifier.py": "python",
     "python_dependency_acquisition.py": "python",

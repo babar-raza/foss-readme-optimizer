@@ -196,3 +196,31 @@ def test_root_level_project_needs_no_directory_change(tmp_path: Path) -> None:
 
     assert entry["working_directory"] == "."
     assert not entry["command"].startswith("cd ")
+
+
+def test_command_collectors_dispatch_by_declared_ecosystem(tmp_path: Path) -> None:
+    """CORE-035: each build-system collector must be reachable only from the
+    ecosystem that owns it, so registering it in the fact-acceptance contract
+    keeps its edits from invalidating every other ecosystem's cached facts."""
+
+    _write(tmp_path, "Aspose.Cells.Foss.Cpp.Tests/CMakeLists.txt", _TEST_PROJECT)
+
+    assert repository_development_commands(tmp_path, ecosystem="cpp") is not None
+    for foreign in ("java", "rust", "go", "typescript", "net", "python"):
+        assert repository_development_commands(tmp_path, ecosystem=foreign) is None
+
+
+def test_cmake_collector_is_scoped_out_of_foreign_ecosystem_contracts() -> None:
+    from readme_agent.facts import acceptance_contract as contract
+
+    owning = [
+        name
+        for name, files in contract._COMPONENT_FILES.items()
+        if "curated_cmake_development.py" in files
+    ]
+    assert owning, "the CMake collector must stay registered in the fact contract"
+    for component in owning:
+        cpp = contract._scoped_component_files(component, "cpp", "cells")
+        java = contract._scoped_component_files(component, "java", "cells")
+        assert "curated_cmake_development.py" in cpp
+        assert "curated_cmake_development.py" not in java
