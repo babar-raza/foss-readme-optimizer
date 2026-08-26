@@ -281,7 +281,17 @@ def lint_semantics(
     repeated_limitations: list[VisibleLine] = []
     for index, (left, left_line) in enumerate(limitation_bullets):
         for right, right_line in limitation_bullets[index + 1 :]:
-            if left == right or not public_limitations_equivalent(left, right):
+            # Compare the visible bullets, not `_normalized_bullet()` output.
+            # That normalization casefolds and rewrites `.` to a space, which
+            # destroys exactly the signal `public_limitations_equivalent()` uses
+            # to tell two API gaps apart: `Gs1Helper.validate` becomes
+            # "gs1helper validate" (still discriminator-bearing, via the digit)
+            # while `EciHelper.validate` becomes "ecihelper validate" (none).
+            # One side then has no discriminators, the "both non-empty" guard
+            # never fires, and two distinct member gaps are reported as one
+            # repeated limitation. The equivalence helper does its own
+            # non-destructive normalization, so it must see the real text.
+            if left == right or not public_limitations_equivalent(left_line.text, right_line.text):
                 continue
             repeated_limitations.extend((left_line, right_line))
     if repeated_limitations:
