@@ -11,7 +11,7 @@ measured telemetry.
 | net | `aspose-3d-foss/Aspose.3D-FOSS-for-.NET` | `NO_OP_PROVEN` | none |
 | cpp | `aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp` | `BLOCKED` | duplicate capability inventory (`RDM-027`) + `CORE-038` DateTime false positive |
 | java | `aspose-cells-foss/Aspose.Cells-FOSS-for-Java` | `BLOCKED` | 1 blocking claim, `claim:10247:2463e5708e818a52` |
-| typescript | `aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript` | not yet collected | |
+| typescript | `aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript` | `BLOCKED` | section authoring rejected heading 'Triangulate polygonal geometry' as not action-led |
 | rust | `aspose-cells-foss/Aspose.Cells-FOSS-for-Rust` | not yet collected | |
 | go | `aspose-pdf-foss/Aspose-PDF-FOSS-for-Go` | not yet collected | |
 
@@ -47,3 +47,37 @@ the pipeline is sound and the remaining failures are repository-specific or
 narrowly-scoped. Collect the typescript, rust, and go receipts before grouping
 causes, per the taskcard's `FIRST_BOUNDARY_ALL_7 -> REDUCE_REAL_RECEIPTS ->
 REPAIR_SHARED_ONCE` order.
+
+## typescript receipt (2026-08-26)
+
+`section_authoring` stopped at `key_capabilities` after 3 attempts:
+
+```
+section cluster capability headings are not action-led visitor search phrases:
+['Triangulate polygonal geometry']
+```
+
+This is a **validator vocabulary gap, not an authoring quality failure**.
+`readme/capability_semantics.py::is_action_led_capability_title()` accepts a
+title only when `_ACTION_VERBS` -- a closed enumerated regex -- matches. Verified
+directly:
+
+| Title | matched verb | accepted |
+| --- | --- | --- |
+| `Triangulate polygonal geometry` | `None` | no |
+| `Convert 3D scenes` | `convert` | yes |
+| `Apply cell styles` | `apply` | yes |
+| `Export mesh data` | `export` | yes |
+
+"Triangulate" is verb-first and imperative, and satisfies idea.md l.83's "natural
+action-led search phrases"; it is simply absent from the enumeration, which
+carries no 3D/mesh-domain verbs (no triangulate, tessellate, subdivide, decimate,
+extrude, deform, skin, bake). The model produced an acceptable heading and the
+gate refused it, burning 5 provider calls over 3 attempts with zero cache reuse.
+
+Unlike the cpp and java blockers this is **domain-general**: any repository whose
+natural capability verbs fall outside the enumeration will hit it, independent of
+ecosystem. It is therefore the first genuine shared-cause candidate in this
+receipt set. Deliberately not repaired yet -- rust and go receipts come first, per
+`FIRST_BOUNDARY_ALL_7 -> REDUCE_REAL_RECEIPTS -> REPAIR_SHARED_ONCE`, so the fix
+can be justified against the complete set rather than one repository's symptom.
