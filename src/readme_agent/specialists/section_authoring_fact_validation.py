@@ -261,6 +261,22 @@ def _unsupported_format_errors(
     cited_facts = list(cited_facts)
     accepted_facts = list(accepted_facts)
     authorized = set().union(*(_known_format_tokens(fact.value) for fact in cited_facts))
+    # A format token carried by the product's own accepted identity is not an
+    # unsupported format claim -- naming PDF in an Aspose.PDF quick start states
+    # what the product is, not that some cited fact proves a PDF operation. The
+    # `quick_start` spec cites only `example.minimal`, whose value carries no
+    # format tokens at all, so "Create a PDF document using the public API" was
+    # rejected on the PDF product itself after three authoring attempts.
+    # Directional claims stay governed by the input/output role check below, so
+    # this authorizes the noun, never an operation.
+    authorized |= set().union(
+        *(
+            _known_format_tokens(fact.value)
+            for fact in accepted_facts
+            if fact.field == "product.identity"
+        ),
+        set(),
+    )
     mentioned = _known_format_tokens(unit.heading + "\n" + unit.text)
     unsupported = sorted(mentioned - authorized)
     errors = (
