@@ -18,6 +18,18 @@ AssertionError: fixture reviewer could not find its typed review input
 
 raised from `tests/review_role_fixture_support.py::GroundedAcceptingRoleReviewClient.analyze()`.
 
+A full run of `test_supervisor_loop.py` after the three fixes below (79 passed,
+4 failed) confirmed this is not isolated to the one reproduction test: three more
+in the same file hit the identical symptom -- `TestBasicLoop::
+test_local_poc_repairs_revalidates_and_rereviews_before_accepting`,
+`TestBasicLoop::test_local_poc_byte_identical_repair_reroutes_before_rereview`,
+and `TestBasicLoop::test_heterogeneous_local_poc_members_share_the_real_supervisor_path`.
+All four exercise the shared `project`/equivalent fixture through a bounded-review
+path whose first attempt fails grounding validation. The other 79 tests in the
+file, and all 146 tests across `test_specialists.py`, `test_readme_review_roles.py`,
+and `test_separated_readme_review.py`, are unaffected -- confirming the fixes
+below are correct and this is a bounded scope, not a wider regression.
+
 ## How this was reached (three real fixes landed first)
 
 This test was the reproduction vehicle for an unrelated Windows `MAX_PATH`
