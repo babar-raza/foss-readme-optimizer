@@ -272,6 +272,20 @@ def test_mermaid_keeps_large_capability_inventories_in_a_scannable_overview():
 
 
 def test_mermaid_uses_equal_width_labels_for_multiple_format_outputs():
+    """The `<div style='width:...'>` wrapper is applied even when every peer is a
+    bare format code, not only for the "mixed" case below.
+
+    PDF/PNG/TIFF are similar-length codes and would render close enough without
+    it, which is why the wrapper was originally skipped for this branch. But a
+    governed format abbreviation is not always short -- MARKDOWN is 8 characters
+    against XLSX/CSV/JSON's 3-4 -- and the official Mermaid renderer sizes each
+    box from its own label text, so a mixed-length peer set failed
+    `output_peer_widths_uniform` at real render verification (measured on the
+    Cells Python candidate: `MermaidRenderError` on exactly that check).
+    Un-conditioning the wrapper removes that gap without touching the
+    "<br/>Format" suffix logic these assertions also cover.
+    """
+
     nodes = [
         MermaidNodeV1(node_id="PRODUCT", role="product", label="Product", fact_ids=["fact"]),
         MermaidNodeV1(node_id="C1", role="capability", label="Render", fact_ids=["fact"]),
@@ -282,9 +296,29 @@ def test_mermaid_uses_equal_width_labels_for_multiple_format_outputs():
 
     source = render_capability_landscape(nodes)
 
-    assert 'O1["PDF<br/>Format"]' in source
-    assert 'O2["PNG<br/>Format"]' in source
-    assert 'O3["TIFF<br/>Format"]' in source
+    assert "O1[\"<div style='width:150px'>PDF<br/>Format</div>\"]" in source
+    assert "O2[\"<div style='width:150px'>PNG<br/>Format</div>\"]" in source
+    assert "O3[\"<div style='width:150px'>TIFF<br/>Format</div>\"]" in source
+
+
+def test_mermaid_forces_equal_width_when_one_format_code_is_much_longer():
+    """The exact real-world shape that broke: XLSX/CSV/JSON are 3-4 characters,
+    MARKDOWN is 8 -- all four still match the bare-format-code branch, so this
+    is the case the wrapper must not skip."""
+
+    nodes = [
+        MermaidNodeV1(node_id="PRODUCT", role="product", label="Product", fact_ids=["fact"]),
+        MermaidNodeV1(node_id="C1", role="capability", label="Export", fact_ids=["fact"]),
+        MermaidNodeV1(node_id="O1", role="output", label="XLSX files", fact_ids=["fact"]),
+        MermaidNodeV1(node_id="O2", role="output", label="CSV files", fact_ids=["fact"]),
+        MermaidNodeV1(node_id="O3", role="output", label="JSON files", fact_ids=["fact"]),
+        MermaidNodeV1(node_id="O4", role="output", label="MARKDOWN files", fact_ids=["fact"]),
+    ]
+
+    source = render_capability_landscape(nodes)
+
+    for node_id, code in (("O1", "XLSX"), ("O2", "CSV"), ("O3", "JSON"), ("O4", "MARKDOWN")):
+        assert f"{node_id}[\"<div style='width:150px'>{code}<br/>Format</div>\"]" in source
 
 
 def test_mermaid_uses_fixed_width_boxes_for_mixed_semantic_outputs():

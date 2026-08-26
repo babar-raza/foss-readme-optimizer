@@ -46,11 +46,26 @@ def endpoint_mermaid_label(label: str) -> str:
 
 
 def endpoint_mermaid_labels(nodes: list[MermaidNodeV1]) -> dict[str, str]:
-    """Render peer format endpoints with one stable, equal-width visual label."""
+    """Render peer format endpoints with one stable, equal-width visual label.
+
+    The official renderer sizes each box from its own label text, so peer boxes
+    are only actually equal-width when their labels happen to be similar
+    lengths. The short-format-code branch below assumed that -- XLSX/CSV/JSON
+    are all 3-4 characters -- but a governed format abbreviation can be much
+    longer (MARKDOWN, 8 characters), so a mixed set fails
+    `output_peer_widths_uniform` at official-render verification: measured on
+    the real Cells Python candidate, `MermaidRenderError` on exactly that
+    check for the XLSX/CSV/JSON/MARKDOWN output set. The width-forcing `<div>`
+    wrapper already existed for the general case (below) but was skipped
+    whenever every label happened to be a bare format code, which is precisely
+    the case most likely to contain one unusually long abbreviation. Applying
+    it unconditionally for more than one peer removes that gap without
+    changing the "<br/>Format" suffix logic.
+    """
 
     labels = {node.node_id: endpoint_mermaid_label(node.label) for node in nodes}
     if len(nodes) > 1 and all(_FORMAT_ENDPOINT.fullmatch(label) for label in labels.values()):
-        return {node_id: f"{label}<br/>Format" for node_id, label in labels.items()}
+        labels = {node_id: f"{label}<br/>Format" for node_id, label in labels.items()}
     if len(nodes) > 1:
         return {
             node_id: f"<div style='width:{_ENDPOINT_BOX_WIDTH_PX}px'>{label}</div>"
