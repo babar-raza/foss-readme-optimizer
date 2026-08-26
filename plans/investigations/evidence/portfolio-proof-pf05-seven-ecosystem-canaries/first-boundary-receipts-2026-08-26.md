@@ -13,7 +13,7 @@ measured telemetry.
 | java | `aspose-cells-foss/Aspose.Cells-FOSS-for-Java` | `BLOCKED` | 1 blocking claim, `claim:10247:2463e5708e818a52` |
 | typescript | `aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript` | `BLOCKED` | section authoring rejected heading 'Triangulate polygonal geometry' as not action-led |
 | rust | `aspose-cells-foss/Aspose.Cells-FOSS-for-Rust` | `BLOCKED` | 15 blocking claims + **semantic_duplicate (same as cpp)** + code_fence_spacing + generated-bytes authority |
-| go | `aspose-pdf-foss/Aspose-PDF-FOSS-for-Go` | not yet collected | |
+| go | `aspose-pdf-foss/Aspose-PDF-FOSS-for-Go` | `BLOCKED` | `LLMTruncatedResponseError` -- forced tool call truncated mid-JSON |
 
 ## Causal reduction so far: no single shared cause
 
@@ -111,3 +111,41 @@ to place blocks in the composition layer, which is what the reverted attempt did
 
 Rust additionally carries causes no other ecosystem shows: 15 blocking claims and
 a `composition.segment` authority failure. Those are separate and unreduced.
+
+## go receipt (2026-08-26)
+
+```
+LLMTruncatedResponseError: forced tool call response was truncated:
+Expecting ',' delimiter: line 2118 column 1 (char 4866)
+```
+
+Retried once, same failure. 16 provider calls, 16 cache reuse. This is an
+infrastructure/provider-limit cause -- the forced tool-call response exceeded
+what the model returned in one message and was cut mid-JSON. It is not a content
+or presentation defect, and no amount of README repair addresses it.
+
+## Causal reduction: all seven receipts
+
+| Cause | Ecosystems | Kind |
+| --- | --- | --- |
+| none -- passes clean | python, net | n/a |
+| `semantic_duplicate` / `malformed_low_information_prose` (`RDM-027`) | **cpp, rust** | shared, shape-dependent |
+| action-verb vocabulary gap (`is_action_led_capability_title`) | typescript | shared by nature, 1 observed |
+| unclassified repository-layout claim (`obligation_id: None`) | java | isolated |
+| `LLMTruncatedResponseError` | go | infrastructure |
+| 15 blocking claims + `composition.segment` authority | rust | isolated |
+| `CORE-038` DateTime stub false positive | cpp | isolated, already logged |
+
+**Two of seven pass with no repair at all.** That is the headline: the transaction
+itself is portable, and the blockers are a small number of separable causes rather
+than a systemic failure.
+
+Exactly one cause spans more than one ecosystem: `RDM-027`. It is therefore the
+only repair that `REPAIR_SHARED_ONCE` currently justifies on multi-ecosystem
+evidence. The typescript vocabulary gap is domain-general in nature (any
+repository whose natural verbs fall outside a closed enumeration hits it) and is
+cheap and low-risk to close, so it is a reasonable second.
+
+The go truncation is not a presentation defect and must not be "fixed" by
+changing README content; it needs a bounded-output or chunking remedy in the
+provider seam.
