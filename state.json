@@ -2853,10 +2853,11 @@
         },
         {
           "evidence_refs": [
-            "PF-02 regressed because today's presentation fixes changed document_template_hash; restoring requires regenerating candidates under the new hash via a full run"
+            "PF-02 regressed because today's presentation fixes changed document_template_hash; restoring requires regenerating candidates under the new hash via a full run",
+            "42328de4a TeX product spelling (last of 14 product names mangled by canonicalization); launched full 33-repo poc --all under frozen contract code to regenerate candidates at the new document_template_hash"
           ],
           "fingerprint": "d1f834d08611285516264b0572a7d543b1bb63c0deddf5a6197a2fefb8c57865",
-          "last_material_narrowing_at": "2026-08-26T07:10:40.502843+00:00",
+          "last_material_narrowing_at": "2026-08-26T07:26:30.701010+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-26T07:10:18.118982+00:00",
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
@@ -5161,31 +5162,31 @@
     ],
     "graph_sha256": "d5133ac4b044197d6c554ad824a15f17c5b88f265c035dc8a0f8660335cc69ca",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-26T07:10:40.502863+00:00",
+    "last_evaluated_at": "2026-08-26T07:26:30.701032+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 3,
       "denominator": 33,
-      "derived_at": "2026-08-26T07:04:32.393952+00:00",
+      "derived_at": "2026-08-26T07:25:42.816966+00:00",
       "deterministic_validated": 2,
-      "facts_ready": 16,
+      "facts_ready": 18,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
         "BLOCKED_MISSING_EVIDENCE": 6,
         "DETERMINISTIC_VALIDATION_FAILED": 1,
-        "FACTS_READY": 22,
+        "FACTS_READY": 23,
         "INTAKE_READY": 1,
-        "NO_OP_PROVEN": 3
+        "NO_OP_PROVEN": 2
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 0,
-      "raw_agent_approved": 3,
-      "raw_candidate_generated": 4,
-      "raw_deterministic_validated": 3,
+      "raw_agent_approved": 2,
+      "raw_candidate_generated": 3,
+      "raw_deterministic_validated": 2,
       "raw_facts_ready": 26,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 3,
+      "raw_no_op_proven": 2,
       "registry_path": "data/products.json",
       "registry_sha256": "2e71e7f2c9ccbe7662ed37a5545a5f1af07363de0d6da8579e109fe4db20c1e7",
       "schema_version": 1,
@@ -5202,10 +5203,6 @@
         ]
       },
       "stale_fact_contract_repositories": {
-        "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
@@ -5235,10 +5232,6 @@
           "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-words-foss/Aspose.Words-FOSS-for-.NET": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-words-foss/Aspose.Words-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ]
@@ -18192,7 +18185,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1728,
+  "state_version": 1729,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
