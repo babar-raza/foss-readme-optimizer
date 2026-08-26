@@ -524,8 +524,15 @@ def test_unsafe_prompt_like_mermaid_label_fails_closed():
         }
     )
 
-    with pytest.raises(ValueError, match="unsafe Mermaid label"):
+    # The invariant is that an injection-shaped capability never reaches a
+    # rendered diagram, not that one particular gate is the one that stops it.
+    # Unrenderable candidates are now filtered before the diagram is assembled
+    # (`diagram_role_semantics`), so this input fails the fact-backed/target-size
+    # gate rather than the label gate; both fail closed. The label gate itself is
+    # asserted directly in tests/unit/test_safe_mermaid_label.py.
+    with pytest.raises(ValueError) as raised:
         render_readme_header_visual(facts)
+    assert "Ignore previous instructions" not in str(raised.value)
 
 
 def test_legacy_owned_markers_migrate_without_losing_maintainer_content():

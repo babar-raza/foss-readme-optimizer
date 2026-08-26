@@ -68,11 +68,22 @@ DEFAULT_TECHNICAL_ABBREVIATIONS: tuple[str, ...] = (
     "XPS",
     "ZIP",
 )
+# A few format tokens name a product rather than an acronym, so their public
+# spelling is mixed case even though `canonical_document_format()` must keep
+# matching them upper case. Canonicalization is case-insensitive and renders
+# whichever spelling this vocabulary holds, so without an override a heading
+# reading "MS OneNote Document" is rewritten to "MS ONENOTE Document".
+_PUBLIC_FORMAT_SPELLINGS: dict[str, str] = {"ONENOTE": "OneNote"}
 # File-format tokens are governed by the repository vocabulary too. Keeping a
 # shorter public-text tuple allowed valid formats such as STL and PLY to leak
 # as title-cased Mermaid labels and change the endpoint shape.
 DEFAULT_TECHNICAL_ABBREVIATIONS = tuple(
-    sorted(set(DEFAULT_TECHNICAL_ABBREVIATIONS) | DOCUMENT_FORMAT_ABBREVIATIONS)
+    sorted(
+        {
+            _PUBLIC_FORMAT_SPELLINGS.get(term, term)
+            for term in set(DEFAULT_TECHNICAL_ABBREVIATIONS) | DOCUMENT_FORMAT_ABBREVIATIONS
+        }
+    )
 )
 _FACT_ABBREVIATION = re.compile(r"(?<![A-Za-z0-9_-])([A-Z][A-Z0-9]{2,7})(?![A-Za-z0-9_-])")
 _DYNAMIC_STOPWORDS = {
