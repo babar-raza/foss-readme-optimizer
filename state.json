@@ -2779,9 +2779,12 @@
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         },
         {
-          "evidence_refs": [],
+          "evidence_refs": [
+            "tests/unit/test_capability_action_verbs.py",
+            "plans/investigations/evidence/portfolio-proof-pf05-seven-ecosystem-canaries/first-boundary-receipts-2026-08-26.md"
+          ],
           "fingerprint": "0756b892b4afa86a574289fc093741d765af2a5d47c7ceed14df4c4c2a589e02",
-          "last_material_narrowing_at": null,
+          "last_material_narrowing_at": "2026-08-26T01:57:16.670444+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-26T01:44:35.895218+00:00",
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
@@ -5014,12 +5017,12 @@
     ],
     "graph_sha256": "d5133ac4b044197d6c554ad824a15f17c5b88f265c035dc8a0f8660335cc69ca",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-26T01:44:35.895218+00:00",
+    "last_evaluated_at": "2026-08-26T01:57:16.670479+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 1,
+      "agent_approved": 2,
       "candidate_generated": 2,
       "denominator": 33,
-      "derived_at": "2026-08-26T01:40:55.093661+00:00",
+      "derived_at": "2026-08-26T01:54:27.028182+00:00",
       "deterministic_validated": 2,
       "facts_ready": 7,
       "first_failing_boundary": "FACTS_READY",
@@ -5031,7 +5034,7 @@
         "NO_OP_PROVEN": 3
       },
       "missing_lifecycle_repositories": [],
-      "no_op_proven": 1,
+      "no_op_proven": 2,
       "raw_agent_approved": 3,
       "raw_candidate_generated": 3,
       "raw_deterministic_validated": 3,
@@ -5041,11 +5044,7 @@
       "registry_path": "data/products.json",
       "registry_sha256": "2e71e7f2c9ccbe7662ed37a5545a5f1af07363de0d6da8579e109fe4db20c1e7",
       "schema_version": 1,
-      "stale_acceptance_repositories": {
-        "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
-          "presentation_component_severe_acceptance_changed"
-        ]
-      },
+      "stale_acceptance_repositories": {},
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed",
@@ -17867,7 +17866,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1691,
+  "state_version": 1692,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
