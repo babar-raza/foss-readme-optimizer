@@ -98,6 +98,9 @@ from readme_agent.evidence.writer import generate_run_id
 from readme_agent.facts.protected_content import fingerprint_protected_content
 from readme_agent.llm.section_author_client import build_live_section_cluster_author_client
 from readme_agent.orchestrator import record_accepted_readme_state
+from readme_agent.presentation.verified_source_capability_precedence import (
+    section_specs_without_superseded_capability_authoring,
+)
 from readme_agent.readme.agentic_composition import validate_readme_composition_plan
 from readme_agent.readme.assessment import assess_readme_document
 from readme_agent.readme.claim_accountability_llm_disposition import (
@@ -459,7 +462,11 @@ def _render_node(state: DomainStateV1, config: RunnableConfig) -> dict:
                 prepared.facts,
                 base_revision=snapshot.source_revision,
             )
-            section_specs = build_canonical_section_authoring_specs(prepared.facts)
+            section_specs = section_specs_without_superseded_capability_authoring(
+                build_canonical_section_authoring_specs(prepared.facts),
+                source_text,
+                prepared.facts,
+            )
             if _composition_plan_reusable(prior_plan) and (
                 not section_specs or _bounded_section_plan(prior_plan)
             ):

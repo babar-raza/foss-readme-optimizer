@@ -7,8 +7,10 @@ from pathlib import Path
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.presentation.verified_source_capability_precedence import (
     authored_cluster_loses_source_facts,
+    section_specs_without_superseded_capability_authoring,
     source_capability_bullet_fact_ids,
 )
+from readme_agent.readme.section_authoring_specs import build_canonical_section_authoring_specs
 
 ROOT = Path(__file__).resolve().parents[2]
 CPP = ROOT / "runs/readme-poc/aspose-cells-foss__Aspose.Cells-FOSS-for-Cpp"
@@ -57,6 +59,71 @@ def test_authored_prose_yields_when_it_binds_fewer_facts() -> None:
     assert "product.problems_solved" in bound
 
     assert authored_cluster_loses_source_facts(source, facts, ("product.capabilities",))
+
+
+def test_capability_authoring_job_is_skipped_when_source_bullets_outbind_it() -> None:
+    """PF05-CXX-DUPLICATE-001: the capability cluster must be dropped before it is
+    authored, because once authored it is checksum-bound into the plan and a reword
+    can never clear claim accountability by coordinate equivalence."""
+
+    facts_bundle = _cpp()
+    if facts_bundle is None:  # pragma: no cover - canary artifacts absent
+        return
+    source, facts = facts_bundle
+
+    specs = build_canonical_section_authoring_specs(facts)
+    assert "key_capabilities" in {spec.section_id for spec in specs}
+
+    kept = section_specs_without_superseded_capability_authoring(specs, source, facts)
+    assert "key_capabilities" not in {spec.section_id for spec in kept}
+    # Only the capability job may be withheld -- every other prose job survives.
+    assert {spec.section_id for spec in kept} == {spec.section_id for spec in specs} - {
+        "key_capabilities"
+    }
+
+
+def test_capability_authoring_job_survives_a_source_without_capability_bullets() -> None:
+    """Negative control: the filter must not withhold authoring on its own initiative."""
+
+    facts_bundle = _cpp()
+    if facts_bundle is None:  # pragma: no cover - canary artifacts absent
+        return
+    _source, facts = facts_bundle
+    plain = "# Product\n\n## Installation\n\nInstall it.\n"
+
+    specs = build_canonical_section_authoring_specs(facts)
+    kept = section_specs_without_superseded_capability_authoring(specs, plain, facts)
+    assert [spec.section_id for spec in kept] == [spec.section_id for spec in specs]
+
+
+def test_deterministic_rows_bind_the_coordinate_the_authored_reword_cannot() -> None:
+    """The repair only works because the fallback is strictly better bound.
+
+    If the deterministic capability rows ever stopped binding the exact
+    `product.capabilities` list coordinates, skipping the authored cluster would
+    leave the inherited bullets unresolvable and reintroduce the duplicate, so
+    this property is the load-bearing one and is asserted directly.
+    """
+
+    facts_bundle = _cpp()
+    if facts_bundle is None:  # pragma: no cover - canary artifacts absent
+        return
+    source, facts = facts_bundle
+
+    from readme_agent.presentation.verified_template_capabilities import (
+        build_capability_presentation_plan,
+    )
+
+    plan = build_capability_presentation_plan(facts, source_text=source)
+    covered = {
+        coordinate.path
+        for _markdown, _fact_ids, coordinates in plan.rows
+        for coordinate in coordinates
+        if coordinate.field == "product.capabilities"
+    }
+    # The coordinate the duplicated inherited bullet binds, and which the authored
+    # rewording binds zero of (measured 2026-08-26 on this exact pair).
+    assert "/items/e98ef500be51ad93" in covered
 
 
 def test_authored_prose_is_kept_when_it_binds_everything_the_source_does() -> None:

@@ -1,0 +1,27 @@
+{
+  "causal_owner_changed": false,
+  "created_at": "2026-08-26T05:49:58.727535+00:00",
+  "dependency_sequence_changed": true,
+  "evidence_refs": [
+    "plans/investigations/evidence/portfolio-proof-pf05-seven-ecosystem-canaries/first-boundary-receipts-2026-08-26.md",
+    "scripts/governance/inspect_mission_approach_control.py",
+    "src/readme_agent/facts/verification_contract.py",
+    "src/readme_agent/supervisor/approach_control.py"
+  ],
+  "input_classification": "tactic",
+  "mechanism_changed": true,
+  "new_fingerprint": "e8bda77a1cb7da63635e86e02c3be92100a940f3fafb79274151884bc787f636",
+  "pipeline_boundary_changed": true,
+  "prior_fingerprint": "0756b892b4afa86a574289fc093741d765af2a5d47c7ceed14df4c4c2a589e02",
+  "rationale": "The prior fingerprint (0756b892...) attacked PF-05 at the presentation boundary, repairing one canary defect at a time (PF05-CXX-LINK-001, then RDM-027 capability precedence). That tactic produced real shipped fixes, but its two recorded ineffective attempts share one measured cause, now confirmed by the durable attempt ledger via scripts/governance/inspect_mission_approach_control.py: every attempt that recorded material narrowing closed effective, and the only two that did not were the two whose 30-minute claim lease expired during a long unattended batch. The budget was therefore consumed by a liveness-reporting gap, not by a wrong tactic. Two causal dimensions change here. First, the pipeline boundary: the controller's own first_failing_boundary is FACTS_READY, and live status shows facts_ready 7/33 with 19 repositories listed as stale_fact_contract_repositories, which sums exactly to the raw historical facts_ready=26. Those 19 bundles are complete and merely stale against the current contract hash, so restoring them is deterministic replay with no presentation change and no LLM call, and it is the largest single advance available at the measured failing boundary. Attacking presentation defects first leaves that breadth unrecovered and repeatedly re-derives facts per repository. Second, the mechanism and dependency sequence: fact-contract restoration runs in bulk ahead of per-repository presentation repair, and every claim now records material narrowing at claim time so an expiring lease closes an attempt as effective on real evidence instead of silently spending approach budget. Order matters because RC1 (common-file cache invalidation) means any shared fact-verification edit re-stales the whole portfolio, so fact restoration must follow, not precede, the shared repairs it depends on -- which is why this replan sequences bulk restoration after the already-committed shared fixes rather than before them.",
+  "route_change_assessments": [
+    "reuse",
+    "invalidation",
+    "critical_path",
+    "infrastructure_timing",
+    "factuality",
+    "safety",
+    "smaller_alternatives"
+  ],
+  "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
+}

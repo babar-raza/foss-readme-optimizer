@@ -6,6 +6,9 @@ from dataclasses import replace
 
 from readme_agent.facts.protected_content import fingerprint_protected_content
 from readme_agent.facts.schema_v2 import ProductFactsV2
+from readme_agent.presentation.verified_source_capability_precedence import (
+    section_specs_without_superseded_capability_authoring,
+)
 from readme_agent.readme.section_authoring_specs import build_canonical_section_authoring_specs
 from readme_agent.specialists.independent_readme_review import IndependentReadmeReviewResultV1
 from readme_agent.specialists.readme_repair_validation import repair_findings
@@ -33,13 +36,21 @@ def _slot(value: str) -> str | None:
 def _repair_specs(
     facts: ProductFactsV2,
     review: IndependentReadmeReviewResultV1,
+    source_text: str,
 ):
     by_slot: dict[str, list] = {}
     for finding in repair_findings(review):
         slot = _slot(finding.section)
         if slot is not None:
             by_slot.setdefault(slot, []).append(finding)
-    specs = build_canonical_section_authoring_specs(facts)
+    # Apply the same capability-precedence decision the first authoring pass made,
+    # or a reviewer-driven repair would silently reinstate a cluster the source's
+    # own fact-bound bullets supersede and recreate the duplicate section.
+    specs = section_specs_without_superseded_capability_authoring(
+        build_canonical_section_authoring_specs(facts),
+        source_text,
+        facts,
+    )
     repaired = []
     for spec in specs:
         findings = by_slot.get(spec.section_id)
@@ -61,7 +72,10 @@ def _repair_specs(
                 current_source_text=current,
             )
         )
-    return tuple(repaired), frozenset(by_slot)
+    # Report only slots that still have a spec: a reviewer finding against a
+    # superseded capability cluster is answered by not authoring it at all, and
+    # counting it here would spend a provider call that can change nothing.
+    return tuple(repaired), frozenset(by_slot) & {spec.section_id for spec in repaired}
 
 
 def reauthor_rejected_sections(
@@ -80,7 +94,7 @@ def reauthor_rejected_sections(
         return None
     previous = SectionAuthoringDocumentV1.model_validate(prior_document)
     facts = ProductFactsV2.model_validate(product_facts_v2)
-    specs, affected_slots = _repair_specs(facts, review)
+    specs, affected_slots = _repair_specs(facts, review, source_text)
     if not affected_slots:
         return previous
     if client is None:
