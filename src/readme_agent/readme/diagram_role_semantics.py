@@ -19,6 +19,7 @@ from readme_agent.readme.diagram_semantic_candidates import (
     output_node_candidates,
     selected_verified_capability_nodes,
 )
+from readme_agent.readme.header_visual_models import safe_mermaid_label
 
 _CAPABILITY_FACT_FIELDS = frozenset(
     {"product.capabilities", "product.problems_solved", "product.formats"}
@@ -164,6 +165,16 @@ def normalize_diagram_role_nodes(
         *(selected_verified_capability_nodes(facts) or _fallback_capability_nodes(facts)),
         *output_node_candidates(facts),
     ]
+    # A candidate whose label cannot be rendered as a data-only Mermaid label is
+    # not eligible for the diagram. Fact text occasionally carries an API
+    # signature rather than a capability phrase (e.g.
+    # "`PolygonModifier.triangulate(...) -> any` ..."), and "->" cannot appear in
+    # a node label because Mermaid reads it as an edge. The diagram already
+    # publishes a bounded subset of capabilities, so dropping one unrenderable
+    # candidate is selection, not content suppression -- the capability itself
+    # still reaches the README through the capability section. `header_visual`
+    # keeps its hard rejection as a backstop for anything that slips through.
+    authoritative = [node for node in authoritative if safe_mermaid_label(node.label) is not None]
     normalized: list[AgenticDiagramNodeV1] = []
     for role in ("input", "capability", "output"):
         role_nodes = [node for node in authoritative if node.role == role]
