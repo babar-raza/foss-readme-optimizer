@@ -53,6 +53,15 @@
         "reason": "read-only intake classified BLOCKED_CLASSIFICATION",
         "source_revision": "f5f62c9736c20c9fff11b579f02073943e6128b9",
         "to_status": "INTAKE_READY"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "INTAKE_READY",
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-26T07:46:05.225373+00:00",
+        "reason": "claimed source-bound read-only intake preflight",
+        "source_revision": "f5f62c9736c20c9fff11b579f02073943e6128b9",
+        "to_status": "INTAKE_PREFLIGHTING"
       }
     ],
     "human_acceptance_history": [],
@@ -73,7 +82,14 @@
         "source_revision_resolved": true
       }
     ],
-    "intake_preflight_pending": null,
+    "intake_preflight_pending": {
+      "attempt": 1,
+      "dedup_key": "21a2416c78fe07f8a0ef8070cb6f537bae0353b150bb7c113d4c79c224fb61c0",
+      "schema_version": 1,
+      "source_revision": "f5f62c9736c20c9fff11b579f02073943e6128b9",
+      "source_revision_resolved": true,
+      "started_at": "2026-08-26T07:46:05.225357+00:00"
+    },
     "presentation_plan_hash": null,
     "presentation_validity": {
       "available_component_manifest_hash": null,
@@ -109,11 +125,11 @@
     "reviewer_standard_hash": null,
     "schema_version": 2,
     "source_revision": null,
-    "status": "INTAKE_READY",
-    "updated_at": "2026-08-26T07:35:12.804791+00:00"
+    "status": "INTAKE_PREFLIGHTING",
+    "updated_at": "2026-08-26T07:46:05.225373+00:00"
   },
   "schema_version": 2,
-  "state_version": 5,
+  "state_version": 6,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1345974189:7ad016c4708d67bdee79e5639f6714022c38866d79f656e1c6db2c9415fb1557": {
