@@ -8,6 +8,7 @@ from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.readme.assessment_claims import assess_material_claims
 from readme_agent.readme.document_structure import heading_identity, parse_headings
 from readme_agent.readme.source_claim_fact_binding import complete_source_claim_fact_binding
+from readme_agent.specialists.section_authoring_contracts import SectionAuthoringDocumentV1
 
 _CAPABILITY_BULLET = re.compile(r"(?m)^\s*[-*+]\s+\*\*[^*]+\*\*")
 
@@ -74,4 +75,52 @@ def authored_cluster_loses_source_facts(
     return not source_fields.issubset(set(authored_fact_fields))
 
 
-__all__ = ["authored_cluster_loses_source_facts", "source_capability_bullet_fact_ids"]
+def withhold_superseded_capability_authoring(
+    document: SectionAuthoringDocumentV1 | None,
+    source_text: str,
+    facts: ProductFactsV2,
+) -> SectionAuthoringDocumentV1 | None:
+    """Drop authored `key_capabilities` units the source's own bullets outbind.
+
+    The decision has to be made once, on the document, rather than only where the
+    draft installs prose: `verified_template_provenance` independently requires
+    every accepted authored unit to appear in its slot, so a draft that quietly
+    declined to install them would fail with "accepted authored unit is absent
+    from template slot". Withholding the outcome keeps the draft, the compiled
+    candidate, and the provenance contract describing the same document.
+
+    Any other section's authoring is untouched, and the units are withheld only
+    when `authored_cluster_loses_source_facts()` is true -- authored prose that
+    binds everything the source bullets bind is still used.
+    """
+
+    if document is None:
+        return None
+    outcomes = document.outcomes
+    if not outcomes:
+        return document
+    capability_outcomes = [
+        outcome
+        for outcome in outcomes
+        if outcome.target_section_id == "key_capabilities"
+        or outcome.target_section_id.startswith("key_capabilities-")
+    ]
+    if not capability_outcomes:
+        return document
+    authored_fields: set[str] = set()
+    for outcome in capability_outcomes:
+        for unit in outcome.result.units:
+            for fact_id in unit.fact_ids:
+                authored_fields.add(facts.fact_by_id(fact_id).field)
+    if not authored_cluster_loses_source_facts(source_text, facts, tuple(sorted(authored_fields))):
+        return document
+    return document.model_copy(
+        update={"outcomes": [outcome for outcome in outcomes if outcome not in capability_outcomes]}
+    )
+
+
+__all__ = [
+    "authored_cluster_loses_source_facts",
+    "source_capability_bullet_fact_ids",
+    "withhold_superseded_capability_authoring",
+]
