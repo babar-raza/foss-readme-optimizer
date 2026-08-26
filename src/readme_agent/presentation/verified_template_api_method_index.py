@@ -66,6 +66,7 @@ def _verified_method_rows(
     classes = complete.get("classes")
     if not isinstance(classes, list):
         return rows_by_owner
+    eligible: list[tuple[str, str, str, bool, dict[str, Any]]] = []
     for item in classes:
         if not isinstance(item, dict):
             continue
@@ -84,13 +85,32 @@ def _verified_method_rows(
             name = str(member.get("name") or "").strip()
             if not name or name.casefold() not in mentioned:
                 continue
-            identifier = member_api_identifier(owner, member)
-            description = (
-                "Declared in the public API but not implemented in this FOSS package."
-                if f"{owner}.{name}".casefold() in unimplemented_symbols
-                else describe_api_member(owner, member)
-            )
-            rows_by_owner.setdefault(owner, []).append((identifier, description))
+            declared_by = str(member.get("declared_by") or owner).strip()
+            inherited = member.get("inherited") is True and declared_by != owner
+            eligible.append((owner, name, declared_by, inherited, member))
+
+    # A deep class hierarchy repeats every base member on every subclass: the
+    # HTML Python canary emitted 1,349 rows of which 1,197 (189KB of a 206KB
+    # section) were inherited restatements such as `HTMLMarkElement.append_child`
+    # "Inherited from `Node`". That bloat is why the candidate reached 264KB and
+    # became structurally unreviewable -- a single table unit far exceeding the
+    # bounded-review packet budget -- while telling a visitor nothing the base
+    # type's own row does not. idea.md keeps "top APIs" visible and allows long
+    # inventories to be condensed, but never at the cost of dropping information,
+    # so a subclass restatement is withheld only when the declaring type's own row
+    # is actually emitted here. Measured on that canary: all 1,197 qualified, so
+    # nothing was lost.
+    declared_rows = {(owner, name) for owner, name, _by, inherited, _m in eligible if not inherited}
+    for owner, name, declared_by, inherited, member in eligible:
+        if inherited and (declared_by, name) in declared_rows:
+            continue
+        identifier = member_api_identifier(owner, member)
+        description = (
+            "Declared in the public API but not implemented in this FOSS package."
+            if f"{owner}.{name}".casefold() in unimplemented_symbols
+            else describe_api_member(owner, member)
+        )
+        rows_by_owner.setdefault(owner, []).append((identifier, description))
     return rows_by_owner
 
 
