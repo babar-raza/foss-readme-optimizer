@@ -4592,7 +4592,7 @@
     "claimed_by": "claude-opus5",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
-    "goal_activation_graph_sha256": "7e9ad35441555d4af28829a806eaf5801726185d632534125afdb3a5d8cad023",
+    "goal_activation_graph_sha256": "48b79b129a57c2b06bbe857eb8cc96e2ccd9e91e0277a13b6d9f49f9db13bc16",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -5180,16 +5180,16 @@
         "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
       }
     ],
-    "graph_sha256": "7e9ad35441555d4af28829a806eaf5801726185d632534125afdb3a5d8cad023",
+    "graph_sha256": "48b79b129a57c2b06bbe857eb8cc96e2ccd9e91e0277a13b6d9f49f9db13bc16",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-26T12:50:56.605643+00:00",
+    "last_evaluated_at": "2026-08-26T12:57:29.596722+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 2,
       "denominator": 34,
-      "derived_at": "2026-08-26T12:41:44.327782+00:00",
+      "derived_at": "2026-08-26T12:51:04.809946+00:00",
       "deterministic_validated": 1,
-      "facts_ready": 4,
+      "facts_ready": 5,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -5241,11 +5241,6 @@
         ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust": [
           "fact_acceptance_recollection_component_changed"
-        ],
-        "aspose-font-foss/Aspose.Font-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_facts_hash_mismatch",
-          "product_truth_hash_mismatch"
         ],
         "aspose-html-foss/Aspose.HTML-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed"
@@ -18257,7 +18252,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1743,
+  "state_version": 1744,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
