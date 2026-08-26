@@ -2859,10 +2859,11 @@
             "eb481a49f recharacterized portfolio size tests; scoreboard agent_approved recovered 0->2/34, facts_ready 18/34; remaining gap is NO_OP_PROVEN: complete_agent_approved_count requires the unchanged-rerun proof boundary but runs stop at CONVERGED_NO_TRACKED_CHANGE",
             "6591c6cc2 root-caused the 12-gate rubric failure: only the bounded reviewer emits per-section supports_acceptance findings, and it was gated on candidate size (240k chars), so 3D-Python scored 30/30 at 159KB and 15/30 at 109KB after improving; bounded now routes on canonical contract presence",
             "no_op_proven recovered 0->1/34 (3D-Python complete_bundles=1/1); full fleet pass launched across 34 repos to convert 18 fact-ready bundles",
-            "1ff210e60 format roles now admit API-evidenced directions (Note/3D format-direction findings many->0); 877ca920e exposes --retry-blocked so the repair is observable; fleet relaunched with both"
+            "1ff210e60 format roles now admit API-evidenced directions (Note/3D format-direction findings many->0); 877ca920e exposes --retry-blocked so the repair is observable; fleet relaunched with both",
+            "766b0c228 Windows MAX_PATH atomic-write fix (Note blocked at 260 chars, 3D passed at 259 - failure tracked repo name length); manipulate added to action verbs (unblocks HTML+Email); persistent Monitor armed so fleet events drive the loop"
           ],
           "fingerprint": "d1f834d08611285516264b0572a7d543b1bb63c0deddf5a6197a2fefb8c57865",
-          "last_material_narrowing_at": "2026-08-26T10:48:48.081566+00:00",
+          "last_material_narrowing_at": "2026-08-26T11:22:48.799337+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-26T07:10:18.118982+00:00",
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
@@ -5167,40 +5168,39 @@
     ],
     "graph_sha256": "48ad53cdb366065978c8d7aacebde9bdbb3c12094e6ab2034b46aaade719a312",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-26T10:48:48.081601+00:00",
+    "last_evaluated_at": "2026-08-26T11:22:48.799355+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 2,
       "denominator": 34,
-      "derived_at": "2026-08-26T10:37:01.646241+00:00",
+      "derived_at": "2026-08-26T11:18:46.246712+00:00",
       "deterministic_validated": 2,
       "facts_ready": 22,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
         "BLOCKED_MISSING_EVIDENCE": 6,
-        "FACTS_READY": 22,
+        "DETERMINISTIC_VALIDATED": 1,
+        "FACTS_READY": 21,
         "INTAKE_READY": 2,
-        "NO_OP_PROVEN": 2,
-        "README_ASSESSED": 1,
+        "NO_OP_PROVEN": 1,
+        "README_ASSESSED": 2,
         "SYSTEM_FAILURE": 1
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 0,
-      "raw_agent_approved": 2,
+      "raw_agent_approved": 1,
       "raw_candidate_generated": 2,
       "raw_deterministic_validated": 2,
       "raw_facts_ready": 25,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 2,
+      "raw_no_op_proven": 1,
       "registry_path": "data/products.json",
       "registry_sha256": "c810071ea3b65f97f66153388ed114e4bad55e95d3b6cb27b0c90c3a3bc3c88b",
       "schema_version": 1,
       "stale_acceptance_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
-          "presentation_component_severe_acceptance_changed"
-        ],
-        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
+          "presentation_component_safety_changed",
           "presentation_component_severe_acceptance_changed"
         ]
       },
@@ -18168,7 +18168,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1735,
+  "state_version": 1736,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
