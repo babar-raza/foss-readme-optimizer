@@ -5193,14 +5193,14 @@
     ],
     "graph_sha256": "48b79b129a57c2b06bbe857eb8cc96e2ccd9e91e0277a13b6d9f49f9db13bc16",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-26T13:32:36.207606+00:00",
+    "last_evaluated_at": "2026-08-26T13:40:54.976324+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 3,
       "denominator": 34,
-      "derived_at": "2026-08-26T13:28:20.789049+00:00",
+      "derived_at": "2026-08-26T13:34:32.512124+00:00",
       "deterministic_validated": 1,
-      "facts_ready": 10,
+      "facts_ready": 11,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -5225,11 +5225,16 @@
       "registry_sha256": "c810071ea3b65f97f66153388ed114e4bad55e95d3b6cb27b0c90c3a3bc3c88b",
       "schema_version": 1,
       "stale_acceptance_repositories": {
-        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": []
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
+          "presentation_component_cosmetic_changed",
+          "presentation_component_safety_changed"
+        ]
       },
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
-          "fact_acceptance_recollection_component_changed"
+          "fact_acceptance_recollection_component_changed",
+          "manifest_facts_hash_mismatch",
+          "product_truth_hash_mismatch"
         ],
         "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed"
@@ -5275,9 +5280,6 @@
           "product_truth_hash_mismatch"
         ],
         "aspose-words-foss/Aspose.Words-FOSS-for-.NET": [
-          "fact_acceptance_recollection_component_changed"
-        ],
-        "aspose-words-foss/Aspose.Words-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed"
         ]
       },
@@ -18258,7 +18260,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1746,
+  "state_version": 1747,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
