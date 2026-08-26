@@ -257,3 +257,54 @@ def test_transformed_limitation_line_reconstructs_its_exact_item_coordinate():
     assert len(coordinates) == 1
     assert coordinates[0].fact_id == fact.fact_id
     assert coordinates[0].field == fact.field
+
+
+def test_imported_format_direction_unauthorized_by_repository_facts_is_withheld():
+    """Imported knowledge describes the commercial product; this repository is a
+    FOSS subset. A documented direction the repository's own accepted format roles
+    do not authorize must not be published as a capability -- an `XlsxSaveOptions`
+    class can exist as an unimplemented stub."""
+
+    facts = _facts(
+        _record("product.formats", ["Input format: PDF", "Output format: PDF"]),
+        _record(
+            "aspose.format_support_claims",
+            [
+                _item("pdf/python/format-1", "format_support", "export support for PDF via Save"),
+                _item(
+                    "pdf/python/format-2",
+                    "format_support",
+                    "export support for XLSX via XlsxSaveOptions",
+                ),
+            ],
+        ),
+    )
+
+    markdown = "\n".join(item.markdown for item in knowledge_capability_items(facts))
+
+    # PDF output is authorized by product.formats, so it still renders.
+    assert "Export to PDF" in markdown
+    # XLSX output is not authorized anywhere in the accepted facts.
+    assert "XLSX" not in markdown
+
+
+def test_imported_format_direction_authorized_by_repository_facts_still_renders():
+    """Negative control: the gate must not suppress verified directions."""
+
+    facts = _facts(
+        _record("product.formats", ["Input format: PDF", "Output format: PDF"]),
+        _record(
+            "aspose.format_support_claims",
+            [
+                _item(
+                    "pdf/python/format-3",
+                    "format_support",
+                    "import support for PDF via PdfImporter",
+                )
+            ],
+        ),
+    )
+
+    markdown = "\n".join(item.markdown for item in knowledge_capability_items(facts))
+
+    assert "Import PDF" in markdown

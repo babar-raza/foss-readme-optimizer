@@ -6,6 +6,7 @@ import re
 from dataclasses import dataclass
 
 from readme_agent.facts.schema_v2 import FactRecordV2, ProductFactsV2
+from readme_agent.readme.format_role_truth import FormatRole, unsupported_format_directions
 from readme_agent.readme.public_text import canonicalize_public_markdown
 from readme_agent.readme.public_vocabulary import canonical_abbreviations_from_facts
 
@@ -135,8 +136,18 @@ def _format_markdown(facts: ProductFactsV2, text: str) -> str | None:
         format_name = _canonical(facts, match.group("format"))
         api = match.group("api") or match.group("method")
         verb = "Export to" if action == "export" else "Import"
-        direction = "output" if action == "export" else "input"
-        return f"- **{verb} {format_name}** - Handle {format_name} {direction} with {_code(api)}."
+        direction: FormatRole = "output" if action == "export" else "input"
+        row = f"- **{verb} {format_name}** - Handle {format_name} {direction} with {_code(api)}."
+        # Imported knowledge describes the commercial product; this repository is a
+        # FOSS subset of it, so a documented direction is not evidence this build
+        # implements it -- an `FbxSaveOptions` class can exist as an unimplemented
+        # stub. Publishing the row anyway both over-claims and contradicts the
+        # repository's own accepted format roles, which
+        # `presentation_lint_format_directions` then correctly rejects. Gate on the
+        # same predicate that lint uses so the two can never disagree.
+        if unsupported_format_directions(row, facts, direction):
+            return None
+        return row
     match = _FORMAT_DETECTION.fullmatch(text.strip())
     if match is None:
         return None

@@ -115,15 +115,22 @@ def test_genuine_multi_paragraph_source_block_still_disqualified() -> None:
 
 
 def test_leading_verb_not_in_the_approved_list_still_disqualified() -> None:
-    """barcode-python's real blocked claim starts with "Select", which is not one of the
-    approved public capability action verbs -- this remains a genuine, untouched safety
-    filter and is the true, independently-confirmed reason that specific claim stays
-    disqualified even after the newline/length fix."""
+    """A leading word outside the approved public capability action verbs stays
+    disqualified -- the accept-list is a genuine, untouched safety filter.
+
+    This originally used barcode-python's real blocked claim, which starts with
+    "Select". `_ACTION_VERBS` was later widened deliberately (0965b8269) because a
+    legitimate imperative verb missing from an accept-list rejects a correct
+    heading, and "Select any symbology by name" is verb-first and idiomatic, so
+    "select" is now approved. The property under test is unchanged; it needs a
+    word that is genuinely not an imperative technical action, and vague framing
+    verbs like "Leverage" are exactly what the filter exists to reject."""
 
     facts = _facts_with_capability("Symbology dispatch by name")
     capability_fact_id = facts.selected_fact_ids["product.capabilities"]
     claim = (
-        "Select any symbology by name through the shared dispatch entry point for every symbology."
+        "Leverage any symbology by name through the shared dispatch entry point "
+        "for every symbology."
     )
     source_bindings = [(claim, _bound(capability_fact_id))]
 

@@ -448,3 +448,4 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
   in file order -- exactly what repeated `_append_results_row()` calls would already converge to)
   would remove the historical noise without inventing or re-deriving any status. Not attempted here
   to respect this operation's explicit "do not expand ... work" boundary.
+- 2026-08-26: poc runner failed for aspose-font-foss/Aspose.Font-FOSS-for-Python: ValueError: compiled verified presentation is invalid: Key capability titles must be action-led search phrases
