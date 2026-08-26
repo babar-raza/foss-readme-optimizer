@@ -231,3 +231,54 @@ pair to identify which condition rejects it, then choose between (a) making the
 authored cluster preserve the source's discriminators, or (b) preferring the
 source bullets for this section. Do not weaken the matcher itself; its precision
 is what prevents a lossy reword from being accepted as equivalent.
+
+## Why equivalence cannot resolve this, measured (2026-08-26)
+
+Four attempts, each rejected by a different real invariant. Recorded so the next
+attempt does not repeat them:
+
+1. **Composition layer** -- declining to place the routed block. Rejected by
+   `resolve_source_claims`: a `preserve`-dispositioned claim must survive
+   byte-exact or carry an exact fact-bound replacement.
+2. **Required-facts narrowing** -- excluding incidental fields from
+   `_capability_equivalence_fact_ids`, mirroring the documented
+   `_limitation_equivalence_fact_ids` precedent. This *did* fix the fact-id gate
+   (`required_source_fact_ids.issubset(...)` went False -> True) but did not
+   resolve the match, so it was reverted rather than shipped unproven.
+3. **Document withholding** -- dropping the authored `key_capabilities` outcome
+   before the draft and provenance see it. Rejected because the
+   section-authoring document is checksum-bound to the plan:
+   "section-authoring document is absent or differs from the plan binding".
+4. **Coordinates** -- the actual barrier, and not relaxable.
+
+The decisive measurement, on the real C++ pair:
+
+```
+required fields        : ['product.capabilities']     (after narrowing)
+required coordinates   : 1   -> product.capabilities /items/e98ef500be51ad93
+candidate coordinates  : 0
+fact subset            : True
+coords cover           : False
+```
+
+The inherited bullet binds an **exact capability list item**; the authored
+rewording binds **no coordinate at all**. `_coordinates_cover` demands exact
+coordinate identity, and the sibling limitation docstring states the principle
+plainly: "the exact list coordinate remains mandatory". Relaxing it would let any
+sufficiently similar prose claim equivalence with a specific verified capability
+-- precisely the lossy-reword acceptance the matcher exists to prevent.
+
+**Conclusion: equivalence is the wrong instrument here.** A reworded authored
+cluster can never prove coordinate-level equivalence with a maintainer bullet, so
+as long as both are produced, one must be preserved verbatim and the duplicate is
+structural.
+
+The remaining viable repair is to not produce both, decided **before** section
+authoring runs -- the authoring request for `key_capabilities` should be skipped
+when the source's own bullets already bind capability coordinates the rewrite
+cannot. That is upstream of the hash-bound document, so it avoids invariant (3),
+and it needs no change to the matcher, so it avoids weakening (4).
+
+`verified_source_capability_precedence.py` already implements the decision
+predicate (`authored_cluster_loses_source_facts`) with tests against real canary
+data; only its wiring point still needs to move upstream of authoring.
