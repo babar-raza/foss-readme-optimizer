@@ -14,6 +14,8 @@ from readme_agent.links.terminology import (
     enterprise_product_name_from_facts,
 )
 from readme_agent.presentation.verified_source_shell_policy import source_shell_policy_spans
+from readme_agent.readme.format_role_truth import unsupported_format_directions
+from readme_agent.readme.presentation_lint_format_directions import directional_fragments
 from readme_agent.readme.public_text import (
     canonical_abbreviations_from_facts,
     public_text_corrections,
@@ -133,6 +135,46 @@ def build_verified_source_policy_edits(
         for span in source_shell_policy_spans(source_text)
     ]
     occupied = [(item.source_byte_start, item.source_byte_end) for item in edits]
+
+    # RDM-029: a vendor README routinely asserts an input/output format role this FOSS
+    # edition does not actually have (commercial boilerplate describing the full product
+    # family). presentation_lint_format_directions.py already rejects that exact prose
+    # downstream on the rendered candidate -- reusing its own fragment/conflict detection
+    # here lets the omission happen deterministically at compose time instead, so the
+    # claim-accountability gate sees a recorded resolution for the drop rather than
+    # blocking on a claim nothing ever explained away.
+    line_offset = 0
+    for raw_line in source_text.splitlines(keepends=True):
+        line = raw_line.rstrip("\r\n")
+        for role, fragment, fragment_start, fragment_end in directional_fragments(line):
+            start = line_offset + fragment_start
+            end = line_offset + fragment_end
+            if not _visitor_visible(source_text, start, end):
+                continue
+            byte_start = _byte_offset(source_text, start)
+            byte_end = _byte_offset(source_text, end)
+            if any(
+                existing_start < byte_end and byte_start < existing_end
+                for existing_start, existing_end in occupied
+            ):
+                continue
+            conflicts = unsupported_format_directions(fragment, facts, role)
+            if not conflicts:
+                continue
+            occupied.append((byte_start, byte_end))
+            edits.append(
+                _edit(
+                    source_text,
+                    start,
+                    end,
+                    standard_id="readme.unsupported_format_direction",
+                    rationale=(
+                        f"Remove a {role} claim for {', '.join(sorted(conflicts))}, a "
+                        "format/role the accepted product facts do not authorize."
+                    ),
+                )
+            )
+        line_offset += len(raw_line)
 
     for occurrence in find_aspose_link_occurrences(source_text):
         start, end, replacement = _expanded_link_span(

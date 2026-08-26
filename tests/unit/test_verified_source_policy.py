@@ -66,6 +66,42 @@ commercial On-Premise edition https://docs.aspose.com/3d/python-net/
     assert all(edit.configured_standard_ids for edit in edits)
 
 
+def test_unsupported_format_direction_is_omitted() -> None:
+    """RDM-029: a vendor README claiming a format/role the accepted product.formats fact
+    does not authorize must be omitted at compose time, not left for the claim-
+    accountability gate to discover unresolved."""
+
+    facts = _verified_facts()
+    source = (
+        "# Example FOSS\n\n"
+        "Load a workbook and save changes back to XLSX. You can also export the "
+        "document to PDF for sharing.\n"
+    )
+
+    edits = build_verified_source_policy_edits(source, facts)  # type: ignore[arg-type]
+
+    assert len(edits) == 1
+    edit = edits[0]
+    assert edit.configured_standard_ids == ["readme.unsupported_format_direction"]
+    assert edit.replacement == ""
+    removed = source.encode("utf-8")[edit.source_byte_start : edit.source_byte_end].decode("utf-8")
+    assert removed == "export the document to PDF for sharing."
+
+
+def test_authorized_format_direction_is_not_touched() -> None:
+    """Negative control: a claim the accepted product.formats fact does authorize
+    (XLSX load/save, matching _verified_facts()'s own fact value) must survive."""
+
+    facts = _verified_facts()
+    source = "# Example FOSS\n\nLoad a workbook and save changes back to XLSX.\n"
+
+    edits = build_verified_source_policy_edits(source, facts)  # type: ignore[arg-type]
+
+    assert not any(
+        "readme.unsupported_format_direction" in edit.configured_standard_ids for edit in edits
+    )
+
+
 def test_policy_blocks_terminology_without_relationship_fact(monkeypatch) -> None:
     facts = SimpleNamespace(
         selected_fact_ids={},

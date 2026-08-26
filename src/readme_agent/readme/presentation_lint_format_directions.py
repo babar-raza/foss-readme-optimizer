@@ -23,7 +23,7 @@ _INPUT_NOUN = re.compile(r"(?i)\b(?:importer|input|load options?)\b")
 _OUTPUT_NOUN = re.compile(r"(?i)\b(?:exporter|output|save options?)\b")
 
 
-def _directional_fragments(line: str) -> list[tuple[FormatRole, str, int, int]]:
+def directional_fragments(line: str) -> list[tuple[FormatRole, str, int, int]]:
     matches = list(_DIRECTION_BOUNDARY.finditer(line))
     fragments: list[tuple[FormatRole, str, int, int]] = []
     for index, match in enumerate(matches):
@@ -73,7 +73,7 @@ def lint_format_directions(
             elif mermaid_role is not None:
                 fragments.append((mermaid_role, line, 0, len(line)))
         elif fence is None:
-            fragments.extend(_directional_fragments(line))
+            fragments.extend(directional_fragments(line))
             if not _NEGATED_DIRECTION.search(line):
                 if _INPUT_NOUN.search(line):
                     fragments.append(("input", line, 0, len(line)))
@@ -95,4 +95,4 @@ def lint_format_directions(
     return findings
 
 
-__all__ = ["RULE_IDS", "lint_format_directions"]
+__all__ = ["RULE_IDS", "directional_fragments", "lint_format_directions"]
