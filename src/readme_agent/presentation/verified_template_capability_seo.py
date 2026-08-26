@@ -95,6 +95,29 @@ def _sentence_case(phrase: str) -> str:
     return stripped[:1].upper() + stripped[1:] if stripped else stripped
 
 
+_MARKDOWN_LEAD_IN = re.compile(r"^\s*\*\*(?P<title>[^*]+?)\*\*\s*[:–—-]?\s*(?P<rest>.*)$")
+
+
+def _plain_capability_title(capability: str) -> str:
+    """Reduce a capability value to the plain phrase a row title can wrap.
+
+    A `product.capabilities` value is sometimes a whole inherited README bullet
+    rather than a bare phrase -- "**Merge cell ranges and apply number
+    formats**: `Cells.Merge()` creates ...". Wrapping that verbatim produced
+    nested bold ("- **Work with **Merge cell ...**") and failed the
+    bold-feature-name-with-same-line-explanation contract. Take the bold lead-in
+    as the title when the value has that shape, and otherwise strip stray
+    emphasis and code markers.
+    """
+
+    text = " ".join(capability.strip().split())
+    lead_in = _MARKDOWN_LEAD_IN.match(text)
+    if lead_in is not None and lead_in.group("title").strip():
+        text = lead_in.group("title")
+    text = text.replace("*", "").replace("`", "")
+    return " ".join(text.split()).rstrip(".").strip()
+
+
 def seo_capability_title(
     capability: str,
     context: CapabilitySeoContextV1,
@@ -111,7 +134,7 @@ def seo_capability_title(
     this function without one.
     """
 
-    title = " ".join(capability.strip().rstrip(".").split())
+    title = _plain_capability_title(capability)
     lowered = title.casefold()
     subject = context.primary_input
     short_subject = _short_subject(subject)
