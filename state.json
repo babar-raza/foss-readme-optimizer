@@ -4997,7 +4997,7 @@
     ],
     "graph_sha256": "d5133ac4b044197d6c554ad824a15f17c5b88f265c035dc8a0f8660335cc69ca",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-26T01:42:55.513632+00:00",
+    "last_evaluated_at": "2026-08-26T01:43:18.408865+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 2,
@@ -5175,7 +5175,7 @@
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
       "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
-      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "VERIFIED",
+      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "SCORED",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "CLOSED",
       "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "REGRESSED",
@@ -17784,6 +17784,18 @@
         "reason": "Aspose.3D Python re-accepted after the action-verb vocabulary fix: AGENT_APPROVED then NO_OP_PROVEN at zero provider calls",
         "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "plans/investigations/evidence/portfolio-proof-pf02-complete-candidate-seam/mission-contribution.json",
+          "plans/investigations/evidence/portfolio-proof-pf02-complete-candidate-seam/closeout-control.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "claude-sonnet5-pf05-cxx-link",
+        "occurred_at": "2026-08-26T01:43:18.408885+00:00",
+        "reason": "Aspose.3D Python re-accepted after the action-verb vocabulary fix: AGENT_APPROVED then NO_OP_PROVEN at zero provider calls",
+        "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -17793,7 +17805,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1688,
+  "state_version": 1689,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
