@@ -2839,10 +2839,11 @@
           "evidence_refs": [
             "plans/investigations/evidence/portfolio-proof-pf05-seven-ecosystem-canaries/replan-pf05-facts-boundary-first-principles.json",
             "5a47403e2 fix(presentation): withhold capability authoring the source outbinds; RDM-027 repaired upstream of section authoring",
-            "d8ab75d8e limitation-duplicate discrimination; 29705435a OneNote spelling; measured current blockers from 2026-08-26 runs"
+            "d8ab75d8e limitation-duplicate discrimination; 29705435a OneNote spelling; measured current blockers from 2026-08-26 runs",
+            "8c788baec format-direction gating; a981da006 action-led fallback; measured 3/32 candidates exceed the 120k bounded-review budget (HTML 264k, 3D 159k, Font 135k) and are exactly the three failing Python repos"
           ],
           "fingerprint": "e8bda77a1cb7da63635e86e02c3be92100a940f3fafb79274151884bc787f636",
-          "last_material_narrowing_at": "2026-08-26T06:30:07.575381+00:00",
+          "last_material_narrowing_at": "2026-08-26T06:47:29.548542+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-26T05:51:33.053865+00:00",
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
@@ -5147,14 +5148,14 @@
     ],
     "graph_sha256": "d5133ac4b044197d6c554ad824a15f17c5b88f265c035dc8a0f8660335cc69ca",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-26T06:30:33.301281+00:00",
+    "last_evaluated_at": "2026-08-26T06:47:29.548565+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 3,
       "denominator": 33,
-      "derived_at": "2026-08-26T06:22:08.562268+00:00",
+      "derived_at": "2026-08-26T06:40:35.445943+00:00",
       "deterministic_validated": 2,
-      "facts_ready": 10,
+      "facts_ready": 13,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -5178,11 +5179,13 @@
       "stale_acceptance_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
           "presentation_component_safety_changed",
-          "presentation_component_severe_acceptance_changed"
+          "presentation_component_severe_acceptance_changed",
+          "presentation_component_structural_changed"
         ],
         "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
           "presentation_component_safety_changed",
-          "presentation_component_severe_acceptance_changed"
+          "presentation_component_severe_acceptance_changed",
+          "presentation_component_structural_changed"
         ]
       },
       "stale_fact_contract_repositories": {
@@ -5198,22 +5201,10 @@
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ],
-        "aspose-font-foss/Aspose.Font-FOSS-for-Python": [
+        "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
           "manifest_facts_hash_mismatch",
           "product_truth_hash_mismatch"
-        ],
-        "aspose-html-foss/Aspose.HTML-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-pdf-foss/Aspose-PDF-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed",
@@ -18190,7 +18181,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1720,
+  "state_version": 1721,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
