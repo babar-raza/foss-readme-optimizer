@@ -15,9 +15,6 @@ from readme_agent.presentation.verified_preservation_sections import effective_c
 from readme_agent.presentation.verified_source_assurance_projection import (
     project_source_assurance_for_candidate,
 )
-from readme_agent.presentation.verified_source_capability_precedence import (
-    withhold_superseded_capability_authoring,
-)
 from readme_agent.presentation.verified_template_link_budget import documentation_link_limit
 from readme_agent.presentation.verified_template_provenance import build_source_claim_resolutions
 from readme_agent.presentation.verified_template_runtime import build_verified_template_compilation
@@ -64,13 +61,6 @@ def build_verified_template_document_candidate(
     docstring. Omitting either (the default) reproduces today's exact
     existing behavior."""
 
-    # One decision, applied before both the draft and the provenance
-    # contract see the document: withholding here keeps them consistent.
-    section_authoring_document = withhold_superseded_capability_authoring(
-        section_authoring_document,
-        source_text,
-        facts,
-    )
     if (link_catalogs is None) != (link_allocation_policy is None):
         raise ValueError("README link catalogs and allocation policy must be supplied together")
     contextual_links: ContextualLinkPlanV1 | None = None
