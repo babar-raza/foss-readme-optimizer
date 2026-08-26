@@ -5193,12 +5193,12 @@
     ],
     "graph_sha256": "48b79b129a57c2b06bbe857eb8cc96e2ccd9e91e0277a13b6d9f49f9db13bc16",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-26T13:40:54.976324+00:00",
+    "last_evaluated_at": "2026-08-26T13:48:49.751151+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 3,
       "denominator": 34,
-      "derived_at": "2026-08-26T13:34:32.512124+00:00",
+      "derived_at": "2026-08-26T13:47:57.369803+00:00",
       "deterministic_validated": 1,
       "facts_ready": 11,
       "first_failing_boundary": "FACTS_READY",
@@ -5206,19 +5206,19 @@
       "lifecycle_status_counts": {
         "AGENT_APPROVED": 1,
         "BLOCKED_MISSING_EVIDENCE": 6,
-        "CANDIDATE_GENERATED": 1,
         "DETERMINISTIC_VALIDATED": 1,
         "DETERMINISTIC_VALIDATION_FAILED": 2,
         "FACTS_READY": 20,
         "INTAKE_READY": 2,
-        "README_ASSESSED": 1
+        "README_ASSESSED": 1,
+        "SYSTEM_FAILURE": 1
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 0,
       "raw_agent_approved": 1,
-      "raw_candidate_generated": 5,
+      "raw_candidate_generated": 4,
       "raw_deterministic_validated": 2,
-      "raw_facts_ready": 26,
+      "raw_facts_ready": 25,
       "raw_human_accepted": 0,
       "raw_no_op_proven": 0,
       "registry_path": "data/products.json",
@@ -5231,11 +5231,6 @@
         ]
       },
       "stale_fact_contract_repositories": {
-        "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_facts_hash_mismatch",
-          "product_truth_hash_mismatch"
-        ],
         "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed"
         ],
@@ -18260,7 +18255,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1747,
+  "state_version": 1748,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
