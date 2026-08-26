@@ -79,6 +79,33 @@ against the same `format_direction_contradiction` signal the downstream
 presentation lint already computes, rather than relying on the composing LLM
 turn to remember to author a resolution for every such drop on its own.
 
+**Precise gap location (traced 2026-08-26, deeper than the original writeup
+above):** `presentation/verified_source_policy.py::build_verified_source_policy_edits()`
+is the ONLY deterministic generator of `VerifiedSourcePolicyEditV1` spans, which
+flow through `presentation/verified_source_policy_application.py::
+apply_verified_source_policy()` into `SourceClaimPolicyCorrectionV1` corrections,
+which `presentation/verified_source_policy_resolution.py::source_policy_resolution()`
+turns into the `SourceClaimResolutionV1` the accountability gate requires --
+but `source_policy_resolution()` returns `None` (no resolution) whenever no
+correction overlaps the claim's byte span (line 118-119: `if not owned: return
+None`). `build_verified_source_policy_edits()` currently only generates edits
+for four span kinds: shell-policy boilerplate (`source_shell_policy_spans()`),
+Aspose link occurrences, enterprise-edition terminology, and
+`public_text_corrections()`. **None of these detect an unsupported
+format/role claim** -- there is no fifth generator that scans the source text
+for format/role mentions the accepted `ProductFactsV2` doesn't authorize (the
+same detection `presentation_lint_structure.py`'s
+`format_direction_contradiction` check already performs, just reactively,
+after the candidate is built). The fix is additive: a new edit-generator
+function in `verified_source_policy.py`, added to the `edits` list inside
+`build_verified_source_policy_edits()` alongside the other four, reusing the
+existing format/role detection logic rather than reimplementing it. All three
+files in this chain (`verified_source_policy.py`,
+`verified_source_policy_application.py`, `verified_source_policy_resolution.py`)
+match `document_templates.py`'s `presentation/verified_*.py` glob, confirming
+the contract-boundedness finding below applies to the whole chain, not only
+the entry point.
+
 ## Why it was not fixed here
 
 Both files this touches
