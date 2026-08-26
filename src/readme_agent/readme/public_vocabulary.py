@@ -73,7 +73,7 @@ DEFAULT_TECHNICAL_ABBREVIATIONS: tuple[str, ...] = (
 # matching them upper case. Canonicalization is case-insensitive and renders
 # whichever spelling this vocabulary holds, so without an override a heading
 # reading "MS OneNote Document" is rewritten to "MS ONENOTE Document".
-_PUBLIC_FORMAT_SPELLINGS: dict[str, str] = {"ONENOTE": "OneNote"}
+_PUBLIC_FORMAT_SPELLINGS: dict[str, str] = {"ONENOTE": "OneNote", "TEX": "TeX"}
 # File-format tokens are governed by the repository vocabulary too. Keeping a
 # shorter public-text tuple allowed valid formats such as STL and PLY to leak
 # as title-cased Mermaid labels and change the endpoint shape.

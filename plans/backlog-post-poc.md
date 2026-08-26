@@ -449,3 +449,5 @@ fatal: could not read Username for 'https://github.com': terminal prompts disabl
   would remove the historical noise without inventing or re-deriving any status. Not attempted here
   to respect this operation's explicit "do not expand ... work" boundary.
 - 2026-08-26: poc runner failed for aspose-font-foss/Aspose.Font-FOSS-for-Python: ValueError: compiled verified presentation is invalid: Key capability titles must be action-led search phrases
+- 2026-08-26: poc runner failed for aspose-tex-foss/Aspose.TeX-FOSS-for-Python: ValueError: invalid contextual README links: prohibited Enterprise terminology: [Aspose.TEX Enterprise Edition](https://products.aspose.com/tex/)
+- 2026-08-26: poc runner failed for aspose-words-foss/Aspose.Words-FOSS-for-Python: ValueError: compiled verified presentation is invalid: API reference summary counts disagree with rendered tables
