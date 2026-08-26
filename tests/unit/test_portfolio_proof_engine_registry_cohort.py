@@ -1,6 +1,6 @@
-"""Registry-derived cohort resolution: 33->31+2, seven-canary resolution, filters, fleet-remaining.
+"""Registry-derived cohort resolution: 34->32+2, seven-canary resolution, filters, fleet-remaining.
 
-Proves the task's own acceptance bullets: "33 rows resolve to 31 processable plus two generic
+Proves the task's own acceptance bullets: "34 rows resolve to 32 processable plus two generic
 terminal skips" (via the real registry -- see the `_classify_tree_processability` fixtures in
 `test_registry_intake.py` for the processability half) and "seven-canary selection is
 registry-derived."
@@ -59,8 +59,8 @@ def test_resolve_seven_canaries_against_the_real_registry():
     assert len(cohort) == 7
 
 
-def test_real_registry_has_exactly_33_rows():
-    assert len(load_portfolio_entries()) == 33
+def test_real_registry_has_exactly_34_rows():
+    assert len(load_portfolio_entries()) == 34
 
 
 def test_filter_entries_by_only():

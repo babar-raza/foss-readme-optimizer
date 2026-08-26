@@ -250,8 +250,8 @@ def test_real_level8_graph_is_schema_valid_and_acyclic():
     assert 1 <= len(graph.taskcards) <= 15
     assert len(graph.deferred_task_index) == graph.deferred_task_catalog.record_count
     assert len(graph_hash) == 64
-    assert graph.portfolio_proof_contract.baseline_admitted == 33
-    assert graph.portfolio_proof_contract.baseline_processable == 31
+    assert graph.portfolio_proof_contract.baseline_admitted == 34
+    assert graph.portfolio_proof_contract.baseline_processable == 32
     assert graph.portfolio_proof_contract.baseline_non_processable == 2
     assert graph.portfolio_proof_contract.required_score == 30
     assert graph.portfolio_proof_contract.product_effects_allowed is False

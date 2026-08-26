@@ -659,11 +659,11 @@ def test_all_five_dashboard_states(tmp_path, monkeypatch):
 # ---------------------------------------------------------------------------
 
 
-def test_real_registry_resolves_to_33_rows_31_processable_2_skipped(tmp_path, monkeypatch):
+def test_real_registry_resolves_to_34_rows_32_processable_2_skipped(tmp_path, monkeypatch):
     _runs_dir(tmp_path, monkeypatch)
     output_root = tmp_path / "proof"
     entries = registry_cohort.load_portfolio_entries()
-    assert len(entries) == 33
+    assert len(entries) == 34
     skip_candidates = [entry for entry in entries if entry.family == "psd"]
     assert len(skip_candidates) == 2
     for entry in skip_candidates:
@@ -676,11 +676,11 @@ def test_real_registry_resolves_to_33_rows_31_processable_2_skipped(tmp_path, mo
     monkeypatch.setattr(registry_cohort, "load_products", lambda *a, **k: tuple(entries))
     result = build_dashboard(output_root=output_root)
 
-    assert len(result.rows) == 33
+    assert len(result.rows) == 34
     assert {row.org_repo for row in result.rows} == {entry.org_repo for entry in entries}
-    assert result.summary.total == 33
+    assert result.summary.total == 34
     assert result.summary.terminal_skipped == 2
-    assert result.summary.processable == 31
+    assert result.summary.processable == 32
 
 
 # ---------------------------------------------------------------------------
