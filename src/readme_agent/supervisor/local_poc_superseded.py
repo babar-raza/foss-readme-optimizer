@@ -17,6 +17,7 @@ from readme_agent.evidence.writer import (
     win_long_path,
     write_redacted_json,
 )
+from readme_agent.gitsafety.clone import force_rmtree
 from readme_agent.supervisor.local_poc_review_cache_preservation import (
     PACKET_CACHE_DIRECTORY,
     preserve_bounded_review_cache,
@@ -312,7 +313,18 @@ def archive_and_prune_downstream_artifacts(
         for name in _DOWNSTREAM_DIRECTORIES:
             path = bundle_dir / name
             if path.is_dir():
-                shutil.rmtree(path)
+                # `review/bounded-packet-cache` was very likely just read in
+                # full twice in a row -- once by `preserve_superseded_candidate`
+                # above (zip-archiving it), once by `preserve_bounded_review_cache`'s
+                # own entry snapshot just above this loop -- a back-to-back
+                # read pattern SCL-010 (gitsafety/clone.py) already found
+                # reproducibly triggers a transient Windows `WinError 145`
+                # ("directory not empty") on an otherwise-already-cleared
+                # child, from an AV/indexer handle invisible to directory
+                # enumeration. Plain `shutil.rmtree` has no recovery for that;
+                # reuse the same proven sweep-and-retry remedy rather than a
+                # second copy of it.
+                force_rmtree(path)
 
     receipts_dir = bundle_dir / "receipts"
     if receipts_dir.is_dir():

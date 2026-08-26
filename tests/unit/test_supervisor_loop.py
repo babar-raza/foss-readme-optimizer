@@ -1025,6 +1025,23 @@ def project(tmp_path, monkeypatch):
         "build_live_merged_review_client",
         _fake_accepting_merged_client,
     )
+    # `run_merged_readme_review` unconditionally builds BOTH the merged
+    # client above AND these role fallback clients on every call (see its
+    # own default-argument branch) so they are ready if routing selects the
+    # bounded path instead of merged -- which it now does whenever the
+    # candidate carries a document plan (`fix(review): route by rubric
+    # evidence, not candidate size`, 6591c6cc2), not only for oversized
+    # candidates. Leaving only the merged client faked meant this fixture's
+    # own fallback clients silently fell through to the real
+    # env.llm_base_url()/llm_api_key() network path the instant a candidate
+    # here qualified for bounded review, surfacing as an opaque
+    # BLOCKED_MISSING_EVIDENCE/SYSTEM_FAILURE deep in the bounded reviewer
+    # rather than a clear "no network" failure at the seam.
+    monkeypatch.setattr(
+        separated_readme_review,
+        "build_live_role_review_clients",
+        _fake_accepting_role_clients,
+    )
     # The bundle verifier deliberately performs a fresh public-registry check
     # in production. This file's contract is an entirely offline synthetic
     # repository, so keep that network seam explicit instead of inheriting

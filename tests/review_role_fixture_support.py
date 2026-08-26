@@ -24,10 +24,17 @@ def _blind_candidate_anchor(user_content: str) -> tuple[str, str | None]:
         if not isinstance(catalog, list) or not catalog:
             raise AssertionError("fixture blind reviewer received an empty candidate catalog")
         first = catalog[0]
-        if not isinstance(first, dict):
+        # `compact_candidate_anchor_catalog()` (specialists/factual_review_projection.py),
+        # the only producer of this prompt field for both merged and bounded/role
+        # review, has always returned `[anchor_id, text]` pairs, not
+        # `{"anchor_id": ..., "text": ...}` dicts -- this file's own
+        # `_merged_accept_payload` already parses it that way. Never reached
+        # through role review until bounded routing widened beyond an oversize
+        # escape hatch (`fix(review): route by rubric evidence, not candidate
+        # size`, 6591c6cc2).
+        if not isinstance(first, list) or len(first) != 2:
             raise AssertionError("fixture blind reviewer received a malformed candidate catalog")
-        span = str(first.get("text", ""))
-        anchor_id = str(first.get("anchor_id", ""))
+        anchor_id, span = str(first[0]), str(first[1])
         if not span.strip() or not anchor_id:
             raise AssertionError("fixture blind reviewer received an incomplete candidate anchor")
         return span, anchor_id
