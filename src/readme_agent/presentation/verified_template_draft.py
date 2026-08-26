@@ -15,6 +15,9 @@ from readme_agent.presentation.template_schema import (
     RepositoryPresentationTemplateV1,
     load_repository_presentation_template,
 )
+from readme_agent.presentation.verified_source_capability_precedence import (
+    authored_cluster_loses_source_facts,
+)
 from readme_agent.presentation.verified_template_api_method_index import (
     api_method_index_markdown,
 )
@@ -500,7 +503,11 @@ def build_verified_template_draft(
         facts,
         "key_capabilities",
     )
-    if authored_capabilities is not None:
+    if authored_capabilities is not None and not authored_cluster_loses_source_facts(
+        source_text,
+        facts,
+        authored_capabilities.fact_fields,
+    ):
         capability_text = authored_capabilities.markdown
     at_a_glance = visual.mermaid_markdown
     installation = installation_text(facts, facts.org_repo, source_revision)
