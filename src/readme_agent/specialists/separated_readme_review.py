@@ -189,8 +189,19 @@ def run_separated_readme_review(
     bounded_execution = None
     document_plan = None
     facts_model = None
-    canonical_bounded_contract = (
-        "readme_document_plan" in presentation_plan or "claim_accountability" in presentation_plan
+    # A truthy-value check, not `"readme_document_plan" in presentation_plan`: some
+    # render-result states carry that key with a `None`/empty value (e.g. an
+    # earlier composition stage, or a retry that has not repopulated it yet), and
+    # `in` sees the key regardless of its value. That was harmless while this
+    # flag only supplemented a size gate -- a plan-less oversized candidate still
+    # fell through the `except ValidationError` below to a `RuntimeError`, so the
+    # dead branch never shipped a wrong verdict, only a confusing one. Now that
+    # the size gate is gone and this flag alone decides the route, the same gap
+    # turns a normal-sized, plan-less candidate that would previously and
+    # correctly go to merged review into a hard failure instead.
+    canonical_bounded_contract = bool(
+        presentation_plan.get("readme_document_plan")
+        or presentation_plan.get("claim_accountability")
     )
     # The bounded path is not only an oversize escape hatch: it is the only
     # reviewer that emits one `supports_acceptance` finding per canonical
