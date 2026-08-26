@@ -426,8 +426,8 @@ def _read_long_path(path):
 
     import os
 
-    from readme_agent.evidence.writer import _win_long_path
+    from readme_agent.evidence.writer import win_long_path
 
-    handle = _win_long_path(path) if os.name == "nt" else str(path)
+    handle = win_long_path(path) if os.name == "nt" else str(path)
     with open(handle, encoding="utf-8") as stream:
         return stream.read()

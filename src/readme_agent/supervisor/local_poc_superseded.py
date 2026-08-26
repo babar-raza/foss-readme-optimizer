@@ -14,6 +14,7 @@ from readme_agent.evidence.writer import (
     refresh_sha256sums,
     sha256_file,
     verify_sha256sums,
+    win_long_path,
     write_redacted_json,
 )
 from readme_agent.supervisor.local_poc_review_cache_preservation import (
@@ -59,11 +60,32 @@ def _write_deterministic_packet_cache_archive(source: Path, destination: Path) -
             archive.writestr(entry, source_path.read_bytes(), compresslevel=9)
 
 
+def _long_path(path: Path) -> str | Path:
+    """`path`, prefixed for Win32 MAX_PATH safety when running on Windows.
+
+    A superseded-evidence destination is `<bundle>/superseded/<16-hex>/...` --
+    always longer than its `source` sibling, which lacks that extra path
+    segment -- nested under whatever the bundle's own already-long
+    `<repo>/<40-char revision>/` path is, so it is the side that crosses 260
+    characters. `shutil.copytree`/`shutil.rmtree` open every entry through the
+    raw Win32 API and have no long-path handling of their own, unlike
+    `os.replace` elsewhere in this codebase (see `evidence/writer.py::
+    win_long_path`, which this reuses).
+
+    Only ever applied to a destination, never a source: `_copy_evidence_directory`'s
+    `ignore` callback below compares `Path(current) == source` against the
+    unprefixed `source` it closed over, so prefixing `source` for `copytree`
+    would silently break that comparison on every call.
+    """
+
+    return win_long_path(path) if os.name == "nt" else path
+
+
 def _copy_evidence_directory(source: Path, destination: Path, *, name: str) -> None:
     """Resume one evidence copy while compacting the long packet-cache subtree."""
 
     if name != "review":
-        shutil.copytree(source, destination, dirs_exist_ok=True)
+        shutil.copytree(source, _long_path(destination), dirs_exist_ok=True)
         return
 
     packet_cache = source / PACKET_CACHE_DIRECTORY
@@ -75,7 +97,7 @@ def _copy_evidence_directory(source: Path, destination: Path, *, name: str) -> N
             else set()
         )
 
-    shutil.copytree(source, destination, dirs_exist_ok=True, ignore=ignore)
+    shutil.copytree(source, _long_path(destination), dirs_exist_ok=True, ignore=ignore)
     if not packet_cache.is_dir():
         return
     _write_deterministic_packet_cache_archive(
@@ -84,7 +106,7 @@ def _copy_evidence_directory(source: Path, destination: Path, *, name: str) -> N
     )
     partial_cache_copy = destination / PACKET_CACHE_DIRECTORY
     if partial_cache_copy.is_dir():
-        shutil.rmtree(partial_cache_copy)
+        shutil.rmtree(_long_path(partial_cache_copy))
 
 
 def has_active_downstream_artifacts(bundle_dir: Path, manifest: dict) -> bool:

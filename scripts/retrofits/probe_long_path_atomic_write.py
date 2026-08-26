@@ -12,7 +12,7 @@ import os
 import shutil
 from pathlib import Path
 
-from readme_agent.evidence.writer import _win_long_path, write_redacted_json
+from readme_agent.evidence.writer import win_long_path, write_redacted_json
 
 ROOT = Path("runs/readme-poc/_longpath_probe")
 
@@ -23,9 +23,9 @@ def main() -> int:
     absolute = os.path.abspath(target)
     print(f"destination length: {len(absolute)}")
     write_redacted_json(target, {"ok": True})
-    probe = _win_long_path(absolute) if os.name == "nt" else absolute
+    probe = win_long_path(absolute) if os.name == "nt" else absolute
     print(f"written: {os.path.isfile(probe)}")
-    shutil.rmtree(_win_long_path(ROOT) if os.name == "nt" else str(ROOT), ignore_errors=True)
+    shutil.rmtree(win_long_path(ROOT) if os.name == "nt" else str(ROOT), ignore_errors=True)
     return 0
 
 

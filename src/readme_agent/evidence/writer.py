@@ -84,20 +84,25 @@ def _release_atomic_write_lock(key: str, lock: threading.Lock) -> None:
             _ATOMIC_WRITE_LOCKS[key] = (lock, users - 1)
 
 
-def _win_long_path(path: Path | str) -> str:
+def win_long_path(path: Path | str) -> str:
     r"""Return a Windows path the API can open regardless of MAX_PATH.
 
     Win32 rejects a path at or beyond 260 characters with "The system cannot
-    find the path specified", which surfaces here as a `FileNotFoundError` from
-    `os.replace` naming a temp file that plainly exists. Bounded review hit this
-    for real: a packet-cache entry is
+    find the path specified", which surfaces as a `FileNotFoundError` from
+    `os.replace` naming a temp file that plainly exists, or as a `shutil.Error`
+    from `shutil.copytree` for the same reason. Bounded review hit the first
+    shape for real: a packet-cache entry is
     `<repo>/<40-char revision>/review/bounded-packet-cache/<64-hex>.json`, which
     lands on 260 for `aspose-note-foss__Aspose.Note-FOSS-for-Python` and 259 for
-    `aspose-3d-foss__Aspose.3D-FOSS-for-Python` -- so the failure tracked repository
-    *name length* rather than anything about the repository.
+    `aspose-3d-foss__Aspose.3D-FOSS-for-Python` -- so the failure tracked
+    repository *name length* rather than anything about the repository. The
+    superseded-evidence archive path hits the second shape the same way (see
+    `local_poc_superseded.py`'s callers).
 
     The `\\?\` prefix lifts the limit without changing any cache key, hash, or
     on-disk layout. It requires a fully-qualified, normalized path, hence abspath.
+    Public: shared by any caller passing a path straight to a Windows file API
+    (`os.replace`, `shutil.copytree`, `shutil.rmtree`, ...), not only this module.
     """
 
     resolved = os.path.abspath(path)
@@ -111,7 +116,7 @@ def _win_long_path(path: Path | str) -> str:
 def _write_target(path: Path | str) -> str:
     """Long-path-safe string form of `path` on Windows; unchanged elsewhere."""
 
-    return _win_long_path(path) if os.name == "nt" else str(path)
+    return win_long_path(path) if os.name == "nt" else str(path)
 
 
 def _atomic_write_text(path: Path, text: str) -> None:
