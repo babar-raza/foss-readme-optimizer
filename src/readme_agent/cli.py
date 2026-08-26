@@ -516,6 +516,24 @@ def _build_parser() -> argparse.ArgumentParser:
             "and never excludes local candidate generation"
         ),
     )
+    poc_target.add_argument(
+        "--all",
+        action="store_true",
+        dest="all_active",
+        help=(
+            "Every active entry in data/products.json, optionally narrowed by --ecosystem; "
+            "same per-repository skip-and-continue behaviour as --all-python"
+        ),
+    )
+    p_poc.add_argument(
+        "--ecosystem",
+        action="append",
+        default=None,
+        help=(
+            "With --all, restrict to these ecosystems (repeatable), e.g. "
+            "--ecosystem cpp --ecosystem go"
+        ),
+    )
 
     p_portfolio_proof = sub.add_parser(
         "portfolio-proof",

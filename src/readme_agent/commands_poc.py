@@ -672,6 +672,21 @@ def cmd_poc(args: argparse.Namespace) -> int:
             for entry in load_products()
             if (entry.ecosystem or entry.platform) == "python" and entry.active
         ]
+    elif getattr(args, "all_active", False):
+        # Same selector as --all-python, widened to the whole allow-list. The
+        # portfolio target is every processable repository, not one ecosystem,
+        # and the loop below already isolates per-repository failures.
+        wanted = getattr(args, "ecosystem", None)
+        requested = {value.strip().casefold() for value in wanted} if wanted else None
+        targets = [
+            entry.org_repo
+            for entry in load_products()
+            if entry.active
+            and (requested is None or (entry.ecosystem or entry.platform) in requested)
+        ]
+        if not targets:
+            _log(f"no active registry entries match ecosystems {sorted(requested or [])}")
+            return 1
     else:
         targets = [args.repo]
     failures = 0
