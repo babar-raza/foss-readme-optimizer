@@ -391,3 +391,43 @@ class TestFactsStageEvidence:
                 [],
                 upstream_revision="a" * 40,
             )
+
+
+def test_atomic_write_survives_a_destination_beyond_windows_max_path(tmp_path):
+    """Win32 rejects paths at or past 260 characters with "The system cannot find
+    the path specified", which surfaces as a FileNotFoundError from `os.replace`
+    naming a temp file that plainly exists.
+
+    Bounded review hit this for real: a packet-cache entry is
+    `<repo>/<40-char revision>/review/bounded-packet-cache/<64-hex>.json`, so the
+    failure tracked repository *name length* -- 260 for
+    `aspose-note-foss__Aspose.Note-FOSS-for-Python`, 259 for
+    `aspose-3d-foss__Aspose.3D-FOSS-for-Python`, which is why Note blocked and 3D
+    did not.
+    """
+
+    target = (
+        tmp_path
+        / "aspose-note-foss__Aspose.Note-FOSS-for-Python"
+        / ("4" * 40)
+        / "review"
+        / "bounded-packet-cache"
+        / (("a" * 64) + ".json")
+    )
+    assert len(str(target.resolve())) > 260, "fixture must exceed MAX_PATH to be meaningful"
+
+    write_redacted_json(target, {"ok": True})
+
+    assert json.loads(_read_long_path(target)) == {"ok": True}
+
+
+def _read_long_path(path):
+    """Read a path that may itself exceed MAX_PATH."""
+
+    import os
+
+    from readme_agent.evidence.writer import _win_long_path
+
+    handle = _win_long_path(path) if os.name == "nt" else str(path)
+    with open(handle, encoding="utf-8") as stream:
+        return stream.read()

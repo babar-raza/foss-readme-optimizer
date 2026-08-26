@@ -58,7 +58,7 @@ _ACTION_VERBS = re.compile(
     r"compare|compress|concatenate|configure|construct|convert|copy|count|create|crop|decode|"
     r"decrypt|define|deform|delete|detect|edit|embed|encode|encrypt|export|extract|extrude|filter|"
     r"flatten|format|generate|group|highlight|host|import|index|insert|inspect|load|manage|measure|"
-    r"merge|model|modify|navigate|normali[sz]e|open|optimi[sz]e|parse|perform|position|print|"
+    r"manipulate|merge|model|modify|navigate|normali[sz]e|open|optimi[sz]e|parse|perform|position|print|"
     r"process|project|protect|read|redact|remove|render|reorder|replace|resize|rotate|run|save|"
     r"scale|search|select|seriali[sz]e|sign|sort|split|stream|style|subdivide|summari[sz]e|"
     r"tessellate|transform|translate|traverse|triangulate|update|validate|verify|watermark|work|"
