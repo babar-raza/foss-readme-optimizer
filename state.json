@@ -4572,7 +4572,7 @@
     "claimed_by": "claude-opus5",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
-    "goal_activation_graph_sha256": "d5133ac4b044197d6c554ad824a15f17c5b88f265c035dc8a0f8660335cc69ca",
+    "goal_activation_graph_sha256": "48ad53cdb366065978c8d7aacebde9bdbb3c12094e6ab2034b46aaade719a312",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -5160,43 +5160,39 @@
         "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
       }
     ],
-    "graph_sha256": "d5133ac4b044197d6c554ad824a15f17c5b88f265c035dc8a0f8660335cc69ca",
+    "graph_sha256": "48ad53cdb366065978c8d7aacebde9bdbb3c12094e6ab2034b46aaade719a312",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-26T07:26:30.701032+00:00",
+    "last_evaluated_at": "2026-08-26T07:52:31.086647+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 3,
-      "denominator": 33,
-      "derived_at": "2026-08-26T07:25:42.816966+00:00",
-      "deterministic_validated": 2,
+      "denominator": 34,
+      "derived_at": "2026-08-26T07:50:39.548348+00:00",
+      "deterministic_validated": 1,
       "facts_ready": 18,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
         "BLOCKED_MISSING_EVIDENCE": 6,
+        "CANDIDATE_GENERATED": 1,
         "DETERMINISTIC_VALIDATION_FAILED": 1,
         "FACTS_READY": 23,
-        "INTAKE_READY": 1,
-        "NO_OP_PROVEN": 2
+        "INTAKE_READY": 2,
+        "NO_OP_PROVEN": 1
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 0,
-      "raw_agent_approved": 2,
+      "raw_agent_approved": 1,
       "raw_candidate_generated": 3,
-      "raw_deterministic_validated": 2,
+      "raw_deterministic_validated": 1,
       "raw_facts_ready": 26,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 2,
+      "raw_no_op_proven": 1,
       "registry_path": "data/products.json",
-      "registry_sha256": "2e71e7f2c9ccbe7662ed37a5545a5f1af07363de0d6da8579e109fe4db20c1e7",
+      "registry_sha256": "c810071ea3b65f97f66153388ed114e4bad55e95d3b6cb27b0c90c3a3bc3c88b",
       "schema_version": 1,
       "stale_acceptance_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
-          "presentation_component_safety_changed",
-          "presentation_component_severe_acceptance_changed",
-          "presentation_component_structural_changed"
-        ],
-        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
           "presentation_component_safety_changed",
           "presentation_component_severe_acceptance_changed",
           "presentation_component_structural_changed"
@@ -18185,7 +18181,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1729,
+  "state_version": 1730,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
