@@ -168,3 +168,23 @@ Two hard constraints on the implementation:
   `survives_in_candidate = True`. Ceasing to place a block flips it to not-surviving, so
   it needs a disposition in the same change or it reappears as `unjustified_loss` -- the
   same failure class that blocked this canary before the development-commands repair.
+
+## Scope narrowed by the .NET receipt (2026-08-26)
+
+`aspose-3d-foss/Aspose.3D-FOSS-for-.NET` reached `CONVERGED_PROPOSAL_READY` /
+`AGENT_APPROVED` on its first attempt under the same code, with no
+`semantic_duplicate`, no `malformed_low_information_prose`, and no
+`preserve disposition lost a source claim` error.
+
+So the duplicate-capability defect is **not** portfolio-wide. It depends on the
+source README shape -- specifically a source `## Key Capabilities` section whose
+bold bullet titles the authored cluster also produces. .NET's source does not
+present that collision; C++'s does.
+
+This is the concrete cost of having skipped PF05's declared order
+(`FIRST_BOUNDARY_ALL_7` before `REPAIR_SHARED_ONCE`): the reverted attempt at
+`verified_source_preservation.py` was a change to shared composition machinery
+aimed at what is currently evidenced as a single-repository symptom. Any repair
+must be re-justified against the full receipt set once the remaining ecosystems
+(java, typescript, rust, go) have reported, and must not weaken the
+`preserve`-disposition guard that correctly rejected the first attempt.
