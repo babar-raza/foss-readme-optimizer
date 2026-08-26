@@ -2874,12 +2874,21 @@
         {
           "evidence_refs": [
             "Found and fixed adjacent-duplicate-word bug in role_sentence() (verified_template_api_text.py): affects 3484 of 6567 distinct API type descriptions scanned across the real portfolio, dominant cause 'Core API API' from module domains already ending in API, plus Font/HTML self-referential suffix cases. Also widened self-contained-example exclusion list (illustration/demo/etc) fixing Cells-Python's dependency-claim false positive. Both tested, stopping fleet to batch and relaunch.",
-            "4fc5e4c01: fixed Mermaid output-node width-uniformity, verified with the real official renderer (before: MermaidRenderError on output_peer_widths_uniform; after: valid=True) across 5 repos including the originally-broken Cells-Python. Not contract-bound, landed live without stopping the fleet."
+            "4fc5e4c01: fixed Mermaid output-node width-uniformity, verified with the real official renderer (before: MermaidRenderError on output_peer_widths_uniform; after: valid=True) across 5 repos including the originally-broken Cells-Python. Not contract-bound, landed live without stopping the fleet.",
+            "claim lease expired"
           ],
           "fingerprint": "d1f834d08611285516264b0572a7d543b1bb63c0deddf5a6197a2fefb8c57865",
           "last_material_narrowing_at": "2026-08-26T12:50:56.605619+00:00",
-          "outcome": "in_progress",
+          "outcome": "effective",
           "started_at": "2026-08-26T11:49:42.361890+00:00",
+          "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "d1f834d08611285516264b0572a7d543b1bb63c0deddf5a6197a2fefb8c57865",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-26T12:58:23.710197+00:00",
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         }
       ],
@@ -4586,9 +4595,9 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-26T12:48:11.458415+00:00",
-    "claim_id": "58e9208d82e04c4eb3afa44f8a379640",
-    "claimed_at": "2026-08-26T12:18:11.458415+00:00",
+    "claim_expires_at": "2026-08-26T13:28:23.710197+00:00",
+    "claim_id": "016608e8681b4ee4a2201a580fbf03fd",
+    "claimed_at": "2026-08-26T12:58:23.710197+00:00",
     "claimed_by": "claude-opus5",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
@@ -5182,14 +5191,14 @@
     ],
     "graph_sha256": "48b79b129a57c2b06bbe857eb8cc96e2ccd9e91e0277a13b6d9f49f9db13bc16",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-26T12:57:29.596722+00:00",
+    "last_evaluated_at": "2026-08-26T12:58:23.710197+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 2,
       "denominator": 34,
-      "derived_at": "2026-08-26T12:51:04.809946+00:00",
+      "derived_at": "2026-08-26T12:57:55.646158+00:00",
       "deterministic_validated": 1,
-      "facts_ready": 5,
+      "facts_ready": 6,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -5240,9 +5249,6 @@
           "fact_acceptance_recollection_component_changed"
         ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust": [
-          "fact_acceptance_recollection_component_changed"
-        ],
-        "aspose-html-foss/Aspose.HTML-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed"
         ],
         "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
@@ -18243,6 +18249,24 @@
         "reason": "deterministic highest-priority dependency-ready selection",
         "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
         "to_status": "IN_PROGRESS"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-26T12:58:23.710239+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "claude-opus5",
+        "occurred_at": "2026-08-26T12:58:23.711102+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -18252,7 +18276,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1744,
+  "state_version": 1745,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
