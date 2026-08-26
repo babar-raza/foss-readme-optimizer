@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
-    "active_task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
+    "active_task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
     "approach_control": {
       "attempts": [
         {
@@ -2783,13 +2783,22 @@
             "tests/unit/test_capability_action_verbs.py",
             "plans/investigations/evidence/portfolio-proof-pf05-seven-ecosystem-canaries/first-boundary-receipts-2026-08-26.md",
             "src/readme_agent/readme/diagram_role_semantics.py",
-            "tests/unit/test_safe_mermaid_label.py"
+            "tests/unit/test_safe_mermaid_label.py",
+            "claim lease expired"
           ],
           "fingerprint": "0756b892b4afa86a574289fc093741d765af2a5d47c7ceed14df4c4c2a589e02",
           "last_material_narrowing_at": "2026-08-26T02:14:28.553529+00:00",
-          "outcome": "in_progress",
+          "outcome": "effective",
           "started_at": "2026-08-26T01:44:35.895218+00:00",
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
+        },
+        {
+          "evidence_refs": [],
+          "fingerprint": "d1f834d08611285516264b0572a7d543b1bb63c0deddf5a6197a2fefb8c57865",
+          "last_material_narrowing_at": null,
+          "outcome": "in_progress",
+          "started_at": "2026-08-26T03:59:14.604650+00:00",
+          "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         }
       ],
       "proposed_fingerprints": {
@@ -4468,9 +4477,9 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-26T02:38:39.856977+00:00",
-    "claim_id": "d8fe31f185254ae59d7965a631032c75",
-    "claimed_at": "2026-08-26T02:08:39.856977+00:00",
+    "claim_expires_at": "2026-08-26T04:29:14.604650+00:00",
+    "claim_id": "b2de5fe366cd4d15b4c650b0e5ed6ac5",
+    "claimed_at": "2026-08-26T03:59:14.604650+00:00",
     "claimed_by": "claude-sonnet5-pf05-cxx-link",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
@@ -5028,7 +5037,7 @@
     ],
     "graph_sha256": "d5133ac4b044197d6c554ad824a15f17c5b88f265c035dc8a0f8660335cc69ca",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-26T02:14:28.553559+00:00",
+    "last_evaluated_at": "2026-08-26T03:59:14.604650+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 2,
@@ -5058,11 +5067,13 @@
       "stale_acceptance_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
           "presentation_component_cosmetic_changed",
-          "presentation_component_severe_acceptance_changed"
+          "presentation_component_severe_acceptance_changed",
+          "presentation_component_structural_changed"
         ],
         "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
           "presentation_component_cosmetic_changed",
-          "presentation_component_severe_acceptance_changed"
+          "presentation_component_severe_acceptance_changed",
+          "presentation_component_structural_changed"
         ]
       },
       "stale_fact_contract_repositories": {
@@ -5152,29 +5163,22 @@
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "next_task": {
-      "campaign_id": "CAMP-GATE-A-PORTFOLIO",
+      "campaign_id": "CAMP-FIRST-PYTHON-SLICE",
       "core_contribution": {
         "kind": "first_boundary_removal",
-        "summary": "Prove the complete transaction is portable before fleet execution."
+        "summary": "Produce the first complete current candidate through the real production seam."
       },
       "goal_ids": [
         "GOAL-README",
-        "GOAL-AUTONOMY",
         "GOAL-DELIVERY"
       ],
-      "immediate_goal_id": "DELIVERY-SEVEN-ECOSYSTEM-CANARIES",
-      "immediate_outcome": "Accept and no-op-prove one current repository per supported ecosystem.",
+      "immediate_goal_id": "DELIVERY-FIRST-COMPLETE-CANDIDATE",
+      "immediate_outcome": "Produce one complete current Aspose.3D Python candidate through supervise.",
       "repository_scope": [
-        "platform:python",
-        "platform:net",
-        "platform:java",
-        "platform:cpp",
-        "platform:typescript",
-        "platform:rust",
-        "platform:go"
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
       ],
-      "stage_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
-      "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
+      "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
+      "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
     },
     "parallelism_control": {
       "calibration_active": false,
@@ -5235,10 +5239,10 @@
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
       "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
-      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "REGRESSED",
+      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "IN_PROGRESS",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "CLOSED",
-      "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "IN_PROGRESS",
+      "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "REGRESSED",
       "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP": "TODO",
       "L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS": "TODO",
       "L8-PLAN-RECONCILIATION-ACCELERATION": "CLOSED",
@@ -17886,6 +17890,24 @@
         "reason": "repository deliverable became stale for aspose-3d-foss/Aspose.3D-FOSS-for-Python: ",
         "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
         "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-26T03:59:14.604681+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
+        "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "REGRESSED",
+        "observed_by": "claude-sonnet5-pf05-cxx-link",
+        "occurred_at": "2026-08-26T03:59:14.605541+00:00",
+        "reason": "deterministic highest-priority dependency-ready selection",
+        "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+        "to_status": "IN_PROGRESS"
       }
     ]
   },
@@ -17895,7 +17917,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1694,
+  "state_version": 1695,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
