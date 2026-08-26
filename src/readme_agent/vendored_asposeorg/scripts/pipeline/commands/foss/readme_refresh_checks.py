@@ -8623,7 +8623,16 @@ _UNQUALIFIED_DEPENDENCY_CLAIM_PATTERNS = [
     # them). The real, load-bearing phrase is "no external runtime"/"no external installation"/
     # "no external software" as its own standalone claim, regardless of what verb precedes it.
     r"\bno external (?:runtime|installation|software)\b",
-    r"\bself[- ]contained\b(?!\s+(?:example|snippet|sample|version))",
+    # Real bug found running this against the real, captured cells/python text: the
+    # composer described the quick-start code as a "self-contained illustration",
+    # not "example" -- the only excluded noun the original list anticipated -- so
+    # a sentence describing the example code (self-contained, i.e. runnable
+    # without external setup), not the product's dependencies, was flagged as an
+    # absolute dependency-absence claim. Widened to the synonyms actually seen in
+    # composer output plus the ones a reasonable rephrasing could plausibly reach
+    # for; still requires one of these specific nouns, never a bare "self-contained".
+    r"\bself[- ]contained\b(?!\s+(?:example|snippet|sample|version|illustration|demo"
+    r"|demonstration|walkthrough|showcase|script))",
     r"\bno third[- ]party (?:code|software)\b(?!\s+(?:crate|package|library|dependenc))",
 ]
 _UNQUALIFIED_DEPENDENCY_CLAIM_RE = re.compile(

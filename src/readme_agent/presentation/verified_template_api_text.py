@@ -108,6 +108,27 @@ def series(items: list[str]) -> str:
     return ", ".join(items[:-1]) + f", and {items[-1]}"
 
 
+_ADJACENT_DUPLICATE_WORD = re.compile(r"\b(\w+)(\s+)(?=\1\b)", re.IGNORECASE)
+
+
+def _collapse_adjacent_duplicate_words(text: str) -> str:
+    """Drop an immediately-repeated word, case-insensitively.
+
+    A type whose bare name equals its own role suffix (`class Font` in
+    aspose-font-foss) drives `subject` to fall back to `public_noun(family)`,
+    which is the same word the suffix template already appends -- "Represents a
+    font font through the Aspose.Font API.". Separately, a DOM interface whose
+    name embeds its own family prefix twice (`HTMLHtmlElement`, the real,
+    correct W3C name for the `<html>` tag) splits into "HTML" + "Html" +
+    "Element" and both `Html` tokens canonicalize to "HTML", producing
+    "Represents an HTML HTML Element ...". Both are genuine
+    `malformed_duplicate_language` findings, not check false positives, and both
+    collapse the same way: drop a word immediately followed by the same word.
+    """
+
+    return _ADJACENT_DUPLICATE_WORD.sub("", text)
+
+
 def role_sentence(name: str, module: str, family: str) -> str:
     """Describe the stable role implied by a public type name."""
 
@@ -118,24 +139,27 @@ def role_sentence(name: str, module: str, family: str) -> str:
             continue
         subject = public_noun(name.removesuffix(suffix)).strip() or public_noun(family)
         subject = re.sub(r"\b(?:Validate|Validation)\b", "validation", subject)
-        return (
+        sentence = (
             template.format(subject=subject, article=grammatical_article(subject))
             + f" through the {public_family} API."
         )
+        return _collapse_adjacent_duplicate_words(sentence)
     if module.casefold() in {
         "aspose",
         f"aspose.{family}".casefold(),
         f"aspose_{family}".casefold(),
     }:
-        return (
+        sentence = (
             f"Represents {grammatical_article(public_name)} {public_name} "
             f"in the public {public_family} API."
         )
+        return _collapse_adjacent_duplicate_words(sentence)
     domain = canonicalize_abbreviations(module.rsplit(".", 1)[-1].replace("_", " "))
-    return (
+    sentence = (
         f"Represents {grammatical_article(public_name)} {public_name} in the public {domain} API "
         f"for {public_family}."
     )
+    return _collapse_adjacent_duplicate_words(sentence)
 
 
 def namespace_display_name(module: str, family: str) -> str:
