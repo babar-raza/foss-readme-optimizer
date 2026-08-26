@@ -2873,10 +2873,11 @@
         },
         {
           "evidence_refs": [
-            "Found and fixed adjacent-duplicate-word bug in role_sentence() (verified_template_api_text.py): affects 3484 of 6567 distinct API type descriptions scanned across the real portfolio, dominant cause 'Core API API' from module domains already ending in API, plus Font/HTML self-referential suffix cases. Also widened self-contained-example exclusion list (illustration/demo/etc) fixing Cells-Python's dependency-claim false positive. Both tested, stopping fleet to batch and relaunch."
+            "Found and fixed adjacent-duplicate-word bug in role_sentence() (verified_template_api_text.py): affects 3484 of 6567 distinct API type descriptions scanned across the real portfolio, dominant cause 'Core API API' from module domains already ending in API, plus Font/HTML self-referential suffix cases. Also widened self-contained-example exclusion list (illustration/demo/etc) fixing Cells-Python's dependency-claim false positive. Both tested, stopping fleet to batch and relaunch.",
+            "4fc5e4c01: fixed Mermaid output-node width-uniformity, verified with the real official renderer (before: MermaidRenderError on output_peer_widths_uniform; after: valid=True) across 5 repos including the originally-broken Cells-Python. Not contract-bound, landed live without stopping the fleet."
           ],
           "fingerprint": "d1f834d08611285516264b0572a7d543b1bb63c0deddf5a6197a2fefb8c57865",
-          "last_material_narrowing_at": "2026-08-26T12:16:22.866156+00:00",
+          "last_material_narrowing_at": "2026-08-26T12:50:56.605619+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-26T11:49:42.361890+00:00",
           "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
@@ -5181,14 +5182,14 @@
     ],
     "graph_sha256": "7e9ad35441555d4af28829a806eaf5801726185d632534125afdb3a5d8cad023",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-26T12:33:17.852218+00:00",
+    "last_evaluated_at": "2026-08-26T12:50:56.605643+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 1,
-      "candidate_generated": 1,
+      "agent_approved": 0,
+      "candidate_generated": 2,
       "denominator": 34,
-      "derived_at": "2026-08-26T12:32:29.844425+00:00",
+      "derived_at": "2026-08-26T12:41:44.327782+00:00",
       "deterministic_validated": 1,
-      "facts_ready": 2,
+      "facts_ready": 4,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -5196,14 +5197,15 @@
         "BLOCKED_MISSING_EVIDENCE": 6,
         "CANDIDATE_GENERATED": 1,
         "DETERMINISTIC_VALIDATED": 2,
-        "FACTS_READY": 21,
+        "DETERMINISTIC_VALIDATION_FAILED": 1,
+        "FACTS_READY": 20,
         "INTAKE_READY": 2,
         "README_ASSESSED": 1
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 0,
       "raw_agent_approved": 1,
-      "raw_candidate_generated": 4,
+      "raw_candidate_generated": 5,
       "raw_deterministic_validated": 3,
       "raw_facts_ready": 26,
       "raw_human_accepted": 0,
@@ -5211,7 +5213,9 @@
       "registry_path": "data/products.json",
       "registry_sha256": "c810071ea3b65f97f66153388ed114e4bad55e95d3b6cb27b0c90c3a3bc3c88b",
       "schema_version": 1,
-      "stale_acceptance_repositories": {},
+      "stale_acceptance_repositories": {
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": []
+      },
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed"
@@ -5235,17 +5239,13 @@
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed"
         ],
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed"
-        ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust": [
           "fact_acceptance_recollection_component_changed"
         ],
-        "aspose-email-foss/Aspose.Email-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed"
-        ],
         "aspose-font-foss/Aspose.Font-FOSS-for-Python": [
-          "fact_acceptance_recollection_component_changed"
+          "fact_acceptance_recollection_component_changed",
+          "manifest_facts_hash_mismatch",
+          "product_truth_hash_mismatch"
         ],
         "aspose-html-foss/Aspose.HTML-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed"
@@ -18257,7 +18257,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1742,
+  "state_version": 1743,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
