@@ -2,12 +2,30 @@
 
 ## Status
 
+Fixed (commit `16faa1358`) once the `fleet-final2-20260826.log` portfolio pass
+had finished and the document-contract cache-invalidation cost was safe to
+pay. Live-verified against `aspose-cells-foss/Aspose.Cells-FOSS-for-Go`, one
+of the six originally-affected repositories: blocking source claims dropped
+from 7 to 4 on a fresh, fully-reprocessed run
+(`runs/logs/rdm029-verify-cells-go-20260826.log`) -- a real, measured, partial
+improvement, not full resolution. The repository remains blocked on
+*separate* issues the fix does not address: the LLM-composed candidate's own
+freely-generated prose still independently asserts unsupported CSV/ZIP/XML
+format claims (not carried over from dropped source spans -- a content-
+generation quality issue, not a source-claim-resolution gap), plus unrelated
+`code_fence_spacing`/`semantic_duplicate`/`claim_grounding_negative_fact`
+findings. Confirms the fix works exactly as designed for its actual scope
+(dropped, unresolved *source* claims) without overclaiming it as a full
+unblock for any given repository.
+
+## Root-cause writeup (superseded by the fix above; retained for context)
+
 Root-caused via targeted investigation of the fleet run's most repeated blocker
-signature. Not repaired: the fix touches `claim_accountability_helpers.py`/
+signature. The fix touches `claim_accountability_helpers.py`/
 `document_validation.py`, both matched by `document_templates.py`'s
 `DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS`, which invalidates every cached
 composition plan portfolio-wide -- unsafe to edit while the `fleet-final2-
-20260826.log` portfolio pass is actively in flight. Also a genuinely sized
+20260826.log` portfolio pass was actively in flight. Also a genuinely sized
 design task (why resolution-authoring omits specific dropped spans), not a
 one-line patch.
 
