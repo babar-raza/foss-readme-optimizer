@@ -149,3 +149,50 @@ cheap and low-risk to close, so it is a reasonable second.
 The go truncation is not a presentation defect and must not be "fixed" by
 changing README content; it needs a bounded-output or chunking remedy in the
 provider seam.
+
+## typescript, after the action-verb fix (2026-08-26)
+
+The vocabulary fix is **proven**: `section_authoring` no longer fails, and the
+canary advances to a new and different boundary:
+
+```
+ERROR:execution_error:ValueError: unsafe Mermaid label selected by the composition plan
+```
+
+Raised at `readme/header_visual.py:136` when
+`header_visual_models.safe_mermaid_label()` returns `None`, i.e. the label
+matched `_UNSAFE_LABEL`:
+
+```
+(?i)(?:<!--|-->|%%|<|>|[{};`]|:::|javascript:|ignore\b.{0,40}\binstructions?\b|system\s+prompt)
+```
+
+Auditing the TypeScript fact graph, 347 distinct values match that pattern. The
+relevant ones are `product.capabilities` entries carrying **markdown backticks**:
+
+```
+**Animation** - Keyframe animation types <U+FFFD> `AnimationClip`, `KeyframeSequence`, `Interpolation`.
+`Camera` and `Light` scene objects.
+`PolygonModifier.triangulate(arg1, arg2, arg3?, arg4?) -> any` <U+FFFD> standalone triangulation
+```
+
+Two separate defects are visible here:
+
+1. **Markdown formatting reaches the label unnormalized.** Backticks and `**`
+   are presentation markup, not injection. They should be stripped when deriving
+   a diagram label, not cause a hard failure. `->` in the third entry also trips
+   `>`.
+2. **Mojibake.** `<U+FFFD>` (replacement character) in two capability values
+   indicates a decoding fault upstream of fact acceptance -- most likely an
+   en dash read with the wrong codec. That is a factual-content defect and must
+   be traced separately; it should not be normalized away silently, because the
+   published capability text would then still be wrong.
+
+**Deliberately not repaired in this iteration.** `_UNSAFE_LABEL` is a
+prompt-injection and Mermaid-syntax control. The safe change is to normalize
+markdown formatting *before* the check while leaving every injection pattern
+(`<!--`, `-->`, `%%`, `javascript:`, "ignore ... instructions", `system prompt`)
+and Mermaid-structural character rejecting -- with tests proving those still
+reject. That is a security-adjacent edit and deserves its own careful pass
+rather than being appended to an iteration already carrying an unrelated fix.
+The mojibake needs a separate root-cause trace.
