@@ -188,3 +188,46 @@ aimed at what is currently evidenced as a single-repository symptom. Any repair
 must be re-justified against the full receipt set once the remaining ecosystems
 (java, typescript, rust, go) have reported, and must not weaken the
 `preserve`-disposition guard that correctly rejected the first attempt.
+
+## The correct repair layer, located (2026-08-26)
+
+The architecture already contains the mechanism this repair needs:
+`verified_source_claim_matching.fact_bound_capability_candidate_claims()`, reached
+from `equivalent_source_claim_resolution()`. Critically,
+`resolve_source_claims()` tries that equivalence **before** the
+`preserve`-disposition raise, so a source capability bullet that resolves as
+`verified_equivalence` needs no verbatim placement and produces no duplicate.
+This is the layer the reverted composition-layer attempt should have used.
+
+Measured against the real C++ data:
+
+- the duplicated source bullet **does** bind `product.capabilities`
+  (`_complete_claim_fact_binding` returns it), and
+- the candidate **does** carry capability provenance citing the same fact, in
+  both forms:
+  - `template.section-authoring.key_capabilities.01.00/.01/.02` (the authored cluster)
+  - `template.section.key_capabilities.claim:0:... / :271:... / :514:...`
+- yet `fact_bound_capability_candidate_claims(...)` returns **0 matches**.
+
+So the blocker is not provenance prefix and not fact citation. It is one of the
+narrower conditions inside the matcher -- most plausibly
+`capability_discriminators()` / `_coordinates_complete_for_required_facts()`:
+the inherited bullet carries identifier discriminators (`Cell.PutValue()`,
+`CellValue`, `DateTime`) that the authored rewording does not reproduce, so the
+matcher declines to call the two claims equivalent.
+
+If that is confirmed, the matcher is **behaving correctly** and the real finding
+is editorial rather than mechanical: the authored cluster is less
+identifier-precise than the maintainer's own bullet, and idea.md l.307-316
+("reuse wherever validation permits", "regeneration convenience is never a
+reason to discard valuable curated information") favours the source wording in
+exactly that case. The repair would then be to prefer the fact-bound source
+bullets for this section and skip the authored cluster -- the option ruled out
+earlier on an l.322 reading that, on closer inspection, governs the candidate as
+a whole rather than requiring every section to be model-authored.
+
+Next step: instrument `fact_bound_capability_candidate_claims` on this exact
+pair to identify which condition rejects it, then choose between (a) making the
+authored cluster preserve the source's discriminators, or (b) preferring the
+source bullets for this section. Do not weaken the matcher itself; its precision
+is what prevents a lossy reword from being accepted as equivalent.
