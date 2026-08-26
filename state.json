@@ -4603,7 +4603,7 @@
     "claimed_by": null,
     "concurrent_goal_ids": [],
     "delivery_complete": false,
-    "goal_activation_graph_sha256": "cb7f000eee7387489dd34305d788b7d4112106aa30b2696727da9491a9a0c43f",
+    "goal_activation_graph_sha256": "50dbbd0bd826b7cfdc36f457d1a807c0a40d359396567406688aeb4cb11dab26",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -5191,16 +5191,16 @@
         "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
       }
     ],
-    "graph_sha256": "cb7f000eee7387489dd34305d788b7d4112106aa30b2696727da9491a9a0c43f",
+    "graph_sha256": "50dbbd0bd826b7cfdc36f457d1a807c0a40d359396567406688aeb4cb11dab26",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-26T14:04:16.188262+00:00",
+    "last_evaluated_at": "2026-08-26T14:50:30.203875+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 3,
       "denominator": 34,
-      "derived_at": "2026-08-26T13:54:24.017440+00:00",
+      "derived_at": "2026-08-26T14:33:25.331208+00:00",
       "deterministic_validated": 1,
-      "facts_ready": 12,
+      "facts_ready": 14,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -5253,17 +5253,11 @@
         "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go": [
           "fact_acceptance_recollection_component_changed"
         ],
-        "aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET": [
-          "fact_acceptance_recollection_component_changed"
-        ],
         "aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
         ],
         "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java": [
-          "fact_acceptance_recollection_component_changed"
-        ],
-        "aspose-slides-foss/Aspose.Slides-FOSS-for-.NET": [
           "fact_acceptance_recollection_component_changed"
         ],
         "aspose-slides-foss/Aspose.Slides-FOSS-for-Java": [
@@ -18252,7 +18246,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1749,
+  "state_version": 1750,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
