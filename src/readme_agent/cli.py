@@ -579,6 +579,16 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Configurable receipt/dashboard output root (default runs/portfolio_proof)",
     )
     p_portfolio_proof.add_argument(
+        "--retry-blocked",
+        action="store_true",
+        dest="retry_blocked",
+        help=(
+            "Re-execute members whose last outcome was BLOCKED even though none of their bound "
+            "dependency fingerprints changed. Needed after repairing a cause the fingerprints do "
+            "not cover, since such members otherwise replay their persisted blocked decision"
+        ),
+    )
+    p_portfolio_proof.add_argument(
         "--dry-run",
         action="store_true",
         help="Resolve and print the target cohort only -- no intake/facts/candidate/provider call",

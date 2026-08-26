@@ -66,6 +66,7 @@ def _run_full_pipeline_cohort(
     rubric_evaluator: RubricEvaluator,
     registry_path: Path | None,
     deadline: DeadlineBudget | None,
+    retry_blocked: bool = False,
 ) -> list[ProofStageReceiptV1]:
     """Run each repository through the existing runtime to its natural terminal state, classify
     the resulting stage, and -- once review is complete -- run the 30-point rubric to distinguish
@@ -83,6 +84,7 @@ def _run_full_pipeline_cohort(
             only=[entry.org_repo],
             max_readme_poc_stage=None,
             portfolio_time_budget_seconds=budget,
+            retry_blocked=retry_blocked,
         )
         supervise_call(namespace)
         elapsed = time.monotonic() - started
@@ -146,6 +148,7 @@ def run_canaries(
     supervise_call: SuperviseCallable | None = None,
     rubric_evaluator: RubricEvaluator | None = None,
     deadline: DeadlineBudget | None = None,
+    retry_blocked: bool = False,
 ) -> ModePassResultV1:
     """CANARIES: the fixed seven-ecosystem cohort, registry-resolved (`registry_cohort.py`),
     driven to acceptance."""
@@ -165,6 +168,7 @@ def run_canaries(
         rubric_evaluator=rubric_evaluator or default_rubric_evaluator(),
         registry_path=registry_path,
         deadline=deadline,
+        retry_blocked=retry_blocked,
     )
     completed, failed, pending = _pipeline_counts(cohort, receipts)
     return ModePassResultV1(
@@ -192,6 +196,7 @@ def run_fleet(
     platform: str | None = None,
     family: str | None = None,
     only: list[str] | None = None,
+    retry_blocked: bool = False,
 ) -> ModePassResultV1:
     """FLEET: every processable repository not already ACCEPTED. Never restarts a successful
     facts/section/review/candidate stage -- `commands_supervision.py`'s own cache layers already
@@ -232,6 +237,7 @@ def run_fleet(
         rubric_evaluator=rubric_evaluator or default_rubric_evaluator(),
         registry_path=registry_path,
         deadline=deadline,
+        retry_blocked=retry_blocked,
     )
     receipts = list(intake_receipts)
     receipts.extend(pipeline_receipts)
@@ -279,6 +285,7 @@ def run_failed_only(
     supervise_call: SuperviseCallable | None = None,
     rubric_evaluator: RubricEvaluator | None = None,
     deadline: DeadlineBudget | None = None,
+    retry_blocked: bool = False,
 ) -> ModePassResultV1:
     """FAILED-ONLY: retry only failed stages/sections, and only when an explicit causal
     fingerprint changed since the last failure (`retry_policy.py`, itself reusing
@@ -336,6 +343,7 @@ def run_failed_only(
             rubric_evaluator=rubric_evaluator or default_rubric_evaluator(),
             registry_path=registry_path,
             deadline=deadline,
+            retry_blocked=retry_blocked,
         )
         receipts.extend(pipeline_receipts)
 

@@ -162,6 +162,7 @@ def cmd_portfolio_proof(args: argparse.Namespace) -> int:
     )
 
     only = [item.strip() for item in args.only.split(",")] if getattr(args, "only", None) else None
+    retry_blocked = bool(getattr(args, "retry_blocked", False))
 
     if args.mode == "preflight":
         from readme_agent.supervisor.portfolio_proof_engine.modes import run_preflight
@@ -188,7 +189,10 @@ def cmd_portfolio_proof(args: argparse.Namespace) -> int:
         )
 
         result = run_canaries(
-            registry_path=registry_path, output_root=output_root, deadline=deadline
+            registry_path=registry_path,
+            output_root=output_root,
+            deadline=deadline,
+            retry_blocked=retry_blocked,
         )
     elif args.mode == "fleet":
         from readme_agent.supervisor.portfolio_proof_engine.full_pipeline_modes import run_fleet
@@ -200,6 +204,7 @@ def cmd_portfolio_proof(args: argparse.Namespace) -> int:
             platform=getattr(args, "platform", None),
             family=getattr(args, "family", None),
             only=only,
+            retry_blocked=retry_blocked,
         )
     elif args.mode == "failed-only":
         from readme_agent.supervisor.portfolio_proof_engine.full_pipeline_modes import (
@@ -207,7 +212,10 @@ def cmd_portfolio_proof(args: argparse.Namespace) -> int:
         )
 
         result = run_failed_only(
-            registry_path=registry_path, output_root=output_root, deadline=deadline
+            registry_path=registry_path,
+            output_root=output_root,
+            deadline=deadline,
+            retry_blocked=retry_blocked,
         )
     else:  # pragma: no cover -- argparse `choices` already rejects this
         print(f"error: unknown mode {args.mode!r}", file=sys.stderr)
