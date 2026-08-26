@@ -2781,10 +2781,12 @@
         {
           "evidence_refs": [
             "tests/unit/test_capability_action_verbs.py",
-            "plans/investigations/evidence/portfolio-proof-pf05-seven-ecosystem-canaries/first-boundary-receipts-2026-08-26.md"
+            "plans/investigations/evidence/portfolio-proof-pf05-seven-ecosystem-canaries/first-boundary-receipts-2026-08-26.md",
+            "src/readme_agent/readme/diagram_role_semantics.py",
+            "tests/unit/test_safe_mermaid_label.py"
           ],
           "fingerprint": "0756b892b4afa86a574289fc093741d765af2a5d47c7ceed14df4c4c2a589e02",
-          "last_material_narrowing_at": "2026-08-26T01:57:16.670444+00:00",
+          "last_material_narrowing_at": "2026-08-26T02:14:28.553529+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-26T01:44:35.895218+00:00",
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
@@ -5026,7 +5028,7 @@
     ],
     "graph_sha256": "d5133ac4b044197d6c554ad824a15f17c5b88f265c035dc8a0f8660335cc69ca",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-26T02:08:39.856977+00:00",
+    "last_evaluated_at": "2026-08-26T02:14:28.553559+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 2,
@@ -5054,8 +5056,14 @@
       "registry_sha256": "2e71e7f2c9ccbe7662ed37a5545a5f1af07363de0d6da8579e109fe4db20c1e7",
       "schema_version": 1,
       "stale_acceptance_repositories": {
-        "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [],
-        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": []
+        "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
+          "presentation_component_cosmetic_changed",
+          "presentation_component_severe_acceptance_changed"
+        ],
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
+          "presentation_component_cosmetic_changed",
+          "presentation_component_severe_acceptance_changed"
+        ]
       },
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
@@ -17887,7 +17895,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1693,
+  "state_version": 1694,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
