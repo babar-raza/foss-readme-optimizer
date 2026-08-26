@@ -300,16 +300,24 @@
         "schema_version": 1,
         "source_revision": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903",
         "source_revision_resolved": true
+      },
+      {
+        "attempt": 1,
+        "dedup_key": "6fff244d94dc815f23fa676d1992733771bf4f6d63cf846df80d4124e99db782",
+        "evidence_refs": [
+          "D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\runs\\readme-poc\\aspose-psd-foss__Aspose.PSD-FOSS-for-.NET\\1fe2c6dc8014f26de3b79acbee25b15a8d26e903\\intake\\receipts\\6fff244d94dc815f-a1.json"
+        ],
+        "observed_by": "registry_intake",
+        "occurred_at": "2026-08-26T07:36:05.300712+00:00",
+        "outcome": "BLOCKED_NO_SUBSTANTIVE_CONTENT",
+        "reason": "pinned tree contains only README and/or LICENSE/COPYING/NOTICE variants",
+        "result_hash": "42b3a4b8632e6f6368092ba32e8253016fb35d70d9f743e72266521b73b5ee16",
+        "schema_version": 1,
+        "source_revision": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903",
+        "source_revision_resolved": true
       }
     ],
-    "intake_preflight_pending": {
-      "attempt": 1,
-      "dedup_key": "6fff244d94dc815f23fa676d1992733771bf4f6d63cf846df80d4124e99db782",
-      "schema_version": 1,
-      "source_revision": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903",
-      "source_revision_resolved": true,
-      "started_at": "2026-08-26T07:35:52.891587+00:00"
-    },
+    "intake_preflight_pending": null,
     "presentation_plan_hash": null,
     "presentation_validity": {
       "available_component_manifest_hash": null,
@@ -346,10 +354,10 @@
     "schema_version": 2,
     "source_revision": "1fe2c6dc8014f26de3b79acbee25b15a8d26e903",
     "status": "PROFILED",
-    "updated_at": "2026-08-26T07:35:52.891609+00:00"
+    "updated_at": "2026-08-26T07:36:05.300731+00:00"
   },
   "schema_version": 2,
-  "state_version": 34,
+  "state_version": 35,
   "supervisor_state": null,
   "trigger_lifecycles": {
     "delivery:registry:1332915817:687f76af62a94109bad1633c7503a2051b2b51a5f6909b731b894116db43a02a": {
