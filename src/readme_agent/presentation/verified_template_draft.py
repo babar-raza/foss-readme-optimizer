@@ -44,6 +44,7 @@ from readme_agent.presentation.verified_template_sections import (
 )
 from readme_agent.readme.agentic_composition_models import ReadmeAgenticCompositionPlanV1
 from readme_agent.readme.assessment_claims import assess_material_claims
+from readme_agent.readme.capability_semantics import capability_rows_are_action_led
 from readme_agent.readme.code_fence_presentation import normalize_code_snippet
 from readme_agent.readme.document_links import (
     render_contextual_example_markdown,
@@ -503,10 +504,20 @@ def build_verified_template_draft(
         facts,
         "key_capabilities",
     )
-    if authored_capabilities is not None and not authored_cluster_loses_source_facts(
-        source_text,
-        facts,
-        authored_capabilities.fact_fields,
+    if (
+        authored_capabilities is not None
+        # Compiled-presentation validation rejects the entire candidate when any
+        # Key Capabilities title is not action-led, so an authored heading that
+        # misses the verb accept-list would hard-fail the repository outright
+        # (observed on the Font Python canary). The deterministic rows are
+        # action-led by construction, so keeping them degrades wording rather
+        # than losing the repository.
+        and capability_rows_are_action_led(authored_capabilities.markdown)
+        and not authored_cluster_loses_source_facts(
+            source_text,
+            facts,
+            authored_capabilities.fact_fields,
+        )
     ):
         capability_text = authored_capabilities.markdown
     at_a_glance = visual.mermaid_markdown

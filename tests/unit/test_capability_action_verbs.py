@@ -69,3 +69,35 @@ def test_non_action_titles_are_still_rejected(title: str) -> None:
 def test_action_verb_is_reported_for_a_matched_title() -> None:
     assert capability_action_verb("Triangulate polygonal geometry") is not None
     assert capability_action_verb("Mesh geometry") is None
+
+
+def test_capability_rows_are_action_led_matches_the_validator_row_shape() -> None:
+    """Compiled-presentation validation reads titles from `- **Title** - ` rows and
+    rejects the whole candidate when one is not action-led. The pre-adoption check
+    must read exactly that shape, or a block it accepts could still hard-fail."""
+
+    from readme_agent.readme.capability_semantics import capability_rows_are_action_led
+
+    action_led = (
+        "- **Convert XLSX files to PDF** - Produce PDF output from workbooks.\n"
+        "- **Export STL files** - Write meshes to STL."
+    )
+    assert capability_rows_are_action_led(action_led)
+
+    # Observed on the Font Python canary: a noun-phrase heading raised
+    # "Key capability titles must be action-led search phrases" and skipped the
+    # entire repository.
+    noun_led = (
+        "- **Convert XLSX files to PDF** - Produce PDF output from workbooks.\n"
+        "- **Font format conversion support** - Handle font conversions."
+    )
+    assert not capability_rows_are_action_led(noun_led)
+
+
+def test_capability_rows_predicate_ignores_non_row_markdown() -> None:
+    """Prose that carries no capability rows must not be treated as a violation."""
+
+    from readme_agent.readme.capability_semantics import capability_rows_are_action_led
+
+    assert capability_rows_are_action_led("")
+    assert capability_rows_are_action_led("Some introductory sentence.")

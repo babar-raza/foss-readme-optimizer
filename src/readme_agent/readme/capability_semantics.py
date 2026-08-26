@@ -195,9 +195,30 @@ def is_action_led_capability_title(value: str) -> bool:
     return capability_action_verb(value) is not None
 
 
+# The exact shape `validation/presentation_template.py` reads titles from, so a
+# block accepted here cannot fail that check afterwards.
+_CAPABILITY_ROW_TITLE = re.compile(r"(?m)^- \*\*([^*]+)\*\* - ")
+
+
+def capability_rows_are_action_led(markdown: str) -> bool:
+    """Return whether every capability row in a rendered block is action-led.
+
+    Compiled-presentation validation rejects the whole candidate when any Key
+    Capabilities title is not action-led, which turns one authored wording choice
+    into a hard failure for the entire repository. Checking a block before it is
+    adopted lets the caller keep the deterministic fact-bound rows instead, which
+    are action-led by construction.
+    """
+
+    return all(
+        is_action_led_capability_title(title) for title in _CAPABILITY_ROW_TITLE.findall(markdown)
+    )
+
+
 __all__ = [
     "capability_action_verb",
     "capability_domains",
+    "capability_rows_are_action_led",
     "identifier_discriminators",
     "is_action_led_capability_title",
     "normalize_capability_phrases",
