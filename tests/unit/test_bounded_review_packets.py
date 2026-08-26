@@ -458,9 +458,17 @@ def test_bounded_execution_parallelizes_independent_packets_deterministically() 
     assert len(factual_client.thread_ids) >= 2
 
 
-def test_separated_review_routes_oversized_merged_request_through_bounded_execution(
+def test_separated_review_routes_through_bounded_execution_regardless_of_size(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    """The bounded reviewer is the only one whose findings the 30-point rubric can
+    read: it emits one `supports_acceptance` finding per canonical section, while
+    the merged reviewer returns a few free-form ones. Routing on size therefore made
+    rubric acceptance depend on candidate length -- the 3D Python canary scored 30/30
+    at 159KB and 15/30 at 109KB after improving. The size trigger is pinned
+    unreachably high here so the assertion can only pass if the canonical contract
+    alone routes to bounded execution."""
+
     document_plan = DEFAULT_DOCUMENT_PLAN.model_copy(
         update={
             "claim_accountability": DEFAULT_CLAIM_ACCOUNTABILITY,
@@ -471,7 +479,6 @@ def test_separated_review_routes_oversized_merged_request_through_bounded_execut
     blind_client = _PacketSequenceClient(list(plan.visitor_packets))
     factual_client = _PacketSequenceClient(list(plan.factual_packets))
     monkeypatch.setattr(separated_review, "_BOUNDED_REVIEW_TRIGGER_CHARS", 10**12)
-    monkeypatch.setattr(separated_review, "MAX_MERGED_REVIEW_REQUEST_BYTES", 1)
 
     review = separated_review.run_separated_readme_review(
         "acme/widget-toolkit",
@@ -502,7 +509,6 @@ def test_separated_review_reuses_explicit_live_client_packet_cache(
     )
     plan = _plan(document_plan=document_plan, budget_chars=100_000)
     monkeypatch.setattr(separated_review, "_BOUNDED_REVIEW_TRIGGER_CHARS", 10**12)
-    monkeypatch.setattr(separated_review, "MAX_MERGED_REVIEW_REQUEST_BYTES", 1)
     common = {
         "org_repo": "acme/widget-toolkit",
         "original_readme_text": "# Widget Toolkit\n",

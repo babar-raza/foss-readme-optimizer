@@ -14,11 +14,6 @@ from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
 from readme_agent.capabilities.schema import PermissionClass
 from readme_agent.facts.schema_v2 import ProductFactsV2
 from readme_agent.llm import prompt_registry
-from readme_agent.llm.merged_readme_review import (
-    MAX_MERGED_REVIEW_REQUEST_BYTES,
-    build_merged_readme_review_messages,
-    merged_review_request_size_bytes,
-)
 from readme_agent.llm.reviewer_client import (
     build_live_merged_review_client,
     build_live_role_review_clients,
@@ -191,30 +186,32 @@ def run_separated_readme_review(
         rubric_version="1",
     )
 
-    bounded_context_chars = (
-        len(candidate_readme_text)
-        + len(_canonical_json(factual_packet.fact_context()))
-        + len(_canonical_json(factual_packet.plan_context()))
-    )
-    merged_messages = build_merged_readme_review_messages(
-        org_repo,
-        candidate_readme_text,
-        _canonical_json(visitor_contract),
-        _canonical_json(factual_packet.fact_context()),
-        _canonical_json(factual_packet.plan_context()),
-    )
-    merged_request_too_large = (
-        merged_review_request_size_bytes(merged_messages) > MAX_MERGED_REVIEW_REQUEST_BYTES
-    )
     bounded_execution = None
     document_plan = None
     facts_model = None
     canonical_bounded_contract = (
         "readme_document_plan" in presentation_plan or "claim_accountability" in presentation_plan
     )
-    if (
-        bounded_context_chars > _BOUNDED_REVIEW_TRIGGER_CHARS or merged_request_too_large
-    ) and canonical_bounded_contract:
+    # The bounded path is not only an oversize escape hatch: it is the only
+    # reviewer that emits one `supports_acceptance` finding per canonical
+    # section, and the 30-point rubric sources its entire subjective half from
+    # exactly those findings (`rubric_evidence.review_supports`). The merged
+    # reviewer returns a handful of free-form findings ("Header",
+    # "Installation"), so a candidate reviewed that way fails twelve
+    # "visitor ACCEPT with <section> support" criteria no matter how good it is.
+    #
+    # Gating the bounded path on size therefore made rubric acceptance a
+    # function of candidate length: the 3D Python canary scored 30/30 at 159KB
+    # and 15/30 at 109KB, having improved in between.
+    #
+    # The size trigger is dropped rather than widened. It only ever narrowed an
+    # already-necessary condition -- the bounded body requires the canonical
+    # document plan and raises without it -- so a plan-less candidate still falls
+    # through to the merged reviewer exactly as before, oversized or not. The
+    # merged request ceiling is unaffected: `execute_merged_readme_review` calls
+    # `enforce_merged_review_request_ceiling` on its own messages, so dropping
+    # the duplicate local pre-check here removes no guard.
+    if canonical_bounded_contract:
         document_plan_payload = presentation_plan.get("readme_document_plan") or presentation_plan
         try:
             document_plan = ReadmeDocumentPlanV1.model_validate(document_plan_payload)
