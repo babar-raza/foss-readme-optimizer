@@ -69,91 +69,20 @@ def _format_tokens(value: str) -> set[str]:
     return tokens
 
 
-_ROLE_BEARING_API_TYPE = re.compile(
-    r"^(?P<format>[A-Za-z0-9]+?)(?P<kind>SaveOptions|LoadOptions|Exporter|Importer)$"
-)
-_OUTPUT_API_KINDS = frozenset({"SaveOptions", "Exporter"})
-
-
-def _api_evidenced_format_roles(facts: ProductFactsV2) -> dict[str, set[FormatRole]]:
-    """Return format roles the repository's own accepted public API proves.
-
-    `product.formats` is prose the maintainer happened to write down, and it
-    routinely under-reports what the package actually does: Aspose.Note's
-    `product.formats` is exactly `['Input format: Microsoft OneNote (.one)']`
-    while the repository ships `examples/export_pdf.py`, asserts its output
-    begins with `%PDF`, compares generated PDFs against golden files, and defines
-    `list(SaveFormat) == [SaveFormat.Pdf]` -- PDF export is its only output
-    capability. Scoring roles from that fact alone made
-    `presentation_lint_format_directions` contradict the repository itself, which
-    was the single largest blocker in the 2026-08-26 fleet pass (18 occurrences,
-    more than every other cause combined).
-
-    A public `PdfSaveOptions` / `ColladaExporter` / `FbxLoadOptions` type in the
-    accepted `api.public_surface` is deterministic, already-verified evidence
-    that this build exposes that direction, so it is admitted as role authority.
-    This only removes a false contradiction; it never adds a capability row, so a
-    format cannot be advertised on the strength of a type name alone.
-    """
-
-    fact_id = facts.selected_fact_ids.get("api.public_surface")
-    if fact_id is None:
-        return {}
-    fact = facts.fact_by_id(fact_id)
-    if (
-        fact.verification_state not in {"verified", "policy_approved"}
-        or fact.has_unresolved_conflict
-    ):
-        return {}
-    roles: dict[str, set[FormatRole]] = {}
-    for type_name in _public_type_names(fact.value):
-        match = _ROLE_BEARING_API_TYPE.match(type_name)
-        if match is None:
-            continue
-        canonical = canonical_document_format(match.group("format"))
-        if canonical is None:
-            continue
-        role: FormatRole = "output" if match.group("kind") in _OUTPUT_API_KINDS else "input"
-        roles.setdefault(canonical, set()).add(role)
-    return roles
-
-
-def _public_type_names(value: object) -> set[str]:
-    """Collect declared class names from an accepted API-surface fact value."""
-
-    names: set[str] = set()
-    stack: list[object] = [value]
-    while stack:
-        item = stack.pop()
-        if isinstance(item, dict):
-            name = item.get("name")
-            if isinstance(name, str) and name.strip():
-                names.add(name.strip())
-            stack.extend(item.values())
-        elif isinstance(item, list):
-            stack.extend(item)
-    return names
-
-
 def explicit_format_roles(facts: ProductFactsV2 | None) -> dict[str, frozenset[FormatRole]]:
-    """Return role authority from ``product.formats`` plus the accepted public API.
-
-    See `_api_evidenced_format_roles` for why the declared-formats fact alone is
-    not sufficient authority.
-    """
+    """Return role authority only for formats explicitly named by ``product.formats``."""
 
     if facts is None:
         return {}
-    api_roles = _api_evidenced_format_roles(facts)
     fact_id = facts.selected_fact_ids.get("product.formats")
     if fact_id is None:
-        return {name: frozenset(values) for name, values in api_roles.items()}
+        return {}
     fact = facts.fact_by_id(fact_id)
     if fact.verification_state not in {"verified", "policy_approved"}:
-        return {name: frozenset(values) for name, values in api_roles.items()}
+        return {}
     if fact.has_unresolved_conflict or not isinstance(fact.value, list):
-        return {name: frozenset(values) for name, values in api_roles.items()}
-    roles: dict[str, set[FormatRole]] = {name: set(values) for name, values in api_roles.items()}
+        return {}
+    roles: dict[str, set[FormatRole]] = {}
     for item in fact.value:
         if not isinstance(item, str):
             continue

@@ -110,7 +110,13 @@ def validate_repository_presentation(
             api_body,
         )
         namespace_headings = re.findall(r"(?m)^### [^\r\n]+ Namespace \(`[^`]+`\)\s*$", api_body)
-        api_rows = re.findall(r"(?m)^\| `([^`]+)` \| ([^|]+) \|$", api_body)
+        # A code span may be delimited by any run of backticks longer than the
+        # longest run inside it (CommonMark), which real signatures need: Words
+        # exposes `FencedCodeBlock(code, info='', fence_char='`')`. Matching only a
+        # single-backtick delimiter counted 91 of 92 rendered rows and failed the
+        # candidate on a count mismatch that was really a malformed-cell defect.
+        api_rows = re.findall(r"(?m)^\| (`+)\s?(.+?)\s?\1 \| ([^|]+) \|$", api_body)
+        api_rows = [(name, description) for _fence, name, description in api_rows]
         descriptions = [" ".join(description.split()).casefold() for _name, description in api_rows]
         metric = re.search(
             r"The package (?:reference presents|documents) (\d+) "

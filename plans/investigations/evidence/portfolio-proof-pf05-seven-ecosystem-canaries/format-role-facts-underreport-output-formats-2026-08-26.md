@@ -121,3 +121,48 @@ direction, using evidence the pipeline already collects:
 Evidence (3) is the strongest and is already gathered for example verification.
 Until then these three repositories cannot pass the deterministic gate, and the
 candidates — not the facts — are the accurate artifact.
+
+## Second attempt, also reverted: type-name inference is explicitly forbidden
+
+`1ff210e60` implemented the "repair direction" above using evidence (2) -- a public
+`PdfSaveOptions` / `ColladaExporter` / `FbxLoadOptions` type admitted as role
+authority. It measurably worked (Note and 3D format-direction findings went to 0)
+and it is **wrong**, because the project had already decided this question and
+encoded the decision in a test that predates it:
+
+`tests/unit/test_verified_template_api_reference_completeness.py::
+test_api_reference_does_not_infer_format_support_from_type_names`
+
+That test fixes `product.formats` to `["Input format: OBJ"]` and then asserts, on a
+surface containing `ObjSaveOptions`, `A3dwSaveOptions`, `Discreet3dsLoadOptions`
+and `Html5SaveOptions`:
+
+```python
+assert "Configures OBJ output" not in markdown
+assert "Configures A3DW output" not in markdown
+assert "The package exposes the public `ObjSaveOptions` type" in markdown
+assert "OBJ is listed for input workflows only." in markdown
+```
+
+So a `*SaveOptions` type is to be reported as *present*, in neutral presence
+language, and must never establish a direction. Verified by bisecting the file:
+the test passes at `1ff210e60~1` and fails at `1ff210e60`.
+
+An intermediate narrowing -- letting API evidence speak only for formats
+`product.formats` does not mention -- was also tried and also fails: A3DW is not
+declared at all, yet the guard still forbids "Configures A3DW output". The rule is
+unconditional, not a precedence rule.
+
+Reverted. The failure here was procedural: the inference was implemented without
+first searching for an existing decision about it, and the concern that it looked
+over-permissive (3D derived 16 formats from type names) was noted during
+implementation and then not pursued.
+
+**This narrows the correct repair to evidence (3) only** -- a verified example
+whose executed output is that format. That is the strongest evidence, it is
+already collected for example verification, and it is untouched by the guard,
+which governs inference from *type names*. It is a facts-layer change and so
+re-stales cached bundles; it belongs in a deliberate shared-repair slot.
+
+Until then `presentation_lint_format_directions` will keep contradicting Note,
+Page and 3D, and the candidates -- not the facts -- remain the accurate artifact.

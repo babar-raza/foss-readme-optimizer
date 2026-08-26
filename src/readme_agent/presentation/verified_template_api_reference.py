@@ -35,6 +35,30 @@ def _table_cell(value: object) -> str:
     return " ".join(str(value).split()).replace("|", "\\|")
 
 
+def inline_code_cell(value: object) -> str:
+    """Render one table cell as a CommonMark code span that survives backticks.
+
+    A real public signature can carry a backtick as a default argument value --
+    Aspose.Words exposes `FencedCodeBlock(code, info='', fence_char='`')`. Wrapped
+    in single backticks that closes the span early, so the row stops being a code
+    span at all: the API-reference validator matched 91 of 92 rendered rows and the
+    candidate failed closed on "API reference summary counts disagree with rendered
+    tables".
+
+    CommonMark's rule is that a code span may be delimited by any run of backticks
+    longer than the longest run inside it, and that a span whose content begins or
+    ends with a backtick needs one space of padding. Escaping the inner backtick is
+    not an option: it is the member's real default value, and idea.md l.74 requires
+    API members to retain their source spelling.
+    """
+
+    text = _table_cell(value)
+    longest_run = max((len(run) for run in re.findall(r"`+", text)), default=0)
+    fence = "`" * (longest_run + 1)
+    padding = " " if text.startswith("`") or text.endswith("`") else ""
+    return f"{fence}{padding}{text}{padding}{fence}"
+
+
 def _class_indexes(
     value: dict[str, Any],
 ) -> tuple[dict[tuple[str, str], dict[str, Any]], dict[str, list[dict[str, Any]]]]:
@@ -172,7 +196,7 @@ def _namespace_table(
                 facts=facts,
             )
         identifier = _class_surface(name, item) if item is not None else name
-        rows.append(f"| `{_table_cell(identifier)}` | {description} |")
+        rows.append(f"| {inline_code_cell(identifier)} | {description} |")
         count += 1
     return rows, count
 
