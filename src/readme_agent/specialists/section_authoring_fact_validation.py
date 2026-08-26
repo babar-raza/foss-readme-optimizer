@@ -198,7 +198,17 @@ def _unsupported_operation_errors(
                 if pattern.search(identifiers)
             }
         )
-        if "=" in code and re.search(r"\b[A-Za-z_][A-Za-z0-9_.]*\s*\(", code):
+        has_assignment_construction = "=" in code and re.search(
+            r"\b[A-Za-z_][A-Za-z0-9_.]*\s*\(", code
+        )
+        # C++ direct-initialization (`Aspose::Pdf::Document doc("input.pdf");`) has no
+        # `=` at all, so the assignment-based check above never sees it despite the
+        # statement unambiguously constructing an object -- two identifier-like tokens
+        # (a type, then a name) separated by whitespace and immediately followed by a
+        # parenthesized argument list, distinct from a member-call expression like
+        # `doc.Save(...)` where a `.` sits between the two identifiers instead.
+        has_direct_init_construction = re.search(r"\b[A-Za-z_][\w:]*\s+[A-Za-z_]\w*\s*\(", code)
+        if has_assignment_construction or has_direct_init_construction:
             authorized.update({"build", "create", "instantiate"})
     mentioned = {
         operation for operation, pattern in _EXAMPLE_OPERATION_PATTERNS if pattern.search(prose)
@@ -244,11 +254,24 @@ def _known_format_tokens(value: object) -> set[str]:
     elif isinstance(value, str):
         for match in _FORMAT_CANDIDATE.finditer(value):
             raw = match.group("token")
-            if raw.casefold() in _AMBIGUOUS_LOWERCASE_FORMAT_WORDS and not raw.isupper():
-                continue
-            canonical = canonical_document_format(raw.lstrip("."))
-            if canonical is not None:
-                tokens.add(canonical)
+            # A filename literal like "output.pdf"/"input.pdf" embeds its format as a
+            # trailing extension inside one compound token -- canonical_document_format()
+            # only recognizes a bare format name, so it rejects the whole compound string
+            # outright. Also try just the suffix after the last dot, so example code that
+            # writes to a literal filename (rather than calling a named format constant)
+            # still authorizes the format it obviously demonstrates.
+            candidates = [raw]
+            if "." in raw:
+                candidates.append(raw.rsplit(".", 1)[-1])
+            for candidate in candidates:
+                if (
+                    candidate.casefold() in _AMBIGUOUS_LOWERCASE_FORMAT_WORDS
+                    and not candidate.isupper()
+                ):
+                    continue
+                canonical = canonical_document_format(candidate.lstrip("."))
+                if canonical is not None:
+                    tokens.add(canonical)
     return tokens
 
 
