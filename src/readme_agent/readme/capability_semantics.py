@@ -44,14 +44,25 @@ _OPERATION_DOMAINS = frozenset(
 _GENERIC_NOUNS = re.compile(
     r"(?i)\b(?:configuration|handling|lifecycle management|operations|support|validation)\b"
 )
+# Capability titles must be action-led (idea.md: "natural action-led search
+# phrases"). This enumeration is the accept-list for that rule, so a legitimate
+# imperative verb missing from it rejects a correct heading -- the TypeScript
+# canary burned five provider calls over three attempts on "Triangulate
+# polygonal geometry", which is verb-first and idiomatic but matched nothing
+# because the list carried no geometry vocabulary. Verbs are added only when
+# they are unambiguously imperative technical actions; the rule still requires
+# a verb, so widening the vocabulary reduces false rejections without weakening
+# the gate. Generic nouns stay excluded by `_GENERIC_NOUNS` above.
 _ACTION_VERBS = re.compile(
-    r"(?i)\b(?:access|add|analy[sz]e|animate|append|apply|assign|build|compress|concatenate|"
-    r"configure|construct|"
-    r"convert|create|decode|decrypt|define|delete|detect|edit|encode|encrypt|export|extract|"
-    r"generate|host|import|insert|inspect|load|manage|merge|model|modify|navigate|open|optimi[sz]e|"
-    r"parse|perform|process|read|remove|render|reorder|replace|rotate|run|save|search|sign|split|"
-    r"transform|traverse|"
-    r"update|validate|verify|work|write)\b"
+    r"(?i)\b(?:access|add|aggregate|analy[sz]e|animate|annotate|append|apply|assign|attach|build|"
+    r"compare|compress|concatenate|configure|construct|convert|copy|count|create|crop|decode|"
+    r"decrypt|define|deform|delete|detect|edit|embed|encode|encrypt|export|extract|extrude|filter|"
+    r"flatten|format|generate|group|highlight|host|import|index|insert|inspect|load|manage|measure|"
+    r"merge|model|modify|navigate|normali[sz]e|open|optimi[sz]e|parse|perform|position|print|"
+    r"process|project|protect|read|redact|remove|render|reorder|replace|resize|rotate|run|save|"
+    r"scale|search|select|seriali[sz]e|sign|sort|split|stream|style|subdivide|summari[sz]e|"
+    r"tessellate|transform|translate|traverse|triangulate|update|validate|verify|watermark|work|"
+    r"write)\b"
 )
 _DISCRIMINATOR_TOKEN = re.compile(r"\b(?:[A-Z]{2,}[A-Z0-9.+-]*|[A-Za-z]*\d[A-Za-z0-9.+-]*)\b")
 _READ_DIRECTION = re.compile(
