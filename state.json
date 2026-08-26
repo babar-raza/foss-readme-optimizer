@@ -2808,7 +2808,7 @@
             "plans/investigations/evidence/portfolio-proof-pf05-seven-ecosystem-canaries/cxx-duplicate-capabilities-2026-08-26.md"
           ],
           "fingerprint": "0756b892b4afa86a574289fc093741d765af2a5d47c7ceed14df4c4c2a589e02",
-          "last_material_narrowing_at": "2026-08-26T04:32:17.249493+00:00",
+          "last_material_narrowing_at": "2026-08-26T04:57:27.252386+00:00",
           "outcome": "in_progress",
           "started_at": "2026-08-26T04:11:54.978029+00:00",
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
@@ -5068,42 +5068,37 @@
     ],
     "graph_sha256": "d5133ac4b044197d6c554ad824a15f17c5b88f265c035dc8a0f8660335cc69ca",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-26T04:33:12.917130+00:00",
+    "last_evaluated_at": "2026-08-26T04:57:27.252413+00:00",
     "lifecycle_scoreboard": {
-      "agent_approved": 0,
+      "agent_approved": 1,
       "candidate_generated": 3,
       "denominator": 33,
-      "derived_at": "2026-08-26T04:28:19.563856+00:00",
-      "deterministic_validated": 2,
+      "derived_at": "2026-08-26T04:54:26.220143+00:00",
+      "deterministic_validated": 1,
       "facts_ready": 7,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
+        "AGENT_APPROVED": 1,
         "BLOCKED_MISSING_EVIDENCE": 6,
+        "CANDIDATE_GENERATED": 1,
         "DETERMINISTIC_VALIDATION_FAILED": 1,
         "FACTS_READY": 22,
         "INTAKE_READY": 1,
-        "NO_OP_PROVEN": 3
+        "NO_OP_PROVEN": 1
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 0,
-      "raw_agent_approved": 3,
+      "raw_agent_approved": 2,
       "raw_candidate_generated": 4,
-      "raw_deterministic_validated": 3,
+      "raw_deterministic_validated": 2,
       "raw_facts_ready": 26,
       "raw_human_accepted": 0,
-      "raw_no_op_proven": 3,
+      "raw_no_op_proven": 1,
       "registry_path": "data/products.json",
       "registry_sha256": "2e71e7f2c9ccbe7662ed37a5545a5f1af07363de0d6da8579e109fe4db20c1e7",
       "schema_version": 1,
-      "stale_acceptance_repositories": {
-        "aspose-3d-foss/Aspose.3D-FOSS-for-.NET": [
-          "presentation_component_cosmetic_changed",
-          "presentation_component_severe_acceptance_changed",
-          "presentation_component_structural_changed"
-        ],
-        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": []
-      },
+      "stale_acceptance_repositories": {},
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed",
@@ -18018,7 +18013,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1704,
+  "state_version": 1705,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
