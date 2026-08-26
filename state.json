@@ -4603,7 +4603,7 @@
     "claimed_by": null,
     "concurrent_goal_ids": [],
     "delivery_complete": false,
-    "goal_activation_graph_sha256": "8dd4bf3f24fe9b37c14ce3db8482988c8973cc663c440b8cb58037cbe6d91c8d",
+    "goal_activation_graph_sha256": "4cbb54f9fc217a87c55770b9b3cabccb9966103dd464080e846ad9d041f11fab",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -5191,16 +5191,16 @@
         "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
       }
     ],
-    "graph_sha256": "8dd4bf3f24fe9b37c14ce3db8482988c8973cc663c440b8cb58037cbe6d91c8d",
+    "graph_sha256": "4cbb54f9fc217a87c55770b9b3cabccb9966103dd464080e846ad9d041f11fab",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-26T15:05:41.383585+00:00",
+    "last_evaluated_at": "2026-08-26T15:57:53.829151+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 3,
       "denominator": 34,
-      "derived_at": "2026-08-26T15:05:06.570597+00:00",
+      "derived_at": "2026-08-26T15:51:29.115959+00:00",
       "deterministic_validated": 1,
-      "facts_ready": 17,
+      "facts_ready": 21,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -5209,15 +5209,14 @@
         "DETERMINISTIC_VALIDATION_FAILED": 2,
         "FACTS_READY": 21,
         "INTAKE_READY": 2,
-        "README_ASSESSED": 1,
-        "SYSTEM_FAILURE": 1
+        "SYSTEM_FAILURE": 2
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 0,
       "raw_agent_approved": 1,
       "raw_candidate_generated": 3,
       "raw_deterministic_validated": 1,
-      "raw_facts_ready": 25,
+      "raw_facts_ready": 24,
       "raw_human_accepted": 0,
       "raw_no_op_proven": 0,
       "registry_path": "data/products.json",
@@ -5230,12 +5229,6 @@
         ]
       },
       "stale_fact_contract_repositories": {
-        "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript": [
-          "fact_acceptance_recollection_component_changed"
-        ],
-        "aspose-cells-foss/Aspose.Cells-FOSS-for-Cpp": [
-          "fact_acceptance_recollection_component_changed"
-        ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Go": [
           "fact_acceptance_recollection_component_changed",
           "manifest_local_verification_contract_hash_mismatch"
@@ -5245,18 +5238,6 @@
         ],
         "aspose-pdf-foss/Aspose-PDF-FOSS-for-Go": [
           "fact_acceptance_recollection_component_changed"
-        ],
-        "aspose-pdf-foss/Aspose.PDF-FOSS-for-Cpp": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_local_verification_contract_hash_mismatch"
-        ],
-        "aspose-pdf-foss/Aspose.PDF-FOSS-for-Java": [
-          "fact_acceptance_recollection_component_changed"
-        ],
-        "aspose-slides-foss/Aspose.Slides-FOSS-for-Java": [
-          "fact_acceptance_recollection_component_changed",
-          "manifest_facts_hash_mismatch",
-          "product_truth_hash_mismatch"
         ]
       },
       "trusted_candidate_generated": 0,
@@ -18236,7 +18217,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1751,
+  "state_version": 1752,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
