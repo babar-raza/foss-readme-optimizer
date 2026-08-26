@@ -7,16 +7,28 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+# Markdown emphasis and code markers are presentation markup carried inside fact
+# text (`product.capabilities` values quote API symbols in backticks), not
+# Mermaid syntax and not an injection vector. Underscores are deliberately not
+# stripped: they occur inside real identifiers.
+_MARKDOWN_LABEL_FORMATTING = re.compile(r"[`*]+")
 _UNSAFE_LABEL = re.compile(
-    r"(?i)(?:<!--|-->|%%|<|>|[{};`]|:::|javascript:|"
+    r"(?i)(?:<!--|-->|%%|<|>|[{};]|:::|javascript:|"
     r"ignore\b.{0,40}\binstructions?\b|system\s+prompt)"
 )
 
 
 def safe_mermaid_label(value: object, *, limit: int = 80) -> str | None:
-    """Return one bounded data-only Mermaid label or reject unsafe syntax/instructions."""
+    """Return one bounded data-only Mermaid label or reject unsafe syntax/instructions.
+
+    Markdown formatting is stripped before the safety check, never after: removing
+    a character can splice a dangerous sequence back together (``%`%`` would become
+    ``%%``, a Mermaid comment), so the check must see exactly the text that will be
+    emitted. Every injection and Mermaid-structural pattern still rejects.
+    """
 
     label = " ".join(str(value).split()).strip()
+    label = _MARKDOWN_LABEL_FORMATTING.sub("", label).strip()
     if not label or _UNSAFE_LABEL.search(label):
         return None
     label = label.replace('"', "'").replace("[", "(").replace("]", ")")
