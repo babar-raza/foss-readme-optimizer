@@ -2840,7 +2840,7 @@
         "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "bb73427bbbbf602bdbbccd13b7bf93a7ff63fe1425d1343786e4d84e9afd437d",
         "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "d1f834d08611285516264b0572a7d543b1bb63c0deddf5a6197a2fefb8c57865",
         "L8-PF-03-SEALED-CANDIDATE-NO-OP": "f202c0fb1ea5b08e2f7fcde9befb92bc3bbb96a89feaec97499e10230fdc7f23",
-        "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "0756b892b4afa86a574289fc093741d765af2a5d47c7ceed14df4c4c2a589e02",
+        "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "e8bda77a1cb7da63635e86e02c3be92100a940f3fafb79274151884bc787f636",
         "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "9d8091b625ebf675542727bfa42e720a03906a4d5b9ca7bfa0a7b171f1668ee0",
         "L8-VPY-03-ALL-PYTHON-VERIFIED-POC": "7eab48b74512b28f340785e99422bc0b0a88419dcf7f91a2ae403ef898dd2186",
         "L8-VPY-03A-PAGE-PDF-VERIFIED-CANARIES": "bf6d148aeae3f3e33e2b35911a5594270cc97525ebb8a9d1fe20e511b1a5f392",
@@ -4502,6 +4502,33 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
+        },
+        {
+          "causal_owner_changed": false,
+          "created_at": "2026-08-26T05:49:58.727535+00:00",
+          "dependency_sequence_changed": true,
+          "evidence_refs": [
+            "plans/investigations/evidence/portfolio-proof-pf05-seven-ecosystem-canaries/first-boundary-receipts-2026-08-26.md",
+            "scripts/governance/inspect_mission_approach_control.py",
+            "src/readme_agent/facts/verification_contract.py",
+            "src/readme_agent/supervisor/approach_control.py"
+          ],
+          "input_classification": "tactic",
+          "mechanism_changed": true,
+          "new_fingerprint": "e8bda77a1cb7da63635e86e02c3be92100a940f3fafb79274151884bc787f636",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "0756b892b4afa86a574289fc093741d765af2a5d47c7ceed14df4c4c2a589e02",
+          "rationale": "The prior fingerprint (0756b892...) attacked PF-05 at the presentation boundary, repairing one canary defect at a time (PF05-CXX-LINK-001, then RDM-027 capability precedence). That tactic produced real shipped fixes, but its two recorded ineffective attempts share one measured cause, now confirmed by the durable attempt ledger via scripts/governance/inspect_mission_approach_control.py: every attempt that recorded material narrowing closed effective, and the only two that did not were the two whose 30-minute claim lease expired during a long unattended batch. The budget was therefore consumed by a liveness-reporting gap, not by a wrong tactic. Two causal dimensions change here. First, the pipeline boundary: the controller's own first_failing_boundary is FACTS_READY, and live status shows facts_ready 7/33 with 19 repositories listed as stale_fact_contract_repositories, which sums exactly to the raw historical facts_ready=26. Those 19 bundles are complete and merely stale against the current contract hash, so restoring them is deterministic replay with no presentation change and no LLM call, and it is the largest single advance available at the measured failing boundary. Attacking presentation defects first leaves that breadth unrecovered and repeatedly re-derives facts per repository. Second, the mechanism and dependency sequence: fact-contract restoration runs in bulk ahead of per-repository presentation repair, and every claim now records material narrowing at claim time so an expiring lease closes an attempt as effective on real evidence instead of silently spending approach budget. Order matters because RC1 (common-file cache invalidation) means any shared fact-verification edit re-stales the whole portfolio, so fact restoration must follow, not precede, the shared repairs it depends on -- which is why this replan sequences bulk restoration after the already-committed shared fixes rather than before them.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
         }
       ]
     },
@@ -5099,7 +5126,7 @@
     ],
     "graph_sha256": "d5133ac4b044197d6c554ad824a15f17c5b88f265c035dc8a0f8660335cc69ca",
     "infrastructure_tasks_since_visible_delivery": 0,
-    "last_evaluated_at": "2026-08-26T05:44:30.338317+00:00",
+    "last_evaluated_at": "2026-08-26T05:50:50.504612+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 2,
       "candidate_generated": 3,
@@ -5214,7 +5241,31 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "campaign_id": "CAMP-GATE-A-PORTFOLIO",
+      "core_contribution": {
+        "kind": "first_boundary_removal",
+        "summary": "Prove the complete transaction is portable before fleet execution."
+      },
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-AUTONOMY",
+        "GOAL-DELIVERY"
+      ],
+      "immediate_goal_id": "DELIVERY-SEVEN-ECOSYSTEM-CANARIES",
+      "immediate_outcome": "Accept and no-op-prove one current repository per supported ecosystem.",
+      "repository_scope": [
+        "platform:python",
+        "platform:net",
+        "platform:java",
+        "platform:cpp",
+        "platform:typescript",
+        "platform:rust",
+        "platform:go"
+      ],
+      "stage_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
+      "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
+    },
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
@@ -18102,7 +18153,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1713,
+  "state_version": 1714,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
