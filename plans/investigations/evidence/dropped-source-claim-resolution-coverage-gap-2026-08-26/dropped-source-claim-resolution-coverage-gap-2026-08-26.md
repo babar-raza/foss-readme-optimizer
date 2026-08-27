@@ -154,6 +154,61 @@ rather than closing it. `claim_accountability_validation.py` and
 only the resolution-authoring side (`presentation/verified_*.py`,
 `readme/claim_*.py` -- both contract-bound globs) would need new code.
 
+## Precise mechanism for gap 1's fenced examples, traced live (2026-08-27)
+
+Traced all 10 of `aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET`'s previewed
+blocking claims through `assess_material_claims()` +
+`classify_source_claim_risk()` against the real vendor source text. All 10
+share `risk_class="mandatory_fact_resolution"`; 2 (offsets 6918, 7090) have
+`obligation_id="dependency_requirements"` (gap 2's plain prose); 8 (offsets
+7995, 8366, 8643, 8893, 9215, 10180, 10332, 10544) have
+`obligation_id="additional_examples"` -- confirming gap 1's fenced ```csharp
+examples are ALL under this one obligation, not `primary_example`.
+
+`resolve_source_claims()` (`verified_source_claim_resolution_engine.py`)
+handles `obligation_id == "primary_example"` specially (lines 292-310, calls
+`deferred_unverified_source_example_resolution()`), but has **no equivalent
+branch for `"additional_examples"`** -- it falls through to the generic
+`accepted_obligation_bindings("additional_examples", ...)` check (line
+356-372), which is `None` for this repository (no independently-accepted
+`additional_examples` obligation exists), then to
+`deferred_unverified_obligation_detail_resolution()` (line 396), which
+**immediately returns `None`** because `"additional_examples"` is not in its
+hardcoded allowed-obligation set (`api_public_surface`, `major_capabilities`,
+`product_overview`, `development_commands` only -- confirmed by reading
+`verified_source_claim_omissions.py`). With no other applicable branch, the
+claim falls to `_raise_unresolved_preserve(preserve_required and
+fail_on_unresolved_preserve, claim.claim_id)` with `preserve_required=False`
+(a deliberate no-op, not a raise) and the loop `continue`s -- silently
+producing **zero** `SourceClaimResolutionV1` for the claim. This is the exact
+mechanism, confirmed by direct trace, not inference.
+
+**Naively extending the allowed-obligation set does not work**: even if
+`"additional_examples"` were added to
+`deferred_unverified_obligation_detail_resolution()`'s allowed set, its
+first guard requires `candidate_core_present` (derived from the SAME
+`accepted_obligation_bindings("additional_examples", ...)` call that is
+already known to return `None` here) -- so it would still return `None` for
+exactly the failing case. A working fix needs the same *per-example*
+verification rigor `deferred_unverified_source_example_resolution()` already
+applies for `primary_example` (does this exact example have a recorded
+static/execution verification decision? is its literal input fixture
+provably absent from the tree?), not a category-level "is some other example
+already accepted" check.
+
+**Confirmed additional scope**: `deferred_unverified_source_example_resolution()`
+is Python-fence-specific by construction --
+`_python_fence_content()` explicitly rejects any fence whose language tag is
+not `py`/`python` (`_python_fence_content('```csharp\n...\n```')` returns
+`None`, confirmed live). Generalizing this to cover the real failing case
+(.NET/C#) requires handling that ecosystem's fence language and its
+verification-fact shape too, not just relaxing the `obligation_id` gate --
+likely true for every other ecosystem's `additional_examples` claims as
+well. This is real, multi-ecosystem feature work, not a one-line patch;
+attempting a rushed version risks a worse failure mode than the current
+crash-closed behavior -- silently misclassifying a genuine example as safe
+to omit. Not attempted in this pass.
+
 **Precise gap location (traced 2026-08-26, deeper than the original writeup
 above):** `presentation/verified_source_policy.py::build_verified_source_policy_edits()`
 is the ONLY deterministic generator of `VerifiedSourcePolicyEditV1` spans, which
