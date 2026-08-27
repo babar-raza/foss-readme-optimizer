@@ -576,6 +576,22 @@ class GitStateBackend:
             if push.returncode != 0:
                 if _is_non_fast_forward(push.stderr):
                     return SaveResult(outcome="stale", new_version=None)
+                # `_is_non_fast_forward` matches hardcoded stderr substrings, which is
+                # git-version/locale-dependent and can miss a genuine CAS rejection
+                # (Decision #113, requirement SAFE-021, 2026-08-27 production recovery
+                # sprint: a custom `refs/readme-agent-state/*` ref's rejection wording is
+                # not guaranteed to match the known markers). Before treating an
+                # unmatched push failure as a hard error, re-fetch the ref structurally:
+                # if it has genuinely moved past the commit we pushed from, that is the
+                # same CAS outcome (`stale`) regardless of what git's stderr said. Only a
+                # push failure where the ref did *not* move (auth, network, permissions)
+                # remains a hard `StateBackendError`.
+                current_sha = _fetch_remote_sha(remote_ref, remote=self._remote, cwd=self._git_cwd)
+                if current_sha is not None and current_sha != parent_sha:
+                    current = load_run_state_json(
+                        _read_blob(current_sha, "state.json", cwd=self._git_cwd)
+                    )
+                    return SaveResult(outcome="stale", new_version=current.state_version)
                 raise StateBackendError(f"push of {remote_ref} failed: {push.stderr}")
 
             return SaveResult(outcome="saved", new_version=new_version)

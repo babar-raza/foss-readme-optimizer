@@ -8,6 +8,7 @@ import pytest
 
 from readme_agent.errors import StateBackendError
 from readme_agent.state import git_backend
+from readme_agent.state.schema import RunStateV1
 
 
 def _completed(
@@ -238,6 +239,96 @@ def test_github_cannot_lock_ref_expected_value_is_a_stale_cas():
     )
 
     assert git_backend._is_non_fast_forward(stderr)
+
+
+def test_save_falls_back_to_structural_recheck_on_unmatched_push_rejection(monkeypatch):
+    """Decision #113 / SAFE-021: `_is_non_fast_forward`'s hardcoded stderr-substring
+    matching can miss a genuine non-fast-forward rejection. `save()` must not treat an
+    unmatched push failure as a hard error when the remote ref has structurally moved --
+    it must re-fetch and report `stale` with the real current version, same as a matched
+    rejection would."""
+
+    parent_sha = "a" * 40
+    moved_sha = "c" * 40
+    fetch_calls = 0
+
+    def fake_run_git(args: list[str], input_text: str | None = None, **_kwargs):
+        nonlocal fetch_calls
+        if args[0] == "fetch":
+            fetch_calls += 1
+            return _completed()
+        if args[0] == "rev-parse":
+            sha = parent_sha if fetch_calls == 1 else moved_sha
+            return _completed(stdout=f"{sha}\n")
+        if args[0] == "update-ref":
+            return _completed()
+        if args[0] == "cat-file":
+            blob_ref = args[-1]
+            sha = blob_ref.split(":", 1)[0]
+            version = 1 if sha == parent_sha else 2
+            return _completed(
+                stdout=(
+                    f'{{"schema_version": 2, "org_repo": "org/repo", "state_version": {version}}}'
+                )
+            )
+        if args[0] == "hash-object":
+            return _completed(stdout="b" * 40 + "\n")
+        if args[0] == "mktree":
+            return _completed(stdout="d" * 40 + "\n")
+        if args[0] == "commit-tree":
+            return _completed(stdout="e" * 40 + "\n")
+        if args[0] == "push":
+            # Deliberately does not match any `_is_non_fast_forward` marker.
+            return _completed(
+                returncode=1,
+                stderr="remote: some unrecognized rejection wording git might use\n",
+            )
+        raise AssertionError(f"unexpected git call: {args}")
+
+    monkeypatch.setattr(git_backend, "run_git", fake_run_git)
+
+    backend = git_backend.GitStateBackend(remote="file:///fixture-state.git")
+    result = backend.save("org/repo", RunStateV1(org_repo="org/repo"), expected_version=1)
+    backend.close()
+
+    assert result.outcome == "stale"
+    assert result.new_version == 2
+    assert fetch_calls == 2
+
+
+def test_save_still_raises_when_push_fails_and_ref_did_not_move(monkeypatch):
+    """The structural fallback must not mask a genuine hard failure (auth, network,
+    permissions) where the remote ref never actually moved."""
+
+    parent_sha = "a" * 40
+
+    def fake_run_git(args: list[str], input_text: str | None = None, **_kwargs):
+        if args[0] == "fetch":
+            return _completed()
+        if args[0] == "rev-parse":
+            return _completed(stdout=f"{parent_sha}\n")
+        if args[0] == "update-ref":
+            return _completed()
+        if args[0] == "cat-file":
+            return _completed(
+                stdout='{"schema_version": 2, "org_repo": "org/repo", "state_version": 1}'
+            )
+        if args[0] == "hash-object":
+            return _completed(stdout="b" * 40 + "\n")
+        if args[0] == "mktree":
+            return _completed(stdout="d" * 40 + "\n")
+        if args[0] == "commit-tree":
+            return _completed(stdout="e" * 40 + "\n")
+        if args[0] == "push":
+            return _completed(returncode=1, stderr="remote: Permission denied\n")
+        raise AssertionError(f"unexpected git call: {args}")
+
+    monkeypatch.setattr(git_backend, "run_git", fake_run_git)
+
+    backend = git_backend.GitStateBackend(remote="file:///fixture-state.git")
+    with pytest.raises(StateBackendError, match="Permission denied"):
+        backend.save("org/repo", RunStateV1(org_repo="org/repo"), expected_version=1)
+    backend.close()
 
 
 def test_load_many_uses_one_bulk_fetch_and_cleans_all_isolated_refs(monkeypatch):

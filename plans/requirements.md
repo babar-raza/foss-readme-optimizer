@@ -14,9 +14,9 @@ and requirement `GOV-032` exist to close):
 - `BACKLOG`: 49
 - `DEPRECATED`: 23
 - `GOVERNANCE`: 35
-- `IMPLEMENTED`: 169
+- `IMPLEMENTED`: 170
 - `PARTIAL`: 104
-- `PLANNED`: 128
+- `PLANNED`: 127
 - `RESEARCH-GATED`: 6
 
 Families: `AGT` 10, `AUTH` 8, `BIZ` 8, `CAP` 9, `CORE` 39, `DEP` 6, `DOC` 10, `ECO` 5, `EFF` 6, `EVID` 6, `FACT` 20, `FRESH` 6, `GAP` 3, `GOV` 31, `INT` 10, `KNOW` 14, `L8` 55, `LLM` 23, `MEM` 5, `MET` 8, `NFR` 14, `ONB` 4, `OPS` 14, `ORC` 9, `OWN` 15, `PIL` 16, `PKG` 6, `PRL` 9, `RDM` 33, `RUN` 10, `SAFE` 21, `SCL` 10, `SURF` 15, `TRP` 23, `VAL` 20, `VER` 13.
