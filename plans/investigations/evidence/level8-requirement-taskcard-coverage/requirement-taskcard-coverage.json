@@ -4,16 +4,16 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements/catalog.jsonl",
-  "source_sha256": "9f24b3fa5bb07ed5f5a7996a9c7106081f30af55f140efbb08feaa397cb763f7",
+  "source_sha256": "f757d1cae38aa80262e46d79defd221382b9a31ab3b6baffed42427a169a139e",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 514,
+  "total_requirement_rows": 515,
   "mandatory_requirement_rows": 443,
-  "excluded_backlog_rows": 48,
+  "excluded_backlog_rows": 49,
   "excluded_deprecated_rows": 23,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 35,
-    "excluded_backlog": 48,
+    "excluded_backlog": 49,
     "excluded_deprecated": 23,
     "open_mandatory": 236,
     "preserved_verified": 172
@@ -55,7 +55,7 @@
     "L8-WAVE1-CANONICAL-SAFETY-SPINE": 85,
     "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 54,
     "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 46,
-    "L8-WAVE4-PRESENTATION-INTELLIGENCE": 125,
+    "L8-WAVE4-PRESENTATION-INTELLIGENCE": 126,
     "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 55,
     "L8-WAVE6-CONTROLLED-JAVA-PILOT": 13,
     "L8-WAVE7-HETEROGENEOUS-PORTFOLIO": 5,
@@ -4192,6 +4192,14 @@
       "requirement_status": "IMPLEMENTED",
       "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
       "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-034",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "excluded_backlog",
       "semantic_findings": []
     }
   ]
