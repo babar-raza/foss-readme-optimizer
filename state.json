@@ -4603,7 +4603,7 @@
     "claimed_by": null,
     "concurrent_goal_ids": [],
     "delivery_complete": false,
-    "goal_activation_graph_sha256": "2000088c0d2955790a0c932ff76412dfa8fd7d8ae92065b85ec6622b2e41517c",
+    "goal_activation_graph_sha256": "5ff30a2020bd5e64b75a0e1ea33d4f512994266884f4a2ef49bca808bf66fccb",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -5191,16 +5191,16 @@
         "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
       }
     ],
-    "graph_sha256": "2000088c0d2955790a0c932ff76412dfa8fd7d8ae92065b85ec6622b2e41517c",
+    "graph_sha256": "5ff30a2020bd5e64b75a0e1ea33d4f512994266884f4a2ef49bca808bf66fccb",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-27T10:37:31.181796+00:00",
+    "last_evaluated_at": "2026-08-27T12:40:22.471319+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 2,
       "denominator": 34,
-      "derived_at": "2026-08-27T10:09:43.273894+00:00",
+      "derived_at": "2026-08-27T12:38:23.027241+00:00",
       "deterministic_validated": 1,
-      "facts_ready": 24,
+      "facts_ready": 23,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
@@ -5209,15 +5209,14 @@
         "FACTS_READY": 21,
         "INTAKE_READY": 1,
         "NO_OP_PROVEN": 1,
-        "README_ASSESSED": 1,
-        "SYSTEM_FAILURE": 1
+        "SYSTEM_FAILURE": 2
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 1,
       "raw_agent_approved": 1,
       "raw_candidate_generated": 2,
       "raw_deterministic_validated": 1,
-      "raw_facts_ready": 24,
+      "raw_facts_ready": 23,
       "raw_human_accepted": 0,
       "raw_no_op_proven": 1,
       "registry_path": "data/products.json",
@@ -18202,7 +18201,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1767,
+  "state_version": 1768,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
