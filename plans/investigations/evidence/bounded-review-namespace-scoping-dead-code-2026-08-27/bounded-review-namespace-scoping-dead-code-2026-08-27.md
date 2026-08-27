@@ -2,15 +2,35 @@
 
 ## Status
 
-Root-caused with a direct, live reproduction. Not fixed: the correct repair
-needs a real design decision on how to reliably recover a table unit's owning
-namespace (the current signal -- regex-searching the table's own rendered
-text -- structurally can never work, as explained below), not a one-line
-patch. Unlike RDM-029/RDM-030, this file is **not** contract-bound
-(`bounded_review_packers.py` matches none of `document_templates.py`'s
-`DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS`/`_GLOBS`), so a fix here would carry
-no portfolio-wide cache-invalidation cost -- a lower-risk, cheaper fix to
-schedule than RDM-029's.
+Fixed (commit `f8ba9ab5d`, 2026-08-27): `section_text` (heading through unit)
+threaded in as a second search input so the namespace regex can actually
+match, with classes/functions capped at 24 entries and
+`projection_complete_for_namespace` reported truthfully instead of always
+claiming completeness. 88 focused/regression tests pass. Unlike RDM-029/
+RDM-030, this file is **not** contract-bound (`bounded_review_packers.py`
+matches none of `document_templates.py`'s
+`DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS`/`_GLOBS`), so the fix carried no
+portfolio-wide cache-invalidation cost.
+
+**Live-verification result (2026-08-27, same day)**: a live retry against
+`aspose-3d-foss/Aspose.3D-FOSS-for-.NET` -- the repository that originally
+demonstrated this symptom -- still fails identically. Direct inspection of
+the persisted `bounded-review-plan.json` shows why: that repository's
+failing unit (`unpacketizable-oversized-factual-unit-0048-table`) is section
+`api-method-index`, whose own raw rendered text is 123,617 characters
+(`char_start=32680`, `char_end=156297`) -- already over the 120,000-char
+budget before any facts payload is added (`required_min_budget=127189`).
+This is **RDM-028's** already-known, already-backlogged monolithic-API-
+Method-Index-table finding (a flat one-row-per-member table across the
+entire API surface, requiring a genuine curation-cutoff design decision, not
+a mechanical patch) -- an unrelated root cause this fix was never designed
+to address, and correctly does not. A portfolio-wide scan of persisted
+`bounded-review-plan.json` files confirms this fix's own target pattern
+(per-namespace class tables) is real and present elsewhere -- e.g.
+`aspose-html-foss/Aspose.HTML-FOSS-for-Python`'s
+`api-reference/asposehtmldom-namespace-aspose_htmldom`
+(`required_min_budget=133095`) -- so the fix has genuine, verified value even
+though it does not single-handedly clear this specific demo repository.
 
 ## Symptom
 
