@@ -97,6 +97,63 @@ against the same `format_direction_contradiction` signal the downstream
 presentation lint already computes, rather than relying on the composing LLM
 turn to remember to author a resolution for every such drop on its own.
 
+## Precise remaining scope, found via live re-check on `aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET` (2026-08-27)
+
+Commit `16faa1358` implemented the format-direction slice of the repair above
+in `presentation/verified_source_policy.py::build_verified_source_policy_edits()`,
+reusing `directional_fragments()`/`unsupported_format_directions()`. Live
+re-verification of `aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET` after that fix
+(and after the unrelated RDM-030 fix, `runs/logs/rdm030-verify-pdf-net-20260827b.log`)
+still shows 13 blocking claims, confirming the fix's own PARTIAL status. A
+dedicated read-only investigation of the live source (`runs/readme-poc/
+aspose-pdf-foss__Aspose.PDF-FOSS-for-.NET/663783d18ec1c00efbd9b56a0a6ea20e4671d92b/
+source/README.md`) against the previewed 10 blocking claim IDs found two
+distinct, precise scope gaps in the existing fix, not a new mechanism:
+
+1. **Fenced code is categorically excluded from every edit path in
+   `verified_source_policy.py`, including the RDM-029 generator.**
+   `build_verified_source_policy_edits()` gates every candidate edit through
+   `_visitor_visible()` (lines 56-59), which skips any span overlapping a
+   ```` ``` ```` fence -- correctly, since the source-policy editor must never
+   silently rewrite a protected code example. But this means a fenced example
+   demonstrating an unauthorized format direction (e.g. a ```csharp block
+   calling `Document.Open("input.pdf")` to demonstrate signing/extraction/
+   annotation/rendering, when this FOSS edition's accepted facts do not
+   authorize PDF as an input format) never gets *any* accountability path --
+   not a rewritten edit (correctly), but also not the `verified_omission`
+   resolution that would let the accountability gate accept its correct
+   absence from the candidate. 8 of the 10 previewed blocking claim IDs for
+   this repository are exactly this: fenced ```csharp examples, each
+   co-occurring with a `presentation.format_direction_contradiction` finding
+   for the same format role. The fix needed is not to relax `_visitor_visible`
+   (which would let policy edits rewrite protected code), but to add a
+   *resolution-authoring* path -- alongside the existing narrow functions in
+   `presentation/verified_source_claim_omissions.py`
+   (`deferred_withheld_source_resolution`, `deferred_unverified_obligation_
+   detail_resolution`, `deferred_unverified_source_example_resolution`,
+   `verified_paired_example_intro_resolution`, `governed_source_omission`) --
+   that recognizes a claim is a fenced example whose format direction the
+   accepted facts do not authorize, and records a `verified_omission`/
+   `presentation_policy_correction` `SourceClaimResolutionV1` for it without
+   touching the fence's text.
+2. **Non-format-direction claim drops are untouched by the existing fix at
+   all.** 2 of the 10 previewed IDs are plain dependency prose ("No optional
+   third-party package dependencies." / "No development-only third-party
+   package dependencies…") with no connection to format direction --
+   confirming the coverage gap is broader than the one sub-case RDM-029's fix
+   addresses. Not yet investigated further; may need its own resolution
+   function or may share a root cause with another already-fixed category
+   (`governed_source_omission`'s pattern-matching is the closest existing
+   analog but does not currently match this prose).
+
+Both gaps are additive, narrowly scoped (new resolution-authoring functions,
+not edits to the accountability gate itself), but represent real, sized
+design work -- consistent with keeping this requirement's status `PARTIAL`
+rather than closing it. `claim_accountability_validation.py` and
+`document_validation.py` (the gate) were NOT touched and do not need to be;
+only the resolution-authoring side (`presentation/verified_*.py`,
+`readme/claim_*.py` -- both contract-bound globs) would need new code.
+
 **Precise gap location (traced 2026-08-26, deeper than the original writeup
 above):** `presentation/verified_source_policy.py::build_verified_source_policy_edits()`
 is the ONLY deterministic generator of `VerifiedSourcePolicyEditV1` spans, which
