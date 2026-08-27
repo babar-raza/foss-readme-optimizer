@@ -28,6 +28,7 @@ _API_NAMESPACE = re.compile(r"Namespace \(`([^`]+)`\)")
 _BOUNDED_FACT_PROJECTION_CONTRACT_VERSION = "bounded-fact-projection-v1"
 _MAX_REVIEW_SOURCE_LOCATION_CHARS = 512
 _MAX_REVIEW_PROTECTED_LITERALS = 24
+_MAX_SCOPED_API_ITEMS = 24
 
 
 def _compact_bounded_review_fact(payload: dict[str, Any]) -> dict[str, Any]:
@@ -68,17 +69,34 @@ def _compact_bounded_review_fact(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def _bounded_fact_payloads(
-    product_facts: ProductFactsV2, fact_ids: set[str], unit_text: str
+    product_facts: ProductFactsV2, fact_ids: set[str], unit_text: str, section_text: str = ""
 ) -> list[dict[str, Any]]:
-    """Keep exact API evidence for the namespace rendered in one bounded packet."""
+    """Keep exact API evidence for the namespace rendered in one bounded packet.
+
+    ``section_text`` (when given) spans from the unit's owning heading through
+    the unit itself: the namespace regex needs the heading, since a table
+    unit's own text never repeats it (see RDM-032 evidence). Falls back to
+    ``unit_text`` alone so existing single-argument callers/fixtures that
+    already inline a heading into their synthetic unit text keep working.
+    Classes/functions in the scoped projection are capped at
+    ``_MAX_SCOPED_API_ITEMS`` -- an uncapped "complete for this namespace"
+    projection can itself exceed the packet budget for a large namespace,
+    which defeats the budget the scoping exists to fit (confirmed live:
+    this made a real repository's oversized-unit failure worse, not
+    better). ``projection_complete_for_namespace`` reflects truncation
+    truthfully rather than always claiming completeness.
+    """
 
     payloads = composition_fact_payloads(product_facts, fact_ids)
-    namespace_match = _API_NAMESPACE.search(unit_text)
+    generic = [_compact_bounded_review_fact(payload) for payload in payloads]
+    namespace_match = _API_NAMESPACE.search(section_text or unit_text)
     if namespace_match is None:
-        return [_compact_bounded_review_fact(payload) for payload in payloads]
+        return generic
     namespace = namespace_match.group(1)
     by_id = {fact.fact_id: fact for fact in product_facts.facts}
-    for payload in payloads:
+    scoped_payloads = [dict(payload) for payload in payloads]
+    scoped_any = False
+    for payload in scoped_payloads:
         if payload.get("field") != "api.public_surface":
             continue
         fact = by_id.get(str(payload.get("fact_id")))
@@ -163,15 +181,20 @@ def _bounded_fact_payloads(
             for item in catalog.get("functions") or []
             if isinstance(item, dict) and item.get("module") == namespace
         ]
+        classes_truncated = len(classes) > _MAX_SCOPED_API_ITEMS
+        functions_truncated = len(functions) > _MAX_SCOPED_API_ITEMS
         payload["value"] = {
             "namespace": namespace,
             "modules": modules,
-            "classes": classes,
-            "functions": functions,
+            "classes": classes[:_MAX_SCOPED_API_ITEMS],
+            "functions": functions[:_MAX_SCOPED_API_ITEMS],
             "projection_contextual": True,
-            "projection_complete_for_namespace": True,
+            "projection_complete_for_namespace": not (classes_truncated or functions_truncated),
         }
-    return [_compact_bounded_review_fact(payload) for payload in payloads]
+        scoped_any = True
+    if not scoped_any:
+        return generic
+    return [_compact_bounded_review_fact(payload) for payload in scoped_payloads]
 
 
 def _greedy_group_units(
@@ -256,13 +279,14 @@ def _build_factual_packets(
         if not factual_units:
             continue
 
-        def group_size(units: list[_MutableUnit]) -> int:
+        def group_size(units: list[_MutableUnit], *, _section_start: int = section_start) -> int:
             text_len = units[-1].char_end - units[0].char_start
             fact_ids: set[str] = set()
             for unit in units:
                 fact_ids.update(unit_fact_ids(unit))
             unit_text = candidate_text[units[0].char_start : units[-1].char_end]
-            facts_payload = _bounded_fact_payloads(product_facts, fact_ids, unit_text)
+            section_text = candidate_text[_section_start : units[-1].char_end]
+            facts_payload = _bounded_fact_payloads(product_facts, fact_ids, unit_text, section_text)
             return text_len + len(
                 json.dumps(facts_payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
             )
@@ -299,6 +323,7 @@ def _build_factual_packets(
                         product_facts,
                         fact_ids,
                         candidate_text[group_units[0].char_start : group_units[-1].char_end],
+                        candidate_text[section_start : group_units[-1].char_end],
                     ),
                     key=lambda item: str(item.get("fact_id", "")),
                 )

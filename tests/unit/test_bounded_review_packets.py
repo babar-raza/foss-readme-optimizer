@@ -144,6 +144,114 @@ def test_api_packet_receives_complete_exact_namespace_evidence() -> None:
     ]
 
 
+def test_namespace_scoping_recovers_via_section_text_when_unit_text_lacks_the_heading() -> None:
+    """RDM-032: a table unit's own text never repeats its owning heading (the
+    two are separate units in ``bounded_review_structure.py``), so the
+    namespace regex must search ``section_text`` (heading through unit), not
+    ``unit_text`` alone -- else the scoping optimization silently never
+    fires and always falls back to the generic payload."""
+
+    api_fact = DEFAULT_FACTS.facts[0].model_copy(
+        update={
+            "fact_id": "api.public_surface:test-catalog-heading-split",
+            "field": "api.public_surface",
+            "value": {
+                "modules": [{"module": "widget.entities", "exports": ["Box"]}],
+                "coordinate_catalog": {
+                    "modules": [{"module": "widget.entities", "exports": ["Box"]}],
+                    "classes": [{"module": "widget.entities", "name": "Box", "members": []}],
+                    "functions": [],
+                },
+            },
+        }
+    )
+    facts = DEFAULT_FACTS.model_copy(
+        update={
+            "facts": [*DEFAULT_FACTS.facts, api_fact],
+            "selected_fact_ids": {
+                **DEFAULT_FACTS.selected_fact_ids,
+                "api.public_surface": api_fact.fact_id,
+            },
+        }
+    )
+    unit_text_only = "| `Box` | A box. |"
+    section_text = "### Widget.Entities Namespace (`widget.entities`)\n\n" + unit_text_only
+
+    without_section = _bounded_fact_payloads(facts, {api_fact.fact_id}, unit_text_only)[0]["value"]
+    assert "namespace" not in without_section
+
+    with_section = _bounded_fact_payloads(facts, {api_fact.fact_id}, unit_text_only, section_text)[
+        0
+    ]["value"]
+    assert with_section["namespace"] == "widget.entities"
+    assert with_section["projection_complete_for_namespace"] is True
+
+
+def test_namespace_scoped_projection_is_capped_for_a_large_namespace() -> None:
+    """RDM-032 regression: once namespace matching works, an uncapped
+    "complete for this namespace" projection can itself exceed the packet
+    budget for a large namespace -- confirmed live, this made
+    aspose-3d-foss/.NET's oversized-unit failure worse, not better. The
+    projection must cap its classes/functions and truthfully report the
+    truncation rather than claim completeness it doesn't have."""
+
+    big_classes = [
+        {
+            "module": "big.ns",
+            "name": f"Class{i}",
+            "members": [
+                {
+                    "name": f"member_{i}_{j}",
+                    "kind": "method",
+                    "surface": f"member_{i}_{j}(argument_one, argument_two, argument_three)",
+                    "implemented": True,
+                    "declared_by": f"Class{i}",
+                    "inherited": False,
+                }
+                for j in range(20)
+            ],
+        }
+        for i in range(40)
+    ]
+    api_fact = DEFAULT_FACTS.facts[0].model_copy(
+        update={
+            "fact_id": "api.public_surface:test-catalog-big-namespace",
+            "field": "api.public_surface",
+            "value": {
+                "modules": [
+                    {"module": "big.ns", "exports": [item["name"] for item in big_classes]}
+                ],
+                "coordinate_catalog": {
+                    "modules": [
+                        {"module": "big.ns", "exports": [item["name"] for item in big_classes]}
+                    ],
+                    "classes": big_classes,
+                    "functions": [],
+                },
+            },
+        }
+    )
+    facts = DEFAULT_FACTS.model_copy(
+        update={
+            "facts": [*DEFAULT_FACTS.facts, api_fact],
+            "selected_fact_ids": {
+                **DEFAULT_FACTS.selected_fact_ids,
+                "api.public_surface": api_fact.fact_id,
+            },
+        }
+    )
+    unit_text_only = "| `Class0` | One of many. |"
+    section_text = "### Big Namespace (`big.ns`)\n\n" + unit_text_only
+
+    payload = _bounded_fact_payloads(facts, {api_fact.fact_id}, unit_text_only, section_text)[0][
+        "value"
+    ]
+
+    assert payload["namespace"] == "big.ns"
+    assert len(payload["classes"]) == 24
+    assert payload["projection_complete_for_namespace"] is False
+
+
 def test_repository_example_packet_omits_verifier_bulk_and_hashes_long_source_location() -> None:
     examples_fact = DEFAULT_FACTS.facts[0].model_copy(
         update={
