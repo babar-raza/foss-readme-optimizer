@@ -67,6 +67,48 @@ all -- confirmed directly (`api_reference_markdown()` for this repo's facts
 contains zero `Declares` clauses, meaning no description collisions exist
 here).
 
+## Attempted fix (2026-08-27, reverted -- makes the symptom worse)
+
+Implemented direction 1 above (threaded the section's raw heading-unit text
+through `_bounded_fact_payloads` as a `heading_text` fallback for
+`_API_NAMESPACE`, wired through both call sites in `_build_factual_packets`).
+Unit tests passed (20/20 in `test_bounded_review_packets.py`, including a new
+regression test proving the regex now matches against a realistic
+heading-separate-from-table `unit_text`). But a **live retry against the real
+failing repository made it worse**: `aspose-3d-foss/Aspose.3D-FOSS-for-.NET`
+went from one oversized unit (`unpacketizable-oversized-factual-unit-0048-table`)
+to two (`'unpacketizable-oversized-factual-unit-0040-table',
+'unpacketizable-oversized-factual-unit-0048-table'`), and unit 0048 still
+failed even with scoping now working.
+
+Root cause of the regression: `composition_fact_payloads()` already runs
+every fact through `compact_prompt_fact_value()`
+(`readme/agentic_composition_inputs.py:126-166`) before the namespace-scoping
+logic ever runs -- for `api.public_surface` this is a deliberately lossy,
+capped summary (`_MAX_PROMPT_API_ITEMS`-sliced module/export/class lists),
+independent of which namespace the table belongs to. Measured directly: for
+this repository's `api.public_surface` fact, that generic capped summary
+serializes to only ~3,572 characters -- small, because it's an
+already-bounded *sample* across the whole API, not a per-namespace listing.
+The namespace-scoped projection this fix enables, by contrast, returns
+*every* class and *every* summary member for the one real namespace with no
+cap -- measured at ~45,622 characters for the "Core API" namespace alone.
+Making the scoping regex actually match did what it was designed to do
+(swap the generic capped sample for a complete, namespace-accurate listing),
+but for a namespace this large, "complete and accurate" is bigger than
+"capped and generic" -- the literal opposite of what the scoping is there to
+achieve (fitting inside the budget).
+
+Reverted immediately (`git checkout` before committing) rather than ship a
+regression. The correct fix must not treat "namespace match found" as
+unconditionally better: it needs to fall back to the generic capped summary
+whenever the namespace-scoped projection would be larger, not only when the
+namespace can't be identified at all. This still needs a design decision
+(cap classes/members within the namespace projection too? compare both
+payload sizes and take the smaller? something else?) and a new/updated
+regression test that asserts using neither payload alone regresses size for
+a large synthetic namespace -- not attempted further in this pass.
+
 ## Correct repair direction
 
 `_MutableUnit` already tracks `section_path` (a slugified heading-ancestry
