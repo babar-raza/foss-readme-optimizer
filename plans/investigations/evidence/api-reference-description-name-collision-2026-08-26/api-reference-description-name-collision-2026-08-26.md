@@ -20,6 +20,10 @@ Fixed in `verified_template_api_reference.py` (see "Second collision
 mechanism" below), with its own unit regression
 (`test_case_only_class_name_collision_gets_distinct_descriptions`,
 `tests/unit/test_verified_template_api_reference_disambiguation.py`).
+Both fixes are committed (`e654a706e`) and live-verified: the "API reference
+contains duplicated descriptions" error no longer reproduces against
+`aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET` -- see "Live re-verification"
+below.
 
 Both fixes touch `presentation/verified_*.py` modules
 (`document_templates.py::DOCUMENT_CONTRACT_IMPLEMENTATION_PATHS`/`_GLOBS`),
@@ -138,6 +142,20 @@ appends a plain ordinal tag to any group that (in some far more contrived case)
 would still collide after the member-name pass, guaranteeing the invariant
 holds regardless of edge cases. Only rows that actually collide are touched;
 verified the full 660-row .NET reference now renders 660 unique descriptions.
+
+## Live re-verification (2026-08-27, both fixes committed)
+
+`readme-agent portfolio-proof --mode fleet --retry-blocked --only
+"aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET"` against commit `e654a706e`
+(both fixes landed) no longer reproduces the "API reference contains
+duplicated descriptions" error anywhere in its blocking reasons. The
+repository now advances past presentation compilation entirely into the
+`presentation_plan` review stage, where it hits a different, later,
+unrelated set of findings (13 claim-accountability blocks,
+`code_fence_spacing`, ten `format_direction_contradiction` findings for PDF
+input role / JSON output role, one `claim_grounding_negative_fact`) --
+confirming the fix, not just plausibly explaining the symptom. Those new
+findings are a separate defect, not yet investigated here.
 
 ## Why mechanism 1's fix alone was not sufficient, and why both are now fixed together
 
