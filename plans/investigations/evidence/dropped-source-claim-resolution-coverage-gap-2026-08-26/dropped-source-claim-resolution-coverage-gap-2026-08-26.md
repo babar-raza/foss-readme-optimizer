@@ -284,14 +284,40 @@ provenance gets recorded during composition (or how it's threaded into
 `resolve_source_claims()`), not three separate new
 per-obligation resolution functions.
 
-**Not confirmed**: this is a hypothesis from two data points (gap 1's fenced
-examples and this major_capabilities case), not a full trace of
-`accepted_obligation_bindings()`'s actual runtime inputs for a live run --
-that would need instrumenting the real composition pipeline
-(`candidate_content_provenance` is intermediate, in-memory pipeline state,
-not a persisted artifact this investigation had static access to). Worth
-prioritizing over gap 1/2's per-obligation framing if picked up next: trace
-whether `candidate_content_provenance` for a live blocked run actually
-contains ANY `major_capabilities`- or `additional_examples`-prefixed
-bindings at all, before assuming a per-obligation fix is even the right
-shape.
+**REFUTED (2026-08-27, same day)**: this hypothesis was tested directly
+against real persisted data and disproven. `candidate_content_provenance`
+*is* persisted per-run (`planning/readme-document-plan.json`), contrary to
+the note above -- it does not require pipeline instrumentation. Loading it
+for `aspose-font-foss/Aspose.Font-FOSS-for-Python` and calling
+`accepted_obligation_bindings("major_capabilities", ...)` directly against
+it returns **accepted, not `None`**. More importantly: the same file's
+persisted `claim_accountability.claims` record for this exact claim
+(`source:claim:470:...`) shows `currently_accountable: true`, with a fully
+valid `deferred_verification` resolution (`survives_in_candidate: false`,
+`expected_disposition: "deferred_verification"`). A second, independent
+snapshot for the same repo shows the same claim resolved a different way
+(`verified_obligation_replacement`), also `currently_accountable: true`.
+**The claim has been correctly resolved in at least two real, persisted
+runs for this repository -- despite it showing a 33-34 run
+`escalation_alert` streak of `presentation_plan` failures on live fleet
+passes.** This is not consistent with a deterministic code gap; it is
+consistent with **composition-level (LLM) nondeterminism**: the exact
+wording of the LLM-authored "Key Capabilities" section varies between
+attempts, and `expected_disposition()`'s `deferred_verification` branch
+requires the accountability engine's own `survives_in_candidate` check
+(driven by `composition_ledger.source_placements`, itself derived from
+that variable candidate text) to independently agree the source table's
+bytes are truly absent -- something that apparently only some LLM-authored
+phrasings satisfy.
+
+**Revised recommendation**: before writing any new resolution-authoring
+code for gaps 1/2/3, first test whether **repeated `--retry-blocked`
+attempts alone** clear some fraction of the 14/32 repos currently blocked
+on this pattern, since the underlying claims may already be resolvable by
+the existing machinery on a favorable LLM attempt -- consistent with this
+mission's own established `qwen3-next` nondeterminism policy (never re-roll
+what already succeeded; ratchet accepted outcomes). If retries alone
+recover a meaningful share, that is the fastest, lowest-risk path to
+raising the acceptance count, and any remaining code-level gaps (1/2/3
+above) should be scoped only against whatever residual failures survive
+several retries, not against the first observed failure.
