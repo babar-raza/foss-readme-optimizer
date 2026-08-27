@@ -139,10 +139,17 @@ def _function_description(name: str, *, module: str, family: str) -> str:
         return f"Loads {remainder} from source content."
     if verb == "save" and remainder:
         if remainder.startswith("workbook as "):
+            # `remainder` was already canonicalized by `canonicalize_abbreviations()`
+            # above, which upper-cases "markdown" to "MARKDOWN" per
+            # `format_vocabulary.DOCUMENT_FORMAT_ABBREVIATIONS` -- this lookup's keys
+            # must match that actual output, not the raw lower-case input, or the
+            # lookup silently misses and falls through to the (wrong) upper-cased
+            # default. "Markdown" isn't a real acronym, unlike CSV/JSON, so it gets
+            # its own display casing here rather than the canonicalizer's.
             output = {
-                "csv": "CSV",
-                "json": "JSON",
-                "markdown": "Markdown",
+                "CSV": "CSV",
+                "JSON": "JSON",
+                "MARKDOWN": "Markdown",
             }.get(remainder.removeprefix("workbook as "), remainder.removeprefix("workbook as "))
             return f"Saves workbook content as {output} output."
         return f"Saves {remainder} through the public {public_family} API."
