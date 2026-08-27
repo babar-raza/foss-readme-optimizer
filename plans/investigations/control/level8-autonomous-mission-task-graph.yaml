@@ -463,18 +463,17 @@ taskcards:
     PSD dispositions
   - The 30-point rubric and zero-hard-disqualifier rule are graph-bound
   - Aspose.org is development input only and product effects are disabled
-  - Every pinned recorded-hash-vs-recomputed-truth check in this codebase (document-template hash,
-    check-battery manifest, checks-source-hash, composition-characterization fixtures,
-    plans/requirements.md summary counts, validate_compact_authority.py's semantic-hash checks) runs as
-    one declarative, independent CI job that fails loudly with the exact re-pin command (requirement
-    GOV-032, Decision 109); validate_compact_authority.py is wired into CI once its current
-    pre-existing errors are resolved
+  - Every pinned recorded-hash-vs-recomputed-truth check in this codebase (document-template hash, check-battery
+    manifest, checks-source-hash, composition-characterization fixtures, plans/requirements.md summary
+    counts, validate_compact_authority.py's semantic-hash checks) runs as one declarative, independent
+    CI job that fails loudly with the exact re-pin command (requirement GOV-032, Decision 109); validate_compact_authority.py
+    is wired into CI once its current pre-existing errors are resolved
   verification:
   - mission schema and graph-loader tests
   - compact-authority, requirement-coverage, plan-structure, and graph-drift checks
   - owner-evidence manifest/hash/path verification
-  - pinned-content-hash registry check (Decision 109) catches an intentionally staleness-mismatched
-    tracked hash with the correct fix-command message
+  - pinned-content-hash registry check (Decision 109) catches an intentionally staleness-mismatched tracked
+    hash with the correct fix-command message
   negative_controls:
   - No stale Python-first or 33-candidate statement can govern this campaign
   - No narrative plan can override durable mission state
@@ -963,9 +962,9 @@ taskcards:
     no other finding enters the batch without exact-evidence adjudication
   - The prose-quality judgment surface is ratcheted (content hash plus PROSE_QUALITY_CONTRACT_VERSION),
     matching every other LLM judgment surface, so "zero new author/reviewer calls" is literally true on
-    an unchanged rerun (requirement LLM-023, Decision 110); CAS post-push-failure classification is
-    hardened as defense-in-depth (requirement SAFE-021, Decision 113) before this task's replay
-    attestation is trusted at fleet scale
+    an unchanged rerun (requirement LLM-023, Decision 110); CAS post-push-failure classification is hardened
+    as defense-in-depth (requirement SAFE-021, Decision 113) before this task's replay attestation is
+    trusted at fleet scale
   verification:
   - 30-point deterministic and independent review
   - full transaction rerun under the same dependency key
@@ -1089,11 +1088,11 @@ taskcards:
     local recovery schedules the narrowest deterministic action, only nonessential unsupported claims
     may be omitted, and a genuine external dependency records exact owner, scope, missing evidence, and
     resume predicate
-  - The claim-disposition ratchet and blocked-decision cache route through the shared durable state
-    backend under their own key namespace instead of machine-local runs/, batched per repository-pass
-    with non-fatal CAS-write failure (requirement SAFE-020, Decision 112), after a load-characterization
-    pass at full fleet scale; CAS post-push-failure classification is structural, not error-text
-    matching (requirement SAFE-021, Decision 113), since this task's durable checkpoints depend on it
+  - The claim-disposition ratchet and blocked-decision cache route through the shared durable state backend
+    under their own key namespace instead of machine-local runs/, batched per repository-pass with non-fatal
+    CAS-write failure (requirement SAFE-020, Decision 112), after a load-characterization pass at full
+    fleet scale; CAS post-push-failure classification is structural, not error-text matching (requirement
+    SAFE-021, Decision 113), since this task's durable checkpoints depend on it
   verification:
   - focused mission runner and registry tests
   - kill/resume and duplicate/no-op integration proof
@@ -1409,9 +1408,9 @@ taskcards:
   - every accepted candidate has complete source, fact, knowledge, claim, review, and no-op lineage
   - every accepted candidate meets or exceeds all applicable accepted benchmark coverage/quality dimensions
   - no target repository effect occurred
-  - composition-plan reuse gates on each repository's own recorded, actually-exercised dependency-set hash,
-    not one global glob digest across ~50 files/4 patterns (requirement CORE-039, Decision 111), landed
-    only after a one-full-pass shadow period comparing both hashes side by side; a fix to unrelated
+  - composition-plan reuse gates on each repository's own recorded, actually-exercised dependency-set
+    hash, not one global glob digest across ~50 files/4 patterns (requirement CORE-039, Decision 111),
+    landed only after a one-full-pass shadow period comparing both hashes side by side; a fix to unrelated
     repositories' composition code must not force this repository's already-accepted plan to re-roll
   verification:
   - failed-only repository repair with per-repository focused proof
@@ -1587,17 +1586,17 @@ bootstrap_state:
   stop_reason: durable supervisor state owns live execution
 requirement_coverage:
   path: plans/investigations/evidence/level8-requirement-taskcard-coverage/requirement-taskcard-coverage.json
-  sha256: 678bf951f801d8c22e071f1da91a70fc704c33eade38d50b1f2d64c83ce97ca3
-  record_count: 497
-  mandatory_requirement_rows: 433
+  sha256: ee73d9867235df300316c5cc6551f7dee73a74159761835e93cb550db372671c
+  record_count: 514
+  mandatory_requirement_rows: 443
   reopened_implemented_rows: 0
 requirement_catalog:
   path: plans/requirements/catalog.jsonl
-  sha256: 5e425a522119c289be20b40a3f915cb233a93d9a320b56084232cad99f581f55
+  sha256: 94dac82708412a64ef82eac5bd50152fbdbc8d80b01bf43ce3668151a7eb473d
   record_count: 514
 deferred_task_catalog:
   path: plans/investigations/control/level8-deferred-task-catalog.jsonl
-  sha256: df8bffba32df763a5d0b7d2063e3910c44f92df8fd41fc67e5ae6787c2dfc838
+  sha256: 2888419db332d8aec7bba35be3d4097d49958e4012ab4d357399797eb752773e
   record_count: 141
 deferred_task_index:
 - task_id: L8-ACCEL-00-PYTHON-READINESS
@@ -2144,7 +2143,7 @@ deferred_task_index:
   status: DEFERRED_WITH_REASON
   stage_goal_id: GOAL-P0-PLAN-FREEZE
   activation_group: historical-control
-  record_sha256: 556a08443d75fcdf31ac3b6dfada52cb874c1692d98784d80ee2c8469c331306
+  record_sha256: 343eb7c33fb1fd79a59141a275137e80c91c55d2c43451786de47c2245bd99dd
 - task_id: L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE
   status: DEFERRED_WITH_REASON
   stage_goal_id: GOAL-P0-PLAN-FREEZE
@@ -2154,12 +2153,12 @@ deferred_task_index:
   status: TODO
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   activation_group: verified-gate-a
-  record_sha256: 32a0b6792be9bdeb6e5c27cbd89c5fc3667ec94034c3af43d57556bd46e9ae09
+  record_sha256: 646bf71c0343a685ffd64a5e41323b524786fdda7d4020058d0530bd9915f96e
 - task_id: L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME
   status: TODO
   stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
   activation_group: gate-b-c
-  record_sha256: 8d9eb371d2d9c02917500caa8286b9ad087791ee5b64acaf8bae3efcb116f681
+  record_sha256: 0eeaa732a31c0b1b7b3566d4aef433181ad5f10138b4b192dff3ef06a78ed346
 - task_id: L8-WAVE3-LOCAL-PRODUCT-TRUTH-FOUNDATION
   status: TODO
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
@@ -2169,7 +2168,7 @@ deferred_task_index:
   status: TODO
   stage_goal_id: GOAL-V1-VERIFIED-TRUTH
   activation_group: verified-gate-a
-  record_sha256: bac8c662f4805aa9f017216bb91e7abb4a4e2c27643f34a0531801ecb93c5815
+  record_sha256: f0a68bde665888a306dc478c5b46a6764ea9d845293d2f00d64face6a8f982ce
 - task_id: L8-WAVE4-LOCAL-PRESENTATION-PLAN-FOUNDATION
   status: TODO
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
@@ -2179,12 +2178,12 @@ deferred_task_index:
   status: TODO
   stage_goal_id: GOAL-V2-VERIFIED-GATE-A
   activation_group: verified-gate-a
-  record_sha256: e5e59555b62e09ef2e9ecd928cf12c650386a43804ca8b6c5e55d83bb506b122
+  record_sha256: d70dc6f618152792101734d50d94e61dbff3a861c643991b36cb5a2290bd4655
 - task_id: L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE
   status: TODO
   stage_goal_id: GOAL-V3-HUMAN-AND-JAVA-PROOF
   activation_group: gate-b-c
-  record_sha256: 3167c4ef806958dffe48a481db791e2f277ee9fb06a2e2c9be379af9d57658a1
+  record_sha256: a0a1978628af426f6ad86111814bc247cb302f44fdf9f7283c9fa9dc07c057ea
 - task_id: L8-WAVE6-CONTROLLED-JAVA-PILOT
   status: TODO
   stage_goal_id: GOAL-L5-PRESENTATION-PILOT

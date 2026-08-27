@@ -31,3 +31,22 @@ jobs:
       - run: mypy src
       - run: python scripts/governance/run_full_pytest.py
       - run: python scripts/governance/validate_plan_structure.py
+
+  # Decision #109 (requirement GOV-032, 2026-08-27 production recovery sprint): pinned-
+  # content-hash consistency runs as its own fast, independent job -- not nested inside the
+  # `test` matrix -- so a stale pin fails loudly on its own rather than blending into a wall
+  # of pytest failures, and reports without waiting for the full matrix to finish.
+  pinned-hashes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: pip install -r requirements-lock.txt
+      - run: pip install -e . --no-deps
+      - run: python scripts/governance/validate_pinned_hashes.py

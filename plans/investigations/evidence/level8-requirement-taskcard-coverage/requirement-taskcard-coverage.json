@@ -4,19 +4,19 @@
   "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
   "graph_path": "plans/investigations/control/level8-autonomous-mission-task-graph.yaml",
   "source_path": "plans/requirements/catalog.jsonl",
-  "source_sha256": "0d3ec0b22ed81914ebe5ce80ca8facffdc474e3e54b0dab1ed2b303cfa86e814",
+  "source_sha256": "94dac82708412a64ef82eac5bd50152fbdbc8d80b01bf43ce3668151a7eb473d",
   "semantic_matrix_path": "plans/investigations/evidence/implementation-truth-matrix-2026/matrix.json",
-  "total_requirement_rows": 497,
-  "mandatory_requirement_rows": 433,
-  "excluded_backlog_rows": 41,
+  "total_requirement_rows": 514,
+  "mandatory_requirement_rows": 443,
+  "excluded_backlog_rows": 48,
   "excluded_deprecated_rows": 23,
   "reopened_implemented_rows": 0,
   "disposition_counts": {
     "active_governance": 35,
-    "excluded_backlog": 41,
+    "excluded_backlog": 48,
     "excluded_deprecated": 23,
-    "open_mandatory": 231,
-    "preserved_verified": 167
+    "open_mandatory": 236,
+    "preserved_verified": 172
   },
   "taskcard_counts": {
     "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": 3,
@@ -51,12 +51,12 @@
     "L8-VPY-00-GOLDEN-TEMPLATE": 1,
     "L8-VPY-02-PAGE-PDF-VERIFIED-CANARIES": 1,
     "L8-VPY-03B-FIRST-CURRENT-PYTHON-E2E": 1,
-    "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 38,
-    "L8-WAVE1-CANONICAL-SAFETY-SPINE": 82,
-    "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 53,
-    "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 43,
-    "L8-WAVE4-PRESENTATION-INTELLIGENCE": 118,
-    "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 53,
+    "L8-WAVE0-PLAN-TRUTH-RECONCILIATION": 39,
+    "L8-WAVE1-CANONICAL-SAFETY-SPINE": 85,
+    "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME": 54,
+    "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP": 46,
+    "L8-WAVE4-PRESENTATION-INTELLIGENCE": 125,
+    "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE": 55,
     "L8-WAVE6-CONTROLLED-JAVA-PILOT": 13,
     "L8-WAVE7-HETEROGENEOUS-PORTFOLIO": 5,
     "L8-WAVE7-LEVEL6-AUTONOMOUS-PORTFOLIO": 1,
@@ -4056,6 +4056,142 @@
       "requirement_status": "BACKLOG",
       "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
       "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-018",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-019",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "FACT-020",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE3-PRODUCT-TRUTH-OWNERSHIP",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-028",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VER-012",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-029",
+      "priority": "P1",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-030",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "VER-013",
+      "priority": "P3",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-031",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "OPS-014",
+      "priority": "P2",
+      "requirement_status": "BACKLOG",
+      "task_id": "L8-WAVE2-RESTARTABLE-ACTIONS-RUNTIME",
+      "disposition": "excluded_backlog",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-032",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "RDM-033",
+      "priority": "P2",
+      "requirement_status": "PARTIAL",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "GOV-032",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE0-PLAN-TRUTH-RECONCILIATION",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "LLM-023",
+      "priority": "P1",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE4-PRESENTATION-INTELLIGENCE",
+      "disposition": "preserved_verified",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "CORE-039",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE1-CANONICAL-SAFETY-SPINE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SAFE-020",
+      "priority": "P1",
+      "requirement_status": "PLANNED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "open_mandatory",
+      "semantic_findings": []
+    },
+    {
+      "requirement_id": "SAFE-021",
+      "priority": "P2",
+      "requirement_status": "IMPLEMENTED",
+      "task_id": "L8-WAVE5-VERIFIED-PROPOSAL-LIFECYCLE",
+      "disposition": "preserved_verified",
       "semantic_findings": []
     }
   ]
