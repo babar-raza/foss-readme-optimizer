@@ -247,3 +247,51 @@ contract-boundedness discipline. The fix also requires deciding exactly how
 resolution-authoring should detect "this drop is a format/role boilerplate
 removal" reliably across ecosystems, which is a real design question, not a
 mechanical patch.
+
+## A third obligation, and a hint the real root cause is shared and upstream (2026-08-27)
+
+`aspose-font-foss/Aspose.Font-FOSS-for-Python` has the highest recorded
+`escalation_alert` streak of any repository in the portfolio (33-34
+consecutive `presentation_plan` failures across every fleet pass run this
+session) -- the single most persistently-stuck repository, worth tracing
+directly. Its one blocking claim (`source:claim:470:...`) traces to a THIRD
+obligation: `risk_class="mandatory_fact_resolution"`,
+`obligation_id="major_capabilities"` -- a source capability table, not a
+fenced example (gap 1) or dependency prose (gap 2).
+
+Unlike gaps 1 and 2, `"major_capabilities"` **is** in
+`deferred_unverified_obligation_detail_resolution()`'s allowed-obligation
+set, and its capability-specific guard
+(`_capability_anchor_matches(claim_text, facts)`) was tested directly
+against this claim's real text and the real `product.capabilities` fact
+(`['Font format conversion', 'Web font bundle generation', 'Delta inspection
+for variable fonts']`) -- **it returns `True`**. That guard is not what is
+blocking this claim.
+
+By elimination, the actual blocker must be
+`candidate_core_present` -- i.e. `accepted_obligation_bindings
+("major_capabilities", facts, candidate_content_provenance)` returning
+`None` for the live run, the exact same upstream condition already
+identified as the root of gap 1 (`accepted_obligation_bindings
+("additional_examples", ...)` also returns `None` there). This raises a
+real possibility that gaps 1, 2, and this third case are not three
+independent per-obligation gaps at all, but symptoms of **one shared
+upstream problem**: `candidate_content_provenance` not carrying a binding
+with the right `obligation_provenance_prefixes()`-matching `provenance_id`
+for whatever obligation a given dropped claim needs, regardless of which
+obligation it is. If true, the highest-leverage fix would be in how
+provenance gets recorded during composition (or how it's threaded into
+`resolve_source_claims()`), not three separate new
+per-obligation resolution functions.
+
+**Not confirmed**: this is a hypothesis from two data points (gap 1's fenced
+examples and this major_capabilities case), not a full trace of
+`accepted_obligation_bindings()`'s actual runtime inputs for a live run --
+that would need instrumenting the real composition pipeline
+(`candidate_content_provenance` is intermediate, in-memory pipeline state,
+not a persisted artifact this investigation had static access to). Worth
+prioritizing over gap 1/2's per-obligation framing if picked up next: trace
+whether `candidate_content_provenance` for a live blocked run actually
+contains ANY `major_capabilities`- or `additional_examples`-prefixed
+bindings at all, before assuming a per-obligation fix is even the right
+shape.
