@@ -116,6 +116,20 @@ def deferred_unverified_obligation_detail_resolution(
             # repository whose build system produced no evidence cannot silently drop
             # its own build and test instructions.
             "development_commands",
+            # RDM-029: `resolve_source_claims()` had no branch at all for
+            # "additional_examples"/"dependency_requirements" (only
+            # "primary_example" was special-cased), so a dropped inherited fenced
+            # example or a dropped inherited dependency-absence sentence fell
+            # through to a silent no-op with zero authored resolution -- an
+            # always-permanent gap, not a sometimes-fails one. Same safety
+            # argument as `development_commands`: `candidate_core_present` here
+            # requires an independently accepted `additional_examples`/
+            # `dependency_requirements` provenance binding for this repository
+            # (its own real, fact-bound "Additional Examples"/"Installation"
+            # section), so deferring one specific unproven inherited detail
+            # never loses the obligation's real coverage.
+            "additional_examples",
+            "dependency_requirements",
         }
         or not candidate_core_present
     ):

@@ -84,6 +84,84 @@ def test_mandatory_source_detail_can_defer_only_after_verified_core_exists() -> 
     )
 
 
+def test_dropped_fenced_example_can_defer_only_after_verified_examples_section() -> None:
+    """RDM-029: before this fix, `resolve_source_claims()` had no branch at all for
+    `obligation_id="additional_examples"` (only `primary_example` was special-cased), so a
+    dropped inherited fenced example fell through to a silent no-op with zero authored
+    resolution -- confirmed live on aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET, whose
+    "claim accountability has N blocking claim(s)" failures were 8/10 fenced C# examples."""
+
+    source = "# Product\n\n## Additional Examples\n\n```python\nproduct.run()\n```\n"
+    claim = assess_material_claims(source)[0]
+    claim_text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+    risk = classify_source_claim_risk(source, claim)
+    assert risk is not None and risk.obligation_id == "additional_examples"
+
+    resolution = deferred_unverified_obligation_detail_resolution(
+        claim,
+        claim_text,
+        b"# Candidate with a verified Additional Examples section\n",
+        risk,
+        _facts(),
+        correction_candidate_claim_ids=frozenset({claim.claim_id}),
+        candidate_core_present=True,
+    )
+
+    assert resolution is not None
+    assert resolution.resolution == "deferred_verification"
+    assert resolution.obligation_id is None
+    assert resolution.fact_ids == []
+    assert (
+        deferred_unverified_obligation_detail_resolution(
+            claim,
+            claim_text,
+            b"# Candidate with no Additional Examples section\n",
+            risk,
+            _facts(),
+            correction_candidate_claim_ids=frozenset({claim.claim_id}),
+            candidate_core_present=False,
+        )
+        is None
+    )
+
+
+def test_dropped_dependency_claim_can_defer_only_after_verified_installation_section() -> None:
+    """RDM-029: same permanent gap as additional_examples, for
+    `obligation_id="dependency_requirements"` -- confirmed live on
+    aspose-pdf-foss/Aspose.PDF-FOSS-for-.NET's two dependency-absence claims."""
+
+    source = "# Product\n\n## Dependencies\n\nNo optional third-party package dependencies.\n"
+    claim = assess_material_claims(source)[0]
+    claim_text = source.encode()[claim.source_byte_start : claim.source_byte_end].decode()
+    risk = classify_source_claim_risk(source, claim)
+    assert risk is not None and risk.obligation_id == "dependency_requirements"
+
+    resolution = deferred_unverified_obligation_detail_resolution(
+        claim,
+        claim_text,
+        b"# Candidate with a verified Installation section\n",
+        risk,
+        _facts(),
+        correction_candidate_claim_ids=frozenset({claim.claim_id}),
+        candidate_core_present=True,
+    )
+
+    assert resolution is not None
+    assert resolution.resolution == "deferred_verification"
+    assert (
+        deferred_unverified_obligation_detail_resolution(
+            claim,
+            claim_text,
+            b"# Candidate with no Installation section\n",
+            risk,
+            _facts(),
+            correction_candidate_claim_ids=frozenset({claim.claim_id}),
+            candidate_core_present=False,
+        )
+        is None
+    )
+
+
 def test_generic_content_group_defers_only_when_verified_capabilities_cover_content() -> None:
     facts = _facts()
     capability = facts.selected_fact("product.capabilities")
