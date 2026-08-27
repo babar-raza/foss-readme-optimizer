@@ -31,6 +31,7 @@ from readme_agent.readme.composition_operation_origins import (
     replay_operation_origins,
 )
 from readme_agent.readme.diagram_semantic_candidates import (
+    input_node_candidates,
     output_node_candidates,
     selected_verified_capability_nodes,
 )
@@ -366,9 +367,26 @@ def test_capabilities_use_bold_features_with_same_line_explanations() -> None:
 
 
 def test_diagram_derives_every_explicit_import_export_output_without_dangling_text() -> None:
+    """The fixture's `product.formats` fact (`aspose-3d-python-facts-ab1a2267.json`, real
+    extracted evidence) verifies OBJ as import-only (only "Input format: OBJ ..." is
+    present -- no matching "Output format: OBJ ..." entry, unlike GLTF/STL/3MF, which
+    both have). `output_node_candidates()` correctly prefers that precise, verified
+    per-format evidence over the vaguer free-text capability mention ("File format
+    import and export - Work with OBJ, GLTF, STL, and 3MF") once any explicit format
+    fact exists at all (`format_import_export_only=bool(format_outputs)` in
+    `diagram_semantic_candidates.py::output_node_candidates()`) -- so OBJ is correctly
+    excluded from *output* nodes. This test previously asserted OBJ was also an output
+    node, contradicting the fixture's own verified evidence; confirmed here on the
+    input side instead, where the same evidence does support it."""
+
     facts = _facts()
 
     assert {node.label for node in output_node_candidates(facts)} >= {
+        "GLTF files",
+        "STL files",
+        "3MF files",
+    }
+    assert {node.label for node in input_node_candidates(facts)} >= {
         "OBJ files",
         "GLTF files",
         "STL files",
