@@ -233,6 +233,63 @@ def test_unsupported_fact_id_triggers_one_semantic_retry_then_succeeds():
     assert LIM_1 not in retry_content
 
 
+class _TruncatingThenValidClient:
+    """RDM-033: a forced tool call cut off mid-JSON (finish_reason == 'length') must
+    retry through this module's own same-cluster correction loop, asking the model to
+    be more concise -- not crash the whole cluster on the first truncation."""
+
+    def __init__(self, *, truncate_calls: int, final_response: dict):
+        self._truncate_calls = truncate_calls
+        self._final_response = final_response
+        self.calls: list[dict] = []
+
+    def analyze_section_cluster(self, messages, accepted_fact_ids):
+        index = len(self.calls)
+        self.calls.append({"messages": messages, "accepted_fact_ids": list(accepted_fact_ids)})
+        if index < self._truncate_calls:
+            raise verifier_client.LLMTruncatedResponseError(
+                "forced tool call response was truncated: Expecting ',' delimiter",
+                finish_reason="length",
+                completion_tokens=2048,
+            )
+        return AnalysisResult(
+            parsed=self._final_response,
+            meta=LLMResponseMeta(
+                request_id=f"req-{index}",
+                model="qwen3-next",
+                usage=Usage(prompt_tokens=100, completion_tokens=50),
+                latency_ms=1234.0,
+            ),
+        )
+
+
+def test_truncated_response_triggers_a_concise_retry_then_succeeds():
+    packet = _packet()
+    client = _TruncatingThenValidClient(truncate_calls=1, final_response=_valid_response())
+
+    outcome = execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert len(client.calls) == 2
+    assert outcome.receipt.semantic_retry_used is True
+    assert outcome.receipt.logical_call_count == 2
+    retry_content = client.calls[1]["messages"][1]["content"]
+    assert "cut off" in retry_content.casefold()
+    assert "concisely" in retry_content.casefold()
+    # the retry still carries the full original packet content, not a lossy summary
+    assert '"fact_id":"F1"' in retry_content
+    assert '"fact_id":"F2"' in retry_content
+
+
+def test_truncated_response_exhausts_retries_and_fails_closed():
+    packet = _packet()
+    client = _TruncatingThenValidClient(truncate_calls=3, final_response=_valid_response())
+
+    with pytest.raises(SectionAuthoringAcceptanceError, match="failed acceptance"):
+        execute_section_cluster_authoring(packet=packet, client=client)
+
+    assert len(client.calls) == 3
+
+
 def test_internal_verification_narration_triggers_targeted_recovery():
     packet = _packet()
     internal = _valid_response()

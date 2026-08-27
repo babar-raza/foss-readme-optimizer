@@ -28,7 +28,7 @@ from typing import Protocol
 from pydantic import ValidationError
 
 from readme_agent import env
-from readme_agent.errors import LLMError
+from readme_agent.errors import LLMError, LLMTruncatedResponseError
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.call_ledger import record_non_provider_call
 from readme_agent.llm.prompt_registry import prompt_hash
@@ -432,7 +432,28 @@ def execute_section_cluster_authoring(
 
     for attempt in range(1, _MAX_LOGICAL_ATTEMPTS + 1):
         active_aliases = [alias for _fact, alias in active_prompt_facts]
-        analysis = client.analyze_section_cluster(messages, active_aliases)
+        try:
+            analysis = client.analyze_section_cluster(messages, active_aliases)
+        except LLMTruncatedResponseError as exc:
+            last_error = exc
+            if attempt == _MAX_LOGICAL_ATTEMPTS:
+                break
+            semantic_retry_used = True
+            # A truncated response is a same-cluster conciseness-correction case, not a
+            # transport failure -- reuses this loop's own retry/repair-hint machinery
+            # rather than a client-level retry, matching how a schema/acceptance
+            # failure is already handled below.
+            messages = build_messages(
+                repair_hint=(
+                    f"Your previous submission (attempt {attempt}) was cut off before it "
+                    "finished writing -- the response ran out of space and could not be "
+                    "used. Cover the same facts and keep every disposition, but write "
+                    "noticeably more concisely: shorter sentences, fewer or shorter units, "
+                    "no unnecessary elaboration."
+                ),
+                prompt_facts=active_prompt_facts,
+            )
+            continue
         if analysis.meta.usage is not None:
             token_usage.append(analysis.meta.usage)
         if analysis.meta.latency_ms is not None:
