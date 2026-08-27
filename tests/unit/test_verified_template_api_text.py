@@ -7,14 +7,22 @@ from readme_agent.presentation.verified_template_api_text import role_sentence
 
 def test_role_suffix_self_referential_type_name_does_not_double_the_noun() -> None:
     """aspose-font-foss/Aspose.Font-FOSS-for-Python's real `Font` class ends with its
-    own role suffix ("Font"). Stripping the suffix leaves an empty subject, which
-    falls back to the product family noun ("font") -- the same word the template
-    already appends, producing "Represents a font font through the Aspose.Font
-    API." on the real candidate."""
+    own role suffix ("Font"). Stripping the suffix leaves an empty subject.
+
+    RDM-030: this used to fall back to the product family noun ("font") -- the
+    same word the template already appends, producing "Represents a font font
+    through the Aspose.Font API." -- collapsed by `_collapse_adjacent_duplicate_
+    words` to "Represents a font...". That family-noun fallback also collided
+    with an unrelated, explicit-prefix type in a different real repository
+    (`PdfFont` in aspose-pdf-foss, whose "Pdf" prefix independently canonicalizes
+    to the *same* family noun "PDF" as its own family-fallback sibling `Font`),
+    rendering two genuinely different, differently-documented types to the
+    byte-identical sentence. The fallback is now the fixed word "base", which no
+    real prefix-derived subject can ever equal."""
 
     sentence = role_sentence("Font", "aspose.font", "font")
 
-    assert sentence == "Represents a font through the Aspose.Font API."
+    assert sentence == "Represents a base font through the Aspose.Font API."
     assert "font font" not in sentence.casefold()
 
 
@@ -57,6 +65,22 @@ def test_identifier_with_a_genuinely_repeated_word_is_also_collapsed() -> None:
     assert (
         sentence == "Represents a Test Draw Line Cap Round in the public Core API for Aspose.PDF."
     )
+
+
+def test_family_fallback_no_longer_collides_with_an_explicit_prefix_sibling() -> None:
+    """RDM-030: `PdfFont` (explicit "Pdf" prefix) and a bare `Font` class (empty-
+    suffix family fallback) in the same real repository (aspose-pdf-foss) used to
+    both canonicalize their subject to "PDF", rendering byte-identical sentences
+    for two genuinely distinct, differently-documented types -- reproducibly
+    breaking `presentation_template.py`'s "API reference contains duplicated
+    descriptions" check on two separate live fleet runs."""
+
+    explicit_prefix = role_sentence("PdfFont", "Core API", "pdf")
+    family_fallback = role_sentence("Font", "Enumerations", "pdf")
+
+    assert explicit_prefix == "Represents a PDF font through the Aspose.PDF API."
+    assert family_fallback == "Represents a base font through the Aspose.PDF API."
+    assert explicit_prefix != family_fallback
 
 
 def test_ordinary_type_names_are_not_altered() -> None:

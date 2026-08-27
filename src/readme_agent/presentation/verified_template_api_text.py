@@ -137,7 +137,17 @@ def role_sentence(name: str, module: str, family: str) -> str:
     for suffix, template in _ROLE_SUFFIXES:
         if not name.endswith(suffix):
             continue
-        subject = public_noun(name.removesuffix(suffix)).strip() or public_noun(family)
+        # RDM-030: a bare class whose own name equals its role suffix (`class Font`)
+        # used to fall back to `public_noun(family)` here -- e.g. "PDF" for a PDF
+        # library -- but that is exactly the kind of specific noun an unrelated,
+        # explicit-prefix type in the same library derives too (`PdfFont` strips its
+        # "Font" suffix down to "Pdf" -> "PDF"), producing two real, distinct,
+        # differently-documented types with the byte-identical rendered sentence.
+        # "base" cannot collide with any prefix-derived subject (no real type name
+        # strips down to the literal word "base") while staying meaningful for every
+        # existing template ("Represents a base document...", "Configures base
+        # operations...").
+        subject = public_noun(name.removesuffix(suffix)).strip() or "base"
         subject = re.sub(r"\b(?:Validate|Validation)\b", "validation", subject)
         sentence = (
             template.format(subject=subject, article=grammatical_article(subject))
