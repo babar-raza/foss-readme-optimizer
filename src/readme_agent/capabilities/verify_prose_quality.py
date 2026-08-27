@@ -13,11 +13,19 @@ deterministic test/wiring callers, exactly as `render_readme_candidate.py`'s
 own `llm_mode`/`fixture_response_path` convention already establishes.
 """
 
+from pathlib import Path
+
 from readme_agent.capabilities.domains import INDEPENDENT_VERIFICATION
 from readme_agent.capabilities.schema import CapabilityManifest
 from readme_agent.env import llm_api_key, llm_base_url, llm_model_for_job
 from readme_agent.llm.verifier_client import ForcedToolClient, LiveForcedToolClient
 from readme_agent.verification.prose_quality import check_prose_quality
+from readme_agent.verification.prose_quality_cache import (
+    load_cached_prose_quality,
+    persist_prose_quality_verdict,
+    prose_quality_cache_key,
+    prose_quality_cache_path,
+)
 
 CAPABILITY_ID = "verify_prose_quality"
 
@@ -60,12 +68,27 @@ MANIFEST = CapabilityManifest(
 
 
 def execute(
-    org_repo: str,  # unused directly -- kept for dispatcher/schema consistency with every
-    # other capability, which always receives its target repo
+    org_repo: str,
     final_text: str,
     *,
     client: ForcedToolClient | None = None,
+    cache_path: Path | None = None,
 ) -> dict:
+    # Decision #110/#113 (requirement LLM-023, 2026-08-27 production recovery sprint): this
+    # was the one LLM judgment surface in the codebase with no ratchet -- a rerun with
+    # byte-identical `final_text` re-rolled qwen3-next's proven-nondeterministic tool-call
+    # arguments every time. Cache key depends only on the text and the contract version, so
+    # `org_repo` here is used solely to pick the (per-repo) cache file, not the cache identity.
+    #
+    # `cache_path` is accepted but deliberately NOT declared in required_inputs/optional_
+    # inputs -- never offered in the tool schema, test/wiring-only, exactly like `client`
+    # above (this module's own established convention).
+    resolved_cache_path = cache_path or prose_quality_cache_path(org_repo)
+    cache_key = prose_quality_cache_key(final_text)
+    cached = load_cached_prose_quality(resolved_cache_path, cache_key)
+    if cached is not None:
+        return cached
+
     resolved_client = client or LiveForcedToolClient(
         llm_base_url(),
         llm_api_key(),
@@ -73,4 +96,6 @@ def execute(
         job="prose_quality_check",
         prompt_id="prose_quality_check",
     )
-    return check_prose_quality(final_text, resolved_client)
+    verdict = check_prose_quality(final_text, resolved_client)
+    persist_prose_quality_verdict(resolved_cache_path, cache_key, verdict)
+    return verdict

@@ -1330,11 +1330,15 @@ class TestVerifyProseQuality:
         assert verify_prose_quality.MANIFEST.allowed_domains == ["independent_verification"]
         assert verify_prose_quality.MANIFEST.side_effect_class == "read_only_network"
 
-    def test_execute_with_no_client_never_flags(self):
-        result = verify_prose_quality.execute("acme/widget", "# Title\n\nNo owned span here.")
+    def test_execute_with_no_client_never_flags(self, tmp_path):
+        result = verify_prose_quality.execute(
+            "acme/widget",
+            "# Title\n\nNo owned span here.",
+            cache_path=tmp_path / "cache.json",
+        )
         assert result["flagged"] is False
 
-    def test_execute_with_a_fixture_client_flags_and_corroborates(self):
+    def test_execute_with_a_fixture_client_flags_and_corroborates(self, tmp_path):
         from readme_agent.llm.schema import LLMResponseMeta
         from readme_agent.llm.verifier_client import FixtureForcedToolClient, ForcedToolResult
         from readme_agent.readme.markers import render_span
@@ -1353,9 +1357,87 @@ class TestVerifyProseQuality:
                 )
             ]
         )
-        result = verify_prose_quality.execute("acme/widget", final_text, client=client)
+        result = verify_prose_quality.execute(
+            "acme/widget", final_text, client=client, cache_path=tmp_path / "cache.json"
+        )
         assert result["flagged"] is True
         assert result["corroborated"] is True
+
+    def test_execute_reuses_a_cached_verdict_with_zero_new_calls(self, tmp_path):
+        """Decision #110/#113 (requirement LLM-023): a rerun with byte-identical
+        `final_text` must not re-invoke the model."""
+
+        from readme_agent.llm.schema import LLMResponseMeta
+        from readme_agent.llm.verifier_client import FixtureForcedToolClient, ForcedToolResult
+        from readme_agent.readme.markers import render_span
+
+        paragraph = "This is generic filler text about the product."
+        final_text = "# Title\n\n" + render_span("resources", paragraph, "abc123")
+        cache_path = tmp_path / "cache.json"
+        one_shot_client = FixtureForcedToolClient(
+            [
+                ForcedToolResult(
+                    arguments={
+                        "flagged": True,
+                        "quoted_span": "generic filler text",
+                        "reason": "reads as generic",
+                    },
+                    meta=LLMResponseMeta(),
+                )
+            ]
+        )
+
+        first = verify_prose_quality.execute(
+            "acme/widget", final_text, client=one_shot_client, cache_path=cache_path
+        )
+        # A second `FixtureForcedToolClient` with zero configured responses -- any real call
+        # would raise `IndexError`/exhaust the fixture, proving the cache short-circuited it.
+        exhausted_client = FixtureForcedToolClient([])
+        second = verify_prose_quality.execute(
+            "acme/widget", final_text, client=exhausted_client, cache_path=cache_path
+        )
+
+        assert second == first
+
+    def test_execute_reruns_after_the_contract_version_changes(self, tmp_path, monkeypatch):
+        """A deliberately-bumped `PROSE_QUALITY_CONTRACT_VERSION` must force exactly one
+        fresh call, the same invalidation discipline every other ratcheted judgment surface
+        already uses."""
+
+        from readme_agent.llm.schema import LLMResponseMeta
+        from readme_agent.llm.verifier_client import FixtureForcedToolClient, ForcedToolResult
+        from readme_agent.readme.markers import render_span
+        from readme_agent.verification import prose_quality_cache
+
+        paragraph = "This is generic filler text about the product."
+        final_text = "# Title\n\n" + render_span("resources", paragraph, "abc123")
+        cache_path = tmp_path / "cache.json"
+
+        def fixture_client() -> FixtureForcedToolClient:
+            return FixtureForcedToolClient(
+                [
+                    ForcedToolResult(
+                        arguments={
+                            "flagged": True,
+                            "quoted_span": "generic filler text",
+                            "reason": "reads as generic",
+                        },
+                        meta=LLMResponseMeta(),
+                    )
+                ]
+            )
+
+        verify_prose_quality.execute(
+            "acme/widget", final_text, client=fixture_client(), cache_path=cache_path
+        )
+        monkeypatch.setattr(
+            prose_quality_cache, "PROSE_QUALITY_CONTRACT_VERSION", "prose-quality-v2-test-bump"
+        )
+        # Same cache file, new contract version -- must call the model again (an exhausted
+        # fixture would raise if it were reused instead).
+        verify_prose_quality.execute(
+            "acme/widget", final_text, client=fixture_client(), cache_path=cache_path
+        )
 
 
 class TestCompareAgainstPresentationStandard:
