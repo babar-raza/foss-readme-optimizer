@@ -155,4 +155,4 @@ def test_checks_source_hash_matches_recorded_version() -> None:
     """
 
     assert compute_checks_source_hash() == _CHECKS_SOURCE_HASH_AT_VERSION
-    assert PUBLIC_QUALITY_CHECKS_VERSION == 9
+    assert PUBLIC_QUALITY_CHECKS_VERSION == 10

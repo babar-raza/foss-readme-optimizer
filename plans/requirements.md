@@ -11,11 +11,11 @@ The catalog contains **514** requirements (2026-08-27 -- this summary drifts fro
 between refreshes; it is not mechanically regenerated yet, which is exactly the gap Decision #109
 and requirement `GOV-032` exist to close):
 
-- `BACKLOG`: 49
+- `BACKLOG`: 48
 - `DEPRECATED`: 23
 - `GOVERNANCE`: 35
 - `IMPLEMENTED`: 171
-- `PARTIAL`: 104
+- `PARTIAL`: 105
 - `PLANNED`: 126
 - `RESEARCH-GATED`: 6
 
