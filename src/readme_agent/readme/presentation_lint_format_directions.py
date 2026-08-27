@@ -17,7 +17,8 @@ _DIRECTION_BOUNDARY = re.compile(
     r"(?i)\b(?:and\s+)?(?:import|load|open|read|export|save|write)s?(?:ing)?\b"
 )
 _NEGATED_DIRECTION = re.compile(
-    r"(?i)\b(?:not|cannot|can't|doesn't|does not|isn't|is not|unavailable|unsupported)\b"
+    r"(?i)\b(?:not|cannot|can't|doesn't|does not|isn't|is not|unavailable|unsupported|"
+    r"limited(?:\s+to)?)\b"
 )
 _INPUT_NOUN = re.compile(r"(?i)\b(?:importer|input|load options?)\b")
 _OUTPUT_NOUN = re.compile(r"(?i)\b(?:exporter|output|save options?)\b")
