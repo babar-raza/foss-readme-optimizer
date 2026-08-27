@@ -23,16 +23,26 @@ Level 8, or full umbrella-mission closure.
 
 ## Status
 
-**Current-contract portfolio proof: 0/31 processable repositories accepted (2026-08-24).** The
-dynamic baseline contains 33 admitted repositories: 31 processable README targets and two
-source-empty PSD dispositions pending production-state wiring. Durable state version 1411 has
-`L8-PF-03-SEALED-CANDIDATE-NO-OP` active with 1/33 current facts-ready, zero current candidates,
-deterministic accepts, agent accepts, or no-op proofs. Raw lifecycle history contains 17 facts-ready
-records and one candidate/deterministic/agent-approval record, but changed contracts prevent those
-historical records from satisfying current acceptance. The current first failing boundary is
-`FACTS_READY`; Aspose.3D Python remains the single FP03 repository scope. Supporting audits and
-historical candidates remain diagnostic and do not override current source, contracts, or durable
-mission state.
+**Live mission status (2026-08-27, read-only `supervise --mission-action status`): portfolio
+denominator 34; `facts_ready` 23/34, `candidate_generated` 2/34, `deterministic_validated` 1/34,
+`agent_approved` 1/34, `no_op_proven` 1/34 (Aspose.3D Python), `human_accepted` 0/34; `graph_drift:
+false`; no active/eligible/next task; 49 unresolved tasks; 1 externally blocked task; first failing
+boundary `FACTS_READY`.** This paragraph replaces the prior 2026-08-24 snapshot below it (0/31, 33
+denominator), which had drifted from live truth by the time it was next read — a concrete instance of
+the pinned-summary-drift pattern the 2026-08-27 production recovery sprint's Decision #109 now exists
+to catch mechanically. See `plans/investigations/production-recovery-sprint-2026-08-27.md` for the full
+independently-verified claim ledger, root-cause hierarchy, and Decisions #109-113. The sealed
+`L8-PF-03-SEALED-CANDIDATE-NO-OP` evidence bundle (2026-08-24, Aspose.3D-Python, `NO_OP_PROVEN`) remains
+the one current no-op proof; changed contracts since have not yet been checked against it component-by-
+component (Decision #111's per-repository dependency scoping, once implemented, is what makes that
+check cheap enough to run routinely instead of only at full-fleet boundaries). The Level-8 taskcard
+`L8-PF-03-SEALED-CANDIDATE-NO-OP` itself remains committed `status: TODO`; per this repo's own
+authority model, durable state and sealed evidence — not the graph file's committed status field — are
+what is live-authoritative here, but the discrepancy is worth closing explicitly rather than leaving
+implicit.
+
+The following retains the prior 2026-08-24 snapshot's own denominator (33) and count basis exactly as
+originally written, for its historical narrative value; do not read its raw numbers as current.
 
 The following is a **historical 2026-08-19 snapshot**, retained for traceability and not current
 closure evidence: **3/33 Python repositories were then reported `NO_OP_PROVEN`** — 3D, barcode,
@@ -93,7 +103,7 @@ never override the mission graph or durable state.
 
 ## Decision Ledger
 
-The complete typed ledger contains 108 stable decisions in
+The complete typed ledger contains 113 stable decisions in
 `plans/decisions/catalog.jsonl`. This section is the human-readable current decision index; the
 catalog preserves the complete text and hashes of every prior decision.
 
@@ -295,6 +305,61 @@ Binding current decisions:
   promoted just in time. Current `qwen3-next` routing and Aspose.org comparison are versioned
   development inputs, not immutable mission or deployed dependencies. The runner initially
   executes existing handlers only and never authors, commits, pushes, or publishes code/content.
+- **#109 — Pinned-content-hash consistency is mechanically enforced, never hand-remembered.** Every
+  place this codebase pins a recorded hash/count against recomputed source truth (the composition
+  document-template hash, the vendored Aspose.org check-battery manifest, `PUBLIC_QUALITY_CHECKS_
+  VERSION`, the composition-characterization test fixtures, `plans/requirements.md`'s own summary
+  counts, and `validate_compact_authority.py`'s semantic-hash checks) is registered in one declarative
+  checker run as its own fast, independent CI job, separate from the full pytest matrix, that fails
+  loudly with the exact command to re-pin. This does not prevent a deliberate contract change from
+  needing a human to re-pin it; it converts silent, days-old wrongness into next-commit loud wrongness.
+  Proven need: the 2026-08-27 production recovery sprint found six live instances of exactly this drift,
+  none a behavioral regression, all traceable to a real code change whose pin was never updated in the
+  same commit.
+- **#110 — Every LLM-authored judgment surface is ratcheted; none is exempt.** The claim-disposition,
+  bounded-review, section-authoring, and trusted-fidelity-review judgment surfaces already persist an
+  accepted verdict keyed by content hash plus a deliberately-bumped contract-version literal, so a
+  rerun with unchanged inputs reproduces the same verdict instead of re-rolling qwen3-next's proven-
+  nondeterministic tool-call arguments (Decision #105). The prose-quality check is the one surviving
+  surface with no such cache; it must gain one, keyed identically (content hash plus a new
+  `PROSE_QUALITY_CONTRACT_VERSION` literal), before `L8-PF-03-SEALED-CANDIDATE-NO-OP`'s own "unchanged
+  rerun performs zero new author/reviewer calls" acceptance check can be true in practice.
+- **#111 — Composition-plan reuse invalidation is scoped to actual per-repository dependency, never one
+  global content hash.** `document_template_hash()`'s current single glob-wide digest over ~50 files
+  plus four broad patterns invalidates every repository's cached plan on any byte changed anywhere in
+  that surface, regardless of whether a given repository's own composition depends on the changed path
+  — the proven mechanism behind "a fix cannot land mid-fleet-pass without invalidating every cached
+  plan." The reuse gate must instead hash the recorded, actually-exercised per-repository dependency set
+  (mirroring `ProvenTransactionContextV1.dependency_hashes`'s existing precedent of hashing what is
+  actually exercised, not a static glob); the current global hash remains as a non-blocking provenance/
+  era label and the trigger for periodic full-fleet re-validation at declared campaign boundaries,
+  finishing what Decision #90's "component deltas rather than global invalidation" language already
+  commits to. Cutover follows a shadow period — dual-hash logging for at least one full portfolio pass,
+  reviewed before the reuse decision itself switches — because under-invalidation is worse than
+  over-invalidation.
+- **#112 — Convergence-critical ratchet state is durable and portfolio-shared, never disposable
+  local-only state.** The claim-disposition ratchet and blocked-decision cache are not derived output;
+  they are the accumulated, validated record of which nondeterministic model answers this project has
+  already stood behind, and today live only under gitignored `runs/`, restored by nothing (confirmed:
+  zero `actions/cache` usage in any workflow). They must route through the same `GitStateBackend` mission
+  state already uses, under their own key namespace, batched per repository-pass, with a CAS-write
+  failure treated as non-fatal (log, retry next pass) rather than blocking a candidate. This does not by
+  itself resolve two machines' literal first concurrent encounter with a brand-new claim (Decision
+  #113 protects that frontier); it ensures an accepted verdict becomes visible to every other
+  machine/CI run the first time anyone accepts it, instead of only to whichever machine happened to.
+  Requires a load-characterization pass at full fleet scale before fleet-wide reliance.
+- **#113 — CAS post-push-failure classification is hardened as defense-in-depth, with confidence stated
+  honestly.** `_is_non_fast_forward()` classifies a push failure by matching hardcoded stderr
+  substrings; on any push failure the backend should instead re-fetch and structurally re-compare
+  state_version/SHA before deciding stale vs. hard-error, rather than trusting failure-text matching
+  alone — necessary regardless of root cause once Decision #112 adds more traffic through this exact
+  path. A direct 2026-08-27 probe against a local bare remote did **not** reproduce the originally
+  reported "raw git push rejection" (the existing same-ref concurrency test passed 6/6 local runs, and a
+  manual non-fast-forward push against a custom `refs/readme-agent-state/*` ref classified correctly
+  1/1 times); that symptom is better explained by `test_state_git_backend_live.py` needing real GitHub
+  credentials this environment likely lacked, not a proven classifier defect. The CI "both saved"
+  anomaly from the original report remains unreproduced and unexplained — recorded as an open unknown,
+  not force-fit into this decision's justification.
 
 Aspose.org remains an independently qualified, development-only comparative corpus, never a
 presumed-perfect specification, deployed dependency, or factual authority. Repository order may
@@ -476,6 +541,13 @@ the sibling repository, its reports, skills, scripts, or caches.
 
 ## Build Checklist
 
+- [ ] **Pinned-content-hash enforcement (Decision #109):** one declarative registry of recorded-hash
+  vs. recomputed-truth checks (document-template hash, check-battery manifest, checks-source-hash,
+  composition-characterization fixtures, `plans/requirements.md` summary counts,
+  `validate_compact_authority.py`'s semantic-hash checks) run as its own fast, independent CI job with
+  a fix-command failure message. Wire `validate_compact_authority.py` into CI once its 6 current
+  pre-existing errors (unrelated to this sprint) are resolved; it is not currently invoked by
+  `.github/workflows/ci.yml`.
 - [ ] **Campaign authority:** freeze the current RegistryRevision, 31-processable/two-disposition
   partition, 30-point rubric, check-registry hash, graph queue, and no-effect boundary.
 - [ ] **Qualified development-oracle refresh:** bind committed Aspose.org source blobs; diff the
@@ -492,14 +564,20 @@ the sibling repository, its reports, skills, scripts, or caches.
 - [ ] **First sealed transaction:** independently accept the exact candidate at 30/30 with zero hard
   disqualifiers, integrate and real-candidate-calibrate the qualified benchmark comparator, and prove
   an independently attested immediate fresh-process zero-provider no-op from separate first/replay
-  bundle roots. Lifecycle reopening preserves dependency-valid review-packet caches.
+  bundle roots. Lifecycle reopening preserves dependency-valid review-packet caches. Requires the
+  prose-quality judgment surface to be ratcheted like every other one (Decision #110) and CAS
+  post-push-failure classification hardened (Decision #113) before a zero-provider-call rerun claim is
+  trustworthy in practice.
 - [ ] **External fact-block resolver:** adapt the qualified standalone decision seam to real truth-salvage,
   acquisition, and local-verification diagnostics through its smallest safe public seam; bind current
   evidence/dependency fingerprints; and prove all applicable classes plus the five current receipts before
   the general runner. Defer unrelated refactoring unless focused safety or correctness proof shows the seam
   cannot be integrated safely.
 - [ ] **Minimal graph runner:** automate only the proven transaction through typed allow-listed actions,
-  durable checkpoints, recovery, and effect-null safety.
+  durable checkpoints, recovery, and effect-null safety. The claim-disposition ratchet and
+  blocked-decision cache route through the shared durable state backend under their own key namespace
+  (Decision #112) rather than machine-local `runs/`, batched per repository-pass with non-fatal
+  CAS-write failure, after a load-characterization pass at full fleet scale.
 - [ ] **Fleet causal reducer:** adapt the qualified standalone reducer to canonical first-boundary receipts,
   harden opaque-data guards through tiers four to six, and prove complete deterministic cluster accounting
   plus shared-once/failed-only repair scheduling before ecosystem fan-out.
@@ -509,7 +587,10 @@ the sibling repository, its reports, skills, scripts, or caches.
   RegistryRevision, and prepare current-contract facts without advancing candidate states.
 - [ ] **Portfolio proof:** execute failed-only repair and reach 31/31 processable accepted/no-op bundles,
   retain two typed PSD dispositions, pass adversarial audit, and independently reconstruct one portfolio
-  acceptance package.
+  acceptance package. Composition-plan reuse gates on a per-repository recorded dependency-set hash, not
+  one global glob digest (Decision #111), landed only after a one-full-pass shadow period comparing both
+  hashes; the global hash remains as a non-blocking provenance label and full-fleet-revalidation trigger
+  at declared campaign boundaries.
 - [ ] **Autonomous publication readiness:** refetch every target read-only, heal source/registry drift,
   derive `PR_ELIGIBLE` for every processable repository, and validate the complete proposal/rollback/
   authorization package without a product effect.

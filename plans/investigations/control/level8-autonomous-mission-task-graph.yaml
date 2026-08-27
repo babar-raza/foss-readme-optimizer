@@ -463,10 +463,18 @@ taskcards:
     PSD dispositions
   - The 30-point rubric and zero-hard-disqualifier rule are graph-bound
   - Aspose.org is development input only and product effects are disabled
+  - Every pinned recorded-hash-vs-recomputed-truth check in this codebase (document-template hash,
+    check-battery manifest, checks-source-hash, composition-characterization fixtures,
+    plans/requirements.md summary counts, validate_compact_authority.py's semantic-hash checks) runs as
+    one declarative, independent CI job that fails loudly with the exact re-pin command (requirement
+    GOV-032, Decision 109); validate_compact_authority.py is wired into CI once its current
+    pre-existing errors are resolved
   verification:
   - mission schema and graph-loader tests
   - compact-authority, requirement-coverage, plan-structure, and graph-drift checks
   - owner-evidence manifest/hash/path verification
+  - pinned-content-hash registry check (Decision 109) catches an intentionally staleness-mismatched
+    tracked hash with the correct fix-command message
   negative_controls:
   - No stale Python-first or 33-candidate statement can govern this campaign
   - No narrative plan can override durable mission state
@@ -953,6 +961,11 @@ taskcards:
   - For candidate d283b94dbe1db4fd236d990088e056a4686c2fa6bab4af1cef2e42270e6a9f3d, preserve the supported
     scope-and-limitations grouping repair and reject the unsupported additional-examples raw-list finding;
     no other finding enters the batch without exact-evidence adjudication
+  - The prose-quality judgment surface is ratcheted (content hash plus PROSE_QUALITY_CONTRACT_VERSION),
+    matching every other LLM judgment surface, so "zero new author/reviewer calls" is literally true on
+    an unchanged rerun (requirement LLM-023, Decision 110); CAS post-push-failure classification is
+    hardened as defense-in-depth (requirement SAFE-021, Decision 113) before this task's replay
+    attestation is trusted at fleet scale
   verification:
   - 30-point deterministic and independent review
   - full transaction rerun under the same dependency key
@@ -1076,6 +1089,11 @@ taskcards:
     local recovery schedules the narrowest deterministic action, only nonessential unsupported claims
     may be omitted, and a genuine external dependency records exact owner, scope, missing evidence, and
     resume predicate
+  - The claim-disposition ratchet and blocked-decision cache route through the shared durable state
+    backend under their own key namespace instead of machine-local runs/, batched per repository-pass
+    with non-fatal CAS-write failure (requirement SAFE-020, Decision 112), after a load-characterization
+    pass at full fleet scale; CAS post-push-failure classification is structural, not error-text
+    matching (requirement SAFE-021, Decision 113), since this task's durable checkpoints depend on it
   verification:
   - focused mission runner and registry tests
   - kill/resume and duplicate/no-op integration proof
@@ -1391,6 +1409,10 @@ taskcards:
   - every accepted candidate has complete source, fact, knowledge, claim, review, and no-op lineage
   - every accepted candidate meets or exceeds all applicable accepted benchmark coverage/quality dimensions
   - no target repository effect occurred
+  - composition-plan reuse gates on each repository's own recorded, actually-exercised dependency-set hash,
+    not one global glob digest across ~50 files/4 patterns (requirement CORE-039, Decision 111), landed
+    only after a one-full-pass shadow period comparing both hashes side by side; a fix to unrelated
+    repositories' composition code must not force this repository's already-accepted plan to re-roll
   verification:
   - failed-only repository repair with per-repository focused proof
   - bounded complete non-live suite at the portfolio closure boundary
@@ -1571,8 +1593,8 @@ requirement_coverage:
   reopened_implemented_rows: 0
 requirement_catalog:
   path: plans/requirements/catalog.jsonl
-  sha256: 6a25dde49ec5ea87ab04a0a8172fc55433422ff9ea714c2973d314ea772b227f
-  record_count: 509
+  sha256: ecc95e6359bf85dd3e7d7dae07ef7b864a8f4bef9bb248a4258a2213f9f2b862
+  record_count: 514
 deferred_task_catalog:
   path: plans/investigations/control/level8-deferred-task-catalog.jsonl
   sha256: df8bffba32df763a5d0b7d2063e3910c44f92df8fd41fc67e5ae6787c2dfc838
