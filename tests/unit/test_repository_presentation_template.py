@@ -814,18 +814,25 @@ def test_verified_template_omits_missing_compatibility_from_installation_binding
     )
     candidate = compile_repository_presentation(template_input)
     provenance = build_template_provenance(candidate, template_input, facts)
+    # 2026-08-25 (`0eb2eb53f`, "reconcile shared acceptance contracts"): the install
+    # code-block binding is no longer jointly cited with `installation.coordinates` --
+    # `dependency_markdown()`'s new Dependencies-section fallback (see
+    # verified_template_sections.py) now cites `installation.coordinates` on its own
+    # instead, so the pip-install block's own provenance is `verified_acquisition` alone.
+    # The test's real intent -- the install-command binding never picks up the missing
+    # `product.compatibility` fact -- still holds; only the exact expected fact-id set
+    # and the trailing newline the compiler now emits needed updating.
     binding = next(
         item
         for item in provenance
         if {facts.fact_by_id(fact_id).field for fact_id in item.fact_ids}
-        == {"installation.coordinates", "installation.verified_acquisition"}
+        == {"installation.verified_acquisition"}
     )
     bound = candidate.encode("utf-8")[
         binding.candidate_byte_start : binding.candidate_byte_end
     ].decode("utf-8")
-    assert bound == "```bash\npython -m pip install acme-pdf\n```"
+    assert bound == "```bash\npython -m pip install acme-pdf\n```\n"
     assert {facts.fact_by_id(fact_id).field for fact_id in binding.fact_ids} == {
-        "installation.coordinates",
         "installation.verified_acquisition",
     }
 

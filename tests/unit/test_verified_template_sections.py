@@ -70,19 +70,65 @@ def test_verified_empty_runtime_dependencies_renders_the_standard_sentence():
     assert dependency_markdown(facts) == "No required third-party package dependencies."
 
 
-def test_absent_distribution_fact_returns_none():
+def test_absent_distribution_fact_falls_back_to_installation_pointer():
+    """2026-08-25 (`0eb2eb53f`, "reconcile shared acceptance contracts"): when
+    `python.distribution` can't supply a dependency list, `dependency_markdown()`
+    now falls back to pointing at Installation instead of omitting the section
+    entirely -- verified `installation.coordinates` (present in every `_facts()`
+    fixture in this file, via `REQUIRED_PRODUCT_FIELDS`) is enough to trigger it.
+    True absence of anything to say is covered separately by
+    `test_absent_everything_still_returns_none` below."""
+
     facts = _facts(None)
 
-    assert dependency_markdown(facts) is None
+    assert dependency_markdown(facts) == (
+        "Use the repository package coordinate and package-manager command shown in "
+        "[Installation](#installation)."
+    )
 
 
-def test_unverified_distribution_fact_returns_none():
+def test_unverified_distribution_fact_falls_back_to_installation_pointer():
+    """Same fallback as above -- an unverified (not just absent) distribution fact
+    is equally insufficient to report dependencies, so the same pointer applies."""
+
     facts = _facts(
         {"manifest_path": "pyproject.toml", "runtime_dependencies": []},
         verification_state="unverified",
     )
 
-    assert dependency_markdown(facts) is None
+    assert dependency_markdown(facts) == (
+        "Use the repository package coordinate and package-manager command shown in "
+        "[Installation](#installation)."
+    )
+
+
+def test_absent_everything_still_returns_none():
+    """The genuinely-nothing-to-report path: no distribution fact AND no accepted
+    `installation.coordinates` either. Every other `_facts()`-based test in this
+    file has `installation.coordinates` unconditionally accepted (it's in
+    `REQUIRED_PRODUCT_FIELDS`), so this is the one case that actually exercises
+    `dependency_markdown()`'s `if coordinate is not None` branch being False --
+    otherwise untested after the 2026-08-25 fallback landed. Downgrading (not
+    removing) `installation.coordinates`'s verification_state keeps its
+    `selected_fact_ids` entry intact -- `visitor_fact_render_view()`'s own
+    compatibility lookup indexes it directly and isn't tolerant of true absence,
+    a separate, narrower coupling than what this test is checking."""
+
+    facts = _facts(None)
+    downgraded = facts.model_copy(
+        update={
+            "facts": [
+                (
+                    fact.model_copy(update={"verification_state": "unverified"})
+                    if fact.field == "installation.coordinates"
+                    else fact
+                )
+                for fact in facts.facts
+            ]
+        }
+    )
+
+    assert dependency_markdown(downgraded) is None
 
 
 def test_verified_non_empty_runtime_dependencies_is_unchanged():
