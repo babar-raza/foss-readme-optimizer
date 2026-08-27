@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 import re
-from typing import Any
+from collections.abc import Iterable
+from typing import Any, NamedTuple
 
 from readme_agent.facts.example_branding import full_product_display_name
 from readme_agent.facts.render_views import visitor_fact_render_view
@@ -15,6 +16,13 @@ from readme_agent.presentation.verified_template_api_descriptions import (
 from readme_agent.presentation.verified_template_api_direction import (
     reconcile_api_format_description,
 )
+from readme_agent.presentation.verified_template_api_text import series
+
+
+class _ApiRow(NamedTuple):
+    identifier: str
+    description: str
+    members: tuple[str, ...]
 
 
 def _accepted_api_value(facts: ProductFactsV2) -> dict[str, Any] | None:
@@ -157,6 +165,28 @@ def _class_surface(name: str, item: dict[str, Any]) -> str:
     return name
 
 
+def _distinguishing_members(item: dict[str, Any] | None, name: str) -> tuple[str, ...]:
+    """Up to two of a class's own declared member names, for disambiguating a
+    description collision -- see `_disambiguate_duplicate_descriptions`."""
+
+    if not isinstance(item, dict):
+        return ()
+    members = item.get("members")
+    if not isinstance(members, list):
+        return ()
+    names: list[str] = []
+    for member in members:
+        if not isinstance(member, dict) or member.get("inherited"):
+            continue
+        member_name = str(member.get("name") or "").strip()
+        if not member_name or member_name.casefold() == name.casefold() or member_name in names:
+            continue
+        names.append(member_name)
+        if len(names) == 2:
+            break
+    return tuple(names)
+
+
 def _namespace_table(
     module: str,
     exports: list[object],
@@ -165,15 +195,15 @@ def _namespace_table(
     primary_export_modules: dict[str, str],
     family: str,
     facts: ProductFactsV2,
-) -> tuple[list[str], int]:
+) -> tuple[list[str], list[_ApiRow]]:
     display_name = namespace_display_name(module, family)
-    rows: list[str] = [
+    heading = [
         f"### {display_name} Namespace (`{_table_cell(module)}`)",
         "",
         "| Type | Description |",
         "| --- | --- |",
     ]
-    count = 0
+    data_rows: list[_ApiRow] = []
     for raw_export in exports:
         name = str(raw_export).strip()
         if not name:
@@ -187,6 +217,7 @@ def _namespace_table(
                 f"The `{_table_cell(module)}` namespace re-exports `{name}` from the primary "
                 f"`{_table_cell(primary_module)}` namespace."
             )
+            members: tuple[str, ...] = ()
         else:
             description = describe_api_export(item, module=module, name=name, family=family)
             description = reconcile_api_format_description(
@@ -195,10 +226,45 @@ def _namespace_table(
                 description=description,
                 facts=facts,
             )
+            members = _distinguishing_members(item, name)
         identifier = _class_surface(name, item) if item is not None else name
-        rows.append(f"| {inline_code_cell(identifier)} | {description} |")
-        count += 1
-    return rows, count
+        data_rows.append(_ApiRow(identifier=identifier, description=description, members=members))
+    return heading, data_rows
+
+
+def _disambiguate_duplicate_descriptions(rows: list[_ApiRow]) -> list[str]:
+    """Give every colliding rendered description distinct text.
+
+    `role_sentence()` deliberately keeps two identifiers' own exact casing
+    (Aspose.PDF-FOSS-for-.NET declares both a real `ID` class and a real `Id`
+    class), but presentation_template.py's "duplicated descriptions" check
+    casefolds before comparing, so the two still collide there even though
+    their rendered text differs. Repeating the identifier itself would collide
+    again under casefold, so this disambiguates with each type's own
+    distinguishing member names instead (real, casefold-safe content), falling
+    back to a plain ordinal tag only if that still isn't enough to separate
+    them.
+    """
+
+    resolved = [row.description for row in rows]
+
+    def _regroup(values: list[str]) -> Iterable[list[int]]:
+        groups: dict[str, list[int]] = {}
+        for index, value in enumerate(values):
+            key = " ".join(value.split()).casefold()
+            groups.setdefault(key, []).append(index)
+        return [indices for indices in groups.values() if len(indices) > 1]
+
+    for indices in _regroup(resolved):
+        for index in indices:
+            members = rows[index].members
+            if members:
+                clause = series([f"`{member}`" for member in members])
+                resolved[index] += f" Declares {clause}."
+    for indices in _regroup(resolved):
+        for position, index in enumerate(indices, start=1):
+            resolved[index] += f" (Entry {position} of {len(indices)} sharing this description.)"
+    return resolved
 
 
 def _product_family(facts: ProductFactsV2) -> str:
@@ -312,8 +378,9 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
         for export in reversed(exports)
         if str(export).strip()
     }
+    namespace_blocks: list[tuple[list[str], list[_ApiRow]]] = []
     for name, exports in namespace_exports.items():
-        table, count = _namespace_table(
+        heading, data_rows = _namespace_table(
             name,
             exports,
             exact_classes,
@@ -322,15 +389,24 @@ def api_reference_markdown(facts: ProductFactsV2) -> str | None:
             family,
             facts,
         )
-        if count == 0:
+        if not data_rows:
             continue
+        namespace_blocks.append((heading, data_rows))
+        entry_count += len(data_rows)
+        namespace_count += 1
+    if not namespace_blocks:
+        return None
+    all_rows = [row for _heading, rows in namespace_blocks for row in rows]
+    disambiguated_descriptions = _disambiguate_duplicate_descriptions(all_rows)
+    cursor = 0
+    for heading, data_rows in namespace_blocks:
         if body:
             body.append("")
-        body.extend(table)
-        entry_count += count
-        namespace_count += 1
-    if not body:
-        return None
+        body.extend(heading)
+        for row in data_rows:
+            description = disambiguated_descriptions[cursor]
+            body.append(f"| {inline_code_cell(row.identifier)} | {description} |")
+            cursor += 1
     namespace_inventory = (
         [str(namespace).strip() for namespace in package_namespaces if str(namespace).strip()]
         if isinstance(package_namespaces, list)
