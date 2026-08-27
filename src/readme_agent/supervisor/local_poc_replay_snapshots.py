@@ -10,13 +10,27 @@ import tempfile
 from pathlib import Path
 from typing import Literal
 
-from readme_agent.evidence.writer import refresh_sha256sums, verify_sha256sums
+from readme_agent.evidence.writer import refresh_sha256sums, verify_sha256sums, win_long_path
 
 ReplaySnapshotLabel = Literal["first", "replay"]
 
 
 class ReplaySnapshotError(RuntimeError):
     """A transaction snapshot is missing, corrupt, or bound to another candidate."""
+
+
+def _long_path(path: Path | str) -> str | Path:
+    """`path`, prefixed for Win32 MAX_PATH safety when running on Windows.
+
+    `bundle_dir` (the copy source below) is `<repo>/<40-char revision>/`, already
+    measured beyond 260 characters for a real repository name in this same evidence
+    tree (`local_poc_review_cache_preservation.py::_long_path` documents the identical
+    shape) -- `temporary`/`target` are deliberately kept short (`_tx/<16-hex>/...`,
+    see `transaction_snapshot_root()`), so only the `bundle_dir` side of the copy
+    below needs this.
+    """
+
+    return win_long_path(path) if os.name == "nt" else path
 
 
 def _manifest(bundle_dir: Path) -> dict:
@@ -121,7 +135,13 @@ def materialize_transaction_snapshot(
     temporary = Path(tempfile.mkdtemp(prefix="~", dir=target.parent.parent))
     try:
         shutil.rmtree(temporary)
-        shutil.copytree(bundle_dir, temporary, ignore=_copy_filter)
+        # `temporary` (`_tx/<16-hex>/~xxxxxxxx`) was kept short by design (see
+        # `transaction_snapshot_root()`), but it still nests under the same long
+        # `<repo>/<40-char revision>/`-adjacent parent as `bundle_dir` -- a deep child
+        # entry copied into it (e.g. `review/bounded-packet-cache/<64-hex>.json`) can
+        # still cross 260 characters, so the destination needs the same prefixing as
+        # the source.
+        shutil.copytree(_long_path(bundle_dir), _long_path(temporary), ignore=_copy_filter)
         refresh_sha256sums(temporary)
         if not verify_sha256sums(temporary):
             raise ReplaySnapshotError("new transaction snapshot failed checksum validation")

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Iterable
 
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.schema import LLMResponseMeta
@@ -50,17 +51,26 @@ def _blind_accept(user_content: str) -> dict:
         raise AssertionError("fixture blind reviewer received an empty candidate")
     return {
         "verdict": "ACCEPT",
-        "reasoning": "The exact title span supports visible-document acceptance.",
+        "reasoning": "The exact span supports visible-document acceptance.",
         "failed_criteria": [],
         "sections_affected": [],
         "required_repair": "",
         "findings": [
             {
-                "finding_id": "quality.fixture-title",
+                "finding_id": "quality.fixture-span",
                 "kind": "quality",
-                "criterion": "clarity",
-                "section": "title",
-                "claim": "The candidate has a clear product title.",
+                # `bounded_visitor_scope.py`'s per-section `_CRITERIA_BY_ROOT`/
+                # `_DEFAULT_CRITERIA` narrows which criteria a bounded-review call may use --
+                # this fixture answers for whichever candidate anchor happens to be under
+                # review (not just the title), so it must pick a criterion every root
+                # allows. `markdown_integrity` is the one criterion present in every entry
+                # of `_CRITERIA_BY_ROOT` (including "navigation", which excludes "clarity")
+                # and in `_DEFAULT_CRITERIA` -- the fixed "clarity" this used to hardcode
+                # was outside "navigation"'s bounded scope, forcing a grounding retry this
+                # fixture has no branch for (VER-012).
+                "criterion": "markdown_integrity",
+                "section": "content",
+                "claim": "The candidate span uses well-formed Markdown.",
                 "quoted_candidate_span": span,
                 "candidate_anchor_id": anchor_id,
                 "disposition": "supports_acceptance",
@@ -130,16 +140,36 @@ def _factual_accept(user_content: str) -> dict:
     raise AssertionError("fixture factual reviewer found no selected literal fact in candidate")
 
 
-def _selected_fact_response(candidate: str, facts: dict) -> dict | None:
+def _selected_fact_ids(facts: dict) -> Iterable[str]:
+    # Two real, independently valid production shapes reach this helper: the merged-review
+    # path's full `ProductFactsV2.selected_fact_ids` (dict[field, fact_id]), and a bounded
+    # per-section factual packet's own `accepted_fact_ids` (list[fact_id] already scoped to
+    # that packet -- `bounded_review_execution_factual.py::execute_factual_packet()`'s
+    # `fact_context`). Neither key implies the other is absent, so check the packet-scoped
+    # list first (it is the narrower, more specific set when present).
+    accepted = facts.get("accepted_fact_ids")
+    if accepted is not None:
+        return accepted
+    return facts.get("selected_fact_ids", {}).values()
+
+
+def _accepted_facts(facts: dict) -> list[dict]:
     by_id = {
         str(fact["fact_id"]): fact
         for fact in facts.get("selected_facts", facts.get("facts", []))
         if isinstance(fact, dict) and fact.get("fact_id")
     }
-    for fact_id in facts.get("selected_fact_ids", {}).values():
-        fact = by_id.get(str(fact_id))
-        if fact is None or fact.get("verification_state") not in {"verified", "policy_approved"}:
-            continue
+    return [
+        by_id[str(fact_id)]
+        for fact_id in _selected_fact_ids(facts)
+        if str(fact_id) in by_id
+        and by_id[str(fact_id)].get("verification_state") in {"verified", "policy_approved"}
+    ]
+
+
+def _selected_fact_response(candidate: str, facts: dict) -> dict | None:
+    accepted = _accepted_facts(facts)
+    for fact in accepted:
         source_location = str(
             fact.get("evidence_location") or (fact.get("source") or {}).get("location", "")
         )
@@ -151,10 +181,33 @@ def _selected_fact_response(candidate: str, facts: dict) -> dict | None:
                 exact_span = candidate[start : start + len(phrase)]
                 return _supported_factual_response(
                     exact_span=exact_span,
-                    fact_id=str(fact_id),
+                    fact_id=str(fact["fact_id"]),
                     evidence_excerpt=phrase,
                     evidence_location=source_location,
                 )
+    # No accepted fact's own literal value phrase appears verbatim in this candidate span --
+    # expected for a generic template bullet with no fact-specific wording (e.g. a "Process
+    # Supported Content" summary line). Grounding validates `quoted_candidate_span` (must be a
+    # literal candidate substring) and `evidence_excerpt` (must relate to the cited fact's own
+    # evidence) as two independent checks (`review_finding_grounding.py::
+    # validate_review_findings`) that need not overlap with each other. Fall back to any
+    # literal candidate line plus the fact's own source location, which
+    # `_fact_evidence_strings()` always includes verbatim in its evidence set -- a guaranteed
+    # exact match regardless of the fact's value shape.
+    exact_span = next((line.strip() for line in candidate.splitlines() if line.strip()), "")
+    if not exact_span:
+        return None
+    for fact in accepted:
+        source_location = str(
+            fact.get("evidence_location") or (fact.get("source") or {}).get("location", "")
+        )
+        if source_location:
+            return _supported_factual_response(
+                exact_span=exact_span,
+                fact_id=str(fact["fact_id"]),
+                evidence_excerpt=source_location,
+                evidence_location=source_location,
+            )
     return None
 
 

@@ -49,12 +49,24 @@ _RECOVERABLE_PREPROMOTION_MUTATIONS = frozenset({"assurance/section_authoring/do
 
 
 def _write_deterministic_packet_cache_archive(source: Path, destination: Path) -> None:
-    """Compact hash-named packet receipts without lengthening Windows paths."""
+    """Compact hash-named packet receipts without lengthening Windows paths.
 
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    with ZipFile(destination, "w", compression=ZIP_DEFLATED, compresslevel=9) as archive:
-        for source_path in sorted(path for path in source.rglob("*") if path.is_file()):
-            relative = source_path.relative_to(source).as_posix()
+    Ironically the one function this module built specifically to route around
+    Windows MAX_PATH never wrapped its own `ZipFile`/`rglob`/`read_bytes` calls with
+    `_long_path()` -- `source` is still under the long, un-archived `<repo>/<40-char
+    revision>/review/bounded-packet-cache/` tree, and `destination` is the even
+    longer `<bundle>/superseded/<16-hex>/review/bounded-packet-cache.zip`. Found via
+    a real `FileNotFoundError` on `bounded-packet-cache.zip` from `refresh_sha256sums()`
+    walking `destination`'s parent tree afterward -- the archive was silently never
+    written (or written incomplete) for a long enough repository path.
+    """
+
+    long_source = Path(_long_path(source))
+    long_destination = _long_path(destination)
+    Path(_long_path(destination.parent)).mkdir(parents=True, exist_ok=True)
+    with ZipFile(long_destination, "w", compression=ZIP_DEFLATED, compresslevel=9) as archive:
+        for source_path in sorted(path for path in long_source.rglob("*") if path.is_file()):
+            relative = source_path.relative_to(long_source).as_posix()
             entry = ZipInfo(relative, date_time=(1980, 1, 1, 0, 0, 0))
             entry.compress_type = ZIP_DEFLATED
             entry.external_attr = 0o644 << 16

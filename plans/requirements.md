@@ -7,7 +7,7 @@ human-readable entry point. Every catalog line is one complete `RequirementRecor
 never reused. Requirement status is not completion proof: current evidence and the mapped active task
 still govern acceptance.
 
-The catalog contains **516** requirements (2026-08-27 -- this summary drifts from the catalog
+The catalog contains **517** requirements (2026-08-27 -- this summary drifts from the catalog
 between refreshes; it is not mechanically regenerated yet, which is exactly the gap Decision #109
 and requirement `GOV-032` exist to close):
 
@@ -15,11 +15,11 @@ and requirement `GOV-032` exist to close):
 - `DEPRECATED`: 23
 - `GOVERNANCE`: 35
 - `IMPLEMENTED`: 173
-- `PARTIAL`: 105
+- `PARTIAL`: 106
 - `PLANNED`: 125
 - `RESEARCH-GATED`: 6
 
-Families: `AGT` 10, `AUTH` 8, `BIZ` 8, `CAP` 9, `CORE` 40, `DEP` 6, `DOC` 10, `ECO` 5, `EFF` 6, `EVID` 6, `FACT` 20, `FRESH` 6, `GAP` 3, `GOV` 31, `INT` 10, `KNOW` 14, `L8` 55, `LLM` 23, `MEM` 5, `MET` 8, `NFR` 14, `ONB` 4, `OPS` 14, `ORC` 9, `OWN` 15, `PIL` 16, `PKG` 6, `PRL` 9, `RDM` 34, `RUN` 10, `SAFE` 21, `SCL` 10, `SURF` 15, `TRP` 23, `VAL` 20, `VER` 13.
+Families: `AGT` 10, `AUTH` 8, `BIZ` 8, `CAP` 9, `CORE` 40, `DEP` 6, `DOC` 10, `ECO` 5, `EFF` 6, `EVID` 6, `FACT` 20, `FRESH` 6, `GAP` 3, `GOV` 31, `INT` 10, `KNOW` 14, `L8` 55, `LLM` 23, `MEM` 5, `MET` 8, `NFR` 14, `ONB` 4, `OPS` 14, `ORC` 9, `OWN` 15, `PIL` 16, `PKG` 6, `PRL` 9, `RDM` 34, `RUN` 10, `SAFE` 21, `SCL` 10, `SURF` 15, `TRP` 23, `VAL` 20, `VER` 14.
 
 ## Loading requirements
 
