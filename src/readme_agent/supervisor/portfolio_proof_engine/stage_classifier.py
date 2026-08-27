@@ -82,12 +82,15 @@ def classify_repository_stage(
     ecosystem: str | None = None,
     elapsed_seconds: float = 0.0,
     provider_call_count: int | None = 0,
+    supervise_exit_code: int | None = None,
     rubric_result: RubricAcceptanceOutcome | None = None,
 ) -> ProofStageReceiptV1:
     """Classify one repository's current stage from its durable lifecycle state alone (plus a
     cheap existence check of the two already-separated review artifacts). `rubric_result`, when
     supplied by the caller after running `rubric.py`, distinguishes RUBRIC_SCORED (scored, not
-    accepted) from ACCEPTED (scored, accepted, zero disqualifiers)."""
+    accepted) from ACCEPTED (scored, accepted, zero disqualifiers). `supervise_exit_code` is the
+    real return value of whatever `supervise_call` dispatch (if any) preceded this
+    classification -- the caller's job to capture, this function's job only to carry through."""
 
     common: dict[str, Any] = {
         "org_repo": org_repo,
@@ -95,6 +98,7 @@ def classify_repository_stage(
         "predecessor_receipt_hash": predecessor.canonical_hash() if predecessor else None,
         "elapsed_seconds": elapsed_seconds,
         "provider_call_count": provider_call_count,
+        "supervise_exit_code": supervise_exit_code,
     }
     state = backend.load(org_repo)
     lifecycle = state.readme_poc_lifecycle if state is not None else None

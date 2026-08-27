@@ -436,3 +436,39 @@ def test_unresolved_provider_call_count_is_never_fabricated_as_zero(tmp_path, mo
     )
     assert result.receipts
     assert all(receipt.provider_call_count is None for receipt in result.receipts)
+
+
+# ---------------------------------------------------------------------------
+# Item H: the real supervise_call exit code -- captured, never discarded, even when the
+# resulting lifecycle state alone would still classify as a healthy-looking stage.
+# ---------------------------------------------------------------------------
+
+
+def test_real_supervise_exit_code_flows_into_the_written_receipt(tmp_path, monkeypatch):
+    """A prior version of `_run_full_pipeline_cohort` discarded `supervise_call`'s return value
+    entirely -- proven fixed with a fixture that still lands the repository in review-ready
+    lifecycle state (so classification alone can't reveal anything went wrong) while returning a
+    nonzero exit code, and asserting that code survives onto the written receipt unmodified."""
+
+    monkeypatch.setenv("README_AGENT_RUNS_DIR", str(tmp_path / "runs"))
+    entries = _canary_entries()
+    monkeypatch.setattr(registry_cohort, "load_products", lambda *a, **k: tuple(entries))
+    backend = FakeStateBackend()
+    calls: list[argparse.Namespace] = []
+    inner_supervise = _review_ready_supervise(backend, calls)
+
+    def _nonzero_exit_supervise(namespace: argparse.Namespace) -> int:
+        inner_supervise(namespace)
+        return 3
+
+    result = run_canaries(
+        output_root=tmp_path / "proof",
+        state_backend=backend,
+        supervise_call=_nonzero_exit_supervise,
+        rubric_evaluator=lambda org_repo, _b: RubricAcceptanceOutcome(
+            org_repo=org_repo, accepted=True, score=30, hard_disqualifier_count=0
+        ),
+    )
+    assert result.receipts
+    assert all(receipt.stage == "ACCEPTED" for receipt in result.receipts)
+    assert all(receipt.supervise_exit_code == 3 for receipt in result.receipts)

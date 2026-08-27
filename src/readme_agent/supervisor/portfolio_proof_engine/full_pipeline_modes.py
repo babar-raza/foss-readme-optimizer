@@ -86,7 +86,10 @@ def _run_full_pipeline_cohort(
             portfolio_time_budget_seconds=budget,
             retry_blocked=retry_blocked,
         )
-        supervise_call(namespace)
+        # Captured, never discarded: a repository can exit supervise_call non-zero while its
+        # lifecycle state still classifies as a healthy-looking stage (e.g. a crash after the
+        # last successful state save) -- dropping this return value silently hid that split.
+        exit_code = supervise_call(namespace)
         elapsed = time.monotonic() - started
         # The real count of provider calls this supervise_call just made, read from the existing
         # LLM call ledger -- never a fabricated 0 for a stage that can genuinely call Qwen.
@@ -98,6 +101,7 @@ def _run_full_pipeline_cohort(
             ecosystem=entry.ecosystem,
             elapsed_seconds=elapsed,
             provider_call_count=call_count,
+            supervise_exit_code=exit_code,
         )
         rubric_result: RubricAcceptanceOutcome | None = None
         if provisional.stage in _REVIEW_STAGES_ELIGIBLE_FOR_RUBRIC:
@@ -119,6 +123,7 @@ def _run_full_pipeline_cohort(
                 ecosystem=entry.ecosystem,
                 elapsed_seconds=elapsed,
                 provider_call_count=call_count,
+                supervise_exit_code=exit_code,
                 rubric_result=rubric_result,
             )
         write_receipt(output_root, campaign_id, final_receipt)

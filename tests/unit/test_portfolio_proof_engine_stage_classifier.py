@@ -196,3 +196,23 @@ def test_review_ready_lifecycle_without_a_rubric_result_never_reports_accepted()
     ):
         receipt = classify_repository_stage(ORG_REPO, _backend(status))
         assert receipt.stage != "ACCEPTED"
+
+
+# ---------------------------------------------------------------------------
+# supervise_exit_code: the caller's own dispatch result, carried through verbatim -- this
+# function never fabricates or infers it from lifecycle state.
+# ---------------------------------------------------------------------------
+
+
+def test_supervise_exit_code_defaults_to_none_when_the_caller_made_no_dispatch():
+    receipt = classify_repository_stage(ORG_REPO, _backend("FACTS_READY"))
+    assert receipt.supervise_exit_code is None
+
+
+def test_supervise_exit_code_carries_through_unmodified_even_on_a_healthy_looking_stage():
+    # A nonzero exit code alongside review-ready lifecycle state is exactly the split this field
+    # exists to make inspectable: the repository looks fine from lifecycle state alone, but its
+    # last supervise_call dispatch did not actually exit clean.
+    receipt = classify_repository_stage(ORG_REPO, _backend("AGENT_APPROVED"), supervise_exit_code=3)
+    assert receipt.stage == "DETERMINISTIC_VALIDATED"
+    assert receipt.supervise_exit_code == 3

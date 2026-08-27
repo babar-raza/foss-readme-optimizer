@@ -103,6 +103,11 @@ class ProofStageReceiptV1(BaseModel):
     # count) -- never fabricated as 0. A stage that provably makes no provider call (INTAKE,
     # FACTS_READY-and-earlier) still records an honest, known 0.
     provider_call_count: int | None = Field(default=None, ge=0)
+    # None means "no supervise_call dispatch happened for this receipt" (e.g. the ACCEPTED
+    # receipt written right after a REVIEW-stage receipt, without a second dispatch). When a
+    # dispatch did happen, this is its real process exit code -- never discarded, so a stage
+    # classified OK from lifecycle state that actually exited non-zero stays inspectable.
+    supervise_exit_code: int | None = None
     generated_at: str = Field(default_factory=utc_now_iso)
 
     @field_validator("org_repo")
