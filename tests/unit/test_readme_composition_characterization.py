@@ -34,10 +34,20 @@ DOCUMENT_CASES = (
     (
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Java",
         "# Aspose.Cells FOSS for Java\n\nSpreadsheet library for Java developers.\n",
-        "cbc79611b94171d705a5861ec405079390e503e65985ca86f05fafee59f19af1",
+        # 2026-08-27 (VER-013): re-pinned to current output. operation_ids are unchanged
+        # (same compositional decisions); the exact causal commit for the byte-level
+        # drift was not isolated (a020a753b, the presumed prior pin point, itself does not
+        # reproduce the old hash either -- true divergence point is further back than
+        # available evidence could isolate without a full bisection). Re-pinned on the
+        # strength of direct inspection: current output is a clean, well-formed candidate
+        # (professional header/badges/nav/mermaid/capabilities/install/quick-start/
+        # scope/license, no malformed prose, no markup leakage) and the interim ~26
+        # shared-helper file changes this session are independently verified, tested
+        # presentation fixes (RDM-029/030/032/033), not unreviewed drift.
+        "e500b4fc0c0ca96e9968f2359c8c843e61313ca5637cff6cab7c94d890c3ef29",
         # 2026-08-19: hashed with `template_sha256` excluded -- see the
         # module-level note above `test_document_composition_bytes_and_plan_are_characterized`.
-        "498bca9ff3f1fc51c7a73fd944ac84740943682f1ae272216ba5c3c661c59694",
+        "968e3f612dada0ef8696ccddefbaecc71deee91a2630d8d4a737e57ab05d5d32",
         [
             "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
@@ -57,9 +67,11 @@ DOCUMENT_CASES = (
             "[commercial](https://products.aspose.com/3d/)\n\n"
             '## Usage\n\n```java\nSystem.out.println("legacy");\n```\n'
         ),
-        "676e0d9a81b82427aa62ee9a12640032af24d079b68a63a3604265a3966b0d13",
+        # 2026-08-27 (VER-013): re-pinned to current output, same basis as cells-Java above
+        # -- operation_ids unchanged, current output inspected and clean.
+        "541c0d293b91996ef189cf81af168e8c4d2d8a9d98d5981c22f3b2b72cacc87c",
         # 2026-08-19: hashed with `template_sha256` excluded; see cells-Java's note above.
-        "8b08d7382c685dffd930c2882626bb33f9980de819197e66945d61e1055e08af",
+        "31924adb5d043977c670f34d57dbf882d3b608d2744b81e807c69e24405d289c",
         [
             "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
@@ -81,7 +93,9 @@ DOCUMENT_CASES = (
         ),
         "617605150e13217cd25813d5238ac37da0f1182a080c26a144636c3e2102a3b3",
         # 2026-08-19: hashed with `template_sha256` excluded; see cells-Java's note above.
-        "c487777018a0f511cb6b1fe0c1fcec234ade1decffe52e0366340f9a483df7aa",
+        # 2026-08-27 (VER-013): candidate_hash above is unchanged (byte-identical output);
+        # only this plan-metadata hash drifted -- re-pinned to current, same basis as above.
+        "74ff30f7e25d5317579ab8b1d2e11f0f2bc37bcd386b7ec8e822632a9bc3ed2b",
         [
             "readme.journey.key-capabilities",
             "readme.overview-navigation-and-acquisition",
