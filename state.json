@@ -5231,7 +5231,7 @@
     ],
     "graph_sha256": "6f9626eee82ba354bc174cfb0d97a98a0d482c4e33cc57e9e5cec0e375c1ff74",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-28T07:56:03.287885+00:00",
+    "last_evaluated_at": "2026-08-28T07:56:32.593547+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 3,
@@ -5384,7 +5384,7 @@
       "L8-PF-00-CAMPAIGN-AUTHORITY-RECONCILIATION": "CLOSED",
       "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "CLOSED",
       "L8-PF-01A-QWEN-SECTION-ENGINE-INTEGRATION": "CLOSED",
-      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "VERIFIED",
+      "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "SCORED",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "CLOSED",
       "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "REGRESSED",
@@ -18319,6 +18319,19 @@
         "reason": "Canonical bounded canary converged unchanged at the current source and candidate identity; 134 focused acceptance, dashboard, binding, and sealed-replay tests pass.",
         "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
         "to_status": "VERIFIED"
+      },
+      {
+        "evidence_refs": [
+          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/rubric-evaluation.json",
+          "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/benchmark-acceptance.json",
+          "runs/portfolio_proof/portfolio-dashboard.json"
+        ],
+        "from_status": "VERIFIED",
+        "observed_by": "codex-portfolio-resume",
+        "occurred_at": "2026-08-28T07:56:32.593564+00:00",
+        "reason": "Current candidate is scored 30/30 with zero hard disqualifiers and benchmark acceptance proven by the integrated portfolio proof engine.",
+        "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
+        "to_status": "SCORED"
       }
     ]
   },
@@ -18328,7 +18341,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1786,
+  "state_version": 1787,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
