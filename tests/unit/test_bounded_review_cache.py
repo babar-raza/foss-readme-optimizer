@@ -18,6 +18,7 @@ from bounded_review_test_support import (
     _plan,
 )
 
+from readme_agent.evidence.writer import refresh_sha256sums, verify_sha256sums
 from readme_agent.llm.analysis_client import AnalysisResult
 from readme_agent.llm.schema import LLMResponseMeta
 from readme_agent.presentation.visitor_contract import build_presentation_visitor_contract
@@ -39,6 +40,9 @@ from readme_agent.specialists.bounded_review_visitor_scope import (
     bounded_visitor_scope_errors,
 )
 from readme_agent.specialists.review_candidate_anchors import build_candidate_review_anchors
+from readme_agent.supervisor.local_poc_bounded_review_recovery import (
+    recover_interrupted_bounded_review_cache_write,
+)
 
 
 def _headings() -> list[str]:
@@ -103,6 +107,60 @@ def test_exact_packet_results_are_reused_without_provider_calls(tmp_path) -> Non
         if item.get("context_mode") == "bounded_packet_cache_reuse"
     ]
     assert len(cache_events) == len(visitor_packets) + len(factual_packets)
+
+
+def test_interrupted_packet_cache_writes_are_validated_and_resealed(tmp_path) -> None:
+    bundle = tmp_path / "bundle"
+    bundle.mkdir()
+    (bundle / "manifest.json").write_text('{"sealed":true}\n', encoding="utf-8")
+    refresh_sha256sums(bundle)
+    plan = _plan()
+    context = _cache_context()
+    cache_dir = bundle / "review" / "bounded-packet-cache"
+
+    execute_bounded_review(
+        org_repo="acme/widget-toolkit",
+        candidate_text=CANDIDATE_TEXT,
+        product_facts=DEFAULT_FACTS.model_dump(mode="json"),
+        visitor_contract=build_presentation_visitor_contract(
+            applicable_h2_headings=_headings(),
+            primary_example_language="python",
+        ),
+        plan=plan,
+        coverage_ledger=brp.build_coverage_ledger(plan, atomic_units=_atomic_units()),
+        blind_client=_PacketSequenceClient(list(plan.visitor_packets)),
+        factual_client=_PacketSequenceClient(list(plan.factual_packets)),
+        blind_prompt_id="blind_readme_quality_review",
+        factual_prompt_id="factual_readme_plan_review",
+        cache_dir=cache_dir,
+        cache_context=context,
+    )
+
+    assert not verify_sha256sums(bundle)
+    assert recover_interrupted_bounded_review_cache_write(
+        bundle,
+        org_repo="acme/widget-toolkit",
+        source_revision=context.source_revision,
+    )
+    assert verify_sha256sums(bundle)
+
+
+def test_interrupted_packet_cache_recovery_rejects_unrelated_extra(tmp_path) -> None:
+    bundle = tmp_path / "bundle"
+    bundle.mkdir()
+    (bundle / "manifest.json").write_text('{"sealed":true}\n', encoding="utf-8")
+    refresh_sha256sums(bundle)
+    unrelated = bundle / "candidate" / "README.md"
+    unrelated.parent.mkdir()
+    unrelated.write_text("# Unexpected\n", encoding="utf-8")
+    inventory_before = (bundle / "sha256sums.txt").read_bytes()
+
+    assert not recover_interrupted_bounded_review_cache_write(
+        bundle,
+        org_repo="acme/widget-toolkit",
+        source_revision="a" * 40,
+    )
+    assert (bundle / "sha256sums.txt").read_bytes() == inventory_before
 
 
 def test_aggregate_grounding_uses_packet_source_identity_for_long_locations() -> None:

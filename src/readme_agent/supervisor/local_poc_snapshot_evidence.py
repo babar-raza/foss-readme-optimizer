@@ -21,6 +21,9 @@ from readme_agent.llm import prompt_registry
 from readme_agent.llm.bundle_accounting import local_bundle_llm_accounting_fields
 from readme_agent.repository_snapshot import RepositorySnapshotV1
 from readme_agent.state.assurance import ContentAssuranceV1
+from readme_agent.supervisor.local_poc_bounded_review_recovery import (
+    recover_interrupted_bounded_review_cache_write,
+)
 from readme_agent.supervisor.local_poc_section_authoring_recovery import (
     recover_interrupted_section_authoring_cache_write,
 )
@@ -145,6 +148,11 @@ def _validate_sealed_snapshot(
     if (
         not verify_sha256sums(bundle_dir)
         and not recover_interrupted_section_authoring_cache_write(bundle_dir, snapshot)
+        and not recover_interrupted_bounded_review_cache_write(
+            bundle_dir,
+            org_repo=snapshot.org_repo,
+            source_revision=snapshot.source_revision,
+        )
         and not recover_interrupted_candidate_supersession(bundle_dir)
     ):
         raise _fail(f"checksum inventory is missing, incomplete, or corrupt: {bundle_dir}")
