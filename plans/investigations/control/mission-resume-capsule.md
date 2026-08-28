@@ -1,6 +1,6 @@
 # Mission resume capsule (derived — regenerate, never hand-edit)
 
-Regenerated: 2026-08-27T16:14:28+00:00
+Regenerated: 2026-08-27T19:11:26+00:00
 Rebuild: `.venv/Scripts/python scripts/governance/mission_resume_capsule.py`
 Staleness check (run at session start; exit 1 = stale): same command with `--check`.
 
@@ -29,7 +29,7 @@ factuality/preservation/grounding gates to raise pass counts.
 
 ## Repository
 
-- branch `main` @ `f2ae015b50ea06681ce43f7474fb8c24e88f97e0`
+- branch `main` @ `0c0ea77f640c6c877a54fcbf74d7775d93af7707`
 - protected pre-existing dirt: `plans/requirements.md` (CRLF-only); untracked
   `plans/claude/moonlit-juggling-flurry.md` is `forbidden_paths` reference material.
 

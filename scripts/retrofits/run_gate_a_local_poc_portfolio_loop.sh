@@ -60,6 +60,15 @@ RUN_ID="${GATE_A_RUN_ID:-$(date +%Y%m%d-%H%M%S)-$$}"
 LOG_DIR="runs/gate-a-local-poc-portfolio/${RUN_ID}"
 mkdir -p "$LOG_DIR"
 
+# Opt-in: force live re-execution of members whose last outcome was BLOCKED
+# even though no bound dependency fingerprint changed (see --retry-blocked's
+# own --help text). Off by default -- a normal resume pass should never pay
+# for known-BLOCKED repos it has no new reason to re-litigate.
+RETRY_BLOCKED_FLAG=()
+if [ "${RETRY_BLOCKED:-0}" = "1" ]; then
+  RETRY_BLOCKED_FLAG=(--retry-blocked)
+fi
+
 previous_complete=""
 plateau_count=0
 
@@ -72,6 +81,7 @@ for ((i = 1; i <= MAX_ITERATIONS; i++)); do
     --mission-task-id "$MISSION_TASK_ID" \
     --mission-observer readme-agent-supervisor \
     --portfolio-time-budget-seconds "${PORTFOLIO_TIME_BUDGET_SECONDS:-1200}" \
+    "${RETRY_BLOCKED_FLAG[@]}" \
     2>&1 | tee "$log_file"
   exit_code="${PIPESTATUS[0]}"
 
