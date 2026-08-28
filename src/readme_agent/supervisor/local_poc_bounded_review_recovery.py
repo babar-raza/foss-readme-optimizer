@@ -56,7 +56,7 @@ def recover_interrupted_bounded_review_cache_write(
         actual = {
             relative.as_posix(): physical
             for relative, physical in enumerate_files(bundle_dir)
-            if relative.as_posix() != "sha256sums.txt"
+            if physical.name != "sha256sums.txt"
         }
         if not set(expected).issubset(actual) or any(
             sha256_file(actual[relative])[0] != digest for relative, digest in expected.items()

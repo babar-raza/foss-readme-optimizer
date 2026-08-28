@@ -113,6 +113,9 @@ def test_interrupted_packet_cache_writes_are_validated_and_resealed(tmp_path) ->
     bundle = tmp_path / "bundle"
     bundle.mkdir()
     (bundle / "manifest.json").write_text('{"sealed":true}\n', encoding="utf-8")
+    nested_inventory = bundle / "superseded" / "prior" / "sha256sums.txt"
+    nested_inventory.parent.mkdir(parents=True)
+    nested_inventory.write_text("nested inventory is independently sealed\n", encoding="utf-8")
     refresh_sha256sums(bundle)
     plan = _plan()
     context = _cache_context()
