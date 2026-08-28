@@ -85,13 +85,26 @@ for ((i = 1; i <= MAX_ITERATIONS; i++)); do
     2>&1 | tee "$log_file"
   exit_code="${PIPESTATUS[0]}"
 
+  # 2026-08-28 incident: this used to grep the whole log for a literal per-repo
+  # "SYSTEM_FAILURE" line (the 2026-08-19 output format). That line no longer
+  # appears in current output -- only the summary's lowercase `system_failed=N`
+  # field does -- so this check silently never fired while a live pass hit 26/28
+  # SYSTEM_FAILURE outcomes and the loop proceeded straight into iteration 2.
+  # Check the structurally-guaranteed summary field first; keep the literal-line
+  # grep too, in case a future per-repo detail line reappears without a summary.
+  summary_line="$(grep -E "^local_poc portfolio: target=" "$log_file" | tail -n1)"
+  echo "$summary_line"
+  system_failed_count="$(echo "$summary_line" | grep -oE 'system_failed=[0-9]+' | head -n1)"
+  system_failed_count="${system_failed_count#system_failed=}"
+  if [ -n "$system_failed_count" ] && [ "$system_failed_count" != "0" ]; then
+    echo "STOPPED: system_failed=$system_failed_count in $log_file -- investigate before continuing."
+    exit 1
+  fi
   if grep -q "SYSTEM_FAILURE" "$log_file"; then
     echo "STOPPED: SYSTEM_FAILURE detected in $log_file -- investigate before continuing."
     exit 1
   fi
 
-  summary_line="$(grep -E "^local_poc portfolio: target=" "$log_file" | tail -n1)"
-  echo "$summary_line"
   complete_fraction="$(echo "$summary_line" | grep -oE 'complete=[0-9]+/[0-9]+' | head -n1)"
   complete_count="${complete_fraction%%/*}"
   complete_count="${complete_count#complete=}"
