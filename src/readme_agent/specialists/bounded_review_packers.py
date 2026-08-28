@@ -6,6 +6,7 @@ import hashlib
 import json
 import re
 from collections.abc import Callable, Sequence
+from dataclasses import replace
 from typing import Any
 
 from readme_agent.facts.schema_v2 import ProductFactsV2
@@ -226,6 +227,64 @@ def _greedy_group_units(
     return groups, oversized
 
 
+def _split_oversized_table_unit(
+    unit: _MutableUnit,
+    *,
+    candidate_text: str,
+    budget_chars: int,
+    size_fn: Callable[[list[_MutableUnit]], int],
+) -> tuple[_MutableUnit, ...]:
+    """Split one oversized table at row boundaries without changing candidate bytes.
+
+    A Markdown table is normally one atomic review unit. Large generated API inventories can,
+    however, exceed the packet budget even after fact projection. Table rows are already natural
+    factual boundaries, so preserve the original unit identity for accountability while exposing
+    contiguous, exhaustive row ranges to the packetizer. A single over-budget row remains
+    unsplittable and therefore fails closed through the existing oversized-unit record.
+    """
+
+    if unit.kind != "table":
+        return ()
+    visible = candidate_text[unit.char_start : unit.char_end]
+    lines = visible.splitlines(keepends=True)
+    if len(lines) < 3:
+        return ()
+
+    offsets = [0]
+    for line in lines:
+        offsets.append(offsets[-1] + len(line))
+
+    def part(start_line: int, end_line: int) -> _MutableUnit:
+        return replace(
+            unit,
+            char_start=unit.char_start + offsets[start_line],
+            char_end=unit.char_start + offsets[end_line],
+            line_start=unit.line_start + start_line,
+            line_end=unit.line_start + end_line - 1,
+            claim_ids=list(unit.claim_ids),
+            provenance_ids=list(unit.provenance_ids),
+        )
+
+    parts: list[_MutableUnit] = []
+    chunk_start = 0
+    accepted: _MutableUnit | None = None
+    for line_end in range(1, len(lines) + 1):
+        trial = part(chunk_start, line_end)
+        if size_fn([trial]) <= budget_chars:
+            accepted = trial
+            continue
+        if accepted is None:
+            return ()
+        parts.append(accepted)
+        chunk_start = line_end - 1
+        accepted = part(chunk_start, line_end)
+        if size_fn([accepted]) > budget_chars:
+            return ()
+    if accepted is not None:
+        parts.append(accepted)
+    return tuple(parts) if len(parts) > 1 else ()
+
+
 def _build_factual_packets(
     *,
     sections: list[list[_MutableUnit]],
@@ -291,9 +350,26 @@ def _build_factual_packets(
                 json.dumps(facts_payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
             )
 
-        groups_of_units, oversized = _greedy_group_units(
-            factual_units, budget_chars=budget_chars, size_fn=group_size
+        packable_units: list[_MutableUnit] = []
+        unsplittable: list[_MutableUnit] = []
+        for unit in factual_units:
+            if group_size([unit]) <= budget_chars:
+                packable_units.append(unit)
+                continue
+            table_parts = _split_oversized_table_unit(
+                unit,
+                candidate_text=candidate_text,
+                budget_chars=budget_chars,
+                size_fn=group_size,
+            )
+            if table_parts:
+                packable_units.extend(table_parts)
+            else:
+                unsplittable.append(unit)
+        groups_of_units, oversized_after_split = _greedy_group_units(
+            packable_units, budget_chars=budget_chars, size_fn=group_size
         )
+        oversized = [*unsplittable, *oversized_after_split]
         for unit in oversized:
             unpacketizable.append(
                 UnpacketizableRecordV1(
@@ -338,7 +414,7 @@ def _build_factual_packets(
                 )
             )
             unit_text = candidate_text[group_units[0].char_start : group_units[-1].char_end]
-            covered_unit_ids = tuple(unit.unit_id for unit in group_units)
+            covered_unit_ids = tuple(dict.fromkeys(unit.unit_id for unit in group_units))
             # Deliberately excludes candidate_sha256 AND absolute position (char/line
             # start/end): packet_sha256 must depend only on this packet's own local content so
             # that an edit elsewhere in the document cannot invalidate every packet -- either

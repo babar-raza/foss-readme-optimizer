@@ -16,6 +16,7 @@ from readme_agent.specialists.bounded_review_contracts import (
     DEFAULT_API_INVENTORY_HEADING_KEYWORDS,
     DEFAULT_API_INVENTORY_TABLE_FENCE_THRESHOLD,
     AtomicUnitV1,
+    BoundedPacketV1,
     BoundedReviewPlanV1,
     UnitKind,
     _StrictModel,
@@ -160,6 +161,38 @@ def build_coverage_ledger(
                 visitor_covering[unit_id].append(visitor_packet_item.packet_id)
 
     unit_by_id = {unit.unit_id: unit for unit in atomic_units}
+    all_packets: tuple[BoundedPacketV1, ...] = (*plan.factual_packets, *plan.visitor_packets)
+    packet_spans = {
+        packet.packet_id: (packet.char_start, packet.char_end) for packet in all_packets
+    }
+
+    def retain_only_complete_coverage(mapping: dict[str, list[str]]) -> None:
+        """Require the cited packet-span union to cover every byte of its atomic unit."""
+
+        for unit_id, packet_ids in mapping.items():
+            unit = unit_by_id[unit_id]
+            cursor = unit.char_start
+            for start, end in sorted(
+                (
+                    (
+                        max(unit.char_start, packet_spans[packet_id][0]),
+                        min(unit.char_end, packet_spans[packet_id][1]),
+                    )
+                    for packet_id in packet_ids
+                ),
+            ):
+                if end <= cursor:
+                    continue
+                if start > cursor:
+                    break
+                cursor = max(cursor, end)
+                if cursor >= unit.char_end:
+                    break
+            if cursor < unit.char_end:
+                mapping[unit_id] = []
+
+    retain_only_complete_coverage(factual_covering)
+    retain_only_complete_coverage(visitor_covering)
     visitor_spans = tuple(
         CoverageSpanV1(
             unit_id=unit_id,

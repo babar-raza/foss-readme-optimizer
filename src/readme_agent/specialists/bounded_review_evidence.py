@@ -20,8 +20,8 @@ from readme_agent.specialists.bounded_review_packets import (
 )
 
 
-# Keep indivisible Markdown tables and fences atomic while still bounding every
-# reviewer input below the 240k whole-document trigger. The qualified 3D Python
+# Keep fences atomic and split only oversized Markdown tables at exact row boundaries while
+# bounding every reviewer input below the 240k whole-document trigger. The qualified 3D Python
 # API inventory requires 101,013 characters including its fact context.
 def build_candidate_bounded_review_evidence(
     *,

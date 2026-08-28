@@ -24,12 +24,15 @@ from bounded_review_test_support import (
     DEFAULT_DOCUMENT_PLAN,
     DEFAULT_FACTS,
     DEFAULT_PROVENANCE,
+    FACTUAL_PROMPT_SHA256,
     FIXTURE_DIR,
+    VISITOR_PROMPT_SHA256,
     _atomic_units,
     _build_claim_accountability,
     _build_document_plan,
     _build_product_facts,
     _claim_span,
+    _ClaimSpec,
     _default_claim_specs,
     _FailIfCalledClient,
     _PacketSequenceClient,
@@ -67,6 +70,60 @@ def test_synthetic_candidate_plans_successfully_within_budget() -> None:
 
 def test_runtime_and_evidence_share_the_same_packet_budget() -> None:
     assert DEFAULT_BOUNDED_PACKET_BUDGET_CHARS == 120_000
+
+
+def test_oversized_factual_table_is_split_exhaustively_at_row_boundaries() -> None:
+    rows = [
+        f"| `Method{index}` | Describes verified behavior {index} with stable details. |\n"
+        for index in range(2_400)
+    ]
+    table = "| Method | Description |\n| --- | --- |\n" + "".join(rows)
+    candidate = f"# Widget\n\n## API Method Index\n\n{table}"
+    facts = DEFAULT_FACTS
+    claim = _ClaimSpec(
+        "claim-api-method-table",
+        "| Method | Description |",
+        "release.state:primary",
+        marker_end=rows[-1].rstrip("\n"),
+    )
+    accountability = _build_claim_accountability(candidate, facts, [claim])
+    document_plan = _build_document_plan(candidate, facts).model_copy(
+        update={"claim_accountability": accountability}
+    )
+
+    plan = brp.plan_bounded_review_packets(
+        candidate_text=candidate,
+        document_plan=document_plan,
+        claim_accountability=accountability,
+        product_facts=facts,
+        budget_chars=DEFAULT_BOUNDED_PACKET_BUDGET_CHARS,
+        factual_prompt_sha256=FACTUAL_PROMPT_SHA256,
+        visitor_prompt_sha256=VISITOR_PROMPT_SHA256,
+    )
+
+    packets = [
+        packet for packet in plan.factual_packets if "claim-api-method-table" in packet.claim_ids
+    ]
+    assert len(packets) > 1
+    assert not [record for record in plan.unpacketizable if record.unit_kind == "table"]
+    table_start = candidate.index("| Method | Description |")
+    assert "".join(packet.unit_text for packet in packets) == candidate[table_start:]
+    assert all(
+        left.char_end == right.char_start for left, right in zip(packets, packets[1:], strict=False)
+    )
+    assert all(
+        (packet.char_end - packet.char_start)
+        + len(json.dumps(list(packet.facts), sort_keys=True, separators=(",", ":")))
+        <= DEFAULT_BOUNDED_PACKET_BUDGET_CHARS
+        for packet in packets
+    )
+    coverage = brp.build_coverage_ledger(
+        plan,
+        atomic_units=brp.build_atomic_units(candidate, accountability, facts),
+    )
+    validation = brp.validate_coverage_ledger(coverage)
+    assert validation.is_complete
+    assert not validation.has_blocking_gaps
 
 
 def test_api_packet_receives_complete_exact_namespace_evidence() -> None:
