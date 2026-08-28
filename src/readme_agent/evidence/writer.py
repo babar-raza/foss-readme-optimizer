@@ -123,12 +123,20 @@ def _atomic_write_text(path: Path, text: str) -> None:
     key, path_lock = _acquire_atomic_write_lock(path)
     temporary_path: Path | None = None
     try:
-        path.parent.mkdir(parents=True, exist_ok=True)
+        # A caller's `path` can land under an already-long evidence tree (e.g. a portfolio
+        # worker's `runs/portfolio-workers/<hash>/<invocation>/...` receipt path) -- `mkdir`
+        # and `NamedTemporaryFile` both open raw Win32 paths with no long-path handling of
+        # their own, unlike the final `os.replace()` below (which already used
+        # `_write_target()`). Confirmed live: a real worker crashed with `[WinError 206] The
+        # filename or extension is too long` from exactly this `mkdir`/`NamedTemporaryFile`
+        # pair, silently turning a completed disposition into a SYSTEM_FAILURE.
+        parent_target = _write_target(path.parent)
+        os.makedirs(parent_target, exist_ok=True)
         with tempfile.NamedTemporaryFile(
             mode="w",
             encoding="utf-8",
             newline="\n",
-            dir=path.parent,
+            dir=parent_target,
             prefix=".w-",
             suffix=".tmp",
             delete=False,

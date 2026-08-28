@@ -1158,6 +1158,18 @@ def _cmd_supervise_registry(args: argparse.Namespace) -> int:
                 f"{worker_result.failure_reason or worker_result.stderr_excerpt[:512]}",
                 env.secret_values(),
             )
+            # Unlike the receipt-found success path above, this branch previously never
+            # printed anything -- a real portfolio pass could report an opaque aggregate
+            # `system_failed=N` with zero per-repo detail anywhere in its own stdout/stderr,
+            # even though the actual reason (exit_classification, stderr excerpt) was always
+            # available here. `batch-report.json` under runs/portfolio-workers/ always had
+            # it, but finding it required knowing to look.
+            print(
+                f"{worker_result.org_repo}: SYSTEM_FAILURE "
+                f"[worker={worker_result.exit_classification}]: {failure_detail}",
+                file=sys.stderr,
+                flush=True,
+            )
             try:
                 trigger_selection = select_portfolio_trigger(
                     state_backend.load(worker_result.org_repo)
