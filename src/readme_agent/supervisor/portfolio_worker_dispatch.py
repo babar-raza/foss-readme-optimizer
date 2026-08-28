@@ -93,9 +93,29 @@ def load_worker_receipt(
     expected_source_revision: str | None,
     persisted_source_revision: str | None,
 ) -> PortfolioWorkerReceiptV2 | None:
-    """Load only an identity-matching receipt; subprocess status alone never means success."""
+    """Load only an identity-matching, exit-code-consistent receipt; subprocess status
+    alone never means success, and a receipt alone never means success either.
 
-    if not worker_result.succeeded or worker_result.exit_classification != "SUCCEEDED":
+    `CHILD_NONZERO_EXIT` deliberately still proceeds to the checks below: the worker's own
+    `cmd_supervise` CLI returns a nonzero exit code for a completed, legitimate non-error
+    disposition (e.g. `BLOCKED`), not only for a crash -- discarding every such receipt
+    misclassified real `BLOCKED` repositories as portfolio-level `SYSTEM_FAILURE`, confirmed
+    live on a full portfolio pass. But a receipt existing and matching identity is not enough
+    on its own either: `run_portfolio_worker()` (`portfolio_worker_runtime.py`) writes its
+    receipt, `return`s the matching `exit_code`, and only then runs its `finally` cleanup
+    (`reset_registry_revision`) -- if that cleanup step itself raises, the process's real exit
+    code can end up disagreeing with what the already-written receipt honestly recorded, and a
+    stale file surviving from an unrelated earlier invocation despite matching identity is not
+    ruled out either. The receipt's own `result.exit_code` is therefore additionally required
+    to agree with the process's actual observed `return_code` -- the one field a genuinely
+    consistent, current-invocation receipt can never disagree with itself on.
+
+    Every other classification (`TIMED_OUT`, `SPAWN_FAILED`, `MISSING_EXPECTED_RECEIPT`,
+    `REJECTED_DUPLICATE`, `NOT_STARTED_DEADLINE_EXPIRED`) still means no trustworthy receipt
+    can exist and must still return `None` here.
+    """
+
+    if worker_result.exit_classification not in ("SUCCEEDED", "CHILD_NONZERO_EXIT"):
         return None
     if worker_result.expected_receipt_path is None:
         return None
@@ -114,6 +134,7 @@ def load_worker_receipt(
             expected_source_revision is not None
             and receipt.source_revision != expected_source_revision
         )
+        or receipt.result.exit_code != worker_result.return_code
     ):
         return None
     return receipt

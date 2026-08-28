@@ -219,6 +219,71 @@ def test_failed_current_worker_cannot_reuse_a_stale_success_receipt(
     )
 
 
+def test_nonzero_exit_worker_with_an_exit_code_consistent_receipt_is_trusted(
+    monkeypatch, tmp_path: Path
+) -> None:
+    """A `CHILD_NONZERO_EXIT` worker is not automatically a crash: `cmd_supervise` returns a
+    nonzero exit code for a completed, legitimate disposition too (e.g. `BLOCKED`). Unlike
+    the stale-receipt case above, this receipt's own `exit_code` honestly agrees with the
+    process's real `return_code` -- the signal that distinguishes a trustworthy receipt from
+    one to discard, found live when a full portfolio pass was misclassifying real `BLOCKED`
+    repositories as `SYSTEM_FAILURE` this way."""
+
+    import readme_agent.paths as paths
+
+    monkeypatch.setattr(paths, "runs_dir", lambda: tmp_path / "runs")
+    job = build_repository_worker_job(
+        argparse.Namespace(max_readme_poc_stage="FACTS_READY", resume_trigger_key=None),
+        _entry("org/repo"),
+        ordinal=0,
+        registry_revision_id="a" * 64,
+        source_revision="b" * 40,
+    )
+    invocation_id = job.argv[job.argv.index("--portfolio-worker-invocation-id") + 1]
+    assert job.expected_receipt_path is not None
+    job.expected_receipt_path.parent.mkdir(parents=True)
+    job.expected_receipt_path.write_text(
+        PortfolioWorkerReceiptV2(
+            registry_revision_id="a" * 64,
+            worker_invocation_id=invocation_id,
+            source_revision="b" * 40,
+            result=PortfolioRepositoryResultV1(
+                org_repo="org/repo",
+                status="BLOCKED",
+                exit_code=1,
+                blocked_reason="specialist_failed:readme_presentation:ERROR:presentation_plan:blocked",
+                blocked_category="agent_fixable",
+            ),
+        ).model_dump_json(),
+        encoding="utf-8",
+    )
+    blocked = WorkerResultV1(
+        job_id=job.job_id,
+        input_ordinal=job.input_ordinal,
+        org_repo=job.org_repo,
+        contract_hash=job.contract_hash(),
+        exit_classification="CHILD_NONZERO_EXIT",
+        succeeded=False,
+        return_code=1,
+        duration_seconds=0.1,
+        output_dir=str(job.output_dir),
+        evidence_dir=str(job.evidence_dir),
+        expected_receipt_path=str(job.expected_receipt_path),
+        receipt_observed=True,
+    )
+
+    receipt = load_worker_receipt(
+        blocked,
+        registry_revision_id="a" * 64,
+        expected_source_revision="b" * 40,
+        persisted_source_revision="b" * 40,
+    )
+
+    assert receipt is not None
+    assert receipt.result.status == "BLOCKED"
+    assert receipt.result.blocked_category == "agent_fixable"
+
+
 def test_first_run_receipt_uses_and_reconciles_child_persisted_revision(
     monkeypatch, tmp_path: Path
 ) -> None:

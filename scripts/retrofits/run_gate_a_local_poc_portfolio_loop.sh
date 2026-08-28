@@ -85,21 +85,28 @@ for ((i = 1; i <= MAX_ITERATIONS; i++)); do
     2>&1 | tee "$log_file"
   exit_code="${PIPESTATUS[0]}"
 
-  # 2026-08-28 incident: this used to grep the whole log for a literal per-repo
-  # "SYSTEM_FAILURE" line (the 2026-08-19 output format). That line no longer
-  # appears in current output -- only the summary's lowercase `system_failed=N`
-  # field does -- so this check silently never fired while a live pass hit 26/28
-  # SYSTEM_FAILURE outcomes and the loop proceeded straight into iteration 2.
-  # Check the structurally-guaranteed summary field first; keep the literal-line
-  # grep too, in case a future per-repo detail line reappears without a summary.
+  # 2026-08-28 incident (part 1): this used to grep the whole log for a literal
+  # per-repo "SYSTEM_FAILURE" line (the 2026-08-19 output format). That line had
+  # stopped appearing in current output -- commands_supervision.py's worker-
+  # failure branch never printed one -- so this check silently never fired while
+  # a live pass hit 26/28 SYSTEM_FAILURE outcomes and the loop proceeded straight
+  # into iteration 2. Fixed at the source (commands_supervision.py now prints a
+  # per-repo SYSTEM_FAILURE line again) rather than only here.
+  #
+  # 2026-08-28 incident (part 2): briefly switched this check to the summary's
+  # `system_failed=N` field instead, reasoning it was structurally guaranteed
+  # present. That field turned out to be the wrong signal: `portfolio.py::
+  # PortfolioPocSummaryV1.system_failure_count` deliberately counts every
+  # `blocked_category == "agent_fixable"` BLOCKED repository alongside genuine
+  # SYSTEM_FAILURE ones (a real, separate reporting decision, not a bug) -- most
+  # already-known-BLOCKED repositories use exactly that category, so a
+  # `system_failed=N`-based stop would halt on the very first ordinary blocked
+  # repo, defeating the point of a retry-blocked pass. Reverted to the literal
+  # per-repo line, which portfolio_worker_dispatch.py's own fix (the same day)
+  # now makes accurate again: a legitimate BLOCKED disposition prints its real
+  # status, not SYSTEM_FAILURE.
   summary_line="$(grep -E "^local_poc portfolio: target=" "$log_file" | tail -n1)"
   echo "$summary_line"
-  system_failed_count="$(echo "$summary_line" | grep -oE 'system_failed=[0-9]+' | head -n1)"
-  system_failed_count="${system_failed_count#system_failed=}"
-  if [ -n "$system_failed_count" ] && [ "$system_failed_count" != "0" ]; then
-    echo "STOPPED: system_failed=$system_failed_count in $log_file -- investigate before continuing."
-    exit 1
-  fi
   if grep -q "SYSTEM_FAILURE" "$log_file"; then
     echo "STOPPED: SYSTEM_FAILURE detected in $log_file -- investigate before continuing."
     exit 1
