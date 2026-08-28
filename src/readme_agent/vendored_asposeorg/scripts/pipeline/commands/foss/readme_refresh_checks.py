@@ -1885,6 +1885,32 @@ _PROCESS_NARRATION_PATTERNS = [
     r"\bgrouped\s+exactly\s+as\b",
 ]
 _PROCESS_NARRATION_RE = re.compile("|".join(_PROCESS_NARRATION_PATTERNS), re.IGNORECASE)
+_PROCESS_NARRATION_RES = tuple(
+    re.compile(pattern, re.IGNORECASE) for pattern in _PROCESS_NARRATION_PATTERNS
+)
+
+
+def _find_process_narration_matches(readme_text: str) -> list[tuple[int, int, str]]:
+    """Return combined-regex-equivalent matches without repeated alternation backtracking."""
+
+    candidates = sorted(
+        (
+            match.start(),
+            pattern_index,
+            match.end(),
+            match.group(0),
+        )
+        for pattern_index, pattern_re in enumerate(_PROCESS_NARRATION_RES)
+        for match in pattern_re.finditer(readme_text)
+    )
+    matches: list[tuple[int, int, str]] = []
+    consumed_until = 0
+    for start, _pattern_index, end, phrase in candidates:
+        if start < consumed_until:
+            continue
+        matches.append((start, end, phrase))
+        consumed_until = end
+    return matches
 
 
 def check_process_narration_smells(readme_text: str) -> list[dict]:
@@ -1901,10 +1927,10 @@ def check_process_narration_smells(readme_text: str) -> list[dict]:
     deleted.
     """
     findings = []
-    for match in _PROCESS_NARRATION_RE.finditer(readme_text):
-        start = max(0, match.start() - 40)
-        end = min(len(readme_text), match.end() + 40)
-        findings.append({"phrase": match.group(0), "context": readme_text[start:end].replace("\n", " ")})
+    for match_start, match_end, phrase in _find_process_narration_matches(readme_text):
+        start = max(0, match_start - 40)
+        end = min(len(readme_text), match_end + 40)
+        findings.append({"phrase": phrase, "context": readme_text[start:end].replace("\n", " ")})
     return findings
 
 
@@ -1959,17 +1985,22 @@ def check_no_internal_details_leaked_into_issue_draft(draft_text: str) -> list[d
     cross-attribution.
     """
     findings = []
-    for pattern_re, category in (
-        (_PROCESS_NARRATION_RE, "process_narration"),
-        (_ISSUE_DRAFT_ADDITIONAL_LEAK_RE, "internal_reference"),
-    ):
-        for match in pattern_re.finditer(draft_text):
-            start = max(0, match.start() - 40)
-            end = min(len(draft_text), match.end() + 40)
-            findings.append({
-                "phrase": match.group(0), "category": category,
-                "context": draft_text[start:end].replace("\n", " "),
-            })
+    for match_start, match_end, phrase in _find_process_narration_matches(draft_text):
+        start = max(0, match_start - 40)
+        end = min(len(draft_text), match_end + 40)
+        findings.append({
+            "phrase": phrase,
+            "category": "process_narration",
+            "context": draft_text[start:end].replace("\n", " "),
+        })
+    for match in _ISSUE_DRAFT_ADDITIONAL_LEAK_RE.finditer(draft_text):
+        start = max(0, match.start() - 40)
+        end = min(len(draft_text), match.end() + 40)
+        findings.append({
+            "phrase": match.group(0),
+            "category": "internal_reference",
+            "context": draft_text[start:end].replace("\n", " "),
+        })
     return findings
 
 
