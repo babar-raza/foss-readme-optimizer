@@ -2896,7 +2896,7 @@
       ],
       "proposed_fingerprints": {
         "L8-PF-01-KNOWLEDGE-ACCEPTANCE-IDENTITY": "bb73427bbbbf602bdbbccd13b7bf93a7ff63fe1425d1343786e4d84e9afd437d",
-        "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "d1f834d08611285516264b0572a7d543b1bb63c0deddf5a6197a2fefb8c57865",
+        "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "575755e2661c6eb5faf207f17de1db58a59b52b12510ecfa56f061b187ca3552",
         "L8-PF-03-SEALED-CANDIDATE-NO-OP": "f202c0fb1ea5b08e2f7fcde9befb92bc3bbb96a89feaec97499e10230fdc7f23",
         "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "e8bda77a1cb7da63635e86e02c3be92100a940f3fafb79274151884bc787f636",
         "L8-VPY-00-PRESENTATION-CONTRACT-RESET": "9d8091b625ebf675542727bfa42e720a03906a4d5b9ca7bfa0a7b171f1668ee0",
@@ -4587,6 +4587,32 @@
             "smaller_alternatives"
           ],
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
+        },
+        {
+          "causal_owner_changed": false,
+          "created_at": "2026-08-28T07:47:18.364599+00:00",
+          "dependency_sequence_changed": true,
+          "evidence_refs": [
+            "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/final-verdict.json",
+            "runs/readme-poc/aspose-3d-foss__Aspose.3D-FOSS-for-Python/ee05c1ba9153ef5916b7a108406c794f2e464d01/review/no-op-proof.json",
+            "runs/gate-a-local-poc-portfolio/20260828-104736-1100/iteration-001.log"
+          ],
+          "input_classification": "goal",
+          "mechanism_changed": true,
+          "new_fingerprint": "575755e2661c6eb5faf207f17de1db58a59b52b12510ecfa56f061b187ca3552",
+          "pipeline_boundary_changed": true,
+          "prior_fingerprint": "d1f834d08611285516264b0572a7d543b1bb63c0deddf5a6197a2fefb8c57865",
+          "rationale": "Replace repeated broad portfolio retries with the current successful Aspose.3D Python candidate transaction, preserve its valid caches, seal its missing current rubric and benchmark evidence, and repair only the first demonstrated shared or repository boundary before any failed-only rerun.",
+          "route_change_assessments": [
+            "reuse",
+            "invalidation",
+            "critical_path",
+            "infrastructure_timing",
+            "factuality",
+            "safety",
+            "smaller_alternatives"
+          ],
+          "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
         }
       ]
     },
@@ -5193,7 +5219,7 @@
     ],
     "graph_sha256": "6f9626eee82ba354bc174cfb0d97a98a0d482c4e33cc57e9e5cec0e375c1ff74",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-28T07:44:28.340027+00:00",
+    "last_evaluated_at": "2026-08-28T07:48:11.708129+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 1,
       "candidate_generated": 3,
@@ -5286,7 +5312,24 @@
     },
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
-    "next_task": null,
+    "next_task": {
+      "campaign_id": "CAMP-FIRST-PYTHON-SLICE",
+      "core_contribution": {
+        "kind": "first_boundary_removal",
+        "summary": "Produce the first complete current candidate through the real production seam."
+      },
+      "goal_ids": [
+        "GOAL-README",
+        "GOAL-DELIVERY"
+      ],
+      "immediate_goal_id": "DELIVERY-FIRST-COMPLETE-CANDIDATE",
+      "immediate_outcome": "Produce one complete current Aspose.3D Python candidate through supervise.",
+      "repository_scope": [
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
+      ],
+      "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
+      "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
+    },
     "parallelism_control": {
       "calibration_active": false,
       "observations": [],
@@ -18255,7 +18298,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1780,
+  "state_version": 1781,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
