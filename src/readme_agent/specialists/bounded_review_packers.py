@@ -30,6 +30,7 @@ _BOUNDED_FACT_PROJECTION_CONTRACT_VERSION = "bounded-fact-projection-v1"
 _MAX_REVIEW_SOURCE_LOCATION_CHARS = 512
 _MAX_REVIEW_PROTECTED_LITERALS = 24
 _MAX_SCOPED_API_ITEMS = 24
+_OVERSIZED_TABLE_PACKET_TARGET_CHARS = 40_000
 
 
 def _compact_bounded_review_fact(payload: dict[str, Any]) -> dict[str, Any]:
@@ -216,6 +217,10 @@ def _greedy_group_units(
                 current = []
             oversized.append(unit)
             continue
+        if current and any(item.unit_id == unit.unit_id for item in current):
+            groups.append(current)
+            current = [unit]
+            continue
         trial = [*current, unit]
         if current and size_fn(trial) > budget_chars:
             groups.append(current)
@@ -268,9 +273,10 @@ def _split_oversized_table_unit(
     parts: list[_MutableUnit] = []
     chunk_start = 0
     accepted: _MutableUnit | None = None
+    target_chars = min(budget_chars, _OVERSIZED_TABLE_PACKET_TARGET_CHARS)
     for line_end in range(1, len(lines) + 1):
         trial = part(chunk_start, line_end)
-        if size_fn([trial]) <= budget_chars:
+        if size_fn([trial]) <= target_chars:
             accepted = trial
             continue
         if accepted is None:
@@ -278,7 +284,7 @@ def _split_oversized_table_unit(
         parts.append(accepted)
         chunk_start = line_end - 1
         accepted = part(chunk_start, line_end)
-        if size_fn([accepted]) > budget_chars:
+        if size_fn([accepted]) > target_chars:
             return ()
     if accepted is not None:
         parts.append(accepted)

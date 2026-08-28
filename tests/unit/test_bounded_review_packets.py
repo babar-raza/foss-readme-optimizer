@@ -114,7 +114,7 @@ def test_oversized_factual_table_is_split_exhaustively_at_row_boundaries() -> No
     assert all(
         (packet.char_end - packet.char_start)
         + len(json.dumps(list(packet.facts), sort_keys=True, separators=(",", ":")))
-        <= DEFAULT_BOUNDED_PACKET_BUDGET_CHARS
+        <= 40_000
         for packet in packets
     )
     coverage = brp.build_coverage_ledger(
