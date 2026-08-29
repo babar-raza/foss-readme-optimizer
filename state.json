@@ -8,7 +8,7 @@
   "last_run_timestamp": null,
   "mission_execution": {
     "active_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
-    "active_task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
+    "active_task_id": null,
     "approach_control": {
       "attempts": [
         {
@@ -2909,11 +2909,12 @@
           "evidence_refs": [
             "src/readme_agent/specialists/bounded_review_packers.py",
             "src/readme_agent/specialists/bounded_review_coverage.py",
-            "tests/unit/test_bounded_review_packets.py"
+            "tests/unit/test_bounded_review_packets.py",
+            "claim lease expired"
           ],
           "fingerprint": "e8bda77a1cb7da63635e86e02c3be92100a940f3fafb79274151884bc787f636",
           "last_material_narrowing_at": "2026-08-28T10:16:15.002842+00:00",
-          "outcome": "in_progress",
+          "outcome": "effective",
           "started_at": "2026-08-28T08:03:24.670776+00:00",
           "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
         }
@@ -4647,10 +4648,10 @@
       "total_repository_lanes": 1
     },
     "certification_complete": false,
-    "claim_expires_at": "2026-08-28T08:33:24.670776+00:00",
-    "claim_id": "fa1de2d52296455c927fdfd97f986ed1",
-    "claimed_at": "2026-08-28T08:03:24.670776+00:00",
-    "claimed_by": "codex-portfolio-resume",
+    "claim_expires_at": null,
+    "claim_id": null,
+    "claimed_at": null,
+    "claimed_by": null,
     "concurrent_goal_ids": [],
     "delivery_complete": false,
     "goal_activation_graph_sha256": "c35b261f185f73711d105cf794116cefa3130da3b3b820bf7188613c177ad042",
@@ -5261,7 +5262,7 @@
     ],
     "graph_sha256": "c35b261f185f73711d105cf794116cefa3130da3b3b820bf7188613c177ad042",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-29T07:26:58.989563+00:00",
+    "last_evaluated_at": "2026-08-29T08:09:06.102251+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
       "candidate_generated": 0,
@@ -5370,29 +5371,22 @@
     "mission_complete": false,
     "mission_id": "LEVEL8-CENTRAL-REPOSITORY-PRESENTATION",
     "next_task": {
-      "campaign_id": "CAMP-GATE-A-PORTFOLIO",
+      "campaign_id": "CAMP-FIRST-PYTHON-SLICE",
       "core_contribution": {
         "kind": "first_boundary_removal",
-        "summary": "Prove the complete transaction is portable before fleet execution."
+        "summary": "Produce the first complete current candidate through the real production seam."
       },
       "goal_ids": [
         "GOAL-README",
-        "GOAL-AUTONOMY",
         "GOAL-DELIVERY"
       ],
-      "immediate_goal_id": "DELIVERY-SEVEN-ECOSYSTEM-CANARIES",
-      "immediate_outcome": "Accept and no-op-prove one current repository per supported ecosystem.",
+      "immediate_goal_id": "DELIVERY-FIRST-COMPLETE-CANDIDATE",
+      "immediate_outcome": "Produce one complete current Aspose.3D Python candidate through supervise.",
       "repository_scope": [
-        "platform:python",
-        "platform:net",
-        "platform:java",
-        "platform:cpp",
-        "platform:typescript",
-        "platform:rust",
-        "platform:go"
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python"
       ],
-      "stage_goal_id": "GOAL-V0B-POST-PYTHON-SLICES",
-      "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES"
+      "stage_goal_id": "GOAL-V0A-FIRST-VERIFIED-README",
+      "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM"
     },
     "parallelism_control": {
       "calibration_active": false,
@@ -5456,7 +5450,7 @@
       "L8-PF-02-COMPLETE-CANDIDATE-SEAM": "REGRESSED",
       "L8-PF-03-SEALED-CANDIDATE-NO-OP": "CLOSED",
       "L8-PF-04-MINIMAL-GRAPH-RUNNER": "CLOSED",
-      "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "IN_PROGRESS",
+      "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES": "REGRESSED",
       "L8-PF-06-REGISTRY-FREEZE-AND-FACT-WARMUP": "TODO",
       "L8-PF-07-AUTONOMOUS-PUBLICATION-READINESS": "TODO",
       "L8-PLAN-RECONCILIATION-ACCELERATION": "CLOSED",
@@ -18434,6 +18428,15 @@
         "reason": "repository deliverable became stale for aspose-3d-foss/Aspose.3D-FOSS-for-Python: presentation_component_safety_changed",
         "task_id": "L8-PF-02-COMPLETE-CANDIDATE-SEAM",
         "to_status": "REGRESSED"
+      },
+      {
+        "evidence_refs": [],
+        "from_status": "IN_PROGRESS",
+        "observed_by": "mission-claim-recovery",
+        "occurred_at": "2026-08-29T08:09:06.102267+00:00",
+        "reason": "claim lease expired before a terminal verification state",
+        "task_id": "L8-PF-05-SEVEN-ECOSYSTEM-CANARIES",
+        "to_status": "REGRESSED"
       }
     ]
   },
@@ -18443,7 +18446,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1791,
+  "state_version": 1792,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
