@@ -1,4 +1,4 @@
-"""Pre-commit gate (GOV-0NN): run a specific test on demand for a pin that has its
+"""Pre-commit and CI gate (GOV-033): run a specific test on demand for a pin that has its
 own dedicated pytest test, rather than the declarative `validate_pinned_hashes.py`
 registry -- GOV-032's registry deliberately excludes exactly these cases (its own
 module docstring: "already covered by their own existing dedicated pytest tests...
@@ -14,7 +14,17 @@ pre-commit (which this project's own hook design note already rejects as an
 invitation to `--no-verify` fatigue): only the one or two node ids relevant to the
 files actually staged in *this* commit run, not the whole suite.
 
+Staging-scoped mode alone is not sufficient, and the same `d8795bbdb` drift proves why
+twice over: the hook that runs this script only landed on 2026-08-29, so the 2026-08-28
+commit could not have been stopped by it, and a clone with no hooks installed is still
+unguarded today. `--all` therefore runs every registered dedicated test regardless of what
+is staged, and CI's `pinned-hashes` job runs it in that mode -- so a drifted pin fails on
+the next push even when it reached `main` through an unhooked clone. The staging-scoped
+default remains the pre-commit path: fast, and it still catches the drift one commit
+earlier than CI can.
+
 Run standalone: `.venv/Scripts/python scripts/governance/validate_pinned_hash_dedicated_tests.py`
+Run every registered test: same command with `--all`.
 Exit 0 = nothing staged triggers a dedicated test, or every triggered test passed.
 Exit 1 = a triggered test failed.
 """
@@ -96,11 +106,40 @@ def run_pytest(node_ids: list[str]) -> int:
     return subprocess.run(command, cwd=REPO_ROOT, check=False).returncode
 
 
-def main() -> int:
+def all_node_ids(triggers: Iterable[DedicatedTestTrigger]) -> list[str]:
+    node_ids: list[str] = []
+    for trigger in triggers:
+        if trigger.node_id not in node_ids:
+            node_ids.append(trigger.node_id)
+    return node_ids
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = sys.argv[1:] if argv is None else argv
+    triggers = load_dedicated_test_triggers()
+    if "--all" in args:
+        node_ids = all_node_ids(triggers)
+        if not node_ids:
+            return 0
+        print(
+            "validate_pinned_hash_dedicated_tests: --all -- running every registered "
+            f"dedicated pin test ({len(node_ids)}):"
+        )
+        for node_id in node_ids:
+            print(f"  {node_id}")
+        exit_code = run_pytest(node_ids)
+        if exit_code != 0:
+            print(
+                "validate_pinned_hash_dedicated_tests: FAILED -- a recorded pin no longer "
+                "matches recomputed source truth; re-pin it (see the failing test's own "
+                "assertion for the exact recorded-vs-actual mismatch).",
+                file=sys.stderr,
+            )
+        return exit_code
     staged = staged_files()
     if not staged:
         return 0
-    node_ids = triggered_node_ids(staged, load_dedicated_test_triggers())
+    node_ids = triggered_node_ids(staged, triggers)
     if not node_ids:
         return 0
     print(

@@ -1,4 +1,4 @@
-"""Pre-commit gate (GOV-0NN), Phase 1 -- advisory only: when a commit touches a
+"""Pre-commit gate (GOV-033), Phase 1 -- advisory only: when a commit touches a
 shared governance path, leave a short-lived trace on the same CAS backend
 `mission_control.py`'s taskcard claims already use, so a concurrent agent's own
 commit-time check can observe recent governance-write activity. This is the

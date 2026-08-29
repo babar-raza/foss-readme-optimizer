@@ -1458,6 +1458,13 @@ class TestBasicLoop:
             "prose_quality": _FakeNonFlaggingForcedToolClient.calls,
             "independent_review": _FakeAcceptingMergedReviewClient.calls,
         }
+        # The merged single-call reviewer is no longer the path the local POC takes:
+        # `readme_presentation_review.py` dispatches `run_separated_readme_review()`, so the
+        # grounded role client carries the entire independent review (18 calls on this
+        # fixture). Tracking it separately is what makes the "no new provider calls on an
+        # unchanged rerun" comparisons below mean anything -- comparing only the retired
+        # merged counter compares 0 to 0 and proves nothing about the reviewer that ran.
+        first_readme_role_review_calls = _FakeAcceptingRoleReviewClient.calls
         proposal_root = (
             project
             / "runs"
@@ -1546,14 +1553,19 @@ class TestBasicLoop:
             "relationship": 0,
             "composition": 0,
             "prose_quality": 0,
-            "independent_review": 1,
+            "independent_review": 0,
         }
+        assert first_readme_role_review_calls > 0, (
+            "the independent review must actually have dispatched through the separated "
+            "role reviewer; a zero here would make the no-new-calls assertions vacuous"
+        )
         assert {
             "relationship": _FakeLiveLLMClient.calls,
             "composition": _FakeCompositionForcedToolClient.calls,
             "prose_quality": _FakeNonFlaggingForcedToolClient.calls,
             "independent_review": _FakeAcceptingMergedReviewClient.calls,
         } == first_readme_llm_calls
+        assert _FakeAcceptingRoleReviewClient.calls == first_readme_role_review_calls
         assert sorted(path.name for path in proposal_root.iterdir() if path.is_dir()) == (
             proposal_bundles_after_first
         )
@@ -1627,6 +1639,7 @@ class TestBasicLoop:
             "prose_quality": _FakeNonFlaggingForcedToolClient.calls,
             "independent_review": _FakeAcceptingMergedReviewClient.calls,
         } == first_readme_llm_calls
+        assert _FakeAcceptingRoleReviewClient.calls == first_readme_role_review_calls
 
         # Force a real specialist-tier rerun from the already-proven
         # NO_OP_PROVEN state. This reproduces the live portfolio failure

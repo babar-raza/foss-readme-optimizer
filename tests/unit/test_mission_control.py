@@ -2139,3 +2139,80 @@ def test_state_key_is_separate_from_every_product_repository():
     assert mission_state_key("LEVEL8-CENTRAL-REPOSITORY-PRESENTATION") == (
         "mission/LEVEL8-CENTRAL-REPOSITORY-PRESENTATION"
     )
+
+
+def test_evaluate_recovers_an_expired_claim_and_restores_eligibility():
+    """`evaluate` must reconcile claims, not only `claim`.
+
+    `plans/master.md` states that mission `evaluate` "reconciles graph drift, claims,
+    lifecycle freshness, and component hashes". It did not reconcile claims:
+    `_recover_expired_claim()` had exactly one caller, inside `claim_next_task()`, while
+    `persist_evaluation()` updated only `mission_complete`/`last_evaluated_at`. Because
+    `evaluate_mission()` computes `eligible = [] if active else _ready_tasks(...)`, any set
+    `active_task_id` suppresses eligibility regardless of whether its lease is still valid,
+    so the documented `evaluate` -> `status` sequence reported "no eligible work" while the
+    real cause was a dead session's stale lease that only `claim` could clear.
+
+    Observed live 2026-08-29 against the authoritative origin-backed mission state: a claim
+    held by `codex-portfolio-resume` with `claim_expires_at=2026-08-28T08:33:24Z` had blocked
+    every dependency-ready task for roughly 23 hours, and `evaluate` did not release it.
+    """
+
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    backend = _MemoryStateBackend()
+    persist_evaluation(backend, graph, graph_hash)
+    record = claim_next_task(backend, graph, graph_hash, claimed_by="lost-worker")
+    assert record.mission_execution is not None
+    stuck_task_id = record.mission_execution.active_task_id
+    assert stuck_task_id is not None
+    expired = record.mission_execution.model_copy(
+        update={
+            "claim_id": "expired-claim",
+            "claimed_by": "lost-worker",
+            "claimed_at": "2020-01-01T00:00:00+00:00",
+            "claim_expires_at": "2020-01-01T00:30:00+00:00",
+        }
+    )
+    backend.records[mission_state_key(graph.mission_authority.mission_id)] = record.model_copy(
+        update={"mission_execution": expired}
+    )
+
+    # The evaluate action alone must clear it -- deliberately no claim call in between.
+    evaluated = persist_evaluation(backend, graph, graph_hash)
+
+    assert evaluated.mission_execution is not None
+    assert evaluated.mission_execution.active_task_id is None
+    assert evaluated.mission_execution.task_statuses[stuck_task_id] == "REGRESSED"
+    assert any(
+        transition.observed_by == "mission-claim-recovery"
+        and transition.task_id == stuck_task_id
+        and transition.to_status == "REGRESSED"
+        for transition in evaluated.mission_execution.transition_history
+    )
+    # Eligibility is restored: the whole point of the recovery.
+    assert evaluate_mission(graph, evaluated.mission_execution).eligible_tasks
+
+
+def test_evaluate_leaves_an_unexpired_claim_untouched():
+    """Negative control for the recovery above: a live lease must never be stolen.
+
+    `evaluate` is run routinely (including by read-mostly callers), so recovering an
+    unexpired claim would let any concurrent evaluation cancel an actively-working agent.
+    """
+
+    graph, graph_hash = load_mission_graph(REAL_GRAPH)
+    backend = _MemoryStateBackend()
+    persist_evaluation(backend, graph, graph_hash)
+    record = claim_next_task(backend, graph, graph_hash, claimed_by="live-worker")
+    assert record.mission_execution is not None
+    claimed_task_id = record.mission_execution.active_task_id
+    assert claimed_task_id is not None
+    transitions_before = len(record.mission_execution.transition_history)
+
+    evaluated = persist_evaluation(backend, graph, graph_hash)
+
+    assert evaluated.mission_execution is not None
+    assert evaluated.mission_execution.active_task_id == claimed_task_id
+    assert evaluated.mission_execution.claimed_by == "live-worker"
+    assert evaluated.mission_execution.task_statuses[claimed_task_id] == "IN_PROGRESS"
+    assert len(evaluated.mission_execution.transition_history) == transitions_before

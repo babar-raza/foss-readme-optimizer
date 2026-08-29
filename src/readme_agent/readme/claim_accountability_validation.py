@@ -217,6 +217,17 @@ def validate_claim_accountability_map(
     checks["claim_spans_exact"] = exact_spans
     source_claim_by_id = {claim.claim_id: claim for claim in source_claims}
     candidate_claim_by_id = {claim.claim_id: claim for claim in candidate_claims}
+    # A `verified_equivalence` resolution carries the exact accepted fact subset the
+    # candidate claim replaces, and `claim_accountability.py` deliberately narrows the
+    # record's coordinates to that subset so broader contextual source binding cannot
+    # inflate it (see its own `resolution_fact_scope` comment). Re-derivation below has
+    # to apply the identical narrowing, or it demands coordinates the producer was
+    # correct to drop -- which is exactly the inflation that comment warns against.
+    equivalence_fact_scope_by_claim_id = {
+        resolution.claim_id: set(resolution.fact_ids)
+        for resolution in (source_claim_resolutions or [])
+        if resolution.resolution == "verified_equivalence"
+    }
     capability_plan = build_capability_presentation_plan(facts, source_text=source_text)
     structured_coordinates_exact = True
     for record in accountability.claims:
@@ -261,6 +272,14 @@ def validate_claim_accountability_map(
                 },
                 key=lambda item: (item.fact_id, item.path, item.value_sha256),
             )
+        if record.stage == "source":
+            equivalence_scope = equivalence_fact_scope_by_claim_id.get(raw_id)
+            if equivalence_scope is not None:
+                expected_coordinates = [
+                    coordinate
+                    for coordinate in expected_coordinates
+                    if coordinate.fact_id in equivalence_scope
+                ]
         if not set(expected_coordinates) <= set(record.accepted_fact_coordinates):
             # Records may carry additional coordinates merged from the matched
             # source claim's own complete binding (verify-then-merge); every

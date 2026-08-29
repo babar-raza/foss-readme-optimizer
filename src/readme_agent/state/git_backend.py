@@ -67,7 +67,7 @@ LOCK_LEASE_SECONDS = 900
 RUN_LOCK_REF_PREFIX = "refs/readme-agent-state/run-locks"
 RUN_LOCK_LEASE_SECONDS = 900
 
-# GOV-0NN: a third lock family, global (one key, "shared-governance-write" --
+# GOV-033: a third lock family, global (one key, "shared-governance-write" --
 # not per-org_repo like the two above), acquired by the pre-commit hook only
 # when a commit touches a shared governance path (plans/, logs/, AGENTS.md,
 # the Level-8 mission graph). Advisory-only in its first phase (see
@@ -439,7 +439,7 @@ class GitStateBackend:
         # org_repo, not by lock-kind, and cannot safely hold both lock
         # families' state simultaneously for the same repo.
         self._held_run_lock_commit_shas: dict[str, str] = {}
-        # GOV-0NN: the governance-write lock's own tracking dict -- same
+        # GOV-033: the governance-write lock's own tracking dict -- same
         # reasoning as the run-lock dict above, a third independent family.
         self._held_governance_lock_commit_shas: dict[str, str] = {}
 

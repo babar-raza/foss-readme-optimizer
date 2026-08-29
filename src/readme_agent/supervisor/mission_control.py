@@ -725,17 +725,32 @@ def _save_with_retry(
 def persist_evaluation(
     backend: StateBackend, graph: MissionTaskGraphV1, graph_sha256: str
 ) -> RunStateV1:
-    return _save_with_retry(
-        backend,
-        graph,
-        graph_sha256,
-        lambda state: state.model_copy(
+    """Reconcile the mission record, including releasing a dead session's expired claim.
+
+    `plans/master.md` defines this action as the one that "reconciles graph drift, claims,
+    lifecycle freshness, and component hashes". Claims were the missing half:
+    `_recover_expired_claim()` was reachable only from `claim_next_task()`, so an expired
+    lease survived every `evaluate`. That matters because `evaluate_mission()` computes
+    `eligible = [] if active else _ready_tasks(...)` -- any set `active_task_id` suppresses
+    eligibility regardless of whether its lease still holds. The documented
+    `evaluate` -> `status` sequence therefore reported "no eligible work" whenever a worker
+    died mid-claim, and only an explicit `claim` could unstick it. Recovery is the same
+    append-only transition `claim` already performs, so an operator and an autonomous loop
+    now see the same reconciled truth. An unexpired claim is never touched: recovery is
+    gated on `_claim_expired()`, so a routine evaluation cannot cancel a live worker.
+    """
+
+    def reconcile(state: MissionExecutionStateV1) -> MissionExecutionStateV1:
+        now = datetime.now(UTC)
+        state = _recover_expired_claim(state, now)
+        return state.model_copy(
             update={
                 "mission_complete": evaluate_mission(graph, state).mission_complete,
-                "last_evaluated_at": datetime.now(UTC).isoformat(),
+                "last_evaluated_at": now.isoformat(),
             }
-        ),
-    )
+        )
+
+    return _save_with_retry(backend, graph, graph_sha256, reconcile)
 
 
 def claim_next_task(

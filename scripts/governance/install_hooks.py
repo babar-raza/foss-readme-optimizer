@@ -9,8 +9,9 @@ repository's own `.git/hooks/`:
   `mypy src` before every local commit -- Decision #46/#48's "disallow from the start" mechanism,
   not just a CI-time check. The full pytest suite is deliberately not included (see
   PRE_COMMIT_HOOK_SCRIPT's own comment for why) and remains a required CI step instead. Two more,
-  narrow, targeted steps follow (GOV-0NN, 2026-08-29): `validate_pinned_hash_dedicated_tests.py`
-  runs only the one or two pytest node ids relevant to files actually staged in this commit, for
+  narrow, targeted steps follow (both GOV-033, 2026-08-29):
+  `validate_pinned_hash_dedicated_tests.py` runs only the one or two pytest node ids
+  relevant to files actually staged in this commit, for
   pins that have their own dedicated test instead of the `validate_pinned_hashes.py` registry
   (blocking -- this is a correctness gate); `validate_governance_write_lock.py` leaves an
   advisory, self-expiring trace on the shared CAS backend when a commit touches `plans/`, `logs/`,
@@ -58,12 +59,12 @@ fi
 "$PYTHON" -m ruff check . || exit 1
 "$PYTHON" -m ruff format --check . || exit 1
 "$PYTHON" -m mypy src || exit 1
-# GOV-0NN (2026-08-29): targeted pin-drift gate for pins with their own dedicated
+# GOV-033 (2026-08-29): targeted pin-drift gate for pins with their own dedicated
 # test (e.g. the vendored check-battery manifest) -- only runs the specific node
 # id(s) relevant to files staged in *this* commit, not the full suite. Blocking:
 # a failure here means a real, uncommitted re-pin is needed.
 "$PYTHON" scripts/governance/validate_pinned_hash_dedicated_tests.py || exit 1
-# GOV-0NN (2026-08-29): advisory-only governance-write presence trace on the
+# GOV-033 (2026-08-29): advisory-only governance-write presence trace on the
 # shared CAS backend. Never blocks (Phase 1) -- deliberately no `|| exit 1`.
 "$PYTHON" scripts/governance/validate_governance_write_lock.py
 """

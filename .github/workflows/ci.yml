@@ -50,3 +50,9 @@ jobs:
       - run: pip install -r requirements-lock.txt
       - run: pip install -e . --no-deps
       - run: python scripts/governance/validate_pinned_hashes.py
+      # GOV-033: pins deliberately excluded from the registry above because they carry
+      # their own dedicated pytest test are only pre-commit-gated, which cannot protect
+      # a commit made from a clone with no hooks installed (and could not have protected
+      # `d8795bbdb`, which predates the hook). `--all` runs every registered dedicated
+      # pin test regardless of what a given commit staged.
+      - run: python scripts/governance/validate_pinned_hash_dedicated_tests.py --all

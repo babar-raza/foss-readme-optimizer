@@ -9,6 +9,7 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict
 
+from readme_agent.evidence.file_inventory import enumerate_files
 from readme_agent.evidence.writer import sha256_file
 from readme_agent.facts.acceptance_contract import (
     classify_product_truth,
@@ -112,11 +113,35 @@ def _load_inventory(bundle_dir: Path) -> tuple[dict[str, str], str | None]:
 
 
 def _inventory_valid(bundle_dir: Path, expected: dict[str, str]) -> bool:
-    actual = {
-        path.relative_to(bundle_dir).as_posix(): path
-        for path in bundle_dir.rglob("*")
-        if path.is_file() and path.name != "sha256sums.txt"
-    }
+    r"""Compare the sealed inventory against the same enumeration that sealed it.
+
+    This deliberately reuses `evidence/file_inventory.py::enumerate_files()` -- the
+    enumerator `evidence/writer.py` uses for both `_write_sha256sums()` and
+    `verify_sha256sums()` -- rather than walking the tree a second time here. The
+    previous `Path.rglob("*")` had neither of that helper's two load-bearing
+    properties: it does not prefix `\?\` on Windows, and pathlib silently swallows the
+    `os.scandir` failure Win32 raises at or beyond MAX_PATH, so files under a long
+    subdirectory were dropped from `actual` with no error at all. The real bundle shape
+    reaches that limit on repository-name length alone --
+    `<repo>/<40-char revision>/review/bounded-packet-cache/<64-hex>.json` measures 260
+    characters for `aspose-note-foss__Aspose.Note-FOSS-for-Python`, per
+    `evidence/writer.py::win_long_path`'s own docstring. The sealed inventory therefore
+    listed every artifact while this check counted only the short-path subset, the two
+    sets could never be equal, and an intact approved bundle was reported
+    `artifact_inventory_invalid`, making `NO_OP_PROVEN` unreachable for exactly the
+    repositories whose names are longest. `enumerate_files()` additionally raises on a
+    traversal error rather than under-reporting, so a genuinely unreadable subtree now
+    fails closed here instead of masquerading as a content mismatch.
+    """
+
+    try:
+        actual = {
+            relative.as_posix(): path
+            for relative, path in enumerate_files(bundle_dir)
+            if path.name != "sha256sums.txt"
+        }
+    except OSError:
+        return False
     return set(expected) == set(actual) and all(
         sha256_file(actual[relative])[0] == digest for relative, digest in expected.items()
     )

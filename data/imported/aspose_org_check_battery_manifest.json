@@ -1,18 +1,24 @@
 {
-  "aggregate_sha256": "0645034839777d1b616c9051b77900d4b12d4d2863c03d57257f88ee9d6e9e8c",
+  "aggregate_sha256": "ce098bd1e07b704f06b5ec556f805d8031b7b8162bc4cb1874e785709df24458",
   "files": [
     {
       "destination_path": "src/readme_agent/vendored_asposeorg/scripts/pipeline/commands/foss/readme_refresh_checks.py",
-      "sha256": "ef3fafc842606643f084af7ae590a7edbbb72540d091719eedce258ecfac2321",
-      "source_path": "scripts/pipeline/commands/foss/readme_refresh_checks.py",
       "local_adaptations": [
         {
           "commit": "04246331cfef9a39588b671d000bc8b12fea7515",
           "date": "2026-08-26",
           "reason": "_UNQUALIFIED_DEPENDENCY_CLAIM_PATTERNS's self-contained-noun exclusion list widened (illustration/demo/demonstration/walkthrough/showcase/script) after a real false positive: aspose-cells-foss/Python's candidate described its example as a 'self-contained illustration', which the narrower upstream list did not exclude, wrongly flagging a claim about the example code as an absolute dependency-absence claim about the product. Verified by test at landing time.",
           "verified_against_source_commit": false
+        },
+        {
+          "commit": "d8795bbdbe6d51778956c1daf8cddf1642c8b00f",
+          "date": "2026-08-28",
+          "reason": "check_process_narration_smells() replaced one combined alternation regex with per-pattern regexes plus a leftmost/earliest-pattern non-overlapping reduction (_find_process_narration_matches), removing catastrophic alternation backtracking on long READMEs. Match semantics are preserved: sorting candidates by (start, pattern_index, end) reproduces the combined regex's leftmost-then-first-alternative choice, and consumed_until reproduces its post-match scan advance. The landing commit did not re-pin this manifest, which is the drift this entry closes.",
+          "verified_against_source_commit": false
         }
-      ]
+      ],
+      "sha256": "21fbcd4a2f1b051468c42fd1bfbcf85e92e058329645cb8da3052e5f9f293ead",
+      "source_path": "scripts/pipeline/commands/foss/readme_refresh_checks.py"
     },
     {
       "destination_path": "src/readme_agent/vendored_asposeorg/scripts/pipeline/lib/api_table_dupes.py",
@@ -20,10 +26,10 @@
       "source_path": "scripts/pipeline/lib/api_table_dupes.py"
     }
   ],
+  "provenance_note": "'sha256'/'aggregate_sha256' bind exact current vendored content, which for any file carrying a 'local_adaptations' entry no longer equals the pristine byte-for-byte content at 'source_commit' -- content-address integrity is still exact and verified by test_vendored_check_battery_matches_its_content_addressed_manifest; upstream-identity is exact only for files with no 'local_adaptations' entry. Decision (2026-08-27, GOV-032/requirement family): adopted, per master.md's own 'upstream defects are adapted... rather than inherited' policy, rather than reverting the local fix or silently overstating provenance.",
   "qualification": "Upstream checks are imported as evidence-bearing candidates. Local classification, fixtures, and bridge support decide whether each check is blocking, diagnostic, adaptation-required, or not applicable. Upstream controller state is never imported.",
   "schema_version": 1,
   "source_commit": "92f213302a15797bc0bce1b8f34e45f11db02acc",
   "source_mode": "committed_git_objects",
-  "source_repository": "D:\\onedrive\\Documents\\GitHub\\aspose.org",
-  "provenance_note": "'sha256'/'aggregate_sha256' bind exact current vendored content, which for any file carrying a 'local_adaptations' entry no longer equals the pristine byte-for-byte content at 'source_commit' -- content-address integrity is still exact and verified by test_vendored_check_battery_matches_its_content_addressed_manifest; upstream-identity is exact only for files with no 'local_adaptations' entry. Decision (2026-08-27, GOV-032/requirement family): adopted, per master.md's own 'upstream defects are adapted... rather than inherited' policy, rather than reverting the local fix or silently overstating provenance."
+  "source_repository": "D:\\onedrive\\Documents\\GitHub\\aspose.org"
 }
