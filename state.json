@@ -4653,7 +4653,7 @@
     "claimed_by": "codex-portfolio-resume",
     "concurrent_goal_ids": [],
     "delivery_complete": false,
-    "goal_activation_graph_sha256": "6f9626eee82ba354bc174cfb0d97a98a0d482c4e33cc57e9e5cec0e375c1ff74",
+    "goal_activation_graph_sha256": "c35b261f185f73711d105cf794116cefa3130da3b3b820bf7188613c177ad042",
     "goal_activation_reason": "earliest incomplete governed stage with dependency-ready read-only look-ahead",
     "goal_history": [
       {
@@ -5259,48 +5259,51 @@
         "to_primary_goal_id": "GOAL-V0A-FIRST-VERIFIED-README"
       }
     ],
-    "graph_sha256": "6f9626eee82ba354bc174cfb0d97a98a0d482c4e33cc57e9e5cec0e375c1ff74",
+    "graph_sha256": "c35b261f185f73711d105cf794116cefa3130da3b3b820bf7188613c177ad042",
     "infrastructure_tasks_since_visible_delivery": 2,
-    "last_evaluated_at": "2026-08-28T10:16:15.002856+00:00",
+    "last_evaluated_at": "2026-08-29T07:26:58.989563+00:00",
     "lifecycle_scoreboard": {
       "agent_approved": 0,
-      "candidate_generated": 4,
+      "candidate_generated": 0,
       "denominator": 34,
-      "derived_at": "2026-08-28T10:07:30.151375+00:00",
-      "deterministic_validated": 3,
-      "facts_ready": 8,
+      "derived_at": "2026-08-28T10:54:52.011542+00:00",
+      "deterministic_validated": 0,
+      "facts_ready": 0,
       "first_failing_boundary": "FACTS_READY",
       "human_accepted": 0,
       "lifecycle_status_counts": {
-        "AGENT_REVIEWING": 2,
+        "AGENT_REVIEWING": 1,
         "BLOCKED_MISSING_EVIDENCE": 9,
         "DETERMINISTIC_VALIDATION_FAILED": 1,
         "FACTS_READY": 19,
         "INTAKE_READY": 1,
         "NO_OP_PROVEN": 1,
-        "PROFILED": 1
+        "PROFILED": 1,
+        "SYSTEM_FAILURE": 1
       },
       "missing_lifecycle_repositories": [],
       "no_op_proven": 0,
       "raw_agent_approved": 1,
-      "raw_candidate_generated": 4,
-      "raw_deterministic_validated": 3,
-      "raw_facts_ready": 23,
+      "raw_candidate_generated": 3,
+      "raw_deterministic_validated": 2,
+      "raw_facts_ready": 22,
       "raw_human_accepted": 0,
       "raw_no_op_proven": 1,
       "registry_path": "data/products.json",
       "registry_sha256": "c810071ea3b65f97f66153388ed114e4bad55e95d3b6cb27b0c90c3a3bc3c88b",
       "schema_version": 1,
-      "stale_acceptance_repositories": {
-        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
-          "presentation_component_safety_changed"
-        ]
-      },
+      "stale_acceptance_repositories": {},
       "stale_fact_contract_repositories": {
         "aspose-3d-foss/Aspose.3D-FOSS-for-Java": [
           "fact_acceptance_recollection_component_changed"
         ],
+        "aspose-3d-foss/Aspose.3D-FOSS-for-Python": [
+          "fact_acceptance_recollection_component_changed"
+        ],
         "aspose-3d-foss/Aspose.3D-FOSS-for-TypeScript": [
+          "fact_acceptance_recollection_component_changed"
+        ],
+        "aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed"
         ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-.NET": [
@@ -5309,7 +5312,22 @@
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Go": [
           "fact_acceptance_recollection_component_changed"
         ],
+        "aspose-cells-foss/Aspose.Cells-FOSS-for-Java": [
+          "fact_acceptance_recollection_component_changed"
+        ],
         "aspose-cells-foss/Aspose.Cells-FOSS-for-Rust": [
+          "fact_acceptance_recollection_component_changed"
+        ],
+        "aspose-email-foss/Aspose.Email-FOSS-for-Python": [
+          "fact_acceptance_recollection_component_changed"
+        ],
+        "aspose-font-foss/Aspose.Font-FOSS-for-Python": [
+          "fact_acceptance_recollection_component_changed"
+        ],
+        "aspose-html-foss/Aspose.HTML-FOSS-for-Python": [
+          "fact_acceptance_recollection_component_changed"
+        ],
+        "aspose-note-foss/Aspose.Note-FOSS-for-Python": [
           "fact_acceptance_recollection_component_changed"
         ],
         "aspose-page-foss/Aspose.Page-FOSS-for-Python": [
@@ -18425,7 +18443,7 @@
   "profile_cache": null,
   "readme_poc_lifecycle": null,
   "schema_version": 2,
-  "state_version": 1790,
+  "state_version": 1791,
   "supervisor_state": null,
   "trigger_lifecycles": {},
   "trigger_records": {},
