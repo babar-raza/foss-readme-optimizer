@@ -1586,17 +1586,17 @@ bootstrap_state:
   stop_reason: durable supervisor state owns live execution
 requirement_coverage:
   path: plans/investigations/evidence/level8-requirement-taskcard-coverage/requirement-taskcard-coverage.json
-  sha256: 88185f52e23743f2e23279d656b62664f19760c938ef03c7f5d48a3174721aa8
-  record_count: 521
-  mandatory_requirement_rows: 449
+  sha256: 613281c5c4c7b5fa07cf3bdd52c0070c08bc190998a8b7ebff425bd03944e092
+  record_count: 523
+  mandatory_requirement_rows: 451
   reopened_implemented_rows: 0
 requirement_catalog:
   path: plans/requirements/catalog.jsonl
-  sha256: 7bd1ea463bfffd02edbd444cb120b5b9ef8c0798bc14969e0a61509298d9100e
-  record_count: 521
+  sha256: e5f7fb00d2241e57f506cc4a8c3fc19e9b68956a7403e27d0b41f8b9ca40931a
+  record_count: 523
 deferred_task_catalog:
   path: plans/investigations/control/level8-deferred-task-catalog.jsonl
-  sha256: 9c8892a9cebc9dc5079b2dd6d5c68ed6bee43f27375a001b33eed7c61588e1ed
+  sha256: 972e531b4765ef2d78ede523505b5265862d34cf4f1eceb0965b3f0da9f808ba
   record_count: 141
 deferred_task_index:
 - task_id: L8-ACCEL-00-PYTHON-READINESS
@@ -2143,7 +2143,7 @@ deferred_task_index:
   status: DEFERRED_WITH_REASON
   stage_goal_id: GOAL-P0-PLAN-FREEZE
   activation_group: historical-control
-  record_sha256: 343eb7c33fb1fd79a59141a275137e80c91c55d2c43451786de47c2245bd99dd
+  record_sha256: 7ee944e291b68c4bcb81f23db2252819a113eed957da03053e813fe88c1ea922
 - task_id: L8-WAVE0-SEMANTIC-CLOSURE-EVIDENCE
   status: DEFERRED_WITH_REASON
   stage_goal_id: GOAL-P0-PLAN-FREEZE

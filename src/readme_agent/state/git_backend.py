@@ -67,6 +67,18 @@ LOCK_LEASE_SECONDS = 900
 RUN_LOCK_REF_PREFIX = "refs/readme-agent-state/run-locks"
 RUN_LOCK_LEASE_SECONDS = 900
 
+# GOV-0NN: a third lock family, global (one key, "shared-governance-write" --
+# not per-org_repo like the two above), acquired by the pre-commit hook only
+# when a commit touches a shared governance path (plans/, logs/, AGENTS.md,
+# the Level-8 mission graph). Advisory-only in its first phase (see
+# validate_governance_write_lock.py) -- its purpose today is to leave a
+# short-lived, self-expiring trace of "a governance write happened here" for
+# the next session's check to observe, not to serialize commits yet. Own
+# named constant, same starting value as the two existing families, free to
+# diverge once there is real operational history to justify a different one.
+GOVERNANCE_LOCK_REF_PREFIX = "refs/readme-agent-state/governance-locks"
+GOVERNANCE_LOCK_LEASE_SECONDS = 900
+
 # Wave 8.6 (`OPS-011` extension): the first GLOBAL (not per-org_repo) ref in
 # this codebase -- one record covers every LLM job route's enabled/disabled
 # status, not scoped to any single repo.
@@ -427,6 +439,9 @@ class GitStateBackend:
         # org_repo, not by lock-kind, and cannot safely hold both lock
         # families' state simultaneously for the same repo.
         self._held_run_lock_commit_shas: dict[str, str] = {}
+        # GOV-0NN: the governance-write lock's own tracking dict -- same
+        # reasoning as the run-lock dict above, a third independent family.
+        self._held_governance_lock_commit_shas: dict[str, str] = {}
 
     def close(self) -> None:
         """Deterministically remove this backend's disposable plumbing workspace."""
@@ -693,6 +708,43 @@ class GitStateBackend:
             return _lock_still_held_generic(
                 self._remote, RUN_LOCK_REF_PREFIX, lock, cwd=self._git_cwd
             )
+
+    def acquire_governance_lock(self, key: str) -> Lock | None:
+        """Non-blocking optimistic CAS acquire on the governance-write lock family.
+        `key` is conventionally a fixed constant (e.g. "shared-governance-write"),
+        not an `org_repo` -- the lock is global, not per-repository."""
+        with self._workspace_lock:
+            return _acquire_lock_generic(
+                self._remote,
+                GOVERNANCE_LOCK_REF_PREFIX,
+                key,
+                self._held_governance_lock_commit_shas,
+                GOVERNANCE_LOCK_LEASE_SECONDS,
+                cwd=self._git_cwd,
+            )
+
+    def release_governance_lock(self, lock: Lock) -> None:
+        with self._workspace_lock:
+            _release_lock_generic(
+                self._remote,
+                GOVERNANCE_LOCK_REF_PREFIX,
+                lock,
+                self._held_governance_lock_commit_shas,
+                cwd=self._git_cwd,
+            )
+
+    def peek_governance_lock(self, key: str) -> dict[str, str] | None:
+        """Read-only: the raw `{holder_id, leased_until}` payload for `key`'s
+        governance lock if a ref exists, regardless of whether its lease has
+        already expired. Used only to compose a human-readable message about
+        recent governance-write activity -- never as a CAS decision input;
+        `acquire_governance_lock()` alone decides acquisition."""
+        with self._workspace_lock:
+            remote_ref = f"{GOVERNANCE_LOCK_REF_PREFIX}/{_ref_key(key)}"
+            sha = _fetch_remote_sha(remote_ref, remote=self._remote, cwd=self._git_cwd)
+            if sha is None:
+                return None
+            return json.loads(_read_blob(sha, "lock.json", cwd=self._git_cwd))
 
     def _load_model_route_registry(self) -> ModelRouteRegistryV1 | None:
         sha = _fetch_remote_sha(MODEL_ROUTE_REF, remote=self._remote, cwd=self._git_cwd)

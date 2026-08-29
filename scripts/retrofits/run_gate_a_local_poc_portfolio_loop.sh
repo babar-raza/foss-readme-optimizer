@@ -69,6 +69,12 @@ if [ "${RETRY_BLOCKED:-0}" = "1" ]; then
   RETRY_BLOCKED_FLAG=(--retry-blocked)
 fi
 
+# T1 instrumentation (plan: concurrent-agent consistency, 2026-08-29): one
+# observation per wrapper invocation, not per iteration -- document_template_hash()
+# cannot change mid-pass, only between passes when new code lands in between.
+# Additive-only; never affects pass/fail of this script.
+./.venv/Scripts/python scripts/governance/log_document_template_hash_observation.py || true
+
 previous_complete=""
 plateau_count=0
 
