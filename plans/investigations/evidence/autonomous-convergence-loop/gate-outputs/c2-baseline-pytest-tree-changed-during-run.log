@@ -1,0 +1,328 @@
+bringing up nodes...
+bringing up nodes...
+
+........................................................................ [  1%]
+........................................................................ [  2%]
+........................................................................ [  3%]
+........................................................................ [  5%]
+........................................................................ [  6%]
+........................................................................ [  7%]
+........................................................................ [  9%]
+........................................................................ [ 10%]
+........................................................................ [ 11%]
+........................................................................ [ 13%]
+........................................................................ [ 14%]
+........................................................................ [ 15%]
+........................................................................ [ 16%]
+........................................................................ [ 18%]
+........................................................................ [ 19%]
+........................................................................ [ 20%]
+........................................................................ [ 22%]
+........................................................................ [ 23%]
+........................................................................ [ 24%]
+........................................................................ [ 26%]
+........................................................................ [ 27%]
+........................................................................ [ 28%]
+....................s................................................... [ 30%]
+........................................................................ [ 31%]
+........................................................................ [ 32%]
+........................................................................ [ 33%]
+........................................................................ [ 35%]
+........................................................................ [ 36%]
+........................................................................ [ 37%]
+........................................................................ [ 39%]
+........................................................................ [ 40%]
+........................................................................ [ 41%]
+........................................................................ [ 43%]
+........................................................................ [ 44%]
+........................................................................ [ 45%]
+........................................................................ [ 47%]
+........................................................................ [ 48%]
+........................................................................ [ 49%]
+........................................................................ [ 50%]
+........................................................................ [ 52%]
+........................................................................ [ 53%]
+........................................................................ [ 54%]
+........................................................................ [ 56%]
+........................................................................ [ 57%]
+........................................................................ [ 58%]
+........................................................................ [ 60%]
+........................................................................ [ 61%]
+........................................................................ [ 62%]
+........................................................................ [ 64%]
+.FF.FF.F.F....................................F......................... [ 65%]
+..........................................................F............. [ 66%]
+........................................................................ [ 67%]
+........................................................................ [ 69%]
+........................................................................ [ 70%]
+........................................................................ [ 71%]
+........................................................................ [ 73%]
+........................................................................ [ 74%]
+........................................................................ [ 75%]
+........................................................................ [ 77%]
+........................................................................ [ 78%]
+........................................................................ [ 79%]
+........................................................................ [ 81%]
+........................................................................ [ 82%]
+........................................................................ [ 83%]
+........................................................................ [ 84%]
+........................................................................ [ 86%]
+........................................................................ [ 87%]
+........................................................................ [ 88%]
+........................................................................ [ 90%]
+........................................................................ [ 91%]
+........................................................................ [ 92%]
+........................................................................ [ 94%]
+........................................................................ [ 95%]
+........................................................................ [ 96%]
+........................................................................ [ 98%]
+........................................................................ [ 99%]
+....................................                                     [100%]
+================================== FAILURES ===================================
+______________ test_wrong_repository_is_rejected_before_runtime _______________
+[gw2] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+GRAPH = WindowsPath('C:/Users/prora/AppData/Local/Temp/ra-p/popen-gw2/test_wrong_repository_is_rejec0/reactivated-graph.yaml')
+
+    def test_wrong_repository_is_rejected_before_runtime(GRAPH):
+        now = datetime(2026, 8, 8, tzinfo=UTC)
+>       with pytest.raises(ConfigError, match="outside immediate goal"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'outside immediate goal'
+E         Actual message: 'requirement catalog hash mismatch for plans/requirements/catalog.jsonl: d057f05cdde31cb84a266d1989f7fd90664fac12783dc1cb467a1a032182bee4 != e5f7fb00d2241e57f506cc4a8c3fc19e9b68956a7403e27d0b41f8b9ca40931a'
+
+tests\unit\test_mission_execution_guard.py:134: AssertionError
+________________ test_expired_claim_is_rejected_before_runtime ________________
+[gw2] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+GRAPH = WindowsPath('C:/Users/prora/AppData/Local/Temp/ra-p/popen-gw2/test_expired_claim_is_rejected0/reactivated-graph.yaml')
+
+    def test_expired_claim_is_rejected_before_runtime(GRAPH):
+        now = datetime(2026, 8, 8, tzinfo=UTC)
+>       with pytest.raises(ConfigError, match="claim expired"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'claim expired'
+E         Actual message: 'requirement catalog hash mismatch for plans/requirements/catalog.jsonl: d057f05cdde31cb84a266d1989f7fd90664fac12783dc1cb467a1a032182bee4 != e5f7fb00d2241e57f506cc4a8c3fc19e9b68956a7403e27d0b41f8b9ca40931a'
+
+tests\unit\test_mission_execution_guard.py:147: AssertionError
+______________ test_foreign_observer_is_rejected_before_runtime _______________
+[gw2] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+GRAPH = WindowsPath('C:/Users/prora/AppData/Local/Temp/ra-p/popen-gw2/test_foreign_observer_is_rejec0/reactivated-graph.yaml')
+
+    def test_foreign_observer_is_rejected_before_runtime(GRAPH):
+        now = datetime(2026, 8, 8, tzinfo=UTC)
+>       with pytest.raises(ConfigError, match="claimed by"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'claimed by'
+E         Actual message: 'requirement catalog hash mismatch for plans/requirements/catalog.jsonl: d057f05cdde31cb84a266d1989f7fd90664fac12783dc1cb467a1a032182bee4 != e5f7fb00d2241e57f506cc4a8c3fc19e9b68956a7403e27d0b41f8b9ca40931a'
+
+tests\unit\test_mission_execution_guard.py:160: AssertionError
+__ test_platform_scoped_task_admits_a_python_repository_not_named_literally ___
+[gw2] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+GRAPH = WindowsPath('C:/Users/prora/AppData/Local/Temp/ra-p/popen-gw2/test_platform_scoped_task_admi0/reactivated-graph.yaml')
+
+    def test_platform_scoped_task_admits_a_python_repository_not_named_literally(GRAPH):
+        """Regression: L8-VPY-03-ALL-PYTHON-VERIFIED-POC scopes to `platform:Python`, not a
+        literal repository list. The guard used to do a plain `repository not in
+        repository_scope` membership check, so every real Python repository under this task
+        failed with "is outside immediate goal" even though the taskcard's own repository_scope
+        is `['platform:Python']` by design.
+        """
+    
+        task_id = "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
+        now = datetime(2026, 8, 11, tzinfo=UTC)
+        assert (
+            require_visible_execution_binding(
+>               _backend(GRAPH, now=now, task_id=task_id),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                task_id=task_id,
+                repository="aspose-barcode-foss/Aspose.BarCode-FOSS-for-Python",
+                observer="codex",
+                graph_path=GRAPH,
+                now=now,
+            )
+            == "DELIVERY-PY-REMAINING-COHORT"
+        )
+
+tests\unit\test_mission_execution_guard.py:183: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\unit\test_mission_execution_guard.py:89: in _backend
+    graph, graph_sha256 = load_mission_graph(graph_path)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\readme_agent\supervisor\mission_graph.py:113: in load_mission_graph
+    _validate_graph(graph, graph_path=path)
+src\readme_agent\supervisor\mission_graph.py:183: in _validate_graph
+    requirement_catalog = _validate_reference(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+graph_path = WindowsPath('C:/Users/prora/AppData/Local/Temp/ra-p/popen-gw2/test_platform_scoped_task_admi0/reactivated-graph.yaml')
+reference = ExternalCatalogReferenceV1(path='plans/requirements/catalog.jsonl', sha256='e5f7fb00d2241e57f506cc4a8c3fc19e9b68956a7403e27d0b41f8b9ca40931a', record_count=523)
+label = 'requirement catalog'
+
+    def _validate_reference(graph_path: Path, reference, label: str) -> Path:
+        path = _resolve_reference(graph_path, reference.path)
+        actual = hashlib.sha256(path.read_bytes()).hexdigest()
+        if actual != reference.sha256:
+>           raise ConfigError(
+                f"{label} hash mismatch for {reference.path}: {actual} != {reference.sha256}"
+            )
+E           readme_agent.errors.ConfigError: requirement catalog hash mismatch for plans/requirements/catalog.jsonl: d057f05cdde31cb84a266d1989f7fd90664fac12783dc1cb467a1a032182bee4 != e5f7fb00d2241e57f506cc4a8c3fc19e9b68956a7403e27d0b41f8b9ca40931a
+
+src\readme_agent\supervisor\mission_graph.py:130: ConfigError
+___ test_platform_scoped_task_rejects_a_repository_on_a_different_platform ____
+[gw2] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+GRAPH = WindowsPath('C:/Users/prora/AppData/Local/Temp/ra-p/popen-gw2/test_platform_scoped_task_reje0/reactivated-graph.yaml')
+
+    def test_platform_scoped_task_rejects_a_repository_on_a_different_platform(GRAPH):
+        task_id = "L8-VPY-03-ALL-PYTHON-VERIFIED-POC"
+        now = datetime(2026, 8, 11, tzinfo=UTC)
+>       with pytest.raises(ConfigError, match="outside immediate goal"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'outside immediate goal'
+E         Actual message: 'requirement catalog hash mismatch for plans/requirements/catalog.jsonl: d057f05cdde31cb84a266d1989f7fd90664fac12783dc1cb467a1a032182bee4 != e5f7fb00d2241e57f506cc4a8c3fc19e9b68956a7403e27d0b41f8b9ca40931a'
+
+tests\unit\test_mission_execution_guard.py:197: AssertionError
+____________ test_fifteen_minute_stall_is_rejected_before_runtime _____________
+[gw2] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+GRAPH = WindowsPath('C:/Users/prora/AppData/Local/Temp/ra-p/popen-gw2/test_fifteen_minute_stall_is_r0/reactivated-graph.yaml')
+
+    def test_fifteen_minute_stall_is_rejected_before_runtime(GRAPH):
+        started_at = datetime(2026, 8, 8, tzinfo=UTC)
+>       with pytest.raises(ConfigError, match="15 minutes without material narrowing"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: '15 minutes without material narrowing'
+E         Actual message: 'requirement catalog hash mismatch for plans/requirements/catalog.jsonl: d057f05cdde31cb84a266d1989f7fd90664fac12783dc1cb467a1a032182bee4 != e5f7fb00d2241e57f506cc4a8c3fc19e9b68956a7403e27d0b41f8b9ca40931a'
+
+tests\unit\test_mission_execution_guard.py:210: AssertionError
+_ TestBasicLoop.test_local_poc_repairs_revalidates_and_rereviews_before_accepting _
+[gw0] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+self = <test_supervisor_loop.TestBasicLoop object at 0x00000212B5BF46E0>
+project = WindowsPath('C:/Users/prora/AppData/Local/Temp/ra-p/popen-gw0/test_local_poc_repairs_revalid0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000212B57F5630>
+
+    def test_local_poc_repairs_revalidates_and_rereviews_before_accepting(
+        self,
+        project,
+        monkeypatch,
+    ):
+        backend = FakeStateBackend()
+        _RepairAwareCompositionForcedToolClient.calls = 0
+        _RepairAwareCompositionForcedToolClient.saw_repair_hint = False
+        _RejectThenAcceptMergedReviewClient.calls = 0
+        monkeypatch.setattr(
+            agentic_composition,
+            "LiveForcedToolClient",
+            _RepairAwareCompositionForcedToolClient,
+        )
+        monkeypatch.setattr(
+            separated_readme_review,
+            "build_live_merged_review_client",
+            _fake_repair_merged_client,
+        )
+        monkeypatch.setattr(
+            readme_presentation,
+            "dispatch_gated_effect",
+            lambda *args, **kwargs: pytest.fail("local POC must stop before a write effect"),
+        )
+    
+        first = supervise_repo(
+            ORG_REPO,
+            planner_client=FixturePlannerClient(
+                [PlannerTurn(content="done", meta=LLMResponseMeta())]
+            ),
+            state_backend=backend,
+            write_evidence_bundle=True,
+            track_readme_poc_lifecycle=True,
+        )
+    
+        state = backend.load(ORG_REPO)
+        lifecycle = state.readme_poc_lifecycle
+        assert lifecycle is not None
+        assert first.status == "CONVERGED_PROPOSAL_READY", (
+            first.blocked_reason,
+            first.blocked_category,
+            state.domain_states["readme_presentation"].accepted_status,
+            state.domain_states["readme_presentation"].last_failure_reason,
+            lifecycle.status,
+        )
+        assert lifecycle.status == "AGENT_APPROVED"
+        statuses = [item.to_status for item in lifecycle.history]
+>       assert statuses.count("AGENT_REVIEWING") == 2
+E       AssertionError: assert 1 == 2
+E        +  where 1 = <built-in method count of list object at 0x00000212B6302D80>('AGENT_REVIEWING')
+E        +    where <built-in method count of list object at 0x00000212B6302D80> = ['SNAPSHOTTED', 'PROFILED', 'FACTS_COLLECTING', 'FACTS_READY', 'README_ASSESSED', 'PLAN_READY', ...].count
+
+D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\tests\unit\test_supervisor_loop.py:1717: AssertionError
+_ TestBasicLoop.test_local_poc_byte_identical_repair_reroutes_before_rereview _
+[gw0] win32 -- Python 3.13.2 D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\.venv\Scripts\python.exe
+
+self = <test_supervisor_loop.TestBasicLoop object at 0x00000212B5C492B0>
+project = WindowsPath('C:/Users/prora/AppData/Local/Temp/ra-p/popen-gw0/test_local_poc_byte_identical_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000212B6142F20>
+
+    def test_local_poc_byte_identical_repair_reroutes_before_rereview(
+        self,
+        project,
+        monkeypatch,
+    ):
+        backend = FakeStateBackend()
+        _FakeCompositionForcedToolClient.calls = 0
+        _RejectThenAcceptMergedReviewClient.calls = 0
+        monkeypatch.setattr(
+            agentic_composition,
+            "LiveForcedToolClient",
+            _FakeCompositionForcedToolClient,
+        )
+        monkeypatch.setattr(
+            separated_readme_review,
+            "build_live_merged_review_client",
+            _fake_repair_merged_client,
+        )
+        monkeypatch.setattr(
+            readme_presentation,
+            "dispatch_gated_effect",
+            lambda *args, **kwargs: pytest.fail("rerouted repair must not reach a write effect"),
+        )
+    
+        result = supervise_repo(
+            ORG_REPO,
+            planner_client=FixturePlannerClient(
+                [PlannerTurn(content="done", meta=LLMResponseMeta())]
+            ),
+            state_backend=backend,
+            write_evidence_bundle=True,
+            track_readme_poc_lifecycle=True,
+        )
+    
+        state = backend.load(ORG_REPO)
+        lifecycle = state.readme_poc_lifecycle
+        assert lifecycle is not None
+>       assert result.status == "BLOCKED"
+E       AssertionError: assert 'CONVERGED_PROPOSAL_READY' == 'BLOCKED'
+E         
+E         [0m[91m- BLOCKED[39;49;00m[90m[39;49;00m
+E         [92m+ CONVERGED_PROPOSAL_READY[39;49;00m[90m[39;49;00m
+
+D:\Users\prora\OneDrive\Documents\GitHub\foss-readme-optimizer\tests\unit\test_supervisor_loop.py:1822: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_mission_execution_guard.py::test_wrong_repository_is_rejected_before_runtime
+FAILED tests/unit/test_mission_execution_guard.py::test_expired_claim_is_rejected_before_runtime
+FAILED tests/unit/test_mission_execution_guard.py::test_foreign_observer_is_rejected_before_runtime
+FAILED tests/unit/test_mission_execution_guard.py::test_platform_scoped_task_admits_a_python_repository_not_named_literally
+FAILED tests/unit/test_mission_execution_guard.py::test_platform_scoped_task_rejects_a_repository_on_a_different_platform
+FAILED tests/unit/test_mission_execution_guard.py::test_fifteen_minute_stall_is_rejected_before_runtime
+FAILED tests/unit/test_supervisor_loop.py::TestBasicLoop::test_local_poc_repairs_revalidates_and_rereviews_before_accepting
+FAILED tests/unit/test_supervisor_loop.py::TestBasicLoop::test_local_poc_byte_identical_repair_reroutes_before_rereview
+8 failed, 5499 passed, 1 skipped in 630.74s (0:10:30)
+error: full pytest left descendant process IDs [14404, 49368]
+{"branch": "main", "command": ["D:\\Users\\prora\\OneDrive\\Documents\\GitHub\\foss-readme-optimizer\\.venv\\Scripts\\python.exe", "-m", "pytest", "-q", "-n", "4", "--dist", "worksteal", "--max-worker-restart", "0", "--basetemp=C:\\Users\\prora\\AppData\\Local\\Temp\\ra-p"], "dependency_lock_sha256": "bf42e8a4e25e257711692265c462cd62278a929f6c80e3600640896e1e5606a4", "dirty_tree": true, "distribution": "worksteal", "duration_seconds": 632.28, "exit_code": 1, "finished_at": "2026-08-29T10:33:21.406232+00:00", "head": "99a1ad0073a7b7158964e4224edea30a4c6b0177", "index_tree_at_end": "1ead9965fb152319826eb7dbd3cb84729d5620ad", "index_tree_at_start": "b820a9770225965ffa9d40472e9c101f083ecfc3", "leaked_process_ids": [14404, 49368], "max_worker_restart": 0, "outcome_counts": {"deselected": 0, "errors": 0, "failed": 8, "passed": 5499, "skipped": 1, "xfailed": 0, "xpassed": 0}, "python": "3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]", "schema_version": 2, "started_at": "2026-08-29T10:22:45.913803+00:00", "test_inventory_count": 5508, "test_inventory_sha256": "1cd2f31bee5664517f79f572b9934ad86ec26aaa858afdb6e7d9da47f984ee5d", "tree_changed_during_run": true, "tree_fingerprint_at_end": "1fa9aea3dd34809eda36c1a4ff1670bf90dc5f9d8d0a00c469555bebb49a04c2", "tree_fingerprint_at_start": "8e1e5f4adc947ca748363dbe54b2572fd124638baa7559af83caeb80669f0ed8", "worker_count": 4}

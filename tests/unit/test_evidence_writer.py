@@ -1,6 +1,7 @@
 import json
 import re
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
@@ -393,6 +394,11 @@ class TestFactsStageEvidence:
             )
 
 
+# Win32 rejects paths at or beyond 260 characters; `win_long_path()` uses the same
+# "at or beyond" boundary.
+_MAX_PATH = 260
+
+
 def test_atomic_write_survives_a_destination_beyond_windows_max_path(tmp_path):
     """Win32 rejects paths at or past 260 characters with "The system cannot find
     the path specified", which surfaces as a FileNotFoundError from `os.replace`
@@ -406,15 +412,28 @@ def test_atomic_write_survives_a_destination_beyond_windows_max_path(tmp_path):
     did not.
     """
 
-    target = (
-        tmp_path
-        / "aspose-note-foss__Aspose.Note-FOSS-for-Python"
+    tail = (
+        Path("aspose-note-foss__Aspose.Note-FOSS-for-Python")
         / ("4" * 40)
         / "review"
         / "bounded-packet-cache"
         / (("a" * 64) + ".json")
     )
-    assert len(str(target.resolve())) > 260, "fixture must exceed MAX_PATH to be meaningful"
+    # Derive the depth from the measured path instead of assuming `tmp_path` is long.
+    # `run_full_pytest.py` passes a deliberately short `--basetemp` (%TEMP%/ra-p) for
+    # MAX_PATH reasons, which put the fixed construction above at exactly 260 -- so this
+    # test's own `> 260` guard failed under the project's canonical basetemp when run
+    # serially, and passed under `-n 4` only because xdist's `popen-gwN` component adds
+    # ~11 characters. Same defect, and the same fix, as
+    # `test_local_poc_cache_inventory_long_path.py` (VER-013).
+    root = tmp_path
+    while len(str((root / tail).resolve())) < _MAX_PATH:
+        root = root / "pad"
+    target = root / tail
+    assert len(str(target.resolve())) >= _MAX_PATH, (
+        "fixture must reach MAX_PATH to be meaningful",
+        len(str(target.resolve())),
+    )
 
     write_redacted_json(target, {"ok": True})
 

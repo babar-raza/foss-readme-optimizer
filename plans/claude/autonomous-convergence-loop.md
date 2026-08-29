@@ -35,6 +35,9 @@ points here so no competing copy exists. It does **not** supersede `plans/master
 | H17 | Added `ACL-REVIEW-REPAIR-SCOPE-MISMATCH` and rewrote the PF-02 diagnosis around it. | The blind reviewer reviews **13** section roots; the repair layer owns **5** authoring slots. 8 of 13 have no repair path, and `rereview_authorized` requires *every* finding addressed — so one finding in any of those 8 permanently disables that repository's repair loop. | `bounded-review-plan.json` (14 packets, 13 roots) vs `_SECTION_FIELDS` (5 slots) |
 | H18 | Added `ACL-COMPOSITION-TRUNCATION-RETRY` — **fixed in cycle 2**, recorded under RDM-033 as a sibling site. | `plan_readme_composition` answered a truncated call with `_repair_hints()`' full vocabularies, making the one permitted retry longer than the attempt that had already overrun the 6000-token output ceiling. 3 repositories measured blocked on it. | 3 blocked-decision records truncating at 5184/7402/10698 chars |
 | H19 | Added §4.3, the measured portfolio blocker leverage map. | Prioritisation in this plan had been asserted rather than measured. | all 31 `blocked-decision.json` records, 104 cumulative reproductions |
+| H20 | **Independent verification refuted this cycle's PF-02 root cause.** Added `ACL-REPAIR-LOOP-BLIND-TO-DISCARDED-UNITS` as the real proximate cause and downgraded `ACL-REVIEW-REPAIR-SCOPE-MISMATCH` from P0 to P1, with a correction note on the card. Also added `ACL-PREMISE-GUARD-SUBSTRING-BRITTLENESS`. | `scope-and-limitations` routed correctly; the author ran (139 completion tokens); deterministic acceptance rejected **both** its units, leaving `units: []`, so the template re-emitted the rejected paragraph. `changed_operation_ids: []` was structurally forced by a single-operation document plan. | `assurance/section_authoring/cache/e6d5e5b6b642.json`, `planning/readme-document-plan.json` |
+| H21 | Restored `reviewer_call_count_before/after == 1/2`, dropped a near-vacuous `>= 2` assertion, removed two dead merged-reviewer doubles, and derived the depth in CORE-041's cited long-path test. | The relational assertions were weaker than the literals they replaced (those counters are round counts, stable under bounded review); `>= 2` was cleared by a single round of ~18 packet calls; and the cited CORE-041 proof failed `assert 260 > 260` under the canonical short basetemp run serially. | independent verification, cycle 2 |
+| H22 | Recorded the first fully green official-checks run: **exit 0, all ten checks OK, `leaked_process_ids: []`, 5509 passed / 0 failed, clean tree** at `3310543c6`. | Same code and commit as the run that failed; the only difference was that nothing else touched the repository. That is the proof for `ACL-PYTEST-LEAK-GUARD-CONCURRENCY`. | `official-checks-isolated.log` |
 
 ---
 
@@ -470,10 +473,11 @@ No insertion is required to start work. Current free slots: **5**.
 
 - **Title** The reviewer can reject 13 section roots; the repair layer owns 5
 - **Source audit finding** Cycle 2, PF-02 root cause, corroborated by the `Aspose.3D-FOSS-for-.NET` bounded-grounding failure on `api-reference`
-- **Why it matters** This is the concrete mechanism behind "the dominant failure class hard-stops with no remediation path". `bounded-review-plan.json` shows 14 visitor packets across **13** section roots. `section_authoring_repair.py::_REVIEW_SECTION_TO_AUTHORING_SLOT` maps six names onto the **5** slots `_SECTION_FIELDS` actually defines (`summary`, `key_capabilities`, `installation`, `quick_start`, `scope_and_limitations`). The other 8 roots — `additional-examples`, `api-reference`, `at-a-glance`, `dependencies`, `development-and-testing`, `documentation-resources`, `license`, `navigation` — have no section-authoring repair route, `_slot()` returns `None`, and those findings are dropped from `by_slot` silently. Because `rereview_authorized = bool(findings) and not unresolved_ids` requires **every** finding addressed, a single unroutable finding permanently disables that repository's repair loop — and the reroute reason names none of this, which is why it presents as a generic byte-identical repair.
-- **Current status** `blocker` · **Priority** P0 · **Lane owner** `deterministic-repair-loop`
+- **Why it matters** This is the concrete mechanism behind "the dominant failure class hard-stops with no remediation path". `bounded-review-plan.json` shows 14 visitor packets across **13** section roots. `section_authoring_repair.py::_REVIEW_SECTION_TO_AUTHORING_SLOT` maps **eight** keys onto the **5** slots `_SECTION_FIELDS` actually defines (`summary`, `key_capabilities`, `installation`, `quick_start`, `scope_and_limitations`). The other 8 roots — `additional-examples`, `api-reference`, `at-a-glance`, `dependencies`, `development-and-testing`, `documentation-resources`, `license`, `navigation` — have no section-authoring repair route, `_slot()` returns `None`, and those findings are dropped from `by_slot` silently. Because `rereview_authorized = bool(findings) and not unresolved_ids` requires **every** finding addressed, a single unroutable finding permanently disables that repository's repair loop — and the reroute reason names none of this, which is why it presents as a generic byte-identical repair.
+- **Current status** `blocker` · **Priority** P1 (**downgraded from P0** — see the correction below) · **Lane owner** `deterministic-repair-loop`
 - **Dependencies** none
-- **Required work** Make the mismatch explicit and bounded. Either give the unowned roots a repair route, or make an unroutable finding a distinct, named, surfaced outcome instead of a silent drop. Note that `at-a-glance` *is* repairable through the composition re-planning path rather than section authoring, so the two repair mechanisms must be considered together before declaring any root unowned.
+- **CORRECTION (independent verification, cycle 2).** This card was originally written as PF-02's root cause. **It is not.** It is a real defect, but fixing it alone would not have unblocked PF-02, and doing it first would have burned a cycle. The proximate cause is `ACL-REPAIR-LOOP-BLIND-TO-DISCARDED-UNITS` below: `scope-and-limitations` *did* route to a slot, the author *was* called, and post-call deterministic acceptance discarded every unit. Do that card first. Priority downgraded accordingly.
+- **Required work** Make the mismatch explicit and bounded. Either give the unowned roots a repair route, or make an unroutable finding a distinct, named, surfaced outcome instead of a silent drop. Note that `at-a-glance` *is* repairable through the composition re-planning path rather than section authoring, so the two repair mechanisms must be considered together before declaring any root unowned — the count of 8 is an upper bound on "no section-authoring route", not a proven count of "no route at all".
 - **Required verification** A repository whose only rejection is in an unowned root produces a reroute reason that names the unroutable finding and its root; a repository whose rejections are all in owned roots still repairs
 - **Required evidence** Before/after reroute reasons for both cases
 - **Acceptance criteria** No finding is silently dropped; the operator can tell "we tried and failed" from "we had no way to try"
@@ -481,6 +485,38 @@ No insertion is required to start work. Current free slots: **5**.
 - **Allowed actions** `specialists/section_authoring_repair.py`, `specialists/readme_review_repair*.py`, `tests/`
 - **Forbidden actions** making `rereview_authorized` ignore unaddressed findings — that would accept prose the reviewer rejected, which is lowering the bar
 - **Closeout rules** The reviewer's scope is not narrowed to match the repair layer; the mismatch is closed from the repair side or surfaced honestly
+
+### `ACL-REPAIR-LOOP-BLIND-TO-DISCARDED-UNITS`
+
+- **Title** The repair loop cannot tell "author produced nothing" from "acceptance threw it away"
+- **Source audit finding** Independent verification, cycle 2 — it refuted this sprint's published PF-02 root cause and supplied this one. Confirmed directly against the bundle before acceptance.
+- **Why it matters** **This is PF-02's actual proximate cause**, and it is not the slot gap. `scope-and-limitations` routes correctly to a repair slot. The repair ran: `assurance/section_authoring/cache/e6d5e5b6b642.json` (the repair variant — its own cache key, because `packet.canonical_hash()` covers the mutated `section_objective`) records `logical_call_count: 1`, 139 completion tokens, and **two** entries in `deterministically_rejected_unit_sha256`, leaving `units: []` and one `omitted` reason: "Authored unit crossed the deterministic format-rendering boundary." The deterministic template then owns the section by design and re-emits the exact paragraph the reviewer rejected. The canonical entry `ab1ea94f8297.json` has the same shape, so that section has *never* carried authored prose in this bundle. Meanwhile `changed_operation_ids: []` was structurally forced regardless: `planning/readme-document-plan.json` holds exactly **one** operation, `readme.verified-template.compile`, so that field carries no signal at all here. The loop observes only a byte-identical candidate and reroutes as though nothing was attempted.
+- **Current status** `blocker` · **Priority** P0 · **Lane owner** `deterministic-repair-loop`
+- **Dependencies** none — do this **before** `ACL-REVIEW-REPAIR-SCOPE-MISMATCH`
+- **Required work** Give the repair receipt a signal distinguishing (a) no repair attempted, (b) author called and produced units that deterministic acceptance rejected, (c) author called and produced accepted units that did not change the compiled candidate. Surface which occurred in the reroute reason. Separately, `changed_operation_ids` must not be treated as evidence of repair inaction when the document plan has a single monolithic compile operation.
+- **Required verification** A repository whose authored units are all rejected produces a reroute reason naming that, distinct from a genuine no-change; the single-operation case does not silently read as "nothing changed"
+- **Required evidence** Before/after reroute reasons for a rejected-units case and a true no-change case
+- **Acceptance criteria** An operator can tell "we tried and acceptance refused it" from "we never tried"
+- **Stop conditions** If the deterministic format-rendering boundary is itself the thing that must change, that is a separate card — do not widen it here to make a repair land
+- **Allowed actions** `specialists/readme_repair_validation.py`, `specialists/readme_review_repair*.py`, `specialists/section_cluster_authoring.py`, `tests/`
+- **Forbidden actions** relaxing deterministic acceptance so units survive; treating a rejected unit as accepted
+- **Closeout rules** The fix is a signal, not a loosened gate
+
+### `ACL-PREMISE-GUARD-SUBSTRING-BRITTLENESS`
+
+- **Title** The producer/reviewer premise guard is a substring allowlist that silently no-ops
+- **Source audit finding** Independent verification, cycle 2
+- **Why it matters** `specialists/review_standard_premises.py::validate_configured_standard_premise` already contains a `claims_workflow_preview_is_raw` branch built for exactly the deterministic-`workflow_preview` conflict this sprint hit. Run against this cycle's four real findings it matched **none of them**: the reviewer wrote "First paragraph **is** a raw task list", the allowlist carries "read**s like** a raw task list". A substring allowlist against free-form model prose degrades to a no-op on one verb of drift, and does so silently — the guard reports nothing rather than reporting that it could not decide.
+- **Current status** `follow_up` · **Priority** P1 · **Lane owner** `deterministic-repair-loop`
+- **Dependencies** none
+- **Required work** Either match on structure rather than phrasing, or make a non-match an explicit "guard could not evaluate" signal instead of silent success.
+- **Required verification** The four recorded findings from this cycle are matched, or explicitly reported as unevaluable
+- **Required evidence** The guard's output against those four findings, before and after
+- **Acceptance criteria** No silent no-op: every input either matches, mismatches, or is reported unevaluable
+- **Stop conditions** none — bounded work
+- **Allowed actions** `specialists/review_standard_premises.py`, `tests/`
+- **Forbidden actions** adding this cycle's exact four phrasings to the allowlist and calling it fixed
+- **Closeout rules** A guard that cannot say "I don't know" will keep reporting false confidence
 
 ### `ACL-COMPOSITION-TRUNCATION-RETRY`
 
@@ -615,14 +651,14 @@ missing local prerequisite is not an external blocker — start it (see §11 rul
 | ruff | `ruff check .` | OK | — |
 | ruff-format | `ruff format --check .` | OK | — |
 | mypy | `mypy src` | OK | — |
-| **pytest (canonical)** | `scripts/governance/run_full_pytest.py` | **0 failed, 5507 passed, 1 skipped** on a clean tree (cycle 2). The runner still exits 1, on `leaked_process_ids` only. | `ACL-PYTEST-LEAK-GUARD-CONCURRENCY` |
+| **pytest (canonical)** | `scripts/governance/run_full_pytest.py` | **OK** — 0 failed, 5509 passed, 1 skipped, `leaked_process_ids: []`, clean tree, at `3310543c6` | — |
 | plan structure | `scripts/governance/validate_plan_structure.py` | OK | — |
 | verifiers wired | `scripts/governance/check_verifiers_are_wired.py` | OK | — |
 | prompt hygiene | `scripts/governance/check_prompt_hygiene.py` | OK | — |
 | requirement/taskcard coverage | `build_level8_requirement_taskcard_coverage.py --check` | OK | — |
 | **traceability** | `plans/investigations/tools/traceability_matrix.py --check` | **OK** (cycle 2) | — |
 | actionlint | via official checks | OK | — |
-| **official checks (all ten)** | `scripts/governance/run_official_checks.py` | **EXIT 1**, and 9 of 10 are OK. The only failure is the pytest step, which fails on the leak guard while reporting 0 test failures. | `ACL-PYTEST-LEAK-GUARD-CONCURRENCY` |
+| **official checks (all ten)** | `scripts/governance/run_official_checks.py` | **EXIT 0 — all ten OK**, TREE CLEAN, at `3310543c6`. Reproducing it requires that nothing else run python against the repository during the run; an identical earlier run exited 1 purely on `leaked_process_ids` from concurrent processes. | `ACL-PYTEST-LEAK-GUARD-CONCURRENCY` (still open: the guard is concurrency-sensitive) |
 | pinned hashes | `scripts/governance/validate_pinned_hashes.py` | OK | — |
 | pinned-hash dedicated tests | `validate_pinned_hash_dedicated_tests.py --all` | OK, wired into CI | — |
 | compact authority | `scripts/governance/validate_compact_authority.py` | **RED**, unwired from CI; `master.md` 674 > 600 | `ACL-MASTER-AUTHORITY-COMPACTION` |

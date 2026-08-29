@@ -412,60 +412,6 @@ def _fake_accepting_merged_client(*args, **kwargs):
     return _FakeAcceptingMergedReviewClient()
 
 
-class _RejectThenAcceptMergedReviewClient:
-    """Return one grounded quality rejection, then merged acceptance after repair."""
-
-    calls = 0
-
-    def analyze(self, messages):
-        type(self).calls += 1
-        quality, factual = _merged_accept_payload(messages)
-        if type(self).calls == 1:
-            user_content = str(messages[-1]["content"])
-            catalog = json.loads(
-                user_content.split(
-                    "Complete candidate README block catalog, in source order:\n", 1
-                )[1].split("\n\nAuthoritative parser-derived mechanical observations:", 1)[0]
-            )
-            diagram_anchor = next(
-                anchor for anchor in catalog if str(anchor[1]).lstrip().startswith("```mermaid")
-            )
-            quality = {
-                "verdict": "REJECT_REPAIRABLE",
-                "reasoning": "The overview diagram should use product-specific evidence.",
-                "failed_criteria": ["product_specificity"],
-                "sections_affected": ["At a glance"],
-                "required_repair": "Re-plan the diagram with product-specific facts.",
-                "findings": [
-                    {
-                        "finding_id": "quality.generic-overview",
-                        "kind": "quality",
-                        "criterion": "product_specificity",
-                        "section": "At a glance",
-                        "claim": "The overview diagram is generic.",
-                        "quoted_candidate_span": str(diagram_anchor[1]),
-                        "candidate_anchor_id": str(diagram_anchor[0]),
-                        "disposition": "requires_repair",
-                        "fact_id": None,
-                        "evidence_excerpt": None,
-                        "evidence_location": None,
-                        "expected_polarity": None,
-                        "observed_polarity": None,
-                        "polarity_result": "not_applicable",
-                        "required_repair": "Re-plan the diagram with product-specific facts.",
-                    }
-                ],
-            }
-        return AnalysisResult(
-            parsed={"quality": quality, "factual": factual},
-            meta=LLMResponseMeta(model="fixture-merged-reviewer"),
-        )
-
-
-def _fake_repair_merged_client(*args, **kwargs):
-    return _RejectThenAcceptMergedReviewClient()
-
-
 class _RepairAwareCompositionForcedToolClient(_FakeCompositionForcedToolClient):
     """Change the plan only when the independent review supplies repair instructions."""
 
@@ -1765,13 +1711,14 @@ class TestBasicLoop:
         assert statuses[-1] == "AGENT_APPROVED"
         assert _RepairAwareCompositionForcedToolClient.calls == 1
         assert _RepairAwareCompositionForcedToolClient.saw_repair_hint is True
-        # Exactly one controlled rejection, and a real second review round after it.
-        # The bounded reviewer issues one call per section rather than one per round,
-        # so the round count is asserted as a relationship rather than a literal --
-        # a fixed number here would encode today's section packing, not the contract.
+        # Exactly one controlled rejection. The second review round is asserted by
+        # `statuses.count("AGENT_REVIEWING") == 2` above and by the round counters
+        # below -- NOT by the raw blind-call total, which is ~18 here because bounded
+        # review issues one call per section, so a single round already clears any
+        # small threshold. An earlier revision asserted `>= 2` on that total and
+        # described it as proving a second round; it does not, and it is gone.
         assert _RejectThenAcceptBlindReviewClient.rejections == 1
         blind_calls_after_first_run = _RejectThenAcceptBlindReviewClient.calls
-        assert blind_calls_after_first_run >= 2
 
         details = state.domain_states["readme_presentation"].details
         review = details["independent_review"]
@@ -1799,10 +1746,14 @@ class TestBasicLoop:
         assert receipt["resolved_finding_ids"] == [addressed_id]
         assert receipt["unresolved_finding_ids"] == []
         assert receipt["rereview_authorized"] is True
-        assert (
-            receipt["reviewer_call_count_after_rereview"]
-            > receipt["reviewer_call_count_before_rereview"]
-        )
+        # These are review-ROUND counters, not per-packet call counts, and they are
+        # stable at 1 and 2 under the bounded path exactly as they were under the
+        # merged one. An earlier revision relaxed them to `after > before` on the
+        # mistaken assumption that bounded review would inflate them; that permitted
+        # 3/5 as readily as 1/2 and was a real loss of precision. Restored, with the
+        # cross-artifact consistency check the literals alone never had.
+        assert receipt["reviewer_call_count_before_rereview"] == 1
+        assert receipt["reviewer_call_count_after_rereview"] == 2
         assert review["review_call_count"] == receipt["reviewer_call_count_after_rereview"]
         lifecycle_bundle = (
             project
