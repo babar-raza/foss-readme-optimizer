@@ -265,6 +265,17 @@ def plan_readme_composition(
                     )
                     if hint
                 )
+                # ecosystem-canary sweep (2026-08-29): the brevity directive alone was
+                # not sufficient for a large enough API surface (Cells-Rust truncated
+                # at ~24,636 characters -- essentially the same 6000-token ceiling as
+                # the first attempt, on *both* attempts). A conciseness instruction
+                # reduces prompt bulk; it cannot guarantee the true minimum output size
+                # for a genuinely large repository fits the same fixed ceiling. Give the
+                # retry real headroom too, not just a request to try harder. Guarded by
+                # `hasattr` because `client` may be a test double that only implements
+                # the `ForcedToolClient` Protocol's `call()` method.
+                if hasattr(resolved_client, "max_tokens"):
+                    resolved_client.max_tokens = max(resolved_client.max_tokens, 10000)
                 continue
             else:
                 deterministic_repair_hints = _repair_hints(

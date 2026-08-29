@@ -2698,6 +2698,59 @@ def test_truncated_composition_retries_more_concisely_instead_of_with_more_instr
     )
 
 
+def test_truncated_composition_retry_also_gets_a_higher_output_ceiling():
+    """Ecosystem-canary sweep (2026-08-29): Cells-Rust truncated at ~24,636
+    characters on *both* the original attempt and the brevity-directive
+    retry -- essentially the same 6000-token ceiling twice. A conciseness
+    instruction alone cannot guarantee a genuinely large repository's true
+    minimum output fits a fixed ceiling; the retry must get real headroom,
+    not just an instruction to try harder."""
+
+    facts, revision = _facts()
+    source = "# Product\n"
+    assessment = assess_readme_document(
+        facts.org_repo,
+        source,
+        facts,
+        base_revision=revision,
+    )
+    valid = _cover_assessment(_draft(facts), assessment)
+
+    class TruncateThenSucceedClientWithTokenBudget:
+        def __init__(self) -> None:
+            self.calls = 0
+            self.max_tokens = 6000
+            self.max_tokens_seen_per_call: list[int] = []
+
+        def call(self, messages, tool_schema):
+            self.calls += 1
+            self.max_tokens_seen_per_call.append(self.max_tokens)
+            if self.calls == 1:
+                raise LLMTruncatedResponseError(
+                    "forced tool call response was truncated: Expecting ',' delimiter",
+                    finish_reason="length",
+                    completion_tokens=6000,
+                )
+            return ForcedToolResult(
+                arguments=_tool_arguments(valid),
+                meta=LLMResponseMeta(model="fixture-author"),
+            )
+
+    client = TruncateThenSucceedClientWithTokenBudget()
+    plan_readme_composition(
+        facts.org_repo,
+        source,
+        facts,
+        assessment,
+        client=client,
+    )
+
+    assert client.max_tokens_seen_per_call == [6000, 10000], (
+        "the first attempt must use the original ceiling; only the retry, after a "
+        "truncation is observed, gets the higher one"
+    )
+
+
 def test_non_truncation_failure_still_gets_the_full_deterministic_repair_hints():
     """Negative control: only truncation takes the conciseness path.
 
