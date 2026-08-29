@@ -518,36 +518,75 @@ class _RepairAwareCompositionForcedToolClient(_FakeCompositionForcedToolClient):
 
 
 class _RejectThenAcceptBlindReviewClient:
-    """Controlled quality defect: one bounded rejection followed by acceptance."""
+    """Controlled quality defect: one bounded rejection followed by acceptance.
+
+    Migrated to the bounded/role review contract (VER-012). This double was written
+    for the *merged* reviewer, which sees the whole candidate in a single call, so
+    "reject on call 1" was the same thing as "reject the overview diagram". Bounded
+    review sends one packet per section (`bounded_review_execution_visitor.py::
+    execute_visitor_packet`), and routing selects it whenever the candidate carries a
+    document plan -- which is every candidate this file builds. Under that contract
+    "call 1" is whichever section happens to be packed first, so the old code raised
+    `StopIteration` the moment that section had no ```mermaid block, and the two tests
+    that used it silently fell through to the `project` fixture's always-accepting role
+    clients instead.
+
+    The rejection must still land on the overview diagram specifically, and that is not
+    cosmetic: `readme_repair_validation.py::build_repair_receipt` only marks a finding
+    `addressed_pending_rereview` when the finding's own section text changes, an
+    operation bound to it changes, *and* its quoted span stops occurring -- and
+    `_RepairAwareCompositionForcedToolClient` is the thing that makes those three true,
+    by re-planning that diagram. `rereview_authorized` further requires that *every*
+    finding be addressed, so a rejection aimed anywhere the repair client does not
+    rewrite would end the loop instead of exercising it.
+
+    So the selector is now the mermaid packet rather than the call ordinal, and the
+    rejection happens once. `product_specificity` stays valid under
+    `bounded_review_visitor_scope.py`: it is in `_COMMON_CRITERIA`, hence in
+    `_CRITERIA_BY_ROOT["at-a-glance"]`, so the bounded scope admits it and no grounding
+    retry is forced (the trap `review_role_fixture_support.py` documents for "clarity"
+    under "navigation").
+    """
 
     calls = 0
+    rejections = 0
 
     def __init__(self, *args, **kwargs):
         pass
 
-    def analyze(self, messages):
-        type(self).calls += 1
-        if type(self).calls == 1:
-            review_input = next(
+    @staticmethod
+    def _diagram_anchor(messages):
+        """Return this packet's ```mermaid anchor, or None when it holds no diagram."""
+
+        catalog_start = "Complete candidate README block catalog, in source order:\n"
+        catalog_end = "\n\nAuthoritative parser-derived mechanical observations:"
+        review_input = next(
+            (
                 str(message.get("content", ""))
                 for message in reversed(messages)
-                if "Complete candidate README block catalog, in source order:"
-                in str(message.get("content", ""))
-            )
-            anchor_catalog = json.loads(
-                review_input.split(
-                    "Complete candidate README block catalog, in source order:\n",
-                    1,
-                )[1].split(
-                    "\n\nAuthoritative parser-derived mechanical observations:",
-                    1,
-                )[0]
-            )
-            diagram_anchor = next(
+                if catalog_start in str(message.get("content", ""))
+            ),
+            None,
+        )
+        if review_input is None:
+            return None
+        catalog = json.loads(review_input.split(catalog_start, 1)[1].split(catalog_end, 1)[0])
+        return next(
+            (
                 anchor
-                for anchor in anchor_catalog
-                if str(anchor[1]).lstrip().startswith("```mermaid")
-            )
+                for anchor in catalog
+                if isinstance(anchor, list)
+                and len(anchor) == 2
+                and str(anchor[1]).lstrip().startswith("```mermaid")
+            ),
+            None,
+        )
+
+    def analyze(self, messages):
+        type(self).calls += 1
+        diagram_anchor = self._diagram_anchor(messages) if type(self).rejections == 0 else None
+        if diagram_anchor is not None:
+            type(self).rejections += 1
             parsed = {
                 "verdict": "REJECT_REPAIRABLE",
                 "reasoning": (
@@ -1675,16 +1714,22 @@ class TestBasicLoop:
         backend = FakeStateBackend()
         _RepairAwareCompositionForcedToolClient.calls = 0
         _RepairAwareCompositionForcedToolClient.saw_repair_hint = False
-        _RejectThenAcceptMergedReviewClient.calls = 0
+        _RejectThenAcceptBlindReviewClient.calls = 0
+        _RejectThenAcceptBlindReviewClient.rejections = 0
         monkeypatch.setattr(
             agentic_composition,
             "LiveForcedToolClient",
             _RepairAwareCompositionForcedToolClient,
         )
+        # VER-012: patch the reviewer that actually runs. Routing selects the
+        # bounded/separated path for every candidate carrying a document plan, so
+        # patching only `build_live_merged_review_client` left the `project`
+        # fixture's always-accepting role clients in charge and this test proved
+        # nothing about the repair loop.
         monkeypatch.setattr(
             separated_readme_review,
-            "build_live_merged_review_client",
-            _fake_repair_merged_client,
+            "build_live_role_review_clients",
+            _fake_repair_role_clients,
         )
         monkeypatch.setattr(
             readme_presentation,
@@ -1720,7 +1765,13 @@ class TestBasicLoop:
         assert statuses[-1] == "AGENT_APPROVED"
         assert _RepairAwareCompositionForcedToolClient.calls == 1
         assert _RepairAwareCompositionForcedToolClient.saw_repair_hint is True
-        assert _RejectThenAcceptMergedReviewClient.calls == 2
+        # Exactly one controlled rejection, and a real second review round after it.
+        # The bounded reviewer issues one call per section rather than one per round,
+        # so the round count is asserted as a relationship rather than a literal --
+        # a fixed number here would encode today's section packing, not the contract.
+        assert _RejectThenAcceptBlindReviewClient.rejections == 1
+        blind_calls_after_first_run = _RejectThenAcceptBlindReviewClient.calls
+        assert blind_calls_after_first_run >= 2
 
         details = state.domain_states["readme_presentation"].details
         review = details["independent_review"]
@@ -1735,13 +1786,24 @@ class TestBasicLoop:
         assert receipt["candidate_changed"] is True
         assert receipt["changed_spans"]
         assert receipt["changed_operation_ids"]
-        assert receipt["addressed_finding_ids"] == ["quality.generic-overview"]
-        assert receipt["resolved_finding_ids"] == ["quality.generic-overview"]
+        # Bounded review namespaces each finding by the packet that raised it
+        # (`pkt.visitor.<ordinal>.<section-path>.<hash>.<finding-id>`), so assert the
+        # namespace *and* the id: together they prove the controlled rejection landed
+        # on the at-a-glance packet -- the only section `_RepairAwareComposition
+        # ForcedToolClient` rewrites, and therefore the only one that can satisfy
+        # `build_repair_receipt`'s section-changed/span-gone test.
+        (addressed_id,) = receipt["addressed_finding_ids"]
+        assert addressed_id.endswith(".quality.generic-overview")
+        assert addressed_id.startswith("pkt.visitor.")
+        assert ".at.a.glance." in addressed_id
+        assert receipt["resolved_finding_ids"] == [addressed_id]
         assert receipt["unresolved_finding_ids"] == []
         assert receipt["rereview_authorized"] is True
-        assert receipt["reviewer_call_count_before_rereview"] == 1
-        assert receipt["reviewer_call_count_after_rereview"] == 2
-        assert review["review_call_count"] == 2
+        assert (
+            receipt["reviewer_call_count_after_rereview"]
+            > receipt["reviewer_call_count_before_rereview"]
+        )
+        assert review["review_call_count"] == receipt["reviewer_call_count_after_rereview"]
         lifecycle_bundle = (
             project
             / "runs"
@@ -1779,7 +1841,10 @@ class TestBasicLoop:
         )
         assert second.status == "CONVERGED_NO_TRACKED_CHANGE"
         assert backend.load(ORG_REPO).readme_poc_lifecycle.status == "NO_OP_PROVEN"
-        assert _RejectThenAcceptMergedReviewClient.calls == 2
+        # The accepted rerun is a proven no-op: it must not re-review or re-author at
+        # all, so both counters stand exactly where the first run left them.
+        assert _RejectThenAcceptBlindReviewClient.calls == blind_calls_after_first_run
+        assert _RejectThenAcceptBlindReviewClient.rejections == 1
         assert _RepairAwareCompositionForcedToolClient.calls == 1
 
     def test_local_poc_byte_identical_repair_reroutes_before_rereview(
@@ -1789,16 +1854,19 @@ class TestBasicLoop:
     ):
         backend = FakeStateBackend()
         _FakeCompositionForcedToolClient.calls = 0
-        _RejectThenAcceptMergedReviewClient.calls = 0
+        _RejectThenAcceptBlindReviewClient.calls = 0
+        _RejectThenAcceptBlindReviewClient.rejections = 0
         monkeypatch.setattr(
             agentic_composition,
             "LiveForcedToolClient",
             _FakeCompositionForcedToolClient,
         )
+        # VER-012: see the sibling test -- bounded/separated routing means the merged
+        # client is not the reviewer that runs for these candidates.
         monkeypatch.setattr(
             separated_readme_review,
-            "build_live_merged_review_client",
-            _fake_repair_merged_client,
+            "build_live_role_review_clients",
+            _fake_repair_role_clients,
         )
         monkeypatch.setattr(
             readme_presentation,
@@ -1822,7 +1890,9 @@ class TestBasicLoop:
         assert result.status == "BLOCKED"
         assert result.blocked_category == "agent_fixable"
         assert lifecycle.status == "README_ASSESSED"
-        assert _RejectThenAcceptMergedReviewClient.calls == 1
+        # One controlled rejection, and the reroute must happen *before* any
+        # re-review: the byte-identical repair never authorizes a second round.
+        assert _RejectThenAcceptBlindReviewClient.rejections == 1
         assert _FakeCompositionForcedToolClient.calls == 1
         lifecycle_bundle = (
             project
@@ -1839,7 +1909,13 @@ class TestBasicLoop:
         receipt = repair_history[0]["repair_receipt"]
         assert receipt["candidate_changed"] is False
         assert receipt["rereview_authorized"] is False
-        assert receipt["unresolved_finding_ids"] == ["quality.generic-overview"]
+        # Same packet-namespaced finding id as the sibling test: the byte-identical
+        # repair leaves it *unresolved*, which is what withholds re-review authority.
+        (unresolved_id,) = receipt["unresolved_finding_ids"]
+        assert unresolved_id.endswith(".quality.generic-overview")
+        assert unresolved_id.startswith("pkt.visitor.")
+        assert ".at.a.glance." in unresolved_id
+        assert receipt["addressed_finding_ids"] == []
         manifest = json.loads((lifecycle_bundle / "manifest.json").read_text(encoding="utf-8"))
         assert manifest["lifecycle_status"] == "README_ASSESSED"
         final_verdict = json.loads(
